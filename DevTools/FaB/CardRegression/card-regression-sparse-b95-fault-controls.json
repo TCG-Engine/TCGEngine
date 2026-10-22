@@ -1,0 +1,120 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-21T00:00:33.093859+00:00",
+  "plan_sha256": "0a8273c9d8c78b2bf49d6e73e915f9e3f7c14393451a2ab6eec6391973d1d367",
+  "independent_saved_proof_sha256": "65b764640238e294e4253934a599f5069375151a6cb2b0d63baaff4f9e7aea60",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b95-focused-fault-plan.json",
+    "0a8273c9d8c78b2bf49d6e73e915f9e3f7c14393451a2ab6eec6391973d1d367",
+    "card-regression-sparse-b95-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b95_gold_missing_original_draw_and_ga_dispatch",
+      "fixture": "card-gold-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+      "fixture_sha256": "f272a6fcc30db30dc9b0be7a97bb2f377682142a35732d3f6fc9127e0c94f5d7",
+      "source_raw5": {
+        "initial_gamestate.txt": "bb924c4417dd6ea96d3515df9834fb9f68863278b7c30f11ce8f3d9882fe484e",
+        "actions.json": "3776cc8bdae860a3336ae28d46f0c8b5c699b5efd1ccac706a8a1f7f376a54b7",
+        "assertions.json": "538437f3104cdb3cebb885fd4527561addfcc3b8e5e7f3fbc7d7032a2091d09a",
+        "expected_final_gamestate.txt": "7082da7d8370f487fe0eb32cf8c03a65678223485411f8c045a2555dbb598f58",
+        "meta.json": "3ea1cd8366ed9c7b6dc792269c2fd52a0d14254da3d059fe745fba65cf4de02e"
+      },
+      "prefix_actions": 2,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 144,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1ActionPoints to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Gold / compact four live positive effect: Step 4 assertion failed: Expected p1ActionPoints to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual printed payment and token destruction/cease, remove only the sole original virtual ability arcSpec using the existing helper. Exact WTR fallback map has no entry for this token, so the body draws no card and grants no action point; the FIRST retained native failure is AP1 versus0, before later Hand/Deck assertions. All actual printed cost/pitch/source/priority and every draw oracle remain unchanged. This is ability-body sensitivity, not a claim that this control independently isolates draw from go again.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b95_silver_missing_original_draw_and_ga_dispatch",
+      "fixture": "card-silver-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+      "fixture_sha256": "f93015b256796f8d8821f38ab35fa4d2e66cfdeaa701d8e4c1320d05d8196185",
+      "source_raw5": {
+        "initial_gamestate.txt": "d25466b34b9debd8c331758fba99019fa03dc46fce68f31cca07f525fa33a07d",
+        "actions.json": "3776cc8bdae860a3336ae28d46f0c8b5c699b5efd1ccac706a8a1f7f376a54b7",
+        "assertions.json": "51f0b878ab99bf7c0b3bf8670ba5df225b744b1a6f354568169ba08efa89c783",
+        "expected_final_gamestate.txt": "96efd0cf4fdd2665fbcf2fcf707ad2e7eea04d8eea0f7544986b118158ac9a08",
+        "meta.json": "08f3aff4c66648e342589978e73753bca3cb5efe03a9e3a93d4b14b91659897b"
+      },
+      "prefix_actions": 2,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 144,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1ActionPoints to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Silver / compact four live positive effect: Step 4 assertion failed: Expected p1ActionPoints to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual printed payment and token destruction/cease, remove only the sole original virtual ability arcSpec using the existing helper. Exact WTR fallback map has no entry for this token, so the body draws no card and grants no action point; the FIRST retained native failure is AP1 versus0, before later Hand/Deck assertions. All actual printed cost/pitch/source/priority and every draw oracle remain unchanged. This is ability-body sensitivity, not a claim that this control independently isolates draw from go again.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b95_copper_missing_original_draw_and_ga_dispatch",
+      "fixture": "card-copper-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+      "fixture_sha256": "5dd651c61f90ccc6166e02b49e437cd4d0191a3a0272d59b28f6626e932990a3",
+      "source_raw5": {
+        "initial_gamestate.txt": "654d783f2e3add1cfeb47d925f0bf1c045d8aa1f1cb46d507fa4134653831aa6",
+        "actions.json": "ba035f7108adaf8878b573cbf12fded2c9356475d6e1be65787bd18f086fcc43",
+        "assertions.json": "15e258ca3705c86914e331c78144821d8697d1810fec50e858988daff2e99193",
+        "expected_final_gamestate.txt": "5eafefc86767db890b7ebffd097da3ebd5884b4fa3a44dcc59dc50a529666c3d",
+        "meta.json": "19afae8b31f9973ec483367c09c24ab4b8068ff6139ee196aec24d10b4dd7bb0"
+      },
+      "prefix_actions": 3,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 152,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1ActionPoints to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Copper / compact four live positive effect: Step 4 assertion failed: Expected p1ActionPoints to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual printed payment and token destruction/cease, remove only the sole original virtual ability arcSpec using the existing helper. Exact WTR fallback map has no entry for this token, so the body draws no card and grants no action point; the FIRST retained native failure is AP1 versus0, before later Hand/Deck assertions. All actual printed cost/pitch/source/priority and every draw oracle remain unchanged. This is ability-body sensitivity, not a claim that this control independently isolates draw from go again.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b95_ironhide_remove_actual_resolved_owned_defense_grant",
+      "fixture": "card-potion-of-ironhide-blue-four-live-sparse-actual-instant-destroy-and-owned-aa-defense-two-to-three",
+      "fixture_sha256": "126de4b8f30bb92636febde2d59bd461f04d6938215a03658e71be51447856fc",
+      "source_raw5": {
+        "initial_gamestate.txt": "d2ac1ae451e22ea2844dbaf08c3c1a4a74b93d56b4609aecf6136d503d1236d7",
+        "actions.json": "fc4df13fd85ae1e9b9bda10082a2c9b80e696f30b8e032da3cfc20105114fbd5",
+        "assertions.json": "f3670a575968806a451d1aa61c761853c46ce915c8a79f34620319941b2b509c",
+        "expected_final_gamestate.txt": "e10ec8bf1e405e044af52d6a6f9654d0c291dd035badae6aa99bc4e6a3954b49",
+        "meta.json": "3d7237b88980fe953827a361a28a9b2c7c6af6ed3dc8894401c41bda4880d229"
+      },
+      "prefix_actions": 14,
+      "mutation": {
+        "remove_effect": "EVR_IRONHIDE"
+      },
+      "retained_assertions": 223,
+      "expected_failure_step": 14,
+      "expected_failure": "Expected p4Health to equal 19, got 18.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Potion of Ironhide / compact four live positive effect: Step 14 assertion failed: Expected p4Health to equal 19, got 18.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After the fourth actual pass resolves Potion ability8 at action14, remove exactly one real EVR_IRONHIDE grant from P4 state using the unchanged helper. Physical Potion6 remains ownGY; actual Feisty7 still declares normally with printed2 defense, WB4 deals2/HP18 instead of1/HP19. FIRST retained changed native oracle is health19 at action28 (relative14); source cost/UID/owners, every actual pass and all damage/cleanup oracles retained. This is controlled effect-removal sensitivity, not a supported in-game suppression procedure.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

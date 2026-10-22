@@ -1,0 +1,7 @@
+{
+    "name": "Drone of Brutality / compact four live positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T02:23:39+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1youngDor20 owns physicalDroneRed5Hand, RagingYellow6Hand and knownWBRed7Deck. Actuallyplay5/targetadjacentP4, actuallypitch6for2/payprinted2/AP1->0. Allfour genuineheld/manualplayers pass eachordinarycombatwindow; zero defenders and printedpower6 cause6actualphysicaldamage/P4HP14. WhenDrone5wouldgoownGYfromcombatcleanup, its printedreplacement puts sameownedUID5onBOTTOMofownerDeck behindstillknown7: finalDeck[7,5], not[5,7], ownGYempty, Pitch[6], AP/resources0, otherheroes20. No shuffle/draw/foreigncontrol or endphase occurs. One realCombatChain-to-ownGY replacement witness. Otheroriginzones, opposingownership/controller, multiple replacements and replayedfutureDrone attacks remainuncovered. Deckorder is actualphysicalUID evidence, not fabricatedmovement/history. Existingrecorderfourliveprofile enforcesallmanualholds/all11windowsfalse; actualsavedprofile remainsindependentgate. Fulllegalhero/live/physicalUID/economy initial+final, onlychangingintermediatechecks. Onepositive/exactgroup, no sibling/support/fullcardcoverage transfer. Sources: https://judge.fabtcg.com/cards/detail/277/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/JDG023-CF.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

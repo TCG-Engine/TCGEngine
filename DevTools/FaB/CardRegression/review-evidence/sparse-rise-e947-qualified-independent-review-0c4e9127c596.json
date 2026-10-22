@@ -1,0 +1,158 @@
+{
+  "status": "INDEPENDENT_ORIGINAL_RISE_RED_AFTER_REPAIR_ONE_SHARED_FULL_TWO_TARGETED_REPLAYS_ONE_FAULT_FOUR_SUITES_APPROVED",
+  "reviewer": "/root/pilot_review",
+  "independent_of_scenario_author": true,
+  "recorder_exit0_confirmed_by_parent": true,
+  "completed_utc": "2026-10-20T23:49:59.072819+00:00",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "spec_sha256": "071c8ce336355e3aa6a38b2c79b65e8c715bff3e99ef90032e4417dc2cc8f954",
+  "independent_spec_review_sha256": "cf5f0c3ce5635b52227f000ca05d59f833968d056840e8ba080959bad1d16b65",
+  "reviewer_script_sha256": "891c59f757fb80ef317b0840fbc4f01d6f00f5c72dd29402ead06711f28e4edc",
+  "checks": 1546,
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch92-20261020T233942Z-6ad7fbbe44116.json",
+    "sha256": "8c643f786716e5c4277cc3390f37603de9b1ec7116d5e8098836e324ec83df6c"
+  },
+  "source_application_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\rise-above-choice-save-repair.json",
+    "sha256": "317640b774ddfeccb9345f5cf087af0d39aa277cbc0703a518acc8326dc75371",
+    "before_source_sha256": "f34346a0061cb7c970293f20016a485470faf6fa3088900ba8aaf012513e32cc",
+    "after_source_sha256": "79b04e30d9b9f7dca6fb78bd3e32e4e9429f137e1afa9d1d8af2a8faf718d74d",
+    "runtime_before_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "runtime_after_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+    "independent_source_review_sha256": "3670546f66b4a9f8ada86bfaf7e8ac2ab296b7e36ac9e2d9a1f6bce1d8157abb",
+    "exact_delta_reversed": true
+  },
+  "fixtures": [
+    {
+      "slug": "card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense",
+      "fixture_sha256": "eaa39151208c73c92ba984df0d6d89ea05cb0c5be0fcb6e7c907a71f7b172fa5",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2ee575631dc9ab1076937c0686e66158b2f1758a626c3da12a733d0fa1d7c789",
+        "actions.json": "540cb8a0c0a6bb8742936e3537159f9f0109017fe3ff0240255b1f3ccc9d84d9",
+        "assertions.json": "f2f02c63b9392679db374755730d87082f71590e9693866520ebcbda49a59c1a",
+        "expected_final_gamestate.txt": "256fd81e5ee7c5704a4840ad8b3bfeac123989d7a0a511edabd03c6496274aa9",
+        "meta.json": "66c7080efdca93df8845f3277e521fa0278216ae8ecfcf9f82328fc6335b6582"
+      },
+      "actions": 36,
+      "native_assertions": 399,
+      "native_game_state_fields": 49,
+      "actual_manual_passes": 32,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Unchanged correct original Rise recipe: actual Hand0 donorUID7 pays alternative cost by ownDeckTOP above sentinel8, no resource/Pitch/APspend. Actual physical DRUID6 stays paidStack through four passes, becomes defense4 against actual WoundingBlow4; damage0/nohit/HP20. NormalClose gives original ownerGY5/6, exactDeck[7,8] and no orphan work.",
+      "limits": [
+        "Only original red alternative topdeck payment/physical defense positive. Ordinary resource payment/decline, otherpitches, cancellation, insufficientHand, foreignownership and replacements remain untested."
+      ]
+    }
+  ],
+  "limits": [
+    "Sparse first-pass positive representatives only; no completed card, sibling pitch or full-catalog claim.",
+    "This repairs only a persisted alternative-cost choice reference. No card-cost/rule/Core/generated code change or ordinary-spell source-clear ordering certification. Original before failure remains historical and unsaved; this is a separate after witness.",
+    "Reviewer ran read-only source/evidence checks only. Parent executed both targeted original Rise1/1 replays and one intended native deck-order fault. One captured3125 shared-change full replay and four native suites additionally passed. This qualifies original red Hand alternative topdeck/defense witness, not allRGB or all card branches; newer unrelated fixtures may lie outside captured3125 reports."
+  ],
+  "historical_before_attempt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch92-20261020T225720Z-6ad7f1d03aa3e.json",
+    "sha256": "2f58188f94bb29220f13fd9a38093d74630477195021dacf4577c07992f5dd85",
+    "status": "blocked_or_incorrect",
+    "attempted_actions": 19,
+    "fixture_saved": false,
+    "semantically_approved": false,
+    "error": "Expected p4DecisionQueue-0.Param to equal 'p4Hand-0', got 'p4Hand-1'.",
+    "recorder_exit_status": "UNAVAILABLE",
+    "observed_hand_refs": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [
+        "p4Hand-0"
+      ]
+    },
+    "after_is_separate_new_success": true
+  },
+  "original_safe_three_proof_preserved": {
+    "path": "sparse-b92-three-actual-saved-qualified-independent-review.json",
+    "sha256": "3613c4754b32db0389a7501bf9854c5a5adfdd4d66a1f774c08c8d8065859d01"
+  },
+  "existing_same_source_cases_not_rerecorded": [
+    "card-blood-harvest-four-live-sparse-real-hand-banish-instant-gains-three-resources",
+    "card-fallen-herald-yellow-four-live-sparse-real-hand-banish-instant-prevents-next-four-damage",
+    "card-dense-blue-mist-blue-four-live-sparse-real-paid-nochi-instant-reduces-targeting-attack-power"
+  ],
+  "supersedes_preserved_proof": {
+    "path": "sparse-b92-rise-after-actual-saved-independent-review.json",
+    "sha256": "697a281d07e5b704aff492252a35532c1a8b864d99d0872a24c6a35b74553edb"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-rise-e947-original-run1.json",
+      "sha256": "af2bc58ab937a734e6bbc5b495c17b611edea6c6819a2ba4eaa38b1cc05dd4d3",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-rise-e947-original-run2.json",
+      "sha256": "6979ac0de3cd2fb4dc43e3fc1f129d82b438267f0474c5d4d7f6d1e242e5fe51",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-rise-e947-fault-controls.json",
+    "sha256": "7a1a4b6e164fac0e99b90a2998714fe2e81c01881ee16ab7561d593ad589d40a",
+    "plan_sha256": "84421f3de99a7af3c835d5d7a8c2c154f4e77b132d11e7e6061176098381af01",
+    "intended_semantic_failures": 1,
+    "total": 1,
+    "first_marker_steps": [
+      0
+    ],
+    "canonical_raw5_preserved": true
+  },
+  "focused_fault_plan": {
+    "path": "sparse-b92-rise-after-focused-fault-plan.json",
+    "sha256": "84421f3de99a7af3c835d5d7a8c2c154f4e77b132d11e7e6061176098381af01"
+  },
+  "stable_tool_review_reused": {
+    "path": "sparse-b88-actual-saved-qualified-independent-review.json",
+    "sha256": "d454ade1e876a654b33137ed6aa041935258ec3bfd602ebbc4880e5436c2f286",
+    "executor_sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a",
+    "existing_native_helper_sha256": "021627a41cf4a44bef7cafe48302357e74ffae6ba39b147c3c068388384f2974",
+    "scope": "Same reviewed unchanged tools; actual current first-failure outputs, source bindings and cleanup audited here, no repeat broad tool validation or execution by reviewer."
+  },
+  "shared_change_validation": {
+    "full_replay_reports": [
+      {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-rise-e947-shared-change-run1.json",
+        "sha256": "68ec0b19265a104937f757c7f33b8046b6c4656fa704740c8ffd07bc895cb75b",
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+        "passed": 3125,
+        "total": 3125,
+        "returncode": 0
+      }
+    ],
+    "native_suite_report": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-native-four-suite-sparse-rise-e947.json",
+      "sha256": "782c43d469b63a7815798b07011cf3ad685a0735b480135a855b175dd7a5fe5f",
+      "commands": [
+        "php DevTools/FaB/wtr_test.php",
+        "php DevTools/FaB/arc_test.php",
+        "php DevTools/FaB/upf_test.php",
+        "php DevTools/FaB/shortcuts_test.php"
+      ],
+      "exit_codes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "canonical_raw5_preserved": 3125
+    },
+    "scope": "Exactly one captured3125 whole-corpus replay after meaningful save-hook source change. Two targeted Rise-only runs; no duplicate full replay requested, no claim to include later appended unrelated fixtures."
+  },
+  "historical_control_policy": "Prior77+4 control reports retain their original89 runtime labels. They were neither rerun nor retagged here; direct e947 Rise control, one shared-change full run and four native suites are the bounded current repair evidence.",
+  "bounded_native_coverage": "Only original rise_above_red Hand alternative topdeck payment and printed physicalDEF4 against actual4 attack, four genuine live heroes. Source helper/component tests include broader guards but confer no yellow/blue native coverage or complete card claim.",
+  "native_evidence_review_checks": 51,
+  "native_evidence_reviewer_script_sha256": "0cb28b87b66f9226cde329407ec6c656e176a2ffa1a5adf7bd2bcd33d1c7a1fe"
+}

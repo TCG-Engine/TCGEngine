@@ -1,0 +1,7 @@
+{
+    "name": "Searing Ray / four live sparse representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T23:51:00+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "After real yellow pitching, printed power4 gets+2 because the yellow card actually occupies Pitch. Pitch provides2 resources, printed cost1 consumes1, leaving1. The unblocked attack deals6, with no go again or AP refund. Source UID5 travels Hand -> Stack -> P1 CombatChain -> P1 Graveyard with Owner/Controller1. Donor UID6 travels Hand -> P1 Pitch and stays there through the final ACTION checkpoint. No end phase or pitch-return step is entered. All four actual young20 heroes hold priority; all shortcut windows false. AdjacentP4 is selected through the real chooser. Every priority pass is bounded and recorded. Scope is one positive effect demonstration for pitch-cycle:searing_ray; no sibling or secondary-card promotion. No-yellow, replacement/pitch return or multiple-yellow variants are not claimed. Boltyn charge/attack-reaction ability is not activated or covered. Sources: https://judge.fabtcg.com/cards/detail/2331/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DTD097.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

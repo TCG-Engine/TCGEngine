@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T23:39:42+00:00",
+    "input_file": "card-regression-batch92.json",
+    "input_sha256": "071c8ce336355e3aa6a38b2c79b65e8c715bff3e99ef90032e4417dc2cc8f954",
+    "filter": "card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense",
+    "results": [
+        {
+            "slug": "card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense",
+            "status": "recorded_semantically_checked",
+            "actions": 36,
+            "assertions": 399
+        }
+    ]
+}

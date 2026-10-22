@@ -1,0 +1,127 @@
+{
+  "status": "INDEPENDENT_ACTUAL_B101_TWO_SPARSE_FLEX_EFFECTS_TWO_CLEAN_REPLAYS_AND_TWO_INTENDED_NATIVE_FAULTS_APPROVED",
+  "reviewer": "/root/pilot_review",
+  "independent_of_scenario_author": true,
+  "recorder_exit0_confirmed_by_parent": true,
+  "completed_utc": "2026-10-21T00:54:00.113693+00:00",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "preserved_original_before_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch101-20261021T002834Z-6ad807322ecd3.json",
+    "sha256": "a93bebdc4dcee22bbd3adc9827fff2ac6de2321444640e274b018710f9ab5c33"
+  },
+  "original_input_sha256": "900ba71e1f3d995122a13422d8ff84fcad897c59f8e4310e14b37046af326446",
+  "preserved_original_independent_review_sha256": "8f8a3a05fcf1780baae855e52df4c713ab1270d9af7e761642a98e6168131b96",
+  "exact_reversible_changed_check_objects": 16,
+  "spec_sha256": "0e5c7378f7bc607491423afa7d288a56461e73e905150e9a72041aba4b6d7bef",
+  "independent_spec_review_sha256": "cec777f160bc18c234c42908c1beef222d7b75d36649b971fcd2a36a38e70e16",
+  "reviewer_script_sha256": "3389ae3a0cf9e42237fc122e91f2a5a98ed3919a49f985b407f3bd0a55b6da76",
+  "checks": 3722,
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch101-flex-two-oracles-corrected-20261021T004713Z-6ad80b9113402.json",
+    "sha256": "ba83a7c99856a3a4dc510191c1030966ac81c8dfa7d3a70c0de3af80ab204e0c"
+  },
+  "fixtures": [
+    {
+      "slug": "card-flex-speed-red-four-live-sparse-real-come-to-fight-buff-crosses-six-and-grants-go-again",
+      "fixture_sha256": "e128c23b91f2c22801c483b15335d57e6861a279c91c4c7b29e1e634fbe0c090",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "24eae74262f44bbbd050d51168f442d07da677c1a5bbfb23d57ab629887d5020",
+        "actions.json": "6ccb49c39b1099d224e618f22a9f834a44c4efac7bd722a0ae88ecbc66d7d083",
+        "assertions.json": "85ea64ab61737e86a2b7ab62a1dde8f6a3bd564cd9d862ee2a2404a2b72715e9",
+        "expected_final_gamestate.txt": "927c147daf3612c6c33b48a6f85af2f275f3add5acf60afe1540caaeab3b4d79",
+        "meta.json": "6928cd3ee067c2a5f8085970acf3ad2a0cbc68bdbee018abe2f018c47572e8cd"
+      },
+      "actions": 33,
+      "native_assertions": 505,
+      "native_game_state_fields": 65,
+      "actual_manual_passes": 29,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual ComeToFight6cost1 is funded by realBlue7pitch3/res2/AP0. Four real passes resolve actual+3 nextAA grant and printed supportGA/AP1; wholeP1bucket records3 bookkeeping before resolution, thenGY marker+ARCgrant. PrimarySpeed5cost2 spends res2/AP0; onlyARCgrant consumed into physicalStackWTR_POWER3. Base5+3=8 deals8/P4HP12, ownconditionalGA/AP1 onlyResolution; normalownerGY order[6,5]/Pitch7.",
+      "limits": [
+        "One sparse positive only; no sibling/support completion, dynamiccondition/loss/suppression/dependency, other modifiers, defense, additionalattack/endphase or finite/fullcard claim.",
+        "WholeP1 bookkeeping arrays describe source transport at atomic public checkpoints; do not certify broad internal source/GY/callback lifecycle correctness."
+      ]
+    },
+    {
+      "slug": "card-flex-strength-red-four-live-sparse-real-come-to-fight-crosses-six-and-enables-own-three-power",
+      "fixture_sha256": "b97e36fa7a12014764b95cf80ef28c62b2b97f00ebc885aced140c42e6f683aa",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9ea617329bb94e8bc2cb56ab90c7c289806520f60d736ef24a1328ba452c4ed8",
+        "actions.json": "6ccb49c39b1099d224e618f22a9f834a44c4efac7bd722a0ae88ecbc66d7d083",
+        "assertions.json": "9496c472f7d19c9931a28d6f4836e51b54029bca975a1255b9c0579fda23688e",
+        "expected_final_gamestate.txt": "b1381bf803549af082933ab3acb37af0f3fc0056edb1e89bd738bddf225a6b53",
+        "meta.json": "d68c33ff7040aabba56b48c1e1007f0c98870684d29570cbd873642d2123810b"
+      },
+      "actions": 33,
+      "native_assertions": 505,
+      "native_game_state_fields": 65,
+      "actual_manual_passes": 29,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual ComeToFight6cost1 is funded by realBlue7pitch3/res2/AP0. Four real passes resolve actual+3 nextAA grant and supportGA/AP1. PrimaryStrength5cost2 spends res2/AP0, consumes onlyARCgrant into physicalStackWTR_POWER3; base4+3=7 crosses6 and enables own+3=10. Real10damage/P4HP10/noGA/AP0; normalownerGY[6,5]/Pitch7. Every source-derived bucket including all19finalP1 rows retained.",
+      "limits": [
+        "One sparse positive only; no sibling/support completion, dynamiccondition/loss/suppression/dependency, other modifiers, defense, additionalattack/endphase or finite/fullcard claim.",
+        "WholeP1 bookkeeping arrays describe source transport at atomic public checkpoints; do not certify broad internal source/GY/callback lifecycle correctness."
+      ]
+    }
+  ],
+  "limits": [
+    "Sparse first-pass positive representatives only; no completed card, sibling pitch or full-catalog claim.",
+    "Physical support6/primary5/Pitch7 and source-derived bookkeepers/grant/consume are pinned. No broad ordinary-spell internal source-clear lifecycle approval; original900b/8f8/a93prefix failure preserved as oracle mistake, not gameplay defect.",
+    "Reviewer performed read-only source/evidence checks only. Parent executed two targeted clean2/2 reports and two disposable intended FIRST Step3 native semantic faults. These qualify two sparse positive representatives, not complete cards, siblings or full corpus."
+  ],
+  "supersedes_preserved_proof": {
+    "path": "sparse-b101-actual-saved-independent-review.json",
+    "sha256": "acd84247636732b876163d773a3ca66ce99c2f509cf6efcf527919aeadb07b17"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b101-flex-two-corrected-run1.json",
+      "sha256": "dada7d72fc4ff695e63add76a205ef4714fba1ae1d2ee0c8e2db2a1b51432d1f",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "captured_inventory": 3161
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b101-flex-two-corrected-run2.json",
+      "sha256": "58a00e97a7b5da08ab9d19b3bf546ce1c11507f56b7f130e30903f88f2cb6318",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "captured_inventory": 3161
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b101-flex-two-fault-controls.json",
+    "sha256": "3953d557574e02465ae3eda0aba5534d311601c400f81e189840754426cbcf39",
+    "plan_sha256": "2baec6c4622d8e0e8219e7c8fde358e6eeacdc1e83640058c9e59d6ab4ba3f9d",
+    "intended_semantic_failures": 2,
+    "total": 2,
+    "first_marker_steps": [
+      3,
+      3
+    ],
+    "canonical_raw5_preserved": true
+  },
+  "focused_fault_plan": {
+    "path": "sparse-b101-flex-focused-fault-plan.json",
+    "sha256": "2baec6c4622d8e0e8219e7c8fde358e6eeacdc1e83640058c9e59d6ab4ba3f9d"
+  },
+  "stable_tool_review_reused": {
+    "path": "sparse-b88-actual-saved-qualified-independent-review.json",
+    "sha256": "d454ade1e876a654b33137ed6aa041935258ec3bfd602ebbc4880e5436c2f286",
+    "executor_sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a",
+    "existing_native_helper_sha256": "021627a41cf4a44bef7cafe48302357e74ffae6ba39b147c3c068388384f2974",
+    "scope": "Same unchanged reviewed tools; actual new native outputs, complete suffix oracles, source bytes and cleanup audited here. No repeated broad tool validation or execution by reviewer."
+  },
+  "native_evidence_review_checks": 78,
+  "native_evidence_reviewer_script_sha256": "ff8c836de8d77dfef70807eb558ac16d2edab00b44e6ef8b4d1aa252f9ffcf5e",
+  "captured_targeted_inventory_counts": [
+    3161,
+    3161
+  ],
+  "prior_shared_full_scope": "Previously captured e947 shared-change3125 full replay remains historical exact scope. These two new reports target the two recorded Flex fixtures only; no extra global replay or unaffected control suite was requested.",
+  "wrap_boundary": "User requested stopping after this batch. Only already-recorded B101 Flex2 qualification was completed; deferred B104/B105 and new coverage were not started by this reviewer."
+}

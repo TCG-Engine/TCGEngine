@@ -5371,5 +5371,156 @@
       "native_passing_fixtures": 0,
       "qualification": "No native before recording, saved passing fixture or replay evidence for this issue; complete corpus passes do not validate it."
     }
+  },
+  {
+    "id": "FAB-REG-035",
+    "status": "open_native_reproduced_target_announcement_timing",
+    "card_ids": [
+      "nip_at_the_heels_blue",
+      "shred_red"
+    ],
+    "evidence": "review-evidence/sparse-b84-safe2-and-blocked2-independent-review-458ede857a1a.json",
+    "evidence_sha256": "458ede857a1a4f6572e8d2f1c0e3e2011000b77b2481fc62a7842a9db26c9138",
+    "description": "Two reaction implementations defer their effect-target chooser until ResolveCard rather than declaring/binding the target during play before other players receive priority.",
+    "scope_note": "One confirmed target-timing defect pattern in two card implementations. Correct manual-route probes fail unsaved after 16/17 actual actions. No gameplay repair or passing coverage is claimed for either card.",
+    "source_spec": "card-regression-batch84.json",
+    "reproducer_scenarios": [
+      "card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+      "card-shred-red-four-live-sparse-actual-selected-defender-minus-four"
+    ],
+    "current_runtime_validation": {
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "native_blocked_attempts": 2,
+      "native_passing_fixtures": 0,
+      "recorded_failure": "Expected p1DecisionQueue-0.Type to equal 'MZCHOOSE', got ''."
+    },
+    "evidence_limits": "Actual failure evidence includes captured initial state, attempted actions, observed state and empty queues. Missing accepted UID/deferred ResolveCard binding is independently source-confirmed; no full post-failure Stack/Params/priority snapshot was captured. CR5.1.2 permits the announced card on Stack before targets; this issue does not require a UI chooser if a future implementation correctly auto-binds the target during announcement.",
+    "remaining_work": "Implement reviewed per-card or supported shared reaction target preparation/binding and resolution revalidation, then rerun correct probes, target-loss controls and saved clean replay gates. Keep these cycles blocked during breadth-first work."
+  },
+  {
+    "id": "FAB-REG-036",
+    "status": "fixed_native_qualified_bounded_rise_save_choice",
+    "card_ids": [
+      "rise_above_red",
+      "rise_above_yellow",
+      "rise_above_blue"
+    ],
+    "description": "Rise Above's alternative-cost Hand chooser retained pre-serialization indexes after the played source was removed and the writer compacted surviving Hand cards.",
+    "scope_note": "One reproduced persistence defect, fixed and natively qualified for the unchanged red alternative-cost reproducer. Matching RGB continuations have source/component coverage; native sibling/other payment branches are not claimed.",
+    "evidence": "recording-runs/card-regression-batch92-20261020T225720Z-6ad7f1d03aa3e.json",
+    "evidence_sha256": "2f58188f94bb29220f13fd9a38093d74630477195021dacf4577c07992f5dd85",
+    "source_spec": "card-regression-batch92.json",
+    "source_spec_sha256": "071c8ce336355e3aa6a38b2c79b65e8c715bff3e99ef90032e4417dc2cc8f954",
+    "reproducer_scenarios": [
+      "card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense"
+    ],
+    "native_before": {
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "attempted_actions": 19,
+      "recorded_failure": "Expected p4DecisionQueue-0.Param to equal 'p4Hand-0', got 'p4Hand-1'.",
+      "actual_live_hand_refs": [
+        "p4Hand-0"
+      ],
+      "actual_choice": {
+        "player": 4,
+        "type": "MZCHOOSE",
+        "param": "p4Hand-1",
+        "tooltip": "Pay_alternative_cost"
+      },
+      "actual_pending_source_uid": 6,
+      "native_passing_fixture_saved": false,
+      "process_exit_code": null,
+      "exit_code_limit": "The original process handle was lost; the completed immutable recording receipt preserves the outcome. No exit code is inferred."
+    },
+    "evidence_limits": "The failed receipt captures live Hand references, pending source UID6 and the four decision entries, not a full current Hand/Stack object or gamestate dump. Donor UID7 is supported by initial state and attempted actions, not directly observed as a current raw Hand UID at failure. Preserve the original failure; never substitute an answer to absent Hand-1.",
+    "repair": {
+      "application_receipt": "rise-above-choice-save-repair.json",
+      "application_receipt_sha256": "317640b774ddfeccb9345f5cf087af0d39aa277cbc0703a518acc8326dc75371",
+      "source_path": "FaBSim/Custom/WTRCards.php",
+      "before_sha256": "f34346a0061cb7c970293f20016a485470faf6fa3088900ba8aaf012513e32cc",
+      "after_sha256": "79b04e30d9b9f7dca6fb78bd3e32e4e9429f137e1afa9d1d8af2a8faf718d74d",
+      "helper": "FaBWTRRiseAboveChoicesForSave, lines286-326; EngineRemapZoneForSave call at line333",
+      "behavior": "Build all surviving own-Hand references in writer-compacted coordinates and clone only the matched choice object during save. Bind the live seat, pending Defense Reaction, physical Stack source UID/controller/card, exact PrepareCard handler, positive frame namespace, PC4 and chosen return variable. Do not mutate live Hand, queues or await frames; repeated writes cannot shift indexes twice.",
+      "unchanged": "Core, generated implementation, printed rules, costs, priority, choice optionality, other card remappers and the original correct Hand-0 scenario oracle.",
+      "source_review": "review-evidence/rise-choice-save-proposal-independent-review-3670546f66b4.json",
+      "source_review_sha256": "3670546f66b4a9f8ada86bfaf7e8ac2ab296b7e36ac9e2d9a1f6bce1d8157abb",
+      "component_cases_passed": 239,
+      "component_checks_passed": 1880,
+      "component_scope": "Extracted source/components across seats and RGB, frame/source/queue rejection guards and copied-save behavior; zero native game qualification from these checks.",
+      "existing_fixture_raw5_preserved_at_apply": 3124
+    },
+    "current_runtime_validation": {
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "status": "bounded_red_original_reproducer_native_qualified",
+      "qualified_utc": "2026-10-20T23:52:32.044948+00:00",
+      "native_after_recording_qualified": true,
+      "native_after_replay_qualified": true,
+      "native_primary_ids": [
+        "rise_above_red"
+      ],
+      "targeted_clean_replays": [
+        {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-rise-e947-original-run1.json",
+          "sha256": "af2bc58ab937a734e6bbc5b495c17b611edea6c6819a2ba4eaa38b1cc05dd4d3",
+          "passed": 1,
+          "total": 1,
+          "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+        },
+        {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-rise-e947-original-run2.json",
+          "sha256": "6979ac0de3cd2fb4dc43e3fc1f129d82b438267f0474c5d4d7f6d1e242e5fe51",
+          "passed": 1,
+          "total": 1,
+          "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+        }
+      ],
+      "focused_fault_control": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-rise-e947-fault-controls.json",
+        "sha256": "7a1a4b6e164fac0e99b90a2998714fe2e81c01881ee16ab7561d593ad589d40a",
+        "plan_sha256": "84421f3de99a7af3c835d5d7a8c2c154f4e77b132d11e7e6061176098381af01",
+        "intended_semantic_failures": 1,
+        "total": 1,
+        "first_marker_steps": [
+          0
+        ],
+        "canonical_raw5_preserved": true
+      },
+      "shared_change_validation": {
+        "full_replay_reports": [
+          {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-rise-e947-shared-change-run1.json",
+            "sha256": "68ec0b19265a104937f757c7f33b8046b6c4656fa704740c8ffd07bc895cb75b",
+            "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+            "passed": 3125,
+            "total": 3125,
+            "returncode": 0
+          }
+        ],
+        "native_suite_report": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-native-four-suite-sparse-rise-e947.json",
+          "sha256": "782c43d469b63a7815798b07011cf3ad685a0735b480135a855b175dd7a5fe5f",
+          "commands": [
+            "php DevTools/FaB/wtr_test.php",
+            "php DevTools/FaB/arc_test.php",
+            "php DevTools/FaB/upf_test.php",
+            "php DevTools/FaB/shortcuts_test.php"
+          ],
+          "exit_codes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "canonical_raw5_preserved": 3125
+        },
+        "scope": "Exactly one captured3125 whole-corpus replay after meaningful save-hook source change. Two targeted Rise-only runs; no duplicate full replay requested, no claim to include later appended unrelated fixtures."
+      },
+      "historical_control_policy": "Prior77+4 control reports retain their original89 runtime labels. They were neither rerun nor retagged here; direct e947 Rise control, one shared-change full run and four native suites are the bounded current repair evidence.",
+      "qualification_note": "All original36 actions/399 assertions/32 manual passes and correctHand0 remain unchanged. Native actual donorUID7 is DeckTOP above8; physical DR6defense4 blocks4. Exactly one shared-change full3125 run is captured; later test-only additions reuse that baseline and run targeted checks."
+    },
+    "remaining_work": "Ordinary resource payment/decline, insufficient-Hand/cancel, sibling pitches, replacement/ownership/elimination and unrelated source-lifecycle branches remain outside this bounded repair. No passing coverage or further repair is claimed for open Gorganian Tome or Nip/Shred timing, or wider Lunging Press holds.",
+    "resolution_review": "review-evidence/sparse-rise-e947-qualified-independent-review-0c4e9127c596.json",
+    "resolution_review_sha256": "0c4e9127c596992a991fd6af7fd1dd5be32ec953267f55151b2bf32c4ffa1306",
+    "passing_fixture": "Tests/Integration/FaBSim/card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense"
   }
 ]

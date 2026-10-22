@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "status": "INDEPENDENT_SPARSE_PAUSE_RECONCILIATION_APPROVED_WITH_LIMITS",
+  "approved": true,
+  "reviewer": "/root/resume_actual_audit",
+  "captured_utc": "2026-10-21T01:08:43.285420+00:00",
+  "scope": "Final bounded read-only reconciliation of completed visible metadata/documents and Git results. No further scan, game, source audit or test after parent stop instruction.",
+  "blocking_findings": [],
+  "runtime_sha256_from_frozen_checkpoint_and_current_indices": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "counts_agree_across_read_metadata": {
+    "saved_scenarios": 3161,
+    "qualified_scenarios": 3161,
+    "pending_saved_scenarios": 0,
+    "preserved_duel_scenarios": 3074,
+    "genuine_four_live_scenarios": 87,
+    "new_scenarios_and_distinct_groups_this_resumption": 82,
+    "primary_identities_with_verified_partial_evidence": 321,
+    "catalog_functional_identities": 5196,
+    "printing_records": 17188,
+    "groups_with_any_verified_primary_evidence": 196,
+    "catalog_groups": 3324,
+    "four_live_first_pass_groups": 87,
+    "catalog_groups_without_four_live": 3237,
+    "implementation_candidate_groups": 3002,
+    "candidate_groups_without_four_live": 2915,
+    "identities_without_primary_verified_evidence": 4875,
+    "current_formal_finite_classifier": 0,
+    "historical_finite_baselines_at_3101": 75,
+    "current_two_replay_scenarios_in_index": 37
+  },
+  "completed_readback_findings": [
+    "Coverage summary, review registry count, cycle summary and pause checkpoint agree on saved/reviewed/current-pass totals and zero pending saved scenarios.",
+    "Current cycle index distinguishes 87 genuine four-live representatives from 196 groups across all profiles; candidate3002 is explicitly not a validated implemented denominator.",
+    "Sample Hulk branch/review/cycle records agree on exact fixture hash, canonical source, two e947 targeted replay paths and all-seat profile. New final proof packets retain modern fixture rows; their listing was inspected without completing the exhaustive packet hash traversal.",
+    "Final guide accurately states 3161/3161, 82 new distinct groups, 87 four-live, historical75/currentfinite0, last full3125 plus later36 targeted, and no redundant final full run.",
+    "Issue036 is the only new gameplay-source fix, bounded Rise Above save-choice persistence with red native qualification and separate RGB component scope. No Core/generated change is claimed.",
+    "Open Gorganian034 has no native passing credit; native announcement-timing035 has no passing coverage; broader Lunging030 remains partial.",
+    "Eight source-only planning holds are explicitly native-unattempted, not confirmed defects, and carry no passing credit. Potion's separate qualified single-card alternative does not establish multi-card shuffle determinism.",
+    "The original Flex oracle failure and old all_detected:false control report remain preserved. Only its successful Zealous row and the separately corrected Hulk row are credited; no gameplay bug is claimed from draft-oracle errors.",
+    "Batch104 four approved specifications are documented installed but unrecorded/deferred. Batch105 is documented stopped without native input or coverage. No further execution is authorized by this pause review."
+  ],
+  "validation_evidence_scope": {
+    "checkpoint_declares_full_runs": 6,
+    "checkpoint_declares_targeted_runs": 52,
+    "checkpoint_declares_targeted_scenario_passes": 164,
+    "last_full_pass_cases": 3125,
+    "last_full_pass_runtime": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+    "last_full_report": "card-regression-replay-sparse-rise-e947-shared-change-run1.json",
+    "last_full_report_sha256_from_checkpoint": "68ec0b19265a104937f757c7f33b8046b6c4656fa704740c8ffd07bc895cb75b",
+    "last_full_report_success_and_schema_read": true,
+    "later_additions": 36,
+    "later_cases_two_current_targeted_runs": "Retained individual qualification gates and final parent freeze witness; not exhaustively rejoined in this final review.",
+    "current_native_four_suite_report": "card-regression-native-four-suite-sparse-rise-e947.json",
+    "native_four_suite_contents_read": "Four exact WTR/ARC/UPF/shortcuts command rows each exit_code0 and empty stderr.",
+    "current_whole3161_full_run_claimed": false,
+    "historical77_plus4_control_runtime_not_retagged": true
+  },
+  "git_independent_successful_read": {
+    "method": "Python subprocess cwd C:/xampp/htdocs/TCGEngine with authorized read-only escalation; no environment/config changes.",
+    "head": "1f10c999168d59a132cefdff6570c606d6b3f13d",
+    "staged_paths": 0,
+    "tracked_changed_paths_count": 11,
+    "app_source_paths_changed": [
+      "FaBSim/Custom/WTRCards.php"
+    ],
+    "core_or_generated_changed": false,
+    "uncommitted": true,
+    "parent_final_status_receipt": {
+      "status_entries": 622,
+      "fixture_paths": 410,
+      "regression_metadata_paths": 211,
+      "app_source_paths": 1
+    },
+    "push_deploy_claim_limit": "No push/deployment is the parent action declaration; it is not inferred solely from Git status."
+  },
+  "read_current_authoritative_metadata_refs": [
+    {
+      "path": "DevTools/FaB/CardRegression/card-regression-sparse-pause-checkpoint.json",
+      "scope": "Frozen checkpoint read in full; no independently reported hash from incomplete traversal."
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/card-regression-coverage.json",
+      "sha256_from_checkpoint": "2eb67e8822f69e90151798ebcca72bd48c59f2cb0f9c08821cb2ffd0ec58f91c"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/cycle-coverage-current.json",
+      "sha256_from_checkpoint": "e148c199c7ac6032e0fc76ad3a3e6becb62ec6484666e14dbaa0d2610b832a2f"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/card-regression-review.json",
+      "sha256_from_checkpoint": "a2fb83a54c2acda6c1b3cf4e7e89dae603dc191b371f9c5b4320205c2134c7a9"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/card-regression-issues.json",
+      "sha256_from_checkpoint": "5db30e5ca25b7fdbb226288a50ecc32611a7387baa95fdb979bf70dfc6355d50"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/sparse-source-only-holds.json",
+      "sha256_from_checkpoint": "cae3fcf486a15fd06fd8e4dc9d76161e0b6d2b7922f1ae4d1a5404df6b9a9845"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/SPARSE_FIRST_PASS.md",
+      "scope": "Current paused checkpoint section and retained historical context read."
+    }
+  ],
+  "explicit_review_limits": [
+    "The attempted comprehensive final in-memory audit stopped on the legacy review schema and a later process-launch transport disconnect. It produced no report or native write. Parent then directed immediate bounded return; no further checks were started.",
+    "590 historical review entries have no modern direct review_evidence pointer and explicitly retain legacy family/specification review with unknown individual saved-fixture inspection extent. Existing qualified status does not claim a fresh manual inspection of every one of3161 fixtures.",
+    "The final exhaustive82-new-source/proof-row joins, all26 packet hash checks, all52 targeted-report hash checks and fresh87 physical-profile parses were not completed. Their individual qualification gates and frozen parent reconciliation remain the retained evidence.",
+    "Original15395 byte preservation is reused from the root frozen checkpoint witness, not independently rehashed here. Checkpoint inventory digest is7af099306f9c6799430ed5b3306086c0636a072449f8e45df33871aaefba7bf6.",
+    "This approval is for the truthful pause/handoff reconciliation with these limits, not a replacement semantic proof or full-corpus test certification.",
+    "Sparse positive primary representatives confer no sibling, full-card, alternate-branch, support-card or internal callback-lifecycle completeness."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "new_coverage": 0,
+  "output": "ONE compact scratch JSON only; stop after this report."
+}

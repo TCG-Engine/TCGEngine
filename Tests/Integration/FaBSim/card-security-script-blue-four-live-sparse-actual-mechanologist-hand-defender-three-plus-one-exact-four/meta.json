@@ -1,0 +1,7 @@
+{
+    "name": "Security Script / four live sparse passive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T02:02:35+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1 actually plays Generic Brutal Assault Red6 and pitches blue3 to pay2, leaving1/AP0. P4 Dash controls Security Script and actually declares Payload Red as a hand defender. Printed defense3 gets1 from the controlled script: exact4 defense means2 actual damage, so P4 ends18. Same physical defender enters its owner graveyard; Script and steam1 remain. One positive sparse witness of existing controlled permanent effect; no primary item-entry, Crank/upkeep, pitch matrix, full-card or group-completion claim. All four genuine live young20 heroes manually pass and no history/permission/effect tag is seeded. Only the controlled Mechanologist attack-action defense branch is exercised. No item play, Crank, upkeep, other ownership, multiple scripts or alternative defenders. Physical damage6-4=2 pins exact defense4 in addition to the live post-declaration defenseValue check. Sources: https://judge.fabtcg.com/cards/detail/2628/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVO080.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

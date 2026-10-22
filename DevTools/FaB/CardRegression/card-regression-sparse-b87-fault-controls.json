@@ -1,0 +1,128 @@
+{
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "completed_utc": "2026-10-20T22:30:52.257167+00:00",
+  "plan_sha256": "7767a2391c99308cc2f130d92121b10a03507aeb302ea80d4a7b190222a86f81",
+  "independent_saved_proof_sha256": "bcef45c05ef311c01e2dfe9c56a8d1a66c67ea1857f88a0cb468f8928dc38a06",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    "sparse-b87-focused-fault-plan-v2-watery-event.json",
+    "7767a2391c99308cc2f130d92121b10a03507aeb302ea80d4a7b190222a86f81",
+    "card-regression-sparse-b87-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b87_stubby_remove_continuous_low_base_attack_grant",
+      "fixture": "card-stubby-hammerers-four-live-sparse-real-arms-destroy-and-low-base-attacking-buff",
+      "fixture_sha256": "8c54eefce8aa79ad9d0e15bdb29d4e5f82ef86e3c26a17d1ac586b3d61f2af8e",
+      "source_raw5": {
+        "initial_gamestate.txt": "c8347f114c966eabfe0eb9d4209feeed7c6e8bfe157fff13850264851075a502",
+        "actions.json": "32b9d81764462abd53956d1251473ada46f22bb33662b1b230d63dfe6f874d94",
+        "assertions.json": "c53e0ce4d3f4f9ed7ae472098c46b83b110ed6578ed41b894b5391e76ba63398",
+        "expected_final_gamestate.txt": "d08113c8c92e4d769cbf57e0a4086a3ebd1d11085c4f9470e0d4f4bd864cbb13",
+        "meta.json": "3b3c8c1708d620491b4c70703731704c7e3210364e07b69d508af7fbfffe1e67"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "remove_effect": "STUBBY"
+      },
+      "retained_assertions": 229,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Stubby Hammerers / four live sparse activated effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 3, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove exactly one actual continuous STUBBY effect at the real ATTACK boundary. Own destroyed source5 and qualifying physical attack6 remain unchanged; fresh computed power must detect3 to2.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b87_diamond_remove_original_ability_dispatch",
+      "fixture": "card-diamond-amulet-blue-four-live-sparse-instant-destroy-watery-then-real-action-point-use",
+      "fixture_sha256": "0f8f4e85c8a8a79956dbfedbba80247e4b1ce178a0c05664d967e2441ec01837",
+      "source_raw5": {
+        "initial_gamestate.txt": "97227ffa6f86e909e1621b9d46bd52f3bc0c607faaa015a370b311cb8c74ab52",
+        "actions.json": "ac1d4f83568cb9d3b295dbb06d364a9a69d4f7e6dca16fb0f0135afb511ebf8a",
+        "assertions.json": "a52dd9d2ac9499dbad68f28e1fe3fa644d3ebf50e6543851958a7a431ee384ce",
+        "expected_final_gamestate.txt": "c2f0e9151be85b57326ccf6db6b5902eadb3ee607c2f5dd5c894ace19596f4de",
+        "meta.json": "3ab9a1a9a1d500ef54ef84acb155cc9fbd26f5e5d0a73c058811f9eae7eb3bad"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 362,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1ActionPoints to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Diamond Amulet / four live sparse activated effect: Step 4 assertion failed: Expected p1ActionPoints to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Watery resolves and original ability7 is soleStacklayer, remove its arcSpec only. WTR fallback has no Diamond spec, so the intended APgain is absent; source5 remains ownGYFaceDown1 and unchanged suffix records the first AP failure after4passes. Disposable dispatch fault, not a legal in-game operation.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b87_pounamu_remove_only_watery_event_annotation",
+      "fixture": "card-pounamu-amulet-blue-four-live-sparse-action-destroy-watery-then-heal-and-go-again",
+      "fixture_sha256": "26a9c0d9a326cb0126df7d2f7e765eb0b7807316f83f88e8f22d0a7e65b24c83",
+      "source_raw5": {
+        "initial_gamestate.txt": "81cc6b3eb4cd68e9fcd498fda69cca30495e684c9e2405d59ff37ac966c4957c",
+        "actions.json": "4bf2661ebc4867f904a2a9fe3ae51f233789b0ad0e83bc2e0770d7e9ebbeb0f7",
+        "assertions.json": "77338b22808426bac4e59c61b4dc7d88756d277c605d408e2ea20e8a751e88be",
+        "expected_final_gamestate.txt": "d8945c68fbe9626e172325b8497faafec04ede8427e2a49404e9061402dd6963",
+        "meta.json": "80d07c36a1a838268776192a24542a2699b3b095a42ed6107265dbb607d7cec6"
+      },
+      "prefix_actions": 1,
+      "mutation": {
+        "remove_stack_param": "rosEvent"
+      },
+      "retained_assertions": 201,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Graveyard-0.FaceDown to equal '1', got '0'.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Pounamu Amulet / four live sparse activated effect: Step 4 assertion failed: Expected p1Graveyard-0.FaceDown to equal '1', got '0'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual paid activation, remove rosEvent from exactly one upper Watery layer7, retaining rosTrigger and lower original ability6 arcSpec. ROS dispatch preserves the PRIORITY window; generated Pounamu callback no longer selects Watery and instead heals early, leaving physical GY5FaceDown0. The unchanged FaceDown1 oracle precedes its unchanged HP20 oracle and is the first failure after4passes. This synthetic event-routing fault is not legal gameplay.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b87_amethyst_remove_actual_next_attack_plus_two_tag",
+      "fixture": "card-amethyst-amulet-blue-four-live-sparse-instant-destroy-watery-then-next-attack-plus-two",
+      "fixture_sha256": "f6dbe594550625ce8548f99f05487878d05835d33b442d533ed999894cab8080",
+      "source_raw5": {
+        "initial_gamestate.txt": "efa93eecdbc39954b84e5b0703375eae9a56e4669fbcca6ddcb59c9490b1f58c",
+        "actions.json": "ac1d4f83568cb9d3b295dbb06d364a9a69d4f7e6dca16fb0f0135afb511ebf8a",
+        "assertions.json": "3aeb0c5b888089dff4b76869b2cdcc5b8857f867e78b01fe6c7c6b1263ff92e6",
+        "expected_final_gamestate.txt": "96bd641be104467919e0657b86aaa933098640168dd9b895cfab64390a2b1b27",
+        "meta.json": "5f0660b1ec98a02be0cfeacd7520f5b8c62fcc496d6c9089052b176162c475da"
+      },
+      "prefix_actions": 15,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:2"
+          }
+        ]
+      },
+      "retained_assertions": 230,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Amethyst Amulet / four live sparse activated effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 4, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove the single actual applied Amethyst+2 tag from physical attackUID6 at its real ATTACK boundary. Source5 alreadydestroyed/facedown, Instant AP retention and lateractualattackcost retained; computed4 to2 is first semantic failure.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

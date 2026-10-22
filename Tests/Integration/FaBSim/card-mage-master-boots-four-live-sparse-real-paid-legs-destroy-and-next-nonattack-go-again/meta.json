@@ -1,0 +1,7 @@
+{
+    "name": "Mage Master Boots / four live sparse effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T00:45:53+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Activate own equipped Mage Master Boots UID5 as an Action: pay printed1resource from the initial1, spend1AP and destroy the same equipment as the cost. Virtual abilityUID7 has physical sourceUID5. Four real passes resolve its next-non-attack-Action go-again grant and its own printed go again, restoring exactly1AP. Actually play Healing Balm Blue UID6(cost0/no printed go again), spend that AP, then resolve after four actual passes: heal20->21 and gain exactly1AP from the Boots-granted go again. Physical Boots5 and Balm6 end own Graveyard, in order; resources0 and all other heroes20/AP0/resources0. One same-controller positive next-non-attack-Action witness. No alternative action, Instant conversion, second-use, expiry, failed payment, equipment defense or replacement branches. Boots destruction is a real cost, not premature ordinary-spell clearing. Balm atomic endpoint does not certify its internal source-clear timing. Four actual live young20 heroes, all manual holds/11 shortcut windows disabled by existing recorder profile. One representative per exact catalog group; no transfer of support-card coverage, no full-card or internal-lifecycle certification. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP357.webp https://rules.fabtcg.com/en/cr/08-keywords/"
+}

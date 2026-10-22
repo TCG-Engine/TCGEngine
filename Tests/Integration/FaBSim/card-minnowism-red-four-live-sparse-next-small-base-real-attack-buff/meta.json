@@ -1,0 +1,7 @@
+{
+    "name": "Minnowism / four live sparse effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T00:12:13+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Pay0 and1AP for Minnowism Red, resolve the next-small-base+3 effect and its printed go again to regain exactly1AP. Then actually play Generic Wounding Blow Blue(base2,cost0), choose adjacentP4 and spend that AP. This is the next qualifying attack action, so it deals2+3=5 unblocked physical damage to P4, who ends15HP. No other hero/card buff or go again applies to Wounding Blow. Only the next eligible low-base attack positive endpoint is covered; no skipped ineligible attack, second buff use, turn expiry or pitch sibling. Synchronous ordinary-spell internal source clearing is not certified. All four real players hold priority/all11 shortcut windows false. Each manual clockwise pass is followed by its own checkpoint. Source physicalUID/ownership and all four final health/economy/queues/zones are checked. No whole diagnostic container or cached defense oracle. One representative only; no group/sibling/support-token completion claim. Sources: https://judge.fabtcg.com/cards/detail/1026/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON296.webp https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/02-object-properties/ https://rules.fabtcg.com/en/cr/01-game-concepts/"
+}

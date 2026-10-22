@@ -1,0 +1,7 @@
+{
+    "name": "Rusted Relic / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T01:49:50+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1 actually plays Aether Dart Blue1 targeting adjacent P4. P4 controls Rusted Relic with Arcane Barrier1. After four real response passes P4 selects that actual source, pitches Blue3 and pays exactly1, preventing the one damage. All heroes stay20; P4 ends2 resources/AP0, Relic stays Arena and the completed spell goes to P1 graveyard. Exactly one bounded positive first-pass representative; no pitch matrix or full-card/group completion. Source candidates are independently checked, not accepted merely because metadata exists. Only the static Arena Barrier payment branch is exercised; item play, decline, multiple sources, other damage sizes or other owners are outside scope. The managed physical spell remains pending through prevention choice and payment. Verdance is a legal quiet young20 Wizard with no Earth banish/heal condition. Support synchronous source-clear/callback internal order remains outside the atomic endpoint witness and is not asserted correct. No known pending user-choice lifecycle is omitted. Sources: https://judge.fabtcg.com/cards/detail/502/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ANQ023.webp https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

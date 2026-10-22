@@ -1,6 +1,6 @@
 [
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-sigil-of-solace-red-four-live-hold-priority-correct-rule-before-probe",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected PriorityPlayer to equal 4, got 1.",
@@ -57,7 +57,7 @@
     "native_sources_preserved": true
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected Stack count 1, got 0.",
@@ -114,7 +114,7 @@
     "native_sources_preserved": true
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected FaBSim state [\"arcaneDealt\"] to equal JSON {\"1\":{\"4\":2}}, got {\"4\":{\"4\":2}}.",
@@ -175,7 +175,7 @@
     "native_sources_preserved": true
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected p1DecisionQueue-0.Param to equal 'p2Hero-0&p4Hero-0', got 'p2Hero-0&p3Hero-0&p4Hero-0'.",

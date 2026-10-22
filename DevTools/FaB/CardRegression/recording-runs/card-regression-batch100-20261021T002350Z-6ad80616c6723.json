@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-21T00:23:50+00:00",
+    "input_file": "card-regression-batch100.json",
+    "input_sha256": "baf49ed030d19ee4e0d7c7b11a3b21ecf2ab7b0fc1668e60f16a031ee2888d26",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-drone-of-brutality-red-four-live-sparse-physical-source-replaces-own-graveyard-with-owner-deck-bottom",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 354
+        },
+        {
+            "slug": "card-numbskull-red-four-live-sparse-actual-amethyst-power-attempt-cannot-modify-six",
+            "status": "recorded_semantically_checked",
+            "actions": 37,
+            "assertions": 461
+        },
+        {
+            "slug": "card-little-big-foot-red-four-live-sparse-two-actual-distinct-cost-three-yellow-pitches-enable-six-power",
+            "status": "recorded_semantically_checked",
+            "actions": 29,
+            "assertions": 393
+        },
+        {
+            "slug": "card-tidal-surge-blue-four-live-sparse-actual-other-blue-play-and-blue-pitch-enable-two-power",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 413
+        }
+    ]
+}

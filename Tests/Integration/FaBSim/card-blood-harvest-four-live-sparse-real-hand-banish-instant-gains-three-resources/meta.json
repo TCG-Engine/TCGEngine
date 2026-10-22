@@ -1,0 +1,7 @@
+{
+    "name": "Blood Harvest / four live sparse effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T00:57:09+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Young ShadowBrute Levia20 uses physical BloodHarvestUID5 from Hand through its printed Instant activated ability, not its3resource Attack action. With0resources and no other pitchable card, normal AA play is unavailable; the one legal native context action activates the0resource Instant. Banish the same owned physicalUID5 as its cost, leaveAP1/resources0 while virtualAbilityUID6 waits, then resolve after all four actual manual passes. Gain exactly3resources, AP remains1 and all four heroes20. Physicalsource5 remains ownBanish, Hand/GYempty and virtualability6 disappears. No attack, damage, end phase or Blood Debt event occurs. One Hand-banish Instant resource-gain witness. Printed Attack play, other zones, repeated use, BloodDebt/endphase/Levia passive effects and future resource use are explicitly uncovered. Actual source movement as the printed activation cost is required; no source-lifecycle workaround is used. All four genuine live seats hold priority and all11 shortcut windows are disabled by existing recorder profile. Each real manual pass has its own priority/counter/window checkpoint. No full-card/cycle or support-card coverage is implied. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/IAR005.webp https://rules.fabtcg.com/en/cr/05-layers-cards-and-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

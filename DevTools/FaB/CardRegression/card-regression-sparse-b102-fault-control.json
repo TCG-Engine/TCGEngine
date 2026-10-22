@@ -1,0 +1,42 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-21T00:47:59.902047+00:00",
+  "plan_sha256": "3725139e99b7371442eaba841ae6a15acc1bf2451d9bf5bd1840875bf71ce579",
+  "independent_saved_proof_sha256": "13417e0354ff0b85f3489d0c45a4144ca67d075949bbf63873221312891ef6e3",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b102-focused-fault-plan.json",
+    "3725139e99b7371442eaba841ae6a15acc1bf2451d9bf5bd1840875bf71ce579",
+    "card-regression-sparse-b102-fault-control.json"
+  ],
+  "results": [
+    {
+      "id": "b102_remove_pending_potion_luck_body_dispatch",
+      "fixture": "card-potion-of-luck-blue-four-live-sparse-only-arsenal-card-shuffled-and-drawn",
+      "fixture_sha256": "122a02c35be910e1dcfe1e8b82a720f0e9491b57a13f2d5861bd24e72c78bdc1",
+      "source_raw5": {
+        "initial_gamestate.txt": "ce97bc18a540464dfbc7180cced127ac2f85f1a278377a895eb6a2c539630637",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "e44c4282f588758d16cc0ef00b7e3efb09cdcaa919f2513c436b9a487ca04eb8",
+        "expected_final_gamestate.txt": "2028becc2fceb394614a6bcd65c4c50065fe0ccdf59363795566cce59731d658",
+        "meta.json": "02acd03be4155ca853b182454ff29b34b8175c213435b2bc59de77e494a9172d"
+      },
+      "prefix_actions": 1,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 236,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Potion of Luck / one-card deterministic four-live positive: Step 4 assertion failed: Expected p1Hand count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Instant cost destroys physicalPotion5 to ownGY, remove only arcSpec from sole pendingABILITY7/controller1/source5. No WTR fallback Potion spec exists, so four unchanged live passes consume inert virtual layer without shuffle/draw. Retained final Hand1 assertion fails with0; Arsenal6 remains in place. Cost/AP/resources/other physical assets and all expected values are unchanged. Synthetic missing-body sensitivity only, not a legal card branch.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

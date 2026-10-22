@@ -1,0 +1,127 @@
+{
+  "status": "APPROVED_SPARSE_TARGETED_ONE",
+  "reviewer": "/root/coverage_evidence_audit",
+  "scope": "ONLY_NEW_CORRECTED_B102_SINGLETON_POTION_REPRESENTATIVE",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "input_sha256": "d0cc5c6975ab586a5ef24bd9ac8ae1a839f7cdac92c53f4dff325d9627ed98ea",
+  "actual_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b102-actual-saved-independent-review.json",
+    "sha256": "13417e0354ff0b85f3489d0c45a4144ca67d075949bbf63873221312891ef6e3"
+  },
+  "focused_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b102-focused-fault-plan.json",
+    "sha256": "3725139e99b7371442eaba841ae6a15acc1bf2451d9bf5bd1840875bf71ce579"
+  },
+  "native_fault_report": {
+    "path": "DevTools/FaB/CardRegression/card-regression-sparse-b102-fault-control.json",
+    "sha256": "0188a649e851043fda0c5d71ad0c1aee13333cfd85f85206f5e5085e4822c721"
+  },
+  "targeted_replay_reports": [
+    {
+      "path": "DevTools/FaB/CardRegression/card-regression-replay-sparse-b102-one-four-live-run1.json",
+      "sha256": "f009297a67766a78899d70047eb92c162eb92c87ef138cdf97a1ce698dee534f",
+      "completed_utc": "2026-10-21T00:45:06.800726+00:00",
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "scope": "TARGETED_NEW_B102_ONE_ONLY",
+      "captured_parent_raw5_preservation_count": 3159
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/card-regression-replay-sparse-b102-one-four-live-run2.json",
+      "sha256": "f66db76885633bd4b887155448dd9d9edbe406df02341ecd849428a26dd6d8d0",
+      "completed_utc": "2026-10-21T00:45:35.845959+00:00",
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "scope": "TARGETED_NEW_B102_ONE_ONLY",
+      "captured_parent_raw5_preservation_count": 3159
+    }
+  ],
+  "fixtures": [
+    {
+      "slug": "card-potion-of-luck-blue-four-live-sparse-only-arsenal-card-shuffled-and-drawn",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ce97bc18a540464dfbc7180cced127ac2f85f1a278377a895eb6a2c539630637",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "e44c4282f588758d16cc0ef00b7e3efb09cdcaa919f2513c436b9a487ca04eb8",
+        "expected_final_gamestate.txt": "2028becc2fceb394614a6bcd65c4c50065fe0ccdf59363795566cce59731d658",
+        "meta.json": "02acd03be4155ca853b182454ff29b34b8175c213435b2bc59de77e494a9172d"
+      },
+      "fixture_sha256": "122a02c35be910e1dcfe1e8b82a720f0e9491b57a13f2d5861bd24e72c78bdc1",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 5,
+      "manual_passes": 4,
+      "native_assertions": 341,
+      "native_game_state_fields": 24,
+      "four_live_profile_verified": true,
+      "declared_primary": "potion_of_luck_blue",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch102-four-seat-queues-corrected-20261021T004420Z-6ad80ae497b3b.json",
+        "sha256": "064819473b196ad115555c295331261ba1046f4c70b0880012703b90c7bf01e2"
+      },
+      "review_basis": "Exact five actions, all341 assertion objects/steps, independent singleton printed/UID model; full schema-parsed initial/final physical/owner/controller/order, actual four live manual profiles, economy and draw ledger checked. Intermediate frames are pinned by persisted assertions, not individually observed by reviewer.",
+      "coverage_status": "verified_sparse_representative_partial",
+      "targeted_clean_runs": 2,
+      "matching_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "meaningful_native_fault_ids": [
+        "b102_remove_pending_potion_luck_body_dispatch"
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "b102_remove_pending_potion_luck_body_dispatch",
+      "slug": "card-potion-of-luck-blue-four-live-sparse-only-arsenal-card-shuffled-and-drawn",
+      "prefix_actions": 1,
+      "expected_failure_step": 4,
+      "first_marker": "Step 4",
+      "first_reason": "Expected p1Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "retained_native_assertions": 236,
+      "omitted_oracles": 0,
+      "scope": "After actual Instant cost destroys physicalPotion5 to ownGY, remove only arcSpec from sole pendingABILITY7/controller1/source5. No WTR fallback Potion spec exists, so four unchanged live passes consume inert virtual layer without shuffle/draw. Retained final Hand1 assertion fails with0; Arsenal6 remains in place. Cost/AP/resources/other physical assets and all expected values are unchanged. Synthetic missing-body sensitivity only, not a legal card branch."
+    }
+  ],
+  "superseded_original": {
+    "input_sha256": "1731d51d6b6643258345e5a8da86f18e621e1ad051dedee68736d5c711a8d9a2",
+    "review_sha256": "bc2dcb676980330ffb44398d6d931f97f5165044377a4bed1cddeddfc1498c6f",
+    "failure_receipt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b102-initial-preflight-failure.json",
+      "sha256": "f89b9ee0000c2f7fe1b83d8ba5035a0af9e906d8d070bcd982f22c114c54f2f5"
+    },
+    "status": "PROTOCOL_INVALID_BEFORE_INITIALIZATION_ZERO_ACTIONS_NO_SAVED_FIXTURE",
+    "explanation": "Original all-queue model missed existing recorder guard. Only corrected d0cc input produced this saved fixture; original1731/bc2 are not execution evidence."
+  },
+  "counts": {
+    "new_sparse_representatives": 1,
+    "actions": 5,
+    "manual_passes": 4,
+    "native_assertions": 341,
+    "native_state_fields": 24,
+    "distinct_targeted_runs": 2,
+    "targeted_fixture_passes": 2,
+    "meaningful_faults_detected": 1
+  },
+  "checks": 52,
+  "reviewer_script_sha256": "cd8312857ea8e536885a5f7ff2ea3fc5105e8b56516e5ca18f8af1521674d2a3",
+  "canonical_preservation": {
+    "new5_raw_files_independently_rechecked": true,
+    "parent_targeted_reports_capture_inventory_preserved": 3159,
+    "note": "Captured at targeted-run time; no assertion about later current inventory totals."
+  },
+  "limits": [
+    "One deterministic singleton positive sparse representative only; no complete card/group/sibling or full-catalog claim.",
+    "Two targeted one-fixture clean runs plus one native intended body-omission fault; no whole-corpus or old-tool proof rerun.",
+    "Multi-card shuffle order/RNG source-only concern remains unproven and is not a confirmed gameplay bug.",
+    "Original1731/bc2 and outside-repo initial-preflight failure are superseded protocol-invalid zero-action evidence, not gameplay or RNG failure.",
+    "No engine/game/replay/fault execution or repository write by this reviewer."
+  ],
+  "native_actions": 0,
+  "native_imports": 0,
+  "native_writes": 0
+}

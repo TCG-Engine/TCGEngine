@@ -1,0 +1,7 @@
+{
+    "name": "Freewheeling Renegades red / four live sparse actual defense",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T23:43:35+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "One primary group pitch-cycle:freewheeling_renegades, one representative only. Source6 becomes4 because an Action defends; fresh damage1, P4HP19. Actorresource1\u21920/AP1\u21920, noGoAgain; owned cards clear. All four actual young heroes hold priority/all shortcut windows false. Actual adjacentP4 target and every manual pass are recorded. Physical sourceUID5 and defenderUID6 retain ownership. Fresh attack power and real final damage, not cached defenseValue, form the effect oracle. No turn end, seeded triggers/history or secondary-card completion claim. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OUT210.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/01-game-concepts/"
+}

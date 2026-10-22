@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-20T22:38:40+00:00",
+    "input_file": "card-regression-batch88.json",
+    "input_sha256": "e6c11b6ad1cd8c9e35337e166ac267d816f07d8c2a31a736d8b6ba7507020c3a",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-force-sight-red-four-live-sparse-hand-origin-next-attack-plus-three",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 385
+        },
+        {
+            "slug": "card-first-tenet-of-chi-tide-blue-four-live-sparse-next-blue-attack-plus-two",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 385
+        },
+        {
+            "slug": "card-first-tenet-of-chi-wind-blue-four-live-sparse-next-real-blue-action-granted-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 10,
+            "assertions": 245
+        },
+        {
+            "slug": "card-battle-clearing-bellow-blue-four-live-sparse-real-paid-next-six-base-attack-plus-six",
+            "status": "recorded_semantically_checked",
+            "actions": 34,
+            "assertions": 472
+        }
+    ]
+}

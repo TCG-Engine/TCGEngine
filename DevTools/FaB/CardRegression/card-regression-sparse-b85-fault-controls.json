@@ -1,0 +1,142 @@
+{
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "completed_utc": "2026-10-20T22:22:14.775305+00:00",
+  "plan_sha256": "77a1454a32125e2d93ed363a5dbf994c5a5ba046e2d160d3f1fe14a2db679352",
+  "independent_saved_proof_sha256": "4bf920a8da733b911221edc7c5380c5a75a8cd1b93edeebb3ce87bf3946467a2",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    "sparse-b85-focused-fault-plan.json",
+    "77a1454a32125e2d93ed363a5dbf994c5a5ba046e2d160d3f1fe14a2db679352",
+    "card-regression-sparse-b85-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b85_minnow_remove_real_attack_power_grant",
+      "fixture": "card-minnowism-red-four-live-sparse-next-small-base-real-attack-buff",
+      "fixture_sha256": "a98a8f7620824668caf05e06a0520a7d8f4b5e9fdd6128a730a63ecc80c60df8",
+      "source_raw5": {
+        "initial_gamestate.txt": "d10c82f14bd44efb2779a39c48870fd26e3213767077173240c64c1cb5b6682d",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "5a210e05c1a2aad912310a86a267497e3a7b025ba079c254fceb2ab596860698",
+        "expected_final_gamestate.txt": "dfd40d3b2023795792180fb8d2f1957fbd02aa9e1b143400c68e01e3ee40610f",
+        "meta.json": "b3065c56a98517d5d98050cc75a4056e39a677eaac1a2103988f76ae1340844f"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "tag": "WTR_POWER:3",
+            "mode": "remove"
+          }
+        ]
+      },
+      "retained_assertions": 221,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Minnowism / four live sparse effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove the one actual applied Minnow +3 tag from the real attack UID6 at its public ATTACK checkpoint. Native computed power must detect5 to2; no rule/source edit and no claim of a supported in-game removal action.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b85_tome_remove_actual_drawn_hand_card",
+      "fixture": "card-tome-of-fyendal-yellow-four-live-sparse-arsenal-draw-two-then-heal-current-hand",
+      "fixture_sha256": "18168536dbd4a00314a5c6be42eb582d6a042650f08a0978aa50f9485c51b7fe",
+      "source_raw5": {
+        "initial_gamestate.txt": "92ec6d0b198d1f276a100c987d996974f58634cc264fbcde19e70a695f0d67da",
+        "actions.json": "8119daa30a3742b7276dc16ec99b5054cdfb9216aa0262960e344b9ea6c7c079",
+        "assertions.json": "bb824b16707d2497cd0a55e633aa5136b7c0c94aa1e79cc5e9085f6e5fc39a2f",
+        "expected_final_gamestate.txt": "ac607304e443b9b859dd10fce3d5eddc130da310b01e2712e31b611109564e4a",
+        "meta.json": "d3231441e14816d5787823b2c7540c1a6c19c98cdd9560a867502eeda97935b5"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Hand",
+            "cardID": "wounding_blow_red",
+            "to": "Deck"
+          }
+        ]
+      },
+      "retained_assertions": 79,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Tome of Fyendal / four live sparse effect: Initial assertion failed: Expected p1Hand count 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After the atomic draw-and-heal endpoint, move actual drawn UID6 out of Hand by the existing normal movement helper. This tests retained physical draw/hand membership, not an artificial pause between draw and heal or separate healing-event timing.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b85_ruby_remove_original_arc_dispatch_parameter",
+      "fixture": "card-ruby-amulet-blue-four-live-sparse-instant-destroy-watery-trigger-then-two-resources",
+      "fixture_sha256": "1d67157a14ffb809151bf8abbf7edefad8af7afac1c18555b4c5c319205cd88e",
+      "source_raw5": {
+        "initial_gamestate.txt": "faae58295a5730677f53e61ce0788665b786b1fe429d78ec04871aa868ef9f34",
+        "actions.json": "4bf2661ebc4867f904a2a9fe3ae51f233789b0ad0e83bc2e0770d7e9ebbeb0f7",
+        "assertions.json": "014f99f4fd03998c12b105e4f1b8e55e427a0829c55ffd8fb78e3e99749b545b",
+        "expected_final_gamestate.txt": "6b85676d61743f474ddf4b64e9c531a2245987de247655efd8a71d7c63cd343f",
+        "meta.json": "5da189fc08675afd200b513cf75cede4b000288e9c41c853e9c8eaa1e014b710"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 125,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Resources to equal 2, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Ruby Amulet / four live sparse effect: Step 4 assertion failed: Expected p1Resources to equal 2, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Only after real Watery resolves, remove arcSpec from the sole lower original ability UID6. Existing helper demands exactly one removal. The physical item remains facedown own graveyard; the unchanged dispatcher now returns because Ruby has no WTR fallback spec, so only the intended +2 resource effect is absent. A disposable dispatch fault, not a legal game operation or generic source-loss claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b85_dissolve_remove_owned_created_ponder",
+      "fixture": "card-dissolve-reality-yellow-four-live-sparse-all-four-arsenals-bottom-decks-and-own-ponder",
+      "fixture_sha256": "9ff53b21bce09f0fba087b9238dce61e3c59f5ba86236ce4cc05afb8108b8eb3",
+      "source_raw5": {
+        "initial_gamestate.txt": "898cad6ec148bc2b022e357cd06d8713dcb9f8f2131819e4a95c414807a21742",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "4fc5900ccd6c83a427851446188389d0a97784d8a99bb631d954e4a4ff08e49f",
+        "expected_final_gamestate.txt": "52710de8a5972f8654594c0248dc0a67665b87a9ea8fb745941e2ac59891cc6f",
+        "meta.json": "1e6bb41e1472228bd6ddfd47dd8f44f5d647f375f253110ec9014019108d2564"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "cardID": "ponder",
+            "to": "Banish"
+          }
+        ]
+      },
+      "retained_assertions": 119,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Dissolve Reality / four live sparse effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After all-four-hero atomic resolution, move only P1 actual owned Ponder14 via normal movement; the token ceases outside permitted zones. Preserve every other player token/own-deck-bottom oracle; do not assert a Banish token or bypass callbacks.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

@@ -1,0 +1,118 @@
+{
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "completed_utc": "2026-10-20T22:48:11.645410+00:00",
+  "plan_sha256": "b6429fa9702a6e707504619b43ca699635a37319cce0c64c07441ef1e4016883",
+  "independent_saved_proof_sha256": "1f8211106188b51e5bdb6eed18408580f3ed6536695f8bcab5455ce96c5d3bbf",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    "sparse-b89-three-saved-focused-fault-plan.json",
+    "b6429fa9702a6e707504619b43ca699635a37319cce0c64c07441ef1e4016883",
+    "card-regression-sparse-b89-three-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b89_bark_remove_actual_guardian_target_power_tag",
+      "fixture": "card-bark-obscenities-red-four-live-sparse-actual-next-attack-targets-adjacent-guardian",
+      "fixture_sha256": "8c18521097f17ef56b8bcfa464e17e576d7cc2e8be66bc7f5474e7c87d9cb5c6",
+      "source_raw5": {
+        "initial_gamestate.txt": "88ac407d399726c7c92564232f77422b4f1efe06ff1c9e6a2541d8ff64f8c5aa",
+        "actions.json": "6f3e4f60f60b0960221d649a8fb71aa7c3c36bc35f93a67c7390224b486abcf5",
+        "assertions.json": "d74e7e4cfc02d87e805e878fa1130240417b3795acb7e1daa42f867329bdcf3c",
+        "expected_final_gamestate.txt": "1467d5718340801d6df49a240fbb242634c7eef3d75a525966f591c14756b46a",
+        "meta.json": "9d05e331434cfb73c26755f5ecfae846e72ee6a3f37e33685e086c9d7d717bb9"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "SUP_TARGET:Guardian:4"
+          }
+        ]
+      },
+      "retained_assertions": 757,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Bark Obscenities / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "At the real first-attack ATTACK boundary, remove the one applied Guardian-target+4 tag from physical Wounding BlowUID6. Actual prior Bark5, GuardianBravo2 target, costs and history are retained; fresh computed6 must become2. This is synthetic sensitivity, not a supported game operation or a branch-completion claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b89_lead_remove_actual_class_qualified_weapon_buff",
+      "fixture": "card-lead-with-speed-red-four-live-sparse-actual-brute-weapon-plus-three-and-owned-agility",
+      "fixture_sha256": "ee8f356acd200536abc7d4c7a63c0f39b89e93bd2f15be1a76e8f3bba2496a20",
+      "source_raw5": {
+        "initial_gamestate.txt": "e646b08b073f2b6a576b208e6d58b59b14023df5b54e76d08d8357ef1aed0f0d",
+        "actions.json": "9ba3485e3d19b94bf6ab03f1524607c9ca033f643d7e0fa5c01d7f1f97d64751",
+        "assertions.json": "ebac9988bae206dbe979693a26e359f8e8b0b36a1cd2ec434539f27a1b469c4b",
+        "expected_final_gamestate.txt": "58187275d42b1f69344a993568187a46cc2e0bd80fd7b3137329827a38262b35",
+        "meta.json": "704a7d3ff6cd3b3c48b6cb0a3e8fd7d7189ab83e070483aaebcbf0bfdaa648ef"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "romping_club",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 853,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Lead with Speed / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "At the real ATTACK boundary after Lead was paid/resolved and the physical Club7 was activated for2, remove its proxy9 applied+3 tag only. Keep physical Club7 used once, ownedAgility8, actual Pitch6 and zero remaining resources/AP. Fresh computed7 must become4; no printed rules, source fixture or previous actions change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b89_vigor_remove_actual_prior_nonattack_earned_go_again",
+      "fixture": "card-vigor-rush-red-four-live-sparse-real-prior-nonattack-go-again-base-four-excludes-minnow",
+      "fixture_sha256": "555a837b91c1b2f5dddf8d3b20f17082ecb63e7dbe116e9b281621b9e768416a",
+      "source_raw5": {
+        "initial_gamestate.txt": "d9d437f7a974389c7bc49718dcd4ac639489d1c264eaa56d5e192445a1dce45a",
+        "actions.json": "9dbbd7d503c228b8e27da84949f71af6ea0dfc3840bbf845cb331bafac6730e8",
+        "assertions.json": "42b5b78e66a18647c50de9c6b8e00a9b6c1b93b9eec0de0777072ef2eb10712e",
+        "expected_final_gamestate.txt": "6851e3bed6f50749a65e01d32eb5ed734c6697519141bbe746585d8116a6f705",
+        "meta.json": "cbb96bb7afffb7cb134b8c55d2491f55258a6adfea56a6cadd510bb64e84ae41"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "vigor_rush_red",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 789,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Vigor Rush / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Minnow6 was played/resolved, real blue7 pitched and Vigor5 paid/resolved to ATTACK, remove its single earnedGO_AGAIN tag. Native FaBPrintedKeywordIsActive excludes conditional-only text from unconditional keyword fallback, so current Vigor has no other go-again source. Keep its actual prior nonattack history and power4; unchanged computedGA1 must become0 before later APrefund. Synthetic grant removal, not a no-prior-play legal branch.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

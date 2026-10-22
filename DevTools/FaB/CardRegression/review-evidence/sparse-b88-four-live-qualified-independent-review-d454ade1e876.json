@@ -1,0 +1,164 @@
+{
+  "status": "INDEPENDENT_ACTUAL_B88_FOUR_SPARSE_EFFECTS_TWO_CLEAN_REPLAYS_AND_FOUR_INTENDED_NATIVE_FAULTS_APPROVED",
+  "reviewer": "/root/pilot_review",
+  "independent_of_scenario_author": true,
+  "recorder_exit0_confirmed_by_parent": true,
+  "completed_utc": "2026-10-20T22:44:33.507041+00:00",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "spec_sha256": "e6c11b6ad1cd8c9e35337e166ac267d816f07d8c2a31a736d8b6ba7507020c3a",
+  "independent_spec_review_sha256": "86c850c222a434f34351f12ca6de189b904b790fcd6706df4e2bfb31160605ee",
+  "reviewer_script_sha256": "63095520da5f3a2caa043e1b717eb7209fd552382a616172c9619f31fbafc7e0",
+  "checks": 5654,
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch88-20261020T223840Z-6ad7ed70b44c2.json",
+    "sha256": "0e31e44e06e8705576184ebe228fd2feb7f2c1051338bdb184f360f8129870cc"
+  },
+  "fixtures": [
+    {
+      "slug": "card-force-sight-red-four-live-sparse-hand-origin-next-attack-plus-three",
+      "fixture_sha256": "6c2489a87a18b788c881b1dd492e3a6d03394a2e84728217e5c4036be5ecbbed",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fd3d24ff24f5332f79b5ee25bb01b8033759baaae2d9ddda0187838b97a9584e",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "4a65e791d41ddb82fa31c4c7bf046aa3531681b21303920caf95576f04e5c6ce",
+        "expected_final_gamestate.txt": "2e1fca7b222a87c39987a23e5034618b0a398213589cb96af754f5c29a1b2d18",
+        "meta.json": "66a6cfbd840fe367eb81af086f7c4ae7993490148b47dd00afb8606888416dba"
+      },
+      "actions": 32,
+      "native_assertions": 385,
+      "native_game_state_fields": 46,
+      "actual_manual_passes": 29,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Hand Force Sight cost1/own go-again; next actual Wounding Blow blue base2+3=5, adjacent seat4 takes5, no attack go-again, normal Close and exact own graveyard5/6.",
+      "limits": [
+        "Hand-origin next-AA positive only; Arsenal opt, repeat-use, expiry, exclusions and sibling pitches are not covered."
+      ]
+    },
+    {
+      "slug": "card-first-tenet-of-chi-tide-blue-four-live-sparse-next-blue-attack-plus-two",
+      "fixture_sha256": "d635b984183ccd0b5f1f36b59023ce484eda2a8e23bfe9862754e675bf1acc64",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f1ab92076341337408f1c956f81f1c5c843e36277aa50008c7d172a7416fbacf",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "832e662fe0cc03ed1787c430dc05ce8191e8386b1116a86e859067141976d16c",
+        "expected_final_gamestate.txt": "95f1956f70cfedcc912c1fa6f7e1bcc261e53a2fac1cd17bbf42f606fd12de62",
+        "meta.json": "a058b02134ab7eee4d186f9007c80f4ad8e674315be2dbee9f4dbb7b074d6c0d"
+      },
+      "actions": 32,
+      "native_assertions": 385,
+      "native_game_state_fields": 46,
+      "actual_manual_passes": 29,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Legal Mystic young Zen Tide cost0/own go-again; next actual blue Wounding Blow base2+2=4, adjacent seat4 takes4, no attack go-again, normal Close and own graveyard5/6.",
+      "limits": [
+        "One blue AA positive only; nonblue, weapons, repeat-use and expiry are not covered."
+      ]
+    },
+    {
+      "slug": "card-first-tenet-of-chi-wind-blue-four-live-sparse-next-real-blue-action-granted-go-again",
+      "fixture_sha256": "a0176a06836e7666797e6b87df918169c2b605f2f9e25062ed74a4f68f578aee",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ac43e22ff358beb71b054855b24eca846d4920aea037b3d24fef4a19d9856cf0",
+        "actions.json": "4e77e2368de6a39a387b48f8143fbb03a5c1857caed1dda4fe6546a2a3a944e4",
+        "assertions.json": "63328317ca9ecd0bd7c29cb96a68c86fbfd9812311e698469c34d73a7fd01bbe",
+        "expected_final_gamestate.txt": "7ed1be82285c6708fc16fff411091d7b631b55c1f7241ae7bdc476c50bb1d4ea",
+        "meta.json": "56d979ecc27977ac4370dab3f8b309d92df0044f576342dad01b7ac368c22105"
+      },
+      "actions": 10,
+      "native_assertions": 245,
+      "native_game_state_fields": 19,
+      "actual_manual_passes": 8,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Legal Mystic young Zen Wind cost0/own go-again; next actual blue Healing Balm NAA costs0/oneAP, heals20 to21 and its granted go-again refunds exactlyoneAP; own graveyard5/6.",
+      "limits": [
+        "One actual blue NAA positive only; this is not coverage of all blue Actions, Balm completion, repeat-use, expiry or healing replacements."
+      ]
+    },
+    {
+      "slug": "card-battle-clearing-bellow-blue-four-live-sparse-real-paid-next-six-base-attack-plus-six",
+      "fixture_sha256": "163d603f9ebe7f1b4d3525263423d943da5f68b15187f50aaffb45300ea7c0bd",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b5acc28023bd05daf14184a63f5ca82f5885a5189f4654f3b9bf717df994ffe5",
+        "actions.json": "66614d0e7ea65f7f074dcede3207fe36c3a117526537b1d368db241ff7daf539",
+        "assertions.json": "f52c21bb17554a66f92f3470d31bbd7fc366f856cabac5c61c75da2cbd0462ad",
+        "expected_final_gamestate.txt": "f53c7fe6e766c26adb885df0a7615ed185114971889ee1188064c35d2ce32009",
+        "meta.json": "1b07908b20ec3775974a56a49a0b8de12f10b4e7fb538732ae855b84d8f105c5"
+      },
+      "actions": 34,
+      "native_assertions": 472,
+      "native_game_state_fields": 48,
+      "actual_manual_passes": 29,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Legal Brute young Levia Bellow cost3 paid by real blue pitch7; actual Raging Onslaught cost3 paid by real blue pitch8, base7+6=13, adjacent seat4 ends7 alive, no attack go-again; normal Close, own graveyard5/6 and own Pitch7/8.",
+      "limits": [
+        "One base7 AA positive with two actual pitch3 payments; base<6, weapon, repeat-use, expiry and external class/hero interactions are not covered."
+      ]
+    }
+  ],
+  "limits": [
+    "Sparse first-pass positive representatives only; no completed card, sibling pitch or full-catalog claim.",
+    "Force Sight, Tide, Wind and Bellow certify synchronous public before/after effects only. Existing unmanaged internal source-clear/effect order remains unapproved; observers, replacements and asynchronous source lifetime are not covered.",
+    "Reviewer ran only read-only source/evidence/AST checks. Parent executed the two clean targeted native replays and four disposable faults. This proof qualifies these four sparse positive representatives, not the full corpus or complete card branches."
+  ],
+  "supersedes_preserved_proof": {
+    "path": "sparse-b88-actual-saved-independent-review.json",
+    "sha256": "8f699f08a731a471da1a5eb2e0cadf09c6ad0f3081126199a7e4e021f7cdbfba"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b88-four-live-run1.json",
+      "sha256": "244878204e15b46923e7388326fedf4eb9962069aff2c37c211f5513641e58af",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b88-four-live-run2.json",
+      "sha256": "fdc9cfb3060294c3f472c125b4534d6c8224f709d81a24ccf0e3544c2faf18a3",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b88-fault-controls.json",
+    "sha256": "aac3023f6816deb506b26ddfd0c0e6ba63b91527d49b55da3f2734fa2257a222",
+    "plan_sha256": "f31e1c2a05d3da8386771bbdb13f7101faa15f1e79ba251d61e17d02e144d8d7",
+    "intended_semantic_failures": 4,
+    "total": 4,
+    "first_marker_steps": [
+      0,
+      0,
+      4,
+      0
+    ],
+    "canonical_raw5_preserved": true
+  },
+  "fault_orchestrator_review": {
+    "path": "execute_reviewed_fault_plan.py",
+    "sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a",
+    "semantically_approved": true,
+    "checks": [
+      "Exact reviewed plan/proof/helper/runtime guards before operations; canonical raw5 checked against independently approved rows.",
+      "Only UUID clones under the existing FaBSim fixture root are passed to the existing helper. Prefix replay uses those clones.",
+      "Every original oracle at or after prefix is retained with only step subtraction; all original suffix actions remain. No expected card values change.",
+      "First same-line Initial/StepN marker must match the exact intended reason and exit1; scalar fixed-message normalization changes detector text only.",
+      "finally checks resolved direct-parent/name containment before clone removal; original source raw5, full inventory and runtime are compared after operations."
+    ],
+    "execution_scope": "Reviewed source and parent-produced native results only; reviewer did not import or execute orchestration/main, helper or game runtime.",
+    "existing_native_helper": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative_control_state.php",
+      "sha256": "021627a41cf4a44bef7cafe48302357e74ffae6ba39b147c3c068388384f2974"
+    }
+  },
+  "focused_fault_plan": {
+    "path": "sparse-b88-focused-fault-plan.json",
+    "sha256": "f31e1c2a05d3da8386771bbdb13f7101faa15f1e79ba251d61e17d02e144d8d7"
+  },
+  "native_evidence_review_checks": 142,
+  "native_evidence_reviewer_script_sha256": "26fb9787f3cca1ec8d81db8d958ce414cb2d9bf7a0d28db2242e55b7d287e3d5"
+}

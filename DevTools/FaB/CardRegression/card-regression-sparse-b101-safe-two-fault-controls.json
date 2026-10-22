@@ -1,0 +1,81 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-21T00:40:52.442753+00:00",
+  "plan_sha256": "89c1e719ee7b4bb7835b17f535de854800d02275a7a309728994bafd5b39f333",
+  "independent_saved_proof_sha256": "6389d9dc2be9219465eab32e2c11590dd5c7712ef233d524e695fb4da6f31db5",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b101-safe-two-focused-fault-plan.json",
+    "89c1e719ee7b4bb7835b17f535de854800d02275a7a309728994bafd5b39f333",
+    "card-regression-sparse-b101-safe-two-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b101_zealous_belting_red_positive_condition_sensitivity",
+      "fixture": "card-zealous-belting-red-four-live-sparse-real-greater-power-yellow-pitch-grants-go-again",
+      "fixture_sha256": "4c11bfb48f47d908adb210690a916a62af2b133d693025b1dd390419bafe1e17",
+      "source_raw5": {
+        "initial_gamestate.txt": "33e8b20883db803d238e56d4174e6d99cf5e66320687241f81272e439ee9409c",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "c74c9c1c8ea628fb8261906a55ba11643f4b34166f8a412c2f2fbd968d042200",
+        "expected_final_gamestate.txt": "6890df5c8b45e09278202751f8f4d2896743d6bd05ac7e734b939568ffd0c525",
+        "meta.json": "1bd23d1aed2beaf91487af9f51bde4f70382c2d07b1228b7b0eb3deeced6a26a"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "Stack",
+            "cardID": "zealous_belting_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 236,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Zealous Belting / four live sparse positive condition: Step 1 assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add existing explicit ELE_NO_GO tag to unique paid source5 before fourth response pass. Actual Yellow6 remains pitched, sourcepower5/cost/target/assets unchanged. Pins GA-suppression sensitivity through first original true\u2192false computedGA oracle and retained laterAP1. Does not claim an ability-loss implementation or negative qualifier branch.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b101_hulk_up_red_positive_condition_sensitivity",
+      "fixture": "card-hulk-up-red-four-live-sparse-actual-lower-life-than-all-three-heroes-reduces-four-cost-to-three",
+      "fixture_sha256": "3ab00bfe2aa6d13effa7e50b11388046eb13e3683853cca977ec49d17ea78559",
+      "source_raw5": {
+        "initial_gamestate.txt": "1ae20fc8aa457e0262b9e88c68617f86574859033a5cd48a581891b5ddea015b",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "0a769c753ec84e8fc9be7401247fb4589e4d158a5261a8b0c6c471ead2e10e05",
+        "expected_final_gamestate.txt": "53971f85d2a1c58856ebafc301ea613a4e42063308a890e2de0bb685cb6d0a16",
+        "meta.json": "0e2b4a57da3cfb8a9b1feb1465b04e2a6ae251d4f29cd5565c0a946f365e7f29"
+      },
+      "prefix_actions": 1,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 1,
+            "value": 20
+          }
+        ]
+      },
+      "retained_assertions": 297,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected FaBSim state [\"pendingPayment\",\"cost\"] to equal JSON 3, got 4.",
+      "detected": false,
+      "returncode": 1,
+      "output": "[FAIL] Hulk Up / four live sparse positive condition: Step 1 assertion failed: Expected Stack-0.CardID to equal 'hulk_up_red', got ''.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Set only P1Health19\u219220 at original captured target-preflight. Actual allthreeotherheroes20/source5/Blue6/assets/manualpriority retained. Reanswer original target; strict less-than-all condition becomesfalse and pendingcost must be4. First original cost3 JSON expectation rejects before donor funding; every remaining original oracle unchanged. This pins life-condition cost sensitivity, no extra positive representative.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": false,
+  "full_fixture_inventory_preserved": true
+}

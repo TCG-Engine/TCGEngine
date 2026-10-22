@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-21T00:13:56+00:00",
+    "input_file": "card-regression-batch99.json",
+    "input_sha256": "58fff956c790bba862f2a73586c4ece1962da96f247dc3959b412a63592da98e",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-gold-hunter-longboat-yellow-four-live-sparse-opposite-opponent-gold-positive-power-attacks-adjacent-hero",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 334
+        },
+        {
+            "slug": "card-captain-of-the-guard-blue-four-live-sparse-actual-physical-defense-power-five-greater-than-attack-four",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 342
+        },
+        {
+            "slug": "card-rising-power-red-four-live-sparse-actual-gold-draw-and-distinct-blue-payments-enables-printed-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 34,
+            "assertions": 534
+        },
+        {
+            "slug": "card-rising-speed-red-four-live-sparse-actual-gold-draw-and-distinct-blue-payments-enables-printed-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 34,
+            "assertions": 534
+        }
+    ]
+}

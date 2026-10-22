@@ -1,0 +1,690 @@
+{
+  "status": "INDEPENDENT_ACTUAL_B84_SAFE_TWO_FOUR_LIVE_REPRESENTATIVES_APPROVED",
+  "reviewer": "/root/resume_contract_review",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "input_sha256": "ae1e2a3b9588535a28da648f9eb01c5af104e62295b7887131b42865df6c2e34",
+  "spec_gate_sha256": "fcb2d42c24ec4d63785e2049151e5f6810b3a39cbdba919daf6ce91b4e40e162",
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch84-20261020T220636Z-6ad7e5ec927d3.json",
+    "sha256": "48597acd76e2b40cb758be8469e92eafab2824b1e0bfd6576f6f2d983e1e5f48"
+  },
+  "fixtures": [
+    {
+      "slug": "card-ancestral-empowerment-red-four-live-sparse-ninja-current-attack-plus-one-and-physical-draw",
+      "fixture_sha256": "8b47bf0c97192f778eb93bc94b93b5e91980bdc7fbcf19f495833188b28c1d31",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "65049c702b1b3993ea6a4975fde97c27892b28e5d2ef93567774c81095c80a1d",
+        "actions.json": "04ec7b0d1f667a55258d123e3e9302e3c2ae3142df18e909a451d2081749768d",
+        "assertions.json": "c0cd582542f6cecc01ab83ad9824229e559aaf2ff85521dc541cfd13536118d1",
+        "expected_final_gamestate.txt": "052027f748592d65f57f35eda95dab7379da2b0bcd118a81f7c0bb8ae260e004",
+        "meta.json": "acda81f0db049c1c2937b72beb12a2bcd5a6e99413e8f28c390deefcc0f8ad0b"
+      },
+      "actions": 32,
+      "native_assertions": 332,
+      "actual_manual_passes": 29,
+      "actual_checkpoints": [
+        {
+          "checkpoint": "genuine_four_live_full_health_legal_physical_input",
+          "action_step": 0,
+          "oracles": 60
+        },
+        {
+          "checkpoint": "attack1_real_adjacent_target_before_payment",
+          "action_step": 1,
+          "oracles": 5
+        },
+        {
+          "checkpoint": "attack1_cost_paid_actor_holds_distinct_source",
+          "action_step": 2,
+          "oracles": 14
+        },
+        {
+          "checkpoint": "attack1_source_layer_actual_pass_1_of_four",
+          "action_step": 3,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "attack1_source_layer_actual_pass_2_of_four",
+          "action_step": 4,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "attack1_source_layer_actual_pass_3_of_four",
+          "action_step": 5,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "attack1_source_layer_fourth_actual_pass_boundary",
+          "action_step": 6,
+          "oracles": 16
+        },
+        {
+          "checkpoint": "attack1_attack_step_actual_pass_1_of_four",
+          "action_step": 7,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_attack_step_actual_pass_2_of_four",
+          "action_step": 8,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_attack_step_actual_pass_3_of_four",
+          "action_step": 9,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_attack_step_fourth_actual_pass_boundary",
+          "action_step": 10,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_actual_player4_finishes_declaration",
+          "action_step": 11,
+          "oracles": 5
+        },
+        {
+          "checkpoint": "attack1_defend_priority_actual_pass_1_of_four",
+          "action_step": 12,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_defend_priority_actual_pass_2_of_four",
+          "action_step": 13,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_defend_priority_actual_pass_3_of_four",
+          "action_step": 14,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_defend_priority_fourth_actual_pass_boundary",
+          "action_step": 15,
+          "oracles": 5
+        },
+        {
+          "checkpoint": "attack1_real_reaction_cost0_retains_priority_and_source",
+          "action_step": 16,
+          "oracles": 16
+        },
+        {
+          "checkpoint": "attack1_resolve_reaction_actual_pass_1_of_four",
+          "action_step": 17,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "attack1_resolve_reaction_actual_pass_2_of_four",
+          "action_step": 18,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "attack1_resolve_reaction_actual_pass_3_of_four",
+          "action_step": 19,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "attack1_resolve_reaction_fourth_actual_pass_boundary",
+          "action_step": 20,
+          "oracles": 20
+        },
+        {
+          "checkpoint": "attack1_reaction_priority_actual_pass_1_of_four",
+          "action_step": 21,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_reaction_priority_actual_pass_2_of_four",
+          "action_step": 22,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_reaction_priority_actual_pass_3_of_four",
+          "action_step": 23,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_reaction_priority_fourth_actual_pass_boundary",
+          "action_step": 24,
+          "oracles": 9
+        },
+        {
+          "checkpoint": "attack1_damage_priority_actual_pass_1_of_four",
+          "action_step": 25,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_damage_priority_actual_pass_2_of_four",
+          "action_step": 26,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_damage_priority_actual_pass_3_of_four",
+          "action_step": 27,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_damage_priority_fourth_actual_pass_boundary",
+          "action_step": 28,
+          "oracles": 5
+        },
+        {
+          "checkpoint": "attack1_resolution_priority_actual_pass_1_of_four",
+          "action_step": 29,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_resolution_priority_actual_pass_2_of_four",
+          "action_step": 30,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_resolution_priority_actual_pass_3_of_four",
+          "action_step": 31,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "attack1_resolution_priority_fourth_actual_pass_boundary",
+          "action_step": 32,
+          "oracles": 77
+        }
+      ],
+      "computed_power_checkpoints": [
+        {
+          "step": 6,
+          "power": 3
+        },
+        {
+          "step": 15,
+          "power": 3
+        },
+        {
+          "step": 16,
+          "power": 3
+        },
+        {
+          "step": 20,
+          "power": 4
+        },
+        {
+          "step": 24,
+          "power": 4
+        }
+      ],
+      "physical_uid_ownership_cleanup_approved": true,
+      "four_live_manual_profile_verified": true,
+      "bounded_fault": {
+        "prefix": 20,
+        "mutation": {
+          "object_effect": [
+            {
+              "player": 1,
+              "zone": "CombatChain",
+              "cardID": "head_jab_red",
+              "mode": "remove",
+              "tag": "WTR_POWER:1"
+            }
+          ]
+        },
+        "first_failure": "Expected p1CombatChain-0 computed power to equal 4, got 3.",
+        "detected": true
+      },
+      "limitations": [
+        "One representative only, no fullcard/cycle or secondarycardcompletion.",
+        "Only unchanged-sole-current Ninja target power+draw endpoints; announcement/binding/revalidation/loss/replacement not certified."
+      ]
+    },
+    {
+      "slug": "card-knives-out-blue-four-live-sparse-two-real-controlled-daggers-turn-buff",
+      "fixture_sha256": "c450557ade7552fe62b7a133b2377557cc7445c97258a29d1e2c12bf94dca2bf",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bbc19110a7afbb49a2eacb878fa648d996f892d5a8b3d4e3e14ae2e3bda7cbaf",
+        "actions.json": "7d0ed1d568592ed2dd0611d9eba55bdc68906b45ed50966caef801f06effcce0",
+        "assertions.json": "29ef9af687792e47bc41043eb5f8fe70bc60044e8eed88531836a1596b170f76",
+        "expected_final_gamestate.txt": "3da1c1d8a1f9735aa884a0cb35b87073b2e548c7f0d641d749fb2b7b15496072",
+        "meta.json": "b7999b809235f707221002a3e19adaf0b337323974be40b3d310c3b3ffba0ac5"
+      },
+      "actions": 60,
+      "native_assertions": 598,
+      "actual_manual_passes": 54,
+      "actual_checkpoints": [
+        {
+          "checkpoint": "genuine_four_live_full_health_legal_physical_input",
+          "action_step": 0,
+          "oracles": 66
+        },
+        {
+          "checkpoint": "dagger1_real_adjacent_target_before_payment",
+          "action_step": 1,
+          "oracles": 5
+        },
+        {
+          "checkpoint": "dagger1_unpaid_virtual_layer_real_blue_donor",
+          "action_step": 2,
+          "oracles": 18
+        },
+        {
+          "checkpoint": "dagger1_cost_paid_actor_holds_distinct_source",
+          "action_step": 3,
+          "oracles": 24
+        },
+        {
+          "checkpoint": "dagger1_source_layer_actual_pass_1_of_four",
+          "action_step": 4,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "dagger1_source_layer_actual_pass_2_of_four",
+          "action_step": 5,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "dagger1_source_layer_actual_pass_3_of_four",
+          "action_step": 6,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "dagger1_source_layer_fourth_actual_pass_boundary",
+          "action_step": 7,
+          "oracles": 16
+        },
+        {
+          "checkpoint": "dagger1_attack_step_actual_pass_1_of_four",
+          "action_step": 8,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_attack_step_actual_pass_2_of_four",
+          "action_step": 9,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_attack_step_actual_pass_3_of_four",
+          "action_step": 10,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_attack_step_fourth_actual_pass_boundary",
+          "action_step": 11,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_actual_player4_finishes_declaration",
+          "action_step": 12,
+          "oracles": 5
+        },
+        {
+          "checkpoint": "dagger1_defend_priority_actual_pass_1_of_four",
+          "action_step": 13,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_defend_priority_actual_pass_2_of_four",
+          "action_step": 14,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_defend_priority_actual_pass_3_of_four",
+          "action_step": 15,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_defend_priority_fourth_actual_pass_boundary",
+          "action_step": 16,
+          "oracles": 5
+        },
+        {
+          "checkpoint": "dagger1_real_reaction_cost0_retains_priority_and_source",
+          "action_step": 17,
+          "oracles": 16
+        },
+        {
+          "checkpoint": "dagger1_resolve_reaction_actual_pass_1_of_four",
+          "action_step": 18,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "dagger1_resolve_reaction_actual_pass_2_of_four",
+          "action_step": 19,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "dagger1_resolve_reaction_actual_pass_3_of_four",
+          "action_step": 20,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "dagger1_resolve_reaction_fourth_actual_pass_boundary",
+          "action_step": 21,
+          "oracles": 14
+        },
+        {
+          "checkpoint": "dagger1_reaction_priority_actual_pass_1_of_four",
+          "action_step": 22,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_reaction_priority_actual_pass_2_of_four",
+          "action_step": 23,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_reaction_priority_actual_pass_3_of_four",
+          "action_step": 24,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_reaction_priority_fourth_actual_pass_boundary",
+          "action_step": 25,
+          "oracles": 9
+        },
+        {
+          "checkpoint": "dagger1_damage_priority_actual_pass_1_of_four",
+          "action_step": 26,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_damage_priority_actual_pass_2_of_four",
+          "action_step": 27,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_damage_priority_actual_pass_3_of_four",
+          "action_step": 28,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_damage_priority_fourth_actual_pass_boundary",
+          "action_step": 29,
+          "oracles": 5
+        },
+        {
+          "checkpoint": "dagger1_resolution_priority_actual_pass_1_of_four",
+          "action_step": 30,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_resolution_priority_actual_pass_2_of_four",
+          "action_step": 31,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_resolution_priority_actual_pass_3_of_four",
+          "action_step": 32,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger1_resolution_priority_fourth_actual_pass_boundary",
+          "action_step": 33,
+          "oracles": 82
+        },
+        {
+          "checkpoint": "dagger2_real_adjacent_target_before_payment",
+          "action_step": 34,
+          "oracles": 5
+        },
+        {
+          "checkpoint": "dagger2_cost_paid_actor_holds_distinct_source",
+          "action_step": 35,
+          "oracles": 24
+        },
+        {
+          "checkpoint": "dagger2_source_layer_actual_pass_1_of_four",
+          "action_step": 36,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "dagger2_source_layer_actual_pass_2_of_four",
+          "action_step": 37,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "dagger2_source_layer_actual_pass_3_of_four",
+          "action_step": 38,
+          "oracles": 6
+        },
+        {
+          "checkpoint": "dagger2_source_layer_fourth_actual_pass_boundary",
+          "action_step": 39,
+          "oracles": 16
+        },
+        {
+          "checkpoint": "dagger2_attack_step_actual_pass_1_of_four",
+          "action_step": 40,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_attack_step_actual_pass_2_of_four",
+          "action_step": 41,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_attack_step_actual_pass_3_of_four",
+          "action_step": 42,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_attack_step_fourth_actual_pass_boundary",
+          "action_step": 43,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_actual_player4_finishes_declaration",
+          "action_step": 44,
+          "oracles": 5
+        },
+        {
+          "checkpoint": "dagger2_defend_priority_actual_pass_1_of_four",
+          "action_step": 45,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_defend_priority_actual_pass_2_of_four",
+          "action_step": 46,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_defend_priority_actual_pass_3_of_four",
+          "action_step": 47,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_defend_priority_fourth_actual_pass_boundary",
+          "action_step": 48,
+          "oracles": 5
+        },
+        {
+          "checkpoint": "dagger2_reaction_priority_actual_pass_1_of_four",
+          "action_step": 49,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_reaction_priority_actual_pass_2_of_four",
+          "action_step": 50,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_reaction_priority_actual_pass_3_of_four",
+          "action_step": 51,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_reaction_priority_fourth_actual_pass_boundary",
+          "action_step": 52,
+          "oracles": 9
+        },
+        {
+          "checkpoint": "dagger2_damage_priority_actual_pass_1_of_four",
+          "action_step": 53,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_damage_priority_actual_pass_2_of_four",
+          "action_step": 54,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_damage_priority_actual_pass_3_of_four",
+          "action_step": 55,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_damage_priority_fourth_actual_pass_boundary",
+          "action_step": 56,
+          "oracles": 5
+        },
+        {
+          "checkpoint": "dagger2_resolution_priority_actual_pass_1_of_four",
+          "action_step": 57,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_resolution_priority_actual_pass_2_of_four",
+          "action_step": 58,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_resolution_priority_actual_pass_3_of_four",
+          "action_step": 59,
+          "oracles": 4
+        },
+        {
+          "checkpoint": "dagger2_resolution_priority_fourth_actual_pass_boundary",
+          "action_step": 60,
+          "oracles": 82
+        }
+      ],
+      "computed_power_checkpoints": [
+        {
+          "step": 7,
+          "power": 1
+        },
+        {
+          "step": 16,
+          "power": 1
+        },
+        {
+          "step": 17,
+          "power": 1
+        },
+        {
+          "step": 21,
+          "power": 2
+        },
+        {
+          "step": 25,
+          "power": 2
+        },
+        {
+          "step": 39,
+          "power": 2
+        },
+        {
+          "step": 48,
+          "power": 2
+        },
+        {
+          "step": 52,
+          "power": 2
+        }
+      ],
+      "physical_uid_ownership_cleanup_approved": true,
+      "four_live_manual_profile_verified": true,
+      "bounded_fault": {
+        "prefix": 35,
+        "mutation": {
+          "remove_effect": "OUT_DAGGER_POWER"
+        },
+        "first_failure": "Expected p1CombatChain-0 computed power to equal 2, got 1.",
+        "detected": true
+      },
+      "limitations": [
+        "One representative only, no fullcard/cycle or secondarycardcompletion.",
+        "Two own daggers across two chains only; no expiry/opponent/controlchange/nondagger branch."
+      ]
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+      "card_id": "nip_at_the_heels_blue",
+      "issue_id": "FAB-REG-035",
+      "status": "NATIVE_REPRODUCED_BLOCKED_UNSAVED",
+      "passing_coverage_approved": false,
+      "native_actions_before_failure": 16,
+      "exact_failure": "Expected p1DecisionQueue-0.Type to equal 'MZCHOOSE', got ''.",
+      "actual_initial_sha256": "85d0c93e9fb61c600ecf75a3d5784f9949dd5e04196f6a224757d2a03927d601",
+      "expected_manual_target": "p1CombatChain-0",
+      "expected_target_uid": 7,
+      "observed_decision_queues": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "native_saved_fixture": false,
+      "evidence_limits": [
+        "The native failure report captures actual initial text, attempted actions, observed gameplay state, queues and Hand references. It does not capture a full post-failure Stack/Params snapshot or actual PriorityPlayer scalar.",
+        "Absence of accepted targetUID binding and delayed ResolveCard chooser are source findings bound to current source hashes, not invented postfailure native object observations.",
+        "Manual chooser is the selected workflow. A future reviewed automatic accepted targetUID would be valid and require a different recipe."
+      ]
+    },
+    {
+      "slug": "card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+      "card_id": "shred_red",
+      "issue_id": "FAB-REG-035",
+      "status": "NATIVE_REPRODUCED_BLOCKED_UNSAVED",
+      "passing_coverage_approved": false,
+      "native_actions_before_failure": 17,
+      "exact_failure": "Expected p1DecisionQueue-0.Type to equal 'MZCHOOSE', got ''.",
+      "actual_initial_sha256": "1e4fd5b0855c7e695d0e0778f8a79d996033896f244ab10bed94b496e7bf1290",
+      "expected_manual_target": "p4CombatChain-0",
+      "expected_target_uid": 7,
+      "observed_decision_queues": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "native_saved_fixture": false,
+      "evidence_limits": [
+        "The native failure report captures actual initial text, attempted actions, observed gameplay state, queues and Hand references. It does not capture a full post-failure Stack/Params snapshot or actual PriorityPlayer scalar.",
+        "Absence of accepted targetUID binding and delayed ResolveCard chooser are source findings bound to current source hashes, not invented postfailure native object observations.",
+        "Manual chooser is the selected workflow. A future reviewed automatic accepted targetUID would be valid and require a different recipe."
+      ]
+    }
+  ],
+  "source_bindings": {
+    "FaBSim/Custom/WTRCards.php": "f34346a0061cb7c970293f20016a485470faf6fa3088900ba8aaf012513e32cc",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim/Custom/GameLogic.php": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/DYNCards.php": "ab41f2da836cf8283ccf1b14886110684845b7e9eeb953b34b249e3040f6cad1"
+  },
+  "total_actions": 92,
+  "total_native_assertions": 930,
+  "checks": 1327,
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b84-safe-two-four-live-run1.json",
+      "sha256": "5ef8ae78bf493539c6c1e193af3d28b7661c9cead03de2de728fc3b65701668b"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b84-safe-two-four-live-run2.json",
+      "sha256": "322a6c89bf50e858d81247c8cd9512a26f2e93ff97dbdcd9a1e5ee8a83d0c433"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b84-fault-controls.json",
+    "sha256": "fbc4fad865cd9737d880c46fd1e4bff6b092357593e4f358394dacea85b7cf23"
+  },
+  "fault_wrapper_sha256": "4020e0a56734152a7f5a5c3b8a2670c4a4006f3a5e9786534478695b1ec16f98",
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_runtime_imports": 0,
+  "review_script_sha256": "992b7778816d653236d69c5b3f38db7073417b26ba6c29e4718115996f9562b5"
+}

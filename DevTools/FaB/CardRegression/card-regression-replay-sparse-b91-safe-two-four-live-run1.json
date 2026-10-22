@@ -1,0 +1,41 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch91.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T23:11:59.695587+00:00",
+  "fixtures": [
+    {
+      "slug": "card-macho-grande-red-four-live-sparse-printed-dominate-rejects-second-real-hand-defender",
+      "fixture_sha256": "fca0ecc2c58be2e78347fed6d6660580efaba8aa13f5ff0308b0e9b427964f24",
+      "passed": true,
+      "result": "[PASS] Macho Grande / four live sparse positive effect"
+    },
+    {
+      "slug": "card-break-open-the-chests-yellow-four-live-sparse-all-four-real-arsenals-face-up-opposite-yellow-two-gold",
+      "fixture_sha256": "4f626c4cb8822d401385b31e5740f85562d63f7eaf3e5ee0f3ca90b521ce6634",
+      "passed": true,
+      "result": "[PASS] Break Open the Chests! / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-macho-grande-red-four-live-sparse-printed-dominate-rejects-second-real-hand-defender",
+      "returncode": 0,
+      "stdout": "[PASS] Macho Grande / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-break-open-the-chests-yellow-four-live-sparse-all-four-real-arsenals-face-up-opposite-yellow-two-gold",
+      "returncode": 0,
+      "stdout": "[PASS] Break Open the Chests! / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3118,
+  "omitted_source_scenarios": [
+    "card-out-for-blood-red-four-live-sparse-actual-warrior-weapon-reaction-plus-three-no-hand-defense",
+    "card-stir-the-aetherwinds-red-four-live-sparse-actual-next-wizard-as-instant-zero-ap-plus-three-dart"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

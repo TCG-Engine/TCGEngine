@@ -1,0 +1,1034 @@
+{
+  "status": "INDEPENDENT_ACTUAL_B82_FOUR_SPARSE_PRIMARY_REPRESENTATIVES_SEMANTICALLY_APPROVED",
+  "reviewer": "/root/resume_contract_review",
+  "independent_of_scenario_author": true,
+  "completed_utc": "2026-10-20T21:48:43.064415+00:00",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "spec_sha256": "df3f20550b63e9ad7b89e53306d267ae8aeee07c251c1e6d900a7a8d2e258707",
+  "independent_spec_review_sha256": "bf25cef1e4080de05190e1e7301dc36bbfffba56971157a3a5fbca6091d50984",
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch82-20261020T214341Z-6ad7e08d08b9f.json",
+    "sha256": "7f03e3ec69082133ac52359f1af608c5cb0d2476bfdab00cb40eb2704960ad65"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b82-four-live-run1.json",
+      "sha256": "6237dbae2dd79a561322c5afb0b5494ad567af41051912ef6609de5a0316e53e"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b82-four-live-run2.json",
+      "sha256": "f2a54f592ff124106c523e81fc8e73f7acf9dc6012a0adb2e5b7edaaacb008ee"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b82-fault-controls.json",
+    "sha256": "be1f186bf549738ea25269dc2b2b760583fd4ca1ad15ad29fab0f00e7abb5aac"
+  },
+  "fixtures": [
+    {
+      "slug": "card-feisty-locals-red-four-live-sparse-actual-defenders",
+      "fixture_sha256": "177f6dc3b09a067f89e0708888edd38437dc44bcf0507c6a6235b9fe63aa627a",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c2ccbb57006587df3ab471e3b874696fd950ca1edbe361f5196b29c904e6045d",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "8b69f0ef242fc7fa0802449ce8b4df6e0941ea77d424c828f2f061f04e5a2a11",
+        "expected_final_gamestate.txt": "52282fe4cc0c60101e4cf23747bf93c3c60aa24b149c7c304c6cd4f0ba52fc47",
+        "meta.json": "7899b54fa43f193d31084e3148b28185773c5119ca31542503d7b5e43283b105"
+      },
+      "actions": 28,
+      "native_assertions": 255,
+      "actual_manual_passes": 25,
+      "manual_pass_seats": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_checkpoints": [
+        {
+          "checkpoint": "four_live_full_health_legal_heroes_and_physical_sources",
+          "step": 0,
+          "assertions": 44
+        },
+        {
+          "checkpoint": "real_adjacent_target_chooser_before_committed_payment",
+          "step": 1,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "printed_cost_paid_once_actor_retains_pending_source",
+          "step": 2,
+          "assertions": 14
+        },
+        {
+          "checkpoint": "source_layer_manual_pass_1_of_four",
+          "step": 3,
+          "assertions": 6
+        },
+        {
+          "checkpoint": "source_layer_manual_pass_2_of_four",
+          "step": 4,
+          "assertions": 6
+        },
+        {
+          "checkpoint": "source_layer_manual_pass_3_of_four",
+          "step": 5,
+          "assertions": 6
+        },
+        {
+          "checkpoint": "source_layer_fourth_actual_pass_boundary",
+          "step": 6,
+          "assertions": 15
+        },
+        {
+          "checkpoint": "attack_step_manual_pass_1_of_four",
+          "step": 7,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "attack_step_manual_pass_2_of_four",
+          "step": 8,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "attack_step_manual_pass_3_of_four",
+          "step": 9,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "attack_step_fourth_actual_pass_boundary",
+          "step": 10,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "physical_defender_1_declared_from_Hand_without_action_or_resource_cost",
+          "step": 11,
+          "assertions": 12
+        },
+        {
+          "checkpoint": "actual_player4_finishes_declaration",
+          "step": 12,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "defend_priority_manual_pass_1_of_four",
+          "step": 13,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "defend_priority_manual_pass_2_of_four",
+          "step": 14,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "defend_priority_manual_pass_3_of_four",
+          "step": 15,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "defend_priority_fourth_actual_pass_boundary",
+          "step": 16,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "reaction_priority_manual_pass_1_of_four",
+          "step": 17,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "reaction_priority_manual_pass_2_of_four",
+          "step": 18,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "reaction_priority_manual_pass_3_of_four",
+          "step": 19,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "reaction_priority_fourth_actual_pass_boundary",
+          "step": 20,
+          "assertions": 8
+        },
+        {
+          "checkpoint": "damage_priority_manual_pass_1_of_four",
+          "step": 21,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "damage_priority_manual_pass_2_of_four",
+          "step": 22,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "damage_priority_manual_pass_3_of_four",
+          "step": 23,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "damage_priority_fourth_actual_pass_boundary",
+          "step": 24,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "resolution_priority_manual_pass_1_of_four",
+          "step": 25,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "resolution_priority_manual_pass_2_of_four",
+          "step": 26,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "resolution_priority_manual_pass_3_of_four",
+          "step": 27,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "resolution_priority_fourth_actual_pass_boundary",
+          "step": 28,
+          "assertions": 60
+        }
+      ],
+      "computed_power_checkpoints": [
+        {
+          "step": 6,
+          "power": 3
+        },
+        {
+          "step": 11,
+          "power": 5
+        },
+        {
+          "step": 12,
+          "power": 5
+        },
+        {
+          "step": 16,
+          "power": 5
+        },
+        {
+          "step": 20,
+          "power": 5
+        }
+      ],
+      "physical_damage_checkpoints": [
+        {
+          "step": 20,
+          "damage": 2
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "physical_uid_and_ownership_preserved": true,
+      "four_live_manual_profile_verified": true,
+      "two_current_clean_replay_passes": true,
+      "bounded_fault": {
+        "prefix": 16,
+        "mutation": {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "feisty_locals_red",
+          "mode": "add",
+          "tag": "WTR_POWER:1"
+        },
+        "exact_failure": "Expected p1CombatChain-0 computed power to equal 5, got 6.",
+        "detected": true
+      },
+      "limitations": [
+        "One representative of primary cycle or standalone; no sibling pitch variants or exhaustive branch/interaction completion.",
+        "Printed effect and physical damage/cleanup endpoints approved; unrelated internal diagnostic bookkeeping contents are outside this semantic review."
+      ]
+    },
+    {
+      "slug": "card-freewheeling-renegades-red-four-live-sparse-actual-defenders",
+      "fixture_sha256": "ca444466220d716ac1def1a5d10ff0c314f9ad8561c2df6ab92f0c658a9fe832",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d58ccd4ce57fdae65d9c4ca3844912b5bd58712af49627da603a61d3760ce6c9",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "641f47013f676393d2b9c780e042a6ddfe25ccbe13832e673e65048aa57c6bdd",
+        "expected_final_gamestate.txt": "95d5d1eec32b0b646acba121142244f3e0b3f9146cedc51790ab0c8630397a0b",
+        "meta.json": "4b7558ed1c5419796788af1c07b724ed9853b800db4d6b37b1a2e0e6a99daf96"
+      },
+      "actions": 28,
+      "native_assertions": 255,
+      "actual_manual_passes": 25,
+      "manual_pass_seats": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_checkpoints": [
+        {
+          "checkpoint": "four_live_full_health_legal_heroes_and_physical_sources",
+          "step": 0,
+          "assertions": 44
+        },
+        {
+          "checkpoint": "real_adjacent_target_chooser_before_committed_payment",
+          "step": 1,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "printed_cost_paid_once_actor_retains_pending_source",
+          "step": 2,
+          "assertions": 14
+        },
+        {
+          "checkpoint": "source_layer_manual_pass_1_of_four",
+          "step": 3,
+          "assertions": 6
+        },
+        {
+          "checkpoint": "source_layer_manual_pass_2_of_four",
+          "step": 4,
+          "assertions": 6
+        },
+        {
+          "checkpoint": "source_layer_manual_pass_3_of_four",
+          "step": 5,
+          "assertions": 6
+        },
+        {
+          "checkpoint": "source_layer_fourth_actual_pass_boundary",
+          "step": 6,
+          "assertions": 15
+        },
+        {
+          "checkpoint": "attack_step_manual_pass_1_of_four",
+          "step": 7,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "attack_step_manual_pass_2_of_four",
+          "step": 8,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "attack_step_manual_pass_3_of_four",
+          "step": 9,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "attack_step_fourth_actual_pass_boundary",
+          "step": 10,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "physical_defender_1_declared_from_Hand_without_action_or_resource_cost",
+          "step": 11,
+          "assertions": 12
+        },
+        {
+          "checkpoint": "actual_player4_finishes_declaration",
+          "step": 12,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "defend_priority_manual_pass_1_of_four",
+          "step": 13,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "defend_priority_manual_pass_2_of_four",
+          "step": 14,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "defend_priority_manual_pass_3_of_four",
+          "step": 15,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "defend_priority_fourth_actual_pass_boundary",
+          "step": 16,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "reaction_priority_manual_pass_1_of_four",
+          "step": 17,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "reaction_priority_manual_pass_2_of_four",
+          "step": 18,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "reaction_priority_manual_pass_3_of_four",
+          "step": 19,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "reaction_priority_fourth_actual_pass_boundary",
+          "step": 20,
+          "assertions": 8
+        },
+        {
+          "checkpoint": "damage_priority_manual_pass_1_of_four",
+          "step": 21,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "damage_priority_manual_pass_2_of_four",
+          "step": 22,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "damage_priority_manual_pass_3_of_four",
+          "step": 23,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "damage_priority_fourth_actual_pass_boundary",
+          "step": 24,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "resolution_priority_manual_pass_1_of_four",
+          "step": 25,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "resolution_priority_manual_pass_2_of_four",
+          "step": 26,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "resolution_priority_manual_pass_3_of_four",
+          "step": 27,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "resolution_priority_fourth_actual_pass_boundary",
+          "step": 28,
+          "assertions": 60
+        }
+      ],
+      "computed_power_checkpoints": [
+        {
+          "step": 6,
+          "power": 6
+        },
+        {
+          "step": 11,
+          "power": 4
+        },
+        {
+          "step": 12,
+          "power": 4
+        },
+        {
+          "step": 16,
+          "power": 4
+        },
+        {
+          "step": 20,
+          "power": 4
+        }
+      ],
+      "physical_damage_checkpoints": [
+        {
+          "step": 20,
+          "damage": 1
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "physical_uid_and_ownership_preserved": true,
+      "four_live_manual_profile_verified": true,
+      "two_current_clean_replay_passes": true,
+      "bounded_fault": {
+        "prefix": 16,
+        "mutation": {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "freewheeling_renegades_red",
+          "mode": "add",
+          "tag": "WTR_POWER:1"
+        },
+        "exact_failure": "Expected p1CombatChain-0 computed power to equal 4, got 5.",
+        "detected": true
+      },
+      "limitations": [
+        "One representative of primary cycle or standalone; no sibling pitch variants or exhaustive branch/interaction completion.",
+        "Printed effect and physical damage/cleanup endpoints approved; unrelated internal diagnostic bookkeeping contents are outside this semantic review."
+      ]
+    },
+    {
+      "slug": "card-show-of-strength-red-four-live-sparse-actual-defenders",
+      "fixture_sha256": "be4dc524e9eee51bc7e193fd58ef2b9c0615f32a9cad290ad72d29e999f21730",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8d1c7d2b79b3e7202aac6bffe3e62e4f00a0194ff024b92e1e5ae379061787fe",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "5e4ce9af9343b7792ac8cc8d1f92122fbcb9a1ddc02aca4bbd570e163bbede3d",
+        "expected_final_gamestate.txt": "1b38e768e9bf71af5850068ef70c281075d84a65c87a50e6971b3fd7e64deb55",
+        "meta.json": "b42ed57a341590f76cf66b6c2dc9bd42a5a3c6822b7942f99e5f14184013a3f4"
+      },
+      "actions": 29,
+      "native_assertions": 275,
+      "actual_manual_passes": 25,
+      "manual_pass_seats": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_checkpoints": [
+        {
+          "checkpoint": "four_live_full_health_legal_heroes_and_physical_sources",
+          "step": 0,
+          "assertions": 48
+        },
+        {
+          "checkpoint": "real_adjacent_target_chooser_before_committed_payment",
+          "step": 1,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "printed_cost_paid_once_actor_retains_pending_source",
+          "step": 2,
+          "assertions": 14
+        },
+        {
+          "checkpoint": "source_layer_manual_pass_1_of_four",
+          "step": 3,
+          "assertions": 6
+        },
+        {
+          "checkpoint": "source_layer_manual_pass_2_of_four",
+          "step": 4,
+          "assertions": 6
+        },
+        {
+          "checkpoint": "source_layer_manual_pass_3_of_four",
+          "step": 5,
+          "assertions": 6
+        },
+        {
+          "checkpoint": "source_layer_fourth_actual_pass_boundary",
+          "step": 6,
+          "assertions": 15
+        },
+        {
+          "checkpoint": "attack_step_manual_pass_1_of_four",
+          "step": 7,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "attack_step_manual_pass_2_of_four",
+          "step": 8,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "attack_step_manual_pass_3_of_four",
+          "step": 9,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "attack_step_fourth_actual_pass_boundary",
+          "step": 10,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "physical_defender_1_declared_from_Hand_without_action_or_resource_cost",
+          "step": 11,
+          "assertions": 12
+        },
+        {
+          "checkpoint": "physical_defender_2_declared_from_Hand_without_action_or_resource_cost",
+          "step": 12,
+          "assertions": 12
+        },
+        {
+          "checkpoint": "actual_player4_finishes_declaration",
+          "step": 13,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "defend_priority_manual_pass_1_of_four",
+          "step": 14,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "defend_priority_manual_pass_2_of_four",
+          "step": 15,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "defend_priority_manual_pass_3_of_four",
+          "step": 16,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "defend_priority_fourth_actual_pass_boundary",
+          "step": 17,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "reaction_priority_manual_pass_1_of_four",
+          "step": 18,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "reaction_priority_manual_pass_2_of_four",
+          "step": 19,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "reaction_priority_manual_pass_3_of_four",
+          "step": 20,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "reaction_priority_fourth_actual_pass_boundary",
+          "step": 21,
+          "assertions": 8
+        },
+        {
+          "checkpoint": "damage_priority_manual_pass_1_of_four",
+          "step": 22,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "damage_priority_manual_pass_2_of_four",
+          "step": 23,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "damage_priority_manual_pass_3_of_four",
+          "step": 24,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "damage_priority_fourth_actual_pass_boundary",
+          "step": 25,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "resolution_priority_manual_pass_1_of_four",
+          "step": 26,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "resolution_priority_manual_pass_2_of_four",
+          "step": 27,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "resolution_priority_manual_pass_3_of_four",
+          "step": 28,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "resolution_priority_fourth_actual_pass_boundary",
+          "step": 29,
+          "assertions": 64
+        }
+      ],
+      "computed_power_checkpoints": [
+        {
+          "step": 6,
+          "power": 8
+        },
+        {
+          "step": 11,
+          "power": 7
+        },
+        {
+          "step": 12,
+          "power": 6
+        },
+        {
+          "step": 13,
+          "power": 6
+        },
+        {
+          "step": 17,
+          "power": 6
+        },
+        {
+          "step": 21,
+          "power": 6
+        }
+      ],
+      "physical_damage_checkpoints": [
+        {
+          "step": 21,
+          "damage": 0
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "physical_uid_and_ownership_preserved": true,
+      "four_live_manual_profile_verified": true,
+      "two_current_clean_replay_passes": true,
+      "bounded_fault": {
+        "prefix": 17,
+        "mutation": {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "show_of_strength_red",
+          "mode": "add",
+          "tag": "WTR_POWER:1"
+        },
+        "exact_failure": "Expected p1CombatChain-0 computed power to equal 6, got 7.",
+        "detected": true
+      },
+      "limitations": [
+        "One representative of primary cycle or standalone; no sibling pitch variants or exhaustive branch/interaction completion.",
+        "Printed effect and physical damage/cleanup endpoints approved; unrelated internal diagnostic bookkeeping contents are outside this semantic review."
+      ]
+    },
+    {
+      "slug": "card-down-and-dirty-red-four-live-sparse-actual-defenders",
+      "fixture_sha256": "1b4d5f75050a64766ec319d14ca8caaa63967827d76efb82506b764096646720",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f10cfb59b4be2d98465c98f08ff87a81923d4cce7fbaa26c279c824820903d3f",
+        "actions.json": "472844a4f2c55a13b66edfcc392d9f869bf8a90ccda2ea0be2b9f9f672e2e0d1",
+        "assertions.json": "39849edc6e8287e9d58eef8184d17275447b773d4391579bfdb90976b1ea6fa0",
+        "expected_final_gamestate.txt": "bc1ad633d64c02f03f5c4c471afc5da6463a511277d914c56cb22da6491e50bd",
+        "meta.json": "f7eeea929bfd251754630990297dd518a325bb9679031f30c60afe1d575966cc"
+      },
+      "actions": 28,
+      "native_assertions": 256,
+      "actual_manual_passes": 25,
+      "manual_pass_seats": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_checkpoints": [
+        {
+          "checkpoint": "four_live_full_health_legal_heroes_and_physical_sources",
+          "step": 0,
+          "assertions": 44
+        },
+        {
+          "checkpoint": "real_adjacent_target_chooser_before_committed_payment",
+          "step": 1,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "printed_cost_paid_once_actor_retains_pending_source",
+          "step": 2,
+          "assertions": 14
+        },
+        {
+          "checkpoint": "source_layer_manual_pass_1_of_four",
+          "step": 3,
+          "assertions": 6
+        },
+        {
+          "checkpoint": "source_layer_manual_pass_2_of_four",
+          "step": 4,
+          "assertions": 6
+        },
+        {
+          "checkpoint": "source_layer_manual_pass_3_of_four",
+          "step": 5,
+          "assertions": 6
+        },
+        {
+          "checkpoint": "source_layer_fourth_actual_pass_boundary",
+          "step": 6,
+          "assertions": 15
+        },
+        {
+          "checkpoint": "attack_step_manual_pass_1_of_four",
+          "step": 7,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "attack_step_manual_pass_2_of_four",
+          "step": 8,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "attack_step_manual_pass_3_of_four",
+          "step": 9,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "attack_step_fourth_actual_pass_boundary",
+          "step": 10,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "physical_defender_1_declared_from_Arsenal_without_action_or_resource_cost",
+          "step": 11,
+          "assertions": 13
+        },
+        {
+          "checkpoint": "actual_player4_finishes_declaration",
+          "step": 12,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "defend_priority_manual_pass_1_of_four",
+          "step": 13,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "defend_priority_manual_pass_2_of_four",
+          "step": 14,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "defend_priority_manual_pass_3_of_four",
+          "step": 15,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "defend_priority_fourth_actual_pass_boundary",
+          "step": 16,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "reaction_priority_manual_pass_1_of_four",
+          "step": 17,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "reaction_priority_manual_pass_2_of_four",
+          "step": 18,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "reaction_priority_manual_pass_3_of_four",
+          "step": 19,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "reaction_priority_fourth_actual_pass_boundary",
+          "step": 20,
+          "assertions": 8
+        },
+        {
+          "checkpoint": "damage_priority_manual_pass_1_of_four",
+          "step": 21,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "damage_priority_manual_pass_2_of_four",
+          "step": 22,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "damage_priority_manual_pass_3_of_four",
+          "step": 23,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "damage_priority_fourth_actual_pass_boundary",
+          "step": 24,
+          "assertions": 5
+        },
+        {
+          "checkpoint": "resolution_priority_manual_pass_1_of_four",
+          "step": 25,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "resolution_priority_manual_pass_2_of_four",
+          "step": 26,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "resolution_priority_manual_pass_3_of_four",
+          "step": 27,
+          "assertions": 4
+        },
+        {
+          "checkpoint": "resolution_priority_fourth_actual_pass_boundary",
+          "step": 28,
+          "assertions": 60
+        }
+      ],
+      "computed_power_checkpoints": [
+        {
+          "step": 6,
+          "power": 4
+        },
+        {
+          "step": 11,
+          "power": 4
+        },
+        {
+          "step": 12,
+          "power": 4
+        },
+        {
+          "step": 16,
+          "power": 4
+        },
+        {
+          "step": 20,
+          "power": 4
+        }
+      ],
+      "physical_damage_checkpoints": [
+        {
+          "step": 20,
+          "damage": 2
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "physical_uid_and_ownership_preserved": true,
+      "four_live_manual_profile_verified": true,
+      "two_current_clean_replay_passes": true,
+      "bounded_fault": {
+        "prefix": 16,
+        "mutation": {
+          "player": 4,
+          "zone": "CombatChain",
+          "cardID": "down_and_dirty_red",
+          "mode": "add",
+          "tag": "DYN_DEFENSE:-1"
+        },
+        "exact_failure": "Expected p4Health to equal 18, got 17.",
+        "detected": true
+      },
+      "limitations": [
+        "One representative of primary cycle or standalone; no sibling pitch variants or exhaustive branch/interaction completion.",
+        "Printed effect and physical damage/cleanup endpoints approved; unrelated internal diagnostic bookkeeping contents are outside this semantic review."
+      ]
+    }
+  ],
+  "total_actions": 113,
+  "total_native_assertions": 1041,
+  "checks": 1593,
+  "official_rule_sources": [
+    "https://judge.fabtcg.com/cards/detail/2149/",
+    "https://judge.fabtcg.com/cards/detail/2152/",
+    "https://judge.fabtcg.com/cards/detail/4303/",
+    "https://judge.fabtcg.com/cards/detail/2126/",
+    "https://rules.fabtcg.com/en/cr/07-combat/",
+    "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+    "https://rules.fabtcg.com/en/trp/09-special-formats/",
+    "https://judge.fabtcg.com/cards/detail/726/"
+  ],
+  "printed_effect_conclusions": [
+    "Feisty Locals red: actual Action defense changes3 to5, physical defense3 gives2damage.",
+    "Freewheeling Renegades red: actual Action defense changes6 to4, physical defense3 gives1damage.",
+    "Show of Strength red: each of two actual6+ defenders reduces8 to7 to6; their3+3physicaldefense prevents all6.",
+    "Down and Dirty red: actual private Arsenal sourceUID6 is declared DEFENSE without play costs, defense2 against power4 gives2damage."
+  ],
+  "limitations": [
+    "Only four sparse primary representatives reviewed; no finite complete-card baseline promoted.",
+    "Replays and faults were executed by root through the existing recorder/runner/helpers; reviewer only inspected immutable native evidence and scratch pure models.",
+    "No full inventory replay claim follows from these targeted four-fixture passes."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_runtime_imports": 0,
+  "review_script_sha256": "74523aa98dd9070e085ee42d28202a6e356ac5b5ef8359c8c15dffc8e6054a9a"
+}

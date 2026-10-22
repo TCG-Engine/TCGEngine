@@ -1,0 +1,61 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch82.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T21:44:25.476759+00:00",
+  "fixtures": [
+    {
+      "slug": "card-feisty-locals-red-four-live-sparse-actual-defenders",
+      "fixture_sha256": "177f6dc3b09a067f89e0708888edd38437dc44bcf0507c6a6235b9fe63aa627a",
+      "passed": true,
+      "result": "[PASS] Feisty Locals red / four live sparse actual defense"
+    },
+    {
+      "slug": "card-freewheeling-renegades-red-four-live-sparse-actual-defenders",
+      "fixture_sha256": "ca444466220d716ac1def1a5d10ff0c314f9ad8561c2df6ab92f0c658a9fe832",
+      "passed": true,
+      "result": "[PASS] Freewheeling Renegades red / four live sparse actual defense"
+    },
+    {
+      "slug": "card-show-of-strength-red-four-live-sparse-actual-defenders",
+      "fixture_sha256": "be4dc524e9eee51bc7e193fd58ef2b9c0615f32a9cad290ad72d29e999f21730",
+      "passed": true,
+      "result": "[PASS] Show of Strength red / four live sparse actual defense"
+    },
+    {
+      "slug": "card-down-and-dirty-red-four-live-sparse-actual-defenders",
+      "fixture_sha256": "1b4d5f75050a64766ec319d14ca8caaa63967827d76efb82506b764096646720",
+      "passed": true,
+      "result": "[PASS] Down and Dirty red / four live sparse actual defense"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-feisty-locals-red-four-live-sparse-actual-defenders",
+      "returncode": 0,
+      "stdout": "[PASS] Feisty Locals red / four live sparse actual defense\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-freewheeling-renegades-red-four-live-sparse-actual-defenders",
+      "returncode": 0,
+      "stdout": "[PASS] Freewheeling Renegades red / four live sparse actual defense\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-show-of-strength-red-four-live-sparse-actual-defenders",
+      "returncode": 0,
+      "stdout": "[PASS] Show of Strength red / four live sparse actual defense\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-down-and-dirty-red-four-live-sparse-actual-defenders",
+      "returncode": 0,
+      "stdout": "[PASS] Down and Dirty red / four live sparse actual defense\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3083,
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

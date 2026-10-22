@@ -1,0 +1,187 @@
+{
+  "status": "CORRECTED_B91_STIR_OFB_TWO_SPARSE_REPRESENTATIVES_TWO_CLEAN_REPLAYS_TWO_EXACT_NATIVE_SENSITIVITY_CONTROLS_QUALIFIED",
+  "reviewer": "/root/resume_contract_review",
+  "scenario_author": "/root/resume_contract_review",
+  "independent_of_author": false,
+  "independent_expected_semantics_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b91-stir-ofb-protocol-successor\\independent-delta-spec-review-root.json",
+    "sha256": "a70649d60b7fd8758d9bf130f0951b624a2b2eb7e835348cb9891f86a1ed5426"
+  },
+  "source_spec": "card-regression-batch91-stir-ofb-protocol-corrected.json",
+  "input_sha256": "95c4e20e241772b9a55e9261d553af811bcfa5daa95a19dee451fb48b019f2ee",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "completed_utc": "2026-10-20T23:37:17.630505+00:00",
+  "fixtures": [
+    {
+      "slug": "card-stir-the-aetherwinds-red-four-live-sparse-actual-next-wizard-as-instant-zero-ap-plus-three-dart",
+      "fixture_sha256": "cd18aafae87206f2df46ebf477967e4d5280016a8c8da0f59616c0ca2fcab46b",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ac74fabc2617c37e8c6073399c953af8751a51f1a04964c7b9b2927bbd7a2eac",
+        "actions.json": "ee718c359b7e58192bd0670982dd99fe4f80f519881b72107521f2ae81bae6ae",
+        "assertions.json": "e28a726104fe9b952f5f46c11ba9573515bfd1e2b0dbac4e23b85147a8ed7022",
+        "expected_final_gamestate.txt": "df1ed873539bbac44159f8c6df024444544ee59afc9741484337ebc7c1051b84",
+        "meta.json": "af3576596dd458c774d991ccc44f6f35d499fcc56ae678972a2615d5836d8d6e"
+      },
+      "actions": 12,
+      "native_assertions": 585,
+      "actual_manual_passes": 8,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "source_owner_controller": 1,
+      "final_health": [
+        20,
+        14,
+        20,
+        20
+      ],
+      "printed_effect": "A real blue3 pitch pays Stir2 and leaves1/AP0. Resolve Stir without go again. Its real permission permits Aether Dart Red as an INSTANT at AP0, costing no AP. The next Wizard non-attack card receives the printed +3 replacement: Dart3+3 deals6 to declared P2. P2 ends14; actor remains AP0/resources1.",
+      "limitations": [
+        "Verdance is a legal quiet young20 Wizard; its Earth-banish/healing condition is absent. No fabricated instant permission is seeded.",
+        "No off-turn, alternative next Wizard spell, multi-packet or sibling expansion.",
+        "Stir synchronous source-clear/callback ordering is outside atomic endpoints; managed Dart retains its pending physical source through response priority."
+      ],
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-out-for-blood-red-four-live-sparse-actual-warrior-weapon-reaction-plus-three-no-hand-defense",
+      "fixture_sha256": "2d75d62a024ffcd4e059ed0e38ae56d2e2bcb14f51421f7215356e6a84b668dc",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "696d50aff0eb14276c272dba212d01f04ed563a04f762b53977f46915c5a3aa5",
+        "actions.json": "210139aefeae34037da13eacf8c9d53c158a3900528239688e185e277d3612a6",
+        "assertions.json": "539a7354f53e75a8dce15afbda1d23c1eba784ce764385b26f1e85890bcae318",
+        "expected_final_gamestate.txt": "edf7ac086c3d43025a868024f28a6a11a177bb3a360d1fdb17550b62558244f0",
+        "meta.json": "b0b1d11519d151839ffd9f98ebf3435d7726ebec3dcd9a887c380a0902ec923d"
+      },
+      "actions": 33,
+      "native_assertions": 1154,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "source_owner_controller": 1,
+      "final_health": [
+        20,
+        15,
+        20,
+        20
+      ],
+      "printed_effect": "Actually activate Cintari Saber against P2 and pitch blue3 to pay1, leaving2/AP0. At real Reaction priority, pay1 for Out for Blood without spending AP. Pending reaction does not yet raise power. Resolution gives the current weapon2+3=5; no hand card defended, so Reprise is not active. Actual damage5 leaves P2 at15; resources1/AP0, physical Saber remains equipped.",
+      "limitations": [
+        "No Reprise-positive, second attack, attack-action target, equipment defense or sibling expansion.",
+        "Virtual weapon layer Owner0 is a generated diagnostic only; physical source ownership and SourceUniqueID are independently pinned.",
+        "Dorinthea weapon-hit allowance does not supply AP or a second attack; her ability is not a primary tested group."
+      ],
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 45,
+  "total_native_assertions": 1739,
+  "total_manual_passes": 37,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b91-corrected2-actual-independent-review.json",
+    "sha256": "e051c4c5699bb85b4fdf8f35034eb7fb569ae26720692bf83597ed40621498f6"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch91-stir-ofb-protocol-corrected-20261020T233024Z-6ad7f990156de.json",
+    "sha256": "b5e74b9668711d7cff8ca937e0a224fc827e248bed3b109246fef8faee9f0550"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b91-stir-ofb-corrected-run1.json",
+      "sha256": "2679f0d711465d9ee6f907fc5eafb42b831c313ce533b372a2eec59294b6a38f",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "source_spec": "card-regression-batch91-stir-ofb-protocol-corrected.json"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b91-stir-ofb-corrected-run2.json",
+      "sha256": "c73062b389d2e4b9dee2ad3ae08b002b9765cf6c17ec75683c9038bd31053cff",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "source_spec": "card-regression-batch91-stir-ofb-protocol-corrected.json"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b91-corrected2-fault-controls.json",
+    "sha256": "33f11611702e807e5938d17a2ac37516656d2c982bc7fd73ac6a09c594530838",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "c53ab9607e4c37eb1027f3b753ea9c3f5fbf3da4b52173c50064b26defcc227e",
+    "full_fixture_inventory_preserved": true
+  },
+  "focused_native_controls": [
+    {
+      "id": "b91_stir_enhanced_arcane_physical_health_endpoint",
+      "fixture": "card-stir-the-aetherwinds-red-four-live-sparse-actual-next-wizard-as-instant-zero-ap-plus-three-dart",
+      "prefix_actions": 12,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 2,
+            "value": 17
+          }
+        ]
+      },
+      "retained_assertions": 162,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p2Health to equal 14, got 17.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b91_ofb_remove_actual_resolved_weapon_reaction_power",
+      "fixture": "card-out-for-blood-red-four-live-sparse-actual-warrior-weapon-reaction-plus-three-no-hand-defense",
+      "prefix_actions": 21,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "cintari_saber",
+            "mode": "remove",
+            "tag": "CRU_REACTION_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 455,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b91-corrected2-focused-fault-plan.json",
+    "sha256": "c53ab9607e4c37eb1027f3b753ea9c3f5fbf3da4b52173c50064b26defcc227e"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a"
+  },
+  "preserved_original_failed_recipes": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b91-safe2-and-blocked2-actual-independent-review.json",
+    "sha256": "d5a897aa99804339ea9edc9f0c7166fb230436c1a9845683773721db840dbdcb"
+  },
+  "original_semantic_checks": 4284,
+  "native_evidence_review_checks": 59,
+  "limitations": [
+    "One positive sparse Stir/OFB representative each, no sibling/branch/full-card or support-card transfer.",
+    "Independent root reviewed the five changed expectations and official source rules; scenario author audited actual files against that review. Roles are explicit.",
+    "Stir control pins enhanced physical-health endpoint, not an isolated internal grant mutation. OFB control removes actual applied+3 reaction grant before damage/hit.",
+    "OFB sole-current weapon endpoint excludes target-loss/rebinding guarantees. Stir unmanaged ordinary-source-clear internals remain outside endpoint approval.",
+    "Original91/failed recipes and previously qualifiedMachoChests remain preserved. Root executed all native operations; reviewer used only read-only evidence/pure models."
+  ],
+  "reviewer_script_sha256": "4a1dc0569779a279af592a46c7d62e46771924ec73c1792b185b49d88e2e8e67",
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_runtime_imports": 0
+}

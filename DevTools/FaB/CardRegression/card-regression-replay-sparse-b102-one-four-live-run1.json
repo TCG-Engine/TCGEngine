@@ -1,0 +1,26 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch102-four-seat-queues-corrected.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-21T00:45:06.800726+00:00",
+  "fixtures": [
+    {
+      "slug": "card-potion-of-luck-blue-four-live-sparse-only-arsenal-card-shuffled-and-drawn",
+      "fixture_sha256": "122a02c35be910e1dcfe1e8b82a720f0e9491b57a13f2d5861bd24e72c78bdc1",
+      "passed": true,
+      "result": "[PASS] Potion of Luck / one-card deterministic four-live positive"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-potion-of-luck-blue-four-live-sparse-only-arsenal-card-shuffled-and-drawn",
+      "returncode": 0,
+      "stdout": "[PASS] Potion of Luck / one-card deterministic four-live positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3159,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

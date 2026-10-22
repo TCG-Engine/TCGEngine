@@ -1,0 +1,63 @@
+{
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "completed_utc": "2026-10-20T22:11:00.972052+00:00",
+  "results": [
+    {
+      "fixture": "card-ancestral-empowerment-red-four-live-sparse-ninja-current-attack-plus-one-and-physical-draw",
+      "source_raw5": {
+        "initial_gamestate.txt": "65049c702b1b3993ea6a4975fde97c27892b28e5d2ef93567774c81095c80a1d",
+        "actions.json": "04ec7b0d1f667a55258d123e3e9302e3c2ae3142df18e909a451d2081749768d",
+        "assertions.json": "c0cd582542f6cecc01ab83ad9824229e559aaf2ff85521dc541cfd13536118d1",
+        "expected_final_gamestate.txt": "052027f748592d65f57f35eda95dab7379da2b0bcd118a81f7c0bb8ae260e004",
+        "meta.json": "acda81f0db049c1c2937b72beb12a2bcd5a6e99413e8f28c390deefcc0f8ad0b"
+      },
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "prefix_actions": 20,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "head_jab_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Ancestral Empowerment / four live sparse reaction: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 4, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "meaning": "Disposable removal of one real applied grant; Ancestral draw is retained, Knives first damage and actual second weapon payment are retained. No alternative legal-play or targeting-contract claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "fixture": "card-knives-out-blue-four-live-sparse-two-real-controlled-daggers-turn-buff",
+      "source_raw5": {
+        "initial_gamestate.txt": "bbc19110a7afbb49a2eacb878fa648d996f892d5a8b3d4e3e14ae2e3bda7cbaf",
+        "actions.json": "7d0ed1d568592ed2dd0611d9eba55bdc68906b45ed50966caef801f06effcce0",
+        "assertions.json": "29ef9af687792e47bc41043eb5f8fe70bc60044e8eed88531836a1596b170f76",
+        "expected_final_gamestate.txt": "3da1c1d8a1f9735aa884a0cb35b87073b2e548c7f0d641d749fb2b7b15496072",
+        "meta.json": "b7999b809235f707221002a3e19adaf0b337323974be40b3d310c3b3ffba0ac5"
+      },
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "prefix_actions": 35,
+      "mutation": {
+        "remove_effect": "OUT_DAGGER_POWER"
+      },
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Knives Out / four live sparse reaction: Step 4 assertion failed: Expected p1CombatChain-0 computed power to equal 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "meaning": "Disposable removal of one real applied grant; Ancestral draw is retained, Knives first damage and actual second weapon payment are retained. No alternative legal-play or targeting-contract claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true
+}

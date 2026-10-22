@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-20T21:43:41+00:00",
+    "input_file": "card-regression-batch82.json",
+    "input_sha256": "df3f20550b63e9ad7b89e53306d267ae8aeee07c251c1e6d900a7a8d2e258707",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-feisty-locals-red-four-live-sparse-actual-defenders",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 255
+        },
+        {
+            "slug": "card-freewheeling-renegades-red-four-live-sparse-actual-defenders",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 255
+        },
+        {
+            "slug": "card-show-of-strength-red-four-live-sparse-actual-defenders",
+            "status": "recorded_semantically_checked",
+            "actions": 29,
+            "assertions": 275
+        },
+        {
+            "slug": "card-down-and-dirty-red-four-live-sparse-actual-defenders",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 256
+        }
+    ]
+}

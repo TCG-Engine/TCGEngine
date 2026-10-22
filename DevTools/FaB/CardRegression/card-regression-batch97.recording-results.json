@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-barraging-brawnhide-red-four-live-sparse-zero-non-equipment-defenders-gives-one-power",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 335
+    },
+    {
+        "slug": "card-unwavering-resolve-red-four-live-sparse-physically-empty-deck-gives-four-power",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 335
+    },
+    {
+        "slug": "card-buckwild-red-four-live-sparse-actual-six-power-blue-pitch-pays-three-and-grants-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 335
+    },
+    {
+        "slug": "card-blistering-assault-red-four-live-sparse-actual-yellow-pitch-pays-two-and-grants-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 335
+    }
+]

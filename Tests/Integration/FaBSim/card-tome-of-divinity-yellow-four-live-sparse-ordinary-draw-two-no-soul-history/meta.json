@@ -1,0 +1,7 @@
+{
+    "name": "Tome of Divinity / four live sparse ordinary-draw-two-no-soul-history",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T00:21:05+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "No card has entered Soul in this fresh fixture. Two actual pitches, blue3 then red1, pay printed4 exactly. The Instant draws the first two physical Deck cards, leaves the third untouched, and spends no AP. One positive printed-effect demonstration only. Exactly four genuine live players and four recorded manual passes. The synchronous legacy ACTION/INSTANT resolver's internal source-clear-before-callback ordering is outside this atomic endpoint witness; no assertion labels it intended rules behavior. No full card/cycle/keyword, source-suppression, listener or lifecycle completion claim. The draw-three replacement after actual soul movement is not exercised. Prism hero activation is not activated. A third known Deck card prevents an erroneous unconditional draw-three implementation from passing. Sources: https://judge.fabtcg.com/cards/detail/795/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/JDG067-CF.webp https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

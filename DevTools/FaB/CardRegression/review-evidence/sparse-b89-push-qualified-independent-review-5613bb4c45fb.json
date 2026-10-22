@@ -1,0 +1,174 @@
+{
+  "status": "INDEPENDENT_CORRECTED_PUSH_SPARSE_REPRESENTATIVE_TWO_CLEAN_REPLAYS_ONE_INTENDED_NATIVE_FAULT_QUALIFIED",
+  "reviewer": "/root/resume_contract_review",
+  "independent_of_author": true,
+  "completed_utc": "2026-10-20T22:57:41.829486+00:00",
+  "source_spec": "card-regression-batch89-push-focused-protocol-corrected.json",
+  "input_sha256": "7a4a7c8e2e2d9360e22bf8ed964197959614c96e7a0a56b279399affb8c18264",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "fixtures": [
+    {
+      "slug": "card-push-the-point-red-four-live-sparse-real-head-jab-hit-same-open-chain-plus-two",
+      "fixture_sha256": "adf253928570ea3b38cca3cbdeba4f6a9d4bd6fef6962f12087f0b565f1bc352",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "908465326b3a638b2027ae944dd450aa85d5b4c12dc9281fc902c6ac44819313",
+        "actions.json": "4c66861c88d4c3bbbab5b76eac57f3fa8cc412c20c3e8774676d4b3fd023cc98",
+        "assertions.json": "148abea8827ef2973ce948e90534ae0c771b02795fba2c3e2839a5f9faa762d3",
+        "expected_final_gamestate.txt": "504021c6f197386827599b8732ac9f054289cb366ad24b9264e769a278879cf4",
+        "meta.json": "21e2aa4067a86449d47a7b09005969378889f9d6c358d69baec5932b6cf4fdfb"
+      },
+      "actions": 50,
+      "native_assertions": 1910,
+      "actual_manual_passes": 46,
+      "all_four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "source_owner_controller": 1,
+      "actual_event_ledger": [
+        {
+          "event": "paid_play",
+          "cardID": "head_jab_red",
+          "uid": 6,
+          "sourceUID": 6,
+          "prior_history": [],
+          "prior_hit": false,
+          "combat_open": false
+        },
+        {
+          "event": "physical_damage",
+          "sourceUID": 6,
+          "victim": 2,
+          "amount": 3
+        },
+        {
+          "event": "paid_play",
+          "cardID": "push_the_point_red",
+          "uid": 5,
+          "sourceUID": 5,
+          "prior_history": [
+            "head_jab_red"
+          ],
+          "prior_hit": true,
+          "combat_open": true
+        },
+        {
+          "event": "physical_damage",
+          "sourceUID": 5,
+          "victim": 2,
+          "amount": 6
+        }
+      ],
+      "final_health": [
+        20,
+        11,
+        20,
+        20
+      ],
+      "limitations": [
+        "One positive representative per primary singleton/pitch group; no other branch, sibling or support-card promotion.",
+        "Public request endpoints and real physical effect/history are verified; unobserved unmanaged ordinary-source-clear internals remain outside certification."
+      ],
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 50,
+  "total_native_assertions": 1910,
+  "total_manual_passes": 46,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b89-push-focused-actual-saved-independent-review.json",
+    "sha256": "2737bda83bd805212d68c6e41f7faf68820bf043406dab2c84708a1161697830"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch89-push-focused-protocol-corrected-20261020T225127Z-6ad7f06f4a998.json",
+    "sha256": "82ec32a5207678155b4472a2e41316498321c80e481d805228f63ff01a5f675b"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b89-push-focused-run1.json",
+      "sha256": "8dcf195725c097c40e52b2b0e19989bcdc93a336af790328f6492e59b65b9136",
+      "total": 1,
+      "passed": 1,
+      "source_spec": "card-regression-batch89-push-focused-protocol-corrected.json",
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b89-push-focused-run2.json",
+      "sha256": "f67259c875127c757c00acc410128c55f079da207b3c16f0f2f2e84b70e9cdc4",
+      "total": 1,
+      "passed": 1,
+      "source_spec": "card-regression-batch89-push-focused-protocol-corrected.json",
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b89-push-fault-controls.json",
+    "sha256": "c939a413cf467774363d53a942a75ef1c2422e1d37f841593b4aae6740570a35",
+    "total": 1,
+    "intended_semantic_failures": 1,
+    "plan_sha256": "83899cf8fc1403a5e071597562e0ab8ed1091e0005df1cc8579a2d7bba9a103a",
+    "full_fixture_inventory_preserved": true
+  },
+  "focused_native_control": {
+    "id": "b89_push_remove_actual_same_chain_hit_power_grant",
+    "fixture": "card-push-the-point-red-four-live-sparse-real-head-jab-hit-same-open-chain-plus-two",
+    "prefix_actions": 29,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "push_the_point_red",
+          "mode": "remove",
+          "tag": "WTR_POWER:2"
+        }
+      ]
+    },
+    "retained_assertions": 853,
+    "expected_failure_step": 0,
+    "expected_failure": "Expected p1CombatChain-1 computed power to equal 6, got 4.",
+    "detected": true,
+    "returncode": 1,
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true
+  },
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b89-push-focused-fault-plan.json",
+    "sha256": "83899cf8fc1403a5e071597562e0ab8ed1091e0005df1cc8579a2d7bba9a103a"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a"
+  },
+  "preserved_original_failed_recipe": {
+    "source_spec": "card-regression-batch89.json",
+    "input_sha256": "93dfe83b5aed947dcaad93c9eaf6c8cfe7a54500d38fa680e9d1fdc437186d17",
+    "recording_report": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch89-20261020T224208Z-6ad7ee409dbb5.json",
+      "sha256": "d45ff8ae7d70e43db86581caec70c023f5ab87a46bc48a80d4aba2e4e966b745"
+    },
+    "independent_failure_audit": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b89-three-saved-and-one-protocol-hold-independent-review.json",
+      "sha256": "1f8211106188b51e5bdb6eed18408580f3ed6536695f8bcab5455ce96c5d3bbf"
+    },
+    "semantically_approved": false,
+    "fixture_saved_by_original_attempt": false,
+    "qualification_scope": "Historic original recipe attempt only. It assumed an impossible second target chooser and remains unqualified; the separately reviewed corrected standalone is qualified here without rewriting it."
+  },
+  "corrected_protocol_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b89-push-focused-successor-independent-review.json",
+    "sha256": "06b0df9a319493be20384b9993b53c66f10a66dc5ee34c70dc00bf2fbf417234"
+  },
+  "original_semantic_checks": 1756,
+  "native_evidence_review_checks": 46,
+  "qualification": "Exactly one corrected sparse positive representative of Push the Point pitch cycle, using real preceding hit/history and physical payment/effect. Original failed route remains preserved and unqualified.",
+  "limitations": [
+    "No sibling pitch, miss/new-chain/different previous attack branch, support-card completion or full-card/group guarantee.",
+    "This corrects scenario UI-protocol modeling, not a gameplay rule fix; original canonical batch and previous three qualified raw5 are unchanged.",
+    "Root alone executed recording/replays/fault. Reviewer performed read-only evidence/source checks and workspace-only paper models. Full-corpus results are separate."
+  ],
+  "reviewer_script_sha256": "dfed188ebc12ae0252ec24c87e66ac16d7316d2deeb29cd67d9dc6f8be9787a4",
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_runtime_imports": 0
+}

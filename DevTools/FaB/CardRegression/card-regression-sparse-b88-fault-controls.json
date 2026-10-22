@@ -1,0 +1,152 @@
+{
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "completed_utc": "2026-10-20T22:43:14.947440+00:00",
+  "plan_sha256": "f31e1c2a05d3da8386771bbdb13f7101faa15f1e79ba251d61e17d02e144d8d7",
+  "independent_saved_proof_sha256": "8f699f08a731a471da1a5eb2e0cadf09c6ad0f3081126199a7e4e021f7cdbfba",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    "sparse-b88-focused-fault-plan.json",
+    "f31e1c2a05d3da8386771bbdb13f7101faa15f1e79ba251d61e17d02e144d8d7",
+    "card-regression-sparse-b88-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b88_force_sight_remove_real_attack_power_grant",
+      "fixture": "card-force-sight-red-four-live-sparse-hand-origin-next-attack-plus-three",
+      "fixture_sha256": "6c2489a87a18b788c881b1dd492e3a6d03394a2e84728217e5c4036be5ecbbed",
+      "source_raw5": {
+        "initial_gamestate.txt": "fd3d24ff24f5332f79b5ee25bb01b8033759baaae2d9ddda0187838b97a9584e",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "4a65e791d41ddb82fa31c4c7bf046aa3531681b21303920caf95576f04e5c6ce",
+        "expected_final_gamestate.txt": "2e1fca7b222a87c39987a23e5034618b0a398213589cb96af754f5c29a1b2d18",
+        "meta.json": "66a6cfbd840fe367eb81af086f7c4ae7993490148b47dd00afb8606888416dba"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "tag": "WTR_POWER:3",
+            "mode": "remove"
+          }
+        ]
+      },
+      "retained_assertions": 221,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Force Sight / four live sparse next effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove the one actual Force Sight +3 tag from real attackUID6 at its first public ATTACK checkpoint. Native current power must detect5 to2, retaining source/economy/damage/owner oracles; this is a disposable sensitivity fault, not an in-game removal action.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b88_tide_remove_real_blue_attack_power_grant",
+      "fixture": "card-first-tenet-of-chi-tide-blue-four-live-sparse-next-blue-attack-plus-two",
+      "fixture_sha256": "d635b984183ccd0b5f1f36b59023ce484eda2a8e23bfe9862754e675bf1acc64",
+      "source_raw5": {
+        "initial_gamestate.txt": "f1ab92076341337408f1c956f81f1c5c843e36277aa50008c7d172a7416fbacf",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "832e662fe0cc03ed1787c430dc05ce8191e8386b1116a86e859067141976d16c",
+        "expected_final_gamestate.txt": "95f1956f70cfedcc912c1fa6f7e1bcc261e53a2fac1cd17bbf42f606fd12de62",
+        "meta.json": "a058b02134ab7eee4d186f9007c80f4ad8e674315be2dbee9f4dbb7b074d6c0d"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "tag": "WTR_POWER:2",
+            "mode": "remove"
+          }
+        ]
+      },
+      "retained_assertions": 221,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] First Tenet of Chi: Tide / four live sparse next effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 4, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove the one actual Tide +2 tag from real blue attackUID6 at its first public ATTACK checkpoint. Native current power must detect4 to2; no new branch or source rule change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b88_wind_remove_actual_blue_action_granted_go_again",
+      "fixture": "card-first-tenet-of-chi-wind-blue-four-live-sparse-next-real-blue-action-granted-go-again",
+      "fixture_sha256": "a0176a06836e7666797e6b87df918169c2b605f2f9e25062ed74a4f68f578aee",
+      "source_raw5": {
+        "initial_gamestate.txt": "ac43e22ff358beb71b054855b24eca846d4920aea037b3d24fef4a19d9856cf0",
+        "actions.json": "4e77e2368de6a39a387b48f8143fbb03a5c1857caed1dda4fe6546a2a3a944e4",
+        "assertions.json": "63328317ca9ecd0bd7c29cb96a68c86fbfd9812311e698469c34d73a7fd01bbe",
+        "expected_final_gamestate.txt": "7ed1be82285c6708fc16fff411091d7b631b55c1f7241ae7bdc476c50bb1d4ea",
+        "meta.json": "56d979ecc27977ac4370dab3f8b309d92df0044f576342dad01b7ac368c22105"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "Stack",
+            "cardID": "healing_balm_blue",
+            "tag": "GO_AGAIN",
+            "mode": "remove"
+          }
+        ]
+      },
+      "retained_assertions": 128,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1ActionPoints to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] First Tenet of Chi: Wind / four live sparse next effect: Step 4 assertion failed: Expected p1ActionPoints to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After the actual blue Healing Balm ActionUID6 is announced and its one AP is spent, remove only its one Wind-granted GO_AGAIN tag. Keep all exact source properties, paid cost/AP0, four passes, healing20 to21, physical graveyard and cleanup checks. The terminal native AP refund1 to0 is the first intended difference. Does not create an invalid mid-resolution pause or certify eager internal source/GA/effect ordering.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b88_bellow_remove_actual_six_base_attack_power_grant",
+      "fixture": "card-battle-clearing-bellow-blue-four-live-sparse-real-paid-next-six-base-attack-plus-six",
+      "fixture_sha256": "163d603f9ebe7f1b4d3525263423d943da5f68b15187f50aaffb45300ea7c0bd",
+      "source_raw5": {
+        "initial_gamestate.txt": "b5acc28023bd05daf14184a63f5ca82f5885a5189f4654f3b9bf717df994ffe5",
+        "actions.json": "66614d0e7ea65f7f074dcede3207fe36c3a117526537b1d368db241ff7daf539",
+        "assertions.json": "f52c21bb17554a66f92f3470d31bbd7fc366f856cabac5c61c75da2cbd0462ad",
+        "expected_final_gamestate.txt": "f53c7fe6e766c26adb885df0a7615ed185114971889ee1188064c35d2ce32009",
+        "meta.json": "1b07908b20ec3775974a56a49a0b8de12f10b4e7fb538732ae855b84d8f105c5"
+      },
+      "prefix_actions": 13,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "raging_onslaught_red",
+            "tag": "WTR_POWER:6",
+            "mode": "remove"
+          }
+        ]
+      },
+      "retained_assertions": 229,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 13, got 7.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Battle Clearing Bellow / four live sparse next effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 13, got 7.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After both real pitch3 payments and actual attack resolution, remove only Bellow +6 from eligible base7 Raging OnslaughtUID6. Native current power must detect13 to7; donor7/8, original costs/AP, ownership and every later damage oracle remain unchanged.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

@@ -1,0 +1,52 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch89.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T22:45:11.118591+00:00",
+  "fixtures": [
+    {
+      "slug": "card-bark-obscenities-red-four-live-sparse-actual-next-attack-targets-adjacent-guardian",
+      "fixture_sha256": "8c18521097f17ef56b8bcfa464e17e576d7cc2e8be66bc7f5474e7c87d9cb5c6",
+      "passed": true,
+      "result": "[PASS] Bark Obscenities / four live sparse positive effect"
+    },
+    {
+      "slug": "card-lead-with-speed-red-four-live-sparse-actual-brute-weapon-plus-three-and-owned-agility",
+      "fixture_sha256": "ee8f356acd200536abc7d4c7a63c0f39b89e93bd2f15be1a76e8f3bba2496a20",
+      "passed": true,
+      "result": "[PASS] Lead with Speed / four live sparse positive effect"
+    },
+    {
+      "slug": "card-vigor-rush-red-four-live-sparse-real-prior-nonattack-go-again-base-four-excludes-minnow",
+      "fixture_sha256": "555a837b91c1b2f5dddf8d3b20f17082ecb63e7dbe116e9b281621b9e768416a",
+      "passed": true,
+      "result": "[PASS] Vigor Rush / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-bark-obscenities-red-four-live-sparse-actual-next-attack-targets-adjacent-guardian",
+      "returncode": 0,
+      "stdout": "[PASS] Bark Obscenities / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-lead-with-speed-red-four-live-sparse-actual-brute-weapon-plus-three-and-owned-agility",
+      "returncode": 0,
+      "stdout": "[PASS] Lead with Speed / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-vigor-rush-red-four-live-sparse-real-prior-nonattack-go-again-base-four-excludes-minnow",
+      "returncode": 0,
+      "stdout": "[PASS] Vigor Rush / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3108,
+  "omitted_source_scenarios": [
+    "card-push-the-point-red-four-live-sparse-real-head-jab-hit-same-open-chain-plus-two"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

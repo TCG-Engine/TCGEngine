@@ -312052,9 +312052,9 @@
       "scope_review": {
         "verdict": "approved_complete_finite_baseline",
         "reviewer": "/root/resume_actual_audit",
-        "evidence_file": "review-evidence/five-dr-scopes-current-control-rebind-independent-review-994ab3cb042b.json",
-        "evidence_sha256": "994ab3cb042b6701b4005d3b2b9caaff07c114cb8d6427df2e2a6004bf0f37c2",
-        "qualification": "Exact requalification of existing registered finite baseline at561899 using same actual shared defense controls, unchanged scope/oracles/holds and both full current replays; no new finite coverage promotion. Original review/evidence retained in bound proof."
+        "evidence_file": "review-evidence/five-dr-89d2-control-runtime-rebind-independent-review-55c715acb73a.json",
+        "evidence_sha256": "55c715acb73a0918e88377f9c0868d78b8d62b18b28696213a841b0c59b18c4c",
+        "qualification": "Exact current-runtime requalification of this existing registered finite baseline using unchanged actual shared defense control IDs/failures and unchanged requirements/oracles/holds. Prior approval is preserved in the bound proof; no new finite coverage."
       },
       "completion_meaning": "Finite ordinary printed blank Generic Defense Reaction baseline: correct cost/printed defense/pitch and no AP cost; legal hand/arsenal reaction timing, hero/priority/type rejection, LIFO responder ordering and continued Reaction Step after partial resolution, real CnC prohibition, exact damage/HP and owner Graveyard cleanup. This is not arbitrary cross-card interaction completeness.",
       "requirements": [
@@ -334036,7 +334036,7 @@
       "minimum_clean_passes": 2,
       "required_semantic_controls": [
         {
-          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
           "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
           "mutation": "fixture-only effect/choice/cost perturbation",
           "expected_failure": "p2Health to equal 18, got 19",
@@ -334049,7 +334049,7 @@
           "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19."
         },
         {
-          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
           "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
           "mutation": "fixture-only effect/choice/cost perturbation",
           "expected_failure": "p2Health to equal 18, got 17",
@@ -334094,9 +334094,9 @@
       "scope_review": {
         "verdict": "approved_complete_finite_baseline",
         "reviewer": "/root/resume_actual_audit",
-        "evidence_file": "review-evidence/five-dr-scopes-current-control-rebind-independent-review-994ab3cb042b.json",
-        "evidence_sha256": "994ab3cb042b6701b4005d3b2b9caaff07c114cb8d6427df2e2a6004bf0f37c2",
-        "qualification": "Exact requalification of existing registered finite baseline at561899 using same actual shared defense controls, unchanged scope/oracles/holds and both full current replays; no new finite coverage promotion. Original review/evidence retained in bound proof."
+        "evidence_file": "review-evidence/five-dr-89d2-control-runtime-rebind-independent-review-55c715acb73a.json",
+        "evidence_sha256": "55c715acb73a0918e88377f9c0868d78b8d62b18b28696213a841b0c59b18c4c",
+        "qualification": "Exact current-runtime requalification of this existing registered finite baseline using unchanged actual shared defense control IDs/failures and unchanged requirements/oracles/holds. Prior approval is preserved in the bound proof; no new finite coverage."
       },
       "completion_meaning": "Finite ordinary printed blank Generic Defense Reaction baseline: correct cost/printed defense/pitch and no AP cost; legal hand/arsenal reaction timing, hero/priority/type rejection, LIFO responder ordering and continued Reaction Step after partial resolution, real CnC prohibition, exact damage/HP and owner Graveyard cleanup. This is not arbitrary cross-card interaction completeness.",
       "requirements": [
@@ -356078,7 +356078,7 @@
       "minimum_clean_passes": 2,
       "required_semantic_controls": [
         {
-          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
           "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
           "mutation": "fixture-only effect/choice/cost perturbation",
           "expected_failure": "p2Health to equal 18, got 19",
@@ -356091,7 +356091,7 @@
           "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19."
         },
         {
-          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
           "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
           "mutation": "fixture-only effect/choice/cost perturbation",
           "expected_failure": "p2Health to equal 18, got 17",
@@ -356136,9 +356136,9 @@
       "scope_review": {
         "verdict": "approved_complete_finite_baseline",
         "reviewer": "/root/resume_actual_audit",
-        "evidence_file": "review-evidence/five-dr-scopes-current-control-rebind-independent-review-994ab3cb042b.json",
-        "evidence_sha256": "994ab3cb042b6701b4005d3b2b9caaff07c114cb8d6427df2e2a6004bf0f37c2",
-        "qualification": "Exact requalification of existing registered finite baseline at561899 using same actual shared defense controls, unchanged scope/oracles/holds and both full current replays; no new finite coverage promotion. Original review/evidence retained in bound proof."
+        "evidence_file": "review-evidence/five-dr-89d2-control-runtime-rebind-independent-review-55c715acb73a.json",
+        "evidence_sha256": "55c715acb73a0918e88377f9c0868d78b8d62b18b28696213a841b0c59b18c4c",
+        "qualification": "Exact current-runtime requalification of this existing registered finite baseline using unchanged actual shared defense control IDs/failures and unchanged requirements/oracles/holds. Prior approval is preserved in the bound proof; no new finite coverage."
       },
       "completion_meaning": "Finite ordinary printed blank Generic Defense Reaction baseline: correct cost/printed defense/pitch and no AP cost; legal hand/arsenal reaction timing, hero/priority/type rejection, LIFO responder ordering and continued Reaction Step after partial resolution, real CnC prohibition, exact damage/HP and owner Graveyard cleanup. This is not arbitrary cross-card interaction completeness.",
       "requirements": [
@@ -378120,7 +378120,7 @@
       "minimum_clean_passes": 2,
       "required_semantic_controls": [
         {
-          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
           "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
           "mutation": "fixture-only effect/choice/cost perturbation",
           "expected_failure": "p2Health to equal 18, got 19",
@@ -378133,7 +378133,7 @@
           "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19."
         },
         {
-          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
           "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
           "mutation": "fixture-only effect/choice/cost perturbation",
           "expected_failure": "p2Health to equal 18, got 17",
@@ -378178,9 +378178,9 @@
       "scope_review": {
         "verdict": "approved_complete_finite_baseline",
         "reviewer": "/root/resume_actual_audit",
-        "evidence_file": "review-evidence/five-dr-scopes-current-control-rebind-independent-review-994ab3cb042b.json",
-        "evidence_sha256": "994ab3cb042b6701b4005d3b2b9caaff07c114cb8d6427df2e2a6004bf0f37c2",
-        "qualification": "Exact requalification of existing registered finite baseline at561899 using same actual shared defense controls, unchanged scope/oracles/holds and both full current replays; no new finite coverage promotion. Original review/evidence retained in bound proof."
+        "evidence_file": "review-evidence/five-dr-89d2-control-runtime-rebind-independent-review-55c715acb73a.json",
+        "evidence_sha256": "55c715acb73a0918e88377f9c0868d78b8d62b18b28696213a841b0c59b18c4c",
+        "qualification": "Exact current-runtime requalification of this existing registered finite baseline using unchanged actual shared defense control IDs/failures and unchanged requirements/oracles/holds. Prior approval is preserved in the bound proof; no new finite coverage."
       },
       "completion_meaning": "Finite ordinary printed blank Generic Defense Reaction baseline: correct cost/printed defense/pitch and no AP cost; legal hand/arsenal reaction timing, hero/priority/type rejection, LIFO responder ordering and continued Reaction Step after partial resolution, real CnC prohibition, exact damage/HP and owner Graveyard cleanup. This is not arbitrary cross-card interaction completeness.",
       "requirements": [
@@ -400162,7 +400162,7 @@
       "minimum_clean_passes": 2,
       "required_semantic_controls": [
         {
-          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
           "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
           "mutation": "fixture-only effect/choice/cost perturbation",
           "expected_failure": "p2Health to equal 18, got 19",
@@ -400175,7 +400175,7 @@
           "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19."
         },
         {
-          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
           "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
           "mutation": "fixture-only effect/choice/cost perturbation",
           "expected_failure": "p2Health to equal 18, got 17",
@@ -400220,9 +400220,9 @@
       "scope_review": {
         "verdict": "approved_complete_finite_baseline",
         "reviewer": "/root/resume_actual_audit",
-        "evidence_file": "review-evidence/five-dr-scopes-current-control-rebind-independent-review-994ab3cb042b.json",
-        "evidence_sha256": "994ab3cb042b6701b4005d3b2b9caaff07c114cb8d6427df2e2a6004bf0f37c2",
-        "qualification": "Exact requalification of existing registered finite baseline at561899 using same actual shared defense controls, unchanged scope/oracles/holds and both full current replays; no new finite coverage promotion. Original review/evidence retained in bound proof."
+        "evidence_file": "review-evidence/five-dr-89d2-control-runtime-rebind-independent-review-55c715acb73a.json",
+        "evidence_sha256": "55c715acb73a0918e88377f9c0868d78b8d62b18b28696213a841b0c59b18c4c",
+        "qualification": "Exact current-runtime requalification of this existing registered finite baseline using unchanged actual shared defense control IDs/failures and unchanged requirements/oracles/holds. Prior approval is preserved in the bound proof; no new finite coverage."
       },
       "completion_meaning": "Finite ordinary printed blank Generic Defense Reaction baseline: correct cost/printed defense/pitch and no AP cost; legal hand/arsenal reaction timing, hero/priority/type rejection, LIFO responder ordering and continued Reaction Step after partial resolution, real CnC prohibition, exact damage/HP and owner Graveyard cleanup. This is not arbitrary cross-card interaction completeness.",
       "requirements": [
@@ -432108,7 +432108,7 @@
       "minimum_clean_passes": 2,
       "required_semantic_controls": [
         {
-          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
           "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
           "mutation": "fixture-only effect/choice/cost perturbation",
           "expected_failure": "p2Health to equal 18, got 19",
@@ -432121,7 +432121,7 @@
           "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19."
         },
         {
-          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
           "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
           "mutation": "fixture-only effect/choice/cost perturbation",
           "expected_failure": "p2Health to equal 18, got 17",

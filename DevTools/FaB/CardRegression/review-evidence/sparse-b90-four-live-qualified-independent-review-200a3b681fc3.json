@@ -1,0 +1,433 @@
+{
+  "status": "INDEPENDENT_B90_FOUR_BOUNDED_SAVED_BRANCHES_TWO_CURRENT_REPLAYS_AND_FOCUSED_CONTROLS_APPROVED",
+  "reviewer": "/root/resume_actual_audit",
+  "captured_utc": "2026-10-20T22:51:03.577642+00:00",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "input_sha256": "749ecc4d8f44ee48eb66339ad5ff4a9d1bd03ffc61bf13d5e13539084e08826a",
+  "recording_report": {
+    "path": "recording-runs/card-regression-batch90-20261020T224609Z-6ad7ef316a861.json",
+    "sha256": "f65ce7a2e0c817b80879fb0623ed4ed2ec65420472fd9bfd4b748bf29db4d4d9"
+  },
+  "spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b90-independent-review\\independent-spec-review.json",
+    "sha256": "fc2a93b00698c8261e39cf8114eb44adec59464bc22771e4177c9da8c284870a"
+  },
+  "checks_passed": 3218,
+  "model_checks_passed": 4605,
+  "source_context_unchanged": true,
+  "fixtures": [
+    {
+      "slug": "card-mage-master-boots-four-live-sparse-real-paid-legs-destroy-and-next-nonattack-go-again",
+      "cardIDs": [
+        "mage_master_boots"
+      ],
+      "source_spec": "card-regression-batch90.json",
+      "semantically_approved": true,
+      "fixture_sha256": "3dc433742fd0fb2f13a73291a6a0f8c4972a387ada69f8a5ee0dc703070d9310",
+      "file_sha256": {
+        "initial_gamestate.txt": "ced541a95963c0020b9b69e7c0db336af76d8f0e246eb9f886633c3e07bc086b",
+        "actions.json": "b9ea39fa1ad8c7ef9ffebcbffa1250b38219608ef69a311ba7df2a67253fa30d",
+        "assertions.json": "5611aa44a755b99f74114f3a3968c7d15e5c653838d6002cc5cb8d03480c29d0",
+        "expected_final_gamestate.txt": "ff8e652d39917af412590c8a4e8512a33787b99abfcc627eea7c45cda11ee427",
+        "meta.json": "dc956698dd230dacbc0ee1ecea85fd7c0246f85affb779a9d38c4bca676ee6ac"
+      },
+      "effect_branches": [
+        "real-paid-legs-destroy-and-next-nonattack-go-again"
+      ],
+      "actions": 10,
+      "native_assertions": 271,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_health": [
+        21,
+        20,
+        20,
+        20
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "review_basis": "Every actual raw5 byte hash, supported physical source/target action, real manual actor and all ordered saved oracles bound to independently verified printed-rule/UID/economy model; full initial/final physical snapshots independently checked. Intermediate snapshots are not retained by this framework; original exact intermediate oracles require clean native replay qualification. Sparse partial positive branch only; no sibling inheritance or internal async/source lifecycle certification."
+    },
+    {
+      "slug": "card-take-aim-red-four-live-sparse-occupied-arsenal-bow-and-actual-arrow-buff",
+      "cardIDs": [
+        "take_aim_red"
+      ],
+      "source_spec": "card-regression-batch90.json",
+      "semantically_approved": true,
+      "fixture_sha256": "b956fd015d351d85070c7d73dc2778342290ee0b0fe68fe0b0440fc3b46e5409",
+      "file_sha256": {
+        "initial_gamestate.txt": "4b863245fe2af41d17f9c628978a37fbaed16ef0eea6ca856e6f55571a0d1028",
+        "actions.json": "1ec45fbde5846f2645e8c25e7d7d95b96bd1d93a6ed4c6208f7005f9cfc59724",
+        "assertions.json": "9b4de31bf02cd5c22f9d105430a63eb636b279e1eb57c44be6383cde4d163432",
+        "expected_final_gamestate.txt": "04a0c36c5ecea28d14468c0818a78d5ddeedb6107b7607c8ffb2f8bbf8846000",
+        "meta.json": "4cd4c118a1cbfaf07d7acdd8d124325898dda00bc6c69eab860e02c23a07c352"
+      },
+      "effect_branches": [
+        "occupied-arsenal-bow-and-actual-arrow-buff"
+      ],
+      "actions": 32,
+      "native_assertions": 411,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "review_basis": "Every actual raw5 byte hash, supported physical source/target action, real manual actor and all ordered saved oracles bound to independently verified printed-rule/UID/economy model; full initial/final physical snapshots independently checked. Intermediate snapshots are not retained by this framework; original exact intermediate oracles require clean native replay qualification. Sparse partial positive branch only; no sibling inheritance or internal async/source lifecycle certification."
+    },
+    {
+      "slug": "card-over-flex-red-four-live-sparse-occupied-arsenal-bow-and-actual-arrow-buff",
+      "cardIDs": [
+        "over_flex_red"
+      ],
+      "source_spec": "card-regression-batch90.json",
+      "semantically_approved": true,
+      "fixture_sha256": "86ef4cce47a9e8c3e2c5d445ca6d384fb6949a13451719344a94b66b317fda18",
+      "file_sha256": {
+        "initial_gamestate.txt": "7be91863f73e65ddde53fbc1045cab087630208c41dc3a0e42d0f01af9dc5c0b",
+        "actions.json": "1ec45fbde5846f2645e8c25e7d7d95b96bd1d93a6ed4c6208f7005f9cfc59724",
+        "assertions.json": "6a8a7d39f7ea59b0ea37264022402a0fa43a580ece66e3d66a529b3a4717247a",
+        "expected_final_gamestate.txt": "975892b4b41ac871a839d1880df1d3fa44de90e3ffe692b4d7ca3cf6888faf5c",
+        "meta.json": "f749f0c9acca00bd56b229a958edd1bba01a7efd22e63a0db72fbc026a90d12a"
+      },
+      "effect_branches": [
+        "occupied-arsenal-bow-and-actual-arrow-buff"
+      ],
+      "actions": 32,
+      "native_assertions": 411,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        12
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "review_basis": "Every actual raw5 byte hash, supported physical source/target action, real manual actor and all ordered saved oracles bound to independently verified printed-rule/UID/economy model; full initial/final physical snapshots independently checked. Intermediate snapshots are not retained by this framework; original exact intermediate oracles require clean native replay qualification. Sparse partial positive branch only; no sibling inheritance or internal async/source lifecycle certification."
+    },
+    {
+      "slug": "card-reduce-to-runechant-red-four-live-sparse-actual-owned-runechant-discount-and-dr-creation",
+      "cardIDs": [
+        "reduce_to_runechant_red"
+      ],
+      "source_spec": "card-regression-batch90.json",
+      "semantically_approved": true,
+      "fixture_sha256": "dbe44c1ef76bfca9f05f98fb28dc9bf67f906bf3447e7112f6da59c40d7f201c",
+      "file_sha256": {
+        "initial_gamestate.txt": "1dc8d2d3f5f1e9c489bf14fb3fb307c7875a55e519495ca824b89d1b1e12c3f8",
+        "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+        "assertions.json": "e2ad88777ca59c64b97b2d8845b2762bb4e7c9cd3a6c5c719bbebcf94e3e4bfb",
+        "expected_final_gamestate.txt": "d5dc17f0858be9db82ecf49fcf6b8bcf92ddcb8552c8b825175b4675f3b63eda",
+        "meta.json": "f6c55e3401629162eb4055887bd33b53bf14c80e0550e24307862548ce942241"
+      },
+      "effect_branches": [
+        "actual-owned-runechant-discount-and-DR-creation"
+      ],
+      "actions": 35,
+      "native_assertions": 440,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "review_basis": "Every actual raw5 byte hash, supported physical source/target action, real manual actor and all ordered saved oracles bound to independently verified printed-rule/UID/economy model; full initial/final physical snapshots independently checked. Intermediate snapshots are not retained by this framework; original exact intermediate oracles require clean native replay qualification. Sparse partial positive branch only; no sibling inheritance or internal async/source lifecycle certification."
+    }
+  ],
+  "qualification": "Exactly four previously reviewed positive branches have two distinct clean current canonical targeted native replays and four native existing-helper grant/physical-defense faults with the intended first unchanged expectations. Original lowercase canonical fixture rows, raw5 and source-identity mapping remain exact. Boots grant loss fails AP after real Balm play; Ranger grant losses fail actual Arrow power before retained damage checks; Reduce physical defense minus1 produces real damage1/HP19 with both Runechants preserved. This does not qualify the whole corpus, sibling pitches, alternate Reload branches, exact defense upper bound or full cards/cycles. Internal callback/async/source-clear lifecycle remains unproved.",
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "source_identity_alignment": {
+    "original_recording_input_sha256": "5b37b85a0abef1eebec0a84eeaee0ca3c414da2aac94818911a1bb8fd041dad0",
+    "canonical_source_sha256": "749ecc4d8f44ee48eb66339ad5ff4a9d1bd03ffc61bf13d5e13539084e08826a",
+    "only_json_delta": {
+      "path": [
+        3,
+        "slug"
+      ],
+      "before": "card-reduce-to-runechant-red-four-live-sparse-actual-owned-runechant-discount-and-DR-creation",
+      "after": "card-reduce-to-runechant-red-four-live-sparse-actual-owned-runechant-discount-and-dr-creation"
+    },
+    "immutable_original_recording_row_preserved": true,
+    "all_actions_and_oracle_values_identical": true,
+    "original_uppercase_proof": {
+      "path": "sparse-b90-original-source-case-actual-saved-independent-review.json",
+      "sha256": "d4bef721a649845bfe3a1a3a31670ea5b2e93108edc2882626b4647497f8bc1b"
+    }
+  },
+  "independent_actual_reviewer_sha256": "23bef25f27356b0b703f9951c22d2019333e51ea77185d31cef46d2d61a0bbdf",
+  "qualified_utc": "2026-10-20T22:55:49.452770+00:00",
+  "original_saved_review": {
+    "path": "sparse-b90-actual-saved-independent-review.json",
+    "sha256": "04841993fa8f5d1ac6444358c5c5c001a9dd7e077d152e94cc6dab3206992a22"
+  },
+  "canonical_slug_alignment": {
+    "receipt": {
+      "path": "sparse-b90-canonical-slug-correction-receipt.json",
+      "sha256": "065f06ae5e11f14f46f2fac5912379091e504e0b819011e7af27ba65510f3261"
+    },
+    "original_recording_input": {
+      "path": "sparse-b90-boots-ranger-reduction-proposed-v2-ga-entry/b90-four-cases-proposed.json",
+      "sha256": "5b37b85a0abef1eebec0a84eeaee0ca3c414da2aac94818911a1bb8fd041dad0"
+    },
+    "current_source": {
+      "path": "card-regression-batch90.json",
+      "sha256": "749ecc4d8f44ee48eb66339ad5ff4a9d1bd03ffc61bf13d5e13539084e08826a"
+    },
+    "original_immutable_recording": {
+      "path": "recording-runs/card-regression-batch90-20261020T224609Z-6ad7ef316a861.json",
+      "sha256": "f65ce7a2e0c817b80879fb0623ed4ed2ec65420472fd9bfd4b748bf29db4d4d9"
+    },
+    "clarification": "The physical saved directory is lowercase; immutable original recording result retains uppercase DR exactly as its input. Only canonical source slug was normalized. No fixture/action/oracle/report rewritten."
+  },
+  "earlier_partial_replay_attempt": {
+    "status": "HARNESS_CANONICAL_IDENTIFIER_LOOKUP_ABORT_NO_COMPLETE_REPORT",
+    "basis": "Parent reported first3 single-fixture successes then source uppercase-DR inventory-key lookup abort before Reduce runner; no complete report was produced.",
+    "game_failure": false,
+    "qualified_replays_credited": 0,
+    "superseded_by_two_complete_canonical_reports": true
+  },
+  "native_qualification": {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "checks_passed": 83,
+    "targeted_replay_reports": [
+      {
+        "path": "card-regression-replay-sparse-b90-canonical-four-live-run1.json",
+        "sha256": "0a76bf7592ceb4c050ed7b841261e823733944cf3f0d4e43d78002037b5d25e7",
+        "passed": 4,
+        "failed": 0,
+        "completed_utc": "2026-10-20T22:52:11.084664+00:00"
+      },
+      {
+        "path": "card-regression-replay-sparse-b90-canonical-four-live-run2.json",
+        "sha256": "c43fbcbe6777e65a33cb82d41400dde319f2111a1da45aeb53ee4cf433029179",
+        "passed": 4,
+        "failed": 0,
+        "completed_utc": "2026-10-20T22:52:46.910744+00:00"
+      }
+    ],
+    "four_native_controls": {
+      "path": "card-regression-sparse-b90-fault-controls.json",
+      "sha256": "f8c469cf030673e587bb4462ea38cbb452e7912063b2f74d1b4d6c44ebca8510",
+      "command_exit0_confirmed_by_root": true,
+      "all_detected": true,
+      "controls": [
+        {
+          "id": "b90_mage_master_boots_effect_or_physical_defender_control",
+          "fixture": "card-mage-master-boots-four-live-sparse-real-paid-legs-destroy-and-next-nonattack-go-again",
+          "prefix_actions": 5,
+          "relative_step": 5,
+          "first_failure": "Expected p1ActionPoints to equal 1, got 0.",
+          "retained_original_assertions": 163,
+          "detected": true
+        },
+        {
+          "id": "b90_take_aim_red_effect_or_physical_defender_control",
+          "fixture": "card-take-aim-red-four-live-sparse-occupied-arsenal-bow-and-actual-arrow-buff",
+          "prefix_actions": 5,
+          "relative_step": 6,
+          "first_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+          "retained_original_assertions": 300,
+          "detected": true
+        },
+        {
+          "id": "b90_over_flex_red_effect_or_physical_defender_control",
+          "fixture": "card-over-flex-red-four-live-sparse-occupied-arsenal-bow-and-actual-arrow-buff",
+          "prefix_actions": 5,
+          "relative_step": 6,
+          "first_failure": "Expected p1CombatChain-0 computed power to equal 8, got 4.",
+          "retained_original_assertions": 300,
+          "detected": true
+        },
+        {
+          "id": "b90_reduce_to_runechant_red_effect_or_physical_defender_control",
+          "fixture": "card-reduce-to-runechant-red-four-live-sparse-actual-owned-runechant-discount-and-dr-creation",
+          "prefix_actions": 23,
+          "relative_step": 4,
+          "first_failure": "Expected p4Health to equal 20, got 19.",
+          "retained_original_assertions": 184,
+          "detected": true
+        }
+      ]
+    },
+    "reviewed_fault_plan": {
+      "path": "sparse-b90-focused-fault-plan.json",
+      "sha256": "b0f9e399cc4d5867ff288d3d84488b638c51c826d6633e2ab05d3004e88bb758"
+    },
+    "wrapper_alias_review": {
+      "path": "sparse-b86-independent-review/executor-alias-independent-review.json",
+      "sha256": "11b00a3a02c0f257c8db5902948070207371cb2c79d3582d31eb57b735647fd9",
+      "executor_sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a"
+    },
+    "existing_native_helper_sha256": "021627a41cf4a44bef7cafe48302357e74ffae6ba39b147c3c068388384f2974",
+    "exact_first_failures_verified": true,
+    "unchanged_original_suffix_expectations_verified": true,
+    "canonical_raw5_preserved": true,
+    "cleanup_verified": true,
+    "original_fixture_rows_preserved": true,
+    "new_finite_card_baselines": 0,
+    "qualified_positive_four_live_representatives": 4
+  }
+}

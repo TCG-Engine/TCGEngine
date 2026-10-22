@@ -1,0 +1,119 @@
+{
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "completed_utc": "2026-10-20T21:46:52.686570+00:00",
+  "results": [
+    {
+      "fixture": "card-feisty-locals-red-four-live-sparse-actual-defenders",
+      "source_raw5": {
+        "initial_gamestate.txt": "c2ccbb57006587df3ab471e3b874696fd950ca1edbe361f5196b29c904e6045d",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "8b69f0ef242fc7fa0802449ce8b4df6e0941ea77d424c828f2f061f04e5a2a11",
+        "expected_final_gamestate.txt": "52282fe4cc0c60101e4cf23747bf93c3c60aa24b149c7c304c6cd4f0ba52fc47",
+        "meta.json": "7899b54fa43f193d31084e3148b28185773c5119ca31542503d7b5e43283b105"
+      },
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "prefix_actions": 16,
+      "mutation": {
+        "player": 1,
+        "zone": "CombatChain",
+        "cardID": "feisty_locals_red",
+        "mode": "add",
+        "tag": "WTR_POWER:1"
+      },
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Feisty Locals red / four live sparse actual defense: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "meaning": "Synthetic bounded physical-source stat fault; no alternative legal-play or complete suppression claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "fixture": "card-freewheeling-renegades-red-four-live-sparse-actual-defenders",
+      "source_raw5": {
+        "initial_gamestate.txt": "d58ccd4ce57fdae65d9c4ca3844912b5bd58712af49627da603a61d3760ce6c9",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "641f47013f676393d2b9c780e042a6ddfe25ccbe13832e673e65048aa57c6bdd",
+        "expected_final_gamestate.txt": "95d5d1eec32b0b646acba121142244f3e0b3f9146cedc51790ab0c8630397a0b",
+        "meta.json": "4b7558ed1c5419796788af1c07b724ed9853b800db4d6b37b1a2e0e6a99daf96"
+      },
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "prefix_actions": 16,
+      "mutation": {
+        "player": 1,
+        "zone": "CombatChain",
+        "cardID": "freewheeling_renegades_red",
+        "mode": "add",
+        "tag": "WTR_POWER:1"
+      },
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 5.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Freewheeling Renegades red / four live sparse actual defense: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 4, got 5.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "meaning": "Synthetic bounded physical-source stat fault; no alternative legal-play or complete suppression claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "fixture": "card-show-of-strength-red-four-live-sparse-actual-defenders",
+      "source_raw5": {
+        "initial_gamestate.txt": "8d1c7d2b79b3e7202aac6bffe3e62e4f00a0194ff024b92e1e5ae379061787fe",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "5e4ce9af9343b7792ac8cc8d1f92122fbcb9a1ddc02aca4bbd570e163bbede3d",
+        "expected_final_gamestate.txt": "1b38e768e9bf71af5850068ef70c281075d84a65c87a50e6971b3fd7e64deb55",
+        "meta.json": "b42ed57a341590f76cf66b6c2dc9bd42a5a3c6822b7942f99e5f14184013a3f4"
+      },
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "prefix_actions": 17,
+      "mutation": {
+        "player": 1,
+        "zone": "CombatChain",
+        "cardID": "show_of_strength_red",
+        "mode": "add",
+        "tag": "WTR_POWER:1"
+      },
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 7.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Show of Strength red / four live sparse actual defense: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 7.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "meaning": "Synthetic bounded physical-source stat fault; no alternative legal-play or complete suppression claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "fixture": "card-down-and-dirty-red-four-live-sparse-actual-defenders",
+      "source_raw5": {
+        "initial_gamestate.txt": "f10cfb59b4be2d98465c98f08ff87a81923d4cce7fbaa26c279c824820903d3f",
+        "actions.json": "472844a4f2c55a13b66edfcc392d9f869bf8a90ccda2ea0be2b9f9f672e2e0d1",
+        "assertions.json": "39849edc6e8287e9d58eef8184d17275447b773d4391579bfdb90976b1ea6fa0",
+        "expected_final_gamestate.txt": "bc1ad633d64c02f03f5c4c471afc5da6463a511277d914c56cb22da6491e50bd",
+        "meta.json": "f7eeea929bfd251754630990297dd518a325bb9679031f30c60afe1d575966cc"
+      },
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "prefix_actions": 16,
+      "mutation": {
+        "player": 4,
+        "zone": "CombatChain",
+        "cardID": "down_and_dirty_red",
+        "mode": "add",
+        "tag": "DYN_DEFENSE:-1"
+      },
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p4Health to equal 18, got 17.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Down and Dirty red / four live sparse actual defense: Step 4 assertion failed: Expected p4Health to equal 18, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "meaning": "Synthetic bounded physical-source stat fault; no alternative legal-play or complete suppression claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true
+}

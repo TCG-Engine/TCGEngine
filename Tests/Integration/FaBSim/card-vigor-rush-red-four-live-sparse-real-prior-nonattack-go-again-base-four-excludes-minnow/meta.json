@@ -1,0 +1,7 @@
+{
+    "name": "Vigor Rush / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T00:42:00+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actually resolve Minnowism first. That is a non-attack Action, so Vigor Rush gets go again. Red Vigor has base4 and is ineligible for Minnowism's base-at-most3 buff; power remains4. Real blue3 pitch pays1 and leaves2. Damage is4 and AP returns only when the attack link resolves. One positive sparse representative of pitch-cycle:vigor_rush. No sibling, full-card, token-consumer or intrinsic-completion claim. All four actual live young20 heroes hold priority and every response pass is manual. Ordinary synchronous NAA internal source-clear ordering is outside the atomic endpoint witness; it is not asserted correct. Minnowism is a support action, not an additional primary represented group. No-prior-nonattack and other pitch variants are not exercised. No fabricated cards-played or go-again tag is seeded. Sources: https://judge.fabtcg.com/cards/detail/536/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ARC197.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

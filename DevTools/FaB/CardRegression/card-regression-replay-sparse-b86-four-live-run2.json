@@ -1,0 +1,62 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch86.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T22:22:31.252045+00:00",
+  "fixtures": [
+    {
+      "slug": "card-sun-kiss-red-four-live-sparse-ordinary-heal-no-moon-wish",
+      "fixture_sha256": "5af876ccf5e011f8a5466a18595047015f99a30a1b4ee2e86eabbd7cda0f6a22",
+      "passed": true,
+      "result": "[PASS] Sun Kiss / four live sparse ordinary-heal-no-moon-wish"
+    },
+    {
+      "slug": "card-rejuvenate-red-four-live-sparse-ordinary-unfused-action-heal",
+      "fixture_sha256": "39b082e7322fc8791c67a25ecba2b8f26133a4d2ce72da895e2356bfad6ba734",
+      "passed": true,
+      "result": "[PASS] Rejuvenate / four live sparse ordinary-unfused-action-heal"
+    },
+    {
+      "slug": "card-tome-of-divinity-yellow-four-live-sparse-ordinary-draw-two-no-soul-history",
+      "fixture_sha256": "edd7e5921fac37aff80a010a23dc5dc2d2397af0971770d1b9c9d5568eca7c84",
+      "passed": true,
+      "result": "[PASS] Tome of Divinity / four live sparse ordinary-draw-two-no-soul-history"
+    },
+    {
+      "slug": "card-drop-of-dragon-blood-red-four-live-sparse-zero-draconic-links-resource-and-one-draw",
+      "fixture_sha256": "9ee37b62d5630cd1b6e7651fbdfecb2de09410227981b741321b13bb7b7bd023",
+      "passed": true,
+      "result": "[PASS] Drop of Dragon Blood / four live sparse zero-draconic-links-resource-and-one-draw"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sun-kiss-red-four-live-sparse-ordinary-heal-no-moon-wish",
+      "returncode": 0,
+      "stdout": "[PASS] Sun Kiss / four live sparse ordinary-heal-no-moon-wish\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rejuvenate-red-four-live-sparse-ordinary-unfused-action-heal",
+      "returncode": 0,
+      "stdout": "[PASS] Rejuvenate / four live sparse ordinary-unfused-action-heal\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tome-of-divinity-yellow-four-live-sparse-ordinary-draw-two-no-soul-history",
+      "returncode": 0,
+      "stdout": "[PASS] Tome of Divinity / four live sparse ordinary-draw-two-no-soul-history\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-drop-of-dragon-blood-red-four-live-sparse-zero-draconic-links-resource-and-one-draw",
+      "returncode": 0,
+      "stdout": "[PASS] Drop of Dragon Blood / four live sparse zero-draconic-links-resource-and-one-draw\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3097,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-feisty-locals-red-four-live-sparse-actual-defenders",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 255
+    },
+    {
+        "slug": "card-freewheeling-renegades-red-four-live-sparse-actual-defenders",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 255
+    },
+    {
+        "slug": "card-show-of-strength-red-four-live-sparse-actual-defenders",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 275
+    },
+    {
+        "slug": "card-down-and-dirty-red-four-live-sparse-actual-defenders",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 256
+    }
+]

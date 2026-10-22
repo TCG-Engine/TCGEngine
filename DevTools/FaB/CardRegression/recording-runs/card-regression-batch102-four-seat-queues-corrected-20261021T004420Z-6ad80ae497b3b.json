@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-21T00:44:20+00:00",
+    "input_file": "card-regression-batch102-four-seat-queues-corrected.json",
+    "input_sha256": "d0cc5c6975ab586a5ef24bd9ac8ae1a839f7cdac92c53f4dff325d9627ed98ea",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-potion-of-luck-blue-four-live-sparse-only-arsenal-card-shuffled-and-drawn",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 341
+        }
+    ]
+}

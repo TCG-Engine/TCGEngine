@@ -1,0 +1,135 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-21T00:18:59.886960+00:00",
+  "plan_sha256": "432aadf5e4a071d43c2235edf9e9f544b2319faf620c8b851e6d94c7013550c2",
+  "independent_saved_proof_sha256": "9254c0693b8b0468584a6f8726e4d2288986f3a7a15a41d235c049a2323ba739",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b99-focused-fault-plan.json",
+    "432aadf5e4a071d43c2235edf9e9f544b2319faf620c8b851e6d94c7013550c2",
+    "card-regression-sparse-b99-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b99_longboat_remove_actual_opposite_opponent_gold_condition",
+      "fixture": "card-gold-hunter-longboat-yellow-four-live-sparse-opposite-opponent-gold-positive-power-attacks-adjacent-hero",
+      "fixture_sha256": "b43f446cb9fa87b9cfe19071a761f2bcb4d228b8d23061fef1a9118497a864a0",
+      "source_raw5": {
+        "initial_gamestate.txt": "de18412f5b82e55f8c395d02230f172bd183a7ed7e5e8e6f135a5885d10f6426",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "c3340cf4413894870a1f7a2f90b3942795ed79371e8e29b0458812643a757c79",
+        "expected_final_gamestate.txt": "1ff27ebd398964ade9f4d665f64c42fd1cfbcba867cf6b6bb359b103a9559a7e",
+        "meta.json": "6983d5232e5ae2d256ee8f18699f108e366c3cf73c30853eef5c38f44b206eaa"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 3,
+            "from": "Arena",
+            "cardID": "gold",
+            "to": "Graveyard"
+          }
+        ]
+      },
+      "retained_assertions": 212,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Gold Hunter Longboat / compact four live positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Move the sole actual opposite P3 GoldToken6 out of Arena using existing helper/FaBMoveUID. Token6 ceases under CR8.1.8a (no GY residue); P1 and all opponents now control0Gold, so printed Longboat3+2 becomes3. Actual target remains adjacent P4. First retained computed power5 to3 precedes Gold membership oracles. Disposable condition fault, not a legal effect or a fixture correction.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b99_captain_actual_defender_defense_plus_one",
+      "fixture": "card-captain-of-the-guard-blue-four-live-sparse-actual-physical-defense-power-five-greater-than-attack-four",
+      "fixture_sha256": "abc0b99762903d941f8dc8f71052c9fd9125ff662816d0575c6f453241bca6ce",
+      "source_raw5": {
+        "initial_gamestate.txt": "a2c97d21f91724644cf7754b541074ca759ab64c73cf14c962dca9b9a4b0ce98",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "f37e1f35ca7543d64e6269b6a9b66185e89ae860bb76f098b1fa81da736b704d",
+        "expected_final_gamestate.txt": "6f2b1ad2387e99b386a3f1fa8ff3014435eefcd2188172dfa1fb1b608f86a460",
+        "meta.json": "991f5569ce47bedb5aa5a1c4cf2e326afd99fa85157ba97345854d8590e846db"
+      },
+      "prefix_actions": 16,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "CombatChain",
+            "cardID": "captain_of_the_guard_blue",
+            "mode": "add",
+            "tag": "WTR_DEFENSE:1"
+          }
+        ]
+      },
+      "retained_assertions": 149,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p4Health to equal 19, got 20.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Captain of the Guard / compact four live positive effect: Step 4 assertion failed: Expected p4Health to equal 19, got 20.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "At real REACTION after actual P4 physicalCaptain6 block, add only WTR_DEFENSE:1. Printed conditional defense3 becomes4 against actual WBRed power4; four unchanged live reaction passes cause realdamage0/HP20 rather than1/HP19. First changed retained oracle is physical P4Health afterStep4; no cached defenseValue mutation or claimed predicate-isolation.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b99_rising_power_remove_actual_gold_draw_condition",
+      "fixture": "card-rising-power-red-four-live-sparse-actual-gold-draw-and-distinct-blue-payments-enables-printed-effect",
+      "fixture_sha256": "a05e3ac600af540155382ae6193aadf0c65b5ddba20f19227aa22e01c1a893e7",
+      "source_raw5": {
+        "initial_gamestate.txt": "155baf28d99b551f9b60d7745a0ed0012a1ca5b93d746202f8a578984c4a3c23",
+        "actions.json": "cb774e5528d38d57b6e18da9de97870a0db384d91bbb81d8d6d659364d10c88e",
+        "assertions.json": "ebf02fafd53a142a2112507013386077ace8ca8323ea607e7f34df4e0ff28d31",
+        "expected_final_gamestate.txt": "5cc8911a67ae6e5ab793bfc4410eb374be1be0ac4a073b12e82efa0d49955c41",
+        "meta.json": "0f9aa777c27e5254c1cd66ce41f8ed13652eb9b2bcdb9fd9139c49555185a487"
+      },
+      "prefix_actions": 13,
+      "mutation": {
+        "remove_effect": "DTD_DRAWN"
+      },
+      "retained_assertions": 238,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Rising Power / compact four live positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Gold6 draw7/GA and distinct blue8/9 payments/primaryATTACK, remove exactly one real DTD_DRAWN effect using existing helper. No other seat drew. Printed RisingPower6+1 becomes6; actual Hand7/Pitch8,9/resources2/AP0 remain unchanged. First retained power7 to6 precedes physical membership checks. Disposable positive-condition fault only.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b99_rising_speed_remove_actual_gold_draw_condition",
+      "fixture": "card-rising-speed-red-four-live-sparse-actual-gold-draw-and-distinct-blue-payments-enables-printed-effect",
+      "fixture_sha256": "ecefd913d9fcc11f81ece089abb36492e9ac319a2c41c8ab0b7d31d8f7ebd0a0",
+      "source_raw5": {
+        "initial_gamestate.txt": "4bc3a3fb554c360cd8fefe1b40284db8c3cf5d1c45b3b70a05abb8b97f6af8b6",
+        "actions.json": "cb774e5528d38d57b6e18da9de97870a0db384d91bbb81d8d6d659364d10c88e",
+        "assertions.json": "ebf2cc5c5ad5c5c593d7b1d69a13a6893a448e774e0f87dea50d2b1f651993ae",
+        "expected_final_gamestate.txt": "cb17d5fc656c19fad3faa30314a6ca3796627597d7c065faaf49474b725c2f1b",
+        "meta.json": "a10f187ee77b5895f7b7d80fb95850d9b1a379486a6a3fc030101aa1a9247238"
+      },
+      "prefix_actions": 13,
+      "mutation": {
+        "remove_effect": "DTD_DRAWN"
+      },
+      "retained_assertions": 238,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Rising Speed / compact four live positive effect: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Gold6 draw7/GA and distinct blue8/9 payments/primaryATTACK, remove exactly one real DTD_DRAWN effect. Printed RisingSpeed loses GA1 to0 while power5 and all real physical/economy inputs are unchanged. First retained computedGA precedes membership checks; later Resolution AP1 to0 is separate downstream corroboration, not needed as first failure.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

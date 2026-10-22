@@ -1,0 +1,62 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch99.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-21T00:14:29.885722+00:00",
+  "fixtures": [
+    {
+      "slug": "card-gold-hunter-longboat-yellow-four-live-sparse-opposite-opponent-gold-positive-power-attacks-adjacent-hero",
+      "fixture_sha256": "b43f446cb9fa87b9cfe19071a761f2bcb4d228b8d23061fef1a9118497a864a0",
+      "passed": true,
+      "result": "[PASS] Gold Hunter Longboat / compact four live positive effect"
+    },
+    {
+      "slug": "card-captain-of-the-guard-blue-four-live-sparse-actual-physical-defense-power-five-greater-than-attack-four",
+      "fixture_sha256": "abc0b99762903d941f8dc8f71052c9fd9125ff662816d0575c6f453241bca6ce",
+      "passed": true,
+      "result": "[PASS] Captain of the Guard / compact four live positive effect"
+    },
+    {
+      "slug": "card-rising-power-red-four-live-sparse-actual-gold-draw-and-distinct-blue-payments-enables-printed-effect",
+      "fixture_sha256": "a05e3ac600af540155382ae6193aadf0c65b5ddba20f19227aa22e01c1a893e7",
+      "passed": true,
+      "result": "[PASS] Rising Power / compact four live positive effect"
+    },
+    {
+      "slug": "card-rising-speed-red-four-live-sparse-actual-gold-draw-and-distinct-blue-payments-enables-printed-effect",
+      "fixture_sha256": "ecefd913d9fcc11f81ece089abb36492e9ac319a2c41c8ab0b7d31d8f7ebd0a0",
+      "passed": true,
+      "result": "[PASS] Rising Speed / compact four live positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-gold-hunter-longboat-yellow-four-live-sparse-opposite-opponent-gold-positive-power-attacks-adjacent-hero",
+      "returncode": 0,
+      "stdout": "[PASS] Gold Hunter Longboat / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-captain-of-the-guard-blue-four-live-sparse-actual-physical-defense-power-five-greater-than-attack-four",
+      "returncode": 0,
+      "stdout": "[PASS] Captain of the Guard / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rising-power-red-four-live-sparse-actual-gold-draw-and-distinct-blue-payments-enables-printed-effect",
+      "returncode": 0,
+      "stdout": "[PASS] Rising Power / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rising-speed-red-four-live-sparse-actual-gold-draw-and-distinct-blue-payments-enables-printed-effect",
+      "returncode": 0,
+      "stdout": "[PASS] Rising Speed / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3148,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

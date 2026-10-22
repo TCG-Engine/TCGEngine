@@ -1,0 +1,62 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch95.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T23:54:18.834329+00:00",
+  "fixtures": [
+    {
+      "slug": "card-gold-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+      "fixture_sha256": "f272a6fcc30db30dc9b0be7a97bb2f377682142a35732d3f6fc9127e0c94f5d7",
+      "passed": true,
+      "result": "[PASS] Gold / compact four live positive effect"
+    },
+    {
+      "slug": "card-silver-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+      "fixture_sha256": "f93015b256796f8d8821f38ab35fa4d2e66cfdeaa701d8e4c1320d05d8196185",
+      "passed": true,
+      "result": "[PASS] Silver / compact four live positive effect"
+    },
+    {
+      "slug": "card-copper-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+      "fixture_sha256": "5dd651c61f90ccc6166e02b49e437cd4d0191a3a0272d59b28f6626e932990a3",
+      "passed": true,
+      "result": "[PASS] Copper / compact four live positive effect"
+    },
+    {
+      "slug": "card-potion-of-ironhide-blue-four-live-sparse-actual-instant-destroy-and-owned-aa-defense-two-to-three",
+      "fixture_sha256": "126de4b8f30bb92636febde2d59bd461f04d6938215a03658e71be51447856fc",
+      "passed": true,
+      "result": "[PASS] Potion of Ironhide / compact four live positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-gold-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Gold / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-silver-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Silver / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-copper-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Copper / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-potion-of-ironhide-blue-four-live-sparse-actual-instant-destroy-and-owned-aa-defense-two-to-three",
+      "returncode": 0,
+      "stdout": "[PASS] Potion of Ironhide / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3133,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

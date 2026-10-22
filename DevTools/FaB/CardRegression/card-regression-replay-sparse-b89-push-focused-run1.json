@@ -1,0 +1,26 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch89-push-focused-protocol-corrected.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T22:54:08.486998+00:00",
+  "fixtures": [
+    {
+      "slug": "card-push-the-point-red-four-live-sparse-real-head-jab-hit-same-open-chain-plus-two",
+      "fixture_sha256": "adf253928570ea3b38cca3cbdeba4f6a9d4bd6fef6962f12087f0b565f1bc352",
+      "passed": true,
+      "result": "[PASS] Push the Point / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-push-the-point-red-four-live-sparse-real-head-jab-hit-same-open-chain-plus-two",
+      "returncode": 0,
+      "stdout": "[PASS] Push the Point / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3113,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

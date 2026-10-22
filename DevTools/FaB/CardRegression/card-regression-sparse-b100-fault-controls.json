@@ -1,0 +1,137 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-21T00:27:32.850532+00:00",
+  "plan_sha256": "05d604067f60d475a041ed3168825da1619ce1c38afefee076f213e066a9ead2",
+  "independent_saved_proof_sha256": "6c184f654720b96b3635d4cdefbdb772bab7c6cda7e58cf4051d8683b2babcd9",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b100-focused-fault-plan.json",
+    "05d604067f60d475a041ed3168825da1619ce1c38afefee076f213e066a9ead2",
+    "card-regression-sparse-b100-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b100_drone_actual_owner_deck_bottom_order",
+      "fixture": "card-drone-of-brutality-red-four-live-sparse-physical-source-replaces-own-graveyard-with-owner-deck-bottom",
+      "fixture_sha256": "dfde56961eeee9de8c9304e43c8bbbecd55be43526d3c5c7a6a242749e064f74",
+      "source_raw5": {
+        "initial_gamestate.txt": "259e1466625830f19537938680b477c0df1f0fa423793be6a2a2ff179ea3a9c1",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "66595e02668a2494c67e1fbe5bfa3439e17bf5d94e8b5ddc1c2f055eb7306fae",
+        "expected_final_gamestate.txt": "93c2ac73c8a719ef976347bc4b6bf08306b90c2e958d955ec434229587507697",
+        "meta.json": "f99c681af4714b526ed65266b2e512af86f0c51771e74f760fae5e8d7f53913d"
+      },
+      "prefix_actions": 28,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Deck",
+            "cardID": "wounding_blow_red",
+            "to": "Deck"
+          }
+        ]
+      },
+      "retained_assertions": 97,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Deck-0.CardID to equal 'wounding_blow_red', got 'drone_of_brutality_red'.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Drone of Brutality / compact four live positive effect: Initial assertion failed: Expected p1Deck-0.CardID to equal 'wounding_blow_red', got 'drone_of_brutality_red'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Drone5 combat cleanup replaced GY with ownerDeckBOTTOM[7,5], move the real sentinel7 Deck\u2192sameDeck bottom on disposable copy, producing[5,7]. Preserve counts/UIDs/ownership; exact original top-card oracle detects wrong bottom order. Endpoint order sensitivity, not a claimed legal replacement-suppression action. Retain every original suffix oracle/action.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b100_numbskull_real_amethyst_boostable_identity_comparison",
+      "fixture": "card-numbskull-red-four-live-sparse-actual-amethyst-power-attempt-cannot-modify-six",
+      "fixture_sha256": "5c288695362b30a64d5643998df8efeecc4100b8d0b3601faac62a574ded3325",
+      "source_raw5": {
+        "initial_gamestate.txt": "74687b29e93f8b4c604d37cd86b8f24eb9167d56586b26ff2ecc167ded2ed8ba",
+        "actions.json": "9a5d26c3945ac68948a8366ef5cf811a9b8afa0f66037fb840c139096b0f5574",
+        "assertions.json": "a79574e0db499a1d3d975d4227ead2319e14cdf81c9f161ea8649cbc4109c49b",
+        "expected_final_gamestate.txt": "8c7b621cc7274962e3ad32278206946e3d290f8de867d444a3dbd167aaedb256",
+        "meta.json": "c74326109c15d4e2464880d4dc77ddce4d4861126c20f3588ff33359e812cb08"
+      },
+      "prefix_actions": 15,
+      "mutation": {
+        "replace_stack_card": {
+          "from": "numbskull_red",
+          "to": "wrecker_romp_blue"
+        }
+      },
+      "retained_assertions": 211,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 8.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Numbskull / compact four live positive effect: Step 1 assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 8.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Amethyst6 destruction, Watery9 then ability8 and real Numb5 payment, immediately before fourth source-layer pass swap only pending Stack identity to printed6-power WreckerRompBlue. Source UID5/controller/owner remain; same real+2 attempted grant is now boostable, so next fresh power check must detect8 instead of immune6 BEFORE original CardID oracle. Retain all original oracles, including source identity. Synthetic identity/immunity comparison, not legal alternative card play and not a claim random-discard cost was paid. Retain every original suffix oracle/action.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b100_little_big_foot_remove_one_actual_qualifying_pitch",
+      "fixture": "card-little-big-foot-red-four-live-sparse-two-actual-distinct-cost-three-yellow-pitches-enable-six-power",
+      "fixture_sha256": "d638b5c615289b4026f7ffb7cfb634eddf5494b0fba26146e6e30514b3317ac4",
+      "source_raw5": {
+        "initial_gamestate.txt": "bb69c843eb1828fab9b5cb984a3fb854b4c8e0cb9298a43233b2045524b9c5d3",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "af24274d0082eb452802e5bf8503efe3f801315c8f4adc9950eaf7c96e44d81e",
+        "expected_final_gamestate.txt": "cf010257451908e657bb3702deccf0c440587a8844933abc862d5aff7d05cec1",
+        "meta.json": "cd4a0858f0e93784ff67547a923b05c83a45a97fa3a3c94739c90875c89cc88c"
+      },
+      "prefix_actions": 17,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Pitch",
+            "cardID": "barraging_brawnhide_yellow",
+            "to": "Graveyard"
+          }
+        ]
+      },
+      "retained_assertions": 162,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 9, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Little Big Foot / compact four live positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 9, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual distinct Yellow6/7 paid4 and real attack5 reached REACTION, remove only qualifying Pitch7 to GY on disposable copy. Real two-cost3+ condition becomes one-card, so base3+6 must become3 at first fresh power oracle before Pitch count/identity checks. Synthetic physical-condition fault, not legal in-game movement. Retain every original suffix oracle/action.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b100_tidal_omit_actual_prior_blue_history",
+      "fixture": "card-tidal-surge-blue-four-live-sparse-actual-other-blue-play-and-blue-pitch-enable-two-power",
+      "fixture_sha256": "fc33cd6da8c5f1f00ab91786e5e3b9a50a28b8d5b015e9e99a19596b2ca4eb8c",
+      "source_raw5": {
+        "initial_gamestate.txt": "934c6747598dbf1ade99ba1149dfc0988bad01bd298b4ae8fb0287d9dfbbd38d",
+        "actions.json": "af0923a412f70c231803d6f1590bd7961df3eebc483a9a90501e4804130a1474",
+        "assertions.json": "d73559b5f31329048d8e03c72feb885ae5e65879737f0e38d533c0846d7d1e34",
+        "expected_final_gamestate.txt": "e890c6f45ac5e0faf0dc25d9c5a406b64fd398fdeddb4aa0838fcb0e4d323e3b",
+        "meta.json": "e5b2683a1bfc7ec28168b27be9e7f5a02da9f70c4c658aea792e79dea4cf6459"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "MST_BLUE_PLAYED"
+      },
+      "retained_assertions": 295,
+      "expected_failure_step": 7,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 5.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Tidal Surge / compact four live positive effect: Step 7 assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 5.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Immediately after real Wind6 blue play/resolution and its ownGA, remove the one existing MST_BLUE_PLAYED history effect on disposable copy. Retain physical Wind6 GY and BLUE_GO grant. Later actual Tidal5 supplies only its own blue-play entry, so OTHER-blue condition fails: first attack power7\u21925 at relativeStep7, before CardID/zone checks; WindGA remains. Synthetic history-omission sensitivity, not a legal reversal of played history. Existing remove_effect must find exactly one entry at prefix5; no broader history setter/new helper. Retain every original suffix oracle/action.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

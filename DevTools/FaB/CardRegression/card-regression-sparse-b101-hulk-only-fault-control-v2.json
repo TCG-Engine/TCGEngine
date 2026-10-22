@@ -1,0 +1,47 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-21T00:44:01.980335+00:00",
+  "plan_sha256": "3af7d6955e3a7d23e479daf4b6cea5550ae7e8a682b56aad43f6adbf3c819d4f",
+  "independent_saved_proof_sha256": "6389d9dc2be9219465eab32e2c11590dd5c7712ef233d524e695fb4da6f31db5",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b101-hulk-only-focused-fault-plan-v2.json",
+    "3af7d6955e3a7d23e479daf4b6cea5550ae7e8a682b56aad43f6adbf3c819d4f",
+    "card-regression-sparse-b101-hulk-only-fault-control-v2.json"
+  ],
+  "results": [
+    {
+      "id": "b101_hulk_up_red_unaffordable_without_life_discount_sensitivity",
+      "fixture": "card-hulk-up-red-four-live-sparse-actual-lower-life-than-all-three-heroes-reduces-four-cost-to-three",
+      "fixture_sha256": "3ab00bfe2aa6d13effa7e50b11388046eb13e3683853cca977ec49d17ea78559",
+      "source_raw5": {
+        "initial_gamestate.txt": "1ae20fc8aa457e0262b9e88c68617f86574859033a5cd48a581891b5ddea015b",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "0a769c753ec84e8fc9be7401247fb4589e4d158a5261a8b0c6c471ead2e10e05",
+        "expected_final_gamestate.txt": "53971f85d2a1c58856ebafc301ea613a4e42063308a890e2de0bb685cb6d0a16",
+        "meta.json": "0e2b4a57da3cfb8a9b1feb1465b04e2a6ae251d4f29cd5565c0a946f365e7f29"
+      },
+      "prefix_actions": 1,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 1,
+            "value": 20
+          }
+        ]
+      },
+      "retained_assertions": 297,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected Stack-0.CardID to equal 'hulk_up_red', got ''.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Hulk Up / four live sparse positive condition: Step 1 assertion failed: Expected Stack-0.CardID to equal 'hulk_up_red', got ''.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Change only actual P1Health19\u219220 at original captured target-preflight; allthreeotherheroes20/primary5/onlyBlue6 remain. Correct source-derived consequence: cost4 exceeds availableBlue3, so target continuation revalidates CanPlayCard and returns before source removal/AddStack. First unchanged original Stack-0.CardID=hulk_up_red assertion fails empty. This pins discount-dependent affordability through physical play refusal; positive fixture separately pins paidcost3/Blue3/damage8. All original suffix actions/oracles retained. No assertion changes, engine defect, new helper, or numerical pendingcost4 claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

@@ -1,0 +1,30 @@
+{
+  "status": "APPLIED_SOURCE_REVIEWED_NATIVE_REGRESSION_QUALIFICATION_PENDING",
+  "generated_utc": "2026-10-20T23:39:21.422052+00:00",
+  "source_path": "FaBSim/Custom/WTRCards.php",
+  "before_sha256": "f34346a0061cb7c970293f20016a485470faf6fa3088900ba8aaf012513e32cc",
+  "after_sha256": "79b04e30d9b9f7dca6fb78bd3e32e4e9429f137e1afa9d1d8af2a8faf718d74d",
+  "runtime_before_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "runtime_after_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "source_review": "review-evidence/rise-choice-save-proposal-independent-review-3670546f66b4.json",
+  "source_review_sha256": "3670546f66b4a9f8ada86bfaf7e8ac2ab296b7e36ac9e2d9a1f6bce1d8157abb",
+  "component_cases": 239,
+  "component_checks": 1880,
+  "fixture_scenarios_unchanged": 3124,
+  "original_3079_raw5_unchanged": true,
+  "qualified_before_repair": {
+    "scenarios": 3124,
+    "genuine_four_live": 50,
+    "primary_identities": 284,
+    "primary_groups": 159,
+    "coverage_sha256": "7e4cc53620893459df72b744fdd3bfef02a38657cd00f0e0f878ffe5ab2c7b86",
+    "cycle_index_sha256": "f313c662ce4057e254d54db18bf27435f47152b4b4eeb1430df528fa370b6108",
+    "review_registry_sha256": "651bab4f035c4a9eaa3447d9c7ead925fba17c0334806a681b0d9a7939139917",
+    "validation_basis": "Unchanged current-runtime baseline evidence plus two clean targeted runs of each added representative; no whole3124 full run is claimed."
+  },
+  "all_raw5_aggregate_sha256": "b02034949f2350bd4c18fe6057e36b6185915846891ca6e9daaee62c36bf63e6",
+  "scope": "One copied choice helper and one existing FaB save-hook call; no Core, generated implementation, printed card rule or original Rise Hand-0 oracle changes.",
+  "backup_outside_repo": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rise-choice-before-native-apply",
+  "native_after_recording_passed": false,
+  "native_after_replay_qualified": false
+}

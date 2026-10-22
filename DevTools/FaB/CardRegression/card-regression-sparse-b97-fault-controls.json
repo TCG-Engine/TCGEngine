@@ -1,0 +1,149 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-21T00:13:11.551123+00:00",
+  "plan_sha256": "4c991f030642f91cb32da0208b0e3e410bde4549b3c7c53b20f2e2224f4ed22e",
+  "independent_saved_proof_sha256": "5770c73ceb76180ac2022eea7ee4dc7e88ccdd515836c979bb6902f9bf1e0b46",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b97-focused-fault-plan.json",
+    "4c991f030642f91cb32da0208b0e3e410bde4549b3c7c53b20f2e2224f4ed22e",
+    "card-regression-sparse-b97-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b97_barraging_physical_power_sensitivity",
+      "fixture": "card-barraging-brawnhide-red-four-live-sparse-zero-non-equipment-defenders-gives-one-power",
+      "fixture_sha256": "e55f4eb0f63028081abfee545c191bb81b0dca5fac60facbae981411182e86c0",
+      "source_raw5": {
+        "initial_gamestate.txt": "83086c351cdb824ecf5c5bf4bec6a8a3ce3bb40d1e0bf18ad8f76d376a6ea4d2",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "c82923a62236367961846416a458c5b7a9085d1043fa19e7dfb653c697c17903",
+        "expected_final_gamestate.txt": "71658dba455c16773747da3aae52d8dec2700138297b30a94db144fa4895d89c",
+        "meta.json": "e1f63f187fe2e4d58525417171caa1679e2cc926a69519eaddc6645a151d769f"
+      },
+      "prefix_actions": 16,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "barraging_brawnhide_red",
+            "mode": "add",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 153,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 8, got 9.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Barraging Brawnhide / compact four live positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 8, got 9.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add one physical attack power tag after realcost/target/zero defenders: numeric8\u21929 sensitivity; not an isolated fewer-than-two predicate fault. Disposable synthetic mutation only; retain every suffix oracle/action.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b97_unwavering_break_actual_empty_deck_condition",
+      "fixture": "card-unwavering-resolve-red-four-live-sparse-physically-empty-deck-gives-four-power",
+      "fixture_sha256": "778116a1a950011a9c3fe080e4a21de93a94531c1fb8d31af135f18390d1d99a",
+      "source_raw5": {
+        "initial_gamestate.txt": "6bc4f1028826990e3d3433352a766aea854d6aa21780f1092e8a93b63739335e",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "f79f920a14f77b53c7b772b3e6101f1ab0470022ea55deda480252333f0811af",
+        "expected_final_gamestate.txt": "eb67a4d5b9943f9ab6a0913af8347d5f76d99d0d001d12427a93204153c44395",
+        "meta.json": "9c5f6629a34e9fcd7bc276ebd8d6fb0d33c1b8abf60a264c7b0a1e30c153cbc8"
+      },
+      "prefix_actions": 16,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Pitch",
+            "cardID": "wounding_blow_blue",
+            "to": "Deck"
+          }
+        ]
+      },
+      "retained_assertions": 153,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 10, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Unwavering Resolve / compact four live positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 10, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Move actual blue donor6 Pitch\u2192Deck, breaking real emptyDeck condition:6+4\u21926. First retained power oracle precedes Deck/Pitch membership checks. Disposable synthetic mutation only; retain every suffix oracle/action.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b97_buckwild_remove_actual_six_power_pitch_condition",
+      "fixture": "card-buckwild-red-four-live-sparse-actual-six-power-blue-pitch-pays-three-and-grants-go-again",
+      "fixture_sha256": "49fbdae9b6607c05577149e6cee937d0f8bdc755f316e91a58581a8beb69c219",
+      "source_raw5": {
+        "initial_gamestate.txt": "b502f11c84cea2bb78f00b9b0b6ea70c1b9715452919e7f1c5709188f61a39d0",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "3191157fc1387c5b2f10afcb03fa02f1e0db4ef55364308508e2ceabb257d03c",
+        "expected_final_gamestate.txt": "8f7f51dd711805aef715b56ca9d0cb94814444e5a833c6c76c9e35f95a86143e",
+        "meta.json": "2fcbc179c4733ae497f86923766d60b42d1700b4b486637c1fabbc0adde37782"
+      },
+      "prefix_actions": 16,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Pitch",
+            "cardID": "wrecker_romp_blue",
+            "to": "Graveyard"
+          }
+        ]
+      },
+      "retained_assertions": 153,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Buckwild / compact four live positive effect: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Move actual6power donor6 Pitch\u2192GY, removing positive six-power Pitch condition: computedGA1\u21920 before retained Pitch membership checks. Disposable synthetic mutation only; retain every suffix oracle/action.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b97_blistering_remove_actual_yellow_pitch_condition",
+      "fixture": "card-blistering-assault-red-four-live-sparse-actual-yellow-pitch-pays-two-and-grants-go-again",
+      "fixture_sha256": "7c07c3a3126cd27c697fb08ebdb238060448d0bafbec18d5ebd35aa3968fc43d",
+      "source_raw5": {
+        "initial_gamestate.txt": "66e3510569f56b0af060378a408a91a11deb5ac61250f46e791bd248b16a6a5b",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "89599317aaa29a5fdf872d90d4214be682c5906268e9b09fdb44de7fad8ffce9",
+        "expected_final_gamestate.txt": "c8ea91002440c057aa2e5343cfa6fb374d93125706800b52e65c2f4a273da392",
+        "meta.json": "3a6205112f7ffc4141baae45acf8f42c968e68c816fe18e2a4ba971e26d7b674"
+      },
+      "prefix_actions": 16,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Pitch",
+            "cardID": "raging_onslaught_yellow",
+            "to": "Graveyard"
+          }
+        ]
+      },
+      "retained_assertions": 153,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Blistering Assault / compact four live positive effect: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Move actualyellow donor6 Pitch\u2192GY, removing positive yellowPitch condition: computedGA1\u21920 before retained Pitch membership checks. Disposable synthetic mutation only; retain every suffix oracle/action.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

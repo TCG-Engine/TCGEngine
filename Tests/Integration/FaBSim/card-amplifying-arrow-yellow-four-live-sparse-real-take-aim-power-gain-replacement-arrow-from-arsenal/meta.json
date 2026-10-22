@@ -1,0 +1,7 @@
+{
+    "name": "Amplifying Arrow / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T01:49:37+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actually resolve Take Aim Red with an occupied Arsenal, so Reload cannot offer a card. Then legally play the Arrow from Arsenal while controlling a Bow. Its one +3 power-gain event is replaced with +4 while the Arrow is face-up on the stack: base2+4=6. Unblocked damage6 leaves P2 at14; no GA/AP refund. Exactly one bounded positive first-pass representative; no pitch matrix or full-card/group completion. Source candidates are independently checked, not accepted merely because metadata exists. Only one face-up gain event is exercised; face-down gains, multiple gains, replacement ordering, Reload and Bow activation are outside this witness. The Bow is present but never activated. Support synchronous source-clear/callback internal order remains outside the atomic endpoint witness and is not asserted correct. No known pending user-choice lifecycle is omitted. Sources: https://judge.fabtcg.com/cards/detail/2042/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OUT100.webp https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

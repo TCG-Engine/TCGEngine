@@ -1,0 +1,81 @@
+{
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "completed_utc": "2026-10-20T23:36:41.684561+00:00",
+  "plan_sha256": "c53ab9607e4c37eb1027f3b753ea9c3f5fbf3da4b52173c50064b26defcc227e",
+  "independent_saved_proof_sha256": "e051c4c5699bb85b4fdf8f35034eb7fb569ae26720692bf83597ed40621498f6",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b91-corrected2-focused-fault-plan.json",
+    "c53ab9607e4c37eb1027f3b753ea9c3f5fbf3da4b52173c50064b26defcc227e",
+    "card-regression-sparse-b91-corrected2-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b91_stir_enhanced_arcane_physical_health_endpoint",
+      "fixture": "card-stir-the-aetherwinds-red-four-live-sparse-actual-next-wizard-as-instant-zero-ap-plus-three-dart",
+      "fixture_sha256": "cd18aafae87206f2df46ebf477967e4d5280016a8c8da0f59616c0ca2fcab46b",
+      "source_raw5": {
+        "initial_gamestate.txt": "ac74fabc2617c37e8c6073399c953af8751a51f1a04964c7b9b2927bbd7a2eac",
+        "actions.json": "ee718c359b7e58192bd0670982dd99fe4f80f519881b72107521f2ae81bae6ae",
+        "assertions.json": "e28a726104fe9b952f5f46c11ba9573515bfd1e2b0dbac4e23b85147a8ed7022",
+        "expected_final_gamestate.txt": "df1ed873539bbac44159f8c6df024444544ee59afc9741484337ebc7c1051b84",
+        "meta.json": "af3576596dd458c774d991ccc44f6f35d499fcc56ae678972a2615d5836d8d6e"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 2,
+            "value": 17
+          }
+        ]
+      },
+      "retained_assertions": 162,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p2Health to equal 14, got 17.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Stir the Aetherwinds / four live sparse positive effect: Initial assertion failed: Expected p2Health to equal 14, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual paidStir5 earned Instant permission and real target2 Dart6 resolved for3+3arcane6 atAP0, set only victim2 final health to17 (the unenhanced3damage endpoint) on disposable copy. Retained physicalHP14 oracle must detect17. Arcane ledger6 remains intact deliberately: this is endpoint sensitivity, not a claimed isolated internal Stir grant-removal or legal healing event. Existinghelper has no generic arcaneBonus setter; no replacement harness is added.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b91_ofb_remove_actual_resolved_weapon_reaction_power",
+      "fixture": "card-out-for-blood-red-four-live-sparse-actual-warrior-weapon-reaction-plus-three-no-hand-defense",
+      "fixture_sha256": "2d75d62a024ffcd4e059ed0e38ae56d2e2bcb14f51421f7215356e6a84b668dc",
+      "source_raw5": {
+        "initial_gamestate.txt": "696d50aff0eb14276c272dba212d01f04ed563a04f762b53977f46915c5a3aa5",
+        "actions.json": "210139aefeae34037da13eacf8c9d53c158a3900528239688e185e277d3612a6",
+        "assertions.json": "539a7354f53e75a8dce15afbda1d23c1eba784ce764385b26f1e85890bcae318",
+        "expected_final_gamestate.txt": "edf7ac086c3d43025a868024f28a6a11a177bb3a360d1fdb17550b62558244f0",
+        "meta.json": "b0b1d11519d151839ffd9f98ebf3435d7726ebec3dcd9a887c380a0902ec923d"
+      },
+      "prefix_actions": 21,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "cintari_saber",
+            "mode": "remove",
+            "tag": "CRU_REACTION_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 455,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Out for Blood / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Saberproxy8 activation/payment and OutForBlood5 reactioncost1 resolved after all4responsepasses, remove only actual applied+3 reaction tag from currentweaponattack. Retain physicalSaber7 Status1 beforehit, noHanddefense/noReprise, actualresources1/AP0. Freshcomputed5 must become2 before any damage/Dorinthea re-ready. Synthetic sensitivity on disposable copy, not a legal source-removal action.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

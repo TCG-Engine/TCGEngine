@@ -1,0 +1,7 @@
+{
+    "name": "Rejuvenate / four live sparse ordinary-unfused-action-heal",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T00:20:58+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Without fusion this is an ordinary Action: actual blue3 pitch pays printed1, leaving2 resources; one AP is spent. The healing is exactly three, taking wounded17 to20. One positive printed-effect demonstration only. Exactly four genuine live players and four recorded manual passes. The synchronous legacy ACTION/INSTANT resolver's internal source-clear-before-callback ordering is outside this atomic endpoint witness; no assertion labels it intended rules behavior. No full card/cycle/keyword, source-suppression, listener or lifecycle completion claim. Play-as-Instant after real fusion is not exercised. Oldhim hero activation and Earth/Ice defense effects are not activated. No pitch sibling or full intrinsic/cycle-completion claim. Sources: https://judge.fabtcg.com/cards/detail/1146/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ELE106.webp https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

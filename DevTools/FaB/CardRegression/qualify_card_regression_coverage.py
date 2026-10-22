@@ -333,7 +333,9 @@ def qualify_manifest(manifest, cards, here, repo, runtime_sha256, reviews, issue
         if slug in before and before[slug]["recorded"]:
             before[slug]["native_assertions"] = load(root / slug / "assertions.json")
     reports = {p.name: load(p) for p in sorted(here.glob("card-regression-replay-*.json"))}
-    suites = {p.name: load(p) for p in sorted(here.glob("card-regression-native-suite-*-results.json"))}
+    suite_paths=set(here.glob("card-regression-native-suite-*-results.json"))
+    suite_paths.update(here.glob("card-regression-native-four-suite-*.json"))
+    suites = {p.name: load(p) for p in sorted(suite_paths)}
     negative = here / "card-regression-negative-control-results.json"
     controls = load(negative) if negative.is_file() else []
     after = fixture_inventory(root)

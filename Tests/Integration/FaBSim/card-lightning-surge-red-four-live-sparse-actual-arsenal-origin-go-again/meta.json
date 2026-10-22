@@ -1,0 +1,7 @@
+{
+    "name": "Lightning Surge / four live sparse representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T23:50:57+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The actual source is played from Arsenal, so this attack has go again. It deals its printed4 to the unblocked target. One AP is spent on play; exactly one AP is gained when this chain link resolves, after damage. Source UID5 travels Arsenal -> Stack -> P1 CombatChain -> P1 Graveyard with Owner/Controller1. Arsenal is empty. Other players retain20HP; P1 finishes with exactly1AP and0resources. All four actual young20 heroes hold priority; all shortcut windows false. AdjacentP4 is selected through the real chooser. Every priority pass is bounded and recorded. Scope is one positive effect demonstration for pitch-cycle:lightning_surge; no sibling or secondary-card promotion. Hand-origin/no-go-again branch is not claimed. Aurora activated token ability is not activated or covered. Sources: https://judge.fabtcg.com/cards/detail/1229/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AST011.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

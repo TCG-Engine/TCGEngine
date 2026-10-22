@@ -1,0 +1,41 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch84.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T22:09:24.398754+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ancestral-empowerment-red-four-live-sparse-ninja-current-attack-plus-one-and-physical-draw",
+      "fixture_sha256": "8b47bf0c97192f778eb93bc94b93b5e91980bdc7fbcf19f495833188b28c1d31",
+      "passed": true,
+      "result": "[PASS] Ancestral Empowerment / four live sparse reaction"
+    },
+    {
+      "slug": "card-knives-out-blue-four-live-sparse-two-real-controlled-daggers-turn-buff",
+      "fixture_sha256": "c450557ade7552fe62b7a133b2377557cc7445c97258a29d1e2c12bf94dca2bf",
+      "passed": true,
+      "result": "[PASS] Knives Out / four live sparse reaction"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ancestral-empowerment-red-four-live-sparse-ninja-current-attack-plus-one-and-physical-draw",
+      "returncode": 0,
+      "stdout": "[PASS] Ancestral Empowerment / four live sparse reaction\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-knives-out-blue-four-live-sparse-two-real-controlled-daggers-turn-buff",
+      "returncode": 0,
+      "stdout": "[PASS] Knives Out / four live sparse reaction\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3089,
+  "omitted_source_scenarios": [
+    "card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+    "card-shred-red-four-live-sparse-actual-selected-defender-minus-four"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

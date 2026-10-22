@@ -1,0 +1,334 @@
+{
+  "status": "INDEPENDENT_B86_FOUR_BOUNDED_SAVED_BRANCHES_TWO_CURRENT_REPLAYS_AND_FOCUSED_CONTROLS_APPROVED",
+  "reviewer": "/root/resume_actual_audit",
+  "captured_utc": "2026-10-20T22:25:31.900798+00:00",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "input_sha256": "61644e53d51e7bd3912caabcfd6cbe53f0fd7e21b1c5f3d0df089c03a9369cde",
+  "recording_report": {
+    "path": "recording-runs/card-regression-batch86-20261020T222110Z-6ad7e9569a27d.json",
+    "sha256": "dbeebf3a7e910d477cafa56e6e065f8c50fd067935081dec7152c200265a74db"
+  },
+  "spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b86-independent-review\\independent-spec-review.json",
+    "sha256": "89cf4612c9829bbc6593dfd12e4e43b41fbbda6841dcf0dce4c842a32063dcdf"
+  },
+  "checks_passed": 3977,
+  "model_checks_passed": 4504,
+  "source_context_unchanged": true,
+  "fixtures": [
+    {
+      "slug": "card-sun-kiss-red-four-live-sparse-ordinary-heal-no-moon-wish",
+      "cardIDs": [
+        "sun_kiss_red"
+      ],
+      "source_spec": "card-regression-batch86.json",
+      "semantically_approved": true,
+      "fixture_sha256": "5af876ccf5e011f8a5466a18595047015f99a30a1b4ee2e86eabbd7cda0f6a22",
+      "file_sha256": {
+        "initial_gamestate.txt": "2c334886a39dac65ab0acc2133a5554578cb2c616d5fa46624d627992738c4fc",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "d45f77252f12cdccfd1e6f20a676d6cb9eaad27fd2e6a9df898b99048e862018",
+        "expected_final_gamestate.txt": "09b92397a9207b558bf4b23fe3d8622023393a188e9b171c4999b515c0a9c051",
+        "meta.json": "31f23c5e186920e7b6aa7053f30509b1346e8ea5118ffcd6fbffd38a56b77908"
+      },
+      "effect_branches": [
+        "ordinary-heal-no-moon-wish"
+      ],
+      "actions": 5,
+      "native_assertions": 419,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_scalar_effects": {
+        "p1Health": 20,
+        "p1Resources": 0,
+        "p1ActionPoints": 0
+      },
+      "actual_final_hand": [],
+      "actual_final_deck": [
+        {
+          "CardID": "brutal_assault_red",
+          "UniqueID": "6",
+          "Owner": "1",
+          "Controller": "1"
+        }
+      ],
+      "actual_final_source": {
+        "CardID": "sun_kiss_red",
+        "UniqueID": "5",
+        "Owner": "1",
+        "Controller": "1"
+      },
+      "review_basis": "Exact actual raw5, every play/pitch/pass and all original ordered native checkpoint expectations matched to independently verified printed-text/rules/economy/UID model. Actual initial/final full snapshots checked. Intermediate snapshots are not separately retained by this framework; their exact saved oracles require clean native replay qualification. One bounded positive effect only; internal source-clear/callback ordering and alternate conditions remain outside scope."
+    },
+    {
+      "slug": "card-rejuvenate-red-four-live-sparse-ordinary-unfused-action-heal",
+      "cardIDs": [
+        "rejuvenate_red"
+      ],
+      "source_spec": "card-regression-batch86.json",
+      "semantically_approved": true,
+      "fixture_sha256": "39b082e7322fc8791c67a25ecba2b8f26133a4d2ce72da895e2356bfad6ba734",
+      "file_sha256": {
+        "initial_gamestate.txt": "f44cca1b42023d2a7f6c8523bac2fc1a8c5b29c2259abdacfff5dc9a961c6bed",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "e5dd802b8e0f3acf258c6e73adee0e42c1d59bb41e7c5a595b9b34542449f70e",
+        "expected_final_gamestate.txt": "90a86006f002ceede0abbe1608f77f7b148f6a59b3c3d6382bce2045344eb705",
+        "meta.json": "6503968a80c8fcea0b8aab74eafda4e8cbb046dcf59e57d3f4834adfff0b32ec"
+      },
+      "effect_branches": [
+        "ordinary-unfused-action-heal"
+      ],
+      "actions": 6,
+      "native_assertions": 500,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_scalar_effects": {
+        "p1Health": 20,
+        "p1Resources": 2,
+        "p1ActionPoints": 0
+      },
+      "actual_final_hand": [],
+      "actual_final_deck": [
+        {
+          "CardID": "brutal_assault_red",
+          "UniqueID": "7",
+          "Owner": "1",
+          "Controller": "1"
+        }
+      ],
+      "actual_final_source": {
+        "CardID": "rejuvenate_red",
+        "UniqueID": "5",
+        "Owner": "1",
+        "Controller": "1"
+      },
+      "review_basis": "Exact actual raw5, every play/pitch/pass and all original ordered native checkpoint expectations matched to independently verified printed-text/rules/economy/UID model. Actual initial/final full snapshots checked. Intermediate snapshots are not separately retained by this framework; their exact saved oracles require clean native replay qualification. One bounded positive effect only; internal source-clear/callback ordering and alternate conditions remain outside scope."
+    },
+    {
+      "slug": "card-tome-of-divinity-yellow-four-live-sparse-ordinary-draw-two-no-soul-history",
+      "cardIDs": [
+        "tome_of_divinity_yellow"
+      ],
+      "source_spec": "card-regression-batch86.json",
+      "semantically_approved": true,
+      "fixture_sha256": "edd7e5921fac37aff80a010a23dc5dc2d2397af0971770d1b9c9d5568eca7c84",
+      "file_sha256": {
+        "initial_gamestate.txt": "87260a8168f9d7f8a67dc92cccee7bff33d3ace0e2dbd867a9028d4748b33abb",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "9b24d7d4bb192f927d1021f540bd34756cbf7316ca114dc4aa559283c3616041",
+        "expected_final_gamestate.txt": "dbbb25f8ebfe3127429ed122507eee44abc9c6c80d75cce085e4340c57155495",
+        "meta.json": "5e6178d86415752232d9a34c10522a950ded8aa09c8703856ecc40a9c4035954"
+      },
+      "effect_branches": [
+        "ordinary-draw-two-no-soul-history"
+      ],
+      "actions": 7,
+      "native_assertions": 653,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_scalar_effects": {
+        "p1Health": 20,
+        "p1Resources": 0,
+        "p1ActionPoints": 1
+      },
+      "actual_final_hand": [
+        {
+          "CardID": "brutal_assault_red",
+          "UniqueID": "8",
+          "Owner": "1",
+          "Controller": "1"
+        },
+        {
+          "CardID": "healing_balm_blue",
+          "UniqueID": "9",
+          "Owner": "1",
+          "Controller": "1"
+        }
+      ],
+      "actual_final_deck": [
+        {
+          "CardID": "wounding_blow_yellow",
+          "UniqueID": "10",
+          "Owner": "1",
+          "Controller": "1"
+        }
+      ],
+      "actual_final_source": {
+        "CardID": "tome_of_divinity_yellow",
+        "UniqueID": "5",
+        "Owner": "1",
+        "Controller": "1"
+      },
+      "review_basis": "Exact actual raw5, every play/pitch/pass and all original ordered native checkpoint expectations matched to independently verified printed-text/rules/economy/UID model. Actual initial/final full snapshots checked. Intermediate snapshots are not separately retained by this framework; their exact saved oracles require clean native replay qualification. One bounded positive effect only; internal source-clear/callback ordering and alternate conditions remain outside scope."
+    },
+    {
+      "slug": "card-drop-of-dragon-blood-red-four-live-sparse-zero-draconic-links-resource-and-one-draw",
+      "cardIDs": [
+        "drop_of_dragon_blood_red"
+      ],
+      "source_spec": "card-regression-batch86.json",
+      "semantically_approved": true,
+      "fixture_sha256": "9ee37b62d5630cd1b6e7651fbdfecb2de09410227981b741321b13bb7b7bd023",
+      "file_sha256": {
+        "initial_gamestate.txt": "efbd98d220e4c63268aa3d8a63376108f2dc6ca4625014660c526f07e0f1d208",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "a079cd23bbd337cf438fc4ffa57986781779d4a808db2f7a9b66a77556de3d09",
+        "expected_final_gamestate.txt": "1524e2fc48b47ac766fbf4a24e61519d86b8ddeabe6eb81d3797b02c181b1ecc",
+        "meta.json": "ab1ffe4a546b2a3dbaf445393efd43595165acef0a4aca0d264fb6b52dba8e30"
+      },
+      "effect_branches": [
+        "zero-draconic-links-resource-and-one-draw"
+      ],
+      "actions": 6,
+      "native_assertions": 528,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_scalar_effects": {
+        "p1Health": 20,
+        "p1Resources": 2,
+        "p1ActionPoints": 1
+      },
+      "actual_final_hand": [
+        {
+          "CardID": "brutal_assault_red",
+          "UniqueID": "7",
+          "Owner": "1",
+          "Controller": "1"
+        }
+      ],
+      "actual_final_deck": [
+        {
+          "CardID": "healing_balm_blue",
+          "UniqueID": "8",
+          "Owner": "1",
+          "Controller": "1"
+        }
+      ],
+      "actual_final_source": {
+        "CardID": "drop_of_dragon_blood_red",
+        "UniqueID": "5",
+        "Owner": "1",
+        "Controller": "1"
+      },
+      "review_basis": "Exact actual raw5, every play/pitch/pass and all original ordered native checkpoint expectations matched to independently verified printed-text/rules/economy/UID model. Actual initial/final full snapshots checked. Intermediate snapshots are not separately retained by this framework; their exact saved oracles require clean native replay qualification. One bounded positive effect only; internal source-clear/callback ordering and alternate conditions remain outside scope."
+    }
+  ],
+  "qualification": "Exactly four previously reviewed positive ordinary-effect branches now have two distinct clean current targeted native replays and four reviewed native post-effect output sensitivity controls with the intended first unchanged expectations. All original fixture rows and raw5 remain exact. This does not qualify the whole current corpus, sibling pitches, alternate MoonWish/fusion/soul/Draconic-link branches or full cards/cycles. Internal source-clear/callback ordering remains outside the public atomic endpoint scope.",
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "native_actions": 0,
+  "qualified_utc": "2026-10-20T22:32:26.383053+00:00",
+  "original_saved_review": {
+    "path": "sparse-b86-actual-saved-independent-review.json",
+    "sha256": "94652c354542cb2cb269d5768ece2efa47b98c5363d61751dd7b0ba5c423ab22"
+  },
+  "native_qualification": {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "checks_passed": 76,
+    "targeted_replay_reports": [
+      {
+        "path": "card-regression-replay-sparse-b86-four-live-run1.json",
+        "sha256": "1cba4145d7bfa246c2ba9e638fbf4e88c73bf5e13d45f8967a115f67571a15c4",
+        "passed": 4,
+        "failed": 0,
+        "completed_utc": "2026-10-20T22:21:29.088121+00:00"
+      },
+      {
+        "path": "card-regression-replay-sparse-b86-four-live-run2.json",
+        "sha256": "65c186cd5735ba7a8fa01790c38ad6635e0a68c0aaa0887c9d1d23a05bd4e12e",
+        "passed": 4,
+        "failed": 0,
+        "completed_utc": "2026-10-20T22:22:31.252045+00:00"
+      }
+    ],
+    "four_native_controls": {
+      "path": "card-regression-sparse-b86-fault-controls.json",
+      "sha256": "dfebfbd835f6b67ebf3cb0986115810d486367f407d3b66b5a9451ea771ae785",
+      "command_exit0_confirmed_by_root": true,
+      "all_detected": true,
+      "controls": [
+        {
+          "id": "b86_sun_kiss_perturb_actual_healed_life_endpoint",
+          "fixture": "card-sun-kiss-red-four-live-sparse-ordinary-heal-no-moon-wish",
+          "prefix_actions": 5,
+          "relative_step": 0,
+          "first_failure": "Expected p1Health to equal 20, got 19.",
+          "retained_original_assertions": 114,
+          "detected": true
+        },
+        {
+          "id": "b86_rejuvenate_perturb_actual_healed_life_endpoint",
+          "fixture": "card-rejuvenate-red-four-live-sparse-ordinary-unfused-action-heal",
+          "prefix_actions": 6,
+          "relative_step": 0,
+          "first_failure": "Expected p1Health to equal 20, got 19.",
+          "retained_original_assertions": 118,
+          "detected": true
+        },
+        {
+          "id": "b86_tome_divinity_remove_one_actual_drawn_hand_card",
+          "fixture": "card-tome-of-divinity-yellow-four-live-sparse-ordinary-draw-two-no-soul-history",
+          "prefix_actions": 7,
+          "relative_step": 0,
+          "first_failure": "Expected p1Hand count 2, got 1.",
+          "retained_original_assertions": 130,
+          "detected": true
+        },
+        {
+          "id": "b86_drop_dragon_blood_remove_one_actual_drawn_hand_card",
+          "fixture": "card-drop-of-dragon-blood-red-four-live-sparse-zero-draconic-links-resource-and-one-draw",
+          "prefix_actions": 6,
+          "relative_step": 0,
+          "first_failure": "Expected p1Hand count 1, got 0.",
+          "retained_original_assertions": 122,
+          "detected": true
+        }
+      ]
+    },
+    "reviewed_fault_plan": {
+      "path": "sparse-b86-focused-fault-plan.json",
+      "sha256": "f357fa91d241532ff2adcd90afc9cea8cbe9fac51197c2c87a69c44a9489d06c"
+    },
+    "wrapper_alias_review": {
+      "path": "sparse-b86-independent-review/executor-alias-independent-review.json",
+      "sha256": "11b00a3a02c0f257c8db5902948070207371cb2c79d3582d31eb57b735647fd9",
+      "executor_sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a"
+    },
+    "existing_native_helper_sha256": "021627a41cf4a44bef7cafe48302357e74ffae6ba39b147c3c068388384f2974",
+    "exact_first_failures_verified": true,
+    "unchanged_original_suffix_expectations_verified": true,
+    "canonical_raw5_preserved": true,
+    "cleanup_verified": true,
+    "original_fixture_rows_preserved": true,
+    "new_finite_card_baselines": 0,
+    "qualified_positive_four_live_representatives": 4
+  }
+}

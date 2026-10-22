@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-20T21:51:03+00:00",
+    "input_file": "card-regression-batch83.json",
+    "input_sha256": "027f1eaba07d11106c5d3189582412895637d27d8e296b2d9d4b4ef28002565d",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-browbeat-blue-four-live-sparse-remaining-hand-positive-power",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 283
+        },
+        {
+            "slug": "card-lightning-surge-red-four-live-sparse-actual-arsenal-origin-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 261
+        },
+        {
+            "slug": "card-searing-ray-red-four-live-sparse-real-yellow-pitch-positive-power",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 291
+        },
+        {
+            "slug": "card-ghostly-visit-red-four-live-sparse-intrinsic-faceup-banish-play",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 262
+        }
+    ]
+}

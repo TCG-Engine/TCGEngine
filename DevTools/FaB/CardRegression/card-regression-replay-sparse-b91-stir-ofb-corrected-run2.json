@@ -1,0 +1,38 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch91-stir-ofb-protocol-corrected.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T23:31:54.333902+00:00",
+  "fixtures": [
+    {
+      "slug": "card-stir-the-aetherwinds-red-four-live-sparse-actual-next-wizard-as-instant-zero-ap-plus-three-dart",
+      "fixture_sha256": "cd18aafae87206f2df46ebf477967e4d5280016a8c8da0f59616c0ca2fcab46b",
+      "passed": true,
+      "result": "[PASS] Stir the Aetherwinds / four live sparse positive effect"
+    },
+    {
+      "slug": "card-out-for-blood-red-four-live-sparse-actual-warrior-weapon-reaction-plus-three-no-hand-defense",
+      "fixture_sha256": "2d75d62a024ffcd4e059ed0e38ae56d2e2bcb14f51421f7215356e6a84b668dc",
+      "passed": true,
+      "result": "[PASS] Out for Blood / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-stir-the-aetherwinds-red-four-live-sparse-actual-next-wizard-as-instant-zero-ap-plus-three-dart",
+      "returncode": 0,
+      "stdout": "[PASS] Stir the Aetherwinds / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-out-for-blood-red-four-live-sparse-actual-warrior-weapon-reaction-plus-three-no-hand-defense",
+      "returncode": 0,
+      "stdout": "[PASS] Out for Blood / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3124,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

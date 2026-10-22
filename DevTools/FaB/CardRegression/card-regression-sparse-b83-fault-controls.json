@@ -1,0 +1,133 @@
+{
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "completed_utc": "2026-10-20T21:53:35.287123+00:00",
+  "results": [
+    {
+      "fixture": "card-browbeat-blue-four-live-sparse-remaining-hand-positive-power",
+      "source_raw5": {
+        "initial_gamestate.txt": "ea88f0d668a7fc7d0936159f9a2a9cfb4b085512927a572633658bbfae609be6",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "f98fcaa7d42847966843b18c4b8b5a9fab5154a92825f6c5a7b2b28a07781b2b",
+        "expected_final_gamestate.txt": "c1992b69bd806111dc7cbccc88e2f6d98eb8226b3be25c39035d38ec6a410dc9",
+        "meta.json": "e0d0d58153b161f7e11f0e7d22a754489a03264564a023c8bdbe591a16dd8c8a"
+      },
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "prefix_actions": 15,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "wounding_blow_red",
+            "from": "Hand",
+            "to": "Deck"
+          }
+        ]
+      },
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Browbeat / four live sparse representative: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 3, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "meaning": "Disposable condition/remnant or physical-stat fault; no alternative legal play, complete suppression, or illegal-banish-revalidation claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "fixture": "card-lightning-surge-red-four-live-sparse-actual-arsenal-origin-go-again",
+      "source_raw5": {
+        "initial_gamestate.txt": "e4a458841480515478654b2d6c141b7bd1685d759c3324e4dda9047dbbdc6044",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "44bece5a56d2ffb147b8fc01270260b77e6017466882e9766f90e0b7422ac0c1",
+        "expected_final_gamestate.txt": "155a47711fa88abffa209dc1efc1a78b51b3fbd2758d5283ddef8f2a21c8a9f3",
+        "meta.json": "8f695c761c31d00317222bd2eaf6efdfd87ac0003a7e2354a705e2365e446fa4"
+      },
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "prefix_actions": 15,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "lightning_surge_red",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Lightning Surge / four live sparse representative: Step 4 assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "meaning": "Disposable condition/remnant or physical-stat fault; no alternative legal play, complete suppression, or illegal-banish-revalidation claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "fixture": "card-searing-ray-red-four-live-sparse-real-yellow-pitch-positive-power",
+      "source_raw5": {
+        "initial_gamestate.txt": "e67780166b0790d506a47e79015cad0c081234bed22e389f07638cc01c49f3ec",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4e0aa71afdcbf7d1ff1141b2a981b0851e0f086225c2e873710f4b7bef1fbb90",
+        "expected_final_gamestate.txt": "13912f2c838fd15f01c38a4c1a0f02ea00fcdce81f06b41598238942ddf90277",
+        "meta.json": "48111ba09cc4960045c6fdc7662848a21c59016380f41d0919d068279bec224c"
+      },
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "prefix_actions": 16,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "raging_onslaught_yellow",
+            "from": "Pitch",
+            "to": "Graveyard"
+          }
+        ]
+      },
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Searing Ray / four live sparse representative: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "meaning": "Disposable condition/remnant or physical-stat fault; no alternative legal play, complete suppression, or illegal-banish-revalidation claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "fixture": "card-ghostly-visit-red-four-live-sparse-intrinsic-faceup-banish-play",
+      "source_raw5": {
+        "initial_gamestate.txt": "afe866f7002bcbb43c74c8eef2d07abc089e90e267446d1089b2b89962150867",
+        "actions.json": "f5dc4733045507ccdf810018d928d9d19918c64cc4f2c93d20aa18d4bbb15a24",
+        "assertions.json": "f7e08629190a5339060dd047be0a2cc26622582463b73214cd6048f5b87246a7",
+        "expected_final_gamestate.txt": "0fce06dcc47ba53cd014f349b9176d446ec85b1b4002ed54ef5cb9b3280330ea",
+        "meta.json": "8674a60958a46d771fca271ead66114ea761427e280eaba36153ee8362e9b90b"
+      },
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "prefix_actions": 15,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "ghostly_visit_red",
+            "mode": "add",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 5.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Ghostly Visit / four live sparse representative: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 4, got 5.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "meaning": "Disposable condition/remnant or physical-stat fault; no alternative legal play, complete suppression, or illegal-banish-revalidation claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true
+}

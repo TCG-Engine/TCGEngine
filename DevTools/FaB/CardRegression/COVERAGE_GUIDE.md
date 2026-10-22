@@ -1,12 +1,21 @@
 # FaBSim coverage guide and compact index
 
-Frozen 20 October 2026: **3,079 qualified scenarios** (3,074 duels, five four-live-player games); **239 primary identities / 114 cycles or standalone groups**. Of 5,196 catalog identities,75 have a complete declared finite baseline,164 have partial verified branches, and4,957 have no primary scenario. Catalog membership is3,324 groups /17,188 printing records;3,210 groups lack primary scenarios. No pitch sibling inherits a representative's evidence.
+Historical consolidated checkpoint, 20 October 2026 (runtime 561899c9b57e): **3,079 qualified scenarios** (3,074 duels, five four-live-player games); **239 primary identities / 114 cycles or standalone groups**. Of 5,196 catalog identities,75 have a complete declared finite baseline,164 have partial verified branches, and4,957 have no primary scenario. Catalog membership is3,324 groups /17,188 printing records;3,210 groups lack primary scenarios. No pitch sibling inherits a representative's evidence.
 
 Use [card-regression-coverage.json](card-regression-coverage.json) for current detailed evidence; [card-regression-checkpoint.json](card-regression-checkpoint.json) for frozen qualification and [card-regression-completion-scopes.json](card-regression-completion-scopes.json) for exact baseline obligations. [FINAL_ASSESSMENT.md](FINAL_ASSESSMENT.md) explains fixes, open risks and test results.
 
-**Maintenance limit:** the legacy standalone builder omits nine current suffix-named inputs and its qualifier misses the new four-suite filename. Use the frozen current registry; review and correct that rebuild inventory before regenerating it.
+For resumed sparse four-player work, use [cycle-coverage-current.json](cycle-coverage-current.json) and [SPARSE_FIRST_PASS.md](SPARSE_FIRST_PASS.md). The table below remains the historical 114-group checkpoint; the current index includes later batches. One representative covers only its named behavior. Untested pitch siblings receive no individual verification.
 
-The schema is `cards[]` keyed by `card_id`. Its `effect_branches[]` entries name `id` (scenario slug), `source_spec`, `effect_branches`, `recording_test_path`, `fixture_sha256`, `independent_review` and `replays[]` with current `runtime_sha256`. Check both review and replay hashes: a `recorded_semantically_checked` authoring status alone does not qualify a regression. `coverage_status=complete_declared_baseline` is a bounded intrinsic baseline; `partial` is named branch evidence; an identity with no branches has no primary-scenario coverage even if its metadata says `pending_semantic_scenario_review`. A present branch also needs exact review and current replay evidence; unqualified fang_strike/slither mentions do not increase the239 tested primary subjects.
+The incremental discovery gap is repaired: the builder loads each reviewed scenario from its exact registered source specification, retains numbered planned batches, and the qualifier discovers current four-suite reports. It preserves archived historical evidence labels. Rebuild detailed evidence and the compact current index with:
+
+```powershell
+python DevTools/FaB/CardRegression/build_card_regression_coverage.py
+python DevTools/FaB/CardRegression/summarize_card_regression_cycles.py
+```
+
+The index separates saved, reviewed, one-current-replay and two-current-replay groups, and verifies actual four-live initial profiles and real pass actors. Its implementation-candidate denominator identifies candidates to investigate; it does not prove their implementations are correct.
+
+The schema is `cards[]` keyed by `card_id`. Its `effect_branches[]` entries name `id` (scenario slug), `source_spec`, `effect_branches`, `recording_test_path`, `fixture_sha256`, `independent_review` and `replays[]` with current `runtime_sha256`. Check both review and replay hashes: a `recorded_semantically_checked` authoring status alone does not qualify a regression. `coverage_status=complete_declared_baseline` is a bounded intrinsic baseline; `partial` is named branch evidence; an identity with no branches has no primary-scenario coverage even if its metadata says `pending_semantic_scenario_review`. A present branch also needs exact review and current replay evidence; unqualified fang_strike/slither mentions did not increase the239 tested primary subjects at the historical checkpoint.
 
 For example:
 
@@ -29,9 +38,9 @@ $card.effect_branches | Select-Object id, status, recording_test_path
 
 [cycle-coverage-assessment.json](cycle-coverage-assessment.json) gives the114 represented groups, exact tested variants and the five actual four-player cases. [cycle-group-map.compact.json](cycle-group-map.compact.json) maps all3,324 groups to their5,196 member IDs; it is membership only. A group absent from the represented table has no primary scenario. Merely mentioning a hero/support card or creating a token earns no primary evidence. Spell Fray Cloak's accepted Spellvoid has separate partial secondary evidence in Dart, excluded from239 primary subjects.
 
-All five four-live pilots use living heroes, explicit per-seat queues/priority and real passes. Strike Gold includes actualP2/P3/P4 Sigil responses; Dart includes aP3 response andP4 Spellvoid decision. Most branches below remain duel-only. Existing matrices were preserved. Future work should default to four live players and one representative per pitch cycle, adding cases for material behavior or a specific bug.
+The five historical four-live pilots use living heroes, explicit per-seat queues/priority and real passes. Strike Gold includes actualP2/P3/P4 Sigil responses; Dart includes aP3 response andP4 Spellvoid decision. Most branches below remain duel-only. Existing matrices were preserved. Future work should default to four live players and one representative per pitch cycle, adding cases for material behavior or a specific bug.
 
-## All represented primary groups
+## Historical represented primary groups
 
 `B` means complete declared finite baseline for that exact member; `P` means partial. `4P` marks a member with one of the five four-live pilots, alongside any duel evidence. Every other tested member below has duel evidence only. Untested members are explicit; an empty final column means all listed group members have some primary evidence, not full cycle correctness.
 

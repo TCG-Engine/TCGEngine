@@ -1,0 +1,202 @@
+{
+  "status": "INDEPENDENT_FIVE_EXISTING_DR_SCOPE_RUNTIME_REBIND_APPROVED_NO_NEW_BASELINES",
+  "reviewer": "/root/resume_actual_audit",
+  "captured_utc": "2026-10-20T22:09:54.666075+00:00",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "checks_passed": 440,
+  "diagnosis": "Current result IDs are already exact; only ten stale required_control runtime leaves cause the five missing-control reasons. No report retag, emitter change or extra control run is warranted.",
+  "card_ids": [
+    "dodge_blue",
+    "evasive_leap_red",
+    "evasive_leap_yellow",
+    "evasive_leap_blue",
+    "toughen_up_blue"
+  ],
+  "native_scope_before_sha256": "e802b8e7cf3394e352f85601350b0252490cf17dfdd7588b93917b50bb6cf1d1",
+  "prior_scope_review": {
+    "path": "review-evidence/five-dr-scopes-current-control-rebind-independent-review-994ab3cb042b.json",
+    "sha256": "994ab3cb042b6701b4005d3b2b9caaff07c114cb8d6427df2e2a6004bf0f37c2"
+  },
+  "current77_report": {
+    "path": "card-regression-negative-control-results.json",
+    "sha256": "4eaa745bef8422386620ab308984a754134ea5e9e88942a42e0a81977aba0a2e"
+  },
+  "actual_controls": {
+    "muscle_defense_plus_one": {
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+      "mutation": "fixture-only effect/choice/cost perturbation",
+      "expected_failure": "p2Health to equal 18, got 19",
+      "detected": true,
+      "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "returncode": 1,
+      "control_id": "muscle_defense_plus_one",
+      "prefix_actions": 6,
+      "expected_failure_step": 7,
+      "evidence_kind": "disposable_fixture_semantic_assertion"
+    },
+    "muscle_defense_minus_one": {
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+      "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+      "mutation": "fixture-only effect/choice/cost perturbation",
+      "expected_failure": "p2Health to equal 18, got 17",
+      "detected": true,
+      "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "returncode": 1,
+      "control_id": "muscle_defense_minus_one",
+      "prefix_actions": 6,
+      "expected_failure_step": 7,
+      "evidence_kind": "disposable_fixture_semantic_assertion"
+    }
+  },
+  "planner_and_emitter": {
+    "planner_sha256": "6a9584375a61dd899310567d4679f16738148bff64c48840f74802c9fc2dc97f",
+    "runner_sha256": "038b2c756f27cde9f33a3eb6ade3e7ada9cd3be2d575bf25f4f8126e4cc09a64",
+    "emitter_line": 407,
+    "plans": {
+      "muscle_defense_plus_one": {
+        "control_id": "muscle_defense_plus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "object_effect": [
+          {
+            "player": 2,
+            "zone": "CombatChain",
+            "cardID": "muscle_mutt_yellow",
+            "tag": "WTR_DEFENSE:1",
+            "mode": "add"
+          }
+        ]
+      },
+      "muscle_defense_minus_one": {
+        "control_id": "muscle_defense_minus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "object_effect": [
+          {
+            "player": 2,
+            "zone": "CombatChain",
+            "cardID": "muscle_mutt_yellow",
+            "tag": "WTR_DEFENSE:-1",
+            "mode": "add"
+          }
+        ]
+      }
+    }
+  },
+  "shared_defense_functions_unchanged": {
+    "FaBDefenseValue": "f19c8a6c5edfd48f172d10e3bafe79ef832956d011148600bcc5898cd79a31bb",
+    "FaBCurrentDefense": "ccb57f904994bee7f9169970f7f36bee5278fbe73c9d9473f41581029bc1c5a5"
+  },
+  "exact_runtime_leaf_changes": [
+    {
+      "card_id": "dodge_blue",
+      "path": "/cards/dodge_blue/required_semantic_controls/0/runtime_sha256",
+      "before": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+      "after": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "card_id": "dodge_blue",
+      "path": "/cards/dodge_blue/required_semantic_controls/1/runtime_sha256",
+      "before": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+      "after": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "card_id": "evasive_leap_red",
+      "path": "/cards/evasive_leap_red/required_semantic_controls/0/runtime_sha256",
+      "before": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+      "after": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "card_id": "evasive_leap_red",
+      "path": "/cards/evasive_leap_red/required_semantic_controls/1/runtime_sha256",
+      "before": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+      "after": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "card_id": "evasive_leap_yellow",
+      "path": "/cards/evasive_leap_yellow/required_semantic_controls/0/runtime_sha256",
+      "before": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+      "after": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "card_id": "evasive_leap_yellow",
+      "path": "/cards/evasive_leap_yellow/required_semantic_controls/1/runtime_sha256",
+      "before": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+      "after": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "card_id": "evasive_leap_blue",
+      "path": "/cards/evasive_leap_blue/required_semantic_controls/0/runtime_sha256",
+      "before": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+      "after": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "card_id": "evasive_leap_blue",
+      "path": "/cards/evasive_leap_blue/required_semantic_controls/1/runtime_sha256",
+      "before": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+      "after": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "card_id": "toughen_up_blue",
+      "path": "/cards/toughen_up_blue/required_semantic_controls/0/runtime_sha256",
+      "before": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+      "after": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "card_id": "toughen_up_blue",
+      "path": "/cards/toughen_up_blue/required_semantic_controls/1/runtime_sha256",
+      "before": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+      "after": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    }
+  ],
+  "existing_baseline_scenarios": 114,
+  "captured_inventory_checkpoint": {
+    "coverage_sha256": "9bc71e410faf40908d512ae5e1f8b3a5c2f3f7b0412ed474debfc801a192a47c",
+    "canonical_scenarios": 3087,
+    "before_baselines": 70,
+    "conditional_baselines_after_same_context": 75,
+    "full_reports": {
+      "card-regression-replay-sparse-3087-89d2-run1.json": "da522599863f3e2d7a72b574a423d35341d2e7e3f9917f3031e427492e0bceba",
+      "card-regression-replay-sparse-3087-89d2-run2.json": "827a9b9600664c53d91f991942fd163126a506ec24bb00b252b163a316e32756"
+    },
+    "suite_reports": {
+      "card-regression-native-four-suite-sparse-resume-89d2.json": "5744de848a18e7a55e084ef7e0f2955ed078a7a4754a41c8fea13a04a308905d"
+    }
+  },
+  "assessments_after": {
+    "dodge_blue": {
+      "complete": true,
+      "requirements_met": 22,
+      "requirements_total": 22,
+      "reasons": []
+    },
+    "evasive_leap_red": {
+      "complete": true,
+      "requirements_met": 22,
+      "requirements_total": 22,
+      "reasons": []
+    },
+    "evasive_leap_yellow": {
+      "complete": true,
+      "requirements_met": 22,
+      "requirements_total": 22,
+      "reasons": []
+    },
+    "evasive_leap_blue": {
+      "complete": true,
+      "requirements_met": 22,
+      "requirements_total": 22,
+      "reasons": []
+    },
+    "toughen_up_blue": {
+      "complete": true,
+      "requirements_met": 30,
+      "requirements_total": 30,
+      "reasons": []
+    }
+  },
+  "qualification": "This restores the same five previously approved finite baselines at the actual current runtime, with all 22/22 or30/30 original obligations and separate holds unchanged. The two actual shared controls remain two controls, not ten per-card executions. Global exact-current-inventory replay/suite/control gates remain required after later batches; no blanket present-inventory qualification is inferred.",
+  "native_writes": 0,
+  "game_actions": 0
+}

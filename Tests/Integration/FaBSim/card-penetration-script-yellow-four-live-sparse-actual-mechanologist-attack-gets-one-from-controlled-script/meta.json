@@ -1,0 +1,7 @@
+{
+    "name": "Penetration Script / four live sparse passive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T02:02:25+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "An actual Payload Red costs2, paid by one actual blue3 pitch, leaving1/AP0. It has no Boost ability and no prior boost history is seeded. Controlled Penetration Script adds1 to printed6: power7 deals7 unblocked to P2, who ends13. Script and its one steam counter persist. One positive sparse witness of existing controlled permanent effect; no primary item-entry, Crank/upkeep, pitch matrix, full-card or group-completion claim. All four genuine live young20 heroes manually pass and no history/permission/effect tag is seeded. Only the existing permanent static power effect is exercised. Item play, Crank, upkeep, absence/suppression/multiple scripts and Payload conditional dominate remain outside this witness. Sources: https://judge.fabtcg.com/cards/detail/2585/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVO079.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

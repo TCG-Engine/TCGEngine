@@ -1,0 +1,83 @@
+{
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "completed_utc": "2026-10-20T23:22:41.852626+00:00",
+  "plan_sha256": "836e39ab7e059c1bca995e65e7c4e254ff1442d37b2f814c9b4996c0ed91270f",
+  "independent_saved_proof_sha256": "d5a897aa99804339ea9edc9f0c7166fb230436c1a9845683773721db840dbdcb",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b91-safe2-focused-fault-plan.json",
+    "836e39ab7e059c1bca995e65e7c4e254ff1442d37b2f814c9b4996c0ed91270f",
+    "card-regression-sparse-b91-safe2-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b91_macho_physical_power_endpoint_plus_one",
+      "fixture": "card-macho-grande-red-four-live-sparse-printed-dominate-rejects-second-real-hand-defender",
+      "fixture_sha256": "fca0ecc2c58be2e78347fed6d6660580efaba8aa13f5ff0308b0e9b427964f24",
+      "source_raw5": {
+        "initial_gamestate.txt": "ed9ddd55e135d33acdcf6c4eb6d73d0cea2bd12c79afdf2f1b9f222b93acb21e",
+        "actions.json": "ba7ead9b1f5cf0b516aaaa8f1e42447390893ace2a848d90eb8796374159750b",
+        "assertions.json": "885a765661ac2236bbdb43a96d47df6122bae832828f3008bc2e861d70409c4b",
+        "expected_final_gamestate.txt": "4315dc8307c9d8b70bd67f073d568a8cee4710ae8c16ecd2c1e748449b23099a",
+        "meta.json": "e8e1772a3b783b098504664056b1d90904265d13519a06ab4892cfa2c42777ec"
+      },
+      "prefix_actions": 20,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "macho_grande_red",
+            "mode": "add",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 477,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 10, got 11.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Macho Grande / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 10, got 11.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After all actual blue pitches, real first Hand defender and actual dominate rejection of second Hand card, add+1 to only physical attackUID5 at realREACTION boundary. This checks printed/current power and downstream damage assertions; it does not pretend to remove intrinsic dominate or add an illegal defender.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b91_chests_opposite_yellow_physical_endpoint_missing",
+      "fixture": "card-break-open-the-chests-yellow-four-live-sparse-all-four-real-arsenals-face-up-opposite-yellow-two-gold",
+      "fixture_sha256": "4f626c4cb8822d401385b31e5740f85562d63f7eaf3e5ee0f3ca90b521ce6634",
+      "source_raw5": {
+        "initial_gamestate.txt": "a3e46549fb66fdff8c4cd810f1f83fed8d4bde4e62ac60549bbda88d2f2e7ab9",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "2dfa162f48f3cb5ae73ed898305accc62c6c242e5937967381aaa9f54f60da5a",
+        "expected_final_gamestate.txt": "39c05b47a4109bd0f0e06c164da37eb05cf65afd0d3fd2f382f092f36bb879a8",
+        "meta.json": "eb7ecb5319df9f86ee8adb1c93bcc4022e37f34ed7a1a7cf194cd365ab3dd6b0"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 3,
+            "from": "Arsenal",
+            "cardID": "wounding_blow_yellow",
+            "to": "Hand"
+          }
+        ]
+      },
+      "retained_assertions": 212,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p3Arsenal count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Break Open the Chests! / four live sparse positive effect: Initial assertion failed: Expected p3Arsenal count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual atomic Chests resolution flipped all4 and produced actualGold11/12, move exactly the opposite hero3 actual yellowUID9 out of its Arsenal by existing normal movement helper. Retained original public endpoint must detect the missing owned arsenal source. This tests fourth-player/opposite physical result membership, not a fabricated mid-resolution pause, a separate flip-only fault, or Gold generation regression.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

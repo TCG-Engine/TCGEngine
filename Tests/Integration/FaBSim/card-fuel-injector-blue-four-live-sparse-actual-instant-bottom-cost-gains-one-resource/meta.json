@@ -1,0 +1,7 @@
+{
+    "name": "Fuel Injector / compact four live positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T01:24:03+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "YoungMechanologistDash20 controls physicalFuelInjectorUID5 inArena and ownDeck has knownsentinelWoundingBlowRedUID6. Actually activate its printedInstant: pay0resources/AP and put same ownedInjector5 on BOTTOMofownerDeck as the cost, so Deck[sentinel6,Injector5] exists before virtualAbilityUID7 priority. Allfour manually pass once, then gain exactly1resource0->1. Instant spendsnoAP and hasnoGA, so APstays1; allheroes20, otherresources/AP0. SameDeckorder/UIDs remain, Arena/GY/Handempty. NoDashherooritemplay action occurs. One same-owner/controller Instant bottom-cost+resourcegain endpoint. Laterresourceuse, itemplay, foreignownership, deckreplacement and repeatuse remainuncovered. All four genuine live seats have manual holds/all11 shortcut windows disabled by existing recorder profile. Full initial/final physical/economy/profile checks; intermediate checks only changing priority/window/counter/layer and relevant unresolved effect endpoints. One representative per exact group; no full-card/variant/support coverage transfer. Sources: https://judge.fabtcg.com/cards/detail/2501/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVO075.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/02-object-properties/"
+}

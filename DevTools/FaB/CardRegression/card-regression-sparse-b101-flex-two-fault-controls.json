@@ -1,0 +1,84 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-21T00:53:08.545131+00:00",
+  "plan_sha256": "2baec6c4622d8e0e8219e7c8fde358e6eeacdc1e83640058c9e59d6ab4ba3f9d",
+  "independent_saved_proof_sha256": "acd84247636732b876163d773a3ca66ce99c2f509cf6efcf527919aeadb07b17",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b101-flex-focused-fault-plan.json",
+    "2baec6c4622d8e0e8219e7c8fde358e6eeacdc1e83640058c9e59d6ab4ba3f9d",
+    "card-regression-sparse-b101-flex-two-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b101_flex_speed_remove_consumed_physical_bonus",
+      "fixture": "card-flex-speed-red-four-live-sparse-real-come-to-fight-buff-crosses-six-and-grants-go-again",
+      "fixture_sha256": "e128c23b91f2c22801c483b15335d57e6861a279c91c4c7b29e1e634fbe0c090",
+      "source_raw5": {
+        "initial_gamestate.txt": "24eae74262f44bbbd050d51168f442d07da677c1a5bbfb23d57ab629887d5020",
+        "actions.json": "6ccb49c39b1099d224e618f22a9f834a44c4efac7bd722a0ae88ecbc66d7d083",
+        "assertions.json": "85ea64ab61737e86a2b7ab62a1dde8f6a3bd564cd9d862ee2a2404a2b72715e9",
+        "expected_final_gamestate.txt": "927c147daf3612c6c33b48a6f85af2f275f3add5acf60afe1540caaeab3b4d79",
+        "meta.json": "6928cd3ee067c2a5f8085970acf3ad2a0cbc68bdbee018abe2f018c47572e8cd"
+      },
+      "prefix_actions": 9,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "Stack",
+            "cardID": "flex_speed_red",
+            "tag": "WTR_POWER:3",
+            "mode": "remove"
+          }
+        ]
+      },
+      "retained_assertions": 253,
+      "expected_failure_step": 3,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 8, got 5.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Flex Speed / four live sparse positive condition: Step 3 assertion failed: Expected p1CombatChain-0 computed power to equal 8, got 5.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual supportUID6 cost1 paid by BlueUID7/pitch3, four real support response passes resolved ARC_NEXT_AA3 and own supportGA, primaryUID5 paid2 from remaining2/AP0 and consumed onlyARC into sole physical StackWTR_POWER3. Prefix9 follows the first real primary response pass (P1); the original exact physicaltag assertion at8 has already succeeded. Remove exactly one WTR_POWER:3 via unchanged helper on unique Stack flex_speed_red UID5. All wholeP1 bookkeeping arrays stay unchanged; actual next passes2/3/4 resolve same attack. FIRST retained Step3 power8 becomes5. Speed printedbase5 then has no thresholdGA; all original GA/AP1/damage8/HP12 assertions remain. Every original suffix oracle and physical source/cost/UID/owner/priority endpoint is retained. This is a controlled missing numeric bonus fault, not a legal suppression/modifier branch or broad dynamic dependency coverage.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b101_flex_strength_remove_consumed_physical_bonus",
+      "fixture": "card-flex-strength-red-four-live-sparse-real-come-to-fight-crosses-six-and-enables-own-three-power",
+      "fixture_sha256": "b97e36fa7a12014764b95cf80ef28c62b2b97f00ebc885aced140c42e6f683aa",
+      "source_raw5": {
+        "initial_gamestate.txt": "9ea617329bb94e8bc2cb56ab90c7c289806520f60d736ef24a1328ba452c4ed8",
+        "actions.json": "6ccb49c39b1099d224e618f22a9f834a44c4efac7bd722a0ae88ecbc66d7d083",
+        "assertions.json": "9496c472f7d19c9931a28d6f4836e51b54029bca975a1255b9c0579fda23688e",
+        "expected_final_gamestate.txt": "b1381bf803549af082933ab3acb37af0f3fc0056edb1e89bd738bddf225a6b53",
+        "meta.json": "d68c33ff7040aabba56b48c1e1007f0c98870684d29570cbd873642d2123810b"
+      },
+      "prefix_actions": 9,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "Stack",
+            "cardID": "flex_strength_red",
+            "tag": "WTR_POWER:3",
+            "mode": "remove"
+          }
+        ]
+      },
+      "retained_assertions": 253,
+      "expected_failure_step": 3,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 10, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Flex Strength / four live sparse positive condition: Step 3 assertion failed: Expected p1CombatChain-0 computed power to equal 10, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual supportUID6 cost1 paid by BlueUID7/pitch3, four real support response passes resolved ARC_NEXT_AA3 and own supportGA, primaryUID5 paid2 from remaining2/AP0 and consumed onlyARC into sole physical StackWTR_POWER3. Prefix9 follows the first real primary response pass (P1); the original exact physicaltag assertion at8 has already succeeded. Remove exactly one WTR_POWER:3 via unchanged helper on unique Stack flex_strength_red UID5. All wholeP1 bookkeeping arrays stay unchanged; actual next passes2/3/4 resolve same attack. FIRST retained Step3 power10 becomes4. Strength printedbase4 without external3 stays below6, so no self+3; all original noGA/AP0/damage10/HP10 assertions remain. Every original suffix oracle and physical source/cost/UID/owner/priority endpoint is retained. This is a controlled missing numeric bonus fault, not a legal suppression/modifier branch or broad dynamic dependency coverage.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

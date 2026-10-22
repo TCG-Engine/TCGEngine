@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-21T00:37:38+00:00",
+    "input_file": "card-regression-batch103.json",
+    "input_sha256": "6cff4ec43184e186bd8e235964260302c913e79e81bb69598c9af886c5ce6638",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-rising-tide-blue-four-live-sparse-actual-other-blue-play-and-real-pitch-enable-two-power",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 413
+        },
+        {
+            "slug": "card-spillover-blue-four-live-sparse-actual-other-blue-play-and-real-pitch-enable-two-power",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 413
+        },
+        {
+            "slug": "card-smash-with-big-rock-yellow-four-live-sparse-actual-two-defenders-cannot-gain-captain-defense",
+            "status": "recorded_semantically_checked",
+            "actions": 30,
+            "assertions": 396
+        },
+        {
+            "slug": "card-battalion-barque-red-four-live-sparse-two-real-blue-pitches-pay-four-and-enable-high-tide",
+            "status": "recorded_semantically_checked",
+            "actions": 29,
+            "assertions": 345
+        }
+    ]
+}

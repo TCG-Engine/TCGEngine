@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-20T23:30:24+00:00",
+    "input_file": "card-regression-batch91-stir-ofb-protocol-corrected.json",
+    "input_sha256": "95c4e20e241772b9a55e9261d553af811bcfa5daa95a19dee451fb48b019f2ee",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-stir-the-aetherwinds-red-four-live-sparse-actual-next-wizard-as-instant-zero-ap-plus-three-dart",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 585
+        },
+        {
+            "slug": "card-out-for-blood-red-four-live-sparse-actual-warrior-weapon-reaction-plus-three-no-hand-defense",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1154
+        }
+    ]
+}

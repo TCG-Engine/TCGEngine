@@ -1,0 +1,217 @@
+{
+  "status": "INDEPENDENT_ACTUAL_B91_TWO_SPARSE_REPRESENTATIVES_TWO_CLEAN_SUBSET_REPLAYS_TWO_INTENDED_NATIVE_FAULTS_APPROVED",
+  "reviewer": "/root/resume_contract_review",
+  "independent_of_author": true,
+  "completed_utc": "2026-10-20T23:24:01.068189+00:00",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "input_sha256": "5ac681b5974845ed4550fb29ee4921f25d841770b89870bab134089e3c90db3f",
+  "fixtures": [
+    {
+      "slug": "card-macho-grande-red-four-live-sparse-printed-dominate-rejects-second-real-hand-defender",
+      "fixture_sha256": "fca0ecc2c58be2e78347fed6d6660580efaba8aa13f5ff0308b0e9b427964f24",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ed9ddd55e135d33acdcf6c4eb6d73d0cea2bd12c79afdf2f1b9f222b93acb21e",
+        "actions.json": "ba7ead9b1f5cf0b516aaaa8f1e42447390893ace2a848d90eb8796374159750b",
+        "assertions.json": "885a765661ac2236bbdb43a96d47df6122bae832828f3008bc2e861d70409c4b",
+        "expected_final_gamestate.txt": "4315dc8307c9d8b70bd67f073d568a8cee4710ae8c16ecd2c1e748449b23099a",
+        "meta.json": "e8e1772a3b783b098504664056b1d90904265d13519a06ab4892cfa2c42777ec"
+      },
+      "actions": 32,
+      "native_assertions": 1240,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "source_owner_controller": 1,
+      "final_health": [
+        20,
+        13,
+        20,
+        20
+      ],
+      "printed_effect": "Three actual blue3 pitches pay printed cost7, leaving2. Macho Red attacks for10 with dominate. One actual hand card defends3. A second hand defender is illegal and stays in Hand. Real unprevented damage is7; P2 ends13. No go again.",
+      "limitations": [
+        "One hand-block restriction witness only; no equipment/arsenal/defense-reaction/late-dominate or sibling expansion.",
+        "The invalid FSM click is an unchanged-state gameplay witness; no explicit failed transport result is predicted."
+      ],
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-break-open-the-chests-yellow-four-live-sparse-all-four-real-arsenals-face-up-opposite-yellow-two-gold",
+      "fixture_sha256": "4f626c4cb8822d401385b31e5740f85562d63f7eaf3e5ee0f3ca90b521ce6634",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a3e46549fb66fdff8c4cd810f1f83fed8d4bde4e62ac60549bbda88d2f2e7ab9",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "2dfa162f48f3cb5ae73ed898305accc62c6c242e5937967381aaa9f54f60da5a",
+        "expected_final_gamestate.txt": "39c05b47a4109bd0f0e06c164da37eb05cf65afd0d3fd2f382f092f36bb879a8",
+        "meta.json": "eb7ecb5319df9f86ee8adb1c93bcc4022e37f34ed7a1a7cf194cd365ab3dd6b0"
+      },
+      "actions": 6,
+      "native_assertions": 539,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "source_owner_controller": 1,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "printed_effect": "A real blue3 pitch pays1 and leaves2. Resolve the actual card after four manual passes: every known Arsenal card, including opposite P3 yellow, becomes face-up. Exactly two new Gold tokens are owned and controlled by P1; printed go again returns one AP.",
+      "limitations": [
+        "No-yellow, already-face-up, empty-arsenal or Gold activation branches are not exercised.",
+        "Ordinary synchronous source-clear/callback ordering is outside this atomic before/after witness and is not asserted correct."
+      ],
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-stir-the-aetherwinds-red-four-live-sparse-actual-next-wizard-as-instant-zero-ap-plus-three-dart",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "attempted_actions": 7,
+      "error": "Expected p1DecisionQueue-0.Param to equal 'p1Hero-0&p2Hero-0&p4Hero-0', got 'p2Hero-0&p4Hero-0'.",
+      "captured_initial_sha256": "ac74fabc2617c37e8c6073399c953af8751a51f1a04964c7b9b2927bbd7a2eac",
+      "classification": "RECIPE_PROTOCOL_OR_DERIVED_STATUS_EXPECTATION_ERROR_NOT_ESTABLISHED_ENGINE_BUG",
+      "reason": "UPF any-target effects may target adjacent heroes2/4; printed Dart is anytarget, not opposing-only. Actor is not adjacent to itself.",
+      "source_basis": [
+        "TRP9.3; UPRCards21\u201323; ARCCards34\u201339; DartPrepare targets FaBUPRAnyTargets(false)."
+      ],
+      "postfailure_snapshot_limitation": "Receipt captures state/decisions/action ledger and original initial snapshot, not a complete postfailure physical zone/scalar snapshot."
+    },
+    {
+      "slug": "card-out-for-blood-red-four-live-sparse-actual-warrior-weapon-reaction-plus-three-no-hand-defense",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "attempted_actions": 25,
+      "error": "Expected p1Weapons-0.Status to equal '1', got '2'.",
+      "captured_initial_sha256": "696d50aff0eb14276c272dba212d01f04ed563a04f762b53977f46915c5a3aa5",
+      "classification": "RECIPE_PROTOCOL_OR_DERIVED_STATUS_EXPECTATION_ERROR_NOT_ESTABLISHED_ENGINE_BUG",
+      "reason": "Activation consumes weapon Status1 correctly. After the actual first weapon hit, printed Dorinthea additional-attack allowance re-readies physical SaberStatus2 and marksheroUSED_TURN2; AP remains0. EarlierStatus1 assertions muststay.",
+      "source_basis": [
+        "WTRCards626\u2013629 Dorinthea first weapon hit; CRUCards279\u2013283 paid activation status; printed Dorinthea first-hit allowance."
+      ],
+      "postfailure_snapshot_limitation": "Receipt captures state/decisions/action ledger and original initial snapshot, not a complete postfailure physical zone/scalar snapshot."
+    }
+  ],
+  "total_actions": 38,
+  "total_native_assertions": 1779,
+  "total_manual_passes": 29,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b91-safe2-and-blocked2-actual-independent-review.json",
+    "sha256": "d5a897aa99804339ea9edc9f0c7166fb230436c1a9845683773721db840dbdcb"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch91-20261020T230524Z-6ad7f3b40b10f.json",
+    "sha256": "a8efb504e67fbdf104cbff090af2369b0d6550738acd4e475f8a04177dc401f5"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b91-safe-two-four-live-run1.json",
+      "sha256": "168d346adbbab0939fe932341276490a3c3268d90ecf9683807ec43fd8e1952f",
+      "total": 2,
+      "passed": 2,
+      "omitted_source_scenarios": [
+        "card-out-for-blood-red-four-live-sparse-actual-warrior-weapon-reaction-plus-three-no-hand-defense",
+        "card-stir-the-aetherwinds-red-four-live-sparse-actual-next-wizard-as-instant-zero-ap-plus-three-dart"
+      ],
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b91-safe-two-four-live-run2.json",
+      "sha256": "d0487cdd3dbd77a5c410e54504cd96919c260a3b6a3c9707e4a56e9aa04d305d",
+      "total": 2,
+      "passed": 2,
+      "omitted_source_scenarios": [
+        "card-out-for-blood-red-four-live-sparse-actual-warrior-weapon-reaction-plus-three-no-hand-defense",
+        "card-stir-the-aetherwinds-red-four-live-sparse-actual-next-wizard-as-instant-zero-ap-plus-three-dart"
+      ],
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b91-safe2-fault-controls.json",
+    "sha256": "460688968ebd2c673f461b6d1967093fd1f378f5e6552c391d055b37f2001365",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "836e39ab7e059c1bca995e65e7c4e254ff1442d37b2f814c9b4996c0ed91270f",
+    "full_fixture_inventory_preserved": true
+  },
+  "focused_native_controls": [
+    {
+      "id": "b91_macho_physical_power_endpoint_plus_one",
+      "fixture": "card-macho-grande-red-four-live-sparse-printed-dominate-rejects-second-real-hand-defender",
+      "prefix_actions": 20,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "macho_grande_red",
+            "mode": "add",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 477,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 10, got 11.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b91_chests_opposite_yellow_physical_endpoint_missing",
+      "fixture": "card-break-open-the-chests-yellow-four-live-sparse-all-four-real-arsenals-face-up-opposite-yellow-two-gold",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 3,
+            "from": "Arsenal",
+            "cardID": "wounding_blow_yellow",
+            "to": "Hand"
+          }
+        ]
+      },
+      "retained_assertions": 212,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p3Arsenal count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b91-safe2-focused-fault-plan.json",
+    "sha256": "836e39ab7e059c1bca995e65e7c4e254ff1442d37b2f814c9b4996c0ed91270f"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a",
+    "alias_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b87-executor-alias-independent-review.json",
+      "sha256": "26a0edc222015e039a7f6aad51f2484d0a67ddb1c5d3bc3df885bd22ddd7d7d3"
+    }
+  },
+  "original_semantic_checks": 4693,
+  "native_evidence_review_checks": 65,
+  "qualification": "Only these two exact saved positive representatives qualify. Original Stir/OFB attempted recipes remain unqualified/unsaved in the preserved receipt; separate corrected recipes require independent actual qualification.",
+  "limitations": [
+    "One sparse representative per selected primary group; no full-card/group, sibling, alternate-branch or support-card promotion.",
+    "Original failed Stir/OFB evidence and canonical four-case source remain unchanged; reviewed subset omits exactly those two unapproved routes.",
+    "Public endpoints/history/physical effects qualified. Unobserved ordinary NAA source-clear internals remain excluded.",
+    "Root executed native games/replays/controls; reviewer performed read-only evidence/source checks. Full-corpus results are separate evidence."
+  ],
+  "reviewer_script_sha256": "79b2529e5b2610dda58dfe8d523270a849bb3ce720e91eb20b06d23a8df247ce",
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_runtime_imports": 0
+}

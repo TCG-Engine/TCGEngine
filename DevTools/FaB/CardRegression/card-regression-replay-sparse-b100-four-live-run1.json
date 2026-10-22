@@ -1,0 +1,62 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch100.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-21T00:24:34.411804+00:00",
+  "fixtures": [
+    {
+      "slug": "card-drone-of-brutality-red-four-live-sparse-physical-source-replaces-own-graveyard-with-owner-deck-bottom",
+      "fixture_sha256": "dfde56961eeee9de8c9304e43c8bbbecd55be43526d3c5c7a6a242749e064f74",
+      "passed": true,
+      "result": "[PASS] Drone of Brutality / compact four live positive effect"
+    },
+    {
+      "slug": "card-numbskull-red-four-live-sparse-actual-amethyst-power-attempt-cannot-modify-six",
+      "fixture_sha256": "5c288695362b30a64d5643998df8efeecc4100b8d0b3601faac62a574ded3325",
+      "passed": true,
+      "result": "[PASS] Numbskull / compact four live positive effect"
+    },
+    {
+      "slug": "card-little-big-foot-red-four-live-sparse-two-actual-distinct-cost-three-yellow-pitches-enable-six-power",
+      "fixture_sha256": "d638b5c615289b4026f7ffb7cfb634eddf5494b0fba26146e6e30514b3317ac4",
+      "passed": true,
+      "result": "[PASS] Little Big Foot / compact four live positive effect"
+    },
+    {
+      "slug": "card-tidal-surge-blue-four-live-sparse-actual-other-blue-play-and-blue-pitch-enable-two-power",
+      "fixture_sha256": "fc33cd6da8c5f1f00ab91786e5e3b9a50a28b8d5b015e9e99a19596b2ca4eb8c",
+      "passed": true,
+      "result": "[PASS] Tidal Surge / compact four live positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-drone-of-brutality-red-four-live-sparse-physical-source-replaces-own-graveyard-with-owner-deck-bottom",
+      "returncode": 0,
+      "stdout": "[PASS] Drone of Brutality / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-numbskull-red-four-live-sparse-actual-amethyst-power-attempt-cannot-modify-six",
+      "returncode": 0,
+      "stdout": "[PASS] Numbskull / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-little-big-foot-red-four-live-sparse-two-actual-distinct-cost-three-yellow-pitches-enable-six-power",
+      "returncode": 0,
+      "stdout": "[PASS] Little Big Foot / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tidal-surge-blue-four-live-sparse-actual-other-blue-play-and-blue-pitch-enable-two-power",
+      "returncode": 0,
+      "stdout": "[PASS] Tidal Surge / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3152,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

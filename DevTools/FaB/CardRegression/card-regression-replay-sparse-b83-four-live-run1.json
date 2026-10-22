@@ -1,0 +1,61 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch83.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T21:52:17.566910+00:00",
+  "fixtures": [
+    {
+      "slug": "card-browbeat-blue-four-live-sparse-remaining-hand-positive-power",
+      "fixture_sha256": "557e217bff0b8a1eded55c71862a4fd175c61572cde3503b702f9740acecfc37",
+      "passed": true,
+      "result": "[PASS] Browbeat / four live sparse representative"
+    },
+    {
+      "slug": "card-lightning-surge-red-four-live-sparse-actual-arsenal-origin-go-again",
+      "fixture_sha256": "f86d0e42819320320bb8d95206db6cc69f5ea799f6645c489852c76cb2e26d5a",
+      "passed": true,
+      "result": "[PASS] Lightning Surge / four live sparse representative"
+    },
+    {
+      "slug": "card-searing-ray-red-four-live-sparse-real-yellow-pitch-positive-power",
+      "fixture_sha256": "49127fbc31a970605baf200b59c1e5f5e399396460a36e5c8db38574d7ccec22",
+      "passed": true,
+      "result": "[PASS] Searing Ray / four live sparse representative"
+    },
+    {
+      "slug": "card-ghostly-visit-red-four-live-sparse-intrinsic-faceup-banish-play",
+      "fixture_sha256": "907eed6a20684eceb80addbb14ff21374c860c202de02998c977e51c109e70aa",
+      "passed": true,
+      "result": "[PASS] Ghostly Visit / four live sparse representative"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-browbeat-blue-four-live-sparse-remaining-hand-positive-power",
+      "returncode": 0,
+      "stdout": "[PASS] Browbeat / four live sparse representative\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-lightning-surge-red-four-live-sparse-actual-arsenal-origin-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Lightning Surge / four live sparse representative\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-searing-ray-red-four-live-sparse-real-yellow-pitch-positive-power",
+      "returncode": 0,
+      "stdout": "[PASS] Searing Ray / four live sparse representative\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ghostly-visit-red-four-live-sparse-intrinsic-faceup-banish-play",
+      "returncode": 0,
+      "stdout": "[PASS] Ghostly Visit / four live sparse representative\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3087,
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

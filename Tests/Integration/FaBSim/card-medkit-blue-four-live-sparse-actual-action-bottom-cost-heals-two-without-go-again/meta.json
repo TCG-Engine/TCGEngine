@@ -1,0 +1,7 @@
+{
+    "name": "Medkit / compact four live positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T01:24:01+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "YoungMechanologistDash20 controls physicalMedkitUID5 inArena and ownDeck begins with knownsentinelWoundingBlowRedUID6. Actually activate its printedAction: spend1AP, pay0resources and put the same ownedMedkit5 on the BOTTOMofownerDeck as the cost. Deck is[sentinel6,Medkit5] before abilitypriority; virtualAbilityUID7 independently waits. Afterfour actualmanualpasses, gain exactly2life20->22. The abilityhasNOgoagain, so finalAP0/resources0, sameDeckorder/UIDs, Arena/GY/Handempty; otherheroes20/AP0/resources0. Dashhero startgameability is notactivated by this recording. One same-owner/controller activation bottom-cost+heal endpoint. Itemplay/startgameprocedure, foreignownership, deck replacements, repeatuse and healingprevention remainuncovered. All four genuine live seats have manual holds/all11 shortcut windows disabled by existing recorder profile. Full initial/final physical/economy/profile checks; intermediate checks only changing priority/window/counter/layer and relevant unresolved effect endpoints. One representative per exact group; no full-card/variant/support coverage transfer. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVO076.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/02-object-properties/"
+}

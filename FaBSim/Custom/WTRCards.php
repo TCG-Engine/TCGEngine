@@ -282,10 +282,55 @@ function FaBWTRPlainBarrierPitchChoicesForSave(array $zone, int $seat): array {
 // The shared writer compacts removed objects without changing the live arrays.
 // Persist a COPY of this one choice in post-write coordinates, selected by UID.
 // Repeated writes derive from the same live state and cannot shift twice.
+/** Persist Rise Above's all-Hand alternative-cost choices in post-write coordinates. */
+function FaBWTRRiseAboveChoicesForSave(array $zone, int $seat): array {
+    if ($seat < 1 || !FaBSeatIsLive($seat)) return $zone;
+    $pending = FaBGetState()['pendingPayment'] ?? null;
+    if (!is_array($pending) || intval($pending['player'] ?? 0) !== $seat
+        || ($pending['kind'] ?? '') !== 'DEFENSE_REACTION') return $zone;
+    $uid = intval($pending['uid'] ?? 0);
+    $found = FaBFindUID($uid);
+    if ($found === null || $found['zone'] !== 'Stack') return $zone;
+    $source = $found['object'];
+    if (!in_array($source->CardID, ['rise_above_red', 'rise_above_yellow', 'rise_above_blue'], true)
+        || intval($source->Controller ?? 0) !== $seat
+        || intval($source->SourceUniqueID ?? 0) !== $uid
+        || ($source->Kind ?? '') !== 'DEFENSE_REACTION') return $zone;
+    $refs = []; $next = 0;
+    foreach (GetHand($seat) as $obj) {
+        // Match the writer's removal predicate. Every live Hand card is eligible.
+        if ($obj == null || $obj->Removed()) continue;
+        $refs[] = 'p' . $seat . 'Hand-' . $next++;
+    }
+    if (!$refs) return $zone;
+    $indices = [];
+    foreach ($zone as $index => $decision) {
+        if (is_object($decision) && !$decision->Removed()) $indices[] = $index;
+    }
+    for ($i = 0; $i + 1 < count($indices); ++$i) {
+        $index = $indices[$i]; $choice = $zone[$index]; $resume = $zone[$indices[$i + 1]];
+        $type = (string)($choice->Type ?? '');
+        $tooltip = $type === 'MZCHOOSE' ? 'Pay_alternative_cost' : 'Pay_optional_cost';
+        if (!in_array($type, ['MZCHOOSE', 'MZMAYCHOOSE'], true)
+            || ($choice->Tooltip ?? '') !== $tooltip || ($resume->Type ?? '') !== 'CUSTOM') continue;
+        $parts = explode('|', (string)($resume->Param ?? ''));
+        if (count($parts) !== 4 || $parts[0] !== $source->CardID . ':0:PrepareCard-await'
+            || $parts[2] !== '4' || $parts[3] !== 'chosen'
+            || preg_match('/^' . preg_quote($source->CardID . ':0:PrepareCard#', '/') . '[1-9][0-9]*$/D', $parts[1]) !== 1) continue;
+        $frame = DecisionQueueController::GetAwaitFrame($parts[1]);
+        if (!is_array($frame) || intval($frame['locals']['uid'] ?? 0) !== $uid) continue;
+        $copy = clone $choice;
+        $copy->Param = implode('&', $refs);
+        $zone[$index] = $copy;
+    }
+    return $zone;
+}
+
 function EngineRemapZoneForSave(array $zone, string $zoneName, int $seat): array {
     if ($zoneName !== 'DecisionQueue' || $seat < 1) return $zone;
     $zone = FaBCRULungingChoicesForSave($zone, $seat);
     $zone = FaBWTRPlainBarrierPitchChoicesForSave($zone, $seat);
+    $zone = FaBWTRRiseAboveChoicesForSave($zone, $seat);
     $pending = FaBGetState()['pendingPayment'];
     if (!is_array($pending) || ($pending['wtrFlockStage'] ?? '') !== 'REVEAL'
         || intval($pending['player'] ?? 0) !== $seat || empty($pending['wtrFlockAssetsPaid'])

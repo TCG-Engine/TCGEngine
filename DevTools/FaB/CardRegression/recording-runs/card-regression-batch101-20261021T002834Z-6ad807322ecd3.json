@@ -1,0 +1,246 @@
+{
+    "completed_at_utc": "2026-10-21T00:28:34+00:00",
+    "input_file": "card-regression-batch101.json",
+    "input_sha256": "900ba71e1f3d995122a13422d8ff84fcad897c59f8e4310e14b37046af326446",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-zealous-belting-red-four-live-sparse-real-greater-power-yellow-pitch-grants-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 406
+        },
+        {
+            "slug": "card-flex-speed-red-four-live-sparse-real-come-to-fight-buff-crosses-six-and-grants-go-again",
+            "status": "blocked_or_incorrect",
+            "error": "Expected FaBSim state [\"turnEffects\",\"1\",0] to be missing or null.",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-1!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-1!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "UPF",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "MST_BLUE_PITCHED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "come_to_fight_red"
+                    ]
+                },
+                "arcCards": {
+                    "6": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "penPitchTypes": [
+                            "Generic",
+                            "Action",
+                            "Attack"
+                        ],
+                        "dynPitchAA": true,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "mstFree": false,
+                        "rosLastLightning": false
+                    },
+                    "7": {
+                        "iarPermission": []
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "observed_hand_refs": {
+                "1": [
+                    "p1Hand-0"
+                ],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "initial_gamestate_text": "1\r\n0\r\n1\r\nlevia 2 1 1 0 1 - -\r\n1\r\ndorinthea 2 2 2 0 2 - -\r\n1\r\ndorinthea 2 3 3 0 3 - -\r\n1\r\ndorinthea 2 4 4 0 4 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n3\r\nflex_speed_red 5 1 1\r\ncome_to_fight_red 6 1 1\r\nwounding_blow_blue 7 1 1\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n20\r\n20\r\n20\r\n20\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0\r\n0\r\n0\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n0\r\n1\r\n0\r\n{\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":[],\"nextTurnEffects\":[],\"hitsThisTurn\":[],\"cardsPlayedThisTurn\":[]}\r\n0\r\n1234\r\n1234\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\n1\r\nMAIN\r\n\r\n\r\n\r\n\r\n7\r\n0\r\n",
+            "initial_gamestate_sha256": "24eae74262f44bbbd050d51168f442d07da677c1a5bbfb23d57ab629887d5020"
+        },
+        {
+            "slug": "card-flex-strength-red-four-live-sparse-real-come-to-fight-crosses-six-and-enables-own-three-power",
+            "status": "blocked_or_incorrect",
+            "error": "Expected FaBSim state [\"turnEffects\",\"1\",0] to be missing or null.",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-1!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-1!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "UPF",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "MST_BLUE_PITCHED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "come_to_fight_red"
+                    ]
+                },
+                "arcCards": {
+                    "6": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "penPitchTypes": [
+                            "Generic",
+                            "Action",
+                            "Attack"
+                        ],
+                        "dynPitchAA": true,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "mstFree": false,
+                        "rosLastLightning": false
+                    },
+                    "7": {
+                        "iarPermission": []
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "observed_hand_refs": {
+                "1": [
+                    "p1Hand-0"
+                ],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "initial_gamestate_text": "1\r\n0\r\n1\r\nlevia 2 1 1 0 1 - -\r\n1\r\ndorinthea 2 2 2 0 2 - -\r\n1\r\ndorinthea 2 3 3 0 3 - -\r\n1\r\ndorinthea 2 4 4 0 4 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n3\r\nflex_strength_red 5 1 1\r\ncome_to_fight_red 6 1 1\r\nwounding_blow_blue 7 1 1\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n20\r\n20\r\n20\r\n20\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0\r\n0\r\n0\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n0\r\n1\r\n0\r\n{\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":[],\"nextTurnEffects\":[],\"hitsThisTurn\":[],\"cardsPlayedThisTurn\":[]}\r\n0\r\n1234\r\n1234\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\n1\r\nMAIN\r\n\r\n\r\n\r\n\r\n7\r\n0\r\n",
+            "initial_gamestate_sha256": "9ea617329bb94e8bc2cb56ab90c7c289806520f60d736ef24a1328ba452c4ed8"
+        },
+        {
+            "slug": "card-hulk-up-red-four-live-sparse-actual-lower-life-than-all-three-heroes-reduces-four-cost-to-three",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 406
+        }
+    ]
+}

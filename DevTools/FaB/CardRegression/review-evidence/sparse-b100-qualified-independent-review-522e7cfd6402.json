@@ -1,0 +1,322 @@
+{
+  "status": "B100_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/resume_contract_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch100.json",
+  "input_sha256": "baf49ed030d19ee4e0d7c7b11a3b21ecf2ab7b0fc1668e60f16a031ee2888d26",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-21T00:28:23.383140+00:00",
+  "fixtures": [
+    {
+      "slug": "card-drone-of-brutality-red-four-live-sparse-physical-source-replaces-own-graveyard-with-owner-deck-bottom",
+      "fixture_sha256": "dfde56961eeee9de8c9304e43c8bbbecd55be43526d3c5c7a6a242749e064f74",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "259e1466625830f19537938680b477c0df1f0fa423793be6a2a2ff179ea3a9c1",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "66595e02668a2494c67e1fbe5bfa3439e17bf5d94e8b5ddc1c2f055eb7306fae",
+        "expected_final_gamestate.txt": "93c2ac73c8a719ef976347bc4b6bf08306b90c2e958d955ec434229587507697",
+        "meta.json": "f99c681af4714b526ed65266b2e512af86f0c51771e74f760fae5e8d7f53913d"
+      },
+      "actions": 28,
+      "native_assertions": 354,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "pitched_donor_uids": [
+        6
+      ],
+      "source_owner_controller": 1,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "dorinthea is legal setup support only; one positive primary condition, no sibling/branch/full-card credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-numbskull-red-four-live-sparse-actual-amethyst-power-attempt-cannot-modify-six",
+      "fixture_sha256": "5c288695362b30a64d5643998df8efeecc4100b8d0b3601faac62a574ded3325",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "74687b29e93f8b4c604d37cd86b8f24eb9167d56586b26ff2ecc167ded2ed8ba",
+        "actions.json": "9a5d26c3945ac68948a8366ef5cf811a9b8afa0f66037fb840c139096b0f5574",
+        "assertions.json": "a79574e0db499a1d3d975d4227ead2319e14cdf81c9f161ea8649cbc4109c49b",
+        "expected_final_gamestate.txt": "8c7b621cc7274962e3ad32278206946e3d290f8de867d444a3dbd167aaedb256",
+        "meta.json": "c74326109c15d4e2464880d4dc77ddce4d4861126c20f3588ff33359e812cb08"
+      },
+      "actions": 37,
+      "native_assertions": 461,
+      "actual_manual_passes": 33,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "pitched_donor_uids": [
+        7
+      ],
+      "source_owner_controller": 1,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "levia is legal setup support only; one positive primary condition, no sibling/branch/full-card credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-little-big-foot-red-four-live-sparse-two-actual-distinct-cost-three-yellow-pitches-enable-six-power",
+      "fixture_sha256": "d638b5c615289b4026f7ffb7cfb634eddf5494b0fba26146e6e30514b3317ac4",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bb69c843eb1828fab9b5cb984a3fb854b4c8e0cb9298a43233b2045524b9c5d3",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "af24274d0082eb452802e5bf8503efe3f801315c8f4adc9950eaf7c96e44d81e",
+        "expected_final_gamestate.txt": "cf010257451908e657bb3702deccf0c440587a8844933abc862d5aff7d05cec1",
+        "meta.json": "cd4a0858f0e93784ff67547a923b05c83a45a97fa3a3c94739c90875c89cc88c"
+      },
+      "actions": 29,
+      "native_assertions": 393,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "pitched_donor_uids": [
+        6,
+        7
+      ],
+      "source_owner_controller": 1,
+      "final_health": [
+        20,
+        20,
+        20,
+        11
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "bravo is legal setup support only; one positive primary condition, no sibling/branch/full-card credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-tidal-surge-blue-four-live-sparse-actual-other-blue-play-and-blue-pitch-enable-two-power",
+      "fixture_sha256": "fc33cd6da8c5f1f00ab91786e5e3b9a50a28b8d5b015e9e99a19596b2ca4eb8c",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "934c6747598dbf1ade99ba1149dfc0988bad01bd298b4ae8fb0287d9dfbbd38d",
+        "actions.json": "af0923a412f70c231803d6f1590bd7961df3eebc483a9a90501e4804130a1474",
+        "assertions.json": "d73559b5f31329048d8e03c72feb885ae5e65879737f0e38d533c0846d7d1e34",
+        "expected_final_gamestate.txt": "e890c6f45ac5e0faf0dc25d9c5a406b64fd398fdeddb4aa0838fcb0e4d323e3b",
+        "meta.json": "e5b2683a1bfc7ec28168b27be9e7f5a02da9f70c4c658aea792e79dea4cf6459"
+      },
+      "actions": 33,
+      "native_assertions": 413,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "pitched_donor_uids": [
+        7
+      ],
+      "source_owner_controller": 1,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "zen is legal setup support only; one positive primary condition, no sibling/branch/full-card credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 127,
+  "total_native_assertions": 1621,
+  "total_manual_passes": 112,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b100-actual-saved-independent-review.json",
+    "sha256": "6c184f654720b96b3635d4cdefbdb772bab7c6cda7e58cf4051d8683b2babcd9"
+  },
+  "independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b100-independent-spec-review.json",
+    "sha256": "087912f4f6714ea35461f2f9b8b295f0dd4982d1862571794062a526e46793ae"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch100-20261021T002350Z-6ad80616c6723.json",
+    "sha256": "0529c9855e83782639a206fd1e9446d75d3b2fad159e12afb7c4dd276dbcafa9"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b100-four-live-run1.json",
+      "sha256": "ad772902d92ecab95e8e84a4aa2770ffafd893a6d23dedc2c0185d52b2e493ff",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch100.json",
+      "canonical_raw5_preserved": 3152
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b100-four-live-run2.json",
+      "sha256": "94572c3be7937b7826a262b825c223f8ba961e64b2caf1aa28fd90c97d2b20d2",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch100.json",
+      "canonical_raw5_preserved": 3152
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b100-fault-controls.json",
+    "sha256": "388d8a371fd02a88b9bf05b33d7c00907cfa74d6d3671e1fa138c1d5864b3ce2",
+    "total": 4,
+    "intended_semantic_failures": 4,
+    "plan_sha256": "05d604067f60d475a041ed3168825da1619ce1c38afefee076f213e066a9ead2",
+    "full_fixture_inventory_preserved": true
+  },
+  "focused_native_controls": [
+    {
+      "id": "b100_drone_actual_owner_deck_bottom_order",
+      "fixture": "card-drone-of-brutality-red-four-live-sparse-physical-source-replaces-own-graveyard-with-owner-deck-bottom",
+      "prefix_actions": 28,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Deck",
+            "cardID": "wounding_blow_red",
+            "to": "Deck"
+          }
+        ]
+      },
+      "retained_assertions": 97,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Deck-0.CardID to equal 'wounding_blow_red', got 'drone_of_brutality_red'.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b100_numbskull_real_amethyst_boostable_identity_comparison",
+      "fixture": "card-numbskull-red-four-live-sparse-actual-amethyst-power-attempt-cannot-modify-six",
+      "prefix_actions": 15,
+      "mutation": {
+        "replace_stack_card": {
+          "from": "numbskull_red",
+          "to": "wrecker_romp_blue"
+        }
+      },
+      "retained_assertions": 211,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 8.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b100_little_big_foot_remove_one_actual_qualifying_pitch",
+      "fixture": "card-little-big-foot-red-four-live-sparse-two-actual-distinct-cost-three-yellow-pitches-enable-six-power",
+      "prefix_actions": 17,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Pitch",
+            "cardID": "barraging_brawnhide_yellow",
+            "to": "Graveyard"
+          }
+        ]
+      },
+      "retained_assertions": 162,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 9, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b100_tidal_omit_actual_prior_blue_history",
+      "fixture": "card-tidal-surge-blue-four-live-sparse-actual-other-blue-play-and-blue-pitch-enable-two-power",
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "MST_BLUE_PLAYED"
+      },
+      "retained_assertions": 295,
+      "expected_failure_step": 7,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 5.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b100-focused-fault-plan.json",
+    "sha256": "05d604067f60d475a041ed3168825da1619ce1c38afefee076f213e066a9ead2"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a"
+  },
+  "original_semantic_checks": 2576,
+  "native_evidence_review_checks": 96,
+  "limitations": [
+    "One positive representative per primary group, no sibling/branch/full-card/support credit.",
+    "Drone control pins physical deck-bottom order; Numb control is synthetic boostable identity/immunity comparison of the real +2 attempt, with identity assertions retained. Foot breaks real qualifying Pitch condition; Tidal omits one actual prior-blue entry. Numb cost/defense immunity and Wind internal ordinary-source timing remain untested.",
+    "All four original raw5 and every original assertion retained. Two targeted clean runs qualify only these four; no duplicated full-inventory execution requested.",
+    "Root sole native executor. Reviewer reads immutable evidence and pure models only; Rise nativeRGB credit remains red-only and separate."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "ea01a8f86a1b18cbb1b3f44b9cce463a5f7be140bc7011c02f409c96ca5b623d"
+}

@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "status": "SOURCE_ONLY_PLANNING_NOT_CONFIRMED_NATIVE_DEFECTS",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "holds": [
+    {
+      "group_id": "identity:blasmophets_boon_blue",
+      "card_id": "blasmophets_boon_blue",
+      "status": "source_mapped_concern_not_native_verified",
+      "reason": "Outside-chain MONBasePower recognizes controlled Blasmophet and returns6. Current actual FaBAttackPower starts from intval(CardPower(*)) and has no call to that helper or Boon-specific replacement; no compiled modifier callback exists. Native power path cannot be established as correct, so no passing play-only case or expected-zero oracle is authored.",
+      "scope": "Unexercised branch or proposed scenario prerequisite; not a blanket coverage veto.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "sources": [
+        {
+          "path": "FaBSim/Custom/MONCards.php",
+          "source_sha256": "0f35f2849029510ce277fc5c016894047e94d5422f9b86ec5d4e631ecfd260b0",
+          "functions": [
+            "FaBMONBasePower",
+            "FaBMONPower"
+          ]
+        },
+        {
+          "path": "FaBSim/Custom/IARRuntime.php",
+          "source_sha256": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+          "functions": [
+            "FaBIARHasBlasmophet"
+          ]
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "source_sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+          "functions": [
+            "FaBAttackPower"
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "identity:opal_amulet_blue",
+      "card_id": "opal_amulet_blue",
+      "status": "source_mapped_concern_not_native_verified",
+      "reason": "DoResolveCard KindABILITY removes the virtual layer before awaiting Opal opt and restores ACTION. CR5.3 requires resolving effects/decisions before completion; no eager-clear/ACTION oracle is authored as passing.",
+      "scope": "Unexercised branch or proposed scenario prerequisite; not a blanket coverage veto.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "sources": [
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "source_sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+          "functions": [
+            "DoResolveCard"
+          ],
+          "previous_note_line": 1389
+        },
+        {
+          "path": "FaBSim/Custom/SEARuntime.php",
+          "source_sha256": "414ae0f1b8d3e5ea2f2aec306f7a7e469ede9dd489d3a3971361442e11ddfab4",
+          "functions": [
+            "FaBSEAAbilityRows"
+          ]
+        },
+        {
+          "path": "FaBSim/Custom/ARCCards.php",
+          "source_sha256": "c3b8c93aeea5bb8915e879b45c0065ac9d18ed78111691e13813868327543636",
+          "functions": [
+            "FaBARCStageTop",
+            "FaBARCFinishOrder"
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "identity:potion_of_luck_blue",
+      "card_id": "potion_of_luck_blue",
+      "status": "deterministic_replay_contract_unproven",
+      "reason": "Two distinct physical Hand/Arsenal cards are both redrawn, but shuffle can change Hand UID order and clean replay snapshots; not assumed deterministic and not probed.",
+      "scope": "Only the untested multi-card shuffle-order contract remains held.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "sources": [
+        {
+          "path": "FaBSim/Custom/EVRCards.php",
+          "source_sha256": "1074ad8eb4531e73345cf11d5af049eb96ce4acccfff493c902679036031adcc",
+          "functions": [
+            "FaBEVRShuffleHandArsenal"
+          ],
+          "previous_note_line": 38
+        },
+        {
+          "path": "FaBSim/Custom/ARCAbilities.php",
+          "source_sha256": "3d93e7520aeeadcfd14bb9c5664b95d7b7b17aa3d3b768fdf431c0e32167c54b",
+          "functions": [
+            "FaBARCPayAbility"
+          ]
+        }
+      ],
+      "qualified_alternative": {
+        "slug": "card-potion-of-luck-blue-four-live-sparse-only-arsenal-card-shuffled-and-drawn",
+        "review": "review-evidence/sparse-b102-qualified-independent-review-e86c4df66f6a.json",
+        "boundary": "One Arsenal card, empty Hand/Deck; zero random-loop iterations. No multi-card inference."
+      }
+    },
+    {
+      "group_id": "pitch-cycle:rune_flash",
+      "card_id": "rune_flash_red",
+      "status": "source_mapped_concern_not_native_verified",
+      "reason": "Actual controlled Runechants would be destroyed at play in FaBARCCardPlayed before their queued trigger resolves. Correct trigger-response timing must not be replaced with eager-destruction expected values.",
+      "scope": "Unexercised branch or proposed scenario prerequisite; not a blanket coverage veto.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "sources": [
+        {
+          "path": "FaBSim/Custom/ARCCards.php",
+          "source_sha256": "c3b8c93aeea5bb8915e879b45c0065ac9d18ed78111691e13813868327543636",
+          "functions": [
+            "FaBARCCardPlayed"
+          ],
+          "previous_note_line": 328
+        }
+      ]
+    },
+    {
+      "group_id": "pitch-cycle:rousing_aether",
+      "card_id": "rousing_aether_red",
+      "status": "source_mapped_concern_not_native_verified",
+      "reason": "Compiled legacy packet always awaits at least Take_damage modal. Rousing is outside managed24; source clears and externally granted go again is applied before awaiting damage/effects finish. Do not omit these timing obligations to fit a green test.",
+      "scope": "Unexercised branch or proposed scenario prerequisite; not a blanket coverage veto.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "sources": [
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "source_sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+          "functions": [
+            "DoResolveCard",
+            "FaBPlainSpellResolutionIsManaged"
+          ],
+          "previous_note_line": 1488
+        },
+        {
+          "path": "FaBSim/Custom/ARCCards.php",
+          "source_sha256": "c3b8c93aeea5bb8915e879b45c0065ac9d18ed78111691e13813868327543636",
+          "functions": [
+            "FaBARCCardPlayed",
+            "FaBARCAsInstant"
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "pitch-cycle:aether_quickening",
+      "card_id": "aether_quickening_red",
+      "status": "unverified_candidate_protocol_review_required",
+      "reason": "Prior survey requires exact Surge go-again timing and legacy awaited-source lifecycle review before authoring. The located evidence maps generated awaited ResolveCard/PrepareCard callbacks, but does not establish the exact current managed-cohort membership or a native timing failure.",
+      "scope": "Unexercised branch or proposed scenario prerequisite; not a blanket coverage veto.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "sources": [
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "source_sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+          "functions": [
+            "DoResolveCard",
+            "FaBPlainSpellResolutionIsManaged"
+          ]
+        },
+        {
+          "path": "FaBSim/Custom/ARCCards.php",
+          "source_sha256": "c3b8c93aeea5bb8915e879b45c0065ac9d18ed78111691e13813868327543636",
+          "functions": [
+            "FaBARCArcaneAmount",
+            "FaBARCAsInstant"
+          ]
+        }
+      ]
+    },
+    {
+      "group_id": "identity:skyzyk_red",
+      "card_id": "skyzyk_red",
+      "status": "source_route_or_text_concern_not_native_verified",
+      "reason": "Printedgo-againconditional+1hasnoSkyzykliteralrouteinCustomPHPorgeneratedmacroswithininspectedscope. Generic/otherdispatchnotproved; candidateimplementationrouteunresolved,noperformanceclaim.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "sources": []
+    },
+    {
+      "group_id": "pitch-cycle:flying_high",
+      "card_id": "flying_high_blue",
+      "status": "source_route_or_text_concern_not_native_verified",
+      "reason": "PrintedconditionalbonusisifnextattackBLUE,butcompiledsupportqueuesSEA_RED_POWERandnativeconsumerchecksprintedpitch1(RED). Source-textconflictunprobed; unusedassupportandnotrecordedaspassing.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "sources": [
+        {
+          "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+          "source_sha256": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9"
+        },
+        {
+          "path": "FaBSim/Custom/SEARuntime.php",
+          "source_sha256": "414ae0f1b8d3e5ea2f2aec306f7a7e469ede9dd489d3a3971361442e11ddfab4"
+        }
+      ]
+    }
+  ],
+  "external_notes": {
+    "root": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task",
+    "required_by_runner": false,
+    "files": [
+      {
+        "path": "sparse-resumption-source-only-candidate-holds-proposed.json",
+        "sha256": "5d1222b73584b83076c9eae1a1af44f7d173b729756c278ef2c10d981674bfd7"
+      },
+      {
+        "path": "sparse-b103-blue-history-defense-and-high-tide-proposed\\source-only-holds.json",
+        "sha256": "2345a2be2a9c49b3161dc3fe423c780508c16aa4edbe2bf0d0900e8cf9dccd89"
+      }
+    ]
+  },
+  "limits": [
+    "These notes create no passing coverage or confirmed gameplay issue.",
+    "Canonical coverage and issue ledgers remain authoritative.",
+    "Aether Quickening and Skyzyk routes remain explicitly unverified."
+  ]
+}

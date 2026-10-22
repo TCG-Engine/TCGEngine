@@ -1,6 +1,6 @@
 [
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-sigil-of-solace-red-gain",
     "mutation": "sigil_of_solace_red -> sigil_of_solace_blue",
     "expected_failure": "p1Health to equal 13, got 11",
@@ -9,7 +9,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-wounding-blow-red-unblocked",
     "mutation": "wounding_blow_red -> wounding_blow_yellow",
     "expected_failure": "p2Health to equal 16, got 17",
@@ -18,7 +18,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-head-jab-red-unblocked",
     "mutation": "head_jab_red -> wounding_blow_yellow",
     "expected_failure": "p1ActionPoints to equal 1, got 0",
@@ -27,7 +27,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-harmonized-kodachi-zero-cost-pitch",
     "mutation": "wounding_blow_blue -> raging_onslaught_blue",
     "expected_failure": "p1ActionPoints to equal 1, got 0",
@@ -36,7 +36,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-sink-below-red-exchange",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected card wounding_blow_blue to exist in p2Hand",
@@ -45,7 +45,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-goliath-gauntlet-destroy-buff",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 11, got 13",
@@ -54,7 +54,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-enlightened-strike-red-mode-draw",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p1Hand count 1, got 0",
@@ -63,7 +63,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-enlightened-strike-red-mode-power",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 13, got 15",
@@ -72,7 +72,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-enlightened-strike-red-mode-go-again",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p1ActionPoints to equal 1, got 0",
@@ -81,7 +81,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-enlightened-strike-red-missing-additional-cost",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected card enlightened_strike_red to exist in p1Hand",
@@ -90,7 +90,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-bravo-cost-three-dominate",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2CombatChain count 1, got 2",
@@ -99,7 +99,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-scalding-rain-red-target-2",
     "mutation": "scalding_rain_red -> scalding_rain_yellow",
     "expected_failure": "p2Health to equal 16, got 17",
@@ -108,7 +108,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-scalding-rain-red-target-2",
     "mutation": "wounding_blow_blue -> wounding_blow_red",
     "expected_failure": "p1Resources to equal 2, got 0",
@@ -117,7 +117,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-scalding-rain-red-target-2",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 16, got 20",
@@ -126,7 +126,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-scalding-rain-red-barrier-pay",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 17, got 16",
@@ -135,7 +135,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-scalding-rain-red-barrier-decline",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 16, got 17",
@@ -144,7 +144,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-nimblism-red-cost-two-excluded-preserves-buff",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 8, got 11",
@@ -153,7 +153,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-sloggism-red-cost-two-boundary-next-only",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 9, got 15",
@@ -162,7 +162,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-potion-of-strength-blue-weapon-included-next-only",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 17, got 19",
@@ -171,7 +171,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-unmovable-red-arsenal-paid-blue-three",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 19, got 18",
@@ -180,7 +180,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-unmovable-red-hand-paid-blue-three",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 18, got 19",
@@ -189,7 +189,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-fate-foreseen-red-hand-opt-one-top-then-draw",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected card wounding_blow_red to exist in p2Hand",
@@ -198,7 +198,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-sic-em-shot-red-equipped-bow-facedown-allowed",
     "mutation": "death_dealer -> talishar_the_lost_prince",
     "expected_failure": "p1Arsenal count 0, got 1",
@@ -207,7 +207,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-snatch-red-hit-trigger-response-window",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p1Hand count 1, got 0",
@@ -216,7 +216,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-scar-for-a-scar-red-lower-own-heal-removes-condition",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "TurnEffects to equal '[]', got '[\"GO_AGAIN\"]'",
@@ -225,7 +225,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-scar-for-a-scar-red-equal-opponent-heal-enables-condition",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "TurnEffects to equal '[\"GO_AGAIN\"]', got '[]'",
@@ -234,7 +234,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-wounded-bull-red-lower-own-heal-removes-condition",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "TurnEffects to equal '[]', got '[\"WTR_WOUNDED_BULL\"]'",
@@ -243,7 +243,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-wounded-bull-red-equal-opponent-heal-enables-condition",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "TurnEffects to equal '[\"WTR_WOUNDED_BULL\"]', got '[]'",
@@ -252,7 +252,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-energy-potion-blue-activation-deploy-then-instant-at-zero-ap",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p1Resources to equal 2, got 0",
@@ -261,7 +261,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-timesnap-potion-blue-activation-pay-one-gain-two-two-attacks",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p1ActionPoints to equal 2, got 0",
@@ -270,7 +270,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-heartened-cross-strap-activation-cost-three-discount-two",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p1Resources to equal 2, got 0",
@@ -279,7 +279,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-snapdragon-scalers-activation-cost-one-boundary-grants-go-again",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p1ActionPoints to equal 1, got 0",
@@ -288,7 +288,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-breaking-scales-activation-combo-label-without-active-condition",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 16, got 17",
@@ -297,7 +297,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-snapdragon-scalers-activation-cost-one-boundary-grants-go-again",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "computed go again to equal 0, got 1",
@@ -306,7 +306,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-come-to-fight-red-cost-3-attack-no-granted-go-again",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 10, got 13",
@@ -315,7 +315,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-earthlore-surge-red-weapon-excluded-preserves-buff",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 5, got 10",
@@ -324,7 +324,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "compat-reaction-rout-red-reprise-return-defender",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected card rout_red to exist in Stack",
@@ -333,7 +333,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "compat-reaction-stroke-of-foresight-red-reprise-draw-put-top",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "CardID to equal 'wounding_blow_yellow', got 'raging_onslaught_blue'",
@@ -342,7 +342,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "compat-reaction-roaring-beam-yellow-empty-soul-charge-self",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p1Graveyard count 0, got 1",
@@ -351,7 +351,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-quicken-attack-action-trigger-timing",
     "mutation": "quicken -> copper",
     "expected_failure": "Expected Stack count 2, got 1",
@@ -360,7 +360,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-quicken-attack-action-trigger-timing",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "computed go again to equal 1, got 0",
@@ -369,7 +369,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-quicken-attack-action-trigger-timing",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "TurnEffects to equal '[]', got '[\"GO_AGAIN\"]'",
@@ -378,7 +378,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p1Arena count 1, got 0",
@@ -387,7 +387,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-burgeoning-red-arsenal-face-down-unblocked-float",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 13, got 14",
@@ -396,7 +396,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-power-play-red-arsenal-face-down-unblocked-float",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 12, got 17",
@@ -405,7 +405,7 @@
     "returncode": 1
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-pummel-red-two-reactions-two-hit-triggers-two-discards",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected Stack count 2, got 1",
@@ -418,7 +418,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-pummel-red-hand-cost-two-hit-defender-chooses-0",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected p2DecisionQueue-0.Type to equal 'MZCHOOSE', got ''",
@@ -431,7 +431,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "computed go again to equal 0, got 1",
@@ -444,7 +444,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "computed go again to equal 1, got 0",
@@ -457,7 +457,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-ice-bolt-red-opponent-barrier-pay-floating",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected FaBSim state [\"arcaneDealt\"] to equal JSON {\"1\":{\"2\":4}}, got {\"2\":{\"2\":4}}",
@@ -470,7 +470,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-ice-bolt-red-opponent-barrier-pay-floating",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected FaBSim state [\"resolvingReaction\"] to be missing or null.",
@@ -483,7 +483,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-ice-bolt-red-opponent-barrier-pay-floating",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected Stack count 1, got 0",
@@ -496,7 +496,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 18, got 19",
@@ -509,7 +509,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 18, got 17",
@@ -522,7 +522,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-ironrot-gauntlet-blade-break-fully-blocked-no-hit-still-destroys",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected card ironrot_gauntlet to exist in p2Graveyard",
@@ -535,7 +535,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-ironrot-gauntlet-blade-break-fully-blocked-no-hit-still-destroys",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 20, got 19",
@@ -548,7 +548,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-ironrot-gauntlet-blade-break-fully-blocked-no-hit-still-destroys",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected card ironrot_gauntlet to exist in p2CombatChain",
@@ -561,7 +561,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-critical-strike-red-baseline-hand-red-pitch-exact",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p1Resources to equal 0, got 1",
@@ -588,7 +588,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-brutal-assault-red-baseline-hand-red-then-red-pitch",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p1Resources to equal 0, got 2",
@@ -615,7 +615,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-critical-strike-blue-baseline-defends-exactly-3-partial-damage",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected FaBSim state [\"damageDealt\"] to equal JSON 1, got 0.",
@@ -651,7 +651,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-critical-strike-blue-baseline-defends-exactly-3-partial-damage",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected FaBSim state [\"damageDealt\"] to equal JSON 1, got 2.",
@@ -687,7 +687,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-smash-with-big-tree-blue-baseline-no-defense-value-cannot-declare-block",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected FaBSim state [\"defenseValue\"] to equal JSON 0, got 3.",
@@ -718,7 +718,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-rusty-harpoon-blue-baseline-arsenal-facedown-floating",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"ACTION\".",
@@ -749,7 +749,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-aetherstorm-wellingtons-pay-floating-exact",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "state [\"arcaneDealt\"] to equal JSON {\"1\":{\"2\":1}}, got {\"1\":{\"2\":3}}",
@@ -792,7 +792,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-aetherstorm-wellingtons-pay-blue-pitch",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Resources to equal 1, got 0",
@@ -820,7 +820,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-aetherstorm-wellingtons-intrinsic-barrier-while-defending-real-kano-instant",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2DecisionQueue-0.Param to equal 'p2CombatChain-0', got ''",
@@ -848,7 +848,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-surging-strike-red-innate-ga-hand-fully-blocked-go-again-real-followup",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "computed go again to equal 1, got 0",
@@ -882,7 +882,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-fry-blue-innate-ga-zero-cost-keeps-spare-blue",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "computed power to equal 1, got 2",
@@ -916,7 +916,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-surging-strike-red-innate-ga-hand-fully-blocked-go-again-real-followup",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p2Health to equal 20, got 19",
@@ -950,7 +950,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-sic-em-shot-red-innate-ga-arsenal-blue-pitch",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "p1Resources to equal 2, got 1",
@@ -978,7 +978,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-savage-swing-red-mandatory-discard-hand-no-spare-despite-funded-assets",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected p1Hand count 1, got 0.",
@@ -1008,7 +1008,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "diagnostic-en-garde-red-hand-floating-printed-power",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "computed power to equal 5, got 2",
@@ -1035,7 +1035,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-cut-deep-red-hand-floating",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "computed power to equal 5, got 1",
@@ -1071,7 +1071,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "card-felling-swing-red-hand-floating",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "computed power to equal 8, got 2",
@@ -1107,7 +1107,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected Stack count 1, got 0.",
@@ -1136,7 +1136,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected p2Arsenal count 1, got 0.",
@@ -1165,7 +1165,7 @@
     "evidence_kind": "disposable_fixture_semantic_assertion"
   },
   {
-    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
     "fixture": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
     "mutation": "fixture-only effect/choice/cost perturbation",
     "expected_failure": "Expected p2Arsenal count 0, got 1.",
