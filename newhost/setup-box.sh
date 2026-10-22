@@ -828,11 +828,25 @@ phase_generate() {
   for r in "${GAME_ROOTS[@]}"; do
     GEN_DB="$(root_db "$r")" gen_run "game-$r" env DEVENV=true php -d memory_limit=-1 zzGameCodeGenerator.php "rootName=$r"
   done
+  # Turn controller: <Root>/TurnController.php, which the engine includes to load DecisionQueueController.
+  # Without it no game can start ("StartRoom failed: Class DecisionQueueController not found").
+  for r in "${GAME_ROOTS[@]}"; do
+    [ -f "$APP_ROOT/Schemas/$r/TurnSchema.txt" ] || continue
+    GEN_DB="$(root_db "$r")" gen_run "turn-$r" env DEVENV=true php -d memory_limit=-1 zzTurnGenerator.php "rootName=$r"
+  done
   for r in "${CARD_ROOTS[@]}"; do
     local args=("rootName=$r")
     # No cache yet (fresh box): fetch the card data from the API this once.
     [ -f "$APP_ROOT/$r/GeneratedCode/cardArrayCache.json" ] || args+=("withPreview=1")
     GEN_DB="$(root_db "$r")" gen_run "cards-$r" env DEVENV=true php -d memory_limit=-1 zzCardCodeGenerator.php "${args[@]}"
+  done
+  # Keyword code (<Root>/GeneratedCode/GeneratedKeywordCode.php), parsed from the card cache — so after the
+  # cards. Same per-root processors as zzCodeGeneratorMain.php's 'keywords' step.
+  for r in "${CARD_ROOTS[@]}"; do
+    case "$r" in
+      SWUSim) GEN_DB="$(root_db "$r")" gen_run "keywords-$r" php -d memory_limit=-1 Data/ProcessKeywordsSWU.php ;;
+      GrandArchiveSim|AzukiSim) GEN_DB="$(root_db "$r")" gen_run "keywords-$r" env DEVENV=true php -d memory_limit=-1 Data/ProcessKeywordsGA.php "rootName=$r" ;;
+    esac
   done
   if printf '%s\n' "${CARD_ROOTS[@]}" | grep -Fxq SWUSim && [ -f "$APP_ROOT/SWUSim/DevTools/sync-preview-images.php" ]; then
     GEN_DB="$(root_db SWUSim)" gen_run "previews-SWUSim" php SWUSim/DevTools/sync-preview-images.php --quiet
@@ -905,6 +919,11 @@ has_ext()     { php -m | grep -ix "$1" >/dev/null; }
 catchall_ok() { [ "$(curl -sk -o /dev/null -w '%{http_code}' --max-time 20 -H 'Host: nope.invalid' https://127.0.0.1/)" = 403 ]; }
 db_ok()       { MYSQL_PWD="$DB_APP_PASS" mysql -u "$DB_APP_USER" -e "SELECT 1" "$1"; }
 backup_ok()   { compgen -G "$BACKUP_DIR/20*/SHA256SUMS" >/dev/null; }
+# The class StartRoom needs, loaded the way the engine loads it (via the generated TurnController.php).
+engine_loads() {
+  [ -f "$APP_ROOT/$1/TurnController.php" ] || return 1
+  ( cd "$APP_ROOT/$1" && as_web php -r 'error_reporting(0); @include "TurnController.php"; exit(class_exists("DecisionQueueController") ? 0 : 1);' )
+}
 phase_verify() {
   phase "verify"
   local V="$PHP_VERSION" i
@@ -928,6 +947,13 @@ phase_verify() {
     check "$d: http redirects to https"     code_is '301|302' "$d" / http
     check "$d: Games/ storage not served"   code_is_not 200 "$d" "/TCGEngine/$r/Games/GameIDCounter.txt"
     check "$d: generated card data present" test -f "$APP_ROOT/$r/GeneratedCode/GeneratedCardDictionaries.php"
+    # Every generator the engine needs, not just the card one (2026-10-22: no TurnController.php = no game starts).
+    # Sim roots only: a deck-builder root (SWUDeck) has no TurnSchema, no turn controller and no game engine.
+    if [ -f "$APP_ROOT/Schemas/$r/TurnSchema.txt" ]; then
+      check "$d: turn controller generated" test -f "$APP_ROOT/$r/TurnController.php"
+      check "$d: game engine loads (DecisionQueueController)" engine_loads "$r"
+    fi
+    if [ "$r" = SWUSim ]; then check "$d: keyword code generated" test -f "$APP_ROOT/$r/GeneratedCode/GeneratedKeywordCode.php"; fi
   done
   check "APIKeys/APIKeys.php present"         test -f "$APP_ROOT/APIKeys/APIKeys.php"
   check "a backup exists"                     backup_ok
