@@ -84,6 +84,46 @@ $b = new GameStateBuilder(); CommonSetup($b, 'grw', 'brk', ['resourceCount' => 6
 $r = $run($play);
 SwuPgnTestCheck(!empty($r['success']) && !is_dir(SwuPgnRecDir($gameName)), 'an unrecorded game gets no Pgn folder');
 
+// ── A request that dies mid-action (the runner never commits its frame) leaves nothing on disk ─────
+// Round boundaries, checkpoints and splits record in the middle of an action; those records wait for the commit.
+$g4 = FramesGame('dies');
+$disk = fn() => [is_file(SwuPgnRecDir($g4) . '/events.jsonl') ? file_get_contents(SwuPgnRecDir($g4) . '/events.jsonl') : '',
+    file_get_contents(SwuPgnRecDir($g4) . '/state.json'), file_get_contents(SwuPgnRecDir($g4) . '/meta.json')];
+$was = $disk();
+SwuPgnRecFrameBegin();
+$h = &GetHand(1); $h[0]->removed = true; unset($h);          // the action changes the board…
+SwuPgnRecSplit();                                            // …records part of it mid-action…
+SwuPgnRecCheckpoint('u77');                                  // …saves an undo point…
+_SwuPgnRecResetRequest();                                    // …and the request dies: no commit
+$cpOnDisk = fn(string $k) => is_file(SwuPgnRecDir($g4) . '/checkpoints.jsonl') && str_contains(file_get_contents(SwuPgnRecDir($g4) . '/checkpoints.jsonl'), '"key":"' . $k . '"');
+SwuPgnTestEq([$disk(), $cpOnDisk('u77')], [$was, false], 'a request that never commits leaves events, state, meta and checkpoints untouched');
+unset($GLOBALS['SWU_PGN_TX']);
+// …while a frame that commits writes everything it held.
+SwuPgnRecFrameBegin();
+SwuPgnRecSplit();
+SwuPgnRecCheckpoint('u78');
+SwuPgnRecFrameCommit();
+SwuPgnTestCheck($cpOnDisk('u78') && $disk()[1] !== $was[1], 'a committed frame writes what it held');
+
+// ── The board changed outside any frame (no runner, no recording): the next frame notices and writes it ───
+$g6 = FramesGame('outside');
+SwuPgnRecFrameBegin(); SwuPgnRecFrameCommit();               // the recorder knows the board…
+$n6 = count(SwuPgnEventsRead($g6)); $gaps6 = intval(SwuPgnStateRead($g6)['gaps'] ?? 0);
+$h = &GetHand(1); $h[0]->removed = true; unset($h);          // …something outside the runner changes it…
+SwuPgnRecFrameBegin(); SwuPgnRecFrameCommit();               // …and the next frame (an action that changes nothing)
+$new = array_slice(SwuPgnEventsRead($g6), $n6);
+SwuPgnTestEq([array_map(fn($e) => [$e['t'], $e['from'] ?? null, $e['to'] ?? null], $new), intval(SwuPgnStateRead($g6)['gaps'] ?? 0) - $gaps6],
+    [[['MOVE', 'hand', 'outsideTheGame']], 1], 'a board change made outside any frame is written at the next one, as a gap');
+
+// ── A note that fails never breaks the action: the play happens, the failure is a recorder error ───
+$g5 = FramesGame('notethrows');
+$GLOBALS['SWUPGN_TEST_THROW'] = 'note';
+$thrown = null;
+try { $r = $run($play); } catch (Throwable $e) { $thrown = $e->getMessage(); }
+unset($GLOBALS['SWUPGN_TEST_THROW']);
+SwuPgnTestCheck($thrown === null && !empty($r['success']) && count(GetGroundArena(1)) > 0, 'a note that throws: the play still happens', strval($thrown));
+SwuPgnTestCheck(intval($meta($g5)['recorderErrors'] ?? 0) >= 1, 'and it counts as a recorder error');
+
 if (getenv('KEEP')) { echo implode("\n", array_map('json_encode', SwuPgnEventsRead($g1))), "\n", json_encode(SwuPgnStateRead($g1)['gapKinds'] ?? []), "\n"; }
 foreach ($games as $x) exec('rm -rf ' . escapeshellarg('./SWUSim/Games/' . $x));
 SwuPgnTestFinish();

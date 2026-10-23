@@ -184,14 +184,20 @@ function SwuPgnRecFinish(string $g, int $winner, string $reason): void {
         SwuPgnEventsAppend($g, [['seq' => "R{$pos['round']}.{$pos['phase']}.game-end", 't' => 'GAME_END',
             'winner' => $winner === 1 || $winner === 2 ? $winner : 'Draw', 'reason' => $reason]]);
 
-        $doc = SwuPgnBuildDoc($g, $meta, $state, SwuPgnEventsRead($g), $winner, $reason);
-        $texts = ['all' => SwuPgnWriteText($doc)];
-        foreach ([1, 2] as $s) $texts["p$s"] = SwuPgnWriteText(SwuPgnCutPerspective($doc, $s));
+        $events = SwuPgnEventsRead($g);
+        $build = function () use ($g, &$meta, $state, $events, $winner, $reason) {
+            $doc = SwuPgnBuildDoc($g, $meta, $state, $events, $winner, $reason);
+            $texts = ['all' => SwuPgnWriteText($doc)];
+            foreach ([1, 2] as $s) $texts["p$s"] = SwuPgnWriteText(SwuPgnCutPerspective($doc, $s));
+            return [$doc, $texts];
+        };
+        [$doc, $texts] = $build();
         $problems = [];
         foreach ($texts as $k => $t) foreach (_SwuPgnFileProblems($t) as $p) $problems[] = "$k $p";
         if ($problems) {
             error_log("SWU-PGN: game $g files do not check clean (" . count($problems) . "): " . implode(' | ', array_slice($problems, 0, 20)));
             $meta['recorderErrors'] = intval($meta['recorderErrors'] ?? 0) + 1;
+            [$doc, $texts] = $build();   // again, so the files carry the [RecorderErrors] they now have
         }
         $usernames = SwuPgnSeatUsernames($meta);
         $refused = false;

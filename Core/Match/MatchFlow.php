@@ -499,10 +499,15 @@ function MatchAcceptRematch($rootName, $oldMatchId) {
     $sideboard = !empty($r1['sideboard']) || !empty($r2['sideboard']);
     $queueType = ($bestOf === 3) ? 'bo3' : 'bo1';
 
-    $newId = MatchCreate($rootName, strval($m['format'] ?? ''), $queueType, [
-        1 => ['originalDeck' => $m['players']['1']['originalDeck'] ?? [], 'authKey' => $m['players']['1']['authKey'] ?? ''],
-        2 => ['originalDeck' => $m['players']['2']['originalDeck'] ?? [], 'authKey' => $m['players']['2']['authKey'] ?? ''],
-    ], !empty($m['isPrivate']));   // a private match rematches private (no forced sideboard timer)
+    // The same two players: each seat keeps its account, deck identity, deck link and cosmetics, not just its deck and key
+    // (a rematch's games otherwise belonged to no account).
+    $seat = fn(string $s) => [
+        'originalDeck' => $m['players'][$s]['originalDeck'] ?? [], 'authKey' => $m['players'][$s]['authKey'] ?? '',
+        'userId' => $m['players'][$s]['userId'] ?? null, 'deckIdentity' => strval($m['players'][$s]['deckIdentity'] ?? ''),
+        'deckLink' => strval($m['players'][$s]['deckLink'] ?? ''), 'cosmetics' => $m['players'][$s]['cosmetics'] ?? null,
+    ];
+    $newId = MatchCreate($rootName, strval($m['format'] ?? ''), $queueType, [1 => $seat('1'), 2 => $seat('2')],
+        !empty($m['isPrivate']));   // a private match rematches private (no forced sideboard timer)
     // A rematch has no originating lobby, so it opens its OWN conversation keyed on itself. Stamped
     // here rather than passed to MatchCreate because the id does not exist until MatchCreate returns.
     // ⚠ This must land BEFORE any MatchWriteRef below: that is where the per-game sidecar is

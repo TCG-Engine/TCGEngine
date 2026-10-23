@@ -147,6 +147,19 @@ SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"x\"]\n%%% CARDS\n{\"id\":\"SOR#95\",\"n
 SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"gg Zorbaxian\"]\n%%% EVENTS\n", ['zorbaxian']) === true, 'the scan is case-insensitive');
 SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"gg ab\"]\n", ['ab']) === false, 'names under 3 characters are not scanned');
 
+// A file that fails our own check is still written — and says so in its header ([RecorderErrors]), like any other
+// recorder error: the count is taken before the files are built.
+$a = $lethal('selfcheck');
+$frame(fn() => null);
+$kf = SwuPgnKeyframe(SwuPgnSnapshot(), SwuPgnStateRead($gameName)['ledger'], ['round' => 1, 'phase' => 'action', 'initiativeTaken' => false]);
+$kf['players']['1']['handSize'] += 5;   // a keyframe the records cannot fold to
+SwuPgnEventsAppend($gameName, [['seq' => 'R1.A.0z', 't' => 'ROUND_END', 'round' => 1, 'keyframe' => $kf]]);
+SwuPgnRecFinish($gameName, 1, 'Base Destroyed');
+$sf = $files($gameName);
+SwuPgnTestCheck($sf['all'] !== null && $sf['p1'] !== null && $sf['p2'] !== null, 'a file failing our check is still written');
+SwuPgnTestEq(array_map(fn($t) => $t === null ? null : (SwuPgnParse($t)['headers']['RecorderErrors'] ?? null), $sf), ['all' => '1', 'p1' => '1', 'p2' => '1'],
+    'and every file carries [RecorderErrors "1"]');
+
 foreach ($games as $x) exec('rm -rf ' . escapeshellarg('./SWUSim/Games/' . $x));
 @unlink(MatchPath('SWUSim', $matchId)); @unlink($health);
 SwuPgnTestFinish();
