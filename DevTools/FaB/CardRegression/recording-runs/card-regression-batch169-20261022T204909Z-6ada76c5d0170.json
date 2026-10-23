@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T20:49:09+00:00",
+    "input_file": "card-regression-batch169.json",
+    "input_sha256": "c262ca4c27f1c1bc206cd15c2619ecf11c77f6632a647eeae5949a98ddea9190",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-tearing-shuko-four-live-sparse-actual-destroy-instant-next-created-tiger-plus-two-real-play-and-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1817
+        }
+    ]
+}

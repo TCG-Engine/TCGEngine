@@ -17,14 +17,14 @@ function FaBHVYActionSource(): bool {
     $f=FaBIdentityFromMZ((string)DecisionQueueController::GetVariable('mzID'));
     return $f&&FaBHasType($f['object'],'Action');
 }
-function FaBHVYToken(int $p,string $id,int $n=1,?int $controller=null,?bool $action=null,bool $wager=false): ?object {
+function FaBHVYToken(int $p,string $id,int $n=1,?int $controller=null,?bool $action=null,bool $wager=false,?int $owner=null): ?object {
     if(!FaBSeatIsLive($p)||$n<1)return null;$controller??=intval($GLOBALS['fabEffectController']??0)?:$p;$action??=FaBHVYActionSource();
-    if(FaBPENReplaceFrost($p,$id,$n,$controller,$action,$wager))return null;
-    $n=FaBMPGTokenCount($p,$id,$n);if(FaBHasType($id,'Aura') && (FaBHasType($id,'Elemental')||FaBHasType($id,'Runeblade')))$n+=FaBARCEffect($p,'PEN_VERDANT');if($n<1)return null;
-    if(FaBHasType($id,'Aura')&&FaBROSActive($p,'florian'))++$n;
+    if(FaBPENReplaceFrost($p,$id,$n,$controller,$action,$wager,$owner))return null;
+    $creator=$owner??$p;$n=FaBMPGTokenCount($creator,$id,$n);if(FaBHasType($id,'Aura') && (FaBHasType($id,'Elemental')||FaBHasType($id,'Runeblade')))$n+=FaBARCEffect($creator,'PEN_VERDANT');if($n<1)return null;
+    if(FaBHasType($id,'Aura')&&FaBROSActive($creator,'florian'))++$n;
     if($wager)foreach(FaBLiveSeats() as $s)$n+=FaBHVYCount($s,'DOUBLE_DOWN');
     if($action)foreach(FaBLiveSeats() as $s)$n-=FaBHVYCount($s,'RIPPLE');
-    $first=null;for($i=0;$i<max(0,$n);++$i){$o=FaBWTRCreateArena($p,$id,true);$first??=$o;}
+    $first=null;for($i=0;$i<max(0,$n);++$i){$o=FaBWTRCreateArena($p,$id,true,$owner);$first??=$o;}
     if($n>0&&$id==='runechant')FaBIARCreatedRunes($p,$n);
     if($n>0&&in_array($id,['agility','confidence','toughness','might','vigor'],true))FaBHVYAdd($p,'CONTROLLED_'.$id);
     if($n>0&&$id==='gold'&&$controller===$p&&FaBHVYHero($p,'victor_goldmane')&&!FaBHVYCount($p,'VICTOR_DRAW')&&in_array(GetCurrentPhase(),['MAIN','END'],true)) {

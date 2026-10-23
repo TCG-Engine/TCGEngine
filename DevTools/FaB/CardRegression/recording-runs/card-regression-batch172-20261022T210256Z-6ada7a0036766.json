@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T21:02:56+00:00",
+    "input_file": "card-regression-batch172.json",
+    "input_sha256": "65c2d2a652aa08e5883d5ff15cd791d20979518ff10f0fd33477cd6f0c8e9710",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-captains-coat-four-live-sparse-real-prior-draw-earns-equipment-destruction-resource-ability",
+            "status": "recorded_semantically_checked",
+            "actions": 11,
+            "assertions": 1165
+        }
+    ]
+}

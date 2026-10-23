@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch149.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T20:06:35.410684+00:00",
+  "fixtures": [
+    {
+      "slug": "card-gauntlet-of-might-four-live-sparse-actual-hybrid-equipment-destruction-creates-one-owned-might-and-ability-go-again",
+      "fixture_sha256": "20938912392245ce9f0439ddcefa9adbc503530ccc88639b9d929eb521ea0a0b",
+      "passed": true,
+      "result": "[PASS] Gauntlet of Might / four live sparse positive effect"
+    },
+    {
+      "slug": "card-flat-trackers-four-live-sparse-actual-hybrid-equipment-destruction-creates-one-owned-agility-and-ability-go-again",
+      "fixture_sha256": "5fcca90ec7f49db528e793fee7af9633245d840132f68318e75a1c8cfc2659f3",
+      "passed": true,
+      "result": "[PASS] Flat Trackers / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-gauntlet-of-might-four-live-sparse-actual-hybrid-equipment-destruction-creates-one-owned-might-and-ability-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Gauntlet of Might / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-flat-trackers-four-live-sparse-actual-hybrid-equipment-destruction-creates-one-owned-agility-and-ability-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Flat Trackers / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

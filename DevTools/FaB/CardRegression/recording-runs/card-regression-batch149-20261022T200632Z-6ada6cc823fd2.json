@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:06:32+00:00",
+    "input_file": "card-regression-batch149.json",
+    "input_sha256": "13c600a88933453750d8d9fc2fed3573781991ebf919fd42ee7a7bc345d33608",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-gauntlet-of-might-four-live-sparse-actual-hybrid-equipment-destruction-creates-one-owned-might-and-ability-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 337
+        },
+        {
+            "slug": "card-flat-trackers-four-live-sparse-actual-hybrid-equipment-destruction-creates-one-owned-agility-and-ability-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 337
+        }
+    ]
+}

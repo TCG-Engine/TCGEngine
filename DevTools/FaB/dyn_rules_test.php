@@ -18,7 +18,15 @@ foreach([2,4] as $p){
   $expected=$mode==='empty'?[]:($mode==='bottom'?['zap_blue','zap_red']:['zap_red','zap_blue']);
   $check(array_map(fn($r)=>FaBIdentityFromMZ($r)['object']->CardID,FaBChoiceRefs(1,'Deck'))===$expected&&!GetDecisionQueue($p)&&!FaBChoiceRefs($p,'Temp'),'Arakni peek failed '.$heroID.' '.$mode);
  }
- $dynReset($p);$a=$attack($p,'annihilate_the_armed_red');$eq=AddCombatChain(1,CardID:'ironrot_helm',Owner:1,Controller:1,Role:'DEFENSE',ChainLink:1,FromZone:'Equipment');$uid=$macro($p,'shred_red');$answer($p,$ref($eq));$check(FaBCurrentDefense($eq,1)===0,'Shred did not reduce equipment defense.');
+ $dynReset($p);$a=$attack($p,'annihilate_the_armed_red');$eq=AddCombatChain(1,CardID:'ironrot_helm',Owner:1,Controller:1,Role:'DEFENSE',ChainLink:1,FromZone:'Equipment');
+ $shred=AddHand($p,CardID:'shred_red',Owner:$p,Controller:$p);$uid=intval($shred->UniqueID);
+ $check(DoPlayCard($p,$ref($shred)),'Shred could not be played as an attack reaction.');
+ $declared=GetDecisionQueue($p)[0]??null;
+ $check($declared!==null&&$declared->Type==='MZCHOOSE'&&in_array($ref($eq),explode('&',$declared->Param),true)&&FaBCurrentDefense($eq,1)===1,'Shred must declare its defending-card target before applying any reduction.');
+ $answer($p,$ref($eq));$source=FaBFindUID($uid);
+ $check($source!==null&&$source['zone']==='Stack'&&intval($source['object']->Params['declaredReactionTarget']['uid']??0)===intval($eq->UniqueID)&&intval($source['object']->Params['declaredReactionTarget']['chainLink']??0)===1&&!FaBHasPendingDecision()&&FaBCurrentDefense($eq,1)===1,'Shred did not bind the declared physical defender before its response window.');
+ if($source!==null)DoResolveCard($p,$source['mzID']);
+ $check(!FaBHasPendingDecision()&&FaBCurrentDefense($eq,1)===0&&in_array('DYN_DEFENSE:-4',(array)$eq->TurnEffects,true),'Resolved Shred did not apply exactly its printed -4 to the declared defender without retargeting.');
  $dynReset($p);$e=AddEquipment($p,CardID:'seasoned_saviour',Owner:$p,Controller:$p);FaBDYNSetup($p);$check(FaBCurrentDefense($e,$p)===1,'Seasoned Saviour must start with two negative defense counters.');$uid=$macro($p,'reinforce_steel_red');$answer($p,$ref($e));$check(FaBCurrentDefense($e,$p)===2,'Reinforce Steel did not remove a negative defense counter.');
  $dynReset($p);$e=AddEquipment(1,CardID:'ironrot_helm',Owner:1,Controller:1);$a=$attack($p,'drill_shot_red');FaBRunSourceMacro('Hit',$p,$a->CardID,['mzID'=>$ref($a),'amount'=>1]);$answer($p,$ref($e));$check(FaBCurrentDefense($e,1)===0,'Drill Shot counter had the wrong sign.');
  $dynReset($p);$weapons=&GetWeapons($p);$weapons=[];AddWeapons($p,CardID:'sandscour_greatbow',Owner:$p,Controller:$p);$d=AddDeck($p,CardID:'long_shot_red');FaBDYNTopArrow($p,true);$ar=GetArsenal($p)[0];$check(intval(FaBObjectCounters($ar)['AIM'])===1&&$ar->FaceDown===0,'Deck-loaded arrow lacks one aim counter.');$a=FaBMoveUID(intval($d->UniqueID),'CombatChain',$p);$a->Role='ATTACK';$a->ChainLink=1;$s=FaBGetState();$s['attacker']=$p;$s['defender']=1;$s['attackUID']=$a->UniqueID;$s['chainLink']=1;FaBSetState($s);$check(FaBDYNPower($p,$a)===2,'Aim counter did not survive playing Long Shot.');

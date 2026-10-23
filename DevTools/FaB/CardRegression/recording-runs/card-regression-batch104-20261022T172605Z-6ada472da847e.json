@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-22T17:26:05+00:00",
+    "input_file": "card-regression-batch104.json",
+    "input_sha256": "ed6b59fd9e4a5dd80531212dcab27ef1be5b5214e7cb8a55508cf960fc04b1be",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-strength-of-four-seasons-red-four-live-sparse-four-physical-face-up-earth-banish-cards-enable-four-power",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 474
+        },
+        {
+            "slug": "card-runerager-swarm-red-four-live-sparse-real-prior-sigil-aura-play-grants-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 454
+        },
+        {
+            "slug": "card-hit-the-high-notes-red-four-live-sparse-real-prior-sigil-aura-play-enables-two-power",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 500
+        },
+        {
+            "slug": "card-shrill-of-skullform-red-four-live-sparse-real-prior-sigil-aura-play-enables-three-power",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 500
+        }
+    ]
+}

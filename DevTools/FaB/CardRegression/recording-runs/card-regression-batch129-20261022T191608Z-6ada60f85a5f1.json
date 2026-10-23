@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-22T19:16:08+00:00",
+    "input_file": "card-regression-batch129.json",
+    "input_sha256": "8feba9ea5aa3cfe2af1831646de9f89b92f4a1abac6e29312a31d256f56188b5",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-weave-earth-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 974
+        },
+        {
+            "slug": "card-weave-ice-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 974
+        },
+        {
+            "slug": "card-weave-lightning-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 974
+        }
+    ]
+}

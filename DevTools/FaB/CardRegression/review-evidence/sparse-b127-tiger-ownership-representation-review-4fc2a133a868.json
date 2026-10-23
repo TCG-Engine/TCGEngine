@@ -1,0 +1,187 @@
+{
+  "status": "B127_RAW_OWNER_ZERO_IS_NOT_SUFFICIENT_EVIDENCE_OF_GAMEPLAY_OWNERSHIP_DEFECT",
+  "reviewer": "/root/b106_semantic_review",
+  "completed_utc": "2026-10-22T19:11:17.513396+00:00",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "native_failure_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b127-confirmed-unsaved-holds-independent-review.json",
+    "sha256": "d9a7f194f8e64d74fcd02d8b27a0324591b45b9afbc71eedc998bf6d320f98db"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch127-20261022T190324Z-6ada5dfc3d6db.json",
+    "sha256": "9e007f4dd490c5bdc278d8148e9f14ca01ff802951832fc1a20d70e5da7003b6"
+  },
+  "source_anchors": [
+    {
+      "path": "FaBSim/ZoneAccessors.php",
+      "lines": [
+        232,
+        233
+      ],
+      "source_sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "excerpt_sha256": "f3ad7d0d2023f4ea771204383edd0ddaeb1b08bd15a2a34a33291782cd1264f9",
+      "meaning": "New Hand defaults raw Owner0/Controller0; PlayerID receives destination player."
+    },
+    {
+      "path": "FaBSim/ZoneAccessors.php",
+      "lines": [
+        246,
+        252
+      ],
+      "source_sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "excerpt_sha256": "dfa21456c913323227da4353a2c9b913f1f87ce413da7f7c14c1ace36591d1ea",
+      "meaning": "New objects receive UID; existing physical object retains UID."
+    },
+    {
+      "path": "FaBSim/ZoneAccessors.php",
+      "lines": [
+        334,
+        335
+      ],
+      "source_sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "excerpt_sha256": "d4e79a3605f3fd50f3903087c9a23eab4468933d4af91dd57a6773b19c296d9c",
+      "meaning": "New Banish defaults raw Owner0/Controller0 and stores destination player."
+    },
+    {
+      "path": "FaBSim/ZoneClasses.php",
+      "lines": [
+        421,
+        439
+      ],
+      "source_sha256": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "excerpt_sha256": "1fbfa35a1a1a5b35f22580485bdefd99b96707929f7501436500601d6600e50b",
+      "meaning": "Hand constructor parses raw owner/controller without normalization; stores PlayerID; serialization keeps raw values."
+    },
+    {
+      "path": "FaBSim/ZoneClasses.php",
+      "lines": [
+        599,
+        635
+      ],
+      "source_sha256": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "excerpt_sha256": "e36746d6229a16eec1ba6072dfde7c71cd40ba207cf29449f3351e161031bc9b",
+      "meaning": "Banish constructor/serialization likewise preserves raw fields and PlayerID."
+    },
+    {
+      "path": "FaBSim/Custom/IraCards.php",
+      "lines": [
+        3,
+        8
+      ],
+      "source_sha256": "2720531915e357bc143fceb7598ccd3360c6f50d22d2b5c00526cac8d4351364",
+      "excerpt_sha256": "9d1d69bdedde704f66c578be2a81991fce1ff4be091971409c63310c1d37cd0f",
+      "meaning": "Predatory helper creates own Banish Tigers without explicit owner/controller arguments."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "lines": [
+        6258,
+        6264
+      ],
+      "source_sha256": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+      "excerpt_sha256": "100db68dcb796472b4102c440b055647a8a871bbf28f899759187c2b20950bb6",
+      "meaning": "Roar resolver creates own Hand Tiger without explicit owner/controller arguments."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": [
+        510,
+        520
+      ],
+      "source_sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+      "excerpt_sha256": "2b31d4ad7eee9061fff9d8c27bea6631ccefdedf46809b161af4c509b46634cc",
+      "meaning": "UID lookup for private zones returns the containing seat as found player; does not use raw Owner/Controller."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": [
+        1893,
+        1898
+      ],
+      "source_sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+      "excerpt_sha256": "682b3e6e6b0237bf2f7a9e203da205abc0f60de486fab35a3d9cb4285444226f",
+      "meaning": "Selection actor starts from object PlayerID, before controller/owner fallback."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": [
+        666,
+        669
+      ],
+      "source_sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+      "excerpt_sha256": "b225c0f382eedbd3f6f3df1cf25d20e07c935ef566f781dc246b8954c1df1ad4",
+      "meaning": "Ordinary movement resolves targetPlayer0 to containing found player."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": [
+        635,
+        638
+      ],
+      "source_sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+      "excerpt_sha256": "f5b4326e48f1b03fbac8b6530850cb71a665a21d1a98b8173d4b18ea0f1c863a",
+      "meaning": "FaBAddToZone normalizes raw owner/controller below1 to destination player."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": [
+        835,
+        843
+      ],
+      "source_sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+      "excerpt_sha256": "50ecd604d746413ef5d5b569510ff12eaa494c779e519ef39192997bf7c3a952",
+      "meaning": "Playing latches missing Owner to found player and explicitly assigns played stack Controller to acting player."
+    }
+  ],
+  "pure_source_traces": [
+    {
+      "raw_input": {
+        "UniqueID": 6,
+        "Owner": 0,
+        "Controller": 0,
+        "PlayerID": 1,
+        "zone": "Hand"
+      },
+      "source_derived_actor": 1,
+      "implicit_own_move_destination": 1,
+      "normalized_move_owner": 1,
+      "normalized_move_controller": 1,
+      "played_stack_owner": 1,
+      "played_stack_controller": 1,
+      "uid_preserved": 6,
+      "classification": "Pure source-derived trace, not native execution"
+    },
+    {
+      "raw_input": {
+        "UniqueID": 6,
+        "Owner": 0,
+        "Controller": 0,
+        "PlayerID": 1,
+        "zone": "Banish"
+      },
+      "source_derived_actor": 1,
+      "implicit_own_move_destination": 1,
+      "normalized_move_owner": 1,
+      "normalized_move_controller": 1,
+      "played_stack_owner": 1,
+      "played_stack_controller": 1,
+      "uid_preserved": 6,
+      "classification": "Pure source-derived trace, not native execution"
+    }
+  ],
+  "findings": [
+    "The literal raw Owner1/Controller1 assertions were stricter than these direct factory representations. Source identity and actor selection place both Tigers under player1; ordinary own-zone movement and playing normalize explicit ownership/controller to1 with the same UID.",
+    "No demonstrated wrong effective creator ownership in the bounded creation/play/ordinary-own-movement paths. Proposed FAB-REG-039 is not a confirmed gameplay defect on these raw-field failures alone; treat as oracle/representation concern pending root disposition.",
+    "This is not a blanket assertion that raw0 is harmless in every effect. Foreign-zone/control movement, suppression, all ownership consumers and later Tiger attacks were not audited.",
+    "Chorus remains an uncertain pending-Decompose recording failure; no timing or gameplay-bug cause is inferred by this review."
+  ],
+  "next_step": "Keep all3 B127 attempts unsaved/uncredited. Root may approve a narrowly corrected representation/effective-ownership oracle plus fresh new-case gates, or defer; no original scenario, expected effect or source was edited by reviewer.",
+  "unqualified_groups": [
+    "identity:chorus_of_rotwood_red",
+    "pitch-cycle:predatory_streak",
+    "identity:roar_of_the_tiger_yellow"
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0
+}

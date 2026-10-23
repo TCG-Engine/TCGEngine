@@ -69,7 +69,7 @@ function FaBSEAPlayed(int $p,object $o,string $from): void {
  if(FaBSEAWatery($o)&&FaBHasType($o,'Ally')){$effects=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='SEA_QUARTER'&&--$e['amount']<=0)continue;$effects[]=$e;}FaBWTRSetEffects($p,$effects);}
  if($from==='Graveyard'&&FaBSEAWatery($o)){if(!FaBSEACount($p,'WATERY_PLAY')&&FaBChoiceRefs($p,'Equipment',['base'=>'compass_of_sunken_depths']))FaBWTRTag($o,'GO_AGAIN');FaBSEAAdd($p,'WATERY_PLAY');}
  if(FaBWTRBase($o->CardID)==='blow_for_a_blow'&&FaBARCLowerLife($p))FaBWTRTag($o,'GO_AGAIN');$attack=($o->Kind??'')==='ATTACK'||FaBHasType($o,'Attack');$remaining=[];
- foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='SEA_NEXT'&&($attack||in_array($e['kind']??'',['naa','action'],true))&&FaBSEAMatches($o,$e['kind'])&&(!intval($e['source']??0)||intval($e['source'])===intval($o->SourceUniqueID??FaBObjectCounters($o)['WEAPON_UID']??0))){if($e['power'])FaBWTRTag($o,'WTR_POWER:'.$e['power']);if($e['tag']!=='')FaBWTRTag($o,$e['tag']);if($e['tag']==='SEA_RED_POWER'&&intval(CardPitch($o->CardID))===1)FaBWTRTag($o,'WTR_POWER:1');if($e['tag']==='SEA_HARPOON_OVERPOWER'&&str_contains($o->CardID,'harpoon'))FaBWTRTag($o,'OVERPOWER');if($e['tag']==='SEA_HARPOON_GOLD'&&str_contains($o->CardID,'harpoon'))FaBWTRTag($o,'SEA_GOLD_HIT');}else $remaining[]=$e;}FaBWTRSetEffects($p,$remaining);
+ foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='SEA_NEXT'&&($attack||in_array($e['kind']??'',['naa','action'],true))&&FaBSEAMatches($o,$e['kind'])&&(!intval($e['source']??0)||intval($e['source'])===intval($o->SourceUniqueID??FaBObjectCounters($o)['WEAPON_UID']??0))){if($e['power'])FaBWTRTag($o,'WTR_POWER:'.$e['power']);if($e['tag']!=='')FaBWTRTag($o,$e['tag']);if(in_array($e['tag'],['SEA_RED_POWER','SEA_YELLOW_POWER','SEA_BLUE_POWER'],true)&&intval(CardPitch($o->CardID))===['SEA_RED_POWER'=>1,'SEA_YELLOW_POWER'=>2,'SEA_BLUE_POWER'=>3][$e['tag']])FaBWTRTag($o,'WTR_POWER:1');if($e['tag']==='SEA_HARPOON_OVERPOWER'&&str_contains($o->CardID,'harpoon'))FaBWTRTag($o,'OVERPOWER');if($e['tag']==='SEA_HARPOON_GOLD'&&str_contains($o->CardID,'harpoon'))FaBWTRTag($o,'SEA_GOLD_HIT');}else $remaining[]=$e;}FaBWTRSetEffects($p,$remaining);
 }
 function FaBSEAAfterMove(int $p,object $o,string $from,string $to,?object $source=null): void {
  if($to==='Graveyard'){FaBSEAGraveEntered($p,$o,$from,$source);if($from==='Arena'&&$o->CardID==='oysten_heart_of_gold_yellow')FaBHVYToken(intval($source->Controller??$p),'gold');}
@@ -117,12 +117,14 @@ function FaBSEADeclared(int $p,object $o): void {
  if(FaBHasType($o,'Club')&&FaBSEACount($p,'BAM'))FaBWTRTag($o,'SEA_BAM_HIT');
 }
 function FaBSEAHit(int $p,object $o,int $n): void {
- if($n<1)return;if(in_array('SEA_UNTAP_HERO',(array)$o->TurnEffects,true))FaBSEAUntap('p'.$p.'Hero-0');if(!FaBFaiHeroHit())return;$v=intval(FaBGetState()['defender']);$tags=(array)$o->TurnEffects;
+ if($n<1)return;if(!HasNoAbilities($o)&&in_array('SEA_UNTAP_HERO',(array)$o->TurnEffects,true))FaBROSQueue($p,$o->CardID,intval($o->UniqueID),['rosEvent'=>'seaRegainComposure']);if(!FaBFaiHeroHit())return;$v=intval(FaBGetState()['defender']);$tags=(array)$o->TurnEffects;
  if(in_array('SEA_GOLD_HIT',$tags,true))FaBHVYToken($p,'gold');
  if(in_array('SEA_STEAL_GOLD',$tags,true)&&!FaBSEAStealGold($p,$v))FaBHVYToken($p,'gold');
- if(in_array('SEA_UNTAP_HERO',$tags,true))FaBSEAUntap('p'.$p.'Hero-0');
  if(in_array('SEA_ANCHOR',$tags,true))foreach(explode('&',FaBSEAPermanents($v,'heroAlly',false)) as $r)FaBSEATap($r);
  if(in_array('SEA_BAM_HIT',$tags,true))FaBROSQueue($p,'bam_bam_yellow',intval($o->UniqueID),['rosEvent'=>'seaBam','rosTarget'=>$v]);
+}
+function FaBSEAResolveRegainComposure(int $p): void {
+ if(FaBSeatIsLive($p))FaBSEAUntap('p'.$p.'Hero-0');
 }
 function FaBSEAPrevent(int $p,int $n,?object $ally=null): int {
  if($n<=0)return $n;$keys=$ally===null?['CAUTION','SAWBONES']:(FaBHasType($ally,'Pirate')?['SAWBONES']:[]);

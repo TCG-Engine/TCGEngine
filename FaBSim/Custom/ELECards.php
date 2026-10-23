@@ -64,6 +64,44 @@ function FaBELEGoAgain(int $p,object $o): bool {
     return FaBWTRIsAttackAction($o)&&FaBELECount($p,'AA_GO')>0;
 }
 function FaBELEClear(int $p,string $key): void {FaBWTRSetEffects($p,array_values(array_filter(FaBWTREffects($p),fn($e)=>($e['type']??'')!=='ELE_'.$key)));}
+/** Embodiment is a triggered-static ability, not an immediate play modifier. */
+function FaBELEEmbodimentPlayed(int $p, object $attack): void {
+    if (!FaBSeatIsLive($p) || !FaBWTRIsAttackAction($attack)) return;
+    $uid = intval($attack->UniqueID);
+    $tokens = FaBMONArena($p, 'embodiment_of_lightning');
+    $epoch = intval(FaBARCCard($uid, 'eleEmbodimentPlayEpoch'));
+    if (!$tokens && $epoch < 1) return;
+    // UIDs survive zone changes. A subsequent play of this physical card is new.
+    ++$epoch; FaBARCSetCard($uid, 'eleEmbodimentPlayEpoch', $epoch);
+    foreach ($tokens as $ref) {
+        $token = FaBIdentityFromMZ($ref);
+        if ($token === null || HasNoAbilities($token['object'])) continue;
+        FaBROSQueue($p, 'embodiment_of_lightning', intval($token['object']->UniqueID),
+            ['rosEvent'=>'eleEmbodimentLightning', 'eleAttackUID'=>$uid, 'eleAttackEpoch'=>$epoch]);
+    }
+}
+
+/** The queued effect survives its token leaving or losing abilities. */
+function FaBELEResolveEmbodiment(int $p, object $trigger): void {
+    $previous = $GLOBALS['fabEffectController'] ?? 0;
+    $GLOBALS['fabEffectController'] = $p;
+    try {
+        $token = FaBFindUID(intval($trigger->SourceUniqueID));
+        if ($token !== null && $token['zone'] === 'Arena'
+            && $token['object']->CardID === 'embodiment_of_lightning') {
+            FaBMONDestroy(intval($token['object']->UniqueID));
+        }
+        $uid = intval($trigger->Params['eleAttackUID'] ?? 0);
+        $epoch = intval($trigger->Params['eleAttackEpoch'] ?? 0);
+        $attack = FaBFindUID($uid);
+        if ($epoch > 0 && $attack !== null && $attack['zone'] === 'Stack'
+            && ($attack['object']->Kind ?? '') === 'ATTACK'
+            && intval(FaBARCCard($uid, 'eleEmbodimentPlayEpoch')) === $epoch) {
+            FaBWTRTag($attack['object'], 'GO_AGAIN');
+        }
+    } finally { $GLOBALS['fabEffectController'] = $previous; }
+}
+
 function FaBELEPlayed(int $p,object $o,string $from): void {
     if(!FaBWTRIsWeapon($o))foreach(FaBMONArena($p,'frostbite') as $r)FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));
     if(!FaBHasType($o,'Action')&&!FaBWTRIsWeapon($o))return;
@@ -72,7 +110,7 @@ function FaBELEPlayed(int $p,object $o,string $from): void {
         if(!$aa)FaBELEClear($p,'NEXT_INSTANT');
         foreach(FaBMONArena($p,'channel_thunder_steppe') as $r)FaBRunSourceMacro('ResolveAbility',$p,'channel_thunder_steppe_yellow',['mzID'=>$r,'eleActionUID'=>$uid]);
     }
-    if($aa){foreach(FaBMONArena($p,'embodiment_of_lightning') as $r){FaBWTRTag($o,'GO_AGAIN');FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));}}
+    if($aa)FaBELEEmbodimentPlayed($p,$o);
     if(FaBWTRHeroActive($p)&&in_array((GetHero($p)[0]->CardID??''),['briar','briar_warden_of_thorns'],true)&&!$aa&&FaBHasType($o,'Action')&&count(FaBARCPlayed($p,true))===2)FaBWTRCreateArena($p,'embodiment_of_lightning');
     $left=[];foreach(FaBWTREffects($p) as $e){$k=$e['type']??'';$use=false;$v=intval($e['amount']??0);
         if($attack&&$k==='ELE_NEXT_ATTACK')$use=true;

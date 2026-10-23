@@ -1,0 +1,131 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T17:45:04.491231+00:00",
+  "plan_sha256": "68b830d18d11adab310547332a4ff114bf093c87be57e276d4cf5ffae4e59940",
+  "independent_saved_proof_sha256": "19613f7feabc4ba5e846e90e9ad1ec439686830c62a7a2dfa4471811b547f0fd",
+  "command": [
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sparse-b107-focused-fault-plan.json",
+    "68b830d18d11adab310547332a4ff114bf093c87be57e276d4cf5ffae4e59940",
+    "card-regression-sparse-b107-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b107_high_striker_red_focused_on_hit_effect_sensitivity",
+      "fixture": "card-high-striker-red-four-live-sparse-real-next-hit-creates-six-owned-copper",
+      "fixture_sha256": "28b33a9867c6cccb0eacaccbcbe8e37ae21bce69d6dff8f24471b04c4c7de8a9",
+      "source_raw5": {
+        "initial_gamestate.txt": "95a47d60040c41a6e2c5a47edb1c59fc966dc82fbdda105e644a9876eb5a6316",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "2a5aa2a44ebd1449066a5b6654f71066a6886b769c46492c8392b30675b2d3e8",
+        "expected_final_gamestate.txt": "ed923a96bded658397fd8c91f894beacd461de6f9b6314232f7d8dfb8ec56047",
+        "meta.json": "515851b9f53b8901735326c414ba42cdcec6fba97a3e10a94714179a125a06cc"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "EVR_HIGH_STRIKER"
+      },
+      "retained_assertions": 556,
+      "expected_failure_step": 19,
+      "expected_failure": "Expected p1Arena count 6, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] High Striker / four live sparse next-hit positive: Step 19 assertion failed: Expected p1Arena count 6, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After the real primary resolves, omit its six-Copper next-hit delayed effect while preserving all physical cards and subsequent attack/damage. First missing-Copper count must detect the effect loss. Synthetic exact effect omission, not legal alternate-branch play. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b107_plunder_run_red_focused_on_hit_effect_sensitivity",
+      "fixture": "card-plunder-run-red-four-live-sparse-real-arsenal-play-buffs-next-attack-and-hit-draws-physical-top-card",
+      "fixture_sha256": "e7b9923532692376f4d1b79f2ddcc2472b7e44e43095552e1c78c664835b6baa",
+      "source_raw5": {
+        "initial_gamestate.txt": "5a3c7599ece8eef224186add1d3d8170633f7f4ca040a3884f82980829da9e99",
+        "actions.json": "8b5341d0539b44737de6450d399d00825ce4252b393149bfa07ba153798bba8a",
+        "assertions.json": "0520f4f8bd02a7ae6052dd0618a46c1e5680b3f01c3419d0e6aaa6f297aaf766",
+        "expected_final_gamestate.txt": "90b704ad106f0bae8eddff83b022bfc7e7800a346572d46439862f0f4ce941d6",
+        "meta.json": "af280815fcd5126652bfab8b89726b3300ba09bcb85ae87711ba89441499d37a"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "ARC_PLUNDER"
+      },
+      "retained_assertions": 469,
+      "expected_failure_step": 19,
+      "expected_failure": "Expected p1Deck count 0, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Plunder Run / four live sparse next-hit positive: Step 19 assertion failed: Expected p1Deck count 0, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Arsenal Plunder resolves, omit only its delayed draw effect while preserving the separate +3 next-attack grant. Actual attack still deals7; original Deck7 remains undrawn and its first Deck count oracle detects missing draw. Synthetic exact effect omission, not legal alternate-branch play. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b107_premeditate_red_focused_on_hit_effect_sensitivity",
+      "fixture": "card-premeditate-red-four-live-sparse-real-next-arsenal-attack-plus-three-and-hit-creates-owned-ponder",
+      "fixture_sha256": "72cece6c40ab32def45cdd6ce6ffe5eaff0fe25dbdfad0744b1dd1bcbfcc1c40",
+      "source_raw5": {
+        "initial_gamestate.txt": "0c6375f12afe68c6b5a627f49880258ca132f516b08d457e706e3e87c5c92501",
+        "actions.json": "1ec45fbde5846f2645e8c25e7d7d95b96bd1d93a6ed4c6208f7005f9cfc59724",
+        "assertions.json": "77514fb8f4a1fa0a3dee21479cdf0535ca7ee3273d23303dd8d657678e1ec9b4",
+        "expected_final_gamestate.txt": "d22c2c3b2d379c725a602e61222dab6ca7c9fc1a3bec7ef9212e7ad6bb70d4f0",
+        "meta.json": "97f120d34a42eb3e522a5e26d0852f430026b0b8dc6c5e700fa75de1d6621b7f"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "OUT_PREMEDITATE"
+      },
+      "retained_assertions": 376,
+      "expected_failure_step": 19,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Premeditate / four live sparse next-hit positive: Step 19 assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real Premeditate resolves, omit only its Ponder-on-hit delayed effect while preserving the actual Arsenal +3 grant. Actual attack still deals7; first missing-Ponder count detects missing token. Synthetic exact effect omission, not legal alternate-branch play. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b107_exorcism_red_focused_on_hit_effect_sensitivity",
+      "fixture": "card-exorcism-red-four-live-sparse-real-next-attack-plus-three-hit-turns-two-physical-banish-cards-face-down",
+      "fixture_sha256": "b838ba435f70a12e39511f18ffc2f4106d7c2d18faa50e48d91685085ec376c7",
+      "source_raw5": {
+        "initial_gamestate.txt": "0ac20092f9c6216923dfb04b8c5334ca3518708c9dc97136186e865e8aac9e20",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "526812464de9f02a0c6cb68d403f4ed2d75f82c610e2bcf6e6ec08a1c49ee05c",
+        "expected_final_gamestate.txt": "1ff30882f6448ff5092b7e55102cd2b8c920e39379aba0ffa2818939ccbe128e",
+        "meta.json": "2cd0ea8401a9c2aa753f00c0dcd125b9bc5dfe65c370546fa1cc1b1b134b2094"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "remove",
+            "tag": "IAR_EXORCISM"
+          }
+        ]
+      },
+      "retained_assertions": 500,
+      "expected_failure_step": 13,
+      "expected_failure": "Expected p4Banish-0.FaceDown to equal '1', got '0'.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Exorcism / four live sparse next-hit positive: Step 13 assertion failed: Expected p4Banish-0.FaceDown to equal '1', got '0'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After primary+actual attack and printedBlue payment, omit only granted IAR_EXORCISM from actual attack6. Preserve its +3 power tag and all original victim Banish8/9 objects. Actual damage remains7; first original FaceDown flip oracle must detect absent granted effect. Synthetic exact effect omission, not legal alternate-branch play. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

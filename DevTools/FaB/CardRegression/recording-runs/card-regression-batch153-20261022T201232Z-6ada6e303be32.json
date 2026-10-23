@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:12:32+00:00",
+    "input_file": "card-regression-batch153.json",
+    "input_sha256": "3fbffc1a84dfed761557645598011db6fbf21892029be423d0a078904c76ebe7",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-cracker-jax-four-live-sparse-actual-equipment-destruction-grants-one-to-next-real-blue-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 852
+        },
+        {
+            "slug": "card-coat-of-allegiance-four-live-sparse-actual-draconic-equipment-destruction-gains-one-resource-and-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 332
+        }
+    ]
+}

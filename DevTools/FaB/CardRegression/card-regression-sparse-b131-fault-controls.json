@@ -1,0 +1,84 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:19:54.023422+00:00",
+  "plan_sha256": "7303d957843d326732ace179f197edadc0d106a008fc10f0b3acfd95aadc6a96",
+  "independent_saved_proof_sha256": "735cad6b999b1a59caab46059916c87c6dbd6c4b8eaacb366c9f58704422269b",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b131-focused-fault-plan.json",
+    "7303d957843d326732ace179f197edadc0d106a008fc10f0b3acfd95aadc6a96",
+    "card-regression-sparse-b131-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b131_tome_of_the_arknight_blue_focused_effect_sensitivity",
+      "fixture": "card-tome-of-the-arknight-blue-four-live-sparse-actual-blue-pitch-paid-tome-reveals-aa-and-non-aa-and-moves-both-owned-cards-to-hand",
+      "fixture_sha256": "8b953f00b890f569baaeab2d149d6af85bf1ada0b569d91b9a09dea0f71d00b8",
+      "source_raw5": {
+        "initial_gamestate.txt": "5e219c96ec2a696899b0d9e63b0abee8a41694b073f3f8f1c75c4641ba03fd7d",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "fda9a172ea1ee8364847057f53dc06d33d39647ae4196c371901ed596a5d811e",
+        "expected_final_gamestate.txt": "a1e18905609413d4dbb940e1885c8068119ec6fbb3ea8dd28be4d6e6fdd1d227",
+        "meta.json": "34c28d5ab457ecaa99da508295a17083112b5aa2423ba6085b4654a3b006e11f"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "wounding_blow_red",
+            "uid": 7,
+            "from": "Hand",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 118,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Tome of the Arknight / four live sparse positive effect: Initial assertion failed: Expected p1Hand count 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact existing physical AA7 transferred from actual topDeck to Hand by the real oneAA/oneNAA positive reveal. Source5, NAA8 and actualBluePitch6/economy preserved. Physical transfer-outcome sensitivity only; not a draw-trigger or alternative deck-type branch claim. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b131_heartbeat_of_candlehold_blue_focused_effect_sensitivity",
+      "fixture": "card-heartbeat-of-candlehold-blue-four-live-sparse-actual-blue-pitch-paid-specialization-gains-three-life-with-empty-earth-banish",
+      "fixture_sha256": "ed04f93b52d7cf37d50f721123465d6c1943ada06a10167f4741402908068957",
+      "source_raw5": {
+        "initial_gamestate.txt": "aed877499c0639d31f7e13d96ae6fa35a17772b624360ad327dbe7e8c7975b71",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "d5ce59ffb43a733735820c895d36999c091ede503d249f84a233ec9eeaf5171a",
+        "expected_final_gamestate.txt": "1198e96e1be9f350fbd0499a1344f15a994efcf662a9c89a48fc32559015bc4d",
+        "meta.json": "a61984294489b94a74c97359622c8684e211b608ef181d93bc4bc2b79a30a652"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 1,
+            "value": 19
+          }
+        ]
+      },
+      "retained_assertions": 110,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Health to equal 20, got 19.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Heartbeat of Candlehold / four live sparse positive effect: Initial assertion failed: Expected p1Health to equal 20, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Change only actual final P1health20to19 after real cost1/printed net3 healing from initial17. Exact primary5/Pitch6/economy preserved. Net life-gain sensitivity only; no individual gain-trigger ordering/activeVerdance arcane/gain-cap or replacement credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-22T18:38:01+00:00",
+    "input_file": "card-regression-batch118.json",
+    "input_sha256": "81f066ebc25a0178136b7cda32727bd81b8300dc5cb2a10922ee677dc51ba3d9",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-uprising-red-four-live-sparse-actual-action-first-draconic-attack-plus-one",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 745
+        },
+        {
+            "slug": "card-billowing-mist-blue-four-live-sparse-actual-mystic-action-next-physical-attack-plus-one",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 745
+        },
+        {
+            "slug": "card-vigorous-roar-red-four-live-sparse-actual-brute-action-next-physical-attack-plus-three",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 745
+        },
+        {
+            "slug": "card-water-glow-lanterns-red-four-live-sparse-actual-reveal-matching-red-decktop-creates-owned-shield",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 499
+        }
+    ]
+}

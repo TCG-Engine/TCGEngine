@@ -1,0 +1,201 @@
+{
+  "status": "B148_TWO_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b105_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch148.json",
+  "input_sha256": "eb4b751ace10ea928367ef917f418d29e9d4536fe3bc061bd3e99e45b7e9148c",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:06:23.487526+00:00",
+  "fixtures": [
+    {
+      "slug": "card-runehold-release-four-live-sparse-actual-destroy-equipment-action-creates-one-owned-runechant-and-go-again",
+      "fixture_sha256": "a865dd582640bf6a18eb17523d27d7c55c9744d748b44f1a526465c44ccdd489",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7ce757262db27f42ae56142fad705456684dcca08c3e126a0e5fb4942ea2480b",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "9e16beece246e13b53d338fbd0b1b891f830fcd32b0fe76462c0e5822ec89e7c",
+        "expected_final_gamestate.txt": "f46d91b30b85f8d05ae99e1144b4701e2a56cf864a3da47ea69562cd59b7508e",
+        "meta.json": "baaeeea24e75ce9eb3bf38219ff9c9ddeb13c8e53f399a07c09bda18b28330b4"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 337,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-vigor-girth-four-live-sparse-actual-destroy-equipment-action-creates-one-owned-vigor-and-go-again",
+      "fixture_sha256": "d9beebe3e2fa8f87edfb4900dc04ef5c749ca8e81985de437b9b88a1f8673371",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5d114bc7c9dca5bf7d0a9ba8a12e9a6a997d077a4da7660686fa049f7129c243",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "a43debd56313f3ac506a0357ed667f36757ee8e6acdcf5f04ff29d4309738669",
+        "expected_final_gamestate.txt": "3f8f4941e9d549ad0e90c9dd078fba20fe51adb27278b033ad2974187dfde9d0",
+        "meta.json": "eed27690208935f0363a3f6efa974281fb21d9a81ecf8c4952afc045bb85fafe"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 337,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 10,
+  "total_native_assertions": 674,
+  "total_manual_passes": 8,
+  "checks": 59,
+  "actual_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b148-actual-saved-independent-review.json",
+    "sha256": "6ec9e5a9c4ad31defef54f8100a39a262da96c3ac5a9fd8c1448aa3df955f1ae"
+  },
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b148-independent-spec-review.json",
+    "sha256": "8a5c1cb66cbf849abd8f088b96b935675f32f5c6ddb0c7d9dd9bf1c159291038"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch148-20261022T200428Z-6ada6c4c9f78f.json",
+    "sha256": "e193b263a8b3b6994e8ac6e8226af11444fda9f92b14ee8fb207d5a2c2c7cde7"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b148-four-live-run1.json",
+      "sha256": "76b6eb9aec64c4ba0c77cd67226ab09945aae7db5c90c8876cfe097561873bc6",
+      "passed": 2,
+      "total": 2,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b148-four-live-run2.json",
+      "sha256": "1c943994522ab02bf973f3bc6a849e05ba3e3b14f65ec296bd15436800d23a29",
+      "passed": 2,
+      "total": 2,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b148-fault-controls.json",
+    "sha256": "e736fa9b9020a64be6487d38e535881d5802891e0462cebbf0f76207ad3ef0f9"
+  },
+  "focused_native_controls": [
+    {
+      "id": "b148_runehold_release_focused_effect_sensitivity",
+      "fixture": "card-runehold-release-four-live-sparse-actual-destroy-equipment-action-creates-one-owned-runechant-and-go-again",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "runechant",
+            "uid": 7
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Relocate only actual owned Runechant/Vigor7 after real Equipment5 destroy-this Action cost and four manual responses. Source5 remains own publicGYFaceDown0, virtualABI6 has already resolved, AP1/R0 unchanged. First Arena1 becomes0. Exact created-token endpoint sensitivity only; no isolated missing dispatch, alternative legal branch, BladeBreak defense or future token/hero lifecycle credit. Every terminal oracle retained. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b148_vigor_girth_focused_effect_sensitivity",
+      "fixture": "card-vigor-girth-four-live-sparse-actual-destroy-equipment-action-creates-one-owned-vigor-and-go-again",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "vigor",
+            "uid": 7
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Relocate only actual owned Runechant/Vigor7 after real Equipment5 destroy-this Action cost and four manual responses. Source5 remains own publicGYFaceDown0, virtualABI6 has already resolved, AP1/R0 unchanged. First Arena1 becomes0. Exact created-token endpoint sensitivity only; no isolated missing dispatch, alternative legal branch, BladeBreak defense or future token/hero lifecycle credit. Every terminal oracle retained. Every original suffix action and oracle retained; only step offsets change."
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b148-focused-fault-plan.json",
+    "sha256": "d4e15e0c670cf0b85bd607b8bd17cb449ad3055fb96b4c302f8a6b0484437ac3"
+  },
+  "targeted_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "limitations": [
+    "Four living seats manually pass priority; no response card is played, so active response-card interaction is not covered.",
+    "One positive primary representative per cycle; no sibling pitch, alternate branch, full-card, hero/support or callback lifecycle credit.",
+    "Each control relocates only actual owned Runechant/Vigor7 after real Equipment5 destroy-this Action cost and four manual responses, preserving source5 publicGYFaceDown0, resolvedABI6 cleanup and AP1/R0; first Arena1 becomes0. Exact created-token endpoint sensitivity only; no isolated missing dispatch, legal alternative action, BladeBreak defense, future token/start-turn or hero/support/full-card credit. All terminal assertions retained.",
+    "Only these two new fixtures are rehashed/replayed. Unrelated fixture bytes are not freshly checked; no full suite or legacy audit is performed.",
+    "Every original suffix assertion retained; synthetic faults are sensitivity probes, not legal alternate-action branch coverage."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "536c20acd85bef584fa27f7266b52ab444c71d6d0c2d2e5a74edaef987471fbb",
+  "reused_stable_helper_and_orchestration_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b114-qualified-independent-review.json",
+    "sha256": "34f4ed518b19c89242bafc46b95e1e16e2fb0bf55583e8348b81dea4c76f7287",
+    "qualification": "Exact unchanged UID helper and prior18/18 component/orchestration evidence reused without new helper contract execution or broad audit."
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "status": "CONFIRMED_NATIVE_SAVED_BEHAVIOR_HOLD_NOT_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "captured_utc": "2026-10-22T17:49:46.382728+00:00",
+  "source_spec": "card-regression-batch109.json",
+  "source_sha256": "8d7030fe9544ebcad3c48d989c291f287562d115ed19747470c5873ccb3a13d0",
+  "slug": "card-talisman-of-warfare-yellow-four-live-sparse-actual-exact-two-damage-destroys-talisman-and-four-owned-arsenals",
+  "primary_card_id": "talisman_of_warfare_yellow",
+  "fixture_raw5_sha256": {
+    "initial_gamestate.txt": "d6a51dd329c6ddae964d1676596d1ad152973367323d5e6bed62b47ef645ba48",
+    "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+    "assertions.json": "29d0d8140b8e6af4e1d9ff70803144dc98a31a1899b776b77efa166414272192",
+    "expected_final_gamestate.txt": "bb44ba57debb27222fe453e3c83ccc85bb1e72107e72b6b4e0d9b5e82bcb0703",
+    "meta.json": "9497a0506eb59237ca08db37379aafff6c18345eab1fd2c8fdaf63f37c58c8ad"
+  },
+  "native_evidence": "Root native recording and two targeted replays have retained deterministic snapshots. Original saved assertions pin owned destruction counts/UIDs but omit Graveyard FaceDown; their PASS does not establish semantic correctness.",
+  "observed": [
+    {
+      "seat": 1,
+      "card_id": "wounding_blow_red",
+      "uid": "7",
+      "zone": "Graveyard",
+      "expected_face_down": "0",
+      "actual_face_down": "1"
+    },
+    {
+      "seat": 2,
+      "card_id": "wounding_blow_red",
+      "uid": "8",
+      "zone": "Graveyard",
+      "expected_face_down": "0",
+      "actual_face_down": "1"
+    },
+    {
+      "seat": 3,
+      "card_id": "wounding_blow_red",
+      "uid": "9",
+      "zone": "Graveyard",
+      "expected_face_down": "0",
+      "actual_face_down": "1"
+    },
+    {
+      "seat": 4,
+      "card_id": "wounding_blow_red",
+      "uid": "10",
+      "zone": "Graveyard",
+      "expected_face_down": "0",
+      "actual_face_down": "1"
+    }
+  ],
+  "printed_effect": "Real controlled attack deals exactly2 toopponent4, destroying actual Talisman5 and each of four ordinary Arsenal cards. No effect preserves private visibility.",
+  "rule_source": "https://rules.fabtcg.com/en/cr/03-zones/",
+  "rule_basis": [
+    "CR3.0.4a lists graveyard as public; CR3.0.4b arsenal private.",
+    "CR3.0.8 makes a private object public before moving to a public destination; CR3.8.1 graveyard public.",
+    "No printed face-down destination or Watery effect applies to these Wounding Blow cards."
+  ],
+  "source_impact": [
+    {
+      "path": "FaBSim/Custom/CardChoices.php",
+      "line": 8,
+      "finding": "Default graveyard selectors exclude FaceDown objects."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "line": 278,
+      "finding": "EffectiveCardType yields no types for facedownGY card."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "line": 303,
+      "finding": "HasNoAbilities treats facedownGY objects as blank."
+    }
+  ],
+  "narrow_path": [
+    "FaBSim/Custom/EVRCards.php:141 FaBEVRDamage all-seat Arsenal destruction",
+    "FaBSim/Custom/MONCards.php:191 FaBMONDestroy",
+    "FaBSim/Custom/GameLogic.php:642 FaBMoveUID / FaBAddToZone shared-field copy"
+  ],
+  "held_scope": "This actual Warfare representative is saved but semantically unqualified. No passing primary/card/cycle credit until correct FaceDown0 evidence. Other three B109 items are separate and their positive raw semantics have passed so far.",
+  "actions_by_reviewer": {
+    "native_actions": 0,
+    "native_writes": 0,
+    "engine_imports": 0,
+    "source_fix_applied": false
+  },
+  "precise_independent_reproducer": [
+    "Inspect each matching UID7/8/9/10 in saved expected_final_gamestate.txt using existing schema parser: FaceDown is1 in ownerGY.",
+    "Run scratch audit_sparse_b109_actual_readonly.py with original recording receipt: independent public-zone model expects0 and rejects final physical serialization."
+  ],
+  "not_claimed": [
+    "No new native failure is fabricated: old assertions currently omit this required property.",
+    "No broader hidden-zone/replacement/reset behavior audited.",
+    "No source patch, weakened expected value, or positive qualification is applied."
+  ]
+}

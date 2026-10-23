@@ -1,0 +1,7 @@
+{
+    "name": "Kindle / four live actual empty-Hand instant draw",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T22:00:40+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Kindle0WizardInstant says Amp1 and, if you have no cards in Hand, drawone. Legal young Wizard Verdance20 actually plays physical soleHandKindle5 at printed0Instant, leaving Handempty while retainingAP1/resources0. No automaticseat: allfourlivingplayersmanuallyrespond. Deckcontains exactphysicalBlueWoundingBlow6 and noothercard. Health20allfour/Deck6/source5unchangedthroughthe firstthree actual sourcepasses; fourth response resolvesconditionaldraw toactualHand0 Blue6 Owner1/Controller1, Deckempty. Source5 ends ownpublicGYFaceDown0, noPitch/Arena/Stack/queues, AP1/resources0. No healing occurs, noEarthbanished or heroabilityactivated. Amp1 is a printed setup effect but futurearcane-damage use isnotqualified by this draw-only case. One positive empty-Hand actualdraw and Instant/AP endpoint only. Ampamount/consumption/arcane/prevention, nonempty-Hand/no-draw, deckemptyfailure, otherturns/recipients and heroabilities remainunverified; no support/full-card credit. Sources: https://judge.fabtcg.com/cards/detail/3080/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MST234.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

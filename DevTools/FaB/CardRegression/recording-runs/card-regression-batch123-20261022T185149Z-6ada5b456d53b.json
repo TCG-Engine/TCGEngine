@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-22T18:51:49+00:00",
+    "input_file": "card-regression-batch123.json",
+    "input_sha256": "5eccf46cc20b826b5151d1673f5e04457bfdd878ee2580b78e6246e32deab53e",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-funeral-moon-red-four-live-sparse-actual-ordinary-hand-action-creates-one-owned-runechant",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 297
+        },
+        {
+            "slug": "card-requiem-for-the-damned-red-four-live-sparse-actual-ordinary-hand-action-creates-one-owned-eloquence",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 297
+        },
+        {
+            "slug": "card-peace-of-mind-red-four-live-sparse-actual-blue-pitch-paid-instant-creates-one-owned-ponder",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 347
+        },
+        {
+            "slug": "card-heroic-grit-yellow-four-live-sparse-actual-zero-cost-revered-action-creates-one-owned-toughness",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 297
+        }
+    ]
+}

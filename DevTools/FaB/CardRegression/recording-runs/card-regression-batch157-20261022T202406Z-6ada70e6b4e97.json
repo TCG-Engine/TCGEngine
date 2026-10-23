@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T20:24:06+00:00",
+    "input_file": "card-regression-batch157.json",
+    "input_sha256": "d71d1f291ef270ff7a4373c2fe50c15d080bfa11fed1ce753e44c1d195de2d40",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-monstrous-veil-four-live-sparse-actual-rhinar-specialization-destruction-draws-then-discards-sole-low-power-card",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 361
+        }
+    ]
+}

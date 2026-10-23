@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:29:20.478047+00:00",
+  "plan_sha256": "28c131f989e8f92964f411f0f34ca8ba1bf43c3e96f4d36e5dfc91d1435ed5c0",
+  "independent_saved_proof_sha256": "6611f04f0151dbaca0cfdf903d6f75dcda463abfd23c7a4bc76efa93a8e3392b",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b159-focused-fault-plan-v2-direct-go-again.json",
+    "28c131f989e8f92964f411f0f34ca8ba1bf43c3e96f4d36e5dfc91d1435ed5c0",
+    "card-regression-sparse-b159-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b159_rift_skitter_red_focused_effect_sensitivity",
+      "fixture": "card-rift-skitter-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+      "fixture_sha256": "b9dc02abcc2bf1abc7213c1ce7113876cc94c7b68a8a2f24e14883a0be470964",
+      "source_raw5": {
+        "initial_gamestate.txt": "a8e25a896c0f82f9e076ee63be1edfa52682f6394b94198b3d81c7cb5d736455",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "26fc1910efade0f0f8e8045dfe3cde3c0f5fa93fd0a4b72e2c5c7d6dd49ed93d",
+        "expected_final_gamestate.txt": "5855caa1fd3dc79bdf68f4294d217d9237f51da979d312a0fc5531fef7273ffb",
+        "meta.json": "2c0ade7bb283b9a0127d33c51af2ee155f5499a631e7a2a00c75f5ab196fe6d0"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "rift_skitter_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 237,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Rift Skitter / four live sparse paid Hand attack and go again: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add existing ELE_NO_GO tag only to actual primary5 CombatChain after realHandplay/full3paidbyBlue6 and four manual living-seat source responses. Current GameLogic409 explicitly suppresses attack Go again for this tag before printed-GA evaluation; computed power4/UID/payment/source ownership stay intact. Original first computedGA1to0 directly detects Go again evaluation sensitivity, with all21 suffix actions and every original suffix oracle retained. Synthetic inhibition only, not a legal card inhibition/RuneGate/BloodDebt/discount branch. Positive native refund timing and pure losing/late-GA faults separately pin AP behavior; native failure stops at first GA oracle.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b159_rune_flash_red_focused_effect_sensitivity",
+      "fixture": "card-rune-flash-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+      "fixture_sha256": "951abafd130bae08ab1cfa20aaacb723fa0b65687d3c1b248225865142253e40",
+      "source_raw5": {
+        "initial_gamestate.txt": "e18d5edafd76b1c2ce62b83649107184f913733d0093ec1c80bb76aa14838339",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "c4ab0ded6030a4add7afa365f5b692dc6f9d977c841709361abf00890fabb5ce",
+        "expected_final_gamestate.txt": "f8d5ebbf16b407bb5d48d699c8e8b67b2a323396aff5fc5687f859c8a4b0b8ef",
+        "meta.json": "29d18fc17c7156f2b2d8a0349f2c85850e5107626bf81c0bbb455655ef9870d6"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "rune_flash_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 237,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Rune Flash / four live sparse paid Hand attack and go again: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add existing ELE_NO_GO tag only to actual primary5 CombatChain after realHandplay/full3paidbyBlue6 and four manual living-seat source responses. Current GameLogic409 explicitly suppresses attack Go again for this tag before printed-GA evaluation; computed power4/UID/payment/source ownership stay intact. Original first computedGA1to0 directly detects Go again evaluation sensitivity, with all21 suffix actions and every original suffix oracle retained. Synthetic inhibition only, not a legal card inhibition/RuneGate/BloodDebt/discount branch. Positive native refund timing and pure losing/late-GA faults separately pin AP behavior; native failure stops at first GA oracle.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

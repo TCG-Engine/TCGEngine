@@ -1,0 +1,7 @@
+{
+    "name": "Buccaneer's Bounty / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T22:08:44+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legal young marlynn20 shares the Pirate class of primary Equipment5; three living legal Dorinthea20 opponents manually respond. Actually activate the printed Action0 and destroy physical5 as its cost, spending1AP. Source5 is already own public Graveyard FaceDown0 before responses. Virtual ability6 has KindABILITY/SourceZoneEquipment/SourceUniqueID5/Controller1 and established rawOwner0 proxy constructor representation; physical source remains owner/controller1. First three real live-seat manual responses preserve the pending ability, AP0/resources0, and no early tokens. Fourth response adds exactly1 resource and printed ability Go again restores exactly AP1: finalresources1/AP1. No draw occurs, so Marlynn\u2019s draw-triggered ability stays inactive. All health20, queues/Stack empty, destroyed physical source5 stays publicGYFaceDown0. One positive standalone representative only: actual printed cost/effect/AP/resource/ownership endpoints. Future Seismic cost reduction/start-turn lifecycle, spending gained resources, Battleworn/Blade Break, hero/support/full-card behavior remain untested. No seeded history/effect flags or engine imports. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/LGS393-CF.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

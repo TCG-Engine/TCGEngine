@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:37:05.146546+00:00",
+  "plan_sha256": "3c225e4f8228f4666d94a6eb44c243a7ece364f3d628e78d876cf2bae4ad8d15",
+  "independent_saved_proof_sha256": "6b9d3834fd1166fba51aa64d0917a4a12f15487d99da9aed374a959cc2b8c456",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b164-focused-fault-plan.json",
+    "3c225e4f8228f4666d94a6eb44c243a7ece364f3d628e78d876cf2bae4ad8d15",
+    "card-regression-sparse-b164-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b164_flameborn_retribution_red_focused_effect_sensitivity",
+      "fixture": "card-flameborn-retribution-red-four-live-sparse-actual-paid-unblocked-three-damage-and-printed-go-again",
+      "fixture_sha256": "c2f3521416a51ad6dbc22ae531204f60fddec359f3b8db2bea9425da2cdacc74",
+      "source_raw5": {
+        "initial_gamestate.txt": "6fc7f2baa89d35207d91460853a0588c54049a25e22627d37b385f40ad8c831b",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4648d99b8112a5ef049b861bfe0fd07bfce89b4c0c99c1015722a09a68fc414a",
+        "expected_final_gamestate.txt": "0692dd185a7b8eb0d9dc7311b0ea770510889bd7c45fb689f3981b747b9f09ba",
+        "meta.json": "66e248a54d76fe6036cf5c37b443d83b6e86454db8816acde9b1fb2d77fdb0d8"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "flameborn_retribution_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 255,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Flameborn Retribution / four live ordinary printed go again attack: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add the existing ELE_NO_GO attack tag only to physical primary5 after real payment and attack entry; computed power3/payment/UID preserved, first computed printedGA1 becomes0. All original suffix actions and oracles retained. Synthetic grant sensitivity only, not a legal inhibition/Phantasm/destruction/Ash branch. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b164_give_and_take_red_focused_effect_sensitivity",
+      "fixture": "card-give-and-take-red-four-live-sparse-actual-paid-unblocked-three-damage-and-printed-go-again",
+      "fixture_sha256": "10b9e784b0d8b230fe1f30f795dc44bb516ec07a38030b2ea0bc33229f10b581",
+      "source_raw5": {
+        "initial_gamestate.txt": "a5e8221d62ddb391b7e393fa9c76eb119a644c5fdbe18e4104fef97d6d376843",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "e4fd2df636b0ce9da6c5967e56dca448c752a156c3da8acf5749a76bdeee6184",
+        "expected_final_gamestate.txt": "6f894aeb3994d792802ca75d3cc26e5647d802267559c3f21bc65015ce35153d",
+        "meta.json": "363049cd4b1930f1c451f0055788cff36ad5fec4a467327d2a353bb0c7702c48"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "give_and_take_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 255,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Give and Take / four live ordinary printed go again attack: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add the existing ELE_NO_GO attack tag only to physical primary5 after real payment and attack entry; computed power3/payment/UID preserved, first computed printedGA1 becomes0. All original suffix actions and oracles retained. Synthetic grant sensitivity only, not a legal inhibition/Phantasm/destruction/Ash branch. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

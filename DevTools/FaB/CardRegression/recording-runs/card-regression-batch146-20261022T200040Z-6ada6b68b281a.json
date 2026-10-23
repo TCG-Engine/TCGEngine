@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:00:40+00:00",
+    "input_file": "card-regression-batch146.json",
+    "input_sha256": "d64566eef438038b2745c1528770fa1c286a13588c667858b8b4c0a9c42f3602",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-quick-succession-red-four-live-sparse-first-real-lightning-attack-plus-one-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 815
+        },
+        {
+            "slug": "card-kindle-red-four-live-sparse-actual-empty-hand-instant-draw",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 691
+        }
+    ]
+}

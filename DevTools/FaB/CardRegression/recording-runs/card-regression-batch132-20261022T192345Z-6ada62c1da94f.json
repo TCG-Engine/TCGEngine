@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-22T19:23:45+00:00",
+    "input_file": "card-regression-batch132.json",
+    "input_sha256": "8b96c40b9bc15bc92932455a26dfd98b3086e9d5bc0a7f6620e248adb1d620b5",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-unsheathed-red-four-live-sparse-actual-sword-plus-three-at-equal-double-base-no-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1331
+        },
+        {
+            "slug": "card-dauntless-red-four-live-sparse-actual-paid-next-weapon-plus-three-real-sword-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1332
+        },
+        {
+            "slug": "card-tiger-form-incantation-red-four-live-sparse-actual-blue-pitch-creates-owned-hand-tiger",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 815
+        }
+    ]
+}

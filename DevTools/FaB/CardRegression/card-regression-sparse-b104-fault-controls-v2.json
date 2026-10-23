@@ -1,0 +1,155 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T17:31:30.928937+00:00",
+  "plan_sha256": "2cad3f0bd9f72621557343d64ff2790dacaf8bfcbf5d63e5516fc2d8014e1068",
+  "independent_saved_proof_sha256": "370b7a50ead2e585637935f98102630449e916877a9b572dfcfc4733de8a63d1",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b104-focused-fault-plan-v2-object-sensitivity.json",
+    "2cad3f0bd9f72621557343d64ff2790dacaf8bfcbf5d63e5516fc2d8014e1068",
+    "card-regression-sparse-b104-fault-controls-v2.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b104_strength_of_four_seasons_red_focused_effect_sensitivity",
+      "fixture": "card-strength-of-four-seasons-red-four-live-sparse-four-physical-face-up-earth-banish-cards-enable-four-power",
+      "fixture_sha256": "a0739e6d0dae605aaa30631a1540ec9ef04986a00cb300d3841b143b19c778d2",
+      "source_raw5": {
+        "initial_gamestate.txt": "5e365cfde523d94eb0b26897c0d3b299930c80c442381921f7a1e959aeae5a92",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "77d950a46236600823d9d33535f632a7de6245e506d57d3d035025f09240301f",
+        "expected_final_gamestate.txt": "8b1ef093861cf5b29420ebfb1f59b60e5f2d7785c2e135211a05d982a445ab14",
+        "meta.json": "62b0272715ce1586c6da1be44fa79283c15924db0aedc09e72db35b609e9ad21"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "strength_of_four_seasons_red",
+            "mode": "add",
+            "tag": "WTR_POWER:-4"
+          }
+        ]
+      },
+      "retained_assertions": 278,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 8, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Strength of Four Seasons / four live sparse positive condition: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 8, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Numeric -4 power sensitivity on actual active primary after real threshold/payment. Honest computed-power/damage sensitivity, not isolated Earth threshold removal or legal in-game negative grant. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b104_runerager_swarm_red_v2_numeric_or_ga_sensitivity",
+      "fixture": "card-runerager-swarm-red-four-live-sparse-real-prior-sigil-aura-play-grants-go-again",
+      "fixture_sha256": "709faacc374abcb501b43abe5e50f9556a38f5d9a76cad8ba2ac4564595745fe",
+      "source_raw5": {
+        "initial_gamestate.txt": "5fce24ce63c4aa09adc700d177168bda546747f44eb569287d2d0c87da2c8a77",
+        "actions.json": "0ddc01dbfe0e238f6e0881a4cffa79901de121ae266928cc7509f9841dfd3fa2",
+        "assertions.json": "868b5123335a619683c336f5f59ca2f02b2581d9ceaacd3f1955460fd0cb4367",
+        "expected_final_gamestate.txt": "6a67fb4e2f12ef0f9c3505727ce8372945a21cdd13852d12467b1ed14cddb947",
+        "meta.json": "308401ce228ce4f4c206ace3e5ac17a391071e31451c9e79464d8ae661453fdb"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "runerager_swarm_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 237,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Runerager Swarm / four live sparse positive condition: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Existing ELE_NO_GO tag on active primary suppresses go again, exercising the exact positive GA oracle. Synthetic focused sensitivity only, not isolated prior-Aura history removal or legal modifier event. Every original suffix action/oracle retained; no sibling, alternate-condition or support-card credit.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b104_hit_the_high_notes_red_v2_numeric_or_ga_sensitivity",
+      "fixture": "card-hit-the-high-notes-red-four-live-sparse-real-prior-sigil-aura-play-enables-two-power",
+      "fixture_sha256": "44b20d2231bfffa55d4fd21c7517da0ebfaceb74d4703dbb79c3eed0e83d18ba",
+      "source_raw5": {
+        "initial_gamestate.txt": "9928e5f30fa6d5355e24cc173511e2cfe24472abc2a05d1da464a1cd9878bc5b",
+        "actions.json": "af0923a412f70c231803d6f1590bd7961df3eebc483a9a90501e4804130a1474",
+        "assertions.json": "bc1c2f467a6d23483fc08aadd347e4beaee2ea3b39c1ac9d4e7afdc7c41d692b",
+        "expected_final_gamestate.txt": "601946d2d57bac254a1d3c5046f4d29d465f9574e13b5bc062facb3cb8ec4d35",
+        "meta.json": "35ccab2c46043f602c5d127411c604c3b6c86baa5a9ebea158b3407f1a4de1a2"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "hit_the_high_notes_red",
+            "mode": "add",
+            "tag": "WTR_POWER:-2"
+          }
+        ]
+      },
+      "retained_assertions": 246,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Hit the High Notes / four live sparse positive condition: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Existing WTR_POWER:-2 tag on actual active primary reduces computed power6 to4, exercising the exact positive bonus/damage oracle. Synthetic focused sensitivity only, not isolated prior-Aura history removal or legal modifier event. Every original suffix action/oracle retained; no sibling, alternate-condition or support-card credit.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b104_shrill_of_skullform_red_focused_effect_sensitivity",
+      "fixture": "card-shrill-of-skullform-red-four-live-sparse-real-prior-sigil-aura-play-enables-three-power",
+      "fixture_sha256": "ba8518473388ac89318341d35d47b4996061866ce7ce341b2ea68ec7a2ec7a18",
+      "source_raw5": {
+        "initial_gamestate.txt": "093f2461f2b458a9210f145f807915a1cb757cc6620b1fb20a9cde5ebfe641f6",
+        "actions.json": "af0923a412f70c231803d6f1590bd7961df3eebc483a9a90501e4804130a1474",
+        "assertions.json": "ed492983f6a115262684904533d80f0744ba4c4da003dbba4b92ad042e2b2164",
+        "expected_final_gamestate.txt": "8c6ba60b16af06d6e780fe178fe3798ede1fbd3d07b573131cade316b54a83db",
+        "meta.json": "5eba30ed74526f5706f8b3d3b0fcf3e5bfcef91a81bb04485656d52c208c1f1b"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "shrill_of_skullform_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 246,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Shrill of Skullform / four live sparse positive condition: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove exact declaration-time +3 on actual primary source after real Aura play; preserve physical Aura/history and all original later actions/oracles. Sensitivity of the stored power bonus only; no changing-condition lifecycle certification. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

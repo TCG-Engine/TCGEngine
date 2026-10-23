@@ -1843,8 +1843,13 @@
     "cardId": "shred_red",
     "abilities": [
       {
+        "macroName": "PrepareCard",
+        "abilityCode": "$source = FaBIdentityFromMZ($mzID);\nif ($source !== null) {\n FaBPrepareDeclaredReaction($player, $source['object']);\n}\n",
+        "isImplemented": true
+      },
+      {
         "macroName": "ResolveCard",
-        "abilityCode": "$refs = FaBDYNDefenders($player, 'ASSASSIN');\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Choose_defending_card\");\n \n}\nFaBDYNTag($chosen, 'DYN_DEFENSE:-4');\n",
+        "abilityCode": "$source = FaBIdentityFromMZ($mzID);\nif ($source !== null) {\n FaBResolveDeclaredReaction($player, $source['object']);\n}\n",
         "isImplemented": true
       }
     ]
@@ -1853,8 +1858,13 @@
     "cardId": "shred_yellow",
     "abilities": [
       {
+        "macroName": "PrepareCard",
+        "abilityCode": "$source = FaBIdentityFromMZ($mzID);\nif ($source !== null) {\n FaBPrepareDeclaredReaction($player, $source['object']);\n}\n",
+        "isImplemented": true
+      },
+      {
         "macroName": "ResolveCard",
-        "abilityCode": "$refs = FaBDYNDefenders($player, 'ASSASSIN');\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Choose_defending_card\");\n \n}\nFaBDYNTag($chosen, 'DYN_DEFENSE:-3');\n",
+        "abilityCode": "$source = FaBIdentityFromMZ($mzID);\nif ($source !== null) {\n FaBResolveDeclaredReaction($player, $source['object']);\n}\n",
         "isImplemented": true
       }
     ]
@@ -1863,8 +1873,13 @@
     "cardId": "shred_blue",
     "abilities": [
       {
+        "macroName": "PrepareCard",
+        "abilityCode": "$source = FaBIdentityFromMZ($mzID);\nif ($source !== null) {\n FaBPrepareDeclaredReaction($player, $source['object']);\n}\n",
+        "isImplemented": true
+      },
+      {
         "macroName": "ResolveCard",
-        "abilityCode": "$refs = FaBDYNDefenders($player, 'ASSASSIN');\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Choose_defending_card\");\n \n}\nFaBDYNTag($chosen, 'DYN_DEFENSE:-2');\n",
+        "abilityCode": "$source = FaBIdentityFromMZ($mzID);\nif ($source !== null) {\n FaBResolveDeclaredReaction($player, $source['object']);\n}\n",
         "isImplemented": true
       }
     ]

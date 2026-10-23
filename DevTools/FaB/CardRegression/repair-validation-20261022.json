@@ -1,0 +1,1136 @@
+{
+  "status": "FOCUSED_COMPONENT_EVIDENCE_ONLY_NATIVE_REPAIR_QUALIFICATION_BLOCKED",
+  "generated_utc": "2026-10-22T23:06:19.729834+00:00",
+  "runtime_sha256": "589c9bb88e982eaaf8991b3e723f84eb15fc0d37d50a28d3ac5e65b2075f6e1b",
+  "historical_checkpoint": {
+    "path": "breadth-checkpoint-before-repair-20261022.json",
+    "sha256": "ee8cef7a4c4aa05d4d4dc8755daed4169785138dc2fa82b90c43bda5cfe58d0c",
+    "saved": 3341,
+    "qualified_at_frozen_runtime": 3341,
+    "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+  },
+  "current_saved_scenarios": 3341,
+  "current_repair_saved_scenarios": 0,
+  "current_repair_qualified_scenarios": 0,
+  "unrecorded_repair_candidates": 22,
+  "inventory_preservation": {
+    "saved": 3341,
+    "complete_five_file_sets": 3341,
+    "behavior_hashes_match_registered_reviews": 3341,
+    "mismatches": [],
+    "hash_scope": "Four behavioral files checked against retained exact review hash; meta.json presence checked. This is preservation, not a fresh gameplay review or replay."
+  },
+  "full_suite_runs_this_resumption": 0,
+  "blocker": {
+    "action": "Existing guarded macro emitter: zzGameCodeGenerator.php rootName=FaBSim only=MacroCode expectedSHA=<before> expectedCountSHA=<before>",
+    "target": "https://soulmastersdb.net/TCGEngine/CardEditor/API/CardCodeService.php?action=snapshot",
+    "outcome": "FAILED_HTTP521_BOTH_GENERATED_OUTPUTS_RESTORED",
+    "permission_denied": false,
+    "remote_writes": 0,
+    "read_only_diagnostic": {
+      "http_status": 521,
+      "content_type": "text/plain; charset=UTF-8",
+      "curl_error": 0,
+      "body_bytes": 16,
+      "body_sha256": "4558ae09802e147610ebdb88e4472fe625c897af9a18b04d47dfcdb6b563a138",
+      "json_valid": false
+    },
+    "generation_receipt_sha256": "0d95bf2f496a63a358a7a4f11d135b9db8f905784f37e5260fa1103c6a0a1a8d",
+    "restored_generated_outputs": {
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+      "FaBSim/GeneratedCode/GeneratedMacroCount.js": "7948deda9928ad1eb583a73be50e56a7f8e3faadfe9a22bad29d48e577e566cb"
+    }
+  },
+  "payment_contracts": {
+    "status": "PASS",
+    "contracts": 19,
+    "assertions": 116,
+    "selected_function_sha256": {
+      "FaBPreparedEffectCostSource": "5f0210573e85af242f1e56428b1205e59ebe2c98ad91c21b828807641f54adeb",
+      "FaBPreparedEffectCostRollback": "3d07b95c7c1ebbcac42c2cf949fa2471f73708bc152d00d199a03599934aeafc",
+      "FaBPreparedEffectCostMayComplete": "cb938f6983b2fedb0f908ecbc601a8be2bf173baeb327c0ef270bd7744b00771",
+      "FaBDeclarePreparedEffectCost": "44fe52ebd988a87b21e64a4a96f798b0a0e32f44221766154c1283a78f07e919",
+      "FaBPreparedEffectCostCanPitch": "df630a56c3e64a5d214b3c47c3b1e64a59556d132b5fae5b44e2e08983dbdd59",
+      "FaBPreparedEffectCostBeginAssets": "2139501ff0d8d7656880f6a476fab3f888378bd63d96966084aa47a6e9b59fb4",
+      "FaBPreparedEffectCostAssetsArePaid": "4621b426d775cc483e40841cc5ff86356f030a1aa1fdd34129e1a1daceab78d8",
+      "FaBPreparedEffectCostMarkAssetsPaid": "1b3e5df4fbead4cf2bf8b4e8ce0049ac75564f9440d3134ce22b8e833109c7a1",
+      "FaBPayDeclaredPreparedEffectCost": "54682625f33d73baa6d1c39bbfabeba731968c5783c97fc45ecfd223b3e033bf",
+      "FaBFinishPreparedCard": "b4802ff6f0986cc7dc88c9c0087b2deddf13c10fffd71c9dfb2287598e81efce",
+      "FaBBodicePreparedEffectCostSource": "54b01214fa6450e5dae643fe59e0c7a7bfa3530cba5b4d8b8a142e3cffea4981",
+      "FaBBodiceControlledAura": "d246da0ebd279984a7ef2400ea9523c9f1cc6d99d486a828a02ef27c2c667aa8",
+      "FaBDeclareBodiceAuraCost": "acf2b520bdacda135b0401c3f8d7b1c279521775738bcff1c0e1e18414ba310c",
+      "FaBTryCompletePayment": "5fc6b90dd3f4ad957978a1c5a1d545a17c0002bbec0cdae9556d163804fcd311",
+      "FaBARCPayAbility": "60c331ed6935d5025393b21e10d90049d4917f248791641bb736688308efcaaa"
+    },
+    "scope": "Actual extracted functions with boundary doubles; no native game/serializer/replay claim. Later GameLogic edits touch a separate named-cohort function only."
+  },
+  "keyword_contracts": {
+    "passed": 32,
+    "total": 32,
+    "function_sha256": "1a9c4052c3efa62b2271eaf06c133107900d5b8cb885702d439143c9e2156569",
+    "scope": "Actual extracted printed-keyword function; metadata/text boundary doubles."
+  },
+  "source_components": [
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repair-030-034-035-source-review\\components-v2-current-lifecycle-dependencies\\gorganian_resolution_component.php",
+        "C:\\xampp\\htdocs\\TCGEngine",
+        "none"
+      ],
+      "exit": 0,
+      "status": "PASS",
+      "mutant": "none",
+      "checks": 541,
+      "error": null,
+      "profiles": 36,
+      "function_hashes": {
+        "FaBReactionResolutionIsPending": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8",
+          "evaluated_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8"
+        },
+        "FaBReactionResolutionHasWork": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2",
+          "evaluated_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2"
+        },
+        "FaBKnownPlainSpellLifecycleCard": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "9bc27206b35c89ab3be7041de4b6ded69e011f4c0cd6b3d9df2269e7a4a3cf32",
+          "evaluated_sha256": "9bc27206b35c89ab3be7041de4b6ded69e011f4c0cd6b3d9df2269e7a4a3cf32"
+        },
+        "FaBManagedVirtualResolutionClass": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "6e0742baa068bcd100fa5c638dea4d052eb1dda8f070d55a40db2789f0114905",
+          "evaluated_sha256": "6e0742baa068bcd100fa5c638dea4d052eb1dda8f070d55a40db2789f0114905"
+        },
+        "HasNoAbilities": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8",
+          "evaluated_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8"
+        },
+        "FaBPrintedKeywordIsActive": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "1a9c4052c3efa62b2271eaf06c133107900d5b8cb885702d439143c9e2156569",
+          "evaluated_sha256": "1a9c4052c3efa62b2271eaf06c133107900d5b8cb885702d439143c9e2156569"
+        },
+        "FaBResolveRules": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "ea309fe0785f95905d592811f34246ca87e073a14dcbac5deea2138b15414eb7",
+          "evaluated_sha256": "ea309fe0785f95905d592811f34246ca87e073a14dcbac5deea2138b15414eb7"
+        },
+        "DoResolveCard": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "7a68b90e6d003bbb41d97b52a408040e97a0915e2486f43e4b462fe3d8f92bde",
+          "evaluated_sha256": "7a68b90e6d003bbb41d97b52a408040e97a0915e2486f43e4b462fe3d8f92bde"
+        },
+        "FaBFinishReactionResolution": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "8137d1d44e2fb95d8dd38af97b5cf8996f5849371de3b934744e3620a161fc9a",
+          "evaluated_sha256": "8137d1d44e2fb95d8dd38af97b5cf8996f5849371de3b934744e3620a161fc9a"
+        },
+        "FaBPlainSpellResolutionIsManaged": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "efc717df7d75e96eaa22df86e13605e0723961782cd5c87812436101c67429e5",
+          "evaluated_sha256": "efc717df7d75e96eaa22df86e13605e0723961782cd5c87812436101c67429e5"
+        },
+        "FaBFinishPlainSpellGoAgain": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "a0b6ecaa186a404c6e0ecf2b3956fed4d638195de431b6d329ebfa1d732f63e1",
+          "evaluated_sha256": "a0b6ecaa186a404c6e0ecf2b3956fed4d638195de431b6d329ebfa1d732f63e1"
+        },
+        "FaBRunSourceMacro": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "200634b71242d706ec9434bdafca8f645358686e225691dc4f02cda61b508aa9",
+          "evaluated_sha256": "200634b71242d706ec9434bdafca8f645358686e225691dc4f02cda61b508aa9"
+        },
+        "FaBCRUResolveGorganian": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "a3c43dfeee83b55326b9cab60e54290490922665c49c72fa4956ce9123c94a40",
+          "evaluated_sha256": "a3c43dfeee83b55326b9cab60e54290490922665c49c72fa4956ce9123c94a40"
+        }
+      }
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repair-030-034-035-source-review\\components-v2-current-lifecycle-dependencies\\gorganian_resolution_component.php",
+        "C:\\xampp\\htdocs\\TCGEngine",
+        "missing-addend"
+      ],
+      "exit": 1,
+      "status": "FAIL",
+      "mutant": "missing-addend",
+      "checks": 3,
+      "error": "printed draw amount to controller",
+      "profiles": 0,
+      "function_hashes": {
+        "FaBReactionResolutionIsPending": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8",
+          "evaluated_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8"
+        },
+        "FaBReactionResolutionHasWork": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2",
+          "evaluated_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2"
+        },
+        "FaBKnownPlainSpellLifecycleCard": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "9bc27206b35c89ab3be7041de4b6ded69e011f4c0cd6b3d9df2269e7a4a3cf32",
+          "evaluated_sha256": "9bc27206b35c89ab3be7041de4b6ded69e011f4c0cd6b3d9df2269e7a4a3cf32"
+        },
+        "FaBManagedVirtualResolutionClass": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "6e0742baa068bcd100fa5c638dea4d052eb1dda8f070d55a40db2789f0114905",
+          "evaluated_sha256": "6e0742baa068bcd100fa5c638dea4d052eb1dda8f070d55a40db2789f0114905"
+        },
+        "HasNoAbilities": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8",
+          "evaluated_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8"
+        },
+        "FaBPrintedKeywordIsActive": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "1a9c4052c3efa62b2271eaf06c133107900d5b8cb885702d439143c9e2156569",
+          "evaluated_sha256": "1a9c4052c3efa62b2271eaf06c133107900d5b8cb885702d439143c9e2156569"
+        },
+        "FaBResolveRules": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "ea309fe0785f95905d592811f34246ca87e073a14dcbac5deea2138b15414eb7",
+          "evaluated_sha256": "ea309fe0785f95905d592811f34246ca87e073a14dcbac5deea2138b15414eb7"
+        },
+        "DoResolveCard": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "7a68b90e6d003bbb41d97b52a408040e97a0915e2486f43e4b462fe3d8f92bde",
+          "evaluated_sha256": "7a68b90e6d003bbb41d97b52a408040e97a0915e2486f43e4b462fe3d8f92bde"
+        },
+        "FaBFinishReactionResolution": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "8137d1d44e2fb95d8dd38af97b5cf8996f5849371de3b934744e3620a161fc9a",
+          "evaluated_sha256": "8137d1d44e2fb95d8dd38af97b5cf8996f5849371de3b934744e3620a161fc9a"
+        },
+        "FaBPlainSpellResolutionIsManaged": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "efc717df7d75e96eaa22df86e13605e0723961782cd5c87812436101c67429e5",
+          "evaluated_sha256": "efc717df7d75e96eaa22df86e13605e0723961782cd5c87812436101c67429e5"
+        },
+        "FaBFinishPlainSpellGoAgain": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "a0b6ecaa186a404c6e0ecf2b3956fed4d638195de431b6d329ebfa1d732f63e1",
+          "evaluated_sha256": "a0b6ecaa186a404c6e0ecf2b3956fed4d638195de431b6d329ebfa1d732f63e1"
+        },
+        "FaBRunSourceMacro": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "200634b71242d706ec9434bdafca8f645358686e225691dc4f02cda61b508aa9",
+          "evaluated_sha256": "200634b71242d706ec9434bdafca8f645358686e225691dc4f02cda61b508aa9"
+        },
+        "FaBCRUResolveGorganian": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "a3c43dfeee83b55326b9cab60e54290490922665c49c72fa4956ce9123c94a40",
+          "evaluated_sha256": "73979a4572d639d17a756e0eb0d78737a94ec3249c96df22cb16f3c08b580425"
+        }
+      }
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repair-030-034-035-source-review\\components-v2-current-lifecycle-dependencies\\gorganian_resolution_component.php",
+        "C:\\xampp\\htdocs\\TCGEngine",
+        "foreign-owner-excluded"
+      ],
+      "exit": 1,
+      "status": "FAIL",
+      "mutant": "foreign-owner-excluded",
+      "checks": 18,
+      "error": "printed draw amount to controller",
+      "profiles": 1,
+      "function_hashes": {
+        "FaBReactionResolutionIsPending": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8",
+          "evaluated_sha256": "319fc4f8749460b710002c79ab6e3e38175971a1bca50e77e00686353673b9c8"
+        },
+        "FaBReactionResolutionHasWork": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2",
+          "evaluated_sha256": "58c92d718753e8afc7c24ba8a34e183553949cf04e12a994ab3ec88c90a9aed2"
+        },
+        "FaBKnownPlainSpellLifecycleCard": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "9bc27206b35c89ab3be7041de4b6ded69e011f4c0cd6b3d9df2269e7a4a3cf32",
+          "evaluated_sha256": "9bc27206b35c89ab3be7041de4b6ded69e011f4c0cd6b3d9df2269e7a4a3cf32"
+        },
+        "FaBManagedVirtualResolutionClass": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "6e0742baa068bcd100fa5c638dea4d052eb1dda8f070d55a40db2789f0114905",
+          "evaluated_sha256": "6e0742baa068bcd100fa5c638dea4d052eb1dda8f070d55a40db2789f0114905"
+        },
+        "HasNoAbilities": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8",
+          "evaluated_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8"
+        },
+        "FaBPrintedKeywordIsActive": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "1a9c4052c3efa62b2271eaf06c133107900d5b8cb885702d439143c9e2156569",
+          "evaluated_sha256": "1a9c4052c3efa62b2271eaf06c133107900d5b8cb885702d439143c9e2156569"
+        },
+        "FaBResolveRules": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "ea309fe0785f95905d592811f34246ca87e073a14dcbac5deea2138b15414eb7",
+          "evaluated_sha256": "ea309fe0785f95905d592811f34246ca87e073a14dcbac5deea2138b15414eb7"
+        },
+        "DoResolveCard": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "7a68b90e6d003bbb41d97b52a408040e97a0915e2486f43e4b462fe3d8f92bde",
+          "evaluated_sha256": "7a68b90e6d003bbb41d97b52a408040e97a0915e2486f43e4b462fe3d8f92bde"
+        },
+        "FaBFinishReactionResolution": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "8137d1d44e2fb95d8dd38af97b5cf8996f5849371de3b934744e3620a161fc9a",
+          "evaluated_sha256": "8137d1d44e2fb95d8dd38af97b5cf8996f5849371de3b934744e3620a161fc9a"
+        },
+        "FaBPlainSpellResolutionIsManaged": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "efc717df7d75e96eaa22df86e13605e0723961782cd5c87812436101c67429e5",
+          "evaluated_sha256": "1244411e68755f5736e9aa0e3e063d3586647b8d60bf633ff4bb3be56083f4d6"
+        },
+        "FaBFinishPlainSpellGoAgain": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "a0b6ecaa186a404c6e0ecf2b3956fed4d638195de431b6d329ebfa1d732f63e1",
+          "evaluated_sha256": "a0b6ecaa186a404c6e0ecf2b3956fed4d638195de431b6d329ebfa1d732f63e1"
+        },
+        "FaBRunSourceMacro": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "200634b71242d706ec9434bdafca8f645358686e225691dc4f02cda61b508aa9",
+          "evaluated_sha256": "200634b71242d706ec9434bdafca8f645358686e225691dc4f02cda61b508aa9"
+        },
+        "FaBCRUResolveGorganian": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "a3c43dfeee83b55326b9cab60e54290490922665c49c72fa4956ce9123c94a40",
+          "evaluated_sha256": "a3c43dfeee83b55326b9cab60e54290490922665c49c72fa4956ce9123c94a40"
+        }
+      }
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repair-030-034-035-source-review\\components-v2-current-lifecycle-dependencies\\declared_reaction_target_component.php",
+        "C:\\xampp\\htdocs\\TCGEngine",
+        "none"
+      ],
+      "exit": 0,
+      "status": "PASS",
+      "mutant": "none",
+      "checks": 150,
+      "error": null,
+      "profiles": 30,
+      "function_hashes": {
+        "FaBUsesDeclaredReactionTarget": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "318fa2f2525cdffec5c1e7a8f1eef7bc8bf44b8fd579238e7e8eaf5f3db73f38",
+          "evaluated_sha256": "318fa2f2525cdffec5c1e7a8f1eef7bc8bf44b8fd579238e7e8eaf5f3db73f38"
+        },
+        "FaBDeclaredReactionTargetRefs": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "f45dc4f19af3c0c07327dc93fd215582fab2cca0b38e90c42486f9a3cb9342c3",
+          "evaluated_sha256": "f45dc4f19af3c0c07327dc93fd215582fab2cca0b38e90c42486f9a3cb9342c3"
+        },
+        "FaBDeclaredReactionSource": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "bf7aded6174cfe355eaa14cf95cfcbf581d136d55f1fd416c1bd85ecfa4f6905",
+          "evaluated_sha256": "bf7aded6174cfe355eaa14cf95cfcbf581d136d55f1fd416c1bd85ecfa4f6905"
+        },
+        "FaBReverseDeclaredReaction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "58509d58c068d7f1d83594d510ed1db88858519fcc0ea9d069b6f1ead86a5493",
+          "evaluated_sha256": "58509d58c068d7f1d83594d510ed1db88858519fcc0ea9d069b6f1ead86a5493"
+        },
+        "FaBPrepareDeclaredReaction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "80ebdd7584654461588bc182d33bbf13360c4ce9e479bb1f5066e9bea040eb82",
+          "evaluated_sha256": "80ebdd7584654461588bc182d33bbf13360c4ce9e479bb1f5066e9bea040eb82"
+        },
+        "FaBContinueDeclaredReaction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "c6654a6186ee3cd99990c9733720e35cae9bdfb99a3257630dc755a3961439ed",
+          "evaluated_sha256": "c6654a6186ee3cd99990c9733720e35cae9bdfb99a3257630dc755a3961439ed"
+        },
+        "FaBDeclaredReactionChoicesForSave": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "d441145731eb686d2930e7705729370ee762a65075b04cdd631cbe96ae1a6412",
+          "evaluated_sha256": "d441145731eb686d2930e7705729370ee762a65075b04cdd631cbe96ae1a6412"
+        },
+        "FaBFinishPreparedCard": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "b4802ff6f0986cc7dc88c9c0087b2deddf13c10fffd71c9dfb2287598e81efce",
+          "evaluated_sha256": "b4802ff6f0986cc7dc88c9c0087b2deddf13c10fffd71c9dfb2287598e81efce"
+        },
+        "FaBTagUID": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "8acc74fa3c461cad60648cf9a1647f814e0027f1ae6cda5daca1671805caf749",
+          "evaluated_sha256": "8acc74fa3c461cad60648cf9a1647f814e0027f1ae6cda5daca1671805caf749"
+        },
+        "FaBDefendingChoices": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "5181a9765883579aad07ddf261fa8cb4461a31020f7ec9b2e01ed334abbe3c85",
+          "evaluated_sha256": "5181a9765883579aad07ddf261fa8cb4461a31020f7ec9b2e01ed334abbe3c85"
+        },
+        "FaBResolveDeclaredReaction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "b40cb4d5fcf284b3d041e822a599e9e2cb6cbc35eb58160676c165bab0a745b0",
+          "evaluated_sha256": "b40cb4d5fcf284b3d041e822a599e9e2cb6cbc35eb58160676c165bab0a745b0"
+        },
+        "FaBWTRTag": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/WTRCards.php",
+          "source_sha256": "c0867f72e256df3587d78b6674395d5ac12fd6c48d836853f4f5f445e4410d04",
+          "function_sha256": "c983aef6a9d06ab9b78612d5159733c1a85cc4fe68067faf3ddcd0e9fbf07890",
+          "evaluated_sha256": "c983aef6a9d06ab9b78612d5159733c1a85cc4fe68067faf3ddcd0e9fbf07890"
+        },
+        "FaBWTRTagValue": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/WTRCards.php",
+          "source_sha256": "c0867f72e256df3587d78b6674395d5ac12fd6c48d836853f4f5f445e4410d04",
+          "function_sha256": "28322e9f0cd28994262023e38441ceb084128aee6da71749d74f4f4469ba567b",
+          "evaluated_sha256": "28322e9f0cd28994262023e38441ceb084128aee6da71749d74f4f4469ba567b"
+        },
+        "FaBWTRBase": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/WTRCards.php",
+          "source_sha256": "c0867f72e256df3587d78b6674395d5ac12fd6c48d836853f4f5f445e4410d04",
+          "function_sha256": "252ec2f70eb742cf21ef20ad7c21ebb989d3f9d05437d3d79be8607087c4ee0d",
+          "evaluated_sha256": "252ec2f70eb742cf21ef20ad7c21ebb989d3f9d05437d3d79be8607087c4ee0d"
+        },
+        "FaBWTRIsAttackAction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/WTRCards.php",
+          "source_sha256": "c0867f72e256df3587d78b6674395d5ac12fd6c48d836853f4f5f445e4410d04",
+          "function_sha256": "1024fc7a31460ec554e6c695472008cef73def97662a1a7b69931f0e47638ace",
+          "evaluated_sha256": "1024fc7a31460ec554e6c695472008cef73def97662a1a7b69931f0e47638ace"
+        },
+        "HasNoAbilities": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8",
+          "evaluated_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8"
+        },
+        "FaBCRUSelfTag": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "0a43591033a7379d6015b74bb07f5a2400cef2dac5fd3a04a80e35cde48a6b43",
+          "evaluated_sha256": "0a43591033a7379d6015b74bb07f5a2400cef2dac5fd3a04a80e35cde48a6b43"
+        },
+        "FaBCRUCount": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "193da8858dee1ed35c1786e734dd559e694ed8c931e5acd9f5e7fd6071d48c1e",
+          "evaluated_sha256": "193da8858dee1ed35c1786e734dd559e694ed8c931e5acd9f5e7fd6071d48c1e"
+        },
+        "FaBCRUOwnPower": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "81bcaad8a27cbf604f2ad1a76b60c4378e12cfbb572bcb3443ffc716c4c0285a",
+          "evaluated_sha256": "81bcaad8a27cbf604f2ad1a76b60c4378e12cfbb572bcb3443ffc716c4c0285a"
+        },
+        "FaBCRUPower": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "44edb15fe36c57a3589992990a1a184a64df49b0f583409df1abd27d924516b8",
+          "evaluated_sha256": "44edb15fe36c57a3589992990a1a184a64df49b0f583409df1abd27d924516b8"
+        },
+        "FaBDYNMatch": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/DYNCards.php",
+          "source_sha256": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+          "function_sha256": "2910eb65b608b92cb0a6bbe390933f954a686e9f6e29a7e27efff423bfe9aad2",
+          "evaluated_sha256": "2910eb65b608b92cb0a6bbe390933f954a686e9f6e29a7e27efff423bfe9aad2"
+        },
+        "FaBDYNAttacks": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/DYNCards.php",
+          "source_sha256": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+          "function_sha256": "abda2dea0e7e218356c774129a2723f93820ed3a585f48956617fd99156bf53b",
+          "evaluated_sha256": "abda2dea0e7e218356c774129a2723f93820ed3a585f48956617fd99156bf53b"
+        },
+        "FaBDYNDefenders": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/DYNCards.php",
+          "source_sha256": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+          "function_sha256": "269873cde511c962a562b7c811d40a432240ccb0cf88d9bf338c285e00ded2c3",
+          "evaluated_sha256": "269873cde511c962a562b7c811d40a432240ccb0cf88d9bf338c285e00ded2c3"
+        },
+        "FaBHNTMatch": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/HNTCards.php",
+          "source_sha256": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+          "function_sha256": "053c01acc76e0422fb11f70fca384c6126d46810069525a96496a81aaa65cf70",
+          "evaluated_sha256": "053c01acc76e0422fb11f70fca384c6126d46810069525a96496a81aaa65cf70"
+        },
+        "FaBHNTAffectsAttack": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/HNTCards.php",
+          "source_sha256": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+          "function_sha256": "5428a84189affaacc3b13f87774786a3e833119fb35cfe0d8022406dceda9208",
+          "evaluated_sha256": "5428a84189affaacc3b13f87774786a3e833119fb35cfe0d8022406dceda9208"
+        }
+      }
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repair-030-034-035-source-review\\components-v2-current-lifecycle-dependencies\\declared_reaction_target_component.php",
+        "C:\\xampp\\htdocs\\TCGEngine",
+        "ignore-bound-link"
+      ],
+      "exit": 1,
+      "status": "FAIL",
+      "mutant": "ignore-bound-link",
+      "checks": 42,
+      "error": "invalid original target never applies or retargets",
+      "profiles": 5,
+      "function_hashes": {
+        "FaBUsesDeclaredReactionTarget": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "318fa2f2525cdffec5c1e7a8f1eef7bc8bf44b8fd579238e7e8eaf5f3db73f38",
+          "evaluated_sha256": "318fa2f2525cdffec5c1e7a8f1eef7bc8bf44b8fd579238e7e8eaf5f3db73f38"
+        },
+        "FaBDeclaredReactionTargetRefs": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "f45dc4f19af3c0c07327dc93fd215582fab2cca0b38e90c42486f9a3cb9342c3",
+          "evaluated_sha256": "f45dc4f19af3c0c07327dc93fd215582fab2cca0b38e90c42486f9a3cb9342c3"
+        },
+        "FaBDeclaredReactionSource": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "bf7aded6174cfe355eaa14cf95cfcbf581d136d55f1fd416c1bd85ecfa4f6905",
+          "evaluated_sha256": "bf7aded6174cfe355eaa14cf95cfcbf581d136d55f1fd416c1bd85ecfa4f6905"
+        },
+        "FaBReverseDeclaredReaction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "58509d58c068d7f1d83594d510ed1db88858519fcc0ea9d069b6f1ead86a5493",
+          "evaluated_sha256": "58509d58c068d7f1d83594d510ed1db88858519fcc0ea9d069b6f1ead86a5493"
+        },
+        "FaBPrepareDeclaredReaction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "80ebdd7584654461588bc182d33bbf13360c4ce9e479bb1f5066e9bea040eb82",
+          "evaluated_sha256": "80ebdd7584654461588bc182d33bbf13360c4ce9e479bb1f5066e9bea040eb82"
+        },
+        "FaBContinueDeclaredReaction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "c6654a6186ee3cd99990c9733720e35cae9bdfb99a3257630dc755a3961439ed",
+          "evaluated_sha256": "c6654a6186ee3cd99990c9733720e35cae9bdfb99a3257630dc755a3961439ed"
+        },
+        "FaBDeclaredReactionChoicesForSave": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "d441145731eb686d2930e7705729370ee762a65075b04cdd631cbe96ae1a6412",
+          "evaluated_sha256": "d441145731eb686d2930e7705729370ee762a65075b04cdd631cbe96ae1a6412"
+        },
+        "FaBFinishPreparedCard": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "b4802ff6f0986cc7dc88c9c0087b2deddf13c10fffd71c9dfb2287598e81efce",
+          "evaluated_sha256": "b4802ff6f0986cc7dc88c9c0087b2deddf13c10fffd71c9dfb2287598e81efce"
+        },
+        "FaBTagUID": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "8acc74fa3c461cad60648cf9a1647f814e0027f1ae6cda5daca1671805caf749",
+          "evaluated_sha256": "8acc74fa3c461cad60648cf9a1647f814e0027f1ae6cda5daca1671805caf749"
+        },
+        "FaBDefendingChoices": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "5181a9765883579aad07ddf261fa8cb4461a31020f7ec9b2e01ed334abbe3c85",
+          "evaluated_sha256": "5181a9765883579aad07ddf261fa8cb4461a31020f7ec9b2e01ed334abbe3c85"
+        },
+        "FaBResolveDeclaredReaction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "b40cb4d5fcf284b3d041e822a599e9e2cb6cbc35eb58160676c165bab0a745b0",
+          "evaluated_sha256": "f232a845dd6a8934724ea0195bd8e98002482f2891cc06d436be0a07273b1090"
+        },
+        "FaBWTRTag": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/WTRCards.php",
+          "source_sha256": "c0867f72e256df3587d78b6674395d5ac12fd6c48d836853f4f5f445e4410d04",
+          "function_sha256": "c983aef6a9d06ab9b78612d5159733c1a85cc4fe68067faf3ddcd0e9fbf07890",
+          "evaluated_sha256": "c983aef6a9d06ab9b78612d5159733c1a85cc4fe68067faf3ddcd0e9fbf07890"
+        },
+        "FaBWTRTagValue": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/WTRCards.php",
+          "source_sha256": "c0867f72e256df3587d78b6674395d5ac12fd6c48d836853f4f5f445e4410d04",
+          "function_sha256": "28322e9f0cd28994262023e38441ceb084128aee6da71749d74f4f4469ba567b",
+          "evaluated_sha256": "28322e9f0cd28994262023e38441ceb084128aee6da71749d74f4f4469ba567b"
+        },
+        "FaBWTRBase": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/WTRCards.php",
+          "source_sha256": "c0867f72e256df3587d78b6674395d5ac12fd6c48d836853f4f5f445e4410d04",
+          "function_sha256": "252ec2f70eb742cf21ef20ad7c21ebb989d3f9d05437d3d79be8607087c4ee0d",
+          "evaluated_sha256": "252ec2f70eb742cf21ef20ad7c21ebb989d3f9d05437d3d79be8607087c4ee0d"
+        },
+        "FaBWTRIsAttackAction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/WTRCards.php",
+          "source_sha256": "c0867f72e256df3587d78b6674395d5ac12fd6c48d836853f4f5f445e4410d04",
+          "function_sha256": "1024fc7a31460ec554e6c695472008cef73def97662a1a7b69931f0e47638ace",
+          "evaluated_sha256": "1024fc7a31460ec554e6c695472008cef73def97662a1a7b69931f0e47638ace"
+        },
+        "HasNoAbilities": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8",
+          "evaluated_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8"
+        },
+        "FaBCRUSelfTag": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "0a43591033a7379d6015b74bb07f5a2400cef2dac5fd3a04a80e35cde48a6b43",
+          "evaluated_sha256": "0a43591033a7379d6015b74bb07f5a2400cef2dac5fd3a04a80e35cde48a6b43"
+        },
+        "FaBCRUCount": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "193da8858dee1ed35c1786e734dd559e694ed8c931e5acd9f5e7fd6071d48c1e",
+          "evaluated_sha256": "193da8858dee1ed35c1786e734dd559e694ed8c931e5acd9f5e7fd6071d48c1e"
+        },
+        "FaBCRUOwnPower": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "81bcaad8a27cbf604f2ad1a76b60c4378e12cfbb572bcb3443ffc716c4c0285a",
+          "evaluated_sha256": "81bcaad8a27cbf604f2ad1a76b60c4378e12cfbb572bcb3443ffc716c4c0285a"
+        },
+        "FaBCRUPower": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "44edb15fe36c57a3589992990a1a184a64df49b0f583409df1abd27d924516b8",
+          "evaluated_sha256": "44edb15fe36c57a3589992990a1a184a64df49b0f583409df1abd27d924516b8"
+        },
+        "FaBDYNMatch": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/DYNCards.php",
+          "source_sha256": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+          "function_sha256": "2910eb65b608b92cb0a6bbe390933f954a686e9f6e29a7e27efff423bfe9aad2",
+          "evaluated_sha256": "2910eb65b608b92cb0a6bbe390933f954a686e9f6e29a7e27efff423bfe9aad2"
+        },
+        "FaBDYNAttacks": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/DYNCards.php",
+          "source_sha256": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+          "function_sha256": "abda2dea0e7e218356c774129a2723f93820ed3a585f48956617fd99156bf53b",
+          "evaluated_sha256": "abda2dea0e7e218356c774129a2723f93820ed3a585f48956617fd99156bf53b"
+        },
+        "FaBDYNDefenders": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/DYNCards.php",
+          "source_sha256": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+          "function_sha256": "269873cde511c962a562b7c811d40a432240ccb0cf88d9bf338c285e00ded2c3",
+          "evaluated_sha256": "269873cde511c962a562b7c811d40a432240ccb0cf88d9bf338c285e00ded2c3"
+        },
+        "FaBHNTMatch": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/HNTCards.php",
+          "source_sha256": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+          "function_sha256": "053c01acc76e0422fb11f70fca384c6126d46810069525a96496a81aaa65cf70",
+          "evaluated_sha256": "053c01acc76e0422fb11f70fca384c6126d46810069525a96496a81aaa65cf70"
+        },
+        "FaBHNTAffectsAttack": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/HNTCards.php",
+          "source_sha256": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+          "function_sha256": "5428a84189affaacc3b13f87774786a3e833119fb35cfe0d8022406dceda9208",
+          "evaluated_sha256": "5428a84189affaacc3b13f87774786a3e833119fb35cfe0d8022406dceda9208"
+        }
+      }
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repair-030-034-035-source-review\\components-v2-current-lifecycle-dependencies\\declared_reaction_target_component.php",
+        "C:\\xampp\\htdocs\\TCGEngine",
+        "lose-snag-tag"
+      ],
+      "exit": 1,
+      "status": "FAIL",
+      "mutant": "lose-snag-tag",
+      "checks": 139,
+      "error": "actual reaction tagging preserves native Snag marker",
+      "profiles": 28,
+      "function_hashes": {
+        "FaBUsesDeclaredReactionTarget": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "318fa2f2525cdffec5c1e7a8f1eef7bc8bf44b8fd579238e7e8eaf5f3db73f38",
+          "evaluated_sha256": "318fa2f2525cdffec5c1e7a8f1eef7bc8bf44b8fd579238e7e8eaf5f3db73f38"
+        },
+        "FaBDeclaredReactionTargetRefs": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "f45dc4f19af3c0c07327dc93fd215582fab2cca0b38e90c42486f9a3cb9342c3",
+          "evaluated_sha256": "f45dc4f19af3c0c07327dc93fd215582fab2cca0b38e90c42486f9a3cb9342c3"
+        },
+        "FaBDeclaredReactionSource": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "bf7aded6174cfe355eaa14cf95cfcbf581d136d55f1fd416c1bd85ecfa4f6905",
+          "evaluated_sha256": "bf7aded6174cfe355eaa14cf95cfcbf581d136d55f1fd416c1bd85ecfa4f6905"
+        },
+        "FaBReverseDeclaredReaction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "58509d58c068d7f1d83594d510ed1db88858519fcc0ea9d069b6f1ead86a5493",
+          "evaluated_sha256": "58509d58c068d7f1d83594d510ed1db88858519fcc0ea9d069b6f1ead86a5493"
+        },
+        "FaBPrepareDeclaredReaction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "80ebdd7584654461588bc182d33bbf13360c4ce9e479bb1f5066e9bea040eb82",
+          "evaluated_sha256": "80ebdd7584654461588bc182d33bbf13360c4ce9e479bb1f5066e9bea040eb82"
+        },
+        "FaBContinueDeclaredReaction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "c6654a6186ee3cd99990c9733720e35cae9bdfb99a3257630dc755a3961439ed",
+          "evaluated_sha256": "c6654a6186ee3cd99990c9733720e35cae9bdfb99a3257630dc755a3961439ed"
+        },
+        "FaBDeclaredReactionChoicesForSave": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "d441145731eb686d2930e7705729370ee762a65075b04cdd631cbe96ae1a6412",
+          "evaluated_sha256": "d441145731eb686d2930e7705729370ee762a65075b04cdd631cbe96ae1a6412"
+        },
+        "FaBFinishPreparedCard": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "b4802ff6f0986cc7dc88c9c0087b2deddf13c10fffd71c9dfb2287598e81efce",
+          "evaluated_sha256": "b4802ff6f0986cc7dc88c9c0087b2deddf13c10fffd71c9dfb2287598e81efce"
+        },
+        "FaBTagUID": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "8acc74fa3c461cad60648cf9a1647f814e0027f1ae6cda5daca1671805caf749",
+          "evaluated_sha256": "8acc74fa3c461cad60648cf9a1647f814e0027f1ae6cda5daca1671805caf749"
+        },
+        "FaBDefendingChoices": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "5181a9765883579aad07ddf261fa8cb4461a31020f7ec9b2e01ed334abbe3c85",
+          "evaluated_sha256": "5181a9765883579aad07ddf261fa8cb4461a31020f7ec9b2e01ed334abbe3c85"
+        },
+        "FaBResolveDeclaredReaction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CardChoices.php",
+          "source_sha256": "899032290cac63e765bba7545dbad9362f035b07318a36edafe5ec84969a395c",
+          "function_sha256": "b40cb4d5fcf284b3d041e822a599e9e2cb6cbc35eb58160676c165bab0a745b0",
+          "evaluated_sha256": "b40cb4d5fcf284b3d041e822a599e9e2cb6cbc35eb58160676c165bab0a745b0"
+        },
+        "FaBWTRTag": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/WTRCards.php",
+          "source_sha256": "c0867f72e256df3587d78b6674395d5ac12fd6c48d836853f4f5f445e4410d04",
+          "function_sha256": "c983aef6a9d06ab9b78612d5159733c1a85cc4fe68067faf3ddcd0e9fbf07890",
+          "evaluated_sha256": "c983aef6a9d06ab9b78612d5159733c1a85cc4fe68067faf3ddcd0e9fbf07890"
+        },
+        "FaBWTRTagValue": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/WTRCards.php",
+          "source_sha256": "c0867f72e256df3587d78b6674395d5ac12fd6c48d836853f4f5f445e4410d04",
+          "function_sha256": "28322e9f0cd28994262023e38441ceb084128aee6da71749d74f4f4469ba567b",
+          "evaluated_sha256": "28322e9f0cd28994262023e38441ceb084128aee6da71749d74f4f4469ba567b"
+        },
+        "FaBWTRBase": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/WTRCards.php",
+          "source_sha256": "c0867f72e256df3587d78b6674395d5ac12fd6c48d836853f4f5f445e4410d04",
+          "function_sha256": "252ec2f70eb742cf21ef20ad7c21ebb989d3f9d05437d3d79be8607087c4ee0d",
+          "evaluated_sha256": "252ec2f70eb742cf21ef20ad7c21ebb989d3f9d05437d3d79be8607087c4ee0d"
+        },
+        "FaBWTRIsAttackAction": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/WTRCards.php",
+          "source_sha256": "c0867f72e256df3587d78b6674395d5ac12fd6c48d836853f4f5f445e4410d04",
+          "function_sha256": "1024fc7a31460ec554e6c695472008cef73def97662a1a7b69931f0e47638ace",
+          "evaluated_sha256": "1024fc7a31460ec554e6c695472008cef73def97662a1a7b69931f0e47638ace"
+        },
+        "HasNoAbilities": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/GameLogic.php",
+          "source_sha256": "3944c7d761341b8ef78ff5a1afcfeed57f0c3983a7db906f1536f07d4c068217",
+          "function_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8",
+          "evaluated_sha256": "4e4a754ebea507fc83e07b8ca3147c3a42ce573592eb726d05c58d825d96b4c8"
+        },
+        "FaBCRUSelfTag": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "0a43591033a7379d6015b74bb07f5a2400cef2dac5fd3a04a80e35cde48a6b43",
+          "evaluated_sha256": "5df091af0e7baa8de6062eda6b9f50b6ee259ec51a5e7aefd80be9ab3ef887d6"
+        },
+        "FaBCRUCount": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "193da8858dee1ed35c1786e734dd559e694ed8c931e5acd9f5e7fd6071d48c1e",
+          "evaluated_sha256": "193da8858dee1ed35c1786e734dd559e694ed8c931e5acd9f5e7fd6071d48c1e"
+        },
+        "FaBCRUOwnPower": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "81bcaad8a27cbf604f2ad1a76b60c4378e12cfbb572bcb3443ffc716c4c0285a",
+          "evaluated_sha256": "81bcaad8a27cbf604f2ad1a76b60c4378e12cfbb572bcb3443ffc716c4c0285a"
+        },
+        "FaBCRUPower": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/CRUCards.php",
+          "source_sha256": "eb2bfcb1a03a82810a870bce15bab1b9af81d8ee9b74eed2b792f7c4a4c2c349",
+          "function_sha256": "44edb15fe36c57a3589992990a1a184a64df49b0f583409df1abd27d924516b8",
+          "evaluated_sha256": "44edb15fe36c57a3589992990a1a184a64df49b0f583409df1abd27d924516b8"
+        },
+        "FaBDYNMatch": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/DYNCards.php",
+          "source_sha256": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+          "function_sha256": "2910eb65b608b92cb0a6bbe390933f954a686e9f6e29a7e27efff423bfe9aad2",
+          "evaluated_sha256": "2910eb65b608b92cb0a6bbe390933f954a686e9f6e29a7e27efff423bfe9aad2"
+        },
+        "FaBDYNAttacks": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/DYNCards.php",
+          "source_sha256": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+          "function_sha256": "abda2dea0e7e218356c774129a2723f93820ed3a585f48956617fd99156bf53b",
+          "evaluated_sha256": "abda2dea0e7e218356c774129a2723f93820ed3a585f48956617fd99156bf53b"
+        },
+        "FaBDYNDefenders": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/DYNCards.php",
+          "source_sha256": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+          "function_sha256": "269873cde511c962a562b7c811d40a432240ccb0cf88d9bf338c285e00ded2c3",
+          "evaluated_sha256": "269873cde511c962a562b7c811d40a432240ccb0cf88d9bf338c285e00ded2c3"
+        },
+        "FaBHNTMatch": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/HNTCards.php",
+          "source_sha256": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+          "function_sha256": "053c01acc76e0422fb11f70fca384c6126d46810069525a96496a81aaa65cf70",
+          "evaluated_sha256": "053c01acc76e0422fb11f70fca384c6126d46810069525a96496a81aaa65cf70"
+        },
+        "FaBHNTAffectsAttack": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine/FaBSim/Custom/HNTCards.php",
+          "source_sha256": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+          "function_sha256": "5428a84189affaacc3b13f87774786a3e833119fb35cfe0d8022406dceda9208",
+          "evaluated_sha256": "5428a84189affaacc3b13f87774786a3e833119fb35cfe0d8022406dceda9208"
+        }
+      }
+    }
+  ],
+  "selective_generator_negative_guards": {
+    "passed": 7,
+    "total": 7,
+    "result_sha256": "26613a16dbef7132221f3f263bbd3b92c6bd7fb2774a9886e79ef25c43bd42b2",
+    "successful_regeneration": false
+  },
+  "focused_families": [
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/FaB/evr_rules_test.php"
+      ],
+      "exit": 0,
+      "stdout": "FaB smoke checks passed.\nUPF checks passed.\nWTR continuation and card-family checks passed.\nWTR timing and property checks passed.\nARC mechanics passed; 218 authored continuations exercised from seat four.\nEVR continuations passed; 324 authored continuations exercised in duels and UPF.\nEVR outcomes passed in duels and UPF.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/FaB/iar_rules_test.php"
+      ],
+      "exit": 0,
+      "stdout": "FaB smoke checks passed.\nUPF checks passed.\nWTR continuation and card-family checks passed.\nWTR timing and property checks passed.\nARC mechanics passed; 218 authored continuations exercised from seat four.\nDYN continuations passed; 442 authored continuations exercised in duels and UPF.\nDynasty mechanic outcomes passed in duels and UPF.\nIAR outcome checks passed in duels and UPF.\n",
+      "stderr": ""
+    },
+    {
+      "utc": "2026-10-22T23:02:17.144365+00:00",
+      "reason": "Final directly affected ELE test after using actual attack go-again API; generated Smoldering expected-owner oracle remains unchanged.",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/FaB/ele_rules_test.php"
+      ],
+      "exit": 1,
+      "stdout": "FaB smoke checks passed.\nUPF checks passed.\nWTR continuation and card-family checks passed.\nWTR timing and property checks passed.\nARC mechanics passed; 218 authored continuations exercised from seat four.\nELE continuations passed; 628 authored continuations exercised in duels and UPF.\n",
+      "stderr": "Declined Smoldering lost explicit creator ownership across await.\n"
+    }
+  ],
+  "syntax": {
+    "php_files_before_final_test_protocol_edits": 22,
+    "php_failures": 0,
+    "python_builders": 9,
+    "python_failures": 0,
+    "json_ability_snapshots": 9,
+    "json_failures": 0,
+    "diff_check_exit": 0
+  },
+  "independent_source_reviews": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\applied-repair-receipt-chain-independent-review.json",
+      "sha256": "5dd2d9777ccab117e60a50d35be8162058c2f4cbedb3478950b601d97959f304"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\applied-repair-source-merge-checkpoint-independent-review.json",
+      "sha256": "2a2ba0b6a4e98fd417dc4e298a948af8a0c85ad3b9a750d98201bbd3cbf3a8e7"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\final-applied-repair-delta-blocked-handoff-independent-review.json",
+      "sha256": "019cfea369c516c1d844df2e615e896020eef8816bfd895a882c750a27a20d85"
+    }
+  ],
+  "scratch_evidence_root": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task",
+  "backup_root": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repair-source-backups-20261022",
+  "pending_candidates_manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch193-final-blocked-handoff\\manifest.json",
+    "sha256": "ff9a9034f81f2796a6fbdbfb8f99fe57b5e2900b0c7ef97ebfed5d514d9ec68a"
+  },
+  "source_only_oracle_corrections": [
+    "B179 cost timing revoked/quarantined; asset-before-effect assertions retained.",
+    "B127 rawOwner0 and B168 arbitrary Graveyard index were oracle mistakes, not new gameplay defects.",
+    "Shred old direct Graveyard late-choice component changed to real declaration; exact printed-4 retained.",
+    "Embodiment component now holds initial priority explicitly and uses the actual gameplay go-again evaluator on the captured physical attack.",
+    "Quickening callback oracle remains held; no engine classifier patch was applied."
+  ],
+  "generation_input_routes": {
+    "configured": "Remote FaBSim repository; protected local connection configuration takes precedence over the legacy environment configuration.",
+    "supported_local_route": "OpenCardAbilityRepository uses LocalCardAbilityRepository/MySQL only when no remote root is configured. Local constructor invokes EnsureSchema; not opened or changed during this diagnostic.",
+    "cache": "Remote snapshot is an in-memory instance property only; no disk fallback is implemented in the inspected repository code.",
+    "local_source_files": "DevTools/FaB/*_abilities.json and builders exist. Existing import_wtr_abilities.php writes through the configured repository, which here is remote; it is not an offline generator input and was not executed.",
+    "limitation": "A complete current matching local MySQL authoring snapshot was not established. Per-set sources are not evidence that all unrelated remote-authored code is available. No supported snapshot-file argument was found in the existing selective emitter.",
+    "smallest_user_action": "Restore reachability/health of the configured soulmastersdb.net Card Code service and report when it returns valid snapshot JSON. An explicitly configured isolated local database with a verified complete authoring export is an alternative, requiring setup and verification; no settings were changed.",
+    "hosting_causation": "Hostwinds outage was reported by the user, but its causal relation to this HTTP521 response was not verified."
+  },
+  "reused_component_function_preservation": {
+    "status": "PASS_UNCHANGED_SELECTED_FUNCTIONS_NO_TEST_RERUN",
+    "payment_functions": {
+      "FaBPreparedEffectCostSource": {
+        "sha256": "5f0210573e85af242f1e56428b1205e59ebe2c98ad91c21b828807641f54adeb",
+        "matches_previous": true
+      },
+      "FaBPreparedEffectCostRollback": {
+        "sha256": "3d07b95c7c1ebbcac42c2cf949fa2471f73708bc152d00d199a03599934aeafc",
+        "matches_previous": true
+      },
+      "FaBPreparedEffectCostMayComplete": {
+        "sha256": "cb938f6983b2fedb0f908ecbc601a8be2bf173baeb327c0ef270bd7744b00771",
+        "matches_previous": true
+      },
+      "FaBDeclarePreparedEffectCost": {
+        "sha256": "44fe52ebd988a87b21e64a4a96f798b0a0e32f44221766154c1283a78f07e919",
+        "matches_previous": true
+      },
+      "FaBPreparedEffectCostCanPitch": {
+        "sha256": "df630a56c3e64a5d214b3c47c3b1e64a59556d132b5fae5b44e2e08983dbdd59",
+        "matches_previous": true
+      },
+      "FaBPreparedEffectCostBeginAssets": {
+        "sha256": "2139501ff0d8d7656880f6a476fab3f888378bd63d96966084aa47a6e9b59fb4",
+        "matches_previous": true
+      },
+      "FaBPreparedEffectCostAssetsArePaid": {
+        "sha256": "4621b426d775cc483e40841cc5ff86356f030a1aa1fdd34129e1a1daceab78d8",
+        "matches_previous": true
+      },
+      "FaBPreparedEffectCostMarkAssetsPaid": {
+        "sha256": "1b3e5df4fbead4cf2bf8b4e8ce0049ac75564f9440d3134ce22b8e833109c7a1",
+        "matches_previous": true
+      },
+      "FaBPayDeclaredPreparedEffectCost": {
+        "sha256": "54682625f33d73baa6d1c39bbfabeba731968c5783c97fc45ecfd223b3e033bf",
+        "matches_previous": true
+      },
+      "FaBFinishPreparedCard": {
+        "sha256": "b4802ff6f0986cc7dc88c9c0087b2deddf13c10fffd71c9dfb2287598e81efce",
+        "matches_previous": true
+      },
+      "FaBBodicePreparedEffectCostSource": {
+        "sha256": "54b01214fa6450e5dae643fe59e0c7a7bfa3530cba5b4d8b8a142e3cffea4981",
+        "matches_previous": true
+      },
+      "FaBBodiceControlledAura": {
+        "sha256": "d246da0ebd279984a7ef2400ea9523c9f1cc6d99d486a828a02ef27c2c667aa8",
+        "matches_previous": true
+      },
+      "FaBDeclareBodiceAuraCost": {
+        "sha256": "acf2b520bdacda135b0401c3f8d7b1c279521775738bcff1c0e1e18414ba310c",
+        "matches_previous": true
+      },
+      "FaBTryCompletePayment": {
+        "sha256": "5fc6b90dd3f4ad957978a1c5a1d545a17c0002bbec0cdae9556d163804fcd311",
+        "matches_previous": true
+      },
+      "FaBARCPayAbility": {
+        "sha256": "60c331ed6935d5025393b21e10d90049d4917f248791641bb736688308efcaaa",
+        "matches_previous": true
+      }
+    },
+    "keyword_parser_sha256": "1a9c4052c3efa62b2271eaf06c133107900d5b8cb885702d439143c9e2156569",
+    "gameplay_execution": false,
+    "backend_access": false,
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "confirm_reused_component_function_hashes.php"
+    ],
+    "exit": 0,
+    "stderr": ""
+  },
+  "final_closeout": {
+    "utc": "2026-10-22T23:08:23.225970+00:00",
+    "runtime_sha256": "589c9bb88e982eaaf8991b3e723f84eb15fc0d37d50a28d3ac5e65b2075f6e1b",
+    "git_changed_paths": 1563,
+    "tracked_modified_paths": 48,
+    "untracked_paths": 1515,
+    "staged_paths": [],
+    "repository_Core_paths": [],
+    "categories": {
+      "DevTools/FaB/CardRegression": 622,
+      "DevTools/FaB/arc_test.php": 1,
+      "DevTools/FaB/build_cru_abilities.py": 1,
+      "DevTools/FaB/build_dyn_abilities.py": 1,
+      "DevTools/FaB/build_ele_abilities.py": 1,
+      "DevTools/FaB/build_evr_abilities.py": 1,
+      "DevTools/FaB/build_hnt_abilities.py": 1,
+      "DevTools/FaB/build_mon_abilities.py": 1,
+      "DevTools/FaB/build_pen_abilities.py": 1,
+      "DevTools/FaB/build_ros_abilities.py": 1,
+      "DevTools/FaB/build_sea_abilities.py": 1,
+      "DevTools/FaB/cru_abilities.json": 1,
+      "DevTools/FaB/dyn_abilities.json": 1,
+      "DevTools/FaB/dyn_rules_test.php": 1,
+      "DevTools/FaB/ele_abilities.json": 1,
+      "DevTools/FaB/ele_rules_test.php": 1,
+      "DevTools/FaB/evr_abilities.json": 1,
+      "DevTools/FaB/evr_rules_test.php": 1,
+      "DevTools/FaB/hnt_abilities.json": 1,
+      "DevTools/FaB/iar_rules_test.php": 1,
+      "DevTools/FaB/mon_abilities.json": 1,
+      "DevTools/FaB/pen_abilities.json": 1,
+      "DevTools/FaB/printed_keyword_cases.json": 1,
+      "DevTools/FaB/printed_keyword_test.php": 1,
+      "DevTools/FaB/ros_abilities.json": 1,
+      "DevTools/FaB/sea_abilities.json": 1,
+      "FaBSim/Custom/ARCAbilities.php": 1,
+      "FaBSim/Custom/ARCCards.php": 1,
+      "FaBSim/Custom/CRUCards.php": 1,
+      "FaBSim/Custom/CardChoices.php": 1,
+      "FaBSim/Custom/CodeGeneration.php": 1,
+      "FaBSim/Custom/DYNCards.php": 1,
+      "FaBSim/Custom/ELECards.php": 1,
+      "FaBSim/Custom/EVRCards.php": 1,
+      "FaBSim/Custom/GameLogic.php": 1,
+      "FaBSim/Custom/HVYCards.php": 1,
+      "FaBSim/Custom/PENCards.php": 1,
+      "FaBSim/Custom/ROSCards.php": 1,
+      "FaBSim/Custom/SEARuntime.php": 1,
+      "FaBSim/Custom/WTRAbilities.php": 1,
+      "FaBSim/Custom/WTRCards.php": 1,
+      "Tests/Integration/FaBSim": 900,
+      "zzGameCodeGenerator.php": 1
+    },
+    "additional_syntax_checks": [
+      {
+        "path": "DevTools\\FaB\\CardRegression\\components\\declared_reaction_target_component.php",
+        "sha256": "ad44363ff9c86e1c4524fe9e503b8f7897cfb83f12a6abc1566845628a0a35b5",
+        "exit": 0
+      },
+      {
+        "path": "DevTools\\FaB\\CardRegression\\components\\extract_component_functions.php",
+        "sha256": "22aa09c4d95d48a61acb9e81502a73a36059319339057b3559555913401185a6",
+        "exit": 0
+      },
+      {
+        "path": "DevTools\\FaB\\CardRegression\\components\\gorganian_resolution_component.php",
+        "sha256": "912318c8dfdeebf73af8fe4f2d0b683d747622bd7100dcc39b252507bf8eb95d",
+        "exit": 0
+      },
+      {
+        "path": "DevTools\\FaB\\CardRegression\\components\\prepared_payment_component.php",
+        "sha256": "30d6003b138fdc047e565e7f16d3451a525a9eb83776cae5fcaa756a8434ca07",
+        "exit": 0
+      },
+      {
+        "path": "DevTools\\FaB\\dyn_rules_test.php",
+        "sha256": "49ea3269e777de55bfd4b5f9af7ed1250cf387bcb9df7a8d608ef058bb525c89",
+        "exit": 0
+      },
+      {
+        "path": "DevTools\\FaB\\ele_rules_test.php",
+        "sha256": "36de20957a2111cca98a7f5bea0be84530df96f93b3f26abd4044e71f8887dbe",
+        "exit": 0
+      }
+    ],
+    "retained_document_links": [
+      {
+        "document": "DevTools\\FaB\\CardRegression\\REPAIR_HANDOFF_20261022.md",
+        "target": "cycle-coverage-current.json",
+        "exists": true
+      },
+      {
+        "document": "DevTools\\FaB\\CardRegression\\REPAIR_HANDOFF_20261022.md",
+        "target": "card-regression-coverage.json",
+        "exists": true
+      },
+      {
+        "document": "DevTools\\FaB\\CardRegression\\REPAIR_HANDOFF_20261022.md",
+        "target": "breadth-checkpoint-before-repair-20261022.json",
+        "exists": true
+      },
+      {
+        "document": "DevTools\\FaB\\CardRegression\\REPAIR_HANDOFF_20261022.md",
+        "target": "repair-status-20261022.json",
+        "exists": true
+      },
+      {
+        "document": "DevTools\\FaB\\CardRegression\\REPAIR_HANDOFF_20261022.md",
+        "target": "components/README.md",
+        "exists": true
+      },
+      {
+        "document": "DevTools\\FaB\\CardRegression\\REPAIR_HANDOFF_20261022.md",
+        "target": "repair-validation-20261022.json",
+        "exists": true
+      }
+    ],
+    "git_diff_check_exit": 0,
+    "full_suite_run": false,
+    "fixture_replays_run": false,
+    "fixture_preservation": "Reuse the actual3341/3341 behavior-hash check in repair-validation; all subsequent mutations were source-test setup or these documentation/component files only.",
+    "new_bulk_review_artifacts": 0,
+    "stopped": true,
+    "main_README_links_current_handoff": true
+  }
+}

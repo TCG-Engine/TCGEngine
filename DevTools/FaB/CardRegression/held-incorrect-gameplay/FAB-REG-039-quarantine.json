@@ -1,0 +1,34 @@
+{
+  "status": "QUARANTINED_OUTSIDE_NATIVE_RUNNER_DISCOVERY",
+  "issue_id": "FAB-REG-039",
+  "slug": "card-tome-of-harvests-blue-four-live-sparse-actual-arsenal-bottom-additional-cost-and-three-resource-payment-draws-original-top-three",
+  "original_path": "Tests/Integration/FaBSim/card-tome-of-harvests-blue-four-live-sparse-actual-arsenal-bottom-additional-cost-and-three-resource-payment-draws-original-top-three",
+  "quarantine_path": "DevTools/FaB/CardRegression/held-incorrect-gameplay/b179-tome-of-harvests-cost-order",
+  "raw5_sha256": {
+    "initial_gamestate.txt": "ce959f9b1543c45ba4e40d4437597c3261cad45aebb63628e9ced5f637426072",
+    "actions.json": "305d4ec6d80be6bec8178bbfa826301880130376cf81357506752d507e791060",
+    "assertions.json": "c1db694c551fa6c0e9843e8e32190651d68c6a390467008fb76ad886e586fe8b",
+    "expected_final_gamestate.txt": "051ba76a26c95709b073c116639a75874e690f75d81818e2019957779c82ab65",
+    "meta.json": "b738c72b29cd0a0f6da171d488326dd42f0d11cf9742e5d66b1465caf85c517e"
+  },
+  "fixture_sha256": "83ac32629d9f0c52a227c1dff910235211f2e2580e1d0a3c2e84c413b84d9f76",
+  "files_preserved": 5,
+  "backup_verified_before_removal": true,
+  "hold_evidence": "review-evidence/sparse-b179-b181-cost-order-hold-905811cc8a25.json",
+  "hold_evidence_sha256": "905811cc8a25654979617aff0fe573d3718d2afb691b676aaee6074987895ea7",
+  "reason": "Rejected timing oracle: step2 physically bottoms Arsenal while asset-costs are still unpaid. Current CR5.1.7 precedes5.1.9; early declaration does not authorize early payment.",
+  "qualification": "Original7-action recording and two snapshot PASS receipts are rejected semantic evidence, not passing coverage. Source approval revoked. No separately demonstrated triggered-gameplay defect or fix claimed.",
+  "restore_instructions": "Keep quarantined while unresolved. Inspect only in a disposable isolated copy. After reviewed semantics or repair, author correct expectations and use the native recorder; do not restore these rejected expectations to the passing corpus.",
+  "completed_utc": "2026-10-22T21:19:19.080425+00:00",
+  "original_canonical_path_absent": true,
+  "all_archived_hashes_verified": true,
+  "native_discovery": {
+    "list_only_no_game_actions": true,
+    "fixture_count": 3335,
+    "b179_discovered": false,
+    "warfare_discovered": false,
+    "command": "C:/xampp/php/php.exe C:/Users/maxim/Documents/Codex/2026-10-19/task/verify_b179_quarantine_discovery.php",
+    "returncode": 0
+  },
+  "independent_quarantine_check_sha256": "2d7b60c86bd882b40d163e8bba0e0fcffe37906f31629389b4e69839d8df723a"
+}

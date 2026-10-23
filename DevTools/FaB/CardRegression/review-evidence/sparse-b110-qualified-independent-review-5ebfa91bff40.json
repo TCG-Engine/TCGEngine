@@ -1,0 +1,378 @@
+{
+  "status": "B110_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch110.json",
+  "input_sha256": "03e74f4e6aa96f3013a0b59a1f315a9c3f689089af5211db87e4c999208bd6d3",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T17:59:41.029619+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ravenous-rabble-red-four-live-sparse-real-attack-reveals-physical-yellow-top-card-and-loses-two-power",
+      "fixture_sha256": "5b96607815240a09580035e568b3af6f181a74e7a99e54665171e1270d9778a6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1e24b18f78099f5a9986626144cdd93e7d14af4331bf561fa0e78f6eaf8d2e76",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "08e5159eb2bd807608db3363cfafa9f0ef1d90f95293d73834081e0691153308",
+        "expected_final_gamestate.txt": "e4f2fe16b253d3c68978d4c5de9a28b28ce50508fb8d6157f6cabd92242edd8b",
+        "meta.json": "437e70fd330dd321d8fd91b44cca71d5f64f9338e9f4c9210c47b8738733ec6f"
+      },
+      "semantically_approved": true,
+      "actions": 27,
+      "native_assertions": 534,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-prime-the-crowd-red-four-live-sparse-real-two-cost-action-buffs-next-real-blue-attack-by-four",
+      "fixture_sha256": "a506bb2e3a07caaf5821519a2f460e03dc09a56d09b1236509778dff46ebf5fe",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "acfda32ccefab6dc05acfa10ce261ae6f5428236ebbc2aeb23bbab5095eda0b6",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "825b2a43f0ca5029fbb19677f55ba45c3b68977ce7020d289f2d3bca408bff3b",
+        "expected_final_gamestate.txt": "281d98b3e9980d803e9df73bd598cbceac4b60d411505a6a424d6280c0884891",
+        "meta.json": "ffe66323795881101d9a2adc6784aff9faa220e25c3baf1c1bd93710436a958f"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 673,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-prismatic-leyline-yellow-four-live-sparse-real-zero-cost-action-buffs-next-real-blue-attack-by-three",
+      "fixture_sha256": "8ce4a547176dae6cd2a1c9346a69f56428d8185dc0e13b8e44330d618c2e3fab",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fa2fc23dbcd6c562133f708758124bfbc0246ae155b8d5a2a6966f2419950e65",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "d18378c9981e35b6e588d6a951d386a796620d514d2c94a4b6be02688d3a3bda",
+        "expected_final_gamestate.txt": "d3bfd3e8f2b1b3b6922204971c2431f1732177ef766bcc7616c9c342982d9abc",
+        "meta.json": "6d1040e676f61c732b0fc18acc44d03aaf38c6aa8e9f32d6d7f4dface4809c12"
+      },
+      "semantically_approved": true,
+      "actions": 32,
+      "native_assertions": 617,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-trot-along-blue-four-live-sparse-real-zero-cost-action-grants-go-again-to-next-real-base-two-attack",
+      "fixture_sha256": "4b43022f8f279c8d76b73b3cd3e4c64d40a6eb2f24aaf58cfd3a6f52682c210c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "36e599e41bb1061f8ace94c7af9fa65a560e2aa4f1242285a54e186d11339604",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "180d98d3ba790e452441014e1447c1aab527b34cd2816fe0995cf05f69bcef41",
+        "expected_final_gamestate.txt": "99571b93c9e2b57b3620e5a493d58a90fb358d873bc24d1d8e454f4a9b397c5a",
+        "meta.json": "25bc2017a4fe6635c68619e42d81c555369869c94b976d4046612509a212cb84"
+      },
+      "semantically_approved": true,
+      "actions": 32,
+      "native_assertions": 617,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 124,
+  "total_native_assertions": 2441,
+  "total_manual_passes": 112,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b110-actual-saved-independent-review.json",
+    "sha256": "df5cb1b54bcb834852d3da49f4ee34f9a7535f394157282c6048e70972d1dbd0"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b110-independent-spec-review.json",
+    "sha256": "917277fe718faa13e528ba8995b91198ad2aea9b3640324c9957e7e3cbd571b9"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch110-20261022T175621Z-6ada4e45062f3.json",
+    "sha256": "7926b3ee0c8cacb9dfa250b305486d5ccfab3f196421723e78c937d45b58c9c4"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b110-four-live-run1.json",
+      "sha256": "5208c1073df393da7bfca5c95ee6b2fd4b28ceb5faeb332a5e0cfb20b1c75e17",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch110.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b110-four-live-run2.json",
+      "sha256": "6e75ff15fec317854dcdad5c4cf21ef9c18572e1672e0c51597f9bc80dbc8fa8",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch110.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b110-fault-controls.json",
+    "sha256": "3f42a1566404f9cbcbc2ddf811d06dbcfd1f5d8d3259bece94df7a6cbe4b2473",
+    "total": 4,
+    "intended_semantic_failures": 4,
+    "plan_sha256": "f98b196fc2aa0dc3dcb457b0b087f9f197ae1bf372726b556d5ecd97107d01bc",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b110_ravenous_rabble_red_exact_source_effect_sensitivity",
+      "fixture": "card-ravenous-rabble-red-four-live-sparse-real-attack-reveals-physical-yellow-top-card-and-loses-two-power",
+      "prefix_actions": 6,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "ravenous_rabble_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:-2"
+          }
+        ]
+      },
+      "retained_assertions": 354,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 5.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b110_prime_the_crowd_red_exact_source_effect_sensitivity",
+      "fixture": "card-prime-the-crowd-red-four-live-sparse-real-two-cost-action-buffs-next-real-blue-attack-by-four",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:4"
+          }
+        ]
+      },
+      "retained_assertions": 279,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b110_prismatic_leyline_yellow_exact_source_effect_sensitivity",
+      "fixture": "card-prismatic-leyline-yellow-four-live-sparse-real-zero-cost-action-buffs-next-real-blue-attack-by-three",
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 263,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b110_trot_along_blue_exact_source_effect_sensitivity",
+      "fixture": "card-trot-along-blue-four-live-sparse-real-zero-cost-action-grants-go-again-to-next-real-base-two-attack",
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 263,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b110-focused-fault-plan.json",
+    "sha256": "f98b196fc2aa0dc3dcb457b0b087f9f197ae1bf372726b556d5ecd97107d01bc"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 3398,
+  "native_evidence_review_checks": 100,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "No revealed-card observer, other pitch/color/threshold/crowd branch, second hit, support-card, triggered-layer order, ordinary spell source-departure or asynchronous-lifecycle credit.",
+    "Only current new four are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and four individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Rabble loses only its real revealed-pitch negative2 tag with the same YellowDeck6 retained; Prime and Leyline lose their actual support-source power tags after real payments/primary resolution; Trot loses only its actual GO_AGAIN grant. These are exact effect-oracle sensitivity controls, not legal alternative branches or observer/lifecycle certification."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "a217a98a3654281452bdd5dc2dc8710786ced8c64ff3bc1ce8cc99423a7b67a7",
+  "pre_execution_oracle_correction": {
+    "original_input": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b110-reveal-and-next-blue-attack-proposed\\b110-four-cases-proposed.json",
+      "sha256": "4ca0a5b914174a32e5855d66dfe0583b979c845fd7f49f383f13550ca1f9c447"
+    },
+    "original_manifest": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b110-reveal-and-next-blue-attack-proposed\\manifest.json",
+      "sha256": "717fb184156048a82b2d6b1ee290b4a86edd7d9826a4c75b3350912c6dc2642d"
+    },
+    "changed_paths": [
+      [
+        1,
+        "steps",
+        24,
+        "checks",
+        3,
+        "value"
+      ],
+      [
+        2,
+        "steps",
+        22,
+        "checks",
+        3,
+        "value"
+      ],
+      [
+        3,
+        "steps",
+        22,
+        "checks",
+        3,
+        "value"
+      ]
+    ],
+    "old_value": 5,
+    "new_value": 6,
+    "reason": "The three real support attacks have physical UID6; primary spell UID5 is already in its own Graveyard. Rabble remains primary UID5. Only these three state expectations changed; every action, cost, printed effect, power, damage, health, AP and other assertion is unchanged.",
+    "reviewer_request": "/root/b104_saved_review",
+    "native_execution_before_correction": 0,
+    "correction_script_sha256": "80f100f20fb48828aefaab5f989293bb136004132ec784331e9e6dcd025f388c",
+    "independently_verified_exact_three_leaves": true,
+    "gameplay_or_runtime_changed": false
+  },
+  "current_independent_delta_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b110_independent.py",
+    "sha256": "61ea3497ffe0732a280d48fd0d268d818b3c47f1028b2dbfaa4e9502b49c45a6"
+  }
+}

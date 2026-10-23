@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:53:29.269589+00:00",
+  "plan_sha256": "ba5fc6f0039b766e0db2da2a616ed4ad1673d80abe8ba546ed6f93d05c7f9a6d",
+  "independent_saved_proof_sha256": "f9b80e4d1ba874c9ad0be74c59ca0b4480367f12f70583282075dfcecbf107e6",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b142-focused-fault-plan.json",
+    "ba5fc6f0039b766e0db2da2a616ed4ad1673d80abe8ba546ed6f93d05c7f9a6d",
+    "card-regression-sparse-b142-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b142_phantasmify_red_exact_source_effect_sensitivity",
+      "fixture": "card-phantasmify-red-four-live-sparse-actual-paid-next-attack-plus-five",
+      "fixture_sha256": "faf31dfb5c13333be611987afaffd319a60ef6f6ba9ba0d0ea5590fdaa2b999a",
+      "source_raw5": {
+        "initial_gamestate.txt": "a1ac9f0191f63cd476d7fdcb624f6baa3d79637be5d8176bf3503846324ada6f",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "1ac814450008f356cb853b9379cd7b157ec5d7cc495c48de31277945e0a825e9",
+        "expected_final_gamestate.txt": "c90a9110bc8ab655f6ed9beef186cd28795f5cfcbac78b4404438db8435fe2ee",
+        "meta.json": "9ea20293696cf795772c20d28041c2b47b3a8432a77997716186ebb696f40597"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:5"
+          }
+        ]
+      },
+      "retained_assertions": 559,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 9, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Phantasmify / four live actual unblocked attack plus five: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 9, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual source-created WTR_POWER:5 on realWBred6 after actualprimary5/fourmanualresponses and actualrecipientplay/target/cost. Physicalsource/recipient/actualBlue7paymentwhenpresent remain. Phantasm/class tags retained but their positivebehaviornotqualified. Synthetic exact effect omission only; every original suffixaction/oracle retained with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b142_spreading_mist_blue_exact_source_effect_sensitivity",
+      "fixture": "card-spreading-mist-blue-four-live-sparse-actual-next-attack-granted-go-again",
+      "fixture_sha256": "99a2eb50a835431f7bb396875e5cfeb97b6b0c43747057e95d44d545e4597134",
+      "source_raw5": {
+        "initial_gamestate.txt": "2f13f0a9deebf07d711c6a2bb0f670fd700077caa84a1155ff15c4420adf1866",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "763cb658450e1511f01cf34b9b772074e939ccb61e620349d87b97111011d3bc",
+        "expected_final_gamestate.txt": "027009205ccc0977ddc8592e20234c0c99bb8a67b78c8bea566ec0ee746be1bf",
+        "meta.json": "6057990a97e4f6e81d35860d8e7ca099e3acb1c2477839d969abef3324fbed73"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 417,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Spreading Mist / four live actual next attack go again: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual source-created GO_AGAIN on realWBred6 after actualprimary5/fourmanualresponses and actualrecipientplay/target/cost. Physicalsource/recipient/actualBlue7paymentwhenpresent remain. Unconsumedephemeralreplacement remains; no createdcards/replacementcredit. Synthetic exact effect omission only; every original suffixaction/oracle retained with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

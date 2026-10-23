@@ -2099,8 +2099,9 @@
     "abilities": [
       {
         "macroName": "PrepareCard",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$maximum = count(FaBChoiceRefs($player, 'Hand', ['attackAction'=>true]));\n $targets = implode('&', FaBChoiceRefs($player, 'Hand', ['attackAction'=>true]));\n\n$chosen = await $player.MZMultiChoose($targets, 0, $maximum, \"Reveal_at_least_13_power\");\n if (FaBMONRevealPower($chosen) >= 13) {\n FaBRevealChoices($player, $chosen);\n FaBCRUSelfTagUID($uid, 'WTR_POWER:7');\n FaBTagUID($uid, 'GO_AGAIN');\n \n}\n\nFaBFinishPreparedCard($uid);\n",
-        "isImplemented": true
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$maximum = count(FaBChoiceRefs($player, 'Hand', ['attackAction'=>true]));\n $targets = implode('&', FaBChoiceRefs($player, 'Hand', ['attackAction'=>true]));\n\n$chosen = await $player.MZMultiChoose($targets, 0, $maximum, \"Declare_optional_reveal_thirteen_cost\");\n if (!FaBDeclarePreparedEffectCost($player, $uid, 'REVEAL_THIRTEEN', $chosen)) {\n return;\n \n}\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true,
+        "previousCodeHash": "6010bda0ceaeaa60f0ab0e286bbeb03fb13906e09e7a5a1384f6413cec2648ae"
       }
     ]
   },

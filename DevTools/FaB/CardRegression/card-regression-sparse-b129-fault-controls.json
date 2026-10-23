@@ -1,0 +1,121 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:18:10.527151+00:00",
+  "plan_sha256": "945f6e4a9b220f2df1ab01113108bc5493abe434c602d95a91cdf4f9f3a5cfec",
+  "independent_saved_proof_sha256": "822e97963a2adcd8fccf359604ab073e5f1677609350f55faf9c2d157ceaeddb",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b129-focused-fault-plan.json",
+    "945f6e4a9b220f2df1ab01113108bc5493abe434c602d95a91cdf4f9f3a5cfec",
+    "card-regression-sparse-b129-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b129_weave_earth_red_exact_weave_source_power_sensitivity",
+      "fixture": "card-weave-earth-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+      "fixture_sha256": "0f5de3a13fc6cb351354504f4e31b3884fdc4223c64b1a8becf0adeed0d8805c",
+      "source_raw5": {
+        "initial_gamestate.txt": "d51b7c224df1eb2e031be365d3a04a835bcce3b0f94915f148b841995ed44b5b",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "6f028d623e8230ca4d7e73343576111e5a18aa0c3e7f825ae781401aa7cee05a",
+        "expected_final_gamestate.txt": "372d8cafe5aff48414e16eabd674f3ed19f7aaf972b7f62710601a79cdd2f3df",
+        "meta.json": "452b89b4d6b1126b8d1b86793f80d29d6dd6fd564c64fe21a3a289c4b5cc91c1"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "entwine_earth_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 501,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Weave Earth / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual Weave-created WTR_POWER3 tag on realunfusedElementalEntwine6 after primary5actualplay/fourresponses, actualadjacentP4target and cost2paidBlue7pitch3. Power7 becomesprintedbase4. NoEarthrevealinput/extra+2, physicalsource/economy/history remain; nofusedbonus/GA/Dominate/eligibilitybranch credit. Synthetic exact effect omission only; every original suffixaction/oracle retained with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b129_weave_ice_red_exact_weave_source_power_sensitivity",
+      "fixture": "card-weave-ice-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+      "fixture_sha256": "65a1f45c65ccc8b23416f5be7923ba2c6e1de32a89d86c4a8456ea292763681e",
+      "source_raw5": {
+        "initial_gamestate.txt": "e32d9f5d0e378450155f42cc1bc8d366f9bdcd4d5f36d5823c23006c46d691f5",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "4511df0a207604b9a2f19dfd548e779711aad8d35c7597a3148629f875e29119",
+        "expected_final_gamestate.txt": "12b17ee9e2b3352cbde9d8582e390b15661316786a9fd1f6b5522c8aee5e3036",
+        "meta.json": "8d45cdda7d4ade2bae27de810d2f00b80b06dd9af3cf1589c2a081dd46c9d89c"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "entwine_earth_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 501,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Weave Ice / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual Weave-created WTR_POWER3 tag on realunfusedElementalEntwine6 after primary5actualplay/fourresponses, actualadjacentP4target and cost2paidBlue7pitch3. Power7 becomesprintedbase4. NoEarthrevealinput/extra+2, physicalsource/economy/history remain; nofusedbonus/GA/Dominate/eligibilitybranch credit. Synthetic exact effect omission only; every original suffixaction/oracle retained with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b129_weave_lightning_red_exact_weave_source_power_sensitivity",
+      "fixture": "card-weave-lightning-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+      "fixture_sha256": "1723db7419acfdd3e5c72461b6ea40908c7fbf4c61a19814bac6b9f73afc5eb8",
+      "source_raw5": {
+        "initial_gamestate.txt": "371f2ad28e0a7281c9d20aeb5060464278cacd16bda904bad287d383bf8eeef6",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "97ad713b3ab26dcf18e5cc911e210b783a5a6c9c35a2d908aad2302e576e9f63",
+        "expected_final_gamestate.txt": "27819f6a5b01fdb038334fc7b7df0b1d8f6d6118f27b00ebabd7897f0314aa9a",
+        "meta.json": "e7339a50b40f8a8ffde747a1a0a839bb1954f857a263e3e2bd40f65162f0bc52"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "entwine_earth_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 501,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Weave Lightning / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual Weave-created WTR_POWER3 tag on realunfusedElementalEntwine6 after primary5actualplay/fourresponses, actualadjacentP4target and cost2paidBlue7pitch3. Power7 becomesprintedbase4. NoEarthrevealinput/extra+2, physicalsource/economy/history remain; nofusedbonus/GA/Dominate/eligibilitybranch credit. Synthetic exact effect omission only; every original suffixaction/oracle retained with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 3
+}

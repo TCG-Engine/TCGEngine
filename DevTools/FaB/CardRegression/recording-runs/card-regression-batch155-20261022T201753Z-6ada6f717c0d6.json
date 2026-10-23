@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:17:53+00:00",
+    "input_file": "card-regression-batch155.json",
+    "input_sha256": "baa11f78da848c1977b4e640a0f739dabea4795d8ccd5ce87450705398a83c9b",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-garland-of-spring-four-live-sparse-actual-generic-equipment-destruction-gains-one-resource-and-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 332
+        },
+        {
+            "slug": "card-courage-of-bladehold-four-live-sparse-actual-equipment-discount-makes-printed-one-resource-sword-activation-free",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 1010
+        }
+    ]
+}

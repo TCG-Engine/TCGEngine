@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:44:48.741804+00:00",
+  "plan_sha256": "af6789f9841b5bcca3b9b4d4b6a5f5d13108d9a629cfd9eaaec9c1f6ee933736",
+  "independent_saved_proof_sha256": "0e12a8215e911a36b9bea7f1ebc142c213fb12a3b70b42123f5b48a729f698b9",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b138-focused-fault-plan.json",
+    "af6789f9841b5bcca3b9b4d4b6a5f5d13108d9a629cfd9eaaec9c1f6ee933736",
+    "card-regression-sparse-b138-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b138_commanding_performance_red_exact_source_power_sensitivity",
+      "fixture": "card-commanding-performance-red-four-live-sparse-actual-paid-warrior-plus-three",
+      "fixture_sha256": "49afb135b709ed65c30f788ca441643fd12406a423a571b8998f046d74db37cf",
+      "source_raw5": {
+        "initial_gamestate.txt": "2f89fe933852dac414d4330ea0da7286045849a387d5ce7d86baa050ad9d72a1",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "eed31966c0f4d2eed7fccb4d952c46795653a072ffb1a8ffe92f959e350bc53d",
+        "expected_final_gamestate.txt": "7e32e0fd15228087dd2664f5df395d1c0342e415815d3cfa16f8309f47abedae",
+        "meta.json": "f9fa3ef4cad9ea6bfc11752706e0b981346d7474df5b1978e5c81a3dd3467ec3"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "clash_of_vigor_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 559,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 9, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Commanding Performance / four live actual paid Warrior attack: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 9, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only real primary +3 grant on actualWarriorClash6 or distinctweaponproxy8 after actualsource5/realBluepitch and separatelypaid recipientprintedcost. Actualphysicalrecipient/target/payment/history/nograntedGA remain; neitherconditionaldefendertriggeractivated. Synthetic exact effect omission only; every original suffixaction/oracle retained with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b138_plow_through_red_exact_source_power_sensitivity",
+      "fixture": "card-plow-through-red-four-live-sparse-actual-paid-weapon-plus-three",
+      "fixture_sha256": "9908cd9da99b0f78afcfc94f48d4111376d212ed588a79b225be86a66d4714c0",
+      "source_raw5": {
+        "initial_gamestate.txt": "92c7fca466e3d97a2f77d00c26752d403b4b62153a533189b269dff64692eb74",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "ffa4a5dc32edb843e2da7b68a7a56788638e2ba361d764a59c7e39d93676e93e",
+        "expected_final_gamestate.txt": "9db09a3e009119d1a02bd9aaa2479bb0fa8e34e78ecff5c252ec5b0ea4a9c19e",
+        "meta.json": "ba23622f090383ff394b4d1250e551f0324d237212407f6c831e1fd84210c2ff"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dawnblade",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 623,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Plow Through / four live actual paid sword attack: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only real primary +3 grant on actualWarriorClash6 or distinctweaponproxy8 after actualsource5/realBluepitch and separatelypaid recipientprintedcost. Actualphysicalrecipient/target/payment/history/nograntedGA remain; neitherconditionaldefendertriggeractivated. Synthetic exact effect omission only; every original suffixaction/oracle retained with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

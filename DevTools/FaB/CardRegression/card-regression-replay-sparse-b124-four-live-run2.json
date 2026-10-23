@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch124.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T18:53:13.877827+00:00",
+  "fixtures": [
+    {
+      "slug": "card-homage-to-ancestors-blue-four-live-sparse-actual-first-blue-instant-gains-one-without-transcend",
+      "fixture_sha256": "78dd17fd6330cbb34c609fa88a85a63a8adc287568209c3eb7125cd933a4171f",
+      "passed": true,
+      "result": "[PASS] Homage to Ancestors / four live sparse ordinary effect"
+    },
+    {
+      "slug": "card-tome-of-torment-red-four-live-sparse-actual-hand-action-draws-one-physical-deck-card",
+      "fixture_sha256": "17050baaefa47783decb57265de57ee5efbc63d65122aa5043ffe7aac9011145",
+      "passed": true,
+      "result": "[PASS] Tome of Torment / four live sparse ordinary effect"
+    },
+    {
+      "slug": "card-three-of-a-kind-red-four-live-sparse-actual-paid-ranger-action-draws-three-ordered-physical-cards",
+      "fixture_sha256": "893afcb2615b7e4b2a5a015828fd86544a924344c7ecc68f3015d45846b4e65b",
+      "passed": true,
+      "result": "[PASS] Three of a Kind / four live sparse ordinary effect"
+    },
+    {
+      "slug": "card-grim-feast-red-four-live-sparse-actual-full-hand-cost-shadow-action-gains-three",
+      "fixture_sha256": "814db10100a4ac3e71815f23f1639daf60c98930f2c7dcb6ab02c29d2c001393",
+      "passed": true,
+      "result": "[PASS] Grim Feast / four live sparse ordinary effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-homage-to-ancestors-blue-four-live-sparse-actual-first-blue-instant-gains-one-without-transcend",
+      "returncode": 0,
+      "stdout": "[PASS] Homage to Ancestors / four live sparse ordinary effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tome-of-torment-red-four-live-sparse-actual-hand-action-draws-one-physical-deck-card",
+      "returncode": 0,
+      "stdout": "[PASS] Tome of Torment / four live sparse ordinary effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-three-of-a-kind-red-four-live-sparse-actual-paid-ranger-action-draws-three-ordered-physical-cards",
+      "returncode": 0,
+      "stdout": "[PASS] Three of a Kind / four live sparse ordinary effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-grim-feast-red-four-live-sparse-actual-full-hand-cost-shadow-action-gains-three",
+      "returncode": 0,
+      "stdout": "[PASS] Grim Feast / four live sparse ordinary effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

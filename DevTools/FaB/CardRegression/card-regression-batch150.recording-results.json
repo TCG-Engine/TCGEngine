@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-threadbare-tunic-four-live-sparse-actual-empty-hand-instant-destroy-resource",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 332
+    },
+    {
+        "slug": "card-blue-sea-tricorn-four-live-sparse-actual-blue-pitch-three-destroy-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 423
+    }
+]

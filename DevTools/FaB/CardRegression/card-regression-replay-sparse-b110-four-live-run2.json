@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch110.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T17:56:29.343119+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ravenous-rabble-red-four-live-sparse-real-attack-reveals-physical-yellow-top-card-and-loses-two-power",
+      "fixture_sha256": "5b96607815240a09580035e568b3af6f181a74e7a99e54665171e1270d9778a6",
+      "passed": true,
+      "result": "[PASS] Ravenous Rabble / four live sparse positive effect"
+    },
+    {
+      "slug": "card-prime-the-crowd-red-four-live-sparse-real-two-cost-action-buffs-next-real-blue-attack-by-four",
+      "fixture_sha256": "a506bb2e3a07caaf5821519a2f460e03dc09a56d09b1236509778dff46ebf5fe",
+      "passed": true,
+      "result": "[PASS] Prime the Crowd / four live sparse positive effect"
+    },
+    {
+      "slug": "card-prismatic-leyline-yellow-four-live-sparse-real-zero-cost-action-buffs-next-real-blue-attack-by-three",
+      "fixture_sha256": "8ce4a547176dae6cd2a1c9346a69f56428d8185dc0e13b8e44330d618c2e3fab",
+      "passed": true,
+      "result": "[PASS] Prismatic Leyline / four live sparse positive effect"
+    },
+    {
+      "slug": "card-trot-along-blue-four-live-sparse-real-zero-cost-action-grants-go-again-to-next-real-base-two-attack",
+      "fixture_sha256": "4b43022f8f279c8d76b73b3cd3e4c64d40a6eb2f24aaf58cfd3a6f52682c210c",
+      "passed": true,
+      "result": "[PASS] Trot Along / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ravenous-rabble-red-four-live-sparse-real-attack-reveals-physical-yellow-top-card-and-loses-two-power",
+      "returncode": 0,
+      "stdout": "[PASS] Ravenous Rabble / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-prime-the-crowd-red-four-live-sparse-real-two-cost-action-buffs-next-real-blue-attack-by-four",
+      "returncode": 0,
+      "stdout": "[PASS] Prime the Crowd / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-prismatic-leyline-yellow-four-live-sparse-real-zero-cost-action-buffs-next-real-blue-attack-by-three",
+      "returncode": 0,
+      "stdout": "[PASS] Prismatic Leyline / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-trot-along-blue-four-live-sparse-real-zero-cost-action-grants-go-again-to-next-real-base-two-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Trot Along / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

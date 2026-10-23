@@ -1,0 +1,7 @@
+{
+    "name": "Fyendal's Fighting Spirit / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:35:11+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "At real attack declaration, P1 has19life and an opposing hero has20; printed trigger gains1life to20. Printedcost3 is paid by actualBlue3pitch UID6 leaving0. Attackpower7 deals7unblocked toP4,20to13; no goagain, finalAP0. SourceUID5 is actually played and targets adjacent P4HeroUID4. Real all-seat manual passes retain it on Stack until fourth source-layer pass; every combat window is passed manually by all four living young heroes. Source5 reaches its own Graveyard on real cleanup. Only attack trigger with stable positive lower-life condition. Defense trigger, equal/higher life, replacement/prevention, changing condition and later turn untested. No pitch-sibling/support/hero/full-card credit; no seeded history/effect tags, no shared bookkeeping-array emptiness or fixed-index oracle. Sources: https://judge.fabtcg.com/cards/detail/1693/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FAB261-RF.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

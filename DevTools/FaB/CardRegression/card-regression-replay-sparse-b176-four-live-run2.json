@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch176.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T21:10:47.168032+00:00",
+  "fixtures": [
+    {
+      "slug": "card-aether-ironweave-four-live-sparse-actual-nonattack-and-attack-play-close-combat-before-equipment-resource-activation",
+      "fixture_sha256": "205864a2dcad0ea61d495c3bccea298b50a577943a8df66e5f5491dbc26da408",
+      "passed": true,
+      "result": "[PASS] Aether Ironweave / four live earned card types and legal postcombat Action"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-aether-ironweave-four-live-sparse-actual-nonattack-and-attack-play-close-combat-before-equipment-resource-activation",
+      "returncode": 0,
+      "stdout": "[PASS] Aether Ironweave / four live earned card types and legal postcombat Action\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

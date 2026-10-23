@@ -209,6 +209,179 @@
           "source_sha256": "414ae0f1b8d3e5ea2f2aec306f7a7e469ede9dd489d3a3971361442e11ddfab4"
         }
       ]
+    },
+    {
+      "group_id": "identity:potion_of_deja_vu_blue",
+      "card_id": "potion_of_deja_vu_blue",
+      "status": "source_mapped_concern_not_native_verified",
+      "reason": "Generated ResolveAbility passes Pitch references to FaBARCStageRefs; that helper accepts only Deck objects, so the proposed positive return-to-top route cannot stage any Pitch UID. Excluded rather than weakening expected card effect or executing exploratory repair.",
+      "scope": "22 October breadth-pass candidate excluded before any native attempt; no claim about untested siblings or unrelated existing evidence.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "correct_expected_token": null,
+      "rule_sources": [],
+      "source_reference": "FaBSim/GeneratedCode/GeneratedMacroCode.php::__RunAwait_c815534f7c39438a6cff and FaBSim/Custom/ARCCards.php::FaBARCStageRefs",
+      "related_qualified_batch_proof": "review-evidence/sparse-b109-safe-three-qualified-independent-review-62b3cbddea80.json",
+      "related_qualified_batch_proof_sha256": "62b3cbddea80b238434e3f161f8f6d1618634872db63e5aa8a88cce1a4a94146"
+    },
+    {
+      "group_id": "pitch-cycle:icy_encounter",
+      "card_id": "icy_encounter_red",
+      "status": "source_mapped_concern_not_native_verified",
+      "reason": "Icy Encounter tells creator P1 to create Frostbite under hit P4 control. FaBELEFrost(int $p) takes only P4 and calls FaBWTRCreateArena($p,frostbite), whose arena creator sets both Owner and Controller to P4. This route cannot satisfy the independently reviewed expected owner1/controller4. Excluded before native actions rather than weakening expectation or broadening shared ownership repairs.",
+      "scope": "22 October breadth-pass candidate excluded before any native attempt; no claim about untested siblings or unrelated existing evidence.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "correct_expected_token": {
+        "owner": 1,
+        "controller": 4,
+        "zone": "p4Arena"
+      },
+      "rule_sources": [
+        "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+        "https://rules.fabtcg.com/en/cr/08-keywords/"
+      ],
+      "source_reference": "FaBSim/Custom/ELECards.php",
+      "related_qualified_batch_proof": "review-evidence/sparse-b111-qualified-independent-review-67cb4f995b12.json",
+      "related_qualified_batch_proof_sha256": "67cb4f995b124032069c6c15d3647897e826e1899c7f18f71fdf7360c0d9c06a"
+    },
+    {
+      "group_id": "pitch-cycle:smash_instinct",
+      "card_id": "smash_instinct_red",
+      "status": "source_mapped_concern_not_native_verified",
+      "reason": "The inspected attack declaration calls FaBRequestIntimidate, whose CUSTOM target answer directly calls FaBIntimidate and moves Hand to Banish. No separate triggered-layer response cycle is visible in that bounded path. A passing scenario asserting the immediate banish would pin suspect early resolution; target declaration alone could be valid, but immediate effect generation is not justified.",
+      "shared_concern": "intimidate_when_attacks_priority_interposition",
+      "scope": "Bounded source review only, no native execution, no saved fixture, no source fix, no existing-case audit. Shared engine context has not been exhaustively analyzed; focused native reproduction remains necessary before confirming a gameplay defect.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "rule_sources": [
+        "https://rules.fabtcg.com/en/cr/06-effects/",
+        "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+        "https://rules.fabtcg.com/en/cr/08-keywords/"
+      ],
+      "source_references": [
+        {
+          "path": "FaBSim/Custom/WTRCards.php",
+          "first_line": 560,
+          "last_line": 562,
+          "sha256": "79b04e30d9b9f7dca6fb78bd3e32e4e9429f137e1afa9d1d8af2a8faf718d74d"
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "first_line": 190,
+          "last_line": 200,
+          "sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4"
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "first_line": 427,
+          "last_line": 439,
+          "sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4"
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "first_line": 2035,
+          "last_line": 2040,
+          "sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4"
+        }
+      ],
+      "next_step": "Replace before B121 proposal; retain source-only concern for a future focused native trigger/response reproducer, not a broad repair now."
+    },
+    {
+      "group_id": "pitch-cycle:pack_hunt",
+      "card_id": "pack_hunt_red",
+      "status": "source_mapped_concern_not_native_verified",
+      "reason": "The inspected attack declaration calls FaBRequestIntimidate, whose CUSTOM target answer directly calls FaBIntimidate and moves Hand to Banish. No separate triggered-layer response cycle is visible in that bounded path. A passing scenario asserting the immediate banish would pin suspect early resolution; target declaration alone could be valid, but immediate effect generation is not justified.",
+      "shared_concern": "intimidate_when_attacks_priority_interposition",
+      "scope": "Bounded source review only, no native execution, no saved fixture, no source fix, no existing-case audit. Shared engine context has not been exhaustively analyzed; focused native reproduction remains necessary before confirming a gameplay defect.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "rule_sources": [
+        "https://rules.fabtcg.com/en/cr/06-effects/",
+        "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+        "https://rules.fabtcg.com/en/cr/08-keywords/"
+      ],
+      "source_references": [
+        {
+          "path": "FaBSim/Custom/WTRCards.php",
+          "first_line": 560,
+          "last_line": 562,
+          "sha256": "79b04e30d9b9f7dca6fb78bd3e32e4e9429f137e1afa9d1d8af2a8faf718d74d"
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "first_line": 190,
+          "last_line": 200,
+          "sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4"
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "first_line": 427,
+          "last_line": 439,
+          "sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4"
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "first_line": 2035,
+          "last_line": 2040,
+          "sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4"
+        }
+      ],
+      "next_step": "Replace before B121 proposal; retain source-only concern for a future focused native trigger/response reproducer, not a broad repair now."
+    },
+    {
+      "card_id": "rouse_the_ancients_blue",
+      "reason": "Draft emits actual reveal/Korshem hook and bonus before resource/AP payment. Asset-before-effect ordering under current CR5.1.7/5.1.9 needs a bounded preparation repair; draft held before native.",
+      "evidence": "review-evidence/sparse-b179-b181-cost-order-hold-905811cc8a25.json",
+      "issue_id": "FAB-REG-039",
+      "group_id": "identity:rouse_the_ancients_blue",
+      "status": "unattempted_authoring_or_preparation_concern",
+      "scope": "Selected proposed representative only; no blanket full-card coverage veto.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "regurgitating_slog_red",
+      "reason": "Existing expected-rejection recorder supports only mode100 decision answers; second Hand-block rejection is mode10002, and no persisted dominate/can-block assertion exists. A one-block case would not demonstrate dominate. No framework extension or native attempt.",
+      "sources": [
+        {
+          "path": "DevTools/FaB/CardRegression/record_card_regressions.php",
+          "lines": "70-84"
+        },
+        {
+          "path": "Core/RegressionTestFramework.php",
+          "lines": "562-604"
+        }
+      ],
+      "group_id": "pitch-cycle:regurgitating_slog",
+      "status": "unattempted_authoring_or_preparation_concern",
+      "scope": "Selected proposed representative only; no blanket full-card coverage veto.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "bloodtorn_bodice",
+      "reason": "Author mapped PrepareCard Aura destruction before FinishPreparedCard pays AP. Unattempted source-only additional-cost ordering concern; no packet, native behavior, independently demonstrated gameplay defect or coverage claimed.",
+      "sources": [
+        {
+          "path": "FaBSim/Custom/ARCAbilities.php"
+        },
+        {
+          "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php"
+        }
+      ],
+      "group_id": "identity:bloodtorn_bodice",
+      "status": "unattempted_authoring_or_preparation_concern",
+      "scope": "Selected proposed representative only; no blanket full-card coverage veto.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
     }
   ],
   "external_notes": {
@@ -222,6 +395,10 @@
       {
         "path": "sparse-b103-blue-history-defense-and-high-tide-proposed\\source-only-holds.json",
         "sha256": "2345a2be2a9c49b3161dc3fe423c780508c16aa4edbe2bf0d0900e8cf9dccd89"
+      },
+      {
+        "path": "sparse-b121-source-only-intimidate-timing-holds.json",
+        "sha256": "3cbaa39b2ce7e43faa11bcdd200ec556bd4eb861ceee8a953d938af1c60e21cd"
       }
     ]
   },
@@ -229,5 +406,6 @@
     "These notes create no passing coverage or confirmed gameplay issue.",
     "Canonical coverage and issue ledgers remain authoritative.",
     "Aether Quickening and Skyzyk routes remain explicitly unverified."
-  ]
+  ],
+  "updated_utc": "2026-10-22T18:42:20.976075+00:00"
 }

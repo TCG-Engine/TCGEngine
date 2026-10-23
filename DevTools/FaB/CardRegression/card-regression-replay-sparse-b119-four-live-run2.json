@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch119.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T18:35:29.100638+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rites-of-nightfall-blue-four-live-sparse-real-one-resource-shadow-action-creates-one-owned-gate",
+      "fixture_sha256": "ce0fb5718d704eda394df0dd22d9967a80f334a27d307e940af36b32fcb34905",
+      "passed": true,
+      "result": "[PASS] Rites of Nightfall / four live sparse positive effect"
+    },
+    {
+      "slug": "card-planar-chaos-red-four-live-sparse-real-zero-resource-shadow-action-creates-one-owned-gate",
+      "fixture_sha256": "72763cce2fc11c7f156afd4eeb267b1f1555ab88b7fe0abfbb219f24005472cf",
+      "passed": true,
+      "result": "[PASS] Planar Chaos / four live sparse positive effect"
+    },
+    {
+      "slug": "card-pledge-fealty-red-four-live-sparse-real-zero-cost-draconic-instant-creates-one-owned-fealty",
+      "fixture_sha256": "136ab55b13799ab04edf36bfac0da4d35399be40e852f71bc9a68bd916d3a621",
+      "passed": true,
+      "result": "[PASS] Pledge Fealty / four live sparse positive effect"
+    },
+    {
+      "slug": "card-spectral-manifestations-red-four-live-sparse-real-paid-action-with-no-other-illusionist-auras-creates-shield-with-three-power-counters",
+      "fixture_sha256": "3707eaba15c3a618c636467855232b69003bfa5ca2b6287658ac9aa7e8ca0f5e",
+      "passed": true,
+      "result": "[PASS] Spectral Manifestations / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rites-of-nightfall-blue-four-live-sparse-real-one-resource-shadow-action-creates-one-owned-gate",
+      "returncode": 0,
+      "stdout": "[PASS] Rites of Nightfall / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-planar-chaos-red-four-live-sparse-real-zero-resource-shadow-action-creates-one-owned-gate",
+      "returncode": 0,
+      "stdout": "[PASS] Planar Chaos / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-pledge-fealty-red-four-live-sparse-real-zero-cost-draconic-instant-creates-one-owned-fealty",
+      "returncode": 0,
+      "stdout": "[PASS] Pledge Fealty / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-spectral-manifestations-red-four-live-sparse-real-paid-action-with-no-other-illusionist-auras-creates-shield-with-three-power-counters",
+      "returncode": 0,
+      "stdout": "[PASS] Spectral Manifestations / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,327 @@
+{
+  "status": "B106_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch106.json",
+  "input_sha256": "3375c377aa92ad4983e4842c12aa48e6fe4c6e0cd9e36231e30c06a1c5e9a134",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T17:38:25.665876+00:00",
+  "fixtures": [
+    {
+      "slug": "card-fyendals-fighting-spirit-red-four-live-sparse-real-attack-at-lower-life-gains-one-health",
+      "fixture_sha256": "9e9bb45a998f517efcf2e9a4333540aa1aa6b641b3ce45ae32b09cd207585ab6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a412d4268f70c6052a559139e55603bbf5f7721f4d31b74dd475619d86ccde36",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "590ea2d4aeef2a6035eb7f7b00824426ce7ca211baf87fcdf1ce1a0230e31308",
+        "expected_final_gamestate.txt": "efd03cfdfc477e421c8bb7ceb05fef78d4a6ee52d98cefabb6a842386c1df2ba",
+        "meta.json": "696b83eb821fa76fbc39f00209b897754f4e5f4a4aef40bcae8a89fccdb59a85"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 436,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-life-for-a-life-red-four-live-sparse-lower-life-real-play-grants-go-again-and-hit-heals-one",
+      "fixture_sha256": "44e706cb8641d886880b32f1e15a3525e0490eec0375d777db60be6b094cac6f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0e0e5e96c47c701d86f507ec86665982e1da82b94119eff32dc89eef048cd435",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "555a332dd94794a197cf70679ecdae290a90377a788d9ff5190d16db0591f25b",
+        "expected_final_gamestate.txt": "adf7138e505aa1180dd746f4639d051e3a0086bdc7e4ec1ba736df55e35f359c",
+        "meta.json": "1fc1116a94e092f0fadd17a12ff6be1647691428e943726b3b85adbf4c7e18f7"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 436,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-overload-red-four-live-sparse-real-unblocked-hit-grants-go-again-before-resolution",
+      "fixture_sha256": "7c0621a157de74033e238ec6425537b49fd76d7af6c436ee51cbe6d0f7ca7959",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "12963572d7546d48738de1ff55a89047998d345999310a93536685f2aa8f38b0",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "154d501f5c680cf39f3add6406134747a8d9e21b00825a81f872761e2ecf52ad",
+        "expected_final_gamestate.txt": "5e7b96e92a6a5a92ccee850ce716bafa9683a893aa7b1294e74e39a586d95f8d",
+        "meta.json": "4ee716596dfe68bafb73b8d4de4cddfbd3e371711556d001753c48c55b623035"
+      },
+      "semantically_approved": true,
+      "actions": 27,
+      "native_assertions": 394,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-performance-bonus-red-four-live-sparse-real-arsenal-play-grants-go-again-and-hit-creates-owned-gold",
+      "fixture_sha256": "61b605ff601a5631d5f447d08aec571eba72655c2f35cf2739ac3c0afa3fc395",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fe17f62807408d5cfe81be82953ba1c7bc33035b021705972d2be462d27a3315",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "b08d07a4915313cb3af96097a743bf7ee7012492692befccf6da5767d1d92760",
+        "expected_final_gamestate.txt": "9a48b571b693d7a99d564dcdc4a3c0b99556a4121cf8b3f21757970f7b6efa9a",
+        "meta.json": "d8b474a30e9d4680800723ae98a0558382673ea1efa372f66cc57bd7a6f8c4a4"
+      },
+      "semantically_approved": true,
+      "actions": 27,
+      "native_assertions": 464,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 110,
+  "total_native_assertions": 1730,
+  "total_manual_passes": 100,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b106-actual-saved-independent-review.json",
+    "sha256": "3867d7679f1a1e8fcda8d2b94806dc29cb4e1286ed6ba44f3eba036670975fc8"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b106-independent-spec-review.json",
+    "sha256": "d406a019f94cde8d4c3ebc04e70df7b7fae22e52dcd7af0984517666abbe7e45"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch106-20261022T173524Z-6ada495c9a7b6.json",
+    "sha256": "11e58c08a0871b444a12230ea4e0fcba705a1d3b4d3635db897a7d87a9ccc674"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b106-four-live-run1.json",
+      "sha256": "5125fd8ccf8b2ac43ef1d2dac7879a5b045af046a4a7fddf56fb9a1c526b9a42",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch106.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b106-four-live-run2.json",
+      "sha256": "17c105ab9eb2ad9843596dfa205ad658329c664d5422436493d678a038ca4065",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch106.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b106-fault-controls.json",
+    "sha256": "99fcf6f9f1a5699e374db8d118ddb92991bac8d9cbcefe090b59d5d892c57106",
+    "total": 4,
+    "intended_semantic_failures": 4,
+    "plan_sha256": "ced682679f14ff8b5fb51915aa72a176dc1aca042f81d9e6ce4e8161481b9d74",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b106_fyendals_fighting_spirit_red_focused_effect_sensitivity",
+      "fixture": "card-fyendals-fighting-spirit-red-four-live-sparse-real-attack-at-lower-life-gains-one-health",
+      "prefix_actions": 7,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 1,
+            "value": 19
+          }
+        ]
+      },
+      "retained_assertions": 253,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Health to equal 20, got 19.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b106_life_for_a_life_red_focused_effect_sensitivity",
+      "fixture": "card-life-for-a-life-red-four-live-sparse-lower-life-real-play-grants-go-again-and-hit-heals-one",
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "life_for_a_life_red",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 253,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b106_overload_red_focused_effect_sensitivity",
+      "fixture": "card-overload-red-four-live-sparse-real-unblocked-hit-grants-go-again-before-resolution",
+      "prefix_actions": 19,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "overload_red",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 155,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b106_performance_bonus_red_focused_effect_sensitivity",
+      "fixture": "card-performance-bonus-red-four-live-sparse-real-arsenal-play-grants-go-again-and-hit-creates-owned-gold",
+      "prefix_actions": 19,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "gold",
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 208,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b106-focused-fault-plan.json",
+    "sha256": "ced682679f14ff8b5fb51915aa72a176dc1aca042f81d9e6ce4e8161481b9d74"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 2695,
+  "native_evidence_review_checks": 102,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "One stable attack-heal, played-condition/hit-heal, hit-GA or Arsenal-GA/Gold representative respectively. No Fyendal defense, equal/higher-life, miss, Dominate legality, alternate origin, Gold activation, suppression or asynchronous-lifecycle credit.",
+    "Only current new four are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and four individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Fyendal control omits one scalar health endpoint after actual heal; LifeLife and Overload controls remove exact single granted GO_AGAIN; Performance moves unique hit-created Gold out of Arena. Controls certify bounded semantic outcome sensitivity only, not new legal alternatives or isolated callback-body mutation.",
+    "The independent physical model now clears the initial facedown Arsenal marker when Performance is actually played into public zones; its final Graveyard card is faceup. This model completion changed no saved action, native assertion or printed expectation, and the original specification approval remains frozen."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "717c733dfdd68c1b1ac581333888238f4f09de587dcacfa7bb452d8de0ab9b22"
+}

@@ -1,0 +1,132 @@
+{
+  "status": "B172_ONE_SPARSE_REPRESENTATIVE_TWO_CLEAN_TARGETED_REPLAYS_ONE_NATIVE_CONTROL_QUALIFIED",
+  "reviewer": "/root/b105_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch172.json",
+  "input_sha256": "65c2d2a652aa08e5883d5ff15cd791d20979518ff10f0fd33477cd6f0c8e9710",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:06:24.705054+00:00",
+  "fixtures": [
+    {
+      "slug": "card-captains-coat-four-live-sparse-real-prior-draw-earns-equipment-destruction-resource-ability",
+      "fixture_sha256": "5a7ae51a6ced450126c714efb165ef494a23be5f500c308d94ce32defeb24d51",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4a1b9c2b07c465ce6e544bc9ddff61830add82788e627244469ce6be9727266a",
+        "actions.json": "68c0bc7e57b22f872676d2d62260c672775a25a6c8c01418e37bdc68f99609fd",
+        "assertions.json": "cf844c387bc04ee2c5b9af844fd01740034c257d4c84ee4bb4fd0af3a8e60e5b",
+        "expected_final_gamestate.txt": "d3b0f332fede940ca472ddfe33072bf0147e973fb35d835856eacc01260c2181",
+        "meta.json": "ac6974139ec033410a0a5a1a043050ab7e3da1827fd6821c609f0c9aa3c8ae36"
+      },
+      "semantically_approved": true,
+      "actions": 11,
+      "native_assertions": 1165,
+      "actual_manual_passes": 8,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "actual_support_uid": 6,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive actual-draw-condition/equipmentresource standalone representative; no before-draw rejection, other sources, spentgain, support/hero/full-card or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 11,
+  "total_native_assertions": 1165,
+  "total_manual_passes": 8,
+  "checks": 43,
+  "actual_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b172-actual-saved-independent-review.json",
+    "sha256": "46b6f3071bc28b56dec562fae1bc9658251a82c80f4134c7adab271ee6594417"
+  },
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b172-independent-spec-review.json",
+    "sha256": "598453163a7510b7379f553e1169a5b41b5e57b6c1c20f17d7ec003e25a2a905"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch172-20261022T210256Z-6ada7a0036766.json",
+    "sha256": "9390534f61c36442cff0e7a267abccd10fc1b130fe66e62f64b6d4f8adeddcac"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b172-four-live-run1.json",
+      "sha256": "ecf9e7ff93de6b21f4c2162b8d8709c333d1e14b14c8991c35995e9c5815db35",
+      "passed": 1,
+      "total": 1,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b172-four-live-run2.json",
+      "sha256": "958126c5e49e9c1d59b17828d0ecea7438dba1735bfeed33e04590bee5b48cfb",
+      "passed": 1,
+      "total": 1,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b172-fault-controls.json",
+    "sha256": "6ee464f35f1100640338663bcbb0029f914c86df5d91814d955b7ba9bf9d5908"
+  },
+  "focused_native_controls": [
+    {
+      "id": "b172_captains_coat_focused_effect_sensitivity",
+      "fixture": "card-captains-coat-four-live-sparse-real-prior-draw-earns-equipment-destruction-resource-ability",
+      "prefix_actions": 7,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 291,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Resources to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove only sole actualABI9 arcSpec dispatch after actual DrawSwords6 paidBlue7/draw8 and Coat5destroy/AP0. Existing WTRAbilitySpec has noCaptainCoat fallback, so body/abilityGA inert. First native final resource1 becomes0; physical sourcecost/Hand8/Pitch7 preserved. Missing printed resource-body sensitivity, not isolated gain-amount/condition-rejection or legal alternate action credit. Every original suffix action and oracle retained; only step offsets change."
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b172-focused-fault-plan.json",
+    "sha256": "b22c8c0861b10f0f2137672b8df1c2f98ff6c984868ce26820528f3dda654c43"
+  },
+  "targeted_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "limitations": [
+    "Four living legal young20 seats manually pass priority; no active response card. GenericCaptainCoat and WarriorDrawSwords legally used withDorinthea.",
+    "One positive actual-draw-earned activation/resource endpoint: realcost3/Blue7pitch/drawRed8 thenactualdestroyCoat5/ABI9/fourresponses/resource1/AP1. No beforedrawrejection, otherdrawsource, spentgain, DrawSwordsbuff, support/hero/full-card credit.",
+    "Single reviewed arcSpec removal after actualdraw anddestroycost disablesvirtualbody/GA; firstfinalR1 becomes0. Missing body sensitivity only, not isolated amount/condition/alternate legal action. All original suffix assertions retained.",
+    "Actual saved primary/support UID5/6 ownpublicGY membership verified. No internal ordinaryNAA source-departure/body timing credit; separate known shared concern unresolved.",
+    "Only this new fixture rehashed/replayed, selected preservation only. No fullsuite, legacy audit or reviewer native execution."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "d66610d6e8be07af19d1bb7abf2853d89d6837e8251fb18d556e9b58889fb85a",
+  "reused_stable_helper_and_orchestration_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b114-qualified-independent-review.json",
+    "sha256": "34f4ed518b19c89242bafc46b95e1e16e2fb0bf55583e8348b81dea4c76f7287",
+    "qualification": "Exact unchanged UID helper and prior18/18 component/orchestration evidence reused without new helper contract execution or broad audit."
+  }
+}

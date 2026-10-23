@@ -1,0 +1,7 @@
+{
+    "name": "Adrenaline Rush / four live sparse positive condition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:30:02+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Player1 starts at legal current life19 while all three opponents have20. The actual primary play therefore satisfies the printed lesser-life condition and gets+3power: printed4+3=7. Actual Blue3 pitch pays printed2, leaving1 resource/AP0. Unblocked7damage leaves adjacentP4 at13; Player1 stays19. Source5 really leaves Hand for Stack, targets actual adjacentP4HeroUID4, and all four living owned young heroes manually pass every response/combat window. No damage precedes the fourth reaction pass. Source5 ultimately reaches its own Graveyard; actual pitch6 remains Pitch; the other two opponents stay20; all four queues are empty. Only less-life-at-play positive condition. Equal/greater-life, later life changes, suppression, other buffs and turn expiry are untested. One positive primary representative only, with no sibling pitch/printing/support/full-card/internal-callback lifecycle certification. Sources: https://judge.fabtcg.com/cards/detail/993/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/HVY222.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

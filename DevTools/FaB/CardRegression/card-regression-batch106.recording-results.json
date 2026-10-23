@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-fyendals-fighting-spirit-red-four-live-sparse-real-attack-at-lower-life-gains-one-health",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 436
+    },
+    {
+        "slug": "card-life-for-a-life-red-four-live-sparse-lower-life-real-play-grants-go-again-and-hit-heals-one",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 436
+    },
+    {
+        "slug": "card-overload-red-four-live-sparse-real-unblocked-hit-grants-go-again-before-resolution",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 394
+    },
+    {
+        "slug": "card-performance-bonus-red-four-live-sparse-real-arsenal-play-grants-go-again-and-hit-creates-owned-gold",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 464
+    }
+]

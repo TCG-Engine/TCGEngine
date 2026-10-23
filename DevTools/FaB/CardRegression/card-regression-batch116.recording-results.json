@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-electrostatic-discharge-red-four-live-sparse-actual-zero-cost-instant-plus-three-on-real-next-low-cost-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 711
+    },
+    {
+        "slug": "card-tooth-of-the-dragon-red-four-live-sparse-actual-instant-buffs-real-draconic-blaze-after-earlier-red-play",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 711
+    },
+    {
+        "slug": "card-whispering-mist-blue-four-live-sparse-actual-mystic-instant-increases-own-real-blue-attack-by-one",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 711
+    },
+    {
+        "slug": "card-snag-blue-four-live-sparse-actual-instant-prevents-real-less-life-attack-own-three-power-gain",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 749
+    }
+]

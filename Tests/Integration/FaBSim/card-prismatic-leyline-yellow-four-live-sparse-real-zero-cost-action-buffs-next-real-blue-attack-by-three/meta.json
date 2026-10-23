@@ -1,0 +1,7 @@
+{
+    "name": "Prismatic Leyline / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:56:14+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActualprimaryUID5cost0spendsAP1;fourmanualresponsesresolveittoownGYandprintedgoagainrestoresAP1. ActuallyplayBlueWoundingBlowUID6base2cost0; printednextblueattackgrant+3makespower5. Unblocked5damageP4to15/AP0. Primary5GY0,support6GY1. Onlybluegranttested; nextred/yellowgrants, laterconsumption/expiry,multiplecolorsandweaponattacksremainuntested. All four are living legal young heroes with real supported manual response actors; no passive seats. Exact original source and support UIDs, owners/controllers, resources/AP, health and physical endpoint zones are pinned. No seeded history/effect tags or shared effect-bucket emptiness/index oracles. One positive primary representative only; no sibling/support/hero/full-card/alternate-branch credit. Sources: https://judge.fabtcg.com/cards/detail/3109/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MST193.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

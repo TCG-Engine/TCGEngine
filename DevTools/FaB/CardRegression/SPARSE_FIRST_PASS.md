@@ -1,25 +1,148 @@
 # Sparse four-player first pass
 
+<!-- REPAIR-HANDOFF-20261022 -->
+> **Repair checkpoint: blocked, not verified commit-ready.** The3,341-scenario totals below are historical qualification at runtime e947, not post-repair passes. Source repairs are applied; canonical generation failed HTTP521 and both generated outputs were restored exactly. No new repair fixture is saved/qualified. See [current repair handoff](REPAIR_HANDOFF_20261022.md), [bug ledger](repair-status-20261022.json) and [focused results](repair-validation-20261022.json).
+
 Resumed 20 October 2026. Future coverage uses one positive representative per previously uncovered pitch cycle or standalone group. Existing matrices stay intact. Each new scenario uses four living owned young heroes, manual priority and actual supported actions; an all-player effect must also pin each affected seat. Pitch siblings and support cards receive no primary credit.
 
 <!-- INCREMENTAL-BEGIN -->
 ## Incremental progress
 
-Metadata refreshed 2026-10-21 00:56 UTC, runtime `e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27`. The frozen checkpoint below retains its original inventory and date.
+Metadata refreshed 2026-10-22 21:49 UTC, runtime `e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27`. Frozen historical checkpoints below retain their original inventories and dates.
 
-| Measure | Saved | Independently reviewed with current replay evidence |
+| Measure | Saved | Retained independent review with current replay evidence |
 | --- | ---: | ---: |
-| Scenarios | 3,161 | 3,161 |
-| Genuine four-live scenarios / groups | 87 | 87 |
-| Primary identities / 5,196 | 321 | 321 |
-| Cycles or standalone groups / 3,324 | 196 | 196 |
+| Scenarios | 3,341 | 3,341 |
+| Genuine four-live scenarios / groups | 267 | 267 |
+| Primary identities / 5,196 | 501 | 501 |
+| Cycles or standalone groups / 3,324 | 376 | 376 |
 
-This resumption has saved 82 new representatives and qualified 82; the original 3,074 duel scenarios remain preserved. Sibling pitches receive no individual credit. The implementation-candidate subset contains 3,002 groups; candidate flags do not prove implementation.
+Since 20 October, 262 new representatives have been saved and 262 qualified; the original 3,074 duel scenarios remain preserved. The 22 October resumption accounts for 180 saved / 180 qualified additions. Untested pitch siblings receive no individual credit. The implementation-candidate subset contains 3,002 groups; candidate flags do not prove implementation.
 
-For test-only batches, run the new or changed scenarios and reuse unchanged baseline evidence. New cases receive two clean replays at creation. After a shared source change, one fresh full-corpus compatibility run covers older unchanged fixtures; their original repeated-replay evidence remains historical. The table and schema-2 `sparse_four_live_first_pass_groups` use exact independent semantic approval and current compatibility evidence; `two_current_replays` remains a stricter diagnostic. Older repeated-replay evidence retains its original runtime and is never retagged.
+For test-only batches, run only new or modified scenarios. Each new representative receives independent semantic review, two clean targeted creation replays and a focused sensitivity control. Reuse unchanged historical evidence without retagging its runtime. The current index separates positive representative evidence from full-card completion and from the stricter two-current-replay diagnostic.
 
-Full-suite checks are reserved for meaningful shared source/framework changes and final checkpoints. Zero in the legacy finite-completion gate does not mean the 75 frozen finite baselines failed; that gate still requires two whole-inventory current reports and current controls. We retain that historical finite-scope checkpoint instead of repeating unrelated validation solely to promote its classification. Semantic review and current replay counts above are separate from that finite-baseline classification.
+From 22 October, full-suite runs are left to the user: no restart baseline, between-batch full run or final full checkpoint is performed. If a gameplay/framework change warrants broader validation, report the recommended command and its unrun status. Selected-fixture byte guards protect only the named batch and do not claim a fresh whole-inventory rehash.
+
+The legacy finite-completion classifier remains separate: zero does not mean the 75 frozen finite baselines failed. No historical semantic review or qualification scope is being expanded in this breadth pass.
 <!-- INCREMENTAL-END -->
+
+<!-- RESUMED-20261022-BEGIN -->
+## Resumed breadth pass - 22 October 2026
+
+The user's new request supersedes the 21 October pause. At restart Git was clean at `765666dbfa49a106597a4ade32b078de19a05e56`; the FaBSim runtime and deferred Batch 104 guards were unchanged. No full baseline was run. Full-suite validation is left to the user, including after any future shared change; only new/modified scenarios and directly affected focused checks execute here.
+
+| Batch | Exact tested identities | Qualified four-live representatives |
+| --- | --- | ---: |
+| [104](review-evidence/sparse-b104-qualified-independent-review-b68b189d0187.json) | strength_of_four_seasons_red; runerager_swarm_red; hit_the_high_notes_red; shrill_of_skullform_red | 4 |
+| [105](review-evidence/sparse-b105-qualified-independent-review-9256780f68c6.json) | adrenaline_rush_red; spring_load_red; spellblade_strike_red; spellblade_assault_red | 4 |
+| [106](review-evidence/sparse-b106-qualified-independent-review-90c50212d2a3.json) | fyendals_fighting_spirit_red; life_for_a_life_red; overload_red; performance_bonus_red | 4 |
+| [107](review-evidence/sparse-b107-qualified-independent-review-870d6461969b.json) | high_striker_red; plunder_run_red; premeditate_red; exorcism_red | 4 |
+| [108](review-evidence/sparse-b108-qualified-independent-review-4bc98c4074cb.json) | starting_stake_yellow; this_rounds_on_me_blue; poison_the_well_blue; sirens_of_safe_harbor_red | 4 |
+| [109](review-evidence/sparse-b109-safe-three-qualified-independent-review-62b3cbddea80.json) | onyx_amulet_blue; imperial_ledger_red; talisman_of_recompense_yellow | 3 |
+| [110](review-evidence/sparse-b110-qualified-independent-review-5ebfa91bff40.json) | ravenous_rabble_red; prime_the_crowd_red; prismatic_leyline_yellow; trot_along_blue | 4 |
+| [111](review-evidence/sparse-b111-qualified-independent-review-67cb4f995b12.json) | torrent_of_tempo_red; sweeping_blow_red; hocus_pocus_red; soulbead_strike_red | 4 |
+| [112](review-evidence/sparse-b112-qualified-independent-review-b26dff071146.json) | seismic_stir_red; sky_fire_lanterns_red; cruel_ambition_red; runic_reckoning_red | 4 |
+| [113](review-evidence/sparse-b113-qualified-independent-review-6bbc1b26ca8d.json) | agile_windup_red; mighty_windup_red; vigorous_windup_red; fruits_of_the_forest_red | 4 |
+| [114](review-evidence/sparse-b114-qualified-independent-review-34f4ed518b19.json) | seismic_eruption_yellow; tome_of_quandaries_blue; starworld_warning_yellow; runic_disposition_red | 4 |
+| [115](review-evidence/sparse-b115-qualified-independent-review-494f24ec61a1.json) | goblet_of_bloodrun_wine_blue; pint_of_strong_and_stout_blue; smashback_alehorn_blue; humble_entrance_blue | 4 |
+| [116](review-evidence/sparse-b116-qualified-independent-review-c788ac1640a1.json) | electrostatic_discharge_red; tooth_of_the_dragon_red; whispering_mist_blue; snag_blue | 4 |
+| [117](review-evidence/sparse-b117-qualified-independent-review-005248081f93.json) | prismatic_shield_red; future_sight_red; oath_of_oak_red; envelop_in_darkness_red | 4 |
+| [118](review-evidence/sparse-b118-qualified-independent-review-1c122edc2498.json) | uprising_red; billowing_mist_blue; vigorous_roar_red; water_glow_lanterns_red | 4 |
+| [119](review-evidence/sparse-b119-qualified-independent-review-921e4dcbcaa1.json) | rites_of_nightfall_blue; planar_chaos_red; pledge_fealty_red; spectral_manifestations_red | 4 |
+| [120](review-evidence/sparse-b120-qualified-independent-review-135fa7c0212e.json) | blessing_of_salvation_red; electryn_joltstep_red; fasting_carcass_blue; embrace_sin_yellow | 4 |
+| [121](review-evidence/sparse-b121-qualified-independent-review-5b1a565a361c.json) | seeds_of_strength_red; laden_with_earth_red | 2 |
+| [122](review-evidence/sparse-b122-qualified-independent-review-f60789c81e43.json) | lead_with_power_red; lead_with_heart_red; laden_with_lightning_red; leech_vitality_red | 4 |
+| [123](review-evidence/sparse-b123-qualified-independent-review-9c7a79940931.json) | funeral_moon_red; requiem_for_the_damned_red; peace_of_mind_red; heroic_grit_yellow | 4 |
+| [124](review-evidence/sparse-b124-qualified-independent-review-20e99f26aa2a.json) | homage_to_ancestors_blue; tome_of_torment_red; three_of_a_kind_red; grim_feast_red | 4 |
+| [125](review-evidence/sparse-b125-qualified-independent-review-ceaee6d5e9c4.json) | oath_of_the_arknight_red; otherworldly_sins_red; revolting_gesture_red | 3 |
+| [126](review-evidence/sparse-b126-qualified-independent-review-cc707ca7aa7e.json) | draw_swords_red; high_octane_red; cash_in_yellow | 3 |
+| [128](review-evidence/sparse-b128-qualified-independent-review-d8d73dfab590.json) | howl_from_beyond_red | 1 |
+| [129](review-evidence/sparse-b129-qualified-independent-review-30f4fb908e3f.json) | weave_earth_red; weave_ice_red; weave_lightning_red | 3 |
+| [130](review-evidence/sparse-b130-qualified-independent-review-076de58f7bc9.json) | beat_the_same_drum_blue | 1 |
+| [131](review-evidence/sparse-b131-qualified-independent-review-113f0610a24e.json) | tome_of_the_arknight_blue; heartbeat_of_candlehold_blue | 2 |
+| [132](review-evidence/sparse-b132-qualified-independent-review-129fbcc21c25.json) | unsheathed_red; dauntless_red; tiger_form_incantation_red | 3 |
+| [133](review-evidence/sparse-b133-qualified-independent-review-c5dd62cfdb1d.json) | flying_high_red; pulse_of_volthaven_red | 2 |
+| [134](review-evidence/sparse-b134-qualified-independent-review-3fbbdf9b2f85.json) | driving_blade_red; precision_press_red | 2 |
+| [135](review-evidence/sparse-b135-qualified-independent-review-da2d2f8658aa.json) | predatory_streak_red; roar_of_the_tiger_yellow | 2 |
+| [136](review-evidence/sparse-b136-qualified-independent-review-f6b57a039e05.json) | slice_and_dice_red; engaged_swiftblade_red | 2 |
+| [137](review-evidence/sparse-b137-qualified-independent-review-adb04a038c36.json) | draw_back_the_hammer_red; monkey_powder_red | 2 |
+| [138](review-evidence/sparse-b138-qualified-independent-review-aad53ca60bff3.json) | commanding_performance_red; plow_through_red | 2 |
+| [139](review-evidence/sparse-b139-qualified-independent-review-dabbfbb1cd4d.json) | locked_and_loaded_red; rotary_ram_red | 2 |
+| [140](review-evidence/sparse-b140-qualified-independent-review-c204afce46f5.json) | flash_red; hit_and_run_red | 2 |
+| [141](review-evidence/sparse-b141-qualified-independent-review-4305b43b9e09.json) | gigawatt_red; tighten_the_screws_red | 2 |
+| [142](review-evidence/sparse-b142-qualified-independent-review-3321f9ce8d82.json) | phantasmify_red; spreading_mist_blue | 2 |
+| [143](review-evidence/sparse-b143-qualified-independent-review-b3524cdbded3.json) | sprout_strength_red; push_forward_red | 2 |
+| [144](review-evidence/sparse-b144-qualified-independent-review-ba5ff4a21769.json) | transmogrify_red; veiled_intentions_red | 2 |
+| [145](review-evidence/sparse-b145-qualified-independent-review-4c151c221322.json) | vexing_quillhand; grasp_of_the_arknight | 2 |
+| [146](review-evidence/sparse-b146-qualified-independent-review-02272fadae42.json) | quick_succession_red; kindle_red | 2 |
+| [147](review-evidence/sparse-b147-qualified-independent-review-a1261aa8cc29.json) | robe_of_rapture; bracers_of_belief | 2 |
+| [148](review-evidence/sparse-b148-qualified-independent-review-79353856b8a4.json) | runehold_release; vigor_girth | 2 |
+| [149](review-evidence/sparse-b149-qualified-independent-review-06f61c156fac.json) | gauntlet_of_might; flat_trackers | 2 |
+| [150](review-evidence/sparse-b150-qualified-independent-review-454ea0c64e47.json) | threadbare_tunic; blue_sea_tricorn | 2 |
+| [151](review-evidence/sparse-b151-qualified-independent-review-7dd68b51c840.json) | richter_scale; buccaneers_bounty | 2 |
+| [152](review-evidence/sparse-b152-qualified-independent-review-7c104e003ded.json) | time_skippers; skullhorn | 2 |
+| [153](review-evidence/sparse-b153-qualified-independent-review-e14dbf7fb324.json) | cracker_jax; coat_of_allegiance | 2 |
+| [154](review-evidence/sparse-b154-qualified-independent-review-7b44085d680c.json) | calming_gesture | 1 |
+| [155](review-evidence/sparse-b155-qualified-independent-review-7489c386e795.json) | garland_of_spring; courage_of_bladehold | 2 |
+| [156](review-evidence/sparse-b156-qualified-independent-review-7d80d871b38e.json) | peg_leg; fish_fingers | 2 |
+| [157](review-evidence/sparse-b157-qualified-independent-review-d05dfc5059da.json) | monstrous_veil | 1 |
+| [158](review-evidence/sparse-b158-qualified-independent-review-2d32def4a6df.json) | quartermasters_boots | 1 |
+| [159](review-evidence/sparse-b159-qualified-independent-review-79bcdaadadb3.json) | rift_skitter_red; rune_flash_red | 2 |
+| [160](review-evidence/sparse-b160-qualified-independent-review-a643871b32b2.json) | spears_of_surreality_red; dunebreaker_cenipai_red | 2 |
+| [161](review-evidence/sparse-b161-qualified-independent-review-c229f5a443b7.json) | hundred_winds_red; spinning_wheel_kick_red | 2 |
+| [162](review-evidence/sparse-b162-qualified-independent-review-5bf57f9380bb.json) | ball_lightning_red; grow_claws_red | 2 |
+| [163](review-evidence/sparse-b163-qualified-independent-review-7936d4cf8f3a.json) | zephyr_needle; edge_of_autumn | 2 |
+| [164](review-evidence/sparse-b164-qualified-independent-review-5b9672b67bed.json) | flameborn_retribution_red; give_and_take_red | 2 |
+| [165](review-evidence/sparse-b165-qualified-independent-review-ca32a2441013.json) | talismanic_lens | 1 |
+| [166](review-evidence/sparse-b166-qualified-independent-review-94e2a0dadd7a.json) | amulet_of_ignition_yellow | 1 |
+| [167](review-evidence/sparse-b167-qualified-independent-review-55369c30b315.json) | deep_blue | 1 |
+| [168](review-evidence/sparse-b168-unordered-qualified-independent-review-07bedadee619.json) | talisman_of_tithes_blue | 1 |
+| [169](review-evidence/sparse-b169-qualified-independent-review-3301d92b4f08.json) | tearing_shuko | 1 |
+| [170](review-evidence/sparse-b170-qualified-independent-review-8e289c972d03.json) | tectonic_plating | 1 |
+| [171](review-evidence/sparse-b171-qualified-independent-review-010d94b4f6ad.json) | heart_of_ice | 1 |
+| [172](review-evidence/sparse-b172-qualified-independent-review-55d39ff8bd7a.json) | captains_coat | 1 |
+| [173](review-evidence/sparse-b173-qualified-independent-review-d2a060623f43.json) | ragamuffins_hat | 1 |
+| [174](review-evidence/sparse-b174-qualified-independent-review-97d8bbf11aa9.json) | dream_weavers | 1 |
+| [175](review-evidence/sparse-b175-qualified-independent-review-1727901a44ce.json) | pouncing_paws | 1 |
+| [176](review-evidence/sparse-b176-qualified-independent-review-2981a8775fe6.json) | aether_ironweave | 1 |
+| [177](review-evidence/sparse-b177-qualified-independent-review-205357497053.json) | blood_scent | 1 |
+| [178](review-evidence/sparse-b178-qualified-independent-review-8301b4ee6c27.json) | punching_gloves | 1 |
+| [180](review-evidence/sparse-b180-qualified-independent-review-5d1ab66c37ff.json) | clarity_potion_blue | 1 |
+| [182](review-evidence/sparse-b182-qualified-independent-review-fc3e381a6976.json) | braveforge_bracers | 1 |
+| [183](review-evidence/sparse-b183-qualified-independent-review-c7e287955943.json) | rip_off_the_top_yellow | 1 |
+| [184](review-evidence/sparse-b184-qualified-independent-review-fcadd638aecd.json) | gallantry_gold | 1 |
+| [185](review-evidence/sparse-b185-qualified-independent-review-2d59435695e6.json) | bear_hug_red | 1 |
+| [186](review-evidence/sparse-b186-qualified-independent-review-b23494d27056.json) | fog_down_yellow | 1 |
+| [187](review-evidence/sparse-b187-qualified-independent-review-2ac9134bc5ab.json) | kano | 1 |
+| [188](review-evidence/sparse-b188-qualified-independent-review-348556a0452b.json) | clearwater_elixir_red | 1 |
+
+Each linked compact proof binds the approved source, exact saved files, independent positive-effect model, two targeted replay receipts and completed focused fault report. A synthetic control proves sensitivity only within its stated scope; it does not add legal negative-branch or sibling coverage. Batch 104's original control selector failed preparation and earns no qualification; its corrected, completed control report is explicitly identified in the retained packet. No gameplay source change has been applied in this resumption.
+
+The coverage JSON's global negative-control counters summarize the older central registry. New sparse-batch controls are recorded in the linked compact qualification proofs; those global counters do not aggregate these new controls.
+
+Batch 168's original attempt saved no fixture and failed an over-specific graveyard-index oracle. The [bounded rules and failure classification](review-evidence/sparse-b168-original-failure-classification-ebf627182a79.json) distinguishes freely rearrangeable graveyard order from the primary draw-replacement effect. Its immutable successor preserves the actions, draw/economy checks, both cards' membership and independent physical UID audit. A separate source-derived concern about early non-attack-action graveyard cleanup remains unresolved; this representative does not certify that internal timing. The original failed input and receipt remain preserved.
+
+The test-only `negative_control_state.php` helper now accepts an optional positive integer UID when moving one of several identical tokens. Its existing no-UID behavior is preserved. Batch 114's compact proof includes independent review and all 18 focused selector-contract checks; later token-removal controls bind the updated helper hash. This helper is outside the gameplay runtime fingerprint. No full-suite validation is claimed for this test-infrastructure change.
+
+The prior 590-entry historical review caveat remains unchanged. The paused checkpoint and original preserved-fixture hashes are historical witnesses; this pass does not freshly re-audit unchanged legacy cases or rehash unrelated fixtures on every small batch. Existing fixtures are never rerecorded by these new inputs.
+
+
+Quarantined incorrect historical recordings are outside the runnable corpus and receive no card/group coverage:
+
+- `FAB-REG-037`: the earlier Warfare five-file snapshot is preserved at `held-incorrect-gameplay/FAB-REG-037`. [Verified quarantine receipt](held-incorrect-gameplay/FAB-REG-037-quarantine.json) confirms native runner discovery excludes it. Its original incomplete assertions could replay green; that is not semantic correctness.
+
+The separate [correct-expectation Warfare probe](card-regression-batch109-warfare-faceup-rule-reproducer.json) added the required public Graveyard `FaceDown=0` checks, failed natively as expected, and saved **no fixture**. It is distinct from the quarantined earlier snapshot. Repair remains open; no gameplay source was changed.
+
+[Source-only planning holds](sparse-source-only-holds.json) also record unattempted Potion of Deja Vu staging, Icy Encounter token ownership, and the suspected shared Intimidate trigger-response timing route for Smash Instinct and Pack Hunt. They receive no native defect count or passing credit; replacements are used for breadth instead of pinning suspect behavior.
+
+`FAB-REG-038`: [Abyssal Bite native hold](review-evidence/sparse-b128-abyssal-bite-printed-go-again-hold-e1955e2405ca.json) preserves the correct printed own go again expectation. After six supported four-seat actions the engine left AP0 instead of AP1 because its FaB shared keyword parser requires a whole text line. No Bite fixture was saved or qualified, no retry or gameplay repair was applied, and Howl was qualified separately with an explicit source subset.
+
+Batch 127's original Tiger attempts over-specified raw `Owner=1`. The [bounded ownership interpretation](review-evidence/sparse-b127-tiger-ownership-representation-review-4fc2a133a868.json) explains default-zero objects in the reviewed own-zone play/move paths; it does not claim all raw-zero ownership is safe. Those attempts saved no fixtures, and their raw values alone establish no gameplay ownership defect. The separate Chorus Decompose-prompt mismatch remains unqualified pending classification.
+
+[Batch 135 corrected Tiger representatives](review-evidence/sparse-b135-qualified-independent-review-da2d2f8658aa.json) qualify Predatory Streak and Roar of the Tiger through actual same-UID play, normalized physical ownership/control and zero/one damage. Original failed Batch 127 inputs remain unchanged. The selected endpoint is RESOLUTION; Ephemeral cleanup and later expiry are untested.
+
+`FAB-REG-039`: the [bounded cost-order review](review-evidence/sparse-b179-b181-cost-order-hold-905811cc8a25.json) revoked Batch 179 approval: it required actual Arsenal-bottom payment before resource/AP assets, contrary to current CR5.1.7 before5.1.9. Its seven-action snapshot and two targeted PASS receipts are rejected timing evidence, not coverage. All five original files are preserved outside runner discovery at `held-incorrect-gameplay/b179-tome-of-harvests-cost-order`; the [verified quarantine receipt](held-incorrect-gameplay/FAB-REG-039-quarantine.json) binds recovery hashes and native list-only exclusion. Rouse the Ancients (Batch 181) remains an uninstalled, unsaved draft for the same preparation-order concern. This is a confirmed incorrect timing oracle with a source-supported shared concern; no separately demonstrated trigger gameplay defect or gameplay repair is claimed. Regurgitating Slog's unsupported block-rejection recording and Bloodtorn Bodice's unattempted preparation concern are recorded in the source-only holds. Other groups continue through supported actions.
+<!-- RESUMED-20261022-END -->
 
 <!-- RISE-CUTOVER -->
 ## Rise Above runtime validation

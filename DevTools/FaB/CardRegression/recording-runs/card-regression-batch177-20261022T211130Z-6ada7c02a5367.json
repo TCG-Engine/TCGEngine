@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T21:11:30+00:00",
+    "input_file": "card-regression-batch177.json",
+    "input_sha256": "7252da24eef576fc6f8c37b6711521dde3291c0235ed45507e76262030624441",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-blood-scent-four-live-sparse-actual-tiger-attack-earns-condition-then-instant-destroy-gains-resource",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1980
+        }
+    ]
+}

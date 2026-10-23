@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch114.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T18:19:15.302881+00:00",
+  "fixtures": [
+    {
+      "slug": "card-seismic-eruption-yellow-four-live-sparse-actual-printed-instant-creates-3-owned-seismic-surge-tokens",
+      "fixture_sha256": "f89624c444a3ae073130a19d70243280ff9eda72a2f3b264655b9d5b7218f90f",
+      "passed": true,
+      "result": "[PASS] Seismic Eruption / four live sparse own-token instant"
+    },
+    {
+      "slug": "card-tome-of-quandaries-blue-four-live-sparse-actual-printed-instant-creates-2-owned-ponder-tokens",
+      "fixture_sha256": "359d80dd805e07a86f4d24a2243c149b15d6cbb9f53495f7a51d9cc8b8c03735",
+      "passed": true,
+      "result": "[PASS] Tome of Quandaries / four live sparse own-token instant"
+    },
+    {
+      "slug": "card-starworld-warning-yellow-four-live-sparse-actual-printed-instant-creates-2-owned-lightning-flow-tokens",
+      "fixture_sha256": "5f9de78af015fe42c5942035f032bc7da51cd98dbb62d5f2f9bdc048930d1e17",
+      "passed": true,
+      "result": "[PASS] Starworld Warning / four live sparse own-token instant"
+    },
+    {
+      "slug": "card-runic-disposition-red-four-live-sparse-actual-zero-cost-discard-instant-creates-one-owned-runechant",
+      "fixture_sha256": "355f61e0a98a5109a6af17d9915ecbb6b27edf83c5653517d0a6ec13f188bcc5",
+      "passed": true,
+      "result": "[PASS] Runic Disposition / four live sparse own-token instant"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-seismic-eruption-yellow-four-live-sparse-actual-printed-instant-creates-3-owned-seismic-surge-tokens",
+      "returncode": 0,
+      "stdout": "[PASS] Seismic Eruption / four live sparse own-token instant\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tome-of-quandaries-blue-four-live-sparse-actual-printed-instant-creates-2-owned-ponder-tokens",
+      "returncode": 0,
+      "stdout": "[PASS] Tome of Quandaries / four live sparse own-token instant\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-starworld-warning-yellow-four-live-sparse-actual-printed-instant-creates-2-owned-lightning-flow-tokens",
+      "returncode": 0,
+      "stdout": "[PASS] Starworld Warning / four live sparse own-token instant\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-runic-disposition-red-four-live-sparse-actual-zero-cost-discard-instant-creates-one-owned-runechant",
+      "returncode": 0,
+      "stdout": "[PASS] Runic Disposition / four live sparse own-token instant\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Overload / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:35:19+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Real zero-cost play spends1AP. This attack has nogoagain beforehit. Printedpower3hitsP4,20to17,and its printedhit trigger grantsgoagain beforeDAMAGEpriority. APremains0duringDAMAGE then becomes1onRESOLUTIONentry. SourceUID5 is actually played and targets adjacent P4HeroUID4. Real all-seat manual passes retain it on Stack until fourth source-layer pass; every combat window is passed manually by all four living young heroes. Source5 reaches its own Graveyard on real cleanup. Only hit-grants-go-again branch. Dominate legality is not exercised by empty defense; no fullblock/miss, additional grant, suppression or alternate target coverage. No pitch-sibling/support/hero/full-card credit; no seeded history/effect tags, no shared bookkeeping-array emptiness or fixed-index oracle. Sources: https://judge.fabtcg.com/cards/detail/1005/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON275.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

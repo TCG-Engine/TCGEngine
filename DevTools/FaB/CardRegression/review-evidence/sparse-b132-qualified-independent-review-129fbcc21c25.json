@@ -1,0 +1,246 @@
+{
+  "status": "B132_THREE_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_THREE_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b105_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch132.json",
+  "input_sha256": "8b96c40b9bc15bc92932455a26dfd98b3086e9d5bc0a7f6620e248adb1d620b5",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:25:14.384715+00:00",
+  "fixtures": [
+    {
+      "slug": "card-unsheathed-red-four-live-sparse-actual-sword-plus-three-at-equal-double-base-no-go-again",
+      "fixture_sha256": "90f688bd60509e74e322e3408dc5e4996a08b81ad090666b4b36ed0921f82d42",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e2b79ec80984360ad19a03eb754ff806cbea6cf885076c51047c2c557dd18243",
+        "actions.json": "aa8c19cdf184a32215f004b4a9656beac99c105d01aeac5e9686ede0cf6f2874",
+        "assertions.json": "1459c3518cd0bda642b211e8be29ea36929cf1dc7e2e4258e72f89257da89832",
+        "expected_final_gamestate.txt": "8ed09983fbc590488307dab26c12228e42a62e878aefffcfd34fe88a0ca6ed96",
+        "meta.json": "a0cc1714463fa47f1ac19e45155cddf095b40680537e31a50218e6a9fb92c285"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 1331,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-dauntless-red-four-live-sparse-actual-paid-next-weapon-plus-three-real-sword-damage",
+      "fixture_sha256": "8ce1137c314a7c7b0f20c54a55717808da157b3005c895eadb80ec49d587aafc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9185e6f190ece5ca92055cb086737505c9bbbd60a1ccfce3d9f4ad04d1f04d49",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "4336bcc0acbc20ba3199f19a5b0b02d3ceafcaf23fc1ae258d4eb3639bf3e7b1",
+        "expected_final_gamestate.txt": "7d68afd8e7811d5c0cd1634a3d90500ea02f7e8f3165e278a461c9865885c0ce",
+        "meta.json": "622d5a74d3c8ae30f9b6bfb222452f701c8daf61ddacaa84fa6ac6f4bd8b0221"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 1332,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-tiger-form-incantation-red-four-live-sparse-actual-blue-pitch-creates-owned-hand-tiger",
+      "fixture_sha256": "a414714043b4d42fa2e4e101c7b451d896f04c57d355e7ce5d7f65b465176540",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a2565d045cbc703719b0567f160949a7919fcbae27f5a431e850d0eb6caf3f9f",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "a4afbfade8fab5c51d58ec39153118340835e4e981cf88ec099734c17802c2f4",
+        "expected_final_gamestate.txt": "03fec22c8ab095cc754b2ff1112cc56f1560c552856b6d2883b54e9f4d60f198",
+        "meta.json": "69ade53dca9aed41ae0c5f7e6ccb0fd83c7ed99f4f00823b6417fa54d165e53d"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 815,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 72,
+  "total_native_assertions": 3478,
+  "total_manual_passes": 62,
+  "checks": 75,
+  "actual_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b132-actual-saved-independent-review.json",
+    "sha256": "0b7ef7997cec81bb39d3e50cdec93209056989ace03b8ef4cefb520b3b2b85de"
+  },
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b132-independent-spec-review.json",
+    "sha256": "3266c0ec707cab91c30f2d96015419585892388feedc1cb4beff06440eebd4cf"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch132-20261022T192345Z-6ada62c1da94f.json",
+    "sha256": "4ad9d917a511be8e498a5118d2155d887113613256e3b05935e4e409a1d41a78"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b132-four-live-run1.json",
+      "sha256": "efb3e76b05da73d83b744d4330ebcaf6a8beca86ec491157646a5a231d984e01",
+      "passed": 3,
+      "total": 3,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b132-four-live-run2.json",
+      "sha256": "9f6c1d5cbfd402c3301c6bb7eb519bc36afe698c5219e0f4badacf330693711a",
+      "passed": 3,
+      "total": 3,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b132-fault-controls.json",
+    "sha256": "aa59472548da9ceddadd297999a57b9880c33785efae34afabe2125eeb27b773"
+  },
+  "focused_native_controls": [
+    {
+      "id": "b132_unsheathed_red_focused_effect_sensitivity",
+      "fixture": "card-unsheathed-red-four-live-sparse-actual-sword-plus-three-at-equal-double-base-no-go-again",
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "ROS_UNSHEATHED"
+      },
+      "retained_assertions": 944,
+      "expected_failure_step": 7,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove only sole real resolved next-sword/weapon +3 grant before actual physical Dawnblade7 activation/payment, preserving original source public cleanup, actual Blue6 pitch, physical weapon status/identity, proxy8 normalization and all suffix actions/oracles. First computed attack power6 becomes3; Unsheathed strict-greater-than remains false and Dauntless unexercised tax grant is retained. Missing buff sensitivity, not legal alternative branch coverage. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b132_dauntless_red_focused_effect_sensitivity",
+      "fixture": "card-dauntless-red-four-live-sparse-actual-paid-next-weapon-plus-three-real-sword-damage",
+      "prefix_actions": 6,
+      "mutation": {
+        "remove_effect": "NEXT_WEAPON"
+      },
+      "retained_assertions": 874,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove only sole real resolved next-sword/weapon +3 grant before actual physical Dawnblade7 activation/payment, preserving original source public cleanup, actual Blue6 pitch, physical weapon status/identity, proxy8 normalization and all suffix actions/oracles. First computed attack power6 becomes3; Unsheathed strict-greater-than remains false and Dauntless unexercised tax grant is retained. Missing buff sensitivity, not legal alternative branch coverage. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b132_tiger_form_incantation_red_focused_effect_sensitivity",
+      "fixture": "card-tiger-form-incantation-red-four-live-sparse-actual-blue-pitch-creates-owned-hand-tiger",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Hand",
+            "to": "Temp",
+            "cardID": "crouching_tiger",
+            "uid": 7
+          }
+        ]
+      },
+      "retained_assertions": 118,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Relocate exactly physical created HandTiger7 after real Blue6 pitch and four source responses, preserving real source/pitch/payment/GA. First Hand1 becomes0; exact creation endpoint sensitivity only, not missing dispatch or Tigerplay/nextTigerbuff/ephemeral lifecycle coverage. Explicit Owner1/Controller1 factory expectation unchanged. Every original suffix action and oracle retained; only step offsets change."
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b132-focused-fault-plan.json",
+    "sha256": "36e414fa3c750d61fa99cecbd10fcb44e4e8d3b243c3ec4384213cf917d1a843"
+  },
+  "targeted_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "limitations": [
+    "One positive primary representative per cycle; no sibling pitch, alternate branch, full-card, hero/support or callback lifecycle credit.",
+    "Unsheathed and Dauntless controls remove only actual next-sword/weapon grant before real physical Dawnblade activation, leaving actual pitch/payment, source cleanup, weapon status/source7 and normalized proxy8 intact; computed power6 becomes3. No positive threshold GA or tax credit. Tiger relocates only actual created HandTiger7 after explicit-owner factory, Hand1 becomes0. Missing buff/creation endpoint sensitivity, no alternate legal branch or Tiger buff/play/cleanup claim.",
+    "Only these three new fixtures are rehashed/replayed. Unrelated fixture bytes are not freshly checked; no full suite or legacy audit is performed.",
+    "Every original suffix assertion retained; synthetic faults are sensitivity probes, not legal alternate-action branch coverage."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "16c87438236a7982679efe0e57bb3c74fac11c96dfc6e2f23455c17086952d17",
+  "reused_stable_helper_and_orchestration_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b114-qualified-independent-review.json",
+    "sha256": "34f4ed518b19c89242bafc46b95e1e16e2fb0bf55583e8348b81dea4c76f7287",
+    "qualification": "Exact unchanged UID helper and prior18/18 component/orchestration evidence reused without new helper contract execution or broad audit."
+  }
+}

@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T21:32:35+00:00",
+    "input_file": "card-regression-batch187.json",
+    "input_sha256": "857fea761a425d2b311932954e77c0c8382d566152f812f9e49e4c4aac3cd46b",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-kano-four-live-sparse-actual-instant-hero-cost-look-banish-and-real-zap-play-preserves-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 1602
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T19:57:50+00:00",
+    "input_file": "card-regression-batch145.json",
+    "input_sha256": "70623d77abf356b99a1c611ea72c33d41f4cde5c9621cfb8e11fc3d64680971a",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-vexing-quillhand-four-live-sparse-actual-destroy-equipment-action-creates-two-owned-runechants-and-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 342
+        },
+        {
+            "slug": "card-grasp-of-the-arknight-four-live-sparse-actual-blue-pitch-pays-two-resource-equipment-action-for-one-owned-runechant",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 395
+        }
+    ]
+}

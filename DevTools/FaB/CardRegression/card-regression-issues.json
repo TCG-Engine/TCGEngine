@@ -5522,5 +5522,159 @@
     "resolution_review": "review-evidence/sparse-rise-e947-qualified-independent-review-0c4e9127c596.json",
     "resolution_review_sha256": "0c4e9127c596992a991fd6af7fd1dd5be32ec953267f55151b2bf32c4ffa1306",
     "passing_fixture": "Tests/Integration/FaBSim/card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense"
+  },
+  {
+    "id": "FAB-REG-037",
+    "status": "open_native_reproduced_incorrect_fixture_quarantined",
+    "card_ids": [
+      "talisman_of_warfare_yellow",
+      "wounding_blow_red"
+    ],
+    "description": "All four ordinary facedown Arsenal cards destroyed by Talisman of Warfare arrive in their owners public graveyards still FaceDown=1; the flag suppresses card types/abilities and ordinary graveyard choices.",
+    "scope_note": "One four-live native reproducer with observed physical UIDs7..10. Original incorrect five-file snapshot is recoverably quarantined outside runner discovery; the correct FaceDown=0 probe failed unsaved. Shared movement/replacement scope is not broadly audited; no source fix or passing Warfare credit.",
+    "source_spec": "card-regression-batch109.json",
+    "source_spec_sha256": "8d7030fe9544ebcad3c48d989c291f287562d115ed19747470c5873ccb3a13d0",
+    "reproducer_scenarios": [
+      "card-talisman-of-warfare-yellow-four-live-sparse-actual-exact-two-damage-destroys-talisman-and-four-owned-arsenals"
+    ],
+    "evidence": "review-evidence/sparse-b109-warfare-facedown-hold-f7ec24947c79.json",
+    "evidence_sha256": "f7ec24947c79783e631207b7d57c1c739f49b7d14b7cfc07149c81681550a8e1",
+    "rule_sources": [
+      "https://rules.fabtcg.com/en/cr/03-zones/"
+    ],
+    "source_paths": [
+      "FaBSim/Custom/EVRCards.php",
+      "FaBSim/Custom/MONCards.php",
+      "FaBSim/Custom/GameLogic.php",
+      "FaBSim/Custom/CardChoices.php"
+    ],
+    "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+    "native_recording": "recording-runs/card-regression-batch109-20261022T174733Z-6ada4c3501c2c.json",
+    "native_replay_scope": "Both original four-case targeted replays passed snapshots and incomplete oracles; Warfare is explicitly held from semantic qualification.",
+    "fix_applied": false,
+    "held_utc": "2026-10-22T17:53:23.298963+00:00",
+    "correct_oracle_native_reproducer": {
+      "source_spec": "card-regression-batch109-warfare-faceup-rule-reproducer.json",
+      "input_sha256": "d9dff249a9a5b15e312edcb7c99d6148a65f09ae53412e6eee2124fb5b472b08",
+      "recording_receipt": "recording-runs/card-regression-batch109-warfare-faceup-rule-reproducer-20261022T175556Z-6ada4e2c87f9c.json",
+      "recording_receipt_sha256": "3ba251abd709d788090f0c306f7b8185a09b0f2757181a5e928a1b3fa56a514f",
+      "native_exit_code": 1,
+      "fixture_saved": false,
+      "observed_failure": "Expected p1Graveyard-1.FaceDown to equal '0', got '1'.",
+      "qualification": "All original supported actions and assertions retained; four independently required FaceDown=0 assertions added. First required assertion fails before any passing fixture save. No replay PASS or coverage credit from this reproducer."
+    },
+    "quarantined_original_fixture": {
+      "path": "held-incorrect-gameplay/FAB-REG-037",
+      "file_sha256": {
+        "initial_gamestate.txt": "d6a51dd329c6ddae964d1676596d1ad152973367323d5e6bed62b47ef645ba48",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "29d0d8140b8e6af4e1d9ff70803144dc98a31a1899b776b77efa166414272192",
+        "expected_final_gamestate.txt": "bb44ba57debb27222fe453e3c83ccc85bb1e72107e72b6b4e0d9b5e82bcb0703",
+        "meta.json": "9497a0506eb59237ca08db37379aafff6c18345eab1fd2c8fdaf63f37c58c8ad"
+      },
+      "fixture_sha256": "62371d2b3e97b9f86c050bd95371a168264f989c6983123b4a29ea129177e13f",
+      "evidence": "review-evidence/sparse-b109-warfare-facedown-hold-f7ec24947c79.json",
+      "evidence_sha256": "f7ec24947c79783e631207b7d57c1c739f49b7d14b7cfc07149c81681550a8e1",
+      "excluded_from_canonical_coverage": true,
+      "excluded_from_runner_discovery": true,
+      "issue_id": "FAB-REG-037",
+      "qualification": "Incorrect historical Warfare bytes quarantined outside Tests/Integration/FaBSim. No passing primary or group credit. Separate correct FaceDown=0 native probe failed before save.",
+      "quarantine_receipt": "held-incorrect-gameplay/FAB-REG-037-quarantine.json"
+    }
+  },
+  {
+    "id": "FAB-REG-038",
+    "status": "open_native_reproduced_correct_expectation_unsaved",
+    "card_ids": [
+      "abyssal_bite_blue"
+    ],
+    "group_ids": [
+      "identity:abyssal_bite_blue"
+    ],
+    "description": "Abyssal Bite loses its printed own go again when cached card text places Go again on the same line as another sentence. Native resolution leaves zero action points instead of one.",
+    "scope_note": "One four-live six-action native failure. Shared own-keyword versus granted-keyword parsing needs a focused future repair; no broader keyword audit, gameplay fix or passing Bite fixture. Correct AP1 assertion retained. Howl is separately reviewed, replayed and qualified.",
+    "source_spec": "card-regression-batch128.json",
+    "source_spec_sha256": "a315491410dc2f01a03aad6e6ac43d773ea8c6ab2d2e7c2ccf151c6b06e73885",
+    "reproducer_scenarios": [
+      "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack"
+    ],
+    "evidence": "review-evidence/sparse-b128-abyssal-bite-printed-go-again-hold-e1955e2405ca.json",
+    "evidence_sha256": "e1955e2405ca8db6164a3f8894570b165ea9d29fb6f6416c139235cc1abf2f2e",
+    "source_paths": [
+      "FaBSim/Custom/GameLogic.php",
+      "FaBSim/Custom/CRUCards.php",
+      "FaBSim/Custom/OMNCards.php",
+      "FaBSim/Custom/IARCards.php",
+      "FaBSim/Custom/PENCards.php",
+      "FaBSim/Custom/HVYCards.php",
+      "FaBSim/Custom/WTRCards.php",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php"
+    ],
+    "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+    "native_recording": "recording-runs/card-regression-batch128-20261022T190007Z-6ada5d370033e.json",
+    "native_recording_sha256": "5df4ac29209f3dc027cc23df8a01d610106442ad7e588dca11ccae84c4703f6b",
+    "observed_failure": "Expected p1ActionPoints to equal 1, got 0.",
+    "native_actions": 6,
+    "fixture_saved": false,
+    "rule_sources": [
+      "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/IAR206.webp"
+    ],
+    "fix_applied": false,
+    "coverage_credit": false,
+    "held_utc": "2026-10-22T19:04:29.890281+00:00"
+  },
+  {
+    "id": "FAB-REG-039",
+    "status": "open_reviewed_timing_oracle_quarantined_preparation_order_concern",
+    "classification": "wrong_saved_timing_oracle_with_source_supported_shared_preparation_order_concern",
+    "card_ids": [
+      "tome_of_harvests_blue",
+      "rouse_the_ancients_blue"
+    ],
+    "description": "New Tome of Harvests fixture required actual Arsenal-bottom payment before pitch/resources/AP; current CR5.1.7 requires asset payment before effect-cost payment under5.1.9. Rouse draft similarly emits actual reveal before assets.",
+    "scope_note": "Confirmed incorrect saved timing oracle, with canonical source mutation and hooks found in the preparation chain. No separate triggered-gameplay outcome, broad affected-card count, gameplay fix or passing credit is claimed. The original source approval is revoked; final Draw3 and two deterministic snapshot PASS receipts do not certify the intermediate timing.",
+    "source_spec": "card-regression-batch179.json",
+    "source_spec_sha256": "f31efd07a8a328388b5081d767cffcf38c38b49ed7f319a378c2fb9876de2ba7",
+    "reproducer_scenarios": [
+      "card-tome-of-harvests-blue-four-live-sparse-actual-arsenal-bottom-additional-cost-and-three-resource-payment-draws-original-top-three"
+    ],
+    "evidence": "review-evidence/sparse-b179-b181-cost-order-hold-905811cc8a25.json",
+    "evidence_sha256": "905811cc8a25654979617aff0fe573d3718d2afb691b676aaee6074987895ea7",
+    "rule_sources": [
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/01-game-concepts/"
+    ],
+    "source_paths": [
+      "FaBSim/Custom/CardChoices.php",
+      "FaBSim/Custom/GameLogic.php",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php"
+    ],
+    "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+    "fix_applied": false,
+    "coverage_credit": false,
+    "separately_demonstrated_gameplay_defect": false,
+    "quarantined_original_fixture": {
+      "path": "held-incorrect-gameplay/b179-tome-of-harvests-cost-order",
+      "file_sha256": {
+        "initial_gamestate.txt": "ce959f9b1543c45ba4e40d4437597c3261cad45aebb63628e9ced5f637426072",
+        "actions.json": "305d4ec6d80be6bec8178bbfa826301880130376cf81357506752d507e791060",
+        "assertions.json": "c1db694c551fa6c0e9843e8e32190651d68c6a390467008fb76ad886e586fe8b",
+        "expected_final_gamestate.txt": "051ba76a26c95709b073c116639a75874e690f75d81818e2019957779c82ab65",
+        "meta.json": "b738c72b29cd0a0f6da171d488326dd42f0d11cf9742e5d66b1465caf85c517e"
+      },
+      "fixture_sha256": "83ac32629d9f0c52a227c1dff910235211f2e2580e1d0a3c2e84c413b84d9f76",
+      "evidence": "review-evidence/sparse-b179-b181-cost-order-hold-905811cc8a25.json",
+      "evidence_sha256": "905811cc8a25654979617aff0fe573d3718d2afb691b676aaee6074987895ea7",
+      "hold_evidence": "review-evidence/sparse-b179-b181-cost-order-hold-905811cc8a25.json",
+      "reason": "Rejected timing oracle: step2 physically bottoms Arsenal while asset-costs are still unpaid. Current CR5.1.7 precedes5.1.9; early declaration does not authorize early payment.",
+      "source_spec": "card-regression-batch179.json",
+      "excluded_from_canonical_coverage": true,
+      "excluded_from_runner_discovery": true,
+      "issue_id": "FAB-REG-039",
+      "qualification": "Original7-action recording and two snapshot PASS receipts are rejected semantic evidence, not passing coverage. Source approval revoked. No separately demonstrated triggered-gameplay defect or fix claimed.",
+      "quarantine_receipt": "held-incorrect-gameplay/FAB-REG-039-quarantine.json"
+    },
+    "rouse_status": "Uninstalled and unsaved draft, held before native execution; no correct-expectation native probe or gameplay outcome claimed.",
+    "held_utc": "2026-10-22T21:21:45.748038+00:00"
   }
 ]

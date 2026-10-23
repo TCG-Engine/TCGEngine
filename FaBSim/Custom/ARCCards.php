@@ -186,8 +186,9 @@ function FaBARCMaintainShield(int $player,int $uid,string $choice): void {
     if($choice==='0'&&intval(FaBObjectCounters($f['object'])['STEAM']??0)>0)FaBARCSteam($f['object'],-1);
     else FaBMoveUID($uid,'Graveyard',$player);
 }
-function FaBARCStageRefs(int $player,string $refs): array {
-    $uids=[];foreach(explode('&',$refs) as $ref){$f=FaBIdentityFromMZ($ref);if($f!==null&&$f['player']===$player&&$f['zone']==='Deck')$uids[]=intval($f['object']->UniqueID);}
+function FaBARCStageRefs(int $player,string $refs,string $sourceZone='Deck'): array {
+    if(!in_array($sourceZone,['Deck','Pitch'],true))return [];
+    $uids=[];foreach(explode('&',$refs) as $ref){$f=FaBIdentityFromMZ($ref);if($f!==null&&$f['player']===$player&&$f['zone']===$sourceZone){$uid=intval($f['object']->UniqueID);if(!in_array($uid,$uids,true))$uids[]=$uid;}}
     foreach($uids as $uid)FaBMoveUID($uid,'Temp',$player,false);return $uids;
 }
 function FaBARCBanishInstant(int $player,string $chosen,string $zone,int $discount=0): void {
@@ -220,9 +221,21 @@ function FaBARCArsenalFaceUp(int $player,object $o,string $from='Arsenal'): void
     if(in_array($from,['Deck','Temp'],true)&&FaBHasType($o,'Arrow')&&FaBMONWeapon($player,'sandscour_greatbow'))FaBSetObjectCounter($o,'AIM',intval(FaBObjectCounters($o)['AIM']??0)+1);
     if($o->CardID==='remorseless_red'&&$from!=='Arsenal')FaBWTRTag($o,'CRU_NO_ARSENAL_DR');
     $base=FaBWTRBase($o->CardID);
-    if($base==='head_shot'&&$from!=='Arsenal')FaBWTRTag($o,'WTR_POWER:2');
+    if($base==='head_shot'&&$from!=='Arsenal'&&!HasNoAbilities($o))FaBROSQueue($player,$o->CardID,intval($o->UniqueID),['rosEvent'=>'arcHeadShot','arcHeadShotEpoch'=>intval(FaBARCCard(intval($o->UniqueID),'headShotArsenalEpoch'))]);
     if($base==='ridge_rider_shot'&&$from!=='Arsenal')FaBRunSourceMacro('StartTurn',$player,$o->CardID,['mzID'=>FaBFindUID(intval($o->UniqueID))['mzID']]);
     if($base==='back_alley_breakline'&&$from==='Deck')AddActionPoints($player,intval(GetActionPoints($player))+1);
+}
+// The same physical UID can leave and re-enter Arsenal; old triggers must not
+// modify the new game object after such a zone change.
+function FaBARCHeadShotArsenalEntry(object $o): void {
+    if(FaBWTRBase($o->CardID)!=='head_shot')return;
+    $uid=intval($o->UniqueID);
+    FaBARCSetCard($uid,'headShotArsenalEpoch',intval(FaBARCCard($uid,'headShotArsenalEpoch'))+1);
+}
+function FaBARCResolveHeadShot(int $player,object $trigger): void {
+    $uid=intval($trigger->SourceUniqueID);$f=FaBFindUID($uid);
+    if(!$f||$f['zone']!=='Arsenal'||!empty($f['object']->FaceDown)||intval(FaBARCCard($uid,'headShotArsenalEpoch'))!==intval($trigger->Params['arcHeadShotEpoch']??-1))return;
+    FaBWTRTag($f['object'],'WTR_POWER:2');
 }
 function FaBARCLoseLife(int $target,int $amount,int $source): void {
     if(!FaBSeatIsLive($target))return;AddHealth($target,max(0,intval(GetHealth($target))-$amount));
@@ -327,14 +340,30 @@ function FaBARCCardPlayed(int $player,object $obj,string $fromZone): void {
     if($obj->CardID==='nebula_blade'&&count(FaBARCPlayed($player,true)))FaBWTRTag($obj,'WTR_POWER:3');
     if($attack){
         foreach(FaBChoiceRefs($player,'Arena',['base'=>'runechant']) as $ref){
-            FaBMoveChoice($player,$ref,'Arena','Graveyard');
-            $rune=AddStack(CardID:'runechant',Controller:$player,Kind:'TRIGGER',SourceZone:'Arena');
+            $physical=FaBIdentityFromMZ($ref);if(!$physical||HasNoAbilities($physical['object']))continue;
+            $rune=AddStack(CardID:'runechant',Controller:$player,Kind:'TRIGGER',SourceZone:'Arena',SourceUniqueID:intval($physical['object']->UniqueID),Params:['arcRunechant'=>true]);
             FaBRunSourceMacro('PrepareCard',$player,'runechant',['mzID'=>FaBFindUID(intval($rune->UniqueID))['mzID']]);
         }
     }
     $previous=FaBARCPlayed($player,true);
     if(FaBHasType($obj,'Action')&&!$aa)array_pop($previous);
     if($previous&&FaBHasType($obj,'Runeblade')&&FaBWTRHeroActive($player)&&!FaBSEAHeroCreationBlocked($player))foreach(GetHero($player) as $hero)if(is_object($hero)&&in_array($hero->CardID,['viserai','viserai_rune_blood'],true))FaBARCCreateRunes($player,1);
+}
+// Called by the exact managed Runechant TRIGGER path while its proxy stays
+// live through the unchanged generated ResolveCard prevention continuations.
+function FaBARCResolveRunechantTrigger(int $player,object $trigger): void {
+    $target=intval(FaBARCCard(intval($trigger->UniqueID),'target'));
+    if(!FaBSeatIsLive($target)||!in_array($target,FaBOpponents($player),true))return;
+    $had=array_key_exists('fabEffectController',$GLOBALS);$prior=$GLOBALS['fabEffectController']??null;
+    $GLOBALS['fabEffectController']=$player;
+    try {
+        $physical=FaBFindUID(intval($trigger->SourceUniqueID));
+        if($physical&&$physical['zone']==='Arena'&&FaBWTRBase($physical['object']->CardID)==='runechant')FaBMONDestroy(intval($trigger->SourceUniqueID));
+        // Destruction is an independent effect, not a cost or an if-you-do gate.
+        FaBResolveRules($player,$trigger,$trigger);
+    } finally {
+        if($had)$GLOBALS['fabEffectController']=$prior;else unset($GLOBALS['fabEffectController']);
+    }
 }
 function FaBARCAfterHit(int $player,object $attack,int $amount): void {
     $base=FaBWTRBase($attack->CardID);

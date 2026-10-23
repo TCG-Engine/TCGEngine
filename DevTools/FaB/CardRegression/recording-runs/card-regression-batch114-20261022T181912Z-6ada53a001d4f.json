@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-22T18:19:12+00:00",
+    "input_file": "card-regression-batch114.json",
+    "input_sha256": "47962ee42deaa5f2c53ee8fc4abffa0432fc071cc91730dd38b54f9b652c0408",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-seismic-eruption-yellow-four-live-sparse-actual-printed-instant-creates-3-owned-seismic-surge-tokens",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 483
+        },
+        {
+            "slug": "card-tome-of-quandaries-blue-four-live-sparse-actual-printed-instant-creates-2-owned-ponder-tokens",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 479
+        },
+        {
+            "slug": "card-starworld-warning-yellow-four-live-sparse-actual-printed-instant-creates-2-owned-lightning-flow-tokens",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 574
+        },
+        {
+            "slug": "card-runic-disposition-red-four-live-sparse-actual-zero-cost-discard-instant-creates-one-owned-runechant",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 495
+        }
+    ]
+}

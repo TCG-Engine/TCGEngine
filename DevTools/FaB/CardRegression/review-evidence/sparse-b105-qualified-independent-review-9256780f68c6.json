@@ -1,0 +1,318 @@
+{
+  "status": "B105_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b105_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch105.json",
+  "input_sha256": "41adf051a34f95de2f993ef47c36b6cce53f85f85f282eb1c4f566f460d7abbf",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T17:34:37.188388+00:00",
+  "fixtures": [
+    {
+      "slug": "card-adrenaline-rush-red-four-live-sparse-actual-play-at-less-life-grants-three-power",
+      "fixture_sha256": "6dd954bba80ea40ec435658b8ab9b44e7228a90519cb40bc87ccf3c77a73f18c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e9211e94501395169143282b52533b53db68f309c0107b47e59a22ae95b7b741",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "aeb94aa9778f5b34db7d2b5c081408c20b53be6b3a510bd9bb5edb09c3968a9c",
+        "expected_final_gamestate.txt": "478bca7a8780a5c4efaba411bd0f2021427237b9972fe73ee9c8dbab970c9aee",
+        "meta.json": "89c911beaf4d66ffdb7b3099578d67c692894a1613b4cfc676bf28107bd6270d"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 413,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        19,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-spring-load-red-four-live-sparse-actual-last-hand-attack-and-blue-pitch-enable-three-power",
+      "fixture_sha256": "c3a328ea292cdcc6bd3dbc5d9e2ca4fd67dc719bf8b01d7bb109f6bdcdeca403",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2c3a7ee03f2a02a3843f1a8508bfa7227ae5e6bcf23b28e251d86c5baf999ca5",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "a3c2e6d19bb2d9018940e8d6dfbd14f09f3b234286d201a23ccf6d4ed0ec2b72",
+        "expected_final_gamestate.txt": "bcef78f080287b82be3c84505be5273116efeb4d212dc693d5fbbdf0c93caa04",
+        "meta.json": "badc5d403a38719e1459458cf73ca1c3cf97acafa945128e7dddf0f5d36ea08c"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 413,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-spellblade-strike-red-four-live-sparse-actual-attack-creates-one-owned-runechant",
+      "fixture_sha256": "9538ced123254aea6fa3c4d8133a891c2d095befd74a2195c5f5fe872f8e99f1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "02d5ec3167f88af535e3a981d0c9bd277af415fedfa1e60956817c0845e5b963",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "87fc239d69a8818c8743d29a86720fc2d67c758b463352dc8c5dc55d2f521b3a",
+        "expected_final_gamestate.txt": "e6e39a8f6ad615a87ff15ed6455ab3712220af284d03c62d071d55dc92b1dc10",
+        "meta.json": "c5fdb0b97273f18ea7e45b15b9f0469dd95462ed59ce9ce58ed0c73726cc18b8"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 425,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-spellblade-assault-red-four-live-sparse-actual-attack-creates-two-owned-runechants",
+      "fixture_sha256": "8066887e7c44e8f6c3f74c22fbc14a1aafc992c930f867ef35f9affaf288190d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3924ba11e3b4ce1ef9eec837f807537c9a04e4b59f4771aed56c7542a739ea3d",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "c0bc4f111bfb56708de9288c5eb88519163bb5a1c044ad16a31b8e4da99b95f6",
+        "expected_final_gamestate.txt": "63ad495c5d4acfdf5901b5d36b9adccdd37106591bde1fcfb5ff7f325fbbbc03",
+        "meta.json": "488fa5abdf2d0d9426d4227f286059b6d611d2f5e2466235cea3156c1fced07c"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 437,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 112,
+  "total_native_assertions": 1688,
+  "total_manual_passes": 100,
+  "checks": 90,
+  "actual_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b105-actual-saved-independent-review.json",
+    "sha256": "5b117136b32d2b2fc7dc0b86f1ca685d5d18974b5c53f05823cbba241790ff2f"
+  },
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b105-independent-spec-review.json",
+    "sha256": "77a5456d59e08db4881d1e0cf5fcb9da807d5d329c5bd10cbdcf0a0e4641de21"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch105-20261022T173015Z-6ada4827d8e39.json",
+    "sha256": "b1217a23f6f26da110c3fb0a6a75205a87da6efcdc40fa92e0a2f76e7957b573"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b105-four-live-run1.json",
+      "sha256": "e04e9a311cf46b05750a2cd71f16ec1db7dc33671f1fce7d4830af8303d2cd80",
+      "passed": 4,
+      "total": 4,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b105-four-live-run2.json",
+      "sha256": "7cfd09d4807ea623bd59318af94e2687c3d95a0b61200004ac593851e1c70524",
+      "passed": 4,
+      "total": 4,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b105-fault-controls.json",
+    "sha256": "fd27af8cdcf1892572ce03ad70e325755e33b7cbb4d5da57a2af3dae004ee7cc"
+  },
+  "focused_native_controls": [
+    {
+      "id": "b105_adrenaline_rush_red_focused_effect_sensitivity",
+      "fixture": "card-adrenaline-rush-red-four-live-sparse-actual-play-at-less-life-grants-three-power",
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "adrenaline_rush_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 236,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove exact printed conditional +3 on actual primary after real legal play/payment. Every physical condition is retained; this is bonus sensitivity, not alternative-condition coverage. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b105_spring_load_red_focused_effect_sensitivity",
+      "fixture": "card-spring-load-red-four-live-sparse-actual-last-hand-attack-and-blue-pitch-enable-three-power",
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "spring_load_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 236,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove exact printed conditional +3 on actual primary after real legal play/payment. Every physical condition is retained; this is bonus sensitivity, not alternative-condition coverage. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b105_spellblade_strike_red_focused_effect_sensitivity",
+      "fixture": "card-spellblade-strike-red-four-live-sparse-actual-attack-creates-one-owned-runechant",
+      "prefix_actions": 7,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "to": "Banish",
+            "cardID": "runechant",
+            "from": "Arena"
+          }
+        ]
+      },
+      "retained_assertions": 248,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Move sole actual Runechant to Banish after attack declaration; token-count sensitivity using an existing unique-card helper operation. No later Runechant destruction/arcane-targeting claim. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b105_spellblade_assault_red_focused_effect_sensitivity",
+      "fixture": "card-spellblade-assault-red-four-live-sparse-actual-attack-creates-two-owned-runechants",
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "spellblade_assault_red",
+            "mode": "add",
+            "tag": "WTR_POWER:-1"
+          }
+        ]
+      },
+      "retained_assertions": 260,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Numeric -1 sensitivity on actual primary while both new Runechant tokens remain; pins computed power/damage assertions. Does not certify isolated two-token-count fault sensitivity or any legal timing branch. Exact physical two-token positive evidence is inspected independently. Every original suffix action and oracle retained; only step offsets change."
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b105-focused-fault-plan.json",
+    "sha256": "56802a3655818970420dc654214751afe1455779968255ef3a04fe9541526423"
+  },
+  "targeted_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "limitations": [
+    "One positive primary representative per cycle; no sibling pitch, alternate branch, full-card, hero/support or callback lifecycle credit.",
+    "Spellblade positive proof directly inspects exact newly created one/two Runechants. Strike control removes its sole token. Assault control pins primary computed power/damage only; no isolated two-token-count sensitivity claim.",
+    "Only these four new fixtures are rehashed/replayed. Unrelated fixture bytes are not freshly checked; no full suite or legacy audit is performed.",
+    "Every original suffix assertion retained; synthetic faults are sensitivity probes, not legal alternate-action branch coverage."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "c7c53be7fa995c0ddefcc96f6cadb7ee638cdf91ab3ecc7effaf6c229e390ebc"
+}

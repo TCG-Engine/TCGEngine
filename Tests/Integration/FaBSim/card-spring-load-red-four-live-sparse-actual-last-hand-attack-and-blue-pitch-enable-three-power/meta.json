@@ -1,0 +1,7 @@
+{
+    "name": "Spring Load / four live sparse positive condition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:30:07+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Player1 initially has precisely primary5 and BlueWoundingBlow6. Actually playing5 and pitching6 to pay printed1 leaves Hand physically empty before attack declaration. When this attacks, its printed empty-Hand condition grants+3power: printed2+3=5. Blue3 minus cost1 leaves2 resources/AP0. Unblocked5damage leaves adjacentP4 at15. Source5 really leaves Hand for Stack, targets actual adjacentP4HeroUID4, and all four living owned young heroes manually pass every response/combat window. No damage precedes the fourth reaction pass. Source5 ultimately reaches its own Graveyard; actual pitch6 remains Pitch; the other two opponents stay20; all four queues are empty. Only empty-Hand positive attack-declaration condition. Nonempty-Hand, later draws, suppression, extra modifiers and expiry are untested. One positive primary representative only, with no sibling pitch/printing/support/full-card/internal-callback lifecycle certification. Sources: https://judge.fabtcg.com/cards/detail/2155/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ARA015.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

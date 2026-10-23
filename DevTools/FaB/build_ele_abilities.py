@@ -127,7 +127,7 @@ for c in cards:
  if base=='snap_shot':add('CardPlayed',fused(eff('SNAP')))
  if base=='blossoming_spellblade':add('ResolveAbility',choice("FaBELESelect($player, 'Graveyard', '', 'NAA')",'Banish_non_attack_to_play')+" if ($chosen !== 'PASS') { FaBELESpellblade($player, $chosen); }")
  if base=='tome_of_harvests':
-  add('PrepareCard',UID+choice("implode('&', FaBChoiceRefs($player, 'Arsenal'))",'Bottom_arsenal_as_cost',False)+" FaBMoveChoice($player, $chosen, 'Arsenal', 'Deck'); FaBFinishPreparedCard($uid);")
+  add('PrepareCard',UID+choice("implode('&', FaBChoiceRefs($player, 'Arsenal'))",'Bottom_arsenal_as_cost',False)+" if (!FaBDeclarePreparedEffectCost($player, $uid, 'ARSENAL_BOTTOM', $chosen)) { return; } FaBFinishPreparedCard($uid);")
   add('ResolveCard','DoDrawCard($player, 3);')
  if base=='sow_tomorrow':add('ResolveCard',UID+choice("FaBELESowChoices($player, "+str(3-v)+")",'Return_action_to_deck',False)+" if ($chosen !== 'PASS') { FaBMoveChoice($player, $chosen, 'Graveyard', 'Deck'); }"+" if (DecisionQueueController::GetVariable('fabSourceZone') === 'Arsenal') { DoDrawCard($player, 1); } FaBMoveUID($uid, 'Banish', $player);")
  if base=='pulse_of_candlehold':add('ResolveCard',UID+"$refs = FaBELESelect($player, 'Graveyard', 'Earth|Lightning|Elemental', 'Action'); if ($refs !== '') { $chosen = await $player.MZMultiChoose($refs, 0, 2, \"Return_up_to_two_actions\"); $uids = FaBELEStage($player, $chosen); if (count($uids) > 0) { $orderParam = FaBARCOrderParam($uids, 'Top'); $order = await $player.Rearrange($orderParam); FaBARCFinishOrder($player, $uids, $order); } } FaBMoveUID($uid, 'Banish', $player);")

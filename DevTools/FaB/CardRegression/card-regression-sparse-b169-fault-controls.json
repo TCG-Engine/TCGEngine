@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:51:49.259551+00:00",
+  "plan_sha256": "20432fc8af4c076ddecffffb06e712cca7b5988996da23c15a27a9649b6d6cd4",
+  "independent_saved_proof_sha256": "b0c7ea4b37a29988eae2ae73381fefccfb5681f3f86292ea7517d34098740b46",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b169-focused-fault-plan.json",
+    "20432fc8af4c076ddecffffb06e712cca7b5988996da23c15a27a9649b6d6cd4",
+    "card-regression-sparse-b169-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b169_tearing_shuko_focused_effect_sensitivity",
+      "fixture": "card-tearing-shuko-four-live-sparse-actual-destroy-instant-next-created-tiger-plus-two-real-play-and-damage",
+      "fixture_sha256": "120bd30888884773f4f625ab2eb36c02c06970cb6e0cd9bf8e7803499afd5948",
+      "source_raw5": {
+        "initial_gamestate.txt": "f582873768dfe17a0607cad2ff98590cd0044db9257862bb1bc0dacd85769c60",
+        "actions.json": "7b52c7e04a03e1a93c5d6ac1242255a346b36617b8b646dcfa1e394357c10e9b",
+        "assertions.json": "25e649349743a76dbe09ad2ede96bd5fda1ccec9a53269290a2884cea05fd9b9",
+        "expected_final_gamestate.txt": "f506360756ac6b1a09ca35b35a374f5f221ce33c486ab29e717df301afcb1571",
+        "meta.json": "aba79cc939200518f2c54f79dadcfd5658276ff67ad5915c9b4ad1e2d2dccf63"
+      },
+      "prefix_actions": 16,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "crouching_tiger",
+            "mode": "remove",
+            "tag": "WTR_POWER:2"
+          }
+        ]
+      },
+      "retained_assertions": 729,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 2, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Tearing Shuko / four live sparse positive next-Tiger effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 2, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove the one actual Shuko WTR_POWER2 tag on realplayed createdTiger8 afterphysicalShuko5destroy/resolution, actualPredatory6play/creation and P1Banishplay normalizationOwnerController1. Printedbase0 becomescomputed0, preserving played8/target/printedGA/source5support6publicGY/economy/remaining9and10. Direct +2 effect sensitivity; all17remainingmanualresponses/everyoriginalsuffixoracle retained. No secondTigerconsumptionrepeat/Ephemeralcleanup/expiry/Battleworn/foreignownership/hero/support/full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

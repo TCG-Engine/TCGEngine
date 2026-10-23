@@ -329,8 +329,10 @@ function FaBWTRRiseAboveChoicesForSave(array $zone, int $seat): array {
 function EngineRemapZoneForSave(array $zone, string $zoneName, int $seat): array {
     if ($zoneName !== 'DecisionQueue' || $seat < 1) return $zone;
     $zone = FaBCRULungingChoicesForSave($zone, $seat);
+    $zone = FaBDeclaredReactionChoicesForSave($zone, $seat);
     $zone = FaBWTRPlainBarrierPitchChoicesForSave($zone, $seat);
     $zone = FaBWTRRiseAboveChoicesForSave($zone, $seat);
+    $zone = FaBPreparedRouseChoicesForSave($zone, $seat);
     $pending = FaBGetState()['pendingPayment'];
     if (!is_array($pending) || ($pending['wtrFlockStage'] ?? '') !== 'REVEAL'
         || intval($pending['player'] ?? 0) !== $seat || empty($pending['wtrFlockAssetsPaid'])
@@ -391,7 +393,8 @@ function FaBWTRCanPlay(int $player, array $found, array $state): bool {
         if($base==='short_and_sharp')return FaBOUTTargets($player,'short')!=='';
         if($base==='concealed_blade')return FaBOUTTargets($player,'hybrid')!=='';
         if(in_array($base,['spreading_plague','knives_out'],true))return true;
-        if(in_array($base,['cut_to_the_chase','shred'],true))return FaBDYNAttacks($player,$base==='shred'?'ASSASSIN':'CONTRACT')!=='';
+        if (FaBUsesDeclaredReactionTarget($id)) return HasNoAbilities($found['object']) || FaBDeclaredReactionTargetRefs($player, $id) !== '';
+        if($base==='cut_to_the_chase')return FaBDYNAttacks($player,'CONTRACT')!=='';
         if($base==='incision')return FaBHasType($obj,'Dagger');
         if($base==='puncture')return FaBDYNAttacks($player,'BLADE')!=='';
         if ($id === 'lunging_press_blue') return HasNoAbilities($found['object']) || count(FaBCRULungingTargets()) > 0;
@@ -559,7 +562,7 @@ function FaBWTRResolveReaction(int $player, object $source): void {
 
 function FaBWTRAttackDeclared(int $player, object $attack, int $defender): void {
     $id=$attack->CardID;$base=FaBWTRBase($id);$state=FaBGetState();
-    if(in_array($base,['pack_hunt','smash_instinct'],true)||$base==='alpha_rampage')FaBRequestIntimidate($player);
+    if(!HasNoAbilities($attack)&&(in_array($base,['pack_hunt','smash_instinct'],true)||$base==='alpha_rampage'))FaBRequestIntimidate($player,1,intval($attack->UniqueID));
     $combo=[
       'rising_knee_thrust'=>['leg_tap',2,true,false], 'blackout_kick'=>['rising_knee_thrust',3,false,false],
       'open_the_center'=>['head_jab',1,true,true],
@@ -700,7 +703,7 @@ function FaBWTRCrush(int $player,int $defender,object $attack):void{
 
 function FaBWTRDefended(int $player,object $card):void { if(FaBWTRBase($card->CardID)==='steelblade_shunt'){ $s=FaBGetState();$a=FaBFindUID(intval($s['attackUID']??0));if($a!==null&&FaBWTRIsWeapon($a['object']))DoDamage($player,'',intval($s['attacker']),1,'PHYSICAL'); } }
 
-function FaBWTRCreateArena(int $player,string $cardID,bool $raw=false):?object { if(!$raw&&FaBHasType($cardID,'Token'))return FaBHVYToken($player,$cardID); $o=AddArena($player,CardID:$cardID,Owner:$player,Controller:$player,Status:2);if($o!==null)FaBEVRAfterMove($player,$o,'','Arena');if($o!==null)FaBROSAfterMove($player,$o,'','Arena');if($o!==null)FaBHNTAfterMove($player,$o,'','Arena');if($o!==null)FaBSEAAfterMove($player,$o,'','Arena');if($o!==null)FaBMPGAfterMove($player,$o,'','Arena');if($o!==null)FaBSUPAfterMove($player,$o,'','Arena');if($o!==null)FaBPENAfterMove($player,$o,'','Arena');if($o!==null)FaBOMNAfterMove($player,$o,'','Arena');if($o!==null)FaBIARAfterMove($player,$o,'','Arena');if($o!==null&&$cardID==='zen_state')FaBSetObjectCounter($o,'BALANCE',1);if($o!==null&&$cardID==='spectral_shield')FaBPrismShieldCreated($player);return $o; }
+function FaBWTRCreateArena(int $player,string $cardID,bool $raw=false,?int $owner=null):?object { if(!$raw&&FaBHasType($cardID,'Token'))return FaBHVYToken($player,$cardID,1,null,null,false,$owner); $o=AddArena($player,CardID:$cardID,Owner:($owner??$player),Controller:$player,Status:2);if($o!==null)FaBEVRAfterMove($player,$o,'','Arena');if($o!==null)FaBROSAfterMove($player,$o,'','Arena');if($o!==null)FaBHNTAfterMove($player,$o,'','Arena');if($o!==null)FaBSEAAfterMove($player,$o,'','Arena');if($o!==null)FaBMPGAfterMove($player,$o,'','Arena');if($o!==null)FaBSUPAfterMove($player,$o,'','Arena');if($o!==null)FaBPENAfterMove($player,$o,'','Arena');if($o!==null)FaBOMNAfterMove($player,$o,'','Arena');if($o!==null)FaBIARAfterMove($player,$o,'','Arena');if($o!==null&&$cardID==='zen_state')FaBSetObjectCounter($o,'BALANCE',1);if($o!==null&&$cardID==='spectral_shield')FaBPrismShieldCreated($player);return $o; }
 
 function FaBWTRCanActivate(int $player,string $mzID):bool {
     if (FaBReactionResolutionIsPending()) return false;
@@ -781,4 +784,14 @@ function FaBWTRStartTurn(int $player):void {
 function FaBWTREndTurn(int $player):void {
     $hits=FaBGetState()['weaponHits']??[];
     foreach(GetWeapons($player)as$o)if(is_object($o)&&empty($o->removed)&&$o->CardID==='dawnblade'&&empty($hits[(string)$o->UniqueID]))FaBSetObjectCounter($o,'POWER',0);
+}
+
+function FaBWTRQueueAttackIntimidate(int $p,int $target,int $amount,int $sourceUID): void {
+    $source=FaBFindUID($sourceUID);if(!$source)return;
+    FaBROSQueue($p,$source['object']->CardID,$sourceUID,['rosEvent'=>'wtrAttackIntimidate','rosTarget'=>$target,'wtrIntimidateAmount'=>max(1,$amount)]);
+}
+function FaBWTRResolveAttackIntimidate(int $p,object $trigger): void {
+    $target=intval($trigger->Params['rosTarget']??0);
+    if(!FaBSeatIsLive($target)||!in_array($target,FaBOpponents($p),true))return;
+    FaBIntimidate($p,$target,max(1,intval($trigger->Params['wtrIntimidateAmount']??1)));
 }

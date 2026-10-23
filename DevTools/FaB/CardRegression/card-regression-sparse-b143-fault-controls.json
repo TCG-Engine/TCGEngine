@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:51:54.591198+00:00",
+  "plan_sha256": "026d59c3c0fc716acc3ade9343a9e5650c9e8a8ebff15729e7f290fc3bbd4348",
+  "independent_saved_proof_sha256": "68ece468f80d69074358ad41e75cdd2489c1afbd68ff42e35a92cc859f41f21f",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b143-focused-fault-plan.json",
+    "026d59c3c0fc716acc3ade9343a9e5650c9e8a8ebff15729e7f290fc3bbd4348",
+    "card-regression-sparse-b143-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b143_sprout_strength_red_focused_effect_sensitivity",
+      "fixture": "card-sprout-strength-red-four-live-sparse-actual-three-separate-plus-one-grants-combine-on-one-real-next-attack",
+      "fixture_sha256": "9251e23ada9e6903c65fb24ce26b5f104093561b818ef3a2bbf983c04a9a3854",
+      "source_raw5": {
+        "initial_gamestate.txt": "171e2dbadf82e8df7f97b4f225099c30e6cb1b7b8070878b133486b958ac70a4",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "e9e444a8daff6d648e99b276d11d3bdce0864b690be1eeac9482b1cd4149b477",
+        "expected_final_gamestate.txt": "c5851b86a8c9145e1751ec5f03e25699393153bde653de865d91036278d8db1c",
+        "meta.json": "b31fab1d9e926cba32e5496f6bf3be2d68b2f013f7b91cd9d6d21e4d2a9ce252"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "add",
+            "tag": "WTR_POWER:-1"
+          }
+        ]
+      },
+      "retained_assertions": 417,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Sprout Strength / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add one unique synthetic WTR_POWER:-1 to actual BlueWounding6 after realSproutthree+1grants and attackcommit. Original computed5to4 detects numeric outcome sensitivity; allthreeactualWTR_POWER1instances remain. This is NOT removal of any exact source grant, not proof of isolated per-instance engine application; independent printed model/paper faults pin allthreepositive+1. Existing helper cannot singlyremove duplicate tags/pendingeffects; no new helper/framework. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b143_push_forward_red_focused_effect_sensitivity",
+      "fixture": "card-push-forward-red-four-live-sparse-actual-paid-next-weapon-plus-three-without-prior-weapon-attack",
+      "fixture_sha256": "a01da9c117e37c41f2c06d7355c060ed37d216bcde9f01d75cac183604d8d4c7",
+      "source_raw5": {
+        "initial_gamestate.txt": "d8872d73072b8bfdc6f74e255743ffe0c5c1520ffd60971d4df4979c953a37f3",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "1672ce0b65f0b9f9d2f37e268757213a9597f747574f1a83339d1f9b7262accf",
+        "expected_final_gamestate.txt": "438137aa84064478603d9c9ca12b7b1348604a80a873a4978fb645e02594fa2b",
+        "meta.json": "862d06148da9bfecb1447f36bdd73aad2e50e38d69c5815e061d4a9d54fd4751"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dawnblade",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 623,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Push Forward / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove exact actual Push+3 from virtualDawnbladeattack8 after realprimarycost1/Blue6 and physicalsword7cost1, preserving actualphysicalWeapon7/normalizedproxy8/source5/Pitch6/R1/AP0. Originalcomputed6to3 detects nextweapon grant, not conditionaldominate. No new ownership/hero/support/expiry/repeatattack credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

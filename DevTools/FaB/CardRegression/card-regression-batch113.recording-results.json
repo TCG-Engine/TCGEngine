@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-agile-windup-red-four-live-sparse-actual-zero-cost-instant-discards-physical-hand-source-to-create-one-owned-agility",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 395
+    },
+    {
+        "slug": "card-mighty-windup-red-four-live-sparse-actual-zero-cost-instant-discards-physical-hand-source-to-create-one-owned-might",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 395
+    },
+    {
+        "slug": "card-vigorous-windup-red-four-live-sparse-actual-zero-cost-instant-discards-physical-hand-source-to-create-one-owned-vigor",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 395
+    },
+    {
+        "slug": "card-fruits-of-the-forest-red-four-live-sparse-actual-zero-cost-instant-discards-physical-hand-source-to-gain-exact-two-life",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 391
+    }
+]

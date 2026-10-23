@@ -1,0 +1,45 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:26:56.932311+00:00",
+  "plan_sha256": "d2cb150a77fb5af0757d8f920f4a651768030514bd6373d7fd79c66c259e6766",
+  "independent_saved_proof_sha256": "a52e317b7611f7a292f6ff0e57015622c8d7f29536eab179f6b108cddee5a8b0",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b184-focused-fault-plan.json",
+    "d2cb150a77fb5af0757d8f920f4a651768030514bd6373d7fd79c66c259e6766",
+    "sparse-b184-focused-fault-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b184_gallantry_gold_focused_effect_sensitivity",
+      "fixture": "card-gallantry-gold-four-live-sparse-actual-asset-payment-before-equipment-destruction-and-real-weapon-plus-one",
+      "fixture_sha256": "861e58baeb851f6502785a0feb1f206e7c1054e9ee2f811e5c731f06fc35886a",
+      "source_raw5": {
+        "initial_gamestate.txt": "cd81528f99fb76a7a8b0a3380cc1a624abc8a068c0fedc16a22261122294225e",
+        "actions.json": "75e0431d344c754231c6f7c3c684f76b47727cd180d95158c720935d8bac7425",
+        "assertions.json": "96e0d64fcdde60edacfd08936c11e5f459aa2eb337fb6e5b05b1e531d3f4053e",
+        "expected_final_gamestate.txt": "53c6bbb2e50815f7a25611a6e008de5423876b895b05b93634039994185333b4",
+        "meta.json": "4e3026ae8f274479466728fe95e741be87c587c389363b4582aa61dbc64ed33f"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "remove_effect": "MON_GALLANTRY"
+      },
+      "retained_assertions": 867,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Gallantry Gold / four live real payment, destruction and weapon power: Step 6 assertion failed: Expected p1CombatChain-0 computed power to equal 4, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actualMON_GALLANTRY after realBlue6pitch3/assetcost1/APpayment thenEq5destroy andfourresponses/ownGA. ActualDawnblade7stillpays1/usesfloatingR2to1, proxy9andnoGA preserved; firstcomputedpower4 becomes3. All original suffix actions/oracles retained. Printedweaponbonus sensitivity only, no alternative legal action, duration/expiry, multiweapon, Battleworn or hero/support credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

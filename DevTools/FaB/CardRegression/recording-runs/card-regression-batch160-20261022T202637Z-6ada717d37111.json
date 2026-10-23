@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:26:37+00:00",
+    "input_file": "card-regression-batch160.json",
+    "input_sha256": "4e992e93d64616e7ae6fc8fbb130873ad9f1f9a1ff97c0dcfbec92c6c39bd967",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-spears-of-surreality-red-four-live-sparse-actual-paid-unblocked-five-damage-and-printed-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 447
+        },
+        {
+            "slug": "card-dunebreaker-cenipai-red-four-live-sparse-actual-paid-unblocked-five-damage-and-printed-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 447
+        }
+    ]
+}

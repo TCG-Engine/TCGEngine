@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-22T18:56:19+00:00",
+    "input_file": "card-regression-batch125.json",
+    "input_sha256": "dee588c695b55252d7b9ba6a07e5646732d8a2e484676b738d4b857e93d7a8ed",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-oath-of-the-arknight-red-four-live-sparse-actual-blue-pitch-paid-runeblade-action-creates-owned-runechant",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 347
+        },
+        {
+            "slug": "card-otherworldly-sins-red-four-live-sparse-actual-blue-pitch-paid-shadow-runeblade-action-creates-owned-runechant",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 347
+        },
+        {
+            "slug": "card-revolting-gesture-red-four-live-sparse-actual-blue-pitch-paid-reviled-action-creates-one-owned-might",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 347
+        }
+    ]
+}

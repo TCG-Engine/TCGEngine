@@ -1,0 +1,213 @@
+{
+  "status": "B139_TWO_UNBOOSTED_NEXT_MECH_REAL_ATTACK_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch139.json",
+  "input_sha256": "e28ffe1229447e1af398e4b8cb686e8f999854a7372d24ede0faefa2ad7aa78b",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:38:28.778287+00:00",
+  "fixtures": [
+    {
+      "slug": "card-locked-and-loaded-red-four-live-sparse-actual-unboosted-zero-cost-grant-next-real-three-cost-mechanologist-attack-plus-three",
+      "fixture_sha256": "689ec2704db4d33295f1681eb20fd7bd472389c8bc1617160c4c5e739a3c395c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f839cf0c35c395c73c8cc1497f0b8cc6b50333e903fcb77623c006a9de127170",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "669c3ff10fa0d2750cff0e67f63b0a7f0a1ce3bbfabc372d2771f39c8793fe5c",
+        "expected_final_gamestate.txt": "c80315a470ebb3fb8bce3e6d9aea546c7c36b04a30fa936f3db455d8504ef1ab",
+        "meta.json": "5f73603a99ae79351e5fc8bce80b73d8d94cefaba309d7e7001643c9088e7502"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 978,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-rotary-ram-red-four-live-sparse-actual-unboosted-zero-cost-grant-next-real-three-cost-mechanologist-attack-plus-three",
+      "fixture_sha256": "ed0d29ca6f6d099abe37d12dea5c9abe4da9c60fd51fa7e4307ad082b598ff9c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c0c87d884cf3dcee4589365a44df859f89141e85ca87f6776b73e6b45894fe0f",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "9ccb48765edb8e6b5922b3a36c8f36f7c5b0f5a664890706c8977f8fd069cced",
+        "expected_final_gamestate.txt": "77b3c5ab7659851e0b02ee92576b5fa4b2104dc8344bf02ddacb32a1a47267cd",
+        "meta.json": "867ce8a76d84119db5617c845704ad80303494f04800108601aab9a9f1168dc5"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 978,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 66,
+  "total_native_assertions": 1956,
+  "total_manual_passes": 58,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b139-actual-saved-independent-review.json",
+    "sha256": "c8b4b88f749e70b86ee679e3699b14190925c7eba5d9c2d5cbe5a2a88ca03e0f"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b139-independent-spec-review.json",
+    "sha256": "b6d4258d3b73a3f3e30f1e879f7ffe9dbe338e7bc464559636ef47b212b8cad2"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch139-20261022T193627Z-6ada65bbb365c.json",
+    "sha256": "acd84e169e4904b077e1dbed2eb095510fb437164346ed0b5c614ea1f3c83844"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b139-four-live-run1.json",
+      "sha256": "ff7312a20c7e0c96fc512986c1beb3b1001bd0ebc440903110d8e8539c1d0216",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch139.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b139-four-live-run2.json",
+      "sha256": "ad3ae48316817e0edd0b405b446b437f480955578ec42bf11f024b1d41413b05",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch139.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b139-fault-controls.json",
+    "sha256": "c344c1f64c6531ca8d471be21e32222c8a9762ad82f1a5c8f7dd16bfaae39eed",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "5b98e17b09dea6a2e5dc63f2e520ac5943d53070546cfd32ef9869af2d6b4ae8",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b139_locked_and_loaded_red_focused_effect_sensitivity",
+      "fixture": "card-locked-and-loaded-red-four-live-sparse-actual-unboosted-zero-cost-grant-next-real-three-cost-mechanologist-attack-plus-three",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "mechanical_strength_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 505,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b139_rotary_ram_red_focused_effect_sensitivity",
+      "fixture": "card-rotary-ram-red-four-live-sparse-actual-unboosted-zero-cost-grant-next-real-three-cost-mechanologist-attack-plus-three",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "mechanical_strength_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 505,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b139-focused-fault-plan.json",
+    "sha256": "5b98e17b09dea6a2e5dc63f2e520ac5943d53070546cfd32ef9869af2d6b4ae8"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 2449,
+  "native_evidence_review_checks": 65,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Two positive actual unboosted nextMechAA cases: LockedAndLoadedRed and RotaryRamRed eachrealMech3plus3=6/damage6/noGA, actualBlue7pays3/R0/AP0. No boostexecuted/historyseeded; boostedOpt/selfbottomDeck, positiveEvoUpgrade, laterattack/classfailure/siblings/support/hero/fullcard untested.",
+    "Only current TWO-case new packet audited; root alone executes native games and writes repo. No created Tiger factory cases or legacy reviews.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Both controls remove exact actual primary WTR_POWER3 from real zeroEvo MechanicalStrengthBlue6 at prefix12; intended first computed6to3 detects unboosted nextMechAAgrant while source5/physicalUID6/target/PitchBlue7/R0/AP0 stay. BoostedOpt/selfbottomDeck, positiveEvoUpgrade, classfailure/nextattack/expiry/siblings/support/hero/fullcard uncredited.",
+    "Both prefix12 controls retain21remainingrealactions and alloriginalsuffixoracles with only offsets changed. Same runtime and exact selected raw5 preserved; no artificial boost history, additional branch or broad-suite claim."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "92a70feddfb86e7ae070451756982900a6a0a8003874f30807cf7f56d772d386"
+}

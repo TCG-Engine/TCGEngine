@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-runehold-release-four-live-sparse-actual-destroy-equipment-action-creates-one-owned-runechant-and-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 337
+    },
+    {
+        "slug": "card-vigor-girth-four-live-sparse-actual-destroy-equipment-action-creates-one-owned-vigor-and-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 337
+    }
+]

@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-22T17:30:15+00:00",
+    "input_file": "card-regression-batch105.json",
+    "input_sha256": "41adf051a34f95de2f993ef47c36b6cce53f85f85f282eb1c4f566f460d7abbf",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-adrenaline-rush-red-four-live-sparse-actual-play-at-less-life-grants-three-power",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 413
+        },
+        {
+            "slug": "card-spring-load-red-four-live-sparse-actual-last-hand-attack-and-blue-pitch-enable-three-power",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 413
+        },
+        {
+            "slug": "card-spellblade-strike-red-four-live-sparse-actual-attack-creates-one-owned-runechant",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 425
+        },
+        {
+            "slug": "card-spellblade-assault-red-four-live-sparse-actual-attack-creates-two-owned-runechants",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 437
+        }
+    ]
+}

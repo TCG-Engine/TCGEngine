@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:46:32.523739+00:00",
+  "plan_sha256": "172123a204c09c12186aa43e1f5d5c286f1848377bf1962feec09342aa547d3e",
+  "independent_saved_proof_sha256": "50b24337ffc26c6ac7069ea7093912a41dffbe30b90bcdbd41152137aa3f1d28",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b167-focused-fault-plan.json",
+    "172123a204c09c12186aa43e1f5d5c286f1848377bf1962feec09342aa547d3e",
+    "card-regression-sparse-b167-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b167_deep_blue_focused_effect_sensitivity",
+      "fixture": "card-deep-blue-four-live-sparse-actual-bottom-hand-additional-cost-and-destroy-gains-three-resources",
+      "fixture_sha256": "a2c763b80581b433c3a67394eb66aa14e91aaced477fab897af917d569e9e76d",
+      "source_raw5": {
+        "initial_gamestate.txt": "1741adc094a7c4aba1bf3d5dcc66a13fdf6e87ad5fe7f6a03de5fd31ee5f1b96",
+        "actions.json": "54dfb02c7f8e71f93626a0727ba6ab496159b8502e1ff5a1617164e57aeeada5",
+        "assertions.json": "10ae4a957558ba2274d993de7cdd04ee3093aab5cbb9209d4d3adcbb23a0b4a4",
+        "expected_final_gamestate.txt": "e7c8543b0ebbc291b0a68d95395f7178bee7ddda73d7239f0ce7e1db1942e03a",
+        "meta.json": "155437b9ea314b5048ae653fec30d9a2557e11bc5e639a8d39ad0e848980f809"
+      },
+      "prefix_actions": 2,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "wounding_blow_red",
+            "uid": 6,
+            "from": "Deck",
+            "to": "Hand"
+          }
+        ]
+      },
+      "retained_assertions": 598,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 0, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Deep Blue / four live sparse positive effect: Initial assertion failed: Expected p1Hand count 0, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Return exact actually bottomed cost Red6 from ownDeck to ownHand after supported mandatorycost choice/payment, preserving source5actualdestroy/publicGY0/AP0/R0 and untouchedBlue7Deck. OriginalfirstHand0to1 directly detects physical additional-cost outcome; every original four remaining manualresponses and suffixoracles retained. Printed+3/positive native resource timing and puremissing/extra/earlyresource faults separatelybound: existing helper has no genericresourceoverride, so no isolatednative resourcegain control claim. No alternativechoices/emptyHandrejection/interposition/laterresourcespending/hero/support/full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

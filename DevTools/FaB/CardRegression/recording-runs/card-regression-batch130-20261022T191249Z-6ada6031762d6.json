@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T19:12:49+00:00",
+    "input_file": "card-regression-batch130.json",
+    "input_sha256": "9f8622261c4e82cbb629b24d120daa5e0a180227af208197477f8981433187af",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-beat-the-same-drum-blue-four-live-sparse-real-goblet-history-repeats-agility-and-vigor",
+            "status": "recorded_semantically_checked",
+            "actions": 10,
+            "assertions": 1344
+        }
+    ]
+}

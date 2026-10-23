@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:01:30.049486+00:00",
+  "plan_sha256": "d8427071d60f4bea091949565967ec907022b4ee8396c25a27cf8f5122849fe5",
+  "independent_saved_proof_sha256": "63d0084aff1cd7f0e202fc99b88c491cf0e0e486fdf45971b37b02f87cdeb965",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b146-focused-fault-plan.json",
+    "d8427071d60f4bea091949565967ec907022b4ee8396c25a27cf8f5122849fe5",
+    "card-regression-sparse-b146-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b146_quick_succession_red_exact_selected_effect_sensitivity",
+      "fixture": "card-quick-succession-red-four-live-sparse-first-real-lightning-attack-plus-one-go-again",
+      "fixture_sha256": "d15c7050fe4debcb7ea40046a071a508ae8b525648a606a4e74d033e2385e435",
+      "source_raw5": {
+        "initial_gamestate.txt": "c0c8e21e1e8ab0894ddbbdaabeeb4b5ec5841178fae9e70d1c2bc902ff9116f4",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "e77101a522828f05f0f363bc0d50287586fe02e1a37aa1271aa5289dc160812e",
+        "expected_final_gamestate.txt": "2d67bb8b25a5e31648d1d1ea95f8870a5b633f8538d4bdeecfcbb8b23ea23abf",
+        "meta.json": "fc55a30382561b73c15ec10a75175f99140e50249b7d9253e8b908da5852e6b7"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "lightning_surge_red",
+            "mode": "remove",
+            "tag": "OMN_QUICK_POWER"
+          }
+        ]
+      },
+      "retained_assertions": 417,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Quick Succession / four live actual first Lightning attack: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actualOMN_QUICK_POWER marker on realLightningSurge6 after actualQuick5/fourresponses/Handplaytarget/cost0. ActualGO_AGAIN remains and physicalhistory preserved; power5 becomesprintedbase4. Nextremaining2attack/GAfalselegalbranch unverified. Every original suffixaction/oracle retained with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b146_kindle_red_exact_selected_effect_sensitivity",
+      "fixture": "card-kindle-red-four-live-sparse-actual-empty-hand-instant-draw",
+      "fixture_sha256": "33aed059fb9fd47cf1521bd21f9b482307551d7d038d4ce053c810674503f2da",
+      "source_raw5": {
+        "initial_gamestate.txt": "4e6bb21591347b98b1611181cffd81c155f80986e6e6686379430da479a26b02",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "9f7eb86992e15e9c2892b74fd8620d2c8e2d75a048c073cf7910f8c8bf2e2a90",
+        "expected_final_gamestate.txt": "d85932644350a0c7eb21cfbafa10bd8bbea005f1235dc66e4aab25f8361fe0ef",
+        "meta.json": "3b0e2674b95758210afafad6932e1123930778e929b0ff57c7c4b02dd733ed4c"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Hand",
+            "cardID": "wounding_blow_blue",
+            "uid": 6,
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Kindle / four live actual empty-Hand instant draw: Initial assertion failed: Expected p1Hand count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actualKindle5Instant leavessoleHand and allfourresponses drawphysicalDeckBlue6, move only exactdrawnuid6HandtoTemp ondisposable. Terminaldrawresult sensitivityonly, notupstreamcallbackomission/legalmovement/emptyHandfalsebranch; unusedAmp unchanged/unqualified. Prefixexecutesall5originalactions and noactionsuffix remains. Every original suffixaction/oracle retained with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

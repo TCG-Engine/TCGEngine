@@ -1,0 +1,152 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:41:38.936225+00:00",
+  "plan_sha256": "38cb9e6be3adfd6834be6dba325b6d84ffa73c4b455c0230ba1c9f3462d39fa2",
+  "independent_saved_proof_sha256": "e5d63d9760e08b1a4a1559424f06a811cc4fcaedc41cea6e4ccddd3d301ce0f9",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b120-focused-fault-plan.json",
+    "38cb9e6be3adfd6834be6dba325b6d84ffa73c4b455c0230ba1c9f3462d39fa2",
+    "card-regression-sparse-b120-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b120_blessing_of_salvation_red_exact_effect_sensitivity",
+      "fixture": "card-blessing-of-salvation-red-four-live-sparse-actual-paid-light-action-gains-three-life",
+      "fixture_sha256": "85c810e3e897bbdcc06618784e87813e0b6733a21c204a779af65050e6c4a3e6",
+      "source_raw5": {
+        "initial_gamestate.txt": "a81176edb34cda4d5cd538dbacc0ca691617d37264eab47026dc61ee63bece6c",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "5549946edcc00cd7385d0fb15ee6b7b303d2ea7ad91fbe7b1ee579e75e6cb3d8",
+        "expected_final_gamestate.txt": "036f0c468c0c9f862c5ac0cff70584a090884eb389c81f83bf27b01b46d74a38",
+        "meta.json": "d293e5144e467169f8cf75fb6ac37c2c98dba92e68abf4a1a68a299e41274753"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 1,
+            "value": 17
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Health to equal 20, got 17.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Blessing of Salvation / four live sparse positive effect: Initial assertion failed: Expected p1Health to equal 20, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual source5, realBlue6 pitch/payment and allfour manual responses, restore only casterHealth17 on disposable. Finalhealth20 oracle must detect missing printed3 result. Numeric terminal outcome sensitivity, not upstream callback omission/life-prevention branch; alloriginal actions already executed. Synthetic exact effect sensitivity only; all original suffix actions/assertions preserved with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b120_electryn_joltstep_red_exact_effect_sensitivity",
+      "fixture": "card-electryn-joltstep-red-four-live-sparse-actual-paid-next-lightning-buff-and-owned-flow",
+      "fixture_sha256": "acc1edd106da08f40c0c05f9fee10944e2a73a11b81747ddd91efdbbf5679de0",
+      "source_raw5": {
+        "initial_gamestate.txt": "7c7b0433faffc8e01002827c18c07659965647d9bdcf0de18fea297059dc1b7a",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "feb7a8630a7c89b1a8c6b2b4446186c8594bcfacfe19e5bebe65c4574b1006d9",
+        "expected_final_gamestate.txt": "8ca350fdb396b28122b45080042a6fd35a00595cafb7d11f16abdd97861eff77",
+        "meta.json": "3a6950e1c26621dbc0df9d8df81eda585d24f81e497dd0e8b90cea65adef09d3"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "lightning_surge_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 647,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Electryn Joltstep / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove real +3 nextRuneblade/Lightning tag on actual HandLightningSurge6 after primary5/pitch7, keeping real ownedFlow8. Power7 becomes4; token endpoint separately asserted, no tokenfuturebranch. Synthetic exact effect sensitivity only; all original suffix actions/assertions preserved with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b120_fasting_carcass_blue_exact_effect_sensitivity",
+      "fixture": "card-fasting-carcass-blue-four-live-sparse-actual-shadow-action-grants-next-real-blue-attack-go-again",
+      "fixture_sha256": "3d65a556467efb0c83cda90484541b2791960571c0257c7a47fa1bdcf399b632",
+      "source_raw5": {
+        "initial_gamestate.txt": "812e1d33b2f64d52a7875986d6aecf212ff2241681c13530df0f89469afe1ac4",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "49b0f2cd988ee5fce01ca78f9d4d123b94d6c1b91c5da2363c7cfeef46e5057c",
+        "expected_final_gamestate.txt": "1825ee720fec75cac8816c24093b535737abccff57b9bc2c65ebc075f691805c",
+        "meta.json": "beb665272f45f2786e26c58663d2e31bfe866d7ade692510a9fd9d920ce6f330"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 471,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Fasting Carcass / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove actual GO_AGAIN granted to next realBlue actionWB6 after actual Fasting5. GA1 becomes0; source ownGA and physical history remain. Synthetic exact effect sensitivity only; all original suffix actions/assertions preserved with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b120_embrace_sin_yellow_exact_effect_sensitivity",
+      "fixture": "card-embrace-sin-yellow-four-live-sparse-actual-paid-shadow-action-next-physical-attack-plus-two",
+      "fixture_sha256": "99bfb6dc889aea651338ecbc9e79c36b0c99df2fb8e8af6cacf3a0bd73aa4902",
+      "source_raw5": {
+        "initial_gamestate.txt": "47616bce7e1e840cb3c40300e28999e4a089824bfb070d9da3fd55a830578af2",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "14a9a23fbefad0801d51875294aff113d0ee8a401a2038e7cadf958928653ce0",
+        "expected_final_gamestate.txt": "e8e9ebe627c43be4c7bfe1c68e5b41d4f7f14ea4d4f9047f52670edf54808057",
+        "meta.json": "aacdfff745837e228c4539a4fb40714f680df13b634fe9a86e55c7d23a256408"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:2"
+          }
+        ]
+      },
+      "retained_assertions": 559,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Embrace Sin / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove actual +2 nextattack tag on physically played WBred6 after real Embrace5 and Blue7 payment; power6 becomes4. Banishpermission untested. Synthetic exact effect sensitivity only; all original suffix actions/assertions preserved with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Performance Bonus / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:35:24+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Physical facedownArsenalUID5 is actually played fromArsenal for0,spending1AP. Printedorigin condition grantsgoagain. Printedpower3hitsP4,20to17; hit createsoneownedcontrolledGoldUID6inP1Arena,Status2. APstays0duringDAMAGE then becomes1onRESOLUTIONentry. SourceUID5 is actually played and targets adjacent P4HeroUID4. Real all-seat manual passes retain it on Stack until fourth source-layer pass; every combat window is passed manually by all four living young heroes. Source5 reaches its own Graveyard on real cleanup. Only actualArsenalplay and one unblockedhit creatingoneGold. Handplay/noGA, miss, tokenreplacement, Goldactivation, suppression and later lifecycle untested. No pitch-sibling/support/hero/full-card credit; no seeded history/effect tags, no shared bookkeeping-array emptiness or fixed-index oracle. Sources: https://judge.fabtcg.com/cards/detail/2880/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FAB202-RF.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

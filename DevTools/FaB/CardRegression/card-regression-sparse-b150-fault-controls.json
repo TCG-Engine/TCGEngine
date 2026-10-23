@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:09:27.508010+00:00",
+  "plan_sha256": "c9fc4d4186b4be466a0e3c5f1fb443dc3a5b802df77ef679229f2a8303adb380",
+  "independent_saved_proof_sha256": "b2f23846d22f4ba74d5ce071feaf750b836265a3e5dfa886d9341d5bb9743a70",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b150-focused-fault-plan.json",
+    "c9fc4d4186b4be466a0e3c5f1fb443dc3a5b802df77ef679229f2a8303adb380",
+    "card-regression-sparse-b150-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b150_threadbare_tunic_physical_selected_endpoint_sensitivity",
+      "fixture": "card-threadbare-tunic-four-live-sparse-actual-empty-hand-instant-destroy-resource",
+      "fixture_sha256": "e35fd2c2a2b5a42d3cb9012ce633cc114764ed40765b28e4046fb74b82f068b7",
+      "source_raw5": {
+        "initial_gamestate.txt": "299bdcfa8cf8abe10cdf29343af54a9bde2b9a70bb64cfa2e1ab701ff923b2b9",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "1ef1e7449aa0ff34ac9cf46e5c2a3ca3c6823fd9378856ee75518fccd84cf44d",
+        "expected_final_gamestate.txt": "e011e66536fd52b8b5f065f6010f89897f9282d8a93342e9f5b6f12a97fdfb6c",
+        "meta.json": "4fe032a591b8deb842210f0c43ffc4ae8ced0a1313080ecf7532f78ed5bb1bb1"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Graveyard",
+            "cardID": "threadbare_tunic",
+            "uid": 5,
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 106,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Threadbare Tunic / four live actual empty-Hand resource Instant: Initial assertion failed: Expected p1Graveyard count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actualemptyHandInstantactivation destroysphysicalTunic5/publicGY and fourresponses gainR1/AP1, move only actualcostsourceuid5GYtoTemp ondisposable. Physicaldestroy-cost destination sensitivity only; resource1 remainsunchanged/directoriginalnativeassert. NOT isolatedresourcegain suppression or upstreamdestroy omission/legalmovement. Prefixexecutesalloriginalactions; every original finaloracle retained with step offsets, noactionsuffix remains.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b150_blue_sea_tricorn_physical_selected_endpoint_sensitivity",
+      "fixture": "card-blue-sea-tricorn-four-live-sparse-actual-blue-pitch-three-destroy-draw",
+      "fixture_sha256": "420e673f3fa49b2eae8168c59c1a4082a3b23ecbdd412276ddfb89d9b68766bd",
+      "source_raw5": {
+        "initial_gamestate.txt": "73d9bc12beaa7fa06eefa132007f18d0e58ec0bf53b5df8b87a59df4621497c3",
+        "actions.json": "02e014fcbc767be35abb52b1fba8950f602a853b060793ec33880f9f114fa6e5",
+        "assertions.json": "cfc7ab23563fc65ed5d4d49d27f4719627eb2d1d96eea8969e15cb6388cdf3be",
+        "expected_final_gamestate.txt": "794022ad981670a73390b37d05bc2c5dbd00ce5222b2d32f0112b3c64f6c662b",
+        "meta.json": "2c6b24af2343b119cb723b261e6dfb7ea3aac4f0d0f7888056881bc8e7e8a2e5"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Hand",
+            "cardID": "wounding_blow_red",
+            "uid": 7,
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Blue Sea Tricorn / four live actual paid equipment draw: Initial assertion failed: Expected p1Hand count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After realBlue6pitch3 pays3/AP0/destroy5 and fourresponses drawphysicalDeckRed7+abilityGAAP1, move only actualdrawnuid7HandtoTemp ondisposable. Terminaldrawresult sensitivity only, notupstreamcallback omission/legalmovement; source/publiccost/pitch/payment/GA unchanged. Prefixexecutesalloriginalactions; every original finaloracle retained with step offsets, noactionsuffix remains.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

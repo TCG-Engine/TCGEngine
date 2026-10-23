@@ -1,0 +1,45 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:11:46.148339+00:00",
+  "plan_sha256": "c7a47ac539f53dee566f66d8d7b5bd5f43c346ccb3aee4aef840a5bc9a529d3f",
+  "independent_saved_proof_sha256": "354dbfb88da6d4d34779714242b0454134bd9e397922dc7557a4d543b3d31b0a",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b176-focused-fault-plan.json",
+    "c7a47ac539f53dee566f66d8d7b5bd5f43c346ccb3aee4aef840a5bc9a529d3f",
+    "sparse-b176-focused-fault-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b176_aether_ironweave_focused_effect_sensitivity",
+      "fixture": "card-aether-ironweave-four-live-sparse-actual-nonattack-and-attack-play-close-combat-before-equipment-resource-activation",
+      "fixture_sha256": "205864a2dcad0ea61d495c3bccea298b50a577943a8df66e5f5491dbc26da408",
+      "source_raw5": {
+        "initial_gamestate.txt": "a351afc34f76bcf4b52217111037e3ecef31000b3b0c59ee390f1d1d317fe131",
+        "actions.json": "1d4ea162018ad6efbf7a2c84d1ee14b868eccdc2aaa7594c1f22e0fcc59b4c64",
+        "assertions.json": "2e4706abd63dfb4bc03745f254587df7acdd0992b338a55cdfa099ce0fdec33f",
+        "expected_final_gamestate.txt": "09c27f0382b61cb16214ba4e31012f018b33d9a30a29c85a24d4b935e341a903",
+        "meta.json": "17f8aa6d33c85fc4c4f8f59d6efc0112e69009dd881c1e9270e8586b4b3174ff"
+      },
+      "prefix_actions": 33,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 261,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Resources to equal 2, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Aether Ironweave / four live earned card types and legal postcombat Action: Step 4 assertion failed: Expected p1Resources to equal 2, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only sole actualABI8 arcSpec dispatch after actual Fasting6 NAA and WB7 AA actualplays/combat2damage/fullchainclose then Aether5destroy/AP0. Existing WTRAbilitySpec has noAetherIronweave fallback, so body/abilityGA inert. First native final resource2 becomes0; physical sourcecost/priorphysicalGY6/7 preserved. Missing printed resource-body sensitivity, not isolated +1versus+2 gain-amount/condition-rejection or legal alternate action credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

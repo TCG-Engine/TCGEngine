@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T19:42:41+00:00",
+    "input_file": "card-regression-batch138.json",
+    "input_sha256": "ed7d847531db9ea3eff478e5c357b2cc3da01f91044c90d8aba68b2356bf3220",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-commanding-performance-red-four-live-sparse-actual-paid-warrior-plus-three",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1269
+        },
+        {
+            "slug": "card-plow-through-red-four-live-sparse-actual-paid-weapon-plus-three",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1332
+        }
+    ]
+}

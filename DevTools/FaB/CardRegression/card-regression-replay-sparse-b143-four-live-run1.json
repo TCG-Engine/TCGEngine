@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch143.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T19:51:08.917829+00:00",
+  "fixtures": [
+    {
+      "slug": "card-sprout-strength-red-four-live-sparse-actual-three-separate-plus-one-grants-combine-on-one-real-next-attack",
+      "fixture_sha256": "9251e23ada9e6903c65fb24ce26b5f104093561b818ef3a2bbf983c04a9a3854",
+      "passed": true,
+      "result": "[PASS] Sprout Strength / four live sparse positive effect"
+    },
+    {
+      "slug": "card-push-forward-red-four-live-sparse-actual-paid-next-weapon-plus-three-without-prior-weapon-attack",
+      "fixture_sha256": "a01da9c117e37c41f2c06d7355c060ed37d216bcde9f01d75cac183604d8d4c7",
+      "passed": true,
+      "result": "[PASS] Push Forward / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sprout-strength-red-four-live-sparse-actual-three-separate-plus-one-grants-combine-on-one-real-next-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Sprout Strength / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-push-forward-red-four-live-sparse-actual-paid-next-weapon-plus-three-without-prior-weapon-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Push Forward / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

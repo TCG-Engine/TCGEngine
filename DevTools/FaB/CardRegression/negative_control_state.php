@@ -606,8 +606,11 @@ try{
   $obj->TurnEffects=$effects;
  }
  foreach($spec['move_card']??[] as $entry){
+  // Optional exact UID selects one physical card among identical token IDs.
+  $uid=$entry['uid']??null;
+  if(array_key_exists('uid',$entry)&&(!is_int($uid)||$uid<1))throw new RuntimeException('Invalid negative-control move UID');
   $matches=[];
-  foreach(FaBChoiceRefs(intval($entry['player']),$entry['from']) as $ref){$f=FaBIdentityFromMZ($ref);if($f['object']->CardID===$entry['cardID'])$matches[]=$f;}
+  foreach(FaBChoiceRefs(intval($entry['player']),$entry['from']) as $ref){$f=FaBIdentityFromMZ($ref);if($f['object']->CardID===$entry['cardID']&&($uid===null||intval($f['object']->UniqueID)===$uid))$matches[]=$f;}
   if(count($matches)!==1)throw new RuntimeException('Expected one initial card to move');
   FaBMoveUID(intval($matches[0]['object']->UniqueID),$entry['to'],intval($entry['player']),false);
  }

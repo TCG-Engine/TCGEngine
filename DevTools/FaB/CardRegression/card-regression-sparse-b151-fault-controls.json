@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:10:06.306845+00:00",
+  "plan_sha256": "c8cb6ad307f13becf4290490ea6de5cb7d8eb802e776120c84542d7835ee3fef",
+  "independent_saved_proof_sha256": "17558385c38edf23f091a8b74f938823c920eebf00b7b8e083bb94bb4ce90c47",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b151-focused-fault-plan.json",
+    "c8cb6ad307f13becf4290490ea6de5cb7d8eb802e776120c84542d7835ee3fef",
+    "card-regression-sparse-b151-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b151_richter_scale_focused_effect_sensitivity",
+      "fixture": "card-richter-scale-four-live-sparse-actual-equipment-destruction-creates-two-owned-seismic-surges-without-go-again",
+      "fixture_sha256": "e85aa2e6b73742c2fee15e84c0f062f19f110c4636086c032164d361be71d5fb",
+      "source_raw5": {
+        "initial_gamestate.txt": "725140a221b924ccfbc512429015e9f0b8ae698a38cd03057cc8476bd8324ed7",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "e755981a9012b386343caa1e8669d335b7fd701ef5e56bada575f913200d306f",
+        "expected_final_gamestate.txt": "96ba4500c773a34600d90b81ff5bcf41b6e36d71e5657740e1b1f4f407111a4a",
+        "meta.json": "fde348f845c4ca84aa7b12b76cbc8c334f1e0c294f08192f56007acad41b543d"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "seismic_surge",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 116,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Richter Scale / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact actual created SeismicUID7 after physicalEq5actualdestroycost andfourmanualresponses, preserving otherSeismic8/source5publicGYFace0/R0/AP0/noGA. OriginalArena2to1detects directabilityoutput only; no startturn/costreduction/tokenuse/expiry/defense/hero/supportcredit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b151_buccaneers_bounty_focused_effect_sensitivity",
+      "fixture": "card-buccaneers-bounty-four-live-sparse-actual-pirate-equipment-destruction-gains-one-resource-and-go-again",
+      "fixture_sha256": "72695f0888f12219144d2af4f57f67db26a31d119303009b998b985a15496491",
+      "source_raw5": {
+        "initial_gamestate.txt": "d5a045dc84b0e8cc5bb539b685762c5d507e7f5f2efe9f0dd00be0e01248c010",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "dd1d0c3bb42d16408ba637c72bcb87976b282045b50e8df97c5209e7a1ad09b5",
+        "expected_final_gamestate.txt": "79bdd9f4a7b36c5e39b0371dcf6bc123d80fd4d76110ac1a590aed4f6e05cd60",
+        "meta.json": "2d9116e2af4aa87e00eadd8841763d033dbcd74549c345c5e0af0fbfd4575c63"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "buccaneers_bounty",
+            "uid": 5,
+            "from": "Graveyard",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 106,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Buccaneer's Bounty / four live sparse positive effect: Initial assertion failed: Expected p1Graveyard count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact actuallydestroyedphysicalEq5 from publicGY after completeactualabilityresolution. OriginalGY1to0 detects physicaldestroy-cost destination only; actualresource1/abilityGAAP1remain intact. Existinghelper hasno genericresourceoverride: no isolatednative resourcegain sensitivity claimed. Printed+1, exactpositive nativeoracles and puremissing/extra/earlygain faults separatelybound. No draw/hero/spendingresource/defense/lifecyclecredit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

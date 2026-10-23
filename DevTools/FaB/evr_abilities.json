@@ -873,8 +873,9 @@
     "abilities": [
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$uids = FaBARCStageRefs($player, implode('&', FaBChoiceRefs($player, 'Pitch')));\n if (count($uids) > 0) {\n $orderParam = FaBARCOrderParam($uids, 'Top');\n $order = await $player.Rearrange($orderParam);\n FaBARCFinishOrder($player, $uids, $order);\n \n}\n",
-        "isImplemented": true
+        "abilityCode": "$uids = FaBARCStageRefs($player, implode('&', FaBChoiceRefs($player, 'Pitch')), 'Pitch');\n if (count($uids) > 0) {\n $orderParam = FaBARCOrderParam($uids, 'Top');\n $order = await $player.Rearrange($orderParam);\n FaBARCFinishOrder($player, $uids, $order);\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "5bfef40b938784f407d1b2f93f2a47f7d6a5dfd07a0757b817924d5d3f01c424"
       }
     ]
   },

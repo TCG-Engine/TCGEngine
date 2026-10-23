@@ -1,0 +1,212 @@
+{
+  "status": "B146_TWO_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch146.json",
+  "input_sha256": "d64566eef438038b2745c1528770fa1c286a13588c667858b8b4c0a9c42f3602",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:01:55.940638+00:00",
+  "fixtures": [
+    {
+      "slug": "card-quick-succession-red-four-live-sparse-first-real-lightning-attack-plus-one-go-again",
+      "fixture_sha256": "d15c7050fe4debcb7ea40046a071a508ae8b525648a606a4e74d033e2385e435",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c0c8e21e1e8ab0894ddbbdaabeeb4b5ec5841178fae9e70d1c2bc902ff9116f4",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "e77101a522828f05f0f363bc0d50287586fe02e1a37aa1271aa5289dc160812e",
+        "expected_final_gamestate.txt": "2d67bb8b25a5e31648d1d1ea95f8870a5b633f8538d4bdeecfcbb8b23ea23abf",
+        "meta.json": "fc55a30382561b73c15ec10a75175f99140e50249b7d9253e8b908da5852e6b7"
+      },
+      "semantically_approved": true,
+      "actions": 32,
+      "native_assertions": 815,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-kindle-red-four-live-sparse-actual-empty-hand-instant-draw",
+      "fixture_sha256": "33aed059fb9fd47cf1521bd21f9b482307551d7d038d4ce053c810674503f2da",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4e6bb21591347b98b1611181cffd81c155f80986e6e6686379430da479a26b02",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "9f7eb86992e15e9c2892b74fd8620d2c8e2d75a048c073cf7910f8c8bf2e2a90",
+        "expected_final_gamestate.txt": "d85932644350a0c7eb21cfbafa10bd8bbea005f1235dc66e4aab25f8361fe0ef",
+        "meta.json": "3b0e2674b95758210afafad6932e1123930778e929b0ff57c7c4b02dd733ed4c"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 691,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 37,
+  "total_native_assertions": 1506,
+  "total_manual_passes": 33,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b146-actual-saved-independent-review.json",
+    "sha256": "63d0084aff1cd7f0e202fc99b88c491cf0e0e486fdf45971b37b02f87cdeb965"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b146-independent-spec-review.json",
+    "sha256": "428b231082747982bc4c9f7ffc5b0399e9be67e8cfb9a494519a8ef83a8f28c0"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch146-20261022T200040Z-6ada6b68b281a.json",
+    "sha256": "5384bc8d164de0e553419418186f0b4071df448f620f55177640bc814864dc6b"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b146-four-live-run1.json",
+      "sha256": "6d6bf71f37d565a8ac9b674d2b341a5c60d1e4c0bf45b05ae22ec83d46bc35bc",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch146.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b146-four-live-run2.json",
+      "sha256": "64b766dbab2ef24594c18fe624579b2133f3ab75470d300e818d8d6f87c17d7d",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch146.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b146-fault-controls.json",
+    "sha256": "21ee895229de605c6d0b0e1e7bc1d30d99bd2c73906c70c1134795e7588caba2",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "d8427071d60f4bea091949565967ec907022b4ee8396c25a27cf8f5122849fe5",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b146_quick_succession_red_exact_selected_effect_sensitivity",
+      "fixture": "card-quick-succession-red-four-live-sparse-first-real-lightning-attack-plus-one-go-again",
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "lightning_surge_red",
+            "mode": "remove",
+            "tag": "OMN_QUICK_POWER"
+          }
+        ]
+      },
+      "retained_assertions": 417,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b146_kindle_red_exact_selected_effect_sensitivity",
+      "fixture": "card-kindle-red-four-live-sparse-actual-empty-hand-instant-draw",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Hand",
+            "cardID": "wounding_blow_blue",
+            "uid": 6,
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b146-focused-fault-plan.json",
+    "sha256": "d8427071d60f4bea091949565967ec907022b4ee8396c25a27cf8f5122849fe5"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 2017,
+  "native_evidence_review_checks": 62,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Quickonlychosenfirstofnext3attackconditional+1whileactualGA; remaining2/GAfalse/skips/expiry unverified. KindleonlyemptyHanddraw/InstantAP, futureAmpamount/consumption/arcane/preventionUNTESTED. Nootherbranches/support/hero/sibling or ordinarysource-departure/async lifecycle credit.",
+    "Only current new two are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Quickcontrol removesonlyactualOMN_QUICK_POWER on realLightningSurge6 whileactualGO_AGAIN remains; expected5to4powerfail. KindleterminalcontrolmovesonlyactuallydrawnBlueuid6HandtoTemp afterall5nativeactions; firstHand1to0fail, unusedAmp unchanged. Allsuffixoracles/actionsretained. No later2attack/GAfalse/Ampfuture/legalalternative/lifecycle credit; Kindlecontrol is terminalresult sensitivity."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "281ac9b5e5fff45f1d75d79371d44b64358320676de20c908d664d0a3dca1705",
+  "current_independent_delta_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b146_independent.py",
+    "sha256": "75aba2bd0e05e6341b32855785e535a73110eff928bec052a46be8e0e92dd932"
+  }
+}

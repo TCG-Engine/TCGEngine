@@ -1,0 +1,335 @@
+{
+  "status": "B115_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch115.json",
+  "input_sha256": "3675112214d1740d791905828e0c7d9ee22136686b25085bf4a56e8235fb2408",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:24:14.265378+00:00",
+  "fixtures": [
+    {
+      "slug": "card-goblet-of-bloodrun-wine-blue-four-live-sparse-actual-zero-cost-warrior-action-creates-owned-agility-and-vigor",
+      "fixture_sha256": "66f9f7fcc22c86e9daffea392b5a04bdd47ed5d834299c85119faebee9a0be5c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "66ad667390e25b1041efdeff7fbce2f3649645b91783c5adbe4db634e0d92e1a",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "f1f91cf9a1d9fc87dbeee975d0ee460d38cab1a88739fadd82039c84c2914d21",
+        "expected_final_gamestate.txt": "41b034d35687427b7c89f838f3538075055aefc7a33ff36aef9289accb9a6252",
+        "meta.json": "c825152a868661163145f3824411592db6ad027230593fc7c7d290d609e52965"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 298,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-pint-of-strong-and-stout-blue-four-live-sparse-actual-zero-cost-guardian-action-creates-owned-might-and-vigor",
+      "fixture_sha256": "11d0ef87c0b2f62a8d853c1152df205cb3c7e4db7a4d733b32dac5398e61f393",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "367b12ec6c0fc82ccf04901d45b448d59bceaf90d622b98710271b4896bce29a",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "3d72ed217ba2e5841eb5d22b5273c86572d3e99f0777ae377425d9727369b3f5",
+        "expected_final_gamestate.txt": "871d60247b6ccfb213e7d51323476c64b3a5db83b4da2c92e642b16d52c6a219",
+        "meta.json": "6c8f21d43adb285fbe982331cee5b0fc2824a30b03c936fc3e5b6b9905449514"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 298,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-smashback-alehorn-blue-four-live-sparse-actual-zero-cost-brute-action-creates-owned-agility-and-might",
+      "fixture_sha256": "6229579e8663efb470c042c7031160722b062b75f1508005d8349aa92ab255f4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1c8526ec5e81abba66a0bb9a4418957e84bb3669f383b6e762be71ca16f94e18",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "41a8a0817c2f69c3dbbebdadf03da4574d7a6ed02619f7153bdc6e0d4332d159",
+        "expected_final_gamestate.txt": "72b4d93b9bee3507ccf6aacf0708a28f537b32d95932ff9785ed625dac0a281d",
+        "meta.json": "c18accca47f9be4f4e68aff0dbeb0dea2b678dd24e3112b9a01d3d6a88460d07"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 298,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-humble-entrance-blue-four-live-sparse-actual-zero-cost-revered-action-creates-three-owned-toughness",
+      "fixture_sha256": "19ef9c89e70000c061945029d7c06fa491f759b0ed3152dfa998eb960624dc86",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "010cc538b1e9b8ad205853b0c7c43c317568b16be7a6316bca9d0344ab698702",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "1033601b24d74c9f81304c545008ff11503a0e987d8935c28bf931027f4ef76d",
+        "expected_final_gamestate.txt": "92d375cc29ca2934379c892fba03b7ce78b4e35af9766e66028f9d66648ec518",
+        "meta.json": "dc2ec1b8ea4d96a8fcd8055af1bb229434ba9adbf0e3b1c4f4a887139c7e8ff3"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 303,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 20,
+  "total_native_assertions": 1197,
+  "total_manual_passes": 16,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b115-actual-saved-independent-review.json",
+    "sha256": "cd4573e7e12075ba37cfa91c7b8ee44095816b34781a9a1295eed97b607a22d8"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b115-independent-spec-review.json",
+    "sha256": "91b77ad77a8a02a6abad12386ec0bea31f7e074feaf664eb49a5e8610dda38de"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch115-20261022T182057Z-6ada54098c69a.json",
+    "sha256": "e883d057aba385dbff59458b9de4fc2a0ff2053ffd656b940b6ea5dcdc1c4a31"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b115-four-live-run1.json",
+      "sha256": "8df271dd9f2fd8c86f27ff2e7c22f75b7811c5b999124f691587c0c516682090",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch115.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b115-four-live-run2.json",
+      "sha256": "383c854162aa2f8081a1a60b515f2be96c80584a85b94986c1d944f6b4da6167",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch115.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b115-fault-controls.json",
+    "sha256": "198cbf2785668119c48bcc476f68f0634d15fa7d87233a2159a6074968ea1376",
+    "total": 4,
+    "intended_semantic_failures": 4,
+    "plan_sha256": "ad8dbd067d05d3be859e93aeaa65011ce961c87655cf9198407e38e93ae540db",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b115_goblet_of_bloodrun_wine_blue_focused_effect_sensitivity",
+      "fixture": "card-goblet-of-bloodrun-wine-blue-four-live-sparse-actual-zero-cost-warrior-action-creates-owned-agility-and-vigor",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "agility",
+            "uid": 6,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 116,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b115_pint_of_strong_and_stout_blue_focused_effect_sensitivity",
+      "fixture": "card-pint-of-strong-and-stout-blue-four-live-sparse-actual-zero-cost-guardian-action-creates-owned-might-and-vigor",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "might",
+            "uid": 6,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 116,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b115_smashback_alehorn_blue_focused_effect_sensitivity",
+      "fixture": "card-smashback-alehorn-blue-four-live-sparse-actual-zero-cost-brute-action-creates-owned-agility-and-might",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "agility",
+            "uid": 6,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 116,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b115_humble_entrance_blue_focused_effect_sensitivity",
+      "fixture": "card-humble-entrance-blue-four-live-sparse-actual-zero-cost-revered-action-creates-three-owned-toughness",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "toughness",
+            "uid": 6,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 121,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b115-focused-fault-plan.json",
+    "sha256": "ad8dbd067d05d3be859e93aeaa65011ce961c87655cf9198407e38e93ae540db"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 2372,
+  "native_evidence_review_checks": 103,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "One positive exact standalone group each; four printed token creation effects only. No later token trigger/use/expiry, alternate controller/replacement, hero ability, fullcard or internal callback-lifecycle credit.",
+    "Only current new four are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and four individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Each control omits exact created token UID6 after real four-seat resolution, preserving source5 and every other created token/economy. Humble selects one of three same-ID Toughness. Direct creation-outcome sensitivity only; no later token trigger/use/expiry or alternate branch credit.",
+    "All four controls use complete five-action prefixes and retain every original final assertion as initial assertions with zero remaining actions. Only affected token-outcome sensitivity is claimed; positive action/model/physical evidence is separately bound."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "f65a41d95b3557df16a4a9eeb1e528fd12450735765059d2c6dae509d199b3c4"
+}

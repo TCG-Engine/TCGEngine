@@ -1,0 +1,300 @@
+{
+  "status": "B118_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b105_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch118.json",
+  "input_sha256": "81f066ebc25a0178136b7cda32727bd81b8300dc5cb2a10922ee677dc51ba3d9",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:39:19.833791+00:00",
+  "fixtures": [
+    {
+      "slug": "card-uprising-red-four-live-sparse-actual-action-first-draconic-attack-plus-one",
+      "fixture_sha256": "4fe392a81f221c14b2a999cf0a1bc2567a0c7a492c4e13a25331cb5d156f9780",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ad4e1cc05f346ee09272521233d4d302f4a697f063477520b41a1d941c6d49cf",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "c961083d7ab0a187e8d45b79edb85fad2f9a8c391536e4a9267898968a96f207",
+        "expected_final_gamestate.txt": "ea3ae9e5be0adb82a273c865e45ae8119d84921bd01b75d3e4d8161cb5a17ea2",
+        "meta.json": "da1cb7c8928caa85efaf0db2b236421b972e7b05074e9643cdb8e9a23b2f2c8d"
+      },
+      "semantically_approved": true,
+      "actions": 32,
+      "native_assertions": 745,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-billowing-mist-blue-four-live-sparse-actual-mystic-action-next-physical-attack-plus-one",
+      "fixture_sha256": "7278948f0e8f5d4939ecd60a7b98714503301277b682f0fb62aa5f8858ae2861",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "86581df2b17ad13887ed3722a1327bf3deb6392104c55437fbd6928f0de49a8c",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "da95a791951a180d899bc1a180cb20fcabcb9ccc6678445dc5fc9f83de6af44a",
+        "expected_final_gamestate.txt": "5957dff9bf76744b70e8105c8d2322828528e76490a00fab52a7b791217e3791",
+        "meta.json": "82db4578930ad4457575478ba845f8c0d43997be01b908b4391b076aed3820fe"
+      },
+      "semantically_approved": true,
+      "actions": 32,
+      "native_assertions": 745,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-vigorous-roar-red-four-live-sparse-actual-brute-action-next-physical-attack-plus-three",
+      "fixture_sha256": "c4f5f5432a7f2162bf2fb6b89a4d6c1d2fbeadb9034ed2c97f31fec8a033c0d6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9d91cabe2e5b41e5b6849b2052861ca7a11b56dcfc2be47c9c0b9fed90151392",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "30426c193559c011b85bbef1a7674d21f5d58e172ec9789cb8e40cd4cd15b0f0",
+        "expected_final_gamestate.txt": "73ee6c2d4e76cd8f687209500dea331d494f063c1036b4e0c6a6af2d76872b67",
+        "meta.json": "410f1e45005c9aef6f44901fe38ef50fd8b855dce0825efd766fd30ca067787c"
+      },
+      "semantically_approved": true,
+      "actions": 32,
+      "native_assertions": 745,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-water-glow-lanterns-red-four-live-sparse-actual-reveal-matching-red-decktop-creates-owned-shield",
+      "fixture_sha256": "68ccd364995daab3cb3779b8881e806a950914bd36b624dc6e3f2b7a5c623551",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8e0d765589b63ec8a48ddd2ed02e31d7e2d5be77f870229b9f909632e88ea248",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "9118a267b7a720f03dd7fe472da3dd16597bcf8d9b84e2ae81ba73ee7604515d",
+        "expected_final_gamestate.txt": "c938ce254fbacdc060dab8d635af7c23873456e457eff212563228fcb29dd4fe",
+        "meta.json": "15d19dbadc1bf6f41f40dcd8af308a66e93a6392ab73169caa68a665f459fb35"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 499,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 101,
+  "total_native_assertions": 2734,
+  "total_manual_passes": 91,
+  "checks": 91,
+  "actual_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b118-actual-saved-independent-review.json",
+    "sha256": "84eb90909898699351101bccf1d60bf0366e5255c081cb0e7aabcd73dfe980c5"
+  },
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b118-independent-spec-review.json",
+    "sha256": "11fbf9bd41cde1ca0d8478849a6df0ee77aa4dfa701061b5cd49d0e81c2088fe"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch118-20261022T183801Z-6ada58093f1ca.json",
+    "sha256": "69e6352158058ce9cdbde7bab29819f20e5dcd68594435c86648fd7c34dddb31"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b118-four-live-run1.json",
+      "sha256": "0a328a63a9aecae1059f9c2f6c3e16ad1d81774623c292189c0e2ba87b467543",
+      "passed": 4,
+      "total": 4,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b118-four-live-run2.json",
+      "sha256": "21cec9482d1389e9ac750d9040a03e4dd85e77b816d96910873d5a6e85d02f49",
+      "passed": 4,
+      "total": 4,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b118-fault-controls.json",
+    "sha256": "bc48a7fc761fb745270676bcf372cf230c3573edbde110ec0dc4caaffe30d93b"
+  },
+  "focused_native_controls": [
+    {
+      "id": "b118_uprising_red_focused_effect_sensitivity",
+      "fixture": "card-uprising-red-four-live-sparse-actual-action-first-draconic-attack-plus-one",
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "UPR_UPRISING"
+      },
+      "retained_assertions": 368,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove only the actual primary spell grant after four real responses and public source cleanup, preserving actual earlier-card history and unexercised secondary effects. Real support attack6 and all later manual actions/oracles remain unchanged; first computed power must lose only printed bonus. Uprising prior-red Blaze go again remains independently true. Missing grant sensitivity, not a legal alternative branch. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b118_billowing_mist_blue_focused_effect_sensitivity",
+      "fixture": "card-billowing-mist-blue-four-live-sparse-actual-mystic-action-next-physical-attack-plus-one",
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "NEXT_ATTACK"
+      },
+      "retained_assertions": 368,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove only the actual primary spell grant after four real responses and public source cleanup, preserving actual earlier-card history and unexercised secondary effects. Real support attack6 and all later manual actions/oracles remain unchanged; first computed power must lose only printed bonus. Uprising prior-red Blaze go again remains independently true. Missing grant sensitivity, not a legal alternative branch. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b118_vigorous_roar_red_focused_effect_sensitivity",
+      "fixture": "card-vigorous-roar-red-four-live-sparse-actual-brute-action-next-physical-attack-plus-three",
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "SUP_NEXT"
+      },
+      "retained_assertions": 368,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove only the actual primary spell grant after four real responses and public source cleanup, preserving actual earlier-card history and unexercised secondary effects. Real support attack6 and all later manual actions/oracles remain unchanged; first computed power must lose only printed bonus. Uprising prior-red Blaze go again remains independently true. Missing grant sensitivity, not a legal alternative branch. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b118_water_glow_lanterns_red_focused_effect_sensitivity",
+      "fixture": "card-water-glow-lanterns-red-four-live-sparse-actual-reveal-matching-red-decktop-creates-owned-shield",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "spectral_shield",
+            "uid": 7
+          }
+        ]
+      },
+      "retained_assertions": 118,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Move exactly real owned Shield7 out of Arena after actual matching-red resolution, retaining physical red Deck6 and all terminal assertions. Exact token endpoint sensitivity only; no independent public reveal event/UI or later Ward lifecycle claim. Every original suffix action and oracle retained; only step offsets change."
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b118-focused-fault-plan.json",
+    "sha256": "5bfb142f584d13a8a01bb2a0da2722cbb8cc570fcc3103061f528a44469e9cab"
+  },
+  "targeted_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "limitations": [
+    "One positive primary representative per cycle; no sibling pitch, alternate branch, full-card, hero/support or callback lifecycle credit.",
+    "First three controls remove exactly the real earlier spell grant, preserving real card-play history and untouched secondary effects: actual support power5/3/7 becomes4/2/4. Uprising actual prior red still enables Blaze go again. Lantern relocates only physical Shield7, yielding Arena1 to0; public reveal event/UI unasserted. Missing grant and token endpoint sensitivity, no alternate legal branch credit.",
+    "Only these four new fixtures are rehashed/replayed. Unrelated fixture bytes are not freshly checked; no full suite or legacy audit is performed.",
+    "Every original suffix assertion retained; synthetic faults are sensitivity probes, not legal alternate-action branch coverage."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "2db294f1d8432ae1bd79e78c7aa6168277ecc529fdd67c0edfb6070493d7365a",
+  "reused_stable_helper_and_orchestration_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b114-qualified-independent-review.json",
+    "sha256": "34f4ed518b19c89242bafc46b95e1e16e2fb0bf55583e8348b81dea4c76f7287",
+    "qualification": "Exact unchanged UID helper and prior18/18 component/orchestration evidence reused without new helper contract execution or broad audit."
+  }
+}

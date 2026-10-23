@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch154.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T20:16:37.625249+00:00",
+  "fixtures": [
+    {
+      "slug": "card-calming-gesture-four-live-sparse-actual-blue-pitch-paid-instant-owned-shield",
+      "fixture_sha256": "fdf875479513e84322bf5c463481dd08d94891e49c48bc2079923d3badc601c8",
+      "passed": true,
+      "result": "[PASS] Calming Gesture / four live actual paid Instant Shield ability"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-calming-gesture-four-live-sparse-actual-blue-pitch-paid-instant-owned-shield",
+      "returncode": 0,
+      "stdout": "[PASS] Calming Gesture / four live actual paid Instant Shield ability\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

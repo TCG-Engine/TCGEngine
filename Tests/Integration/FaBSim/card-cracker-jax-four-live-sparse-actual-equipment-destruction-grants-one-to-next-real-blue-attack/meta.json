@@ -1,0 +1,7 @@
+{
+    "name": "Cracker Jax / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T22:12:28+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legal young Dorinthea20 and three living legal Dorinthea20 opponents. Actual Equipment CrackerJax5 Action0 destruction spends1AP; physical5 is already own publicGYFaceDown0 before responses. Virtual ability7 has KindABILITY/SourceZoneEquipment/SourceUniqueID5/Controller1 and established rawOwner0 constructor representation, while physical5 remains owner/controller1. First three real live-seat responses preserve the pending ability with no early grant. Fourth response resolves printed next attack action +1 and abilityGoAgain/AP1. Actually play own Hand WoundingBlowBlue6 at printedcost0, target adjacent living P4Hero4, spend restoredAP. Full manual unblocked combat has printedbase2+1=3 power/physicaldamage3/P4HP17, no attackGoAgain/finalAP0/resources0. Equipment5 and actualAA6 finish in own publicGYFaceDown0; otherhealth20, queues/Stack empty, no Deck or pitch. One positive standalone representative only; class/weapon exclusion, later consumption/expiry, hero/support groups and full-card behavior untested. No artificial history/effect seeds, no reveal or created token path. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/BDD005.webp https://judge.fabtcg.com/cards/detail/318/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

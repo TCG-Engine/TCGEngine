@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-starting-stake-yellow-four-live-sparse-actual-zero-cost-action-with-no-gold-creates-one-owned-gold",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 289
+    },
+    {
+        "slug": "card-this-rounds-on-me-blue-four-live-sparse-actual-blue-pitch-play-draws-one-owned-card-for-each-live-hero",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 409
+    },
+    {
+        "slug": "card-poison-the-well-blue-four-live-sparse-real-instant-then-real-sun-kiss-gain-three-becomes-lose-three",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 502
+    },
+    {
+        "slug": "card-sirens-of-safe-harbor-red-four-live-sparse-real-combat-chain-cleanup-puts-source-in-own-graveyard-and-heals-one",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 436
+    }
+]

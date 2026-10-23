@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch111.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T17:59:02.284456+00:00",
+  "fixtures": [
+    {
+      "slug": "card-torrent-of-tempo-red-four-live-sparse-actual-paid-five-damage-hit-grants-go-again-before-resolution-ap",
+      "fixture_sha256": "89e78143e2cf124a19dbbef2c25f8d7b6a760f5dd83af8b50c0e224b0931d2ee",
+      "passed": true,
+      "result": "[PASS] Torrent of Tempo / four live sparse simple printed effect"
+    },
+    {
+      "slug": "card-sweeping-blow-red-four-live-sparse-actual-attack-creates-owned-ash-and-printed-go-again",
+      "fixture_sha256": "18a7e6a0b4f0b16f212b7a632a8beb4c78dac909a7728dde886b33da7b1a221a",
+      "passed": true,
+      "result": "[PASS] Sweeping Blow / four live sparse simple printed effect"
+    },
+    {
+      "slug": "card-hocus-pocus-red-four-live-sparse-actual-zero-cost-attack-creates-one-owned-runechant",
+      "fixture_sha256": "7256a548bbe4c0fb20da4d25aa4dda519ac333e7eb08dc570bacb2d38e084a16",
+      "passed": true,
+      "result": "[PASS] Hocus Pocus / four live sparse simple printed effect"
+    },
+    {
+      "slug": "card-soulbead-strike-red-four-live-sparse-actual-four-damage-hit-grants-go-again-before-resolution-ap",
+      "fixture_sha256": "79749dc35b041502d2fda7f89f201b0c6ab97cd20fca4a6ac64cebd4bfd1d2be",
+      "passed": true,
+      "result": "[PASS] Soulbead Strike / four live sparse simple printed effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-torrent-of-tempo-red-four-live-sparse-actual-paid-five-damage-hit-grants-go-again-before-resolution-ap",
+      "returncode": 0,
+      "stdout": "[PASS] Torrent of Tempo / four live sparse simple printed effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sweeping-blow-red-four-live-sparse-actual-attack-creates-owned-ash-and-printed-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Sweeping Blow / four live sparse simple printed effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-hocus-pocus-red-four-live-sparse-actual-zero-cost-attack-creates-one-owned-runechant",
+      "returncode": 0,
+      "stdout": "[PASS] Hocus Pocus / four live sparse simple printed effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-soulbead-strike-red-four-live-sparse-actual-four-damage-hit-grants-go-again-before-resolution-ap",
+      "returncode": 0,
+      "stdout": "[PASS] Soulbead Strike / four live sparse simple printed effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

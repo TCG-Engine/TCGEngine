@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch106.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T17:37:29.166464+00:00",
+  "fixtures": [
+    {
+      "slug": "card-fyendals-fighting-spirit-red-four-live-sparse-real-attack-at-lower-life-gains-one-health",
+      "fixture_sha256": "9e9bb45a998f517efcf2e9a4333540aa1aa6b641b3ce45ae32b09cd207585ab6",
+      "passed": true,
+      "result": "[PASS] Fyendal's Fighting Spirit / four live sparse positive effect"
+    },
+    {
+      "slug": "card-life-for-a-life-red-four-live-sparse-lower-life-real-play-grants-go-again-and-hit-heals-one",
+      "fixture_sha256": "44e706cb8641d886880b32f1e15a3525e0490eec0375d777db60be6b094cac6f",
+      "passed": true,
+      "result": "[PASS] Life for a Life / four live sparse positive effect"
+    },
+    {
+      "slug": "card-overload-red-four-live-sparse-real-unblocked-hit-grants-go-again-before-resolution",
+      "fixture_sha256": "7c0621a157de74033e238ec6425537b49fd76d7af6c436ee51cbe6d0f7ca7959",
+      "passed": true,
+      "result": "[PASS] Overload / four live sparse positive effect"
+    },
+    {
+      "slug": "card-performance-bonus-red-four-live-sparse-real-arsenal-play-grants-go-again-and-hit-creates-owned-gold",
+      "fixture_sha256": "61b605ff601a5631d5f447d08aec571eba72655c2f35cf2739ac3c0afa3fc395",
+      "passed": true,
+      "result": "[PASS] Performance Bonus / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-fyendals-fighting-spirit-red-four-live-sparse-real-attack-at-lower-life-gains-one-health",
+      "returncode": 0,
+      "stdout": "[PASS] Fyendal's Fighting Spirit / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-life-for-a-life-red-four-live-sparse-lower-life-real-play-grants-go-again-and-hit-heals-one",
+      "returncode": 0,
+      "stdout": "[PASS] Life for a Life / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-overload-red-four-live-sparse-real-unblocked-hit-grants-go-again-before-resolution",
+      "returncode": 0,
+      "stdout": "[PASS] Overload / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-performance-bonus-red-four-live-sparse-real-arsenal-play-grants-go-again-and-hit-creates-owned-gold",
+      "returncode": 0,
+      "stdout": "[PASS] Performance Bonus / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

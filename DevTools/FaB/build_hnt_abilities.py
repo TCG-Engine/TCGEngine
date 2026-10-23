@@ -113,7 +113,10 @@ for c in json.loads((HERE/'hnt_catalog.json').read_text()):
  if b in ['to_the_point','blistering_blade','sizzling_steel','scalding_iron','diced']:
   n='FaBFaiChainCount($player)' if b=='scalding_iron' else f'FaBHNTMarkedTarget() ? {v+1} : {v}' if b=='to_the_point' else f'FaBFaiChainCount($player) >= 2 ? {v if b=="blistering_blade" else v+1} : {v-1 if b=="blistering_blade" else v}' if b!='diced' else 1
   add('ResolveCard',reaction(n)+(f"FaBHNTNext($player, 'DAGGER', {v});" if b=='diced' else ''))
- if b in ['exposed','nip_at_the_heels','jagged_edge','stains_of_the_redback']:
+ if b=='nip_at_the_heels':
+  add('PrepareCard',"$source = FaBIdentityFromMZ($mzID); if ($source !== null) { FaBPrepareDeclaredReaction($player, $source['object']); }")
+  add('ResolveCard',"$source = FaBIdentityFromMZ($mzID); if ($source !== null) { FaBResolveDeclaredReaction($player, $source['object']); }")
+ if b in ['exposed','jagged_edge','stains_of_the_redback']:
   add('ResolveCard',reaction(1 if b in ['exposed','nip_at_the_heels'] else v,'ANY' if b=='exposed' else 'SMALL' if b=='nip_at_the_heels' else 'WEAPON' if b=='jagged_edge' else 'STEALTH')+{'exposed':V+'FaBHNTMark($victim);','jagged_edge':"FaBDYNTag($chosen, 'UPR_UNPREVENTABLE');",'stains_of_the_redback':"FaBDYNTag($chosen, 'GO_AGAIN');"}.get(b,''))
  if b=='lay_low':add('ResolveCard',V+"if (FaBHNTMarked($victim)) { FaBHNTNext($victim, 'ANY', -1); }")
  if b in ['hand_of_vengeance','path_of_vengeance','dragonscaler_flight_path']:

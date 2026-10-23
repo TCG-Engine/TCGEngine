@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:33:42+00:00",
+    "input_file": "card-regression-batch162.json",
+    "input_sha256": "ac420bd3c4a2b2f99c893a9e6f571d67aa91d3f73cb91f95125ee88d8faa1232",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-ball-lightning-red-four-live-sparse-actual-self-lightning-damage-replacement-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 404
+        },
+        {
+            "slug": "card-grow-claws-red-four-live-sparse-actual-first-attack-no-prior-draconic-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 447
+        }
+    ]
+}

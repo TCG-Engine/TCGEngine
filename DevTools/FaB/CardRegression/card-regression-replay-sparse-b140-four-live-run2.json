@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch140.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T19:50:27.291605+00:00",
+  "fixtures": [
+    {
+      "slug": "card-flash-red-four-live-sparse-actual-zero-cost-action-granted-go-again",
+      "fixture_sha256": "3420480a549e967d115195de13f434a31a400c885af040caa7993f7ec3abeaf4",
+      "passed": true,
+      "result": "[PASS] Flash / four live actual zero-cost attack go again"
+    },
+    {
+      "slug": "card-hit-and-run-red-four-live-sparse-first-real-weapon-granted-go-again",
+      "fixture_sha256": "ce551d481067fa7f0cf80ce9caa2b900c6089322be7d69dd06f608cc3d30c08e",
+      "passed": true,
+      "result": "[PASS] Hit and Run / four live actual first weapon go again"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-flash-red-four-live-sparse-actual-zero-cost-action-granted-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Flash / four live actual zero-cost attack go again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-hit-and-run-red-four-live-sparse-first-real-weapon-granted-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Hit and Run / four live actual first weapon go again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

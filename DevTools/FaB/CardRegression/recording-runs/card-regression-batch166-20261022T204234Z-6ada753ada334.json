@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T20:42:34+00:00",
+    "input_file": "card-regression-batch166.json",
+    "input_sha256": "a8afe9e293c8ee132421e2e150bdeca939a25b402440e1ac78ed7614bb8f7ec1",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-amulet-of-ignition-yellow-four-live-sparse-first-action-instant-destruction-makes-real-printed-one-resource-ability-free",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 1010
+        }
+    ]
+}

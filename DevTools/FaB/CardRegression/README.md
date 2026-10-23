@@ -1,5 +1,8 @@
 # FaBSim card regression coverage
 
+<!-- CURRENT-REPAIR-20261022 -->
+> **22 October repair handoff: blocked, not verified commit-ready.** See [REPAIR_HANDOFF_20261022.md](REPAIR_HANDOFF_20261022.md), [current issue reconciliation](repair-status-20261022.json) and [focused validation](repair-validation-20261022.json). The latest preserved breadth checkpoint is3,341 saved/qualified at its historical e947 runtime (3,074 duel/267 four-live;501 exact IDs/376 groups); shared source has since changed and those passes are not retagged. Source repairs are applied, but the Card Code snapshot service returned HTTP521; both generated outputs were restored exactly. Zero new repair cases are qualified. The older20October assessment, statuses and rebuild limitation below are historical; current discovery guidance is in [SPARSE_FIRST_PASS.md](SPARSE_FIRST_PASS.md).
+
 Current frozen handoff (20 October2026): **3,079 qualified scenarios**, two complete same-runtime replays; **3,074 duels + five genuine four-live-player cases**. Verified primary subjects: **239 /5,196 IDs**, with **75 complete finite baselines +164 partial**, spanning **114 /3,324 cycles or standalone groups**. No pitch-variant inheritance. Controls: **77 legacy +4 opt-in multiplayer faults detected**; all four native suites pass.
 
 Read [FINAL_ASSESSMENT.md](FINAL_ASSESSMENT.md) for results/limits and [COVERAGE_GUIDE.md](COVERAGE_GUIDE.md) for the full114-group readable index and card→branch→scenario lookup. [card-regression-coverage.json](card-regression-coverage.json) is the current detailed registry; checkpoint/scopes/issues qualify it. Older dated counts below are retained history. Gorganian Tome remains open/unapplied/uncovered; Lunging Press is fixed only within its named bounded evidence.

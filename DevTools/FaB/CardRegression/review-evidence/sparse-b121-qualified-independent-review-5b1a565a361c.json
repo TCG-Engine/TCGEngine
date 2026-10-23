@@ -1,0 +1,213 @@
+{
+  "status": "B121_TWO_EARTH_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch121.json",
+  "input_sha256": "160a836804c9d95fa2e8d4722f196042659593173c6b5ab0818a4121838337c9",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:49:56.738654+00:00",
+  "fixtures": [
+    {
+      "slug": "card-seeds-of-strength-red-four-live-sparse-actual-earth-blue-pitch-paid-action-creates-four-owned-might-tokens",
+      "fixture_sha256": "47f9b81302a48c43f601e8ec35768789b008ae8b118dcfd370942b38d3a9cff2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2786b6a837e20be3c7e2d98e23115a468a97dc8405576110917fa91f960a6d8d",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "e5df0ae5b2c8de88dc749f3908fd01a96dda8e0574949ae2c0afac88fea3494e",
+        "expected_final_gamestate.txt": "5cbaa0328f2e4af4e5072bb0c722706ceaa3e6d1c78afcf9e1d5680f96e093d0",
+        "meta.json": "82f25cb0ac9c24a58ecae61e7607a9e22c1d2161955f910dc9ab63762f7aefe6"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 362,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-laden-with-earth-red-four-live-sparse-actual-earth-bond-token-and-next-real-zero-cost-attack-plus-three",
+      "fixture_sha256": "89b00a6fc7329106dd6d5ee0fc55f689406a53990c5183826d3c41ee64432f70",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "407d1d2a05d47b7c904dc4f7b97483b5b3bb713b35954f494834bb51a67da521",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "d5fc401a467a0475136b2124fb757c8a3334d870db680c701c35edc509d93bde",
+        "expected_final_gamestate.txt": "9c69da000a118da8d53bb0a70255d9b7134160eabdb90394db90d5651f2ec7cd",
+        "meta.json": "0edd174d6199cb27d801a4f9652be71bd86cf6153500cef30a6bf1ce9f7e9525"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 1102,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 39,
+  "total_native_assertions": 1464,
+  "total_manual_passes": 33,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b121-actual-saved-independent-review.json",
+    "sha256": "96c9b6418eb92b6bf46f9c5351593e1dd829bcf6f9d4a18ae5a7dff9b03c4d54"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b121-independent-spec-review.json",
+    "sha256": "cb6c0696df9878221534951e955273d9ad1dd213e56a7b0e03b9a67fa00436ea"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch121-20261022T184822Z-6ada5a76c54e1.json",
+    "sha256": "52d8ed5f0e9ccd2846e6032a335c544185e68eecc628e2b64552edfb5789f088"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b121-four-live-run1.json",
+      "sha256": "5bcb896e778a94dd7b37228897caaab7e5f1bf87d5d30137b3b296b7e5b31432",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch121.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b121-four-live-run2.json",
+      "sha256": "485ce6ec5783058f412c52bb54bf6cb0156d654479e1e14aabb3f5af5c8d93b3",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch121.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b121-fault-controls.json",
+    "sha256": "37c741db19468a50420d796eef798d09016f7d088b5c778c2727c6cdbaf98279",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "974cb809a00b0631f17ee625b8bcf95e3c83ab1341b8675a3f040535dddb1cb7",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b121_seeds_of_strength_red_focused_effect_sensitivity",
+      "fixture": "card-seeds-of-strength-red-four-live-sparse-actual-earth-blue-pitch-paid-action-creates-four-owned-might-tokens",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "might",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 130,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 4, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b121_laden_with_earth_red_focused_effect_sensitivity",
+      "fixture": "card-laden-with-earth-red-four-live-sparse-actual-earth-bond-token-and-next-real-zero-cost-attack-plus-three",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 611,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b121-focused-fault-plan.json",
+    "sha256": "974cb809a00b0631f17ee625b8bcf95e3c83ab1341b8675a3f040535dddb1cb7"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 2043,
+  "native_evidence_review_checks": 65,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "One red Seeds pitch-cycle representative and one exact Laden standalone. Actual EarthBond-positive token effects and Laden next real attack +3. Base-noEarth, token later use/expiry/replacement, Terra endphase, sibling/support/hero/fullcard and internal callback-lifecycle remain untested.",
+    "Only current new two Earth cases are audited; rejected four-case Constella predecessor excluded. Root alone executes native games and writes repo.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Seeds control omits exact Might7 after actual Earth-paid source resolution, preserving Might8..10/source5/EarthPitch6/economy; intended count4 to3 detects the EarthBond output. Laden control removes actual NEXT_ATTACK +3 application from real WoundingBlue6; intended computed5 to2 detects primary grant while preserving source5/Embodiment8/EarthPitch7. No alternative branch or sibling/support/hero credit.",
+    "Seeds control uses complete prefix6 and retains every original final oracle as initial with zero suffix actions. Laden uses first computed-power boundary prefix12 and retains every original suffix oracle plus21 remaining real actions, changing offsets only. Positive model/action/physical evidence remains separately bound."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "e6bbdfa343a4fee3f6018f0f5313380f28e0873bcece40790d2ca07c3c90cdda"
+}

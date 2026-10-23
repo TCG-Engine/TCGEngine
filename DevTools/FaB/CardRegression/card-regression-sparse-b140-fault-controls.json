@@ -1,0 +1,71 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:51:24.941085+00:00",
+  "plan_sha256": "7ebbc336ba603e20202d9fb4436fb78c057d9accde633c825571faa143d1777e",
+  "independent_saved_proof_sha256": "1dd5ce584eb51c46558c5a37027fad53f1508c2cc5209f74c89e0e2b3e0b3d4a",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b140-focused-fault-plan.json",
+    "7ebbc336ba603e20202d9fb4436fb78c057d9accde633c825571faa143d1777e",
+    "card-regression-sparse-b140-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b140_flash_red_focused_effect_sensitivity",
+      "fixture": "card-flash-red-four-live-sparse-actual-zero-cost-action-granted-go-again",
+      "fixture_sha256": "3420480a549e967d115195de13f434a31a400c885af040caa7993f7ec3abeaf4",
+      "source_raw5": {
+        "initial_gamestate.txt": "32988c3ce34ffa840e15f7454a61da8d146bd5b6eabaca68b79df394cfa983fe",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "c8001d333b8caa6c82fab9d0a4ee10948f3d3135b6ecb381b1bff66815dc0d6d",
+        "expected_final_gamestate.txt": "eb9fe610a16b8f7ef708c2abb799995f46cacbad583a9fb10477fe3ee6cf073c",
+        "meta.json": "c03e8add8dbbdbcb443d4b62c33877d0d2cdc14f5cb687c25a6b29b9de3c595a"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "ELE_NEXT_ACTION_GO"
+      },
+      "retained_assertions": 609,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Flash / four live actual zero-cost attack go again: Step 6 assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only the actual resolved Flash next-action GA grant before the actual cost0 attack6; base4, source/pitch/economy and all actions/oracles are preserved. First computed GA1 becomes0, no power or damage change. Missing printed grant sensitivity only; every original suffix action/oracle retained, no alternative legal action, untested Flash recipient/pitch or positive prior-weapon+3 branch credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b140_hit_and_run_red_focused_effect_sensitivity",
+      "fixture": "card-hit-and-run-red-four-live-sparse-first-real-weapon-granted-go-again",
+      "fixture_sha256": "ce551d481067fa7f0cf80ce9caa2b900c6089322be7d69dd06f608cc3d30c08e",
+      "source_raw5": {
+        "initial_gamestate.txt": "f7948e54f3c72ee5fc636000d264ba8481f704187bcc555402a77b5815112814",
+        "actions.json": "aa8c19cdf184a32215f004b4a9656beac99c105d01aeac5e9686ede0cf6f2874",
+        "assertions.json": "564d64656f0f2d4fb91b6167e8edf51e346819aa44ca85ee1c34e03f11c01290",
+        "expected_final_gamestate.txt": "76b309eaa7d1e57828f5d2ae9d6061bf8f7452154d262b92062e5e2c848f3d64",
+        "meta.json": "8d0c63dca78af390dd2daf6d7ef073b9bcebb5d1b2fd678c6c70b98415d8b3bb"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "NEXT_WEAPON"
+      },
+      "retained_assertions": 947,
+      "expected_failure_step": 7,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Hit and Run / four live actual first weapon go again: Step 7 assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only the actual resolved HitAndRun next-weapon GA grant before actual physicalDawnblade7 activation and realBlue6pitch/weapon1payment. Base3 and no-earlier-weapon condition remain unchanged, physical7/proxy8/status/ownership preserved; first computedGA1 becomes0. Missing printed grant sensitivity only; every original suffix action/oracle retained, no alternative legal action, untested Flash recipient/pitch or positive prior-weapon+3 branch credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

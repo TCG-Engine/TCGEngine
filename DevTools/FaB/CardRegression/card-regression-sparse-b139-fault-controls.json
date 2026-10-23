@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:38:09.716766+00:00",
+  "plan_sha256": "5b98e17b09dea6a2e5dc63f2e520ac5943d53070546cfd32ef9869af2d6b4ae8",
+  "independent_saved_proof_sha256": "c8b4b88f749e70b86ee679e3699b14190925c7eba5d9c2d5cbe5a2a88ca03e0f",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b139-focused-fault-plan.json",
+    "5b98e17b09dea6a2e5dc63f2e520ac5943d53070546cfd32ef9869af2d6b4ae8",
+    "card-regression-sparse-b139-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b139_locked_and_loaded_red_focused_effect_sensitivity",
+      "fixture": "card-locked-and-loaded-red-four-live-sparse-actual-unboosted-zero-cost-grant-next-real-three-cost-mechanologist-attack-plus-three",
+      "fixture_sha256": "689ec2704db4d33295f1681eb20fd7bd472389c8bc1617160c4c5e739a3c395c",
+      "source_raw5": {
+        "initial_gamestate.txt": "f839cf0c35c395c73c8cc1497f0b8cc6b50333e903fcb77623c006a9de127170",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "669c3ff10fa0d2750cff0e67f63b0a7f0a1ce3bbfabc372d2771f39c8793fe5c",
+        "expected_final_gamestate.txt": "c80315a470ebb3fb8bce3e6d9aea546c7c36b04a30fa936f3db455d8504ef1ab",
+        "meta.json": "5f73603a99ae79351e5fc8bce80b73d8d94cefaba309d7e7001643c9088e7502"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "mechanical_strength_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 505,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Locked and Loaded / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual unboosted primary +3 from real MechanicalStrengthBlue6 after primary5 actualplay and fourthmanualresponse, actualadjacentP4target and cost3paidBlue7pitch3. Originalcomputed6to3detectsnextMechAAgrant; zeroEvos/noBoostinputs/sourceGY5/Pitch7/economy preserved. No boostedOpt/bottomDeck/positiveEvoUpgrade/sibling/support/hero credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b139_rotary_ram_red_focused_effect_sensitivity",
+      "fixture": "card-rotary-ram-red-four-live-sparse-actual-unboosted-zero-cost-grant-next-real-three-cost-mechanologist-attack-plus-three",
+      "fixture_sha256": "ed0d29ca6f6d099abe37d12dea5c9abe4da9c60fd51fa7e4307ad082b598ff9c",
+      "source_raw5": {
+        "initial_gamestate.txt": "c0c87d884cf3dcee4589365a44df859f89141e85ca87f6776b73e6b45894fe0f",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "9ccb48765edb8e6b5922b3a36c8f36f7c5b0f5a664890706c8977f8fd069cced",
+        "expected_final_gamestate.txt": "77b3c5ab7659851e0b02ee92576b5fa4b2104dc8344bf02ddacb32a1a47267cd",
+        "meta.json": "867ce8a76d84119db5617c845704ad80303494f04800108601aab9a9f1168dc5"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "mechanical_strength_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 505,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Rotary Ram / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual unboosted primary +3 from real MechanicalStrengthBlue6 after primary5 actualplay and fourthmanualresponse, actualadjacentP4target and cost3paidBlue7pitch3. Originalcomputed6to3detectsnextMechAAgrant; zeroEvos/noBoostinputs/sourceGY5/Pitch7/economy preserved. No boostedOpt/bottomDeck/positiveEvoUpgrade/sibling/support/hero credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:36:03+00:00",
+    "input_file": "card-regression-batch164.json",
+    "input_sha256": "a4a9f47df82b65f3a5b4292b3ff2c47383b29b9d639f3dbd309b1db7a776d663",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-flameborn-retribution-red-four-live-sparse-actual-paid-unblocked-three-damage-and-printed-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 447
+        },
+        {
+            "slug": "card-give-and-take-red-four-live-sparse-actual-paid-unblocked-three-damage-and-printed-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 447
+        }
+    ]
+}

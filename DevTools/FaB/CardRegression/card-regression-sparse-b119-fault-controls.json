@@ -1,0 +1,155 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:36:42.484710+00:00",
+  "plan_sha256": "62feff74f11589a7807ffaa73476dae3e214d88fdb60d9057752dce1b9b7d650",
+  "independent_saved_proof_sha256": "2a209eb64b6246230c77e76fd6f92563d45e3b51d875a11496a90ef4af148b42",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b119-focused-fault-plan.json",
+    "62feff74f11589a7807ffaa73476dae3e214d88fdb60d9057752dce1b9b7d650",
+    "card-regression-sparse-b119-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b119_rites_of_nightfall_blue_focused_effect_sensitivity",
+      "fixture": "card-rites-of-nightfall-blue-four-live-sparse-real-one-resource-shadow-action-creates-one-owned-gate",
+      "fixture_sha256": "ce0fb5718d704eda394df0dd22d9967a80f334a27d307e940af36b32fcb34905",
+      "source_raw5": {
+        "initial_gamestate.txt": "80c33602dbccaaf68f0f38958e5c0b5bab4866f64a1a5cc6138bab8253a354af",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "f1f7b7990bba1b627ec41f39bc7b43d1074722db937ced5d2aa1a1539843d10a",
+        "expected_final_gamestate.txt": "3037b39f7d160b8d0e5cd2c6e035ff51008a5a8816b3bd498cf17600c663adb1",
+        "meta.json": "b4fafd9471a8f667ff35189992571d0be98ecd9aa30f3f0684506dbdb5a22de2"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "gate_to_iarathael",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Rites of Nightfall / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact created token UID7 after actual four-seat resolution, preserving primary source5, actual pitch6 where present and economy. Direct printed creation-outcome sensitivity only; no later token activation, Planar permission, Shield Ward/attack or alternative branch credit. Spectral POWER3 is independently pinned in positive actual/paper oracles; existing helper has no isolated counter mutation, so no independent native counter-only sensitivity claim. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b119_planar_chaos_red_focused_effect_sensitivity",
+      "fixture": "card-planar-chaos-red-four-live-sparse-real-zero-resource-shadow-action-creates-one-owned-gate",
+      "fixture_sha256": "72763cce2fc11c7f156afd4eeb267b1f1555ab88b7fe0abfbb219f24005472cf",
+      "source_raw5": {
+        "initial_gamestate.txt": "e636688e72f1cfedd5b02bfdd3d1c0d236e816f5a28afa2d5cb3825283043016",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "9ba642675252de619ec3bdc7e2f2412910c6e6941ce01977bbebd6a324fdef7f",
+        "expected_final_gamestate.txt": "be5e67d785b05e9fee79713a139821ea21a78ef3af67e4f2a071e53d10aadf1b",
+        "meta.json": "1098dfb570a2dc9947197b8d5fdb74853b7f6b5a900497905f439c2325d56d61"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "gate_to_iarathael",
+            "uid": 6,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Planar Chaos / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact created token UID6 after actual four-seat resolution, preserving primary source5, actual pitch6 where present and economy. Direct printed creation-outcome sensitivity only; no later token activation, Planar permission, Shield Ward/attack or alternative branch credit. Spectral POWER3 is independently pinned in positive actual/paper oracles; existing helper has no isolated counter mutation, so no independent native counter-only sensitivity claim. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b119_pledge_fealty_red_focused_effect_sensitivity",
+      "fixture": "card-pledge-fealty-red-four-live-sparse-real-zero-cost-draconic-instant-creates-one-owned-fealty",
+      "fixture_sha256": "136ab55b13799ab04edf36bfac0da4d35399be40e852f71bc9a68bd916d3a621",
+      "source_raw5": {
+        "initial_gamestate.txt": "3bab3d1854c072962b3f85b9aa7e3d159653d44db3c86f262e33ddd5a93ba1b7",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "c0ff8d47f9b7daf7514a467c7d8360c63d55a916949cfff675d9b42e395fc72f",
+        "expected_final_gamestate.txt": "be8cc55bf9bc1df776da1b0a44f662caa0c4238fbed50c94b568cc606aaa9fac",
+        "meta.json": "2dd7bbfeb8ad51f451f28a88d9bc10fd99aae3b6e774264bb7bd394338182198"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "fealty",
+            "uid": 6,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Pledge Fealty / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact created token UID6 after actual four-seat resolution, preserving primary source5, actual pitch6 where present and economy. Direct printed creation-outcome sensitivity only; no later token activation, Planar permission, Shield Ward/attack or alternative branch credit. Spectral POWER3 is independently pinned in positive actual/paper oracles; existing helper has no isolated counter mutation, so no independent native counter-only sensitivity claim. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b119_spectral_manifestations_red_focused_effect_sensitivity",
+      "fixture": "card-spectral-manifestations-red-four-live-sparse-real-paid-action-with-no-other-illusionist-auras-creates-shield-with-three-power-counters",
+      "fixture_sha256": "3707eaba15c3a618c636467855232b69003bfa5ca2b6287658ac9aa7e8ca0f5e",
+      "source_raw5": {
+        "initial_gamestate.txt": "1422e33b79246ab13c65fafde2467b480bbcb213808612165c61651a1f541334",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "ebdf1ee79141a59be945194d582368a4c139817a7211c4ee51928603fa8addbe",
+        "expected_final_gamestate.txt": "82a34ef884907cad9a1646daeb413815db3f9f85f2b43a3f46490b5278e028d7",
+        "meta.json": "f4a16d18bcb6a47f80d661ca84d6376f185d1396932ee4079309c39d70c5fcbd"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "spectral_shield",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 116,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Spectral Manifestations / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact created token UID7 after actual four-seat resolution, preserving primary source5, actual pitch6 where present and economy. Direct printed creation-outcome sensitivity only; no later token activation, Planar permission, Shield Ward/attack or alternative branch credit. Spectral POWER3 is independently pinned in positive actual/paper oracles; existing helper has no isolated counter mutation, so no independent native counter-only sensitivity claim. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

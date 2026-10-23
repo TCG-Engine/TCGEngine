@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch135.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T19:25:38.613566+00:00",
+  "fixtures": [
+    {
+      "slug": "card-predatory-streak-red-four-live-sparse-recovery-create-own-banished-tigers-then-real-uid-six-play-normalizes-owner-and-zero-damage",
+      "fixture_sha256": "410bee065af4cb7ded6645abd057b6060e2795aaaaaf1987d625238cabee5df8",
+      "passed": true,
+      "result": "[PASS] Predatory Streak / four live sparse positive effect"
+    },
+    {
+      "slug": "card-roar-of-the-tiger-yellow-four-live-sparse-recovery-create-own-hand-tiger-then-real-uid-six-play-normalizes-owner-and-plus-one-damage",
+      "fixture_sha256": "17f3765bcd82510c88d0fedf5e9b16f724fd022c1206ededcaaa67114802a88d",
+      "passed": true,
+      "result": "[PASS] Roar of the Tiger / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-predatory-streak-red-four-live-sparse-recovery-create-own-banished-tigers-then-real-uid-six-play-normalizes-owner-and-zero-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Predatory Streak / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-roar-of-the-tiger-yellow-four-live-sparse-recovery-create-own-hand-tiger-then-real-uid-six-play-normalizes-owner-and-plus-one-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Roar of the Tiger / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

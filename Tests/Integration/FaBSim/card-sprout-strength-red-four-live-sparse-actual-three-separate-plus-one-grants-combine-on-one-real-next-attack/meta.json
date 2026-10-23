@@ -1,0 +1,7 @@
+{
+    "name": "Sprout Strength / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T21:50:50+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legal young Terra20 has Essence of Earth; three legal living Dorinthea20 opponents respond manually. Actually play Sprout Strength Red UID5 at printed cost0, spending its action point. All four live seats manually pass source priority before its three separate next-attack +1 effects resolve together; standalone printed Go again restores AP1 and source5 becomes own public Graveyard FaceDown0. Actually play Wounding Blow Blue UID6 at printed cost0, choose adjacent living P4 hero UID4, spend AP1, and follow every manual combat response. All three effects refer to the same next attack, so printed base2 plus1 plus1 plus1 gives power5. With no blocks, physical damage5 leaves P4 health15. Neither support nor primary grants attack Go again, so no attack AP is restored: final AP0/resources0. Source5 and support6 finish in own public Graveyard FaceDown0 with owner/controller1. Other health20; no pitch, end phase, hero activation or seeded effect/history. One red representative only; no sibling, support-group, hero, later attack/expiry or full-card credit. Sources: https://judge.fabtcg.com/cards/detail/4673/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN222.webp https://judge.fabtcg.com/cards/detail/318/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

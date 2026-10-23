@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T19:55:38+00:00",
+    "input_file": "card-regression-batch144.json",
+    "input_sha256": "3113517d7bfa30d3e1489244c52565c1521e431d0829fd49cb87b0a404d76ad8",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-transmogrify-red-four-live-sparse-actual-paid-next-attack-set-base-eight-unblocked",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1267
+        },
+        {
+            "slug": "card-veiled-intentions-red-four-live-sparse-actual-paid-next-attack-plus-four-unblocked",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1267
+        }
+    ]
+}

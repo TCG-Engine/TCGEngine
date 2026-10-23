@@ -1,0 +1,213 @@
+{
+  "status": "B163_TWO_ACTUAL_NINJA_WEAPON_GO_AGAIN_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_DIRECT_GA_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch163.json",
+  "input_sha256": "0909a6e9c8a9050efd589813d162cd9d1e5aeeae9c2ef0611cc2712706a4b0cd",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:36:56.774730+00:00",
+  "fixtures": [
+    {
+      "slug": "card-zephyr-needle-four-live-sparse-actual-paid-ninja-weapon-attack-damage-go-again-and-physical-weapon-retention",
+      "fixture_sha256": "85bedc138dd3baeb0d2c222b66793cae0bd184dc7d0323e19e1a72c1af843843",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "13099608e90bf15eb90e8b1a94beb62c94cee7bc17a6322782bcf32049bf682f",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "a785a7dc5f59c46ab984412dccfdd80747394a6db21c31258ab8a58e373c74d6",
+        "expected_final_gamestate.txt": "d57a599fc2bf7031c2728a42882042fbd7bcc5aae10817d97897cccc97020572",
+        "meta.json": "cb615b62a449b337f34428b3c70513cc64283b5b6fdbd77ccb011998cf21f9a3"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 578,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-edge-of-autumn-four-live-sparse-actual-paid-ninja-weapon-attack-damage-go-again-and-physical-weapon-retention",
+      "fixture_sha256": "c9f0fa86fb8ae7333a835146cf1fd08d8db0422e6552eeffee5bb85388ff68d2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "98055e4d796edffd9f48d8153809cbb99dc73acfc83627b21ea3a9fa040258a2",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "3f531a26dde3aa10ac39a9f249bd3c1860fc29c833790a095564a2dfa327689d",
+        "expected_final_gamestate.txt": "8715d09307662c8b57aafda2ecb2d7285390516c0f6b15742643b55c5032aa9a",
+        "meta.json": "817a3632a9d3c9064d01d50e28cd0712df0ac8c12f5e06fa1a9c99c82846cdf9"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 578,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 56,
+  "total_native_assertions": 1156,
+  "total_manual_passes": 50,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b163-actual-saved-independent-review.json",
+    "sha256": "5f81a4041fac8d3ddde89d4a4610f4f8be9044145c4ac25b6a81b13d44d1d51e"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b163-independent-spec-review.json",
+    "sha256": "0491875da1d5bd67509394c35e38af4d2ffe030769ece73ae98fb97c885de162"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch163-20261022T203534Z-6ada7396a1f39.json",
+    "sha256": "ba7213d7b35b035f691751add165cf015f4644861f442147852a584a0c28567f"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b163-four-live-run1.json",
+      "sha256": "a06b0d59d23d689fa93cd849e1286501f492e2722990f2081f56de2e1bfe0cb4",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch163.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b163-four-live-run2.json",
+      "sha256": "2b435a8ce410d814f0763edd34c4d6b4425d1a70dacc056c454974d89c2c1eaa",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch163.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b163-fault-controls.json",
+    "sha256": "bbd63bfd32f5387ea31adce29de1e117cf535513d4b759927e0a2b6e32f16249",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "85851a51be5548f2afc0b52ff8a4c2f44d2ddb22cdb8a603aa43809fdab6b50a",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b163_zephyr_needle_focused_effect_sensitivity",
+      "fixture": "card-zephyr-needle-four-live-sparse-actual-paid-ninja-weapon-attack-damage-go-again-and-physical-weapon-retention",
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "zephyr_needle",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 363,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b163_edge_of_autumn_focused_effect_sensitivity",
+      "fixture": "card-edge-of-autumn-four-live-sparse-actual-paid-ninja-weapon-attack-damage-go-again-and-physical-weapon-retention",
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "edge_of_autumn",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 363,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b163-focused-fault-plan.json",
+    "sha256": "85851a51be5548f2afc0b52ff8a4c2f44d2ddb22cdb8a603aa43809fdab6b50a"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1647,
+  "native_evidence_review_checks": 65,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Two Ninja weapon standalones on legalFai20: Zephyr/Edge actualphysicalWeapon5activationcost1 paidBlue6pitch3/R2/AP0, transientattack7rawStackOwner0toChainOwner1, printed2/1damage/P4HP18/19. Namedweapon printedGAtrue/AP1 beginsfourthDAMAGE response. Physical5ownWeaponsStatus1 retained, Blue6ownPitch, proxy7removed/allGYempty. No high-defenseblocker/Zephyrdestruction/repeat/turnreset/hero/support/fullcard credit.",
+    "Only current TWO-case new packet audited; root alone executes native games and writes repo. Physicalweapon5 and pitched6 owned/controller1; established virtualATTACK7 rawStackOwner0 normalizesChainOwner1 and is removed atclose, never a secondphysicalcard/GYsource. No broadownership or legacy review.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Both prefix7 controls add absent existing ELE_NO_GO to actual weapon attack proxy7 while physicalWeapon5 retained/Status1, actualBlue6Pitch/paymentR2, printedpower2/1 and all UIDs stay intact. Exact first original computedGA1to0 failures prove direct GA evaluation sensitivity; inhibition precedes named-weapon grant in GameLogic409. Synthetic inhibition only, not a legal card-effect branch. Positive native AP refund atfourthDAMAGE and pure lost/lateGA faults are separate evidence; controls stop atfirstGAoracle and do not independently observe later noGArefund. Zephyrhigh-defense-blockerdestruction, blocked attacks, repeat/onceperturn rejection/turnreset, futureAPuse/hero/support/fullcard remain untested.",
+    "Both prefix7 controls preserve all21 remaining real actions and every original suffix oracle; same selected raw5/runtime. No positive replay repeated, no helper/executor changes, full suite left to user."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "b950d0fd17b5a5a6dc7ce119a75b6885dbb38b4e32969487c3f8cb821e592b17"
+}

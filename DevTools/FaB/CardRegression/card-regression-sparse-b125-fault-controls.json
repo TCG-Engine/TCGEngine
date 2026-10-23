@@ -1,0 +1,121 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:57:29.168601+00:00",
+  "plan_sha256": "f1b8846139eb8a32db6f755938d88d96ffa55062fd56cf6d6e3c0b8ccd4cd4cc",
+  "independent_saved_proof_sha256": "4a30232bc6d0d12b4e8544bc9d799b2303aeb3c574873885a91bde51bf56fd7b",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b125-focused-fault-plan.json",
+    "f1b8846139eb8a32db6f755938d88d96ffa55062fd56cf6d6e3c0b8ccd4cd4cc",
+    "card-regression-sparse-b125-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b125_oath_of_the_arknight_red_focused_effect_sensitivity",
+      "fixture": "card-oath-of-the-arknight-red-four-live-sparse-actual-blue-pitch-paid-runeblade-action-creates-owned-runechant",
+      "fixture_sha256": "46e97cd6e76b781ba63cd2474bbfb00dbf64b2160caee99049516d2202daf118",
+      "source_raw5": {
+        "initial_gamestate.txt": "2e711a0c5a326316a8421595b7aadeb794346d89cdfc984c6c9ec279e906ea68",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "17996bcc9378ff650ff850ad8e7052b981d6b1355bd18417be8b9f729616b46c",
+        "expected_final_gamestate.txt": "27ff075992b0faf87f6634e6890de103d07ad23fe322656cf90f7a35bc7fbb33",
+        "meta.json": "6b14bfed50bc07f7d9088f93e2bfed86dc60349d97a8a612defaf63cc83e1ef9"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "runechant",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Oath of the Arknight / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact created token UID7 after actual four-seat resolution, preserving primary source5, actual BluePitch6, and economy. Direct printed token-creation outcome sensitivity only; no nextattackgrant/classfilter/consumption/Runechantarcane/Mighttrigger/later token use or alternate branch credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b125_otherworldly_sins_red_focused_effect_sensitivity",
+      "fixture": "card-otherworldly-sins-red-four-live-sparse-actual-blue-pitch-paid-shadow-runeblade-action-creates-owned-runechant",
+      "fixture_sha256": "980a282174b6aedb832b08f6474b87bf92e668b5b29a6aec2eb43f1b3ed8adcf",
+      "source_raw5": {
+        "initial_gamestate.txt": "234c117182b8ecf4be22aadd9e2b98442b99d2929a79860c44f750eb1acd6c99",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "98b9bdaead7d498baa60d44a7f716cd5564d2cb43556f04f447802e52ed47069",
+        "expected_final_gamestate.txt": "aee85161d1ed3b9934fb0f9653e5ba00c1d945c45c3cc13b2d4c3905ac270abb",
+        "meta.json": "68a943ed7d1ce0f84004f6de089bd6ecad6f8ce8daff6eed9d8bc10ab195898a"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "runechant",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Otherworldly Sins / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact created token UID7 after actual four-seat resolution, preserving primary source5, actual BluePitch6, and economy. Direct printed token-creation outcome sensitivity only; no nextattackgrant/classfilter/consumption/Runechantarcane/Mighttrigger/later token use or alternate branch credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b125_revolting_gesture_red_focused_effect_sensitivity",
+      "fixture": "card-revolting-gesture-red-four-live-sparse-actual-blue-pitch-paid-reviled-action-creates-one-owned-might",
+      "fixture_sha256": "171181f1248941d14242cc8145b771692f4ce6506b987d90d460c9d5f7ac549d",
+      "source_raw5": {
+        "initial_gamestate.txt": "065684d9308b2014ad8dc1a65fa22c9c6d163b5617fd75bfa547cbbf7b302f55",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "3987e193bc3a3e83a4ef2c02c22ada0196e1d07c364ee6a787f137b6c8bf1947",
+        "expected_final_gamestate.txt": "dd63a58f31ac46c9b3ae54788fc1c96666fb4e330625ecdda31f4fae1a9aab9e",
+        "meta.json": "2ae81016f6087593b0bf3d4e568dbc52d12d971733c68f94f3b73cefbde0be78"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "might",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Revolting Gesture / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact created token UID7 after actual four-seat resolution, preserving primary source5, actual BluePitch6, and economy. Direct printed token-creation outcome sensitivity only; no nextattackgrant/classfilter/consumption/Runechantarcane/Mighttrigger/later token use or alternate branch credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 3
+}

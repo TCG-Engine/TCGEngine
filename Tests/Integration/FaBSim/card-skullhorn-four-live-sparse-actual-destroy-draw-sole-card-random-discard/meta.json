@@ -1,0 +1,7 @@
+{
+    "name": "Skullhorn / four live actual sole-card random discard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T22:11:45+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Skullhorn BruteEquipmentAction-destroythis drawsone, thendiscardsarandomcard, andhasGoAgain. LegalyoungRhinar20 actuallyactivatesphysicalEquipment5 atzeroresourcecost/oneAP, destroys5ascost intoownpublicGYFaceDown0; rawabilityproxy7 SourceEquipmentUID5 isdistinctbecauseknownDeckBlueWoundingBlow6exists. Allfourlivingplayersmanuallyrespond: AP0/resources0/source5GY/Equipmentempty/Handempty/exactDeck6retainedthroughfirstthreepasses. Fourthresponse actuallydrawsBlue6thenrandomlydiscardsit: itistheonlyHandcard, so no randomoutcomeambiguity. PhysicalBlue6movesfromDecktoownpublicGY1FaceDown0, noHand/Deckremaining. Printedbasepower2isbelow6, soRhinar>=6discardtriggerisinactive/noopponentintimidate. PrimaryabilityGArestoresAP1; proxy7/queuesclear, source5retainsownpublicGY0FaceDown0/resources0/allfourhealth20. NoheroorArcaneBarrieractivation/seededhistory. One realdraw-then-random-discard positive withuniqueeligiblephysicalcard andabilityGA. Multi-cardrandomdistribution, >=6discardtriggers, emptyDeckfailure, ArcaneBarrier2, responses/otherturns andheroabilities remainunverified; no support/full-card credit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP009.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

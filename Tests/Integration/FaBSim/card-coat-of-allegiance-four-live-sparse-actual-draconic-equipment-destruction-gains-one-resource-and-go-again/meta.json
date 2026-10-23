@@ -1,0 +1,7 @@
+{
+    "name": "Coat of Allegiance / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T22:12:32+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legal young Fai20 shares Draconic talent of CoatOfAllegiance5; decline optional starting PhoenixFlame, no other owned cards. Three legal living Dorinthea20 opponents manually respond. Actually activate printed Action0 and destroy physicalEquipment5 as its cost, spending1AP. Source5 already own publicGYFaceDown0; virtualability6 KindABILITY/SourceZoneEquipment/SourceUniqueID5/Controller1/rawOwner0 representation. First three live-seat manual responses leave resources0/AP0 and original ability pending. Fourth response adds exactly1 resource and printed ability Go again restores exactly AP1. Final resources1/AP1/allhealth20/queues andStack empty; source5 stays own publicGYFaceDown0. Only this actual printed resource/abilityGA/destroy-cost endpoint is credited. The printed later Draconic-only play restriction is outside this scenario: no further card is played, so permission enforcement/allowed or prohibited classes/expiry receive no credit. Fai ability, spending the resource and full-card behavior remain untested; no artificial history/effect seeds or native imports. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FNG004.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

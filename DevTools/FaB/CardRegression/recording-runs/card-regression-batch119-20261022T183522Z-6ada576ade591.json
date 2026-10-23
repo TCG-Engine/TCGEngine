@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-22T18:35:22+00:00",
+    "input_file": "card-regression-batch119.json",
+    "input_sha256": "35f35d5a27dd24644448fd2f2b832ee51709a4ab3dbf837c3409e7448318ff5d",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-rites-of-nightfall-blue-four-live-sparse-real-one-resource-shadow-action-creates-one-owned-gate",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 331
+        },
+        {
+            "slug": "card-planar-chaos-red-four-live-sparse-real-zero-resource-shadow-action-creates-one-owned-gate",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 294
+        },
+        {
+            "slug": "card-pledge-fealty-red-four-live-sparse-real-zero-cost-draconic-instant-creates-one-owned-fealty",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 294
+        },
+        {
+            "slug": "card-spectral-manifestations-red-four-live-sparse-real-paid-action-with-no-other-illusionist-auras-creates-shield-with-three-power-counters",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 332
+        }
+    ]
+}

@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:49:08.597299+00:00",
+  "plan_sha256": "974cb809a00b0631f17ee625b8bcf95e3c83ab1341b8675a3f040535dddb1cb7",
+  "independent_saved_proof_sha256": "96c9b6418eb92b6bf46f9c5351593e1dd829bcf6f9d4a18ae5a7dff9b03c4d54",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b121-focused-fault-plan.json",
+    "974cb809a00b0631f17ee625b8bcf95e3c83ab1341b8675a3f040535dddb1cb7",
+    "card-regression-sparse-b121-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b121_seeds_of_strength_red_focused_effect_sensitivity",
+      "fixture": "card-seeds-of-strength-red-four-live-sparse-actual-earth-blue-pitch-paid-action-creates-four-owned-might-tokens",
+      "fixture_sha256": "47f9b81302a48c43f601e8ec35768789b008ae8b118dcfd370942b38d3a9cff2",
+      "source_raw5": {
+        "initial_gamestate.txt": "2786b6a837e20be3c7e2d98e23115a468a97dc8405576110917fa91f960a6d8d",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "e5df0ae5b2c8de88dc749f3908fd01a96dda8e0574949ae2c0afac88fea3494e",
+        "expected_final_gamestate.txt": "5cbaa0328f2e4af4e5072bb0c722706ceaa3e6d1c78afcf9e1d5680f96e093d0",
+        "meta.json": "82f25cb0ac9c24a58ecae61e7607a9e22c1d2161955f910dc9ab63762f7aefe6"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "might",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 130,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 4, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Seeds of Strength / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 4, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact created Might UID7 after actual Earth-paid primary resolution; three other Might8..10, physical primary5, actual EarthPitch6/economy remain unchanged. Direct EarthBond-positive token-count sensitivity; no base-noEarth or later token-use credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b121_laden_with_earth_red_focused_effect_sensitivity",
+      "fixture": "card-laden-with-earth-red-four-live-sparse-actual-earth-bond-token-and-next-real-zero-cost-attack-plus-three",
+      "fixture_sha256": "89b00a6fc7329106dd6d5ee0fc55f689406a53990c5183826d3c41ee64432f70",
+      "source_raw5": {
+        "initial_gamestate.txt": "407d1d2a05d47b7c904dc4f7b97483b5b3bb713b35954f494834bb51a67da521",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "d5fc401a467a0475136b2124fb757c8a3334d870db680c701c35edc509d93bde",
+        "expected_final_gamestate.txt": "9c69da000a118da8d53bb0a70255d9b7134160eabdb90394db90d5651f2ec7cd",
+        "meta.json": "0edd174d6199cb27d801a4f9652be71bd86cf6153500cef30a6bf1ce9f7e9525"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 611,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Laden with Earth / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove exact primary +3 from the actual next attack BlueWoundingBlow6 after real EarthBlue7 payment and primary resolution. Primary5 GY and actual created Embodiment8 preserved. Direct next-attack grant sensitivity; EarthBond token is independently pinned positive/paper evidence, not separately native-mutated. No support-card or alternate branch credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

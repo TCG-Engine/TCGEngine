@@ -1,0 +1,7 @@
+{
+    "name": "Life for a Life / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:35:15+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1 starts19life versus opposing20, so real primary play grantsgoagain. ActualBlue3pitch UID6 pays printed1 leaving2resources. Power4hitsP4,20to16,and printed hit gainsP1onehealth19to20. APstays0duringDAMAGE then becomes1onRESOLUTIONentry. SourceUID5 is actually played and targets adjacent P4HeroUID4. Real all-seat manual passes retain it on Stack until fourth source-layer pass; every combat window is passed manually by all four living young heroes. Source5 reaches its own Graveyard on real cleanup. Only positive lower-life realplay and unblocked hit-heal. Equal/higher life, blocked/miss, healing prevention/replacement and condition changes remain untested. No pitch-sibling/support/hero/full-card credit; no seeded history/effect tags, no shared bookkeeping-array emptiness or fixed-index oracle. Sources: https://judge.fabtcg.com/cards/detail/503/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP368.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

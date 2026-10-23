@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:27:13.653541+00:00",
+  "plan_sha256": "2b414c8de0db6f89000c00168746897a8e5c2ebd5c901fcdd0641d8380d23984",
+  "independent_saved_proof_sha256": "d87c3a7ee66582d7b898843c979fb7dfb58fcc40416569983171db603756990d",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b185-focused-fault-plan.json",
+    "2b414c8de0db6f89000c00168746897a8e5c2ebd5c901fcdd0641d8380d23984",
+    "sparse-b185-focused-fault-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b185_bear_hug_red_focused_effect_sensitivity",
+      "fixture": "card-bear-hug-red-four-live-sparse-actual-six-power-pitch-earns-legal-play-then-paid-bear-hug-attack",
+      "fixture_sha256": "e822e253351102d6564d841ca40c42a13919b060f33812291da37878e3c8b825",
+      "source_raw5": {
+        "initial_gamestate.txt": "95c13686f46fcf0c4a1c08d0d7a9bf18088070ad4a2450d2f6315a2d4007ba0d",
+        "actions.json": "9bb2d35026add310bf66342afa99f03bc44475b01cc258122982e0e567186b7e",
+        "assertions.json": "0e8223a5fad9b4ef5011074c99c5ba869e9b9005f60fb129b04d5544f71c783f",
+        "expected_final_gamestate.txt": "2f40111678cbddc645f7527afaaadc461d06663bbff735bb97121f008d7921eb",
+        "meta.json": "f5933acfb3a0bc60bf5ce307d7e89293237992644296e8afe3da954d4c37b8c7"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "bear_hug_red",
+            "mode": "add",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 435,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 10, got 11.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Bear Hug / four live sparse earned pitch prerequisite: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 10, got 11.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add one existing supported numeric WTR_POWER1 tag only to actual primary BearHugRed8 after printedcost2 paid from actual resources3 earned via support5/Blue6/sole7powerPitch7. Originalcomputed10to11 detects actual primary attack outcome, preserving exactUID8/OwnerController1/target/Pitch6,7/resources1/AP0/noGA. This is numeric-outcome sensitivity ONLY, not isolated prerequisite enforcement: removing prerequisite before proposal causes action denial outside existing executor first-assertion contract. Positive actual earned six-power pitch then successful play/payment pinned; no negative prerequisite/threshold/RNG/expiry credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

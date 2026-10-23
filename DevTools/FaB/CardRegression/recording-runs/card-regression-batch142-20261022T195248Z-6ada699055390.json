@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T19:52:48+00:00",
+    "input_file": "card-regression-batch142.json",
+    "input_sha256": "90124164423b23ea0d2a9aaf080c9c067aa6763a25b38959839584712cbfbd4a",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-phantasmify-red-four-live-sparse-actual-paid-next-attack-plus-five",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1267
+        },
+        {
+            "slug": "card-spreading-mist-blue-four-live-sparse-actual-next-attack-granted-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 815
+        }
+    ]
+}

@@ -101,6 +101,8 @@ function FaBWTRPureTokenHitSpec(string $id): ?array {
             => ['token'=>'embodiment_of_earth', 'heroOnly'=>false],
         'lightning_form_red', 'lightning_form_yellow', 'lightning_form_blue'
             => ['token'=>'embodiment_of_lightning', 'heroOnly'=>false],
+        'icy_encounter_red', 'icy_encounter_yellow', 'icy_encounter_blue'
+            => ['token'=>'frostbite', 'heroOnly'=>true, 'underHitHero'=>true],
         default => null,
     };
 }
@@ -114,11 +116,17 @@ function FaBWTRQueuePureTokenHit(int $player, object $attack, int $amount): void
         || HasNoAbilities($attack) || FaBCRUHitSuppressed($attack)) return;
     $state = FaBGetState();
     if ($spec['heroOnly'] && ($state['attackTarget']['type'] ?? '') !== 'HERO') return;
+    $extra = [];
+    if (!empty($spec['underHitHero'])) {
+        $recipient = intval($state['attackTarget']['player'] ?? 0);
+        if (!FaBSeatIsLive($recipient)) return;
+        $extra['wtrTokenHitRecipient'] = $recipient;
+    }
     AddStack(CardID:$attack->CardID, Owner:$controller, Controller:$controller, Kind:'ABILITY',
         SourceZone:'CombatChain', SourceUniqueID:intval($attack->UniqueID),
         Params:['wtrTokenHitToken'=>$spec['token'], 'wtrTokenHitController'=>$controller,
             'wtrTokenHitAction'=>FaBHasType($attack, 'Action'),
-            'returnWindow'=>(string)$state['window'], 'returnCombatStep'=>(string)$state['combatStep']]);
+            'returnWindow'=>(string)$state['window'], 'returnCombatStep'=>(string)$state['combatStep']] + $extra);
     $state = FaBGetState(); $state['window'] = 'PRIORITY'; FaBSetState($state);
 }
 
@@ -127,14 +135,17 @@ function FaBWTRResolvePureTokenHit(object $stack): void {
     $player = intval($stack->Params['wtrTokenHitController'] ?? 0);
     $token = (string)($stack->Params['wtrTokenHitToken'] ?? '');
     if (!FaBSeatIsLive($player) || !in_array($token,
-        ['ponder', 'gold', 'embodiment_of_earth', 'embodiment_of_lightning'], true)) return;
+        ['ponder', 'gold', 'embodiment_of_earth', 'embodiment_of_lightning', 'frostbite'], true)) return;
+    $recipient = $token === 'frostbite' ? intval($stack->Params['wtrTokenHitRecipient'] ?? 0) : $player;
+    if (!FaBSeatIsLive($recipient)) return;
     $action = (bool)($stack->Params['wtrTokenHitAction'] ?? false);
     $hadController = array_key_exists('fabEffectController', $GLOBALS);
     $previousController = $hadController ? $GLOBALS['fabEffectController'] : null;
     $GLOBALS['fabEffectController'] = $player;
     try {
         // Preserve each original helper, including token replacements and creation callbacks.
-        if ($token === 'ponder') FaBOUTToken($player, $token, 1, $player, $action);
+        if ($token === 'frostbite') FaBHVYToken($recipient, $token, 1, $player, $action, false, $player);
+        elseif ($token === 'ponder') FaBOUTToken($player, $token, 1, $player, $action);
         else FaBHVYToken($player, $token, 1, $player, $action);
     } finally {
         if ($hadController) $GLOBALS['fabEffectController'] = $previousController;

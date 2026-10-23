@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:17:44.227329+00:00",
+  "plan_sha256": "d8991f4719db57e663c01ec8fdc4344ad50bed8f7d3c8b79b023ee5f7b07ef61",
+  "independent_saved_proof_sha256": "be73047a428bd14e766482f303090057414174f6ccafe7797e5af04884b606df",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b182-focused-fault-plan.json",
+    "d8991f4719db57e663c01ec8fdc4344ad50bed8f7d3c8b79b023ee5f7b07ef61",
+    "sparse-b182-focused-fault-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b182_braveforge_bracers_actual_earned_next_other_weapon_power_sensitivity",
+      "fixture": "card-braveforge-bracers-four-live-sparse-actual-first-sword-hit-earns-paid-equipment-buff-to-second-one-handed-sword",
+      "fixture_sha256": "338eb5cc59a3244a3f455bbc159b708a6549ac197461b55587107594ceb3fbb4",
+      "source_raw5": {
+        "initial_gamestate.txt": "faebcfcf368f65260d069a581ea3a0bd35deb9bd17377361ab87a1113ec8b46b",
+        "actions.json": "b3ed361a49caaa5b3534b43d90b35834153d91f972e113d36a2cfbf8e4186d0c",
+        "assertions.json": "6f24c2e5867be3eb55cbbd9cb9cc1c1ee184ceb64d3072e39a57d2df3e0890c7",
+        "expected_final_gamestate.txt": "cbefefa8570eebf737deabbf917f8ebef8c95758959fc4a8db56807296cabf9e",
+        "meta.json": "4722f1b5c22c287b69da50d2a9fc877a59d833d2bbc7eabbd858541014abba2c"
+      },
+      "prefix_actions": 44,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "cintari_saber",
+            "mode": "remove",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 863,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Braveforge Bracers / four live earned hit and real second-sword power: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 3, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual HnR8/real firstSword6 cost1/Blue9pitch/hit2/full closed ACTION, actual retainedBrave5 Action1 paysfloatingR2to1/fourresponses, and actual different secondSword7 cost1/target entersCombatChain asproxy12, remove only actual source-created WTR_POWER1 on second attackproxy12. First earnedhit/fullclose/legality/cost/source/physicalweapons preserved; original Initial computedpower3-to2. All21 original suffix actions/every suffix oracle retained. No missinghit/once/expiry/otherlegalbranch/hero/support/fullcard credit.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T19:36:27+00:00",
+    "input_file": "card-regression-batch139.json",
+    "input_sha256": "e28ffe1229447e1af398e4b8cb686e8f999854a7372d24ede0faefa2ad7aa78b",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-locked-and-loaded-red-four-live-sparse-actual-unboosted-zero-cost-grant-next-real-three-cost-mechanologist-attack-plus-three",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 978
+        },
+        {
+            "slug": "card-rotary-ram-red-four-live-sparse-actual-unboosted-zero-cost-grant-next-real-three-cost-mechanologist-attack-plus-three",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 978
+        }
+    ]
+}

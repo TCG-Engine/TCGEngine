@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch147.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T20:04:04.929577+00:00",
+  "fixtures": [
+    {
+      "slug": "card-robe-of-rapture-four-live-sparse-actual-equipment-action-destruction-gains-three-resources-without-go-again",
+      "fixture_sha256": "5ab19960e67a35afae3363ad633d824287c509c333bef4b16652f40db58cb9b7",
+      "passed": true,
+      "result": "[PASS] Robe of Rapture / four live sparse positive effect"
+    },
+    {
+      "slug": "card-bracers-of-belief-four-live-sparse-actual-red-top-reveal-grants-two-to-next-real-blue-attack",
+      "fixture_sha256": "cfbff07c19935d3376c275c85433cdad260a5d89509c2bd3a112485ebb17866c",
+      "passed": true,
+      "result": "[PASS] Bracers of Belief / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-robe-of-rapture-four-live-sparse-actual-equipment-action-destruction-gains-three-resources-without-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Robe of Rapture / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-bracers-of-belief-four-live-sparse-actual-red-top-reveal-grants-two-to-next-real-blue-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Bracers of Belief / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

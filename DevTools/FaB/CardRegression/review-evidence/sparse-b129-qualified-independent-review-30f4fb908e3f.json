@@ -1,0 +1,273 @@
+{
+  "status": "B129_THREE_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_THREE_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch129.json",
+  "input_sha256": "8feba9ea5aa3cfe2af1831646de9f89b92f4a1abac6e29312a31d256f56188b5",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:19:19.744164+00:00",
+  "fixtures": [
+    {
+      "slug": "card-weave-earth-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+      "fixture_sha256": "0f5de3a13fc6cb351354504f4e31b3884fdc4223c64b1a8becf0adeed0d8805c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d51b7c224df1eb2e031be365d3a04a835bcce3b0f94915f148b841995ed44b5b",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "6f028d623e8230ca4d7e73343576111e5a18aa0c3e7f825ae781401aa7cee05a",
+        "expected_final_gamestate.txt": "372d8cafe5aff48414e16eabd674f3ed19f7aaf972b7f62710601a79cdd2f3df",
+        "meta.json": "452b89b4d6b1126b8d1b86793f80d29d6dd6fd564c64fe21a3a289c4b5cc91c1"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 974,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-weave-ice-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+      "fixture_sha256": "65a1f45c65ccc8b23416f5be7923ba2c6e1de32a89d86c4a8456ea292763681e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e32d9f5d0e378450155f42cc1bc8d366f9bdcd4d5f36d5823c23006c46d691f5",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "4511df0a207604b9a2f19dfd548e779711aad8d35c7597a3148629f875e29119",
+        "expected_final_gamestate.txt": "12b17ee9e2b3352cbde9d8582e390b15661316786a9fd1f6b5522c8aee5e3036",
+        "meta.json": "8d45cdda7d4ade2bae27de810d2f00b80b06dd9af3cf1589c2a081dd46c9d89c"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 974,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-weave-lightning-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+      "fixture_sha256": "1723db7419acfdd3e5c72461b6ea40908c7fbf4c61a19814bac6b9f73afc5eb8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "371f2ad28e0a7281c9d20aeb5060464278cacd16bda904bad287d383bf8eeef6",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "97ad713b3ab26dcf18e5cc911e210b783a5a6c9c35a2d908aad2302e576e9f63",
+        "expected_final_gamestate.txt": "27819f6a5b01fdb038334fc7b7df0b1d8f6d6118f27b00ebabd7897f0314aa9a",
+        "meta.json": "e7339a50b40f8a8ffde747a1a0a839bb1954f857a263e3e2bd40f65162f0bc52"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 974,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 99,
+  "total_native_assertions": 2922,
+  "total_manual_passes": 87,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b129-actual-saved-independent-review.json",
+    "sha256": "822e97963a2adcd8fccf359604ab073e5f1677609350f55faf9c2d157ceaeddb"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b129-independent-spec-review.json",
+    "sha256": "661c67abbe2a0576676c68a29054f93350b330112b5545f9bef61203213ec0d6"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch129-20261022T191608Z-6ada60f85a5f1.json",
+    "sha256": "ba4efb156f364c7430dbad4311fa28ebaa81404c3d97f8e14f0357ec3b0d4332"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b129-four-live-run1.json",
+      "sha256": "83896eed92c4e52a789a682af8963622801912c84ab436ad76ade452e836a9cf",
+      "passed": 3,
+      "total": 3,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch129.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 3
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b129-four-live-run2.json",
+      "sha256": "d9c63bb7e80650cfc29e97f93db73fa0b61cb8e7673d182d5400eff7ec541132",
+      "passed": 3,
+      "total": 3,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch129.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 3
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b129-fault-controls.json",
+    "sha256": "3ddf4fd8bc5213477046d2d9c34fce238fc4ff63b2a7ffb76196f1a40a70e022",
+    "total": 3,
+    "intended_semantic_failures": 3,
+    "plan_sha256": "945f6e4a9b220f2df1ab01113108bc5493abe434c602d95a91cdf4f9f3a5cfec",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b129_weave_earth_red_exact_weave_source_power_sensitivity",
+      "fixture": "card-weave-earth-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "entwine_earth_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 501,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b129_weave_ice_red_exact_weave_source_power_sensitivity",
+      "fixture": "card-weave-ice-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "entwine_earth_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 501,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b129_weave_lightning_red_exact_weave_source_power_sensitivity",
+      "fixture": "card-weave-lightning-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "entwine_earth_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 501,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b129-focused-fault-plan.json",
+    "sha256": "945f6e4a9b220f2df1ab01113108bc5493abe434c602d95a91cdf4f9f3a5cfec"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 3656,
+  "native_evidence_review_checks": 81,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Only actual unfused Elementalattack+3 endpoint; no fusedEarth4/IceDominate/LightningGA, othereligibility, support/hero/sibling or async lifecycle/source-departure credit. No supported Dominate-absence oracle; absence not awarded coverage.",
+    "Only current new three are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and three individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Three controls remove only actual Weave-created WTR_POWER3 on realunfusedElemental6 after actualprimary5/fourresponses/target/Blue7cost2payment. Exact7to4 power sensitivity, allsuffixactions/oraclesretained. No positivefusion/alternateeligibility/DOMINATEabsence/otherbranch or legalcancellation claim."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "15c7fd88a7e6ba0f3a9125ed3be60f263b8111bb8f59dd8de8ebeb830db01226",
+  "current_independent_delta_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b129_independent.py",
+    "sha256": "b91fe9f801d935f54effe1e8cc29004b9bab80900d21528487a6ffc42d4efd29"
+  }
+}

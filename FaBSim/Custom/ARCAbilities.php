@@ -100,8 +100,21 @@ function FaBARCActivate(int $player,array $f,int $index): bool {
     $emperorTarget=null;if($o->CardID==='emperor_dracai_of_aesir'){$emperorTarget=FaBClaimOrRequestAttackTarget($player,intval($o->UniqueID),'ACTIVATE');if($emperorTarget===null)return true;if($emperorTarget===false)return false;$s=FaBGetState();}
     if(FaBHasType($o,'Bow')&&FaBELECount($player,'SNAP'))$spec['timing']='INSTANT';
     $cost=FaBWTRAbilityCost($player,$spec)+($o->CardID==='grasp_of_the_arknight'?FaBARCRunechants($player):0);
+    $bodiceUndoHash = '';
+    if ($o->CardID === 'bloodtorn_bodice') {
+        if ($f['zone'] !== 'Equipment' || FaBROSRefs($player, 'Arena', 'Aura') === '') return false;
+        SaveUndoVersion($player, 'Before activating Bloodtorn Bodice');
+        $bodiceVersions = GetVersions($player); $bodiceUndo = $bodiceVersions[0] ?? null;
+        if (!is_object($bodiceUndo)) return false;
+        $bodiceUndoHash = hash('sha256', (string)$bodiceUndo->Version);
+    }
     $stack=AddStack(CardID:$o->CardID,Controller:$player,Kind:'ABILITY',SourceZone:$f['zone'],SourceUniqueID:intval($o->UniqueID),Params:['arcSpec'=>$spec,'returnWindow'=>$s['window'],'returnCombatStep'=>$s['combatStep'],'attackUID'=>intval($s['attackUID']),'dynEmperorTarget'=>$emperorTarget]);
     $s['pendingPayment']=['player'=>$player,'uid'=>intval($stack->UniqueID),'cost'=>$cost,'fromZone'=>$f['zone'],'kind'=>'ABILITY','isAbility'=>true,'abilityAction'=>$spec['timing']==='ACTION','returnWindow'=>$s['window'],'returnCombatStep'=>$s['combatStep']];
+    if ($o->CardID === 'bloodtorn_bodice') {
+        $s['pendingPayment']['preparedEffectCardID'] = 'bloodtorn_bodice';
+        $s['pendingPayment']['preparedEffectUndoHash'] = $bodiceUndoHash;
+        $s['pendingPayment']['preparedBodiceSourceUID'] = intval($o->UniqueID);
+    }
     $s['window']='PITCH';FaBSetState($s);SetConsecutivePasses(0);
     if((isset(FaBMONAbilityRows()[$o->CardID])||isset(FaBBoltynAbilityRows()[$o->CardID])||isset(FaBELEAbilityRows()[$o->CardID]))&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBFindUID(intval($stack->UniqueID))['mzID']]))return true;
     if((in_array($o->CardID,FaBHNTAgents(),true)||in_array(FaBWTRBase($o->CardID),['war_cry_of_bellona','war_cry_of_themis'],true)||in_array($o->CardID,['oscilio','oscilio_constella_intelligence','bloodtorn_bodice'],true)||$o->CardID==='longdraw_half_glove')&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBFindUID(intval($stack->UniqueID))['mzID']]))return true;
@@ -152,7 +165,7 @@ function FaBARCResolveAbility(int $player,object $stack): void {
     DecisionQueueController::StoreVariable('arcAttackUID',intval($stack->Params['attackUID']??0));
     $f=FaBFindUID(intval($stack->SourceUniqueID));
     $GLOBALS['seaDrawSource']=$stack->CardID;try{FaBRunSourceMacro('ResolveAbility',$player,$stack->CardID,['mzID'=>$f['mzID']??'']);}finally{unset($GLOBALS['seaDrawSource']);}
-    if($spec['goAgain']&&FaBWTRMayGoAgain($player)){AddActionPoints($player,intval(GetActionPoints($player))+1);FaBROSGo($player,intval($stack->SourceUniqueID));}
+    if(!FaBManagedAbilityResolutionOwns($stack)&&$spec['goAgain']&&FaBWTRMayGoAgain($player)){AddActionPoints($player,intval(GetActionPoints($player))+1);FaBROSGo($player,intval($stack->SourceUniqueID));}
 }
 function FaBARCSteam(object $o,int $change): void {
     $n=max(0,intval(FaBObjectCounters($o)['STEAM']??0)+$change);FaBSetObjectCounter($o,'STEAM',$n);

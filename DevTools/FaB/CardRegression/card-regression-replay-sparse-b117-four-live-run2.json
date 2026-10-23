@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch117.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T18:29:57.737076+00:00",
+  "fixtures": [
+    {
+      "slug": "card-prismatic-shield-red-four-live-sparse-real-three-resource-instant-creates-three-owned-spectral-shields",
+      "fixture_sha256": "12f1ae62d8255250d5083a17033cbee5754a5359d73d0d1253e02a2b729ffd0e",
+      "passed": true,
+      "result": "[PASS] Prismatic Shield / four live sparse positive effect"
+    },
+    {
+      "slug": "card-future-sight-red-four-live-sparse-real-one-resource-instant-creates-three-owned-sigils-of-fate",
+      "fixture_sha256": "51d814b43bd4b54bb618870a577e5729ceeb4831757daaff4e77910cd7180122",
+      "passed": true,
+      "result": "[PASS] Future Sight / four live sparse positive effect"
+    },
+    {
+      "slug": "card-oath-of-oak-red-four-live-sparse-real-zero-cost-earth-action-creates-three-owned-embodiments-of-earth",
+      "fixture_sha256": "923403d9462ff958721deb3e63fb1d931dd49aff1167b7f46be220d95b6bfe60",
+      "passed": true,
+      "result": "[PASS] Oath of Oak / four live sparse positive effect"
+    },
+    {
+      "slug": "card-envelop-in-darkness-red-four-live-sparse-real-one-cost-shadow-runeblade-action-creates-one-owned-runechant",
+      "fixture_sha256": "5dc7915b55b4ae1343fbff25573924c0e1743b6be7f18c8abd9073af377d3b04",
+      "passed": true,
+      "result": "[PASS] Envelop in Darkness / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-prismatic-shield-red-four-live-sparse-real-three-resource-instant-creates-three-owned-spectral-shields",
+      "returncode": 0,
+      "stdout": "[PASS] Prismatic Shield / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-future-sight-red-four-live-sparse-real-one-resource-instant-creates-three-owned-sigils-of-fate",
+      "returncode": 0,
+      "stdout": "[PASS] Future Sight / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-oath-of-oak-red-four-live-sparse-real-zero-cost-earth-action-creates-three-owned-embodiments-of-earth",
+      "returncode": 0,
+      "stdout": "[PASS] Oath of Oak / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-envelop-in-darkness-red-four-live-sparse-real-one-cost-shadow-runeblade-action-creates-one-owned-runechant",
+      "returncode": 0,
+      "stdout": "[PASS] Envelop in Darkness / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

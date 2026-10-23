@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-adrenaline-rush-red-four-live-sparse-actual-play-at-less-life-grants-three-power",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 413
+    },
+    {
+        "slug": "card-spring-load-red-four-live-sparse-actual-last-hand-attack-and-blue-pitch-enable-three-power",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 413
+    },
+    {
+        "slug": "card-spellblade-strike-red-four-live-sparse-actual-attack-creates-one-owned-runechant",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 425
+    },
+    {
+        "slug": "card-spellblade-assault-red-four-live-sparse-actual-attack-creates-two-owned-runechants",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 437
+    }
+]

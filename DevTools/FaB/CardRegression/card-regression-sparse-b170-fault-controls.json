@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:52:35.653047+00:00",
+  "plan_sha256": "7a6079873caf76cfd7262d65473975e27ecc662d6fb21dd3de8ed5f8c6ca82f1",
+  "independent_saved_proof_sha256": "b69d4c4d855ecae1aab422f041249c196f370f7f265dd05fe16128e9dc599e7f",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b170-focused-fault-plan.json",
+    "7a6079873caf76cfd7262d65473975e27ecc662d6fb21dd3de8ed5f8c6ca82f1",
+    "card-regression-sparse-b170-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b170_tectonic_plating_created_seismic_presence_sensitivity",
+      "fixture": "card-tectonic-plating-four-live-sparse-actual-paid-retained-equipment-action-creates-owned-seismic-surge",
+      "fixture_sha256": "8eef8e9528e213d8394a49013eb6502c9d305933ebfb8893417736dd25bed770",
+      "source_raw5": {
+        "initial_gamestate.txt": "1935d3e06d197c616501513a1e3e962e44c72489b72835a40f637a991480ff72",
+        "actions.json": "02e014fcbc767be35abb52b1fba8950f602a853b060793ec33880f9f114fa6e5",
+        "assertions.json": "3cd40ed60e2adf8719480714b31b8c6a369d8b0dcf5c19bbb49e1b2cad14568d",
+        "expected_final_gamestate.txt": "99f5e924682e21e4092d875ee272a9fd3efddb03d0236f96b23f05d47561b664",
+        "meta.json": "fec832c719728d2200cb46461cfa42d4fa6ea06edbcf478a3628fc53fd5ca6da"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "cardID": "seismic_surge",
+            "uid": 8,
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Tectonic Plating / four live actual paid Seismic Surge creation: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Blue6 pitch pays Action1, retained Equipment5 remains ready/owned, and four real responses create owned Seismic8/GA restoresAP1, move only actual created Seismic8 Arena to Temp on disposable. Terminal created-result sensitivity only; not legal movement, upstream callback omission, future token reduction/destruction or lifecycle credit. Prefix executes every original action and retains every original final oracle.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

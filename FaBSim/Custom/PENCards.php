@@ -1117,14 +1117,14 @@ function FaBPENFrostReplacements(int $player): string {
     foreach(FaBCRUEquipment($player,'smoldering_scales') as $r)if(!HasNoAbilities(FaBIdentityFromMZ($r)['object']))$refs[]=$r;
     return implode('&',$refs);
 }
-function FaBPENReplaceFrost(int $player, string $id, int $number, int $creator, bool $action, bool $wager): bool {
+function FaBPENReplaceFrost(int $player, string $id, int $number, int $creator, bool $action, bool $wager, ?int $owner = null): bool {
     if($id!=='frostbite'||$number<1||!empty($GLOBALS['penFrostBypass'])||FaBPENFrostReplacements($player)==='')return false;
-    FaBRunSourceMacro('ResolveAbility',$player,'smoldering_scales',['mzID'=>'','penFrostNumber'=>$number,'penFrostCreator'=>$creator,'penFrostAction'=>$action,'penFrostWager'=>$wager]);return true;
+    FaBRunSourceMacro('ResolveAbility',$player,'smoldering_scales',['mzID'=>'','penFrostNumber'=>$number,'penFrostCreator'=>$creator,'penFrostAction'=>$action,'penFrostWager'=>$wager,'penFrostOwner'=>$owner]);return true;
 }
-function FaBPENFinishFrost(int $player, string $ref, int $number, int $creator, bool $action, bool $wager): void {
+function FaBPENFinishFrost(int $player, string $ref, int $number, int $creator, bool $action, bool $wager, ?int $owner = null): void {
     if($number<1)return;
     if(in_array($ref,explode('&',FaBPENFrostReplacements($player)),true)&&($f=FaBIdentityFromMZ($ref))){if($f['zone']==='Graveyard')FaBMoveUID(intval($f['object']->UniqueID),'Banish',$player);else FaBMONDestroy(intval($f['object']->UniqueID));return;}
-    $GLOBALS['penFrostBypass']=true;try{FaBHVYToken($player,'frostbite',$number,$creator,$action,$wager);}finally{unset($GLOBALS['penFrostBypass']);}
+    $GLOBALS['penFrostBypass']=true;try{FaBHVYToken($player,'frostbite',$number,$creator,$action,$wager,$owner);}finally{unset($GLOBALS['penFrostBypass']);}
 }
 function FaBPENLifeMore(int $a, int $b): bool {
     return GetHealth($a)>GetHealth($b)||(GetHealth($a)===GetHealth($b)&&FaBPENLineCrossers($a));

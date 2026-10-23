@@ -1,0 +1,152 @@
+{
+  "status": "B175_ONE_EQUIPMENT_CREATED_TIGER_REAL_BANISH_PLAY_PERMISSION_REPRESENTATIVE_TWO_CLEAN_TARGETED_REPLAYS_ONE_EXACT_NATIVE_CONTROL_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch175.json",
+  "input_sha256": "a68ef15efb3ea22dcd5cd2dc86f8ffe5d8c9c3003674f8ef640b56e29b797f42",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:07:06.539971+00:00",
+  "fixtures": [
+    {
+      "slug": "card-pouncing-paws-four-live-sparse-actual-instant-destroy-creates-one-banish-tiger-and-exercises-real-play-permission",
+      "fixture_sha256": "28b24c214a80c3a5558ebbc756576c1c30c55d23734dc558fd6513b3a528e600",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c9eacc4a080ead24b64b619ba179d00670b242d76348f9e787969dc771bc143e",
+        "actions.json": "f52ae597cd22575f8f7247f607802c1c2c31ffe7379d2d0d7167c30c328da2ef",
+        "assertions.json": "5106fcd0d465a6d43a7abb95ef7902c9381501ee2a21ab62ff9238c8a83ce30c",
+        "expected_final_gamestate.txt": "227a0bf95f3b62d2f26e9984478130ac53534198b25a4a2281e30c796ca36736",
+        "meta.json": "bd35513eb2715e6c2ffcd32f1d8ffd827e85ad82b400090a3269ac9db9843346"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 1140,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 28,
+  "total_native_assertions": 1140,
+  "total_manual_passes": 25,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b175-actual-saved-independent-review.json",
+    "sha256": "47fe9101e2b0f888d4abb910ac393f433fb5386a287ff710087de882fec8454e"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b175-independent-spec-review.json",
+    "sha256": "332009f4d5849a07dc468f88e5ef05cb4d31ea0171f65739818ba2cb1e2ac434"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch175-20261022T210415Z-6ada7a4f22f0e.json",
+    "sha256": "4208f3f68847231c54b411688321dc6ad20d2416f5519bd727cf3685517b1049"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b175-four-live-run1.json",
+      "sha256": "8d9c5ef4d77b7a5c493a49f7c5cb775042fb3eb57f0e13b0cae20073e1d601f2",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch175.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b175-four-live-run2.json",
+      "sha256": "117474486e96e1ef297732519bdc29b47d92d6a3f02f81e469c6bd1a107bc6f4",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch175.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b175-fault-controls.json",
+    "sha256": "0841c7a7693cb8e7b31bff60191776d84040083880fe5c7838eb904d9567d617",
+    "total": 1,
+    "intended_semantic_failures": 1,
+    "plan_sha256": "d93aca68ee408c25d1d6ffb4f803923745606426babb8d3b4582f52a3afe3a0d",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b175_pouncing_paws_focused_effect_sensitivity",
+      "fixture": "card-pouncing-paws-four-live-sparse-actual-instant-destroy-creates-one-banish-tiger-and-exercises-real-play-permission",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "crouching_tiger",
+            "uid": 7,
+            "from": "Banish",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 582,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Banish count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b175-focused-fault-plan.json",
+    "sha256": "d93aca68ee408c25d1d6ffb4f803923745606426babb8d3b4582f52a3afe3a0d"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1383,
+  "native_evidence_review_checks": 46,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "One Paws actualInstantdestroy5 createssoleTiger7ownBanish/permission1 afterfourresponses; realP1play same7normalizesownercontroller1/base0/power0/damage0/nohit/AP1printedGA atvalidRESOLUTION. Source5onlypublicGYFaceDown0/Banishempty/all20/R0. No extraTiger/Ephemeralcleanup/expiry/Battleworn/interposition/hero/full-card credit.",
+    "Only current ONE-case new packet audited; root alone executes native games and writes repo. Only bounded createdTigerownzone/raw0-to-actualOwner1play routes; no broad raw0 ownership audit or legacy reviews.",
+    "Two new targeted clean replays and one intended native control only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "PouncingPaws prefix5 omitssoleactualcreatedTiger7 from ownBanish toTemp. ExactoriginalfirstBanish1to0 pinscreatedoutput while source5actualdestroy/publicGYFace0/AP1/R0 preserved. All23remainingrealactions/everyoriginalsuffixoracle retained. ActualP1playofsamecreatedTiger7 normalizesOwnerController1, originalpermissionflag1plususableBanishplay/base0/damage0/nohit/printedGAAP1 positivelypinned andpurefault-sensitive; NO isolatednativepermission-loss mutation claim. B135boundedimplicitownzoneproofreused, no newraw0interpretation. EndsvalidRESOLUTION beforewouldGY; noextraTiger/Ephemeralcleanup/expiry/Battleworn/interposition/hero/support/full-card credit.",
+    "Prefix5 retains23remainingrealactions and everyoriginalsuffixoracle with onlyoffsetschanged; selectedraw5/runtimepreserved. No helper/executorchanges/broadtests/positivereplayrepeats."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "f226a583199e57b97a2bc7f488b717882d05b885773ec84dcc05d63dd64388c7"
+}

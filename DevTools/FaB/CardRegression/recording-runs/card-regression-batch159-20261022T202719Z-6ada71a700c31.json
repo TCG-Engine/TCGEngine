@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:27:19+00:00",
+    "input_file": "card-regression-batch159.json",
+    "input_sha256": "43d455ff78e70ff5849cb546851d72b8ef165bc42f6588c2fadce376de3eb56c",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-rift-skitter-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 414
+        },
+        {
+            "slug": "card-rune-flash-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 414
+        }
+    ]
+}

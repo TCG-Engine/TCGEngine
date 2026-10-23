@@ -1,0 +1,7 @@
+{
+    "name": "High Octane / four live sparse ordinary effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T20:56:49+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1 is legal young Mechanologist Dash, with her optional starting item declined and all Arena slots empty. Actually play physical HighOctaneRed5 at printed1 cost by pitching BlueWoundingBlow6 for3, leaving resources2/AP0. Actual RedWoundingBlow7 is the sole Deck card. All four real seats manually respond with no draw before the fourth response. The fourth draws that same UID7 into own Hand0, empties Deck, places source5 in publicGraveyard FaceDown0 and returns printed go-again AP1/resources2. All four heroes remain20. No boost or later card is attempted. Full live-seat/health/priority/physical identity/owner/controller/zone counts and clear queues are pinned at each action. No primary or support card is inserted after recording starts. Only printed payment, one-card draw and own go-again endpoint. The separate whenever-you-boost AP trigger, repeated boost events/response flow, future use of drawn card, expiry and Dash setup item behavior remain untested; no support primary credit. No whole-card, sibling/support/hero coverage or ordinary source-departure ordering claim. Sources: https://judge.fabtcg.com/cards/detail/345/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP188.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

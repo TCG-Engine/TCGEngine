@@ -1,0 +1,213 @@
+{
+  "status": "B151_TWO_EQUIPMENT_SEISMIC_AND_RESOURCE_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch151.json",
+  "input_sha256": "d100aa2010eaf969a481ea5fe906ed28eaf5a70803fc528a4f3fb3461d7b68fc",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:10:53.993453+00:00",
+  "fixtures": [
+    {
+      "slug": "card-richter-scale-four-live-sparse-actual-equipment-destruction-creates-two-owned-seismic-surges-without-go-again",
+      "fixture_sha256": "e85aa2e6b73742c2fee15e84c0f062f19f110c4636086c032164d361be71d5fb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "725140a221b924ccfbc512429015e9f0b8ae698a38cd03057cc8476bd8324ed7",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "e755981a9012b386343caa1e8669d335b7fd701ef5e56bada575f913200d306f",
+        "expected_final_gamestate.txt": "96ba4500c773a34600d90b81ff5bcf41b6e36d71e5657740e1b1f4f407111a4a",
+        "meta.json": "fde348f845c4ca84aa7b12b76cbc8c334f1e0c294f08192f56007acad41b543d"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 342,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-buccaneers-bounty-four-live-sparse-actual-pirate-equipment-destruction-gains-one-resource-and-go-again",
+      "fixture_sha256": "72695f0888f12219144d2af4f57f67db26a31d119303009b998b985a15496491",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d5a045dc84b0e8cc5bb539b685762c5d507e7f5f2efe9f0dd00be0e01248c010",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "dd1d0c3bb42d16408ba637c72bcb87976b282045b50e8df97c5209e7a1ad09b5",
+        "expected_final_gamestate.txt": "79bdd9f4a7b36c5e39b0371dcf6bc123d80fd4d76110ac1a590aed4f6e05cd60",
+        "meta.json": "2d9116e2af4aa87e00eadd8841763d033dbcd74549c345c5e0af0fbfd4575c63"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 332,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 10,
+  "total_native_assertions": 674,
+  "total_manual_passes": 8,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b151-actual-saved-independent-review.json",
+    "sha256": "17558385c38edf23f091a8b74f938823c920eebf00b7b8e083bb94bb4ce90c47"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b151-independent-spec-review.json",
+    "sha256": "c0a93297932d3bcb4c1d1351b78312b67853add0d4137c6bc0f26ff6a53c188d"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch151-20261022T200844Z-6ada6d4c3e550.json",
+    "sha256": "5e67d1165793f86926a92f8970f2dadf182f8e4aeb7505d08675827781e2ff33"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b151-four-live-run1.json",
+      "sha256": "fa4c6c35e5aa7c7b75dd13d4eb0226315fd5bf9e2d93e41ea8daf548022e4f75",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch151.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b151-four-live-run2.json",
+      "sha256": "546b1780404dcb455612ad90fff8fbf095a4a5bccc8cbf6f49f79fd607aebc6c",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch151.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b151-fault-controls.json",
+    "sha256": "98e5b0e38c5f471ff5cf20b8ad90316dcc8ca89ca2edd183c5faa7e3bc0f7c2f",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "c8cb6ad307f13becf4290490ea6de5cb7d8eb802e776120c84542d7835ee3fef",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b151_richter_scale_focused_effect_sensitivity",
+      "fixture": "card-richter-scale-four-live-sparse-actual-equipment-destruction-creates-two-owned-seismic-surges-without-go-again",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "seismic_surge",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 116,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b151_buccaneers_bounty_focused_effect_sensitivity",
+      "fixture": "card-buccaneers-bounty-four-live-sparse-actual-pirate-equipment-destruction-gains-one-resource-and-go-again",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "buccaneers_bounty",
+            "uid": 5,
+            "from": "Graveyard",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 106,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b151-focused-fault-plan.json",
+    "sha256": "c8cb6ad307f13becf4290490ea6de5cb7d8eb802e776120c84542d7835ee3fef"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1237,
+  "native_evidence_review_checks": 65,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Two equipment standalones: RichterGuardian/Terra actualdestroyEq5 createsownSeismic7/8, NO abilityGA/AP0/R0; BountyPirate/Marlynn actualdestroyEq5 gainsresource1/abilityGAAP1, no draw/hero trigger. No Seismiclifecycle/costreduction/resourcespending/defense/hero/support/fullcard credit.",
+    "Only current TWO-case new packet audited; root alone executes native games and writes repo. Only established virtualABILITYrawOwner0/Controller1representation; physicalEq5 remains owned1. No broadownership or legacy review.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Richter control moves exactcreatedSeismic7 Arena toTemp at completeprefix5; first originalArena2to1, preservingSeismic8/source5publicGY0/economy/noGA/AP0. Bounty control moves actuallydestroyedphysicalEq5 GYtoTemp at completeprefix5; first originalGY1to0, actualresource1/abilityGAAP1intact. Bounty nativecontrol is physicaldestroy-cost destination only, NO isolatedresourcegain mutation claim. Printed+1andnoearlygain, positive nativeoracles/tworeplays, puremissing/extra/earlygain faults separatelybound. No Seismiclifecycle/costreduction/defense/resourcespending/hero/support/fullcard credit.",
+    "Both completeprefix5 controls retain all original finaloracles asInitial withzero suffixactions. Same exact selectedraw5/runtime preserved; no helperextension, new ownership or broad-suite claim."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "67d43c580c6bbc192f7024f06ed573eec0661d039aeca0d108db2a8a1ecf286c"
+}

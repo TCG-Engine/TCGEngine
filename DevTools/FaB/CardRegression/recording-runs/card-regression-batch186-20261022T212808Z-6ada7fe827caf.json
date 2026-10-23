@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T21:28:08+00:00",
+    "input_file": "card-regression-batch186.json",
+    "input_sha256": "550119e2617aa4199ddc9965f80582532a190618a162fe3c87488ce5b59b7cb4",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-fog-down-yellow-four-live-sparse-opposing-live-seat-static-aura-removes-printed-go-again-from-real-nonattack",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 319
+        }
+    ]
+}

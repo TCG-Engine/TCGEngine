@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:04:01+00:00",
+    "input_file": "card-regression-batch147.json",
+    "input_sha256": "444985776d931646aadb73074d11d1ba7eaa07fb2e7bd0f62f158c18cace078b",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-robe-of-rapture-four-live-sparse-actual-equipment-action-destruction-gains-three-resources-without-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 332
+        },
+        {
+            "slug": "card-bracers-of-belief-four-live-sparse-actual-red-top-reveal-grants-two-to-next-real-blue-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 984
+        }
+    ]
+}

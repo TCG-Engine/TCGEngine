@@ -509,6 +509,16 @@ function FaBCRUResolveLunging(int $player, object $source): void {
     FaBTagUID($targetUID, 'CRU_REACTION_POWER:1');
 }
 
+/** Count public graveyard copies while the resolving Tome is still a stack layer. */
+function FaBCRUResolveGorganian(int $player, object $source): void {
+    if ($source->CardID !== 'gorganian_tome' || HasNoAbilities($source)) return;
+    $amount = 1;
+    foreach (FaBLiveSeats() as $seat) {
+        $amount += count(FaBChoiceRefs($seat, 'Graveyard', ['base'=>'gorganian_tome']));
+    }
+    DoDrawCard($player, $amount);
+}
+
 function FaBCRUApplySnag(): void {
     foreach(FaBLiveSeats() as $p){
         if(!FaBCRUCount($p,'SNAG'))foreach(['CombatChain','Stack'] as $zone)foreach(FaBZoneGet($zone,$p) as $o)if(is_object($o)&&empty($o->removed)&&intval($o->Controller??$o->Owner??0)===$p&&FaBWTRIsAttackAction($o))FaBARCSetCard(intval($o->UniqueID),'snagRetained',FaBCRUOwnPower($p,$o));

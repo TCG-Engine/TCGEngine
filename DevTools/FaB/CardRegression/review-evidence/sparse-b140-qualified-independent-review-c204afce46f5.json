@@ -1,0 +1,184 @@
+{
+  "status": "B140_TWO_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b105_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch140.json",
+  "input_sha256": "b1b2ad9f8a57dfc68e09fa5245c0f8774c7462ff56d2ef4b0c4caa32e03abb2c",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:51:49.275260+00:00",
+  "fixtures": [
+    {
+      "slug": "card-flash-red-four-live-sparse-actual-zero-cost-action-granted-go-again",
+      "fixture_sha256": "3420480a549e967d115195de13f434a31a400c885af040caa7993f7ec3abeaf4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "32988c3ce34ffa840e15f7454a61da8d146bd5b6eabaca68b79df394cfa983fe",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "c8001d333b8caa6c82fab9d0a4ee10948f3d3135b6ecb381b1bff66815dc0d6d",
+        "expected_final_gamestate.txt": "eb9fe610a16b8f7ef708c2abb799995f46cacbad583a9fb10477fe3ee6cf073c",
+        "meta.json": "c03e8add8dbbdbcb443d4b62c33877d0d2cdc14f5cb687c25a6b29b9de3c595a"
+      },
+      "semantically_approved": true,
+      "actions": 32,
+      "native_assertions": 815,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-hit-and-run-red-four-live-sparse-first-real-weapon-granted-go-again",
+      "fixture_sha256": "ce551d481067fa7f0cf80ce9caa2b900c6089322be7d69dd06f608cc3d30c08e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f7948e54f3c72ee5fc636000d264ba8481f704187bcc555402a77b5815112814",
+        "actions.json": "aa8c19cdf184a32215f004b4a9656beac99c105d01aeac5e9686ede0cf6f2874",
+        "assertions.json": "564d64656f0f2d4fb91b6167e8edf51e346819aa44ca85ee1c34e03f11c01290",
+        "expected_final_gamestate.txt": "76b309eaa7d1e57828f5d2ae9d6061bf8f7452154d262b92062e5e2c848f3d64",
+        "meta.json": "8d0c63dca78af390dd2daf6d7ef073b9bcebb5d1b2fd678c6c70b98415d8b3bb"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 1334,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 65,
+  "total_native_assertions": 2149,
+  "total_manual_passes": 58,
+  "checks": 59,
+  "actual_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b140-actual-saved-independent-review.json",
+    "sha256": "1dd5ce584eb51c46558c5a37027fad53f1508c2cc5209f74c89e0e2b3e0b3d4a"
+  },
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b140-independent-spec-review.json",
+    "sha256": "723912acd3f01de047a26a098807cd69b9e23d1b0dfbdc07735e08b902ffe548"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch140-20261022T195023Z-6ada68ff2d708.json",
+    "sha256": "1ea4b56fe1a4ccb1d52df8db71ae593bce339846b625902d76e77a5b603808bc"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b140-four-live-run1.json",
+      "sha256": "c0fad1d5b49ccfa1cc037e1986dc5c4835a96affe0c641a028727b494fff6b8d",
+      "passed": 2,
+      "total": 2,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b140-four-live-run2.json",
+      "sha256": "3bc1959ed6ada30634a5f9f7046936dd03ad4969fdd018195053ef6af61dfadc",
+      "passed": 2,
+      "total": 2,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b140-fault-controls.json",
+    "sha256": "46f100fcda683febca84e49a99120e048eb82d7938a0989aa1fd22ac855d2edf"
+  },
+  "focused_native_controls": [
+    {
+      "id": "b140_flash_red_focused_effect_sensitivity",
+      "fixture": "card-flash-red-four-live-sparse-actual-zero-cost-action-granted-go-again",
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "ELE_NEXT_ACTION_GO"
+      },
+      "retained_assertions": 609,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove only the actual resolved Flash next-action GA grant before the actual cost0 attack6; base4, source/pitch/economy and all actions/oracles are preserved. First computed GA1 becomes0, no power or damage change. Missing printed grant sensitivity only; every original suffix action/oracle retained, no alternative legal action, untested Flash recipient/pitch or positive prior-weapon+3 branch credit. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b140_hit_and_run_red_focused_effect_sensitivity",
+      "fixture": "card-hit-and-run-red-four-live-sparse-first-real-weapon-granted-go-again",
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "NEXT_WEAPON"
+      },
+      "retained_assertions": 947,
+      "expected_failure_step": 7,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove only the actual resolved HitAndRun next-weapon GA grant before actual physicalDawnblade7 activation and realBlue6pitch/weapon1payment. Base3 and no-earlier-weapon condition remain unchanged, physical7/proxy8/status/ownership preserved; first computedGA1 becomes0. Missing printed grant sensitivity only; every original suffix action/oracle retained, no alternative legal action, untested Flash recipient/pitch or positive prior-weapon+3 branch credit. Every original suffix action and oracle retained; only step offsets change."
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b140-focused-fault-plan.json",
+    "sha256": "7ebbc336ba603e20202d9fb4436fb78c057d9accde633c825571faa143d1777e"
+  },
+  "targeted_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "limitations": [
+    "One positive primary representative per cycle; no sibling pitch, alternate branch, full-card, hero/support or callback lifecycle credit.",
+    "Flash removes only actual ELE_NEXT_ACTION_GO before actual cost0 AA6; HitAndRun removes only actual NEXT_WEAPON before actual physicalDawnblade7 activation/Blue6pitch/weapon1payment. First computedGA1 becomes0 in each, while actual basepower4/3, damage, source printed GA and all original actions/oracles are retained. Missing grant sensitivity only; no legal alternative branch, other Flash recipient/pitch, positive prior-weapon+3 or future weapon/hero/support credit.",
+    "Only these two new fixtures are rehashed/replayed. Unrelated fixture bytes are not freshly checked; no full suite or legacy audit is performed.",
+    "Every original suffix assertion retained; synthetic faults are sensitivity probes, not legal alternate-action branch coverage."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "0383fcc26f0932ee5f00e21b6de6b5617033cda8f0f92934e9d2db0486842333",
+  "reused_stable_helper_and_orchestration_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b114-qualified-independent-review.json",
+    "sha256": "34f4ed518b19c89242bafc46b95e1e16e2fb0bf55583e8348b81dea4c76f7287",
+    "qualification": "Exact unchanged UID helper and prior18/18 component/orchestration evidence reused without new helper contract execution or broad audit."
+  }
+}

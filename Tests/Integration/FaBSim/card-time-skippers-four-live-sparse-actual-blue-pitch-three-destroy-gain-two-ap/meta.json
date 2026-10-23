@@ -1,0 +1,7 @@
+{
+    "name": "Time Skippers / four live actual paid two-AP ability",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T22:11:41+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed TimeSkippers GenericEquipmentAction3+destroythis gains2ActionPoints andhasnoGoAgain. LegalyoungDorinthea20 actuallyactivatesphysicalEquipment5, withphysicalBlueWoundingBlow6Hand/resources0/AP1. Rawabilityproxy7 SourceEquipmentUID5 iscreated; actual3resourcepaymentpending retainsAP1/Equipment5/Hand6 beforepitch. ActuallypitchBlue6for3andpay3:resources0/AP0, Blue6Pitch andphysical5destroyedascost intoownpublicGYFaceDown0 BEFORE APgainbody. Allfourlivingplayersmanuallyrespond; AP0/resources0/Equipmentempty/source5GY/Pitch6heldthroughfirstthreepasses. Fourthresponse gainsprinted2AP from0to2, removesproxy7/queues, leavessource5ownpublicGYFaceDown0/Pitch6/resources0/HandDeckArenaempty/allfourhealth20. No extraGAAP isgranted; actualfinalAP2 derivesinitial1minusAction1plusbody2. Noheroactivation/seededpayment. Only actual3resourcepitchpayment/destroycost andprinted2APpositive. FurtherAPspending, response/interruption/otherturns andheroabilities remainunverified; no support/full-card credit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FAB256-GF.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

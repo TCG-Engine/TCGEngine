@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T20:53:19+00:00",
+    "input_file": "card-regression-batch171.json",
+    "input_sha256": "d49b86927a0c6c52bffbfc701f09d7c7e3c59480151b82d5f0133c22bbee6d65",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-heart-of-ice-four-live-sparse-actual-ice-action-tax-charges-opposing-printed-zero-instant-with-real-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 1713
+        }
+    ]
+}

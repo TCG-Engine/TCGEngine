@@ -1,0 +1,155 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:30:30.880720+00:00",
+  "plan_sha256": "bb45b0922ee79f3707ccd44563241e5a7caac8321a4daf620ea213a0204664fc",
+  "independent_saved_proof_sha256": "dc9113121b256b388fbd43770ad27549fc989135dbba37d182d74c8184aac16c",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b117-focused-fault-plan.json",
+    "bb45b0922ee79f3707ccd44563241e5a7caac8321a4daf620ea213a0204664fc",
+    "card-regression-sparse-b117-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b117_prismatic_shield_red_focused_effect_sensitivity",
+      "fixture": "card-prismatic-shield-red-four-live-sparse-real-three-resource-instant-creates-three-owned-spectral-shields",
+      "fixture_sha256": "12f1ae62d8255250d5083a17033cbee5754a5359d73d0d1253e02a2b729ffd0e",
+      "source_raw5": {
+        "initial_gamestate.txt": "77606eb8d0e5033bc582e13fdf32aafe7bfe1c1444f8a3d38916c677e193aa76",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "5b6631577692a591f64628a7d89e9898b0cd5a3f929b8868c648c46612aeb62a",
+        "expected_final_gamestate.txt": "1b4be29751505f54f68958ddfd04c68a8ac328c8b5b956a0c6102e60546e32e6",
+        "meta.json": "e70370969adfb2b7f9de7b365a23772f5dd1feb4d7a968240c00f4fe499b23fc"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "spectral_shield",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 125,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Prismatic Shield / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 3, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact first created physical token UID7 after actual four-seat paid resolution. Integer UID selects only this object, including one of three identical tokens, preserving primary source5, actual pitch6 where present, all other tokens/economy. Direct printed creation-outcome sensitivity only; no Ward/startphase/later token use or RuneGate grant/alternate branch credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b117_future_sight_red_focused_effect_sensitivity",
+      "fixture": "card-future-sight-red-four-live-sparse-real-one-resource-instant-creates-three-owned-sigils-of-fate",
+      "fixture_sha256": "51d814b43bd4b54bb618870a577e5729ceeb4831757daaff4e77910cd7180122",
+      "source_raw5": {
+        "initial_gamestate.txt": "65c852b387af7d7ac1282795b3e5168c5b2b5b1a0618aa0523af6ef229846303",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "78b1c6edd48a28b62d916b0bc6bd8bd71477b77f21fcba46404180fd853460a7",
+        "expected_final_gamestate.txt": "ed7443c44a0c6df1794e3ddc7a6c16c07e0fa6a8c4e3efcf3a166018b03e1480",
+        "meta.json": "e5ff4fd34dd00ea4f4dcd063607eeef0115cdb59e251d5d1f00255170f1facbe"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "sigil_of_fate",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 125,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Future Sight / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 3, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact first created physical token UID7 after actual four-seat paid resolution. Integer UID selects only this object, including one of three identical tokens, preserving primary source5, actual pitch6 where present, all other tokens/economy. Direct printed creation-outcome sensitivity only; no Ward/startphase/later token use or RuneGate grant/alternate branch credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b117_oath_of_oak_red_focused_effect_sensitivity",
+      "fixture": "card-oath-of-oak-red-four-live-sparse-real-zero-cost-earth-action-creates-three-owned-embodiments-of-earth",
+      "fixture_sha256": "923403d9462ff958721deb3e63fb1d931dd49aff1167b7f46be220d95b6bfe60",
+      "source_raw5": {
+        "initial_gamestate.txt": "1094f60bc9e6e2448d61d8067339d4f2492476759bc506917763fbd941df487e",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "a86a1c78779a4e006df65c99a626525f1b7ec9f07f3bcf4052c53d46b6dfa90a",
+        "expected_final_gamestate.txt": "b300d982e11c8828360dc1e1e06b4de285e0cb314bb09678a588b6bbab7c6317",
+        "meta.json": "9e834685e6fb9bcc28f40ed72ca6167c6dff73754f0acc5f6f0a9ed3c749f7e1"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "embodiment_of_earth",
+            "uid": 6,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 121,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Oath of Oak / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 3, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact first created physical token UID6 after actual four-seat paid resolution. Integer UID selects only this object, including one of three identical tokens, preserving primary source5, actual pitch6 where present, all other tokens/economy. Direct printed creation-outcome sensitivity only; no Ward/startphase/later token use or RuneGate grant/alternate branch credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b117_envelop_in_darkness_red_focused_effect_sensitivity",
+      "fixture": "card-envelop-in-darkness-red-four-live-sparse-real-one-cost-shadow-runeblade-action-creates-one-owned-runechant",
+      "fixture_sha256": "5dc7915b55b4ae1343fbff25573924c0e1743b6be7f18c8abd9073af377d3b04",
+      "source_raw5": {
+        "initial_gamestate.txt": "49680286e5da95ae0dd776c672c12d4571a7f93641770da9941d0a988b89c0fa",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "ff34c3af14e66a96f15981641c51e81007d3ae4bf58527dfbea09ed3cbf00174",
+        "expected_final_gamestate.txt": "8d877466df368712cafd6d2837443544425eabc055536172ebdf34ce0ce84fde",
+        "meta.json": "bd55d6d7c4f4c53d68f7f89e5e452608d44618a82e01a4c6fb14742e243c5a89"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "runechant",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Envelop in Darkness / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact first created physical token UID7 after actual four-seat paid resolution. Integer UID selects only this object, including one of three identical tokens, preserving primary source5, actual pitch6 where present, all other tokens/economy. Direct printed creation-outcome sensitivity only; no Ward/startphase/later token use or RuneGate grant/alternate branch credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

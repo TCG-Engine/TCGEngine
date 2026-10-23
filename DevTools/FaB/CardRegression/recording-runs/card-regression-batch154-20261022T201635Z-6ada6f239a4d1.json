@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T20:16:35+00:00",
+    "input_file": "card-regression-batch154.json",
+    "input_sha256": "5c103aca1808cd0c6c0db9de7da896f91483ff6e451bc6091830fa1b54846a1c",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-calming-gesture-four-live-sparse-actual-blue-pitch-paid-instant-owned-shield",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 400
+        }
+    ]
+}

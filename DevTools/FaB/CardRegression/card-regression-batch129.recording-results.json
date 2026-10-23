@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-weave-earth-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 974
+    },
+    {
+        "slug": "card-weave-ice-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 974
+    },
+    {
+        "slug": "card-weave-lightning-red-four-live-sparse-actual-zero-cost-weave-buffs-next-real-unfused-elemental-attack-by-three",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 974
+    }
+]

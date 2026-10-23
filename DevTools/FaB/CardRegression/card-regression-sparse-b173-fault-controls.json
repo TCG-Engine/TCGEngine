@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:01:24.815678+00:00",
+  "plan_sha256": "d816c13fe62c9589451464a988c0f3a11500d1f282c85cda1090b4e301fba78a",
+  "independent_saved_proof_sha256": "5d7fb07c4161944290b36d2ea9b04f20d8475bc63ce6c2659163e73a900c64d2",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b173-focused-fault-plan.json",
+    "d816c13fe62c9589451464a988c0f3a11500d1f282c85cda1090b4e301fba78a",
+    "card-regression-sparse-b173-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b173_ragamuffins_hat_focused_effect_sensitivity",
+      "fixture": "card-ragamuffins-hat-four-live-sparse-actual-exactly-one-hand-instant-draw-then-original-card-bottom-choice",
+      "fixture_sha256": "23d12b732f478d0bf46726a9804ac4c61c1704e3325f15993bb9ad0621254c11",
+      "source_raw5": {
+        "initial_gamestate.txt": "133cfa5a8f4c8963fd9bfa7aae3b175b8fab8a9e20ba35b6f94b3d652149f530",
+        "actions.json": "c759814c512902b5192d25f3ab6d14ce4d92fa6893b9f47adedb632129cce1ef",
+        "assertions.json": "d229460acb7c44108e784ed1ecbe2c65d284afdb1275a4814a2760e9c32a722b",
+        "expected_final_gamestate.txt": "67d83e0e634cdb942e94611aba0e159cdc46af2a050b4407b5d2c613420414a3",
+        "meta.json": "fe036211cecac6c718df94fe2d8fa08dcadef2964ca7edc45d68050eea14b344"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "wounding_blow_yellow",
+            "uid": 8,
+            "from": "Deck",
+            "to": "Deck"
+          }
+        ]
+      },
+      "retained_assertions": 118,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Deck-0.CardID to equal 'wounding_blow_yellow', got 'wounding_blow_blue'.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Ragamuffin's Hat / four live sparse positive effect: Initial assertion failed: Expected p1Deck-0.CardID to equal 'wounding_blow_yellow', got 'wounding_blow_blue'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Reappend exact untouchedYellow8 tosameownDeck afteractualHatdrawRed7/selectedoriginalBlue6/Bottommode1. ChosenDeck8,6 becomes6,8, whilephysicalset/count/owners/newHandRed7/source5publicGY/AP1/R0 remainintact. OriginalfirstDeck0CardIDyellowtoblue directlydetects chosenBottomordering; alloriginalfinaloracles retainedasInitial. No negativeHandcountcondition/Topmode/newdrawreturn/emptyDeck/interposition/UIprivacy/laterdraw/hero/support/full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

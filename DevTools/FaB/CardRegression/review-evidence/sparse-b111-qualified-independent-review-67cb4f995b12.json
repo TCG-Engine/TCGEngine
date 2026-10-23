@@ -1,0 +1,317 @@
+{
+  "status": "B111_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b105_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch111.json",
+  "input_sha256": "35eede17bf7762558112490a91089c429091cf1d65f025eb7b2af715b82cc762",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:01:27.613736+00:00",
+  "fixtures": [
+    {
+      "slug": "card-torrent-of-tempo-red-four-live-sparse-actual-paid-five-damage-hit-grants-go-again-before-resolution-ap",
+      "fixture_sha256": "89e78143e2cf124a19dbbef2c25f8d7b6a760f5dd83af8b50c0e224b0931d2ee",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7fe589121060d0097d309fb4e6261823873d683c4970102f30c54294e0777538",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "2466e33e1138fcf5b422b9c42f9b6a7250886ec94384ddd225182de321dc40c1",
+        "expected_final_gamestate.txt": "a0923189282b4f6e140f2f89ff0e34732042dbf834fd54595f237893ae23084b",
+        "meta.json": "094302aa9dc025bffa88f40d0c8c366a44466aeb356d6307471bf25d01bbf82a"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 447,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-sweeping-blow-red-four-live-sparse-actual-attack-creates-owned-ash-and-printed-go-again",
+      "fixture_sha256": "18a7e6a0b4f0b16f212b7a632a8beb4c78dac909a7728dde886b33da7b1a221a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "20c0658e6aa2ea1aac135907e22e7892d18a2a5eb00d00b7f9340bc71dd3c1c9",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "6ccffa44002656b11e5067d9b51e85aba88c370b9dceea479fc9322764620eea",
+        "expected_final_gamestate.txt": "ac251d81ace70cd2e83e110fdce89d80f1d79a9eb46c61812f910b169c532363",
+        "meta.json": "8f6657fdb736ba185546782b40b183edf0732477465a0563a2deaa424439ab77"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 470,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-hocus-pocus-red-four-live-sparse-actual-zero-cost-attack-creates-one-owned-runechant",
+      "fixture_sha256": "7256a548bbe4c0fb20da4d25aa4dda519ac333e7eb08dc570bacb2d38e084a16",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f929c5ab09a23d2f3026a5cb005a0f3d0a8c36689cccfd62d1958f82e22c507c",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "a25235d24205f5e06881897558bf6c1ec00b60926f5f4d3a2b55fa99d9ddb8cf",
+        "expected_final_gamestate.txt": "7340ccb0bd2ece6ace8472d5cf81a50ebd846a277a43fd1887f60c6b161ff14d",
+        "meta.json": "aadb74ca05ef1c7bd228e23c82b56eb02c5db06696744c5c89bd600a7113ffdd"
+      },
+      "semantically_approved": true,
+      "actions": 27,
+      "native_assertions": 429,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-soulbead-strike-red-four-live-sparse-actual-four-damage-hit-grants-go-again-before-resolution-ap",
+      "fixture_sha256": "79749dc35b041502d2fda7f89f201b0c6ab97cd20fca4a6ac64cebd4bfd1d2be",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2cfba4d844ad4c2ff5eda88e3c3963c9f11b0f755c988f03ed7d7c922cf3bb52",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "c96788eef3164c8884e241ca790ea70655f88a5886701952de057e8e88a86b1d",
+        "expected_final_gamestate.txt": "08be25e11ccc42ea7964659636c8a2d5aed7bea7c108c0e9e3e44580449afb86",
+        "meta.json": "f16d0956f8fcc46238b41b9cad0bccf1806f6204f3bae682eb07c63315b9d05d"
+      },
+      "semantically_approved": true,
+      "actions": 27,
+      "native_assertions": 406,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 110,
+  "total_native_assertions": 1752,
+  "total_manual_passes": 100,
+  "checks": 90,
+  "actual_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b111-actual-saved-independent-review.json",
+    "sha256": "ebbcc1693e33dbbc721df8302d28f5d2cf714f1eaefa28f023dbd11c2d0c3fca"
+  },
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b111-independent-spec-review.json",
+    "sha256": "e91b731ea017c62dc96ef7878bda7247c75f2502c59c268a3308b5e68f4af799"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch111-20261022T175858Z-6ada4ee223bfa.json",
+    "sha256": "d44238e45be7e99eb6dcdbf5c26247a2dbca5409a39fa3e51af166d850165ccc"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b111-four-live-run1.json",
+      "sha256": "687664a40a75ccce1b4bf847b3e0552dadbbad3dd5fae4c2ad47ea8766d9a1ba",
+      "passed": 4,
+      "total": 4,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b111-four-live-run2.json",
+      "sha256": "4194076339cdf739f131644129796bff9caf275911eff5568dbf8de12bd24675",
+      "passed": 4,
+      "total": 4,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b111-fault-controls.json",
+    "sha256": "953862b6ae99c7b1f4b0fb5b93646682388d25580a5be56e2aeb7cb15f28ac7d"
+  },
+  "focused_native_controls": [
+    {
+      "id": "b111_torrent_of_tempo_red_focused_effect_sensitivity",
+      "fixture": "card-torrent-of-tempo-red-four-live-sparse-actual-paid-five-damage-hit-grants-go-again-before-resolution-ap",
+      "prefix_actions": 20,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "torrent_of_tempo_red",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 157,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove the real same-source on-hit go-again grant after actual hit while retaining physical source/damage/payment and every original suffix oracle. Native grant/AP sensitivity only, no defended or no-hit branch credit. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b111_sweeping_blow_red_focused_effect_sensitivity",
+      "fixture": "card-sweeping-blow-red-four-live-sparse-actual-attack-creates-owned-ash-and-printed-go-again",
+      "prefix_actions": 7,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "ash"
+          }
+        ]
+      },
+      "retained_assertions": 278,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Relocate the sole real on-attack token out of Arena after its actual creation, retain all original suffix oracles. Physical token-presence sensitivity only; no alternate token lifecycle or later ability activation credit. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b111_hocus_pocus_red_focused_effect_sensitivity",
+      "fixture": "card-hocus-pocus-red-four-live-sparse-actual-zero-cost-attack-creates-one-owned-runechant",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "runechant"
+          }
+        ]
+      },
+      "retained_assertions": 269,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Relocate the sole real on-attack token out of Arena after its actual creation, retain all original suffix oracles. Physical token-presence sensitivity only; no alternate token lifecycle or later ability activation credit. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b111_soulbead_strike_red_focused_effect_sensitivity",
+      "fixture": "card-soulbead-strike-red-four-live-sparse-actual-four-damage-hit-grants-go-again-before-resolution-ap",
+      "prefix_actions": 19,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "soulbead_strike_red",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 153,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove the real same-source on-hit go-again grant after actual hit while retaining physical source/damage/payment and every original suffix oracle. Native grant/AP sensitivity only, no defended or no-hit branch credit. Every original suffix action and oracle retained; only step offsets change."
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b111-focused-fault-plan.json",
+    "sha256": "5f489081945dc1c0414d9f39d0de838c0faf633c38327073f1f738f3ac87aeeb"
+  },
+  "targeted_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "limitations": [
+    "One positive primary representative per cycle; no sibling pitch, alternate branch, full-card, hero/support or callback lifecycle credit.",
+    "Torrent/Soulbead controls remove the real same-source hit-granted go-again and pin the native computed ability/AP assertions. Sweeping/Hocus controls relocate the sole actual newly created token and pin Arena presence; these are synthetic sensitivities, not alternative legal actions or later token lifecycle coverage. No hero/support, defended/no-hit or internal trigger-layer ordering credit. Icy Encounter remains excluded source-only with no native bug or passing credit.",
+    "Only these four new fixtures are rehashed/replayed. Unrelated fixture bytes are not freshly checked; no full suite or legacy audit is performed.",
+    "Every original suffix assertion retained; synthetic faults are sensitivity probes, not legal alternate-action branch coverage."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "30b5b33cc9b7bd8214052cb59d1224b95cd9ff1d36d13de68e6bed5329a0ba14"
+}

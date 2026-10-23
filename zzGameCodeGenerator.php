@@ -1,30 +1,41 @@
 <?php
 
-// This CLI-only target needs the schema emitter, never auth, images or card databases.
+// Selective CLI targets exit before broad schema/UI writes.
 $zoneAccessorsOnlyCLI = false;
+$macroCodeOnlyCLI = false;
+$generatorOnlyTarget = null;
+$generatorExpectedCountSHA = null;
+$generatorMacroOutputHandles = [];
 $generatorScalarAdder = null;
 $generatorExpectedSHA = null;
 if (PHP_SAPI === 'cli') foreach (($argv ?? []) as $generatorArg) {
   if (str_starts_with($generatorArg, 'only=')) {
-    if (substr($generatorArg, 5) !== 'ZoneAccessors') {
-      fwrite(STDERR, "Unsupported only= target; expected ZoneAccessors.\n"); exit(2);
+    $generatorTarget = substr($generatorArg, 5);
+    if (!in_array($generatorTarget, ['ZoneAccessors', 'MacroCode'], true)
+        || ($generatorOnlyTarget !== null && $generatorOnlyTarget !== $generatorTarget)) {
+      fwrite(STDERR, "Unsupported/conflicting only= target; expected ZoneAccessors or MacroCode.\n"); exit(2);
     }
-    $zoneAccessorsOnlyCLI = true;
+    $generatorOnlyTarget = $generatorTarget;
+    $zoneAccessorsOnlyCLI = $generatorTarget === 'ZoneAccessors';
+    $macroCodeOnlyCLI = $generatorTarget === 'MacroCode';
   }
   if (str_starts_with($generatorArg, 'scalarAdder=')) $generatorScalarAdder = substr($generatorArg, 12);
   if (str_starts_with($generatorArg, 'expectedSHA=')) $generatorExpectedSHA = substr($generatorArg, 12);
+  if (str_starts_with($generatorArg, 'expectedCountSHA=')) $generatorExpectedCountSHA = substr($generatorArg, 17);
 }
-if (PHP_SAPI === 'cli' && ($zoneAccessorsOnlyCLI || $generatorScalarAdder !== null || $generatorExpectedSHA !== null)) {
-  if (!$zoneAccessorsOnlyCLI || !preg_match('/^[A-Za-z][A-Za-z0-9_]*$/D', (string)$generatorScalarAdder)
-      || !preg_match('/^[0-9a-f]{64}$/D', (string)$generatorExpectedSHA)) {
-    fwrite(STDERR, "Selective regeneration requires only=ZoneAccessors scalarAdder=NAME expectedSHA=SHA256.\n"); exit(2);
+if (PHP_SAPI === 'cli' && ($generatorOnlyTarget !== null || $generatorScalarAdder !== null || $generatorExpectedSHA !== null || $generatorExpectedCountSHA !== null)) {
+  $generatorValidTarget = $zoneAccessorsOnlyCLI
+    ? preg_match('/^[A-Za-z][A-Za-z0-9_]*$/D', (string)$generatorScalarAdder) && $generatorExpectedCountSHA === null
+    : $macroCodeOnlyCLI && $generatorScalarAdder === null && preg_match('/^[0-9a-f]{64}$/D', (string)$generatorExpectedCountSHA);
+  if (!$generatorValidTarget || !preg_match('/^[0-9a-f]{64}$/D', (string)$generatorExpectedSHA)) {
+    fwrite(STDERR, "Selective regeneration requires only=ZoneAccessors scalarAdder=NAME expectedSHA=SHA256 or only=MacroCode expectedSHA=SHA256 expectedCountSHA=SHA256.\n"); exit(2);
   }
 }
-if (!$zoneAccessorsOnlyCLI) include './zzImageConverter.php';
+if (!$zoneAccessorsOnlyCLI && !$macroCodeOnlyCLI) include './zzImageConverter.php';
 include './Core/Trie.php';
 include "./Core/HTTPLibraries.php";
 if (!$zoneAccessorsOnlyCLI) {
-  include_once "./AccountFiles/AccountSessionAPI.php";
+  if (!$macroCodeOnlyCLI) include_once "./AccountFiles/AccountSessionAPI.php";
   include_once "./Database/ConnectionManager.php";
   include_once "./CardEditor/Database/CardAbilityRepository.php";
 }
@@ -53,6 +64,45 @@ if ($isHTTPRequest) {
 }
 
 $rootName = TryGET("rootName", "");
+if ($macroCodeOnlyCLI) {
+  $generatorExitCode = 0;
+  set_error_handler(function($severity, $message, $file, $line) {
+    if (!(error_reporting() & $severity)) return false;
+    throw new ErrorException($message, 0, $severity, $file, $line);
+  });
+  try {
+    if (!preg_match('/^[A-Za-z][A-Za-z0-9_]*$/D', (string)$rootName)
+        || realpath('.') !== realpath(__DIR__)) throw new RuntimeException('Macro-only generation requires a root name and the repository working directory.');
+    $generatorRoot = realpath('./' . $rootName);
+    $generatorSchemaRoot = realpath('./Schemas/' . $rootName);
+    $generatorOutputRoot = realpath('./' . $rootName . '/GeneratedCode');
+    if ($generatorRoot === false || dirname($generatorRoot) !== realpath('.')
+        || $generatorSchemaRoot === false || dirname($generatorSchemaRoot) !== realpath('./Schemas')
+        || $generatorOutputRoot === false || dirname($generatorOutputRoot) !== $generatorRoot) throw new RuntimeException('Macro-only generation requires existing in-repository root, schema and output directories.');
+    $generatorSchema = file('./Schemas/' . $rootName . '/GameSchema.txt', FILE_IGNORE_NEW_LINES);
+    if (!$generatorSchema || trim($generatorSchema[0]) !== $rootName) throw new RuntimeException('Schema root does not match requested root.');
+    $generatorExpectedOutputs = [
+      './' . $rootName . '/GeneratedCode/GeneratedMacroCode.php' => $generatorExpectedSHA,
+      './' . $rootName . '/GeneratedCode/GeneratedMacroCount.js' => $generatorExpectedCountSHA,
+    ];
+    // Lock and check both existing outputs before a backend read or any truncation.
+    foreach ($generatorExpectedOutputs as $generatorPath => $generatorHash) {
+      if (!is_file($generatorPath) || dirname(realpath($generatorPath)) !== $generatorOutputRoot) throw new RuntimeException('Macro-only generation requires existing in-root output files.');
+      $generatorHandle = fopen($generatorPath, 'r+');
+      $generatorMacroOutputHandles[$generatorPath] = $generatorHandle;
+      if (!flock($generatorHandle, LOCK_EX | LOCK_NB)) throw new RuntimeException('Macro output is locked by another generator.');
+      if (!hash_equals($generatorHash, hash('sha256', stream_get_contents($generatorHandle)))) throw new RuntimeException('Macro output base hash changed; preserve current files.');
+    }
+    GenerateMacroCode();
+  } catch (Throwable $e) {
+    fwrite(STDERR, 'Macro-only generation failed: ' . $e->getMessage() . "\n");
+    $generatorExitCode = 1;
+  } finally {
+    foreach ($generatorMacroOutputHandles as $generatorHandle) if (is_resource($generatorHandle)) fclose($generatorHandle);
+    restore_error_handler();
+  }
+  exit($generatorExitCode);
+}
 $schemaFile = "./Schemas/" . $rootName . "/GameSchema.txt";
 
 $handler = fopen($schemaFile, "r");
@@ -4914,6 +4964,16 @@ function WriteMacroListenerCode($handler, $listenerAbilitiesByMacro, $macrosByNa
   fwrite($handler, "}\r\n\r\n");
 }
 
+/** Reuse the existing emitters; guarded CLI mode supplies already-locked outputs. */
+function GeneratorOpenMacroOutput(string $filename) {
+  global $macroCodeOnlyCLI, $generatorMacroOutputHandles;
+  if (!$macroCodeOnlyCLI) return fopen($filename, 'w');
+  $output = $generatorMacroOutputHandles[$filename] ?? null;
+  if (!is_resource($output)) throw new RuntimeException('Missing guarded macro output handle.');
+  if (!ftruncate($output, 0) || !rewind($output)) throw new RuntimeException('Could not reset guarded macro output.');
+  return $output;
+}
+
 function GenerateMacroCode() {
   global $rootName;
 
@@ -4928,7 +4988,7 @@ function GenerateMacroCode() {
     }
 
     $filename = $directory . "/GeneratedMacroCode.php";
-    $handler = fopen($filename, "w");
+    $handler = GeneratorOpenMacroOutput($filename);
 
     fwrite($handler, "<?php\r\n");
     fwrite($handler, "// AUTO-GENERATED FILE: Macro implementations from CardEditor database\r\n");
@@ -5319,6 +5379,7 @@ function GenerateMacroCode() {
     echo("Generated macro code file: $filename<BR>");
 
   } catch (Exception $e) {
+    if ($GLOBALS['macroCodeOnlyCLI'] ?? false) throw $e;
     echo("Note: Could not generate macro code file: " . $e->getMessage() . "<BR>");
   }
 }
@@ -5337,7 +5398,7 @@ function GenerateMacroCountJS($rootName, $abilitiesByMacro) {
     }
 
     $filename = $directory . "/GeneratedMacroCount.js";
-    $handler = fopen($filename, "w");
+    $handler = GeneratorOpenMacroOutput($filename);
 
     fwrite($handler, "// AUTO-GENERATED FILE: Macro count functions\r\n");
     fwrite($handler, "// DO NOT EDIT MANUALLY - changes will be overwritten when generator runs\r\n");
@@ -5423,6 +5484,7 @@ function GenerateMacroCountJS($rootName, $abilitiesByMacro) {
     echo("Generated JavaScript macro count file: $filename<BR>");
 
   } catch (Exception $e) {
+    if ($GLOBALS['macroCodeOnlyCLI'] ?? false) throw $e;
     echo("Note: Could not generate JavaScript macro count file: " . $e->getMessage() . "<BR>");
   }
 }

@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:34:28.284238+00:00",
+  "plan_sha256": "b86882f07a538dc8f925c3e4db3fd9258963b3ee488680c23845e8fa77cf850e",
+  "independent_saved_proof_sha256": "2b7c13827f137d765f6f0744797df29b127408b1c6a680fa53519f3a609c6522",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b137-focused-fault-plan.json",
+    "b86882f07a538dc8f925c3e4db3fd9258963b3ee488680c23845e8fa77cf850e",
+    "card-regression-sparse-b137-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b137_draw_back_the_hammer_red_focused_effect_sensitivity",
+      "fixture": "card-draw-back-the-hammer-red-four-live-sparse-actual-paid-mechanologist-grant-and-two-real-blue-pitches-produce-seven-attack-damage",
+      "fixture_sha256": "697d7c7b1c80033e4e79b6a8f50f0affc7cf0fc3f0c3ce7ef91b310b1143ae59",
+      "source_raw5": {
+        "initial_gamestate.txt": "b4c300ea6cbd3c10d57f2ceda381de3b844a4e9a8e8900ef623a6857bd0638c1",
+        "actions.json": "66614d0e7ea65f7f074dcede3207fe36c3a117526537b1d368db241ff7daf539",
+        "assertions.json": "e275828b6962b72613c4e07a06e1736a33301a0a80534a44128bf9830d81b028",
+        "expected_final_gamestate.txt": "dc71d0cf4d2cd3370fdc422db7b3573f29c05fb469330a3556781452767916d2",
+        "meta.json": "ac23dbc39b1f27a5c90da8eced5129794c70d7eb473ce3db66a20454649f87a3"
+      },
+      "prefix_actions": 13,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "mechanical_strength_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:4"
+          }
+        ]
+      },
+      "retained_assertions": 650,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Draw Back the Hammer / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual DrawBack primary +4 from real zeroEvo MechanicalStrengthBlue6 after printedcost1and3 paid by actualBlue7/8, preservingsource5/physicalUID/target/Pitch7/8/R2/AP0. Originalcomputed7to3 detects nextMechgrant; noGununtap/EvoUpgradepositive or classfailurecredit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b137_monkey_powder_red_focused_effect_sensitivity",
+      "fixture": "card-monkey-powder-red-four-live-sparse-actual-blue-pitch-full-three-cost-ranger-action-draws-one-owned-physical-card",
+      "fixture_sha256": "2b585bac2270b2772fe409148138e50669cfc9696e82005d38f4cac2c227af0b",
+      "source_raw5": {
+        "initial_gamestate.txt": "a6732bc7f67f776fed573a82625ed0887016a5e786fea6489a732162c7968017",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "54196247322733107590147371453abdd2692b929dc61a18c5bdaf93ce22c8ab",
+        "expected_final_gamestate.txt": "9f1784c136500ddb4b43d2c6040a0777f261ce4eff2e7fee8b1ac7e9ade1fe35",
+        "meta.json": "b97c361073c086f59134d651ff4541cba0642b9a7d09a18d1d780eb000fe0d78"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "wounding_blow_red",
+            "uid": 7,
+            "from": "Hand",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Monkey Powder / four live sparse positive effect: Initial assertion failed: Expected p1Hand count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit actual existing Deck7drawn to ownHand after realMonkeycost3/Blue6andfourresponses, preservingprimary5/Pitch6/economy/AP1. OriginalHand1to0detectsphysicaldrawoutcome only, notdrawobservers/replacement or futurearrowpower/overpower. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

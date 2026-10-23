@@ -208,7 +208,7 @@ if (count($uids) > 0) {
   if base=='stamp_authority':add('ResolveCard',"if (count(FaBChoiceRefs($player, 'Pitch', ['minCost'=>3])) >= 2) { FaBWTRAddEffect($player, 'INTELLECT', 1); }")
   if base=='zen_state':add('ResolveCard',"FaBSetObjectCounter(FaBIdentityFromMZ($mzID)['object'], 'BALANCE', 1);")
   if base=='arknight_shard':add('CardPitched','FaBARCCreateRunes($player, 1);\nFaBTryCompletePayment();')
-  if base=='gorganian_tome':add('ResolveCard',"$n = 0;\nforeach (FaBLiveSeats() as $seat) { $n += count(FaBChoiceRefs($seat, 'Graveyard', ['base'=>'gorganian_tome'])); }\nDoDrawCard($player, $n);")
+  if base=='gorganian_tome':add('ResolveCard',"$source = FaBIdentityFromMZ($mzID);\nif ($source !== null) { FaBCRUResolveGorganian($player, $source['object']); }")
  if base=='consuming_volition':
   handled=True;add('Hit',"""if (FaBFaiHeroHit() && in_array('CRU_DISCARD_HIT', (array)FaBIdentityFromMZ($mzID)['object']->TurnEffects, true)) {
  $defender = intval(FaBGetState()['defender']);

@@ -1,0 +1,7 @@
+{
+    "name": "Poison the Well / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:45:17+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actually playPoisonUID5 aszero-costInstant; APstays1. Four manualresponses resolveit/sourceownGY. Then actually playSunKissUID6 cost0Action/AP0; noMoonWishplayed. Four manualresponses resolveits printedgain3 event. Poisonreplaces that event withlose3, P1health20to17; others20; no draw/GA; sourceUID5GY0/supportUID6GY1. Only nextsingleownhero gainreplacement; otherhero, multipleeffect ordering, secondgain/no-replacement and expiry untested; supportSunKiss receivesno primarycredit. All four are living legal young heroes with real supported manual response actors; no passive seats. Exact original source and support UIDs, owners/controllers, resources/AP, health and physical endpoint zones are pinned. No seeded history/effect tags or shared effect-bucket emptiness/index oracles. One positive primary representative only; no sibling/support/hero/full-card/alternate-branch credit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DTD231.webp https://judge.fabtcg.com/cards/detail/551/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

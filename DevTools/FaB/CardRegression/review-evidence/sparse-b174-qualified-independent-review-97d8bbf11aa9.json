@@ -1,0 +1,151 @@
+{
+  "status": "B174_ONE_SPARSE_EQUIPMENT_REPRESENTATIVE_TWO_CLEAN_TARGETED_REPLAYS_ONE_EXACT_NATIVE_CONTROL_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch174.json",
+  "input_sha256": "83fc8b48d15c48134bc1980fd5eb78449417388e6ee45e6ef928b46b80013587",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:02:36.871646+00:00",
+  "fixtures": [
+    {
+      "slug": "card-dream-weavers-four-live-sparse-actual-next-illusionist-attack-survives-seven-power-defender-and-deals-two",
+      "fixture_sha256": "8a174ce0e019e2e13874b8d005b3060d979b47bfca5dc1e94e50605025165de6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "11eabd1bc70d8a85581a2a3e3a8c2f5ce46059cb49a8fe5a454725a8835fc152",
+        "actions.json": "b6364db99c8c075ee3bf0cc37eecdeab1e515ce4e192447341be2dd709c755a9",
+        "assertions.json": "cceddd88f95be3eed6fe7f39a87f4a4031f8d671a34b89e27595e6a2e157905a",
+        "expected_final_gamestate.txt": "b509b71e3cc86000072beaa89328eac116b9e53cf35c571304a9eb4fedc645f5",
+        "meta.json": "944f107be5cb6aa271baaf5cad0f4fbef6dfcfcc80f08623fde1f6c43df54459"
+      },
+      "semantically_approved": true,
+      "actions": 34,
+      "native_assertions": 1127,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 34,
+  "total_native_assertions": 1127,
+  "total_manual_passes": 29,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b174-actual-saved-independent-review.json",
+    "sha256": "9142a5a0c5f897bf132c4716ac9ec18d3a6020b1adfc425247cfad8840e36e7e"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b174-independent-spec-review.json",
+    "sha256": "1a4502d3f0082a6bd9fb0e5bd505f9d0ef113acf9a1b07a490c865a1ca90e0ad"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch174-20261022T210036Z-6ada7974972f7.json",
+    "sha256": "e3f0233dadbcb8a2639304629f462278be5341347fdc60d7f076f0489a2092f3"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b174-four-live-run1.json",
+      "sha256": "1895fe036cf6643263d38d2a6cfc83a52db63c76758f39f27453bfc75d8f417e",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch174.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b174-four-live-run2.json",
+      "sha256": "e0593f94811e20f2657da1bb498c2b7f19fdfa4dd2f938cef9f0c4ad3460d1f9",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch174.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b174-fault-controls.json",
+    "sha256": "e63e4219470d0a3a212440e900d462f9a3da918926669717917ae820db83ecbb",
+    "total": 1,
+    "intended_semantic_failures": 1,
+    "plan_sha256": "97c6c6daec45cc7bef8090235e2301cbee0befbc38352b55c73e78c930109d30",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b174_dream_weavers_actual_phantasm_removal_sensitivity",
+      "fixture": "card-dream-weavers-four-live-sparse-actual-next-illusionist-attack-survives-seven-power-defender-and-deals-two",
+      "prefix_actions": 17,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "spears_of_surreality_red",
+            "mode": "remove",
+            "tag": "MON_NO_PHANTASM"
+          }
+        ]
+      },
+      "retained_assertions": 458,
+      "expected_failure_step": 5,
+      "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"REACTION\", got \"ACTION\".",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b174-focused-fault-plan.json",
+    "sha256": "97c6c6daec45cc7bef8090235e2301cbee0befbc38352b55c73e78c930109d30"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1388,
+  "native_evidence_review_checks": 43,
+  "limitations": [
+    "Every actual action/actor/oracle matches independently printed model; initial/final raw profiles additionally checked. Only this one new fixture; root sole native executor/repository writer.",
+    "Actual Dream5 Actiondestroy/abilityGA then real Spears6 printedPhantasm/cost1 paidBlue7/R2, eligible sevenpower nonIllusionist P4 Hand8 defender/defense3; attack survives and physical2damage/HP18/ownattackGAAP1 proves selected loss-of-Phantasm behavior.",
+    "Final own Graveyard exact unordered UID/cardset5Dream+6Spear and P4singleton8 directly verified; every member Owner/Controller own and FaceDown0. No physical ordering certification.",
+    "Cannot-regainPhantasm/Spellvoid1/otherrecipients/hero/support/full-card untested. No legacy/fullsuite. Nativecontrol omits only actual MON_NO_PHANTASM after real block; intended original postdefend window mismatch from destruction, all suffix actions/oracles retained.",
+    "Two new targeted clean replays and one intended native actual Phantasm-removal omission only. Full-suite runs explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Native control removes only actual MON_NO_PHANTASM on physical Spears6 after real source5 destruction/resolution, Blue7cost1 payment, attackentry and actual highpower P4Hand8 block declaration. Every original suffix action/oracle retained; Phantasm then resolves against that real qualifying defender and original Step5 expects REACTION but observes destroyed/closed ACTION. Exact effect-omission sensitivity only; no cant-regainPhantasm/Spellvoid/otherrecipient/hero/support/full-card or general lifecycle claim. Saved exact unordered ownGY UID/cardset5Dream+6Spear and P4singleton8 all public0 independently checked, no incidental order credit."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "bb60ce2160b0d93cec300fb5ca58418af973b890c9adf0d77f3566410a55fba6",
+  "current_independent_delta_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b174_independent.py",
+    "sha256": "620240f87a393cf8bf1d310a5390308777f4d49ac6d2a1770e5722332c769c81"
+  }
+}

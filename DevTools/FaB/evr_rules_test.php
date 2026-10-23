@@ -47,4 +47,49 @@ foreach([2,4] as $seats){
  $answer($p,FaBFindUID($equipmentUID)['mzID']);$check(FaBFindUID($equipmentUID)['zone']==='Graveyard'&&intval(GetHealth(1))===$before&&FaBGetState()['window']==='DAMAGE','Shatter dealt damage or failed to resume damage step.');
 
 }
+
+// FAB-REG-037: public movement defaults, replacements, and Warfare's real response layer.
+$arcReset(4);SetTurnPlayer(1);SetPriorityPlayer(1);SetTurnNumber(10);
+foreach(FaBLiveSeats() as $seat){
+ $a=AddArsenal($seat,CardID:'wounding_blow_red',Owner:$seat,Controller:$seat,FaceDown:1);$uid=intval($a->UniqueID);
+ FaBMONDestroy($uid);$f=FaBFindUID($uid);
+ $check($f&&$f['zone']==='Graveyard'&&$f['player']===$seat&&intval($f['object']->FaceDown)===0
+  &&intval($f['object']->Owner)===$seat&&intval($f['object']->Controller)===$seat,'Arsenal destruction retained private state or changed physical ownership.');
+ $check(in_array($f['mzID'],FaBChoiceRefs($seat,'Graveyard',['attackAction'=>true]),true)&&!HasNoAbilities($f['object']),'Public destroyed card remained blank or unavailable to graveyard choices.');
+}
+$arcReset(4);$a=AddArsenal(1,CardID:'drone_of_brutality_red',Owner:1,Controller:1,FaceDown:1);$uid=intval($a->UniqueID);
+$moved=FaBMoveUID($uid,'Graveyard');
+$check($moved&&(FaBFindUID($uid)['zone']??'')==='Deck'&&intval($moved->Owner)===1,'Drone graveyard replacement/owner routing changed.');
+$a=AddArsenal(2,CardID:'mark_of_the_beast_yellow',Owner:2,Controller:2,FaceDown:1);$uid=intval($a->UniqueID);
+$moved=FaBMoveUID($uid,'Graveyard');
+$check($moved&&(FaBFindUID($uid)['zone']??'')==='Banish'&&intval($moved->FaceDown)===0&&intval($moved->Owner)===2,'Private card was not revealed before its public banish replacement.');
+$a=AddCombatChain(3,CardID:'beneath_the_surface_yellow',Owner:3,Controller:3,Role:'DEFENSE',FromZone:'Hand',ChainLink:1);$uid=intval($a->UniqueID);
+$moved=FaBMoveUID($uid,'Graveyard');
+$check($moved&&intval($moved->FaceDown)===1&&!in_array(FaBFindUID($uid)['mzID'],FaBChoiceRefs(3,'Graveyard'),true),'Explicit Beneath the Surface face-down graveyard effect was overwritten.');
+
+$arcReset(4);SetTurnPlayer(1);SetPriorityPlayer(1);SetTurnNumber(10);
+$warfare=FaBWTRCreateArena(1,'talisman_of_warfare_yellow');$warfareUID=intval($warfare->UniqueID);$arsenals=[];
+foreach(FaBLiveSeats() as $seat){$a=AddArsenal($seat,CardID:'wounding_blow_red',Owner:$seat,Controller:$seat,FaceDown:1);$arsenals[$seat]=intval($a->UniqueID);}
+FaBEVRDamaged(1,4,1,'PHYSICAL');FaBEVRDamaged(1,4,3,'PHYSICAL');FaBEVRDamaged(1,1,2,'PHYSICAL');
+$check(FaBStackTop()===null&&FaBFindUID($warfareUID)['zone']==='Arena','Warfare triggered for another damage amount or its own hero.');
+FaBEVRDamaged(1,4,2,'PHYSICAL');$trigger=FaBStackTop();
+$check($trigger&&$trigger->Kind==='ABILITY'&&intval($trigger->SourceUniqueID)===$warfareUID&&FaBFindUID($warfareUID)['zone']==='Arena','Warfare did not queue its own source-specific trigger.');
+foreach([1,2,3] as $seat){
+ $check(FaBPassPriority($seat),'Warfare response seat could not pass.');
+ $check(FaBFindUID($warfareUID)['zone']==='Arena'&&FaBStackTop()!==null,'Warfare resolved before all four responses.');
+ foreach($arsenals as $uid)$check(FaBFindUID($uid)['zone']==='Arsenal'&&intval(FaBFindUID($uid)['object']->FaceDown)===1,'Warfare destroyed an Arsenal before its trigger resolved.');
+}
+$check(FaBPassPriority(4)&&FaBStackTop()===null&&FaBFindUID($warfareUID)['zone']==='Graveyard','Fourth response did not resolve Warfare.');
+foreach($arsenals as $seat=>$uid){$f=FaBFindUID($uid);$check($f&&$f['zone']==='Graveyard'&&$f['player']===$seat&&intval($f['object']->FaceDown)===0,'Resolved Warfare did not make every destroyed Arsenal public.');}
+
+// Its already-created trigger keeps resolving when its source leaves or returns as a new object.
+foreach([false,true] as $return){
+ $arcReset(4);SetTurnPlayer(1);SetPriorityPlayer(1);$warfare=FaBWTRCreateArena(1,'talisman_of_warfare_yellow');$uid=intval($warfare->UniqueID);
+ $a=AddArsenal(4,CardID:'wounding_blow_red',Owner:4,Controller:4,FaceDown:1);$arsenalUID=intval($a->UniqueID);
+ FaBEVRDamaged(1,4,2,'PHYSICAL');FaBMoveUID($uid,'Hand',1);if($return)FaBMoveUID($uid,'Arena',1);
+ foreach([1,2,3,4] as $seat)$check(FaBPassPriority($seat),'Detached Warfare trigger response failed.');
+ $check(FaBFindUID($uid)['zone']===($return?'Arena':'Hand'),'Old Warfare trigger destroyed its moved or returned new source.');
+ $check(FaBFindUID($arsenalUID)['zone']==='Graveyard'&&intval(FaBFindUID($arsenalUID)['object']->FaceDown)===0,'Warfare incorrectly required successful source destruction.');
+}
+
 if($failures){fwrite(STDERR,implode(PHP_EOL,$failures));exit(1);}echo "EVR outcomes passed in duels and UPF.\n";

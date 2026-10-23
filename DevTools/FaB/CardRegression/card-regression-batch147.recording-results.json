@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-robe-of-rapture-four-live-sparse-actual-equipment-action-destruction-gains-three-resources-without-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 332
+    },
+    {
+        "slug": "card-bracers-of-belief-four-live-sparse-actual-red-top-reveal-grants-two-to-next-real-blue-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 984
+    }
+]

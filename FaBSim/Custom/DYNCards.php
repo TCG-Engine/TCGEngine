@@ -39,7 +39,16 @@ function FaBDYNTopArrow(int $p,bool $aim=false): void {$r=FaBChoiceRefs($p,'Deck
 function FaBDYNRevealArrow(int $p,string $r): bool {$f=FaBIdentityFromMZ($r);if(!$f)return false;FaBRevealChoices($p,$r);return FaBHasType($f['object'],'Arrow');}
 function FaBDYNAttackerUID(): int {$s=FaBGetState();$a=FaBFindUID(intval($s['attackUID']));return $a&&FaBHasType($a['object'],'Ally')?intval(FaBObjectCounters($a['object'])['MON_SOURCE_UID']??0):FaBUPRHeroUID(intval($s['attacker']));}
 function FaBDYNMindWarp(int $uid): void {$f=FaBFindUID($uid);if(!$f||$f['zone']!=='Hero')return;$p=$f['player'];$n=FaBHandCount($p);foreach(FaBUPRUIDs(implode('&',FaBChoiceRefs($p,'Hand'))) as $u)FaBMoveUID($u,'Deck',$p);FaBShuffleDeck($p);DoDrawCard($p,max(0,$n-1));}
-function FaBDYNSurgeAgain(int $p,int $uid): void {if(!FaBARCCard($uid,'dynSurgeAgain')&&FaBWTRMayGoAgain($p)){FaBARCSetCard($uid,'dynSurgeAgain',true);AddActionPoints($p,intval(GetActionPoints($p))+1);}}
+function FaBDYNSurgeAgain(int $p,int $uid): void {
+    $pending=FaBGetState()['resolvingReaction']??null;
+    if(is_array($pending)&&($pending['resolutionClass']??'')==='PLAIN_SPELL'
+        &&intval($pending['uid']??0)===$uid&&intval($pending['controller']??0)===$p
+        &&in_array((string)($pending['cardID']??''),['aether_quickening_red','aether_quickening_yellow','aether_quickening_blue'],true)){
+        if(!FaBARCCard($uid,'dynSurgeAgain')){FaBARCSetCard($uid,'dynSurgeAgain',true);FaBTagUID($uid,'GO_AGAIN');}
+        return;
+    }
+    if(!FaBARCCard($uid,'dynSurgeAgain')&&FaBWTRMayGoAgain($p)){FaBARCSetCard($uid,'dynSurgeAgain',true);AddActionPoints($p,intval(GetActionPoints($p))+1);}
+}
 function FaBDYNTigerCount(int $p,string $r): int {$f=FaBIdentityFromMZ($r);if(!$f||!in_array('IRA_TIGER_COMBO',(array)$f['object']->TurnEffects,true))return 0;return count(FaBChoiceRefs($p,'CombatChain',['base'=>'crouching_tiger']));}
 function FaBDYNRoyal(int $p): bool {return FaBCRUEquipment($p,'crown_of_dominion')!==[]||FaBHasType(GetHero($p)[0]??'','Royal');}
 function FaBDYNSetup(int $p): void {FaBMSTSetup($p);foreach(FaBChoiceRefs($p,'Equipment') as $r){$o=FaBIdentityFromMZ($r)['object'];if(in_array($o->CardID,['graven_cowl','graven_vestment','graven_gloves','graven_walkers'],true))FaBSetObjectCounter($o,'DEFENSE',1);}foreach(FaBChoiceRefs($p,'Equipment') as $r){$o=FaBIdentityFromMZ($r)['object'];FaBEVOEquipped($p,$o);if($o->CardID==='seasoned_saviour')FaBSetObjectCounter($o,'DEFENSE',2);if($o->CardID==='crown_of_dominion')FaBWTRCreateArena($p,'gold');}}

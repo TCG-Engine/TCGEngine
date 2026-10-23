@@ -1,0 +1,7 @@
+{
+    "name": "Tome of Torment / four live sparse ordinary effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T20:52:48+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1 is legal young Shadow Chane. Actually play physical TomeOfTormentRed5 from Hand for printed0 and oneAP. Actual BlueWoundingBlow6 is the sole Deck card. All four real seats manually respond; source5 remainsStack, Hand empty and Deck6 unchanged through three responses. The fourth response draws that same physical UID6 to own Hand0, empties Deck and places source5 in publicGraveyard FaceDown0. There is no printed go again, so finalAP0/resources0. All heroes stay20. Chanes optional ability is unused. Full live-seat/health/priority/physical identity/owner/controller/zone counts and clear queues are pinned at each action. No primary or support card is inserted after recording starts. Only ordinary Hand play and one-card draw endpoint. Banish play permission, Blood Debt, empty Deck/replacement prevention, future use of drawn card and Chane ability remain untested; drawn support receives no primary coverage. No whole-card, sibling/support/hero coverage or ordinary source-departure ordering claim. Sources: https://judge.fabtcg.com/cards/detail/924/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON194.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

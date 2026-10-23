@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:08:11+00:00",
+    "input_file": "card-regression-batch150.json",
+    "input_sha256": "7355713d462bcf79f0d8cb597dc83516aced6d6beeb1c58009409627ecae5f0d",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-threadbare-tunic-four-live-sparse-actual-empty-hand-instant-destroy-resource",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 332
+        },
+        {
+            "slug": "card-blue-sea-tricorn-four-live-sparse-actual-blue-pitch-three-destroy-draw",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 423
+        }
+    ]
+}

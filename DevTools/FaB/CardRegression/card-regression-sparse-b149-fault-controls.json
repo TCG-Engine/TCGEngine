@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:07:38.251060+00:00",
+  "plan_sha256": "9d85362fadd2722bdec9269204c6b8cbde55e85cfe77c6788fc5fb779ffcf44d",
+  "independent_saved_proof_sha256": "49e98e09358562e85f16e1324976df1f188b360608f8d910f9204c4307169cd7",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b149-focused-fault-plan.json",
+    "9d85362fadd2722bdec9269204c6b8cbde55e85cfe77c6788fc5fb779ffcf44d",
+    "card-regression-sparse-b149-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b149_gauntlet_of_might_focused_effect_sensitivity",
+      "fixture": "card-gauntlet-of-might-four-live-sparse-actual-hybrid-equipment-destruction-creates-one-owned-might-and-ability-go-again",
+      "fixture_sha256": "20938912392245ce9f0439ddcefa9adbc503530ccc88639b9d929eb521ea0a0b",
+      "source_raw5": {
+        "initial_gamestate.txt": "e2a3a47168e27d7fb377913b1881bc98f1c4129db5206070a5bf859decf2b606",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "2506217d6bf07270eb9772d8d47f7c5d2d0481b2245464c1f8b04bc33f8587f6",
+        "expected_final_gamestate.txt": "8cc9a67e0742d407a24b6ce302bd9d2b8e6385f8a88aae3a2bbc5446c45d8f7a",
+        "meta.json": "b538550a8cfdd57ee1e43f87fb0254739367a7921aa646367e92cdb784170fbb"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "might",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Gauntlet of Might / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact actual created might UID7 after physicalEq5 actualdestroycost andfourmanualresponses. Source5publicGYFace0/ownhero/economy/abilityGA remain. OriginalArena1to0detects directabilityoutput only; no startturn/tokenuse/expiry/BladeBreak/hero/support/fullcardcredit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b149_flat_trackers_focused_effect_sensitivity",
+      "fixture": "card-flat-trackers-four-live-sparse-actual-hybrid-equipment-destruction-creates-one-owned-agility-and-ability-go-again",
+      "fixture_sha256": "5fcca90ec7f49db528e793fee7af9633245d840132f68318e75a1c8cfc2659f3",
+      "source_raw5": {
+        "initial_gamestate.txt": "666075ca5c29e2d85924616f73407616978d0dc3a6cf3542799f21b6d1d5d83e",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "71fb817e1bff5e1da5051e875f79eb72b053f763eccf15a543a5e5cae591a7d1",
+        "expected_final_gamestate.txt": "d2898b67fe88449ddcc22b74d68d51d6ccb043cf34580506ff6e1bd63d7b745d",
+        "meta.json": "858d326f5368a32dea83554a3d907518fe7a94684511e6ca31f8410332faad01"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "agility",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Flat Trackers / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact actual created agility UID7 after physicalEq5 actualdestroycost andfourmanualresponses. Source5publicGYFace0/ownhero/economy/abilityGA remain. OriginalArena1to0detects directabilityoutput only; no startturn/tokenuse/expiry/BladeBreak/hero/support/fullcardcredit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

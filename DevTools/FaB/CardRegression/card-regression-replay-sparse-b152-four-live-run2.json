@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch152.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T20:11:48.773078+00:00",
+  "fixtures": [
+    {
+      "slug": "card-time-skippers-four-live-sparse-actual-blue-pitch-three-destroy-gain-two-ap",
+      "fixture_sha256": "8762faae527de7d913c1a42e7614f17c66bf461113d799f3dcc48ee84b913bd9",
+      "passed": true,
+      "result": "[PASS] Time Skippers / four live actual paid two-AP ability"
+    },
+    {
+      "slug": "card-skullhorn-four-live-sparse-actual-destroy-draw-sole-card-random-discard",
+      "fixture_sha256": "536e8668cdf50523f25471bf7ab70ff610783bf5c1eb9d2d5caf09f890c14965",
+      "passed": true,
+      "result": "[PASS] Skullhorn / four live actual sole-card random discard"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-time-skippers-four-live-sparse-actual-blue-pitch-three-destroy-gain-two-ap",
+      "returncode": 0,
+      "stdout": "[PASS] Time Skippers / four live actual paid two-AP ability\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-skullhorn-four-live-sparse-actual-destroy-draw-sole-card-random-discard",
+      "returncode": 0,
+      "stdout": "[PASS] Skullhorn / four live actual sole-card random discard\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

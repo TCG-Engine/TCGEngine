@@ -1,0 +1,155 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T17:58:41.192898+00:00",
+  "plan_sha256": "f98b196fc2aa0dc3dcb457b0b087f9f197ae1bf372726b556d5ecd97107d01bc",
+  "independent_saved_proof_sha256": "df5cb1b54bcb834852d3da49f4ee34f9a7535f394157282c6048e70972d1dbd0",
+  "command": [
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sparse-b110-focused-fault-plan.json",
+    "f98b196fc2aa0dc3dcb457b0b087f9f197ae1bf372726b556d5ecd97107d01bc",
+    "card-regression-sparse-b110-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b110_ravenous_rabble_red_exact_source_effect_sensitivity",
+      "fixture": "card-ravenous-rabble-red-four-live-sparse-real-attack-reveals-physical-yellow-top-card-and-loses-two-power",
+      "fixture_sha256": "5b96607815240a09580035e568b3af6f181a74e7a99e54665171e1270d9778a6",
+      "source_raw5": {
+        "initial_gamestate.txt": "1e24b18f78099f5a9986626144cdd93e7d14af4331bf561fa0e78f6eaf8d2e76",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "08e5159eb2bd807608db3363cfafa9f0ef1d90f95293d73834081e0691153308",
+        "expected_final_gamestate.txt": "e4f2fe16b253d3c68978d4c5de9a28b28ce50508fb8d6157f6cabd92242edd8b",
+        "meta.json": "437e70fd330dd321d8fd91b44cca71d5f64f9338e9f4c9210c47b8738733ec6f"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "ravenous_rabble_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:-2"
+          }
+        ]
+      },
+      "retained_assertions": 354,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 5.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Ravenous Rabble / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 3, got 5.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove actual Rabble source5 negative2 revealed-pitch tag after real declaration with the same physicalYellowDeck6 intact. Power3 becomes printed5. Reveal notification/observer ordering and alternate pitch values remain untested. Synthetic exact effect omission only; all original suffix actions/assertions preserved with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b110_prime_the_crowd_red_exact_source_effect_sensitivity",
+      "fixture": "card-prime-the-crowd-red-four-live-sparse-real-two-cost-action-buffs-next-real-blue-attack-by-four",
+      "fixture_sha256": "a506bb2e3a07caaf5821519a2f460e03dc09a56d09b1236509778dff46ebf5fe",
+      "source_raw5": {
+        "initial_gamestate.txt": "acfda32ccefab6dc05acfa10ce261ae6f5428236ebbc2aeb23bbab5095eda0b6",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "825b2a43f0ca5029fbb19677f55ba45c3b68977ce7020d289f2d3bca408bff3b",
+        "expected_final_gamestate.txt": "281d98b3e9980d803e9df73bd598cbceac4b60d411505a6a424d6280c0884891",
+        "meta.json": "ffe66323795881101d9a2adc6784aff9faa220e25c3baf1c1bd93710436a958f"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:4"
+          }
+        ]
+      },
+      "retained_assertions": 279,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Prime the Crowd / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove actual +4 tag from physically played supportBlue6 after real primary5, Blue7pitch/payment and next-attack consumption. Power6 becomes2; crowd branches remain untested. Synthetic exact effect omission only; all original suffix actions/assertions preserved with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b110_prismatic_leyline_yellow_exact_source_effect_sensitivity",
+      "fixture": "card-prismatic-leyline-yellow-four-live-sparse-real-zero-cost-action-buffs-next-real-blue-attack-by-three",
+      "fixture_sha256": "8ce4a547176dae6cd2a1c9346a69f56428d8185dc0e13b8e44330d618c2e3fab",
+      "source_raw5": {
+        "initial_gamestate.txt": "fa2fc23dbcd6c562133f708758124bfbc0246ae155b8d5a2a6966f2419950e65",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "d18378c9981e35b6e588d6a951d386a796620d514d2c94a4b6be02688d3a3bda",
+        "expected_final_gamestate.txt": "d3bfd3e8f2b1b3b6922204971c2431f1732177ef766bcc7616c9c342982d9abc",
+        "meta.json": "6d1040e676f61c732b0fc18acc44d03aaf38c6aa8e9f32d6d7f4dface4809c12"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 263,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Prismatic Leyline / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove actual blue-only +3 tag on physically played supportBlue6 after real Prismatic5 resolution; retain other unconsumed color grants. Power5 becomes2; no red/yellow credit. Synthetic exact effect omission only; all original suffix actions/assertions preserved with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b110_trot_along_blue_exact_source_effect_sensitivity",
+      "fixture": "card-trot-along-blue-four-live-sparse-real-zero-cost-action-grants-go-again-to-next-real-base-two-attack",
+      "fixture_sha256": "4b43022f8f279c8d76b73b3cd3e4c64d40a6eb2f24aaf58cfd3a6f52682c210c",
+      "source_raw5": {
+        "initial_gamestate.txt": "36e599e41bb1061f8ace94c7af9fa65a560e2aa4f1242285a54e186d11339604",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "180d98d3ba790e452441014e1447c1aab527b34cd2816fe0995cf05f69bcef41",
+        "expected_final_gamestate.txt": "99571b93c9e2b57b3620e5a493d58a90fb358d873bc24d1d8e454f4a9b397c5a",
+        "meta.json": "25bc2017a4fe6635c68619e42d81c555369869c94b976d4046612509a212cb84"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 263,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Trot Along / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove actual GO_AGAIN tag on physically played base2 supportBlue6 after real primary5 resolution; source remains real. ComputedGA1 becomes0; no base3/over3 or other conditional grant credit. Synthetic exact effect omission only; all original suffix actions/assertions preserved with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

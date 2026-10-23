@@ -1,0 +1,151 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T17:38:05.618470+00:00",
+  "plan_sha256": "ced682679f14ff8b5fb51915aa72a176dc1aca042f81d9e6ce4e8161481b9d74",
+  "independent_saved_proof_sha256": "3867d7679f1a1e8fcda8d2b94806dc29cb4e1286ed6ba44f3eba036670975fc8",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b106-focused-fault-plan.json",
+    "ced682679f14ff8b5fb51915aa72a176dc1aca042f81d9e6ce4e8161481b9d74",
+    "card-regression-sparse-b106-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b106_fyendals_fighting_spirit_red_focused_effect_sensitivity",
+      "fixture": "card-fyendals-fighting-spirit-red-four-live-sparse-real-attack-at-lower-life-gains-one-health",
+      "fixture_sha256": "9e9bb45a998f517efcf2e9a4333540aa1aa6b641b3ce45ae32b09cd207585ab6",
+      "source_raw5": {
+        "initial_gamestate.txt": "a412d4268f70c6052a559139e55603bbf5f7721f4d31b74dd475619d86ccde36",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "590ea2d4aeef2a6035eb7f7b00824426ce7ca211baf87fcdf1ce1a0230e31308",
+        "expected_final_gamestate.txt": "efd03cfdfc477e421c8bb7ceb05fef78d4a6ee52d98cefabb6a842386c1df2ba",
+        "meta.json": "696b83eb821fa76fbc39f00209b897754f4e5f4a4aef40bcae8a89fccdb59a85"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 1,
+            "value": 19
+          }
+        ]
+      },
+      "retained_assertions": 253,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Health to equal 20, got 19.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Fyendal's Fighting Spirit / four live sparse positive effect: Initial assertion failed: Expected p1Health to equal 20, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual printed attack heal, omit exactly its one-health endpoint on P1. Honest scalar endpoint sensitivity; not an isolated hook-body mutation or alternate legal condition. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b106_life_for_a_life_red_focused_effect_sensitivity",
+      "fixture": "card-life-for-a-life-red-four-live-sparse-lower-life-real-play-grants-go-again-and-hit-heals-one",
+      "fixture_sha256": "44e706cb8641d886880b32f1e15a3525e0490eec0375d777db60be6b094cac6f",
+      "source_raw5": {
+        "initial_gamestate.txt": "0e0e5e96c47c701d86f507ec86665982e1da82b94119eff32dc89eef048cd435",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "555a332dd94794a197cf70679ecdae290a90377a788d9ff5190d16db0591f25b",
+        "expected_final_gamestate.txt": "adf7138e505aa1180dd746f4639d051e3a0086bdc7e4ec1ba736df55e35f359c",
+        "meta.json": "1fc1116a94e092f0fadd17a12ff6be1647691428e943726b3b85adbf4c7e18f7"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "life_for_a_life_red",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 253,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Life for a Life / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove exact single GO_AGAIN grant on actual source after its real play condition or real hit; preserve physical damage and original actions/oracles. Sensitivity only; no miss/equal-life or full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b106_overload_red_focused_effect_sensitivity",
+      "fixture": "card-overload-red-four-live-sparse-real-unblocked-hit-grants-go-again-before-resolution",
+      "fixture_sha256": "7c0621a157de74033e238ec6425537b49fd76d7af6c436ee51cbe6d0f7ca7959",
+      "source_raw5": {
+        "initial_gamestate.txt": "12963572d7546d48738de1ff55a89047998d345999310a93536685f2aa8f38b0",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "154d501f5c680cf39f3add6406134747a8d9e21b00825a81f872761e2ecf52ad",
+        "expected_final_gamestate.txt": "5e7b96e92a6a5a92ccee850ce716bafa9683a893aa7b1294e74e39a586d95f8d",
+        "meta.json": "4ee716596dfe68bafb73b8d4de4cddfbd3e371711556d001753c48c55b623035"
+      },
+      "prefix_actions": 19,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "overload_red",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 155,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Overload / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove exact single GO_AGAIN grant on actual source after its real play condition or real hit; preserve physical damage and original actions/oracles. Sensitivity only; no miss/equal-life or full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b106_performance_bonus_red_focused_effect_sensitivity",
+      "fixture": "card-performance-bonus-red-four-live-sparse-real-arsenal-play-grants-go-again-and-hit-creates-owned-gold",
+      "fixture_sha256": "61b605ff601a5631d5f447d08aec571eba72655c2f35cf2739ac3c0afa3fc395",
+      "source_raw5": {
+        "initial_gamestate.txt": "fe17f62807408d5cfe81be82953ba1c7bc33035b021705972d2be462d27a3315",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "b08d07a4915313cb3af96097a743bf7ee7012492692befccf6da5767d1d92760",
+        "expected_final_gamestate.txt": "9a48b571b693d7a99d564dcdc4a3c0b99556a4121cf8b3f21757970f7b6efa9a",
+        "meta.json": "d8b474a30e9d4680800723ae98a0558382673ea1efa372f66cc57bd7a6f8c4a4"
+      },
+      "prefix_actions": 19,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "gold",
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 208,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Performance Bonus / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Move the unique actual hit-created Gold out of Arena on a disposable prefix copy; preserve original source/play/economy/damage/GA. Token endpoint sensitivity, not isolated callback omission or Gold lifecycle coverage. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-prismatic-shield-red-four-live-sparse-real-three-resource-instant-creates-three-owned-spectral-shields",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 341
+    },
+    {
+        "slug": "card-future-sight-red-four-live-sparse-real-one-resource-instant-creates-three-owned-sigils-of-fate",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 341
+    },
+    {
+        "slug": "card-oath-of-oak-red-four-live-sparse-real-zero-cost-earth-action-creates-three-owned-embodiments-of-earth",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 304
+    },
+    {
+        "slug": "card-envelop-in-darkness-red-four-live-sparse-real-one-cost-shadow-runeblade-action-creates-one-owned-runechant",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 331
+    }
+]

@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-22T18:53:07+00:00",
+    "input_file": "card-regression-batch124.json",
+    "input_sha256": "89c365ec468cfafcf7083ee6ab4744547d8c2051bad1d8667d8c390e73f7adff",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-homage-to-ancestors-blue-four-live-sparse-actual-first-blue-instant-gains-one-without-transcend",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 667
+        },
+        {
+            "slug": "card-tome-of-torment-red-four-live-sparse-actual-hand-action-draws-one-physical-deck-card",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 691
+        },
+        {
+            "slug": "card-three-of-a-kind-red-four-live-sparse-actual-paid-ranger-action-draws-three-ordered-physical-cards",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 895
+        },
+        {
+            "slug": "card-grim-feast-red-four-live-sparse-actual-full-hand-cost-shadow-action-gains-three",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 811
+        }
+    ]
+}

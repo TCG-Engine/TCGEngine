@@ -101,6 +101,8 @@ function FaBEVRDefense(int $p,object $o): int {
     if(FaBWTRBase($o->CardID)==='wax_on'&&$a&&FaBWTRIsAttackAction($a['object'])&&is_numeric(CardCost($a['object']->CardID))&&intval(CardCost($a['object']->CardID))===0)$n+=2;return $n;
 }
 function FaBEVRAfterMove(int $p,object $o,string $from,string $to): void {
+    // Persistent engine UIDs must not reconnect an old trigger to a returned new object.
+    if($to==='Arena'&&$from!=='Arena'&&$o->CardID==='talisman_of_warfare_yellow')FaBARCSetCard(intval($o->UniqueID),'evrWarfareArenaEpoch',intval(FaBARCCard(intval($o->UniqueID),'evrWarfareArenaEpoch'))+1);
     if($to==='Graveyard')foreach(FaBLiveSeats() as $seat)FaBEVRAdd($seat,'GRAVEYARD');
     if($to==='Arena'){
         if(FaBHasType($o,'Aura')&&$from==='')FaBEVRAdd($p,'AURAS');
@@ -137,7 +139,21 @@ function FaBEVRPrevent(int $p,int $n,string $type,string $ref=''): int {
 function FaBEVRDamaged(int $source,int $p,int $n,string $type): void {
     if($n<=0)return;if($type==='PHYSICAL')FaBEVRAdd($source,'PHYSICAL',$n);
     foreach(FaBMONArena($p,'nerves_of_steel') as $r)FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));
-    if($source!==$p&&$n===2&&FaBMONArena($source,'talisman_of_warfare')){foreach(FaBMONArena($source,'talisman_of_warfare') as $r)FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));foreach(FaBLiveSeats() as $seat)foreach(FaBChoiceRefs($seat,'Arsenal') as $r)FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));}
+    if($source!==$p&&$n===2)foreach(FaBMONArena($source,'talisman_of_warfare') as $r){
+        $uid=intval(FaBIdentityFromMZ($r)['object']->UniqueID);
+        FaBROSQueue($source,'talisman_of_warfare_yellow',$uid,['rosEvent'=>'evrWarfare','evrWarfareArenaEpoch'=>intval(FaBARCCard($uid,'evrWarfareArenaEpoch'))]);
+    }
+}
+/** The trigger survives its source leaving; destruction is not a cost or 'if you do'. */
+function FaBEVRResolveWarfare(int $p,object $trigger): void {
+    $uid=intval($trigger->SourceUniqueID);$source=FaBFindUID($uid);
+    $epoch=intval($trigger->Params['evrWarfareArenaEpoch']??-1);
+    $previous=$GLOBALS['fabEffectController']??0;$GLOBALS['fabEffectController']=$p;
+    try {
+        if($source&&$source['zone']==='Arena'&&$source['object']->CardID==='talisman_of_warfare_yellow'
+            &&intval(FaBARCCard($uid,'evrWarfareArenaEpoch'))===$epoch)FaBMONDestroy($uid);
+        foreach(FaBLiveSeats() as $seat)foreach(FaBChoiceRefs($seat,'Arsenal') as $r)FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));
+    } finally {$GLOBALS['fabEffectController']=$previous;}
 }
 function FaBEVRWeapons(int $p,string $type): string {$refs=[];foreach(FaBLiveSeats() as $seat)$refs=array_merge($refs,FaBChoiceRefs($seat,'Weapons'));return implode('&',array_filter($refs,fn($r)=>FaBHasType(FaBIdentityFromMZ($r)['object'],$type)));}
 function FaBEVRCostTargets(int $p,string $kind): string {

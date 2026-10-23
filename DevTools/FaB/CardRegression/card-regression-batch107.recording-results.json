@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-high-striker-red-four-live-sparse-real-next-hit-creates-six-owned-copper",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 713
+    },
+    {
+        "slug": "card-plunder-run-red-four-live-sparse-real-arsenal-play-buffs-next-attack-and-hit-draws-physical-top-card",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 631
+    },
+    {
+        "slug": "card-premeditate-red-four-live-sparse-real-next-arsenal-attack-plus-three-and-hit-creates-owned-ponder",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 534
+    },
+    {
+        "slug": "card-exorcism-red-four-live-sparse-real-next-attack-plus-three-hit-turns-two-physical-banish-cards-face-down",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 798
+    }
+]

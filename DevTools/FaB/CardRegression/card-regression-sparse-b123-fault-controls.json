@@ -1,0 +1,155 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:53:31.927982+00:00",
+  "plan_sha256": "bf3807368fb73542fad4bbff1ff8b0a6b9354bb92d7aae47a4fd4e5c6e1a7833",
+  "independent_saved_proof_sha256": "0f1d41f1ec46edfd2d322658bea58ee0f88ad31ae8ad07ddd2f0c00b90c9e90c",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b123-focused-fault-plan.json",
+    "bf3807368fb73542fad4bbff1ff8b0a6b9354bb92d7aae47a4fd4e5c6e1a7833",
+    "card-regression-sparse-b123-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b123_funeral_moon_red_focused_effect_sensitivity",
+      "fixture": "card-funeral-moon-red-four-live-sparse-actual-ordinary-hand-action-creates-one-owned-runechant",
+      "fixture_sha256": "0354bde19974da909df769d8359af5b748e782ea18e797af45904a23de22e96b",
+      "source_raw5": {
+        "initial_gamestate.txt": "9128faec01470b4d21044ddebf22effb2639a215865868ea3bdfe8463c6c4829",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "a014d86318ad37b2db4e81f8f9e033917a0a73b571fd655db5c3fd79ed986c13",
+        "expected_final_gamestate.txt": "d42254dbd81ee08159e18c6faf245741db33acad99c0d32317b5694432e9ed9b",
+        "meta.json": "2acc51be17ed75127428e054072ec009e61e2e97fc541278a9e1b2ec71e3b839"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "runechant",
+            "uid": 6,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Funeral Moon / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact created token UID6 after actual four-seat resolution, preserving primary source5, actual BluePitch6 for Peace, and economy. Direct printed token-creation outcome sensitivity only; no Peace prevention/Grit powergrant/BloodDebt/conditional permissions/later token use or alternate branch credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b123_requiem_for_the_damned_red_focused_effect_sensitivity",
+      "fixture": "card-requiem-for-the-damned-red-four-live-sparse-actual-ordinary-hand-action-creates-one-owned-eloquence",
+      "fixture_sha256": "4ef828968165b8ece222f2973cfc2b476a40d12e548dc89d32e842b6033d20d9",
+      "source_raw5": {
+        "initial_gamestate.txt": "d48a9e50268871435c574a53957c0713f08afa4ff52533daf89c6406bfb08aaf",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "04374a912e26d8422bee246e07c72b35d6cac4311c2ae86007b13ec87cf1c67e",
+        "expected_final_gamestate.txt": "056dad0942ef8ac3d3ff96283e45b878365b561d5e02b6d2994496c936aaefbe",
+        "meta.json": "0d4c370f7723083d0ca13987bd18a092e171d74f66b1d823ebb3f51a79b65166"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "eloquence",
+            "uid": 6,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Requiem for the Damned / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact created token UID6 after actual four-seat resolution, preserving primary source5, actual BluePitch6 for Peace, and economy. Direct printed token-creation outcome sensitivity only; no Peace prevention/Grit powergrant/BloodDebt/conditional permissions/later token use or alternate branch credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b123_peace_of_mind_red_focused_effect_sensitivity",
+      "fixture": "card-peace-of-mind-red-four-live-sparse-actual-blue-pitch-paid-instant-creates-one-owned-ponder",
+      "fixture_sha256": "4ce03f7a31a5eb72108af9336bed5da029dd280a12f9b1d6bb80defc4cb704ad",
+      "source_raw5": {
+        "initial_gamestate.txt": "091271d831a6199292edf17f6771ee7a2b87df3886a157f7d8e81e76171b7d21",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "7e5026ccf2bf909fa0bd95574a3f63a701be163c6753e55e59e81f1c4c4bc365",
+        "expected_final_gamestate.txt": "7038fa9e1c07bb5feaf083d1d95d3122258569db9012b248f301010deabb4dbe",
+        "meta.json": "c4d939c9a70d7418a5ff2d95ae952428be395e9d7c7fa1aa1b1942a7dd52150a"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "ponder",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Peace of Mind / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact created token UID7 after actual four-seat resolution, preserving primary source5, actual BluePitch6 for Peace, and economy. Direct printed token-creation outcome sensitivity only; no Peace prevention/Grit powergrant/BloodDebt/conditional permissions/later token use or alternate branch credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b123_heroic_grit_yellow_focused_effect_sensitivity",
+      "fixture": "card-heroic-grit-yellow-four-live-sparse-actual-zero-cost-revered-action-creates-one-owned-toughness",
+      "fixture_sha256": "26504834beaf75c5475d34fac0e9dbe9d684046e74f5d21edf53f4a07275945b",
+      "source_raw5": {
+        "initial_gamestate.txt": "ce2f6214864aaeef7e3e6d1b5b0056285b6583d1f5b5aecc85cc87bc8eda4b32",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "0eda330a7cbeb39eeb8c2d698d10a4e8729bd21abd97725965cb5439ae2d5c4a",
+        "expected_final_gamestate.txt": "5ae1280a1df23356ca4ac67bc60b59a4d443c58de7b9896b6d6d3268cb73baf5",
+        "meta.json": "3d829ca36dad063a8b0dd94f6d970eadaa15b527c443bfb3ae26171e0b93a0e5"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "toughness",
+            "uid": 6,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Heroic Grit / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact created token UID6 after actual four-seat resolution, preserving primary source5, actual BluePitch6 for Peace, and economy. Direct printed token-creation outcome sensitivity only; no Peace prevention/Grit powergrant/BloodDebt/conditional permissions/later token use or alternate branch credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

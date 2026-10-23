@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:14:46.791939+00:00",
+  "plan_sha256": "113f0ed2de891c2b9203c504901f0286a730d772c0d05f62f285571e54d34313",
+  "independent_saved_proof_sha256": "390217bc6c46b9aad3aa9d15d0dee19f99c1711163053f6e138ef0e54c4b92f3",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b180-focused-fault-plan.json",
+    "113f0ed2de891c2b9203c504901f0286a730d772c0d05f62f285571e54d34313",
+    "sparse-b180-focused-fault-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b180_clarity_potion_blue_focused_effect_sensitivity",
+      "fixture": "card-clarity-potion-blue-four-live-sparse-actual-item-instant-destruction-opt-two-chooses-real-top-and-bottom",
+      "fixture_sha256": "fb5bad06bc3ed656cb8dc2fb38c47a02e27639e6dbcb655e94a6d8dae2c6a2f5",
+      "source_raw5": {
+        "initial_gamestate.txt": "c413b9d02f1845deda6d922b71c4479acbb640ee0c7b64c5d62084e641f1f087",
+        "actions.json": "18c7d5634381c00e6ffefca1d0c4dbde71bd524d477d6145a269b2e7735a97da",
+        "assertions.json": "f9c07282102428ba848f617fa57ca4c950dbbb7991fe51e4f7bc61517584e7fa",
+        "expected_final_gamestate.txt": "359c40c14bb9e5429d3cb37814b5c1ae5a3ca3306a63744aa84c141066c69922",
+        "meta.json": "42e31931efae3480d82d85539c88261c623f7b203500ba7d8c3a9603d5216c64"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "wounding_blow_blue",
+            "uid": 7,
+            "from": "Deck",
+            "to": "Deck"
+          }
+        ]
+      },
+      "retained_assertions": 118,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Deck-0.CardID to equal 'wounding_blow_blue', got 'wounding_blow_yellow'.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Clarity Potion / four live actual Opt 2 physical choice: Initial assertion failed: Expected p1Deck-0.CardID to equal 'wounding_blow_blue', got 'wounding_blow_yellow'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Re-append exact actual chosen top Blue7 to same own Deck after supported Opt2 BlueTop/RedBottom answer, changing [Blue7,Yellow8,Red6] to [Yellow8,Red6,Blue7] while physical set/count/owners/source5publicGY/AP1/R0 stay intact. Existing helper move_card plus GameLogic675/681 remove+append supports this selected order mutation. First original Deck0CardID blue-to-yellow directly detects chosen ordering; no draw, shortDeck, duplicateID, response/privacy/lifecycle/hero/support/full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

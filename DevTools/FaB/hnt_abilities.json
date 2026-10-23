@@ -1347,8 +1347,13 @@
     "cardId": "nip_at_the_heels_blue",
     "abilities": [
       {
+        "macroName": "PrepareCard",
+        "abilityCode": "$source = FaBIdentityFromMZ($mzID);\nif ($source !== null) {\n FaBPrepareDeclaredReaction($player, $source['object']);\n}\n",
+        "isImplemented": true
+      },
+      {
         "macroName": "ResolveCard",
-        "abilityCode": "$chosen = \"-\";\n $refs = FaBHNTAffectsAttack($player, 'SMALL');\n if ($refs !== \"\") {\n $chosen = await $player.MZChoose($refs, \"Choose_attack\");\n \n}\nFaBDYNTag($chosen, 'WTR_POWER:' . (1));\n",
+        "abilityCode": "$source = FaBIdentityFromMZ($mzID);\nif ($source !== null) {\n FaBResolveDeclaredReaction($player, $source['object']);\n}\n",
         "isImplemented": true
       }
     ]

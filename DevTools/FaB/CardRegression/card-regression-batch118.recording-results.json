@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-uprising-red-four-live-sparse-actual-action-first-draconic-attack-plus-one",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 745
+    },
+    {
+        "slug": "card-billowing-mist-blue-four-live-sparse-actual-mystic-action-next-physical-attack-plus-one",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 745
+    },
+    {
+        "slug": "card-vigorous-roar-red-four-live-sparse-actual-brute-action-next-physical-attack-plus-three",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 745
+    },
+    {
+        "slug": "card-water-glow-lanterns-red-four-live-sparse-actual-reveal-matching-red-decktop-creates-owned-shield",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 499
+    }
+]

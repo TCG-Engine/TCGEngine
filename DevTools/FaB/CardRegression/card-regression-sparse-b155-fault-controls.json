@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:18:50.995774+00:00",
+  "plan_sha256": "4bbb738643ba2e5a8b0be85751be55fe2d9860e6b8ce6ff281201b9c9186c0a5",
+  "independent_saved_proof_sha256": "bce870ac5710f56eaee06715a031e2ed5b446d7377d55fdc82eaeda92803f205",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b155-focused-fault-plan.json",
+    "4bbb738643ba2e5a8b0be85751be55fe2d9860e6b8ce6ff281201b9c9186c0a5",
+    "card-regression-sparse-b155-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b155_garland_of_spring_focused_effect_sensitivity",
+      "fixture": "card-garland-of-spring-four-live-sparse-actual-generic-equipment-destruction-gains-one-resource-and-go-again",
+      "fixture_sha256": "d32eb183dcaba25255b996a157a4ce24ccc514e287db175eae3c09bc0e940bb8",
+      "source_raw5": {
+        "initial_gamestate.txt": "3ef00a5e48f182be5ed72f65a5084e622cee7d09b87b89ec23b50c7896523eaa",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "36bfc3e183a373af496513005885018dd51ac9c438e35f1196490dd8008ad780",
+        "expected_final_gamestate.txt": "efb43c1814deb81dccd805d1abec14207b023f8b3c567ddb0882b8c8e5a5bcde",
+        "meta.json": "cc60ff6035c6fe10948ee49bcf4e8b9b608057b2921c476e2ec7b6829087b673"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "garland_of_spring",
+            "uid": 5,
+            "from": "Graveyard",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 106,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Garland of Spring / four live sparse positive effect: Initial assertion failed: Expected p1Graveyard count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact actuallydestroyedphysicalGarland5 from publicGY after completeabilityresolution. OriginalGY1to0 detects physicaldestroy-cost destination only; actualresource1/abilityGAAP1remain. No genericresourceoverride/no isolatednative resourcegain mutation claim. Printed+1/nativepositiveoracles/puremissing-extra-earlygain faults separate; no resourcespending/hero/fullcardcredit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b155_courage_of_bladehold_focused_effect_sensitivity",
+      "fixture": "card-courage-of-bladehold-four-live-sparse-actual-equipment-discount-makes-printed-one-resource-sword-activation-free",
+      "fixture_sha256": "3bc7e2ccfadecc273f0cbf3b95ef68a86244f9ed013a8073212aba5390001b62",
+      "source_raw5": {
+        "initial_gamestate.txt": "3fe6a433e445f0626f61bffac9fb0da810727db04984bbfa15bd5db03c46080b",
+        "actions.json": "4f62038338ee3ba31621299e7ace1b858f7ecbf5b53c0ff28a8ad82cc9200158",
+        "assertions.json": "9d5102b31d7989bcf5c3003be9d070fd6f23dae45b3b1fdbcd8b330c8229e242",
+        "expected_final_gamestate.txt": "3806b3d4ad40a4ba80c8b7a9b5e4f7113fda671129636c76dbfbcbd6baa923ae",
+        "meta.json": "35a4dc5d4dbe36cd776f6ca79a8c611ded84f44e74643016883cb1effb437fec"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dawnblade",
+            "mode": "add",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 534,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Courage of Bladehold / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 3, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add one unique synthetic WTR_POWER1 to actualunbuffedDawnbladeproxy8 after realSword6zero-costactivation enabledbyactualCourage5. Originalcomputed3to4 detects numericattackoutcome sensitivity ONLY; discount/source5/physicalSword6/economy remain. NO isolatednative discount-removal claim. Printed1minus1cost0, bothlegality/payment sourcepaths, actualfreeactivationwithZEROresources/Hand/Pitch, and independentpurelosingdiscount fault separatelypin cost effect. Existingexecutoraction-denial handling/helper unchanged; no repeat/filter/expiry/Temper/hero/supportcredit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

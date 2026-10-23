@@ -85,4 +85,21 @@ foreach([2,4] as $p){
     $debt=FaBMONBloodDebt($p);FaBIAREnd($p);$life=intval(GetHealth($p));FaBMONEnd($p,$debt);
     $check(intval(GetHealth($p))===$life-$debt,'Decay-created Corpses acquired blood debt triggers retroactively.');
 }
+
+// Blasmophet's Boon: the same property-static base must apply during actual combat.
+foreach([2,4] as $p){
+ $dynReset($p);GetHero($p)[0]->CardID='levia';$a=$attack($p,'blasmophets_boon_blue');
+ $check(FaBMONBasePower($p,$a)===0&&FaBAttackPower(FaBGetState())===0,'Boon has power without controlling a Blasmophet.');
+ $other=$p===4?2:1;$opponent=FaBWTRCreateArena($other,'blasmophet_the_insatiable_hunger');
+ $check(FaBAttackPower(FaBGetState())===0,'Opponent Blasmophet defined attacker Boon power.');
+ $own=FaBWTRCreateArena($p,'blasmophet_the_insatiable_hunger');
+ $check(FaBMONBasePower($p,$a)===6&&FaBAttackPower(FaBGetState())===6,'Controlled Blasmophet did not define Boon combat base as six.');
+ FaBWTRTag($a,'WTR_POWER:2');
+ $check(FaBAttackPower(FaBGetState())===8,'Boon property base replaced a later power modifier.');
+ $a->TurnEffects=[];FaBWTRTag($a,'NO_ABILITIES');
+ $check(FaBAttackPower(FaBGetState())===0,'Blank Boon retained its property-static ability.');
+ $a->TurnEffects=[];FaBMONDestroy(intval($own->UniqueID));
+ $check(FaBAttackPower(FaBGetState())===0,'Boon retained stale six power after losing its controlled Blasmophet.');
+}
+
 if($failures){fwrite(STDERR,implode(PHP_EOL,$failures).PHP_EOL);exit(1);}echo "IAR outcome checks passed in duels and UPF.\n";

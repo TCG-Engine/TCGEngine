@@ -1,0 +1,274 @@
+{
+  "status": "B109_THREE_CORRECT_ITEMS_TWO_CLEAN_TARGETED_REPLAYS_THREE_EXACT_NATIVE_CONTROLS_QUALIFIED_FOURTH_SAVED_HELD",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch109.json",
+  "input_sha256": "8d7030fe9544ebcad3c48d989c291f287562d115ed19747470c5873ccb3a13d0",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T17:54:58.830326+00:00",
+  "fixtures": [
+    {
+      "slug": "card-onyx-amulet-blue-four-live-sparse-actual-action-and-watery-trigger-tap-all-four-live-heroes",
+      "fixture_sha256": "a75c47b7852f49ff666a4ae378a1405fd4e1476ac6298a1c41bc7a3913165b7c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f8c04b6f1042497be12cbf6a8ed3cf379a1dcc4861810b9aae448778abd06d13",
+        "actions.json": "4bf2661ebc4867f904a2a9fe3ae51f233789b0ad0e83bc2e0770d7e9ebbeb0f7",
+        "assertions.json": "c9e6df3834915fb74e40d0715fd8f95209801774d902e3b127227ab50a1b5db8",
+        "expected_final_gamestate.txt": "7bd7fd985f63295916dacd1da633a5957e851b026226d0c90a7765e370c0fe28",
+        "meta.json": "7e68134870569ceb355a52cec2458bbff62ceb4682247d69a2295fb17e7f3e1e"
+      },
+      "semantically_approved": true,
+      "actions": 9,
+      "native_assertions": 475,
+      "actual_manual_passes": 8,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-imperial-ledger-red-four-live-sparse-actual-singleton-shuffle-self-cost-creates-owned-copper-for-nonroyal",
+      "fixture_sha256": "9c02154ca40e646ff4c25f7e14ce1fd599a1355bc9c8525ab71322919687ff58",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0162b1f317464a4c8274a99c22203d181570773d81b8b59b789c3f77ab93809a",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "555ced28f7c3fc376eec8a9d0f1b972af2d10216383c2d608cd6b3672ce93819",
+        "expected_final_gamestate.txt": "5c2bc68731ad0dc8668352ff6cfae212daadf57a1bea9ad321a415b0f0043ef7",
+        "meta.json": "41de9a42ae42f3310c4ec783aaab7615b05a4a4a3225a84c7859db0c9915e26e"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 306,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-talisman-of-recompense-yellow-four-live-sparse-actual-red-one-pitch-replacement-pays-real-cost-three-attack",
+      "fixture_sha256": "a785dcae5c706675bc5a7ed6e559a26162feaf7654370964fe645e85c8d6c56d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7d963fcb00bdca7971aad62966d56b0709a18cf33ad72f34a25b7a1ee7a1723e",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "30b7cb20865d1488df8c1cbfd72348679b701c089fe7768549e282e0a2c0303a",
+        "expected_final_gamestate.txt": "d179b8495b1673f8df4f1bc02f5ccf65f8657c574781288784131a47310e9d3c",
+        "meta.json": "a850f077e24726d07b8bafdad788cb3917e7b647881f2ef5b1fac5ee46150757"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 453,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 42,
+  "total_native_assertions": 1234,
+  "total_manual_passes": 37,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b109-safe-three-actual-saved-independent-review.json",
+    "sha256": "ebbfb4c141d1638118a98d0678874d7ffa78b9288fb978e4cefbed4ded6d0a52"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b109-independent-spec-review.json",
+    "sha256": "0de39aac39ea888dcfccb8d3c9da4353cb0c8e55abc986b93b671a462d80a482"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch109-20261022T174733Z-6ada4c3501c2c.json",
+    "sha256": "c2a77dd3c2d496ad628da7190eb389dece0e9b07d2040b91a3fd703b80347344"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b109-four-live-run1.json",
+      "sha256": "ecd84bb61a2c77c5778cd39268d97c186e10e4f05332daa20167914eacfa03fa",
+      "passed": 3,
+      "total": 3,
+      "excluded_saved_held_scenarios": [
+        "card-talisman-of-warfare-yellow-four-live-sparse-actual-exact-two-damage-destroys-talisman-and-four-owned-arsenals"
+      ],
+      "native_report_case_count": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch109.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b109-four-live-run2.json",
+      "sha256": "670093bc2daa30921d6d4b742d9726a6b437e7296bfe75b31a11a88c8f093998",
+      "passed": 3,
+      "total": 3,
+      "excluded_saved_held_scenarios": [
+        "card-talisman-of-warfare-yellow-four-live-sparse-actual-exact-two-damage-destroys-talisman-and-four-owned-arsenals"
+      ],
+      "native_report_case_count": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch109.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b109-safe-three-fault-controls.json",
+    "sha256": "44004110b664c4de117becab4b864edda197faa6d49108f73548d335100571e6",
+    "total": 3,
+    "intended_semantic_failures": 3,
+    "plan_sha256": "b0bb8e179b9592550afc17c7c38842c1919b36c6703535f6d759730bfb821dc1",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b109_onyx_amulet_blue_focused_effect_sensitivity",
+      "fixture": "card-onyx-amulet-blue-four-live-sparse-actual-action-and-watery-trigger-tap-all-four-live-heroes",
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 226,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Hero-0.Status to equal '1', got '2'.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b109_imperial_ledger_red_focused_effect_sensitivity",
+      "fixture": "card-imperial-ledger-red-four-live-sparse-actual-singleton-shuffle-self-cost-creates-owned-copper-for-nonroyal",
+      "prefix_actions": 1,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 197,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b109_talisman_of_recompense_yellow_focused_effect_sensitivity",
+      "fixture": "card-talisman-of-recompense-yellow-four-live-sparse-actual-red-one-pitch-replacement-pays-real-cost-three-attack",
+      "prefix_actions": 3,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "talisman_of_recompense_yellow",
+            "from": "Graveyard",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 302,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b109-safe-three-focused-fault-plan.json",
+    "sha256": "b0bb8e179b9592550afc17c7c38842c1919b36c6703535f6d759730bfb821dc1"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 2037,
+  "native_evidence_review_checks": 83,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "One positive exact primary standalone each: Onyx heroes-only tap/Watery; singleton nonRoyal Ledger; red-pitch Recompense; exactly2damage Warfare all-four-Arsenal destruction. No allies, Royal, other pitch/amount, support, item ordinary play, token activation, replacement, suppression or callback-lifecycle coverage.",
+    "Only current new four are audited; root alone executes native games and writes repo.",
+    "Only first three actual saved items approved. Saved Warfare fourth case is explicitly held for active incorrect FaceDown state; its nominal replay PASS is not semantic qualification.",
+    "Two targeted clean replay reports each contain the three approved new cases and the held fourth saved case; only the three independently correct cases receive credit. Three intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Onyx and Ledger controls omit the original activated-body dispatch via existing arcSpec removal after costs (and Watery for Onyx). Recompense control omits its destroyed physical source from own Graveyard after actual replacement; it is conservation endpoint sensitivity, not isolated replacement-body suppression. No alternate legal branch credit.",
+    "Warfare remains saved but semantically incorrect/unqualified because destroyed ordinary Arsenal cards retain active FaceDown1 in Graveyard. Existing nominal PASS snapshots omit the required property; no counts, sibling or fourth-case credit is awarded. See exact retained hold evidence."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "13a652d1f1c49d1f2cb58c874573b17da58d794a7bac516ba6d32adac8ec2dd6",
+  "blocked_attempts": [
+    {
+      "slug": "card-talisman-of-warfare-yellow-four-live-sparse-actual-exact-two-damage-destroys-talisman-and-four-owned-arsenals",
+      "semantically_approved": false,
+      "fixture_saved": true,
+      "reason": "Four destroyed ordinary Arsenal cards retain FaceDown1 in ownerGY; correct public-zone model expects0.",
+      "hold_evidence": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b109-warfare-facedown-hold.json",
+        "sha256": "f7ec24947c79783e631207b7d57c1c739f49b7d14b7cfc07149c81681550a8e1"
+      }
+    }
+  ]
+}

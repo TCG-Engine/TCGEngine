@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:30:00+00:00",
+    "input_file": "card-regression-batch161.json",
+    "input_sha256": "3617f9ce09c74be378a65ba32feaf48a82c4cc0c2850359f6664f0815f524e9b",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-hundred-winds-red-four-live-sparse-actual-first-chain-link-hand-attack-and-printed-go-again-without-combo",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 373
+        },
+        {
+            "slug": "card-spinning-wheel-kick-red-four-live-sparse-actual-first-chain-link-hand-attack-and-printed-go-again-without-combo",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 414
+        }
+    ]
+}

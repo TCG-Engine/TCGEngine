@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-slice-and-dice-red-four-live-sparse-actual-first-sword-plus-one",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 1331
+    },
+    {
+        "slug": "card-engaged-swiftblade-red-four-live-sparse-actual-paid-warrior-attack-plus-three",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 1269
+    }
+]

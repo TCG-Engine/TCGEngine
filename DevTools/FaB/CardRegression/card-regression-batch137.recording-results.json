@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-draw-back-the-hammer-red-four-live-sparse-actual-paid-mechanologist-grant-and-two-real-blue-pitches-produce-seven-attack-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 34,
+        "assertions": 1217
+    },
+    {
+        "slug": "card-monkey-powder-red-four-live-sparse-actual-blue-pitch-full-three-cost-ranger-action-draws-one-owned-physical-card",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 388
+    }
+]

@@ -1,0 +1,7 @@
+{
+    "name": "Runic Disposition / four live sparse own-token instant",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T20:19:11+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The only Handcard is RunicDispositionRed5, printedattackcost2with0resources/no other pitch donor. Ordinary attack play is unaffordable, so native context click selects its sole legal zero-cost Instant discard ability ARC_0. Paying that actual discard-this cost moves source5to own publicGraveyard FaceDown0 before priority. Ability6has SourceZoneHand/SourceUID5. All four real players manually respond; fourthpass creates exactly one owned/controlled RunechantUID7inP1Arena. It is ability activation, not card play, so Viserai has no nonattack/card-play Runechant trigger. AP1/resources0 remain unchanged. All four owned living young hero identities, queues, AP/resources and finalphysicalzones are pinned. Only printed discard-instant Runechant creation; attack play, Usurp, alternate timing, suppression, discard observers/cancellation, future Runechant attack trigger/arcane targeting, token replacement and turn expiry are untested. One representative per primary standalone/cycle only; no sibling, support-token/hero, other-branch or full-card certification. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/IAR146.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/IAR146.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

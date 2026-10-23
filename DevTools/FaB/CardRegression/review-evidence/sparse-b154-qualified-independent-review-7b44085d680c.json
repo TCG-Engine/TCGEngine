@@ -1,0 +1,152 @@
+{
+  "status": "B154_ONE_SPARSE_EQUIPMENT_REPRESENTATIVE_TWO_CLEAN_TARGETED_REPLAYS_ONE_EXACT_NATIVE_CONTROL_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch154.json",
+  "input_sha256": "5c103aca1808cd0c6c0db9de7da896f91483ff6e451bc6091830fa1b54846a1c",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:17:49.678734+00:00",
+  "fixtures": [
+    {
+      "slug": "card-calming-gesture-four-live-sparse-actual-blue-pitch-paid-instant-owned-shield",
+      "fixture_sha256": "fdf875479513e84322bf5c463481dd08d94891e49c48bc2079923d3badc601c8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fd611a1dbaae7366fe0554c00be81ca01d67590bdbf1b5ff3bda5186b0e2e22f",
+        "actions.json": "02e014fcbc767be35abb52b1fba8950f602a853b060793ec33880f9f114fa6e5",
+        "assertions.json": "4cc1c43008f92a4c97e225909c175fd392ae1d29daa1287c957588da65cc6d2f",
+        "expected_final_gamestate.txt": "2957a38c3e806a101dabf44eda57992f7eb2ef7acdeff2157324c242606b6744",
+        "meta.json": "0a673519c58009760829aef5e8ccffe9969df2385cfab69c34b45f7422215842"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 400,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "distinct_virtual_ability_uid": 7,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One paid Instant equipment representative; no Arcane Barrier1, Shield Ward/prevention, alternative conditions, hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 6,
+  "total_native_assertions": 400,
+  "total_manual_passes": 4,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b154-actual-saved-independent-review.json",
+    "sha256": "92f17e36de92d2da9dad49540974c9d0a185716c7d51a1dbcb5e5055900e0d31"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b154-independent-spec-review.json",
+    "sha256": "286a319bfcb29e6f1bc4118fac32039de052adc14c5f730ace37ac07601533ca"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch154-20261022T201635Z-6ada6f239a4d1.json",
+    "sha256": "6d4c6330bb6dba87dffb99ce1cfd76e34132526a1f2fb894072ecd1f5987b698"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b154-four-live-run1.json",
+      "sha256": "6b9407ee24c2a5ed2632543f2d796fa7a10623280276171cb94d1c407aec8df4",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch154.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b154-four-live-run2.json",
+      "sha256": "ff288cadacfe1ab49f27af661e805c5334187f3f9db61c3991dc92228ca43b71",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch154.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b154-fault-controls.json",
+    "sha256": "58cdd29f7a9323743009b3dc25390ed9735d858d26c169358be80a6e68338746",
+    "total": 1,
+    "intended_semantic_failures": 1,
+    "plan_sha256": "0e700f2f3c7c58a6df84d501f2efe3c15f7fffe86534c58527c8332b15c60905",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b154_calming_gesture_created_shield_presence_sensitivity",
+      "fixture": "card-calming-gesture-four-live-sparse-actual-blue-pitch-paid-instant-owned-shield",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "cardID": "spectral_shield",
+            "uid": 8,
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b154-focused-fault-plan.json",
+    "sha256": "0e700f2f3c7c58a6df84d501f2efe3c15f7fffe86534c58527c8332b15c60905"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 698,
+  "native_evidence_review_checks": 43,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Calming Gesture paid Instant1/destroy/owned Shield creation only. Real Blue6 pitch pays1, preserves AP1/R2 and destroys Equipment5 into own publicGY FaceDown0 before priority. Four live responses create Shield8 only on fourth. Arcane Barrier1, Ward/prevention, future use and lifecycle untested. Native control terminal created Shield presence only.",
+    "Only the current new one is audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and one intended native created-result control only. Full-suite runs explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Native control moves only actual created Shield8 Arena to Temp after every original action, retaining every original final oracle; intended Arena1-to0 failure detected. Terminal created-result sensitivity only; no legal movement, upstream callback omission, Ward/prevention, Arcane Barrier, cancellation or lifecycle credit."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "69f7b3c763c35c14a5d7384451ec58fc2e469d33a9c5aba5073af98c1077c98e",
+  "current_independent_delta_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b154_independent.py",
+    "sha256": "b34d5ee6fca4a9f6699901fa5fc65507550dbee34f06cb792588d4fdd1fd04f6"
+  }
+}

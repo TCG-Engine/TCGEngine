@@ -1,0 +1,45 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:56:14.030917+00:00",
+  "plan_sha256": "4bdd243d0af1703eecb46f2f498d203b420fa09e090d295134f5bea7231c0f22",
+  "independent_saved_proof_sha256": "21f3f38b892b639337ec72ef85cc90ee6b0590cb61cb72e0b0f6c457f9f99086",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b171-focused-fault-plan.json",
+    "4bdd243d0af1703eecb46f2f498d203b420fa09e090d295134f5bea7231c0f22",
+    "card-regression-sparse-b171-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b171_heart_of_ice_focused_effect_sensitivity",
+      "fixture": "card-heart-of-ice-four-live-sparse-actual-ice-action-tax-charges-opposing-printed-zero-instant-with-real-blue-pitch",
+      "fixture_sha256": "2f7c5f46463ed29b9866c280f418a8cb1fc3b683f3f09bdb1e25c7e45b34020e",
+      "source_raw5": {
+        "initial_gamestate.txt": "573716dc543b229e837dd5e7a5b2d0fa65eeb90eccab01d0331f09ce920e5119",
+        "actions.json": "81cdb2038d40eed8f53baa465c7f8dc69a536e63488db494a1e28ced4ffc62be",
+        "assertions.json": "708f44185be1cd2b9488032786b4e65f655c28cb2223f3995371362e27effa05",
+        "expected_final_gamestate.txt": "e28569f3eed17ad6097869ee790a28e70f983a8e3072f716d6d2287bcdf6d5ce",
+        "meta.json": "95c936bec5a232b635f2cda07c27161a1eee95f326943c9764d25a73b3109cfe"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "remove_effect": "ELE_TAX"
+      },
+      "retained_assertions": 846,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PITCH\", got \"PRIORITY\".",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Heart of Ice / four live sparse positive effect: Step 1 assertion failed: Expected FaBSim state [\"window\"] to equal JSON \"PITCH\", got \"PRIORITY\".\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove the one actualresolvedHeartELE_TAX before realP2Sigil7play atP2priority, afteractualprimarycostBlue6 andfourmanualresponses/P1yield. Printed0Sigilwithouttaxautocompletespayment, so firstoriginalPITCHrequirement atabsolute8/relative1 becomesPRIORITY; this directlypins actualadditionalcost ratherthanstoredTAXonly. Originalexactpendingcost1/Blue8payment/R2/AP0 andall6remainingactions/everyoriginalsuffixoracle retained. No otheropponentsactualpayments/abilitytax/expiry/AB/BladeBreak/once-rejection/hero/support/full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}
