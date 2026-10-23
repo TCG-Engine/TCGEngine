@@ -27,6 +27,19 @@ If it IS available, invoke `superpowers:systematic-debugging` now and follow its
 
 ## Step 1 — Get the game id
 
+**A Petranaki bug report** ("debug bug report P-42", or pasted viewer text starting `Bug Report P-42`). The owner has downloaded its package from the bug report viewer on petranaki.net into `OTMTCGE/.bugreports/` (gitignored). Import it under the SAME game number the report names:
+
+```bash
+docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 \
+  php SWUSim/DevTools/import-bugreport.php P-42
+```
+
+- Success prints `{"success":true,"gameName":"<n>","backup":…}`. Use `<n>` as the game id and go on to Step 2. If `backup` is non-null, a local game already had that number and was moved to that path; tell the owner.
+- "No .bugreports/bugreport-P-42-*.zip": ask the owner to download P-42's package from the viewer first.
+- An **unverified** report has no package: its game or seat key couldn't be confirmed when it was sent, so no snapshot was kept, and the viewer shows no Download link for it. Say so, and go to "When there is NO usable snapshot" below with the report's description.
+
+The viewer's Load buttons (Current / Last Round / Game Begin) still work on the imported game; the same rewinds are available as `php SWUSim/DevTools/bugreport-load-state.php <n> <last-round|begin>`.
+
 If the user named a game (id like `2619`), use it. **If they did not, ASK** — don't guess or pick one:
 
 > Which game should I snapshot? (the game id/name under `SWUSim/Games/<id>/`)

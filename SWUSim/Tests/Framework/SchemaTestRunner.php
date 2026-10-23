@@ -82,11 +82,17 @@ class SchemaTestRunner {
         // being overwritten by phase transition logic).
         self::applyPostSetupDirectives($givenLines);
 
+        // SWU-PGN shadow mode (env SWUPGN_SHADOW=1): record this game, one frame per action, and check the fold at the end.
+        $shadow = function_exists('SwuPgnShadowOn') && SwuPgnShadowOn();
+        if ($shadow) SwuPgnShadowBegin($label);
+
         // Execute main-phase actions.
         foreach ($mainActions as $idx => $action) {
             try {
-                self::_execute($g, $action);
+                if ($shadow) SwuPgnShadowAction(fn() => self::_execute($g, $action));
+                else self::_execute($g, $action);
             } catch (Throwable $e) {
+                if ($shadow) SwuPgnShadowEnd();
                 $label = "Action " . ($idx + 1) . " [{$action['raw']}]";
                 $trace = implode("\n  ", array_map(
                     fn($f) => ($f['file'] ?? '?') . ':' . ($f['line'] ?? '?') . ' → ' . ($f['function'] ?? '?'),
@@ -96,6 +102,8 @@ class SchemaTestRunner {
                 return SchemaRunResult::failure("{$label} failed: " . $e->getMessage() . "\n  at {$loc}\n  " . $trace);
             }
         }
+
+        if ($shadow) SwuPgnShadowEnd();
 
         // Evaluate EXPECT assertions.
         $failures = self::_evalExpect($g, $expectLines);
@@ -1281,6 +1289,11 @@ class SchemaTestRunner {
 
             case 'UseUnitAbility':
                 $g->useUnitAbility($player, trim($args));
+                break;
+            // The LIVE client's wire form ("<mz>!CustomInput!Activate" → CustomWidgetInput), guards and all. UseUnitAbility
+            // calls SWUUnitAction directly, so it could not see that the input layer dropped every opponent-board mzID.
+            case 'ActivateUnitAbility':
+                $g->activateUnitAbility($player, trim($args));
                 break;
             case 'UseLeaderAbility':
                 $g->useLeaderAbility($player, intval($args ?? 0));

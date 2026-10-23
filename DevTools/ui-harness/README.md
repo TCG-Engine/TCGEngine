@@ -60,6 +60,7 @@ tag would double the main menu's weight and no functional test would notice.
 node swusim-log-styles-xbrowser.mjs [BASE] [SHOTS_DIR]      # game-log line styles, desktop + mobile layout
 node swusim-refill-slide-xbrowser.mjs [BASE]                # the Smuggle-refill deck → resources slide
 node swusim-resource-filter-xbrowser.mjs [BASE] [SHOTS_DIR] # resource box narrows to the offered resources
+node swusim-overlay-brightness-xbrowser.mjs [BASE] [SHOTS_DIR] # Sentinel opacity + brightened overlays: board (desktop + mobile) and Twin Suns preview tiles
 ```
 
 Both build their board from a `SWUSim/Tests/Visual/*.md` schema through the Test Schema Editor's own
@@ -78,6 +79,28 @@ endpoints (`SWUSim/TestSchemaSetup.php`, `TestSchemaStep.php`) — mod login, `c
   the Smuggle is performed through the page's own `SubmitInput` instead (the resource-click path, real
   animations). The script checks for a `ZONE_MOVE` `p1Deck → p1Resources` scoped to seat 1, plus a
   `.tcg-zone-move-clone` on the page.
+
+## SWUSim "Report a Bug" modal (2026-10-22)
+
+```bash
+node swusim-bugreport-xbrowser.mjs [BASE]
+```
+
+Petranaki stores its own bug reports (`LocalBugReportLib.php`). For SWUSim the modal retries a network error,
+timeout or 5xx up to 4 attempts (2s/5s/10s apart) with the SAME `clientToken`, never retries a 400/429, keeps the
+text as a `localStorage` draft until the server confirms, and shows a `P-<n>` receipt. The script mocks the endpoint
+with `page.route` for the failure cases, then makes one real submit per engine and deletes the report it created.
+Board: `SWUSim/Tests/Visual/GameLog_UndoneAndDeckLines.md` via `TestSchemaSetup.php`. About a minute per engine
+(the backoff is real time). Human checklist: `SWUSim/Tests/Visual/BugReport_ReceiptRetryDraft.md`.
+
+```bash
+node bugreport-viewer-xbrowser.mjs [BASE]
+```
+
+The viewer side, at 1280px and 375px: Petranaki rows render (with the "unverified: <reason>" badge), the page
+never scrolls sideways (the table scrolls in `.brv-table-wrap`), **Download package** saves
+`bugreport-P-<n>-game-<g>.zip` (strict-mod: the run signs in through a throwaway moderator session file), and
+**Delete** needs two clicks; the first only arms it. Saves its own reports and deletes them.
 
 ## Usage
 

@@ -24,6 +24,7 @@ $leaderAbilities["TWI_017"] = function(int $player): void {
             DoDrawCard($player, 1);
             OnHealBase($player, $player, 2);
             $lead->Deployed = true;  // flip to the Villainy face
+            if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'FLIP', 'p' => intval($player), 'cardID' => 'TWI_017']);
         }
     } else {
         // VILLAINY face: if you played a Villainy card this phase → create a Clone Trooper, deal 2 to each enemy base, flip.
@@ -32,6 +33,7 @@ $leaderAbilities["TWI_017"] = function(int $player): void {
             // "deal 2 damage to EACH enemy base" — a fan-out, not one seat.
             foreach (OpponentsOf(intval($player)) as $o) SWUDealDamageToBase(2, $o);
             $lead->Deployed = false; // flip back to the Heroism face
+            if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'FLIP', 'p' => intval($player), 'cardID' => 'TWI_017']);
         }
     }
     SWUAfterAction($player);

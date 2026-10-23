@@ -42,6 +42,10 @@ $bugReportApiUrl = "https://soulmastersdb.net/TCGEngine-Discord/APIs/BugReportAP
 $swustatsClientID = '';
 $swustatsClientSecret = '';
 
+// SWU-PGN writer secret (SWUSim/Custom/SwuPgnWriter/Identity.php): keys the hashed player/game ids and sealed
+// replays. Env SWUPGN_ID_SECRET overrides it. Set a long random value in production; never commit it.
+$swupgnIdSecret = '';
+
 $isProduction = false;
 
 const OPENAI_API_KEY = "";

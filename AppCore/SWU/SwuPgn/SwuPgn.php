@@ -70,6 +70,12 @@
 //                                              $seat 1/2 = that seat's view: the other seat's draws,
 //                                              resources and search finds name no card
 //
+// Write (§4) and own-view cut (§17 Perspective)                          SwuPgnWriterDoc.php, SwuPgnPerspective.php
+//   SwuPgnWriteText(array $doc): string        doc (the parser's shape) → .swupgn text, canonical section order
+//   SwuPgnCutPerspective(array $doc, int $seat): array   that seat's file: the other seat's hidden cards "HIDDEN",
+//                                              their public copies renumbered by appearance, their deck lists and
+//                                              keyframe hand/resources left out, Seed "unseeded", Perspective set
+//
 // Where the spec text leaves a choice open, this reader:
 //   - treats a MOVE whose `p` is missing OR not 1/2 as "no p" (§12.1: only a tracked card's zone
 //     changes — taken literally, so such an arena exit leaves the card in cards[] with its new zone);
@@ -113,3 +119,5 @@ require_once __DIR__ . '/SwuPgnIntegrity.php';
 require_once __DIR__ . '/SwuPgnValidate.php';
 require_once __DIR__ . '/SwuPgnRender.php';
 require_once __DIR__ . '/SwuPgnSteps.php';
+require_once __DIR__ . '/SwuPgnWriterDoc.php';
+require_once __DIR__ . '/SwuPgnPerspective.php';

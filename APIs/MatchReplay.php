@@ -79,9 +79,21 @@ if ($action === 'download') {
     MatchReplayApiRespond(409, ['success' => false, 'message' => 'Replay can only be saved after the match is over.']);
   }
 
+  $payload = MatchReplayBuildDownloadPayload($rootName, $gameName);
+  // A root that seals (MatchReplayShouldSeal): only a seated player gets one, sealed to their seat; never plain.
+  if (MatchReplayShouldSeal()) {
+    if ($viewerInfo['isSpectator'] || intval($viewerInfo['viewerSeat'] ?? 0) < 1) {
+      MatchReplayApiRespond(403, ['success' => false, 'message' => 'Only a player of this game can save its replay.']);
+    }
+    $payload = MatchReplaySeal($payload, intval($viewerInfo['viewerSeat']));
+    if ($payload === null) {
+      MatchReplayApiRespond(503, ['success' => false, 'message' => 'Replays cannot be saved on this server right now.']);
+    }
+  }
+
   MatchReplayApiRespond(200, [
     'success' => true,
-    'replay' => MatchReplayBuildDownloadPayload($rootName, $gameName),
+    'replay' => $payload,
   ]);
 }
 
@@ -96,6 +108,19 @@ if ($action === 'import') {
   }
 
   $replay = $body['replay'] ?? $body;
+  // A sealed record: open it with the root's key (loaded below) into the plain payload + the seat it plays from.
+  $sealedSeat = 0;
+  if (is_array($replay) && strval($replay['format'] ?? '') === MATCH_REPLAY_SEALED_FORMAT) {
+    $sealedRoot = strval($replay['rootName'] ?? '');
+    if (!MatchReplayApiRootIsValid($sealedRoot) || !is_dir(__DIR__ . '/../' . $sealedRoot)) {
+      MatchReplayApiRespond(400, ['success' => false, 'message' => 'Replay root is not available on this server.']);
+    }
+    EngineLoadRootRuntime($sealedRoot);
+    $opened = MatchReplayUnseal($replay);
+    if ($opened === null) MatchReplayApiRespond(400, ['success' => false, 'message' => 'This replay could not be opened.']);
+    $replay = $opened['payload'];
+    $sealedSeat = intval($opened['seat']);
+  }
   $validationError = MatchReplayValidateReplayPayload($replay);
   if ($validationError !== '') {
     MatchReplayApiRespond(400, ['success' => false, 'message' => $validationError]);
@@ -113,13 +138,8 @@ if ($action === 'import') {
 
   $gameName = MatchReplayApiCreateTempGameName($rootName);
   $replayAuthKey = bin2hex(random_bytes(16));
-  $replayAuthKeys = SimGameDefaultAuthKeys();
-  $replayAuthKeys['p1'] = $replayAuthKey;
-  $replayAuthKeys['p2'] = bin2hex(random_bytes(16));
-  $replayAuthKeys['p3'] = bin2hex(random_bytes(16));
-  $replayAuthKeys['p4'] = bin2hex(random_bytes(16));
-  $replayAuthKeys['spectator'] = bin2hex(random_bytes(16));
-  $replayAuthKeys['isPrivate'] = true;
+  $replayAuthKeys = MatchReplayImportAuthKeys($replayAuthKey, $sealedSeat);
+  $playSeat = $sealedSeat > 0 ? $sealedSeat : 1;
   if (!SimGameWriteAuthKeys($rootName, $gameName, $replayAuthKeys)) {
     MatchReplayApiRespond(500, ['success' => false, 'message' => 'Unable to create replay authentication.']);
   }
@@ -138,6 +158,7 @@ if ($action === 'import') {
   $commandState['playback'] = true;
   $commandState['sourceGameName'] = strval($replay['gameName'] ?? '');
   $commandState['sourceSavedAt'] = strval($replay['savedAt'] ?? '');
+  if ($sealedSeat > 0) { $commandState['sealed'] = true; $commandState['sealedSeat'] = $sealedSeat; }
   MatchReplaySetCommandState($commandState);
   MatchReplayMarkPlaybackGame($gameName);
   if (function_exists('SetFlashMessage')) {
@@ -153,8 +174,8 @@ if ($action === 'import') {
     'rootName' => $rootName,
     'gameName' => $gameName,
     'authKey' => $replayAuthKey,
-    'nextTurnUrl' => './NextTurn.php?gameName=' . rawurlencode($gameName) . '&playerID=1&folderPath=' . rawurlencode($rootName) . '&authKey=' . rawurlencode($replayAuthKey) . '&replay=1',
-  ]);
+    'nextTurnUrl' => './NextTurn.php?gameName=' . rawurlencode($gameName) . '&playerID=' . $playSeat . '&folderPath=' . rawurlencode($rootName) . '&authKey=' . rawurlencode($replayAuthKey) . '&replay=1',
+  ] + ($sealedSeat > 0 ? ['playerID' => $sealedSeat] : []));
 }
 
 MatchReplayApiRespond(400, ['success' => false, 'message' => 'Unsupported match replay action.']);

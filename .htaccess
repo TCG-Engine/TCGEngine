@@ -16,5 +16,7 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteRule (^|/)Games(/|$) - [R=404,NC,L]
+  # SWUSim bug reports (LocalBugReportLib.php) hold both players' hidden cards too: download is mod-only via the viewer.
+  RewriteRule (^|/)BugReports(/|$) - [R=404,NC,L]
   RewriteRule ^(.+)\.[0-9]{9,}\.(css|js)$ $1.$2 [L]
 </IfModule>

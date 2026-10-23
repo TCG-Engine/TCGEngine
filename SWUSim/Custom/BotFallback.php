@@ -166,6 +166,54 @@ function SWUBotTargetValue(array $att, ?array $def, array $W): float {
     return SWUBotLeverChain('target', _SWUBotUnitTargetValue($att, $def, $W) + $draw + $pop, $att, $def, $W);   // lever registry
 }
 
+// Group p63 'tsfocus' — Twin Suns free-for-all (3-4 seats, not Team Suns), owner 2026-10-22 (Discord: "the bots will never attack into units
+// they cant kill outright regardless of if that player's winning … If you have weenie units and 5 HP left on base? … they're ignoring
+// everything else to kick you while you're down"). The first elimination ends the game and the highest base wins (CR 12.7), so damage pays
+// on the seat between me and the win. A non-killing hit was chip and every open base was a full base hit, so the leader's Sentinel walled
+// their base for good and the open base of the LOWEST seat took every swing.
+function _SWUBotTSFreeForAll(): bool {
+    return SeatCountForGame() > 2 && !(function_exists('SWUIsTeamGame') && SWUIsTeamGame());
+}
+function _SWUBotTSLeaderHp(int $seat): int {
+    $hp = 0;
+    foreach (SWUBotOpponents($seat) as $o) $hp = max($hp, SWUBaseRemainingHp($o));
+    return $hp;
+}
+// Feature 'tslowseat': while I trail the healthiest opponent, a hit on a LOWER seat's base only brings on an elimination I lose — it is worth
+// what a chip is, unless it is a kill that wins. Null = no cap.
+function _SWUBotTSLowSeatBaseCap(int $seat, array $att, int $owner, array $W): ?float {
+    if (!SWUBotFeatureOn('tslowseat') || !_SWUBotTSFreeForAll()) return null;
+    $lead = _SWUBotTSLeaderHp($seat); $hp = SWUBaseRemainingHp($owner);
+    if (SWUBaseRemainingHp($seat) >= $lead || $hp >= $lead) return null;
+    if (intval($att['attackPower']) >= $hp && SWUBotKillWins($seat, $owner)) return null;
+    _SWUBotFired('tslowseat', $seat);
+    return $W['chip'] * min(max(0, intval($att['attackPower'])), $hp);
+}
+// The free-play base value: the best of the enemy bases $att can reach, each capped as above.
+function _SWUBotTSBaseValue(int $seat, array $att, array $W, float $full): float {
+    if (!SWUBotFeatureOn('tslowseat') || !_SWUBotTSFreeForAll()) return $full;
+    $best = null;
+    foreach (SWUBotAttackTargets($seat, $att)['bases'] ?? [] as $o) {
+        $cap = _SWUBotTSLowSeatBaseCap($seat, $att, intval($o), $W);
+        $v = $cap === null ? $full : min($full, $cap);
+        $best = $best === null ? $v : max($best, $v);
+    }
+    return $best ?? $full;
+}
+// Feature 'tssentinelchip': a hit that leaves the lone Sentinel of an opponent at or above my base HP and the healthiest standing (and my
+// attacker standing too) is progress — its share (attack / HP) of the kill, valued as the 'sentinelclear' clear is: the Sentinel, plus the
+// base damage the wall holds back from my units there. Damage stays on a unit, so the share is not lost at the round's end. 0 otherwise.
+function _SWUBotTSSentinelChipValue(int $seat, array $att, array $def, array $W): float {
+    if (!SWUBotFeatureOn('tssentinelchip') || !_SWUBotTSFreeForAll() || empty($def['sentinel']) || intval($def['shields']) > 0) return 0.0;
+    $owner = intval($def['controller']); $hp = SWUBaseRemainingHp($owner);
+    if ($hp < _SWUBotTSLeaderHp($seat) || $hp < SWUBaseRemainingHp($seat)) return 0.0;
+    foreach (SWUBotUnits($owner) as $u) if ($u['arena'] === $def['arena'] && !empty($u['sentinel']) && $u['uid'] !== $def['uid']) return 0.0;
+    if (SWUBotCombatOutcome($att, $def) !== 'bounce') return 0.0;
+    [, $wall] = _SWUBotWalledAttackers($seat, strval($def['arena']), $def);
+    _SWUBotFired('tssentinelchip', $seat);
+    return min(1.0, intval($att['attackPower']) / max(1, intval($def['remaining']))) * _SWUBotSentinelClearValue($def, $wall, $W);
+}
+
 // Feature 'leaderdraw' (p41): $seat has a ready, undeployed leader reading "When a friendly unit attacks a unit that costs more than
 // it: You may exhaust this leader. If you do, draw a card." (HMW_014 Wicket). Ninin vs Wicket Green R6.
 function _SWUBotLeaderAttackDraws(int $seat): bool {
@@ -893,6 +941,8 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 $best = null;
                 foreach (SWUBotAllowedTargets($ctx, $att) as [$k, $u]) {
                     $tv = SWUBotTargetValue($att, $k === 'base' ? null : $u, $W);
+                    // Group p63 'tsfocus': which base, and the leader's Sentinel.
+                    $tv = $k === 'base' ? _SWUBotTSBaseValue($seat, $att, $W, $tv) : $tv + _SWUBotTSSentinelChipValue($seat, $att, $u, $W);
                     $best = $best === null ? $tv : max($best, $tv);
                 }
                 $guides = $ctx['_guides'] ?? _SWUBotGuides($ctx);
@@ -1110,6 +1160,10 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         foreach ($ctx['actions'] as $a) if ($marked(strval($a['cardID'] ?? ''))) $any = true;
         if ($any) return ($marked($c) ? -1.0 : 1.0) - $index * 1e-6;
     }
+    // Feature 'copypick' (p62): TS26_34 Fives' "enter play with the "When Played" abilities of another unit" — each copy as it resolves.
+    if (SWUBotFeatureOn('copypick') && $c !== 'PASS' && preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#/', $head, $cpm)
+        && preg_match('/enter play with the \W?When Played\W? abilities of another unit/i', strval(CardText($cpm[1])))
+        && ($cpv = _SWUBotCopyPickValue($seat, $action, $W)) !== null) return $cpv - $index * 1e-6;
     // Feature 'tuck' (p42): Qui-Gon's return pick (front "LOF_016#0", deployed "you may" "LOF_016#2") is the unit whose return buys the
     // best free play — never the cheapest, which "Return … to hand" read as hostile chose. A unit that buys nothing, or a losing pair,
     // scores below PASS (0), so the deployed "you may" is declined only then.
@@ -1410,6 +1464,8 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
             $bv = SWUBotTargetValue($att, null, $W) + (SeatCountForGame() > 2 ? 1e-4 * SWUBotFocusHp(SWUMzOwner($c, $seat)) : 0.0);
             // Feature 'cleanup' (p42): hard control vs an aggro board still reaching my base — a unit it defeats goes first.
             if (SWUBotFeatureOn('cleanup') && ($cap = _SWUBotCleanupCap($ctx, $att, $W)) !== null) $bv = min($bv, $cap);
+            // Group p63 'tsfocus': trailing, a lower seat's base is worth a chip.
+            if (($tsCap = _SWUBotTSLowSeatBaseCap($seat, $att, SWUMzOwner($c, $seat), $W)) !== null) $bv = min($bv, $tsCap + 1e-4 * SWUBotFocusHp(SWUMzOwner($c, $seat)));
             return $bv;
         }
         $def = SWUBotViewForMz($seat, $c);
@@ -1422,7 +1478,8 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         if ($def === null) return -$index * 1e-6;
         // Feature 'readytie' (p57): between kills of equal value, the READY unit — it can still attack this round.
         $readyTie = (SWUBotFeatureOn('readytie') && !empty($def['ready']) && SWUBotCombatOutcome($att, $def) === 'kill-survive') ? 0.001 : 0.0;
-        return SWUBotTargetValue($att, $def, $W) + $readyTie + _SWUBotReadyThreatPremium($ctx, $seat, $att, $def, $W);
+        return SWUBotTargetValue($att, $def, $W) + $readyTie + _SWUBotReadyThreatPremium($ctx, $seat, $att, $def, $W)
+               + _SWUBotTSSentinelChipValue($seat, $att, $def, $W);   // group p63 'tsfocus'
     }
 
     // Twin Suns (3-4 seats) targeting rules (owner, 2026-10-01): which unit/base for an exhaust, bounce, capture, defeat,
@@ -3332,6 +3389,29 @@ function _SWUBotGiftRead(int $seat): float {
         $v += 2.0 + max(0, $u['remaining']) + max(0, $u['power']) + 2.0 * $u['shields'] + $ups + ($u['ready'] ? 1.0 : 0.0);
     }
     return $v;
+}
+
+// Feature 'copypick' (p62, Discord report 2026-10-22): TS26_34 Fives copies another unit's When Played. Every candidate scored the flat
+// first-listed value, so Fives copied TS26_15 C-3P0's "An opponent takes control of this unit" and handed ITSELF (a 6/6 Sentinel) to an
+// opponent, with TS26_62 R2-D2's base ping on the board. The copy is resolved in the lookahead (its follow-up picks made for the best line)
+// and scored by the board change, plus the cards it draws me less the cards it draws an opponent. PASS is 0: a copy that only hurts declines.
+function _SWUBotCopyPickValue(int $seat, array $action, array $W): ?float {
+    if (!function_exists('SWUBotLookaheadBest')) return null;
+    $hands = function () use ($seat): array {
+        $n = fn(int $p) => count(array_filter(GetHand($p), fn($o) => $o !== null && empty($o->removed)));
+        return [$n($seat), array_sum(array_map($n, SWUBotOpponents($seat)))];
+    };
+    $before = _SWUBotBoardRead($seat);
+    [$mine0, $theirs0] = $hands();
+    $line = SWUBotLookaheadBest($seat, $action, function () use ($seat, $hands) {
+        $r = _SWUBotBoardRead($seat);
+        [$r['_myHand'], $r['_theirHand']] = $hands();
+        return $r;
+    }, fn(array $r) => _SWUBotBoardDelta($before, $r, $W) + floatval($W['draw']) * (($r['_myHand'] - $mine0) - ($r['_theirHand'] - $theirs0)),
+       SWU_BOT_LOOKAHEAD_DEPTH, 12);
+    if ($line === null) return null;
+    _SWUBotFired('copypick', $seat);
+    return floatval($line['_score']);
 }
 
 // Play the card in the lookahead (its choices made for the best board change for me) and hold it when even that

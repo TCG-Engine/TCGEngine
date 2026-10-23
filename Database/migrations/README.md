@@ -24,6 +24,7 @@ Apply in numeric order:
 | 04 | `04_azuki_deck_card_stats.sql` | Creates isolated `azukicarddeckstats` | AzukiSim/AzukiDeck bridge |
 | 05 | `05_azuki_card_event_stats.sql` | Adds draw, attack, and attack-target counters | Azuki card analytics |
 | 06 | `06_azuki_card_play_turn_stats.sql` | Adds play/win counters for full-turn cycles 1-9 and 10+ | Azuki turn analytics |
+| 06 | `06_ownership_friendlycode.sql` | Adds `ownership.friendlyCode` (12-char deck share code) + its unique index. Apply to **every app DB with an `ownership` table**: SWUStats deck creation (`CreateDeck.php` → `AssignFriendlyCode`) and share-code loads (`APIs/LoadDeck.php`) die without it. ⚠ Shares the number 06 with the Azuki migration above; it was missing from this table and from `database.sql`, which is how the rebuilt swustats.net lost deck creation on 2026-10-22. `DevTools/tdd-regression/test_database_sql_covers_migrations.php` now fails when a migration's tables/columns are not in `database.sql` | Deck share codes |
 | 07 | `07_auto_versioning.sql` | Adds a separate automatic-version graph and Azuki per-version W/L aggregates | Shared version graph + Azuki opt-in |
 | 08 | `08_engine_asset_versioning.sql` | Adds engine-level version aggregates and backfills existing Azuki W/L rows | Engine capability extraction |
 | 09 | `09_match_history.sql` | Creates private per-user match history with generic key-card slots | Shared simulator capability |
@@ -34,6 +35,7 @@ Apply in numeric order:
 | 16 | `16_meleetournamentdeck_sourceid.sql` | Adds `meleetournamentdeck.sourceID` (melee decklist GUID) — written by the melee importer, already on prod, missing from every tracked schema. Idempotent (no-op where present) | Melee tournament import |
 | 17 | `17_glicko_ratings.sql` | Creates `glicko_ratings`, `glicko_results`, `glicko_penalties` (Glicko-2 ratings per format + match type, rated-match log, abandon cooldowns). Apply to **every app DB that serves SWUSim logins**, before deploying the code that writes them; until then matches simply go unrated. Idempotent | SWUSim Meta Premier rated queue |
 | 18 | `18_swustats_link.sql` | Creates `swustats_links` (Petranaki account ↔ SWUStats account, OAuth tokens). Apply to the **SWUSim** app DB only. The code checks DBTableExists() first, so until it runs linking is simply off. Idempotent | Petranaki ↔ SWUStats link |
+| 19 | `19_swusim_bug_reports.sql` | Creates `swusim_bug_reports` (Petranaki's own SWUSim bug reports; the reports themselves live on disk in `SWUSim/BugReports/`). Apply to the **SWUSim** app DB only. The code checks DBTableExists() first, so until it runs reports are saved to disk only. Idempotent | Petranaki local bug reports |
 
 The first three are **independent** of each other (disjoint tables) — the numbering is the phase order they
 were designed and tested in, and is a safe, canonical sequence. There is no cross-file dependency.

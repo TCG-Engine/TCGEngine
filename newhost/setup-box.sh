@@ -441,12 +441,17 @@ phase_stack() {
   a2enmod -q mpm_prefork "php$V" rewrite ssl headers remoteip >/dev/null
   a2dissite -q 000-default default-ssl >/dev/null 2>&1 || true
 
-  # Sizing from RAM (overridable). PHP workers ~45 MB each; leave room for MariaDB, APCu, OPcache.
+  # Sizing from RAM (overridable). Leave room for MariaDB, APCu, OPcache; a prefork PHP worker measured
+  # 12-26 MB private memory (PSS) on the 1 GB Petranaki droplet (2026-10-22), so budget 20 MB each.
+  # The floor matters more than the formula: every open game tab holds a worker for its long poll
+  # (GetNextTurn.php waits up to ~2.5 s), the lobby poll does the same, and keep-alive parks a worker
+  # per idle Cloudflare connection. The first box got 8 workers from a 45 MB guess and a 25-second
+  # game load once a handful of players were on — every other request queued behind the polls.
   local apcu_mb; apcu_mb="$(size_mb "$APCU_SHM")"
   local workers="$APACHE_MAX_WORKERS"
   if [ -z "$workers" ]; then
-    workers=$(( (RAM_MB - 350 - apcu_mb - 128) / 45 ))
-    [ "$workers" -lt 8 ] && workers=8; [ "$workers" -gt 150 ] && workers=150
+    workers=$(( (RAM_MB - 350 - apcu_mb - 128) / 20 ))
+    [ "$workers" -lt 24 ] && workers=24; [ "$workers" -gt 150 ] && workers=150
   fi
   local pool="$MARIADB_BUFFER_POOL"
   if [ -z "$pool" ]; then
@@ -468,16 +473,18 @@ TraceEnable Off
     Require all granted
 </Directory>
 
+# Spare workers absorb a game load's burst of ~20 asset requests without waiting for prefork to fork.
 <IfModule mpm_prefork_module>
-    StartServers             2
-    MinSpareServers          2
-    MaxSpareServers          6
+    StartServers             8
+    MinSpareServers          6
+    MaxSpareServers          12
     MaxRequestWorkers        $workers
     MaxConnectionsPerChild   2000
 </IfModule>
 
+# Short: under prefork an idle keep-alive connection pins a whole PHP process.
 KeepAlive On
-KeepAliveTimeout 3
+KeepAliveTimeout 2
 EOF
   a2enconf -q tcgengine >/dev/null
 

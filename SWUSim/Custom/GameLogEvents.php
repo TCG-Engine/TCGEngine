@@ -222,6 +222,7 @@ function GameOnDecisionAnswered(int $player, string $answer): void {
     if ($head === null) return;
     $answer = trim($answer);
     if ($answer === '' || $answer === '-' || $answer === 'PASS') return;
+    if (function_exists('SwuPgnNoteChoice')) SwuPgnNoteChoice($player, $head, $answer);
     $who = 'P' . $player;
     switch ((string)($head->Type ?? '')) {
         case 'NAMECARD':
@@ -278,6 +279,7 @@ function _SWULogInCombatDamage(): bool {
 // Called from SWUQueueDamageAnim — "the universal damage-application hook (base + combat + ability all
 // route here)". Before its ConvertMzIDToAbsolute early-return, so it works headless (the harness stubs it).
 function SWULogDamageEvent(string $relMzID, int $amount, int $perspective): void {
+    if ($amount > 0 && function_exists('SwuPgnNoteDamage')) SwuPgnNoteDamage(_SWULogResolve($relMzID, $perspective), $amount, _SWULogInCombatDamage());
     if ($amount <= 0 || _SWULogInCombatDamage()) return;
     $o   = _SWULogResolve($relMzID, $perspective);
     $ref = SWULogObjRef($o);
@@ -288,6 +290,7 @@ function SWULogDamageEvent(string $relMzID, int $amount, int $perspective): void
 function SWULogHealEvent(string $relMzID, int $healed, int $perspective): void {
     if ($healed <= 0) return;
     $o   = _SWULogResolve($relMzID, $perspective);
+    if (function_exists('SwuPgnNoteHeal')) SwuPgnNoteHeal($o, $healed);
     $ref = SWULogObjRef($o);
     SWULogEffect('HEAL', 'healed ' . $healed . ' damage from ' . _SWULogActiveRef($o, $ref), "{$ref} healed {$healed} damage");
 }
@@ -315,6 +318,8 @@ function _SWULogTokenPhrase(string $tokenID): string {
 function SWULogDraw(int $player, array $drawnMz): void {
     $n = count($drawnMz);
     if ($n <= 0) return;
+    // SWU-PGN: one DRAW note per announcement — a batch notes its total once, below.
+    if (!isset($GLOBALS['gSWULogDrawCollect']) && function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'DRAW', 'p' => $player, 'n' => $n]);
     if (isset($GLOBALS['gSWULogDrawCollect']) && is_array($GLOBALS['gSWULogDrawCollect'])) {   // SWULogDrawBatch
         foreach ($drawnMz as $mz) {
             $o = _SWULogResolve((string)$mz, $player);
@@ -342,6 +347,7 @@ function SWULogDrawBatch(int $player, string $what, callable $fn): void {
     }
     $n = count($ids);
     if ($n <= 0) return;
+    if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'DRAW', 'p' => $player, 'n' => $n]);
     AddGameLogEntry('DRAW', "P{$player} {$what} of {$n} card" . ($n === 1 ? '' : 's'), 'ALL');
     SWULogPrivate($player, 'DRAW', 'You drew ' . implode(', ', array_map('GameLogCardRef', $ids)));
 }
@@ -352,6 +358,7 @@ function SWULogDrawBatch(int $player, string $what, callable $fn): void {
 // One-shot note: a caller can set $GLOBALS['gSWULogDiscardNote'] ('at random') just before discarding.
 function SWULogDiscard(int $owner, string $cardID, string $from): void {
     if ($owner <= 0 || $cardID === '') return;
+    if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'DISCARD', 'p' => $owner, 'cardIDs' => [$cardID]]);
     $note = (string)($GLOBALS['gSWULogDiscardNote'] ?? '');
     $GLOBALS['gSWULogDiscardNote'] = '';
     $ref  = GameLogCardRef($cardID);
@@ -383,6 +390,7 @@ function SWULogDiscard(int $owner, string $cardID, string $from): void {
 // which is written after the damage (SWULogCombatNotes).
 function SWULogShieldPrevented($obj): void {
     if ($obj === null) return;
+    if (function_exists('SwuPgnNoteToken')) SwuPgnNoteToken($obj, 'SOR_T02', -1);
     $text = SWULogObjRef($obj) . "'s Shield token prevented the damage";
     if (_SWULogInCombatDamage()) { $GLOBALS['gSWULogCombatNotes'][] = $text; return; }
     AddGameLogEntry('SHIELD', $text . SWULogSourceSuffix(), 'ALL');
@@ -410,6 +418,7 @@ function SWULogBaseDamagePrevented(int $owner, int $prevented, string $byCardID)
 // A Shield token DEFEATED outright by an effect (SHD_045 Rose Tico, HMW_077 Boss Nass) — not a prevention.
 function SWULogShieldDefeated($obj): void {
     if ($obj === null) return;
+    if (function_exists('SwuPgnNoteToken')) SwuPgnNoteToken($obj, 'SOR_T02', -1);
     $ref = SWULogObjRef($obj);
     SWULogEffect('DEFEAT', 'defeated a Shield token on ' . _SWULogActiveRef($obj, $ref), "A Shield token on {$ref} was defeated");
 }
@@ -503,6 +512,10 @@ function SWULogSearchedToHand(int $player, array $cardIDs, bool $revealed): void
     $cardIDs = array_values(array_filter($cardIDs, fn($c) => (string)$c !== ''));
     $n = count($cardIDs);
     if ($player <= 0 || $n <= 0) return;
+    if (function_exists('SwuPgnNote')) {
+        if ($revealed) SwuPgnNote(['t' => 'REVEAL', 'p' => $player, 'zone' => 'deck', 'cardIDs' => $cardIDs]);
+        SwuPgnNote(['t' => 'SEARCH', 'p' => $player, 'cardIDs' => $cardIDs]);   // claims the cards' deck → hand moves
+    }
     $refs = implode(', ', array_map('GameLogCardRef', $cardIDs));
     if ($revealed) {
         AddGameLogEntry('REVEAL', "P{$player} revealed and drew {$refs}" . SWULogSourceSuffix(), 'ALL');
@@ -568,6 +581,7 @@ function SWULogSeats(array $seats, string $type, string $text): void {
 // so the card is never named. $what: "the top card of their deck", "a card from their hand", "P2's resource".
 function SWULogResourced(int $player, string $what = 'a card'): void {
     if ($player <= 0) return;
+    if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'RESOURCE', 'p' => $player, 'cardID' => null]);   // which card: the diff knows
     AddGameLogEntry('RESOURCE', "P{$player} resourced {$what}" . SWULogSourceSuffix(), 'ALL');
 }
 
@@ -699,6 +713,7 @@ function SWULogNoEffectEligible(string $triggerType): bool {
 // never reached the log. "P1's [[ISB Agent]] revealed [[X]] from P1's hand" / "… from the top of P2's deck".
 function SWULogRevealed(int $owner, string $cardID, string $mzID): void {
     if ($owner <= 0 || $cardID === '') return;
+    if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'REVEAL', 'p' => $owner, 'zone' => strpos($mzID, 'Deck') !== false ? 'deck' : 'hand', 'cardIDs' => [$cardID]]);
     $ref  = GameLogCardRef($cardID);
     $from = (strpos($mzID, 'Deck') !== false) ? "from the top of P{$owner}'s deck"
           : ((strpos($mzID, 'Hand') !== false) ? "from P{$owner}'s hand" : '');
@@ -845,6 +860,12 @@ function SWULogForceDefeated(int $player): void {
 // payment continuations are separate sites, so each logs exactly once).
 function SWULogBeginAction(int $player, string $cardID, string $kind = 'Action'): void {
     SWULogSetSource($player, $cardID);
+    if (function_exists('SwuPgnNote')) {
+        $isBase = false;
+        foreach (GetBase($player) ?? [] as $b) if (empty($b->removed) && ($b->CardID ?? '') === $cardID) $isBase = true;
+        SwuPgnNote(['t' => 'ABILITY', 'p' => $player, 'cardID' => $isBase ? "base@$player" : $cardID,
+            'kind' => stripos($kind, 'Epic') !== false ? 'epic' : 'action']);
+    }
     AddGameLogEntry('ACTION', 'P' . $player . ' used ' . GameLogCardRef($cardID) . "'s {$kind}", 'ALL');
 }
 

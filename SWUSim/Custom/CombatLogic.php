@@ -798,6 +798,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     // Game log — the defeat is committed here (immunity and defeat-replacement were checked above, so a
     // refused or replaced defeat never logs). Combat defeats don't come through here; the ATTACK line has them.
     if (function_exists('SWULogUnitEvent')) { $lsNote = SWULogTakeDefeatNote(); SWULogUnitEvent('DEFEAT', $obj, 'defeated {U}' . $lsNote, '{U} was defeated' . $lsNote); }
+    if (function_exists('SwuPgnNoteDefeat')) SwuPgnNoteDefeat($obj, $fromDamage ? 'nonCombatDamage' : 'unknown');
     // Fire the defeated unit's WhenDefeated ability AND the leave-play reactions (Gideon/Krell/Boba)
     // for ANY effect-defeat routed through here — direct "defeat target unit" (Takedown/Vanquish),
     // sacrifice, shrink sweep, Rukh, etc. Combat-defeats mark units removed directly (not via this
@@ -1026,6 +1027,8 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
         $lsWhat = ($lsSrc === (string)$foundCardID) ? "itself (on {$lsHost})" : $lsUpg;
         if ($bounce) SWULogEffect('BOUNCE', "returned {$lsWhat} to its owner's hand", "{$lsUpg} returned to its owner's hand");
         else         SWULogEffect('DEFEAT', "defeated {$lsWhat}", "{$lsUpg} was defeated");
+        if (!$bounce && function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'DEFEAT', 'uid' => null, 'cardID' => (string)$foundCardID,
+            'reason' => $lsSrc !== '' ? 'ability' : 'frameworkEffect', 'by' => $lsSrc !== '' ? SwuPgnNoteSource() : null]);
     }
     // Rebuild Subcards without the defeated upgrade (explicit reassignment ensures the
     // property on the live zone object is updated even when $host was obtained without &).
@@ -2594,6 +2597,8 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // into the stale mzID slot.
     $_defObj = (strpos($targetMzID, 'Arena') !== false) ? GetZoneObject($targetMzID) : null;
     SetSWUVar('SWU_CURRENT_DEFENDER_UID', strval($_defObj !== null ? intval($_defObj->UniqueID ?? 0) : 0));
+    if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'ATTACK', 'p' => intval($player), 'atkUid' => intval($attacker->UniqueID ?? 0),
+        'def' => $_defObj !== null ? intval($_defObj->UniqueID ?? 0) : 'base@' . SWUMzOwner($targetMzID, intval($player))]);
     // …and the DEFENDER SET. An ordinary attack has exactly one defender, so this is the same unit again —
     // written unconditionally so SWUCurrentDefenderMzIDs() is uniform across both attack paths AND so a
     // preceding TWI_135 Maul two-defender attack can never leak its PAIR into this one.
@@ -3512,6 +3517,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         } elseif ($attackerHP <= 0 && !SWUImmuneToHpDefeat($attacker)) {
             $defeatedCards[] = ['player' => intval($attacker->Controller), 'cardID' => $attacker->CardID, 'mzID' => $attackerMzID, 'upgraded' => _SWUIsUpgraded($attacker), 'weakened' => (SWUFindUpgradeIndex($attacker, 'HMW_T02') >= 0)];
             AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_COMBATDEF_' . intval($attacker->UniqueID ?? 0)); // "defeated by combat damage" marker (ASH_028/191)
+            if (function_exists('SwuPgnNoteDefeat')) SwuPgnNoteDefeat($attacker, 'attack', $target);
             $atkOwner = intval($attacker->Owner ?? $player);
             if (strpos(CardType($attacker->CardID) ?? '', 'Leader') !== false) {
                 // A deployed leader-unit attacker died in combat and returns to its leader zone.
@@ -3571,6 +3577,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         } elseif ($defenderHP <= 0 && $target !== null && empty($target->removed) && !SWUImmuneToHpDefeat($target)) {
             $defeatedCards[] = ['player' => intval($target->Controller), 'cardID' => $target->CardID, 'mzID' => $targetMzID, 'upgraded' => _SWUIsUpgraded($target), 'weakened' => (SWUFindUpgradeIndex($target, 'HMW_T02') >= 0)];
             AddGlobalEffects(intval($target->Controller ?? ($player === 1 ? 2 : 1)), 'SWU_COMBATDEF_' . intval($target->UniqueID ?? 0)); // "defeated by combat damage" marker (ASH_028/191)
+            if (function_exists('SwuPgnNoteDefeat')) SwuPgnNoteDefeat($target, 'attack', $attacker);
             $defOwner = intval($target->Owner ?? ($player === 1 ? 2 : 1));
             if (strpos(CardType($target->CardID) ?? '', 'Leader') !== false) {
                 // A deployed leader IS a unit — register the same unit-defeat flags as the non-leader branch
@@ -3639,6 +3646,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             $defeatedCards[] = ['player' => intval($rObj->Controller ?? $player), 'cardID' => $rObj->CardID,
                                 'mzID' => $redirectMz, 'upgraded' => _SWUIsUpgraded($rObj), 'weakened' => (SWUFindUpgradeIndex($rObj, 'HMW_T02') >= 0)];
             AddGlobalEffects(intval($rObj->Controller ?? $player), 'SWU_COMBATDEF_' . intval($rObj->UniqueID ?? 0));
+            if (function_exists('SwuPgnNoteDefeat')) SwuPgnNoteDefeat($rObj, 'attack', $target);
             if (strpos(CardType($rObj->CardID) ?? '', 'Leader') !== false) {
                 SWUReturnLeaderToZone($rOwner, $redirectMz);
             } else {
@@ -4475,6 +4483,7 @@ function _SWUMaulCombatDefeat($obj, string $mzID, int $player, bool $isAttacker,
     $owner = intval($obj->Owner ?? $ctrl);
     $defeatedCards[] = ['player' => $ctrl, 'cardID' => $obj->CardID, 'mzID' => $mzID, 'upgraded' => _SWUIsUpgraded($obj), 'weakened' => (SWUFindUpgradeIndex($obj, 'HMW_T02') >= 0)];
     AddGlobalEffects($ctrl, 'SWU_COMBATDEF_' . intval($obj->UniqueID ?? 0));
+    if (function_exists('SwuPgnNoteDefeat')) SwuPgnNoteDefeat($obj, 'attack', null);
     if (strpos(CardType($obj->CardID) ?? '', 'Leader') !== false) {
         SWUReturnLeaderToZone($owner, $mzID);
     } else {

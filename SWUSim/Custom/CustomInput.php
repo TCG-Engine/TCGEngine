@@ -8,6 +8,10 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
     $GLOBALS['SWUBotDataInFlight'] = ['mz' => strval($actionCard), 'verb' => strval($action)];
     $cardArr = explode("-", $actionCard);
     $zone = $cardArr[0];
+    // An OPPONENT's arena — "their…" at 2 seats, the seat-tagged "p{n}…" at 3-4 (the form the offer list and the Twin Suns
+    // Home panel tiles carry). Only an any-player Action is ever used there (TS26_15 C-3P0, LAW_156, SHD_256), so it gets its
+    // own route below instead of the generic one.
+    if (preg_match('/^(their|p\d+)(GroundArena|SpaceArena)$/', $zone)) $zone = 'opponentArena';
     switch ($zone) {
       case "myHealth": // Pass button (SWU: consecutive-pass tracking in SWUPassAction)
         if (intval(GetTurnPlayer()) !== intval($playerID)) {
@@ -150,6 +154,31 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
                 SWUUnitAction($playerID, $actionCard);
                 // Drain auto-decisions (PASSPARAMETER → effect → SWU_AFTER_ACTION); stops at any
                 // MZCHOOSE/YESNO, which the player answers via the normal decision pipeline.
+                (new DecisionQueueController())->ExecuteStaticMethods($playerID, "-");
+            }
+        }
+        break;
+      case "opponentArena":
+        // An any-player unit Action on a unit I do not control. Until 2026-10-22 this mzID fell to `default: break`, so the
+        // live click on C-3P0 / Hunter For Hire / Mercenary Gunship did nothing at any seat count (Discord report) — the
+        // offer list (SWUComputeActionsData) and the tests, which call SWUUnitAction() directly, were both green.
+        // ⚠ The $anyPlayerUnitActions check is the gate: SWUUnitAction() has no controller check, so without it a click
+        //   would fire an opponent's OWN Action (SEC_093's bounce cost included). Same active / empty-queue guards as mine.
+        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+            SetFlashMessage("Only the active player can act.");
+            break;
+        }
+        if (!(new DecisionQueueController())->AllQueuesEmpty()) {
+            SetFlashMessage("Cannot use an ability while decisions are pending.");
+            break;
+        }
+        if (function_exists('SWUGetUnitActionProvider')) {
+            global $anyPlayerUnitActions;
+            $uObj = GetZoneObject($actionCard);
+            $provider = ($uObj !== null && empty($uObj->removed)) ? SWUGetUnitActionProvider($uObj) : '';
+            if ($provider !== '' && !empty($anyPlayerUnitActions[$provider]) && SWUUnitActionAffordable($playerID, $actionCard, $provider)) {
+                SaveUndoVersion($playerID);
+                SWUUnitAction($playerID, $actionCard);
                 (new DecisionQueueController())->ExecuteStaticMethods($playerID, "-");
             }
         }
