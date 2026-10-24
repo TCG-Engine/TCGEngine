@@ -264,6 +264,36 @@ Restore 3',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/041.png',
     'imageUrlBack' => '',
   ),
+  'IC27_065' => 
+  array (
+    'title' => 'Darth Maul',
+    'subtitle' => 'Mindful Apprentice',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 6,
+    'power' => 4,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Sith',
+    ),
+    'text' => 'Sentinel
+Overwhelm
+Raid 3',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/065.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_067' => 
   array (
     'title' => 'Darth Vader',
@@ -294,6 +324,34 @@ Each other friendly unit gains Ambush.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/067.png',
     'imageUrlBack' => '',
   ),
+  'IC27_070' => 
+  array (
+    'title' => 'C-3PO',
+    'subtitle' => 'Impulse Buy',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 1,
+    'power' => 1,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+      1 => 'Droid',
+    ),
+    'text' => 'Action [Exhaust]: Give an Experience token to another unit. Then, if it has 6 or more power, draw a card.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/070.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_071' => 
   array (
     'title' => 'Avar Kriss',
@@ -322,6 +380,36 @@ This unit gains Raid 1 for each other friendly unit.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/071.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_075' => 
+  array (
+    'title' => 'Red Leader',
+    'subtitle' => 'Wait For My Signal',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Uncommon',
+    'set' => 'IC27',
+    'cost' => 3,
+    'power' => 2,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+      1 => 'Vehicle',
+      2 => 'Fighter',
+    ),
+    'text' => 'Sentinel (Enemy units in this arena must attack a Sentinel when they attack you.)
+Restore 2 (When this unit attacks, heal 2 damage from your base.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/075.png',
     'imageUrlBack' => '',
   ),
   'IC27_078' => 
@@ -382,6 +470,63 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/079.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_098' => 
+  array (
+    'title' => 'Commander Pyre',
+    'subtitle' => 'Golden Menace',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'IC27',
+    'cost' => 2,
+    'power' => 3,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'First Order',
+      1 => 'Trooper',
+    ),
+    'text' => 'Saboteur (When this unit attacks, ignore Sentinel and defeat the defender\'s Shields.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/098.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_099' => 
+  array (
+    'title' => 'Eighth Brother',
+    'subtitle' => 'Ill-Fated Escape',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'IC27',
+    'cost' => 2,
+    'power' => 3,
+    'hp' => 1,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Imperial',
+      2 => 'Inquisitor',
+    ),
+    'text' => 'When Defeated: You may ready an Imperial unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/099.png',
     'imageUrlBack' => '',
   ),
   'IC27_103' => 
@@ -473,6 +618,63 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/121.png',
     'imageUrlBack' => '',
   ),
+  'IC27_143' => 
+  array (
+    'title' => 'Wat Tambor',
+    'subtitle' => 'Warped Warbling',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'IC27',
+    'cost' => 3,
+    'power' => 4,
+    'hp' => 2,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+      1 => 'Official',
+    ),
+    'text' => 'Sentinel (Enemy units in this arena must attack a Sentinel when they attack you.)
+When Played: You may attack with a unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/143.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_145' => 
+  array (
+    'title' => 'Poggle the Lesser',
+    'subtitle' => 'Secret Designs',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 4,
+    'power' => 3,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+      1 => 'Official',
+    ),
+    'text' => 'On Attack: You may pay [1 resource] and discard a card from your hand. If you do, the next card you play this phase costs [3 resources] less.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/145.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_146' => 
   array (
     'title' => 'Boba Fett',
@@ -499,6 +701,33 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/146.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_153' => 
+  array (
+    'title' => 'Greef Karga',
+    'subtitle' => 'I Celebrate Your Success',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'IC27',
+    'cost' => 2,
+    'power' => 0,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Official',
+    ),
+    'text' => 'Raid 3 (This unit gets +3/+0 while attacking.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/153.png',
     'imageUrlBack' => '',
   ),
   'IC27_158' => 

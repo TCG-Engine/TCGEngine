@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145
 
 ## Foundations already built — do not re-do
 
@@ -256,11 +256,62 @@ Both mocks checked against their preview images.
     TWI_092 Yularen / TWI_114 Cody auras all ignore a TEAMMATE's units in Team Suns. Premier and Twin
     Suns are unaffected. Needs a per-card audit of each card's wording ("friendly" vs "you control").
 
+## Phase 10 — Fourth preview wave, 2026-10-24 (21 → 29 CardIDs)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff. None of the eight was in the engine
+dictionary on arrival — ran the three preview regens first. All eight mocks checked against their
+preview images; two mock typos fixed in `CardMocks.php` (IC27_075 title had a trailing space —
+`'Red Leader '` — which breaks name matching; IC27_070 read "another unit.Then,"). Reprint note:
+IC27_053 Disciples' Devotion is SEC_071 but SWUDB lists it as a separate card, so the preview tool
+classified it "new" — mapped by hand in `Overrides.php` (IC27_053 → SEC_071), not mocked.
+
+- [x] **Batch 10.1 — IC27_065, IC27_075, IC27_098, IC27_153** — keyword-only Step-0 no-ops, verified
+  2026-10-24 against the regenerated registries: IC27_065 Darth Maul (Sentinel, Overwhelm, Raid 3),
+  IC27_075 Red Leader (Sentinel, Restore 2), IC27_098 Commander Pyre (Saboteur), IC27_153 Greef Karga
+  (Raid 3). No ability stub for any of them. No test files.
+- [x] **Batch 10.2 — IC27_099, IC27_143** — done 2026-10-24, 16 sections, suite 13410 → 13426/0.
+  - IC27_099 Eighth Brother (Ill-Fated Escape): "When Defeated: You may ready an Imperial unit." SOR_226
+    Motti's shape via `SWUOfferUnitTarget` (`traits => Imperial`, `may`, `READY_UNIT`) — whole table,
+    enemy and far seats included. **No self-exclusion needed**: probed on four defeat paths (combat,
+    Crushing Blow, NGOR, a simultaneous TWI_173 AoE) and he has always left the arena before his pool is
+    built, so an IC27_024-style exclusion was dead code (mutation green) and was removed; two exact-pool
+    sections now pin the engine invariant. 10 sections, 6 mutations (unregistered, no trait gate, `my`
+    side, two-seat filter, mandatory pick, no self-exclusion — the last green, explained above).
+  - IC27_143 Wat Tambor (Warped Warbling): Sentinel (auto) + "When Played: You may attack with a unit."
+    SEC_172 Cinta Kaz's continuation (`SEC_172#0`), but the pool is `_SWUUnitCanAttackNow` rather than a
+    bare ready check, so a Loth-Wolf is never offered. 6 sections, 4 mutations, each red.
+- [x] **Batch 10.3 — IC27_070** — done 2026-10-24, 9 sections, suite 13426 → 13435/0.
+  - IC27_070 C-3PO (Impulse Buy): "Action [Exhaust]: Give an Experience token to another unit. Then, if it
+    has 6 or more power, draw a card." SOR_094 Bail Organa's action without "friendly": the pool is
+    `_SWUCollectUnitTargets` minus C-3PO by UID (whole table, far seats, leader units), mandatory pick,
+    `IC27_070#0` gives the token THEN reads `ObjectCurrentPower` (5-power → 6 draws; 4 → 5 does not), and
+    the ACTIVATOR draws even when the token went to an enemy. **Judgement call:** no availability gate —
+    the [Exhaust] cost changes game state (CR 6.4.587.c), so with no other unit the action is usable and
+    resolves to nothing. ⚠ SOR_094 Bail Organa still carries the older target gate in
+    `SWUUnitActionAffordable` (predates the CR 6.4.587.c sweep) — left alone, owner's call.
+    7 mutations, each red.
+- [x] **Batch 10.4 — IC27_145** — done 2026-10-24, 12 sections, suite 13435 → 13447/0.
+  - IC27_145 Poggle the Lesser (Secret Designs): "On Attack: You may pay [1 resource] and discard a card
+    from your hand. If you do, the next card you play this phase costs [3 resources] less." YESNO (offered
+    only when BOTH halves are possible: `SWUTotalPaymentCapacity >= 1` AND a card in hand) →
+    `SWUPayInlineAbilityCost` (Credits/Droids pay as a last resort) → mandatory hand pick queued from the
+    CUSTOM (safe from the On Attack `$playerID` restore) → `DoDiscardCard` (the full ceremony: OnCardDiscarded,
+    Padmé SEC_016, Migs SHD_163, per-phase counters) → arm `SWU_IC27145_DISCOUNT_NEXT`. The discount is one
+    `$oneShotPlayCharges` row (any card type; `3 × count` + `clearPrefix`, so two charges armed before a
+    play stack on that card and are both spent — the TS26_35 precedent) plus a RegroupPhaseStart clear.
+    **Judgement call (preview, no ruling):** the stacking reading above. 9 mutations, each red.
+  - ⚠ Noticed, not changed: the universal `DISCARD_FROM_OWN_HAND` handler (CardDQHandlers.php) discards
+    via `SWUAddToDiscard`, which fires OnCardDiscarded but NOT the Padmé SEC_016 / Migs SHD_163 hand-discard
+    reactions that `DoDiscardCard` fires — any self-chosen discard routed through it skips both.
+
 ## Status
 
-**✅ IC27 IS CARD-COMPLETE AT 21 / 21 CardIDs** (2026-10-07 — re-derived at the END of the run: the
-`### Already Done` line diffed against the IC27 IDs in `AppCore/SWU/CardMocks.php` is empty). True only
-until the next preview import. Third wave (Phase 9): +15 sections, zero deferrals, no preview assumption
+**✅ IC27 IS CARD-COMPLETE AT 29 / 29 mocked CardIDs** (2026-10-24 — re-derived at the END of the run: the
+`### Already Done` line diffed against the IC27 IDs in `AppCore/SWU/CardMocks.php` is empty), plus the
+hand-mapped reprint override IC27_053 → SEC_071. True only until the next preview import.
+Fourth wave (Phase 10): suite 13410 → **13447/0** (+37 sections), zero deferrals; two judgement calls
+flagged (IC27_070 no availability gate; IC27_145 charges stack).
+Before that: **21 / 21** (2026-10-07). Third wave (Phase 9): +15 sections, zero deferrals, no preview assumption
 needed (the aura's only open question, "friendly" in Team Suns, is settled by the 2026-08-25 ruling).
 Second wave (Phase 8): suite 11485 → **11528/0** (+43 sections), zero deferrals; one preview assumption
 flagged (IC27_038's single-instruction deck-out).

@@ -230,6 +230,32 @@ function SWUBotAffordableFlipPackage(int $seat, int $cap): ?array {
     return null;
 }
 
+// Feature 'curvekeep' (p65): the hand indices of the units that are midrange's only plays in the next two rounds, which the
+// resourcer must not bank. For each of those rounds (resources after this pick, then one more), the most expensive unit still
+// unprotected that the round's resources can cast; ties go to the lowest hand index. Early game only (≤ 4 resources after the
+// pick) — past that the castable-soon rule has enough plays to choose from.
+const SWU_BOT_CURVEKEEP_BONUS = 200.0;
+function _SWUBotCurveKeepIndices(int $seat, int $n): array {
+    $after = SWUResourceCount($seat) + $n;
+    if ($after > 4) return [];
+    $units = [];
+    foreach (GetHand($seat) as $i => $c) {
+        if ($c === null || !empty($c->removed)) continue;
+        $cid = strval($c->CardID ?? '');
+        if (strval(CardType($cid)) === 'Unit') $units[$i] = _SWUBotSeatCost($seat, $cid);
+    }
+    $kept = [];
+    foreach ([$after, $after + 1] as $avail) {
+        $best = null;
+        foreach ($units as $i => $cost) {
+            if (isset($kept[$i]) || $cost > $avail) continue;
+            if ($best === null || $cost > $units[$best]) $best = $i;
+        }
+        if ($best !== null) $kept[$best] = true;
+    }
+    return array_keys($kept);
+}
+
 // The $n hand mzIDs ("myHand-i") to resource, lowest keep value first; ties go to the lowest hand index.
 // A Plot card is resourced first while the Plot cards in resources plus it still fit the deploy threshold
 // — the leader's deploy then Plays them out (spec: the Plot budget; the owner's Palpatine + Jar Jar = 5).
@@ -296,6 +322,10 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
     $neelKeep = $neelPlan === null ? [] : array_filter([$neelPlan['enabler'], $neelPlan['payoff']], fn($x) => $x !== null);
     // Features 'fodderkeep' + 'mercres' (p49, BotCreditEngine.php): the Credit engine's fodder and its resource-loop unit stay in hand.
     $fodderKeep = function_exists('SWUBotFodderKeepIndices') ? SWUBotFodderKeepIndices($seat) : [];
+    // Feature 'curvekeep' (p65): midrange's castable-soon value is 100 + cost, so the CHEAPEST castable card was banked first — even
+    // the only play for rounds 1–2 (HMW meta 2026-10-24: Ezra banked its lone 3-drop in 7/7 seat-1 games and passed R1–R2; Talzin
+    // banked its cheap Force units). Those units stay in hand.
+    $curveKeep = ($rank === 2 && SWUBotFeatureOn('curvekeep')) ? _SWUBotCurveKeepIndices($seat, $n) : [];
     // Proposal 'mgkeep': the earliest copy of each card in hand. Every later copy is the spare duplicate.
     $firstIndexOf = [];
     foreach (GetHand($seat) as $i => $c) {
@@ -341,6 +371,7 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         if (SWUBotFeatureOn('bokatanres') && ($bk = _SWUBotBokatanResKeep($ctx, $cid, $i === ($firstIndexOf[$cid] ?? $i))) !== null) $keep += $bk;
         if (in_array($i, $neelKeep, true)) $keep += 1000.0;
         if (in_array($i, $fodderKeep, true)) $keep += SWU_BOT_FODDER_KEEP_BONUS;
+        if (in_array($i, $curveKeep, true)) { $keep += SWU_BOT_CURVEKEEP_BONUS; _SWUBotFired('curvekeep', $seat); }
         // PROPOSAL 'sentinelkeep' (default OFF, "@try-sentinelkeep"). Owner ruling 2026-09-18: "Sentinels in
         // general are good to keep… unless you have two of the same unique unit Sentinel. then it should be safe
         // to resource one." A Sentinel is how control mitigates early damage, and the deficit is a SURVIVAL

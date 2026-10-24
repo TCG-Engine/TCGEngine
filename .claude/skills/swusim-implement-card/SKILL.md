@@ -771,7 +771,7 @@ One engine bug + eight correct-but-untested axes. These are **coverage-matrix ce
 Found building a NEW set card-by-card (not a validate-port), so these bite during ORIGINAL implementation:
 - **⚠⚠ A per-card file CANNOT register into a registry that is initialized AFTER `cards/_loader.php`.** The loader runs at `GameLogic.php:15`; **`$playCostModifiers = []` is initialized around line 2331**, so a `$playCostModifiers["X"] = …` written in `cards/<set>/X.php` is silently WIPED and the card no-ops. It passes its own RED check and then still fails — there is no error. Put cost-modifier closures in GameLogic beside SHD_182 / LAW_179 / TS26_71 (which all live there for exactly this reason) and leave a pointer comment in the card file. **Before registering into any array from a per-card file, check where that array is initialized relative to line 15.**
 - **⚠⚠ The stub generator missed a SPACED multi-trigger header.** `"When Played / On Attack / When Defeated:"` (IC27_024 Thrawn) matched only the LAST window: the detector handled the tight `"When Played/"` but not the spaced form, so two of three triggers dispatched to nothing — a silent in-game no-op with a handler registered. Fixed in `zzCardCodeGenerator.php` (`/When Played\s*\//i`, `/On Attack\s*\//i`). **For any card whose text joins trigger windows with slashes, verify EVERY window has a stub before trusting the dispatch** — and remember `GeneratedAbilityStubs.php` is gitignored, so a hand-patch is local-only and the GENERATOR edit is what ships.
-- **A When-Defeated target collection runs BEFORE `CleanupRemovedCards`, so the dying source is still in its own arena** and gets offered as a target for its own "give a friendly unit X" ability. Exclude the source by UniqueID explicitly — do NOT rely on a `removed` flag, which is not yet set at that point. (This is the other side of the existing "survivors reindex after cleanup" note: the OFFER sees the pre-cleanup array, the RESOLUTION sees the post-cleanup one, so a test's answer index and the target filter are governed by different snapshots.)
+- **~~A When-Defeated target collection runs BEFORE `CleanupRemovedCards`~~ — STALE as of 2026-10-24.** Probed on FOUR defeat paths (combat, a single-target defeat event, NGOR take-control-then-defeat, a simultaneous TWI_173 AoE): the dying source has ALREADY left the arena when its When Defeated builds a pool, so a self-exclusion (the IC27_024 Thrawn idiom) is dead code — its mutation stays green. Don't copy the idiom on faith; instead write an exact-pool section (`P1SELECTABLEEXACT`) with the source seated LAST, which pins the engine invariant and reds if dispatch ever moves before cleanup (IC27_099 Eighth Brother). Thrawn's own exclusion is harmless and was left in place.
 - **`P1OnlyActions` hands P2 the CLAIMED initiative**, so after a regroup P2 is the turn player and P1 cannot act until a `P2>Pass` — but P2 needs no pass before the FIRST action of a phase (its auto-pass only fires in response to a P1 action). A round-crossing test that omits it silently drops every action after the regroup.
 - **★ A leader's two sides can land on OPPOSITE sides of the COST-vs-EFFECT line — and the same sentence reads differently on each.** IC27_001 Darth Vader is `Action [1 resource, Exhaust, defeat a friendly unit]` on the FRONT (the defeat is inside the brackets ⇒ a cost REQUIREMENT: gate it in `SWULeaderActionAffordable`, the leader must not exhaust without a sacrifice, and there is no decline) but `On Attack: You may defeat another friendly unit. If you do, …` DEPLOYED (an EFFECT: never gated, freely declinable, and the payoff hangs off "If you do"). **SOR_006 Emperor Palpatine is the canonical both-sides template — copy it wholesale for this shape.** Decide the classification per SIDE from the printed punctuation (brackets = cost, "you may … If you do" = effect), not per card. **The two sides can also differ in their TARGET FILTER, which is the easiest asymmetry to flatten by accident** — HMW_003 Doctor Hemlock's front gives a Weakness token to "a unit **without a Weakness token on it**" while its deployed On Attack says only "a unit", so the deployed side may stack a second one. Sharing one filter between the sides (or one helper call) silently makes the deployed side weaker than printed. Write the two sides' target pools independently and add the section that proves they DIFFER (`Deployed_..._StacksOnAlreadyWeakenedUnit`).
 - **⚠ FIXTURE TRAP: a card that DRAWS needs a seeded deck, or the draw DAMAGES the base instead.** An empty deck turned "draw a card and heal 2" into base damage going UP, which reads exactly like "the heal is broken" — three sections failed on a fixture omission, not the implementation. Distinct from the documented empty-deck *regroup* penalty: this fires on any draw. Seed `WithP{n}Deck` in every section whose card can draw.
@@ -1349,6 +1349,30 @@ fixture-blind-spot table above for *why* that coverage could not see them.
   searching the resolver's pile, and seed that older copy in the control section.
 - **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
   base explicitly — `AttackGroundArena:0:p2Base-0`.
+
+### ★ IC27 fourth wave 2026-10-24 — pick the predicate, not the precedent
+- **Copy a precedent's SHAPE, but re-check its PREDICATE against the shared helper.** The "you may attack
+  with a unit" family (SEC_172, SOR_240's `_SWUReadyFriendlyUnits`) offers any READY unit, including a
+  Loth-Wolf that "can't attack" — picking it silently fizzles. `_SWUUnitCanAttackNow($p, $u, $arena)` is the
+  real "could declare an attack now" predicate (ready + not can't-attack + has a target); use it for any new
+  attacker pool, and write an offer section with a can't-attack unit in it (IC27_143 Wat Tambor).
+- **A unit `Action [Exhaust]` whose only problem is "no target" is NOT gated** (CR 6.4.587.c — the exhaust
+  changes game state). `SOR_094` Bail Organa's target gate in `SWUUnitActionAffordable` predates that sweep;
+  don't copy it. Test the no-target case as "usable, exhausts, resolves to nothing" (IC27_070 C-3PO).
+- **A self-chosen discard from YOUR hand goes through `DoDiscardCard`** (OnCardDiscarded + Padmé SEC_016 +
+  Migs SHD_163 + the per-phase counters). The universal `DISCARD_FROM_OWN_HAND` handler uses
+  `SWUAddToDiscard` and skips the Padmé/Migs reactions.
+- **"pay [N] AND discard a card. If you do" is offered only when BOTH halves can be done** — gate on
+  `SWUTotalPaymentCapacity` and a non-empty hand, write a cannot-pay section for EACH half, and a Credit
+  section (pay with `SWUPayInlineAbilityCost`). A new "next card costs N less" is ONE `$oneShotPlayCharges`
+  row + one RegroupPhaseStart clear line; decide stacking explicitly (`N × count` + `clearPrefix`, the
+  TS26_35 shape) and pre-arm a charge with `WithP1GlobalEffect:` to test it (IC27_145 Poggle).
+- **The preview tool's reprint detection only reads SWUDB's printing links.** SWUDB filed IC27_053
+  Disciples' Devotion (SEC_071 with a punctuation fix) as a separate card, so the tool said "new". Before
+  mocking a "new" preview card, title-match it against the dictionary; a reprint gets an `Overrides.php` line,
+  never a mock (a mock gets a new CardID, so literal-CardID checks like `'SEC_071'` in KeywordEffects miss it).
+- **Mock titles can carry trailing whitespace** (`'Red Leader '`), which breaks every title match. Diff the
+  mock against the preview image before the regen.
 
 ### ★ IC27 third wave 2026-10-07 — a controller-only aura helper, and a control section that could not fail
 
