@@ -6268,11 +6268,25 @@ window.RenderCardHTML = function(cardNumber, folder, maxHeight, action, showHove
     if (mzId && /^(my|their)(Leader|Base)-/.test(mzId)) {
         landscape = 1;
     }
-    return Card(cardNumber, folder, maxHeight, action, showHover,
+    var html = Card(cardNumber, folder, maxHeight, action, showHover,
         overlay, borderColor, counters, actionDataOverride, id, rotate,
         lifeCounters, defCounters, atkCounters, controller, restriction,
         isBroken, onChain, isFrozen, gem, landscape, epicActionUsed,
         heatmapFunction, heatmapColorMap, mzId, overlayTypes, overlayDescriptorsJSON, hasForce);
+    // Paint a face-down card with its owner's cosmetic back from the start. Every board update rebuilds
+    // these <img>s; when they were born as the generic CardBack.webp and ApplyCosmeticCardBacks swapped
+    // the src a frame later, WebKit painted each card back BLANK for a frame on every update — the
+    // opponent's hand and both decks flickered whenever anything happened (bug report P-4).
+    // data-cos-back is the swap's own idempotency mark, so the fallback sweep leaves these alone.
+    if (cardNumber === 'CardBack' && mzId && typeof SwuCosmeticCardBackFor === 'function') {
+        var backOwner = /^my/.test(mzId) ? 'my' : (/^their/.test(mzId) ? 'their' : '');
+        var back = backOwner ? SwuCosmeticCardBackFor(backOwner) : '';
+        if (back) {
+            back = String(back).replace(/'/g, '%27');
+            html = html.replace(/src='[^']*CardBack\.webp'/, "src='" + back + "' data-cos-back='" + back + "'");
+        }
+    }
+    return html;
 };
 </script>
 
@@ -6290,22 +6304,30 @@ function ApplyCosmeticBackground() {
 if (document.readyState !== 'loading') ApplyCosmeticBackground();
 else document.addEventListener('DOMContentLoaded', ApplyCosmeticBackground);
 
-// Card backs: rewrite each face-down CardBack image to its OWNING side's back.
-function ApplyCosmeticCardBacks() {
-  var c = window.SWU_COSMETICS; if (!c) return;
-  // Twin Suns: card backs are per-seat and viewable by all — resolve each side to the CURRENT view's
-  // seat. 2-player (no swuView) falls back to the legacy my/their fields → byte-identical.
+// The cosmetic back for one side of the board ('my' | 'their'), or '' when there is none.
+// Twin Suns: card backs are per-seat and viewable by all — resolve each side to the CURRENT view's
+// seat. 2-player (no swuView) falls back to the legacy my/their fields → byte-identical.
+function SwuCosmeticCardBackFor(owner) {
+  var c = window.SWU_COSMETICS; if (!c) return '';
   var myBack = c.myCardBack, theirBack = c.theirCardBack;
   if (c.seats && window.swuView) {
     myBack    = (c.seats[window.swuView.viewSeat] || {}).cardback || myBack;
     theirBack = (c.seats[window.swuView.oppSeat]  || {}).cardback || theirBack;
   }
+  return (owner === 'my' ? myBack : (owner === 'their' ? theirBack : '')) || '';
+}
+
+// Card backs: rewrite each face-down CardBack image to its OWNING side's back.
+// RenderCardHTML already paints board card backs with the cosmetic back (see there); this sweep is the
+// fallback for anything rendered through another path.
+function ApplyCosmeticCardBacks() {
+  if (!window.SWU_COSMETICS) return;
   var imgs = document.querySelectorAll("img[src*='/concat/CardBack.webp'], img[src$='CardBack.webp']");
   for (var i = 0; i < imgs.length; i++) {
     var img = imgs[i];
     var owner = img.closest("[id^='my']") ? 'my' : (img.closest("[id^='their']") ? 'their' : null);
     if (!owner) continue;
-    var back = owner === 'my' ? myBack : theirBack;
+    var back = SwuCosmeticCardBackFor(owner);
     if (back && img.getAttribute('data-cos-back') !== back) {
       img.src = back;
       img.setAttribute('data-cos-back', back);   // idempotent guard (prevents observer loops)
