@@ -1,0 +1,26 @@
+{
+    "name": "direwolf-alpha-class-bonus-enter-banishes-a-fire-card-to-summon-a-direwolf",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5n874ubgai"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5n874ubgai"
+        ],
+        "mechanics": [
+            "on-enter",
+            "summon",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: You may banish a fire element card from your graveyard. If you do, summon a Direwolf token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

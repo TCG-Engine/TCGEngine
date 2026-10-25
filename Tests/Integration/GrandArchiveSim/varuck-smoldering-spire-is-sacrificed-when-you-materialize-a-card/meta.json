@@ -1,0 +1,25 @@
+{
+    "name": "varuck-smoldering-spire-is-sacrificed-when-you-materialize-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:34:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "IyM7IBCQeb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "IyM7IBCQeb"
+        ],
+        "mechanics": [
+            "upkeep",
+            "sacrifice",
+            "materialize"
+        ],
+        "rulesClauses": [
+            "***Upkeep*** -- Whenever you materialize a card, sacrifice Varuck."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

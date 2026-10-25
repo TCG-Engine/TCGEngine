@@ -1,0 +1,24 @@
+{
+    "name": "wildgrowth-elixir-recollection-puts-an-age-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:44:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tjot4nmxqs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tjot4nmxqs"
+        ],
+        "mechanics": [
+            "recollection",
+            "counter"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, put an **age** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

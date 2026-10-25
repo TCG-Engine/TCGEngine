@@ -1,0 +1,26 @@
+{
+    "name": "fang-of-dragons-breath-polearm-weapon-link-gives-the-linked-weapon-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:22:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iebo5fu381"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iebo5fu381"
+        ],
+        "mechanics": [
+            "weapon-link",
+            "stat-change",
+            "phantasia"
+        ],
+        "rulesClauses": [
+            "**Polearm Weapon Link**",
+            "Linked weapon gets +2 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

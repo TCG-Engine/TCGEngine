@@ -1,0 +1,23 @@
+{
+    "name": "simple-slime-cannot-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:09:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Zxab4Vi0wx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Zxab4Vi0wx"
+        ],
+        "mechanics": [
+            "restriction"
+        ],
+        "rulesClauses": [
+            "CARDNAME can't attack."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "shademist-priestess-recovers-one-when-an-opposing-source-damages-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:13:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w1d0uc5dxZ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w1d0uc5dxZ"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "damage",
+            "recover"
+        ],
+        "rulesClauses": [
+            "Whenever your champion is dealt damage from a source you don't control, you may **recover 1**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

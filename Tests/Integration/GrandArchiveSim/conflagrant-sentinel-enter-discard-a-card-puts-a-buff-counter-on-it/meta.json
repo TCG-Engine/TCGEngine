@@ -16,6 +16,8 @@
             "optional-choice",
             "counter"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "On Enter: You may discard a card. If you do, put a buff counter on Conflagrant Sentinel."
+        ]
     }
 }

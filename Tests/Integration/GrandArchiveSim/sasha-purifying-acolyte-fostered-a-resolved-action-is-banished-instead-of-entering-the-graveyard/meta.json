@@ -1,0 +1,25 @@
+{
+    "name": "sasha-purifying-acolyte-fostered-a-resolved-action-is-banished-instead-of-entering-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:38:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GRlUlcYRmV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GRlUlcYRmV"
+        ],
+        "mechanics": [
+            "foster",
+            "banish",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "If one or more cards would enter a player's graveyard while CARDNAME is **fostered**, banish them instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

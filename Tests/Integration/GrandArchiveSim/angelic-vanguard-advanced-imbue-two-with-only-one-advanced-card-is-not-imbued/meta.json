@@ -1,0 +1,23 @@
+{
+    "name": "angelic-vanguard-advanced-imbue-two-with-only-one-advanced-card-is-not-imbued",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:34:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aKjX6INGkV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aKjX6INGkV"
+        ],
+        "mechanics": [
+            "imbue",
+            "advanced-imbue",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Advanced Imbue 2**"
+        ]
+    },
+    "behaviorFamily": true
+}

@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "9owQoFU1Tz"
+        ],
+        "mechanics": [
+            "enter",
+            "draw"
+        ],
+        "rulesClauses": [
+            "On Enter draw memory."
+        ]
+    },
+    "name": "dtr-clover-treehouse-enter-draws-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:08:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9owQoFU1Tz"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

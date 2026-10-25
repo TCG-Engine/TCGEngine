@@ -1,0 +1,25 @@
+{
+    "name": "galatine-class-bonus-gets-plus-one-power-per-three-durability-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:13:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3traenEA8M"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3traenEA8M"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "counter",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Galatine gets +1 [POWER] for every three **durability** counters on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

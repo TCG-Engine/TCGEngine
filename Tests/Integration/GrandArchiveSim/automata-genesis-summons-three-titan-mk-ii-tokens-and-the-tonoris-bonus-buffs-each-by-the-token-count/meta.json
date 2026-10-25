@@ -1,0 +1,27 @@
+{
+    "name": "automata-genesis-summons-three-titan-mk-ii-tokens-and-the-tonoris-bonus-buffs-each-by-the-token-count",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:19:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0L0AUYTwqU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0L0AUYTwqU"
+        ],
+        "mechanics": [
+            "summon",
+            "token",
+            "tonoris-bonus",
+            "counter"
+        ],
+        "rulesClauses": [
+            "**Summon** three Titan Mk II tokens.",
+            "[Tonoris Bonus] Put **X** **buff** counters on each token ally you control, where **X** is the amount of tokens you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

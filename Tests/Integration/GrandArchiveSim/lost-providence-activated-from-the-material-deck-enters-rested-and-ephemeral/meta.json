@@ -1,0 +1,24 @@
+{
+    "name": "lost-providence-activated-from-the-material-deck-enters-rested-and-ephemeral",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:29:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "DNbIpzVgde"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "DNbIpzVgde"
+        ],
+        "mechanics": [
+            "material-deck-activation",
+            "ephemeral"
+        ],
+        "rulesClauses": [
+            "You may activate this card from your material deck. If you do it enters the field **ephemeral**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

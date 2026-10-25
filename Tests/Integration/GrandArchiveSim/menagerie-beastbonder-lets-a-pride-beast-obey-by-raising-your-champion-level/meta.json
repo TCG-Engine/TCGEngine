@@ -1,0 +1,25 @@
+{
+    "name": "menagerie-beastbonder-lets-a-pride-beast-obey-by-raising-your-champion-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "izGEjxBPo9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "izGEjxBPo9"
+        ],
+        "mechanics": [
+            "static-ability",
+            "level-gate",
+            "pride"
+        ],
+        "rulesClauses": [
+            "Your champion gets +1 level as long as you control an Animal or Beast ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

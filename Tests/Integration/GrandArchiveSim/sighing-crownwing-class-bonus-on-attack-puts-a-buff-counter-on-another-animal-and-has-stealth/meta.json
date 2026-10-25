@@ -1,0 +1,26 @@
+{
+    "name": "sighing-crownwing-class-bonus-on-attack-puts-a-buff-counter-on-another-animal-and-has-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:22:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CfU2EmuKwY"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CfU2EmuKwY"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-attack",
+            "buff",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** Put a **buff** counter on target Animal or Beast ally you control without a **buff** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -37,7 +37,9 @@
         "type": "card_property_equals",
         "mzId": "p2Field-0",
         "property": "Damage",
-        "value": "3"
+        "value": "3",
+        "semantic": true,
+        "label": "[Class Bonus] With exactly one card in memory Opening Cut deals 3 (1 POWER + 2)"
     },
     {
         "step": 8,

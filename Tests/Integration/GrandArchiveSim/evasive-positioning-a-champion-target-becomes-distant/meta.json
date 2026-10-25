@@ -1,0 +1,24 @@
+{
+    "name": "evasive-positioning-a-champion-target-becomes-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:52:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ddp7twycdq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ddp7twycdq"
+        ],
+        "mechanics": [
+            "distant",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If that unit is a champion, it becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

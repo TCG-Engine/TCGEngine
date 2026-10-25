@@ -1,0 +1,26 @@
+{
+    "name": "beguiling-coup-element-bonus-as-your-only-reserve-cost-one-omen-gives-the-champions-attacks-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:47:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "q1b6htzcox"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "q1b6htzcox"
+        ],
+        "mechanics": [
+            "element-bonus",
+            "omen",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Element Bonus] As long as this card is one of your **omens** and you have no other reserve cost 1 **omens**, your champion's attacks get +1[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

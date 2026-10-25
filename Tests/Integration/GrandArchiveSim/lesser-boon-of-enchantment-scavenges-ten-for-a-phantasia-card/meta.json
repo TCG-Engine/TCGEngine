@@ -1,0 +1,23 @@
+{
+    "name": "lesser-boon-of-enchantment-scavenges-ten-for-a-phantasia-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "56ZA1DHSBp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "56ZA1DHSBp"
+        ],
+        "mechanics": [
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, **scavenge 10** for a phantasia card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

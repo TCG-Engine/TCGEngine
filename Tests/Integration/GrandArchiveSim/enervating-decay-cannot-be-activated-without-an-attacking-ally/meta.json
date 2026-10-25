@@ -1,0 +1,25 @@
+{
+    "name": "enervating-decay-cannot-be-activated-without-an-attacking-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T20:23:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jh9s424gjr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jh9s424gjr"
+        ],
+        "mechanics": [
+            "destroy",
+            "attacking",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Destroy target attacking ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

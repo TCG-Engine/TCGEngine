@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "x7yc0ije4d"
+        ],
+        "mechanics": [
+            "end-phase",
+            "wake-up",
+            "condition"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, you may remove a **preparation** counter from your champion. If you do, wake up Whirlwind Reaper."
+        ]
+    },
+    "name": "whirlwind-reaper-cannot-wake-itself-up-while-held-by-cataleptic-constellation",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T00:39:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x7yc0ije4d"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

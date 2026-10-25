@@ -1,0 +1,24 @@
+{
+    "name": "contraband-revolver-without-the-class-bonus-has-no-extra-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:40:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8iopvc8sug"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8iopvc8sug"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** If the attacker is attacking a champion, CARDNAME gets +2 [POWER] for this attack."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

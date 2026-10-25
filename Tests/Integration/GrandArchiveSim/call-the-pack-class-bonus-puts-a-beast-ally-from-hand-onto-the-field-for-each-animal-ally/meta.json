@@ -1,0 +1,26 @@
+{
+    "name": "call-the-pack-class-bonus-puts-a-beast-ally-from-hand-onto-the-field-for-each-animal-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:36:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mdiK8UC78c"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mdiK8UC78c"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "zone-movement",
+            "for-each"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate. For each Animal ally you control, you may put a Beast ally card from your hand onto the field."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

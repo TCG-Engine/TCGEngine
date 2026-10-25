@@ -1,0 +1,26 @@
+{
+    "name": "jadelight-protector-south-currents-give-allies-steadfast-and-retort",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:45:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o18wr3f4ab"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o18wr3f4ab"
+        ],
+        "mechanics": [
+            "static",
+            "condition",
+            "currents",
+            "keyword"
+        ],
+        "rulesClauses": [
+            "As long as your Shifting Currents face South, allies you control have **steadfast** and **retort 1**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -15,7 +15,9 @@
             "actions-resolve-generated-enter-effect",
             "graveyard-owner"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "The next time damage would be dealt to target unit this turn, prevent 2 of that damage. When damage is prevented this way, banish target card in a graveyard."
+        ]
     },
     "engineBug": {
         "status": "fixed",

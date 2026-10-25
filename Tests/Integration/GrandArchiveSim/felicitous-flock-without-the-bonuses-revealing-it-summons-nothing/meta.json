@@ -1,0 +1,25 @@
+{
+    "name": "felicitous-flock-without-the-bonuses-revealing-it-summons-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:00:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "it9jbu4axg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "it9jbu4axg"
+        ],
+        "mechanics": [
+            "element-bonus",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Element Bonus] [Class Bonus] Whenever you reveal CARDNAME from your memory"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

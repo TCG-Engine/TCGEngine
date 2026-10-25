@@ -1,0 +1,26 @@
+{
+    "name": "arthur-young-heir-declining-the-rest-gives-no-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:28:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GjM8b5fxqj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GjM8b5fxqj"
+        ],
+        "mechanics": [
+            "on-enter",
+            "optional-choice-decline",
+            "static-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as Arthur is rested, other allies you control get +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

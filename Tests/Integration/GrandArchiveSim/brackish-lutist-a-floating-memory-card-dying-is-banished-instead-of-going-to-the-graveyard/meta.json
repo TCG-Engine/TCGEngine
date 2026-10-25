@@ -1,0 +1,25 @@
+{
+    "name": "brackish-lutist-a-floating-memory-card-dying-is-banished-instead-of-going-to-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:56:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1clswn3ba2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1clswn3ba2"
+        ],
+        "mechanics": [
+            "replacement-effect",
+            "floating-memory",
+            "banish"
+        ],
+        "rulesClauses": [
+            "If a card with **floating memory** would be put into a player's graveyard, that player banishes it instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

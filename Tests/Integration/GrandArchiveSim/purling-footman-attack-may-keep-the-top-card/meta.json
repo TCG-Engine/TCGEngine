@@ -1,0 +1,24 @@
+{
+    "name": "purling-footman-attack-may-keep-the-top-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:48:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "z11p126ctq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "z11p126ctq"
+        ],
+        "mechanics": [
+            "on-attack",
+            "optional-choice-decline"
+        ],
+        "rulesClauses": [
+            "**On Attack**: Look at the top card of your deck. You may put it into your graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "aethers-embrace-makes-a-unit-distant-and-loads-into-the-aetherwing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:17:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wd7nuab7f3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wd7nuab7f3"
+        ],
+        "mechanics": [
+            "distant",
+            "load",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target unit becomes **distant**.",
+            "You may load Aether's Embrace into an Aetherwing weapon you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

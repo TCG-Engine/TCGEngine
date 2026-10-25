@@ -1,0 +1,25 @@
+{
+    "name": "cloudstone-orb-on-enter-empowers-by-the-number-of-wind-non-champion-objects",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:47:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ygqehvpblj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ygqehvpblj"
+        ],
+        "mechanics": [
+            "on-enter",
+            "empower",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Empower X**, where **X** is the amount of wind element non-champion objects you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

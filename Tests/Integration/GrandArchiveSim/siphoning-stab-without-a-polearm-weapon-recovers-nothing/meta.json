@@ -1,0 +1,25 @@
+{
+    "name": "siphoning-stab-without-a-polearm-weapon-recovers-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:18:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iZRVjvAZVG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iZRVjvAZVG"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "polearm",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as the attacker is attacking using a Polearm weapon"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

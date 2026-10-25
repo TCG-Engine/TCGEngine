@@ -1,0 +1,24 @@
+{
+    "name": "mechanized-smasher-cannot-attack-with-fewer-than-four-wind-cards-in-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:05:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qsm3n9yvn1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qsm3n9yvn1"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "reveal four wind element cards from your memory"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

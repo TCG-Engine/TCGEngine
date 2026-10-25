@@ -1,0 +1,26 @@
+{
+    "name": "valiant-protector-without-the-class-bonus-enters-without-a-bulwark-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:38:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k21JAm6joz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k21JAm6joz"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "keyword",
+            "bulwark",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Bulwark**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

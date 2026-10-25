@@ -1,0 +1,23 @@
+{
+    "name": "displace-without-the-class-bonus-adds-no-enlighten-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:27:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bro89w0ejc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bro89w0ejc"
+        ],
+        "mechanics": [
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Put an **enlighten** counter on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

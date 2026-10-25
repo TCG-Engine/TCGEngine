@@ -1,0 +1,26 @@
+{
+    "name": "frozen-divinity-returns-an-opposing-level-two-champions-level-up-card-to-the-material-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T15:54:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1PrDQ1EX0F"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1PrDQ1EX0F"
+        ],
+        "mechanics": [
+            "replacement",
+            "level-up",
+            "material-deck",
+            "opponent"
+        ],
+        "rulesClauses": [
+            "If a champion with base level 2 you don't control would level up into a champion card, return that card to its owner's material deck instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

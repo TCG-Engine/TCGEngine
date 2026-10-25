@@ -1,0 +1,25 @@
+{
+    "name": "relentless-hexchaser-enter-becomes-distant-when-you-control-a-distant-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:52:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "por7ch2bbm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "por7ch2bbm"
+        ],
+        "mechanics": [
+            "on-enter",
+            "distant",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Enter:** If you control a **distant** unit, CARDNAME becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

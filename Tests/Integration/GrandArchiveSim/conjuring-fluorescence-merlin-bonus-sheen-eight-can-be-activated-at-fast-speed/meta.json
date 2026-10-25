@@ -1,0 +1,25 @@
+{
+    "name": "conjuring-fluorescence-merlin-bonus-sheen-eight-can-be-activated-at-fast-speed",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:15:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Erpyb3AGgp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Erpyb3AGgp"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "sheen",
+            "fast-activation"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] [Sheen 8+] **Fast Activation** *(You may activate this card at fast speed.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

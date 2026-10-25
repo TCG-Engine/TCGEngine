@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "foy5mdrVCR"
+        ],
+        "mechanics": [
+            "banishment-activation",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "A charged copy activates from banishment, with its normal costs."
+        ]
+    },
+    "name": "auravolt-current-activates-from-charged-banishment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T14:06:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "foy5mdrVCR"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

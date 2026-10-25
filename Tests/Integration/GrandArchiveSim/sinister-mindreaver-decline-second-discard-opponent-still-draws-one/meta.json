@@ -15,7 +15,9 @@
             "optional-choice-decline",
             "on-hit"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "On Champion Hit: Look at that opponent's memory. You may discard up to two cards from it. If you do, they draw that many cards into their memory."
+        ]
     },
     "engineBug": {
         "status": "fixed",

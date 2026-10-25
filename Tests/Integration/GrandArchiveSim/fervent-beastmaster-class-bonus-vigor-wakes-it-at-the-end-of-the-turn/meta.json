@@ -1,0 +1,21 @@
+{
+    "name": "fervent-beastmaster-class-bonus-vigor-wakes-it-at-the-end-of-the-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7NMFSRR5V3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7NMFSRR5V3"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Vigor**"
+        ]
+    }
+}

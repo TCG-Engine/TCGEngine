@@ -1,0 +1,24 @@
+{
+    "name": "crystallized-destiny-with-one-fatebound-object-has-no-discount",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:03:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l36wwe3d5c"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l36wwe3d5c"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you control two or more Fatestone and/or Fatebound objects, this card costs 2 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "ravishing-finale-banishes-two-floating-memory-cards-as-an-additional-cost-and-deals-six",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T18:56:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jlgx72rfgv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jlgx72rfgv"
+        ],
+        "mechanics": [
+            "combat",
+            "additional-cost",
+            "floating-memory",
+            "banish"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, banish two cards with **floating memory** from your graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

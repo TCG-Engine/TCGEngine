@@ -1,0 +1,23 @@
+{
+    "name": "young-wyrmling-second-printing-enters-with-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:10:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "LjFUUKe83H"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "LjFUUKe83H"
+        ],
+        "mechanics": [
+            "vanilla"
+        ],
+        "rulesClauses": [
+            "Young Wyrmling (no rules text)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

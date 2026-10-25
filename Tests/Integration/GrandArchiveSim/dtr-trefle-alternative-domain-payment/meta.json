@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "OKkRsNIzM8"
+        ],
+        "mechanics": [
+            "alternative-cost",
+            "enter",
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "Banish domains totaling ten, then scavenge for an ally."
+        ]
+    },
+    "name": "dtr-trefle-alternative-domain-payment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:10:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OKkRsNIzM8"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

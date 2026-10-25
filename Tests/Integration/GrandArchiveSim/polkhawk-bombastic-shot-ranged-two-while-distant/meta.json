@@ -1,0 +1,24 @@
+{
+    "name": "polkhawk-bombastic-shot-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:39:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ryvfq3huqj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ryvfq3huqj"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged"
+        ],
+        "rulesClauses": [
+            "**Ranged 2** *(As long as this unit is **distant**, its attacks get +2 [POWER].)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

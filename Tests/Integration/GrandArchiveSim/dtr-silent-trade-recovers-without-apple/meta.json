@@ -1,0 +1,23 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "IQdxGasatd"
+        ],
+        "mechanics": [
+            "recover"
+        ],
+        "rulesClauses": [
+            "Recover two when no Apple materializes."
+        ]
+    },
+    "name": "dtr-silent-trade-recovers-without-apple",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:08:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "IQdxGasatd"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

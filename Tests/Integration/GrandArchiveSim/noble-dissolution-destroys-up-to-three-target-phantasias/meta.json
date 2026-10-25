@@ -1,0 +1,25 @@
+{
+    "name": "noble-dissolution-destroys-up-to-three-target-phantasias",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:06:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iullthfLXc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iullthfLXc"
+        ],
+        "mechanics": [
+            "destroy",
+            "phantasia",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Destroy up to three target phantasias."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

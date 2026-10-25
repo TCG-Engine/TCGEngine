@@ -1,0 +1,23 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "uSZ7FJwX7M"
+        ],
+        "mechanics": [
+            "damage"
+        ],
+        "rulesClauses": [
+            "Without preparing deal two to champion."
+        ]
+    },
+    "name": "dtr-radiating-assault-unprepared-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:09:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uSZ7FJwX7M"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

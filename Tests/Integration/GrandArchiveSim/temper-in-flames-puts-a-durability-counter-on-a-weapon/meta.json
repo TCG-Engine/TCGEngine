@@ -1,0 +1,25 @@
+{
+    "name": "temper-in-flames-puts-a-durability-counter-on-a-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wjzg76zofp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wjzg76zofp"
+        ],
+        "mechanics": [
+            "counter",
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target weapon gets +1 [POWER] until end of turn. Put a durability counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

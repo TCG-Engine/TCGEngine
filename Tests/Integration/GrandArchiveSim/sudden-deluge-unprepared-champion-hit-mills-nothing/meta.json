@@ -1,0 +1,24 @@
+{
+    "name": "sudden-deluge-unprepared-champion-hit-mills-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:55:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "at3fn2idd6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "at3fn2idd6"
+        ],
+        "mechanics": [
+            "prepare",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Champion Hit:** If CARDNAME was **prepared**, that opponent puts the top ten cards from their deck into their graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

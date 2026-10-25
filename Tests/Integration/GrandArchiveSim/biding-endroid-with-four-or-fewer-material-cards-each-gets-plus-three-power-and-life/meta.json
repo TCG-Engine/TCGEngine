@@ -1,0 +1,24 @@
+{
+    "name": "biding-endroid-with-four-or-fewer-material-cards-each-gets-plus-three-power-and-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:30:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mBxHYyldS6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mBxHYyldS6"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "As long as each player has four or less cards in their material deck, CARDNAME gets +3[POWER] and +3[LIFE]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

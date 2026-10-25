@@ -5,5 +5,22 @@
     "createdBy": "batch-script",
     "testedCards": [
         "KRNYwHCOVM"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "KRNYwHCOVM"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "summon",
+            "condition",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] [Sheen 6+] (2), [REST]: If you don't control an ally named Memorite Shardwing, summon a Memorite Shardwing token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
 }

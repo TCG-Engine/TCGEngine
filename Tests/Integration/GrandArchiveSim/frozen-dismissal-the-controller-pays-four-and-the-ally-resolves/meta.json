@@ -1,0 +1,25 @@
+{
+    "name": "frozen-dismissal-the-controller-pays-four-and-the-ally-resolves",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:39:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8qgr2drym1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8qgr2drym1"
+        ],
+        "mechanics": [
+            "negate",
+            "pay-or-negate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Negate** target ally card activation unless its controller pays (4)."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

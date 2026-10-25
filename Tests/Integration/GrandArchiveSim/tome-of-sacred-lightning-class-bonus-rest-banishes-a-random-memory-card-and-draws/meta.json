@@ -1,0 +1,28 @@
+{
+    "name": "tome-of-sacred-lightning-class-bonus-rest-banishes-a-random-memory-card-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:48:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MyUTeqUJ0H"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "MyUTeqUJ0H"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "activated-ability",
+            "rest",
+            "banish",
+            "random",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [REST]**:** Banish a card at random from your memory. If a card was banished this way, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -34,6 +34,14 @@ php zzGameCodeGenerator.php rootName=FaBSim only=ZoneAccessors scalarAdder=Actio
 
 This path uses the existing schema emitter, validates the selected numeric scalar and function signature, and exits after writing that adder. Other schema changes still require ordinary regeneration.
 
+## GrandArchiveSim Scavenge
+
+`ScavengeForType`, `ScavengeForSubtype`, and related helpers in `GrandArchiveSim/Custom/GameLogic.php` resolve synchronously. Reveal up to the specified limit, stopping at the first matching card; put that card into hand automatically and put only the revealed misses on the bottom in random order. There is no selection or rearrange prompt and no temporary zone. An optional callback receives `($player, $cardID)` only on success, after the card reaches hand and the misses reach the bottom. Consecutive scavenges can be called directly. Run `php DevTools/test-ga-scavenge.php` for boundary coverage.
+
+## Source-zone departure veto
+
+A zone can opt into `BeforeRemove: HookName` in its schema. The generated object's `Remove($trigger)` calls `HookName($object, $trigger)` before changing `removed` or indexes; return false to veto. Generated `MZMove` then returns null without adding a destination. Unconfigured schemas retain their prior output. Grand Archive Material uses `GAMaterialCanLeave`; card activation and cost-choice helpers must use the same predicate before spending costs. Destination `BeforeAdd` is too late to preserve a source that cannot leave.
+
 ## Decision Queue — server-side (how it works)
 - File: `Core/DecisionQueueController.php`.
 - Core concept: each player has a `DecisionQueue` zone (parsed from schema). Objects placed into that zone are processed by `DecisionQueueController::ExecuteStaticMethods()` to perform static, immediate actions that do not require interactive input.

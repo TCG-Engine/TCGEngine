@@ -1,0 +1,27 @@
+{
+    "name": "visages-strike-ciel-bonus-on-hit-banishes-itself-as-an-omen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:12:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UdYcJGrJt5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UdYcJGrJt5"
+        ],
+        "mechanics": [
+            "on-hit",
+            "champion-bonus",
+            "omen",
+            "banish",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] **On Hit: ** If you have two or less **omens**, banish CARDNAME and put an **omen** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

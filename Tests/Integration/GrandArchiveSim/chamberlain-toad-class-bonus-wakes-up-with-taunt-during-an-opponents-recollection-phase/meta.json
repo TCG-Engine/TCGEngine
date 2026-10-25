@@ -1,0 +1,25 @@
+{
+    "name": "chamberlain-toad-class-bonus-wakes-up-with-taunt-during-an-opponents-recollection-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:23:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vgu1C2Lw6e"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vgu1C2Lw6e"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "wake-up",
+            "taunt"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] (2): Wake up CARDNAME and it gains **taunt** until end of turn. Activate this ability only during an opponent's recollection phase."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "devised-conspiracy-tristan-bonus-prepare-two-and-the-champions-next-attack-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:07:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dih0LPaigc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dih0LPaigc"
+        ],
+        "mechanics": [
+            "tristan-bonus",
+            "prepare",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Tristan Bonus] **Prepare 2** Your champion's next attack this turn gets +2[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

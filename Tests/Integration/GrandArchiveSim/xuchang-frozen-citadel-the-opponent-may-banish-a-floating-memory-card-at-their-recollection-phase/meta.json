@@ -1,0 +1,25 @@
+{
+    "name": "xuchang-frozen-citadel-the-opponent-may-banish-a-floating-memory-card-at-their-recollection-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:59:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xpb20rar4k"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xpb20rar4k"
+        ],
+        "mechanics": [
+            "recollection",
+            "banish",
+            "floating-memory"
+        ],
+        "rulesClauses": [
+            "At the beginning of each opponent's recollection phase, that player may banish a card with **floating memory** from their graveyard. If they don't, the next card they activate this turn costs 2 more to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "merlin-kingslayer-an-odd-level-counter-count-draws-nothing-extra",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:07:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rz1bqry41l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rz1bqry41l"
+        ],
+        "mechanics": [
+            "recollection",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "if there's an even amount of **level** counters on CARDNAME, draw a card"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

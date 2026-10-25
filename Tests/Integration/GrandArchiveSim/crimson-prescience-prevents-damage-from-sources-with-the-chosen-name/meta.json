@@ -1,0 +1,25 @@
+{
+    "name": "crimson-prescience-prevents-damage-from-sources-with-the-chosen-name",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:07:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0dsdojl6l3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0dsdojl6l3"
+        ],
+        "mechanics": [
+            "reaction",
+            "name-choice",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "Choose a card name. Until end of turn, if damage would be dealt to your champion by a source with that name, prevent that damage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

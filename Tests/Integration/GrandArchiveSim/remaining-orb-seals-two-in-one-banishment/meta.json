@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "mekutzp19y"
+        ],
+        "mechanics": [
+            "rest",
+            "seal",
+            "face-down"
+        ],
+        "rulesClauses": [
+            "Seal two cards in one banishment and pay REST."
+        ]
+    },
+    "name": "remaining-orb-seals-two-in-one-banishment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-21T17:08:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mekutzp19y"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

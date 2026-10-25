@@ -1,0 +1,25 @@
+{
+    "name": "heavenly-guide-level-two-levels-up-your-champion-against-a-non-spirit-champion-with-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:52:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tkdky3sxao"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tkdky3sxao"
+        ],
+        "mechanics": [
+            "on-enter",
+            "level-up",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Level 2+] **On Enter:** If an opponent controls a non-Spirit champion with a card on top of its lineage that wasn't played, level up your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "S8NH6UkSNB"
+        ],
+        "mechanics": [
+            "enter",
+            "ranged"
+        ],
+        "rulesClauses": [
+            "Total Suited cost six grants ranged three."
+        ]
+    },
+    "name": "dtr-verte-six-cost-ranged",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:17:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "S8NH6UkSNB"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

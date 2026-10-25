@@ -1,0 +1,25 @@
+{
+    "name": "cure-the-flesh-removes-all-damage-from-an-ally-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5fgehl270c"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5fgehl270c"
+        ],
+        "mechanics": [
+            "heal",
+            "draw-into-memory",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Remove all temporary damage from target ally. Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

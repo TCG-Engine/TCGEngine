@@ -1,0 +1,25 @@
+{
+    "name": "lesser-boon-of-fauna-gives-plus-one-level-for-each-of-up-to-two-animal-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rAWlj4c4Ws"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rAWlj4c4Ws"
+        ],
+        "mechanics": [
+            "level",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "For each of up to two Animal and/or Beast allies you control, your champion gets +1 level."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

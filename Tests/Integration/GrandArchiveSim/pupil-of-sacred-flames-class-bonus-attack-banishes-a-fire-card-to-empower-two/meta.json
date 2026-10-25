@@ -1,0 +1,26 @@
+{
+    "name": "pupil-of-sacred-flames-class-bonus-attack-banishes-a-fire-card-to-empower-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:14:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "n06isycm60"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "n06isycm60"
+        ],
+        "mechanics": [
+            "on-attack",
+            "class-bonus",
+            "banish",
+            "empower"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** You may banish a fire element card from your graveyard. If you do, **empower 2**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

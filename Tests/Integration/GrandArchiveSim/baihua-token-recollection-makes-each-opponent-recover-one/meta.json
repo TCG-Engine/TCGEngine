@@ -1,0 +1,25 @@
+{
+    "name": "baihua-token-recollection-makes-each-opponent-recover-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:31:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i59eamoov0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i59eamoov0"
+        ],
+        "mechanics": [
+            "recollection",
+            "recover",
+            "token"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, each opponent **recovers 1**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "name": "queens-gambit-sacrificing-a-chessman-ally-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:02:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NGAy4rNwUo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "NGAy4rNwUo"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sacrifice",
+            "draw-into-memory",
+            "alice-bonus"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice a Chessman ally.",
+            "**On Enter:** Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

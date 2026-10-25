@@ -1,0 +1,24 @@
+{
+    "name": "aetheric-reforging-banishes-up-to-one-target-card-in-a-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:02:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yd56vkebu9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yd56vkebu9"
+        ],
+        "mechanics": [
+            "banish",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Banish up to one target card in a graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "fire-damage-elements-ruby-dual",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:17:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mzf5dmpqbc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mzf5dmpqbc"
+        ],
+        "mechanics": [
+            "damage",
+            "element",
+            "quest"
+        ],
+        "rulesClauses": [
+            "Whenever non-combat damage is dealt to one or more units by a fire element source you control, put a quest counter on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

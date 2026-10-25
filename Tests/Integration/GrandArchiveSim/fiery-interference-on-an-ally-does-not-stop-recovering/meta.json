@@ -1,0 +1,24 @@
+{
+    "name": "fiery-interference-on-an-ally-does-not-stop-recovering",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gt2zqtgs42"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gt2zqtgs42"
+        ],
+        "mechanics": [
+            "damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If that unit is a champion, its controller can't recover until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

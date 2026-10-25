@@ -1,0 +1,26 @@
+{
+    "name": "soutirer-vortex-each-matching-omen-recovers-one-and-damages-the-activators-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T04:16:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "du4df43ci2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "du4df43ci2"
+        ],
+        "mechanics": [
+            "omen",
+            "trigger",
+            "recover",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Your omens have \u201dWhenever an opponent activates a card with the same reserve cost as this **omen**, **recover 1** and deal 1 damage to their champion.\u201d"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

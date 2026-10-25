@@ -1,0 +1,26 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "a708z5ethq"
+        ],
+        "mechanics": [
+            "element-bonus",
+            "discard",
+            "empower",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Element Bonus] (2), **Discard this card from your hand**: **Empower 2**. Draw a card."
+        ]
+    },
+    "name": "bloom-summers-glow-element-bonus-discard-pays-two-empowers-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T00:26:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a708z5ethq"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

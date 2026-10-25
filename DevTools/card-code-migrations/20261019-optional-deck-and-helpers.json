@@ -1,0 +1,75 @@
+{
+  "root": "GrandArchiveSim",
+  "patches": [
+    {
+      "card_id": "vFvhZeunOc",
+      "macro_name": "ActivateAbility",
+      "fields": {
+        "ability_code": {
+          "before": "$topCount = min(3, count(GetDeck($player)));\nif($topCount <= 0) return;\n$candidates = [];\nfor($i = 0; $i < $topCount; ++$i) {\n    $deckObj = GetZoneObject(\"myDeck-\" . $i);\n    if($deckObj !== null && PropertyContains(CardType($deckObj->CardID), \"ALLY\")) $candidates[] = \"myDeck-\" . $i;\n}\nif(empty($candidates)) {\n    ResolveTopDeckOptionalSelection($player, \"-\", $topCount, \"myHand\", null);\n    return;\n}\n$candidateStr = implode(\"&\", $candidates);\n$chosen = await $player.MZMayChoose($candidateStr, \"Reveal_an_ally_and_put_it_into_your_hand?\");\nResolveTopDeckOptionalSelection($player, $chosen, $topCount, \"myHand\", $mzID);",
+          "after": "$topCount = min(3, count(GetDeck($player)));\nif($topCount <= 0) return;\nDecisionQueueController::StoreVariable(\"TopDeckOptionalCount\", strval($topCount));\n$candidates = [];\nfor($i = 0; $i < $topCount; ++$i) {\n    $deckObj = GetZoneObject(\"myDeck-\" . $i);\n    if($deckObj !== null && PropertyContains(CardType($deckObj->CardID), \"ALLY\")) $candidates[] = \"myDeck-\" . $i;\n}\nif(empty($candidates)) {\n    ResolveTopDeckOptionalSelection($player, \"-\", $topCount, \"myHand\", null);\n    return;\n}\n$candidateStr = implode(\"&\", $candidates);\n$chosen = await $player.MZMayChoose($candidateStr, \"Reveal_an_ally_and_put_it_into_your_hand?\");\n$topCount = intval(DecisionQueueController::GetVariable(\"TopDeckOptionalCount\"));\nResolveTopDeckOptionalSelection($player, $chosen, $topCount, \"myHand\", $mzID);"
+        }
+      }
+    },
+    {
+      "card_id": "fIQR28QmYg",
+      "macro_name": "Enter",
+      "fields": {
+        "ability_code": {
+          "before": "if(!IsClassBonusActive($player, CardClasses(\"fIQR28QmYg\"))) return;\n$topCount = min(6, count(GetDeck($player)));\nif($topCount <= 0) return;\n$candidates = [];\nfor($i = 0; $i < $topCount; ++$i) {\n    $deckObj = GetZoneObject(\"myDeck-\" . $i);\n    if($deckObj !== null && PropertyContains(CardSubtypes($deckObj->CardID), \"SPELL\")) $candidates[] = \"myDeck-\" . $i;\n}\nif(empty($candidates)) {\n    ResolveTopDeckOptionalSelection($player, \"-\", $topCount, \"myMemory\", null);\n    return;\n}\n$candidateStr = implode(\"&\", $candidates);\n$chosen = await $player.MZMayChoose($candidateStr, \"Reveal_a_Spell_and_put_it_into_memory?\");\nResolveTopDeckOptionalSelection($player, $chosen, $topCount, \"myMemory\", null);",
+          "after": "if(!IsClassBonusActive($player, CardClasses(\"fIQR28QmYg\"))) return;\n$topCount = min(6, count(GetDeck($player)));\nif($topCount <= 0) return;\nDecisionQueueController::StoreVariable(\"TopDeckOptionalCount\", strval($topCount));\n$candidates = [];\nfor($i = 0; $i < $topCount; ++$i) {\n    $deckObj = GetZoneObject(\"myDeck-\" . $i);\n    if($deckObj !== null && PropertyContains(CardSubtypes($deckObj->CardID), \"SPELL\")) $candidates[] = \"myDeck-\" . $i;\n}\nif(empty($candidates)) {\n    ResolveTopDeckOptionalSelection($player, \"-\", $topCount, \"myMemory\", null);\n    return;\n}\n$candidateStr = implode(\"&\", $candidates);\n$chosen = await $player.MZMayChoose($candidateStr, \"Reveal_a_Spell_and_put_it_into_memory?\");\n$topCount = intval(DecisionQueueController::GetVariable(\"TopDeckOptionalCount\"));\nResolveTopDeckOptionalSelection($player, $chosen, $topCount, \"myMemory\", null);"
+        }
+      }
+    },
+    {
+      "card_id": "gwve1d47o7",
+      "macro_name": "ActivateAbility",
+      "fields": {
+        "ability_code": {
+          "before": "// Pay reserve cost: (4), or (2) if distant\n$obj = GetZoneObject($mzID);\n$baseCost = 4;\nif($obj !== null && IsDistant($obj)) $baseCost = 2;\nfor($i = 0; $i < $baseCost; ++$i) {\n    DecisionQueueController::AddDecision($player, \"CUSTOM\", \"ReserveCard\", 1);\n}\n// Look at top 4\n$deck = &GetDeck($player);\n$count = min(4, count($deck));\nif($count === 0) return;\nfor($i = 0; $i < $count; ++$i) {\n    MZMove($player, \"myDeck-0\", \"myTempZone\");\n}\n// Find Ranger allies\n$eligible = [];\n$tempCards = ZoneSearch(\"myTempZone\");\nforeach($tempCards as $tmz) {\n    $tobj = GetZoneObject($tmz);\n    if($tobj !== null && PropertyContains(CardType($tobj->CardID), \"ALLY\") && PropertyContains(CardSubtypes($tobj->CardID), \"RANGER\")) {\n        $eligible[] = $tmz;\n    }\n}\nif(empty($eligible)) {\n    EnhanceHearingFinish($player, \"PASS\");\n    return;\n}\n$eligibleStr = implode(\"&\", $eligible);\n$chosen = await $player.MZMayChoose($eligibleStr);\nEnhanceHearingFinish($player, $chosen);",
+          "after": "// Pay reserve cost: (4), or (2) if distant\n$obj = GetZoneObject($mzID);\n$baseCost = 4;\nif($obj !== null && IsDistant($obj)) $baseCost = 2;\nfor($i = 0; $i < $baseCost; ++$i) {\n    DecisionQueueController::AddDecision($player, \"CUSTOM\", \"ReserveCard\", 1);\n}\n// Look at top 4\n$deck = &GetDeck($player);\n$count = min(4, count($deck));\nif($count === 0) return;\nfor($i = 0; $i < $count; ++$i) {\n    MZMoveTopOfZone($player, \"myDeck\", \"myTempZone\");\n}\n// Find Ranger allies\n$eligible = [];\n$tempCards = ZoneSearch(\"myTempZone\");\nforeach($tempCards as $tmz) {\n    $tobj = GetZoneObject($tmz);\n    if($tobj !== null && PropertyContains(CardType($tobj->CardID), \"ALLY\") && PropertyContains(CardSubtypes($tobj->CardID), \"RANGER\")) {\n        $eligible[] = $tmz;\n    }\n}\nif(empty($eligible)) {\n    EnhanceHearingFinish($player, \"PASS\");\n    return;\n}\n$eligibleStr = implode(\"&\", $eligible);\n$chosen = await $player.MZMayChoose($eligibleStr);\nEnhanceHearingFinish($player, $chosen);"
+        }
+      }
+    },
+    {
+      "card_id": "edg616r0za",
+      "macro_name": "CardActivated",
+      "fields": {
+        "ability_code": {
+          "before": "$deck = &GetDeck($player);\n$count = min(3, count($deck));\nif($count === 0) return;\nfor($i = 0; $i < $count; ++$i) {\n    MZMove($player, \"myDeck-0\", \"myTempZone\");\n}\n$eligible = [];\n$tempCards = ZoneSearch(\"myTempZone\");\nforeach($tempCards as $tmz) {\n    $tobj = GetZoneObject($tmz);\n    if(CardElement($tobj->CardID) === \"WIND\" || PropertyContains(CardSubtypes($tobj->CardID), \"REACTION\")) {\n        $eligible[] = $tmz;\n    }\n}\nif(empty($eligible)) {\n    EnhanceHearingFinish($player, \"PASS\");\n    return;\n}\n$eligibleStr = implode(\"&\", $eligible);\n$chosen = await $player.MZMayChoose($eligibleStr);\nEnhanceHearingFinish($player, $chosen);",
+          "after": "$deck = &GetDeck($player);\n$count = min(3, count($deck));\nif($count === 0) return;\nfor($i = 0; $i < $count; ++$i) {\n    MZMoveTopOfZone($player, \"myDeck\", \"myTempZone\");\n}\n$eligible = [];\n$tempCards = ZoneSearch(\"myTempZone\");\nforeach($tempCards as $tmz) {\n    $tobj = GetZoneObject($tmz);\n    if($tobj !== null && !$tobj->removed && (PropertyContains(EffectiveCardElement($tobj), \"WIND\") || PropertyContains(EffectiveCardSubtypes($tobj), \"REACTION\"))) {\n        $eligible[] = $tmz;\n    }\n}\nif(empty($eligible)) {\n    EnhanceHearingFinish($player, \"PASS\");\n    return;\n}\n$eligibleStr = implode(\"&\", $eligible);\n$chosen = await $player.MZMayChoose($eligibleStr);\nEnhanceHearingFinish($player, $chosen);"
+        }
+      }
+    },
+    {
+      "card_id": "disqw3d0o5",
+      "macro_name": "Enter",
+      "fields": {
+        "ability_code": {
+          "before": "// Captain Archer: [CB] On Enter: if imbued, look at top 6.\n// May put a wind element ally with reserve cost 3 or less onto field distant.\n// Put the rest on bottom in any order.\nif(!IsClassBonusActive($player, [\"RANGER\"])) return;\n$isImbued = DecisionQueueController::GetVariable(\"isImbued\");\nif($isImbued !== \"YES\") return;\n$deck = GetDeck($player);\nif(empty($deck)) return;\n$lookCount = min(6, count($deck));\nfor($i = 0; $i < $lookCount; ++$i) {\n    MZMove($player, \"myDeck-0\", \"myTempZone\");\n}\n$tempCards = ZoneSearch(\"myTempZone\");\n$validTargets = [];\nforeach($tempCards as $tc) {\n    $tcObj = GetZoneObject($tc);\n    if($tcObj !== null && PropertyContains(CardType($tcObj->CardID), \"ALLY\")\n        && CardElement($tcObj->CardID) === \"WIND\"\n        && CardCost($tcObj->CardID) <= 3) {\n        $validTargets[] = $tc;\n    }\n}\nif(empty($validTargets)) {\n    PutTempZoneOnTopOfDeck($player);\n    return;\n}\n$validStr = implode(\"&\", $validTargets);\n$chosen = await $player.MZMayChoose($validStr);\nif($chosen !== \"-\") {\n    MZMove($player, $chosen, \"myField\");\n    // Find the newly added card and make it distant\n    $field = &GetField($player);\n    $newIdx = count($field) - 1;\n    BecomeDistant($player, \"myField-\" . $newIdx);\n}\nPutTempZoneOnTopOfDeck($player);",
+          "after": "// Captain Archer: [CB] On Enter: if imbued, look at top 6.\n// May put a wind element ally with reserve cost 3 or less onto field distant.\n// Put the rest on bottom in any order.\nif(!IsClassBonusActive($player, [\"RANGER\"])) return;\n$isImbued = DecisionQueueController::GetVariable(\"isImbued\");\nif($isImbued !== \"YES\") return;\n$deck = GetDeck($player);\nif(empty($deck)) return;\n$lookCount = min(6, count($deck));\nfor($i = 0; $i < $lookCount; ++$i) {\n    MZMoveTopOfZone($player, \"myDeck\", \"myTempZone\");\n}\n$tempCards = ZoneSearch(\"myTempZone\");\n$validTargets = [];\nforeach($tempCards as $tc) {\n    $tcObj = GetZoneObject($tc);\n    if($tcObj !== null && PropertyContains(CardType($tcObj->CardID), \"ALLY\")\n        && PropertyContains(EffectiveCardElement($tcObj), \"WIND\")\n        && intval(CardCost_reserve($tcObj->CardID)) <= 3) {\n        $validTargets[] = $tc;\n    }\n}\nif(empty($validTargets)) {\n    PutTempZoneOnBottomOfDeck($player);\n    return;\n}\n$validStr = implode(\"&\", $validTargets);\n$chosen = await $player.MZMayChoose($validStr);\nif($chosen !== \"-\" && $chosen !== \"PASS\" && $chosen !== \"\") {\n    MZMove($player, $chosen, \"myField\");\n    // Find the newly added card and make it distant\n    $field = &GetField($player);\n    $newIdx = count($field) - 1;\n    BecomeDistant($player, \"myField-\" . $newIdx);\n}\nPutTempZoneOnBottomOfDeck($player);"
+        }
+      }
+    },
+    {
+      "card_id": "FnTT1G4OQg",
+      "macro_name": "CardActivated",
+      "fields": {
+        "ability_code": {
+          "before": "RecoverChampion($player, 4);\nif(GetInfluence($player) <= 4) {\n    DrawToMemory($player, 1);\n}",
+          "after": "RecoverChampion($player, 4);\nif(GetInfluence($player) <= 4) {\n    DrawIntoMemory($player, 1);\n}"
+        }
+      }
+    },
+    {
+      "card_id": "iqzaNLhqk4",
+      "macro_name": "CardActivated",
+      "fields": {
+        "ability_code": {
+          "before": "// Genuflecting Execution: Destroy up to two target rested allies\n$allAllies = array_merge(ZoneSearch(\"myField\", [\"ALLY\"]), ZoneSearch(\"theirField\", [\"ALLY\"]));\n$rested = [];\nforeach($allAllies as $aMZ) {\n    $aObj = GetZoneObject($aMZ);\n    if($aObj !== null && isset($aObj->Status) && $aObj->Status == 1) {\n        $rested[] = $aMZ;\n    }\n}\n$rested = FilterSpellshroudTargets($rested);\nif(empty($rested)) return;\n$targetStr = implode(\"&\", $rested);\n$chosen1 = await $player.MZMayChoose($targetStr);\nif($chosen1 == \"-\") return;\nDestroyAlly($player, $chosen1);\nDecisionQueueController::CleanupRemovedCards();\n$allAllies2 = array_merge(ZoneSearch(\"myField\", [\"ALLY\"]), ZoneSearch(\"theirField\", [\"ALLY\"]));\n$rested2 = [];\nforeach($allAllies2 as $aMZ2) {\n    $aObj2 = GetZoneObject($aMZ2);\n    if($aObj2 !== null && isset($aObj2->Status) && $aObj2->Status == 1) {\n        $rested2[] = $aMZ2;\n    }\n}\n$rested2 = FilterSpellshroudTargets($rested2);\nif(empty($rested2)) return;\n$targetStr2 = implode(\"&\", $rested2);\n$chosen2 = await $player.MZMayChoose($targetStr2);\nif($chosen2 == \"-\") return;\nDestroyAlly($player, $chosen2);",
+          "after": "// Genuflecting Execution: Destroy up to two target rested allies\n$allAllies = array_merge(ZoneSearch(\"myField\", [\"ALLY\"]), ZoneSearch(\"theirField\", [\"ALLY\"]));\n$rested = [];\nforeach($allAllies as $aMZ) {\n    $aObj = GetZoneObject($aMZ);\n    if($aObj !== null && isset($aObj->Status) && $aObj->Status == 1) {\n        $rested[] = $aMZ;\n    }\n}\n$rested = FilterSpellshroudTargets($rested);\nif(empty($rested)) return;\n$targetStr = implode(\"&\", $rested);\n$chosen1 = await $player.MZMayChoose($targetStr);\nif($chosen1 == \"-\") return;\nDoAllyDestroyed($player, $chosen1);\nDecisionQueueController::CleanupRemovedCards();\n$allAllies2 = array_merge(ZoneSearch(\"myField\", [\"ALLY\"]), ZoneSearch(\"theirField\", [\"ALLY\"]));\n$rested2 = [];\nforeach($allAllies2 as $aMZ2) {\n    $aObj2 = GetZoneObject($aMZ2);\n    if($aObj2 !== null && isset($aObj2->Status) && $aObj2->Status == 1) {\n        $rested2[] = $aMZ2;\n    }\n}\n$rested2 = FilterSpellshroudTargets($rested2);\nif(empty($rested2)) return;\n$targetStr2 = implode(\"&\", $rested2);\n$chosen2 = await $player.MZMayChoose($targetStr2);\nif($chosen2 == \"-\") return;\nDoAllyDestroyed($player, $chosen2);"
+        }
+      }
+    }
+  ]
+}

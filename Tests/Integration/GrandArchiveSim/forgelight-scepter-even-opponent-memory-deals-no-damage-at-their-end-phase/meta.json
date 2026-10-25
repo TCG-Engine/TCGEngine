@@ -1,0 +1,25 @@
+{
+    "name": "forgelight-scepter-even-opponent-memory-deals-no-damage-at-their-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T00:54:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "smw3rrii17"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "smw3rrii17"
+        ],
+        "mechanics": [
+            "end-phase",
+            "damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "At the beginning of each opponent's end phase, if that player has an odd amount of cards in their memory, deal 2 unpreventable damage to their champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

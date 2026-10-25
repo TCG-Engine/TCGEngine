@@ -1,0 +1,25 @@
+{
+    "name": "verita-queen-of-hearts-on-death-suited-allies-get-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:32:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4qc47amgpp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4qc47amgpp"
+        ],
+        "mechanics": [
+            "on-death",
+            "suited",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**On Death**: Suited allies you control get +1[POWER] until the end of your next turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

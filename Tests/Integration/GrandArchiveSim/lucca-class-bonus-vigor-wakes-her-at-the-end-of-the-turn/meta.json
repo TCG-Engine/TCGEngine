@@ -1,0 +1,21 @@
+{
+    "name": "lucca-class-bonus-vigor-wakes-her-at-the-end-of-the-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:51:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5JH6j7QVuG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5JH6j7QVuG"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Vigor**"
+        ]
+    }
+}

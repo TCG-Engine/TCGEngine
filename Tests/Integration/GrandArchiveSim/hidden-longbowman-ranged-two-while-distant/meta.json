@@ -1,0 +1,23 @@
+{
+    "name": "hidden-longbowman-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:18:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bx4k3akqx7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bx4k3akqx7"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 2** *(As long as this unit is distant, its attacks get +2 [POWER].)*"
+        ]
+    },
+    "behaviorFamily": true
+}

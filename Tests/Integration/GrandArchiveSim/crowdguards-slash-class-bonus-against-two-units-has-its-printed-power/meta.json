@@ -1,0 +1,25 @@
+{
+    "name": "crowdguards-slash-class-bonus-against-two-units-has-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:34:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "23ag70F2uz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "23ag70F2uz"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as an opponent controls three or more units, CARDNAME gets +2[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

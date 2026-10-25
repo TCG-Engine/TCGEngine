@@ -1,0 +1,26 @@
+{
+    "name": "tricky-chimps-class-bonus-enter-with-two-opposing-allies-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:13:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bhhdb7x044"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bhhdb7x044"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "condition",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** If an opponent controls two or more allies, CARDNAME gets +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

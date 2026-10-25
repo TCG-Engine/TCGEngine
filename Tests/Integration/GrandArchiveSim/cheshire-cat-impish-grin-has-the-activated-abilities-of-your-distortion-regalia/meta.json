@@ -1,0 +1,24 @@
+{
+    "name": "cheshire-cat-impish-grin-has-the-activated-abilities-of-your-distortion-regalia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:31:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cUltOcPo26"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cUltOcPo26"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "distortion"
+        ],
+        "rulesClauses": [
+            "Cheshire Cat has all activated abilities of Distortion regalia you control. "
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

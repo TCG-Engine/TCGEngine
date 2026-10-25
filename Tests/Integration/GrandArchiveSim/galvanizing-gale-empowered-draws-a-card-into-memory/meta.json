@@ -1,0 +1,25 @@
+{
+    "name": "galvanizing-gale-empowered-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:30:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "f00cEmu6Ql"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "f00cEmu6Ql"
+        ],
+        "mechanics": [
+            "empower",
+            "draw-into-memory",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If CARDNAME was **empowered**, draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

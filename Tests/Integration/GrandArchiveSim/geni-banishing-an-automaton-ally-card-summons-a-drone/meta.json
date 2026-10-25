@@ -1,0 +1,26 @@
+{
+    "name": "geni-banishing-an-automaton-ally-card-summons-a-drone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T18:54:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wuir99sx6q"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wuir99sx6q"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish",
+            "summon",
+            "automaton"
+        ],
+        "rulesClauses": [
+            "(2),[REST]**, Banish a card from your graveyard:** If the banished card was an Automaton ally card, **summon** an Automaton Drone token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,142 @@
+<?php
+/**
+ * Phase 3a (Fire): attack cards. Player 1 cannot attack on turn 1, so each fixture reaches turn 3, plays the attack card
+ * (first seeded hand card = slot 7), pays its cost and chooses the opposing champion as the target.
+ */
+
+gaScenario('fiery-momentum-class-bonus-gets-plus-one-power-per-fire-card-in-the-graveyard')
+    ->standardDeck('Fiery Momentum')
+    ->readyFor('Fiery Momentum', classBonus: true)
+    ->seed('myGraveyard', 'Red Slime')
+    ->seed('myGraveyard', 'Red Slime')
+    ->seed('myGraveyard', 'Red Slime')
+    ->seed('myGraveyard', 'Red Slime')
+    ->seed('myHand', 'Fiery Momentum')
+    ->reachTurnThree()
+    ->playSlot(7)->pay(3)->target('theirField-0')
+    ->tested('Fiery Momentum')
+    ->expectDamage('p2Field-0', 6, '[Class Bonus] 2 POWER + 4 fire cards in the graveyard = 6 damage')
+    ->covers(['combat', 'class-bonus', 'scaling'], '[Class Bonus] CARDNAME gets +1 [POWER] for each fire element card in your graveyard.')
+    ->register();
+
+gaScenario('fiery-momentum-without-the-class-bonus-deals-its-printed-power')
+    ->standardDeck('Fiery Momentum')
+    ->readyFor('Fiery Momentum')
+    ->seed('myGraveyard', 'Red Slime')
+    ->seed('myGraveyard', 'Red Slime')
+    ->seed('myHand', 'Fiery Momentum')
+    ->reachTurnThree()
+    ->playSlot(7)->pay(3)->target('theirField-0')
+    ->tested('Fiery Momentum')
+    ->expectDamage('p2Field-0', 2, 'No Class Bonus: the printed 2 POWER')
+    ->covers(['combat', 'class-bonus', 'condition'], '[Class Bonus] CARDNAME gets +1 [POWER] for each fire element card in your graveyard.')
+    ->register();
+
+gaScenario('heated-vengeance-gets-plus-three-power-once-your-champion-has-taken-damage')
+    ->standardDeck('Heated Vengeance')
+    ->readyFor('Heated Vengeance', classBonus: true)
+    ->seed('myHand', 'Heated Vengeance')
+    ->reachTurnThree()
+    ->playSlot(7)->pay(3)->target('theirField-0')->answer(1, 'YES')
+    ->tested('Heated Vengeance')
+    ->expectDamage('p1Field-0', 3, '[Class Bonus] On Attack: Heated Vengeance dealt 3 damage to your champion')
+    ->expectDamage('p2Field-0', 5, 'Your champion had taken damage this turn: 2 POWER + 3 = 5 damage')
+    ->covers(['combat', 'damage', 'condition', 'class-bonus'], 'As long as your champion has taken damage this turn, CARDNAME gets +3 [POWER].', '[Class Bonus] On Attack: You may have CARDNAME deal 3 damage to your champion.')
+    ->register();
+
+gaScenario('heated-vengeance-declining-the-self-damage-deals-its-printed-power')
+    ->standardDeck('Heated Vengeance')
+    ->readyFor('Heated Vengeance', classBonus: true)
+    ->seed('myHand', 'Heated Vengeance')
+    ->reachTurnThree()
+    ->playSlot(7)->pay(3)->target('theirField-0')->answer(1, 'NO')
+    ->tested('Heated Vengeance')
+    ->expectDamage('p1Field-0', 0, 'The optional self-damage was declined')
+    ->expectDamage('p2Field-0', 2, 'No damage taken this turn: the printed 2 POWER')
+    ->covers(['combat', 'optional-choice-decline', 'condition'], 'As long as your champion has taken damage this turn, CARDNAME gets +3 [POWER].')
+    ->register();
+
+gaScenario('blazing-charge-class-bonus-gets-plus-two-power-and-arms-the-next-turn-trigger')
+    ->standardDeck('Blazing Charge')
+    ->readyFor('Blazing Charge', classBonus: true)
+    ->seed('myHand', 'Blazing Charge')
+    ->reachTurnThree()
+    ->playSlot(7)->pay(2)->target('theirField-0')
+    ->tested('Blazing Charge')
+    ->expectDamage('p2Field-0', 5, '[Class Bonus] 3 POWER + 2 = 5 damage')
+    ->expectProperty('p1Field-0', 'TurnEffects', '["BLAZING_CHARGE_NEXT_TURN"]', 'On Attack: the champion carries the "damage to your champion is increased" effect until your next turn')
+    ->covers(['combat', 'class-bonus', 'trigger'], '[Class Bonus] CARDNAME gets +2 [POWER].')
+    ->register();
+
+gaScenario('devastating-blow-class-bonus-level-three-gets-plus-four-power')
+    ->standardDeck('Devastating Blow')
+    ->readyFor('Devastating Blow', classBonus: true, level: 3)
+    ->seed('myHand', 'Devastating Blow')
+    ->reachTurnThree()
+    ->playSlot(7)->pay(3)->target('theirField-0')
+    ->tested('Devastating Blow')
+    ->expectDamage('p2Field-0', 7, '[Class Bonus][Level 3+] 3 POWER + 4 = 7 damage')
+    ->covers(['combat', 'class-bonus', 'level-gate'], '[Class Bonus] [Level 3+] CARDNAME gets +4 [POWER] and can\'t be retaliated.')
+    ->register();
+
+gaScenario('devastating-blow-below-level-three-deals-its-printed-power')
+    ->standardDeck('Devastating Blow')
+    ->readyFor('Devastating Blow', classBonus: true, level: 2)
+    ->seed('myHand', 'Devastating Blow')
+    ->reachTurnThree()
+    ->playSlot(7)->pay(3)->target('theirField-0')
+    ->tested('Devastating Blow')
+    ->expectDamage('p2Field-0', 3, 'Level 2 is below the threshold: the printed 3 POWER')
+    ->covers(['combat', 'class-bonus', 'level-gate', 'condition'], '[Class Bonus] [Level 3+] CARDNAME gets +4 [POWER] and can\'t be retaliated.')
+    ->register();
+
+gaScenario('indiscriminate-gyre-class-bonus-attack-deals-two-damage-to-all-allies')
+    ->standardDeck('Indiscriminate Gyre')
+    ->readyFor('Indiscriminate Gyre', classBonus: true)
+    ->seed('myField', 'Dungeon Guide')
+    ->seed('theirField', 'Dungeon Guide')
+    ->seed('myHand', 'Indiscriminate Gyre')
+    ->reachTurnThree()
+    ->playSlot(7)->pay(4)->target('theirField-0')
+    ->tested('Indiscriminate Gyre')
+    ->expectDamage('p1Field-1', 2, '[Class Bonus] On Attack: your own ally took 2')
+    ->expectDamage('p2Field-1', 2, '...and so did the opposing ally')
+    ->expectDamage('p2Field-0', 3, 'The attack itself dealt its 3 POWER to the champion')
+    ->covers(['combat', 'damage', 'sweep', 'class-bonus'], '[Class Bonus] On Attack: Deal 2 damage to all allies.')
+    ->register();
+
+gaScenario('overwhelming-swing-deals-its-printed-power')
+    ->standardDeck('Overwhelming Swing')
+    ->readyFor('Overwhelming Swing', classBonus: true, level: 2)
+    ->seed('myHand', 'Overwhelming Swing')
+    ->reachTurnThree()
+    ->playSlot(7)->pay(6)->target('theirField-0')
+    ->tested('Overwhelming Swing')
+    ->expectDamage('p2Field-0', 5, '5 POWER')
+    ->covers(['combat', 'class-bonus', 'level-gate'], 'Overwhelming Swing attacks for its printed 5 POWER.')
+    ->register();
+
+gaScenario('blazing-lunge-deals-its-printed-power')
+    ->standardDeck('Blazing Lunge')
+    ->readyFor('Blazing Lunge', classBonus: true)
+    ->seed('myHand', 'Blazing Lunge')
+    ->reachTurnThree()
+    ->playSlot(7)->pay(3)->target('theirField-0')->pass(1)
+    ->tested('Blazing Lunge')
+    ->expectDamage('p2Field-0', 4, '4 POWER with the unpreventable ability left unused')
+    ->covers(['combat'], 'Blazing Lunge attacks for its printed 4 POWER.')
+    ->register();
+
+gaScenario('flame-sweep-cleaves-every-opposing-unit-with-class-bonus-power')
+    ->standardDeck('Flame Sweep')
+    ->readyFor('Flame Sweep', classBonus: true, level: 2)
+    ->seed('myField', 'Dungeon Guide')
+    ->seed('theirField', 'Dungeon Guide')
+    ->seed('myHand', 'Flame Sweep')
+    ->reachTurnThree()
+    ->playSlot(7)->pay(4)->target('theirField-0')->answer(2, 'PASS')
+    ->tested('Flame Sweep')
+    ->expectDamage('p2Field-0', 2, '[Class Bonus][Level 2+] Cleave: the champion took 1 POWER + 1 = 2')
+    ->expectDamage('p2Field-1', 2, 'Cleave: the opposing ally took 2 too')
+    ->covers(['combat', 'cleave', 'class-bonus', 'level-gate'], 'Cleave (Attack all units a chosen opponent controls.)', '[Class Bonus] [Level 2+] CARDNAME gets +1 [POWER].')
+    ->register();

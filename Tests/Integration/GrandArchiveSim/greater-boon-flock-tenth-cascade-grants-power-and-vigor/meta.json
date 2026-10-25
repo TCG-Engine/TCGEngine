@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "vp83TimzWT"
+        ],
+        "mechanics": [
+            "cascade",
+            "continuous-power"
+        ],
+        "rulesClauses": [
+            "Cascade ten grants Bird power and vigor."
+        ]
+    },
+    "name": "greater-boon-flock-tenth-cascade-grants-power-and-vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T14:53:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vp83TimzWT"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

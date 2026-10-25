@@ -563,6 +563,9 @@ while(!feof($handler)) {
       case "BeforeAdd":
         $zoneObj->BeforeAdd = trim($lineValue);
         break;
+      case "BeforeRemove":
+        $zoneObj->BeforeRemove = trim($lineValue);
+        break;
       case "AfterAdd":
         $zoneObj->AfterAdd = trim($lineValue);
         break;
@@ -665,6 +668,7 @@ while(!feof($handler)) {
         $zoneObj->Scope = "Player";
         $zoneObj->AddReplacement = null;
         $zoneObj->BeforeAdd = null;
+        $zoneObj->BeforeRemove = null;
         $zoneObj->AfterAdd = null;
         $zoneObj->VirtualProperties = [];
         $zoneObj->IndexedProperties = [];
@@ -1028,10 +1032,33 @@ fwrite($handler, "    \$mzIndex = FlipZonePerspective(\$mzIndex);\r\n");
 fwrite($handler, "    \$toZone = FlipZonePerspective(\$toZone);\r\n");
 fwrite($handler, "  }\r\n");
 fwrite($handler, "  \$removed = GetZoneObject(\$mzIndex);\r\n");
+// Opt-in (`Module: SkipRemovedMZMoves=<zone>,<zone>`): moving a card only flags its slot removed until the next cleanup, so a loop that repeats MZMove($player, "myDeck-0", ...) moved the first card and then hit the flagged
+// slot every time (mill 2 milled 1, "look at the top 3" saw 1). For the listed zones a flagged slot is skipped to the next live one. Schemas without the module generate exactly what they did before.
+$skipRemovedModule = GetModule("SkipRemovedMZMoves");
+if($skipRemovedModule !== null && trim($skipRemovedModule->Parameters ?? "") !== "") {
+  $skipRemovedZones = array_values(array_filter(array_map('trim', explode(",", $skipRemovedModule->Parameters)), 'strlen'));
+  fwrite($handler, "  if(\$removed !== null && property_exists(\$removed, 'removed') && \$removed->removed === true && in_array(strtok(\$mzIndex, '-'), " . var_export($skipRemovedZones, true) . ", true)) {\r\n");
+  fwrite($handler, "    \$skipParts = explode('-', \$mzIndex);\r\n");
+  fwrite($handler, "    \$skipZone = GetZone(\$mzIndex);\r\n");
+  fwrite($handler, "    for(\$skipIndex = intval(\$skipParts[1] ?? 0) + 1; \$skipIndex < count(\$skipZone); ++\$skipIndex) {\r\n");
+  fwrite($handler, "      if(\$skipZone[\$skipIndex] === null || (property_exists(\$skipZone[\$skipIndex], 'removed') && \$skipZone[\$skipIndex]->removed === true)) continue;\r\n");
+  fwrite($handler, "      \$mzIndex = \$skipParts[0] . '-' . \$skipIndex;\r\n");
+  fwrite($handler, "      \$removed = GetZoneObject(\$mzIndex);\r\n");
+  fwrite($handler, "      break;\r\n");
+  fwrite($handler, "    }\r\n");
+  fwrite($handler, "  }\r\n");
+}
 fwrite($handler, "  if(\$removed === null) return null;\r\n");
 fwrite($handler, "  if(property_exists(\$removed, 'removed') && \$removed->removed === true) return null;\r\n");
-fwrite($handler, "  \$removed->_sourceZone = strtok(\$mzIndex, '-');\r\n");
-fwrite($handler, "  \$removed->Remove();\r\n");
+$hasDepartureVeto = false;
+foreach($zones as $departureZone) if(($departureZone->BeforeRemove ?? null) !== null) $hasDepartureVeto = true;
+if($hasDepartureVeto) {
+  fwrite($handler, "  if(\$removed->Remove() === false) return null;\r\n");
+  fwrite($handler, "  \$removed->_sourceZone = strtok(\$mzIndex, '-');\r\n");
+} else {
+  fwrite($handler, "  \$removed->_sourceZone = strtok(\$mzIndex, '-');\r\n");
+  fwrite($handler, "  \$removed->Remove();\r\n");
+}
 fwrite($handler, "  // The zone names above are normalized to the request viewer's perspective.\r\n");
 fwrite($handler, "  // Use that same player for the destination so cross-player moves keep their owner.\r\n");
 fwrite($handler, "  \$destinationPlayer = intval(\$playerID) > 0 ? intval(\$playerID) : intval(\$player);\r\n");
@@ -1755,6 +1782,9 @@ for($i=0; $i<count($zones); ++$i) {
 
   //Remove function
   fwrite($handler, "  function Remove(\$trigger=\"\") {\r\n");
+  if(($zone->BeforeRemove ?? null) !== null) {
+    fwrite($handler, "    if(!" . $zone->BeforeRemove . "(\$this, \$trigger)) return false;\r\n");
+  }
   fwrite($handler, "    \$this->removed = true;\r\n");
   if($hasIndexedProperties) {
     fwrite($handler, "    \$this->ClearIndex();\r\n");
@@ -2109,6 +2139,11 @@ fwrite($handler, "\$playerID = \$viewerPerspective;\r\n");
 // a seat-3/4 viewer never saw their own attack-target prompt.
 for ($cspSeat = 1; $cspSeat <= $maxSeats; ++$cspSeat) {
   fwrite($handler, "\$canSeePrivatePlayer{$cspSeat} = !\$viewerInfo[\"isSpectator\"] && intval(\$viewerInfo[\"viewerSeat\"] ?? 0) === {$cspSeat};\r\n");
+}
+if($rootName === 'GrandArchiveSim') {
+  for($seat = 1; $seat <= 2; ++$seat) {
+    fwrite($handler, "\$canSeeMaterialPlayer{$seat} = \$canSeePrivatePlayer{$seat} || (!\$viewerInfo['isSpectator'] && GASoulCanLookMaterial(intval(\$viewerInfo['viewerSeat'] ?? 0), {$seat}));\r\n");
+  }
 }
 fwrite($handler, "\$spectatorCanSeeHands = SimGameViewerCanSeeHands('" . $rootName . "', \$gameName, \$viewerInfo);\r\n");
 fwrite($handler, "\$authKey = TryGet(\"authKey\", \"\");\r\n");
@@ -2636,7 +2671,10 @@ function AddGetNextTurnForPlayer($player) {
           ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
           : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         }
-        if ($rootName === 'FaBSim' && $zone->Name === 'Graveyard') {
+        if ($rootName === 'GrandArchiveSim' && $zone->Name === 'Banish') {
+          $getNextTurn .= "    if (!empty(\$obj->Counters['_sealFaceDown'])) echo(ClientRenderedCard('CardBack'));\r\n";
+          $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        } else if ($rootName === 'FaBSim' && $zone->Name === 'Graveyard') {
           $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1 && !\$canSeePrivatePlayer" . $player . ") echo(ClientRenderedCard('CardBack'));\r\n";
           $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         } else $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
@@ -2683,7 +2721,7 @@ function AddGetNextTurnForPlayer($player) {
         } else {
           $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
         }
-        $selfFlag = ($zone->Name == "Hand") ? "canSeeHandPlayer" : "canSeePrivatePlayer";
+        $selfFlag = ($zone->Name == "Hand") ? "canSeeHandPlayer" : (($rootName === 'GrandArchiveSim' && $zone->Name === 'Material') ? 'canSeeMaterialPlayer' : "canSeePrivatePlayer");
         $faceUpArsenal = $rootName === 'FaBSim' && $zone->Name === 'Arsenal';
         $getNextTurn .= "  if(\$" . $selfFlag . $player . ($faceUpArsenal ? ' || true' : '') . ") {\r\n";
         $getNextTurn .= "    for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
@@ -2737,7 +2775,10 @@ function AddGetNextTurnForPlayer($player) {
           ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
           : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         }
-        if ($rootName === 'FaBSim' && in_array($zone->Name, ['Equipment','Graveyard'], true)) {
+        if ($rootName === 'GrandArchiveSim' && $zone->Name === 'Banish') {
+          $getNextTurn .= "    if (!empty(\$obj->Counters['_sealFaceDown'])) echo(ClientRenderedCard('CardBack'));\r\n";
+          $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        } else if ($rootName === 'FaBSim' && in_array($zone->Name, ['Equipment','Graveyard'], true)) {
           $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1 && !\$canSeePrivatePlayer" . $player . ") echo(ClientRenderedCard('CardBack'));\r\n";
           $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         } else if ($rootName === 'FaBSim' && $zone->Name === 'Banish') {
@@ -5117,6 +5158,7 @@ function GenerateMacroCode() {
         foreach ($abilities as $ability) {
           $cardId = $ability['card_id'];
           $code = $ability['ability_code'];
+          if ($rootName === 'GrandArchiveSim' && $macroName === 'Reveal') { require_once __DIR__ . '/GrandArchiveSim/Custom/CodeGeneration.php'; $code = GAPrepareRevealCode($code, $cardId); }
           if ($rootName === 'FaBSim') { require_once __DIR__ . '/FaBSim/Custom/CodeGeneration.php'; $code = FaBPrepareDamageCode(FaBPrepareHeroCreationCode($code,$cardId)); }
           $prereqCode = $ability['prereq_code'] ?? '';
           $name = $ability['ability_name'] ?? $cardId;

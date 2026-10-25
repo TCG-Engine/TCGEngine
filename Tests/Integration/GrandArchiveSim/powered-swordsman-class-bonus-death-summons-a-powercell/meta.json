@@ -1,0 +1,26 @@
+{
+    "name": "powered-swordsman-class-bonus-death-summons-a-powercell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:48:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "f8uqrptjej"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "f8uqrptjej"
+        ],
+        "mechanics": [
+            "on-death",
+            "class-bonus",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Death:** **Summon** a Powercell token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

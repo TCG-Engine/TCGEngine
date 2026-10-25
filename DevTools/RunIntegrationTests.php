@@ -8,6 +8,7 @@ function RunnerParseArgs($argv) {
     'test' => null,
     'updateSnapshots' => false,
     'verbose' => false,
+    'auditNoops' => false,
   ];
 
   foreach (array_slice($argv, 1) as $arg) {
@@ -15,6 +16,7 @@ function RunnerParseArgs($argv) {
     elseif (str_starts_with($arg, '--test=')) $args['test'] = substr($arg, 7);
     elseif ($arg === '--update-snapshots') $args['updateSnapshots'] = true;
     elseif ($arg === '--verbose') $args['verbose'] = true;
+    elseif ($arg === '--audit-noops') $args['auditNoops'] = true;
   }
 
   return $args;
@@ -94,6 +96,11 @@ function RunnerPrepareTempGame($rootName, $slug, $initialFixtureDir, $meta) {
   return [$gameName, $gameDir];
 }
 
+// The saved game state (what the next action will load), normalized the way the final-snapshot comparison does.
+function RunnerAuditSnapshot($rootName, $gameName) {
+  return RegressionNormalizeNewlines(RegressionNormalizeGamestateTextForComparison($rootName, RegressionCurrentGamestateText($rootName, $gameName)));
+}
+
 function RunnerReloadPersistedStateForAssertions($rootName, $gameName, $result) {
   // FaBSim serializes compacted zone coordinates without changing live arrays.
   // Match the next request/recorded assertion boundary after a successful write.
@@ -133,7 +140,21 @@ if ($args['root'] === null) {
   exit(1);
 }
 
+$gaBehaviorCases = [];
+if ($args['root'] === 'GrandArchiveSim') {
+  require_once __DIR__ . '/ga-fixtures/behavior-families/suites.php';
+  $gaBehaviorCases = gaBehaviorCases();
+  $formatCommand = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__DIR__ . '/create-prd-ability-fixtures.php')
+    . ' --check-source-format' . ($args['test'] !== null ? ' ' . escapeshellarg('--fixture=' . $args['test']) : '') . ' 2>&1';
+  exec($formatCommand, $formatOutput, $formatStatus);
+  if ($formatStatus !== 0) {
+    echo "[FAIL] Grand Archive source format\n" . implode("\n", $formatOutput) . "\n";
+    exit(1);
+  }
+}
+
 $fixtures = $args['test'] !== null ? [$args['test']] : RegressionListFixtures($args['root']);
+if ($args['test'] === null) $fixtures = array_values(array_unique(array_merge($fixtures, array_keys($gaBehaviorCases))));
 if (empty($fixtures)) {
   echo "No regression fixtures found for root {$args['root']}.\n";
   exit(0);
@@ -145,6 +166,21 @@ $executed = 0;
 
 foreach ($fixtures as $slug) {
   ++$executed;
+  if (isset($gaBehaviorCases[$slug])) {
+    $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__DIR__ . '/create-prd-ability-fixtures.php')
+      . ' --families ' . escapeshellarg('--fixture=' . $slug) . ' 2>&1';
+    $output = [];
+    exec($command, $output, $status);
+    if ($status === 0 && str_contains(implode("\n", $output), '[PASS] ' . $slug . ' (behavior family)')) {
+      ++$passes;
+      echo "[PASS] $slug (behavior family)\n";
+    } else {
+      ++$failures;
+      echo "[FAIL] $slug (behavior family)\n" . implode("\n", $output) . "\n";
+    }
+    if ($args['verbose'] && $status === 0) echo implode("\n", $output) . "\n";
+    continue;
+  }
   $fixtureDir = RegressionFixtureDir($args['root'], $slug);
   if (!is_dir($fixtureDir)) {
     echo "[FAIL] {$slug}: fixture directory not found.\n";
@@ -153,6 +189,22 @@ foreach ($fixtures as $slug) {
     continue;
   }
   $meta = RunnerLoadMeta($fixtureDir);
+  if ($args['root'] === 'GrandArchiveSim' && isset($meta['sourceScenario'])) {
+    $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__DIR__ . '/create-prd-ability-fixtures.php')
+      . ' --run-source ' . escapeshellarg('--fixture=' . $slug) . ' 2>&1';
+    $output = [];
+    exec($command, $output, $status);
+    if ($status === 0 && str_contains(implode("\n", $output), '[PASS] ' . $slug . ' (source scenario)')) {
+      ++$passes;
+      echo "[PASS] $slug (source scenario)\n";
+    } else {
+      ++$failures;
+      echo "[FAIL] $slug (source scenario)\n" . implode("\n", $output) . "\n";
+    }
+    if ($args['verbose'] && $status === 0) echo implode("\n", $output) . "\n";
+    continue;
+  }
+
   try {
     $initialFixtureDir = RunnerInitialFixtureDir($args['root'], $fixtureDir, $meta);
   } catch (Throwable $error) {
@@ -189,9 +241,14 @@ foreach ($fixtures as $slug) {
     $failureMessage = "Initial assertion failed: {$initialAssertionMessage}";
   }
 
+  $noopSteps = [];
+  $beforeText = null;
   foreach ($actions as $stepIndex => $action) {
     if ($failed) break;
     $stepNumber = $stepIndex + 1;
+    // --audit-noops: an accepted action that changes nothing is a silently ignored step (a hand index that moved, an answer to the
+    // wrong player's decision...). It makes the rest of a scenario vacuous without failing anything.
+    if ($args['auditNoops'] && empty($action['expectFailure'])) $beforeText = RunnerAuditSnapshot($args['root'], $gameName);
     $result = EngineRunAction($action, $args['root'], $gameName, [
       'updateCache' => false,
       'disableRecording' => true,
@@ -207,6 +264,11 @@ foreach ($fixtures as $slug) {
       $failed = true;
       $failureMessage = "Step {$stepNumber} failed: " . ($result['message'] ?: 'engine action failed');
       break;
+    }
+
+    if ($args['auditNoops'] && $beforeText !== null && empty($action['expectFailure'])) {
+      if (RunnerAuditSnapshot($args['root'], $gameName) === $beforeText) $noopSteps[] = $stepNumber . ':' . ($action['cardID'] ?? '');
+      $beforeText = null;
     }
 
     try {
@@ -242,6 +304,8 @@ foreach ($fixtures as $slug) {
   }
 
   RegressionDeleteDirRecursive($gameDir);
+
+  if ($args['auditNoops'] && !empty($noopSteps)) echo "[NOOP] {$slug}: " . implode(' ', $noopSteps) . "\n";
 
   if ($failed) {
     echo "[FAIL] {$label}: {$failureMessage}\n";

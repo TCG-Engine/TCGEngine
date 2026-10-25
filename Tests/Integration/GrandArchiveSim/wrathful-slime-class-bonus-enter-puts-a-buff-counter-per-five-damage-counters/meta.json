@@ -1,0 +1,26 @@
+{
+    "name": "wrathful-slime-class-bonus-enter-puts-a-buff-counter-per-five-damage-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:17:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wjaq7t8vbf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wjaq7t8vbf"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "counter",
+            "damage-scaling"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter**: For every five damage counters on your champion, put a **buff** counter on Wrathful Slime."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

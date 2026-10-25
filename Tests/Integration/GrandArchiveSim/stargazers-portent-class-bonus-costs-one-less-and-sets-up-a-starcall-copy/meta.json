@@ -1,0 +1,25 @@
+{
+    "name": "stargazers-portent-class-bonus-costs-one-less-and-sets-up-a-starcall-copy",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:26:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "btjuxztaug"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "btjuxztaug"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "starcalling"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate. The next time you **starcall** a card this turn, copy that activation."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

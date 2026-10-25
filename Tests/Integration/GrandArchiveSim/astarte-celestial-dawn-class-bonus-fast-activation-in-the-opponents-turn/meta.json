@@ -1,0 +1,24 @@
+{
+    "name": "astarte-celestial-dawn-class-bonus-fast-activation-in-the-opponents-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:19:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "f0ht2tsn0y"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "f0ht2tsn0y"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "fast-activation"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Fast Activation** *(You may activate this card at fast speed.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

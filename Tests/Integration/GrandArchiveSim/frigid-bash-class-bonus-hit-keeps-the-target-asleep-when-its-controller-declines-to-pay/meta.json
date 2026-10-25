@@ -1,0 +1,27 @@
+{
+    "name": "frigid-bash-class-bonus-hit-keeps-the-target-asleep-when-its-controller-declines-to-pay",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:57:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k2c7wklzjm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k2c7wklzjm"
+        ],
+        "mechanics": [
+            "combat",
+            "on-hit",
+            "class-bonus",
+            "wake-up",
+            "optional-cost"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Hit:** The hit object doesn't wake up during its controller's next wake up phase unless that player pays (2)."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,1 +1,20 @@
-[]
+[
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "10",
+        "semantic": true,
+        "label": "The attack dealt 10: the printed 6 POWER plus 4, the reserve cost of the sacrificed Wool Brook"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-0",
+        "property": "CardID",
+        "value": "lcCGyyNGuM",
+        "semantic": true,
+        "label": "Wool Brook was sacrificed as the additional cost"
+    }
+]

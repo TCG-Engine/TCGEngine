@@ -1,0 +1,23 @@
+{
+    "name": "renascent-sharpshooter-ranged-one-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:19:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gbnvtkm7rf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gbnvtkm7rf"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 1** *(As long as this unit is **distant**, its attacks get +1[POWER].)*"
+        ]
+    },
+    "behaviorFamily": true
+}

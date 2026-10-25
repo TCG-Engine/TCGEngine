@@ -1,0 +1,25 @@
+{
+    "name": "slip-away-makes-a-unit-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:00:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ooffy4dwav"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ooffy4dwav"
+        ],
+        "mechanics": [
+            "distant",
+            "targeting",
+            "imbue"
+        ],
+        "rulesClauses": [
+            "Target unit becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

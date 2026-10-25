@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "yC1TexeQwH"
+        ],
+        "mechanics": [
+            "distant",
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "Becoming distant scavenges an Aethercharge."
+        ]
+    },
+    "name": "dtr-yonder-distant-scavenges-aethercharge",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:17:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yC1TexeQwH"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

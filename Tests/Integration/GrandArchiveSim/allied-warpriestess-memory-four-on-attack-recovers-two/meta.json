@@ -1,0 +1,25 @@
+{
+    "name": "allied-warpriestess-memory-four-on-attack-recovers-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:30:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2tsn0ye3ae"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2tsn0ye3ae"
+        ],
+        "mechanics": [
+            "memory-gate",
+            "on-attack",
+            "recover"
+        ],
+        "rulesClauses": [
+            "[Memory 4+] **On Attack: Recover 2**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

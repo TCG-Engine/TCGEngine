@@ -1,0 +1,25 @@
+{
+    "name": "tome-of-ignorance-class-bonus-opposing-champions-get-minus-one-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:11:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dz4qd82liq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dz4qd82liq"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level",
+            "static"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Champions you don't control get -1 level."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

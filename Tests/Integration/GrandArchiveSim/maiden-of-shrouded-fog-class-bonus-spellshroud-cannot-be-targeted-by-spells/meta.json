@@ -1,0 +1,24 @@
+{
+    "name": "maiden-of-shrouded-fog-class-bonus-spellshroud-cannot-be-targeted-by-spells",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:59:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wum3f33kay"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wum3f33kay"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "spellshroud"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Spellshroud**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

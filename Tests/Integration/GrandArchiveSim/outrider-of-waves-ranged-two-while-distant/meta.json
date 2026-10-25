@@ -1,0 +1,25 @@
+{
+    "name": "outrider-of-waves-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:46:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rltyxefm80"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rltyxefm80"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 2**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

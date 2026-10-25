@@ -15,7 +15,10 @@
             "actions-resolve-generated-enter-effect",
             "additional-cost-sacrifice"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice a Chessman ally.",
+            "Target unit's attacks get -3 [POWER] until end of turn."
+        ]
     },
     "engineBug": {
         "status": "fixed",

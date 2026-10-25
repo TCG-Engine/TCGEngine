@@ -9,7 +9,9 @@
         "type": "card_property_equals",
         "mzId": "p1Field-0",
         "property": "CardID",
-        "value": "TJTeWcZnsQ"
+        "value": "TJTeWcZnsQ",
+        "semantic": true,
+        "label": "The champion levelled up into Lorraine, Blademaster"
     },
     {
         "step": 4,
@@ -23,7 +25,9 @@
         "type": "card_property_equals",
         "mzId": "p1Banish-0",
         "property": "CardID",
-        "value": "4a7QLLouGk"
+        "value": "4a7QLLouGk",
+        "semantic": true,
+        "label": "Savage Slash was banished from the graveyard to pay 1 of the champion's memory cost"
     },
     {
         "step": 4,

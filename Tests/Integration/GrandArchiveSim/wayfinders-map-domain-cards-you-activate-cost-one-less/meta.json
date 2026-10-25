@@ -1,0 +1,24 @@
+{
+    "name": "wayfinders-map-domain-cards-you-activate-cost-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:44:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "porhlq2kkv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "porhlq2kkv"
+        ],
+        "mechanics": [
+            "static",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "Domain cards you activate cost 1 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

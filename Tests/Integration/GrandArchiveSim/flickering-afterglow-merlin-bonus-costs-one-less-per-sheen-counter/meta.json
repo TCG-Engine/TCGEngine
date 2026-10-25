@@ -1,0 +1,25 @@
+{
+    "name": "flickering-afterglow-merlin-bonus-costs-one-less-per-sheen-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:38:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tng0Gpe9mI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tng0Gpe9mI"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "sheen",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] This card costs 1 less to activate for each **sheen** counter on your Fractured Memories."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

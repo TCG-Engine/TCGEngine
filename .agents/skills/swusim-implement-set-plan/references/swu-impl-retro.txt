@@ -1,0 +1,3 @@
+what were some lessons learned from this session that we might be able to use to improve the swusim-implement-card skill?
+come up with a list, and then pick the best ones to roll into the skill itself.
+also clean up any stale context.

@@ -1,0 +1,26 @@
+{
+    "name": "rescue-the-heir-returns-an-ally-to-memory-and-costs-one-without-a-unique-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:43:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "t0240ykvj0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "t0240ykvj0"
+        ],
+        "mechanics": [
+            "targeting",
+            "zone-movement",
+            "cost-modification"
+        ],
+        "rulesClauses": [
+            "Return target ally you control to its owner's memory.",
+            "[Level 1+] As long as you control a unique ally, this card costs 1 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

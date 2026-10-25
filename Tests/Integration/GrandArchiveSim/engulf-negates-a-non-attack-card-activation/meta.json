@@ -1,0 +1,24 @@
+{
+    "name": "engulf-negates-a-non-attack-card-activation",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:38:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "IPmK09iEIT"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "IPmK09iEIT"
+        ],
+        "mechanics": [
+            "negate",
+            "card-activation"
+        ],
+        "rulesClauses": [
+            "**Negate** target non-attack card activation."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

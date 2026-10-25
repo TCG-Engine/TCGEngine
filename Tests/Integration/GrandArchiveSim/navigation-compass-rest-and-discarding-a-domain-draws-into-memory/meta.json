@@ -1,0 +1,26 @@
+{
+    "name": "navigation-compass-rest-and-discarding-a-domain-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:44:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sw2ugmnmp5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sw2ugmnmp5"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "discard",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "[REST]**, Discard a domain card:** Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "hunt-weiss-king-alice-bonus-costs-two-less-for-each-of-up-to-two-pawn-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:55:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Y6PZntlVDl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Y6PZntlVDl"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] This card costs 2 less to activate for each of up to two Pawn allies you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

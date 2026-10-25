@@ -1,0 +1,23 @@
+{
+    "name": "golden-gambit-sacrificing-a-chessman-ally-draws-two-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:27:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "B1EbF6jcYF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "B1EbF6jcYF"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sacrifice",
+            "draw"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice a Chessman ally.",
+            "Draw two cards."
+        ]
+    }
+}

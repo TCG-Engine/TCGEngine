@@ -1,0 +1,24 @@
+{
+    "name": "siege-mauler-control-an-ordinary-ally-leaves-the-domain-standing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:38:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bsuO8TVe7p"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bsuO8TVe7p"
+        ],
+        "mechanics": [
+            "condition",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME is attacking a domain, it gets +2 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

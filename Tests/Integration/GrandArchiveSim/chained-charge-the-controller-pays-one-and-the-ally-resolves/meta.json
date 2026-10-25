@@ -1,0 +1,25 @@
+{
+    "name": "chained-charge-the-controller-pays-one-and-the-ally-resolves",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:31:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "grlpk1akxj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "grlpk1akxj"
+        ],
+        "mechanics": [
+            "negate",
+            "pay-or-negate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Negate** target card activation unless its controller pays (1)."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

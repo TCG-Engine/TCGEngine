@@ -1,0 +1,24 @@
+{
+    "name": "charged-mannequin-with-a-powercell-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:08:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "alegbscxwj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "alegbscxwj"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "As long as you control a Powercell, CARDNAME gets +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

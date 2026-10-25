@@ -44,7 +44,9 @@
         "type": "card_property_equals",
         "mzId": "p2Field-0",
         "property": "Damage",
-        "value": "2"
+        "value": "2",
+        "semantic": true,
+        "label": "The weapon attack dealt 2 damage: 1 POWER + 1 from the Class Bonus"
     },
     {
         "step": 7,

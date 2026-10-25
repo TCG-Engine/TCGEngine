@@ -1,0 +1,45 @@
+{
+  "root": "GrandArchiveSim",
+  "patches": [
+    {
+      "card_id": "172utOanGk",
+      "macro_name": "Enter",
+      "fields": {
+        "ability_code": {
+          "before": "for($i = 0; $i < 3; ++$i) {\n    if(empty(ZoneSearch(\"myDeck\"))) break;\n    MZMove($player, \"myDeck-0\", \"myGraveyard\");\n}\n$waterCount = count(ZoneSearch(\"myGraveyard\", cardElements: [\"WATER\"]));\nEmpower($player, $waterCount, \"172utOanGk\");",
+          "after": "MillCards($player, \"myDeck\", \"myGraveyard\", 3);\nDecisionQueueController::CleanupRemovedCards();\n$waterCount = count(ZoneSearch(\"myGraveyard\", cardElements: [\"WATER\"]));\nEmpower($player, $waterCount, \"172utOanGk\");"
+        }
+      }
+    },
+    {
+      "card_id": "OiyjVzW7Av",
+      "macro_name": "CardActivated",
+      "fields": {
+        "ability_code": {
+          "before": "AddHauntToMastery($player, 1);\n$hauntCount = GetHauntCount($player);\nfor($i = 0; $i < $hauntCount; ++$i) {\n    $deck = &GetDeck($player);\n    if(empty($deck)) break;\n    MZMove($player, \"myDeck-0\", \"myGraveyard\");\n}",
+          "after": "AddHauntToMastery($player, 1);\n$hauntCount = GetHauntCount($player);\nif($hauntCount > 0) MillCards($player, \"myDeck\", \"myGraveyard\", $hauntCount);"
+        }
+      }
+    },
+    {
+      "card_id": "6fxxgmuesd",
+      "macro_name": "OnAttack",
+      "fields": {
+        "ability_code": {
+          "before": "// Icebound Slam: On Attack: Mill 5, then if 5+ water in graveyard, +5 POWER\n$deck = &GetDeck($player);\n$millCount = min(5, count($deck));\nfor($i = 0; $i < $millCount; ++$i) {\n    MZMove($player, \"myDeck-0\", \"myGraveyard\");\n}\n$waterCards = ZoneSearch(\"myGraveyard\", cardElements: [\"WATER\"]);\nif(count($waterCards) >= 5) {\n    $mzID = DecisionQueueController::GetVariable(\"mzID\");\n    AddTurnEffect($mzID, \"6fxxgmuesd\");\n}",
+          "after": "// Icebound Slam: On Attack: Mill 5, then if 5+ water in graveyard, +5 POWER\nMillCards($player, \"myDeck\", \"myGraveyard\", 5);\nDecisionQueueController::CleanupRemovedCards();\n$waterCards = ZoneSearch(\"myGraveyard\", cardElements: [\"WATER\"]);\nif(count($waterCards) >= 5) {\n    $mzID = DecisionQueueController::GetVariable(\"mzID\");\n    AddTurnEffect($mzID, \"6fxxgmuesd\");\n}"
+        }
+      }
+    },
+    {
+      "card_id": "x6jo8zxhl9",
+      "macro_name": "OnHit",
+      "fields": {
+        "ability_code": {
+          "before": "// Waterfall Veiler: On Champion Hit: opponent puts top 4 cards of deck into graveyard.\n$hitTarget = DecisionQueueController::GetVariable(\"CombatTarget\");\nif($hitTarget === null || $hitTarget === \"-\" || $hitTarget === \"\") return;\n$hitObj = GetZoneObject($hitTarget);\nif($hitObj === null || $hitObj->removed) return;\nif(!PropertyContains(EffectiveCardType($hitObj), \"CHAMPION\")) return;\n$opponent = ($player == 1) ? 2 : 1;\n$oppDeck = &GetDeck($opponent);\n$millCount = min(4, count($oppDeck));\nfor($i = 0; $i < $millCount; ++$i) {\n    MZMove($player, \"theirDeck-0\", \"theirGraveyard\");\n}",
+          "after": "// Waterfall Veiler: On Champion Hit: opponent puts top 4 cards of deck into graveyard.\n$hitTarget = DecisionQueueController::GetVariable(\"CombatTarget\");\nif($hitTarget === null || $hitTarget === \"-\" || $hitTarget === \"\") return;\n$hitObj = GetZoneObject($hitTarget);\nif($hitObj === null || $hitObj->removed) return;\nif(!PropertyContains(EffectiveCardType($hitObj), \"CHAMPION\")) return;\nMillCards($player, \"theirDeck\", \"theirGraveyard\", 4);"
+        }
+      }
+    }
+  ]
+}

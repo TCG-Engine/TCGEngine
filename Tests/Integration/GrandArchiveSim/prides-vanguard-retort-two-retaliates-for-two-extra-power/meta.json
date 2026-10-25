@@ -1,0 +1,23 @@
+{
+    "name": "prides-vanguard-retort-two-retaliates-for-two-extra-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9mjhngb8qe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9mjhngb8qe"
+        ],
+        "mechanics": [
+            "keyword",
+            "retort",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Retort 2** *(As long as this ally is retaliating, it gets +2[POWER].)*"
+        ]
+    },
+    "behaviorFamily": true
+}

@@ -1,0 +1,25 @@
+{
+    "name": "maiden-of-reverent-gale-without-diao-chan-returns-nothing-when-it-dies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:25:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5wdysg327b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5wdysg327b"
+        ],
+        "mechanics": [
+            "on-death",
+            "champion-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Diao Chan Bonus] **On Death**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

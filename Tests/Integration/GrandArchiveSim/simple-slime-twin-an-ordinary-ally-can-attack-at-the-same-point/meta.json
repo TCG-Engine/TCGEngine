@@ -1,0 +1,23 @@
+{
+    "name": "simple-slime-twin-an-ordinary-ally-can-attack-at-the-same-point",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:18:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Zxab4Vi0wx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Zxab4Vi0wx"
+        ],
+        "mechanics": [
+            "restriction"
+        ],
+        "rulesClauses": [
+            "CARDNAME can't attack."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

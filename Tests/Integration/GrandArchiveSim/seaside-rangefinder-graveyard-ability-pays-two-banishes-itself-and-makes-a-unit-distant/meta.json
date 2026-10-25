@@ -5,5 +5,22 @@
     "createdBy": "batch-script",
     "testedCards": [
         "5qyee9vkp8"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5qyee9vkp8"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "distant",
+            "class-bonus",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Element Bonus] (2), Banish this card from your graveyard: Target unit becomes distant."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
 }

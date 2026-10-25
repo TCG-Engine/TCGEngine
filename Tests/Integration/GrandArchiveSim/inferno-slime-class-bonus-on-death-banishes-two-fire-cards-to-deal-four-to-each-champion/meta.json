@@ -1,0 +1,26 @@
+{
+    "name": "inferno-slime-class-bonus-on-death-banishes-two-fire-cards-to-deal-four-to-each-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:14:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2vQVsdHJqI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2vQVsdHJqI"
+        ],
+        "mechanics": [
+            "on-death",
+            "banish",
+            "damage",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Death: You may banish two fire element cards from your graveyard. If you do, deal 4 damage to each champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

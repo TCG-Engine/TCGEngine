@@ -1,0 +1,25 @@
+{
+    "name": "legions-wingspan-without-the-diana-bonus-gives-no-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:57:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iuixf9rdmu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iuixf9rdmu"
+        ],
+        "mechanics": [
+            "on-attack",
+            "diana-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Diana Bonus] **On Attack**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

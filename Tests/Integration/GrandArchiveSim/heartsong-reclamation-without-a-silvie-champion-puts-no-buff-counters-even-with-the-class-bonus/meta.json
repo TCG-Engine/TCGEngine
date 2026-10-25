@@ -1,0 +1,24 @@
+{
+    "name": "heartsong-reclamation-without-a-silvie-champion-puts-no-buff-counters-even-with-the-class-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:08:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d253WtyIXr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "d253WtyIXr"
+        ],
+        "mechanics": [
+            "silvie-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Silvie Bonus] Put five **buff** counters on each Animal and/or Beast ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

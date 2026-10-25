@@ -1,0 +1,25 @@
+{
+    "name": "brisk-windtrotter-on-enter-puts-a-buff-counter-on-another-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mala1jaff7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mala1jaff7"
+        ],
+        "mechanics": [
+            "on-enter",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Put a **buff** counter on another target ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

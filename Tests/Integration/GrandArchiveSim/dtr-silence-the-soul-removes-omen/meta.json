@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "7PpyBdi0cb"
+        ],
+        "mechanics": [
+            "counter",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "Remove all omen counters and prevent more this turn."
+        ]
+    },
+    "name": "dtr-silence-the-soul-removes-omen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:09:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7PpyBdi0cb"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

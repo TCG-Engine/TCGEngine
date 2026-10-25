@@ -1,0 +1,25 @@
+{
+    "name": "tideholder-claymore-additional-attack-cost-is-ten-reduced-by-the-water-cards-in-your-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:54:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5iqigcom2r"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5iqigcom2r"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "attack",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "As an additional cost to use this weapon for an attack, pay (10), reduced by (1) for each water element card in your graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

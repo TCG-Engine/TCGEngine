@@ -1,0 +1,25 @@
+{
+    "name": "without-counter-interference-the-action-targeting-the-automaton-ally-resolves",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:34:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CK4ZG5x6OF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CK4ZG5x6OF"
+        ],
+        "mechanics": [
+            "reaction",
+            "negate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Negate** target trigger or action card activation that targets an Automaton ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

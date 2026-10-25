@@ -1,0 +1,25 @@
+{
+    "name": "tidal-lock-the-controller-declines-and-the-activation-is-negated-and-banished",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:40:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "c4poa10ezw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "c4poa10ezw"
+        ],
+        "mechanics": [
+            "negate",
+            "pay-or-negate",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Negate** target card activation unless its controller pays (2). Banish the card that had its activation **negated** this way."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

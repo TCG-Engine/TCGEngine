@@ -1,0 +1,28 @@
+{
+    "name": "sinfonia-of-hope-class-bonus-gives-life-and-makes-the-next-harmony-cost-two-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:19:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7QmyDecqkk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7QmyDecqkk"
+        ],
+        "mechanics": [
+            "melody",
+            "stat-change",
+            "class-bonus",
+            "cost-reduction",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target ally gets +2[LIFE] until end of turn.",
+            "[Class Bonus] The next Harmony card you activate this turn costs 2 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

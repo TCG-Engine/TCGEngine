@@ -1,0 +1,25 @@
+{
+    "name": "purifying-thurible-banishing-two-cards-draws-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:53:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "LeyUk5auEP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "LeyUk5auEP"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If **X **is 3 or greater, draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

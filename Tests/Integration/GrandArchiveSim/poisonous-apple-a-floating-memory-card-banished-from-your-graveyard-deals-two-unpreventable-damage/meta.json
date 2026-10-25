@@ -1,0 +1,28 @@
+{
+    "name": "poisonous-apple-a-floating-memory-card-banished-from-your-graveyard-deals-two-unpreventable-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:44:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ukurlcbgzi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ukurlcbgzi"
+        ],
+        "mechanics": [
+            "on-enter",
+            "control-change",
+            "trigger",
+            "damage",
+            "floating-memory"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Choose a player. That player gains control of Poisonous Apple.",
+            "Whenever a card with **floating memory** is banished from your graveyard, deal 2 unpreventable damage to your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

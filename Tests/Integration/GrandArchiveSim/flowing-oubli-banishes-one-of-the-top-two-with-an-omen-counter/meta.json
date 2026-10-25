@@ -1,0 +1,27 @@
+{
+    "name": "flowing-oubli-banishes-one-of-the-top-two-with-an-omen-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:36:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vcxw3yh2t4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vcxw3yh2t4"
+        ],
+        "mechanics": [
+            "look",
+            "banish",
+            "omen-counter",
+            "cost-reduction",
+            "level"
+        ],
+        "rulesClauses": [
+            "Look at the top two cards of your deck. Banish one of them and put an **omen** counter on it. Put the other on the bottom of your deck."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

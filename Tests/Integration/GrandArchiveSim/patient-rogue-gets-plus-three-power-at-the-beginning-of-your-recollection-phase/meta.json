@@ -1,0 +1,24 @@
+{
+    "name": "patient-rogue-gets-plus-three-power-at-the-beginning-of-your-recollection-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:16:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CvvgJR4fNa"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CvvgJR4fNa"
+        ],
+        "mechanics": [
+            "recollection-phase",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, CARDNAME gets +3 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "weiss-bishop-has-stealth-while-you-control-a-pawn-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:08:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Dgtim99eB5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Dgtim99eB5"
+        ],
+        "mechanics": [
+            "stealth",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you control one or more Pawn allies, CARDNAME has **stealth**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "primeval-ritual-cannot-be-activated-without-an-ally-to-sacrifice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:39:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fan41iqm8b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fan41iqm8b"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice an ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

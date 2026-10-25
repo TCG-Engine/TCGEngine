@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "5Qtu09P9k0"
+        ],
+        "mechanics": [
+            "cascade",
+            "cost",
+            "rest"
+        ],
+        "rulesClauses": [
+            "First cascade costs two and rests."
+        ]
+    },
+    "name": "dtr-unwound-timepiece-first-cascade",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:17:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5Qtu09P9k0"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

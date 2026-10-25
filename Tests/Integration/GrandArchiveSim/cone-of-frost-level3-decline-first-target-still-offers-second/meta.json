@@ -15,7 +15,10 @@
             "optional-choice-decline",
             "level-gated-effects"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "[Level 1+] Deal 2 damage to up to one target unit.",
+            "[Level 3+] Deal 2 damage to up to one target unit."
+        ]
     },
     "engineBug": {
         "status": "fixed",

@@ -1,0 +1,25 @@
+{
+    "name": "seasoned-shieldmaster-class-bonus-fostered-allies-get-plus-one-power-and-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:25:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qsm4o98vn1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qsm4o98vn1"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "foster",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Fostered** allies you control get +1 [POWER] and +1 [LIFE]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

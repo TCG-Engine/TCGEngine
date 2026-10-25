@@ -1,0 +1,24 @@
+{
+    "name": "peer-beyond-the-target-unit-gains-true-sight-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:03:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "54ebGqHpLO"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "54ebGqHpLO"
+        ],
+        "mechanics": [
+            "true-sight",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target unit gains **true sight** until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

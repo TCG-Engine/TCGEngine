@@ -1,0 +1,28 @@
+{
+    "name": "provoke-obstinance-class-bonus-single-target-draws-into-memory-and-protects-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:23:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "16r0zadf9q"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "16r0zadf9q"
+        ],
+        "mechanics": [
+            "reaction",
+            "class-bonus",
+            "draw-into-memory",
+            "spellshroud",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever you activate this card, if there's exactly one target for its activation, draw a card into your memory.",
+            "Up to five target objects you control gain **spellshroud** until end of turn. Prevent the next 2 damage that would be dealt to each of those targets this turn if they're units."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

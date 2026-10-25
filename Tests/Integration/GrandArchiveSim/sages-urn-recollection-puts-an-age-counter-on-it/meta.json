@@ -1,0 +1,24 @@
+{
+    "name": "sages-urn-recollection-puts-an-age-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s7a4tm04ll"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s7a4tm04ll"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, if there are less than four **age** counters on CARDNAME, put an **age** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

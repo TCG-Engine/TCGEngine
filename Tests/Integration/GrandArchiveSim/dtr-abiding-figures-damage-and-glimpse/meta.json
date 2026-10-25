@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "XigkNI4cqd"
+        ],
+        "mechanics": [
+            "damage",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "Self damage followed by glimpse six."
+        ]
+    },
+    "name": "dtr-abiding-figures-damage-and-glimpse",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:16:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "XigkNI4cqd"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

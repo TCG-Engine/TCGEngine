@@ -1,0 +1,25 @@
+{
+    "name": "draught-dodge-class-bonus-draws-into-memory-when-the-unit-is-already-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:28:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "QFWIbwV25T"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "QFWIbwV25T"
+        ],
+        "mechanics": [
+            "draw-into-memory",
+            "distant",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] If that unit is **distant**, draw a card into your memory. Otherwise, it becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

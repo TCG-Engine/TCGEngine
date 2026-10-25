@@ -1,0 +1,25 @@
+{
+    "name": "virgil-level-one-gets-plus-one-power-and-life-for-each-of-up-to-two-powercells",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:50:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xdgpdcD33h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xdgpdcD33h"
+        ],
+        "mechanics": [
+            "level-gate",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Level 1+]CARDNAME gets +1[POWER] and +1[LIFE] for each of up to two Powercell items you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

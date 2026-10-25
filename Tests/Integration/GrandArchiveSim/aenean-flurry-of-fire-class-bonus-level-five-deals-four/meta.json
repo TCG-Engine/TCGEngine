@@ -1,0 +1,25 @@
+{
+    "name": "aenean-flurry-of-fire-class-bonus-level-five-deals-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6Sv5qIpglQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6Sv5qIpglQ"
+        ],
+        "mechanics": [
+            "damage",
+            "class-bonus",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 5+] Deal 1 damage to that unit two more times."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

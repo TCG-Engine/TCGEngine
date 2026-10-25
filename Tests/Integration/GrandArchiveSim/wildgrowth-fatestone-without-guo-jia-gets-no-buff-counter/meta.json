@@ -1,0 +1,25 @@
+{
+    "name": "wildgrowth-fatestone-without-guo-jia-gets-no-buff-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:19:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x2oydmfcre"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "x2oydmfcre"
+        ],
+        "mechanics": [
+            "champion-bonus",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus]"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

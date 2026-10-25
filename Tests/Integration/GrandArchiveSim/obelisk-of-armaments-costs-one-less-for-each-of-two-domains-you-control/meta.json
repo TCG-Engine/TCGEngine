@@ -1,0 +1,25 @@
+{
+    "name": "obelisk-of-armaments-costs-one-less-for-each-of-two-domains-you-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T01:33:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wk0pw0y6is"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wk0pw0y6is"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "summon",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "(5), [REST]: **Summon** an Aurousteel Greatsword token. This ability costs (1) less to activate for each domain you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

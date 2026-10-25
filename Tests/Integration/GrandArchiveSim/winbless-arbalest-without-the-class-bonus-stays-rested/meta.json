@@ -1,0 +1,23 @@
+{
+    "name": "winbless-arbalest-without-the-class-bonus-stays-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "m4o98vn1vo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "m4o98vn1vo"
+        ],
+        "mechanics": [
+            "vigor",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Vigor**"
+        ]
+    },
+    "behaviorFamily": true
+}

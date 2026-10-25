@@ -1,0 +1,24 @@
+{
+    "name": "bairui-resplendent-barrier-with-three-charge-counters-prevents-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:47:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sqGcyYocLW"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sqGcyYocLW"
+        ],
+        "mechanics": [
+            "prevention",
+            "condition"
+        ],
+        "rulesClauses": [
+            "while CARDNAME has two or less **charge** counters on it"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

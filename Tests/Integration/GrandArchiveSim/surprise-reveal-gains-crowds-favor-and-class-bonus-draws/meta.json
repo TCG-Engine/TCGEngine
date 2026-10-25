@@ -1,0 +1,27 @@
+{
+    "name": "surprise-reveal-gains-crowds-favor-and-class-bonus-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:54:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pi3DyYU6Sa"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pi3DyYU6Sa"
+        ],
+        "mechanics": [
+            "status",
+            "class-bonus",
+            "draw",
+            "reveal"
+        ],
+        "rulesClauses": [
+            "Target opponent reveals all cards in their hand and memory. You gain the Crowd's Favor status.",
+            "[Class Bonus] Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "plage-aux-homards-three-water-cards-do-not-reach-deluge-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T18:54:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s25QNTvfem"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s25QNTvfem"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "deluge",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] ***Deluge 4 \u2014*** As long as you have four or more water element cards in your graveyard, Animal and Beast allies you control get +1 [LIFE]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

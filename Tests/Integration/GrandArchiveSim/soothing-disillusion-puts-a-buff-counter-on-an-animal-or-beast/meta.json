@@ -1,0 +1,25 @@
+{
+    "name": "soothing-disillusion-puts-a-buff-counter-on-an-animal-or-beast",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:43:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "geq18a4f2h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "geq18a4f2h"
+        ],
+        "mechanics": [
+            "modal-choice",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "\u2022 Put a **buff** counter on target Animal or Beast ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

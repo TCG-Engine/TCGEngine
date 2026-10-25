@@ -171,11 +171,25 @@ foreach ($implemented as $entry) {
     if (!is_array($entry)) $entry = ['cardId' => $entry];
     $cardId = strval($entry['cardId'] ?? $entry['card_id'] ?? '');
     if ($cardId === '') continue;
-    $effect = function_exists('CardEffect') ? strval(CardEffect($cardId) ?? '') : '';
-    $fixtures = array_values(array_unique($fixtureLinks[$cardId]['fixtures'] ?? []));
-    $semanticFixtures = array_values(array_unique($fixtureLinks[$cardId]['semanticFixtures'] ?? []));
+    // The inventory lists some cards by their uuid, while the card data and
+    // the fixtures use an edition id that maps to that uuid ($uuidData). A
+    // uuid with no card data of its own takes its name, rules text and
+    // fixtures from the editions that map to it.
+    $aliasIds = [];
+    if (CardName($cardId) === null && !empty($uuidData)) {
+        foreach ($uuidData as $editionId => $uuid) if ($uuid === $cardId && CardName($editionId) !== null) $aliasIds[] = $editionId;
+    }
+    $dataId = $aliasIds[0] ?? $cardId;
+    $effect = function_exists('CardEffect') ? strval(CardEffect($dataId) ?? '') : '';
+    $fixtures = $semanticFixtures = [];
+    foreach (array_merge([$cardId], $aliasIds) as $linkId) {
+        $fixtures = array_merge($fixtures, $fixtureLinks[$linkId]['fixtures'] ?? []);
+        $semanticFixtures = array_merge($semanticFixtures, $fixtureLinks[$linkId]['semanticFixtures'] ?? []);
+    }
+    $fixtures = array_values(array_unique($fixtures));
+    $semanticFixtures = array_values(array_unique($semanticFixtures));
     $mechanics = BacklogMechanics($effect);
-    $starterDecks = array_keys($starterCardsByName[function_exists('CardName') ? strval(CardName($cardId) ?? '') : ''] ?? []);
+    $starterDecks = array_keys($starterCardsByName[function_exists('CardName') ? strval(CardName($dataId) ?? '') : ''] ?? []);
     $priority = intval($entry['abilityCount'] ?? 1) * GA_BACKLOG_ABILITY_WEIGHT
         + intval($entry['listenerCount'] ?? 0) * GA_BACKLOG_LISTENER_WEIGHT
         + (!empty($fixtures) ? GA_BACKLOG_EXISTING_FIXTURE_BONUS : 0)
@@ -183,8 +197,8 @@ foreach ($implemented as $entry) {
         + min(GA_BACKLOG_MECHANIC_TAG_CAP, count($mechanics));
     $cards[] = [
         'cardId' => $cardId,
-        'name' => function_exists('CardName') ? strval(CardName($cardId) ?? $cardId) : $cardId,
-        'type' => function_exists('CardType') ? strval(CardType($cardId) ?? '') : '',
+        'name' => function_exists('CardName') ? strval(CardName($dataId) ?? $cardId) : $cardId,
+        'type' => function_exists('CardType') ? strval(CardType($dataId) ?? '') : '',
         'abilityCount' => intval($entry['abilityCount'] ?? 1),
         'listenerCount' => intval($entry['listenerCount'] ?? 0),
         'mechanics' => $mechanics,

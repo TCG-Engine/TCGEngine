@@ -1,0 +1,25 @@
+{
+    "name": "sasha-purifying-acolyte-on-foster-banishes-every-card-in-every-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:38:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GRlUlcYRmV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GRlUlcYRmV"
+        ],
+        "mechanics": [
+            "foster",
+            "on-foster",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**On Foster:** Banish all cards in all graveyards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

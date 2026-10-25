@@ -15,7 +15,9 @@
             "optional-choice-decline",
             "if-you-dont"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "On Enter: Destroy up to one target regalia with memory cost 0. If you don't, put two buff counters on CARDNAME."
+        ]
     },
     "engineBug": {
         "status": "fixed",

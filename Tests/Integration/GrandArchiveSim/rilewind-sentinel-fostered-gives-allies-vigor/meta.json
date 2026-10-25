@@ -1,0 +1,26 @@
+{
+    "name": "rilewind-sentinel-fostered-gives-allies-vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:24:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y1utsihaxv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y1utsihaxv"
+        ],
+        "mechanics": [
+            "foster",
+            "vigor",
+            "static-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as Rilewind Sentinel is **fostered**, allies you control have **vigor**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

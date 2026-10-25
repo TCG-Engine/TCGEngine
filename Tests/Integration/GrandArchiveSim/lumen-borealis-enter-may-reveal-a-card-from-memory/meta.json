@@ -1,0 +1,25 @@
+{
+    "name": "lumen-borealis-enter-may-reveal-a-card-from-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:03:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3ejd9yj9rl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3ejd9yj9rl"
+        ],
+        "mechanics": [
+            "on-enter",
+            "reveal",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "**On Enter**: You may reveal a card from your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "cultivate-imbued-without-herbs-gathers-once",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:11:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cy3gme0xxw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cy3gme0xxw"
+        ],
+        "mechanics": [
+            "imbue",
+            "gather",
+            "condition"
+        ],
+        "rulesClauses": [
+            "For every three Herb items you control,  **gather**. Then if CARDNAME is **imbued**, **gather** an additional time."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

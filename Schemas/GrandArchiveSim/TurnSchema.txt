@@ -12,6 +12,8 @@ AUTO -> MAIN
 Main; MAIN; MainPhase
 AUTO -> MAIN
 PASS -> BEND
+DistortedMaterialize; AMAT; DistortedMaterializePhase
+AUTO -> BEND
 BeforeEnd; BEND; BeforeEndPhase
 AUTO -> BEOP
 BeforeEndOpportunity; BEOP; BeforeEndOpportunityPhase

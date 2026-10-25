@@ -1,0 +1,25 @@
+{
+    "name": "votive-runeblade-without-another-sword-regalia-the-attacker-stays-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:06:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cnjo0ehqyk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cnjo0ehqyk"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-attack",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack**: You may sacrifice another Sword regalia. If you do, wake up the attacker."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

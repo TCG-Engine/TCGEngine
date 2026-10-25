@@ -1,0 +1,25 @@
+{
+    "name": "orchestrated-seizure-can-be-activated-during-the-opponents-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:27:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pwscn0esog"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pwscn0esog"
+        ],
+        "mechanics": [
+            "activation-timing",
+            "floating-memory",
+            "materialize"
+        ],
+        "rulesClauses": [
+            "Activate this card only during an opponent\u2019s end phase."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

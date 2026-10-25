@@ -1,0 +1,25 @@
+{
+    "name": "heated-vengeance-declining-the-self-damage-deals-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:34:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "td460e8ig0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "td460e8ig0"
+        ],
+        "mechanics": [
+            "combat",
+            "optional-choice-decline",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as your champion has taken damage this turn, CARDNAME gets +3 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

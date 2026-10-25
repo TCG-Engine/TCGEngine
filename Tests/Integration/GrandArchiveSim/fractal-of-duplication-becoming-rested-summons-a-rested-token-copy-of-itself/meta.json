@@ -1,0 +1,27 @@
+{
+    "name": "fractal-of-duplication-becoming-rested-summons-a-rested-token-copy-of-itself",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:26:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1f3sLuuCtV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1f3sLuuCtV"
+        ],
+        "mechanics": [
+            "trigger",
+            "rest",
+            "summon",
+            "token-copy",
+            "reservable"
+        ],
+        "rulesClauses": [
+            "Whenever CARDNAME becomes rested, **summon** a token copy of it rested."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

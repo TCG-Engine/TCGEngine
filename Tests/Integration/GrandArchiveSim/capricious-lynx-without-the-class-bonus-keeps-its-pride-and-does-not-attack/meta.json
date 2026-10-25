@@ -1,0 +1,25 @@
+{
+    "name": "capricious-lynx-without-the-class-bonus-keeps-its-pride-and-does-not-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:46:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v1au7t9m4m"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v1au7t9m4m"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** CARDNAME loses all abilities until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

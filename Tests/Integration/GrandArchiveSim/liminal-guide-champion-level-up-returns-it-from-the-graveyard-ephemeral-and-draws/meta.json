@@ -1,0 +1,27 @@
+{
+    "name": "liminal-guide-champion-level-up-returns-it-from-the-graveyard-ephemeral-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:36:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0xayo7mk1w"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0xayo7mk1w"
+        ],
+        "mechanics": [
+            "trigger",
+            "level-up",
+            "zone-movement",
+            "ephemeral",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Whenever your champion levels up, return this card from your graveyard to the field. If you do, it becomes **ephemeral** and draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

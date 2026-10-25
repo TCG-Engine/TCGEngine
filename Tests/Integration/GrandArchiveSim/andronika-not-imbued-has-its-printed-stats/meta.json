@@ -1,0 +1,25 @@
+{
+    "name": "andronika-not-imbued-has-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:40:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vw2ifz1nr5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vw2ifz1nr5"
+        ],
+        "mechanics": [
+            "imbue",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME is **imbued**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

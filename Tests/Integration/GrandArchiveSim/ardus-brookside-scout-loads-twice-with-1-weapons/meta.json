@@ -1,0 +1,25 @@
+{
+    "name": "ardus-brookside-scout-loads-twice-with-1-weapons",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:30:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "EKiMJfgvSI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "EKiMJfgvSI"
+        ],
+        "mechanics": [
+            "deluge",
+            "on-enter",
+            "load"
+        ],
+        "rulesClauses": [
+            "Cards you activate, objects you control, and intents you control have an additional instance of each **deluge** ability and effect they have."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

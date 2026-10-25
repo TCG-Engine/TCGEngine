@@ -1,0 +1,24 @@
+{
+    "name": "sword-of-adversity-with-an-ally-has-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:13:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dpu9pHGX48"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dpu9pHGX48"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1 [POWER] as long as you control no allies."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

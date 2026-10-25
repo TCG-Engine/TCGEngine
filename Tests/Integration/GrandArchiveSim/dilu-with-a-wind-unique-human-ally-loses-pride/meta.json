@@ -1,0 +1,25 @@
+{
+    "name": "dilu-with-a-wind-unique-human-ally-loses-pride",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:52:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "du4eaktghh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "du4eaktghh"
+        ],
+        "mechanics": [
+            "pride",
+            "static-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you control a wind element unique Human ally, Dilu loses **pride**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

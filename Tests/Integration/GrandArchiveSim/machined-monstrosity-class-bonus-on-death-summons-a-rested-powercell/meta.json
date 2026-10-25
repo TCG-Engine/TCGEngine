@@ -1,0 +1,23 @@
+{
+    "name": "machined-monstrosity-class-bonus-on-death-summons-a-rested-powercell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:26:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "214upufooz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "214upufooz"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-death",
+            "summon"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Death:** **Summon** a Powercell token rested."
+        ]
+    },
+    "behaviorFamily": true
+}

@@ -1,0 +1,26 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "x3ljhn5iu9"
+        ],
+        "mechanics": [
+            "static",
+            "element",
+            "level-gate",
+            "damage-gate"
+        ],
+        "rulesClauses": [
+            "Level 2+, Damage 15+: all elements are enabled."
+        ]
+    },
+    "name": "prismatic-perseverance-enables-advanced-element-at-thresholds",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:24:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x3ljhn5iu9"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

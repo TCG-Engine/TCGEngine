@@ -1,0 +1,24 @@
+{
+    "name": "aenean-guttering-flames-enter-draws-then-discards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "JGQ9LO5DFv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "JGQ9LO5DFv"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "On Enter: Draw a card, then discard a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

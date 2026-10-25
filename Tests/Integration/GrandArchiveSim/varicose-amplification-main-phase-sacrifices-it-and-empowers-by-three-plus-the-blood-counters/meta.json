@@ -1,0 +1,26 @@
+{
+    "name": "varicose-amplification-main-phase-sacrifices-it-and-empowers-by-three-plus-the-blood-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:19:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Tt2Ew9RmIt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Tt2Ew9RmIt"
+        ],
+        "mechanics": [
+            "main-phase",
+            "sacrifice",
+            "empower",
+            "blood"
+        ],
+        "rulesClauses": [
+            "At the beginning of your main phase, sacrifice CARDNAME and **empower 3+X**, where **X** is the amount of **blood** counters that was on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

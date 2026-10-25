@@ -1,0 +1,25 @@
+{
+    "name": "aenean-cyclone-class-bonus-efficiency-suppresses-any-amount-of-objects-then-banishes-itself",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:13:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "eCxOH7BgsS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "eCxOH7BgsS"
+        ],
+        "mechanics": [
+            "suppress",
+            "targeting",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Suppress** any amount of target non-champion objects. Banish CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

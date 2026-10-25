@@ -1,0 +1,25 @@
+{
+    "name": "obelisk-of-armaments-does-not-count-an-opponents-domain",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T01:33:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wk0pw0y6is"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wk0pw0y6is"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost-reduction",
+            "controller"
+        ],
+        "rulesClauses": [
+            "(5), [REST]: **Summon** an Aurousteel Greatsword token. This ability costs (1) less to activate for each domain you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "horned-knight-attacking-a-champion-has-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:19:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vjdbqgku4z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vjdbqgku4z"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As long as Horned Knight is attacking an ally, Horned Knight gets +1[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "evaporation-synchron-gets-a-refinement-counter-when-a-water-floating-memory-card-is-banished-from-an-opponents-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:24:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rAiEX6Ra4p"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rAiEX6Ra4p"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter",
+            "floating-memory",
+            "banish"
+        ],
+        "rulesClauses": [
+            "Whenever a water element card with **floating memory** is banished from an opponent's graveyard, put a **refinement** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

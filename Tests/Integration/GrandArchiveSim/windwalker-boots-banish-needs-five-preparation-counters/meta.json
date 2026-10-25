@@ -1,0 +1,24 @@
+{
+    "name": "windwalker-boots-banish-needs-five-preparation-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:45:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "73fdt8ptrz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "73fdt8ptrz"
+        ],
+        "mechanics": [
+            "banish",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Activate this ability only if your champion has five or more **preparation** counters on them."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

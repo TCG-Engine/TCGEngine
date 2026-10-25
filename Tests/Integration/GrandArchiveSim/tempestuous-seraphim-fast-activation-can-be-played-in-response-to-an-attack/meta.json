@@ -1,0 +1,24 @@
+{
+    "name": "tempestuous-seraphim-fast-activation-can-be-played-in-response-to-an-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:26:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "HYFtrEXYFi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "HYFtrEXYFi"
+        ],
+        "mechanics": [
+            "keyword",
+            "fast-activation"
+        ],
+        "rulesClauses": [
+            "**Fast Activation**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

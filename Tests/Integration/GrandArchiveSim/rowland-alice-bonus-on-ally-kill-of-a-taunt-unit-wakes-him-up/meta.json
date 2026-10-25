@@ -1,0 +1,26 @@
+{
+    "name": "rowland-alice-bonus-on-ally-kill-of-a-taunt-unit-wakes-him-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:20:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bGmutHfgMl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bGmutHfgMl"
+        ],
+        "mechanics": [
+            "on-kill",
+            "champion-bonus",
+            "status",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] **On Ally Kill:** If the killed unit had **intercept** or **taunt**, wake up CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "oppressive-presence-attackers-must-pay-the-highest-fire-ally-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:03:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "j9hjjvkyyr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "j9hjjvkyyr"
+        ],
+        "mechanics": [
+            "timing-restriction",
+            "attack-tax",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "Activate this card only during an opponent's recollection phase.",
+            "Until end of turn, players can't declare attacks with allies unless they pay (X) for each attack declaration, where **X** is the highest [POWER] among fire element allies you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

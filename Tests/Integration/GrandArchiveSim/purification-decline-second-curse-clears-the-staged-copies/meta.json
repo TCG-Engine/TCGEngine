@@ -15,7 +15,9 @@
             "optional-choice-decline",
             "lineage-curse"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Recover 2. Then choose up to two Curse cards from your champion's lineage and discard them. For each card discarded this way, recover 2."
+        ]
     },
     "engineBug": {
         "status": "fixed",

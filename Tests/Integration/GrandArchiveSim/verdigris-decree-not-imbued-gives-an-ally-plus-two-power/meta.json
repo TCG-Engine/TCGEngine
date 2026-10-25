@@ -1,0 +1,25 @@
+{
+    "name": "verdigris-decree-not-imbued-gives-an-ally-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:15:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7cx66hjlgx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7cx66hjlgx"
+        ],
+        "mechanics": [
+            "modal-choice",
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "\u2022 Up to one target ally gets +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

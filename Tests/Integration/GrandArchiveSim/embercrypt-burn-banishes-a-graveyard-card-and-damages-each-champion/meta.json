@@ -1,0 +1,25 @@
+{
+    "name": "embercrypt-burn-banishes-a-graveyard-card-and-damages-each-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k2d3ca13yr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k2d3ca13yr"
+        ],
+        "mechanics": [
+            "banish",
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Banish target card from a graveyard. Then deal 2 damage to each champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

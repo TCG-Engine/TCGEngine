@@ -1,0 +1,24 @@
+{
+    "name": "royal-oathguard-intercept-redirects-an-attack-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:20:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "g3DQoQvyjI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "g3DQoQvyjI"
+        ],
+        "mechanics": [
+            "keyword",
+            "intercept"
+        ],
+        "rulesClauses": [
+            "**Intercept**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

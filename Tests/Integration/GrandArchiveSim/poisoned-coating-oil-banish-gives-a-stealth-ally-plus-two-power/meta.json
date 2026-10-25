@@ -1,0 +1,26 @@
+{
+    "name": "poisoned-coating-oil-banish-gives-a-stealth-ally-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:09:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OofVX5hX8X"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OofVX5hX8X"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "stat-change",
+            "targeting",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Target ally you control with **stealth** gets +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

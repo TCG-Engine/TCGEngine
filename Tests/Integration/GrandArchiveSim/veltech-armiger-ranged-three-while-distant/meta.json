@@ -1,0 +1,23 @@
+{
+    "name": "veltech-armiger-ranged-three-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:19:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5v9mCHv2qG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5v9mCHv2qG"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 3** *(As long as this unit is **distant**, its attacks get +3[POWER].)*"
+        ]
+    },
+    "behaviorFamily": true
+}

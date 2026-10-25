@@ -1,0 +1,27 @@
+{
+    "name": "suspicious-concoction-champion-level-up-banishes-it-to-draw-into-memory-and-recover-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:36:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5tphi6xl26"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5tphi6xl26"
+        ],
+        "mechanics": [
+            "trigger",
+            "level-up",
+            "banish-self",
+            "draw-into-memory",
+            "recover"
+        ],
+        "rulesClauses": [
+            "Whenever your champion levels up, you may banish Suspicious Concoction. If you do, draw a card into your memory and **recover 2**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

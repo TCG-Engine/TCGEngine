@@ -1,0 +1,24 @@
+{
+    "name": "healing-aura-recovers-one-at-the-recollection-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:39:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ao8bls6g7x"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ao8bls6g7x"
+        ],
+        "mechanics": [
+            "trigger",
+            "recover"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, **recover 1**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

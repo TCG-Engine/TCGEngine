@@ -1,0 +1,24 @@
+{
+    "name": "palatial-concourse-glimpses-one-at-the-recollection-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:07:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "c7wklzjmwu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "c7wklzjmwu"
+        ],
+        "mechanics": [
+            "trigger",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, **glimpse 1**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

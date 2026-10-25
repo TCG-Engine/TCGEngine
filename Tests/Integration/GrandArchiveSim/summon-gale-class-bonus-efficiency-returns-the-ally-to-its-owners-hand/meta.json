@@ -1,0 +1,26 @@
+{
+    "name": "summon-gale-class-bonus-efficiency-returns-the-ally-to-its-owners-hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:21:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZgA7cWNKGy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ZgA7cWNKGy"
+        ],
+        "mechanics": [
+            "efficiency",
+            "class-bonus",
+            "cost-reduction",
+            "zone-movement",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Efficiency**",
+            "Return target ally to its owner's hand."
+        ]
+    },
+    "behaviorFamily": true
+}

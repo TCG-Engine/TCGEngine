@@ -1,0 +1,26 @@
+{
+    "name": "enchaining-gale-class-bonus-costs-one-less-and-suppresses-the-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:28:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xhs5jwsl7d"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xhs5jwsl7d"
+        ],
+        "mechanics": [
+            "suppress",
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate. *(Apply this effect only if your champion's class matches this card's class.)*",
+            "**Suppress** target ally. *(To **suppress** an ally, banish it and return it to the field under its owner's control at the beginning of the next end phase.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

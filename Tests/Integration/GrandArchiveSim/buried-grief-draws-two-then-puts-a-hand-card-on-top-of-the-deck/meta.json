@@ -1,0 +1,24 @@
+{
+    "name": "buried-grief-draws-two-then-puts-a-hand-card-on-top-of-the-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rfnrow8iop"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rfnrow8iop"
+        ],
+        "mechanics": [
+            "draw",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Draw two cards, then put a card from your hand on top of your deck."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "riptide-slash-class-bonus-glimpses-two-on-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:54:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1tzgcxyky2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1tzgcxyky2"
+        ],
+        "mechanics": [
+            "combat",
+            "on-attack",
+            "class-bonus",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack**: **Glimpse 2**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

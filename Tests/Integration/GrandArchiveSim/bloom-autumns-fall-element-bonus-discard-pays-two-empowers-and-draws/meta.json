@@ -1,0 +1,26 @@
+{
+    "name": "bloom-autumns-fall-element-bonus-discard-pays-two-empowers-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T01:58:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pebu7agtcd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pebu7agtcd"
+        ],
+        "mechanics": [
+            "element-bonus",
+            "discard",
+            "empower",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Element Bonus] (2), **Discard this card from your hand**: **Empower 2**. Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

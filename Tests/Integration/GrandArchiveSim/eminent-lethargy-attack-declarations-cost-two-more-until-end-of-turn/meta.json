@@ -1,0 +1,24 @@
+{
+    "name": "eminent-lethargy-attack-declarations-cost-two-more-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:16:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GGRtLQgaYU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GGRtLQgaYU"
+        ],
+        "mechanics": [
+            "attack-tax",
+            "cost"
+        ],
+        "rulesClauses": [
+            "Until end of turn, players can\u2019t declare attacks unless they pay (2) for each attack declaration."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

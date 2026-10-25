@@ -1,0 +1,26 @@
+{
+    "name": "molten-cinder-sacrifice-deals-three-damage-to-a-champion-that-leveled-up-this-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:38:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "df9q1vk8ao"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "df9q1vk8ao"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "sacrifice",
+            "damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME:** Deal 3 damage to target champion that leveled up this turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

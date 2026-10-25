@@ -1,0 +1,25 @@
+{
+    "name": "lesser-boon-of-agni-without-the-boon-the-fire-card-cannot-be-activated",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:16:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nbKHFHcvzd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nbKHFHcvzd"
+        ],
+        "mechanics": [
+            "static",
+            "element",
+            "condition"
+        ],
+        "rulesClauses": [
+            "FIRE element is enabled for you."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

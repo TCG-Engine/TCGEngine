@@ -1,0 +1,25 @@
+{
+    "name": "fortifying-aroma-costs-one-less-per-herb-and-puts-two-buff-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:28:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "doo4sk9q9e"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "doo4sk9q9e"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "counter"
+        ],
+        "rulesClauses": [
+            "This card costs 1 less to activate for each Herb you control.",
+            "Put two **buff** counters on target ally. *(Allies get +1 [POWER] and +1 [LIFE] for each **buff** counter on them.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

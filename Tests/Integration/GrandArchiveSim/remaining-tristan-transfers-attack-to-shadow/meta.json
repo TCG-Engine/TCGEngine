@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "sSIDPfkmkw"
+        ],
+        "mechanics": [
+            "on-hit",
+            "attack",
+            "physical-card"
+        ],
+        "rulesClauses": [
+            "Transfer the original attack card into a Shadow attack, then put it into the graveyard once."
+        ]
+    },
+    "name": "remaining-tristan-transfers-attack-to-shadow",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-21T17:21:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sSIDPfkmkw"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

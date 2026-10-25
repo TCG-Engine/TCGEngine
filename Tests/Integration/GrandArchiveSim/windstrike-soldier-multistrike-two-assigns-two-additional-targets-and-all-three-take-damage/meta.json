@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "WFNM4etSFB"
+        ],
+        "mechanics": [
+            "keyword",
+            "multistrike",
+            "combat"
+        ],
+        "rulesClauses": [
+            "You may assign up to two additional targets as you declare an attack with an ally with **multistrike 2**."
+        ]
+    },
+    "name": "windstrike-soldier-multistrike-two-assigns-two-additional-targets-and-all-three-take-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:38:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WFNM4etSFB"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

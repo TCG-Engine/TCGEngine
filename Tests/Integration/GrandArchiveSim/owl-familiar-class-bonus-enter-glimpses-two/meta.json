@@ -1,0 +1,23 @@
+{
+    "name": "owl-familiar-class-bonus-enter-glimpses-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:14:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WShYN9M3lU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WShYN9M3lU"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** **Glimpse 2**."
+        ]
+    },
+    "behaviorFamily": true
+}

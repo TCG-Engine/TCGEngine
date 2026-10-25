@@ -1,0 +1,25 @@
+{
+    "name": "infernal-vessel-reduces-every-recover-by-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:21:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vgWgu1DUYv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vgWgu1DUYv"
+        ],
+        "mechanics": [
+            "static-ability",
+            "recover",
+            "replacement-effect"
+        ],
+        "rulesClauses": [
+            "If a player would **recover** an amount, they **recover X** instead, where **X** is that amount minus 3."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

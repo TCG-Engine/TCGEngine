@@ -1,0 +1,24 @@
+{
+    "name": "arima-gaias-wings-recollection-puts-three-buff-counters-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:39:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "075L8pLihO"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "075L8pLihO"
+        ],
+        "mechanics": [
+            "recollection",
+            "counter"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, put three **buff** counters on Arima."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

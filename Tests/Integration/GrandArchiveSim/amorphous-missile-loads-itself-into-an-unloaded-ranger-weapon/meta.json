@@ -1,0 +1,26 @@
+{
+    "name": "amorphous-missile-loads-itself-into-an-unloaded-ranger-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:19:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "782mm2tq5l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "782mm2tq5l"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "load",
+            "renewable"
+        ],
+        "rulesClauses": [
+            "(1), [REST]**:** Load CARDNAME into target unloaded Ranger weapon you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

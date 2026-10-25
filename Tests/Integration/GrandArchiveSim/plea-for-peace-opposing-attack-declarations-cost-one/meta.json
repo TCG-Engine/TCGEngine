@@ -1,0 +1,24 @@
+{
+    "name": "plea-for-peace-opposing-attack-declarations-cost-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:53:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ir99sx6q3p"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ir99sx6q3p"
+        ],
+        "mechanics": [
+            "restriction",
+            "cost"
+        ],
+        "rulesClauses": [
+            "Until the beginning of your next turn, players can't declare attacks unless they pay (1) for each attack declaration."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

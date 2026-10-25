@@ -1,0 +1,25 @@
+{
+    "name": "cascading-round-rest-loads-it-into-an-unloaded-gun",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:52:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ywc08c9htu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ywc08c9htu"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "load"
+        ],
+        "rulesClauses": [
+            "[REST]**:** Load CARDNAME into target unloaded Gun weapon you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

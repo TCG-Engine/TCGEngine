@@ -1,0 +1,17 @@
+{
+  "root": "GrandArchiveSim",
+  "cards": {
+    "l52lVIFvpy": [
+      {
+        "macroName": "CardActivationDeclared",
+        "abilityType": "listener",
+        "listenerZones": "Field",
+        "abilityCode": "if(intval($eventPlayer) !== intval($player) || !PropertyContains($event_type, \"ACTION\")) return;\nGANimueQueue($player, $listenerMZ, $event_targets);"
+      },
+      {
+        "macroName": "GrantedAbility",
+        "abilityCode": "GANimueDestroy($player, DecisionQueueController::GetVariable(\"nimueTargetUID\"));"
+      }
+    ]
+  }
+}

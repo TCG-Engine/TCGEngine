@@ -1,0 +1,23 @@
+{
+    "name": "palace-guard-without-the-class-bonus-retaliates-for-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k940jhff6v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k940jhff6v"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "retort",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Retort 2**"
+        ]
+    },
+    "behaviorFamily": true
+}

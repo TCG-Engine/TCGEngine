@@ -1,0 +1,23 @@
+{
+    "name": "mana-resonance-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:24:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qp65vbdw7c"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qp65vbdw7c"
+        ],
+        "mechanics": [
+            "draw"
+        ],
+        "rulesClauses": [
+            "Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

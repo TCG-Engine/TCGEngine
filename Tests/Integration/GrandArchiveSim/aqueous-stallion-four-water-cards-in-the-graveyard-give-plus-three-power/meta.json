@@ -1,0 +1,25 @@
+{
+    "name": "aqueous-stallion-four-water-cards-in-the-graveyard-give-plus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:43:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4le7ehjyxs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4le7ehjyxs"
+        ],
+        "mechanics": [
+            "static-ability",
+            "deluge",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "As long as you have four or more water element cards in your graveyard, CARDNAME gets +3 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

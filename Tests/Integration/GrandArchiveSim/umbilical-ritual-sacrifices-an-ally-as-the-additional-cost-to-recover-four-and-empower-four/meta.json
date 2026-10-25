@@ -1,0 +1,27 @@
+{
+    "name": "umbilical-ritual-sacrifices-an-ally-as-the-additional-cost-to-recover-four-and-empower-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:15:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TfBuA9PUAO"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TfBuA9PUAO"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sacrifice",
+            "recover",
+            "empower"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice an ally.",
+            "**Recover 4** and **empower 4**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

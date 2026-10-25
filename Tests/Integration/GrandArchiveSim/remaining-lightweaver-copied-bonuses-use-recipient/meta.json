@@ -1,0 +1,26 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "RBco1DfZ1B"
+        ],
+        "mechanics": [
+            "reveal",
+            "copy",
+            "class-bonus",
+            "trigger-order"
+        ],
+        "rulesClauses": [
+            "Choose reveal trigger order; the Cleric card cannot enable its copied Assassin class bonus."
+        ]
+    },
+    "name": "remaining-lightweaver-copied-bonuses-use-recipient",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-21T17:33:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "RBco1DfZ1B"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

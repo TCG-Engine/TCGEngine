@@ -1,0 +1,26 @@
+{
+    "name": "explosive-rune-banish-deals-one-damage-to-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1bqry41lw9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1bqry41lw9"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "damage",
+            "banish-self",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Deal 1 damage to target ally. Class Bonus: If that ally is attacking, deal 2 damage to it instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

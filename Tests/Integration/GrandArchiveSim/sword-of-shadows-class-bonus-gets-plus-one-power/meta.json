@@ -1,0 +1,22 @@
+{
+    "name": "sword-of-shadows-class-bonus-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:25:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zcvq77mdgd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zcvq77mdgd"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Sword of Shadows gets +1[POWER]."
+        ]
+    },
+    "behaviorFamily": true
+}

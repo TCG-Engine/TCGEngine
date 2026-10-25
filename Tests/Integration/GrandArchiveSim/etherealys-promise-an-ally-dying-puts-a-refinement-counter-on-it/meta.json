@@ -1,0 +1,24 @@
+{
+    "name": "etherealys-promise-an-ally-dying-puts-a-refinement-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:11:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7n0bv1sqgb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7n0bv1sqgb"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Whenever an ally you control dies, put a **refinement** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

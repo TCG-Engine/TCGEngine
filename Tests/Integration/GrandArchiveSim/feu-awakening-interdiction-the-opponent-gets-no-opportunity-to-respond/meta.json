@@ -1,0 +1,24 @@
+{
+    "name": "feu-awakening-interdiction-the-opponent-gets-no-opportunity-to-respond",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:06:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0rKmarZ8QN"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0rKmarZ8QN"
+        ],
+        "mechanics": [
+            "keyword",
+            "interdiction"
+        ],
+        "rulesClauses": [
+            "**Interdiction** *(As long as this card's activation is on the effects stack, players can't gain opportunity.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

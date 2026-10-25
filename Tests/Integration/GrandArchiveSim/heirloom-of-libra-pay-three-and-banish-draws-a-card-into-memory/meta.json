@@ -1,0 +1,27 @@
+{
+    "name": "heirloom-of-libra-pay-three-and-banish-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:29:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MRiM1fnOWC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "MRiM1fnOWC"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish-self",
+            "draw",
+            "memory",
+            "cost"
+        ],
+        "rulesClauses": [
+            "(3), **Banish CARDNAME: **Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

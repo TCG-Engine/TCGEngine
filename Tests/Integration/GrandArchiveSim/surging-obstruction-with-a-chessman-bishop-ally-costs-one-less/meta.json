@@ -1,0 +1,24 @@
+{
+    "name": "surging-obstruction-with-a-chessman-bishop-ally-costs-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:33:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "VpM6CAp4ts"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "VpM6CAp4ts"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "chessman"
+        ],
+        "rulesClauses": [
+            "As long as you control a Chessman Bishop ally, this card costs 1 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

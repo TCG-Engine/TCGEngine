@@ -1,0 +1,25 @@
+{
+    "name": "conduit-of-bloodfire-enter-removes-the-opposing-champions-damage-and-gains-a-buff-per-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:16:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "epwl2vqikh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "epwl2vqikh"
+        ],
+        "mechanics": [
+            "on-enter",
+            "remove-damage",
+            "counter"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Remove all damage counters from each champion your opponents control. For every four counters removed this way, put a **buff** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

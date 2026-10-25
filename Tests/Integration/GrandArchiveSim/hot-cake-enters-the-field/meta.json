@@ -1,0 +1,23 @@
+{
+    "name": "hot-cake-enters-the-field",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "FqFdOEOTbJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "FqFdOEOTbJ"
+        ],
+        "mechanics": [
+            "item"
+        ],
+        "rulesClauses": [
+            "Whenever an ally enters the field, you may sacrifice CARDNAME. If you do, that ally's next attack this turn gets +3 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

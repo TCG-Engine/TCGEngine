@@ -1,0 +1,26 @@
+{
+    "name": "winbless-gatekeeper-on-enter-pays-two-and-buffs-a-guardian-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:34:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y5ttkk39i1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y5ttkk39i1"
+        ],
+        "mechanics": [
+            "on-enter",
+            "counter",
+            "optional-cost",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may pay (2). When you do, put a **buff** counter on target Guardian ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

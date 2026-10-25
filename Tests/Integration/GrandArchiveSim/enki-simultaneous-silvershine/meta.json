@@ -1,0 +1,25 @@
+{
+    "name": "enki-simultaneous-silvershine",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:53:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fZZqzAXNAc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fZZqzAXNAc"
+        ],
+        "mechanics": [
+            "token",
+            "choice",
+            "simultaneous"
+        ],
+        "rulesClauses": [
+            "Choose either token from one simultaneous summon."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

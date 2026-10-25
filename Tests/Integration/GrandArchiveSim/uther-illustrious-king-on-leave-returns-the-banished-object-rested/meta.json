@@ -1,0 +1,24 @@
+{
+    "name": "uther-illustrious-king-on-leave-returns-the-banished-object-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:57:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5h8asbierp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5h8asbierp"
+        ],
+        "mechanics": [
+            "on-leave",
+            "return"
+        ],
+        "rulesClauses": [
+            "**On Leave:** Return the banished object to the field under its owner's control rested."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

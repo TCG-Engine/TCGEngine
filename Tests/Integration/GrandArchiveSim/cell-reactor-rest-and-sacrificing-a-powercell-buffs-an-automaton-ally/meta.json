@@ -1,0 +1,27 @@
+{
+    "name": "cell-reactor-rest-and-sacrificing-a-powercell-buffs-an-automaton-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:26:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pgmsK3mcSo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pgmsK3mcSo"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "sacrifice",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**[REST], Sacrifice a Powercell:** Put a **buff** counter on target Automaton ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "enfeebled-dagger-banish-deals-one-damage-to-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:22:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "idpdon8f0h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "idpdon8f0h"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "damage",
+            "targeting",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish Enfeebled Dagger**: Deal 1 damage to target unit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

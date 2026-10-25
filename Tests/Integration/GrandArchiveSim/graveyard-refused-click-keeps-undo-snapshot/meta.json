@@ -14,7 +14,9 @@
         "mechanics": [
             "zone-movement"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "A refused click on the graveyard does not change the game state, so it must not replace the stored undo snapshot."
+        ]
     },
     "engineBug": {
         "status": "fixed",

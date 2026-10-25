@@ -1,0 +1,28 @@
+{
+    "name": "reconnaissance-field-class-bonus-rest-gives-a-unit-ranged-one-and-true-sight",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T02:01:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2rz308kuz0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2rz308kuz0"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "activated-ability",
+            "rest",
+            "ranged",
+            "true-sight",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [REST]**:** Target unit gains **ranged 1** and **true sight** until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

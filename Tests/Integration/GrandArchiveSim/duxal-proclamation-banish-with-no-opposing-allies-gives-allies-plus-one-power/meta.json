@@ -1,0 +1,26 @@
+{
+    "name": "duxal-proclamation-banish-with-no-opposing-allies-gives-allies-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "473gyf0w3v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "473gyf0w3v"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "stat-change",
+            "condition",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME**: Allies you control get +1 [POWER] until end of turn. Activate this ability only if each opponent controls no allies."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "business-card-with-a-phone-item-scavenges-twenty-instead",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:11:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lumV6cG9oc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lumV6cG9oc"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "scavenge",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you control a Phone item, **scavenge 20** for an ally card with the chosen name instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

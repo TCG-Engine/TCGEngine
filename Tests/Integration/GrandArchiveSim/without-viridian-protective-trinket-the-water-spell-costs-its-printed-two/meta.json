@@ -1,0 +1,24 @@
+{
+    "name": "without-viridian-protective-trinket-the-water-spell-costs-its-printed-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:19:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s3572j3oda"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s3572j3oda"
+        ],
+        "mechanics": [
+            "static",
+            "condition"
+        ],
+        "rulesClauses": [
+            "During your turn, water element cards your opponents activate cost 2 more to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

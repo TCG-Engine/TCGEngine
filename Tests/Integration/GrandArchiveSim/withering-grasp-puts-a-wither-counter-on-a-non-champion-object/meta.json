@@ -1,0 +1,25 @@
+{
+    "name": "withering-grasp-puts-a-wither-counter-on-a-non-champion-object",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:39:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wftz07gc85"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wftz07gc85"
+        ],
+        "mechanics": [
+            "counter",
+            "wither",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Put a **wither** counter on target non-champion object."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

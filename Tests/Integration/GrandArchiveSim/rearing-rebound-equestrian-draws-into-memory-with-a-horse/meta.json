@@ -1,0 +1,24 @@
+{
+    "name": "rearing-rebound-equestrian-draws-into-memory-with-a-horse",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:44:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dbuoc8sm7z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dbuoc8sm7z"
+        ],
+        "mechanics": [
+            "suppress",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**Suppress** target ally. *(To **suppress** an ally, banish it and return it to the field under its owner's control at the beginning of the next end phase.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

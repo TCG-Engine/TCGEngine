@@ -1,0 +1,28 @@
+{
+    "name": "vacuous-call-ciel-bonus-pays-two-discards-an-ally-and-sacrifices-itself-for-a-servant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:10:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ex6AXz6IhB"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ex6AXz6IhB"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "champion-bonus",
+            "discard",
+            "sacrifice",
+            "token",
+            "summon"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] (2)**, Discard an ally card, sacrifice CARDNAME:** **Summon** a Vacuous Servant token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

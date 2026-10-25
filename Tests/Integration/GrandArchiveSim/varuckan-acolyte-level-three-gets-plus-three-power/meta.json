@@ -1,0 +1,24 @@
+{
+    "name": "varuckan-acolyte-level-three-gets-plus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a4dk88zq9o"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "a4dk88zq9o"
+        ],
+        "mechanics": [
+            "static-ability",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "[Level 3+] CARDNAME gets +3 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

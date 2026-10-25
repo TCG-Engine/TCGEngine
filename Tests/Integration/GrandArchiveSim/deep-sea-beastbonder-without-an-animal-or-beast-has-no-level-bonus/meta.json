@@ -1,0 +1,24 @@
+{
+    "name": "deep-sea-beastbonder-without-an-animal-or-beast-has-no-level-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:16:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qxbdXU7H4Z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qxbdXU7H4Z"
+        ],
+        "mechanics": [
+            "static-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Your champion gets +1 level as long as you control an Animal or Beast ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

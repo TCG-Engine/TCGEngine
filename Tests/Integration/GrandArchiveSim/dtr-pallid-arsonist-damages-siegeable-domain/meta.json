@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "EcTFUpk8oe"
+        ],
+        "mechanics": [
+            "enter",
+            "damage",
+            "siegeable"
+        ],
+        "rulesClauses": [
+            "Deal two to each Siegeable domain."
+        ]
+    },
+    "name": "dtr-pallid-arsonist-damages-siegeable-domain",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:09:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "EcTFUpk8oe"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

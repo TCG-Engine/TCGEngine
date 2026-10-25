@@ -1,0 +1,25 @@
+{
+    "name": "lu-bu-wrath-incarnate-other-champions-get-minus-three-level-and-all-allies-minus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:04:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pkp61yhi4k"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pkp61yhi4k"
+        ],
+        "mechanics": [
+            "static",
+            "level",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Other champions get -3 level and all allies get -3 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

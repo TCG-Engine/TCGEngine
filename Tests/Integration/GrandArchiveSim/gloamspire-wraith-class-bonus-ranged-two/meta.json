@@ -1,0 +1,24 @@
+{
+    "name": "gloamspire-wraith-class-bonus-ranged-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:52:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xrpx8jypwc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xrpx8jypwc"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "ranged"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Ranged 2**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

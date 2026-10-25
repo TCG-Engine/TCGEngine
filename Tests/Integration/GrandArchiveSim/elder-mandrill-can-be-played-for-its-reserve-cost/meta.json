@@ -1,0 +1,23 @@
+{
+    "name": "elder-mandrill-can-be-played-for-its-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:23:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wu20yoje86"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wu20yoje86"
+        ],
+        "mechanics": [
+            "vanilla"
+        ],
+        "rulesClauses": [
+            ""
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

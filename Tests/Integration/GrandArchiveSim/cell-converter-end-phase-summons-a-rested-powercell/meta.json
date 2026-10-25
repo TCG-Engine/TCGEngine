@@ -1,0 +1,25 @@
+{
+    "name": "cell-converter-end-phase-summons-a-rested-powercell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:48:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "eqhj1trn0y"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "eqhj1trn0y"
+        ],
+        "mechanics": [
+            "end-phase",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, **summon** a Powercell token rested."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

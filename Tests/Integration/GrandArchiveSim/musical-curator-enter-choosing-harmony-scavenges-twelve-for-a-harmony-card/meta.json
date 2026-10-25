@@ -1,0 +1,25 @@
+{
+    "name": "musical-curator-enter-choosing-harmony-scavenges-twelve-for-a-harmony-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:43:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l65WqDzBMt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l65WqDzBMt"
+        ],
+        "mechanics": [
+            "on-enter",
+            "scavenge",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Choose Harmony or Melody. **Scavenge 12 **for a card of that subtype."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

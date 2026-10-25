@@ -1,0 +1,26 @@
+{
+    "name": "firetongue-class-bonus-on-attack-banishing-a-fire-card-adds-a-durability-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:31:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "j4lx6xwr42"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "j4lx6xwr42"
+        ],
+        "mechanics": [
+            "on-attack",
+            "banish",
+            "counter",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may banish a fire element card from your graveyard. If you do, put a durability counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

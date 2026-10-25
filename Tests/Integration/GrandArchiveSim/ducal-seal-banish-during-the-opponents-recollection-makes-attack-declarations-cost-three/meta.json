@@ -1,0 +1,26 @@
+{
+    "name": "ducal-seal-banish-during-the-opponents-recollection-makes-attack-declarations-cost-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:28:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qFwqqT0XWo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qFwqqT0XWo"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish-self",
+            "attack-tax",
+            "timing"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Until end of turn, players can\u2019t declare attacks unless they pay (3) for each attack declaration. Activate this ability only during an opponent\u2019s recollection phase."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

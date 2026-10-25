@@ -1,0 +1,260 @@
+<?php
+/**
+ * Phase 3d (Norm): allies, first batch (static stat and keyword allies). Written on the 'quiet' deck.
+ */
+
+// ---- Charged Mannequin ----
+
+gaScenario('charged-mannequin-with-a-powercell-gets-plus-one-power')
+    ->deckTemplate('quiet', 'Charged Mannequin')
+    ->readyFor('Charged Mannequin')
+    ->seed('myField', 'Charged Mannequin')
+    ->seed('myField', 'Powercell')
+    ->observe()
+    ->expectPower('p1Field-1', 2, 'A Powercell is controlled: 1 + 1 power')
+    ->tested('Charged Mannequin')
+    ->covers(['condition', 'stat-change'], 'As long as you control a Powercell, CARDNAME gets +1 [POWER].')
+    ->register();
+
+gaScenario('charged-mannequin-without-a-powercell-has-its-printed-power')
+    ->deckTemplate('quiet', 'Charged Mannequin')
+    ->readyFor('Charged Mannequin')
+    ->seed('myField', 'Charged Mannequin')
+    ->observe()
+    ->expectPower('p1Field-1', 1, 'No Powercell: the printed 1 power')
+    ->tested('Charged Mannequin')
+    ->covers(['condition', 'stat-change'], 'As long as you control a Powercell, CARDNAME gets +1 [POWER].')
+    ->register();
+
+// ---- Overcharged Droid ----
+
+gaScenario('overcharged-droid-with-two-powercells-gets-plus-one-power-and-life')
+    ->deckTemplate('quiet', 'Overcharged Droid')
+    ->readyFor('Overcharged Droid')
+    ->seed('myField', 'Overcharged Droid')
+    ->seed('myField', 'Powercell')
+    ->seed('myField', 'Powercell')
+    ->observe()
+    ->expectPower('p1Field-1', 3, 'Two Powercells: 2 + 1 power')
+    ->expectLife('p1Field-1', 4, 'Two Powercells: 3 + 1 life')
+    ->tested('Overcharged Droid')
+    ->covers(['condition', 'stat-change'], 'As long as you control two or more Powercell items, CARDNAME gets +1[POWER] and +1[LIFE].')
+    ->register();
+
+gaScenario('overcharged-droid-with-one-powercell-has-its-printed-stats')
+    ->deckTemplate('quiet', 'Overcharged Droid')
+    ->readyFor('Overcharged Droid')
+    ->seed('myField', 'Overcharged Droid')
+    ->seed('myField', 'Powercell')
+    ->observe()
+    ->expectPower('p1Field-1', 2, 'One Powercell is not enough: 2 power')
+    ->expectLife('p1Field-1', 3, 'One Powercell is not enough: 3 life')
+    ->tested('Overcharged Droid')
+    ->covers(['condition', 'stat-change'], 'As long as you control two or more Powercell items, CARDNAME gets +1[POWER] and +1[LIFE].')
+    ->register();
+
+// ---- Reliable Cavalier ----
+
+gaScenario('reliable-cavalier-with-a-horse-ally-gets-plus-three-power')
+    ->deckTemplate('quiet', 'Reliable Cavalier')
+    ->readyFor('Reliable Cavalier')
+    ->seed('myField', 'Reliable Cavalier')
+    ->seed('myField', 'Ordinary Horse')
+    ->observe()
+    ->expectPower('p1Field-1', 4, 'Equestrian: a Horse ally is controlled, 1 + 3 power')
+    ->tested('Reliable Cavalier')
+    ->covers(['equestrian', 'condition', 'stat-change'], '***Equestrian —*** As long as you control a Horse ally, CARDNAME gets +3[POWER].')
+    ->register();
+
+gaScenario('reliable-cavalier-without-a-horse-ally-has-its-printed-power')
+    ->deckTemplate('quiet', 'Reliable Cavalier')
+    ->readyFor('Reliable Cavalier')
+    ->seed('myField', 'Reliable Cavalier')
+    ->observe()
+    ->expectPower('p1Field-1', 1, 'No Horse ally: the printed 1 power')
+    ->tested('Reliable Cavalier')
+    ->covers(['equestrian', 'condition', 'stat-change'], '***Equestrian —*** As long as you control a Horse ally, CARDNAME gets +3[POWER].')
+    ->register();
+
+// ---- Banner Raccoon ----
+
+gaScenario('banner-raccoon-gives-other-raccoons-plus-one-power-while-the-opponent-has-no-graveyard')
+    ->deckTemplate('quiet', 'Banner Raccoon')
+    ->readyFor('Banner Raccoon')
+    ->seed('myField', 'Banner Raccoon')
+    ->seed('myField', 'Portly Raccoon')
+    ->observe()
+    ->expectPower('p1Field-2', 3, 'The opponent has no graveyard: the other Raccoon gets +1, 2 + 1 power')
+    ->expectPower('p1Field-1', 1, 'Banner Raccoon does not pump itself')
+    ->tested('Banner Raccoon')
+    ->covers(['condition', 'stat-change'], 'As long as an opponent has no cards in their graveyard, other Raccoon allies you control get +1[POWER].')
+    ->register();
+
+gaScenario('banner-raccoon-gives-nothing-once-the-opponent-has-a-graveyard-card')
+    ->deckTemplate('quiet', 'Banner Raccoon')
+    ->readyFor('Banner Raccoon')
+    ->seed('myField', 'Banner Raccoon')
+    ->seed('myField', 'Portly Raccoon')
+    ->seed('myGraveyard', 'Dungeon Guide', player: 2)
+    ->observe()
+    ->expectPower('p1Field-2', 2, 'The opponent has a graveyard card: no bonus')
+    ->tested('Banner Raccoon')
+    ->covers(['condition', 'stat-change'], 'As long as an opponent has no cards in their graveyard, other Raccoon allies you control get +1[POWER].')
+    ->register();
+
+// ---- Excitable Raccoon ----
+
+gaScenario('excitable-raccoon-opponent-without-a-graveyard-gets-plus-one-power-and-vigor')
+    ->deckTemplate('quiet', 'Excitable Raccoon')
+    ->readyFor('Excitable Raccoon')
+    ->seed('myField', 'Excitable Raccoon', properties: ['Status' => 1])
+    ->observe()
+    ->expectPower('p1Field-1', 2, 'The opponent has no graveyard: 1 + 1 power')
+    ->endTurn()
+    ->expectProperty('p1Field-1', 'Status', '2', 'Vigor woke the Raccoon at the end phase')
+    ->tested('Excitable Raccoon')
+    ->covers(['condition', 'stat-change', 'vigor'], 'As long as an opponent has no cards in their graveyard, CARDNAME gets +1[POWER] and has **vigor**.')
+    ->register();
+
+gaScenario('excitable-raccoon-with-an-opponent-graveyard-card-has-neither')
+    ->deckTemplate('quiet', 'Excitable Raccoon')
+    ->readyFor('Excitable Raccoon')
+    ->seed('myField', 'Excitable Raccoon', properties: ['Status' => 1])
+    ->seed('myGraveyard', 'Dungeon Guide', player: 2)
+    ->observe()
+    ->expectPower('p1Field-1', 1, 'The opponent has a graveyard card: the printed 1 power')
+    ->endTurn()
+    ->expectProperty('p1Field-1', 'Status', '1', 'No vigor: the Raccoon stays rested')
+    ->tested('Excitable Raccoon')
+    ->covers(['condition', 'stat-change', 'vigor'], 'As long as an opponent has no cards in their graveyard, CARDNAME gets +1[POWER] and has **vigor**.')
+    ->register();
+
+// ---- Wingpeak Patriarch ----
+
+gaScenario('wingpeak-patriarch-gives-other-bird-objects-plus-one-power')
+    ->deckTemplate('quiet', 'Wingpeak Patriarch')
+    ->readyFor('Wingpeak Patriarch')
+    ->seed('myField', 'Wingpeak Patriarch')
+    ->seed('myField', 'Owl Familiar')
+    ->seed('myField', 'Dungeon Guide')
+    ->observe()
+    ->expectPower('p1Field-2', 2, 'The Owl Familiar is a Bird: 1 + 1 power')
+    ->expectPower('p1Field-3', 1, 'The Dungeon Guide is not a Bird: unchanged')
+    ->expectPower('p1Field-1', 1, 'Other Bird objects only: the Patriarch itself is unchanged')
+    ->tested('Wingpeak Patriarch')
+    ->covers(['stat-change'], 'Other Bird objects you control get +1 [POWER].')
+    ->register();
+
+// ---- Royal Bear ----
+
+gaClassStatsCase('royal-bear-class-bonus-gets-plus-one-power-and-life', 'Royal Bear', 'Royal Bear', ['classBonus' => true],
+    ['class-bonus', 'stat-change'], '[Class Bonus] CARDNAME gets +1 [POWER] and +1 [LIFE].', 3, '[Class Bonus] 2 + 1 power', 4, '[Class Bonus] 3 + 1 life');
+
+gaClassStatsCase('royal-bear-without-the-class-bonus-has-its-printed-stats', 'Royal Bear', 'Royal Bear', [],
+    ['class-bonus', 'stat-change'], '[Class Bonus] CARDNAME gets +1 [POWER] and +1 [LIFE].', 2, 'No class bonus: 2 power', 3, 'No class bonus: 3 life');
+
+gaPrideCase('royal-bear-pride-two-does-not-obey-a-level-zero-champion', 'Royal Bear', 'Royal Bear', [],
+    ['pride', 'keyword'], '**Pride 2** *(This ally won’t obey you unless your champion is level 2 or higher. You can’t attack with, intercept with, or activate abilities of allies that don’t obey you.)*', false, 'Pride 2: the Bear stays awake because it never attacked');
+
+gaPrideCase('royal-bear-pride-two-obeys-a-level-two-champion', 'Royal Bear', 'Royal Bear', ['level' => 2],
+    ['pride', 'keyword', 'level-gate'], '**Pride 2**', true, 'Pride 2 is satisfied at level 2: the Bear attacked and rested');
+
+// ---- Enraged Boars ----
+
+gaPrideCase('enraged-boars-pride-five-obeys-a-level-five-champion', 'Enraged Boars', 'Enraged Boars', ['level' => 5],
+    ['pride', 'keyword', 'level-gate'], '**Pride 5** *(This ally won\'t obey you unless your champion is level 5 or higher.)*', true, 'Pride 5 is satisfied at level 5: the Boars attacked and rested');
+
+gaPrideCase('enraged-boars-pride-five-does-not-obey-a-level-four-champion', 'Enraged Boars', 'Enraged Boars', ['level' => 4],
+    ['pride', 'keyword'], '**Pride 5** *(This ally won\'t obey you unless your champion is level 5 or higher.)*', false, 'Pride 5: a level 4 champion is not enough, the Boars never attacked');
+
+// ---- Bolstered Boar ----
+
+gaScenario('bolstered-boar-with-two-buff-counters-has-taunt')
+    ->deckTemplate('quiet', 'Bolstered Boar')
+    ->readyFor('Bolstered Boar')
+    ->seed('myField', 'Bolstered Boar', properties: ['Status' => 2, 'Counters' => ['buff' => 2]])
+    ->seed('myField', 'Dungeon Guide', player: 2, properties: ['Status' => 2])
+    ->endTurn()->action(2, 10002, 'myField-1!FSM!')
+    ->rejects(2, 'theirField-0', 'Two buff counters give the Boar taunt: the champion cannot be attacked')
+    ->tested('Bolstered Boar')
+    ->covers(['condition', 'counter', 'taunt', 'steadfast', 'vigor', 'retort'], 'As long as Bolstered Boar has two or more **buff** counters on it, it has **steadfast**, **taunt**, **vigor**, and **retort 2**.')
+    ->register();
+
+gaScenario('bolstered-boar-with-one-buff-counter-has-no-taunt')
+    ->deckTemplate('quiet', 'Bolstered Boar')
+    ->readyFor('Bolstered Boar')
+    ->seed('myField', 'Bolstered Boar', properties: ['Status' => 2, 'Counters' => ['buff' => 1]])
+    ->seed('myField', 'Dungeon Guide', player: 2, properties: ['Status' => 2])
+    ->endTurn()
+    ->attack('myField-1', 'theirField-0', player: 2)
+    ->expectDamage('p1Field-0', 1, 'One buff counter: no taunt, so the champion could be attacked')
+    ->tested('Bolstered Boar')
+    ->covers(['condition', 'counter', 'taunt'], 'As long as Bolstered Boar has two or more **buff** counters on it, it has **steadfast**, **taunt**, **vigor**, and **retort 2**.')
+    ->register();
+
+// ---- Simple Slime ----
+
+gaScenario('simple-slime-cannot-attack')
+    ->deckTemplate('quiet', 'Simple Slime')
+    ->readyFor('Simple Slime')
+    ->seed('myField', 'Simple Slime')
+    ->reachTurnThree()
+    ->action(1, 10002, 'myField-1!FSM!')
+    ->expectProperty('p1Field-1', 'Status', '2', 'Simple Slime cannot attack: it stays awake')
+    ->tested('Simple Slime')
+    ->covers(['restriction'], 'CARDNAME can\'t attack.')
+    ->register();
+
+gaScenario('simple-slime-prevents-three-of-the-damage-dealt-to-it')
+    ->deckTemplate('quiet', 'Simple Slime')
+    ->readyFor('Simple Slime')
+    ->seed('myField', 'Simple Slime', properties: ['Status' => 2])
+    ->seed('myField', 'Dungeon Guide', player: 2)
+    ->endTurn()
+    ->attack('myField-1', 'theirField-1', player: 2)
+    ->expectDamage('p1Field-1', 0, 'Dungeon Guide deals 2 damage, all of it prevented (3 of it would be)')
+    ->tested('Simple Slime')
+    ->covers(['prevention'], 'If damage would be dealt to CARDNAME, prevent 3 of that damage.')
+    ->register();
+
+gaScenario('simple-slime-twin-an-ordinary-ally-can-attack-at-the-same-point')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Dungeon Guide')
+    ->seed('myField', 'Dungeon Guide')
+    ->reachTurnThree()
+    ->attack('myField-1', 'theirField-0')->pass(2)
+    ->expectProperty('p1Field-1', 'Status', '1', 'Control: an ordinary ally attacked on the same route, so the Slime\'s refusal is real')
+    ->tested('Simple Slime')
+    ->covers(['restriction'], 'CARDNAME can\'t attack.')
+    ->register();
+
+// ---- Palace Guard ----
+
+
+// ---- Unyielding Wraithguard ----
+
+
+// ---- Rotund Squirrel ----
+
+gaHinderedCase('rotund-squirrel-hindered-enters-the-field-rested', 'Rotund Squirrel', 'Rotund Squirrel', [],
+    ['keyword', 'hindered'], '**Hindered** *(This ally enters the field rested.)*', 2, 'Hindered: the Squirrel entered rested');
+
+// ---- Woodland Squirrels / Young Wyrmling (vanilla) ----
+
+foreach ([
+    ['woodland-squirrels-costs-nothing-and-enters-with-its-printed-stats', 'Woodland Squirrels', 0, 'Reserve cost 0: it entered without any payment', 1, 1, 'Woodland Squirrels (no rules text)'],
+    ['young-wyrmling-enters-with-its-printed-stats', 'Young Wyrmling', 2, 'Paying the printed reserve 2 played it', 2, 2, 'Young Wyrmling (no rules text)'],
+    ['young-wyrmling-second-printing-enters-with-its-printed-stats', '#LjFUUKe83H', 2, 'Paying the printed reserve 2 played it', 2, 2, 'Young Wyrmling (no rules text)'],
+] as [$slug, $card, $payment, $entryLabel, $power, $life, $clause]) {
+    gaScenario($slug)
+        ->deckTemplate('quiet', $card)
+        ->readyFor($card)
+        ->seed('myHand', $card)
+        ->play($card)->pay($payment)
+        ->expectCardExists('myField', $card, $entryLabel)
+        ->expectPower('p1Field-1', $power, "Printed $power power")
+        ->expectLife('p1Field-1', $life, "Printed $life life")
+        ->tested($card)
+        ->covers(['vanilla'], $clause)
+        ->register();
+}

@@ -1,0 +1,23 @@
+{
+    "name": "lancelot-class-bonus-level-two-gets-plus-two-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w9n0wpbhig"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w9n0wpbhig"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+] CARDNAME gets +2 [LIFE]."
+        ]
+    },
+    "behaviorFamily": true
+}

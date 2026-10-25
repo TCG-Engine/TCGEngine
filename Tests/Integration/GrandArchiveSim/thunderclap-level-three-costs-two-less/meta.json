@@ -1,0 +1,25 @@
+{
+    "name": "thunderclap-level-three-costs-two-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T17:19:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0xm513tj3j"
+    ],
+    "notes": "Discount path of Thunderclap: a level-3 champion pays 4 - 2 = 2 reserve.",
+    "semanticCoverage": {
+        "testedCards": [
+            "0xm513tj3j"
+        ],
+        "mechanics": [
+            "cost",
+            "targeting",
+            "damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Level 3+] This card costs 2 less to activate.",
+            "Deal 4 damage to target ally."
+        ]
+    }
+}

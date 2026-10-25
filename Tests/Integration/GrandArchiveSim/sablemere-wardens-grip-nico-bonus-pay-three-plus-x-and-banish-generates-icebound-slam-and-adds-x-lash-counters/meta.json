@@ -1,0 +1,27 @@
+{
+    "name": "sablemere-wardens-grip-nico-bonus-pay-three-plus-x-and-banish-generates-icebound-slam-and-adds-x-lash-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T02:05:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WAodKSuGuX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WAodKSuGuX"
+        ],
+        "mechanics": [
+            "nico-bonus",
+            "activated-ability",
+            "banish-self",
+            "generate",
+            "lash"
+        ],
+        "rulesClauses": [
+            "[Nico Bonus] **(3+X), Banish CARDNAME:** **Generate** an Icebound Slam card and put it into your memory. Then put **X** **lash** counters on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

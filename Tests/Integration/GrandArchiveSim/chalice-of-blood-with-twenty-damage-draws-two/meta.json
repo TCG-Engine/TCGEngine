@@ -1,0 +1,26 @@
+{
+    "name": "chalice-of-blood-with-twenty-damage-draws-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:08:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UiohpiTtgs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UiohpiTtgs"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw",
+            "condition",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Draw two cards. Activate this ability only if your champion has twenty or more damage counters on them."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

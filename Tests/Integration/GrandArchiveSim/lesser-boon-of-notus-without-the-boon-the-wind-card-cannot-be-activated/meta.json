@@ -1,0 +1,25 @@
+{
+    "name": "lesser-boon-of-notus-without-the-boon-the-wind-card-cannot-be-activated",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:16:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bFoUoGdZBX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bFoUoGdZBX"
+        ],
+        "mechanics": [
+            "static",
+            "element",
+            "condition"
+        ],
+        "rulesClauses": [
+            "WIND element is enabled for you."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

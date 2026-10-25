@@ -1,0 +1,21 @@
+{
+    "name": "ebbing-tide-hindered-enters-the-field-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:53:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s7pmqsl3jw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s7pmqsl3jw"
+        ],
+        "mechanics": [
+            "keyword",
+            "hindered"
+        ],
+        "rulesClauses": [
+            "**Hindered** *(This object enters the field rested)*"
+        ]
+    }
+}

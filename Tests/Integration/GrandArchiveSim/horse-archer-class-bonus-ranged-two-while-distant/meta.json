@@ -1,0 +1,24 @@
+{
+    "name": "horse-archer-class-bonus-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:19:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k6d4367ixj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k6d4367ixj"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Ranged 2** *(As long as this unit is **distant**, its attacks get +2 [POWER].)*"
+        ]
+    },
+    "behaviorFamily": true
+}

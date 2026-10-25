@@ -1,0 +1,25 @@
+{
+    "name": "bladed-riftseer-below-level-one-cannot-attack-a-stealth-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZSYwzoUEdz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ZSYwzoUEdz"
+        ],
+        "mechanics": [
+            "level-gate",
+            "true-sight",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Level 1+] **True Sight**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

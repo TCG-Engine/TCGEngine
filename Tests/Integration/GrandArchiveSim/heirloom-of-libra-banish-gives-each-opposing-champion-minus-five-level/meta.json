@@ -1,0 +1,26 @@
+{
+    "name": "heirloom-of-libra-banish-gives-each-opposing-champion-minus-five-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:29:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MRiM1fnOWC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "MRiM1fnOWC"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish-self",
+            "modal",
+            "level-change"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Choose one\u2014 <br>\u2022 Each champion you don\u2019t control gets -5 level until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

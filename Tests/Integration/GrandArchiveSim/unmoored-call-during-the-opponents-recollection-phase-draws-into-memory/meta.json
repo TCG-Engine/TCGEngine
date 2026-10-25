@@ -1,0 +1,25 @@
+{
+    "name": "unmoored-call-during-the-opponents-recollection-phase-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:37:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "etobC7HEHw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "etobC7HEHw"
+        ],
+        "mechanics": [
+            "timing-restriction",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "Activate this card only during an opponent's recollection phase.",
+            "Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

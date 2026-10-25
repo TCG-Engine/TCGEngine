@@ -1,0 +1,26 @@
+{
+    "name": "marksmans-charm-banish-gives-a-unit-true-sight",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:08:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zqw6ms798w"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zqw6ms798w"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "true-sight",
+            "targeting",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME**: Target unit gains **true sight** until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

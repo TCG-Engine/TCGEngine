@@ -1,0 +1,24 @@
+{
+    "name": "arcane-elemental-pride-seven-will-not-attack-below-level-seven",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:49:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wFH1kBLrWh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wFH1kBLrWh"
+        ],
+        "mechanics": [
+            "pride",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Pride 7** *(This ally won't obey you unless your champion is level 7 or higher.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

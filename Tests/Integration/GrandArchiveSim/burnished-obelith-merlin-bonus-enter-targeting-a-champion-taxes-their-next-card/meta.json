@@ -1,0 +1,25 @@
+{
+    "name": "burnished-obelith-merlin-bonus-enter-targeting-a-champion-taxes-their-next-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:47:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mz1dJZExOk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mz1dJZExOk"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "champion",
+            "cost-increase"
+        ],
+        "rulesClauses": [
+            "If that unit is a champion, the next card its controller activates this turn costs (2) more to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

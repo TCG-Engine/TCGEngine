@@ -1,0 +1,24 @@
+{
+    "name": "adept-swordmaster-class-bonus-weapons-you-control-get-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:41:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "txgvf6xpkq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "txgvf6xpkq"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Weapons you control get +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

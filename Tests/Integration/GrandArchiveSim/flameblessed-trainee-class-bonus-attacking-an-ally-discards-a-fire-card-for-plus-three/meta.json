@@ -1,0 +1,26 @@
+{
+    "name": "flameblessed-trainee-class-bonus-attacking-an-ally-discards-a-fire-card-for-plus-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:20:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qmyn2rz308"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qmyn2rz308"
+        ],
+        "mechanics": [
+            "on-attack",
+            "discard",
+            "stat-change",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: If CARDNAME is attacking an ally, you may discard a fire element card. If you do, this attack gets +3 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "name": "anointed-purifier-removes-two-buff-counters-to-destroy-a-target-phantasia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:20:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mt1I9kfowQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mt1I9kfowQ"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "remove-counters",
+            "destroy",
+            "phantasia",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[REST], **Remove two buff counters from CARDNAME: ** Destroy target phantasia."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

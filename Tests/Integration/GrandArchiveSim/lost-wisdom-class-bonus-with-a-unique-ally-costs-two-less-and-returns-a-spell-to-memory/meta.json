@@ -1,0 +1,26 @@
+{
+    "name": "lost-wisdom-class-bonus-with-a-unique-ally-costs-two-less-and-returns-a-spell-to-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:54:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8codb9zatv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8codb9zatv"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate if you control one or more unique allies.",
+            "Return a Spell card from your graveyard to your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

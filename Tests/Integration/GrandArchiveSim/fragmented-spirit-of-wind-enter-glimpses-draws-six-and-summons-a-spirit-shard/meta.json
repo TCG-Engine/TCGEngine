@@ -1,0 +1,27 @@
+{
+    "name": "fragmented-spirit-of-wind-enter-glimpses-draws-six-and-summons-a-spirit-shard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:57:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1trn0yetae"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1trn0yetae"
+        ],
+        "mechanics": [
+            "on-enter",
+            "glimpse",
+            "draw",
+            "summon",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Glimpse 6**. Draw six cards. Then **summon** a Spirit Shard token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

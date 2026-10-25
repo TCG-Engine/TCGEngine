@@ -1,0 +1,25 @@
+{
+    "name": "lingering-banshee-ephemerate-costs-six",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:41:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v0gu8efq08"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v0gu8efq08"
+        ],
+        "mechanics": [
+            "ephemerate",
+            "graveyard-activation",
+            "ephemeral"
+        ],
+        "rulesClauses": [
+            "**Ephemerate** \u2014 (6)."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

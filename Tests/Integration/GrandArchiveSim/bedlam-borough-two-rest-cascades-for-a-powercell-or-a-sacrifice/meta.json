@@ -1,0 +1,25 @@
+{
+    "name": "bedlam-borough-two-rest-cascades-for-a-powercell-or-a-sacrifice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:42:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GXNyEp2Fju"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GXNyEp2Fju"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "cascade"
+        ],
+        "rulesClauses": [
+            "(2), [REST]: **Cascade**\u2014"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

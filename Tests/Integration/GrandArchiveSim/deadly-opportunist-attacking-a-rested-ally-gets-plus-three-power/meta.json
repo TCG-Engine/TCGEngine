@@ -1,0 +1,25 @@
+{
+    "name": "deadly-opportunist-attacking-a-rested-ally-gets-plus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:19:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "eyvxonorcs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "eyvxonorcs"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change",
+            "combat"
+        ],
+        "rulesClauses": [
+            "Deadly Opportunist gets +3[POWER] as long as it's attacking a rested ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

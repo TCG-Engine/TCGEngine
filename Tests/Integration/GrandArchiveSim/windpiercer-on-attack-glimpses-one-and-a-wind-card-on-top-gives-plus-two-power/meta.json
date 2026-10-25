@@ -1,0 +1,26 @@
+{
+    "name": "windpiercer-on-attack-glimpses-one-and-a-wind-card-on-top-gives-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:50:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hreqhj1trn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hreqhj1trn"
+        ],
+        "mechanics": [
+            "on-attack",
+            "glimpse",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Attack:** **Glimpse 1**, then reveal the top card of your deck. If that card is wind element, CARDNAME gets +2 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

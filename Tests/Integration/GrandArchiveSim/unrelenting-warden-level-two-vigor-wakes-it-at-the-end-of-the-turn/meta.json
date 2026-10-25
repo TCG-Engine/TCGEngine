@@ -1,0 +1,22 @@
+{
+    "name": "unrelenting-warden-level-two-vigor-wakes-it-at-the-end-of-the-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "icvkegsdve"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "icvkegsdve"
+        ],
+        "mechanics": [
+            "level-gate",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "[Level 2+] **Vigor**"
+        ]
+    },
+    "behaviorFamily": true
+}

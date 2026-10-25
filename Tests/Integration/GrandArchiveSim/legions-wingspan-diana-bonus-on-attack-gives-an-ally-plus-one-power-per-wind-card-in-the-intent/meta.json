@@ -1,0 +1,25 @@
+{
+    "name": "legions-wingspan-diana-bonus-on-attack-gives-an-ally-plus-one-power-per-wind-card-in-the-intent",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:57:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iuixf9rdmu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iuixf9rdmu"
+        ],
+        "mechanics": [
+            "on-attack",
+            "diana-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Diana Bonus] **On Attack**: For each wind element card in the attacker's intent, choose an ally you control. That ally gets +1[POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

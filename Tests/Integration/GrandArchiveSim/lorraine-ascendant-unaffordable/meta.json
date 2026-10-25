@@ -1,0 +1,25 @@
+{
+    "name": "lorraine-ascendant-unaffordable",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:44:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "81gvGHkuVb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "81gvGHkuVb"
+        ],
+        "mechanics": [
+            "restriction",
+            "cost",
+            "ascendant"
+        ],
+        "rulesClauses": [
+            "Require Ascendant and all 2024 reserve before starting."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

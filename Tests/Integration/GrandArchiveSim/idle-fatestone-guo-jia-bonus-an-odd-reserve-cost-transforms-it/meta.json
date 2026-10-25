@@ -1,0 +1,27 @@
+{
+    "name": "idle-fatestone-guo-jia-bonus-an-odd-reserve-cost-transforms-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:13:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qiv63tpshe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qiv63tpshe"
+        ],
+        "mechanics": [
+            "guo-jia-bonus",
+            "activated-ability",
+            "reveal",
+            "transform",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] [REST], *(2)*: Reveal the top card of your deck. If that card's reserve cost is even, put a **buff** counter on Idle Fatestone. Otherwise, transform Idle Fatestone."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

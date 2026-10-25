@@ -1,0 +1,25 @@
+{
+    "name": "imperial-panzer-without-the-class-bonus-fostered-has-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:25:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "46neis2lho"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "46neis2lho"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "foster",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as CARDNAME is **fostered**, it gets +1 [POWER] and +2 [LIFE], and has **vigor**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -10,10 +10,10 @@ em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
-px60u5n1do
-em6eEh9q8y
 em6eEh9q8y
 px60u5n1do
+px60u5n1do
+em6eEh9q8y
 13
 em6eEh9q8y
 em6eEh9q8y
@@ -53,7 +53,7 @@ px60u5n1do
 3
 j6dkdoxyqt 2 1 0 1 - - - 1
 jz7odeqku4 2 1 0 1 ENTERED_THIS_TURN - - 3
-m4MTDKWvyR 1 1 0 1 ENTERED_THIS_TURN~ENTERED_THIS_TURN - - 5
+m4MTDKWvyR 1 1 0 1 ENTERED_THIS_TURN~ENTERED_THIS_TURN - - 4
 1
 LMyKyVC2O9 2 2 0 2 - - - 2
 0

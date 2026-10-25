@@ -1,0 +1,25 @@
+{
+    "name": "austere-priestess-with-cards-in-hand-does-not-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:44:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dwirzelaqo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dwirzelaqo"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter**: If you have no cards in your hand, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "awakened-deacon-without-the-class-bonus-cannot-pay-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:09:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "c9p4lpnvx7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "c9p4lpnvx7"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Floating Memory**"
+        ]
+    },
+    "behaviorFamily": true
+}

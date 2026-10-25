@@ -1,0 +1,24 @@
+{
+    "name": "ensnaring-fumes-two-preparation-counters-are-not-enough-for-the-alternate-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:40:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wPKxvzTmqq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wPKxvzTmqq"
+        ],
+        "mechanics": [
+            "alternate-cost",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "You may remove three **preparation** counters from your champion rather than pay this card's reserve cost."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

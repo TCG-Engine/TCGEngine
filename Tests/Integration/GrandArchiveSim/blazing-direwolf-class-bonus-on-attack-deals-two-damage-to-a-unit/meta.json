@@ -1,0 +1,26 @@
+{
+    "name": "blazing-direwolf-class-bonus-on-attack-deals-two-damage-to-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:21:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gKVMTAeLXQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gKVMTAeLXQ"
+        ],
+        "mechanics": [
+            "on-attack",
+            "damage",
+            "class-bonus",
+            "pride"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: Deal 2 damage to target unit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

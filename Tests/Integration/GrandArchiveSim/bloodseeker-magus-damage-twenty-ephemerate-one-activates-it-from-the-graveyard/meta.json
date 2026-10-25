@@ -1,0 +1,25 @@
+{
+    "name": "bloodseeker-magus-damage-twenty-ephemerate-one-activates-it-from-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:16:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3zvDCFRaoH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3zvDCFRaoH"
+        ],
+        "mechanics": [
+            "damage-threshold",
+            "ephemerate",
+            "graveyard-activation"
+        ],
+        "rulesClauses": [
+            "[Damage 20+] **Ephemerate \u2014** (1)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

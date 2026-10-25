@@ -1,0 +1,25 @@
+{
+    "name": "hoarfrost-spine-declining-keeps-the-top-card-on-the-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:54:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5hns3byfm8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5hns3byfm8"
+        ],
+        "mechanics": [
+            "on-enter",
+            "look",
+            "optional"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Look at the top card of your deck. You may put that card into your graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

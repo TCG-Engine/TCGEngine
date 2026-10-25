@@ -1,0 +1,27 @@
+{
+    "name": "nightmare-coil-recollection-draws-and-punishes-an-opponent-activation-for-eight",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T04:08:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3fe3c97s71"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3fe3c97s71"
+        ],
+        "mechanics": [
+            "activated-spell",
+            "draw",
+            "delayed-trigger",
+            "unpreventable-damage",
+            "recollection"
+        ],
+        "rulesClauses": [
+            "Draw a card. Until end of turn, whenever an opponent activates a card or ability, that opponent's champion deals 8 unpreventable damage to itself."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

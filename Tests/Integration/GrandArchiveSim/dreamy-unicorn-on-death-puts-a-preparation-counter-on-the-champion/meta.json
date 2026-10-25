@@ -1,0 +1,22 @@
+{
+    "name": "dreamy-unicorn-on-death-puts-a-preparation-counter-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ty0tcpdiny"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ty0tcpdiny"
+        ],
+        "mechanics": [
+            "on-death",
+            "counter"
+        ],
+        "rulesClauses": [
+            "**On Death**: Put a **preparation** counter on your champion."
+        ]
+    },
+    "behaviorFamily": true
+}

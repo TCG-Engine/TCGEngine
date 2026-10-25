@@ -1,0 +1,27 @@
+{
+    "name": "ethereal-absorption-returns-a-regalia-as-a-cost-to-draw-and-gain-two-preparation-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:05:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4zEOAaLdap"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4zEOAaLdap"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "return-to-material",
+            "draw",
+            "counter"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, return a regalia you control to its owner's material deck.",
+            "Draw a card, then put two **preparation** counters on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

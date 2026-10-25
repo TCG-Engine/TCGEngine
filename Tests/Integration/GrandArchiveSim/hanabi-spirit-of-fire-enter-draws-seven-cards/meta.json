@@ -1,0 +1,25 @@
+{
+    "name": "hanabi-spirit-of-fire-enter-draws-seven-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:23:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vnz9HSvVUZ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vnz9HSvVUZ"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw seven cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

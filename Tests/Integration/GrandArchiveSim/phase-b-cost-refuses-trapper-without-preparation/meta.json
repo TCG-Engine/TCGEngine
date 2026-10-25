@@ -1,0 +1,25 @@
+{
+    "name": "phase-b-cost-refuses-trapper-without-preparation",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:40:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sdbzr5zs29"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sdbzr5zs29"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "All printed costs must be payable before activating."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

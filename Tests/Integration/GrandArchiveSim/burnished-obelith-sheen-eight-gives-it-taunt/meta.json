@@ -1,0 +1,25 @@
+{
+    "name": "burnished-obelith-sheen-eight-gives-it-taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:04:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mz1dJZExOk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mz1dJZExOk"
+        ],
+        "mechanics": [
+            "sheen",
+            "taunt",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Sheen 8+] **Taunt**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

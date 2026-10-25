@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "rAKqUW5gaE"
+        ],
+        "mechanics": [
+            "cardistry",
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "Scavenge six for a Suited card."
+        ]
+    },
+    "name": "dtr-six-clubs-cardistry-scavenges-suited",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:10:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rAKqUW5gaE"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

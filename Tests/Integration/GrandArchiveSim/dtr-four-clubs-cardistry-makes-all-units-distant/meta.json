@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "ajkTLXYL5v"
+        ],
+        "mechanics": [
+            "cardistry",
+            "distant"
+        ],
+        "rulesClauses": [
+            "Every controlled unit becomes distant."
+        ]
+    },
+    "name": "dtr-four-clubs-cardistry-makes-all-units-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:10:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ajkTLXYL5v"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

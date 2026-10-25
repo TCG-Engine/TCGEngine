@@ -1,0 +1,26 @@
+{
+    "name": "prototype-shield-class-bonus-prevents-three-damage-to-the-linked-unit-while-it-is-attacking",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:53:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zadf9q1vk8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zadf9q1vk8"
+        ],
+        "mechanics": [
+            "link",
+            "class-bonus",
+            "prevention",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] If damage would be dealt to linked unit while it\u2019s attacking, prevent 3 of that damage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

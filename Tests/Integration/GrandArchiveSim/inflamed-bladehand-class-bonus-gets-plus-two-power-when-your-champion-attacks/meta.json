@@ -1,0 +1,25 @@
+{
+    "name": "inflamed-bladehand-class-bonus-gets-plus-two-power-when-your-champion-attacks",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:16:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zzH1XYFSP7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zzH1XYFSP7"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "class-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever your champion attacks, CARDNAME gets +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "reconstructive-surgery-puts-a-buff-counter-on-an-automaton-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:07:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "z308kuz07n"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "z308kuz07n"
+        ],
+        "mechanics": [
+            "modal",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Put a **buff** counter on target Automaton ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "l52lVIFvpy"
+        ],
+        "mechanics": [
+            "targeting",
+            "cost",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "Activate an action targeting an ally; pay costs; destroy the ally before the action resolves."
+        ]
+    },
+    "name": "nimue-destroys-declared-ally-before-action",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-21T18:14:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l52lVIFvpy"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

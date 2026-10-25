@@ -15,7 +15,9 @@
             "may-play-until-next-turn",
             "turn-effects"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "On Enter: Banish the top card of your deck. Until the beginning of your next turn, you may play it as long as your Shifting Currents face North. Repeat this process for East, South, and West."
+        ]
     },
     "engineBug": {
         "status": "fixed",

@@ -1,0 +1,25 @@
+{
+    "name": "shadecursed-hunter-on-death-goes-to-the-bottom-of-the-champions-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:56:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oqk2c7wklz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oqk2c7wklz"
+        ],
+        "mechanics": [
+            "on-death",
+            "lineage",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "**On Death:** Put CARDNAME on the bottom of your champion's lineage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "cell-handler-class-bonus-enter-weakens-a-beast-and-summons-nothing-for-a-non-automaton",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:24:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pk9xycwz9g"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pk9xycwz9g"
+        ],
+        "mechanics": [
+            "on-enter",
+            "stat-change",
+            "condition",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Up to one target Animal or Beast ally you control loses pride and gets -1 [POWER] until end of turn. If that ally is an Automaton, summon a Powercell token rested."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

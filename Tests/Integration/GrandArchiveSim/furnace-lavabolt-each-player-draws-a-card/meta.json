@@ -1,0 +1,23 @@
+{
+    "name": "furnace-lavabolt-each-player-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:10:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ru4g75uz1i"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ru4g75uz1i"
+        ],
+        "mechanics": [
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Each player draws a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

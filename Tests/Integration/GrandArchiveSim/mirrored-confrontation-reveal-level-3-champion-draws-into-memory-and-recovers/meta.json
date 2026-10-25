@@ -14,7 +14,9 @@
         "mechanics": [
             "actions-resolve-generated-enter-effect"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Each player may reveal a champion card with base level 3 from their material deck. Each player that does draws a card into their memory and recovers 2."
+        ]
     },
     "engineBug": {
         "status": "fixed",

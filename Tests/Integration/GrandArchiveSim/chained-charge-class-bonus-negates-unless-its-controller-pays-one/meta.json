@@ -1,0 +1,26 @@
+{
+    "name": "chained-charge-class-bonus-negates-unless-its-controller-pays-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:31:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "grlpk1akxj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "grlpk1akxj"
+        ],
+        "mechanics": [
+            "negate",
+            "pay-or-negate",
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "**Negate** target card activation unless its controller pays (1)."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

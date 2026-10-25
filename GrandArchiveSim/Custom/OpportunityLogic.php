@@ -131,6 +131,11 @@ function QueueEffectStackOpportunityRound($priorityPlayer, $windowId = "STACK_RE
     $effectStack = GetLiveEffectStackEntries();
     if(empty($effectStack)) return false;
 
+    // Interdiction (Feu Awakening, 0rKmarZ8QN): while its activation is on the effects stack, players can't gain opportunity.
+    foreach($effectStack as $stackObj) {
+        if(($stackObj->CardID ?? "") === "0rKmarZ8QN") return false;
+    }
+
     $otherPlayer = ($priorityPlayer == 1) ? 2 : 1;
     $fastCards = GetPlayableOpportunityChoices($priorityPlayer);
     if(QueueShortcutAwareMayChoose($priorityPlayer, $fastCards, "EffectStackActiveResponse", [$otherPlayer], $windowId)) {
@@ -192,7 +197,7 @@ function GetEffectStackActivationTargets($player, $filters = []) {
             }
             if(!$matched) continue;
         }
-        if(isset($filters['elements']) && !in_array(CardElement($cardID), $filters['elements'])) continue;
+        if(isset($filters['elements']) && !GAElementMatchesAny(CardElement($cardID), $filters['elements'])) continue;
         if(isset($filters['reserveCost']) && intval(CardCost_reserve($cardID)) !== intval($filters['reserveCost'])) continue;
         if(isset($filters['sourceZone']) && GetEffectStackSourceZone("EffectStack-" . $i) !== $filters['sourceZone']) continue;
         $targets[] = "EffectStack-" . $i;
@@ -339,9 +344,79 @@ function NegatedActivationDestination($mzID, $mode = "default") {
     return "myGraveyard";
 }
 
+// Moonveil Android (c34iTVRS8h): [Class Bonus] Whenever you negate a card activation an opponent controls, put two buff counters on it.
+function TriggerMoonveilAndroidNegate($player) {
+    $field = GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed || $field[$i]->CardID !== "c34iTVRS8h" || HasNoAbilities($field[$i])) continue;
+        if(!IsClassBonusActive($player, ["ASSASSIN", "CLERIC"])) continue;
+        AddCounters($player, "myField-" . $i, "buff", 2);
+    }
+}
+
+// Slipstream Vault (6ilt42sehq): "Negate all card activations targeting it." Activations on the stack when the Vault resolves are the ones affected.
+// A card that declared its target when activated (Slipstream Vault itself) is negated right away. Every other card chooses its target as it resolves,
+// so each live card activation is tagged with the ally's UniqueID and the Vault's controller; AllowGeneratedTargetResolution() negates it if it then
+// picks that ally. Triggered and activated abilities are not card activations and are left alone.
+function GASlipstreamVaultNegateTargeting($vaultController, $allyUniqueID) {
+    $allyUniqueID = intval($allyUniqueID);
+    if($allyUniqueID <= 0) return;
+    $effectStack = GetEffectStack();
+    for($i = count($effectStack) - 1; $i >= 0; --$i) {
+        $entry = $effectStack[$i] ?? null;
+        if($entry === null || !empty($entry->removed)) continue;
+        if(!in_array($entry->TriggerType ?? "", ["", "-"], true)) continue; // a trigger, not a card activation
+        if(is_array($entry->TurnEffects ?? null) && in_array("CANT_BE_NEGATED", $entry->TurnEffects)) continue;
+        if(!is_array($entry->Counters)) $entry->Counters = [];
+        if($entry->CardID === "6ilt42sehq" && intval($entry->Counters["slipstreamTargetUID"] ?? 0) === $allyUniqueID) {
+            NegateCardActivation($vaultController, "EffectStack-" . $i);
+            continue;
+        }
+        $tag = $allyUniqueID . ":" . intval($vaultController) . ":" . $entry->CardID . ":" . intval($entry->Controller);
+        $existing = strval($entry->Counters["vaultShield"] ?? "");
+        $tags = $existing === "" ? [] : explode(";", $existing);
+        if(!in_array($tag, $tags, true)) $tags[] = $tag;
+        $entry->Counters["vaultShield"] = implode(";", $tags);
+    }
+}
+
+// True when the activation resolving right now was tagged by a Slipstream Vault for one of the units in $selection (an "&"-joined mzID list); the
+// activation is then negated (its handler stops, and the usual negation bookkeeping runs).
+function GAVaultShieldNegatesResolvingActivation($selection) {
+    $shield = strval(DecisionQueueController::GetVariable("vaultShield") ?? "");
+    if($shield === "") return false;
+    $shielded = [];
+    foreach(explode(";", $shield) as $tag) {
+        $parts = explode(":", $tag);
+        if(count($parts) === 4) $shielded[intval($parts[0])] = ["vault" => intval($parts[1]), "cardID" => $parts[2], "controller" => intval($parts[3])];
+    }
+    foreach(explode("&", strval($selection)) as $mz) {
+        if($mz === "" || $mz === "-") continue;
+        $obj = GetZoneObject($mz);
+        if($obj === null || !isset($obj->UniqueID)) continue;
+        $info = $shielded[intval($obj->UniqueID)] ?? null;
+        if($info === null) continue;
+        DecisionQueueController::ClearVariable("vaultShield");
+        $vaultController = $info["vault"];
+        $cardID = $info["cardID"];
+        $controller = $info["controller"];
+        if($cardID !== "") {
+            TrackCardActivationNegated($vaultController, $cardID, $controller);
+            TriggerReversalsPolarity($controller, $cardID);
+            QueueConstellatorySpireTrigger($vaultController);
+            if($controller != $vaultController) TriggerMoonveilAndroidNegate($vaultController);
+        }
+        return true;
+    }
+    return false;
+}
+
 function NegateCardActivation($player, $targetMZ, $destinationMode = "default") {
     $target = GetZoneObject($targetMZ);
     if($target === null || $target->removed) return false;
+    if(($target->TriggerType ?? '') === 'DTR_EVENT' && !empty($target->Counters['tristanIntentToken'])) {
+        GATristanReleaseIntent(intval($target->Controller), $target->Counters['tristanIntentToken']);
+    }
     $cardID = $target->CardID;
     $controller = intval($target->Controller);
     $dest = NegatedActivationDestination($targetMZ, $destinationMode);
@@ -354,6 +429,7 @@ function NegateCardActivation($player, $targetMZ, $destinationMode = "default") 
     TrackCardActivationNegated($player, $cardID, $controller);
     TriggerReversalsPolarity($controller, $cardID);
     QueueConstellatorySpireTrigger($player);
+    if($controller != $player) TriggerMoonveilAndroidNegate($player);
     DecisionQueueController::CleanupRemovedCards();
     return true;
 }
@@ -383,7 +459,7 @@ function QueueNegateActivation($player, $filters = [], $destinationMode = "defau
     DecisionQueueController::AddDecision($player, "CUSTOM", $handler . "|" . $destinationMode . "|" . intval($payAmount), 1);
 }
 
-function QueueNegateAllActivationsByCard($player, $cardID, $controller, $destinationMode = "default", $payAmount = -1) {
+function QueueNegateAllActivationsByCard($player, $cardID, $controller, $destinationMode = "default", $payAmount = -1, $enterSourceUniqueID = null) {
     $matches = [];
     $effectStack = GetEffectStack();
     for($i = 0; $i < count($effectStack); ++$i) {
@@ -392,6 +468,8 @@ function QueueNegateAllActivationsByCard($player, $cardID, $controller, $destina
         if(is_array($obj->TurnEffects ?? null) && in_array("CANT_BE_NEGATED", $obj->TurnEffects)) continue;
         if($obj->CardID !== $cardID) continue;
         if(intval($obj->Controller) !== intval($controller)) continue;
+        if($enterSourceUniqueID !== null && (($obj->TriggerType ?? "") !== "ENTER"
+            || intval($obj->TriggerSourceUniqueID ?? 0) !== intval($enterSourceUniqueID))) continue;
         $matches[] = "EffectStack-" . $i;
     }
     if(empty($matches)) return;
@@ -437,14 +515,15 @@ $customDQHandlers["NegateByCardContinue"] = function($player, $parts, $lastDecis
         DecisionQueueController::ClearVariable("NegateByCardPlayer");
         DecisionQueueController::ClearVariable("NegateByCardCurrentIndex");
         DecisionQueueController::ClearVariable("NegateByCardCurrentTarget");
+        ResumeEffectStackPostResolutionCheck($player);
         return;
     }
 
     $negatingPlayer = intval(DecisionQueueController::GetVariable("NegateByCardPlayer") ?? $player);
     $destinationMode = DecisionQueueController::GetVariable("NegateByCardDestination") ?? "default";
     $payAmount = intval(DecisionQueueController::GetVariable("NegateByCardPay") ?? "-1");
-    $targetMZ = $targets[$index];
-    $targetObj = GetZoneObject($targetMZ);
+    $targetMZ = GARegulusStackRef($targets[$index]);
+    $targetObj = $targetMZ === "" ? null : GetZoneObject($targetMZ);
     if($targetObj === null || $targetObj->removed) {
         DecisionQueueController::AddDecision($negatingPlayer, "CUSTOM", "NegateByCardContinue|" . ($index + 1), 1);
         return;
@@ -480,7 +559,7 @@ $customDQHandlers["NegateByCardPayChoice"] = function($payingPlayer, $parts, $la
     } else {
         NegateCardActivation($negatingPlayer, $targetMZ, $destinationMode);
     }
-    DecisionQueueController::AddDecision($negatingPlayer, "CUSTOM", "NegateByCardContinue|" . ($currentIndex + 1), 1);
+    DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "NegateByCardContinue|" . ($currentIndex + 1), 1);
 };
 
 $customDQHandlers["NegateByCardReserveSelected"] = function($payingPlayer, $parts, $lastDecision) {
@@ -493,7 +572,7 @@ $customDQHandlers["NegateByCardReserveSelected"] = function($payingPlayer, $part
     if(!ProcessReservePaymentSelections($payingPlayer, $lastDecision, $payAmount)) {
         NegateCardActivation($negatingPlayer, $targetMZ, $destinationMode);
     }
-    DecisionQueueController::AddDecision($negatingPlayer, "CUSTOM", "NegateByCardContinue|" . ($currentIndex + 1), 1);
+    DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "NegateByCardContinue|" . ($currentIndex + 1), 1);
 };
 
 $customDQHandlers["NegateActivationPayChoice"] = function($payingPlayer, $parts, $lastDecision) {
@@ -742,8 +821,8 @@ $cbFastActivationCards = [
     "a5igwbsmks" => ["TAMER"], // Spirited Falconer
     "itwys9kf4r" => ["ASSASSIN"], // Cloaked Executioner
     "cqadnk9iz0" => ["TAMER"], // Baby Green Slime
-    "2bbmoqk2c7" => ["GUARDIAN"], // Rose, Eternal Paragon
-    "f0ht2tsn0y" => ["GUARDIAN"], // Astarte, Celestial Dawn
+    "2bbmoqk2c7" => ["GUARDIAN", "WARRIOR"], // Rose, Eternal Paragon (GUARDIAN, WARRIOR)
+    "f0ht2tsn0y" => ["CLERIC"], // Astarte, Celestial Dawn
     "jozihslnhz" => ["ASSASSIN"], // Sinister Mindreaver
     "yky280mtts" => ["TAMER"], // Flamebreak Chorus
     "uPn9SZdqrr" => ["GUARDIAN"], // Gustguard Bastion
@@ -760,6 +839,50 @@ $unconditionalFastCards = [
     "e8ygl32jef" => true, // Two of Spades
     "oye74ibwo8" => true, // Baleful Oblation
 ];
+
+// Fast Activation printed as a line of its own ("[Class Bonus] **Fast Activation**", "[Level 2+] **Fast Activation**", "**Fast Activation**, **Ranged 2**"), as opposed to
+// text that merely grants it to other cards ("the next Horse ally card you activate ... as though it had fast activation"). The two tables above only know the cards that were
+// registered by hand; every other card that prints the keyword was never playable at fast speed. Returns the bracketed conditions on that line, or null when the card prints none.
+// Champion-bonus conditions ([Merlin Bonus] ...) and counters ([Sheen 8+]) are not evaluated here: a card with one of those stays out of this path.
+function PrintedFastActivationConditions($cardID) {
+    static $cache = [];
+    $cardID = strval($cardID);
+    if(array_key_exists($cardID, $cache)) return $cache[$cardID];
+    $text = strval(CardEffect($cardID));
+    $result = null;
+    if(preg_match('/(?:^|<br>|\n)\s*((?:\[[^\]]+\]\s*)*)\*{0,2}Fast Activation/i', $text, $m)) {
+        $result = [];
+        preg_match_all('/\[([^\]]+)\]/', $m[1], $conds);
+        foreach($conds[1] as $c) {
+            if(strcasecmp($c, "Class Bonus") === 0) $result[] = ["type" => "class"];
+            else if(preg_match('/^Level (\d+)\+$/i', $c, $lv)) $result[] = ["type" => "level", "level" => intval($lv[1])];
+            else $result[] = ["type" => "unsupported"];
+        }
+    }
+    $cache[$cardID] = $result;
+    return $result;
+}
+
+// "[Damage N+]": the champion has N or more damage on it (not damage taken this turn).
+function ChampionDamageAtLeast($player, $amount) {
+    $champion = GetPlayerChampion($player);
+    return $champion !== null && intval($champion->Damage ?? 0) >= $amount;
+}
+
+function PrintedFastActivationActive($player, $cardID) {
+    $conditions = PrintedFastActivationConditions($cardID);
+    if($conditions === null) return false;
+    foreach($conditions as $c) {
+        if($c["type"] === "class") {
+            if(!IsClassBonusActive($player, CardClasses($cardID))) return false;
+        } else if($c["type"] === "level") {
+            if(PlayerLevel($player) < $c["level"]) return false;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
 
 function EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label = "") {
     $cleanLabel = trim(preg_replace('/\s+/', '_', str_replace(["@", "&", ":"], ["", "_", "-"], $label)));
@@ -784,16 +907,21 @@ function GetPlayableFastAbilities($player) {
     global $Cardistry_Cards;
     $savedPlayerID = $playerID;
     $playerID = $player;
+    // Abilities printed "Activate this ability only at slow speed" are refused while this listing is built (see GAIsSlowSpeed in GeneratedAbilityOverrides.php).
+    $savedFastWindowContext = $GLOBALS['GAFastWindowAbilityContext'] ?? false;
+    $GLOBALS['GAFastWindowAbilityContext'] = true;
 
     $choices = [];
     $existingFlash = GetFlashMessage();
     $abilityZones = [
         "myField" => GetField($player),
         "myIntent" => GetIntent($player),
+        "theirField" => GetField($player === 1 ? 2 : 1),
     ];
 
     foreach($abilityZones as $zonePrefix => $zone) {
         foreach($zone as $i => $obj) {
+            if($zonePrefix === "theirField" && !GAHasPublicActivatedAbility($obj)) continue;
             if($obj == null) continue;
             if($obj->removed || HasNoAbilities($obj)) continue;
             if($obj->CardID === "uvgflagxbb" && HasOpportunity($player)) continue;
@@ -837,6 +965,7 @@ function GetPlayableFastAbilities($player) {
 
     SetFlashMessage($existingFlash);
     $playerID = $savedPlayerID;
+    $GLOBALS['GAFastWindowAbilityContext'] = $savedFastWindowContext;
     return $choices;
 }
 
@@ -888,7 +1017,10 @@ function ResolveOpportunitySelection($player, $selection) {
         if($sourceObj !== null && isset($sourceObj->Location) && $sourceObj->Location === "Hand") {
             HandActivatedAbility($player, $abilityChoice['mzID'], $abilityChoice['abilityIndex']);
         } else {
+            // Chosen from a response window: a slow-speed-only ability must still be refused here.
+            $GLOBALS['GAFastWindowAbilityContext'] = true;
             ActivateAbility($player, $abilityChoice['mzID'], $abilityChoice['abilityIndex']);
+            $GLOBALS['GAFastWindowAbilityContext'] = false;
         }
         ResumeIdleEffectStackIfNeeded();
         return true;
@@ -989,7 +1121,7 @@ function CanUseFastOpportunityGraveyardCard($player, $mzID, $obj) {
             && !empty(GetAetherwingWeapons($player));
     }
 
-    if(CanPayEphemerate($player, $obj->CardID)) return true;
+    if(CanPayEphemerate($player, $obj->CardID,$obj)) return true;
     return false;
 }
 
@@ -1027,7 +1159,7 @@ function GetPlayableFastCards($player) {
         if(!CanActivateOpportunityCard($player, $mzID, $obj)) continue;
         $speed = CardSpeed($cardID);
         $cbFastClasses = $cbFastActivationCards[$cardID] ?? ($cbFastActivationCards[$cardIDLower] ?? null);
-        $isUnconditionalFast = isset($unconditionalFastCards[$cardID]) || isset($unconditionalFastCards[$cardIDLower]);
+        $isUnconditionalFast = isset($unconditionalFastCards[$cardID]) || isset($unconditionalFastCards[$cardIDLower]) || PrintedFastActivationActive($player, $cardID);
         if($speed === true) {
             // Check if player can afford the reserve cost
             if(CanAffordCardActivation($player, $obj)) {
@@ -1067,6 +1199,8 @@ function GetPlayableFastCards($player) {
             if($hasHumanDeath && CanAffordCardActivation($player, $obj)) {
                 $fastCards[] = $mzID;
             }
+        } elseif(GAStaticProperty($player, "fastActivation", $obj) > 0) {
+            if(CanAffordCardActivation($player, $obj)) $fastCards[] = $mzID;
         } elseif(GlobalEffectCount($player, "w1wgpeifd0") > 0 && PropertyContains(CardType($obj->CardID), "ALLY")) {
             // Expeditious Opening: next ally activated this turn gets fast activation
             if(CanAffordCardActivation($player, $obj)) {
@@ -1089,7 +1223,17 @@ function GetPlayableFastCards($player) {
             if(CanAffordCardActivation($player, $obj)) {
                 $fastCards[] = $mzID;
             }
-        } elseif($obj->CardID === "pvzvqx16w4" && GetChampionDamageTakenThisTurn($player) >= 35) {
+        } elseif($obj->CardID === "Erpyb3AGgp" && IsMerlinBonusActive($player) && GetSheenCount($player) >= 8) {
+            // Conjuring Fluorescence: [Merlin Bonus] [Sheen 8+] Fast Activation
+            if(CanAffordCardActivation($player, $obj)) {
+                $fastCards[] = $mzID;
+            }
+        } elseif($obj->CardID === "kJoyEo9Ls1" && IsArisannaBonusActive($player)) {
+            // Apothecary's Harvest: [Arisanna Bonus] Fast Activation
+            if(CanAffordCardActivation($player, $obj)) {
+                $fastCards[] = $mzID;
+            }
+        } elseif($obj->CardID === "pvzvqx16w4" && ChampionDamageAtLeast($player, 35)) {
             // Annihilation: [Damage 35+] Fast Activation
             if(CanAffordCardActivation($player, $obj)) {
                 $fastCards[] = $mzID;
@@ -1281,6 +1425,27 @@ $customDQHandlers["EffectStackOpportunity"] = function($player, $parts, $lastDec
     $effectStack = GetLiveEffectStackEntries();
     if(empty($effectStack)) return;
 
+    $activation = $effectStack[count($effectStack) - 1];
+    if(in_array($activation->TriggerType ?? "", ["", "-"], true)
+        && empty($activation->Counters["activationDeclared"])) {
+        if(GACompletePostCostTargets(intval($activation->Controller), $activation)) return;
+        $activation->Counters["activationDeclared"] = 1;
+        DecisionQueueController::StoreVariable('DispatchingActivation', 'YES');
+        BeginTriggeredAbilityBatch();
+        foreach(json_decode($activation->Counters['activationCostTriggers'] ?? '[]', true) ?: [] as $entry) {
+            QueueTriggeredAbility($entry['player'], $entry['cardID'], $entry['triggerType'], $entry['context'], $entry['sourceMZ']);
+        }
+        unset($activation->Counters['activationCostTriggers']);
+        GAActivationCompleted(intval($activation->Controller), $activation);
+        DispatchMacroListeners("CardActivationDeclared", intval($activation->Controller), [
+            "cardID" => $activation->CardID, "element" => EffectiveCardElement($activation),
+            "type" => EffectiveCardType($activation),
+            "targets" => $activation->Counters['activationTargets'] ?? '{}',
+        ], ["Field", "GlobalEffects"]);
+        EndTriggeredAbilityBatch();
+        DecisionQueueController::ClearVariable('DispatchingActivation');
+        if(DecisionQueueController::GetVariable('PendingTriggerOrderGroup')) return;
+    }
     if(!QueueEffectStackOpportunityRound($player, GetEffectStackWindowId())) {
         ResolveTopOfEffectStack();
     }
@@ -1336,6 +1501,9 @@ $customDQHandlers["EffectStackOpponentResponse"] = function($player, $parts, $la
  * to pick this back up once the target's fate is actually settled.
  */
 $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecision) {
+    // A cross-controller pay-or-negate choice must settle before stack priority resumes.
+    $pendingByCardTarget = DecisionQueueController::GetVariable("NegateByCardCurrentTarget");
+    if($pendingByCardTarget !== null && $pendingByCardTarget !== "") return;
     $pendingNegateTarget = DecisionQueueController::GetVariable("pendingNegateTarget");
     if($pendingNegateTarget !== null && $pendingNegateTarget !== "") {
         return;
@@ -1461,6 +1629,13 @@ function NormalizeMzIDForController($mzID, $controller) {
  */
 function QueueTriggeredAbility($player, $cardID, $triggerType, $context = [], $sourceMZ = null) {
     global $__pendingTriggerBatch;
+    $pendingActivation = GAPendingDeclaredActivation();
+    if($pendingActivation !== null) {
+        $entries = json_decode($pendingActivation->Counters['activationCostTriggers'] ?? '[]', true) ?: [];
+        $entries[] = ['player'=>$player,'cardID'=>$cardID,'triggerType'=>$triggerType,'context'=>$context,'sourceMZ'=>$sourceMZ ?? ($context['mzID'] ?? null)];
+        $pendingActivation->Counters['activationCostTriggers'] = json_encode($entries);
+        return true;
+    }
     if (($__pendingTriggerBatch['depth'] ?? 0) > 0) {
         $__pendingTriggerBatch['entries'][] = [
             'player' => $player,
@@ -1489,7 +1664,7 @@ function PushTriggeredAbilityNow($player, $cardID, $triggerType, $context = []) 
     );
     if($stackObj === null) return false;
 
-    if(DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES") {
+    if(DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES" && DecisionQueueController::GetVariable("DispatchingActivation") !== "YES") {
         // dontSkipOnPass:1 is load-bearing. When the push happens from inside a handler that is itself
         // running in an ExecuteStaticMethods() loop whose $lastDecision is "PASS" (e.g. CombatApplyAttackerDamage
         // after the defender declined "Retaliate?"), the nested ExecuteStaticMethods() below is a no-op (same
@@ -1547,6 +1722,7 @@ function EndTriggeredAbilityBatch() {
     $__pendingTriggerBatch['depth']--;
     if ($__pendingTriggerBatch['depth'] > 0) return;
 
+    GALightweaverResetRevealGroup();
     $entries = $__pendingTriggerBatch['entries'];
     $__pendingTriggerBatch['entries'] = [];
     if (empty($entries)) return;
@@ -1580,6 +1756,12 @@ function EndTriggeredAbilityBatch() {
  * sourceMZ is missing or two candidates share one (can't render a choice that isn't unambiguous).
  */
 function QueueTriggerStackOrderChoice($controller, $group) {
+    if(GALightweaverNeedsOrderChoice($group)) {
+        DecisionQueueController::StoreVariable('PendingTriggerOrderGroup', base64_encode(json_encode($group)));
+        DecisionQueueController::StoreVariable('PendingTriggerOrderChosen', base64_encode(json_encode([])));
+        GALightweaverOrderPick($controller);
+        return;
+    }
     $sourceMZs = array_map(fn($e) => $e['sourceMZ'], $group);
     if (in_array(null, $sourceMZs, true) || in_array("", $sourceMZs, true) || count(array_unique($sourceMZs)) !== count($sourceMZs)) {
         PushOrderedTriggeredAbilities($group);
@@ -1655,7 +1837,7 @@ function PushOrderedTriggeredAbilities($orderedEntries) {
         );
         if ($stackObj !== null) { $pushed = true; $lastPlayer = $e['player']; }
     }
-    if ($pushed && DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES") {
+    if ($pushed && DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES" && DecisionQueueController::GetVariable("DispatchingActivation") !== "YES") {
         DecisionQueueController::AddDecision($lastPlayer, "CUSTOM", "EffectStackOpportunity", 100, dontSkipOnPass:1);
         $dqController = new DecisionQueueController();
         $dqController->ExecuteStaticMethods($lastPlayer, "-");
@@ -1706,6 +1888,13 @@ function ResolveTopOfEffectStack() {
     DecisionQueueController::StoreVariable("isImbued", $topIsImbued ? "YES" : "NO");
     DecisionQueueController::StoreVariable("ResolvingEffectStack", "YES");
     ClearDamageSourcesDealtThisResolution();
+    // Slipstream Vault's shield travels with the card activations it was cast over (Counters["vaultShield"], replayed below); an entry that
+    // carries none must not inherit the previous entry's.
+    DecisionQueueController::ClearVariable("vaultShield");
+    DecisionQueueController::ClearVariable('activationTargets');
+    DecisionQueueController::ClearVariable('activationTargetsFizzle');
+    DecisionQueueController::ClearVariable('revealAbilityID');
+    DecisionQueueController::ClearVariable('revealIdentityCardID');
 
     // Restore any ambient DQ variables (e.g. "mzID", or a card-specific snapshot value)
     // that were captured into this entry's Counters slot when it was queued -- ability
@@ -1748,6 +1937,10 @@ function ResolveTopOfEffectStack() {
         if(function_exists("FireWitherTriggeredAbility")) {
             FireWitherTriggeredAbility($cardOwner);
         }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "DTR_EVENT") {
+        GADTRFireEvent($cardOwner,$topObj->CardID);
         $topObj->Remove();
         DecisionQueueController::CleanupRemovedCards();
     } else if($triggerType === "ALLY_DESTROYED") {
@@ -1845,6 +2038,7 @@ function ResolveTopOfEffectStack() {
         //  - Tracks MacroTurnIndex
         //  - Calls OnCardActivated (moves card, fires abilities)
         //  - Calls ExecuteStaticMethods to process any ability decisions
+        GASetTargetResolutionContext($cardOwner, $topObj);
         CardActivated($cardOwner, $topMZ);
     }
     EndTriggeredAbilityBatch();
@@ -2044,6 +2238,9 @@ $customDQHandlers["NoOp"] = function($player, $parts, $lastDecision) {
  * After both pass, game simply continues (NoOp).
  */
 $customDQHandlers["AbilityOpportunity"] = function($player, $parts, $lastDecision) {
+    // A cross-controller pay-or-negate choice must settle before stack priority resumes.
+    $pendingByCardTarget = DecisionQueueController::GetVariable("NegateByCardCurrentTarget");
+    if($pendingByCardTarget !== null && $pendingByCardTarget !== "") return;
     ReconcileEffectStackSourceZones();
     DecisionQueueController::CleanupRemovedCards();
     $effectStack = GetLiveEffectStackEntries();
@@ -2092,4 +2289,47 @@ $customDQHandlers["AbilityOpportunity"] = function($player, $parts, $lastDecisio
     GrantOpportunityWindow($player, "NoOp", $player, "ABILITY_RESPONSE");
 };
 
-?>
+// Horticounter's payment is optional even at zero; glimpse only on a successful negate.
+$customDQHandlers["HorticounterTarget"] = function($player, $parts, $lastDecision) {
+    if(!in_array($lastDecision, GetEffectStackActivationTargets($player), true)) return;
+    $target = GetZoneObject($lastDecision);
+    $amount = max(0, intval($parts[1] ?? 0));
+    DecisionQueueController::StoreVariable("pendingNegateTarget", $lastDecision);
+    DecisionQueueController::StoreVariable("horticounterPayment", strval($amount));
+    if(CountAvailableReservePayments(intval($target->Controller)) < $amount) {
+        HorticounterFinish($player, false);
+        return;
+    }
+    $controller = intval($target->Controller);
+    DecisionQueueController::AddDecision($controller, "YESNO", "-", 100, "Pay_" . $amount . "_to_prevent_negate?");
+    DecisionQueueController::AddDecision($controller, "CUSTOM", "HorticounterPayChoice|" . $player, 100);
+};
+
+function HorticounterFinish($player, $paid) {
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $player;
+    try {
+        $target = DecisionQueueController::GetVariable("pendingNegateTarget");
+        $negated = !$paid && in_array($target, GetEffectStackActivationTargets($player), true)
+            && NegateCardActivation($player, $target, "banish");
+        DecisionQueueController::ClearVariable("pendingNegateTarget");
+        DecisionQueueController::ClearVariable("horticounterPayment");
+        if($negated) Glimpse($player, 3);
+        ResumeEffectStackPostResolutionCheck($player);
+    } finally {
+        $playerID = $savedPlayerID;
+    }
+}
+
+$customDQHandlers["HorticounterPayChoice"] = function($player, $parts, $lastDecision) {
+    $negatingPlayer = intval($parts[0] ?? $player);
+    $amount = max(0, intval(DecisionQueueController::GetVariable("horticounterPayment")));
+    if($lastDecision === "YES" && $amount > 0 && QueuePreventNegateReserveSelection($player, $amount, "HorticounterReserveSelected|" . $negatingPlayer)) return;
+    HorticounterFinish($negatingPlayer, $lastDecision === "YES" && $amount === 0);
+};
+
+$customDQHandlers["HorticounterReserveSelected"] = function($player, $parts, $lastDecision) {
+    $amount = max(0, intval(DecisionQueueController::GetVariable("horticounterPayment")));
+    HorticounterFinish(intval($parts[0] ?? $player), ProcessReservePaymentSelections($player, $lastDecision, $amount));
+};

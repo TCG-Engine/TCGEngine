@@ -1,0 +1,23 @@
+{
+    "name": "concealed-marksman-ranged-four-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:22:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7fqr67duh1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7fqr67duh1"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 4**"
+        ]
+    },
+    "behaviorFamily": true
+}

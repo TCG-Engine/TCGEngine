@@ -1,0 +1,25 @@
+{
+    "name": "queens-gambit-sacrificing-a-queen-summons-three-pawn-pieces",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:03:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NGAy4rNwUo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "NGAy4rNwUo"
+        ],
+        "mechanics": [
+            "on-enter",
+            "summon",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If the sacrificed ally was a Queen, **summon** three Pawn Piece tokens."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

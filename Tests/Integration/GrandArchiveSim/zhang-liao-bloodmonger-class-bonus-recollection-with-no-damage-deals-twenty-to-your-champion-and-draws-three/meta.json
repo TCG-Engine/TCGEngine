@@ -1,0 +1,27 @@
+{
+    "name": "zhang-liao-bloodmonger-class-bonus-recollection-with-no-damage-deals-twenty-to-your-champion-and-draws-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:19:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w822tmc0yc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w822tmc0yc"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "recollection",
+            "self-damage",
+            "draw",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your recollection phase, if your champion has zero damage counters on them, deal 20 unpreventable damage to your champion and draw three cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

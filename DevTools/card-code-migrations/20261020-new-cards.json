@@ -1,0 +1,346 @@
+{
+  "root": "GrandArchiveSim",
+  "cards": {
+    "gOus3YnrRq": [
+      {
+        "macroName": "Enter",
+        "abilityCode": "Draw($player, 7);"
+      }
+    ],
+    "RWJ0fztQK2": [
+      {
+        "macroName": "PlayCard",
+        "abilityCode": "ScavengeForProperty($player, 10, \"subtypeAny\", \"HARMONY,MELODY\");"
+      }
+    ],
+    "j0zgnD8pP5": [
+      {
+        "macroName": "PlayCard",
+        "abilityCode": "GAPutFieldGroup($player, [\"8hqHAU0Xj6\", \"8hqHAU0Xj6\"], true);"
+      },
+      {
+        "macroName": "ReserveCostModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj && ($subjectObj->UniqueID ?? null) !== ($sourceObj->UniqueID ?? null)) return 0;\nif($subjectObj->CardID !== \"j0zgnD8pP5\") return 0;\n$count = 0;\nforeach(GetField($player) as $obj) {\n    if($obj !== null && !$obj->removed && PropertyContains(EffectiveCardSubtypes($obj), \"FRACTAL\")) ++$count;\n}\nreturn -3 * $count;"
+      }
+    ],
+    "hiN2g99FLF": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$targets = FilterSpellshroudTargets(array_merge(ZoneSearch(\"myField\", [\"ALLY\"]), ZoneSearch(\"theirField\", [\"ALLY\"])));\nif(empty($targets)) return;\n$choices = implode(\"&\", $targets);\n$target = await $player.MZChoose($choices, \"Choose_an_ally_for_Unstable_Voltage\");\n$damage = EngineRandomInt(1, 6) + EngineRandomInt(1, 6);\nDealDamage($player, $mzID, $target, $damage);"
+      }
+    ],
+    "2hlW5LWSTe": [
+      {
+        "macroName": "OnAttack",
+        "abilityCode": "$memory = ZoneSearch(\"myMemory\");\nif(empty($memory)) return;\n$answer = await $player.YesNo(\"Banish_a_random_memory_card_to_scavenge?\");\nif($answer !== \"YES\") return;\n$memory = ZoneSearch(\"myMemory\");\nif(empty($memory)) return;\n$chosen = $memory[EngineRandomInt(0, count($memory) - 1)];\n$card = GetZoneObject($chosen);\n$amount = 2 + max(0, intval(CardCost_reserve($card->CardID)));\n$moved = MZMove($player, $chosen, \"myBanish\");\nif($moved !== null) ScavengeForElement($player, $amount, \"ARCANE\");"
+      }
+    ],
+    "Wk4Pc7bj21": [
+      {
+        "macroName": "PlayCard",
+        "abilityCode": "$targets = FilterSpellshroudTargets(array_merge(ZoneSearch(\"myField\"), ZoneSearch(\"theirField\")));\nif(empty($targets)) return;\n$choices = implode(\"&\", $targets);\n$chosen = await $player.MZChoose($choices, \"Choose_an_object_to_protect\");\n$amount = 2;\nforeach(GetField($player) as $obj) {\n    if($obj === null || $obj->removed) continue;\n    $type = EffectiveCardType($obj);\n    if((PropertyContains($type, \"LESSER BOON\") || PropertyContains($type, \"GREATER BOON\")) && PropertyContains(EffectiveCardElement($obj), \"WIND\")) ++$amount;\n}\nforeach(GetChampionLineage($player) as $id) {\n    if(PropertyContains(CardElement($id), \"WIND\")) ++$amount;\n}\nAddTurnEffect($chosen, \"PREVENT_ALL_\" . $amount);"
+      }
+    ],
+    "bHMPShtaSt": [
+      {
+        "macroName": "PlayCard",
+        "abilityCode": "$targets = [];\nforeach(ZoneSearch(\"theirField\", [\"REGALIA\"]) as $target) {\n    $obj = GetZoneObject($target);\n    if(intval(CardCost_memory($obj->CardID)) === 0) $targets[] = $target;\n}\n$targets = FilterSpellshroudTargets($targets);\nif(empty($targets)) return;\n$choices = implode(\"&\", $targets);\n$chosen = await $player.MZChoose($choices, \"Choose_an_opposing_zero_memory_regalia\");\n$obj = GetZoneObject($chosen);\nif($obj === null || $obj->removed) return;\nGASummonTokenCopy($player, [\"cardID\" => $obj->CardID, \"type\" => EffectiveCardType($obj), \"overrides\" => $obj->Counters[\"_overrides\"] ?? []]);"
+      }
+    ],
+    "n2wtz6ql0a": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "if(GlobalEffectCount($player, \"TIME_DISTORTED\") === 0) AddGlobalEffects($player, \"TIME_DISTORTED\");"
+      }
+    ],
+    "94rrVFUJG4": [
+      {
+        "macroName": "PlayCard",
+        "abilityCode": "GAPutFieldGroup($player, [\"oswzpvvog0\"]);"
+      },
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($property !== \"ignoreElementRequirements\" || $subjectObj === null) return 0;\nreturn PropertyContains(EffectiveCardSubtypes($subjectObj), \"BIRD\") && !IsAdvancedElementCard($subjectObj->CardID) ? 1 : 0;"
+      }
+    ],
+    "OSsRmNoETv": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj === null || !in_array($property, [\"power\", \"entryDurability\"], true)) return 0;\nreturn PropertyContains(EffectiveCardType($subjectObj), \"WEAPON\") && PropertyContains(EffectiveCardSubtypes($subjectObj), \"SWORD\") ? 1 : 0;"
+      }
+    ],
+    "x3ljhn5iu9": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($property !== \"enableAllElements\" || PlayerLevel($player) < 2) return 0;\n$championMZ = FindChampionMZ($player);\n$champion = $championMZ === null ? null : GetZoneObject($championMZ);\nreturn $champion !== null && intval($champion->Damage) >= 15 ? 1 : 0;"
+      }
+    ],
+    "ilW4cRlI0C": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "return $property === \"enableBasicElements\" ? 1 : 0;"
+      },
+      {
+        "macroName": "Enter",
+        "abilityCode": "$source = GetZoneObject($mzID);\nif($source === null) return;\nDecisionQueueController::StoreVariable(\"triskitSourceUID\", strval($source->UniqueID));\n$answer = await $player.YesNo(\"Banish_your_champion_to_make_Triskit_your_champion?\");\nif($answer !== \"YES\") return;\n$uid = intval(DecisionQueueController::GetVariable(\"triskitSourceUID\"));\nDecisionQueueController::ClearVariable(\"triskitSourceUID\");\n$sourceMZ = FindFieldMzByUniqueID($uid);\n$championMZ = FindChampionMZ($player);\nif($sourceMZ === \"\" || $championMZ === null || $sourceMZ === $championMZ) return;\n$champion = GetZoneObject($championMZ);\nif($champion === null || $champion->removed) return;\n$lineage = $champion->Subcards ?? [];\nOnLeaveField($player, $championMZ);\n$moved = MZMove($player, $championMZ, \"myBanish\");\nif($moved !== null) {\n    foreach($lineage as $id) MZAddZone($player, \"myBanish\", $id);\n    $sourceMZ = FindFieldMzByUniqueID($uid);\n    if($sourceMZ !== \"\") ApplyPersistentOverride($sourceMZ, [\"type\" => \"UNIQUE,CHAMPION\", \"baseLevel\" => 3]);\n}"
+      }
+    ],
+    "q0P2TmYGXs": [
+      {
+        "macroName": "Enter",
+        "abilityCode": "$answer = await $player.YesNo(\"Discard_your_hand_and_memory_to_generate_eight_Sights?\");\nif($answer !== \"YES\") return;\nforeach([\"myHand\", \"myMemory\"] as $zone) {\n    $cards = ZoneSearch($zone);\n    for($i = count($cards) - 1; $i >= 0; --$i) DiscardCard($player, $cards[$i]);\n}\nforeach([\"Arcane Sight\", \"Astra Sight\", \"Crux Sight\", \"Exia Sight\", \"Luxem Sight\", \"Neos Sight\", \"Tera Sight\", \"Umbra Sight\"] as $name) {\n    $id = CardNameToID($name);\n    if($id === null || !GACanGenerateCard($player, $id)) continue;\n    $generated = MZAddZone($player, \"myMemory\", $id);\n    if($generated !== null && GlobalEffectCount($player, \"IGNORE_ELEMENT_NAME:\" . rawurlencode($name)) === 0) AddGlobalEffects($player, \"IGNORE_ELEMENT_NAME:\" . rawurlencode($name));\n}"
+      }
+    ],
+    "woez6MYh46": [
+      {
+        "macroName": "CountersRemoved",
+        "abilityType": "listener",
+        "listenerZones": "Field",
+        "abilityCode": "if(intval($eventPlayer) !== intval($player)) return;\nif(($eventParams[\"counterType\"] ?? \"\") !== \"durability\") return;\nif(CardName($eventParams[\"cardID\"] ?? \"\") !== \"Pantheon Barrier\") return;\nMillCards($player, \"myDeck\", \"myGraveyard\", max(0, intval($eventParams[\"amount\"] ?? 0)));"
+      }
+    ],
+    "8iNWBAkqkS": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "AddGlobalEffects($player, \"8iNWBAkqkS\");\nDrawIntoMemory($player, 1);"
+      },
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($property !== \"fastActivation\" || $subjectObj === null || ($sourceObj->_sourceZone ?? \"\") !== \"GlobalEffects\") return 0;\nreturn PropertyContains(EffectiveCardType($subjectObj), \"ALLY\") && PropertyContains(EffectiveCardSubtypes($subjectObj), \"HORSE\") ? 1 : 0;"
+      },
+      {
+        "macroName": "ActivationCostModifier",
+        "abilityCode": "if(($sourceObj->_sourceZone ?? \"\") !== \"GlobalEffects\" || intval($sourceObj->Controller) !== intval($player)) return 0;\nif(!(PropertyContains(EffectiveCardType($subjectObj), \"ALLY\") && PropertyContains(EffectiveCardSubtypes($subjectObj), \"HORSE\"))) return 0;\nreturn [\"delta\" => -2, \"consume\" => true, \"applied\" => true];"
+      }
+    ],
+    "bzwj7ztr78": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($property !== \"ignoreElementRequirements\" || $subjectObj === null || $subjectObj->CardID !== \"bzwj7ztr78\") return 0;\nforeach(GetField($player) as $obj) {\n    if($obj === null || $obj->removed) continue;\n    if(PropertyContains(EffectiveCardType($obj), \"ALLY\") && PropertyContains(EffectiveCardSubtypes($obj), \"SHENJU\") && PropertyContains(EffectiveCardElement($obj), \"ARCANE\")) return 1;\n}\nreturn 0;"
+      },
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$targets = FilterSpellshroudTargets(array_merge(ZoneSearch(\"myField\", [\"ALLY\"]), ZoneSearch(\"theirField\", [\"ALLY\"])));\n$modes = empty($targets) ? \"Empower_4\" : \"Empower_4&Ally_gets_4_power\";\n$mode = await $player.Modal(1, 1, $modes, \"Choose_Harness_Lightning_mode\");\nif($mode === \"0\") {\n    Empower($player, 4, \"bzwj7ztr78\");\n} else if($mode === \"1\") {\n    $targets = FilterSpellshroudTargets(array_merge(ZoneSearch(\"myField\", [\"ALLY\"]), ZoneSearch(\"theirField\", [\"ALLY\"])));\n    if(!empty($targets)) {\n        $choices = implode(\"&\", $targets);\n        $chosen = await $player.MZChoose($choices, \"Choose_ally_for_4_power\");\n        AddTurnEffect($chosen, \"bzwj7ztr78_POWER\");\n    }\n}\nBanishResolvedSpellFromGraveyard($player, \"bzwj7ztr78\");"
+      }
+    ],
+    "TEAB07h5C8": [
+      {
+        "macroName": "PlayCard",
+        "abilityCode": "ScavengeForProperty($player, 13, \"subtypeAny\", \"KITCHEN,FOOD\");"
+      },
+      {
+        "macroName": "ActivateAbility",
+        "prereqCode": "return GetTurnPlayer() === $player && GetCurrentPhase() === \"MAIN\" && !HasOpportunity($player) && !empty(ZoneSearch(\"myField\", [\"ITEM\"], cardSubtypes: [\"FOOD\"]));",
+        "abilityCode": "$targets = FilterSpellshroudTargets(ZoneSearch(\"myField\", [\"ITEM\"], cardSubtypes: [\"FOOD\"]));\nif(empty($targets)) return;\n$choices = implode(\"&\", $targets);\n$chosen = await $player.MZChoose($choices, \"Give_a_Food_item_to_your_opponent\");\nif(GAChangeFieldController($chosen, 3 - $player)) DrawIntoMemory($player, 1);"
+      }
+    ],
+    "d770iLKEKx": [
+      {
+        "macroName": "CardActivationDeclared",
+        "abilityType": "listener",
+        "listenerZones": "Field",
+        "abilityCode": "if(intval($eventPlayer) !== intval($player) || !PropertyContains($eventParams[\"element\"] ?? \"\", \"WIND\")) return;\n$source = GetZoneObject($listenerMZ);\nif($source !== null && GetCounterCount($source, \"refinement\") < 4) AddCounters($player, $listenerMZ, \"refinement\", 1);"
+      },
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($property !== \"entryBuff\" || $subjectObj === null || GetCounterCount($sourceObj, \"refinement\") < 4) return 0;\nreturn PropertyContains(EffectiveCardType($subjectObj), \"ALLY\") && PropertyContains(EffectiveCardElement($subjectObj), \"WIND\") ? 1 : 0;"
+      }
+    ],
+    "dnqUeoEgJi": [
+      {
+        "macroName": "ActivateCard",
+        "prereqCode": "return count(ZoneSearch(\"myField\", [\"ITEM\"], cardSubtypes: [\"POWERCELL\"])) >= 2;",
+        "abilityCode": "// The additional cost is paid by GenericSacrificeCost before the response window."
+      },
+      {
+        "macroName": "ObjectDied",
+        "abilityType": "listener",
+        "listenerZones": "Field",
+        "abilityCode": "if(intval($eventPlayer) !== intval($player)) return;\nif(!PropertyContains($eventParams[\"type\"] ?? \"\", \"ALLY\") || !PropertyContains($eventParams[\"subtypes\"] ?? \"\", \"AUTOMATON\")) return;\nGAPutFieldGroup($player, [\"qzzadf9q1v\"]);"
+      }
+    ],
+    "qtjphZSiO6": [
+      {
+        "macroName": "ActivationCostModifier",
+        "abilityCode": "return $subjectObj->CardID === \"qtjphZSiO6\" && IsMerlinBonusActive($player) ? -2 : 0;"
+      },
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$copies = [1 => [], 2 => []];\nforeach([1, 2] as $seat) {\n    foreach(GetField($seat) as $obj) {\n        if($obj === null || $obj->removed || !PropertyContains(EffectiveCardType($obj), \"REGALIA\")) continue;\n        if(PropertyContains(EffectiveCardType($obj), \"DISTORTION\") || PropertyContains(EffectiveCardSubtypes($obj), \"DISTORTION\") || PropertyContains(EffectiveCardClasses($obj), \"DISTORTION\")) continue;\n        $overrides = $obj->Counters[\"_overrides\"] ?? [];\n        $overrides[\"subtypes\"] = EffectiveCardSubtypes($obj) . \",DISTORTION\";\n        $copies[$seat][] = [\"cardID\" => $obj->CardID, \"type\" => EffectiveCardType($obj), \"overrides\" => $overrides];\n    }\n}\nforeach([1, 2] as $seat) GASummonTokenCopyGroup($seat, $copies[$seat]);"
+      }
+    ],
+    "qK7Et5ZTeT": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "foreach([\"myHand\", \"myMemory\"] as $zone) {\n    $cards = ZoneSearch($zone);\n    for($i = count($cards) - 1; $i >= 0; --$i) MZMove($player, $cards[$i], \"myBanish\");\n}\nforeach([\"myGraveyard\", \"myBanish\"] as $zone) {\n    $cards = ZoneSearch($zone);\n    for($i = count($cards) - 1; $i >= 0; --$i) {\n        $obj = GetZoneObject($cards[$i]);\n        if($obj === null || $obj->removed) continue;\n        if(PropertyContains(EffectiveCardType($obj), \"CHAMPION\") || PropertyContains(EffectiveCardType($obj), \"REGALIA\")) continue;\n        if(PropertyContains(EffectiveCardElement($obj), \"ARCANE\")) MZMove($player, $cards[$i], \"myHand\");\n    }\n}\nEmpower($player, 10, \"qK7Et5ZTeT\");\nif(IsRaiBonusActive($player)) AddGlobalEffects($player, \"qK7Et5ZTeT\");"
+      },
+      {
+        "macroName": "CardActivationDeclared",
+        "abilityType": "listener",
+        "listenerZones": "GlobalEffects",
+        "abilityCode": "if(intval($eventPlayer) !== intval($player)) return;\nif(PropertyContains(CardSubtypes($eventParams[\"cardID\"] ?? \"\"), \"SPELL\")) Empower($player, 10, \"qK7Et5ZTeT\");"
+      }
+    ],
+    "Z1L77xhMcC": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "if(IsDianaBonus($player)) Glimpse($player, 8);\nAddGlobalEffects($player, \"Z1L77xhMcC\");"
+      },
+      {
+        "macroName": "OnAttack",
+        "abilityType": "listener",
+        "listenerZones": "GlobalEffects",
+        "abilityCode": "if(intval($eventPlayer) !== intval($player)) return;\n$attackerMZ = $eventParams[\"mzID\"] ?? \"\";\n$attacker = GetZoneObject($attackerMZ);\nif($attacker === null || $attacker->removed || HasNoAbilities($attacker)) return;\nif(!PropertyContains(EffectiveCardType($attacker), \"CHAMPION\")) return;\nif(count(GetIntentCards($player)) < 3) return;\nOnWakeupCard($player, $attackerMZ);\nGlimpse($player, 4);"
+      }
+    ],
+    "l61ubi93jx": [
+      {
+        "macroName": "ActivationCostModifier",
+        "abilityCode": "return IsJinBonus($player) ? -2 : 0;"
+      },
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "if(GlobalEffectCount($player, \"l61ubi93jx\") === 0) AddGlobalEffects($player, \"l61ubi93jx\");"
+      },
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($property !== \"damageBecomesRecovery\" || ($sourceObj->_sourceZone ?? \"\") !== \"GlobalEffects\" || $subjectObj === null) return 0;\nreturn PropertyContains(EffectiveCardType($subjectObj), \"CHAMPION\") ? 1 : 0;"
+      }
+    ],
+    "C7zFV2K7bL": [
+      {
+        "macroName": "CardMilled",
+        "abilityType": "listener",
+        "listenerZones": "Graveyard",
+        "abilityCode": "if(intval($eventPlayer) !== intval($player) || PlayerLevel($player) < 3) return;\nif(!PropertyContains($eventParams[\"type\"] ?? \"\", \"ALLY\")) return;\nif($listenerMZ === ($eventParams[\"mzID\"] ?? \"\")) return;\n$source = GetZoneObject($listenerMZ);\nif($source === null || $source->removed || $source->CardID !== \"C7zFV2K7bL\") return;\n$returned = MZMove($player, $listenerMZ, \"myField\");\nif($returned !== null) $returned->Status = 1;"
+      }
+    ],
+    "foy5mdrVCR": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($property !== \"activateFromBanish\" || $subjectObj === null) return 0;\nreturn GetCounterCount($subjectObj, \"charge\") > 0 ? 1 : 0;"
+      },
+      {
+        "macroName": "OnBanish",
+        "abilityCode": "$obj = GetZoneObject($mzID);\nif($obj !== null && in_array($obj->_sourceZone ?? \"\", [\"myMemory\", \"theirMemory\"], true)) AddCounters($player, $mzID, \"charge\", 1);"
+      },
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$caster = $player;\n$mode = await $player.Modal(1, 1, \"Neither_player&You&Opponent&Both_players\", \"Choose_players_for_Auravolt_Current\");\n$seats = [];\nif($mode === \"1\" || $mode === \"3\") $seats[] = $player;\nif($mode === \"2\" || $mode === \"3\") $seats[] = $player === 1 ? 2 : 1;\nfor($seatIndex = 0; $seatIndex < count($seats); ++$seatIndex) {\n    $seat = $seats[$seatIndex];\n    $refs = GALiveMemoryRefs($seat);\n    $number = min(2, count($refs));\n    if($number > 0) {\n        $choices = implode(\"&\", $refs);\n        $selected = await $seat.MZMultiChoose($choices, $number, $number, \"Banish_two_memory_cards\");\n        GABanishMemorySelectionAndReplace($player, $seat, $selected);\n    }\n}\nGABanishResolvedSpellForSeat($caster, \"foy5mdrVCR\");"
+      }
+    ],
+    "3ir1o0qtb3": [
+      {
+        "macroName": "ActivateAbility",
+        "abilityName": "Suppress opposing ally",
+        "prereqCode": "$obj = GetZoneObject($mzID);\nreturn $obj !== null && $obj->Location === \"Intent\" && !in_array(\"CYCLONIC_STRIKE_USED\", $obj->TurnEffects ?? []) && IsClassBonusActive($player, [\"GUARDIAN\"]) && !empty(FilterSpellshroudTargets(ZoneSearch(\"theirField\", [\"ALLY\"])));",
+        "abilityCode": "$targets = FilterSpellshroudTargets(ZoneSearch(\"theirField\", [\"ALLY\"]));\nif(empty($targets)) return;\n$choices = implode(\"&\", $targets);\n$chosen = await $player.MZChoose($choices, \"Suppress_opposing_ally\");\n$target = GetZoneObject($chosen);\n$source = GetZoneObject($mzID);\nif($target === null || $target->removed || $source === null || $source->removed) return;\nAddTurnEffect($mzID, \"CYCLONIC_SUPPRESS_UID_\" . $target->UniqueID);\nSuppressAlly($player, $chosen);"
+      },
+      {
+        "macroName": "ObjectSuppressed",
+        "abilityType": "listener",
+        "listenerZones": "Intent",
+        "abilityCode": "if(intval($eventPlayer) !== intval($player)) return;\n$source = GetZoneObject($listenerMZ);\n$marker = \"CYCLONIC_SUPPRESS_UID_\" . intval($eventParams[\"uniqueID\"] ?? 0);\nif($source === null || !in_array($marker, $source->TurnEffects ?? [])) return;\n$source->TurnEffects = array_values(array_diff($source->TurnEffects, [$marker]));\nAddTurnEffect($listenerMZ, \"3ir1o0qtb3_POWER\");"
+      }
+    ],
+    "wc8IEEJUBL": [
+      {
+        "macroName": "ActivateCard",
+        "prereqCode": "$champion = FindChampionMZ($player);\n$obj = $champion === null ? null : GetZoneObject($champion);\nreturn $obj !== null && intval($obj->Counters[\"_overrides\"][\"baseLevel\"] ?? CardLevel($obj->CardID)) >= 2;",
+        "abilityCode": "// Level Locked 2 is checked before bestowing this boon."
+      },
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($property !== \"power\" || $subjectObj === null || !PropertyContains(EffectiveCardType($subjectObj), \"ALLY\")) return 0;\n$unique = [];\nforeach(GetLinkedCards($subjectObj) as $linked) $unique[intval($linked->UniqueID)] = true;\nreturn count($unique);"
+      },
+      {
+        "macroName": "ActivateAbility",
+        "abilityName": "Sacrifice ally-link object: draw memory",
+        "abilityCode": "DrawIntoMemory($player, 1);"
+      }
+    ],
+    "vp83TimzWT": [
+      {
+        "macroName": "FieldObjectEntered",
+        "abilityType": "listener",
+        "listenerZones": "Field",
+        "abilityCode": "if(intval($eventPlayer) !== intval($player) || !PropertyContains($eventParams[\"type\"] ?? \"\", \"ALLY\") || !PropertyContains($eventParams[\"subtypes\"] ?? \"\", \"BIRD\")) return;\n$source = GetZoneObject($listenerMZ);\nif($source === null || intval($eventParams[\"summonSourceUID\"] ?? 0) === intval($source->UniqueID)) return;\n$step = AdvanceCascadeStep($listenerMZ);\nif($step >= 1 && $step <= 4) {\n    GAPutFieldGroup($player, [\"oswzpvvog0\"], false, false, intval($source->UniqueID));\n} else if($step >= 5 && $step <= 9) {\n    $birds = ZoneSearch(\"myField\", [\"ALLY\"], cardSubtypes:[\"BIRD\"]);\n    if(!empty($birds)) {\n        $choices = implode(\"&\", $birds);\n        $chosen = await $player.MZChoose($choices, \"Put_a_buff_counter_on_a_Bird\");\n        AddCounters($player, $chosen, \"buff\", 1);\n    }\n} else if($step === 10) {\n    AddCounters($player, $listenerMZ, \"flockAscended\", 1);\n}"
+      },
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if(!in_array($property, [\"power\", \"vigor\"], true) || $subjectObj === null || GetCounterCount($sourceObj, \"flockAscended\") < 1) return 0;\nreturn PropertyContains(EffectiveCardSubtypes($subjectObj), \"BIRD\") ? 1 : 0;"
+      }
+    ],
+    "wuTQLLq5US": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "if(!IsClassBonusActive($player, CardClasses(\"wuTQLLq5US\"))) return;\n$targets = ZoneSearch(\"myIntent\", [\"ATTACK\"]);\nif(empty($targets)) return;\n$choices = implode(\"&\", $targets);\n$chosen = await $player.MZChoose($choices, \"Grant_additional_attack_on_hit\");\nAddTurnEffect($chosen, \"BIREFRINGENCE_ON_HIT\");"
+      },
+      {
+        "macroName": "OnHit",
+        "abilityCode": "$uid = intval(DecisionQueueController::GetVariable(\"HitCombatAttackerUniqueID\"));\n$copyID = strval(DecisionQueueController::GetVariable(\"HitIntentCardID\"));\nif($uid > 0 && $copyID !== \"\") {\n    $answer = await $player.YesNo(\"Declare_an_additional_attack_with_a_copy?\");\n    if($answer === \"YES\") DecisionQueueController::AddDecision($player, \"CUSTOM\", \"GAAdditionalCopyAttack|\" . $uid . \"|\" . $copyID, 250);\n}"
+      }
+    ],
+    "7wX0tZmhYb": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "return in_array($property, [\"removeLinkedAbilities\", \"cannotUseInAttack\"], true) ? 1 : 0;"
+      }
+    ],
+    "Gf33wXPzcg": [
+      {
+        "macroName": "ActivationCostModifier",
+        "abilityCode": "return -2 * CountCursesInLineage($player);"
+      },
+      {
+        "macroName": "Enter",
+        "abilityCode": "$guns = GetUnloadedGuns($player);\nif(!empty($guns)) {\n    $sourceUID = intval(GetZoneObject($mzID)->UniqueID);\n    $choices = implode(\"&\", $guns);\n    $gun = await $player.MZChoose($choices, \"Load_Nox_into_an_unloaded_Gun\");\n    $source = FindFieldMzByUniqueID($sourceUID);\n    if($source !== \"\") LoadBulletIntoGun($player, $source, $gun);\n}"
+      },
+      {
+        "macroName": "OnHit",
+        "abilityCode": "if(!IsDianaBonus($player)) return;\n$targetMZ = GetCombatTargetMZ();\n$target = $targetMZ === null ? null : GetZoneObject($targetMZ);\nif($target === null || $target->removed || !PropertyContains(EffectiveCardType($target), \"CHAMPION\")) return;\n$targetUID = intval($target->UniqueID);\n$opponent = intval($target->Controller);\n$refs = GALiveHandRefs($opponent);\n$number = min(4, count($refs));\nif($number > 0) {\n    $choices = implode(\"&\", $refs);\n    $selected = await $opponent.MZMultiChoose($choices, $number, $number, \"Discard_four_cards_for_Nox\");\n    GADiscardHandSelection($opponent, $selected);\n}\nif(GetInfluence($opponent) <= 4) {\n    $targetMZ = FindFieldMzByUniqueID($targetUID);\n    if($targetMZ !== \"\") DoAllyDestroyed($player, $targetMZ);\n}"
+      }
+    ],
+    "Ot9z4Oh3jN": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($property === \"publicActivatedAbility\") return 1;\nif($property === \"blockNonAdvancedActivations\" && $subjectObj !== null) return IsAdvancedElementCard($subjectObj->CardID) ? 0 : 1;\nreturn 0;"
+      },
+      {
+        "macroName": "ActivateAbility",
+        "abilityName": "Banish norm or advanced card: disable domain",
+        "prereqCode": "$obj = GetZoneObject($mzID);\nreturn $obj !== null && !$obj->removed && !HasNoAbilities($obj) && !in_array(\"TRICASTLES_USED\", $obj->TurnEffects ?? [], true) && !empty(GATricastlesHandCosts($player));",
+        "abilityCode": "AddTurnEffect($mzID, \"NO_ABILITIES\");"
+      }
+    ],
+    "Ss991TWKR9": [
+      {
+        "macroName": "ActivateCard",
+        "prereqCode": "return IsClassBonusActive($player, CardClasses(\"Ss991TWKR9\"));",
+        "abilityCode": "// Class Locked is checked before activation."
+      },
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($property !== \"grantElysianEmpower\" || !PropertyContains(EffectiveCardSubtypes($subjectObj), \"ELYSIAN\")) return 0;\nreturn 1;"
+      },
+      {
+        "macroName": "GrantedAbility",
+        "abilityCode": "Empower($player, 1, \"Ss991TWKR9\");"
+      },
+      {
+        "macroName": "ActivateAbility",
+        "abilityName": "Recover Elysian to deck",
+        "prereqCode": "return count(GAElysianGraveyardTargets()) > 0;",
+        "abilityCode": "$choices = implode(\"&\", GAElysianGraveyardTargets());\nif($choices === \"\") return;\n$chosen = await $player.MZChoose($choices, \"Put_an_Elysian_card_on_top_of_your_deck\");\nGAPutGraveyardCardOnDeck($player, $chosen);"
+      }
+    ],
+    "WKA37tNxtw": [
+      {
+        "macroName": "ActivateAbility",
+        "abilityName": "Pay 10 minus regalia: draw once",
+        "prereqCode": "$source = GetZoneObject($mzID);\nreturn $source !== null && !$source->removed && empty($source->Counters[\"proxiaDrawUsed\"]);",
+        "abilityCode": "Draw($player, 1);"
+      }
+    ]
+  }
+}

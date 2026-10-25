@@ -6,5 +6,23 @@
     "testedCards": [
         "6S1LLrBfBU",
         "4vjkezn49t"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6S1LLrBfBU",
+            "4vjkezn49t"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "counter",
+            "condition",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] [Element Bonus] (2), Banish this card from your graveyard: Put a haunt counter on your Phantasmagoria. Then if there are six or more haunt counters on it, choose a Specter ally you control and it gets +2 POWER until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
 }

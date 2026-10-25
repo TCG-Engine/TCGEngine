@@ -1,0 +1,25 @@
+{
+    "name": "vacuous-servant-ciel-bonus-gets-plus-one-power-per-attack-omen-and-plus-one-life-per-ally-omen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:11:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "L67r0GlRHR"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "L67r0GlRHR"
+        ],
+        "mechanics": [
+            "champion-bonus",
+            "omen",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] CARDNAME gets +1 [POWER] for each attack **omen** you have and +1 [LIFE] for each ally **omen** you have."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

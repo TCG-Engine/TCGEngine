@@ -1,0 +1,24 @@
+{
+    "name": "enhance-potency-without-the-class-bonus-pays-three-and-the-copy-still-happens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:09:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "df9q1wl8ao"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "df9q1wl8ao"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

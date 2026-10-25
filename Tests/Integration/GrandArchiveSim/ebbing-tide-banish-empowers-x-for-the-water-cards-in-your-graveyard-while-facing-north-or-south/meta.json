@@ -1,0 +1,28 @@
+{
+    "name": "ebbing-tide-banish-empowers-x-for-the-water-cards-in-your-graveyard-while-facing-north-or-south",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:53:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s7pmqsl3jw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s7pmqsl3jw"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "banish-self",
+            "empower",
+            "shifting-currents",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[REST], **Banish CARDNAME:** **Empower X**, where **X** is the amount of water element cards in your graveyard. Activate this ability only at slow speed and only if your Shifting Currents face North or South."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

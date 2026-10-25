@@ -1,0 +1,25 @@
+{
+    "name": "false-step-prevents-two-damage-to-the-champion-and-makes-it-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:00:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "47o7eanl1g"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "47o7eanl1g"
+        ],
+        "mechanics": [
+            "prevention",
+            "distant",
+            "optional"
+        ],
+        "rulesClauses": [
+            "If damage would be dealt to your champion this turn, prevent 2 of that damage. Your champion becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

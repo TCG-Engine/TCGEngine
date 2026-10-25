@@ -1,0 +1,27 @@
+{
+    "name": "fulminating-storm-removes-enlighten-counters-to-damage-the-opposing-champion-and-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:45:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cECG4Wrl9M"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cECG4Wrl9M"
+        ],
+        "mechanics": [
+            "counter-cost",
+            "damage",
+            "class-bonus",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Remove up to nine **enlighten** counters from your champion. Deal **X** damage to each champion you don't control, where **X** is the amount of counters removed this way.",
+            "[Class Bonus] For every three **enlighten** counters removed this way, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

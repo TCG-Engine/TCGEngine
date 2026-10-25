@@ -1,0 +1,26 @@
+{
+    "name": "purling-footman-attack-may-put-the-top-card-into-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:48:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "z11p126ctq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "z11p126ctq"
+        ],
+        "mechanics": [
+            "on-attack",
+            "look",
+            "mill",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "**On Attack**: Look at the top card of your deck. You may put it into your graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

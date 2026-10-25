@@ -1,0 +1,26 @@
+{
+    "name": "invigoration-class-bonus-puts-lv-buff-counters-on-a-rested-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:36:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "16hrusesqi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "16hrusesqi"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate. Put **LV buff** counters on target rested ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

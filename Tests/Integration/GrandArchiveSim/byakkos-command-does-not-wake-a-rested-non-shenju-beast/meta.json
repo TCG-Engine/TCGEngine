@@ -1,0 +1,24 @@
+{
+    "name": "byakkos-command-does-not-wake-a-rested-non-shenju-beast",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:27:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l4rdualc8p"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l4rdualc8p"
+        ],
+        "mechanics": [
+            "status",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If that ally is a Shenju, wake it up."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

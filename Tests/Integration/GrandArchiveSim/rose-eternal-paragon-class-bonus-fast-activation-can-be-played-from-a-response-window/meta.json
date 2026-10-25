@@ -1,0 +1,25 @@
+{
+    "name": "rose-eternal-paragon-class-bonus-fast-activation-can-be-played-from-a-response-window",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:40:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2bbmoqk2c7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2bbmoqk2c7"
+        ],
+        "mechanics": [
+            "keyword",
+            "fast-activation",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Fast Activation**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

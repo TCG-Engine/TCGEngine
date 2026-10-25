@@ -1,0 +1,26 @@
+{
+    "name": "krustallan-patrol-foster-puts-a-buff-counter-on-itself",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:03:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8sugly4wif"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8sugly4wif"
+        ],
+        "mechanics": [
+            "foster",
+            "on-foster",
+            "buff-counter"
+        ],
+        "rulesClauses": [
+            "**Foster**",
+            "**On Foster:** Put a **buff** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "beseeching-flourish-without-jin-materializes-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:21:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d60jobz3ct"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "d60jobz3ct"
+        ],
+        "mechanics": [
+            "on-hit",
+            "champion-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Jin Bonus] **On Hit:**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "arima-gaias-wings-pride-five-will-not-attack-below-champion-level-five",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:39:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "075L8pLihO"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "075L8pLihO"
+        ],
+        "mechanics": [
+            "pride",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Pride 5** *(This ally won't obey you unless your champion is level 5 or higher.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

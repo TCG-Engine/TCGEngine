@@ -1,0 +1,25 @@
+{
+    "name": "alice-golden-queen-inherited-effect-chessman-command-attacks-get-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:10:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "daip7s9ztd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "daip7s9ztd"
+        ],
+        "mechanics": [
+            "inherited-effect",
+            "stat-change",
+            "command-chessman"
+        ],
+        "rulesClauses": [
+            "**Inherited Effect** \u2014 Chessman Command attack cards you activate enter the intent with +1[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

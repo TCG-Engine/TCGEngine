@@ -1,0 +1,24 @@
+{
+    "name": "briars-spindle-cannot-use-its-rest-ability-without-a-chessman-king",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:32:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9ooAGDhBj7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9ooAGDhBj7"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Activate this ability only if you control a Chessman King ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

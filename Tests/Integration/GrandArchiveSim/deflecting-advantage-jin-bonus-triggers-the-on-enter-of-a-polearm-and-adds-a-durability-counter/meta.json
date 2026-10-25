@@ -1,0 +1,25 @@
+{
+    "name": "deflecting-advantage-jin-bonus-triggers-the-on-enter-of-a-polearm-and-adds-a-durability-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:30:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "40TLLuE6oG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "40TLLuE6oG"
+        ],
+        "mechanics": [
+            "jin-bonus",
+            "on-enter",
+            "durability"
+        ],
+        "rulesClauses": [
+            "[Jin Bonus] Choose a Polearm weapon you control and trigger each of its **on enter** effects. Then put a **durability** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

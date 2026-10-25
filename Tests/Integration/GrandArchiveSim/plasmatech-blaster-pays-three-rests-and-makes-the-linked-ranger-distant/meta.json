@@ -6,5 +6,23 @@
     "testedCards": [
         "PAymR7JsNp",
         "du50pcescf"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PAymR7JsNp",
+            "du50pcescf"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "distant",
+            "condition",
+            "cost"
+        ],
+        "rulesClauses": [
+            "(3), [REST]: If linked ally is a Ranger, it becomes distant."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
 }

@@ -1,0 +1,25 @@
+{
+    "name": "tailwinds-blessing-other-direction-changes-give-no-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:18:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oh5n2sjk0u"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oh5n2sjk0u"
+        ],
+        "mechanics": [
+            "currents",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "change from facing North to West"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

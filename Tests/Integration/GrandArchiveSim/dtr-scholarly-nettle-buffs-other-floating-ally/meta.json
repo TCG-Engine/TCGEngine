@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "w3xggbIoZL"
+        ],
+        "mechanics": [
+            "static",
+            "floating-memory"
+        ],
+        "rulesClauses": [
+            "Each Nettle buffs the other."
+        ]
+    },
+    "name": "dtr-scholarly-nettle-buffs-other-floating-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:17:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w3xggbIoZL"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

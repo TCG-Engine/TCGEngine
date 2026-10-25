@@ -1,0 +1,24 @@
+{
+    "name": "captivating-opulence-on-enter-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T15:01:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tnl3qr42vp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tnl3qr42vp"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

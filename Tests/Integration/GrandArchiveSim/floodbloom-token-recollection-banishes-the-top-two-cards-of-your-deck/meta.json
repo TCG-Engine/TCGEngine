@@ -1,0 +1,26 @@
+{
+    "name": "floodbloom-token-recollection-banishes-the-top-two-cards-of-your-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:31:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4s1kmjeaks"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4s1kmjeaks"
+        ],
+        "mechanics": [
+            "recollection",
+            "banish",
+            "deck",
+            "token"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, banish the top two cards of your deck."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

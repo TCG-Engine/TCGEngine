@@ -1,0 +1,25 @@
+{
+    "name": "sleety-retreat-can-target-a-ranger-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T20:37:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "j9fkuzgg9i"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "j9fkuzgg9i"
+        ],
+        "mechanics": [
+            "distant",
+            "targeting",
+            "champion"
+        ],
+        "rulesClauses": [
+            "Target Ranger unit becomes **distant**. If that unit is defending, end the combat phase unless an opponent pays (2)."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

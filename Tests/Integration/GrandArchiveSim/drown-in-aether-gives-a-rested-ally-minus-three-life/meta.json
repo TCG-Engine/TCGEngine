@@ -15,6 +15,8 @@
             "targeting",
             "stat-change"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Target rested ally gets -3 [LIFE] until end of turn."
+        ]
     }
 }

@@ -1,0 +1,23 @@
+{
+    "name": "recurring-invocation-empower-two-marks-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:28:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iyhlctxcrq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iyhlctxcrq"
+        ],
+        "mechanics": [
+            "empower"
+        ],
+        "rulesClauses": [
+            "**Empower 2**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

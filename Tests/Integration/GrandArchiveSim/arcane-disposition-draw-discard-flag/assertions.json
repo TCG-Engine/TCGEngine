@@ -23,7 +23,9 @@
         "type": "card_property_equals",
         "mzId": "p1GlobalEffects-0",
         "property": "CardID",
-        "value": "blq7qXGvWH_DISCARD_NEXT_END"
+        "value": "blq7qXGvWH_DISCARD_NEXT_END",
+        "semantic": true,
+        "label": "A delayed 'discard your hand at the beginning of the next end phase' effect is set"
     },
     {
         "step": 6,

@@ -1,0 +1,35 @@
+{
+  "root": "GrandArchiveSim",
+  "patches": [
+    {
+      "card_id": "5qWWpkgQLl",
+      "macro_name": "OnAttack",
+      "fields": {
+        "ability_code": {
+          "before": "// Coup de Grace: [Class Bonus] On Attack: If prepared, gains critical 4\nif(!IsClassBonusActive($player)) return;\n$intentCards = GetIntentCards($player);\nforeach($intentCards as $iMZ) {\n    $iObj = GetZoneObject($iMZ);\n    if($iObj !== null && $iObj->CardID === \"5qWWpkgQLl\" && in_array(\"PREPARED\", $iObj->TurnEffects)) {\n        AddTurnEffect($iMZ, \"CRITICAL_4\");\n        break;\n    }\n}",
+          "after": "// Coup de Grace: [Class Bonus] On Attack: If prepared, gains critical 4\nif(!IsClassBonusActive($player, [\"ASSASSIN\"])) return;\n$intentCards = GetIntentCards($player);\nforeach($intentCards as $iMZ) {\n    $iObj = GetZoneObject($iMZ);\n    if($iObj !== null && $iObj->CardID === \"5qWWpkgQLl\" && in_array(\"PREPARED\", $iObj->TurnEffects)) {\n        AddTurnEffect($iMZ, \"CRITICAL_4\");\n        break;\n    }\n}"
+        }
+      }
+    },
+    {
+      "card_id": "GRkBQ1Uvir",
+      "macro_name": "OnAttack",
+      "fields": {
+        "ability_code": {
+          "before": "// Ignited Stab: [Class Bonus] On Attack: If prepared, +2 POWER\nif(!IsClassBonusActive($player)) return;\n$intentCards = GetIntentCards($player);\nforeach($intentCards as $iMZ) {\n    $iObj = GetZoneObject($iMZ);\n    if($iObj !== null && $iObj->CardID === \"GRkBQ1Uvir\" && in_array(\"PREPARED\", $iObj->TurnEffects)) {\n        AddTurnEffect($iMZ, \"GRkBQ1Uvir_POWER\");\n        break;\n    }\n}",
+          "after": "// Ignited Stab: [Class Bonus] On Attack: If prepared, +2 POWER\nif(!IsClassBonusActive($player, [\"ASSASSIN\"])) return;\n$intentCards = GetIntentCards($player);\nforeach($intentCards as $iMZ) {\n    $iObj = GetZoneObject($iMZ);\n    if($iObj !== null && $iObj->CardID === \"GRkBQ1Uvir\" && in_array(\"PREPARED\", $iObj->TurnEffects)) {\n        AddTurnEffect($iMZ, \"GRkBQ1Uvir_POWER\");\n        break;\n    }\n}"
+        }
+      }
+    },
+    {
+      "card_id": "XLbCBxla8K",
+      "macro_name": "OnHit",
+      "fields": {
+        "ability_code": {
+          "before": "// Thousand Refractions: [Class Bonus] On Hit: If prepared, wake up champion and return CARDNAME to hand.\nif(!IsClassBonusActive($player)) return;\n$intentCards = GetIntentCards($player);\nforeach($intentCards as $iMZ) {\n    $iObj = GetZoneObject($iMZ);\n    if($iObj !== null && $iObj->CardID === \"XLbCBxla8K\" && in_array(\"PREPARED\", $iObj->TurnEffects)) {\n        // Wake up the champion\n        $myField = GetZone(\"myField\");\n        foreach($myField as $fi => $fieldObj) {\n            if(PropertyContains(CardType($fieldObj->CardID), \"CHAMPION\")) {\n                WakeupCard($player, \"myField-\" . $fi);\n                break;\n            }\n        }\n        // Return Thousand Refractions from intent to hand\n        MZMove($player, $iMZ, \"myHand\");\n        break;\n    }\n}",
+          "after": "// Thousand Refractions: [Class Bonus] On Hit: If prepared, wake up champion and return CARDNAME to hand.\nif(!IsClassBonusActive($player, [\"ASSASSIN\"])) return;\n$intentCards = GetIntentCards($player);\nforeach($intentCards as $iMZ) {\n    $iObj = GetZoneObject($iMZ);\n    if($iObj !== null && $iObj->CardID === \"XLbCBxla8K\" && in_array(\"PREPARED\", $iObj->TurnEffects)) {\n        // Wake up the champion\n        $myField = GetZone(\"myField\");\n        foreach($myField as $fi => $fieldObj) {\n            if(PropertyContains(CardType($fieldObj->CardID), \"CHAMPION\")) {\n                WakeupCard($player, \"myField-\" . $fi);\n                break;\n            }\n        }\n        // Return Thousand Refractions from intent to hand\n        MZMove($player, $iMZ, \"myHand\");\n        break;\n    }\n}"
+        }
+      }
+    }
+  ]
+}

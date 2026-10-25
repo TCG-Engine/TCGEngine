@@ -16,7 +16,9 @@
             "activate-from-banishment",
             "cost-validation"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "[REST]: You may activate a card banished by CARDNAME. (You still pay its costs.)"
+        ]
     },
     "engineBug": {
         "status": "fixed",

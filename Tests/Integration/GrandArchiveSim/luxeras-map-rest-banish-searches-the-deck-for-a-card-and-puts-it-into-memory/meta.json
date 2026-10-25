@@ -1,0 +1,27 @@
+{
+    "name": "luxeras-map-rest-banish-searches-the-deck-for-a-card-and-puts-it-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:01:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s23UHXgcZq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s23UHXgcZq"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "banish-self",
+            "search",
+            "shuffle"
+        ],
+        "rulesClauses": [
+            "[REST]**, Banish CARDNAME:** Search your deck for a card and put it into your memory. Then shuffle your deck."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

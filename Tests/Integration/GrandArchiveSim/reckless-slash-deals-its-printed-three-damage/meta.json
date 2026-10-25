@@ -1,0 +1,23 @@
+{
+    "name": "reckless-slash-deals-its-printed-three-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:34:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NaGi9nBjJA"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "NaGi9nBjJA"
+        ],
+        "mechanics": [
+            "vanilla"
+        ],
+        "rulesClauses": [
+            "Reckless Slash (no rules text)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

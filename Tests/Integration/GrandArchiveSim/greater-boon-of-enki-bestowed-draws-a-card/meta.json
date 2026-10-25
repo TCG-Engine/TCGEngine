@@ -1,0 +1,24 @@
+{
+    "name": "greater-boon-of-enki-bestowed-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:42:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fZZqzAXNAc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fZZqzAXNAc"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "on-gain"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

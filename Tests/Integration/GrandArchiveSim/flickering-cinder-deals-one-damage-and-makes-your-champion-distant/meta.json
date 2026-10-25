@@ -1,0 +1,24 @@
+{
+    "name": "flickering-cinder-deals-one-damage-and-makes-your-champion-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fqxo9o8yeq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fqxo9o8yeq"
+        ],
+        "mechanics": [
+            "damage",
+            "distant"
+        ],
+        "rulesClauses": [
+            "Deal 1 damage to target unit. Your champion becomes distant."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -30,7 +30,9 @@
         "type": "card_property_equals",
         "mzId": "p1Banish-0",
         "property": "CardID",
-        "value": "kk46Whz7CJ"
+        "value": "kk46Whz7CJ",
+        "semantic": true,
+        "label": "Surveillance Stone was banished after the third attack"
     },
     {
         "step": 12,

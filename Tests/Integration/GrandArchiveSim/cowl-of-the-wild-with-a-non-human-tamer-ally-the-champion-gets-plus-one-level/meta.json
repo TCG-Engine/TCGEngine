@@ -1,0 +1,25 @@
+{
+    "name": "cowl-of-the-wild-with-a-non-human-tamer-ally-the-champion-gets-plus-one-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:11:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "t203gysyp8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "t203gysyp8"
+        ],
+        "mechanics": [
+            "condition",
+            "level",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "As long as you control one or more non-Human Tamer allies, your champion gets +1 level."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

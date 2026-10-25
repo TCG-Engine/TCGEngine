@@ -1,0 +1,26 @@
+{
+    "name": "hailfinch-class-bonus-on-hit-removes-a-buff-counter-to-rest-the-hit-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:11:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3XV4QlQXfy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3XV4QlQXfy"
+        ],
+        "mechanics": [
+            "on-hit",
+            "class-bonus",
+            "buff-counter",
+            "rest"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Hit:** You may remove a **buff** counter from CARDNAME. If you do, rest the hit object and it doesn't wake up during its controller's next wake up phase."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

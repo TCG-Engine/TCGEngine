@@ -1,0 +1,26 @@
+{
+    "name": "bandersnatch-frumious-foe-class-bonus-taunt-and-recovers-three-when-dealt-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:58:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4yqL9xtzVi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4yqL9xtzVi"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "taunt",
+            "trigger",
+            "recover"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Taunt** Whenever CARDNAME is dealt damage, **recover 3**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

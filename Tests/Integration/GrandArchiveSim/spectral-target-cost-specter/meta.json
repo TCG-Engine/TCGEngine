@@ -1,0 +1,25 @@
+{
+    "name": "spectral-target-cost-specter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:58:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Dtr3jPRAFJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Dtr3jPRAFJ"
+        ],
+        "mechanics": [
+            "cost",
+            "targeting",
+            "alice-bonus"
+        ],
+        "rulesClauses": [
+            "Only the Specter-only activation receives the Alice discount."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

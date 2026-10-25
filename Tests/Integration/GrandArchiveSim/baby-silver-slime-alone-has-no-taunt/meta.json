@@ -1,0 +1,24 @@
+{
+    "name": "baby-silver-slime-alone-has-no-taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "62lVDTOToR"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "62lVDTOToR"
+        ],
+        "mechanics": [
+            "condition",
+            "taunt"
+        ],
+        "rulesClauses": [
+            "As long as you control another Slime ally, Baby Silver Slime has **taunt**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "resolute-stand-level-two-is-free-and-skips-the-next-draw-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:52:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o6gb0op3nq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o6gb0op3nq"
+        ],
+        "mechanics": [
+            "level-gate",
+            "alt-cost"
+        ],
+        "rulesClauses": [
+            "[Level 2+] You may activate this card without paying its reserve cost. If you do, skip your next draw phase."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

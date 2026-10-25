@@ -1,0 +1,26 @@
+{
+    "name": "embertail-squirrel-class-bonus-attack-discards-a-fire-card-for-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:20:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "W1vZwOXfG3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "W1vZwOXfG3"
+        ],
+        "mechanics": [
+            "on-attack",
+            "discard",
+            "stat-change",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may discard a fire element card. If you do, CARDNAME gets +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

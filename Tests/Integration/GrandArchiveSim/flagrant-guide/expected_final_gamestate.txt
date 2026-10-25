@@ -1,5 +1,5 @@
 1
-112
+0
 43
 a53rqmuqxf
 Huh1DljE0j
@@ -134,7 +134,7 @@ LeyUk5auEP 2 1 0 1 - - - -1
 lwuupowx4p 1 1 0 1 - - - -1
 2
 Ox449xU5yO 2 2 0 2 ENTERED_THIS_TURN - - 1
-c4yrrtv7o1 2 2 23 2 ENTERED_THIS_TURN~5ramr16052~vz4kc558yx-ALLY_ACTIVATED~ENTERED_THIS_TURN~DAMAGED_SINCE_LAST_TURN eyJfY2hhbXBEYW1hZ2VUaGlzVHVybiI6MTh9 WyI1cmFtcjE2MDUyIiwiemQ4bDE0MDUyaiIsIkxNeUt5VkMyTzkiXQ== 2
+c4yrrtv7o1 2 2 23 2 ENTERED_THIS_TURN~5ramr16052~vz4kc558yx-ALLY_ACTIVATED~ENTERED_THIS_TURN~DAMAGED_SINCE_LAST_TURN eyJnYVRvcFVucGxheWVkIjoxLCJfY2hhbXBEYW1hZ2VUaGlzVHVybiI6MTh9 WyI1cmFtcjE2MDUyIiwiemQ4bDE0MDUyaiIsIkxNeUt5VkMyTzkiXQ== 2
 0
 0
 2
@@ -179,13 +179,13 @@ y1tyo32voa
 2
 MAIN
 
-
-{"mzID":"myField-2","amount":18,"ignoreCost":false,"mzIDCardID":"Ox449xU5yO","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","answer":"YES","chosen":"myField-2","CombatDamageAmount":"1","source":null,"target":"myField-1","CombatKilledCardID":"aKjX6INGkV","glimpseCount":"3","aethercallCandidates":"","glimpsedToTempZone":"0","revealedMZ":"myDeck-0","doLevel":"YES"}
-0
-{"ActivateCardCalls":{"1":6,"2":4},"ActivateCard":{"1":{"2nc48s3oqh":1,"1n3gygojwk":1,"n8wyfG9hbY":2,"cUltOcPo26":1,"lwuupowx4p":1},"2":{"aKjX6INGkV":1,"IAkuSSnzYB":1,"267kgpwjmc":1,"Ox449xU5yO":1}},"CardActivatedCalls":{"1":6,"2":4},"CardActivated":{"1":{"2nc48s3oqh":1,"1n3gygojwk":1,"n8wyfG9hbY":2,"cUltOcPo26":1,"lwuupowx4p":1},"2":{"aKjX6INGkV":1,"IAkuSSnzYB":1,"267kgpwjmc":1,"Ox449xU5yO":1}},"EnterCalls":{"1":5,"2":6},"Enter":{"1":{"2nc48s3oqh":1,"pvxb5hrfsu":1,"cUltOcPo26":1,"LeyUk5auEP":1,"lwuupowx4p":1},"2":{"aKjX6INGkV":1,"IAkuSSnzYB":1,"zd8l14052j":1,"5ramr16052":1,"Ox449xU5yO":1,"c4yrrtv7o1":1}},"DrawCalls":{"2":3,"1":3},"Draw":{"2":3,"1":3},"RestCardCalls":{"2":1,"1":4},"RestCard":{"2":{"IAkuSSnzYB":1},"1":{"2nc48s3oqh":1,"cUltOcPo26":2,"lwuupowx4p":1}},"OnAttackCalls":{"2":1,"1":4},"OnAttack":{"2":{"IAkuSSnzYB":1},"1":{"2nc48s3oqh":1,"cUltOcPo26":2,"lwuupowx4p":1}},"DealDamageCalls":{"1":5,"2":2},"AllyDestroyedCalls":{"1":2},"AllyDestroyed":{"1":{"IAkuSSnzYB":1,"aKjX6INGkV":1}},"MaterializeCalls":{"1":2,"2":2},"Materialize":{"1":{"pvxb5hrfsu":1,"LeyUk5auEP":1},"2":{"zd8l14052j":1,"5ramr16052":1}},"RevealCalls":{"1":2},"AdvancedElementActivated":{"1":1}}
-2
-{"ActivateCardCalls":{"2":1},"ActivateCard":{"2":{"Ox449xU5yO":1}},"ReserveCard":{"2":{"tkdky3sxao":1,"wjzg76zofp":2}},"ReserveCardCommitted":{"2":{"tkdky3sxao":1,"wjzg76zofp":2}},"ReserveActionCommitted":{"2":{"tkdky3sxao":1,"wjzg76zofp":2}},"CardActivatedCalls":{"2":1},"CardActivated":{"2":{"Ox449xU5yO":1}},"EnterCalls":{"2":2},"Enter":{"2":{"Ox449xU5yO":1,"c4yrrtv7o1":1}},"DealDamageCalls":{"2":1}}
-0
 -
 -
-{"cards":{"2":{"tkdky3sxao":{"drawn":0,"drawnToMemory":0,"materialized":0,"reserved":1,"discarded":0,"activated":0},"wjzg76zofp":{"drawn":0,"drawnToMemory":0,"materialized":0,"reserved":2,"discarded":0,"activated":0},"Ox449xU5yO":{"drawn":0,"drawnToMemory":0,"materialized":1,"reserved":0,"discarded":0,"activated":0},"c4yrrtv7o1":{"drawn":0,"drawnToMemory":0,"materialized":1,"reserved":0,"discarded":0,"activated":0}}},"turns":[],"cur":{"2":{"reserveSpent":3,"cardsPlayed":2,"damageDealt":18,"damageTaken":18}},"combatEvents":[{"type":"damage_resolved","turn":3,"sourceSeat":2,"sourceCardId":"","targetSeat":2,"targetCardId":"c4yrrtv7o1","amount":18,"isCombat":false,"lethal":false}]}
+-
+-
+-
+-
+-
+-
+-
+-

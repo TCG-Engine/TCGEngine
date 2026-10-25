@@ -1,0 +1,24 @@
+{
+    "name": "whirlwind-reaper-end-phase-declined-stays-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:31:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x7yc0ije4d"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "x7yc0ije4d"
+        ],
+        "mechanics": [
+            "end-phase",
+            "optional-cost"
+        ],
+        "rulesClauses": [
+            "you may remove a **preparation** counter"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

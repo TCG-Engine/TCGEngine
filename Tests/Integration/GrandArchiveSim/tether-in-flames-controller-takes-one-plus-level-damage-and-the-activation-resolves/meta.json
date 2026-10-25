@@ -1,0 +1,25 @@
+{
+    "name": "tether-in-flames-controller-takes-one-plus-level-damage-and-the-activation-resolves",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T00:58:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "215upufyoz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "215upufyoz"
+        ],
+        "mechanics": [
+            "negate",
+            "damage",
+            "optional-cost"
+        ],
+        "rulesClauses": [
+            "**Negate** target card activation unless its controller has CARDNAME deal **1+LV** unpreventable damage to their champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

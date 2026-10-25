@@ -1,0 +1,27 @@
+{
+    "name": "ebbing-tide-rest-empowers-two-while-your-shifting-currents-face-east-or-west",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:53:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s7pmqsl3jw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s7pmqsl3jw"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "empower",
+            "shifting-currents",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[REST]**: Empower 2**. Activate this ability only if your Shifting Currents face East or West."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

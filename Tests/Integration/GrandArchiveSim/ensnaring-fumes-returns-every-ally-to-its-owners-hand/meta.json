@@ -1,0 +1,24 @@
+{
+    "name": "ensnaring-fumes-returns-every-ally-to-its-owners-hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:37:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wPKxvzTmqq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wPKxvzTmqq"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "cost"
+        ],
+        "rulesClauses": [
+            "Return all allies to their owner's hands."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

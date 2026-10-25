@@ -1,0 +1,25 @@
+{
+    "name": "drifting-abysshell-alice-bonus-enter-puts-a-haunt-counter-on-phantasmagoria",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:47:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cDp9Ap6ASE"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cDp9Ap6ASE"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "on-enter",
+            "haunt"
+        ],
+        "rulesClauses": [
+            "**[Alice Bonus]** **On Enter:** Put a **haunt** counter on your Phantasmagoria."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

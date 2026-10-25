@@ -1,0 +1,22 @@
+{
+    "name": "summon-gale-without-the-class-bonus-pays-the-full-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:21:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZgA7cWNKGy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ZgA7cWNKGy"
+        ],
+        "mechanics": [
+            "efficiency",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Efficiency**"
+        ]
+    },
+    "behaviorFamily": true
+}

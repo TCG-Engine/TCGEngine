@@ -1,0 +1,25 @@
+{
+    "name": "vermilion-decree-not-imbued-chooses-one-mode",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tjej4mcnqs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tjej4mcnqs"
+        ],
+        "mechanics": [
+            "modal-spell",
+            "damage",
+            "imbue"
+        ],
+        "rulesClauses": [
+            "Choose one. If CARDNAME is imbued, choose two instead\u2014 Deal 3 damage to up to one target champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

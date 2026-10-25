@@ -1,0 +1,26 @@
+{
+    "name": "turbulent-bounty-hunter-class-bonus-gets-a-buff-counter-when-an-ally-it-damaged-dies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:42:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h7c79xRobA"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h7c79xRobA"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "counter",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever an ally that CARDNAME has dealt damage to this turn dies, put a **buff** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

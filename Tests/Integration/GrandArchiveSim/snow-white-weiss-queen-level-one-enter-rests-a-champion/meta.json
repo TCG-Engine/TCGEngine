@@ -1,0 +1,26 @@
+{
+    "name": "snow-white-weiss-queen-level-one-enter-rests-a-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:58:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5u5m8xblmd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5u5m8xblmd"
+        ],
+        "mechanics": [
+            "on-enter",
+            "level",
+            "rest",
+            "wake-up"
+        ],
+        "rulesClauses": [
+            "[Level 1+] **On Enter**: Rest target champion. It doesn't wake up during its controller's next wake up phase."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

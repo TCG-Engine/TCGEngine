@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "lKPOHDtttV"
+        ],
+        "mechanics": [
+            "cardistry",
+            "attack-buff"
+        ],
+        "rulesClauses": [
+            "Next attack gets two power without buff or distant."
+        ]
+    },
+    "name": "dtr-three-clubs-cardistry-next-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:10:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lKPOHDtttV"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

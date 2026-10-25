@@ -1,0 +1,25 @@
+{
+    "name": "shock-therapy-deals-damage-equal-to-the-enlighten-counters-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:46:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tyj2s3572j"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tyj2s3572j"
+        ],
+        "mechanics": [
+            "damage",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal an amount of damage to target ally equal to the amount of **enlighten** counters on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

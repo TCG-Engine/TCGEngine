@@ -1,0 +1,23 @@
+{
+    "name": "repelling-palmblast-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:35:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4xippor7ch"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4xippor7ch"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
+        ]
+    },
+    "behaviorFamily": true
+}

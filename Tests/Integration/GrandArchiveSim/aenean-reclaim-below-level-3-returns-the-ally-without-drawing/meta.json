@@ -1,0 +1,24 @@
+{
+    "name": "aenean-reclaim-below-level-3-returns-the-ally-without-drawing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:27:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "DCzUre54F9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "DCzUre54F9"
+        ],
+        "mechanics": [
+            "level-gate",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 3+] Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

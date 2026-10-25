@@ -1,0 +1,24 @@
+{
+    "name": "winbless-gatekeeper-on-enter-declined-puts-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:34:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y5ttkk39i1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y5ttkk39i1"
+        ],
+        "mechanics": [
+            "on-enter",
+            "optional-cost"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may pay (2)."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

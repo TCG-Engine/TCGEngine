@@ -1,0 +1,24 @@
+{
+    "name": "develop-mana-puts-a-level-counter-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wzh973fdt8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wzh973fdt8"
+        ],
+        "mechanics": [
+            "counter",
+            "level"
+        ],
+        "rulesClauses": [
+            "Put a **level** counter on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

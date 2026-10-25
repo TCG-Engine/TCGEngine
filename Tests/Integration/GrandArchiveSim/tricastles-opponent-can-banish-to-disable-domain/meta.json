@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "Ot9z4Oh3jN"
+        ],
+        "mechanics": [
+            "public-ability",
+            "banish",
+            "ability-suppression"
+        ],
+        "rulesClauses": [
+            "Opponent can pay a norm card to disable the domain."
+        ]
+    },
+    "name": "tricastles-opponent-can-banish-to-disable-domain",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T15:09:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Ot9z4Oh3jN"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

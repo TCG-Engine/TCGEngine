@@ -1,0 +1,26 @@
+{
+    "name": "stolen-chance-removes-a-preparation-counter-from-a-champion-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Ww12XlYHFA"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Ww12XlYHFA"
+        ],
+        "mechanics": [
+            "counter",
+            "draw",
+            "condition",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Remove a **preparation** counter from target champion. If a **preparation** counter was removed this way, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "demons-aim-goes-to-the-lineage-and-the-champions-attacks-gain-true-sight",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:02:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6g7xgwve1d"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6g7xgwve1d"
+        ],
+        "mechanics": [
+            "lineage",
+            "true-sight"
+        ],
+        "rulesClauses": [
+            "Put CARDNAME on the bottom of your champion's lineage. Then your champion's attacks this turn gain **true sight**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

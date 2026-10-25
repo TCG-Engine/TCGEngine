@@ -1,0 +1,22 @@
+{
+    "name": "unrelenting-warden-class-bonus-taunt-protects-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "icvkegsdve"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "icvkegsdve"
+        ],
+        "mechanics": [
+            "taunt",
+            "attack-declaration"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Taunt**"
+        ]
+    },
+    "behaviorFamily": true
+}

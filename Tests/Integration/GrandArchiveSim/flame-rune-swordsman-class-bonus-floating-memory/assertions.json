@@ -9,7 +9,9 @@
         "type": "card_property_equals",
         "mzId": "p1Field-0",
         "property": "CardID",
-        "value": "zdIhSL5RhK"
+        "value": "zdIhSL5RhK",
+        "semantic": true,
+        "label": "The champion levelled up into Rai, Archmage, so Floating Memory paid 1 of its 2 memory cost"
     },
     {
         "step": 5,
@@ -23,7 +25,9 @@
         "type": "card_property_equals",
         "mzId": "p1Banish-0",
         "property": "CardID",
-        "value": "VV6ADdMrr5"
+        "value": "VV6ADdMrr5",
+        "semantic": true,
+        "label": "Flame-Rune Swordsman was banished from the graveyard to pay for 1 memory"
     },
     {
         "step": 5,

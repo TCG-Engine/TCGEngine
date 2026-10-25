@@ -1,0 +1,27 @@
+{
+    "name": "neos-elemental-class-bonus-costs-one-less-per-token-and-gets-plus-one-power-and-life-per-token",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:15:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jwsl7dedg6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jwsl7dedg6"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "stat-change",
+            "tokens"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate for each token object you control.",
+            "CARDNAME gets +1 [POWER] and +1 [LIFE] for each token object you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

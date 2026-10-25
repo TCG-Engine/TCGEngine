@@ -1,0 +1,25 @@
+{
+    "name": "resplendent-kite-shield-enter-puts-one-refinement-counter-and-class-bonus-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a5uhjxhkur"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "a5uhjxhkur"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "counter"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Put a **refinement** counter on CARDNAME. **Class Bonus:** Put two **refinement** counters on it instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

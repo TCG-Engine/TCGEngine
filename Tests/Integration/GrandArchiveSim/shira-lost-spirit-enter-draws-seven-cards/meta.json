@@ -1,0 +1,25 @@
+{
+    "name": "shira-lost-spirit-enter-draws-seven-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:19:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1gpd7mbroj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1gpd7mbroj"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw seven cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

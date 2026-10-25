@@ -1,0 +1,23 @@
+{
+    "name": "gear-haul-scavenges-five-for-a-veltech-item-twice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:06:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "n70QM0hkc9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "n70QM0hkc9"
+        ],
+        "mechanics": [
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "**Scavenge 5** for a VelTech item card twice."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

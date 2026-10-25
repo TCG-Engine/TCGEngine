@@ -1,0 +1,24 @@
+{
+    "name": "lunar-conduit-activating-an-astra-card-puts-a-charge-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:23:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0yetaebjlw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0yetaebjlw"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Whenever you activate an astra element card, put a **charge** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

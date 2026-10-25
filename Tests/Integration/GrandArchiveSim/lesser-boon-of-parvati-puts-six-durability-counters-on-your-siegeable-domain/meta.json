@@ -1,0 +1,24 @@
+{
+    "name": "lesser-boon-of-parvati-puts-six-durability-counters-on-your-siegeable-domain",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:41:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NidqQ6MOuy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "NidqQ6MOuy"
+        ],
+        "mechanics": [
+            "durability",
+            "domain"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, put six **durability** counters on a Siegeable domain you control or put three **durability** counters on a Siegeable domain you don't control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

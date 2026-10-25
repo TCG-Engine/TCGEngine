@@ -1,0 +1,25 @@
+{
+    "name": "searing-rebuke-prevents-three-damage-without-the-class-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hdvpug4d5m",
+        "YFCfIOwNQ5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hdvpug4d5m",
+            "YFCfIOwNQ5"
+        ],
+        "mechanics": [
+            "prevention"
+        ],
+        "rulesClauses": [
+            "Prevent the next 3 damage that would be dealt to your champion this turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

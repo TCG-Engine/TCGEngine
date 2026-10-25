@@ -1,0 +1,26 @@
+{
+    "name": "vorpal-sword-merlin-bonus-on-ally-hit-yes-removes-a-preparation-counter-and-wakes-the-attacking-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:38:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PIcB5KuuMd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PIcB5KuuMd"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "on-ally-hit",
+            "counter",
+            "wake-up"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] **On Ally Hit:** You may remove a **preparation** counter from your champion. If you do, wake up the attacker. Trigger this ability only once per turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

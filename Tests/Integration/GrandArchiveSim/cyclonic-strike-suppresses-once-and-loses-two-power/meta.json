@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "3ir1o0qtb3"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "suppress",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Activate from intent once to suppress and lose two power."
+        ]
+    },
+    "name": "cyclonic-strike-suppresses-once-and-loses-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T14:07:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3ir1o0qtb3"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

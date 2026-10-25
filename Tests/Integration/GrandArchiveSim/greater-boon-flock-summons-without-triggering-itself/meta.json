@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "vp83TimzWT"
+        ],
+        "mechanics": [
+            "cascade",
+            "summon",
+            "trigger-filter"
+        ],
+        "rulesClauses": [
+            "Cascade one summons one Fledgling without recursion."
+        ]
+    },
+    "name": "greater-boon-flock-summons-without-triggering-itself",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T14:52:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vp83TimzWT"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

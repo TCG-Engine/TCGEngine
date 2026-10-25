@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "ZdAWSJpwOz"
+        ],
+        "mechanics": [
+            "opponent-choice",
+            "banish"
+        ],
+        "rulesClauses": [
+            "Opponent chooses the memory card to banish."
+        ]
+    },
+    "name": "dtr-render-turbid-opponent-selects-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:09:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZdAWSJpwOz"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

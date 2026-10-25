@@ -1,0 +1,25 @@
+{
+    "name": "mary-ann-gets-plus-one-power-for-each-omen-with-a-different-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:11:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mt5zs1w6c0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mt5zs1w6c0"
+        ],
+        "mechanics": [
+            "static",
+            "stat-change",
+            "omen"
+        ],
+        "rulesClauses": [
+            "Mary Ann gets +1[POWER] for each omen you have with different reserve costs."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

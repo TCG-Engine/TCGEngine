@@ -1,0 +1,25 @@
+{
+    "name": "dominating-strike-vanitas-bonus-reveals-three-wind-cards-from-memory-rather-than-paying",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:21:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "svd53zc9p4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "svd53zc9p4"
+        ],
+        "mechanics": [
+            "alt-cost",
+            "champion-bonus",
+            "reveal"
+        ],
+        "rulesClauses": [
+            "[Vanitas Bonus] You may reveal three wind element cards from your memory rather than pay this card's reserve cost."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

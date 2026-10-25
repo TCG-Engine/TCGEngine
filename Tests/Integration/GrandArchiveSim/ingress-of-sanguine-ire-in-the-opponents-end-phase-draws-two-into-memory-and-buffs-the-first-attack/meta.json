@@ -1,0 +1,28 @@
+{
+    "name": "ingress-of-sanguine-ire-in-the-opponents-end-phase-draws-two-into-memory-and-buffs-the-first-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:28:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dfchplzf6m"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dfchplzf6m"
+        ],
+        "mechanics": [
+            "timing-restriction",
+            "stat-change",
+            "draw-discard",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Activate this card only during an opponent's end phase.",
+            "Your champion's first attack during your next turn gets +3 [POWER].",
+            "If your champion hasn't taken damage this turn, draw two cards into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

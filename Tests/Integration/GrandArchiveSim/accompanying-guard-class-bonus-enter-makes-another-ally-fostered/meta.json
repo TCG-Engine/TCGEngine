@@ -1,0 +1,26 @@
+{
+    "name": "accompanying-guard-class-bonus-enter-makes-another-ally-fostered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:25:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ufvq8tuge1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ufvq8tuge1"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "foster",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter**: Another target ally you control becomes **fostered**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

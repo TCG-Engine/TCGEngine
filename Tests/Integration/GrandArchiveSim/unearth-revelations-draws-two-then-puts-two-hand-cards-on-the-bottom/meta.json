@@ -1,0 +1,24 @@
+{
+    "name": "unearth-revelations-draws-two-then-puts-two-hand-cards-on-the-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "96yd609g44"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "96yd609g44"
+        ],
+        "mechanics": [
+            "draw",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Draw two cards, then put two cards from your hand on the bottom of your deck in any order."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "seafletched-serpent-pride-two-does-not-obey-a-level-zero-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:04:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h0g7nndc4s"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h0g7nndc4s"
+        ],
+        "mechanics": [
+            "keyword",
+            "pride"
+        ],
+        "rulesClauses": [
+            "**Pride 2** *(This ally won\u2019t obey you unless your champion is level 2 or higher. You can\u2019t attack with, intercept with, or activate abilities of allies that don\u2019t obey you.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

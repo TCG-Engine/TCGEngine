@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "foy5mdrVCR"
+        ],
+        "mechanics": [
+            "banish",
+            "draw-into-memory",
+            "multiple-players"
+        ],
+        "rulesClauses": [
+            "Each chosen player selects two memory cards to exchange."
+        ]
+    },
+    "name": "auravolt-current-exchanges-both-players-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T14:05:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "foy5mdrVCR"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

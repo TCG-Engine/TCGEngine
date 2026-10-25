@@ -1,0 +1,24 @@
+{
+    "name": "flared-iridescence-deals-four-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:10:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "t2lW0Q5KJS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "t2lW0Q5KJS"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 4 damage to target unit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "8svNnvvODq"
+        ],
+        "mechanics": [
+            "foster",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Fostered class bonus adds three power."
+        ]
+    },
+    "name": "dtr-briny-polliwog-fostered-class-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:17:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8svNnvvODq"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

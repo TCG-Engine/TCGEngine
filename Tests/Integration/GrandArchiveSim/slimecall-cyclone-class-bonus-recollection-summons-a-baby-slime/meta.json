@@ -1,0 +1,26 @@
+{
+    "name": "slimecall-cyclone-class-bonus-recollection-summons-a-baby-slime",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:58:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9Kgr2prI9E"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9Kgr2prI9E"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "recollection",
+            "token",
+            "summon"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your recollection phase, **summon** a Baby Slime token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

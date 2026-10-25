@@ -1,0 +1,26 @@
+{
+    "name": "radiant-repudiation-prevents-four-to-a-neos-unit-and-the-prevention-deals-two-damage-to-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:21:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "RO2CcBrILQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "RO2CcBrILQ"
+        ],
+        "mechanics": [
+            "reaction",
+            "prevention",
+            "neos",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Prevent the next 4 damage that would be dealt to target neos element unit this turn. Whenever damage is prevented this way, deal 2 damage to target unit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

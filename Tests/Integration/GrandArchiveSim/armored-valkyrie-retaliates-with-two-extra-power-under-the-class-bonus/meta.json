@@ -1,0 +1,25 @@
+{
+    "name": "armored-valkyrie-retaliates-with-two-extra-power-under-the-class-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:41:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zk96yd609g"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zk96yd609g"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change",
+            "retaliate"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as CARDNAME is retaliating, it gets +2 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

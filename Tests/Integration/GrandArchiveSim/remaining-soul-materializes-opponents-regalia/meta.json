@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "1wqqUKG6pD"
+        ],
+        "mechanics": [
+            "materialize",
+            "class",
+            "ownership"
+        ],
+        "rulesClauses": [
+            "Gain opposing classes and materialize opponent regalia under your control."
+        ]
+    },
+    "name": "remaining-soul-materializes-opponents-regalia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-21T17:29:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1wqqUKG6pD"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

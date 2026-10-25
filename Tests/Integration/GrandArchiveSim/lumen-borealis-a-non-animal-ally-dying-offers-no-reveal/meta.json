@@ -1,0 +1,25 @@
+{
+    "name": "lumen-borealis-a-non-animal-ally-dying-offers-no-reveal",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:28:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3ejd9yj9rl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3ejd9yj9rl"
+        ],
+        "mechanics": [
+            "trigger",
+            "death",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Whenever an Animal ally you control dies, you may reveal a card from your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "gloamspire-mantle-absent-the-umbra-phantasia-ally-cannot-retaliate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T04:01:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fooz13xfpk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fooz13xfpk"
+        ],
+        "mechanics": [
+            "static",
+            "ambush",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Umbra element phantasia allies you control have **ambush**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

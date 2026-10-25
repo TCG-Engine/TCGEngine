@@ -1,0 +1,25 @@
+{
+    "name": "ardus-does-not-lower-the-deluge-threshold",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:21:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "EKiMJfgvSI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "EKiMJfgvSI"
+        ],
+        "mechanics": [
+            "static",
+            "deluge",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Cards you activate, objects you control, and intents you control have an additional instance of each **deluge** ability and effect they have."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

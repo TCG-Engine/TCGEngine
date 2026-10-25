@@ -1,0 +1,25 @@
+{
+    "name": "potion-infusion-growth-rests-the-potion-and-puts-lv-age-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:44:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2898b1w1mv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2898b1w1mv"
+        ],
+        "mechanics": [
+            "counter",
+            "status",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "Rest target Potion. If you do, put **LV age** counters on it. *(**LV** refers to your champion\u2019s level.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

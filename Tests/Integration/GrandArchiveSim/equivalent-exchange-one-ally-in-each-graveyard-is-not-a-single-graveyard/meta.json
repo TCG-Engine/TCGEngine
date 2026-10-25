@@ -1,0 +1,25 @@
+{
+    "name": "equivalent-exchange-one-ally-in-each-graveyard-is-not-a-single-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:03:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qvB66hupGQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qvB66hupGQ"
+        ],
+        "mechanics": [
+            "banish",
+            "single-graveyard",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Summon** a Lost Being token rested. Then you may banish two ally cards from a single graveyard. If you do, wake up that token and put a **buff** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

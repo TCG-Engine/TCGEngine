@@ -1,0 +1,25 @@
+{
+    "name": "halocline-scout-class-bonus-enter-rests-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:44:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jntoa4h8re"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jntoa4h8re"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "rest"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Rest target unit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

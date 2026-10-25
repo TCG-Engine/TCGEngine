@@ -1,0 +1,23 @@
+{
+    "name": "byakkos-command-can-target-an-opposing-beast",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:29:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l4rdualc8p"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l4rdualc8p"
+        ],
+        "mechanics": [
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Put a **buff** counter on target Beast ally. If that ally is a Shenju, wake it up."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

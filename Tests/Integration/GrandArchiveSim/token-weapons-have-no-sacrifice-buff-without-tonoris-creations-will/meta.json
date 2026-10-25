@@ -1,0 +1,24 @@
+{
+    "name": "token-weapons-have-no-sacrifice-buff-without-tonoris-creations-will",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T01:33:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "n2jnltv5kl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "n2jnltv5kl"
+        ],
+        "mechanics": [
+            "granted-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Token weapons you control have \"**Sacrifice this object:** Target weapon gets +**X** [POWER] until end of turn where **X** is this object's power.\""
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

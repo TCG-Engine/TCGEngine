@@ -1,0 +1,26 @@
+{
+    "name": "fracturing-slash-merlin-bonus-on-attack-moves-sheen-counters-onto-the-defender",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:13:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vproiWE55M"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vproiWE55M"
+        ],
+        "mechanics": [
+            "on-attack",
+            "champion-bonus",
+            "counter",
+            "sheen"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] **On Attack: ** You may move up to three **sheen** counters from among units on the field onto the defender."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

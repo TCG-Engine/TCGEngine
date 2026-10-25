@@ -16,7 +16,9 @@
             "cost-validation",
             "tribute-singer"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "[Level 1+] On Enter: Reveal the top five cards of your deck. You may activate a non-advanced element Harmony or Melody card from among the revealed cards or your memory. That card costs (3) less to activate this way. Put the rest of the revealed cards on the bottom of your deck in any order."
+        ]
     },
     "engineBug": {
         "status": "fixed",

@@ -1,0 +1,26 @@
+{
+    "name": "alchemists-cauldron-arisanna-bonus-banishes-itself-to-gather-twice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:19:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Bt9xeTum94"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Bt9xeTum94"
+        ],
+        "mechanics": [
+            "arisanna-bonus",
+            "activated-ability",
+            "banish-self",
+            "gather"
+        ],
+        "rulesClauses": [
+            "[Arisanna Bonus] (3)**, Banish CARDNAME: ****Gather** twice."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

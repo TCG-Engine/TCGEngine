@@ -1,0 +1,24 @@
+{
+    "name": "freezing-round-class-bonus-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:54:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "r7ch2bbmoq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "r7ch2bbmoq"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost. Apply this effect only if your champion's class matches this card's class.)*"
+        ]
+    },
+    "behaviorFamily": true
+}

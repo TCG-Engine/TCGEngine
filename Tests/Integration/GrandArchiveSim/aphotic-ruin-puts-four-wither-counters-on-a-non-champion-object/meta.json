@@ -1,0 +1,25 @@
+{
+    "name": "aphotic-ruin-puts-four-wither-counters-on-a-non-champion-object",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:39:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "g9g8lun4ol"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "g9g8lun4ol"
+        ],
+        "mechanics": [
+            "counter",
+            "wither",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Put four **wither** counters on target non-champion object."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

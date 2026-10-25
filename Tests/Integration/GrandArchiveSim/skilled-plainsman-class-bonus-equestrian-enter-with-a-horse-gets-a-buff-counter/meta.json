@@ -1,0 +1,27 @@
+{
+    "name": "skilled-plainsman-class-bonus-equestrian-enter-with-a-horse-gets-a-buff-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:13:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "55u41ilks4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "55u41ilks4"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "equestrian",
+            "on-enter",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] ***Equestrian* \u2014 On Enter:** If you control a Horse ally, put a **buff** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

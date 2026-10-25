@@ -1,0 +1,26 @@
+{
+    "name": "sun-quan-level-one-enter-puts-a-buff-counter-on-another-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:50:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "c5hgwip1ik"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "c5hgwip1ik"
+        ],
+        "mechanics": [
+            "level-gate",
+            "on-enter",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Level 1+] **On Enter:** Put a **buff** counter on another target ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

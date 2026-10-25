@@ -1,0 +1,26 @@
+{
+    "name": "loaded-thoughts-class-bonus-becoming-loaded-may-put-the-top-card-into-your-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:54:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hh88rx6p3p"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hh88rx6p3p"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "load",
+            "mill"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever CARDNAME becomes loaded, you may put the top card of your deck into your graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

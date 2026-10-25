@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "y7o97Xbidv"
+        ],
+        "mechanics": [
+            "hand-ability",
+            "discard",
+            "reserve"
+        ],
+        "rulesClauses": [
+            "Discard Regulus and pay two for the next attack permission."
+        ]
+    },
+    "name": "remaining-regulus-hand-costs-and-permission",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-21T17:13:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y7o97Xbidv"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

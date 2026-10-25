@@ -1,0 +1,26 @@
+{
+    "name": "vanitas-convergent-ruin-gets-plus-one-power-on-its-next-attack-after-a-spell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:07:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8m69iq4d5v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8m69iq4d5v"
+        ],
+        "mechanics": [
+            "champion",
+            "trigger",
+            "stat-change",
+            "combat"
+        ],
+        "rulesClauses": [
+            "Whenever you activate a Spell card, CARDNAME' next attack without a weapon this turn gets +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

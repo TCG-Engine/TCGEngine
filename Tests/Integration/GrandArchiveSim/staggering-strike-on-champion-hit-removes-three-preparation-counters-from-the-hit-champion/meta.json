@@ -1,0 +1,27 @@
+{
+    "name": "staggering-strike-on-champion-hit-removes-three-preparation-counters-from-the-hit-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:34:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "opb1wdktia"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "opb1wdktia"
+        ],
+        "mechanics": [
+            "on-champion-hit",
+            "counter",
+            "combat",
+            "keyword",
+            "true-sight"
+        ],
+        "rulesClauses": [
+            "**On Champion Hit:** Remove three **preparation** counters from the hit champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

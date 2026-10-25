@@ -1,0 +1,25 @@
+{
+    "name": "obscured-offering-banishing-two-material-cards-gives-a-regalia-spellshroud",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:03:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "S3ODMQ0V0o"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "S3ODMQ0V0o"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "spellshroud"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, banish two cards from your material deck.",
+            "Target regalia gains **spellshroud** until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

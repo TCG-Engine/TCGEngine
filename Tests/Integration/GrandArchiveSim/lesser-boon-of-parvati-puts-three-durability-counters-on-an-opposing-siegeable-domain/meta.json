@@ -1,0 +1,25 @@
+{
+    "name": "lesser-boon-of-parvati-puts-three-durability-counters-on-an-opposing-siegeable-domain",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:41:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NidqQ6MOuy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "NidqQ6MOuy"
+        ],
+        "mechanics": [
+            "durability",
+            "domain",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "put three **durability** counters on a Siegeable domain you don't control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

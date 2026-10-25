@@ -1,0 +1,24 @@
+{
+    "name": "crumbling-reign-destroys-an-item-or-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "EFelNCz3Zv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "EFelNCz3Zv"
+        ],
+        "mechanics": [
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Destroy target item or weapon."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

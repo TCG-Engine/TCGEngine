@@ -1,0 +1,25 @@
+{
+    "name": "cloudstone-orb-class-bonus-pays-three-to-return-to-the-material-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:47:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ygqehvpblj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ygqehvpblj"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "zone-movement",
+            "activated-ability"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] (3)**:** Return CARDNAME to its owner's material deck."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

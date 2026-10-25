@@ -16,6 +16,8 @@
             "omen",
             "condition"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Draw a card, then discard a card. If the reserve cost of the discarded card is equal to the reserve cost of one of your omens, draw another card."
+        ]
     }
 }

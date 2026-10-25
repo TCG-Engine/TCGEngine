@@ -1,0 +1,23 @@
+{
+    "name": "hardy-veteran-intercept-redirects-the-attack-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "VmCVxy9J9J"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "VmCVxy9J9J"
+        ],
+        "mechanics": [
+            "keyword",
+            "intercept",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Intercept** *(Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally.)*"
+        ]
+    },
+    "behaviorFamily": true
+}

@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "pB4ngDOM6F"
+        ],
+        "mechanics": [
+            "variable-cost",
+            "enter"
+        ],
+        "rulesClauses": [
+            "Chosen X is paid and becomes base reserve cost."
+        ]
+    },
+    "name": "dtr-misty-pays-x-and-sets-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:10:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pB4ngDOM6F"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

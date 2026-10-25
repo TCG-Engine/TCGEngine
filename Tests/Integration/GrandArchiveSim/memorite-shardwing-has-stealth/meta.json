@@ -1,0 +1,24 @@
+{
+    "name": "memorite-shardwing-has-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "LxF5riNjnL"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "LxF5riNjnL"
+        ],
+        "mechanics": [
+            "keyword",
+            "stealth"
+        ],
+        "rulesClauses": [
+            "**Stealth,**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

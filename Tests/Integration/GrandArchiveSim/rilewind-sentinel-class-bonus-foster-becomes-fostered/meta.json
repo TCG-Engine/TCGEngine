@@ -1,0 +1,24 @@
+{
+    "name": "rilewind-sentinel-class-bonus-foster-becomes-fostered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:24:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y1utsihaxv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y1utsihaxv"
+        ],
+        "mechanics": [
+            "foster",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Foster**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

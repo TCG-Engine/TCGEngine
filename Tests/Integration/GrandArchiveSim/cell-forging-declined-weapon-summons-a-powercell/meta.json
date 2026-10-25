@@ -15,7 +15,9 @@
             "optional-choice-decline",
             "modal-spell"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Choose one\u2014 Put two durability counters on target weapon. / Summon a Powercell token."
+        ]
     },
     "engineBug": {
         "status": "fixed",

@@ -1,0 +1,25 @@
+{
+    "name": "weiss-bishop-alice-bonus-gets-plus-one-power-attacking-a-unit-with-an-odd-life-stat",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:48:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Dgtim99eB5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Dgtim99eB5"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] CARDNAME gets +1 [POWER] as long as it's attacking a unit with an odd life stat."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

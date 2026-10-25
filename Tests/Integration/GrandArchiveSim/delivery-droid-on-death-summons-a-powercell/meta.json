@@ -1,0 +1,22 @@
+{
+    "name": "delivery-droid-on-death-summons-a-powercell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:13:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ziHdB4vzQH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ziHdB4vzQH"
+        ],
+        "mechanics": [
+            "on-death",
+            "summon"
+        ],
+        "rulesClauses": [
+            "**On Death:** **Summon** a Powercell token."
+        ]
+    },
+    "behaviorFamily": true
+}

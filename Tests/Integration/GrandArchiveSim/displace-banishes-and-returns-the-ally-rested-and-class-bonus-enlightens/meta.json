@@ -1,0 +1,26 @@
+{
+    "name": "displace-banishes-and-returns-the-ally-rested-and-class-bonus-enlightens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:27:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bro89w0ejc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bro89w0ejc"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "class-bonus",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Banish target ally, then return it to the field under its owner's control rested.",
+            "[Class Bonus] Put an **enlighten** counter on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "unyielding-wraithguard-taunt-protects-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:09:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0vjo15768g"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0vjo15768g"
+        ],
+        "mechanics": [
+            "taunt",
+            "attack-declaration"
+        ],
+        "rulesClauses": [
+            "**Taunt**"
+        ]
+    },
+    "behaviorFamily": true
+}

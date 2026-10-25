@@ -1,0 +1,25 @@
+{
+    "name": "aetherwings-ward-a-distant-champion-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:01:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "avTtlUGinE"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "avTtlUGinE"
+        ],
+        "mechanics": [
+            "distant",
+            "draw",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If your champion is **distant**, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "RXCLnj5wME"
+        ],
+        "mechanics": [
+            "activated",
+            "rest",
+            "distant"
+        ],
+        "rulesClauses": [
+            "REST makes Suited ally distant and removes two durability."
+        ]
+    },
+    "name": "dtr-trefoil-tower-makes-ally-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:10:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "RXCLnj5wME"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

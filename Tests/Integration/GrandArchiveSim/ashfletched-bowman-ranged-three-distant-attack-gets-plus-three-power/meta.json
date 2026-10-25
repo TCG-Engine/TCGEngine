@@ -1,0 +1,25 @@
+{
+    "name": "ashfletched-bowman-ranged-three-distant-attack-gets-plus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:16:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vUq1XBaQtU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vUq1XBaQtU"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "Ranged 3 (As long as this unit is distant, its attacks get +3 [POWER].)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

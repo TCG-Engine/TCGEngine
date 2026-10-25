@@ -1,0 +1,27 @@
+{
+    "name": "crimson-tear-level-two-reaction-that-targets-it-draws-into-memory-and-wakes-it-on-the-opponents-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:44:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9q1wl8ao8b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9q1wl8ao8b"
+        ],
+        "mechanics": [
+            "level-gate",
+            "trigger",
+            "draw",
+            "memory",
+            "wake-up"
+        ],
+        "rulesClauses": [
+            "[Level 2+] Whenever you activate a Reaction card that targets CARDNAME, draw a card into your memory. Then if it's not your turn, wake up CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "rouge-ace-of-hearts-total-suited-reserve-cost-ten-deals-four-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:26:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h68dr63eo5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h68dr63eo5"
+        ],
+        "mechanics": [
+            "on-enter",
+            "threshold",
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Depending on the total reserve cost of Suited objects you control -- 6: Choose a unit and deal 2 damage to it. 10: ... 4 damage. 21: ... 8 damage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

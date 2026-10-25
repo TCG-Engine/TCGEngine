@@ -1,0 +1,25 @@
+{
+    "name": "nurture-crops-glimpses-two-then-gathers-twice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:58:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mdk0xhi5jn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mdk0xhi5jn"
+        ],
+        "mechanics": [
+            "glimpse",
+            "gather",
+            "summon"
+        ],
+        "rulesClauses": [
+            "**Glimpse 2**, then **gather** twice."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

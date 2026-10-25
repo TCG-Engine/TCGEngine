@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "x5FICqmSNN"
+        ],
+        "mechanics": [
+            "activated",
+            "rest",
+            "counter"
+        ],
+        "rulesClauses": [
+            "REST buffs a Suited ally and removes two durability."
+        ]
+    },
+    "name": "dtr-club-house-buffs-and-loses-durability",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:10:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x5FICqmSNN"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

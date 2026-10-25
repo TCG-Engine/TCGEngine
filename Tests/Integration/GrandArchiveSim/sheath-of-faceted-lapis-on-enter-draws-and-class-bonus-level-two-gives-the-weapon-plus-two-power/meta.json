@@ -1,0 +1,29 @@
+{
+    "name": "sheath-of-faceted-lapis-on-enter-draws-and-class-bonus-level-two-gives-the-weapon-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T18:55:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0cnn1eh85y"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0cnn1eh85y"
+        ],
+        "mechanics": [
+            "weapon-link",
+            "on-enter",
+            "draw",
+            "class-bonus",
+            "level",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw a card.",
+            "[Class Bonus] [Level 2+] Linked weapon gets +2 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

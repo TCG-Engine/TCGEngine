@@ -1,0 +1,25 @@
+{
+    "name": "raziel-imbued-enter-banishes-two-memory-cards-glimpses-three-and-draws-two-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:47:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ozpG6bt7nC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ozpG6bt7nC"
+        ],
+        "mechanics": [
+            "imbue",
+            "on-enter",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "**On Enter:** If CARDNAME is **imbued**, banish two cards at random from your memory. If you do, **glimpse 3** and then put the top two cards of your deck into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

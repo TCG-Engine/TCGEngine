@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "jKjgqe1p4G"
+        ],
+        "mechanics": [
+            "enter",
+            "marked",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Class bonus On Enter marks a unit as a Spell."
+        ]
+    },
+    "name": "dtr-astute-tracker-class-bonus-marks-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:08:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jKjgqe1p4G"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

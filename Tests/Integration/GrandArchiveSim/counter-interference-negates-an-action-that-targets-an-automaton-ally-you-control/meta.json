@@ -1,0 +1,26 @@
+{
+    "name": "counter-interference-negates-an-action-that-targets-an-automaton-ally-you-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:34:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CK4ZG5x6OF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CK4ZG5x6OF"
+        ],
+        "mechanics": [
+            "reaction",
+            "negate",
+            "targeting",
+            "automaton"
+        ],
+        "rulesClauses": [
+            "**Negate** target trigger or action card activation that targets an Automaton ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -23,7 +23,9 @@
         "type": "card_property_equals",
         "mzId": "p2Field-0",
         "property": "Damage",
-        "value": "1"
+        "value": "1",
+        "semantic": true,
+        "label": "The attack dealt its 1 POWER to the opposing champion"
     },
     {
         "step": 10,

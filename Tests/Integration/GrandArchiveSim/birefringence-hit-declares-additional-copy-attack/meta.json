@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "wuTQLLq5US"
+        ],
+        "mechanics": [
+            "granted-on-hit",
+            "additional-attack",
+            "copy"
+        ],
+        "rulesClauses": [
+            "Grant On Hit and attack again with a copy."
+        ]
+    },
+    "name": "birefringence-hit-declares-additional-copy-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T14:55:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wuTQLLq5US"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

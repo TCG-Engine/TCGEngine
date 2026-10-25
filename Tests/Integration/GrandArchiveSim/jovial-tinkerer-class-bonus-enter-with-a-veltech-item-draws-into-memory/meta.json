@@ -1,0 +1,26 @@
+{
+    "name": "jovial-tinkerer-class-bonus-enter-with-a-veltech-item-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:32:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bKSlyTrW41"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bKSlyTrW41"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "draw-into-memory",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter: **If you control a VelTech item, draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

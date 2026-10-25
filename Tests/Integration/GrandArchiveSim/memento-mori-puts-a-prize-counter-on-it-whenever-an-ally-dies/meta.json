@@ -1,0 +1,24 @@
+{
+    "name": "memento-mori-puts-a-prize-counter-on-it-whenever-an-ally-dies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:00:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9xycwz9gv4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9xycwz9gv4"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Whenever an ally dies, put a **prize** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "firetuned-automaton-discards-a-fire-card-as-an-additional-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:13:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lzjmwuir99"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lzjmwuir99"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "discard"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, discard a fire element card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

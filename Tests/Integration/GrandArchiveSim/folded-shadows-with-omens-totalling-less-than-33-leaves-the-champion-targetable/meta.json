@@ -1,0 +1,25 @@
+{
+    "name": "folded-shadows-with-omens-totalling-less-than-33-leaves-the-champion-targetable",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:15:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "HL4Q3UBoH8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "HL4Q3UBoH8"
+        ],
+        "mechanics": [
+            "ciel-bonus",
+            "omen",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as the total reserve cost among your **omens** is 33 or greater"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

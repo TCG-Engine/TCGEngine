@@ -6,6 +6,14 @@
 // field, player hand, then player resources.
 ?>
 <style>
+     [data-counter-field="MarkedStatus"] {
+          width: auto !important;
+          min-width: 22px;
+          padding: 0 5px;
+          border-radius: 4px !important;
+          font-size: 9px !important;
+          white-space: nowrap;
+     }
      html,
      body {
           margin: 0;
@@ -1327,6 +1335,7 @@
           WU: 'WU',
           WAKEUP: 'WU',
           MAT: 'MAT',
+          AMAT: 'MAT',
           MATERIALIZE: 'MAT',
           BREC: 'RECOLLECTION',
           REC: 'RECOLLECTION',

@@ -1,0 +1,25 @@
+{
+    "name": "unforgotten-will-banishes-itself-as-an-omen-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:58:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Yj77WUumhk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Yj77WUumhk"
+        ],
+        "mechanics": [
+            "banish-self",
+            "counter",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME and put an **omen** counter on it. If you do, draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

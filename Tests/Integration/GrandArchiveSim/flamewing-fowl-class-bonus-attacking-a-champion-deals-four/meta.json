@@ -1,0 +1,25 @@
+{
+    "name": "flamewing-fowl-class-bonus-attacking-a-champion-deals-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:19:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "59ueoujs9f"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "59ueoujs9f"
+        ],
+        "mechanics": [
+            "combat",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as CARDNAME is attacking a champion, it gets +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

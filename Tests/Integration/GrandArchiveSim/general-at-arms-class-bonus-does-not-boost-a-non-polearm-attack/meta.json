@@ -1,0 +1,24 @@
+{
+    "name": "general-at-arms-class-bonus-does-not-boost-a-non-polearm-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:17:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9m72c8x9oh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9m72c8x9oh"
+        ],
+        "mechanics": [
+            "static-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Polearm attack cards you activate enter the intent with +2 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

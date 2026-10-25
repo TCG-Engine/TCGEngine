@@ -1,0 +1,25 @@
+{
+    "name": "aithne-spirit-of-fire-enter-draws-seven-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:23:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "eb3ib5el99"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "eb3ib5el99"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw seven cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

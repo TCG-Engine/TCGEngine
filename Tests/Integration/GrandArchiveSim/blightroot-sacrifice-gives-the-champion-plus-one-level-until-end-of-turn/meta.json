@@ -1,0 +1,25 @@
+{
+    "name": "blightroot-sacrifice-gives-the-champion-plus-one-level-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i0a5uhjxhk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i0a5uhjxhk"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "sacrifice-self",
+            "level"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME:** Your champion gets +1 level until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

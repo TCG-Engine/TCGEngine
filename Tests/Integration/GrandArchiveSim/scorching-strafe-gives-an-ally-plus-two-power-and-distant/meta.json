@@ -1,0 +1,25 @@
+{
+    "name": "scorching-strafe-gives-an-ally-plus-two-power-and-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:10:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0k0p6n5nr7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0k0p6n5nr7"
+        ],
+        "mechanics": [
+            "stat-change",
+            "distant",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target ally gets +2 [POWER] until end of turn and becomes distant."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

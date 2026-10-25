@@ -1,0 +1,28 @@
+{
+    "name": "manas-cascade-diana-bonus-two-water-aethercharge-cards-in-the-intent-give-plus-one-power-and-banish-a-memory-card-on-champion-hit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:55:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xywyzv14iv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xywyzv14iv"
+        ],
+        "mechanics": [
+            "diana-bonus",
+            "on-attack",
+            "stat-change",
+            "on-champion-hit",
+            "banish",
+            "memory"
+        ],
+        "rulesClauses": [
+            "[Diana Bonus] **On Attack**: If there are two or more water element Aethercharge cards in the attacker's intent, this attack gets +1[POWER] and gains \u201d**On Champion Hit:** That opponent banishes a card at random from their memory.\u201d"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

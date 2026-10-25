@@ -1,0 +1,25 @@
+{
+    "name": "seiryuus-command-the-beast-triggers-its-on-attack-abilities-twice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:51:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v9d2242357"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v9d2242357"
+        ],
+        "mechanics": [
+            "on-attack",
+            "double-trigger",
+            "beast"
+        ],
+        "rulesClauses": [
+            "Until end of turn, whenever target Beast attacks, trigger all of its **on attack** abilities twice."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "four-of-diamonds-cardistry-generates-a-bolt-for-each-revealed-suited-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:03:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NsnBhlVzTV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "NsnBhlVzTV"
+        ],
+        "mechanics": [
+            "cardistry",
+            "reveal",
+            "generate"
+        ],
+        "rulesClauses": [
+            "***Cardistry*** -- (4): Reveal up to two Suited cards from your memory. For each card revealed this way, **generate** a Bolt of Diamonds card and put it into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

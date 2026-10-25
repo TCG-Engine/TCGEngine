@@ -1,0 +1,25 @@
+{
+    "name": "maiden-of-primal-virtue-gets-plus-one-power-and-life-for-each-phantasia-you-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:32:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hbt487eux7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hbt487eux7"
+        ],
+        "mechanics": [
+            "static",
+            "stat-change",
+            "phantasia"
+        ],
+        "rulesClauses": [
+            "Maiden of Primal Virtue gets +1 [POWER] and +1 [LIFE] for each phantasia you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

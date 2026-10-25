@@ -1,0 +1,25 @@
+{
+    "name": "bleu-ace-of-diamonds-total-suited-reserve-cost-six-generates-one-bolt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:58:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k5Kid67duu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k5Kid67duu"
+        ],
+        "mechanics": [
+            "on-enter",
+            "threshold",
+            "generate"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Generate up to **X** Bolt of Diamonds cards and put them into your memory. **X** is 0. Depending on the total reserve cost of Suited objects you control -- 6: **X** is 1 instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

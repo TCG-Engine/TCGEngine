@@ -1,0 +1,26 @@
+{
+    "name": "sovereign-sanctuary-sacrifices-itself-at-the-recollection-phase-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:28:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w6OqqsfEso"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w6OqqsfEso"
+        ],
+        "mechanics": [
+            "recollection",
+            "sacrifice",
+            "draw",
+            "memory"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, sacrifice Sovereign Sanctuary and draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

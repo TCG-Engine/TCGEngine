@@ -1,0 +1,25 @@
+{
+    "name": "spirit-blade-ensoul-puts-a-sword-from-the-banishment-onto-the-field-and-it-attacks-as-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:08:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CQ1bxUyi0Q"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CQ1bxUyi0Q"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "sword",
+            "attack-as-ally"
+        ],
+        "rulesClauses": [
+            "Choose any amount of Sword weapon cards with memory cost 1 or less from your banishment and/or material deck and put them onto the field. Until end of turn, Sword weapons you control can attack as though they were allies. At the beginning of your next end phase, sacrifice all Sword weapons you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

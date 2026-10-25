@@ -1,0 +1,25 @@
+{
+    "name": "vampiric-slime-class-bonus-on-hit-recovers-the-damage-dealt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:52:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "597fqr67du"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "597fqr67du"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-hit",
+            "recover"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Hit: Recover X**, where **X** is the amount of damage dealt by this hit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

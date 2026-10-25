@@ -1,0 +1,25 @@
+{
+    "name": "ritai-stablemaster-does-not-grant-kindle-suppressed",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:42:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ba0tqvwlp1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ba0tqvwlp1"
+        ],
+        "mechanics": [
+            "kindle",
+            "restriction",
+            "ability-suppression"
+        ],
+        "rulesClauses": [
+            "Horse cards you activate have kindle 3."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "lusters-shroud-without-the-spell-the-same-blast-deals-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:33:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vajycopxgf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vajycopxgf"
+        ],
+        "mechanics": [
+            "damage"
+        ],
+        "rulesClauses": [
+            "Deal 3 damage to target unit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

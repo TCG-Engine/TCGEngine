@@ -1,0 +1,26 @@
+{
+    "name": "stabilizing-bladecore-champion-level-up-puts-a-durability-counter-on-the-linked-sword",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:07:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CbPHWJ8Upd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CbPHWJ8Upd"
+        ],
+        "mechanics": [
+            "trigger",
+            "level-up",
+            "weapon-link",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Whenever your champion levels up, put a **durability** counter on linked weapon."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

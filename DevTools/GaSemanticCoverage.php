@@ -51,6 +51,15 @@ function GaHasObservableSemanticEvidence($assertions) {
             'global_effect_present',
             'global_effect_count',
             'flash_message_contains',
+            // The runner's remaining state assertions (Core/RegressionTestFramework.php): everything except the
+            // queue-empty check observes game state.
+            'card_exists',
+            'computed_power_equals',
+            'computed_life_equals',
+            'computed_level_equals',
+            'scalar_zone_equals',
+            'phase_is',
+            'turn_player_is',
         ], true)) return true;
     }
     return false;

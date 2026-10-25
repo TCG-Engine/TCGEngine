@@ -1,0 +1,25 @@
+{
+    "name": "vanishing-eclipse-without-the-element-bonus-has-no-aethercalling",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:13:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gamylrj1fc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gamylrj1fc"
+        ],
+        "mechanics": [
+            "element-bonus",
+            "aethercalling",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Element Bonus] **Aethercalling** *(As you're looking at this card while **glimpsing**, you may load it into an Aetherwing weapon you control.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "nightframe-activating-a-fast-action-puts-a-buff-counter-on-the-linked-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:19:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PboHrwPZgP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PboHrwPZgP"
+        ],
+        "mechanics": [
+            "trigger",
+            "fast-activation",
+            "counter",
+            "ally-link"
+        ],
+        "rulesClauses": [
+            "Whenever you activate a fast speed action card or a card with **fast activation**, you may put a **buff** counter on linked ally if it has two or less **buff** counters on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

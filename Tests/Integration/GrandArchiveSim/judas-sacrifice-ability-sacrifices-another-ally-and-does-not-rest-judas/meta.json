@@ -16,7 +16,10 @@
             "additional-cost-sacrifice",
             "auto-rest"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "[Class Bonus] Sacrifice another ally: CARDNAME gains spellshroud until end of turn.",
+            "An activated ability only rests its source when its cost includes [REST]."
+        ]
     },
     "engineBug": {
         "status": "fixed",

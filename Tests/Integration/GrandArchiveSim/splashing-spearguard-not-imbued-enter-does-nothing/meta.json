@@ -1,0 +1,26 @@
+{
+    "name": "splashing-spearguard-not-imbued-enter-does-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:15:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4a87hk0bkh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4a87hk0bkh"
+        ],
+        "mechanics": [
+            "imbue",
+            "on-enter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Imbue 3**",
+            "**On Enter**: If Splashing Spearguard is **imbued**, target player puts the top two cards of their deck into their graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

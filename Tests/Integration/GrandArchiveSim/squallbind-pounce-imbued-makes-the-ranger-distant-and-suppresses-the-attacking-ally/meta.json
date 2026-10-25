@@ -1,0 +1,27 @@
+{
+    "name": "squallbind-pounce-imbued-makes-the-ranger-distant-and-suppresses-the-attacking-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:13:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ep3ajxiyd3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ep3ajxiyd3"
+        ],
+        "mechanics": [
+            "imbue",
+            "distant",
+            "suppress",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Up to one target Ranger unit becomes **distant**.",
+            "If Squallbind Pounce is **imbued**, **suppress** up to one target attacking ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "greater-boon-of-horses-puts-horses-up-to-ten-reserve-from-memory-onto-the-field-with-buff-counters-and-draws-for-each",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:41:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "asZfaFnTXs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "asZfaFnTXs"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "counter",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, put any amount of Horse ally cards with total reserve cost 10 or less from your memory onto the field."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

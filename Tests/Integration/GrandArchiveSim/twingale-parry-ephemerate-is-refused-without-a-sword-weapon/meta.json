@@ -1,0 +1,24 @@
+{
+    "name": "twingale-parry-ephemerate-is-refused-without-a-sword-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:24:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "V8XBfRpDRJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "V8XBfRpDRJ"
+        ],
+        "mechanics": [
+            "ephemerate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Activate this card this way only if you control a Sword weapon."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

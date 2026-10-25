@@ -1,0 +1,26 @@
+{
+    "name": "banner-slime-class-bonus-rest-gives-other-slimes-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gz92tQGwCZ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gz92tQGwCZ"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "activated-ability",
+            "rest",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [REST]: Other Slime allies you control get +1[POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

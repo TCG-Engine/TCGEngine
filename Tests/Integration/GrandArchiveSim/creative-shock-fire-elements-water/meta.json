@@ -1,0 +1,26 @@
+{
+    "name": "creative-shock-fire-elements-water",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:25:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "BqDw4Mei4C"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "BqDw4Mei4C"
+        ],
+        "mechanics": [
+            "discard",
+            "class-bonus",
+            "element",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Fire membership includes Exalted Fire."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

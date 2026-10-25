@@ -1,0 +1,24 @@
+{
+    "name": "aenean-crystallization-below-level-six-only-destroys-the-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:09:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YDjxpBd8Fm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YDjxpBd8Fm"
+        ],
+        "mechanics": [
+            "level-gate",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 6+] **Summon** a Core Fractal token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "remnant-of-will-recovers-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:00:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "XK3NiQ5MdR"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "XK3NiQ5MdR"
+        ],
+        "mechanics": [
+            "recover"
+        ],
+        "rulesClauses": [
+            "Put two **haunt** counters on your Phantasmagoria and **recover 4**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

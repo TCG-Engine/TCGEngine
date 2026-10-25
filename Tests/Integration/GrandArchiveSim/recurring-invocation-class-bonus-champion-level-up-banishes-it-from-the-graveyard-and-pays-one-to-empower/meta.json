@@ -1,0 +1,27 @@
+{
+    "name": "recurring-invocation-class-bonus-champion-level-up-banishes-it-from-the-graveyard-and-pays-one-to-empower",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:29:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iyhlctxcrq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iyhlctxcrq"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "level-up",
+            "banish",
+            "empower"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever your champion levels up, you may banish this card from your graveyard and pay (1). If you do, **empower 2**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

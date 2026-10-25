@@ -1,0 +1,25 @@
+{
+    "name": "alice-phantom-monarch-inherited-playing-an-advanced-element-card-with-no-curse-in-the-lineage-deals-seven-unpreventable-damage-to-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:59:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "emqOANitoD"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "emqOANitoD"
+        ],
+        "mechanics": [
+            "inherited-effect",
+            "damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Inherited Effect \u2014** Whenever you play an advanced element card while there are no Curse cards in Alice's lineage, deal 7 unpreventable damage to Alice."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

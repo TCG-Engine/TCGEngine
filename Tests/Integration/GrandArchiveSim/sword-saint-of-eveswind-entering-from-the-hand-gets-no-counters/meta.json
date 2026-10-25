@@ -1,0 +1,25 @@
+{
+    "name": "sword-saint-of-eveswind-entering-from-the-hand-gets-no-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:31:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a7lr70xglo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "a7lr70xglo"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If Sword Saint of Eveswind entered from a banishment"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

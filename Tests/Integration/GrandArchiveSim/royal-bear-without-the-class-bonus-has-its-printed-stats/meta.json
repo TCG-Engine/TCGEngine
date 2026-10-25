@@ -1,0 +1,21 @@
+{
+    "name": "royal-bear-without-the-class-bonus-has-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:08:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "51l757wvez"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "51l757wvez"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1 [POWER] and +1 [LIFE]."
+        ]
+    }
+}

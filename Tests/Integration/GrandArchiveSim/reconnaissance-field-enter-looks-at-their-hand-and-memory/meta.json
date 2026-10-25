@@ -1,0 +1,24 @@
+{
+    "name": "reconnaissance-field-enter-looks-at-their-hand-and-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:07:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2rz308kuz0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2rz308kuz0"
+        ],
+        "mechanics": [
+            "on-enter",
+            "look"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Look at target opponent's hand and memory. "
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

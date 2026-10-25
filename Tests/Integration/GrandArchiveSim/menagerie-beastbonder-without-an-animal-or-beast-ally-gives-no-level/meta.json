@@ -1,0 +1,24 @@
+{
+    "name": "menagerie-beastbonder-without-an-animal-or-beast-ally-gives-no-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "izGEjxBPo9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "izGEjxBPo9"
+        ],
+        "mechanics": [
+            "static-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "as long as you control an Animal or Beast ally"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

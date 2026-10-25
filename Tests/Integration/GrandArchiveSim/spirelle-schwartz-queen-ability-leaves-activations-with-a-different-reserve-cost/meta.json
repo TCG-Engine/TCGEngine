@@ -1,0 +1,25 @@
+{
+    "name": "spirelle-schwartz-queen-ability-leaves-activations-with-a-different-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T04:14:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "p2n1953som"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "p2n1953som"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "negate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "(2), [REST],  **Reveal a card banished by Spirelle with reserve cost X**: **Negate** each activation of cards with reserve cost **X**. Put each card **negated** this way and each card banished by Spirelle into their owner's memories. Then trigger each of Spirelle's  **on enter** abilities."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

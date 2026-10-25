@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "1wqqUKG6pD"
+        ],
+        "mechanics": [
+            "materialize",
+            "memory-cost",
+            "ownership"
+        ],
+        "rulesClauses": [
+            "Materializing from the opponent deck pays the normal one-memory cost."
+        ]
+    },
+    "name": "remaining-soul-pays-opponents-regalia-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-21T17:37:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1wqqUKG6pD"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

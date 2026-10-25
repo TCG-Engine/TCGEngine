@@ -1,0 +1,25 @@
+{
+    "name": "ritai-stablemaster-without-a-horse-ally-its-enter-does-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:19:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ba0tqvwlp1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ba0tqvwlp1"
+        ],
+        "mechanics": [
+            "on-enter",
+            "equestrian",
+            "condition"
+        ],
+        "rulesClauses": [
+            "***Equestrian*** -- **On Enter**: If you control a Horse ally, you may discard up to two fire element cards. For each card discarded this way, draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

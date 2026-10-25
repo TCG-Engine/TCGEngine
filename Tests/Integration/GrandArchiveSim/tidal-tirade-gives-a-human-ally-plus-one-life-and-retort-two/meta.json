@@ -1,0 +1,25 @@
+{
+    "name": "tidal-tirade-gives-a-human-ally-plus-one-life-and-retort-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:21:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kyhl7zy5yj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kyhl7zy5yj"
+        ],
+        "mechanics": [
+            "stat-change",
+            "retort",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target Human ally gets +1 [LIFE] and gains **retort 2** until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

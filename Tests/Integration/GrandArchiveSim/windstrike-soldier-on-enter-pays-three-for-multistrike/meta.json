@@ -1,0 +1,26 @@
+{
+    "name": "windstrike-soldier-on-enter-pays-three-for-multistrike",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:41:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WFNM4etSFB"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WFNM4etSFB"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "optional-cost",
+            "multistrike"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter: **You may pay (3). If you do, CARDNAME gains **multistrike 2** until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

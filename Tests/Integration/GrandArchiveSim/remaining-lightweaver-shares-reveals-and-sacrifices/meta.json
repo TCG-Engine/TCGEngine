@@ -1,0 +1,26 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "RBco1DfZ1B"
+        ],
+        "mechanics": [
+            "enter",
+            "reveal",
+            "copy",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "Both revealed cards have both recover abilities; Shaping sacrifices at end phase."
+        ]
+    },
+    "name": "remaining-lightweaver-shares-reveals-and-sacrifices",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-21T17:25:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "RBco1DfZ1B"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

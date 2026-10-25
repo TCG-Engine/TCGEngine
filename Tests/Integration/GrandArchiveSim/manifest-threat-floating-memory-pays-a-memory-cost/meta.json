@@ -1,0 +1,23 @@
+{
+    "name": "manifest-threat-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:37:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jK7LRuTSPh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jK7LRuTSPh"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory**"
+        ]
+    },
+    "behaviorFamily": true
+}

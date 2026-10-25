@@ -1,0 +1,25 @@
+{
+    "name": "seven-of-hearts-cardistry-deals-two-damage-to-each-unit-the-opponent-controls",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:23:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nduIoPhZr1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nduIoPhZr1"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cardistry",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Cardistry -- (7): Deal 2 damage to each unit target opponent controls."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

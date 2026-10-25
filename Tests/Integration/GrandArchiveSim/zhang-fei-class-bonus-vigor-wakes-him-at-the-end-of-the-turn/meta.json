@@ -1,0 +1,24 @@
+{
+    "name": "zhang-fei-class-bonus-vigor-wakes-him-at-the-end-of-the-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:39:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qxnv0jqeym"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qxnv0jqeym"
+        ],
+        "mechanics": [
+            "vigor",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Vigor**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

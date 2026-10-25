@@ -15,7 +15,9 @@
             "optional-choice-decline",
             "up-to-two-targets"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Until end of turn, up to two target Chessman allies gain spellshroud and taunt, and get +2 [LIFE]."
+        ]
     },
     "engineBug": {
         "status": "fixed",

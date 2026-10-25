@@ -1,0 +1,26 @@
+{
+    "name": "stellar-cosmos-diana-bonus-third-charge-counter-gives-aethercharge-cards-aethercalling",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:49:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jaiTSvaLOQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jaiTSvaLOQ"
+        ],
+        "mechanics": [
+            "diana-bonus",
+            "on-charge",
+            "glimpse",
+            "grant-ability"
+        ],
+        "rulesClauses": [
+            "[Diana Bonus] **On Charge 3:** CARDNAME gains \"Aethercharge cards you look at while **glimpsing** have **aethercalling**.\""
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

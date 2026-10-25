@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "6ilt42sehq"
+        ],
+        "mechanics": [
+            "negate",
+            "targeting",
+            "distant"
+        ],
+        "rulesClauses": [
+            "Target ally you control becomes **distant**. **Negate** all card activations targeting it."
+        ]
+    },
+    "name": "slipstream-vault-negates-an-opposing-activation-that-targets-the-protected-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:24:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6ilt42sehq"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "cutthroat-operative-with-two-buff-counters-gets-no-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:42:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s714OWbqi2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s714OWbqi2"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "if CARDNAME has less than two **buff** counters on it"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

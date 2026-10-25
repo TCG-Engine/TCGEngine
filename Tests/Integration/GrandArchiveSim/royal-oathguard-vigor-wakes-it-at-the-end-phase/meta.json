@@ -1,0 +1,24 @@
+{
+    "name": "royal-oathguard-vigor-wakes-it-at-the-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:20:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "g3DQoQvyjI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "g3DQoQvyjI"
+        ],
+        "mechanics": [
+            "keyword",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "**Vigor**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

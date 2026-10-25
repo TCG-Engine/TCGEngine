@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "9jiUWCU8dP"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "extra-turn",
+            "banish"
+        ],
+        "rulesClauses": [
+            "Sacrifice a time-counter object and banish resolved spell."
+        ]
+    },
+    "name": "dtr-time-dilation-sacrifice-and-banish",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:17:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9jiUWCU8dP"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

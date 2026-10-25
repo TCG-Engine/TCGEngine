@@ -1,0 +1,26 @@
+{
+    "name": "indiscriminate-gyre-class-bonus-attack-deals-two-damage-to-all-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:34:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "byyw53xbld"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "byyw53xbld"
+        ],
+        "mechanics": [
+            "combat",
+            "damage",
+            "sweep",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: Deal 2 damage to all allies."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

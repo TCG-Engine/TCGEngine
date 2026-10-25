@@ -1,0 +1,25 @@
+{
+    "name": "polkhawk-boisterous-riot-only-the-next-ranger-ally-enters-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:39:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8eyeqhc37y"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8eyeqhc37y"
+        ],
+        "mechanics": [
+            "on-enter",
+            "condition",
+            "distant"
+        ],
+        "rulesClauses": [
+            "**On Enter**: If there's another fire element card in CARDNAME's lineage, the next Ranger ally card you activate this turn enters the field **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

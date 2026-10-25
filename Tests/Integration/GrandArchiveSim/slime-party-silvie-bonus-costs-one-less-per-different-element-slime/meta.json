@@ -1,0 +1,23 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "AJeuUDTPmV"
+        ],
+        "mechanics": [
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "This card costs 1 less to activate for each different element Slime ally you control."
+        ]
+    },
+    "name": "slime-party-silvie-bonus-costs-one-less-per-different-element-slime",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T17:13:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AJeuUDTPmV"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

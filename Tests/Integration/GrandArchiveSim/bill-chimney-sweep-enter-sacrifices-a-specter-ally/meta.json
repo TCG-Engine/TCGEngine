@@ -1,0 +1,25 @@
+{
+    "name": "bill-chimney-sweep-enter-sacrifices-a-specter-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:43:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s9ICPMYPNx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s9ICPMYPNx"
+        ],
+        "mechanics": [
+            "on-enter",
+            "sacrifice",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Enter:** If CARDNAME is not **ephemeral**, sacrifice a Specter ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

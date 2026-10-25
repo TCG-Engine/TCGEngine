@@ -1,0 +1,26 @@
+{
+    "name": "staves-x-ultra-lorraine-bonus-linked-sword-gets-plus-one-power-per-static-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:52:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "33mWk4HYLF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "33mWk4HYLF"
+        ],
+        "mechanics": [
+            "lorraine-bonus",
+            "weapon-link",
+            "stat-change",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Lorraine Bonus] Linked weapon has **spellshroud** and gets +1[POWER] for each **static** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

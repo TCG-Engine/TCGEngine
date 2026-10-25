@@ -1,0 +1,24 @@
+{
+    "name": "corhazi-trapper-enter-puts-a-preparation-counter-on-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:44:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sdbzr5zs29"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sdbzr5zs29"
+        ],
+        "mechanics": [
+            "on-enter",
+            "preparation"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Put a **preparation** counter on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

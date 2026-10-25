@@ -1,0 +1,25 @@
+{
+    "name": "tome-of-knowledge-without-the-class-bonus-gives-no-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:12:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yDARN8eV6B"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yDARN8eV6B"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Your champion gets +1 level."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

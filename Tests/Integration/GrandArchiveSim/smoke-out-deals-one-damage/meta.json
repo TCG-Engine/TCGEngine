@@ -1,0 +1,24 @@
+{
+    "name": "smoke-out-deals-one-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vjonmi9jjq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vjonmi9jjq"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 1 damage to target unit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

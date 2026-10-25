@@ -1,0 +1,25 @@
+{
+    "name": "battlefield-spotter-level-two-gives-other-units-ranged-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "44vm5kt3q2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "44vm5kt3q2"
+        ],
+        "mechanics": [
+            "level-gate",
+            "ranged",
+            "static-ability"
+        ],
+        "rulesClauses": [
+            "[Level 2+] Other units you control have **ranged 1**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

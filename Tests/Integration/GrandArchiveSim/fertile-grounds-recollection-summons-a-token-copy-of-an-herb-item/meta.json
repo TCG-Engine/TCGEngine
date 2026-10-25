@@ -1,0 +1,25 @@
+{
+    "name": "fertile-grounds-recollection-summons-a-token-copy-of-an-herb-item",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:58:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8bls6g7xgw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8bls6g7xgw"
+        ],
+        "mechanics": [
+            "recollection",
+            "token",
+            "summon"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, **summon** a token copy of an Herb item you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

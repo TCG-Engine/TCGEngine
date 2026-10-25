@@ -1,0 +1,23 @@
+{
+    "name": "wingpeak-patriarch-gives-other-bird-objects-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:08:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wov58exji1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wov58exji1"
+        ],
+        "mechanics": [
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Other Bird objects you control get +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

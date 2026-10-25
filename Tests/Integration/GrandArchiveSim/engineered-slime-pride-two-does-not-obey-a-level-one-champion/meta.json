@@ -1,0 +1,21 @@
+{
+    "name": "engineered-slime-pride-two-does-not-obey-a-level-one-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:37:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kkz07nau5s"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kkz07nau5s"
+        ],
+        "mechanics": [
+            "pride",
+            "keyword"
+        ],
+        "rulesClauses": [
+            "**Pride 2**"
+        ]
+    }
+}

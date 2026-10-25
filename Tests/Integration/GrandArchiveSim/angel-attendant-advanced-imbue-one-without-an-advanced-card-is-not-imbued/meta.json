@@ -1,0 +1,23 @@
+{
+    "name": "angel-attendant-advanced-imbue-one-without-an-advanced-card-is-not-imbued",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:34:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "92mnQJPfR8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "92mnQJPfR8"
+        ],
+        "mechanics": [
+            "imbue",
+            "advanced-imbue",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Advanced Imbue 1**"
+        ]
+    },
+    "behaviorFamily": true
+}

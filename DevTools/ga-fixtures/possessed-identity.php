@@ -1,0 +1,15 @@
+<?php
+gaScenario('possessed-reaping-returns-killed-ally-among-duplicate-graveyard-cards')
+    ->deckTemplate('spirit-dungeon-guide', 'Possessed Reaping')
+    ->champion(cardName: 'Merlin, Brilliant Vestige', player: 2)
+    ->seed('myField', 'Dungeon Guide')
+    ->seed('myGraveyard', 'Dungeon Guide')
+    ->seed('myGraveyard', 'Dungeon Guide', player: 2)
+    ->seed('myHand', 'Possessed Reaping', player: 2)
+    ->endTurn()
+    ->play('Possessed Reaping', 2)->pay(3, 2)->answer(2, 'theirField-1')->passBoth()
+    ->expectCardExists('myGraveyard', 'Dungeon Guide', 'The older defender-owned copy stays in its graveyard')
+    ->expectCardExists('theirGraveyard', 'Dungeon Guide', 'The attacker-owned copy stays in its graveyard')
+    ->expectProperty('p2Field-1', 'CardID', 'em6eEh9q8y', 'The killed ally returns under the attacker control')
+    ->expectProperty('p2Field-1', 'Status', '1', 'The returned ally is rested')
+    ->tested('Possessed Reaping')->covers(['combat', 'trigger', 'identity', 'zone-movement'], 'The exact killed ally returns without stealing either earlier same-name graveyard card.')->register();

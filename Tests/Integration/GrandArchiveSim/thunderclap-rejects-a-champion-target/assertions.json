@@ -1,0 +1,25 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "The champion took no damage"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-0",
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "The ally chosen instead was destroyed"
+    },
+    {
+        "step": 9,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

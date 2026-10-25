@@ -1,0 +1,25 @@
+{
+    "name": "jewel-of-enlightenment-banish-puts-an-enlighten-counter-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:08:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AKA19OwaCh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "AKA19OwaCh"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "counter",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Put an **enlighten** counter on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

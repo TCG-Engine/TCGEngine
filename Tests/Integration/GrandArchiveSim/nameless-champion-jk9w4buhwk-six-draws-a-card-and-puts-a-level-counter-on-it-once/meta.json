@@ -1,0 +1,26 @@
+{
+    "name": "nameless-champion-jk9w4buhwk-six-draws-a-card-and-puts-a-level-counter-on-it-once",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:19:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jk9w4buhwk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jk9w4buhwk"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw",
+            "counter",
+            "once-per-game"
+        ],
+        "rulesClauses": [
+            "(6)**:** Draw a card and put a **level** counter on CARDNAME. Activate this ability only once."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

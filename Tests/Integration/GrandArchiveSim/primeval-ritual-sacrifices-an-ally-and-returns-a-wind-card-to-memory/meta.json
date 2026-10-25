@@ -1,0 +1,26 @@
+{
+    "name": "primeval-ritual-sacrifices-an-ally-and-returns-a-wind-card-to-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:39:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fan41iqm8b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fan41iqm8b"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sacrifice",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice an ally.",
+            "Return target wind element card from your graveyard to your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

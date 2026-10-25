@@ -1,0 +1,23 @@
+{
+    "name": "feed-nourishment-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:37:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "44pr0h0yqi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "44pr0h0yqi"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
+        ]
+    },
+    "behaviorFamily": true
+}

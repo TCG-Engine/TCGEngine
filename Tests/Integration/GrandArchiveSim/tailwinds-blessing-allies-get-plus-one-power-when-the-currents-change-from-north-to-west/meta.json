@@ -1,0 +1,25 @@
+{
+    "name": "tailwinds-blessing-allies-get-plus-one-power-when-the-currents-change-from-north-to-west",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:18:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oh5n2sjk0u"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oh5n2sjk0u"
+        ],
+        "mechanics": [
+            "currents",
+            "trigger",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Whenever your Shifting Currents change from facing North to West, allies you control get +1 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

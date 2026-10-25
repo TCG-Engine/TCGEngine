@@ -1,0 +1,24 @@
+{
+    "name": "tempest-silverback-class-bonus-gets-plus-two-power-and-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "HWFWO0TB8l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "HWFWO0TB8l"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +2 [POWER] and +2 [LIFE]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "sanguine-goblet-champion-damage-puts-that-many-blood-counters-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mnz5kgifhd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mnz5kgifhd"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Whenever your champion takes damage, put that many **blood** counters on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

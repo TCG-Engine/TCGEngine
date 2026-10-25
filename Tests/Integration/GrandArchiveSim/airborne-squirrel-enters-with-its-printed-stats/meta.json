@@ -1,0 +1,23 @@
+{
+    "name": "airborne-squirrel-enters-with-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:38:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d3e311f211"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "d3e311f211"
+        ],
+        "mechanics": [
+            "vanilla"
+        ],
+        "rulesClauses": [
+            "Airborne Squirrel (no rules text)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

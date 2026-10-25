@@ -15,7 +15,10 @@
             "randomness",
             "determinism"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Draw two cards into your memory then banish four cards at random from it.",
+            "Replaying the same action from the same state must produce the same result."
+        ]
     },
     "engineBug": {
         "status": "fixed",

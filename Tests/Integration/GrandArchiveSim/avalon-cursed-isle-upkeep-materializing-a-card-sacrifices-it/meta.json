@@ -1,0 +1,25 @@
+{
+    "name": "avalon-cursed-isle-upkeep-materializing-a-card-sacrifices-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:59:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "41WnFOT5YS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "41WnFOT5YS"
+        ],
+        "mechanics": [
+            "upkeep",
+            "materialize",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "***Upkeep*** \u2014 Whenever you materialize a card, sacrifice Avalon."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "name": "full-bloom-diao-chan-bonus-enter-makes-the-opponent-summon-four-flowerbuds-each-dealing-two-and-recovering-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:32:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5WP1TXJo9E"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5WP1TXJo9E"
+        ],
+        "mechanics": [
+            "diao-chan-bonus",
+            "on-enter",
+            "summon",
+            "token",
+            "trigger",
+            "damage",
+            "recover"
+        ],
+        "rulesClauses": [
+            "[Diao Chan Bonus] **On Enter:** Target opponent **summons** four Flowerbud tokens.",
+            "[Diao Chan Bonus] Whenever an opponent **summons** a Flowerbud token, deal 2 damage to each champion that opponent controls and you **recover 2**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

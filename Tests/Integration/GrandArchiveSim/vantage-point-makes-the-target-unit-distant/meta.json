@@ -1,0 +1,24 @@
+{
+    "name": "vantage-point-makes-the-target-unit-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:39:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "U6krXc5283"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "U6krXc5283"
+        ],
+        "mechanics": [
+            "distant",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target unit becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

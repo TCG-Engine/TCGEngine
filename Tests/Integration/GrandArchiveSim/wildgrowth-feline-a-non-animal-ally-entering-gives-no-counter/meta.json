@@ -1,0 +1,25 @@
+{
+    "name": "wildgrowth-feline-a-non-animal-ally-entering-gives-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3krdvxapdp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3krdvxapdp"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Whenever another Animal and/or Beast ally enters"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

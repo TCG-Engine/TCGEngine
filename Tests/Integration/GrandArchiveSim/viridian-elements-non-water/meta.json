@@ -1,0 +1,24 @@
+{
+    "name": "viridian-elements-non-water",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:09:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s3572j3oda"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s3572j3oda"
+        ],
+        "mechanics": [
+            "cost",
+            "element"
+        ],
+        "rulesClauses": [
+            "Only Water cards pay the surcharge."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

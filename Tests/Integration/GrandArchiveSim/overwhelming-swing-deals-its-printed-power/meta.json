@@ -1,0 +1,25 @@
+{
+    "name": "overwhelming-swing-deals-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:34:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aebjvwbciz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aebjvwbciz"
+        ],
+        "mechanics": [
+            "combat",
+            "class-bonus",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "Overwhelming Swing attacks for its printed 5 POWER."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

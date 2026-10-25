@@ -1,0 +1,24 @@
+{
+    "name": "scepter-of-awakening-ability-needs-no-diao-chan-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:05:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2zh208013h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2zh208013h"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Diao Chan Bonus] As long as you control four or more phantasias, you may activate this card from your material deck."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

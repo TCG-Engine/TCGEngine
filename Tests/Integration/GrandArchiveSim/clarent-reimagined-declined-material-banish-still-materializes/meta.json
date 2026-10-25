@@ -15,7 +15,9 @@
             "optional-choice-decline",
             "materialize-cost"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "[Lorraine Bonus] While paying for this card's memory cost, you may banish a card named Clarent, Sword of Peace and up to one other Sword Regalia card from your material deck."
+        ]
     },
     "engineBug": {
         "status": "fixed",

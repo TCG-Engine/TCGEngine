@@ -1,0 +1,25 @@
+{
+    "name": "tempestuous-seraphim-not-imbued-enter-deals-no-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T20:37:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "HYFtrEXYFi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "HYFtrEXYFi"
+        ],
+        "mechanics": [
+            "on-enter",
+            "imbue",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Enter**: As a Spell, if CARDNAME is **imbued**, deal 4 damage to target attacking ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

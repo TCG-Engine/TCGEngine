@@ -1,0 +1,24 @@
+{
+    "name": "lesser-boon-of-regret-puts-hand-cards-on-the-bottom-and-draws-that-many",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uQeQhFl5Qm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uQeQhFl5Qm"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "draw"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, put up to seven cards from your hand on the bottom of your deck in any order. Then draw that many cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

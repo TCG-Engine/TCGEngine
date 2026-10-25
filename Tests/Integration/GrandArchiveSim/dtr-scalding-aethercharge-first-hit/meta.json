@@ -1,0 +1,23 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "68ZcOVfJn6"
+        ],
+        "mechanics": [
+            "damage"
+        ],
+        "rulesClauses": [
+            "Champion that has not leveled takes one instance of two."
+        ]
+    },
+    "name": "dtr-scalding-aethercharge-first-hit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:10:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "68ZcOVfJn6"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

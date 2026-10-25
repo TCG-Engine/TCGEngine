@@ -23,7 +23,9 @@
         "type": "zone_count",
         "zone": "myMemory",
         "viewerPlayerID": 1,
-        "value": 0
+        "value": 0,
+        "semantic": true,
+        "label": "The recollection trigger put the memory card on the bottom of the deck (memory is empty)"
     },
     {
         "step": 3,

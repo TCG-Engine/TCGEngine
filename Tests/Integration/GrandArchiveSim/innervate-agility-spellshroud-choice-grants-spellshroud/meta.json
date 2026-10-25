@@ -1,0 +1,24 @@
+{
+    "name": "innervate-agility-spellshroud-choice-grants-spellshroud",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:40:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v43ehjdu50"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v43ehjdu50"
+        ],
+        "mechanics": [
+            "spellshroud",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "Units you control gain your choice of **stealth** or **spellshroud** until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

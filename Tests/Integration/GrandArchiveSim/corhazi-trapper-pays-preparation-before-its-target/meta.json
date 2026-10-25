@@ -1,0 +1,25 @@
+{
+    "name": "corhazi-trapper-pays-preparation-before-its-target",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:39:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sdbzr5zs29"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sdbzr5zs29"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[REST], Remove a preparation counter from your champion: Target unit attacks get -3 POWER this turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

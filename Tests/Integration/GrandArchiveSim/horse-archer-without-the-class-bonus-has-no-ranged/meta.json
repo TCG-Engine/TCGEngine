@@ -1,0 +1,23 @@
+{
+    "name": "horse-archer-without-the-class-bonus-has-no-ranged",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:19:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k6d4367ixj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k6d4367ixj"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "ranged",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Ranged 2**"
+        ]
+    },
+    "behaviorFamily": true
+}

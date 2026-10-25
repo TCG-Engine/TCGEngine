@@ -23,7 +23,9 @@
             "alternative-cost",
             "optional-choice-decline"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "While paying for this card's reserve cost, you may banish up to two Harmony and/or Melody cards from your graveyard. Each card banished this way pays for 2 of that cost."
+        ]
     },
     "engineBug": {
         "status": "fixed",

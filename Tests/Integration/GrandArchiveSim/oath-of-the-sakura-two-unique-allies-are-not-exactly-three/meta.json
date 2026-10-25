@@ -1,0 +1,23 @@
+{
+    "name": "oath-of-the-sakura-two-unique-allies-are-not-exactly-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:28:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vlno9ankzi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vlno9ankzi"
+        ],
+        "mechanics": [
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you control exactly three allies that are all unique, they each get +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

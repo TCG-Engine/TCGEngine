@@ -1,0 +1,240 @@
+location	nearest_declaration	review_bucket	source
+GrandArchiveSim/Custom/CardDQHandlers.php:129	"$customDQHandlers[""Zu53izIFTX_RecurseRegalia""]"	movement	"MZMove($player, $lastDecision, ""myMaterial"");"
+GrandArchiveSim/Custom/CardDQHandlers.php:1504	"$customDQHandlers[""ChannelManifoldBanish""]"	selection/query/context	"$preserved = GetPreservedMaterialChoices($player, ""myMaterial"");"
+GrandArchiveSim/Custom/CardDQHandlers.php:2751	CursebreakerMaterializeBullets	selection/query/context	"$materialZone = GetZone(""myMaterial"");"
+GrandArchiveSim/Custom/CardDQHandlers.php:2756	CursebreakerMaterializeBullets	selection/query/context	"$bulletMZs[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/CardDQHandlers.php:3534	MaterializeBulletFromMaterial	selection/query/context	"$materialZone = GetZone(""myMaterial"");"
+GrandArchiveSim/Custom/CardDQHandlers.php:3540	MaterializeBulletFromMaterial	selection/query/context	"$bulletMZs[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/CardDQHandlers.php:3554	MadHatterMaterialize	selection/query/context	"$materialZone = GetZone(""myMaterial"");"
+GrandArchiveSim/Custom/CardDQHandlers.php:3560	MadHatterMaterialize	selection/query/context	"$regalias[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/CardDQHandlers.php:4772	"$customDQHandlers[""EquinoxHourMayMaterialize""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/CardDQHandlers.php:4773	"$customDQHandlers[""EquinoxHourMayMaterialize""]"	selection/query/context	"$choices = ZoneObjMZIndices($material, ""myMaterial"");"
+GrandArchiveSim/Custom/CardDQHandlers.php:5532	"$customDQHandlers[""DiaoChanIdyllBanish""]"	selection/query/context	"$oppMat = $destroyedController == $playerID ? ""myMaterial"" : ""theirMaterial"";"
+GrandArchiveSim/Custom/CardDQHandlers.php:6970	"$customDQHandlers[""MantleAbyssSacrifice""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/CardDQHandlers.php:6974	"$customDQHandlers[""MantleAbyssSacrifice""]"	selection/query/context	"$mantleMZ = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/CardDQHandlers.php:6986	"$customDQHandlers[""SablemereWardensGripFromMaterial""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/CardDQHandlers.php:6990	"$customDQHandlers[""SablemereWardensGripFromMaterial""]"	selection/query/context	"$gripMZ = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/CardDQHandlers.php:7013	"$customDQHandlers[""TomeSacredLightningFromMaterial""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/CardDQHandlers.php:7017	"$customDQHandlers[""TomeSacredLightningFromMaterial""]"	selection/query/context	"$tomeMZ = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/CardDQHandlers.php:7032	"$customDQHandlers[""EtherealAbsorptionCost""]"	movement	"MZMove($player, $lastDecision, ""myMaterial"");"
+GrandArchiveSim/Custom/CardDQHandlers.php:7183	ConjuringFluorescenceMaterialize	selection/query/context	"$materialZone = GetZone(""myMaterial"");"
+GrandArchiveSim/Custom/CardDQHandlers.php:7188	ConjuringFluorescenceMaterialize	selection/query/context	"$regalias[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/CardDQHandlers.php:7433	"$customDQHandlers[""ObscuredOfferingBanishMat""]"	selection/query/context	"$mat = ZoneSearch(""myMaterial"");"
+GrandArchiveSim/Custom/CardDQHandlers.php:8889	EnsoulGetEligibleSwords	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/Custom/CardDQHandlers.php:8896	EnsoulGetEligibleSwords	selection/query/context	"$eligible[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/CardLogic.php:141	PoleArmedSteedEnter	selection/query/context	"$matZone = $player == $playerID ? ""myMaterial"" : ""theirMaterial"";"
+GrandArchiveSim/Custom/CombatLogic.php:1242	ClearIntent	selection/query/context	"$zone = ""myMaterial"";"
+GrandArchiveSim/Custom/CombatLogic.php:5019	OnDealDamage	selection/query/context	"$movedObj = MZMoveTopOfZone($controller, ""myDeck"", ""myMaterial"");"
+GrandArchiveSim/Custom/GameLayout.php:584	file scope	selection/query/context	#myMaterialSlot.ga-material-empty,
+GrandArchiveSim/Custom/GameLayout.php:585	file scope	selection/query/context	#theirMaterialSlot.ga-material-empty {
+GrandArchiveSim/Custom/GameLayout.php:597	file scope	selection/query/context	#myMaterialSlot.ga-material-empty::before,
+GrandArchiveSim/Custom/GameLayout.php:598	file scope	selection/query/context	#theirMaterialSlot.ga-material-empty::before {
+GrandArchiveSim/Custom/GameLayout.php:612	file scope	selection/query/context	#myMaterialSlot.ga-material-empty #myMaterial > span,
+GrandArchiveSim/Custom/GameLayout.php:613	file scope	selection/query/context	#theirMaterialSlot.ga-material-empty #theirMaterial > span {
+GrandArchiveSim/Custom/GameLayout.php:698	file scope	selection/query/context	#myMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:699	file scope	selection/query/context	#theirMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:756	file scope	selection/query/context	#myMaterialWrapper,
+GrandArchiveSim/Custom/GameLayout.php:757	file scope	selection/query/context	#theirMaterialWrapper,
+GrandArchiveSim/Custom/GameLayout.php:766	file scope	selection/query/context	#myMaterial,
+GrandArchiveSim/Custom/GameLayout.php:767	file scope	selection/query/context	#theirMaterial,
+GrandArchiveSim/Custom/GameLayout.php:958	file scope	selection/query/context	#myMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:959	file scope	selection/query/context	#theirMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:992	file scope	selection/query/context	#myMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:993	file scope	selection/query/context	#theirMaterialSlot {
+GrandArchiveSim/Custom/GameLayout.php:1029	file scope	selection/query/context	#myMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:1030	file scope	selection/query/context	#theirMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:1149	file scope	selection/query/context	#myMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:1150	file scope	selection/query/context	#theirMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:1238	file scope	selection/query/context	#theirMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:1245	file scope	selection/query/context	#theirMaterialSlot { left: 23% !important; right: auto !important; }
+GrandArchiveSim/Custom/GameLayout.php:1263	file scope	selection/query/context	#myMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:1272	file scope	selection/query/context	#myMaterialSlot { left: 61% !important; right: auto !important; }
+GrandArchiveSim/Custom/GameLayout.php:1359	file scope	selection/query/context	#myMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:1360	file scope	selection/query/context	#theirMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:1421	file scope	selection/query/context	#myMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:1422	file scope	selection/query/context	#theirMaterialSlot,
+GrandArchiveSim/Custom/GameLayout.php:1598	file scope	selection/query/context	<!-- myMaterialSlot: mirrors my deck on the left -->
+GrandArchiveSim/Custom/GameLayout.php:1599	file scope	selection/query/context	"<div id=""myMaterialSlot"" class=""ga-zone ga-token-bank"""
+GrandArchiveSim/Custom/GameLayout.php:1600	file scope	selection/query/context	"data-label=""Material"""
+GrandArchiveSim/Custom/GameLayout.php:1659	file scope	selection/query/context	<!-- theirMaterialSlot: mirrors their deck on the left -->
+GrandArchiveSim/Custom/GameLayout.php:1660	file scope	selection/query/context	"<div id=""theirMaterialSlot"" class=""ga-zone ga-token-bank"""
+GrandArchiveSim/Custom/GameLayout.php:1661	file scope	selection/query/context	"data-label=""Material"""
+GrandArchiveSim/Custom/GameLayout.php:1837	file scope	selection/query/context	{ id: 'myMaterialSlot',    cls: 'ga-material-empty' },
+GrandArchiveSim/Custom/GameLayout.php:1838	file scope	selection/query/context	{ id: 'theirMaterialSlot', cls: 'ga-material-empty' },
+GrandArchiveSim/Custom/GameLayoutMobile.php:395	file scope	selection/query/context	#myMaterialWrapper,
+GrandArchiveSim/Custom/GameLayoutMobile.php:396	file scope	selection/query/context	#theirMaterialWrapper,
+GrandArchiveSim/Custom/GameLayoutMobile.php:424	file scope	selection/query/context	#myMaterialWrapper::-webkit-scrollbar,
+GrandArchiveSim/Custom/GameLayoutMobile.php:425	file scope	selection/query/context	#theirMaterialWrapper::-webkit-scrollbar,
+GrandArchiveSim/Custom/GameLayoutMobile.php:446	file scope	selection/query/context	#myMaterial,
+GrandArchiveSim/Custom/GameLayoutMobile.php:447	file scope	selection/query/context	#theirMaterial,
+GrandArchiveSim/Custom/GameLayoutMobile.php:672	file scope	selection/query/context	#myMaterial > span:not([id]),
+GrandArchiveSim/Custom/GameLayoutMobile.php:673	file scope	selection/query/context	#theirMaterial > span:not([id]),
+GrandArchiveSim/Custom/GameLayoutMobile.php:954	file scope	selection/query/context	"<div class=""ga-m-pile""><div class=""ga-m-pile-label"">Material</div><div id=""theirMaterialSlot"" class=""ga-zone"" data-label=""Material""></div></div>"
+GrandArchiveSim/Custom/GameLayoutMobile.php:994	file scope	selection/query/context	"<div class=""ga-m-pile""><div class=""ga-m-pile-label"">Material</div><div id=""myMaterialSlot"" class=""ga-zone"" data-label=""Material""></div></div>"
+GrandArchiveSim/Custom/GameLayoutMobile.php:1171	file scope	selection/query/context	'myMaterialSlot', 'theirMaterialSlot',
+GrandArchiveSim/Custom/GameLogic.php:284	GoldfishChooseCardName	selection/query/context	"$fallbackZones = [""myDeck"", ""myHand"", ""myMemory"", ""myMaterial"", ""myGraveyard"", ""myField""];"
+GrandArchiveSim/Custom/GameLogic.php:1067	GetDivineRelicRegaliaChoices	selection/query/context	"$materialZone = GetZone(""myMaterial"");"
+GrandArchiveSim/Custom/GameLogic.php:1072	GetDivineRelicRegaliaChoices	selection/query/context	"$gunMZs[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/GameLogic.php:1187	GetStartingChampionChoices	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/GameLogic.php:1193	GetStartingChampionChoices	selection/query/context	"$mzID = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/GameLogic.php:1227	GetPregameStartingFieldMaterialChoices	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/GameLogic.php:1233	GetPregameStartingFieldMaterialChoices	selection/query/context	"$choices[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/GameLogic.php:1916	ActionMapInner	selection/query/context	"case ""myMaterial"":"
+GrandArchiveSim/Custom/GameLogic.php:3168	DoActivateCard	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/Custom/GameLogic.php:3173	DoActivateCard	selection/query/context	"$eligible[] = ""myMaterial-"" . $mi;"
+GrandArchiveSim/Custom/GameLogic.php:3458	DoActivateCard	selection/query/context	"$materialChoices = ZoneSearch(""myMaterial"");"
+GrandArchiveSim/Custom/GameLogic.php:3596	DoActivateCard	selection/query/context	"$banishZoneLabel = ($banishSpec[""zone""] ?? ""myGraveyard"") === ""myMaterial"" ? ""material deck"" : ""graveyard"";"
+GrandArchiveSim/Custom/GameLogic.php:4117	"$customDQHandlers[""GenericGraveyardBanishCost""]"	selection/query/context	"DecisionQueueController::AddDecision($player, ""MZCHOOSE"", implode(""&"", $candidates), 100, tooltip:""Banish_a_card_from_your_"" . (($spec[""zone""] ?? ""myGraveyard"") === ""myMaterial"" ? ""material_deck"" : ""graveyard""));"
+GrandArchiveSim/Custom/GameLogic.php:4171	GenericGraveyardBanishCostSpec	selection/query/context	"case ""5upufyoz23"": return [""count"" => 1, ""elements"" => [""ASTRA"", ""UMBRA""], ""zone"" => ""myMaterial"", ""storeElementAs"" => ""dusklightBanishedElement""];"
+GrandArchiveSim/Custom/GameLogic.php:5091	"$customDQHandlers[""ArgusReserveChoice""]"	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/Custom/GameLogic.php:5096	"$customDQHandlers[""ArgusReserveChoice""]"	selection/query/context	"$choices[] = ""myMaterial-"" . $mi;"
+GrandArchiveSim/Custom/GameLogic.php:6660	GAPayFieldAbilityCost	movement	"MZMove($player, $mzCard, !empty($spec['toMaterial']) ? ""myMaterial"" : ""myBanish"");"
+GrandArchiveSim/Custom/GameLogic.php:7532	OnCardActivated	movement	"$obj = MZMove($player, $mzCard, ""myMaterial"");"
+GrandArchiveSim/Custom/GameLogic.php:7538	OnCardActivated	movement	"$obj = MZMove($player, $mzCard, ""myMaterial"");"
+GrandArchiveSim/Custom/GameLogic.php:9705	OnLeaveField	selection/query/context	"$dest = isset($Renewable_Cards[$loadedCardID]) ? ""myMaterial"" : ""myGraveyard"";"
+GrandArchiveSim/Custom/GameLogic.php:10411	DoAllyDestroyed	selection/query/context	"$dest = $player == $destinationOwner ? ""myMaterial"" : ""theirMaterial"";"
+GrandArchiveSim/Custom/GameLogic.php:11947	NaturesAppealMaterialAndBottom	movement	"MZMove($player, $remaining[0], ""myMaterial"");"
+GrandArchiveSim/Custom/GameLogic.php:11956	"$customDQHandlers[""NaturesAppealMaterial""]"	movement	"MZMove($player, $lastDecision, ""myMaterial"");"
+GrandArchiveSim/Custom/GameLogic.php:12757	RecollectionPhase	movement	"MZMove($turnPlayer, ""myField-"" . $i, ""myMaterial"");"
+GrandArchiveSim/Custom/GameLogic.php:12768	RecollectionPhase	selection/query/context	"$matDeckZone = $turnPlayer == $playerID ? ""myMaterial"" : ""theirMaterial"";"
+GrandArchiveSim/Custom/GameLogic.php:14077	ObjectCurrentPower	selection/query/context	foreach(GetMaterial($obj->Controller) as $materialObj) if($materialObj !== null && !$materialObj->removed) $ownRemaining++;
+GrandArchiveSim/Custom/GameLogic.php:14079	ObjectCurrentPower	selection/query/context	foreach(GetMaterial($opponent) as $materialObj) if($materialObj !== null && !$materialObj->removed) $oppRemaining++;
+GrandArchiveSim/Custom/GameLogic.php:16079	ObjectCurrentPower	selection/query/context	$material = GetMaterial($obj->Controller);
+GrandArchiveSim/Custom/GameLogic.php:17187	ObjectCurrentHP	selection/query/context	foreach(GetMaterial($obj->Controller) as $materialObj) if($materialObj !== null && !$materialObj->removed) $ownRemaining++;
+GrandArchiveSim/Custom/GameLogic.php:17189	ObjectCurrentHP	selection/query/context	foreach(GetMaterial($opponent) as $materialObj) if($materialObj !== null && !$materialObj->removed) $oppRemaining++;
+GrandArchiveSim/Custom/GameLogic.php:17984	"$customDQHandlers[""TemplarEternalReturnRegalia""]"	movement	"MZMove($player, $lastDecision, ""myMaterial"");"
+GrandArchiveSim/Custom/GameLogic.php:18005	OvationGuideEnter	selection/query/context	$material = GetMaterial($opponent);
+GrandArchiveSim/Custom/GameLogic.php:18009	OvationGuideEnter	selection/query/context	"$champions[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/GameLogic.php:18020	"$customDQHandlers[""OvationGuideMaterializePrompt""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/GameLogic.php:18024	"$customDQHandlers[""OvationGuideMaterializePrompt""]"	selection/query/context	"$champions[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/GameLogic.php:18037	"$customDQHandlers[""OvationGuideMaterialize""]"	selection/query/context	foreach(GetMaterial($player) as $materialObj) { if(!$materialObj->removed) ++$materialBefore; }
+GrandArchiveSim/Custom/GameLogic.php:18046	"$customDQHandlers[""OvationGuideAfterMaterialize""]"	selection/query/context	foreach(GetMaterial($player) as $materialObj) { if(!$materialObj->removed) ++$materialAfter; }
+GrandArchiveSim/Custom/GameLogic.php:23291	GetLevelUpMaterialIndices	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/GameLogic.php:23296	GetLevelUpMaterialIndices	selection/query/context	"$choices[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/GameLogic.php:26428	NefariousTimepieceEnter	selection/query/context	"foreach([""myMaterial"", ""myBanish"", ""myGraveyard"", ""myField""] as $zoneName) {"
+GrandArchiveSim/Custom/GameLogic.php:28548	SealThePastBanish	selection/query/context	"$matRef = $isMyself ? ""myMaterial"" : ""theirMaterial"";"
+GrandArchiveSim/Custom/GameLogic.php:28574	PutTopDeckCardIntoMaterialPreserved	movement	"MZMove($player, ""myDeck-0"", ""myMaterial"");"
+GrandArchiveSim/Custom/GameLogic.php:28582	CountPreservedCardsInMaterial	selection/query/context	"$matRef = $player == $playerID ? ""myMaterial"" : ""theirMaterial"";"
+GrandArchiveSim/Custom/GameLogic.php:28634	GetPreservedMaterialChoices	selection/query/context	"$zoneRef = $player == $playerID ? ""myMaterial"" : ""theirMaterial"";"
+GrandArchiveSim/Custom/GameLogic.php:29039	Delevel	selection/query/context	"MZAddZone($player, ""myMaterial"", $demotedCardID);"
+GrandArchiveSim/Custom/GameLogic.php:29269	AvatarOfGenbuResolve	selection/query/context	"foreach(ZoneSearch(""myMaterial"") as $mzID) {"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:1206	"$customDQHandlers[""3bS1Y9OQrF:0:CardActivated-1""]"	movement	"MZMove($player, $chosen, ""myMaterial"");"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:1212	"$customDQHandlers[""3bS1Y9OQrF:0:CardActivated-1""]"	selection/query/context	"$movedObj = MZMoveTopOfZone($player, ""myDeck"", ""myMaterial"");"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:1389	"$cardActivatedAbilities[""qy34r8gffr:0""]"	selection/query/context	"foreach([""myMaterial"", ""myHand"", ""myMemory"", ""theirMemory"", ""myGraveyard"", ""theirGraveyard"", ""myBanish"", ""theirBanish"", ""myField"", ""theirField""] as $zoneName) {"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:2521	"$onHitAbilities[""r3i9nmxhnb:0""]"	selection/query/context	"$matCards = ZoneSearch(""myMaterial"", forPlayer: $opp);"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:2955	"$customDQHandlers[""LesserBoonOfAwilixReturn""]"	movement	"foreach($chosen as $mz) MZMove($player, $mz, strpos($mz, ""their"") === 0 ? ""theirMaterial"" : ""myMaterial"");"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:2962	"$cardActivatedAbilities[""e6mAjsbItw:0""]"	selection/query/context	"foreach(GetZone(""myMaterial"") as $i => $obj) {"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:2965	"$cardActivatedAbilities[""e6mAjsbItw:0""]"	selection/query/context	"if(PropertyContains($subtypes, ""BULLET"") || PropertyContains($subtypes, ""GUN"")) $choices[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/MaterializeLogic.php:85	ShouldQueueCapacitanceMaterialCheck	selection/query/context	foreach(GetMaterial($player) as $obj) {
+GrandArchiveSim/Custom/MaterializeLogic.php:176	GAFindMaterialCard	selection/query/context	foreach(GetMaterial($player) as $obj) if($obj !== null && !$obj->removed && $obj->CardID === $cardID) return $obj;
+GrandArchiveSim/Custom/MaterializeLogic.php:180	GAMaterialCanLeave	selection/query/context	"if($obj === null || ($obj->Location ?? """") !== ""Material"") return true;"
+GrandArchiveSim/Custom/MaterializeLogic.php:182	GAMaterialCanLeave	selection/query/context	foreach([1, 2] as $seat) foreach(GetMaterial($seat) as $candidate) {
+GrandArchiveSim/Custom/MaterializeLogic.php:195	GetLegalMaterializeChoices	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/MaterializeLogic.php:202	GetLegalMaterializeChoices	selection/query/context	"$choices[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/MaterializeLogic.php:234	"$customDQHandlers[""EVENTIDE_MATERIAL_CHECK""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/MaterializeLogic.php:239	"$customDQHandlers[""EVENTIDE_MATERIAL_CHECK""]"	selection/query/context	"$eventideMZ = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/MaterializeLogic.php:261	"$customDQHandlers[""VARUCKAN_MATERIAL_CHECK""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/MaterializeLogic.php:266	"$customDQHandlers[""VARUCKAN_MATERIAL_CHECK""]"	selection/query/context	"$varuckanMZ = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/MaterializeLogic.php:327	"$customDQHandlers[""FRAMEWORK_SIDEARM_MATERIAL_CHECK""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/MaterializeLogic.php:332	"$customDQHandlers[""FRAMEWORK_SIDEARM_MATERIAL_CHECK""]"	selection/query/context	"$sidearmMZ = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/MaterializeLogic.php:402	"$customDQHandlers[""RECIPROCITY_MATERIAL_CHECK""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/MaterializeLogic.php:406	"$customDQHandlers[""RECIPROCITY_MATERIAL_CHECK""]"	selection/query/context	"$reciprocityMZ = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/MaterializeLogic.php:528	"$customDQHandlers[""MATERIALIZE""]"	selection/query/context	"$matZone = GetZone(""myMaterial"");"
+GrandArchiveSim/Custom/MaterializeLogic.php:615	"$customDQHandlers[""MATERIALIZE""]"	selection/query/context	"$preserved = GetPreservedMaterialChoices($player, ""myMaterial"");"
+GrandArchiveSim/Custom/MaterializeLogic.php:629	"$customDQHandlers[""MATERIALIZE""]"	selection/query/context	"$preserved = GetPreservedMaterialChoices($player, ""myMaterial"");"
+GrandArchiveSim/Custom/MaterializeLogic.php:852	"$customDQHandlers[""VernalTalismanMaterializeCost""]"	selection/query/context	"$preserved = GetPreservedMaterialChoices($player, ""myMaterial"");"
+GrandArchiveSim/Custom/MaterializeLogic.php:917	GetClarentReimaginedMaterialChoices	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/Custom/MaterializeLogic.php:921	GetClarentReimaginedMaterialChoices	selection/query/context	"$candidateMZ = ""myMaterial-"" . $i;"
+GrandArchiveSim/Custom/MaterializeLogic.php:991	"$customDQHandlers[""CAPACITANCE_MATERIAL_CHECK""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/Custom/MaterializeLogic.php:995	"$customDQHandlers[""CAPACITANCE_MATERIAL_CHECK""]"	selection/query/context	"DecisionQueueController::AddDecision($player, ""MZMAYCHOOSE"", ""myMaterial-"" . $i, 1,"
+GrandArchiveSim/Custom/MaterializeLogic.php:1186	DoMaterialize	movement	"MZMove($player, $mzCard, ""myMaterial"");"
+GrandArchiveSim/Custom/MaterializeLogic.php:1198	DoMaterialize	movement	"MZMove($player, $mzCard, ""myMaterial"");"
+GrandArchiveSim/Custom/MaterializeLogic.php:1207	DoMaterialize	movement	"MZMove($player, $mzCard, ""myMaterial"");"
+GrandArchiveSim/Custom/MaterializeLogic.php:1214	DoMaterialize	movement	"MZMove($player, $mzCard, ""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:107	"$activateCardPrereqs[""5upufyoz23:0""]"	selection/query/context	"if(empty(ZoneSearch(""myMaterial"", cardElements: [""ASTRA"", ""UMBRA""]))) {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:485	"$activateCardAbilities[""qy34r8gffr:0""]"	selection/query/context	"foreach([""myMaterial"", ""myHand"", ""myMemory"", ""theirMemory"", ""myGraveyard"", ""theirGraveyard"", ""myBanish"", ""theirBanish"", ""myField"", ""theirField""] as $zoneName) {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:530	"$activateCardPrereqs[""S3ODMQ0V0o:0""]"	selection/query/context	"if(count(ZoneSearch(""myMaterial"")) < 2) {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:4151	"$activateAbilityAbilities[""jjGLZKfRn5:0""]"	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:4154	"$activateAbilityAbilities[""jjGLZKfRn5:0""]"	selection/query/context	"$candidates[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:5523	"$activateAbilityAbilities[""PIcB5KuuMd:0""]"	selection/query/context	"$mat = ZoneSearch(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:5533	"$activateAbilityPrereqs[""PIcB5KuuMd:0""]"	selection/query/context	"if(empty(ZoneSearch(""myMaterial""))) {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:6381	"$activateAbilityAbilities[""TjiH4U35bv:0""]"	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:6384	"$activateAbilityAbilities[""TjiH4U35bv:0""]"	selection/query/context	"$candidates[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:6615	"$activateAbilityAbilities[""UI0lAtGQBb:0""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:6620	"$activateAbilityAbilities[""UI0lAtGQBb:0""]"	selection/query/context	"$bulletMZs[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:7607	"$activateAbilityAbilities[""ygqehvpblj:0""]"	selection/query/context	"DecisionQueueController::AddDecision($player, ""MZMOVE"", $mzID . ""->myMaterial"", 1);"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:9462	"$enterAbilities[""2nc48s3oqh:0""]"	selection/query/context	"$materialCards = ZoneSearch(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:9495	"$enterAbilities[""2TCyILvBYa:0""]"	selection/query/context	"$matRegalia = ZoneSearch(""myMaterial"", [""REGALIA""]);"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:9739	"$enterAbilities[""55d7vo62fc:0""]"	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:9745	"$enterAbilities[""55d7vo62fc:0""]"	selection/query/context	"$bookScripture[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:9988	"$enterAbilities[""7ozuj68m69:0""]"	selection/query/context	"$materialZone = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:9993	"$enterAbilities[""7ozuj68m69:0""]"	selection/query/context	"$bulletMZs[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:10713	"$enterAbilities[""cxyky280mt:0""]"	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:10717	"$enterAbilities[""cxyky280mt:0""]"	selection/query/context	"$choices[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:10875	"$enterAbilities[""DpHDGaX2Pn:0""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:10883	"$enterAbilities[""DpHDGaX2Pn:0""]"	selection/query/context	"$choices[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:11262	"$enterAbilities[""FQKVzsMp3B:0""]"	selection/query/context	"$material = ZoneSearch(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:11803	"$enterAbilities[""j6dkdoxyqt:0""]"	selection/query/context	"$materialZone = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:11809	"$enterAbilities[""j6dkdoxyqt:0""]"	selection/query/context	"Reveal($player, ""myMaterial-"" . $i);"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:11814	"$enterAbilities[""j6dkdoxyqt:0""]"	selection/query/context	"$candidates = [""myMaterial-"" . $i];"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:11816	"$enterAbilities[""j6dkdoxyqt:0""]"	selection/query/context	"$candidates[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:12295	"$enterAbilities[""m7f6r8f3y8:0""]"	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:12301	"$enterAbilities[""m7f6r8f3y8:0""]"	selection/query/context	"$aetherwings[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:12403	"$enterAbilities[""n06zlhihka:0""]"	selection/query/context	"$targets = ZoneSearch(""myMaterial"", cardSubtypes: [""TAMER""]);"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:12845	"$enterAbilities[""px60u5n1do:0""]"	selection/query/context	"$material = ZoneSearch(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:12979	"$enterAbilities[""qv0vn6tuow:0""]"	selection/query/context	"foreach([""myMaterial"", ""myHand"", ""myMemory"", ""theirMemory"", ""myGraveyard"", ""theirGraveyard"", ""myBanish"", ""theirBanish"", ""myField"", ""theirField""] as $zoneName) {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:13451	"$enterAbilities[""TL19V7lU6A:0""]"	selection/query/context	"$mat = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:13454	"$enterAbilities[""TL19V7lU6A:0""]"	selection/query/context	"$matCards[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:14027	"$enterAbilities[""X7rh3Yi26A:0""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:14030	"$enterAbilities[""X7rh3Yi26A:0""]"	selection/query/context	"if($material[$i]->CardID === ""SGsDKB9CN5"") $choices[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:14093	"$enterAbilities[""xF9phlSAkE:0""]"	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:14375	"$enterAbilities[""zHbIiP3knE:0""]"	selection/query/context	"$matZone = $p == $playerID ? ""myMaterial"" : ""theirMaterial"";"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:15468	"$cardActivatedPrereqs[""4c7XZeezka:0""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:16165	"$cardActivatedAbilities[""7dl5j4lx6x:0""]"	selection/query/context	"$matZone = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:16168	"$cardActivatedAbilities[""7dl5j4lx6x:0""]"	movement	"MZMove($player, ""myMaterial-"" . $i, ""myField"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:16777	"$cardActivatedAbilities[""Akf4kIBApN:0""]"	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:16782	"$cardActivatedAbilities[""Akf4kIBApN:0""]"	selection/query/context	"$regalias[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:18696	"$cardActivatedAbilities[""hs1mzjzexc:0""]"	movement	"MZMove($player, ""myGraveyard-"" . $i, ""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:18792	"$cardActivatedAbilities[""i1BCY4T5fL:0""]"	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:18797	"$cardActivatedAbilities[""i1BCY4T5fL:0""]"	selection/query/context	"$choices[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:19460	"$cardActivatedAbilities[""kywpjf1b4k:0""]"	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:19464	"$cardActivatedAbilities[""kywpjf1b4k:0""]"	selection/query/context	"$preserved[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:20076	"$cardActivatedAbilities[""ny1te7hcjm:0""]"	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:20084	"$cardActivatedAbilities[""ny1te7hcjm:0""]"	movement	"MZMove($player, ""myMaterial-"" . $preservedIndices[$i], ""myMemory"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:20380	"$cardActivatedAbilities[""OvihPzTqcP:0""]"	selection/query/context	"QueueNegateActivation($player, [""sourceZone"" => ""myMaterial""], ""default"", -1);"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:21397	"$cardActivatedAbilities[""rxdon8uwza:0""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:21402	"$cardActivatedAbilities[""rxdon8uwza:0""]"	selection/query/context	"$choices[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:21414	"$cardActivatedPrereqs[""rxdon8uwza:0""]"	selection/query/context	$material = GetMaterial($player);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:22204	"$cardActivatedAbilities[""uvopjFSUj0:0""]"	selection/query/context	"ZoneSearch(""myMaterial"", [""REGALIA""]),"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:22607	"$cardActivatedAbilities[""VXHLfbZ6AB:0""]"	selection/query/context	"$targets = ZoneSearch(""myMaterial"", [""CHAMPION""], cardClasses: [""WARRIOR""]);"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:23085	"$cardActivatedAbilities[""xi74wa4x7e:0""]"	selection/query/context	"$materialZone = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:23090	"$cardActivatedAbilities[""xi74wa4x7e:0""]"	selection/query/context	"$bulletMZs[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:23286	"$cardActivatedAbilities[""y6isxy5lh2:0""]"	selection/query/context	"$materialZone = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:23293	"$cardActivatedAbilities[""y6isxy5lh2:0""]"	selection/query/context	"$bulletMZs[] = ""myMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:23633	"$cardActivatedAbilities[""zc7wxgur23:0""]"	selection/query/context	"$matZone = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:23637	"$cardActivatedAbilities[""zc7wxgur23:0""]"	selection/query/context	"$polearms[] = ""myMaterial-"" . $mIdx;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:24259	"$onAttackAbilities[""6v374coy34:0""]"	selection/query/context	"$mat = ZoneSearch(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:25067	"$onAttackAbilities[""vcZSHNHvKX:0""]"	selection/query/context	$mat = GetMaterial($player);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:25071	"$onAttackAbilities[""vcZSHNHvKX:0""]"	selection/query/context	"$matCards[] = ""myMaterial-"" . $idx;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:25575	"$onHitAbilities[""d60jobz3ct:0""]"	selection/query/context	"$material = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:25581	"$onHitAbilities[""d60jobz3ct:0""]"	selection/query/context	"$polearmWeapons[] = ""myMaterial-"" . $mi;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:25968	"$onHitAbilities[""r3i9nmxhnb:0""]"	selection/query/context	"$oppMatZone = $opp == $playerID ? ""myMaterial"" : ""theirMaterial"";"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:26351	"$onKillAbilities[""9ox7u6wzh9:0""]"	movement	"MZMove($player, ""myBanish-"" . $i, ""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:27383	"$customDQHandlers[""drIdaGpPJ2:0:ActivateAbility-1""]"	selection/query/context	"$dest = $owner === $player ? ""myMaterial"" : ""theirMaterial"";"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:27390	"$customDQHandlers[""drIdaGpPJ2:0:ActivateAbility-1""]"	selection/query/context	"$oppMaterial = GetZone(""theirMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:27395	"$customDQHandlers[""drIdaGpPJ2:0:ActivateAbility-1""]"	selection/query/context	"$toBanish[] = ""theirMaterial-"" . $i;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:29301	"$customDQHandlers[""2nc48s3oqh:0:Enter-1""]"	selection/query/context	"$matZone = GetZone(""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:29308	"$customDQHandlers[""2nc48s3oqh:0:Enter-1""]"	movement	"MZMove($player, ""myMaterial-"" . $randomIdx, ""myBanish"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:31000	"$customDQHandlers[""px60u5n1do:0:Enter-1""]"	selection/query/context	"$remaining = array_values(array_diff(ZoneSearch(""myMaterial""), [$first]));"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:31184	"$customDQHandlers[""SkAe1hsw5H:0:Enter-1""]"	movement	"MZMove($player, $chosen, ""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:31998	"$customDQHandlers[""0ye3aebjvw:0:CardActivated-1""]"	selection/query/context	$mat = GetMaterial($targetPlayer);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:32455	"$customDQHandlers[""3bS1Y9OQrF:0:CardActivated-1""]"	movement	"MZMove($player, $chosen, ""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:32462	"$customDQHandlers[""3bS1Y9OQrF:0:CardActivated-1""]"	movement	"MZMove($player, ""myDeck-0"", ""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:32785	"$customDQHandlers[""4zEOAaLdap:0:CardActivated-1""]"	movement	"MZMove($player, $chosen, ""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:33523	"$customDQHandlers[""b1k0zi5h8a:0:CardActivated-1""]"	selection/query/context	"$destMaterial = (strpos($target, ""my"") === 0) ? ""myMaterial"" : ""theirMaterial"";"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:33723	"$customDQHandlers[""C3YucOomEM:0:CardActivated-1""]"	movement	"MZMove($player, ""myGraveyard-"" . $i, ""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:34838	"$customDQHandlers[""hs1mzjzexc:0:CardActivated-1""]"	movement	"MZMove($player, ""myGraveyard-"" . $i, ""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:35512	"$customDQHandlers[""N0ipz8UWwf:0:CardActivated-1""]"	movement	"MZMove($player, $returnTarget, ""myMaterial"");"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:35515	"$customDQHandlers[""N0ipz8UWwf:0:CardActivated-1""]"	selection/query/context	$mat = GetMaterial($player);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:35518	"$customDQHandlers[""N0ipz8UWwf:0:CardActivated-1""]"	selection/query/context	"$sources[] = ""myMaterial-"" . $idx;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:36203	"$customDQHandlers[""qaA3sXFRFY:0:CardActivated-1""]"	movement	"MZMove($player, $target, ""myMaterial"");"

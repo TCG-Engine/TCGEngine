@@ -1,0 +1,23 @@
+{
+    "name": "poised-rearguard-enters-the-field-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:23:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qso7cbzrky"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qso7cbzrky"
+        ],
+        "mechanics": [
+            "enters-rested"
+        ],
+        "rulesClauses": [
+            "**Hindered** *(This ally enters the field rested.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

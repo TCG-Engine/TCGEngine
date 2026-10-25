@@ -1,0 +1,25 @@
+{
+    "name": "charge-static-puts-lv-static-counters-on-an-arcane-element-object",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:45:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lOlMDYL2hc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lOlMDYL2hc"
+        ],
+        "mechanics": [
+            "counter",
+            "targeting",
+            "lv"
+        ],
+        "rulesClauses": [
+            "Put **LV** **static** counters on target arcane element object you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

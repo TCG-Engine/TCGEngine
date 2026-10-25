@@ -717,6 +717,8 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
   // to '/APIs/...' (404) from the pointer path. Anchor to /TCGEngine/ from the live URL instead.
   function gaAppBase(){ var p=location.pathname, i=p.indexOf('/TCGEngine/'); return i>=0 ? p.slice(0, i+11) : '/TCGEngine/'; }
 
+  <?php readfile(__DIR__ . '/../../../GrandArchiveSim/QueuePractice.js'); ?>
+
   var rootName = "GrandArchiveSim";
   var _lobby_id = "";
   var _privateInviteCode = "";
@@ -950,7 +952,9 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         var formatEl = document.getElementById('ga-format-select');
         var format = formatEl ? formatEl.value : 'standard';
 
-        var deck2El = window._gaDeck2Tab === 'text' ? document.getElementById('ga-deck2-text') : document.getElementById('ga-deck2-input');
+        // Prefills are multiline lists; a text input strips their line breaks and breaks import.
+        var deck2UsesText = ['text', 'archetype', 'official'].indexOf(window._gaDeck2Tab) !== -1;
+        var deck2El = document.getElementById(deck2UsesText ? 'ga-deck2-text' : 'ga-deck2-input');
         var deckLink2 = deck2El ? deck2El.value.trim() : '';
 
         var qtEl = document.getElementById('ga-queuetype-select');
@@ -1121,7 +1125,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         setDeckSelectionSummary('ga-deck1-selection-summary', deck.label);
       });
       renderBotSampleDecks('ga-bot-sample-decks-list-2', function(deck) {
-        var textEl = document.getElementById('ga-deck2-input');
+        var textEl = document.getElementById('ga-deck2-text');
         if (textEl) textEl.value = deck.text;
         setDeckSelectionSummary('ga-deck2-selection-summary', deck.label);
       });
@@ -1260,6 +1264,8 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         var groups = {};
         var order = [];
         GA_OFFICIAL_DECKS.forEach(function(deck) {
+          // Hide these starters until Pantheon multiplayer support is ready.
+          if (deck.group === 'Pantheon') return;
           if (!groups[deck.group]) { groups[deck.group] = []; order.push(deck.group); }
           groups[deck.group].push(deck);
         });
@@ -1287,7 +1293,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         setDeckSelectionSummary('ga-deck1-selection-summary', deck.label);
       });
       renderOfficialDeckSelect('ga-official-deck-select-2', function(deck) {
-        var textEl = document.getElementById('ga-deck2-input');
+        var textEl = document.getElementById('ga-deck2-text');
         if (textEl) textEl.value = deck.text;
         setDeckSelectionSummary('ga-deck2-selection-summary', deck.label);
       });
@@ -1351,6 +1357,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             if(response.success && response.ready && response.gameName) {
               DisplayMatchFoundPopup(response.playerID, response.gameName, response.authKey);
             } else {
+              if (!options.createPrivate && !options.privateInviteCode && ['standard', 'open'].indexOf(submission.format) !== -1) {
+                startGAQueuePractice(response, submission, {
+                  base: gaAppBase(), gameUrl: buildGameUrl,
+                  found: function(playerID, gameName, authKey) {
+                    playPlayerJoinedSound();
+                    DisplayMatchFoundPopup(playerID, gameName, authKey);
+                  }
+                });
+                return;
+              }
               _lobby_id = response.lobbyID;
               var inviteLink = '';
               if (response.inviteCode) {

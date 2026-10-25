@@ -1,0 +1,24 @@
+{
+    "name": "without-greater-boon-of-detachment-an-unloaded-gun-cannot-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:07:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8iopvc8sug"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8iopvc8sug"
+        ],
+        "mechanics": [
+            "weapon",
+            "condition"
+        ],
+        "rulesClauses": [
+            "*(Gun \u2014 Must be loaded to use for an attack and can\u2019t be used with an attack card.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

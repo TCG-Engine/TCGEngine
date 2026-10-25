@@ -1,0 +1,25 @@
+{
+    "name": "channel-manifold-desire-facing-north-puts-a-preserved-card-into-hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:09:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kywpjf1b4k"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kywpjf1b4k"
+        ],
+        "mechanics": [
+            "shifting-currents",
+            "zone-movement",
+            "preserve"
+        ],
+        "rulesClauses": [
+            "Then if your Shifting Currents face North, you may put a **preserved** card from your material deck into your hand."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

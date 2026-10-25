@@ -1,0 +1,24 @@
+{
+    "name": "chrysalis-hazy-caterpillar-fast-activation-can-be-played-from-a-response-window",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:40:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wsqvfsyid4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wsqvfsyid4"
+        ],
+        "mechanics": [
+            "keyword",
+            "fast-activation"
+        ],
+        "rulesClauses": [
+            "**Fast Activation**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

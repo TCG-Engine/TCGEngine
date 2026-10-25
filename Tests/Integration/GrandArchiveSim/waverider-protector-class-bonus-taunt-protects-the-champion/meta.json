@@ -1,0 +1,24 @@
+{
+    "name": "waverider-protector-class-bonus-taunt-protects-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:47:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pufyoz23yf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pufyoz23yf"
+        ],
+        "mechanics": [
+            "taunt",
+            "attack-declaration"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Taunt**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

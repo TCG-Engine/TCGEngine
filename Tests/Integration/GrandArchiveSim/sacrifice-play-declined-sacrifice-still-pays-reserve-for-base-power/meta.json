@@ -15,7 +15,9 @@
             "optional-choice-decline",
             "additional-cost-sacrifice"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice up to two awake Chessman allies."
+        ]
     },
     "engineBug": {
         "status": "fixed",

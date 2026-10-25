@@ -1,0 +1,24 @@
+{
+    "name": "fanatical-devotee-gets-plus-one-power-with-four-memory-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1gxrpx8jyp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1gxrpx8jyp"
+        ],
+        "mechanics": [
+            "static-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Memory 4+] CARDNAME gets +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

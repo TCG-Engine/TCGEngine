@@ -1,0 +1,26 @@
+{
+    "name": "maiden-of-reverent-gale-diao-chan-bonus-on-death-returns-a-wind-spell-to-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:25:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5wdysg327b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5wdysg327b"
+        ],
+        "mechanics": [
+            "on-death",
+            "champion-bonus",
+            "zone-movement",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Diao Chan Bonus] **On Death**: Return target wind element Spell action card from your graveyard to your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "throne-keeper-bullfrog-taunt-protects-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:47:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jdog5yo5gg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jdog5yo5gg"
+        ],
+        "mechanics": [
+            "taunt",
+            "attack-declaration"
+        ],
+        "rulesClauses": [
+            "**Taunt**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

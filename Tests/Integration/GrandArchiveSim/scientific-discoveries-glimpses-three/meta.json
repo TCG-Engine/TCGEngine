@@ -1,0 +1,23 @@
+{
+    "name": "scientific-discoveries-glimpses-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:07:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AiijXxCapd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "AiijXxCapd"
+        ],
+        "mechanics": [
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "**Glimpse 3**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

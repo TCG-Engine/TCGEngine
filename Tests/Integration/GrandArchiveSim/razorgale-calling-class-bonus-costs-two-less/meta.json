@@ -1,0 +1,24 @@
+{
+    "name": "razorgale-calling-class-bonus-costs-two-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:58:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1m48260b7b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1m48260b7b"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

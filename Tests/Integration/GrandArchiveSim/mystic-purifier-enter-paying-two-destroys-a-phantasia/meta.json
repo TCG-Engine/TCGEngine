@@ -1,0 +1,26 @@
+{
+    "name": "mystic-purifier-enter-paying-two-destroys-a-phantasia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:14:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s9qtcq0rzh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s9qtcq0rzh"
+        ],
+        "mechanics": [
+            "on-enter",
+            "optional-cost",
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may pay (2). When you do, destroy target phantasia."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

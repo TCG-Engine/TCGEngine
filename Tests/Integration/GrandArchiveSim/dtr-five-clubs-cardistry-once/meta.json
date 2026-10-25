@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "KYG9ABDXGR"
+        ],
+        "mechanics": [
+            "cardistry",
+            "buff",
+            "cost"
+        ],
+        "rulesClauses": [
+            "Cardistry costs four with its own distinct cost, puts two buffs, and does not rest."
+        ]
+    },
+    "name": "dtr-five-clubs-cardistry-once",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:10:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "KYG9ABDXGR"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "conniving-plans-with-three-water-cards-only-mills",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:34:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2b2w1ydw5z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2b2w1ydw5z"
+        ],
+        "mechanics": [
+            "deluge",
+            "condition"
+        ],
+        "rulesClauses": [
+            "***Deluge 4*** -- If there are four or more water element cards in your graveyard, put a **preparation** counter on your champion and draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

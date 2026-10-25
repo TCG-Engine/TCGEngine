@@ -1,0 +1,25 @@
+{
+    "name": "hulking-rearguard-class-bonus-without-a-taunt-unit-costs-the-printed-five",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "JzWfOQUzG5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "JzWfOQUzG5"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as you control a unit with **taunt**, this card costs 2 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

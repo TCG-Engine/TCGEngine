@@ -1,0 +1,25 @@
+{
+    "name": "nimble-longbowman-ranged-one-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:19:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tMy4zMpqcH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tMy4zMpqcH"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Fast Activation**, **Ranged 1**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

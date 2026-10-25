@@ -1,0 +1,10 @@
+{
+    "name": "stellar-cosmos-class-bonus-spellshroud-ranger-champion-spell-cannot-target-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:39:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jaiTSvaLOQ"
+    ],
+    "behaviorFamily": true
+}

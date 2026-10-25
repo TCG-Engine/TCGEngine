@@ -1,0 +1,23 @@
+{
+    "name": "edge-of-tomorrow-scavenge-eight-for-a-domain-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:03:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "E0FPuC9bXq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "E0FPuC9bXq"
+        ],
+        "mechanics": [
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "**Scavenge 8** for a domain card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

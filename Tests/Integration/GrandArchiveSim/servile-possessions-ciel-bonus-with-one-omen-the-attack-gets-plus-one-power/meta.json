@@ -1,0 +1,26 @@
+{
+    "name": "servile-possessions-ciel-bonus-with-one-omen-the-attack-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:12:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0d93t7bfwc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0d93t7bfwc"
+        ],
+        "mechanics": [
+            "ciel-bonus",
+            "omen",
+            "stat-change",
+            "on-attack"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] Whenever your champion attacks, depending on the amount of omens you have\u2014 1 to 2\u2014 That attack gets +1[POWER]. 3 to 4\u2014 That attack gets +2[POWER]. 5 or more\u2014 That attack gets +3[POWER]. Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

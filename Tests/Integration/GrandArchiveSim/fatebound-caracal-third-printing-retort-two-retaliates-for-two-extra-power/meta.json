@@ -1,0 +1,23 @@
+{
+    "name": "fatebound-caracal-third-printing-retort-two-retaliates-for-two-extra-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:38:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "r1nS4nDTyM"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "r1nS4nDTyM"
+        ],
+        "mechanics": [
+            "keyword",
+            "retort",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Retort 2** *(As long as this ally is retaliating, it gets +2 [POWER].)*"
+        ]
+    },
+    "behaviorFamily": true
+}

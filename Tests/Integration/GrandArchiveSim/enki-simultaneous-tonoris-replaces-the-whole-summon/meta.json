@@ -1,0 +1,25 @@
+{
+    "name": "enki-simultaneous-tonoris-replaces-the-whole-summon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T19:09:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fZZqzAXNAc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fZZqzAXNAc"
+        ],
+        "mechanics": [
+            "token",
+            "simultaneous",
+            "replacement"
+        ],
+        "rulesClauses": [
+            "Tonoris replaces the whole simultaneous summon before Enki chooses a copy."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

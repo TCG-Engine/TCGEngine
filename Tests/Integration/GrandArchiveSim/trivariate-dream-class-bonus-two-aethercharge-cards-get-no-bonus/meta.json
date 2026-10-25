@@ -1,0 +1,25 @@
+{
+    "name": "trivariate-dream-class-bonus-two-aethercharge-cards-get-no-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:44:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6g7x7tja9h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6g7x7tja9h"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-attack",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack**: If there are exactly three Aethercharge cards in the attacker's intent, this attack gets +3[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

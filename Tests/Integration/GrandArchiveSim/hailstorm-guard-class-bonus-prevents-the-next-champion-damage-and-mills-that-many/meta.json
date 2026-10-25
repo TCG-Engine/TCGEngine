@@ -1,0 +1,28 @@
+{
+    "name": "hailstorm-guard-class-bonus-prevents-the-next-champion-damage-and-mills-that-many",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:13:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "05qzzadf9q"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "05qzzadf9q"
+        ],
+        "mechanics": [
+            "reaction",
+            "class-bonus",
+            "prevent-damage",
+            "mill",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate.",
+            "The next time damage would be dealt to your champion this turn, prevent that damage. Put an amount of cards from the top of your deck into your graveyard equal to the amount of damage prevented this way."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

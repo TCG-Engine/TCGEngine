@@ -1,0 +1,27 @@
+{
+    "name": "da-qiao-cinderbinder-class-bonus-rest-puts-a-frenzy-counter-on-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:31:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ugl6g5znia"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ugl6g5znia"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "class-bonus",
+            "counter",
+            "modal"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [REST]: Choose one -- Put a **frenzy** counter on target ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

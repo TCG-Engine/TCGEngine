@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "Kn69AGzKin"
+        ],
+        "mechanics": [
+            "multi-target",
+            "power"
+        ],
+        "rulesClauses": [
+            "Selected Pawn gets one power."
+        ]
+    },
+    "name": "dtr-escort-pawns-grants-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:10:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Kn69AGzKin"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

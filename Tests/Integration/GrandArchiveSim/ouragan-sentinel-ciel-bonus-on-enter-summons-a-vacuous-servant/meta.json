@@ -1,0 +1,26 @@
+{
+    "name": "ouragan-sentinel-ciel-bonus-on-enter-summons-a-vacuous-servant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:09:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2zs1pana81"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2zs1pana81"
+        ],
+        "mechanics": [
+            "on-enter",
+            "champion-bonus",
+            "token",
+            "summon"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] **On Enter**: **Summon** a Vacuous Servant token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

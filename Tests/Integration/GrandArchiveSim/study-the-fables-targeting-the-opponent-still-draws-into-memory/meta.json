@@ -1,0 +1,25 @@
+{
+    "name": "study-the-fables-targeting-the-opponent-still-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:00:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0ye3aebjvw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0ye3aebjvw"
+        ],
+        "mechanics": [
+            "reveal",
+            "draw-into-memory",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target player reveals six cards from their material deck."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

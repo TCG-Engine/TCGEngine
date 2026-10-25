@@ -1,0 +1,320 @@
+{
+  "date": "2026-10-21",
+  "php": "8.5.9 CLI",
+  "baseline": "7937a020a GrandArchiveSim/Custom overlaid onto current generated runtime and card data",
+  "candidate": "1add0d158 plus uncommitted performance fast paths",
+  "scope": "PHP sequential trainer, 20 episodes, seeds 123..142, max 500 steps, alternating order, 3 repetitions per side",
+  "limitations": [
+    "Disk fallback: APCu extension unavailable. Native APCu and parallel workers not benchmarked.",
+    "Current generated runtime and database programs held constant; baseline uses retained legacy card resolution programs. This is a runtime comparison, not a full historical database reconstruction.",
+    "Significant timing variance; one trainer wall-clock jump. All normalized throughput below uses Python monotonic duration including startup/checkpoint.",
+    "Real-deck action paths differ across revisions; synthetic control has matching steps, outcomes and final replay decisions.",
+    "Azuki comparison could not run in the prepared local runtime. No Azuki or shared-engine production code changed."
+  ],
+  "validation": {
+    "nativeChecksPassed": 1354,
+    "engineFailuresInCompletedBenchmarks": 0
+  },
+  "experiments": {
+    "real_deck_before_optimization": {
+      "runs": [
+        {
+          "label": "baseline",
+          "repeat": 0,
+          "wallSeconds": 25.5577248679474,
+          "totalSteps": 4262,
+          "stepsPerSecond": 166.75975745184908,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 0,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "054be822af788431a81d173119b0a7695d549f96028799470df26388d36d51c6"
+        },
+        {
+          "label": "candidate",
+          "repeat": 0,
+          "wallSeconds": 24.672032817965373,
+          "totalSteps": 3507,
+          "stepsPerSecond": 142.14475255749159,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 0,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "74018ff9b2040918087c97305899cce680a9d2a578a196d05fa1d5e1bc831960"
+        },
+        {
+          "label": "candidate",
+          "repeat": 1,
+          "wallSeconds": 15.168924347963184,
+          "totalSteps": 3507,
+          "stepsPerSecond": 231.1963537790934,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 0,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "74018ff9b2040918087c97305899cce680a9d2a578a196d05fa1d5e1bc831960"
+        },
+        {
+          "label": "baseline",
+          "repeat": 1,
+          "wallSeconds": 17.262250029016286,
+          "totalSteps": 4262,
+          "stepsPerSecond": 246.89713060788498,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 0,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "054be822af788431a81d173119b0a7695d549f96028799470df26388d36d51c6"
+        },
+        {
+          "label": "baseline",
+          "repeat": 2,
+          "wallSeconds": 15.490072818938643,
+          "totalSteps": 4262,
+          "stepsPerSecond": 275.14396154349555,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 0,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "054be822af788431a81d173119b0a7695d549f96028799470df26388d36d51c6"
+        },
+        {
+          "label": "candidate",
+          "repeat": 2,
+          "wallSeconds": 13.568999871844426,
+          "totalSteps": 3507,
+          "stepsPerSecond": 258.4567789168455,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 0,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "74018ff9b2040918087c97305899cce680a9d2a578a196d05fa1d5e1bc831960"
+        }
+      ],
+      "medianWallSeconds": {
+        "baseline": 17.262250029016286,
+        "candidate": 15.168924347963184
+      },
+      "wallTimeChangePercent": -12.12660966869562
+    },
+    "control_before_optimization": {
+      "runs": [
+        {
+          "label": "baseline",
+          "repeat": 0,
+          "wallSeconds": 31.989871680969372,
+          "totalSteps": 7918,
+          "stepsPerSecond": 247.51584123141018,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "candidate",
+          "repeat": 0,
+          "wallSeconds": 33.12655405490659,
+          "totalSteps": 7918,
+          "stepsPerSecond": 239.02274854414605,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "candidate",
+          "repeat": 1,
+          "wallSeconds": 33.90235697594471,
+          "totalSteps": 7918,
+          "stepsPerSecond": 233.55308321537015,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "baseline",
+          "repeat": 1,
+          "wallSeconds": 30.709361418150365,
+          "totalSteps": 7918,
+          "stepsPerSecond": 257.83668674139767,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "baseline",
+          "repeat": 2,
+          "wallSeconds": 31.245369677897543,
+          "totalSteps": 7918,
+          "stepsPerSecond": 253.41354836332957,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "candidate",
+          "repeat": 2,
+          "wallSeconds": 32.132013130933046,
+          "totalSteps": 7918,
+          "stepsPerSecond": 246.42091261868217,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        }
+      ],
+      "medianWallSeconds": {
+        "baseline": 31.245369677897543,
+        "candidate": 33.12655405490659
+      },
+      "wallTimeChangePercent": 6.020682092744667
+    },
+    "control_initial_fast_paths": {
+      "runs": [
+        {
+          "label": "baseline",
+          "repeat": 0,
+          "wallSeconds": 28.563880051020533,
+          "totalSteps": 7918,
+          "stepsPerSecond": 277.20323660010274,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "candidate",
+          "repeat": 0,
+          "wallSeconds": 29.889530000044033,
+          "totalSteps": 7918,
+          "stepsPerSecond": 264.90881589601224,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "candidate",
+          "repeat": 1,
+          "wallSeconds": 30.62872240296565,
+          "totalSteps": 7918,
+          "stepsPerSecond": 258.5155167697538,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "baseline",
+          "repeat": 1,
+          "wallSeconds": 29.203884579008445,
+          "totalSteps": 7918,
+          "stepsPerSecond": 271.12831440552276,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "baseline",
+          "repeat": 2,
+          "wallSeconds": 28.819349559023976,
+          "totalSteps": 7918,
+          "stepsPerSecond": 274.7459648172628,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "candidate",
+          "repeat": 2,
+          "wallSeconds": 31.67991783702746,
+          "totalSteps": 7918,
+          "stepsPerSecond": 249.93751690686042,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        }
+      ],
+      "medianWallSeconds": {
+        "baseline": 28.819349559023976,
+        "candidate": 30.62872240296565
+      },
+      "wallTimeChangePercent": 6.278326442572735
+    },
+    "control_final_fast_paths": {
+      "runs": [
+        {
+          "label": "baseline",
+          "repeat": 0,
+          "wallSeconds": 30.263988099992275,
+          "totalSteps": 7918,
+          "stepsPerSecond": 261.631083578242,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "candidate",
+          "repeat": 0,
+          "wallSeconds": 36.8987663500011,
+          "totalSteps": 7918,
+          "stepsPerSecond": 214.5871199295465,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "candidate",
+          "repeat": 1,
+          "wallSeconds": 47.11619225493632,
+          "totalSteps": 7918,
+          "stepsPerSecond": 168.0526294900335,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "baseline",
+          "repeat": 1,
+          "wallSeconds": 47.221266293898225,
+          "totalSteps": 7918,
+          "stepsPerSecond": 167.67868846886762,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "baseline",
+          "repeat": 2,
+          "wallSeconds": 40.79295651591383,
+          "totalSteps": 7918,
+          "stepsPerSecond": 194.1021361594885,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        },
+        {
+          "label": "candidate",
+          "repeat": 2,
+          "wallSeconds": 31.820971148088574,
+          "totalSteps": 7918,
+          "stepsPerSecond": 248.82961500927098,
+          "failedEpisodes": 0,
+          "timedOutEpisodes": 5,
+          "memoryOnlyResolved": false,
+          "finalReplayActionsHash": "cecb9e4a7223ccc809ddb17b6184b7779f5f60fae050f8c585c0283691c001c0"
+        }
+      ],
+      "medianWallSeconds": {
+        "baseline": 40.79295651591383,
+        "candidate": 36.8987663500011
+      },
+      "wallTimeChangePercent": -9.54623174810475
+    }
+  }
+}

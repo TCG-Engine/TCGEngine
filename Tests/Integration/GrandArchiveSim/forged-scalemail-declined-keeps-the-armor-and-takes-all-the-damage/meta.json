@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "7lr2jiu66i"
+        ],
+        "mechanics": [
+            "link",
+            "optional-choice",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If damage would be dealt to linked unit, you may banish Forged Scalemail. If you do, prevent 2 of that damage and draw a card."
+        ]
+    },
+    "name": "forged-scalemail-declined-keeps-the-armor-and-takes-all-the-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:13:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7lr2jiu66i"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

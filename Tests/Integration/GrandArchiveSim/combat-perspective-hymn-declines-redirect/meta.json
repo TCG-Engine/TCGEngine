@@ -1,0 +1,25 @@
+{
+    "name": "combat-perspective-hymn-declines-redirect",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:37:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "okDVkV1l76"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "okDVkV1l76"
+        ],
+        "mechanics": [
+            "combat",
+            "perspective",
+            "redirect"
+        ],
+        "rulesClauses": [
+            "Redirect the attack from your champion to the entered ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

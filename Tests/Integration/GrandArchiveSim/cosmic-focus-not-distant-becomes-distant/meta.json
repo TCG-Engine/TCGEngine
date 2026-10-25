@@ -1,0 +1,24 @@
+{
+    "name": "cosmic-focus-not-distant-becomes-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:26:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dWgPzoEbIE"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dWgPzoEbIE"
+        ],
+        "mechanics": [
+            "distant",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Otherwise, they become **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

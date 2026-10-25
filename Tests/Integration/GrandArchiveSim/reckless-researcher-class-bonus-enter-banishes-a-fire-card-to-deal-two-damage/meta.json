@@ -1,0 +1,26 @@
+{
+    "name": "reckless-researcher-class-bonus-enter-banishes-a-fire-card-to-deal-two-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dY36bObi9p"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dY36bObi9p"
+        ],
+        "mechanics": [
+            "on-enter",
+            "damage",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: You may banish a fire element card from your graveyard. If you do, choose a unit and deal 2 damage to it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

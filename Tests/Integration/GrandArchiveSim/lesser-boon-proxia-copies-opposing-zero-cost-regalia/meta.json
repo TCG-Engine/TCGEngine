@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "bHMPShtaSt"
+        ],
+        "mechanics": [
+            "summon",
+            "copy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Summon a token copy of opposing regalia with memory cost zero."
+        ]
+    },
+    "name": "lesser-boon-proxia-copies-opposing-zero-cost-regalia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:21:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bHMPShtaSt"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

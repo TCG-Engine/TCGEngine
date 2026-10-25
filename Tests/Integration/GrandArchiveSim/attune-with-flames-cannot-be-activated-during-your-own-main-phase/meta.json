@@ -1,0 +1,23 @@
+{
+    "name": "attune-with-flames-cannot-be-activated-during-your-own-main-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:04:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nvx7mnu1xh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nvx7mnu1xh"
+        ],
+        "mechanics": [
+            "timing-restriction"
+        ],
+        "rulesClauses": [
+            "Activate this card only during an opponent's recollection phase."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

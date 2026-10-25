@@ -1,0 +1,23 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "3gNdl3BERA"
+        ],
+        "mechanics": [
+            "alternative-cost"
+        ],
+        "rulesClauses": [
+            "Pay two and banish a fire Suited card from hand."
+        ]
+    },
+    "name": "dtr-valet-alternative-hand-payment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:10:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3gNdl3BERA"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

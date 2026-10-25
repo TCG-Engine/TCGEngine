@@ -1,0 +1,26 @@
+{
+    "name": "greater-boon-of-luxera-the-next-activation-of-the-chosen-name-draws-two-and-recovers-three-once",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:44:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Klb4tguLek"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Klb4tguLek"
+        ],
+        "mechanics": [
+            "name-choice",
+            "draw-discard",
+            "recover",
+            "once"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, choose a non-champion non-regalia card name. The next time you activate a card with the same name this game, draw two cards and **recover 3**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

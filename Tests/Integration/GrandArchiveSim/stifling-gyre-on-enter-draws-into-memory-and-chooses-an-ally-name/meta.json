@@ -1,0 +1,26 @@
+{
+    "name": "stifling-gyre-on-enter-draws-into-memory-and-chooses-an-ally-name",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:33:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OADTyAUBZt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OADTyAUBZt"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw-into-memory",
+            "name-a-card"
+        ],
+        "rulesClauses": [
+            "As CARDNAME enters the field, choose an ally card name.",
+            "**On Enter:** Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

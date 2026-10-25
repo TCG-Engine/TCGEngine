@@ -1,0 +1,26 @@
+{
+    "name": "plasma-vanguard-class-bonus-with-ten-or-less-damage-enters-with-three-buff-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:17:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wAabqFjdM5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wAabqFjdM5"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** If your champion has ten or less damage counters on them, put three **buff** counters on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

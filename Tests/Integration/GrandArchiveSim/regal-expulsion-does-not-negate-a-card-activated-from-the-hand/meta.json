@@ -1,0 +1,25 @@
+{
+    "name": "regal-expulsion-does-not-negate-a-card-activated-from-the-hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:31:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OvihPzTqcP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OvihPzTqcP"
+        ],
+        "mechanics": [
+            "negate",
+            "condition",
+            "material-deck"
+        ],
+        "rulesClauses": [
+            "**Negate** target card activation if that card was activated from a material deck."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

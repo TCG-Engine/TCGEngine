@@ -1,0 +1,25 @@
+{
+    "name": "tideholder-claymore-class-bonus-costs-one-less-to-materialize",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:55:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5iqigcom2r"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5iqigcom2r"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "materialize"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to materialize."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

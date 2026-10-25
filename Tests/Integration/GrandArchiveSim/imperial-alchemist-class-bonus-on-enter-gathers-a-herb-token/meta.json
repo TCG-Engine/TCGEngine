@@ -1,0 +1,24 @@
+{
+    "name": "imperial-alchemist-class-bonus-on-enter-gathers-a-herb-token",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:24:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ve1d47o7ea"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ve1d47o7ea"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "token",
+            "gather"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** **Gather**."
+        ]
+    },
+    "behaviorFamily": true
+}

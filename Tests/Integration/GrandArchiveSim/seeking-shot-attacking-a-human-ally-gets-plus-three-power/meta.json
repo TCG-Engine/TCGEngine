@@ -1,0 +1,25 @@
+{
+    "name": "seeking-shot-attacking-a-human-ally-gets-plus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:34:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "88zq9ox7u6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "88zq9ox7u6"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As long as the attacker is attacking a Human ally, CARDNAME gets +3 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

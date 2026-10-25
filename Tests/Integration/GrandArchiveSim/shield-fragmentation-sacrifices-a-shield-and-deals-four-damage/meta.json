@@ -1,0 +1,27 @@
+{
+    "name": "shield-fragmentation-sacrifices-a-shield-and-deals-four-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CHU96qWwaS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CHU96qWwaS"
+        ],
+        "mechanics": [
+            "damage",
+            "additional-cost-sacrifice",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice a Shield.",
+            "Deal 4 damage to target unit."
+        ]
+    },
+    "notes": "Regression: the Shield sacrifice printed as an additional cost was never paid, so Shield Fragmentation dealt its 4 damage for free and kept the Shield.",
+    "sourceScenario": {
+        "seed": 42
+    }
+}

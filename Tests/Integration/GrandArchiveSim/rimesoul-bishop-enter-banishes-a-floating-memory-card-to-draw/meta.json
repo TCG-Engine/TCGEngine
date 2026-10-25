@@ -1,0 +1,26 @@
+{
+    "name": "rimesoul-bishop-enter-banishes-a-floating-memory-card-to-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:00:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "urrqtjot4n"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "urrqtjot4n"
+        ],
+        "mechanics": [
+            "on-enter",
+            "floating-memory",
+            "banish",
+            "draw"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may banish a card with **floating memory** from your graveyard. If you do, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

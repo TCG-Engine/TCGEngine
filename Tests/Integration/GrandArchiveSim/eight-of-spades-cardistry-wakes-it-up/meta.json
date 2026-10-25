@@ -1,0 +1,25 @@
+{
+    "name": "eight-of-spades-cardistry-wakes-it-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:39:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d43C0Hk6qH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "d43C0Hk6qH"
+        ],
+        "mechanics": [
+            "cardistry",
+            "activated-ability",
+            "wake"
+        ],
+        "rulesClauses": [
+            "***Cardistry \u2014*** (8): Wake up Eight of Spades."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

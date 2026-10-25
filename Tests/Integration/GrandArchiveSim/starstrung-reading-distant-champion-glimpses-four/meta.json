@@ -1,0 +1,25 @@
+{
+    "name": "starstrung-reading-distant-champion-glimpses-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:07:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gwWociEfxb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gwWociEfxb"
+        ],
+        "mechanics": [
+            "glimpse",
+            "distant",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If your champion is **distant**, **glimpse 4**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

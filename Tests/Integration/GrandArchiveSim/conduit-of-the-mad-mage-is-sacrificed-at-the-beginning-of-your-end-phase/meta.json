@@ -1,0 +1,25 @@
+{
+    "name": "conduit-of-the-mad-mage-is-sacrificed-at-the-beginning-of-your-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:46:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6SXL09rEzS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6SXL09rEzS"
+        ],
+        "mechanics": [
+            "trigger",
+            "sacrifice",
+            "end-phase"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, sacrifice CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

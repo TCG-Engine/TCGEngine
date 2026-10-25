@@ -1,0 +1,24 @@
+{
+    "name": "slipstream-target-cost-insufficient",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:55:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6ilt42sehq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6ilt42sehq"
+        ],
+        "mechanics": [
+            "cost",
+            "affordability"
+        ],
+        "rulesClauses": [
+            "The declared target determines affordability."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

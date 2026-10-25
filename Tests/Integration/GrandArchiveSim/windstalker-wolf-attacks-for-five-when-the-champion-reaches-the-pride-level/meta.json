@@ -1,0 +1,24 @@
+{
+    "name": "windstalker-wolf-attacks-for-five-when-the-champion-reaches-the-pride-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "z4fr707pbr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "z4fr707pbr"
+        ],
+        "mechanics": [
+            "pride",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Pride 5**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

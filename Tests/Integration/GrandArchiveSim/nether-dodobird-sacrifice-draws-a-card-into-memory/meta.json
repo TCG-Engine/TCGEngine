@@ -1,0 +1,25 @@
+{
+    "name": "nether-dodobird-sacrifice-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:20:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wtHBZAdTSv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wtHBZAdTSv"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "sacrifice",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Sacrifice CARDNAME: If CARDNAME was not ephemeral, draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

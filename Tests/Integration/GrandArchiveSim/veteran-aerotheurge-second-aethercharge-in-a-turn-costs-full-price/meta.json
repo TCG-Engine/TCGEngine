@@ -1,0 +1,24 @@
+{
+    "name": "veteran-aerotheurge-second-aethercharge-in-a-turn-costs-full-price",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:18:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fta5isdgrk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fta5isdgrk"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "The first Aethercharge card you activate each turn"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "pang-tong-young-phoenix-without-balance-takes-the-full-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:54:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0mz09ojy0t"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0mz09ojy0t"
+        ],
+        "mechanics": [
+            "balance",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Balance \u2014 If damage would be dealt to a unit you control while the amount of cards in your hand and memory are equal, prevent all but 3 of that damage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

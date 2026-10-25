@@ -1,0 +1,26 @@
+{
+    "name": "conflagrative-trounce-ciel-bonus-two-omens-with-the-same-reserve-cost-get-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:38:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vke9gsgfdm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vke9gsgfdm"
+        ],
+        "mechanics": [
+            "ciel-bonus",
+            "omen",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] As long as you have two or more omens with the same reserve cost, Conflagrative Trounce gets +2[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

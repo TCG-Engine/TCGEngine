@@ -1,0 +1,25 @@
+{
+    "name": "determined-spearman-equestrian-with-a-horse-costs-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "c8z5ntioqs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "c8z5ntioqs"
+        ],
+        "mechanics": [
+            "equestrian",
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "***Equestrian*** \u2014 As long as you control a Horse ally, this card costs 1 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

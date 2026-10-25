@@ -1,0 +1,25 @@
+{
+    "name": "embryonic-hemosynth-class-bonus-enters-with-a-bulwark-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:17:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "JQQXhhIla9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "JQQXhhIla9"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "bulwark",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Bulwark**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

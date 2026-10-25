@@ -1,0 +1,25 @@
+{
+    "name": "flamebolt-arbalist-distant-attack-gets-plus-four-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:14:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5yw862q547"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5yw862q547"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "Ranged 4 (As long as this unit is distant, its attacks get +4 [POWER].)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

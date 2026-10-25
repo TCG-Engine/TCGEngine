@@ -1,0 +1,27 @@
+{
+    "name": "schwartz-castler-alice-bonus-on-enter-summons-a-pawn-piece-when-an-opposing-unit-has-even-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:12:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PDLfDZFari"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PDLfDZFari"
+        ],
+        "mechanics": [
+            "on-enter",
+            "champion-bonus",
+            "token",
+            "summon",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] **On Enter: **If an opponent controls a unit with an even life stat, **summon** a Pawn Piece token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

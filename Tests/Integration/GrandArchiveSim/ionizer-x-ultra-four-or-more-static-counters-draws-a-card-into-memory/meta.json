@@ -1,0 +1,27 @@
+{
+    "name": "ionizer-x-ultra-four-or-more-static-counters-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:47:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1Hb6HXKXzG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1Hb6HXKXzG"
+        ],
+        "mechanics": [
+            "on-enter",
+            "object-link",
+            "counter",
+            "draw-into-memory",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Then if there are four or more **static** counters on it, draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

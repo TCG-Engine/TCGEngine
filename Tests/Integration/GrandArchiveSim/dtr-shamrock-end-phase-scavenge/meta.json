@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "AACH0EPqqL"
+        ],
+        "mechanics": [
+            "end-phase",
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "End phase scavenges Suited ally and removes two durability."
+        ]
+    },
+    "name": "dtr-shamrock-end-phase-scavenge",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:17:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AACH0EPqqL"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

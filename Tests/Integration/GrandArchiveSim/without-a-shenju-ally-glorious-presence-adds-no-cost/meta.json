@@ -1,0 +1,24 @@
+{
+    "name": "without-a-shenju-ally-glorious-presence-adds-no-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:03:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5s2aumgjzn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5s2aumgjzn"
+        ],
+        "mechanics": [
+            "static",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you control a Shenju ally, advanced element cards your opponents activate cost 2 more to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

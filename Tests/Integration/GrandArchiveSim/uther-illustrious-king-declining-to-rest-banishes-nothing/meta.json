@@ -1,0 +1,25 @@
+{
+    "name": "uther-illustrious-king-declining-to-rest-banishes-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:29:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5h8asbierp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5h8asbierp"
+        ],
+        "mechanics": [
+            "on-enter",
+            "rest",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may rest Uther. When you do, banish another target non-champion object."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

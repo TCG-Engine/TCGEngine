@@ -44,7 +44,7 @@
         "type": "card_property_equals",
         "mzId": "p2Field-3",
         "property": "Counters",
-        "value": "{\"quest\":4}"
+        "value": "{\"quest\":4,\"gaTopUnplayed\":1}"
     },
     {
         "step": 9,

@@ -1,0 +1,21 @@
+{
+    "name": "lumbering-steed-hindered-enters-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ic1ahsmwd0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ic1ahsmwd0"
+        ],
+        "mechanics": [
+            "keyword",
+            "hindered"
+        ],
+        "rulesClauses": [
+            "**Hindered** *(This ally enters the field rested.)*"
+        ]
+    }
+}

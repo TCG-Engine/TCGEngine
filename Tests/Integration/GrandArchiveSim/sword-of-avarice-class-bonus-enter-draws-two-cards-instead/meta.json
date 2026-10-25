@@ -1,0 +1,25 @@
+{
+    "name": "sword-of-avarice-class-bonus-enter-draws-two-cards-instead",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:05:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dmbBXRTVIk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dmbBXRTVIk"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "**Class Bonus:** Draw two cards instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

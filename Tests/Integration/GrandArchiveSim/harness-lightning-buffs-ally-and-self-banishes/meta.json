@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "bzwj7ztr78"
+        ],
+        "mechanics": [
+            "modal",
+            "stat-change",
+            "banish"
+        ],
+        "rulesClauses": [
+            "Target ally gets four power, then banish Harness Lightning."
+        ]
+    },
+    "name": "harness-lightning-buffs-ally-and-self-banishes",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:35:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bzwj7ztr78"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

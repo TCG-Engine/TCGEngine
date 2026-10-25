@@ -1,0 +1,22 @@
+{
+    "name": "sturdy-droid-without-the-class-bonus-stays-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YOk6yLd7M0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YOk6yLd7M0"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "vigor",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Vigor**"
+        ]
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "galed-erasure-cannot-target-an-object-that-is-not-ephemeral",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:34:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jtp4cy6pdy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jtp4cy6pdy"
+        ],
+        "mechanics": [
+            "targeting",
+            "ephemeral",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "Destroy target **ephemeral** object."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

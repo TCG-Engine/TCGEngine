@@ -1,0 +1,25 @@
+{
+    "name": "blightheart-thaumaturge-on-enter-with-an-elysian-object-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:45:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2zCWq2DUDt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2zCWq2DUDt"
+        ],
+        "mechanics": [
+            "on-enter",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Enter: **If you control an Elysian object, CARDNAME gets +2[POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

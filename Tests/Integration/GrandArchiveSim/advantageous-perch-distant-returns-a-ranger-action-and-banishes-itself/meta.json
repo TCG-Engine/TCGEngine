@@ -15,7 +15,11 @@
             "banish-self",
             "return-from-graveyard"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Your champion becomes distant.",
+            "Return up to one target Ranger action card from your graveyard to your hand.",
+            "Banish CARDNAME."
+        ]
     },
     "engineBug": {
         "status": "fixed",

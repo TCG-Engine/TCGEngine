@@ -1,0 +1,25 @@
+{
+    "name": "righteous-retribution-class-bonus-arms-the-damage-prevention",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TO9qqKHakv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TO9qqKHakv"
+        ],
+        "mechanics": [
+            "prevention",
+            "cost-modification",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "The next time damage would be dealt to your champion this turn, prevent 5 of that damage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

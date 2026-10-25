@@ -1,0 +1,26 @@
+{
+    "name": "message-in-shadows-on-enter-glimpses-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:58:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "RgloaA6YV2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "RgloaA6YV2"
+        ],
+        "mechanics": [
+            "ally-link",
+            "on-enter",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "**Ally Link**",
+            "**On Enter: Glimpse 2**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

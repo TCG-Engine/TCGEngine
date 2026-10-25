@@ -1,0 +1,25 @@
+{
+    "name": "angel-attendant-not-imbued-has-no-intercept",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:34:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "92mnQJPfR8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "92mnQJPfR8"
+        ],
+        "mechanics": [
+            "imbue",
+            "intercept",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME is **imbued**, it has **intercept**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

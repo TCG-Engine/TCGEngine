@@ -1,0 +1,22 @@
+{
+    "name": "determined-spearman-below-level-one-has-its-printed-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "c8z5ntioqs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "c8z5ntioqs"
+        ],
+        "mechanics": [
+            "level-gate",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Level 1+] CARDNAME gets +1 [LIFE]."
+        ]
+    },
+    "behaviorFamily": true
+}

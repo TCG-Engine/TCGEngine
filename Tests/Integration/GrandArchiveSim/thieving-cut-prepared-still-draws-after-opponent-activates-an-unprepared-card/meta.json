@@ -18,7 +18,10 @@
             "on-hit",
             "stale-flag"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Prepare 1",
+            "On Hit: If CARDNAME was prepared, draw a card."
+        ]
     },
     "engineBug": {
         "status": "fixed",

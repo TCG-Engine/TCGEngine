@@ -1,0 +1,25 @@
+{
+    "name": "port-smuggler-class-bonus-attack-cannot-be-intercepted",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:19:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uCIEMgGjWe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uCIEMgGjWe"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "intercept",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME's attacks can't be intercepted."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

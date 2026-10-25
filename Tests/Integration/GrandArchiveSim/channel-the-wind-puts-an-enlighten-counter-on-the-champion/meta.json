@@ -1,0 +1,23 @@
+{
+    "name": "channel-the-wind-puts-an-enlighten-counter-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:34:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6YiMaCGsfV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6YiMaCGsfV"
+        ],
+        "mechanics": [
+            "counter"
+        ],
+        "rulesClauses": [
+            "Put an **enlighten** counter on your champion. *(You may remove three **enlighten** counters from your champion to draw a card.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

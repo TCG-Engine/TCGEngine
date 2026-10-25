@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "Gf33wXPzcg"
+        ],
+        "mechanics": [
+            "on-hit",
+            "discard",
+            "destroy"
+        ],
+        "rulesClauses": [
+            "Diana hit discards four, then destroys champion at influence four or less."
+        ]
+    },
+    "name": "nox-diana-hit-discards-four-and-destroys-low-influence-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T15:05:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Gf33wXPzcg"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

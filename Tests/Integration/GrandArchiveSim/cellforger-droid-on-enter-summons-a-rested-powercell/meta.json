@@ -1,0 +1,25 @@
+{
+    "name": "cellforger-droid-on-enter-summons-a-rested-powercell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:34:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wgX472k6J7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wgX472k6J7"
+        ],
+        "mechanics": [
+            "on-enter",
+            "token",
+            "summon"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Summon** a Powercell token rested."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

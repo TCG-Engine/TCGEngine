@@ -1,0 +1,27 @@
+{
+    "name": "primal-whip-class-bonus-level-two-on-attack-buffs-up-to-two-non-human-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:00:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "az2b8nfh95"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "az2b8nfh95"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "on-attack",
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+] **On Attack:** Up to two target non-Human allies get +1 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "sinfonia-of-hope-without-the-class-bonus-the-harmony-costs-full",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:19:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7QmyDecqkk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7QmyDecqkk"
+        ],
+        "mechanics": [
+            "melody",
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] The next Harmony card you activate this turn costs 2 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

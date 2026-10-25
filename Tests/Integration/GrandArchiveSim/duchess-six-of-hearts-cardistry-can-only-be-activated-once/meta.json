@@ -1,0 +1,25 @@
+{
+    "name": "duchess-six-of-hearts-cardistry-can-only-be-activated-once",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:41:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qzv380ujf5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qzv380ujf5"
+        ],
+        "mechanics": [
+            "cardistry",
+            "once-per-game",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "Activate this ability only once."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}
