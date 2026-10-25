@@ -1,0 +1,7 @@
+{
+    "name": "Heaven's Claws / ordinary baseline / defends-exactly-3-partial-damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:24:04+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost1, power5, pitch1, defense3, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Printed defense3: actual free Hand defense against printed power4 leaves HP19; partial case distinguishes defense2/3/4 by HP18/19/20. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heavens_claws_red https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

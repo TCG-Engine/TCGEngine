@@ -1,0 +1,5143 @@
+{
+  "status": "independently_semantically_approved_actual_saved_B27_49",
+  "reviewer": "/root/wtr_attack_scenarios",
+  "review_basis": "Read-only full action/assertion/snapshot audit and independent printed-card/delayed-trigger model; not an engine replay.",
+  "source_spec_sha256": "1148a96493ae682bb4e7a68e084daace732e90974462d324c1801aeb08e6eb90",
+  "original49_sha256": "0ae72e3d89f6cee22eeb964833daa697490105ee12d47ed0c0e57431f0851199",
+  "strengthened_two_sha256": "edbd727b3940368309ab8384f72b2c1887f653c2656714bba2b8e62508cedd57",
+  "archived_author_runs": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch27-20261020T000844Z-6ad6b10c3e57d.json",
+      "sha256": "dc8fb303418cdb5bcebb4f8171287fec2fb5b7d2cd87867bf0a252f39915c138"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch27-pilot-20261020T000211Z-6ad6af8307913.json",
+      "sha256": "69838bc9b02d814293cda9217d47f4e5161c003330f5a0584902060859644e68"
+    }
+  ],
+  "checks": 8787,
+  "native_writes": 0,
+  "game_actions": 0,
+  "totals": {
+    "fixtures": 49,
+    "actions": 953,
+    "native_assertions": 1465,
+    "assertion_types": {
+      "card_exists": 154,
+      "zone_count": 217,
+      "scalar_zone_equals": 821,
+      "game_state_field": 53,
+      "computed_power_equals": 51,
+      "computed_go_again_equals": 93,
+      "card_property_equals": 70,
+      "turn_player_is": 6
+    },
+    "branches": {
+      "equal-threshold-attack": 3,
+      "above-threshold-attack": 3,
+      "first-qualifier-only": 3,
+      "fully-blocked-first-still-consumes": 3,
+      "nonattack-action-qualifies": 3,
+      "weapon-excluded-preserves-effect": 3,
+      "instant-excluded-preserves-effect": 3,
+      "arsenal-source": 3,
+      "opponent-response-before-ap-gain": 3,
+      "rejected-action-does-not-consume": 3,
+      "unused-expires-this-turn": 3,
+      "pitched-no-effect-no-go-again": 3,
+      "zero-action-points-rejected": 3,
+      "nonturn-action-rejected": 3,
+      "second-source-qualifies-old-effect-not-itself": 1,
+      "below-threshold-action-preserves": 2,
+      "qualifying-play-trigger-after-blue-payment": 2,
+      "two-sources-two-independent-triggers": 2
+    }
+  },
+  "fixtures": [
+    {
+      "slug": "card-lead-the-charge-red-equal-threshold-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5e5c160d58b3801bcf7d60b0abd9f58e9ada189157beadce9f57e53a966de08e",
+        "actions.json": "a64220971ddb23c1b67786beb3d3b205b19b5f662e4bb0c341cebd57d69cae02",
+        "assertions.json": "e92d5f31fd781dfe6c566ae3d19532053ff362ec7a4555e6e672fa8f99913e07",
+        "expected_final_gamestate.txt": "c4a3f0ff4463412d53ba575364e82859dc39e01c3830e672606963a17105bed8",
+        "meta.json": "957ebeff8a689642a027ebd2be80c226c90fedc32dca5f44187199645d80c725"
+      },
+      "fixture_sha256": "886ad4c6d1217f7bd1bc9fc6d6400841ee4830bbd08e324be7571e4b8021c61f",
+      "actions": 17,
+      "native_assertions": 26,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 17,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [
+          {
+            "source": "lead_the_charge_red",
+            "sourceUID": "3",
+            "qualifier": "wounding_blow_red",
+            "qualifierUID": "4",
+            "threshold": 0,
+            "cost": 0
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "wounding_blow_red",
+            "sourceUID": "4",
+            "power": 4,
+            "defense": 0,
+            "damage": 4,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_red",
+            "cost": 0,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          16
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-above-threshold-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9ab0080a5faa51f2b4d9b989497de3fae168fa26808dc833468bd8e97158fc7b",
+        "actions.json": "a64220971ddb23c1b67786beb3d3b205b19b5f662e4bb0c341cebd57d69cae02",
+        "assertions.json": "3b41abd31460a2a0d0cdaca78749faa838ba57d34290b90a34377c743141a80b",
+        "expected_final_gamestate.txt": "15a578f13cabdb2bd22f9ff1bd2166b313b82f5690a33f3e8e9bdd2f0e9d29ab",
+        "meta.json": "83eb71fc81898cfed1292ef157b9ac62610201d27a1511fdfb20af9484b01869"
+      },
+      "fixture_sha256": "da721acb5028c3b61c7a4c74ae64245b67670cb704d692590523e2cebe65503b",
+      "actions": 17,
+      "native_assertions": 26,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 17,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [
+          {
+            "source": "lead_the_charge_red",
+            "sourceUID": "3",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "4",
+            "threshold": 0,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "4",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          15
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-first-qualifier-only",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "40408a1c0fb513a8a02491fd11ec25fe9a1bc0edaf8359bd531872276e885b34",
+        "actions.json": "5893f83117321da35b3aab4d50ba13797b3be8210f8fb1199f543f27ee65c375",
+        "assertions.json": "b2165570559fc1d2c56fb5b09b7dfe16fcbeabb0ad682b7ab93b5a36a8e71dc2",
+        "expected_final_gamestate.txt": "aa454e72e5bc002e476981cea76f2936f97f18a06cb5aa9a4869cad802c04779",
+        "meta.json": "2e060a3f4ddd492072839968fcb727023d636976978271fc0f9e7746c2b5dae6"
+      },
+      "fixture_sha256": "bedbd8bb274520f6118dbd645375c40ee68234fe732f28d0b4fb83027c813c88",
+      "actions": 29,
+      "native_assertions": 40,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 17,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "second_eligible_action_has_no_trigger",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 20,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 29,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [
+          {
+            "source": "lead_the_charge_red",
+            "sourceUID": "3",
+            "qualifier": "wounding_blow_red",
+            "qualifierUID": "4",
+            "threshold": 0,
+            "cost": 0
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "wounding_blow_red",
+            "sourceUID": "4",
+            "power": 4,
+            "defense": 0,
+            "damage": 4,
+            "attacker": 1
+          },
+          {
+            "cardID": "wounding_blow_blue",
+            "sourceUID": "5",
+            "power": 2,
+            "defense": 0,
+            "damage": 2,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_blue",
+            "cost": 0,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          14
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-fully-blocked-first-still-consumes",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "f7c158a88f5df141ccde1000ac73dfca4963868d700147e1bbc08bde9542e607",
+        "actions.json": "bd5c9d88a5ae0cd82b708899711c962090fa6b88a0160da5c44174650e9540bd",
+        "assertions.json": "d617283f81632a082ed477c5628ab92bae0cce2195ff888f9188638d4ac92e4b",
+        "expected_final_gamestate.txt": "b0d3b90c6cd54fa753456dd21bca9d7e2b8d97d50fca49ecf105cae5281a7c1e",
+        "meta.json": "95b113e9f1c2d62a3dbebba5ca6efe3171e875df231f0e6070260131e1bedeb2"
+      },
+      "fixture_sha256": "53310a85860e2ab394f307b0f1d833b383966864986159fa7000ccd33905c799",
+      "actions": 31,
+      "native_assertions": 41,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 12,
+          "native_assertions": 1
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 19,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "second_eligible_action_has_no_trigger",
+          "step": 20,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 22,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 31,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 12,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [
+          {
+            "source": "lead_the_charge_red",
+            "sourceUID": "3",
+            "qualifier": "wounding_blow_red",
+            "qualifierUID": "4",
+            "threshold": 0,
+            "cost": 0
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "wounding_blow_red",
+            "sourceUID": "4",
+            "power": 4,
+            "defense": 6,
+            "damage": 0,
+            "attacker": 1
+          },
+          {
+            "cardID": "wounding_blow_blue",
+            "sourceUID": "5",
+            "power": 2,
+            "defense": 0,
+            "damage": 2,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_blue",
+            "cost": 0,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          18
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-nonattack-action-qualifies",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1ebec33ea55f40eb9a07152863f05383650453d16663a697ec0c56ded2006e6d",
+        "actions.json": "792cf18cf7c7fe63cc6f809095d3f125b9db909b6f0bfb233e560e016f41fcb5",
+        "assertions.json": "3b4a305fe793ccdbf6fd95ba639f472444082ea98b006a645c188993f05e4b5b",
+        "expected_final_gamestate.txt": "a3c317c2873cd5375cc539c45518d03dc130071db246a3a63375c0e76ed6236c",
+        "meta.json": "c857b07bae82ef243034168585ab50b5df0eacc599ab7ee60bfbe5ff45f5c308"
+      },
+      "fixture_sha256": "2997faa79f936df5933edf283a47ce060921cd034a15cdfff2ceec70acc07c4d",
+      "actions": 8,
+      "native_assertions": 68,
+      "native_game_state_fields": 5,
+      "checkpoints": [
+        {
+          "checkpoint": "printed_lead_own_assets_before_resolution",
+          "step": 1,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "nonattack_action_completed",
+          "step": 8,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [
+          {
+            "source": "lead_the_charge_red",
+            "sourceUID": "3",
+            "qualifier": "energy_potion_blue",
+            "qualifierUID": "4",
+            "threshold": 0,
+            "cost": 0
+          }
+        ],
+        "completed_attacks": [],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "energy_potion_blue",
+            "cost": 0,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "ACTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-weapon-excluded-preserves-effect",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9dff467b6c1f6bd41b979f8a4877dde56e462348f405d2ecfe52ce34c0ec7e38",
+        "actions.json": "29fc146986bffff45fe13c55a4a0852072d9f9e556d37608321f5e5a69c488e4",
+        "assertions.json": "67a1dbef1e78d0d04f9a56b92f8d76da396d33c7404e0ac54757571bbe16ee53",
+        "expected_final_gamestate.txt": "adf4940d6110d19767270af670fe4d61f3c49e46affd4abbc054dcfba2445435",
+        "meta.json": "4930eff7f33ad5b236daa2747c225747088be23eeead0494c5e59d30bb817452"
+      },
+      "fixture_sha256": "04044de2ef032344ea7014aec7e4a45dae1e908c329e856eb739aa52ae8a93fc",
+      "actions": 31,
+      "native_assertions": 37,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "weapon_activation_not_action_card",
+          "step": 4,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 6,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 10,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 17,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 18,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 20,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 22,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 31,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 10,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [
+          {
+            "source": "lead_the_charge_red",
+            "sourceUID": "3",
+            "qualifier": "wounding_blow_red",
+            "qualifierUID": "4",
+            "threshold": 0,
+            "cost": 0
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "romping_club",
+            "sourceUID": "8",
+            "power": 4,
+            "defense": 6,
+            "damage": 0,
+            "attacker": 1
+          },
+          {
+            "cardID": "wounding_blow_red",
+            "sourceUID": "4",
+            "power": 4,
+            "defense": 0,
+            "damage": 4,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "romping_club",
+            "cost": 2,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_red",
+            "cost": 0,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          16
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-instant-excluded-preserves-effect",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "f89cf1c125537580442a2841cda0dae35be08fe1d1f1e769b5bebb6e90e6779a",
+        "actions.json": "7c97b2a9bf6f41d21ba16af71a479a6662ab92d578b6409ecbab2a3f9f8bedd1",
+        "assertions.json": "b86856dde9a65a7f49ff1ff6b3f3d9699d930d3062bdd6d99a5e1b99178be22c",
+        "expected_final_gamestate.txt": "343996f7479e976a0fad061c858a0676314f9811369cc0a4908903f4e5712630",
+        "meta.json": "17fb7e336ffe8c5847beb6a77096b7cefaa5e10d018bb97d504e6b294682f9da"
+      },
+      "fixture_sha256": "20ac34a50474f277211de31000eb67f6070f3f2fa76c1e32c0a43fddc03fb253",
+      "actions": 20,
+      "native_assertions": 30,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 6,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 7,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 9,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 11,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 20,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [
+          {
+            "source": "lead_the_charge_red",
+            "sourceUID": "3",
+            "qualifier": "wounding_blow_red",
+            "qualifierUID": "5",
+            "threshold": 0,
+            "cost": 0
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "wounding_blow_red",
+            "sourceUID": "5",
+            "power": 4,
+            "defense": 0,
+            "damage": 4,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_red",
+            "cost": 0,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          23,
+          16
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-arsenal-source",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "277e5412a07abb618bc8e2466e9f19b69a223aa6943c390172cd5fda2e8236e9",
+        "actions.json": "37aebede51ac6898da7250dd161e5e7eefbb267fa67e5aef0a0266fa2eb8dfc1",
+        "assertions.json": "a199a320f4a5b39e5ecfa0a4fc6b0a64472bc00b9a70df333a35a3f604b524ec",
+        "expected_final_gamestate.txt": "3ae09e032fdcfee58c383eeaf6cfd49a9decd7efd26a4cf1cdef217143489ca0",
+        "meta.json": "d87b9d47e8d38964e4de84d5ebe3d15c9bac0fa1c123419738a3dcc7a87cb48a"
+      },
+      "fixture_sha256": "c6ab3838723aa6e5087bb0aaa314eb45b415863fcf1cd9c7203ff84082b41d67",
+      "actions": 17,
+      "native_assertions": 27,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 3,
+          "native_assertions": 1
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 17,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [
+          {
+            "source": "lead_the_charge_red",
+            "sourceUID": "3",
+            "qualifier": "wounding_blow_red",
+            "qualifierUID": "4",
+            "threshold": 0,
+            "cost": 0
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "wounding_blow_red",
+            "sourceUID": "4",
+            "power": 4,
+            "defense": 0,
+            "damage": 4,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_red",
+            "cost": 0,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          16
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-opponent-response-before-ap-gain",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4874589189dc09ed0597ce2b6b0e622cdad4d2acf031b3679623e3e02288b2fc",
+        "actions.json": "97e40b5ff1b1cdcf1107b5769e917499839e03c3c1780c4e708d8cef3d3f3152",
+        "assertions.json": "adf8ebc52a2d8e566f1ad615c308f3a1121b8ed794fda7b199d586776175e8bd",
+        "expected_final_gamestate.txt": "023764f6c71565fef9e4b37f6dd3b75943407786ad6c0280e13caa830533dab7",
+        "meta.json": "8c5a854759975d443129cb7af78f125f87e6b74076229dd193c81ecc61221217"
+      },
+      "fixture_sha256": "c0f8b4b988c9ed3055a18efe15ff303c3b4a2fc1fb53fe4cdc889f402755e4b7",
+      "actions": 20,
+      "native_assertions": 32,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": null,
+          "step": 5,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "opponent_response_finished_trigger_still_pending",
+          "step": 7,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 9,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 11,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 20,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [
+          {
+            "source": "lead_the_charge_red",
+            "sourceUID": "3",
+            "qualifier": "wounding_blow_red",
+            "qualifierUID": "4",
+            "threshold": 0,
+            "cost": 0
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "wounding_blow_red",
+            "sourceUID": "4",
+            "power": 4,
+            "defense": 0,
+            "damage": 4,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_red",
+            "cost": 0,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          19
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-rejected-action-does-not-consume",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1eb12b3cb11e71b1322c08900cf8eb2b44d9040fd71e1e5ce4fa64ddecb5276a",
+        "actions.json": "3750b4360465d2636b485520f4125f8b07ccf46148056757b2b4fb3347b437f9",
+        "assertions.json": "2472db698a8480bc047af915131510f77d982cf37ef79a2403decc9b98e0c493",
+        "expected_final_gamestate.txt": "f744a0b870eead9d9bd71abaaa22d86eac0f2d4e1b17c79f78ce086334ee285f",
+        "meta.json": "05a31085b6b476732bee60d8f3ceb7762662bd99d5498f50c1eeb634c1c6ef62"
+      },
+      "fixture_sha256": "88f889a47eac1596e3dd65b049dd149b4bc588065336b36ab1ba1946a77ee211",
+      "actions": 21,
+      "native_assertions": 36,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 3,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": "unfunded_action_rejected",
+          "step": 4,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 7,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 8,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 10,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 12,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 21,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 3,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [
+          {
+            "source": "lead_the_charge_red",
+            "sourceUID": "3",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "4",
+            "threshold": 0,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "4",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 1,
+        "health": [
+          20,
+          15
+        ],
+        "resources": [
+          1,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-unused-expires-this-turn",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "61ebe51ebd3d7a0b5e0643cba5d494fb3f084ff6708c0b803f1f17b491837c75",
+        "actions.json": "3078c1c9b5267571c2edfa49c4ee074ce9f0a3b84902e5f41211a5d6ff72a708",
+        "assertions.json": "ff38bb1614b80a6f1af12e847377bf68fbb58a83299dc0f224c88bd46a33e5c6",
+        "expected_final_gamestate.txt": "ef6cef064b9ce64201c56d80a2d3be0ff2e8d947329f667462c8441517af42a0",
+        "meta.json": "c9ffcdde59aaddae6bbde7cf9e4a9ca526dccb7bbb3ba080770358870ef4f640"
+      },
+      "fixture_sha256": "259991eb760038443d1ae6d511379f65375ad50ff8bf7dde43ac7f7c873e82bf",
+      "actions": 37,
+      "native_assertions": 27,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 7,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 19,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": null,
+          "step": 25,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "expired_effect_no_trigger",
+          "step": 26,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 28,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 37,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [],
+        "completed_attacks": [
+          {
+            "cardID": "wounding_blow_blue",
+            "sourceUID": "6",
+            "power": 2,
+            "defense": 0,
+            "damage": 2,
+            "attacker": 2
+          },
+          {
+            "cardID": "wounding_blow_red",
+            "sourceUID": "4",
+            "power": 4,
+            "defense": 0,
+            "damage": 4,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_red",
+            "cost": 0,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          18,
+          16
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 4,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-pitched-no-effect-no-go-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "6a4d1e2ff7cc65c6c7647f21929b94ad7d89abccaad185fc26a2892f92871d7f",
+        "actions.json": "8f603033cd5b31a6e139c4992830aff772102b297844e4a597f9b592a890f769",
+        "assertions.json": "eec72cd76645ef665160af27de73fe5ec238add711e0e6d5d9c0ab2844435c78",
+        "expected_final_gamestate.txt": "cd5f1e5408f4d8db592e7e09e99fef0cadbb8a34cf8c1b58660c5852d01713f4",
+        "meta.json": "89ab309abf584af7938410ab0587f6807850de2b159fbce79157544e5c91deb3"
+      },
+      "fixture_sha256": "21a8fe7f6ef5408156dc846baad3d84e44b7e74967878f56041304c13d216653",
+      "actions": 13,
+      "native_assertions": 17,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "pitch_does_not_install_lead",
+          "step": 2,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": null,
+          "step": 4,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 13,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [],
+        "completed_attacks": [
+          {
+            "cardID": "raging_onslaught_red",
+            "sourceUID": "3",
+            "power": 7,
+            "defense": 0,
+            "damage": 7,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "raging_onslaught_red",
+            "cost": 3,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          13
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-zero-action-points-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "0a955bcaa778b17a99fd8d42351582a812d77319d6d3a53dc1df882baead02fd",
+        "actions.json": "552f566dbb3f92cd5ba073367ebc69489d64068f7398d09f17f8cf93f0e2025d",
+        "assertions.json": "179165482fcb13d032a7c028095595c31f07370a561ae9e29a361aec9bd1c1d7",
+        "expected_final_gamestate.txt": "53ed65f49888c68fbf479aaf77cdadc4cf7e3c2264847ab83025867f01c1a059",
+        "meta.json": "44c0ca62a3b367f23deed9ad5683ee4d4bfd5f7d5ff19eb22be64fceac3aaf99"
+      },
+      "fixture_sha256": "6a38cceb28029aaf52b6531333fa08cdee0f2acc2590b41811f33f98bfe51990",
+      "actions": 1,
+      "native_assertions": 6,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 6
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [],
+        "completed_attacks": [],
+        "cost_payments": [],
+        "rejected_clicks": 1,
+        "health": [
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "ACTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-nonturn-action-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ccd24484628824fb45e7380816b614cef3e9320765a2e39095a998313225eb9b",
+        "actions.json": "f09dd53c2a5c5d163b4a2920873daf59040048dd0668994dee1a686156268dd3",
+        "assertions.json": "7f3aa9df34a7f727f974a5c77cbeb06e39979277218bdca09a238a56c8e5eff3",
+        "expected_final_gamestate.txt": "dc19a614c659fc733fe27a7e796cf4cc9d220b79fde2a9e97e3dbd5852f30bdf",
+        "meta.json": "b7eff860d826e7e58de3eb2533c43b2d36a9b42fa5a761662ef6cca66c79e3f6"
+      },
+      "fixture_sha256": "3c620915733127d2620d3ace34156782af24fad4628dd1ad5836115351fcb27d",
+      "actions": 1,
+      "native_assertions": 6,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 6
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 2,
+            "mzID": "p2Hand-0"
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [],
+        "completed_attacks": [],
+        "cost_payments": [],
+        "rejected_clicks": 1,
+        "health": [
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "ACTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 2
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-second-source-qualifies-old-effect-not-itself",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "32a345a91252477235d6eb33a2c41fc9e0bd8af8e6910301e321ec79ccdfa4cd",
+        "actions.json": "2ae3a62fdf8068461ce47ec4e59d4216500f63ccf2d6f1944471135a6d46ee83",
+        "assertions.json": "e5828cbde9a33d80e210826d171e9ffe314921be76ae06e6b54b377555211162",
+        "expected_final_gamestate.txt": "bc2f0ce0b2c4fc763d23cc195535048154365394e3f4993d8712345b31ac378d",
+        "meta.json": "ca6c4c26d2d6dc3082081c2b580da04e228b1a2fa877e0ed979b479a5e74f3a9"
+      },
+      "fixture_sha256": "cdcef30d9641d058977c8172ec5870bdc5993cc91bcafb875ece6bc40a5bf265",
+      "actions": 22,
+      "native_assertions": 41,
+      "native_game_state_fields": 2,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "second_lead_installed_after_old_trigger",
+          "step": 8,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 9,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 11,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 13,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 22,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 0,
+        "triggers": [
+          {
+            "source": "lead_the_charge_red",
+            "sourceUID": "3",
+            "qualifier": "lead_the_charge_red",
+            "qualifierUID": "4",
+            "threshold": 0,
+            "cost": 0
+          },
+          {
+            "source": "lead_the_charge_red",
+            "sourceUID": "4",
+            "qualifier": "wounding_blow_red",
+            "qualifierUID": "5",
+            "threshold": 0,
+            "cost": 0
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "wounding_blow_red",
+            "sourceUID": "5",
+            "power": 4,
+            "defense": 0,
+            "damage": 4,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "lead_the_charge_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_red",
+            "cost": 0,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          16
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          2,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-equal-threshold-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "fd28d82116caa35bcde1b01735140d2d7d7740d1eee0e3887eabcbe751ba8c65",
+        "actions.json": "a64220971ddb23c1b67786beb3d3b205b19b5f662e4bb0c341cebd57d69cae02",
+        "assertions.json": "e10b6a23554db01b827aa5100c0088c9bde23756de677a47d5cade59bd86e27f",
+        "expected_final_gamestate.txt": "9e8c5eeaf80642568830cfa618770b29c7b7ae1bc98473416b7d5e93987adf76",
+        "meta.json": "396b4405ea82eb1f5a8b4f2e8778b459f43906cba6f6114114cbf02b645a2689"
+      },
+      "fixture_sha256": "3549913539b97a2c5f247fa34df16661129c97a3606e5bcda660b29cc058ce6e",
+      "actions": 17,
+      "native_assertions": 26,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 17,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "3",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "4",
+            "threshold": 1,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "4",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          15
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-above-threshold-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "0f9aa63c7ed00b1322d314e48e9cae05219c373b12dcd14a49a9af072a7d647e",
+        "actions.json": "a64220971ddb23c1b67786beb3d3b205b19b5f662e4bb0c341cebd57d69cae02",
+        "assertions.json": "89ec5516b98a9dc61ff12609fdab7d697674f3d47e3ce2ceb3dff818c0da90b2",
+        "expected_final_gamestate.txt": "3d21245252735dbba4659e31d4f3d2ba9b446df7a937a0d14b61a56a12fe76a2",
+        "meta.json": "72f710772a97893a05b41409e3c70d719350f724572e83a40371ab528d1d4582"
+      },
+      "fixture_sha256": "ec3e16fa2db69ed1e17e432dc4748ea02fa284239298dce7be7d2a50c66c4c2c",
+      "actions": 17,
+      "native_assertions": 26,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 17,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "3",
+            "qualifier": "brutal_assault_red",
+            "qualifierUID": "4",
+            "threshold": 1,
+            "cost": 2
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "brutal_assault_red",
+            "sourceUID": "4",
+            "power": 6,
+            "defense": 0,
+            "damage": 6,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "cost": 2,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          14
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-first-qualifier-only",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "90d5f20455a62a4dd5de9e996e8c24e4015e591956e1579c0daab135144ed25b",
+        "actions.json": "5893f83117321da35b3aab4d50ba13797b3be8210f8fb1199f543f27ee65c375",
+        "assertions.json": "b3c80c469a23106ae6a4493cb75d89fc7d889d9b1550f57569bb8098f90ce89a",
+        "expected_final_gamestate.txt": "1cfd3f34f88b5f3801ee5f1d9f53ad6a80cac2e08edd9a89fcd1c90b0a1ef4cf",
+        "meta.json": "51f00501fbde9eb98eadb6faa4c843fdcedc67fd878d307b9e13dcf1c8648cf6"
+      },
+      "fixture_sha256": "660df808bfd59fadba4dca34af617115be6aed47b24c3f80df2be475766e5c97",
+      "actions": 29,
+      "native_assertions": 40,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 17,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "second_eligible_action_has_no_trigger",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 20,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 29,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "3",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "4",
+            "threshold": 1,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "4",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          },
+          {
+            "cardID": "critical_strike_blue",
+            "sourceUID": "5",
+            "power": 3,
+            "defense": 0,
+            "damage": 3,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_blue",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          12
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-fully-blocked-first-still-consumes",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ff9ba718144d8089e8edb9b8513405a0dba096accd4ec385c4beea24140f9562",
+        "actions.json": "bd5c9d88a5ae0cd82b708899711c962090fa6b88a0160da5c44174650e9540bd",
+        "assertions.json": "a821a1d1b15de3acd6993a16be6f1d288c37983d395214f9f961e302dd31b90a",
+        "expected_final_gamestate.txt": "90b258c8106677b6948874bea98ff0824ec89e6eda06b1a32ade9f2987ec2046",
+        "meta.json": "4012f81cf1c9db150ba492f1f4a473854c3e0353e8c84c736c842f8c9401738e"
+      },
+      "fixture_sha256": "96319c03e9b33ac2a6691528531bbeb99c0164f7becb8c9252fb11ca0656ddff",
+      "actions": 31,
+      "native_assertions": 41,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 12,
+          "native_assertions": 1
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 19,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "second_eligible_action_has_no_trigger",
+          "step": 20,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 22,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 31,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 12,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "3",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "4",
+            "threshold": 1,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "4",
+            "power": 5,
+            "defense": 6,
+            "damage": 0,
+            "attacker": 1
+          },
+          {
+            "cardID": "critical_strike_blue",
+            "sourceUID": "5",
+            "power": 3,
+            "defense": 0,
+            "damage": 3,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_blue",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          17
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-below-threshold-action-preserves",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "46fc1aaac2f77c7948016d8b2a9cb3a64bc970529f10a3cc74122919f360c1ab",
+        "actions.json": "f853fbe610c1face7bbdf440d6b085b1148beea699f70176b3233ef936c5b8d3",
+        "assertions.json": "3533c41a8ccb0134ad03cd18f65ed1074e0acbdb9cadfef90badd2585f0933c4",
+        "expected_final_gamestate.txt": "3eb35ec691928dbe9533f9766374d09cd8d4aa81f61ea77a55473c28546eccba",
+        "meta.json": "ddd7e2b4dbb1a82e708599e745900d8f1f130a7340ec3cd3fa355b1d39e6dd18"
+      },
+      "fixture_sha256": "acf740968c0131fe8ad1e7097d182d14f5d1e9aa7ef8a1fb6863d5d4ca866948",
+      "actions": 29,
+      "native_assertions": 39,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "below_threshold_does_not_trigger",
+          "step": 4,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 15,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 16,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 20,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 29,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "3",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "5",
+            "threshold": 1,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "wounding_blow_red",
+            "sourceUID": "4",
+            "power": 4,
+            "defense": 0,
+            "damage": 4,
+            "attacker": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "5",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_red",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          11
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-qualifying-play-trigger-after-blue-payment",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b5f21972e658312c82aff21f154cd33949fc74e7c9f92d33418696c9dcff2274",
+        "actions.json": "cfe9a84582aaf04fb119cf3128f6e9e0cb1c0112a5091c0c4161f9d6f7c6da78",
+        "assertions.json": "6aa5f070d34d59cfd3e09a0c41f17028908adfd1a61b30fe0f7a7929cff2f71e",
+        "expected_final_gamestate.txt": "8382d58e6ba8156bf0d76c286e2d4a4546ab276b4c7865c191f3e524f7739e10",
+        "meta.json": "8cf0f2956e342349664d4dc6cf53f7788d21efced3c19325d7801ec2b12c2dfd"
+      },
+      "fixture_sha256": "98b469e292e3ca36781dde7e23f1aae5cce7352664d6331285c965178a883bf9",
+      "actions": 18,
+      "native_assertions": 31,
+      "native_game_state_fields": 2,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "cost_not_yet_paid_no_trigger",
+          "step": 4,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 5,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 7,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 9,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 18,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "3",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "4",
+            "threshold": 1,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "4",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          15
+        ],
+        "resources": [
+          2,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-nonattack-action-qualifies",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "317683407b6507da8ad5bbed6217a1f0c0de699ad4db60795067db77b95f5f5f",
+        "actions.json": "792cf18cf7c7fe63cc6f809095d3f125b9db909b6f0bfb233e560e016f41fcb5",
+        "assertions.json": "95fa6da23623b807d13aee3cc2a8b801de536e2d2f6e808afde01d8d162f981c",
+        "expected_final_gamestate.txt": "e9ce2f2d3a11cb82af2bcbe3ae3e954a7b78c4492d4133754637141f45886324",
+        "meta.json": "d69463258bddfcd289a77f8cd1602cb44c074eafeb42c238c9f22742b545b8e1"
+      },
+      "fixture_sha256": "0b56f8030b00fe0df3902c21560bb3c1013f8c4332e7dafb7f350bbbddec87b9",
+      "actions": 8,
+      "native_assertions": 21,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "nonattack_action_completed",
+          "step": 8,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "3",
+            "qualifier": "come_to_fight_red",
+            "qualifierUID": "4",
+            "threshold": 1,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "come_to_fight_red",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          2,
+          0
+        ],
+        "window": "ACTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-weapon-excluded-preserves-effect",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c62a0557cd5d8b7470805876bb08212773850a5c87d97fef3e3183ffd7b3838a",
+        "actions.json": "29fc146986bffff45fe13c55a4a0852072d9f9e556d37608321f5e5a69c488e4",
+        "assertions.json": "a15be4b5a05a0ad190dfd92ee62c03a3609ab6930025b8c25674964f37a11311",
+        "expected_final_gamestate.txt": "439e9b56a40e98c252cf9a34082f19f03eff2a8a1db071b5dddb929994b8ee6a",
+        "meta.json": "003b0d59d9e8b32579d13045b55d4de127ea353a6bb0993fa783938937e37212"
+      },
+      "fixture_sha256": "31798c35d9307fdade42caea61bf4358489747870198d200594e752c651e21e5",
+      "actions": 31,
+      "native_assertions": 37,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "weapon_activation_not_action_card",
+          "step": 4,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 6,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 10,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 17,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 18,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 20,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 22,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 31,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 10,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "3",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "4",
+            "threshold": 1,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "romping_club",
+            "sourceUID": "8",
+            "power": 4,
+            "defense": 6,
+            "damage": 0,
+            "attacker": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "4",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "romping_club",
+            "cost": 2,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          15
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-instant-excluded-preserves-effect",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "6bd41d4de2cb6e7fb430f1dfde3e292f894ddd87267b69ca172f9773b2196101",
+        "actions.json": "7c97b2a9bf6f41d21ba16af71a479a6662ab92d578b6409ecbab2a3f9f8bedd1",
+        "assertions.json": "1246715be0f1bb61c7af6e064373d24bf07c99809b47e260a0210cb8d166a8d3",
+        "expected_final_gamestate.txt": "60927c9bb4f0a5b55178f2719f380657a246b6f53a6ce6471b4f0d69c1ad320d",
+        "meta.json": "8332b0a738cde543c72bca803b9589181667e157533d04cbbeea4a8ecf3d9ac4"
+      },
+      "fixture_sha256": "19c4c8418fb410ca42344cd00805a3ba4e109094a9c3d7ec080d01669408530c",
+      "actions": 20,
+      "native_assertions": 30,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 6,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 7,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 9,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 11,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 20,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "3",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "5",
+            "threshold": 1,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "5",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          23,
+          15
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-arsenal-source",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1a22e01c0d3b0bf799a4c27385eb0ec56054e609d2b1b2b0492b50e9385374db",
+        "actions.json": "37aebede51ac6898da7250dd161e5e7eefbb267fa67e5aef0a0266fa2eb8dfc1",
+        "assertions.json": "4608fd4df3ffae9308b8ef561dc7eb132923fe9603800953ef379962a4104e79",
+        "expected_final_gamestate.txt": "60eebcd2d0c3d4ca980eff44b4f6ca242275ab1d9f618c8a0129b688f6512015",
+        "meta.json": "0e742f7727afad846ee1c61fafa35af306d535561b86f81b4f332b8f8b82736d"
+      },
+      "fixture_sha256": "e565ba2ece249953fd7c92e2c2265ad6d5e99628af7bc24866cad9568b8cc2b9",
+      "actions": 17,
+      "native_assertions": 27,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 3,
+          "native_assertions": 1
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 17,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "3",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "4",
+            "threshold": 1,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "4",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          15
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-opponent-response-before-ap-gain",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b5f32d861fc1d0075157d2237ebad0284501e97c747ee299489d03aa23136491",
+        "actions.json": "97e40b5ff1b1cdcf1107b5769e917499839e03c3c1780c4e708d8cef3d3f3152",
+        "assertions.json": "4f6679b65f428f30017bb36126240613205442585b3c47038a1eba5042f43362",
+        "expected_final_gamestate.txt": "60b22a098bc14b3067a1fdb6f3355b26151145afc61be697205829eed1d57962",
+        "meta.json": "37b8f326d99c97644e6816d9b615505fcdc09415f6ccac18c562d9a243224ccf"
+      },
+      "fixture_sha256": "b66b61a4f90adee9c5b1dde3bf56cb0c2a2e2e589d60e7256274ada967f8b36e",
+      "actions": 20,
+      "native_assertions": 32,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": null,
+          "step": 5,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "opponent_response_finished_trigger_still_pending",
+          "step": 7,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 9,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 11,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 20,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "3",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "4",
+            "threshold": 1,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "4",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          18
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-rejected-action-does-not-consume",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4c806f4149f04bc6aa03672257ba586f2e2e5ef37d07c0f5901d5381e27f5997",
+        "actions.json": "3750b4360465d2636b485520f4125f8b07ccf46148056757b2b4fb3347b437f9",
+        "assertions.json": "6b99c3f82db28fa79131c4fcc06b46555b1d0f0e4f93b5c8a53916dfb9a5b8db",
+        "expected_final_gamestate.txt": "6fc62027e361b38b697e84d44ea44c8ca1820dabd1f678ffe21cc8bb942b0be0",
+        "meta.json": "a5c53af6eae46adac249f5d626bf83cc7d3ee68218ae4cc73d4541a087d54acf"
+      },
+      "fixture_sha256": "f98e322e929e48b313e8d56af09f7970ab26a7dab7749660a1df97f0d2047822",
+      "actions": 21,
+      "native_assertions": 36,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 3,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": "unfunded_action_rejected",
+          "step": 4,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 7,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 8,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 10,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 12,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 21,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 3,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "3",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "4",
+            "threshold": 1,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "4",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 1,
+        "health": [
+          20,
+          15
+        ],
+        "resources": [
+          1,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-unused-expires-this-turn",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "672d8aefd8287fe91032d4469cdbe385152c05a9afe9d1dc28faa4e14f25985a",
+        "actions.json": "7def9701232ff2e4e50b2f33787c86fb4eae45367c9b6cd2054d74954a313a8c",
+        "assertions.json": "99f1ff3c9367a02b099bc84f1dada7f86d3842b0537952e4cc5641e5771f4770",
+        "expected_final_gamestate.txt": "42a2978565a219a5b712e8e86abf3e73cb9f3a8cbf01c95843d7399a34c62e60",
+        "meta.json": "b44f38f112274e70c2bb4b332ea430bcead879020ce8cfe31089de926eb6f051"
+      },
+      "fixture_sha256": "0fb82f034d1a8433a5fe8009ad9053f35257d9ac51de859d71607318398f2f8d",
+      "actions": 38,
+      "native_assertions": 30,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 7,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 19,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": null,
+          "step": 25,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": null,
+          "step": 26,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "expired_effect_no_trigger",
+          "step": 27,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 29,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 38,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [],
+        "completed_attacks": [
+          {
+            "cardID": "wounding_blow_blue",
+            "sourceUID": "6",
+            "power": 2,
+            "defense": 0,
+            "damage": 2,
+            "attacker": 2
+          },
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "4",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          18,
+          15
+        ],
+        "resources": [
+          2,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 4,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-pitched-no-effect-no-go-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ac8654f6d7a992d4500268b2e7d2c8f6d65c849924746b91f84fad2b3843e23e",
+        "actions.json": "8f603033cd5b31a6e139c4992830aff772102b297844e4a597f9b592a890f769",
+        "assertions.json": "017c8e158826ecd9d709dc887d85c27e9612ffa745e8952ee1ec5bbc7434421a",
+        "expected_final_gamestate.txt": "b6334ce63be0c3628432c0a73a6eee48d28b7c834edf88ccb9c95c5974b2a759",
+        "meta.json": "8940a07b547a5b15225cd0fb3dfdd73acb82d25e1afebb291a670a885dcc7543"
+      },
+      "fixture_sha256": "8184ffb1cbc53c55f4a80e4f46c0149058ad15c004e3950b4936f363af1cb025",
+      "actions": 13,
+      "native_assertions": 17,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "pitch_does_not_install_lead",
+          "step": 2,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": null,
+          "step": 4,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 13,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [],
+        "completed_attacks": [
+          {
+            "cardID": "raging_onslaught_red",
+            "sourceUID": "3",
+            "power": 7,
+            "defense": 0,
+            "damage": 7,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "raging_onslaught_red",
+            "cost": 3,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          13
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-zero-action-points-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "50a064b3b9ed4ec068e2394e157798c4da37285e67da4e0571c947218d0107b4",
+        "actions.json": "552f566dbb3f92cd5ba073367ebc69489d64068f7398d09f17f8cf93f0e2025d",
+        "assertions.json": "0fcd539d57889ec78161bfa986e534b95d5a3143a58c736545f0b820071c4552",
+        "expected_final_gamestate.txt": "c20377caf69ac1065d5fe72ce222331d488fe5579c2b307d4f36f70bea258219",
+        "meta.json": "2d12e0d550afa62abbd2d8dd6b1ed3a17b00412d69bfa01656044ffdda11e649"
+      },
+      "fixture_sha256": "5f040e52c967dc73d4e2117ee60e1ae102d70e65b307c2d94dace62203f69900",
+      "actions": 1,
+      "native_assertions": 6,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 6
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [],
+        "completed_attacks": [],
+        "cost_payments": [],
+        "rejected_clicks": 1,
+        "health": [
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "ACTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-nonturn-action-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "050175580b5e97ff097f655ceeeee6e53b7c6fafb4f4ab05081b50f42345ea72",
+        "actions.json": "f09dd53c2a5c5d163b4a2920873daf59040048dd0668994dee1a686156268dd3",
+        "assertions.json": "df852e1e94216205871661e148f74226fda8eec95c0492fa71462c141f74477f",
+        "expected_final_gamestate.txt": "4aca4e2f00898046b8e536f5890501b2de286146b8aae7a087653e8b6b4f125b",
+        "meta.json": "6024dea5e16e5183607b9bf0072fd38ad8f5f304246dab41cd4197a672eb50f2"
+      },
+      "fixture_sha256": "e976df66caa37a90583f9041215b2d9aa8db03f505e69c12c485aad1c83714fd",
+      "actions": 1,
+      "native_assertions": 6,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 6
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 2,
+            "mzID": "p2Hand-0"
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [],
+        "completed_attacks": [],
+        "cost_payments": [],
+        "rejected_clicks": 1,
+        "health": [
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "ACTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 2
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-two-sources-two-independent-triggers",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "a96469d870163dcab21af6a38f6b9ecf45f86b0fb31f7cdedf371d6d5888e1b4",
+        "actions.json": "a78d3a558ce2749b7b2c5eb61b8305a56fcc108c74f40986afd7aece344ab592",
+        "assertions.json": "bb4cb7252f34f3c6d037d7d49909262808274e57fd32674a562e43db1ba938fe",
+        "expected_final_gamestate.txt": "175309c74cee48e4a1bc3e86b9cb0ad68fb625d4e320b6079994da0d077e6142",
+        "meta.json": "16b079cec74218428af081e7b0089085d085714e060fa2b1f2e2ff726d25e9b6"
+      },
+      "fixture_sha256": "5f561c1a040067ea55ef3c9e580d9014d286e68c236376a4f570a1cc6ffe0951",
+      "actions": 22,
+      "native_assertions": 29,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 6,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 7,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 11,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 13,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 22,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 1,
+        "triggers": [
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "3",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "5",
+            "threshold": 1,
+            "cost": 1
+          },
+          {
+            "source": "lead_the_charge_yellow",
+            "sourceUID": "4",
+            "qualifier": "critical_strike_red",
+            "qualifierUID": "5",
+            "threshold": 1,
+            "cost": 1
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "5",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "lead_the_charge_yellow",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          15
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          2,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-equal-threshold-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4ae639efafebb842e5de780b52ded043ed7d186265904c58be6664acbe34d17a",
+        "actions.json": "6ce9e524d082457580d717c0f282dab3645618a4db2f0d8bc4061cbff6d6b16a",
+        "assertions.json": "4ca883bfc16562a8d2c9489231bd6cc0e074ee9dcdf33d8d7222ad0ae55d7437",
+        "expected_final_gamestate.txt": "7c487a9862c8cb7c2f544c8ccfa8a0a748c70f7ce2751fb3a0a40196c0d3f441",
+        "meta.json": "3836e679f74ff9c6caeb7342aaead718927e04bedc0235c3963df8d9ae0fc551"
+      },
+      "fixture_sha256": "6b46b2cbe021070e50ed641af83ad929a3f523f6fd1f3b748e6e13113fb83857",
+      "actions": 19,
+      "native_assertions": 83,
+      "native_game_state_fields": 5,
+      "checkpoints": [
+        {
+          "checkpoint": "printed_lead_own_assets_before_resolution",
+          "step": 1,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 17,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "chain_closed_sources_cleaned_once",
+          "step": 19,
+          "native_assertions": 12
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "3",
+            "qualifier": "brutal_assault_red",
+            "qualifierUID": "4",
+            "threshold": 2,
+            "cost": 2
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "brutal_assault_red",
+            "sourceUID": "4",
+            "power": 6,
+            "defense": 0,
+            "damage": 6,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "cost": 2,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          14
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "ACTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-above-threshold-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4706e92735a2b7a38590eecb3b1b7c6143c804602025271f26cdeb1a565c0fc3",
+        "actions.json": "a64220971ddb23c1b67786beb3d3b205b19b5f662e4bb0c341cebd57d69cae02",
+        "assertions.json": "808946a5dd561d4626a070fb81ca51e9596689ef52bae2beec98dce0991a5d4f",
+        "expected_final_gamestate.txt": "04e61539938756a4dfbbb6ac133fa1924aa2a6990d2e7cc81445ed1a585311c4",
+        "meta.json": "6d07d97d88913144403dc0492291d45682a89dd5c144b9facc6b8a981ce7df33"
+      },
+      "fixture_sha256": "4451764464fae6e418b75ff6551386937334766da77e854e9a534b37988a4730",
+      "actions": 17,
+      "native_assertions": 26,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 17,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "3",
+            "qualifier": "raging_onslaught_red",
+            "qualifierUID": "4",
+            "threshold": 2,
+            "cost": 3
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "raging_onslaught_red",
+            "sourceUID": "4",
+            "power": 7,
+            "defense": 0,
+            "damage": 7,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "raging_onslaught_red",
+            "cost": 3,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          13
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-first-qualifier-only",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "cdbb5c34d9feabe0bc14e0e4f2a73c19d10ff2ae0bead506353c2dc2dac63131",
+        "actions.json": "5893f83117321da35b3aab4d50ba13797b3be8210f8fb1199f543f27ee65c375",
+        "assertions.json": "21097bac94d19205c24ef1a77826d19f35832a7f222860077ed539a1d458cafe",
+        "expected_final_gamestate.txt": "b5e3611d5faf3ced8189479ffe357f7610b044b3b7a437ae2ca7b2890826c2a6",
+        "meta.json": "8cb5102c6b24cdf3e5f5c7ef9486038ef746e93beaf9fee6b8be64c182b726df"
+      },
+      "fixture_sha256": "6b463120555bad3fced9b3c428b4ab3b4e4ef674f86196d0c91269cad2cc348c",
+      "actions": 29,
+      "native_assertions": 40,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 17,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "second_eligible_action_has_no_trigger",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 20,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 29,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "3",
+            "qualifier": "brutal_assault_red",
+            "qualifierUID": "4",
+            "threshold": 2,
+            "cost": 2
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "brutal_assault_red",
+            "sourceUID": "4",
+            "power": 6,
+            "defense": 0,
+            "damage": 6,
+            "attacker": 1
+          },
+          {
+            "cardID": "brutal_assault_blue",
+            "sourceUID": "5",
+            "power": 4,
+            "defense": 0,
+            "damage": 4,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "cost": 2,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_blue",
+            "cost": 2,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          10
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-fully-blocked-first-still-consumes",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3b360278cc601a91cb7b2d359dcab5e3575cfc8314149cea262f4a83cbc168f8",
+        "actions.json": "bd5c9d88a5ae0cd82b708899711c962090fa6b88a0160da5c44174650e9540bd",
+        "assertions.json": "b7af6b726b1af6d2ac6e3158fc8bf754d47a0e1420be6220c4b8488923a5e323",
+        "expected_final_gamestate.txt": "df297d590dc372ed75d07b2f083c9bafe3e715575b6e9be40988e91413089b00",
+        "meta.json": "a2bff3773dc26ec9a051c1dae31307b05ef1e1acc801bf4f168cb69815fb441e"
+      },
+      "fixture_sha256": "ea5d8368c2c765cd3131e9c94c6a6c45b2cffd379f59a21bcd69e94f8032c83e",
+      "actions": 31,
+      "native_assertions": 41,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 12,
+          "native_assertions": 1
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 19,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "second_eligible_action_has_no_trigger",
+          "step": 20,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 22,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 31,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 12,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "3",
+            "qualifier": "brutal_assault_red",
+            "qualifierUID": "4",
+            "threshold": 2,
+            "cost": 2
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "brutal_assault_red",
+            "sourceUID": "4",
+            "power": 6,
+            "defense": 6,
+            "damage": 0,
+            "attacker": 1
+          },
+          {
+            "cardID": "brutal_assault_blue",
+            "sourceUID": "5",
+            "power": 4,
+            "defense": 0,
+            "damage": 4,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "cost": 2,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_blue",
+            "cost": 2,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          16
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-below-threshold-action-preserves",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e2694e53383f6a2b7aa5e4b6613d5a5457abeaac9fbc1ce91bb7b5e30505d990",
+        "actions.json": "f853fbe610c1face7bbdf440d6b085b1148beea699f70176b3233ef936c5b8d3",
+        "assertions.json": "723ade9bf899ce52986f6535bcb4c51f42bc1ee38991241590df89c08c66bd60",
+        "expected_final_gamestate.txt": "9f4b8a69761a95659e6c9d73fb7b2fdfc7c292130ede8f2b58906b2767714aed",
+        "meta.json": "5edda5d26dd2c1a3578ff1d8e1de45311efebbc64feb5f9b10926064f46e9c2c"
+      },
+      "fixture_sha256": "ccbf4dd2ea584886ae787ebda7bd4754198c7e0e2819880248bda3888d789ba3",
+      "actions": 29,
+      "native_assertions": 39,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "below_threshold_does_not_trigger",
+          "step": 4,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 15,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 16,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 20,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 29,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "3",
+            "qualifier": "brutal_assault_red",
+            "qualifierUID": "5",
+            "threshold": 2,
+            "cost": 2
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "critical_strike_red",
+            "sourceUID": "4",
+            "power": 5,
+            "defense": 0,
+            "damage": 5,
+            "attacker": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "sourceUID": "5",
+            "power": 6,
+            "defense": 0,
+            "damage": 6,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "critical_strike_red",
+            "cost": 1,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "cost": 2,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          9
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-qualifying-play-trigger-after-blue-payment",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c3b3f83870cad9bb3f58dfd9a336af37b5c5a74556918108680b5ac0ca029b6a",
+        "actions.json": "cfe9a84582aaf04fb119cf3128f6e9e0cb1c0112a5091c0c4161f9d6f7c6da78",
+        "assertions.json": "bd0bf1f4490ccfac055f3a603ead36d1718e34082f32ffbf2ac6b1364b39eef4",
+        "expected_final_gamestate.txt": "5436fc914517022a9484caa6467adea79289ddde45bad7ef4aa47587bdc5e5bd",
+        "meta.json": "d410872ac87e8aaf7ae047651c8354a2eb83a2bd0288b5dcf0b5282104e494f1"
+      },
+      "fixture_sha256": "c7755fa117d18e1fe35c820ed858fb53be4d2bc9d29e5d794ab5fff54202d69c",
+      "actions": 18,
+      "native_assertions": 31,
+      "native_game_state_fields": 2,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "cost_not_yet_paid_no_trigger",
+          "step": 4,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 5,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 7,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 9,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 18,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "3",
+            "qualifier": "brutal_assault_red",
+            "qualifierUID": "4",
+            "threshold": 2,
+            "cost": 2
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "brutal_assault_red",
+            "sourceUID": "4",
+            "power": 6,
+            "defense": 0,
+            "damage": 6,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "cost": 2,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          14
+        ],
+        "resources": [
+          1,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-nonattack-action-qualifies",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "fa409c9898b54f0123742740cb32db73a890f25e8d3b83af61777001635dbeab",
+        "actions.json": "792cf18cf7c7fe63cc6f809095d3f125b9db909b6f0bfb233e560e016f41fcb5",
+        "assertions.json": "99dcccdf370fd60b97a1636552a2e9bef4f929a42e41c2079a87c2a31eea1978",
+        "expected_final_gamestate.txt": "aa4fb9957f49ecfe211f7d9d052f60837ac5ffe11ace12008d332c043e271e19",
+        "meta.json": "0c2ccfb67b4dbeddf58cd36dad346c7195f84aae81d21024fd0bb11df3116032"
+      },
+      "fixture_sha256": "d3fcf18c674157e3acf1c4b587e725cb90ea617d4276f1bc6cc053319d3592d6",
+      "actions": 8,
+      "native_assertions": 21,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "nonattack_action_completed",
+          "step": 8,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "3",
+            "qualifier": "sloggism_red",
+            "qualifierUID": "4",
+            "threshold": 2,
+            "cost": 3
+          }
+        ],
+        "completed_attacks": [],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "sloggism_red",
+            "cost": 3,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          2,
+          0
+        ],
+        "window": "ACTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-weapon-excluded-preserves-effect",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "027e62f95ddaf558138769dd50d73d4b85708aac11ddb72113a4023527baffc7",
+        "actions.json": "29fc146986bffff45fe13c55a4a0852072d9f9e556d37608321f5e5a69c488e4",
+        "assertions.json": "3185ea13733dfc139cdf46e202229166867a74b33eb875c8ba15fd8346e0d5a7",
+        "expected_final_gamestate.txt": "48cef9f6b845576784e496792f4691126353478a53c7b27094b08c08e3990b29",
+        "meta.json": "973a99a8596c2050f389344702b1dd6f8889e32667ea1c2cf9f95d030aea1df4"
+      },
+      "fixture_sha256": "b244e084a04e103a0b50abb4dfdde463aa1aac5b7965ad03ac73022c91eee3de",
+      "actions": 31,
+      "native_assertions": 37,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "weapon_activation_not_action_card",
+          "step": 4,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 6,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 10,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 17,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 18,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 20,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 22,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 31,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 10,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "3",
+            "qualifier": "brutal_assault_red",
+            "qualifierUID": "4",
+            "threshold": 2,
+            "cost": 2
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "romping_club",
+            "sourceUID": "8",
+            "power": 4,
+            "defense": 6,
+            "damage": 0,
+            "attacker": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "sourceUID": "4",
+            "power": 6,
+            "defense": 0,
+            "damage": 6,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "romping_club",
+            "cost": 2,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "cost": 2,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          14
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-instant-excluded-preserves-effect",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2821bda670bb1934d7f276f30955152156613e3a545e14ebf1d613c1e08ddf18",
+        "actions.json": "7c97b2a9bf6f41d21ba16af71a479a6662ab92d578b6409ecbab2a3f9f8bedd1",
+        "assertions.json": "9cf63e1486e0cede2ba1d08a37778fcf535e9d0f4e19101529060cbeb73d53ad",
+        "expected_final_gamestate.txt": "99d6e42d6f6939990db1a3709bae0d58db70f1c0e2c54320a122aedfbbb31f36",
+        "meta.json": "58d63c971dd54cf4f9533c5ef97c780f0da2d124e758da1d20b7ff8913fe3e59"
+      },
+      "fixture_sha256": "bfe35021d35038eb5f6846ffa5d6a7a06ff774f3ccad72145a5424aecac566ef",
+      "actions": 20,
+      "native_assertions": 30,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 6,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 7,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 9,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 11,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 20,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "3",
+            "qualifier": "brutal_assault_red",
+            "qualifierUID": "5",
+            "threshold": 2,
+            "cost": 2
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "brutal_assault_red",
+            "sourceUID": "5",
+            "power": 6,
+            "defense": 0,
+            "damage": 6,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "cost": 2,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          23,
+          14
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-arsenal-source",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "870a17382fd204e590fde285a170ce744cc059fc67a06b31714e5ea99881792d",
+        "actions.json": "37aebede51ac6898da7250dd161e5e7eefbb267fa67e5aef0a0266fa2eb8dfc1",
+        "assertions.json": "1272dc649c3dcc8d344a9c01c75d15913a59c646e2993cbec012ef964ab6af1d",
+        "expected_final_gamestate.txt": "80fab0b0ad33e8aeaf1359216532c392b116d34a160909d5fd579d90cc8ab7c8",
+        "meta.json": "b852ac3c7188fddbdf722f633345532dc913b12ee28b459857c01054afa4b465"
+      },
+      "fixture_sha256": "cbc4127f7ba7c082087833f530a770b0058e7fed0a21f64170517bf10253df42",
+      "actions": 17,
+      "native_assertions": 27,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 3,
+          "native_assertions": 1
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 6,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 8,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 17,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "3",
+            "qualifier": "brutal_assault_red",
+            "qualifierUID": "4",
+            "threshold": 2,
+            "cost": 2
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "brutal_assault_red",
+            "sourceUID": "4",
+            "power": 6,
+            "defense": 0,
+            "damage": 6,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "cost": 2,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          14
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-opponent-response-before-ap-gain",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4add9313d6b44176d6416e264b1a60351c0c487c2ea9313b41366127d35b6c72",
+        "actions.json": "97e40b5ff1b1cdcf1107b5769e917499839e03c3c1780c4e708d8cef3d3f3152",
+        "assertions.json": "98b094ef1ceef5af1110736774f0d7b88cb38a33b1aacd62b6b72ab369125247",
+        "expected_final_gamestate.txt": "d4c7d6693fca045176db4f1382606c998cdd3b2945356df66b2d1b202fdc3cbf",
+        "meta.json": "443322876622db02e9b881295435736a1b891f9070e1c9a3d39f6cdff19ed711"
+      },
+      "fixture_sha256": "41bc841fce7b728a05ba245e4675fc9152a2e29cf7445e1a267fc57a8e74ea72",
+      "actions": 20,
+      "native_assertions": 32,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 4,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": null,
+          "step": 5,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "opponent_response_finished_trigger_still_pending",
+          "step": 7,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 9,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 11,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 20,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "3",
+            "qualifier": "brutal_assault_red",
+            "qualifierUID": "4",
+            "threshold": 2,
+            "cost": 2
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "brutal_assault_red",
+            "sourceUID": "4",
+            "power": 6,
+            "defense": 0,
+            "damage": 6,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "cost": 2,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          17
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-rejected-action-does-not-consume",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "84bae0d5d68c2e0369efa646126aac3e1ec6b141df4b68f16aad34b8146b9166",
+        "actions.json": "3750b4360465d2636b485520f4125f8b07ccf46148056757b2b4fb3347b437f9",
+        "assertions.json": "3c9d93aa4d07ca46724dddbdebecbc5e33b029bd8c0636a006fcf064b840cdb6",
+        "expected_final_gamestate.txt": "a070f5c79ff7f86eeef061a9cdf38394cbb702cfa6112f8120809c978c4d1174",
+        "meta.json": "04cfa15b446a72617d4a54196799f79e6adaf156cde74bd500515e9b12b6ada1"
+      },
+      "fixture_sha256": "76f97e22fe0ee3edbc1732de0ac02890abfe51b2dc7c189081af0d4a76a0cec6",
+      "actions": 21,
+      "native_assertions": 36,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 3,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": "unfunded_action_rejected",
+          "step": 4,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 7,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 8,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 10,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 12,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 21,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 3,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "3",
+            "qualifier": "brutal_assault_red",
+            "qualifierUID": "4",
+            "threshold": 2,
+            "cost": 2
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "brutal_assault_red",
+            "sourceUID": "4",
+            "power": 6,
+            "defense": 0,
+            "damage": 6,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "cost": 2,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 1,
+        "health": [
+          20,
+          14
+        ],
+        "resources": [
+          1,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-unused-expires-this-turn",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4f1af330424080c7c858f460e05b26cd169b5ed54d5ada3db28409c7632187de",
+        "actions.json": "7def9701232ff2e4e50b2f33787c86fb4eae45367c9b6cd2054d74954a313a8c",
+        "assertions.json": "979e395a0ac28d73366ba9131a2927bc11e42462535125dfb20466e982635f7b",
+        "expected_final_gamestate.txt": "c20eaac2b9a6d5c66df7115d3810dd2d4e70652d1850603417bee7ec2d00f549",
+        "meta.json": "1ec8d346084eabf46370a288e7a2bcc0c411ae988e99e73f02efc67208a967b2"
+      },
+      "fixture_sha256": "d008940a5385f358d45ea149d8a4f23aa21db2cb621968dbaf6e81589674a17f",
+      "actions": 38,
+      "native_assertions": 30,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 7,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 19,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": null,
+          "step": 25,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": null,
+          "step": 26,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "expired_effect_no_trigger",
+          "step": 27,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 29,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 38,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [],
+        "completed_attacks": [
+          {
+            "cardID": "wounding_blow_blue",
+            "sourceUID": "6",
+            "power": 2,
+            "defense": 0,
+            "damage": 2,
+            "attacker": 2
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "sourceUID": "4",
+            "power": 6,
+            "defense": 0,
+            "damage": 6,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "wounding_blow_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "cost": 2,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          18,
+          14
+        ],
+        "resources": [
+          1,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 4,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-pitched-no-effect-no-go-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "23159f4bc48d09ad3802c90e098631f4cc63183f3340fb8e47d8fdf4a36ad301",
+        "actions.json": "8f603033cd5b31a6e139c4992830aff772102b297844e4a597f9b592a890f769",
+        "assertions.json": "ea1658e931e8a1ca3f68e62d5adff33ad943ae00467ea0a91a9e5ca1f9ddc6da",
+        "expected_final_gamestate.txt": "7f9fb0af4e9182d538bce0958483ee2e843d7a9782ad3cf28c050e94a751e345",
+        "meta.json": "0d7ef9acba9ae8a5a9a0b0014c0c6c0d2fa3dd3e6f620166e3c49ba056029497"
+      },
+      "fixture_sha256": "34912af8d5232430a3ce41773d74c82162221396ec3de500e51a128c6d5b217c",
+      "actions": 13,
+      "native_assertions": 17,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "pitch_does_not_install_lead",
+          "step": 2,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": null,
+          "step": 4,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 13,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [],
+        "completed_attacks": [
+          {
+            "cardID": "raging_onslaught_red",
+            "sourceUID": "3",
+            "power": 7,
+            "defense": 0,
+            "damage": 7,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "raging_onslaught_red",
+            "cost": 3,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          13
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-zero-action-points-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9fa84053f893deb0a82bcfa027c6fcd71b103b9c708a8a8c9e720e4fadaf4c01",
+        "actions.json": "552f566dbb3f92cd5ba073367ebc69489d64068f7398d09f17f8cf93f0e2025d",
+        "assertions.json": "63c7d846010562c36170ca719a6de24dfabb04495e61b2da9bd01d28ee9a72bd",
+        "expected_final_gamestate.txt": "e073bce135699855e7f62b320da8301e34ed19bbaae042c3528235b2225cc40d",
+        "meta.json": "54f02d812b13ca6f14e1e9e49dff2e7898dfbed8652671f54f4dc98e304be807"
+      },
+      "fixture_sha256": "1a82f889930f3311283dcc5cf430898311a158d9e328d813e269ba8a8f34a58a",
+      "actions": 1,
+      "native_assertions": 6,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 6
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [],
+        "completed_attacks": [],
+        "cost_payments": [],
+        "rejected_clicks": 1,
+        "health": [
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "window": "ACTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-nonturn-action-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "dd74e949d8f4ff19247f8341a6e80fe9fde21a2dd09568d81928a9f55e83fe72",
+        "actions.json": "f09dd53c2a5c5d163b4a2920873daf59040048dd0668994dee1a686156268dd3",
+        "assertions.json": "818ec481ed6b2b4d580d797eeeb1fd99e12e78e579e5703f50c79dc97a97d728",
+        "expected_final_gamestate.txt": "6be3816424554f4d9e647d656613e799650118ccf761d685160208aa5e5ebe1d",
+        "meta.json": "cf011051bd80834b432336ee24df587b6adab321575e16ba340fa02c41446b16"
+      },
+      "fixture_sha256": "6aace6b72cb89fa6367fae6332abeac16479226035a3d2c82418c0cfa9f8fbfb",
+      "actions": 1,
+      "native_assertions": 6,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 6
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 2,
+            "mzID": "p2Hand-0"
+          }
+        }
+      ],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [],
+        "completed_attacks": [],
+        "cost_payments": [],
+        "rejected_clicks": 1,
+        "health": [
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "window": "ACTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 2
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-blue-two-sources-two-independent-triggers",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "65e95bac5eaac55c9309d6217a1e5810190a50037bf9eaae9f5817f70563d885",
+        "actions.json": "a78d3a558ce2749b7b2c5eb61b8305a56fcc108c74f40986afd7aece344ab592",
+        "assertions.json": "bef7c2463d3a8815f438a58bfbf05a4c75dbca73d1cb4033916065df9d81f898",
+        "expected_final_gamestate.txt": "117b00a02b1a1b2a72b76b8e0dab9bd976ac7a1caa190e47d66419b2c840a80f",
+        "meta.json": "9c6112b9db6c974fd4dfa26525e8a0edb98b970ee5d1bc0af839b1869dab8669"
+      },
+      "fixture_sha256": "c9e796e037c83b6e571c7de1c9586306ff2009c9835bb24b4adc46dd609dc2cb",
+      "actions": 22,
+      "native_assertions": 29,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "lead_resolved_and_own_go_again_finished",
+          "step": 3,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 6,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "trigger_pending_before_any_ap_gain",
+          "step": 7,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "lead_trigger_resolved_underlying_card_still_pending",
+          "step": 11,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "qualifying_attack_got_ap_not_go_again",
+          "step": 13,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "link_resolved",
+          "step": 22,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+      "derived_effect": {
+        "threshold": 2,
+        "triggers": [
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "3",
+            "qualifier": "brutal_assault_red",
+            "qualifierUID": "5",
+            "threshold": 2,
+            "cost": 2
+          },
+          {
+            "source": "lead_the_charge_blue",
+            "sourceUID": "4",
+            "qualifier": "brutal_assault_red",
+            "qualifierUID": "5",
+            "threshold": 2,
+            "cost": 2
+          }
+        ],
+        "completed_attacks": [
+          {
+            "cardID": "brutal_assault_red",
+            "sourceUID": "5",
+            "power": 6,
+            "defense": 0,
+            "damage": 6,
+            "attacker": 1
+          }
+        ],
+        "cost_payments": [
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "lead_the_charge_blue",
+            "cost": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "brutal_assault_red",
+            "cost": 2,
+            "actionPoints": 1
+          }
+        ],
+        "rejected_clicks": 0,
+        "health": [
+          20,
+          14
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          2,
+          0
+        ],
+        "window": "RESOLUTION",
+        "turn": 1,
+        "turnNumber": 2,
+        "priority": 1
+      }
+    }
+  ],
+  "bounds": [
+    "Only two strengthened pilots retain exact intermediate sourceKind/controller/UID/Params and blue explicit Close; other47 retain original timing/effect branch checks.",
+    "Ordinary own-turn cases only; legal offturn Kano witness reviewed separately and not counted here.",
+    "Existing source Graveyard provenance is a bounded native diagnostic, not a claim about general source LKI.",
+    "No unknown ability loss/replacements/foreign ownership/negative cost/cost modifiers/multiplayer claims; all three identities remain partial.",
+    "Parent frozen-runtime clean replay and focused semantic controls remain required for deterministic qualification."
+  ]
+}

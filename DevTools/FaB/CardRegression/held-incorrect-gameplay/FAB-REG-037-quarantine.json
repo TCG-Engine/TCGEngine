@@ -1,0 +1,26 @@
+{
+  "status": "QUARANTINED_OUTSIDE_NATIVE_RUNNER_DISCOVERY",
+  "issue_id": "FAB-REG-037",
+  "slug": "card-talisman-of-warfare-yellow-four-live-sparse-actual-exact-two-damage-destroys-talisman-and-four-owned-arsenals",
+  "original_path": "Tests/Integration/FaBSim/card-talisman-of-warfare-yellow-four-live-sparse-actual-exact-two-damage-destroys-talisman-and-four-owned-arsenals",
+  "quarantine_path": "DevTools/FaB/CardRegression/held-incorrect-gameplay/FAB-REG-037",
+  "raw5_sha256": {
+    "initial_gamestate.txt": "d6a51dd329c6ddae964d1676596d1ad152973367323d5e6bed62b47ef645ba48",
+    "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+    "assertions.json": "29d0d8140b8e6af4e1d9ff70803144dc98a31a1899b776b77efa166414272192",
+    "expected_final_gamestate.txt": "bb44ba57debb27222fe453e3c83ccc85bb1e72107e72b6b4e0d9b5e82bcb0703",
+    "meta.json": "9497a0506eb59237ca08db37379aafff6c18345eab1fd2c8fdaf63f37c58c8ad"
+  },
+  "fixture_sha256": "62371d2b3e97b9f86c050bd95371a168264f989c6983123b4a29ea129177e13f",
+  "files_preserved": 5,
+  "backup_verified_before_removal": true,
+  "qualification": "Incorrect historical snapshot; NOT a passing regression and NOT coverage. Correct-expectation probe separately failed unsaved.",
+  "restore_instructions": "Keep quarantined while unresolved. After a reviewed gameplay fix, use the correct FaceDown=0 source and native recorder to create a newly qualified canonical case. These five archived bytes may be copied to an isolated disposable investigation directory for reproduction; do not restore incorrect expectations to the passing corpus.",
+  "completed_utc": "2026-10-22T18:14:33.357636+00:00",
+  "native_discovery": {
+    "fixture_count": 3200,
+    "quarantined_slug_discovered": false
+  },
+  "original_canonical_path_absent": true,
+  "all_archived_hashes_verified": true
+}

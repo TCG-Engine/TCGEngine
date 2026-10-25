@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T21:10:44+00:00",
+    "input_file": "card-regression-batch176.json",
+    "input_sha256": "86b7abd873100e3086266f7c5260e44aaede59a3c371624434e5b71b23039fa1",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-aether-ironweave-four-live-sparse-actual-nonattack-and-attack-play-close-combat-before-equipment-resource-activation",
+            "status": "recorded_semantically_checked",
+            "actions": 37,
+            "assertions": 1484
+        }
+    ]
+}

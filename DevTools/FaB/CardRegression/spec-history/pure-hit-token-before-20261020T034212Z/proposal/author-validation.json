@@ -1,0 +1,21 @@
+{
+  "status": "AUTHOR_STRUCTURAL_STATIC_VALIDATION_ONLY",
+  "identity_count": 12,
+  "printing_records": 33,
+  "requirements": 219,
+  "pilots": 4,
+  "pilot_native_oracles": 1032,
+  "compiled_callbacks": 12,
+  "all_current_zero_reviewed_branches": true,
+  "only_supported_steps": true,
+  "no_seeded_state_history_permissions": true,
+  "native_actions": 0,
+  "native_writes": 0,
+  "outputs": {
+    "catalog12-and-source-audit.json": "07f5234d265146ab008efe67395e51f760609a7a219c7f6b334de4d7433079d2",
+    "ordinary-branch-matrix-proposed.json": "ddcccdd8d516ee7b873fac646ebe557af7e1d37310d179e9fa42873d61a95cc4",
+    "pilot4-correct-rule-proposed.json": "477e175d50eaaa312da8db92675622a8149a040a5f45a3a7af15a3f932143856",
+    "negative-control-plans.json": "749b06b09aeff0517a5ec657558ae4f9491d0e584445364d5de20df346e26b94"
+  },
+  "script_sha256": "642b3aec676ac4d87f55de8bbe8f6c042f0621400a1f9d537d5e6a3eeeae80c5"
+}

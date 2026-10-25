@@ -1,0 +1,7 @@
+{
+    "name": "Leg Tap / innate go again / yellow / hand-overfunded-retains-one",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T04:02:25+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "leg_tap_yellow: printed cost1, pitch2, power3, defense2; exact printed text Go again. Play from legal Hand with2 resources. Pay printed1/oneAP exactly once, retain1. Printed power deals3; go again remains true but AP0 through Reaction, becomesAP1 at Resolution and remains1 after actual chainclose. No subject hit trigger or modifier. Any spare blue is never pitched for a zero-cost play. Sources: FaBSim/GeneratedCode/cardArrayCache.json#leg_tap_yellow https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP117.webp https://rules.fabtcg.com/en/cr/08-keywords/#835 https://rules.fabtcg.com/en/cr/08-keywords/#826 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#517 https://rules.fabtcg.com/en/cr/07-combat/#762 FaBSim/Custom/GameLogic.php::CanPlayCard/FaBTryCompletePayment/FaBDeclareBlock/FaBBeginDamageStep/FaBBeginResolutionStep/FaBCleanupResolvedLink/FaBCloseCombatChain"
+}

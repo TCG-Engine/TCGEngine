@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-rousing-aether-red-four-live-repair-earned-boots-go-again-source-stays-stack-through-barrier",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 818
+    },
+    {
+        "slug": "card-aether-quickening-red-four-live-repair-earned-surge-and-external-go-again-once",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 1031
+    }
+]

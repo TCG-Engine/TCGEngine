@@ -1,0 +1,162 @@
+{
+  "status": "B182_ONE_SPARSE_EQUIPMENT_REPRESENTATIVE_TWO_CLEAN_TARGETED_REPLAYS_ONE_EXACT_NATIVE_CONTROL_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch182.json",
+  "input_sha256": "e66b612d61dab18aae89e8073a4a16c483ae3a2af00dff0875d1ce9cdfebdf4c",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:18:24.675041+00:00",
+  "fixtures": [
+    {
+      "slug": "card-braveforge-bracers-four-live-sparse-actual-first-sword-hit-earns-paid-equipment-buff-to-second-one-handed-sword",
+      "fixture_sha256": "338eb5cc59a3244a3f455bbc159b708a6549ac197461b55587107594ceb3fbb4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "faebcfcf368f65260d069a581ea3a0bd35deb9bd17377361ab87a1113ec8b46b",
+        "actions.json": "b3ed361a49caaa5b3534b43d90b35834153d91f972e113d36a2cfbf8e4186d0c",
+        "assertions.json": "6f24c2e5867be3eb55cbbd9cb9cc1c1ee184ceb64d3072e39a57d2df3e0890c7",
+        "expected_final_gamestate.txt": "cbefefa8570eebf737deabbf917f8ebef8c95758959fc4a8db56807296cabf9e",
+        "meta.json": "4722f1b5c22c287b69da50d2a9fc877a59d833d2bbc7eabbd858541014abba2c"
+      },
+      "semantically_approved": true,
+      "actions": 65,
+      "native_assertions": 3073,
+      "actual_manual_passes": 58,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "authoring_only_checks": 1,
+      "physical_weapon_uids": [
+        6,
+        7
+      ],
+      "distinct_virtual_uids": [
+        10,
+        11,
+        12
+      ],
+      "first_actual_hit_and_full_combat_close_before_primary": true,
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 65,
+  "total_native_assertions": 3073,
+  "total_manual_passes": 58,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b182-actual-saved-independent-review.json",
+    "sha256": "be73047a428bd14e766482f303090057414174f6ccafe7797e5af04884b606df"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b182-independent-spec-review.json",
+    "sha256": "d9bafddd89e71661ae7b1bad424a8412d3e02d95242c207cb77bf9b1399064ce"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch182-20261022T211657Z-6ada7d49baab2.json",
+    "sha256": "b206771a0835ec0c441667f6e2d4c2afef8ccd194b61bb5e27a81d7bcfd65977"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b182-four-live-run1.json",
+      "sha256": "9f0f99ee76b53f129487e75747011f5d47725a576e050895ee5f774b847cc743",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch182.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b182-four-live-run2.json",
+      "sha256": "731906a1ade4e29978074d90a7e983777ee6c2f1352cc12e747e7ea952562c6b",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch182.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-b182-focused-fault-results.json",
+    "sha256": "527e4402be43276ef3dfe8d707678b8718e3575468c478e73639127d6f874d24",
+    "total": 1,
+    "intended_semantic_failures": 1,
+    "plan_sha256": "d8991f4719db57e663c01ec8fdc4344ad50bed8f7d3c8b79b023ee5f7b07ef61",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b182_braveforge_bracers_actual_earned_next_other_weapon_power_sensitivity",
+      "fixture": "card-braveforge-bracers-four-live-sparse-actual-first-sword-hit-earns-paid-equipment-buff-to-second-one-handed-sword",
+      "prefix_actions": 44,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "cintari_saber",
+            "mode": "remove",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 863,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b182-focused-fault-plan.json",
+    "sha256": "d8991f4719db57e663c01ec8fdc4344ad50bed8f7d3c8b79b023ee5f7b07ef61"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 3305,
+  "native_evidence_review_checks": 43,
+  "limitations": [
+    "Every actual action/actor/persisted assertion matches independent printed model; raw initial/final profiles checked. One authoring-only can_activate evaluated in paper but omitted from saved oracle count; actual recorded Bracers activation/payment establishes legal path. Root sole native executor/repository writer.",
+    "Actual first controlledSword6 hits2 with HnR8 grantedGA and realBlue9pitch/cost1/R2. FULL first damage/resolution/chainclose to ACTION/priority1/combatOpenfalse/emptyStack&chains occurs before Brave5 Action1 paysfloatingR2to1/AP0. Fourresponses grant nextweapon1/abilityGA/AP1. Different physicalreadySword7 cost1/R0 attacksbase2+1=3/HP18to15/noGA/AP0.",
+    "Two legal physical1H Swords6/7 remain owned/used; Eq5retained; virtual10/11/12 absent. Sole GY HnR8 ownedpublicFaceDown0/Blue9Pitch. No seeded hit/effect history or rawbucket oracle.",
+    "Only selected real-hit eligible activation/paid nextotherweapon buff. Missinghit/once rejection/reset, Battleworn, CintariAAdefender/Boltyncharge/Soul/HnRlate+3, alternate recipients/expiry/support/hero/full-card untested. Native control removes only actual WTR_POWER1 on secondproxy12; allsuffix actions/oracles retained. No legacy/fullsuite.",
+    "Two new targeted clean replays and one intended native earned next-other-weapon power omission only. Full-suite runs explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Native control removes only actual WTR_POWER1 on second actual Saber7 attackproxy12 atprefix44, after actual HnR8/firstSword6 paid1/Blue9pitch/hit2/FULLcombatclose, real retainedBrave5 Action1 paysfloatingresource1/fourresponses, and different physicalSword7 printed1 paid/target/attackentry. Intended original Initial computedpower3-to2 detected; all21 suffixactions/every suffixoracle retained, earnedhit/fullclose/payment/physicalweapons unchanged. One authoring-only can_activate earns no persisted-oracle credit. No missinghit/once/Battleworn/CintariAAdefender/Boltyncharge/HnRlate+3/otherrecipient/expiry/support/hero/fullcard/global claim."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "426918840d1af615ee9645c4740d595357d38cd8264db60da6f3b5b4e1e27dcf",
+  "current_independent_delta_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b182_independent.py",
+    "sha256": "1d646f57c28cc56ceff7d87177c8e3f73e6048cba1c35208639cb9c0bd0bba8c"
+  }
+}

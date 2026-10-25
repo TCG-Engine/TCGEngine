@@ -1,0 +1,7 @@
+{
+    "name": "Snapdragon Scalers / already-go-again-does-not-stack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:31+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Attack reaction activation is legal on own head_jab_red, printed cost0. Destroy legs immediately, then grant go again on ability resolution. Attack deals3; resolution returns exactly1 AP, including when target already has go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#snapdragon_scalers https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

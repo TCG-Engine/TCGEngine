@@ -1,0 +1,30 @@
+{
+  "status": "ROOT_INDEPENDENT_THREE_CHANGE_DIFF_APPROVED",
+  "reviewer": "/root (independent of candidate author /root/resume_contract_review)",
+  "generated_utc": "2026-10-21T00:04:04.187794+00:00",
+  "path": "DevTools/FaB/CardRegression/summarize_card_regression_cycles.py",
+  "before_sha256": "8f3f6b5ce3da18eaae47ec0253a9d8743dbe97537149b5bb26f8e38887876bda",
+  "after_sha256": "17428ae161356f39b520853868bb9899cc254e679ad13d2a30a23f58fd6627f3",
+  "schema_version": 2,
+  "exact_changes": [
+    {
+      "before": "'sparse_four_live_first_pass': bool(any(row['rank'] >= 3 for row in four))",
+      "after": "'sparse_four_live_first_pass': bool(any(row['rank'] >= 2 for row in four))"
+    },
+    {
+      "before": "return {'schema_version': 1, 'status': 'CURRENT_SPARSE_CYCLE_PRIMARY_EVIDENCE_ONLY'",
+      "after": "return {'schema_version': 2, 'status': 'CURRENT_SPARSE_CYCLE_PRIMARY_EVIDENCE_ONLY'"
+    },
+    {
+      "before": "One exact reviewed primary-member fixture with two distinct current clean replay reports represents its own group for sparse four-live first-pass breadth.",
+      "after": "One exact reviewed primary-member fixture with a verified four-live profile and at least one current clean replay report represents its own group for sparse four-live first-pass breadth. New fixtures retain two clean replays at creation; after a shared-source change, one current compatibility pass can revalidate unchanged reviewed baseline fixtures. Two-current-replay diagnostics and finite completion gates remain separate and unchanged."
+    }
+  ],
+  "author_boundary_cases_passed": 30,
+  "author_boundary_proof_sha256": "f356c67edfc2b06793f607170a975b7bc31d38650b1f7bbf314734782bff402d",
+  "root_review": "Rank2 still requires exact saved bytes, affirmative exact retained review, a current-runtime clean replay matching those bytes, and the verified four-live profile. Rank3/two-current diagnostics, source/runtime/hold guards and all finite-card gates are byte-unchanged. New scenario creation retains two targeted clean replays; a shared-source compatibility full run need not be repeated merely to preserve first-pass breadth labels.",
+  "gameplay_runtime_unchanged": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "tests_or_expectations_changed": false,
+  "reviewed_sibling_credit_inherited": false,
+  "backup_outside_repo": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\cycle-summary-first-pass-policy-v2-proposed\\before.py"
+}

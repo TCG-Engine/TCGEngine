@@ -1,0 +1,308 @@
+{
+    "completed_at_utc": "2026-10-20T03:40:56+00:00",
+    "input_file": "card-regression-batch66.json",
+    "input_sha256": "5884fa05c93233352e53ead25ec23bf8d9f95d09654788cf6e030de521281db7",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-own-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-own-hand-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-own-hand-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-arsenal-face-up",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 129
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-arsenal-face-down",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 129
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-nonturn-instant-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 291
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 84
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-no-defense-property-real-block-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 241
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-pitch-primary-real-funding",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 308
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-opponent-response-no-early-heal",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 238
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-own-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-own-hand-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-own-hand-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-arsenal-face-up",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 129
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-arsenal-face-down",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 129
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-nonturn-instant-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 291
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 84
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-no-defense-property-real-block-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 241
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-pitch-primary-real-funding",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 308
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-opponent-response-no-early-heal",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 238
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-own-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-own-hand-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-own-hand-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-arsenal-face-up",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 129
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-arsenal-face-down",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 129
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-nonturn-instant-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 291
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 84
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-no-defense-property-real-block-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 241
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-pitch-primary-real-funding",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 237
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-opponent-response-no-early-heal",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 238
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-positive-real-opponent-arcane-before-play",
+            "status": "recorded_semantically_checked",
+            "actions": 8,
+            "assertions": 283
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-physical-damage-only-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 242
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-fully-prevented-arcane-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 9,
+            "assertions": 353
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-only-opponent-was-dealt-arcane-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 283
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-prior-turn-arcane-history-expires",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 329
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-positive-real-self-arcane-before-play",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 283
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-positive-real-opponent-arcane-before-play",
+            "status": "recorded_semantically_checked",
+            "actions": 8,
+            "assertions": 283
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-physical-damage-only-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 242
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-fully-prevented-arcane-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 9,
+            "assertions": 353
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-only-opponent-was-dealt-arcane-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 283
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-prior-turn-arcane-history-expires",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 329
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-positive-real-self-arcane-before-play",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 283
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-positive-real-opponent-arcane-before-play",
+            "status": "recorded_semantically_checked",
+            "actions": 8,
+            "assertions": 283
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-physical-damage-only-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 242
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-fully-prevented-arcane-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 9,
+            "assertions": 353
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-only-opponent-was-dealt-arcane-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 283
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-prior-turn-arcane-history-expires",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 329
+        },
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-arcane-after-announcement-before-resolution",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 437
+        },
+        {
+            "slug": "card-arcane-polarity-yellow-conditional-heal-arcane-after-announcement-before-resolution",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 437
+        },
+        {
+            "slug": "card-arcane-polarity-blue-conditional-heal-arcane-after-announcement-before-resolution",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 437
+        }
+    ]
+}

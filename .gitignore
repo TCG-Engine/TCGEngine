@@ -170,3 +170,19 @@ HellbreakSim/_research/
 # means "normal service", so it must never ship in a deploy and freeze a healthy site.
 */maintenance.json
 SWUDeck/SimulationConfig.local.php
+
+# Python bytecode caches
+__pycache__/
+*.pyc
+
+# newhost/setup-box.sh: the filled-in config holds the DB password; the kit writes its backups next to itself
+newhost/box.conf
+newhost/newhost-backups-*/
+newhost/research/
+
+# DevTools/melee-package.php: recorded melee.gg tournament packages, uploaded to swustats.net by a moderator
+.melee-packages/
+
+# LocalBugReportLib.php: Petranaki bug report store (both players' hidden cards) and the local package inbox
+SWUSim/BugReports/
+.bugreports/

@@ -1,0 +1,90 @@
+{
+  "command": "Existing RunIntegrationTests.php --root=FaBSim --test=<each listed slug>",
+  "scope": "TARGETED_SUBSET_ONLY_NOT_A_FULL_CORPUS_RUN",
+  "runtime_sha256": "7b6270fcded6644480dd6e6706c955e5dd607f4369e592b1c022ac56e124a85c",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T03:27:47.423022+00:00",
+  "canonical_inventory_at_capture": 2781,
+  "fixtures": [
+    {
+      "slug": "card-command-and-conquer-red-fully-blocked-no-hit-keeps-arsenal",
+      "fixture_sha256": "9487865f8cc83761af02e0d4470d02b06126b9be956fb16e3a4f3c4ba607b3a2",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / fully blocked6 no hit trigger or Arsenal destruction"
+    },
+    {
+      "slug": "card-command-and-conquer-red-hit-trigger-sigil-arsenal-response",
+      "fixture_sha256": "6b3d669a1c882bc92dd078ceb31452e59c7db8766c5409d929a89c6a9847ceaf",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / real Sigil Arsenal response before hit destruction"
+    },
+    {
+      "slug": "card-command-and-conquer-red-hit-trigger-sigil-hand-response",
+      "fixture_sha256": "1c24592726ae072b72eaa2d60cb4f44525c69d4990790969065fd9e86143deda",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / real Sigil Hand response before hit destruction"
+    },
+    {
+      "slug": "compat-reaction-priority028-cnc-prohibition-physical-source-owner",
+      "fixture_sha256": "89cc35cbfc354ba31db4bcfa7c09558c1072763ef239ae71d58a833baabb3092",
+      "passed": true,
+      "result": "[PASS] Issue028 native compatibility / real-command-and-conquer-prohibition"
+    },
+    {
+      "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+      "fixture_sha256": "bed06a4057ac2db1b7c3a10ebe62f5002d753fe6d85213e6f3fa7ea8dc4fa7a2",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / mandatory when-hit trigger / arsenal-present"
+    },
+    {
+      "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-empty-arsenal-still-triggers",
+      "fixture_sha256": "68b446a9a4b8b72e3e444364fbe4ddfe081bdf9ba5821598441e950e6a7351fe",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / mandatory when-hit trigger / empty-arsenal-still-triggers"
+    }
+  ],
+  "per_fixture_native_commands": [
+    {
+      "slug": "card-command-and-conquer-red-fully-blocked-no-hit-keeps-arsenal",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-command-and-conquer-red-fully-blocked-no-hit-keeps-arsenal",
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / fully blocked6 no hit trigger or Arsenal destruction\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-command-and-conquer-red-hit-trigger-sigil-arsenal-response",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-command-and-conquer-red-hit-trigger-sigil-arsenal-response",
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / real Sigil Arsenal response before hit destruction\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-command-and-conquer-red-hit-trigger-sigil-hand-response",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-command-and-conquer-red-hit-trigger-sigil-hand-response",
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / real Sigil Hand response before hit destruction\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "compat-reaction-priority028-cnc-prohibition-physical-source-owner",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=compat-reaction-priority028-cnc-prohibition-physical-source-owner",
+      "returncode": 0,
+      "stdout": "[PASS] Issue028 native compatibility / real-command-and-conquer-prohibition\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / mandatory when-hit trigger / arsenal-present\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-empty-arsenal-still-triggers",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=probe-command-and-conquer-red-mandatory-hit-trigger-empty-arsenal-still-triggers",
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / mandatory when-hit trigger / empty-arsenal-still-triggers\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ]
+}

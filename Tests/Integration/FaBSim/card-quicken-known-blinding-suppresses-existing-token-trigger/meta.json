@@ -1,0 +1,7 @@
+{
+    "name": "Quicken / known-blinding-suppresses-existing-token-trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:33:06+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Known already-resolved BLIND during Guardian Bravo own turn suppresses owned Quicken. Playing vanilla Wounding Blow red pays AP1 and creates only its attack layer; no Quicken trigger, destruction or grant occurs. Attack deals printed4, life16, AP0, Quicken remains. This tests persisted suppression interaction; it does not cover Blinding generation, crush, duration or expiry. Token boundary CR8.1.8a: destroyed Quicken is removed from the game, so it never remains in Graveyard; explicit graveyard counts verify this. Sources: FaBSim/GeneratedCode/cardArrayCache.json#quicken FaBSim/GeneratedCode/cardArrayCache.json#wounding_blow_red https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

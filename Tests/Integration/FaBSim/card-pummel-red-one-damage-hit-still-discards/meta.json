@@ -1,0 +1,7 @@
+{
+    "name": "Pummel / one-damage-hit-still-discards",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:33+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Blockers supply exact defense7 against power8, leaving exactly1 damage. Red uses two defense3 hand cards plus Ironrot Legs1; yellow uses two defense3 cards; blue uses defense3 plus Nimblism blue defense2. The hero-hit ability must trigger for any positive damage, and resolving it discards the sole retained filler. Final life19, hand0/graveyard1, AP0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pummel_red https://judge.fabtcg.com/cards/detail/319/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

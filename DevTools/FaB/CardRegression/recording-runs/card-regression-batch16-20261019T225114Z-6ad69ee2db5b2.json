@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-19T22:51:14+00:00",
+    "input_file": "card-regression-batch16.json",
+    "input_sha256": "7032670aa30b328940ff12cc1854112d95e3a6b3a352e569acafa8bcde84e579",
+    "filter": "quicken-next-attack-trigger-and-consumption",
+    "results": [
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-quicken-next-attack-trigger-and-consumption",
+            "status": "recorded_semantically_checked",
+            "actions": 41,
+            "assertions": 49
+        }
+    ]
+}

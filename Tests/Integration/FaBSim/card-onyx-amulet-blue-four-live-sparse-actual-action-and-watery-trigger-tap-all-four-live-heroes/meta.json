@@ -1,0 +1,7 @@
+{
+    "name": "Onyx Amulet / four live sparse physical item",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:47:21+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actually activate owned Onyx5 for printed0and1AP, destroying that same source to ownGraveyard. Its mandatory Legend of Watery Grave trigger is a separate layer: all four players pass, then source5turns face-down. The original ability then receives four more manual responses and taps all four actual heroes Status2to1 simultaneously. Only then its printed go again restores exactly1AP. No allies are present; no hero loses health. Every four live young20 hero UID1..4 is owned/controlled by its seat. Every response/combat window is passed manually by real actors1,2,3,4, with no passive/autopass seat. All final queues, health, AP/resources and physical objects are pinned. Only positive all-four-heroes tap, actual source destruction/Watery-face-down and final go-again endpoint. Ally tap, tap prevention, source suppression, untap/expiry, deck singleton construction and later turns are untested. One positive primary representative only; sibling/support/hero/full-card/alternative-branch/internal callback completeness is not awarded. Sources: https://judge.fabtcg.com/cards/detail/3922/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/SEA191.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

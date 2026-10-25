@@ -1,0 +1,68 @@
+[
+    {
+        "slug": "card-sigil-of-solace-red-gain",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 5
+    },
+    {
+        "slug": "card-sigil-of-solace-yellow-gain",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 5
+    },
+    {
+        "slug": "card-sigil-of-solace-blue-gain",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 5
+    },
+    {
+        "slug": "card-wounding-blow-red-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 3
+    },
+    {
+        "slug": "card-head-jab-red-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 3
+    },
+    {
+        "slug": "card-sink-below-red-exchange",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 7
+    },
+    {
+        "slug": "card-sink-below-red-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 7
+    },
+    {
+        "slug": "card-harmonized-kodachi-zero-cost-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 10
+    },
+    {
+        "slug": "card-harmonized-kodachi-nonzero-cost-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 5
+    },
+    {
+        "slug": "card-harmonized-kodachi-no-cost-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 5
+    },
+    {
+        "slug": "card-goliath-gauntlet-destroy-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 8
+    }
+]

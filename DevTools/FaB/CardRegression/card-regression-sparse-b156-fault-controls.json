@@ -1,0 +1,71 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:22:02.207230+00:00",
+  "plan_sha256": "a957dc8da17a181fddd4aa951549af569f5b045d6558b951eab63fe0835fcbd0",
+  "independent_saved_proof_sha256": "ccef99b69dc22d933bf48664455e22640f69c79bcd31c84d2ce3d8bc6fc195bf",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b156-focused-fault-plan.json",
+    "a957dc8da17a181fddd4aa951549af569f5b045d6558b951eab63fe0835fcbd0",
+    "card-regression-sparse-b156-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b156_peg_leg_focused_effect_sensitivity",
+      "fixture": "card-peg-leg-four-live-sparse-actual-paid-equipment-next-real-attack-go-again",
+      "fixture_sha256": "a9c32fa1a45f8e1a6145a399a015ab13f5a6212ec11f40b58ee2e73b3923abee",
+      "source_raw5": {
+        "initial_gamestate.txt": "ca0135ea8829397efca7cf6ff2e5dff1e01318d221c8f0b90b07eade8a9a4e4e",
+        "actions.json": "a8268102745472a624d7d9016304429294798e19eea85ae25e3f0b2d00f2c676",
+        "assertions.json": "ba8c327c01190680fbf491851deb32f6a3f2f852a409a131d00b0e6da150094c",
+        "expected_final_gamestate.txt": "d759d9bce5e22175f9563929252755964d92e896e128d1c12b55f406dfbd9d70",
+        "meta.json": "1464c69b0506755c113b2ed66511a5f30c25c9ac43b28d241f4780f81ab8521d"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "remove_effect": "SEA_NEXT"
+      },
+      "retained_assertions": 722,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Peg Leg / four live actual paid equipment attack grant: Step 6 assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual PegLeg SEA_NEXT after realBlue7pitch3/payment3 anddestroyEq5 plusfourresponses/abilityGA. OriginalAA6base4/damage4 andsourcecost/AP history unchanged; firstcomputedattackGA1 becomes0. Every original suffix action/oracle retained; missing printed grant sensitivity only, no alternative legal action, BladeBreak defense, further attack recipient or Gold/Rum/hero/support credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b156_fish_fingers_focused_effect_sensitivity",
+      "fixture": "card-fish-fingers-four-live-sparse-actual-paid-equipment-next-real-attack-plus-one",
+      "fixture_sha256": "a51df58177ed482a442a9fe8834378bd8ee42563f96cb24d54724f8061cec23d",
+      "source_raw5": {
+        "initial_gamestate.txt": "2068107516de781963f010bc40cd8af149dcfcf0879ddb4621038e296af92d77",
+        "actions.json": "a8268102745472a624d7d9016304429294798e19eea85ae25e3f0b2d00f2c676",
+        "assertions.json": "3d52ca7ffefe101177d506cdaf08adfaf9ea97481e15abd03fc1930f7e26ca9a",
+        "expected_final_gamestate.txt": "b76d7a39d6c0749895e1934321564831790207a4c6e2624561b3f75467907fd3",
+        "meta.json": "bacae93fd1f3c579f3fdcc4c930bf5a4a3090b778103ee7f0c23e30b1ff6f2bc"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "remove_effect": "SEA_NEXT"
+      },
+      "retained_assertions": 722,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Fish Fingers / four live actual paid equipment attack grant: Step 6 assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual FishFingers SEA_NEXT after realBlue7pitch3/payment1 anddestroyEq5 plusfourresponses/abilityGA. OriginalAA6cost0/noGA andsource/AP history unchanged; firstcomputedpower5 becomes4. Every original suffix action/oracle retained; missing printed grant sensitivity only, no alternative legal action, BladeBreak defense, further attack recipient or Gold/Rum/hero/support credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

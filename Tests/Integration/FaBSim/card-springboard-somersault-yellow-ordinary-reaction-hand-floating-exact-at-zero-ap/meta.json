@@ -1,0 +1,7 @@
+{
+    "name": "Springboard Somersault / ordinary reaction / hand-floating-exact-at-zero-ap",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:07:09+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Springboard Somersault: cost0, pitch2, defense2. When actually played from Arsenal, its defense becomes4; Hand stays2. No AP payment/refund. It resolves as a defending card, remains through damage/Resolution, then clears to ownerGY. Branch: hand-floating-exact-at-zero-ap. All oracles derive from printed text/rules; no native output sampled. Sources: FaBSim/GeneratedCode/cardArrayCache.json#springboard_somersault_yellow https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP374.webp https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

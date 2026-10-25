@@ -1,0 +1,110 @@
+[
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-own-hand-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 128
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-own-hand-overfunded",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 128
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-own-hand-zero-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 128
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-arsenal-face-up",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 129
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-arsenal-face-down",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 129
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-nonturn-instant-zero-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 291
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 84
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-no-defense-property-real-block-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 241
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-pitch-primary-real-funding",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 308
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-opponent-response-no-early-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 238
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-blue-pitch-overfunding",
+        "status": "recorded_semantically_checked",
+        "actions": 4,
+        "assertions": 187
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-insufficient-total-assets-no-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 84
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-red-pitch-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 4,
+        "assertions": 187
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-own-aura-present-not-destroyed-negative",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 140
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-only-opponent-aura-destroyed-negative",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 301
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-own-non-aura-item-destroyed-negative",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 237
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-own-aura-destroyed-after-announcement-before-resolution",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 525
+    },
+    {
+        "slug": "card-ominous-respite-yellow-conditional-heal-prior-turn-aura-destruction-expires",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 370
+    }
+]

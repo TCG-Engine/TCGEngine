@@ -1,0 +1,25 @@
+{
+  "reviewer": "/root/wtr_reaction_scenarios",
+  "review_basis": "Actual exact saved seven-action two-red AB2 recording checked against independent printed/action model, all156 native oracles, displayed serialized Hand0 chooser, original source/equipment/funding UIDs, full snapshots, payment/AP/damage/controller and cleanup. Clean replay remains separate.",
+  "authoritative_review_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\ab87th-actual-saved-independent-review.json",
+    "raw_sha256": "2843e8c7c91539bd3d65d7e4b1bd4f1f5ce75c6681aa05aed67a2583e3e357b8"
+  },
+  "fixtures": [
+    {
+      "slug": "card-aetherstorm-wellingtons-pay-red-pitch-twice",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ef0ac5810136b5c545034753c159ebc58189ed5cf5edbcc405ce780e5b899560",
+        "actions.json": "78b0c43c887bc819ef8140d1703eb3b1b86855fb7bb3b3cc78b096c5d7f39ed4",
+        "assertions.json": "990d5da619a0df87e89c086e5acbc096af43d9ec0af4a145b188b98d54468f89",
+        "expected_final_gamestate.txt": "0e0f96b59dac2ef117a42b66c64f1a9365d1ddddab4c599ce043d1b560d4d1b3",
+        "meta.json": "660acee294e5a86b9b248926afe8eea64c63ad9c03ae53394694b30664ea5812"
+      },
+      "fixture_sha256": "d9d054fa312b860c808e27562f64884ac73e0c399dda4f543099058f141522b8",
+      "actions": 7,
+      "native_assertions": 156
+    }
+  ],
+  "qualification": "Exact saved bounded branch semantic review. No clean replay or full-card completion claim."
+}

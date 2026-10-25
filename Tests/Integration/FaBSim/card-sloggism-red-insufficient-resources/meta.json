@@ -1,0 +1,7 @@
+{
+    "name": "Sloggism / insufficient-resources",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:07+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Sloggism has printed resource cost3. With no floating resources and no other hand card to pitch, announcement must be rejected; the card stays in hand, no stack object is created, and AP/resources stay1/0. This pins a failure branch, not successful ability effect coverage. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sloggism_red https://judge.fabtcg.com/cards/detail/334/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

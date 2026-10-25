@@ -1,0 +1,73 @@
+{
+  "status": "FINAL_POSTPUBLICATION_UNCHANGED_STRICT_NATIVE_QUALIFICATION_AND_REFERENCE_RESOLUTION_PASS",
+  "approved": true,
+  "reviewer": "/root/resume_actual_audit",
+  "completed_utc": "2026-10-20T16:07:46.940456+00:00",
+  "checks": 117171,
+  "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "qualified_scenarios": 3079,
+  "verified_primary_ids": 239,
+  "bounded_baselines": 75,
+  "partial_primary_ids": 164,
+  "complete_replays": 2,
+  "default_controls": 77,
+  "four_live_controls": 4,
+  "total_controls": 81,
+  "actual_current_strict_saved_proofs_verified": 3079,
+  "actual_current_strict_scope_proofs_verified": 75,
+  "pending_saved_fixture_reviews": {},
+  "source_runtime_unchanged": true,
+  "publication_receipt_sha256": "c2e78af6ce4428b0bf9feba1f231370fb89caa3caa69a1e7ed3f86ac976b87e6",
+  "final_artifact_sha256": {
+    "card-regression-review.json": "d7b4d82f25df37ee22302c15f8ad1075dff41619dc3fe48d99795003cd5de0ab",
+    "card-regression-coverage.json": "f6f1a25e0340a90bcc819eadb5ab1379d106c669ca43366a50833003ac9254f8",
+    "card-regression-checkpoint.json": "2fec61658a719a957f478843def2d6111899f14065dc8f40590c8396391a8efb",
+    "card-regression-issues.json": "9e2dbd4bb2e5a7a1a7f31530fe6f98003687078a381e2cae6b8595b79a6d7c2c",
+    "README.md": "1879009e3b52f976908f7c14a2a0955d77496472943d508af7e85bd4898cb0af",
+    "FINAL_ASSESSMENT.md": "89b1b7447be8116399206218b856d05c044f693a537eb2c7bb7810366a775fe1",
+    "COVERAGE_GUIDE.md": "65bf2564911db3021521db3cc0818e64c30d63f3cfd81233bfaba7a332c34f1e",
+    "REPOSITORY_HYGIENE.md": "00fff8b224419534df55a3a6830bed7be48fc5cbd85af25a0529b0ebbda05be8",
+    "cycle-coverage-assessment.json": "ae797555630ca75841a2ea15654b6ac4db8c500e1a06b482d29fbcb572a07a52",
+    "cycle-group-map.compact.json": "9c33a4b69e03a3c62bef2585aec3139b331279a5900ffc304a1b19edabd42ed2",
+    "scenario-volume-breakdown.json": "e233265cf7621c56ffe02f81e50ca5d9ea12fcbd79254fd35e93c61db4b335d9",
+    "archived-review-artifacts.json": "738f1b4ac54c05f7f317f57bcede60c3d1d7c79c8ca0c5a94d8409f6738cd0fa",
+    "final-evidence-index.json": "4ab830b6660370cf59a20d82e3d33d368a17ae36ef718668f3fdda7fdf37fa53"
+  },
+  "current_scope_sha256": "e802b8e7cf3394e352f85601350b0252490cf17dfdd7588b93917b50bb6cf1d1",
+  "native_strict_qualifier_sha256": "ff8f197346f757fa1fa983b1f948ca00744a0084595712e872c805756cdad807",
+  "historical_archive_labels": {
+    "card-regression-review.json": 0,
+    "card-regression-coverage.json": 82,
+    "card-regression-checkpoint.json": 35,
+    "card-regression-issues.json": 35
+  },
+  "archive_navigation_notes": 8,
+  "all152_archived_labels_resolve": true,
+  "retained_primary_source_leaves": 18,
+  "archive_index_sha256": "738f1b4ac54c05f7f317f57bcede60c3d1d7c79c8ca0c5a94d8409f6738cd0fa",
+  "prior_full_backup_and15395fixture_verification": {
+    "path": "final-postcleanup-strict-proof-qualification-independent-review.json",
+    "sha256": "fe602bb4319bcd1f745b344f837da266ff47a88f8af4b20c0e189f8a2be5bb7b",
+    "checks": 35702
+  },
+  "qualified_summary": {
+    "scenarios_semantically_reviewed_and_current_replay_passed": 3079,
+    "scenarios_independently_semantically_reviewed": 3079,
+    "identities_with_semantically_verified_branches": 239,
+    "fully_covered_identities": 75,
+    "identities_with_partial_verified_coverage": 164,
+    "scenarios_with_two_clean_replay_passes": 3079,
+    "canonical_saved_fixture_folders": 3079,
+    "negative_controls_current_runtime_detected": 77
+  },
+  "qualification": "Unmodified existing native pure qualifier against actual current fixture facts, exact full current reports, explicit current four-suite report, actual review proofs/scopes and77default controls. Separate four-live controls4 retain exact independent actual-native approval. Publication changes only archive labels/navigation notes; no new semantics, fixtures or tests.",
+  "limitations": [
+    "75means existing declared finite baselines;164other primary identities remain partial and4957catalogidentities lack primary-subject scenarios.",
+    "Historical source/proposal packet reconstruction may require restoring verified external archive files. Current active proof graph remains local and validates.",
+    "Current rebuild aliases/suite discovery limitations are explicitly documented; this final check supplies the actual native suite report to the unchanged pure qualifier."
+  ],
+  "native_game_actions": 0,
+  "game_runtime_imports": 0,
+  "native_metadata_writes": 0,
+  "new_coverage": 0
+}

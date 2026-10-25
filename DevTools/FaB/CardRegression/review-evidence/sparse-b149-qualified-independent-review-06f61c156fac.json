@@ -1,0 +1,213 @@
+{
+  "status": "B149_TWO_HYBRID_EQUIPMENT_OWNED_TOKEN_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch149.json",
+  "input_sha256": "13c600a88933453750d8d9fc2fed3573781991ebf919fd42ee7a7bc345d33608",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:08:51.362064+00:00",
+  "fixtures": [
+    {
+      "slug": "card-gauntlet-of-might-four-live-sparse-actual-hybrid-equipment-destruction-creates-one-owned-might-and-ability-go-again",
+      "fixture_sha256": "20938912392245ce9f0439ddcefa9adbc503530ccc88639b9d929eb521ea0a0b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e2a3a47168e27d7fb377913b1881bc98f1c4129db5206070a5bf859decf2b606",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "2506217d6bf07270eb9772d8d47f7c5d2d0481b2245464c1f8b04bc33f8587f6",
+        "expected_final_gamestate.txt": "8cc9a67e0742d407a24b6ce302bd9d2b8e6385f8a88aae3a2bbc5446c45d8f7a",
+        "meta.json": "b538550a8cfdd57ee1e43f87fb0254739367a7921aa646367e92cdb784170fbb"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 337,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-flat-trackers-four-live-sparse-actual-hybrid-equipment-destruction-creates-one-owned-agility-and-ability-go-again",
+      "fixture_sha256": "5fcca90ec7f49db528e793fee7af9633245d840132f68318e75a1c8cfc2659f3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "666075ca5c29e2d85924616f73407616978d0dc3a6cf3542799f21b6d1d5d83e",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "71fb817e1bff5e1da5051e875f79eb72b053f763eccf15a543a5e5cae591a7d1",
+        "expected_final_gamestate.txt": "d2898b67fe88449ddcc22b74d68d51d6ccb043cf34580506ff6e1bd63d7b745d",
+        "meta.json": "858d326f5368a32dea83554a3d907518fe7a94684511e6ca31f8410332faad01"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 337,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 10,
+  "total_native_assertions": 674,
+  "total_manual_passes": 8,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b149-actual-saved-independent-review.json",
+    "sha256": "49e98e09358562e85f16e1324976df1f188b360608f8d910f9204c4307169cd7"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b149-independent-spec-review.json",
+    "sha256": "04067243dbc2aeb66b6fb84e962d2c4a6e81777fb30353c723d6b487c7e09c93"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch149-20261022T200632Z-6ada6cc823fd2.json",
+    "sha256": "0bef5a1fc9bb339ce791417dadc28fee5361aa2077ed363f5d95fca4fd9d9183"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b149-four-live-run1.json",
+      "sha256": "3c3395a61b5123f0dad3fe9027c5c42022b72c6e2b2dbc5862e8b7fabaf9d75b",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch149.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b149-four-live-run2.json",
+      "sha256": "8bf3dab5412ca71653b7af530f854ad7a4ae033d3dddef17db7995fc090e0708",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch149.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b149-fault-controls.json",
+    "sha256": "31307ccbae9ae4f68c8f4686db26b9d133027c668d0182f758e02da49b5b03f6",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "9d85362fadd2722bdec9269204c6b8cbde55e85cfe77c6788fc5fb779ffcf44d",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b149_gauntlet_of_might_focused_effect_sensitivity",
+      "fixture": "card-gauntlet-of-might-four-live-sparse-actual-hybrid-equipment-destruction-creates-one-owned-might-and-ability-go-again",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "might",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b149_flat_trackers_focused_effect_sensitivity",
+      "fixture": "card-flat-trackers-four-live-sparse-actual-hybrid-equipment-destruction-creates-one-owned-agility-and-ability-go-again",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "agility",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b149-focused-fault-plan.json",
+    "sha256": "9d85362fadd2722bdec9269204c6b8cbde55e85cfe77c6788fc5fb779ffcf44d"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1238,
+  "native_evidence_review_checks": 65,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Two hybrid-equipment standalones: GauntletGuardian/Terra actualdestroyEq5 createsownMight7; FlatWarrior/Dorinthea actualdestroyEq5 createsownAgility7. AbilityGA/AP1/R0all20 both. No tokenstartturn/grant/use/expiry/BladeBreak/hero/support/fullcard credit.",
+    "Only current TWO-case new packet audited; root alone executes native games and writes repo. Only established virtualABILITYrawOwner0/Controller1representation; physicalEq5 remains owned1. No broadownership or legacy review.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Both controls omit exact created tokenUID7 viaapprovedphysicalUIDselector after actualequipmentactivationandfourmanualresponses: GauntletMight Arena1to0, FlatAgility Arena1to0. PhysicaldestroyedEq5publicGYFace0/ownhero/economy/abilityGA preserved. Createdoutput sensitivity only; no startturn/tokenuse/expiry/BladeBreak/hero/support/fullcard credit.",
+    "Both controls use complete prefix5 both and retain every original finaloracle asInitial with zero suffixactions. StablevirtualABILITYrawOwner0Controller1 isseparatefromphysicalEq5owned1; no new ownership defectclaim."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "c874c9fd4fa1ab4d11c895c0c19025a61af53b525162c5699b5cb3d2767b1570"
+}

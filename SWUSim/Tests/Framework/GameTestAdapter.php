@@ -493,6 +493,23 @@ class GameTestAdapter {
         $playerID = $saved;
     }
 
+    /**
+     * Use a unit's "Action [...]" the way the live client does: "<mz>!CustomInput!Activate" through
+     * CustomWidgetInput, with its active-player / empty-queue guards and its zone routing. useUnitAbility()
+     * above calls SWUUnitAction() directly, so an mzID the input layer never routes (an opponent's
+     * any-player Action — TS26_15 C-3P0, LAW_156, SHD_256) passed there while the live click did nothing.
+     */
+    public function activateUnitAbility(int $player, string $mzID): void {
+        global $playerID;
+        $saved = $playerID;
+        $playerID = $player;
+        ob_start();
+        CustomWidgetInput($player, $mzID, 'Activate');
+        $this->_drainDQ($player);
+        ob_end_clean();
+        $playerID = $saved;
+    }
+
     /** Deploy a leader to the ground arena via Epic Action. */
     public function deployLeader(int $player, int $leaderIndex = 0): void {
         global $playerID;

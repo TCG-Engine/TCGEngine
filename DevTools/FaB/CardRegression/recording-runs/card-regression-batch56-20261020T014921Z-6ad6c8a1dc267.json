@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-20T01:49:21+00:00",
+    "input_file": "card-regression-batch56.json",
+    "input_sha256": "5b9fc382ee59f4c12198679818ecfc9a765b7d01e536c973622803d501d2a3fe",
+    "filter": "",
+    "results": [
+        {
+            "slug": "compat-flat-defense-reaction-dodge-blue-third-response-after-partial-resolution",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 332
+        },
+        {
+            "slug": "compat-flat-defense-reaction-evasive-leap-yellow-third-response-after-partial-resolution",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 332
+        },
+        {
+            "slug": "compat-flat-defense-reaction-evasive-leap-blue-third-response-after-partial-resolution",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 332
+        },
+        {
+            "slug": "compat-flat-defense-reaction-toughen-up-blue-third-response-after-partial-resolution",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 332
+        }
+    ]
+}

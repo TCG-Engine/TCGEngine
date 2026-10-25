@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:25:07.025973+00:00",
+  "plan_sha256": "ace4e18a4863950d2dddd8e5a681bd39ba27b797ec819fc1010470a8f2c1c3ab",
+  "independent_saved_proof_sha256": "8cb34da4f744106f16e75456f77a0bc29234e515d8cbd6a0fefc9b70b1311321",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b133-focused-fault-plan.json",
+    "ace4e18a4863950d2dddd8e5a681bd39ba27b797ec819fc1010470a8f2c1c3ab",
+    "card-regression-sparse-b133-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b133_flying_high_red_focused_effect_sensitivity",
+      "fixture": "card-flying-high-red-four-live-sparse-actual-red-next-attack-plus-one-and-granted-go-again-through-real-combat",
+      "fixture_sha256": "e6d43fa7c129fae61455a8a6029a7696ebe04c1932bc627afb08db49ebde7f0d",
+      "source_raw5": {
+        "initial_gamestate.txt": "d524283a381fd0b4e2ba9bc84e7e1af7a3fd0d60076061da6d6bf09d281bb376",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "0e066558ce38942ca500e1c613208d0105599b608ba934fe3897d6b9a1984e71",
+        "expected_final_gamestate.txt": "5923f9eedb087860d441f13ad3c06e4bd717794281aefb5a7d7eb46407107bcc",
+        "meta.json": "d8c22fe4cd237830d6955269026b71de63214a71dc177479e271faffad32a650"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 417,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Flying High / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual primary-granted WTR_POWER:1 from the real next attack6 after primary5 resolved and attack committed, preserving physicalUID/source/economy and other tags. All21 original remaining real actions and suffix assertions retained. FlyingHigh grantedGA/AP are independently pinned positive and pure fault model evidence, not a separately native-mutated GA control. No alternate eligibility/fusion/color/support/hero credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b133_pulse_of_volthaven_red_focused_effect_sensitivity",
+      "fixture": "card-pulse-of-volthaven-red-four-live-sparse-actual-zero-cost-dual-talent-instant-next-real-elemental-attack-plus-four",
+      "fixture_sha256": "163bab9c4d27a0ed051ad8ce9f5b0a83d6c635961bf8e6d2b69ba2cebb68c9d6",
+      "source_raw5": {
+        "initial_gamestate.txt": "3edec188f0fdd94a263d43ece51727f1ccdc36a0e8e0f7f45f04b8e026f25534",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "011a4279d025871e3f4ecca3ed62a6be848af55b972d5ee688a323cb1c5e0f5d",
+        "expected_final_gamestate.txt": "64c139cd4e88b21aaf63aabac5cbedb55e3c7d92484f2406fcfd77ffe54e5562",
+        "meta.json": "0551ecea3df93dae1404440f27d9add848f68744addeba7df7837bedd4f48607"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "entwine_earth_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:4"
+          }
+        ]
+      },
+      "retained_assertions": 501,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 8, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Pulse of Volthaven / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 8, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual primary-granted WTR_POWER:4 from the real next attack6 after primary5 resolved and attack committed, preserving physicalUID/source/economy and other tags. All21 original remaining real actions and suffix assertions retained. FlyingHigh grantedGA/AP are independently pinned positive and pure fault model evidence, not a separately native-mutated GA control. No alternate eligibility/fusion/color/support/hero credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

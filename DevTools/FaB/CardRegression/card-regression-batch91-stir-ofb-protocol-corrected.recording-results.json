@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-stir-the-aetherwinds-red-four-live-sparse-actual-next-wizard-as-instant-zero-ap-plus-three-dart",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 585
+    },
+    {
+        "slug": "card-out-for-blood-red-four-live-sparse-actual-warrior-weapon-reaction-plus-three-no-hand-defense",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 1154
+    }
+]

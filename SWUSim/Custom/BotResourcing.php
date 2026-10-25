@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/BotFeatures.php';
 require_once __DIR__ . '/BotFlavours.php';
+require_once __DIR__ . '/BotCreditEngine.php';   // part 49 'creditengine' helpers
 // Resourcing engine v0 for the heuristic bots — the RL bots spec's settled rules: the floor, the per-style
 // card choice (Control's revised 2026-09-13: keep a castable hand plus one bomb), the Plot budget.
 // Phase 1b part 2 (owner rulings 2026-09-14): key cards stay out of resources, and each style has a resource stop —
@@ -84,8 +85,30 @@ function _SWUBotRedundantUniqueInHand(int $seat, string $cardID, int $index): bo
 // desync the bot from SWUDeployLeader().
 function _SWUBotSeatCost(int $seat, string $cid): int {
     $c = intval(CardCost($cid));
+    // PROPOSAL 'pilotcost' (2026-10-15 ASH lever hunt G2-24/G3-09): a Piloting card is castable at its Piloting cost when there is a Vehicle to
+    // fly (Han Solo JTL_203 resourced 65% / played 10% in Greef Red; Vonreg resourced its pilots 17/19; Boba LC resourced Vader 123x, played 24).
+    if (SWUBotProposalOn('pilotcost') && ($pc = _SWUBotPilotSeatCost($seat, $cid)) !== null) $c = min($c, $pc);
     if (!SWUBotFeatureOn('mgcost') || !function_exists('SWUAspectPenalty')) return $c;
     return $c + intval(SWUAspectPenalty($seat, $cid));
+}
+
+// 'pilotcost': the Piloting cost while a Vehicle can carry the pilot — a friendly Vehicle unit in play, one in hand, or a deck with 6+ Vehicles
+// (the opening pick has no board yet). Null for a card without Piloting, or nothing to fly.
+function _SWUBotPilotSeatCost(int $seat, string $cid): ?int {
+    static $memoDeck = [];
+    if (!function_exists('CardPilotingCost')) return null;
+    $pc = CardPilotingCost($cid);
+    if ($pc === null || $pc === '' || intval($pc) <= 0) return null;
+    $isVehicle = fn(string $c) => str_contains(strval(CardType($c)), 'Unit') && stripos(strval(CardTrait($c) ?? ''), 'Vehicle') !== false;
+    $have = false;
+    foreach (SWUBotUnits($seat) as $u) if (empty($u['isLeader']) && $isVehicle(strval($u['cardID']))) { $have = true; break; }
+    if (!$have) foreach (GetHand($seat) as $o) if ($o !== null && empty($o->removed) && $isVehicle(strval($o->CardID ?? ''))) { $have = true; break; }
+    if (!$have) {
+        $key = $seat . '|' . count(GetDeck($seat));
+        if (!isset($memoDeck[$key])) { $n = 0; foreach (GetDeck($seat) as $o) if ($o !== null && empty($o->removed) && $isVehicle(strval($o->CardID ?? ''))) $n++; $memoDeck[$key] = $n; }
+        $have = $memoDeck[$key] >= 6;
+    }
+    return $have ? intval($pc) : null;
 }
 
 // Owner, 2026-09-23 (ruling 2): "a 2 power sentinel is almost pointless. but a 3+ power sentinel is good power to
@@ -105,6 +128,108 @@ function SWUBotResourceFloorApplies(int $seat): bool {
     return $t > 0 && SWUResourceCount($seat) < $t;
 }
 
+// ── FLIP PACKAGE (PROPOSAL 'flippackage', owner 2026-10-19) ────────────────────────────────────────────────────────────────────
+// A Plot deck's deploy turn plays Plot cards from its resources, so the resourcer should bank the RIGHT ones: the set that fits the
+// deploy threshold and is worth the most on that turn. Owner: "Ahsoka decks ideal flip turn involves using their 6 resources to play both
+// Naboo Royal Starship for 4R and Jar Jar Binks for 2R … prioritize getting them into the resources early. and it is okay to resource
+// multiples … if Naboo ship was not found into flip turn, then make sure there are at least 2 jar jars in resources … even if playing the
+// second one via plot kills the other." The owner table names a leader's packages in preference order; any other Plot deck gets ONE
+// automatic package (the most valuable multiset of its Plot cards that fits the threshold, at most two copies of a card). The old Plot
+// budget banked whatever Plot card came first — three Jar Jars filled Ahsoka's 6 and locked Naboo Royal Starship out.
+const SWU_BOT_FLIP_PACKAGES = [
+    'ASH_009' => [['SEC_099', 'SEC_111'], ['SEC_111', 'SEC_111']],   // Ahsoka Tano (ASH): Naboo Royal Starship + Jar Jar, else 2 Jar Jars
+];
+
+// Printed cost plus this seat's aspect penalty — what the Plot play will cost.
+function _SWUBotPlotCardCost(int $seat, string $cid): int {
+    return intval(CardCost($cid)) + (function_exists('SWUAspectPenalty') ? intval(SWUAspectPenalty($seat, $cid)) : 0);
+}
+
+// Plot CardIDs this seat can still bank or plot (hand, deck, resources) => copies.
+function _SWUBotOwnedPlotCards(int $seat): array {
+    $out = [];
+    foreach ([GetHand($seat), GetDeck($seat), GetResources($seat)] as $zone) {
+        foreach ($zone as $o) {
+            if ($o === null || !empty($o->removed)) continue;
+            $cid = strval($o->CardID ?? '');
+            if ($cid !== '' && preg_match('/(^|\n)\s*Plot\b/', strval(CardText($cid)))) $out[$cid] = ($out[$cid] ?? 0) + 1;
+        }
+    }
+    return $out;
+}
+
+// The owner-table packages for $seat's undeployed leader, keeping only those this deck can build. [] = no table entry.
+function _SWUBotOwnerFlipPackages(int $seat): array {
+    if (SWUBotLeaderDeployThreshold($seat) <= 0) return [];
+    $owned = null;
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed)) continue;
+        $table = SWU_BOT_FLIP_PACKAGES[strval($l->CardID ?? '')] ?? null;
+        if ($table === null) continue;
+        $owned = $owned ?? _SWUBotOwnedPlotCards($seat);
+        return array_values(array_filter($table, function ($pk) use ($owned) {
+            foreach (array_count_values($pk) as $cid => $n) if (($owned[$cid] ?? 0) < $n) return false;
+            return true;
+        }));
+    }
+    return [];
+}
+
+// The flip packages for $seat while its leader is undeployed: the owner table, else the single best automatic package. [] = none.
+function SWUBotFlipPackages(int $seat, array $W): array {
+    $T = SWUBotLeaderDeployThreshold($seat);
+    if ($T <= 0) return [];
+    $owner = _SWUBotOwnerFlipPackages($seat);
+    if (!empty($owner)) return $owner;
+    $owned = _SWUBotOwnedPlotCards($seat);
+    if (empty($owned)) return [];
+    $ids = array_keys($owned);
+    $best = []; $bestV = 0.0;
+    $walk = function (int $i, array $pk, int $cost, float $v) use (&$walk, &$best, &$bestV, $ids, $owned, $seat, $T, $W) {
+        if ($v > $bestV) { $bestV = $v; $best = $pk; }
+        if ($i >= count($ids)) return;
+        $cid = $ids[$i]; $c = _SWUBotPlotCardCost($seat, $cid); $pv = _SWUBotPlayValue($seat, $cid, $W, 'resources');
+        for ($k = 0; $k <= min(2, $owned[$cid]); $k++) {
+            if ($cost + $k * $c > $T) break;
+            $walk($i + 1, array_merge($pk, array_fill(0, $k, $cid)), $cost + $k * $c, $v + $k * $pv);
+        }
+    };
+    $walk(0, [], 0, 0.0);
+    return empty($best) ? [] : [$best];
+}
+
+// CardID => copies still to bank so EVERY package (owner order: the ideal and its fallback) can be plotted on the flip.
+function SWUBotFlipNeeds(int $seat, array $W): array {
+    $need = [];
+    foreach (SWUBotFlipPackages($seat, $W) as $pk) {
+        foreach (array_count_values($pk) as $cid => $n) $need[$cid] = max($need[$cid] ?? 0, $n);
+    }
+    foreach (GetResources($seat) as $r) {
+        if ($r === null || !empty($r->removed)) continue;
+        $cid = strval($r->CardID ?? '');
+        if (isset($need[$cid])) $need[$cid]--;
+    }
+    return array_filter($need, fn($n) => $n > 0);
+}
+
+// The first owner-table package fully banked in $seat's resources and payable from $cap right now, or null.
+function SWUBotAffordableFlipPackage(int $seat, int $cap): ?array {
+    $banked = [];
+    foreach (GetResources($seat) as $r) {
+        if ($r === null || !empty($r->removed)) continue;
+        $cid = strval($r->CardID ?? '');
+        $banked[$cid] = ($banked[$cid] ?? 0) + 1;
+    }
+    foreach (_SWUBotOwnerFlipPackages($seat) as $pk) {
+        $cost = 0; $ok = true;
+        foreach (array_count_values($pk) as $cid => $n) { if (($banked[$cid] ?? 0) < $n) { $ok = false; break; } }
+        if (!$ok) continue;
+        foreach ($pk as $cid) $cost += _SWUBotPlotCardCost($seat, $cid);
+        if ($cost <= $cap) return $pk;
+    }
+    return null;
+}
+
 // The $n hand mzIDs ("myHand-i") to resource, lowest keep value first; ties go to the lowest hand index.
 // A Plot card is resourced first while the Plot cards in resources plus it still fit the deploy threshold
 // — the leader's deploy then Plays them out (spec: the Plot budget; the owner's Palpatine + Jar Jar = 5).
@@ -112,6 +237,36 @@ function SWUBotResourceFloorApplies(int $seat): bool {
 function SWUBotChooseResourceCards(array $ctx, int $n): array {
     $seat = intval($ctx['seat']);
     $budget = SWUBotLeaderDeployThreshold($seat);            // 0 once deployed → no Plot priority
+    // PROPOSAL 'flippackage': the package cards still to bank (see SWUBotFlipPackages) replace the first-come Plot budget.
+    // Per hand index: 1 = a copy the IDEAL package still lacks, 2 = a copy only a fallback package lacks. Copies are allocated in hand
+    // order, so with three Jar Jars and a Naboo Royal Starship in hand Ahsoka banks the ship and ONE Jar Jar first, then the second Jar Jar.
+    $flipRank = null;   // null = no package: the old Plot budget applies
+    if (SWUBotProposalOn('flippackage')) {
+        $flipW = SWUBotWeights(strval($ctx['style'] ?? ''), $seat);
+        $pkgs = SWUBotFlipPackages($seat, $flipW);
+        if (!empty($pkgs)) {
+            $banked = [];
+            foreach (GetResources($seat) as $r) if ($r !== null && empty($r->removed)) $banked[strval($r->CardID ?? '')] = ($banked[strval($r->CardID ?? '')] ?? 0) + 1;
+            $missing = function (array $pk) use ($banked) {
+                $m = [];
+                foreach (array_count_values($pk) as $id => $n) if (($left = $n - ($banked[$id] ?? 0)) > 0) $m[$id] = $left;
+                return $m;
+            };
+            $need1 = $missing($pkgs[0]);
+            $needAll = SWUBotFlipNeeds($seat, $flipW);
+            $flipRank = [];
+            foreach (GetHand($seat) as $hi => $ho) {
+                if ($ho === null || !empty($ho->removed)) continue;
+                $id = strval($ho->CardID ?? '');
+                if (($need1[$id] ?? 0) > 0) { $flipRank[$hi] = 1; $need1[$id]--; $needAll[$id] = ($needAll[$id] ?? 0) - 1; }
+            }
+            foreach (GetHand($seat) as $hi => $ho) {
+                if (isset($flipRank[$hi]) || $ho === null || !empty($ho->removed)) continue;
+                $id = strval($ho->CardID ?? '');
+                if (($needAll[$id] ?? 0) > 0) { $flipRank[$hi] = 2; $needAll[$id]--; }
+            }
+        }
+    }
     $plotInResources = 0;
     foreach (GetResources($seat) as $r) {
         if ($r === null || !empty($r->removed)) continue;
@@ -135,6 +290,12 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
     $early = SWUResourceCount($seat) <= 5;
     $protectedWipe = ($wipeRule && $early) ? _SWUBotProtectedWipe($seat, strval($ctx['style'])) : null;
     $stabilized = $wipeRule && !$early && _SWUBotIsStabilized($seat);
+    // Feature 'neelcombo' (p47, BotRules.php): the OPENING pick never banks the round-1 Neel combo — the 2 cards resourced now are the
+    // 2 resources that pay for it.
+    $neelPlan = (SWUResourceCount($seat) === 0 && function_exists('_SWUBotNeelComboPlan')) ? _SWUBotNeelComboPlan($seat, $n) : null;
+    $neelKeep = $neelPlan === null ? [] : array_filter([$neelPlan['enabler'], $neelPlan['payoff']], fn($x) => $x !== null);
+    // Features 'fodderkeep' + 'mercres' (p49, BotCreditEngine.php): the Credit engine's fodder and its resource-loop unit stay in hand.
+    $fodderKeep = function_exists('SWUBotFodderKeepIndices') ? SWUBotFodderKeepIndices($seat) : [];
     // Proposal 'mgkeep': the earliest copy of each card in hand. Every later copy is the spare duplicate.
     $firstIndexOf = [];
     foreach (GetHand($seat) as $i => $c) {
@@ -178,6 +339,8 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         // Feature 'bokatanres' (p42): the hard-control late-game bomb — resourced from a non-aggro OPENING hand, otherwise only when nothing
         // weaker is left, and never a second one in a game.
         if (SWUBotFeatureOn('bokatanres') && ($bk = _SWUBotBokatanResKeep($ctx, $cid, $i === ($firstIndexOf[$cid] ?? $i))) !== null) $keep += $bk;
+        if (in_array($i, $neelKeep, true)) $keep += 1000.0;
+        if (in_array($i, $fodderKeep, true)) $keep += SWU_BOT_FODDER_KEEP_BONUS;
         // PROPOSAL 'sentinelkeep' (default OFF, "@try-sentinelkeep"). Owner ruling 2026-09-18: "Sentinels in
         // general are good to keep… unless you have two of the same unique unit Sentinel. then it should be safe
         // to resource one." A Sentinel is how control mitigates early damage, and the deficit is a SURVIVAL
@@ -238,14 +401,25 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
             [$mine, $theirs] = _SWUBotWipeLosses($seat, $cid);
             if ($mine > 0.0 && $mine >= $theirs) $keep = -1.0;
         }
+        // PROPOSAL 'rampres' (default OFF) — see _SWUBotRampResOn. The plain (non-aggro) path: answers and ramp pieces clear filler,
+        // a Sentinel loses its keep vs a non-aggro deck, and Hyperspace Disaster goes first unless it has a target.
+        if ($rank >= 3 && _SWUBotRampResOn($seat)) $keep = _SWUBotRampResKeep($seat, $cid, $i, $keep);
         // `$budget > 0` states the intent; the sum test alone already refuses every Plot card (all cost ≥ 1).
-        if ($budget > 0 && HasKeyword_Plot($c) && $plotInResources + $cost <= $budget) $keep = -1000.0 + $cost;
+        if ($flipRank === null) {
+            if ($budget > 0 && HasKeyword_Plot($c) && $plotInResources + $cost <= $budget) $keep = -1000.0 + $cost;
+        } elseif (isset($flipRank[$i])) {
+            // A package copy still missing: banked before anything else — the ideal package first, the dearer card first within a rank.
+            // Extra copies past the packages keep their ordinary keep value (owner: resourcing multiples is fine, never forced).
+            $keep = ($flipRank[$i] === 1 ? -3000.0 : -2000.0) - $cost;
+            _SWUBotFired('flippackage', $seat);
+        }
         // FEATURE 'curveresource' (p38; spec 2026-10-05-swusim-curve-value-design.md §4.2): the curve surplus breaks ties in the
         // keep score — the more under-curve of two similar cards goes first. Control's tiers sort first (below), so this only
         // orders cards WITHIN a tier there. An unpriced card adds 0.
         if (SWUBotFeatureOn('curveresource')) {   // feature p38
             $keep += SWU_BOT_CURVE_RESOURCE_KEEP * (SWUBotCurveSurplus($seat, $cid, SWUBotHorizon(strval($ctx['style']), $seat)) ?? 0.0);
         }
+        $keep = SWUBotLeverChain('keep', $keep, $ctx, $seat, $cid, intval($i));   // lever registry (BotLevers.php)
         $ranked[] = [$keep, $i];
     }
     // PROPOSAL 'resourcing2' — the owner's resourcing rulings as ORDERED TIERS for the control wing. Tiers come first,
@@ -306,6 +480,13 @@ function _SWUBotUnitArenas(int $seat): array {
 // the usual state of these ground-based control decks and what the owner's example assumes. A one-sided wipe
 // costs me nothing by its wording.
 function _SWUBotWipeLosses(int $seat, string $cid): array {
+    // Feature 'budgetwipe' (p61): a budget wipe takes only its kill set, and its player picks it — none of mine.
+    if (SWUBotFeatureOn('budgetwipe') && ($cap = _SWUBotWipeBudget($cid)) > 0) {
+        _SWUBotFired('budgetwipe', $seat);
+        $theirs = 0.0;
+        foreach (_SWUBotBudgetWipeKillSet($seat, $cap) as $u) $theirs += SWUBotUnitValue($u);
+        return [0.0, $theirs];
+    }
     $arenas = _SWUBotWipeArenas($cid);
     $sum = function (int $s, bool $enemy = false) use ($arenas) {
         $v = 0.0;
@@ -318,7 +499,50 @@ function _SWUBotWipeLosses(int $seat, string $cid): array {
     };
     $theirs = 0.0;
     foreach (SWUBotOpponents($seat) as $o) $theirs += $sum($o, true);   // every live enemy (3-4 seats)
-    return [_SWUBotWipeIsOneSided($cid) ? 0.0 : $sum($seat), $theirs];
+    // Team Suns: OUR side — a teammate's board the wipe clears is my loss too.
+    $mine = 0.0;
+    if (!_SWUBotWipeIsOneSided($cid)) foreach (SWUBotFriendlySeats($seat) as $f) $mine += $sum($f);
+    return [$mine, $theirs];
+}
+
+// ── Feature 'budgetwipe' (p61) (bug report P-1, Petranaki game 308, 2026-10-22) ──────────────────────────────────────────────────
+// A BUDGET wipe — ASH_053 Pre Vizsla: "Defeat any number of non-leader units with a total of 6 or less remaining HP" — kills only
+// what fits its budget, and never a leader. Valued like "defeat all units", it sent a Hemlock softcontrol bot to claim the initiative
+// in round 6 for a Pre Vizsla that could defeat nothing in round 7 (the enemy's units: a deployed Lando and Bo-Katan at 7 remaining HP).
+
+// The budget N of a budget wipe, else 0.
+function _SWUBotWipeBudget(string $cid): int {
+    return preg_match('/Defeat any number of non-leader units with a total of (\d+) or less remaining HP/i', strval(CardText($cid)), $m)
+        ? intval($m[1]) : 0;
+}
+
+// What a budget wipe would defeat now: the most valuable set of enemy non-leader units (not defeat-immune) whose remaining HP sums
+// to <= $cap — the 0/1 knapsack _SWUBotBudgetKillValue prices, keeping the units themselves so their threat can be summed too.
+function _SWUBotBudgetWipeKillSet(int $seat, int $cap): array {
+    $best = array_fill(0, max(0, $cap) + 1, [0.0, []]);
+    foreach (SWUBotOpponents($seat) as $o) {
+        foreach (SWUBotUnits($o) as $u) {
+            $hp = intval($u['remaining']);
+            if ($u['isLeader'] || SWUBotDefeatFizzles($u) || $hp <= 0 || $hp > $cap) continue;
+            $value = SWUBotUnitValue($u);
+            for ($h = $cap; $h >= $hp; $h--) {
+                if ($best[$h - $hp][0] + $value > $best[$h][0]) $best[$h] = [$best[$h - $hp][0] + $value, array_merge($best[$h - $hp][1], [$u])];
+            }
+        }
+    }
+    $top = [0.0, []];
+    foreach ($best as $b) if ($b[0] > $top[0]) $top = $b;
+    return $top[1];
+}
+
+// The base damage a wipe in hand would stop next round: every enemy unit in its arenas, or for a budget wipe only its kill set.
+function _SWUBotWipeThreatOf(int $seat, string $cid): int {
+    if (SWUBotFeatureOn('budgetwipe') && ($cap = _SWUBotWipeBudget($cid)) > 0) {
+        $t = 0;
+        foreach (_SWUBotBudgetWipeKillSet($seat, $cap) as $u) $t += SWUBotUnitBaseThreat($seat, $u);
+        return $t;
+    }
+    return _SWUBotWipeThreat($seat, _SWUBotWipeArenas($cid));
 }
 
 // Relevant = it covers EVERY arena the opponent is using. So Hyperspace Disaster answers a pure space board, but
@@ -455,11 +679,104 @@ const SWU_BOT_AGGRO_LEADERS = ['ASH_009', 'ASH_013', 'ASH_017', 'HMW_007', 'JTL_
                                'JTL_011', 'JTL_013', 'JTL_015', 'LAW_002', 'LAW_010', 'LAW_013', 'LAW_016', 'LOF_010',
                                'SEC_006', 'SEC_014'];
 
+// ── PROPOSAL 'stylemap' (default OFF, owner 2026-10-11) — the meta's read of a LEADER + BASE, not a hand-kept leader list ─────────
+// "it should be based on the leader/base combo." SWU_BOT_OPPONENT_STYLES (generated by SWUSim/DevTools/regen-opponent-styles.php from
+// every real list we hold) is what that pairing usually plays: rank 0 hyperaggro … 4 hardcontrol. The opponent's decklist stays hidden —
+// leader and base are public, and knowing what they usually mean is meta knowledge a human has too. It splits what the leader list
+// cannot: Boba Fett (JTL) on Lake Country is hyper aggro (n 160+), on a blue base midrange; and it covers leaders the list never named
+// (Wicket, the owner's Krennic opponent).
+require_once __DIR__ . '/BotOpponentStyles.php';
+const SWU_BOT_STYLEMAP_MIN_N = 3;          // fewer real lists than this at a key → fall back to the next, less specific key
+const SWU_BOT_STYLEMAP_AGGRO_BELOW = 1.5;  // a mean rank nearer soft aggro (1) than midrange (2)
+
+// The meta rank of $leader on $base, or null when no real list has that leader. Fallback order as SWU_BOT_FLAVOURS: the exact base,
+// then the base's aspect (30-HP common bases differ only by colour), then the leader alone (any n — one list still beats a guess).
+function SWUBotLeaderBaseStyleRank(string $leader, string $base): ?float {
+    $aspect = explode(',', strval(CardAspect($base) ?? ''))[0];
+    foreach (["$leader|$base" => SWU_BOT_STYLEMAP_MIN_N, "$leader|aspect:$aspect" => SWU_BOT_STYLEMAP_MIN_N, "$leader|*" => 1] as $k => $min) {
+        $e = SWU_BOT_OPPONENT_STYLES[$k] ?? null;
+        if ($e !== null && intval($e['n']) >= $min) return floatval($e['rank']);
+    }
+    return null;
+}
+
 function SWUBotOpponentIsAggroLeader(int $seat): bool {
+    if (SWUBotProposalOn('stylemap')) {
+        foreach (SWUBotOpponents($seat) as $o) {
+            $leader = strval((GetLeader($o)[0] ?? null)->CardID ?? '');
+            $rank = SWUBotLeaderBaseStyleRank($leader, strval((GetBase($o)[0] ?? null)->CardID ?? ''));
+            // A leader no real list has used reads not-aggro — as the hand list reads any leader it does not name.
+            if ($rank !== null && $rank < SWU_BOT_STYLEMAP_AGGRO_BELOW) return true;
+        }
+        return false;
+    }
     foreach (SWUBotOpponents($seat) as $o) {   // any live enemy (3-4 seats)
-        if (in_array(strval((GetLeader($o)[0] ?? null)->CardID ?? ''), SWU_BOT_AGGRO_LEADERS, true)) return true;
+        $lid = strval((GetLeader($o)[0] ?? null)->CardID ?? '');
+        if (in_array($lid, SWU_BOT_AGGRO_LEADERS, true)) return true;
+        // PROPOSAL 'lukeaggro' (2026-10-15 ASH lever hunt G4-01): JTL_012 Luke heads midrange/control lists too, so he is not in the list —
+        // but on JTL_024 Data Vault he is played soft aggro in 2,860/2,860 games (232 real lists) and over-performs +9.8: ~19 anti-aggro rules
+        // never fired against the most-played deck (Krennic Blue resourced Annihilator 278/280 vs him). Only that leader+base key.
+        if ($lid === 'JTL_012' && SWUBotProposalOn('lukeaggro') && strval((GetBase($o)[0] ?? null)->CardID ?? '') === 'JTL_024') return true;
     }
     return false;
+}
+
+// ── PROPOSAL 'rampres' (default OFF) — a credit-ramp control seat's resourcing, from the owner's own games ──────────────────
+// Ninin's 22 human games on Krennic Blue Splash v2 (12-10) against 600 bot games with the same list and opponents: the bot's
+// OPENING pick banks the cards she wins with. Vs a non-aggro leader it resourced Craving Power 21/21, No Glory 29/30, Resupply
+// Carrier 28/31, Lost and Forgotten 21/24 (a 5-6 cost card is "far from castable" at 0 resources) and kept Tireless Magnaguard
+// 31/31; vs an aggro leader it resourced Expendable Mercenary 42/54, Latts 44/50, Lawbringer 41/52 and kept Hyperspace Disaster
+// 50/52. Played by end of round 8 (games reaching 9), owner vs bot: Craving 57/12%, Mercenary 50/24, Carrier 43/21, Lawbringer 50/29.
+// Owner rulings 2026-10-11:
+//   1. "Lawbringer is an answer to aggressive go-wide strategies. and it can come out early with Credits" — kept vs aggro.
+//   2. "resource HSD unless my opponent is typically known to have a go-wide space strategy. but it's also useful to keep HSD
+//      against control decks later in the game as a 7-cost answer to a big ship like Chimaera."
+//   3. "keep removal for late-game bombs. and sentinels become less important against a control deck that isn't playing units
+//      and just waiting to remove your own units."
+// The ramp pieces (Mercenary, Carrier) are kept because the deck reaches 7 resources by round 5 only through them.
+// Scope: the seat's deck flavour is 'credit-ramp' — the deck reaches its 5-8 cost answers early, which is what makes them
+// "castable soon" when the plain rule's 2-regroup horizon says they are not.
+function _SWUBotRampResOn(int $seat): bool {
+    return SWUBotProposalOn('rampres') && in_array('credit-ramp', SWUBotDeckFlavours($seat), true);
+}
+
+// Ruling 2's "typically known to have a go-wide space strategy": the opponent's deck is space-flavoured, or its board already is.
+function _SWUBotRampResSpaceOpp(int $seat): bool {
+    return in_array('space', SWUBotDeckFlavours(SWUBotOpponent($seat)), true) || _SWUBotOpponentSpaceHeavy($seat);
+}
+
+// Ruling 1's "aggressive go-wide": an aggro leader, or a go-wide / hyper-aggro deck flavour.
+function _SWUBotRampResGoWideOpp(int $seat): bool {
+    return SWUBotOpponentIsAggroLeader($seat) || (bool)array_intersect(SWUBotDeckFlavours(SWUBotOpponent($seat)), ['go-wide', 'hyper']);
+}
+
+// An answer for ruling 3: removal, or a power-strike that damages an enemy unit (Craving Power, Latts Razzi).
+function _SWUBotRampResAnswer(string $cid): bool {
+    $tags = SWUBotCardTags($cid);
+    return in_array('removal', $tags, true) || (in_array('power-strike', $tags, true) && in_array('damage-enemy-unit', $tags, true));
+}
+
+function _SWUBotRampResIsHSD(string $cid): bool {
+    return (bool)preg_match('/^Defeat all space units/i', strval(CardText($cid)));
+}
+
+function _SWUBotRampResIsAspectDebuff(string $cid): bool {
+    return (bool)preg_match('/each enemy unit with that aspect -\d+\/-\d+/i', strval(CardText($cid)));
+}
+
+// The plain path's keep value under 'rampres'. +150 matches the key-card bonus every non-control archetype gets, so an answer
+// or ramp piece that is "far" at 0 resources (keep ≈ 0) clears every castable filler card (100 + cost).
+function _SWUBotRampResKeep(int $seat, string $cid, int $i, float $keep): float {
+    $goWide = _SWUBotRampResGoWideOpp($seat);
+    if (_SWUBotRampResIsHSD($cid) && !_SWUBotRampResSpaceOpp($seat)) {
+        // Ruling 2: dead early; from 6 resources vs a non-aggro deck it is the answer to a big ship.
+        return (!SWUBotOpponentIsAggroLeader($seat) && SWUResourceCount($seat) >= 6) ? $keep + 150.0 : -1000.0;
+    }
+    if (_SWUBotRampResAnswer($cid) || in_array('resource-ramp', SWUBotCardTags($cid), true)) $keep += 150.0;
+    if ($goWide && _SWUBotRampResIsAspectDebuff($cid)) $keep += 150.0;
+    // Ruling 3: the shipped Sentinel keep (+50, control wing) is withdrawn vs a deck that is not going wide.
+    if (!$goWide && SWUBotFeatureOn('sentinelkeep') && _SWUBotHasPrintedSentinel($cid) && !_SWUBotRedundantUniqueInHand($seat, $cid, $i)) $keep -= 50.0;
+    return $keep;
 }
 
 function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array {
@@ -480,6 +797,9 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
     $preflip = !$deployed && ($threshold > 0 ? SWUResourceCount($seat) < $threshold : intval(GetTurnNumber()) <= 5);
     $opening = strval($ctx['tooltip'] ?? '') === 'Choose_2_cards_to_resource';
     $cheapCap = $opening ? 2 : SWUResourceCount($seat) + 1;
+    // 'rampres': a credit-ramp seat cashes a round-1 body into a Credit, so one more cost point is "cheap" (owner: Latts / Mercenary in round 2).
+    $rampres = _SWUBotRampResOn($seat);
+    if ($rampres) $cheapCap++;
     $hand = [];
     foreach (GetHand($seat) as $i => $o) { if ($o !== null && empty($o->removed)) $hand[$i] = strval($o->CardID ?? ''); }
     $firstIdx = []; $inHand = [];
@@ -491,12 +811,17 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
     $cheap = 0;
     foreach ($hand as $i => $cid) { if (_SWUBotSeatCost($seat, $cid) <= $cheapCap && $i === $firstIdx[$cid]) $cheap++; }
     $out = [];
+    // Features 'fodderkeep' + 'mercres' (p49, BotCreditEngine.php): the tiered path ignores the keep value, so the Credit engine's kept
+    // fodder and resource-loop unit join the protected tier here (smoke 2026-10-13: vs Ahsoka Yellow, Mercenary was still banked 18/26).
+    $fodderKeepIdx = function_exists('SWUBotFodderKeepIndices') ? SWUBotFodderKeepIndices($seat) : [];
     foreach ($hand as $i => $cid) {
+        if (in_array($i, $fodderKeepIdx, true)) { $out[$i] = [9, 0.0]; continue; }
         $tags = SWUBotCardTags($cid);
         $answer = (bool)array_intersect($tags, ['removal', 'wipe']);
-        // '@try-cravinganswer' (2026-10-07 gap screen): a power-strike that damages an enemy unit is an answer too — Craving Power
+        // Feature 'cravinganswer' (p43; 2026-10-07 gap screen): a power-strike that damages an enemy unit is an answer too — Craving Power
         // (LOF_091) is Krennic Blue's only spot answer to a piloted ship, and was resourced in 30 of 82 losses to Boba Blue.
-        if (!$answer && SWUBotProposalOn('cravinganswer') && in_array('power-strike', $tags, true) && in_array('damage-enemy-unit', $tags, true)) $answer = true;
+        if (!$answer && SWUBotFeatureOn('cravinganswer') && in_array('power-strike', $tags, true) && in_array('damage-enemy-unit', $tags, true)) $answer = true;
+        if (!$answer && $rampres && _SWUBotRampResAnswer($cid)) $answer = true;
         $cost = _SWUBotSeatCost($seat, $cid);
         // '@try-protecteddup' (2026-10-07 gap screen): a SECOND copy of a protected card is a spare — the duplicate check runs before the
         // keeps (Lando s012 held Hyperspace Disaster x2 and resourced Direct Hit). ⚠ the owner confirmed the opposite precedence earlier.
@@ -513,6 +838,9 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
         // Lever 'stabkeepdup' (2026-10-08 screen): the SECOND mass-debuff copy is kept vs aggro too (not the spare duplicate).
         if (SWUBotProposalOn('stabkeepdup') && $aggressive && preg_match('/Give each enemy unit -\d+\/-\d+/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
         if (($inHand[$cid] ?? 0) >= 2 && $i !== $firstIdx[$cid]) { $out[$i] = [0, 0.0]; continue; }
+        // 'rampres' rulings 2 and 1 (owner 2026-10-11): Hyperspace Disaster with no space deck to hit goes first; Lawbringer stays vs aggro.
+        if ($rampres && _SWUBotRampResIsHSD($cid) && !_SWUBotRampResSpaceOpp($seat)) { $out[$i] = [0, 0.0]; continue; }
+        if ($rampres && $aggressive && _SWUBotRampResIsAspectDebuff($cid)) { $out[$i] = [9, 0.0]; continue; }
         // Feature 'wipekeepaggro' (p37): a relevant WIPE is kept against aggro — owner (Krennic Splash, 2026-10-06): resource "late
         // bombs vs aggro, never the wipes". Below, a 7+ card only "fit the matchup" with 3+ enemy units, so the wipe being saved for
         // the flip turn looked like a dead 7-drop: SRI was resourced 19 times in 20 traced games vs Ahsoka Blue. (A spare duplicate
@@ -531,9 +859,9 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
         // copy has already gone to tier 0 (2026-09-18: "two of the same unique unit Sentinel … safe to resource one").
         // And vs SPACE aggro, Lawbringer ("each enemy unit with that aspect -2/-2") is the engine — owner: "Lawbringer on Aggression" vs
         // Vader (JTL) Yellow, where it sat in the 7+ resource-first tier and was cast once in 40 games.
-        // '@try-wallkeeparena' (2026-10-07 gap screen): against SPACE aggro, a Sentinel in an arena the opponent is not in walls off
+        // Feature 'wallkeeparena' (p43; 2026-10-07 gap screen): against SPACE aggro, a Sentinel in an arena the opponent is not in walls off
         // nothing — Aurra s012 resourced Pirate Snub Fighter and kept a ground Moff Gideon against four Vader ships.
-        $offArena = SWUBotProposalOn('wallkeeparena') && $spaceAggro
+        $offArena = SWUBotFeatureOn('wallkeeparena') && $spaceAggro
             && !array_filter($oppUnits, fn($u) => $u['arena'] === _SWUBotPlayArena($cid));
         if (SWUBotFeatureOn('wallkeep') && $aggressive && !$offArena && str_contains(strval(CardType($cid)), 'Unit')
             && (_SWUBotHasPrintedSentinel($cid) || preg_match('/\bgains Sentinel\b/i', strval(CardText($cid))))) { $out[$i] = [9, 0.0]; continue; }
@@ -547,8 +875,9 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
         if ($answer) $keep += 100.0;
         if ($answer && in_array('wipe', $tags, true) && count($oppUnits) >= 3) $keep += 100.0;
         if ($cost <= $cheapCap) $keep += $cheap <= 2 ? 250.0 : 50.0;
+        elseif ($rampres && in_array('resource-ramp', $tags, true)) $keep += 250.0;   // 'rampres': the ramp piece is the curve
         $keep -= 20.0 * ($inDeck[$cid] ?? 0);
-        // '@try-wallkeeparena': and within its tier the off-arena Sentinel is the card that goes, ahead of a space answer.
+        // 'wallkeeparena' (p43): and within its tier the off-arena Sentinel is the card that goes, ahead of a space answer.
         if ($offArena && str_contains(strval(CardType($cid)), 'Unit') && _SWUBotHasPrintedSentinel($cid)) $keep -= 300.0;
         $out[$i] = [2, $keep];
     }

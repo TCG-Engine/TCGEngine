@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-20T03:24:51+00:00",
+    "input_file": "card-regression-batch59.json",
+    "input_sha256": "0821527f4056adfb5475090a87e261554c712d88f5aa39aebb967f8b99ca5e71",
+    "filter": "",
+    "results": [
+        {
+            "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 231
+        },
+        {
+            "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-empty-arsenal-still-triggers",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 207
+        }
+    ]
+}

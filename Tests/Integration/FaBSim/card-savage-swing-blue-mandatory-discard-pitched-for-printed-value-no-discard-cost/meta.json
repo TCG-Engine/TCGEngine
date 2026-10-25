@@ -1,0 +1,7 @@
+{
+    "name": "Savage Swing / pitched-for-printed-value-no-discard-cost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:18:37+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Brute attack action: cost1, power5, defense3, pitch3. Its only functional text is 'As an additional cost to play this, discard a random card.' Primary is pitched for its printed3 resources to pay ordinary Generic RagingOnslaughtBlue cost3, after0initialfloat. Pitching is not playing the primary; its additional discard cost is never paid or generated. Rhinar has no discard to trigger on. RagingOnslaught is plainpower5, deals5, AP0/float0; primary remainsPitch and only the attack later entersGraveyard. Sources: FaBSim/GeneratedCode/cardArrayCache.json#savage_swing_blue https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP033.webp https://judge.fabtcg.com/cards/detail/135/ https://cards.fabtcg.com/card/savage-swing-2/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#51 https://rules.fabtcg.com/en/cr/01-game-concepts/#114 https://rules.fabtcg.com/en/cr/07-combat/"
+}

@@ -1,0 +1,360 @@
+{
+  "status": "B104_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch104.json",
+  "input_sha256": "ed6b59fd9e4a5dd80531212dcab27ef1be5b5214e7cb8a55508cf960fc04b1be",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T17:31:49.199024+00:00",
+  "fixtures": [
+    {
+      "slug": "card-strength-of-four-seasons-red-four-live-sparse-four-physical-face-up-earth-banish-cards-enable-four-power",
+      "fixture_sha256": "a0739e6d0dae605aaa30631a1540ec9ef04986a00cb300d3841b143b19c778d2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5e365cfde523d94eb0b26897c0d3b299930c80c442381921f7a1e959aeae5a92",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "77d950a46236600823d9d33535f632a7de6245e506d57d3d035025f09240301f",
+        "expected_final_gamestate.txt": "8b1ef093861cf5b29420ebfb1f59b60e5f2d7785c2e135211a05d982a445ab14",
+        "meta.json": "62b0272715ce1586c6da1be44fa79283c15924db0aedc09e72db35b609e9ad21"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 474,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        12
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-runerager-swarm-red-four-live-sparse-real-prior-sigil-aura-play-grants-go-again",
+      "fixture_sha256": "709faacc374abcb501b43abe5e50f9556a38f5d9a76cad8ba2ac4564595745fe",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5fce24ce63c4aa09adc700d177168bda546747f44eb569287d2d0c87da2c8a77",
+        "actions.json": "0ddc01dbfe0e238f6e0881a4cffa79901de121ae266928cc7509f9841dfd3fa2",
+        "assertions.json": "868b5123335a619683c336f5f59ca2f02b2581d9ceaacd3f1955460fd0cb4367",
+        "expected_final_gamestate.txt": "6a67fb4e2f12ef0f9c3505727ce8372945a21cdd13852d12467b1ed14cddb947",
+        "meta.json": "308401ce228ce4f4c206ace3e5ac17a391071e31451c9e79464d8ae661453fdb"
+      },
+      "semantically_approved": true,
+      "actions": 32,
+      "native_assertions": 454,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-hit-the-high-notes-red-four-live-sparse-real-prior-sigil-aura-play-enables-two-power",
+      "fixture_sha256": "44b20d2231bfffa55d4fd21c7517da0ebfaceb74d4703dbb79c3eed0e83d18ba",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9928e5f30fa6d5355e24cc173511e2cfe24472abc2a05d1da464a1cd9878bc5b",
+        "actions.json": "af0923a412f70c231803d6f1590bd7961df3eebc483a9a90501e4804130a1474",
+        "assertions.json": "bc1c2f467a6d23483fc08aadd347e4beaee2ea3b39c1ac9d4e7afdc7c41d692b",
+        "expected_final_gamestate.txt": "601946d2d57bac254a1d3c5046f4d29d465f9574e13b5bc062facb3cb8ec4d35",
+        "meta.json": "35ccab2c46043f602c5d127411c604c3b6c86baa5a9ebea158b3407f1a4de1a2"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 500,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-shrill-of-skullform-red-four-live-sparse-real-prior-sigil-aura-play-enables-three-power",
+      "fixture_sha256": "ba8518473388ac89318341d35d47b4996061866ce7ce341b2ea68ec7a2ec7a18",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "093f2461f2b458a9210f145f807915a1cb757cc6620b1fb20a9cde5ebfe641f6",
+        "actions.json": "af0923a412f70c231803d6f1590bd7961df3eebc483a9a90501e4804130a1474",
+        "assertions.json": "ed492983f6a115262684904533d80f0744ba4c4da003dbba4b92ad042e2b2164",
+        "expected_final_gamestate.txt": "8c6ba60b16af06d6e780fe178fe3798ede1fbd3d07b573131cade316b54a83db",
+        "meta.json": "5eba30ed74526f5706f8b3d3b0fcf3e5bfcef91a81bb04485656d52c208c1f1b"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 500,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 126,
+  "total_native_assertions": 1928,
+  "total_manual_passes": 112,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b104-actual-saved-independent-review.json",
+    "sha256": "370b7a50ead2e585637935f98102630449e916877a9b572dfcfc4733de8a63d1"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b104-independent-review\\independent-spec-review.json",
+    "sha256": "1933ac352e1daacbee309a25a21363c1e8fcd270706f7c93953ded6c58c2e096"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch104-20261022T172605Z-6ada472da847e.json",
+    "sha256": "de80d8fac05c051743e7223cb8ca99ee3a8246e9cece531ef0e27a0d3da93a12"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b104-four-live-run1.json",
+      "sha256": "2ea4503dd1b666febbac3c24f7a21faccf114bc06653c19930760b05e45e3972",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch104.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b104-four-live-run2.json",
+      "sha256": "745dd1f87041697fc084ca9e91fb4adb56ab5f5b6d0636aceeef2cea0bb4c020",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch104.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b104-fault-controls-v2.json",
+    "sha256": "7eb8cb59ea20a5846f083e6c24dfe5c5e0c293c85e8eb17ffc19b2abe4b0637d",
+    "total": 4,
+    "intended_semantic_failures": 4,
+    "plan_sha256": "2cad3f0bd9f72621557343d64ff2790dacaf8bfcbf5d63e5516fc2d8014e1068",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b104_strength_of_four_seasons_red_focused_effect_sensitivity",
+      "fixture": "card-strength-of-four-seasons-red-four-live-sparse-four-physical-face-up-earth-banish-cards-enable-four-power",
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "strength_of_four_seasons_red",
+            "mode": "add",
+            "tag": "WTR_POWER:-4"
+          }
+        ]
+      },
+      "retained_assertions": 278,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 8, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b104_runerager_swarm_red_v2_numeric_or_ga_sensitivity",
+      "fixture": "card-runerager-swarm-red-four-live-sparse-real-prior-sigil-aura-play-grants-go-again",
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "runerager_swarm_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 237,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b104_hit_the_high_notes_red_v2_numeric_or_ga_sensitivity",
+      "fixture": "card-hit-the-high-notes-red-four-live-sparse-real-prior-sigil-aura-play-enables-two-power",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "hit_the_high_notes_red",
+            "mode": "add",
+            "tag": "WTR_POWER:-2"
+          }
+        ]
+      },
+      "retained_assertions": 246,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b104_shrill_of_skullform_red_focused_effect_sensitivity",
+      "fixture": "card-shrill-of-skullform-red-four-live-sparse-real-prior-sigil-aura-play-enables-three-power",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "shrill_of_skullform_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 246,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b104-focused-fault-plan-v2-object-sensitivity.json",
+    "sha256": "2cad3f0bd9f72621557343d64ff2790dacaf8bfcbf5d63e5516fc2d8014e1068"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 2944,
+  "native_evidence_review_checks": 102,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Sigil stays Arena; no destruction/leave trigger/Runechant credit. No dynamic threshold, suppression or asynchronous-lifecycle credit.",
+    "Only current new four are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and four individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Strength and High Notes controls are numeric power sensitivity; Runerager uses existing ELE_NO_GO on its actual source; Shrill loses the actual +3 stored tag. All four are focused effect-oracle sensitivity, not isolated historical-predicate removal or legal alternate branches.",
+    "The first control invocation stopped after Strength stdout detection when Runerager history removal encountered two ROS_AURA rows. The helper demands exactly one row; no completed receipt or partial control qualification was claimed. Only corrected complete V2 native results count. Positive >=1-Aura conditions remain correct; exact Aura count and created-versus-played behavior remain untested."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "233d1e8ccff757f7606f9e0831422b4eb77e2147a059bd31dbf2c78da731a0fc",
+  "control_plan_correction": {
+    "superseded_plan": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b104-focused-fault-plan.json",
+      "sha256": "cdc25a65cabff4c474856b23f2e38fddb2e9d15c2ba1447afcb3ff58f7de41ab"
+    },
+    "failed_invocation": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b104-initial-fault-attempt-failure.json",
+      "sha256": "63e9d9b65d2f1accc2e7e3dbbefb50d9b2c80dd532be5a7872ec7e26afcf9c4e"
+    },
+    "reason": "ROS_AURA has two rows after actual Aura play and Arena entry; remove_effect requires exactly one. First invocation stopped after Strength stdout detection and Runerager helper error, before any final report. No partial qualification. Corrected V2 uses existing object tags, no native source/helper/fixture/oracle change.",
+    "source_anchors": [
+      {
+        "path": "FaBSim/Custom/ROSRuntime.php",
+        "sha256": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+        "needle": "FaBHasType($o,'Aura')"
+      },
+      {
+        "path": "FaBSim/Custom/ROSCards.php",
+        "sha256": "2f6b96bb9d25cc8a40dfb043147367f09a807330badc51d3ddae391e4fc7c339",
+        "needle": "if($to==='Arena'&&$from!=='Arena')"
+      },
+      {
+        "path": "FaBSim/Custom/GameLogic.php",
+        "sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+        "needle": "if(in_array('ELE_NO_GO',$effects,true))return false;"
+      }
+    ],
+    "scope": "Positive >=1-Aura predicates and actual physical endpoints remain correct. Exact Aura-count bookkeeping/created-versus-played alternatives are not certified; this is control-plan correction, not a qualified gameplay fix."
+  }
+}

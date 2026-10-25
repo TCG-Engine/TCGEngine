@@ -1,0 +1,1305 @@
+{
+  "status": "FROZEN_BOUNDED_CNC074_LIVE_DEFENSE_CORRECTION_PENDING_INDEPENDENT_GATE_AND_ACTUAL_NATIVE_RETRY",
+  "author": "/root/resume_cnc_triage",
+  "native_actions": 0,
+  "native_writes": 0,
+  "passing_coverage_added": 0,
+  "prior_model_error": "Previous Paper.state(defenseValue) dynamically recomputed live defense, incorrectly approving a pre-Damage cached-total assertion. Prior models/reviews/input files remain immutable. This proposal supersedes precisely that one check in the sole affected object.",
+  "changes": [
+    {
+      "file": "card-regression-batch74-proposed.json",
+      "path": [
+        23,
+        "steps",
+        26,
+        "checks",
+        11
+      ],
+      "before": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 2
+      },
+      "after": {
+        "kind": "defense",
+        "value": 2
+      },
+      "changed_kind": true,
+      "deleted_key": "key",
+      "numeric_value_unchanged": 2
+    },
+    {
+      "file": "card-regression-batch74-pilot-proposed.json",
+      "path": [
+        6,
+        "steps",
+        26,
+        "checks",
+        11
+      ],
+      "before": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 2
+      },
+      "after": {
+        "kind": "defense",
+        "value": 2
+      },
+      "changed_kind": true,
+      "deleted_key": "key",
+      "numeric_value_unchanged": 2
+    }
+  ],
+  "source_audit": {
+    "GameLogic.php_sha256": "70a6ad592e0b05ab80824e4defcf3fb5ee39e818036ee88a32504fed305350ae",
+    "selected_reaction_branch_sha256": "62cf100193391af3c2ac5bc7914fb4c02c5daadb912cbff6f5a6f8008a837972",
+    "live_defense_aggregator_sha256": "f19c8a6c5edfd48f172d10e3bafe79ef832956d011148600bcc5898cd79a31bb",
+    "initial_damage_prefix_sha256": "07732c710205c9a4ad3ad67e83dd891789cad0cdc9b9ed45196ec6c14a23faab",
+    "source_lines": {
+      "reaction_resolution": [
+        1453,
+        1463
+      ],
+      "live_aggregation": [
+        1594,
+        1603
+      ],
+      "damage_refresh": [
+        1703,
+        1707
+      ]
+    },
+    "fact": "Defense-reaction source enters the current physical link. Cached defenseValue is not a live query; fresh damage arithmetic uses FaBDefenseValue then stores2. The correction keeps printed2; it does not replace expected2 with observed0.",
+    "failed_attempt": {
+      "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch74-pilot-20261020T042858Z-6ad6ee0a82429.json",
+      "sha256": "e37539f92526775d95fd402f29d8868cf7ad8a0c49d7441ec33c54a627e94e1f",
+      "supported_actions": 30,
+      "error": "state defenseValue expected 2 got 0",
+      "physical_poststate_not_captured": true,
+      "source_and_existing_witness_only_not_actual_CnC_CC_verification": true
+    },
+    "existing_saved_witness": {
+      "slug": "card-dodge-blue-flat-dr-arsenal-face-down-floating-exact",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ba920f69932944ccab780be115f0776791e8dafaa1c08a5ec1a21c5dea89fa07",
+        "actions.json": "216763cd66263c24aaa3b6eff0b73030b589971dbdce7caab4b79fbe7fb2c84b",
+        "assertions.json": "9fff5f7ddeba11ed271d0e379d1020d9962dcd7f2d8a8b505086658623e91307",
+        "expected_final_gamestate.txt": "2cdae0c11dc91dfc7dbf0018873265deaa4cb94997b6ecd07101793b99aacb0d",
+        "meta.json": "5337bdbab35cf8edbefe3714bc45aa36e5583d0f726bf2596781031e1275123e"
+      },
+      "physical_Dodge_step": 12,
+      "fresh_damage_cache_step": 14,
+      "damage": 5,
+      "cached_defense": 2
+    },
+    "component": {
+      "status": "PASS",
+      "checks": 36,
+      "scope": "Selected exact native DEFENSE_REACTION body, live defense aggregator and initial damage arithmetic/cache prefix. Stub movement/globals/printed-base lookup; no full engine action, replay, modifier coverage or native writes."
+    }
+  },
+  "source_contract_checks": 59,
+  "paper_model_checks": 12748,
+  "all_checks_modeled": 4228,
+  "old_native_persistable_count": 4228,
+  "new_native_persistable_count": 4227,
+  "existing_author_only_live_defense_checks": 1,
+  "model_supported_actions": 275,
+  "rows": [
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-floating-overfunded",
+      "oracles": 269,
+      "actual_supported_actions_modeled": 16,
+      "individual_passes": 15,
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        1,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [],
+      "boundaries": [
+        {
+          "checkpoint": "printed_cost_two_paid_before_priority",
+          "actions": 1,
+          "oracles": 31
+        },
+        {
+          "checkpoint": "attack_six_no_go_again",
+          "actions": 3,
+          "oracles": 33
+        },
+        {
+          "checkpoint": "no_early_hit_or_destruction",
+          "actions": 8,
+          "oracles": 37
+        },
+        {
+          "checkpoint": "first_damage_requires_correct_hero_only_trigger",
+          "actions": 10,
+          "oracles": 38
+        },
+        {
+          "checkpoint": "mandatory_trigger_then_destroys_every_current_arsenal_card",
+          "actions": 12,
+          "oracles": 35
+        },
+        {
+          "checkpoint": "real_resolution_no_action_refund",
+          "actions": 14,
+          "oracles": 33
+        },
+        {
+          "checkpoint": "actual_final_priority_pass",
+          "actions": 15,
+          "oracles": 32
+        },
+        {
+          "checkpoint": "normal_owner_close",
+          "actions": 16,
+          "oracles": 30
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact",
+      "oracles": 312,
+      "actual_supported_actions_modeled": 17,
+      "individual_passes": 15,
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [],
+      "boundaries": [
+        {
+          "checkpoint": "real_pitch_payment_wait_0",
+          "actions": 1,
+          "oracles": 11
+        },
+        {
+          "checkpoint": "printed_cost_two_paid_before_priority",
+          "actions": 2,
+          "oracles": 35
+        },
+        {
+          "checkpoint": "attack_six_no_go_again",
+          "actions": 4,
+          "oracles": 37
+        },
+        {
+          "checkpoint": "no_early_hit_or_destruction",
+          "actions": 9,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "first_damage_requires_correct_hero_only_trigger",
+          "actions": 11,
+          "oracles": 42
+        },
+        {
+          "checkpoint": "mandatory_trigger_then_destroys_every_current_arsenal_card",
+          "actions": 13,
+          "oracles": 39
+        },
+        {
+          "checkpoint": "real_resolution_no_action_refund",
+          "actions": 15,
+          "oracles": 37
+        },
+        {
+          "checkpoint": "actual_final_priority_pass",
+          "actions": 16,
+          "oracles": 36
+        },
+        {
+          "checkpoint": "normal_owner_close",
+          "actions": 17,
+          "oracles": 34
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus",
+      "oracles": 312,
+      "actual_supported_actions_modeled": 17,
+      "individual_passes": 15,
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        1,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [],
+      "boundaries": [
+        {
+          "checkpoint": "real_pitch_payment_wait_0",
+          "actions": 1,
+          "oracles": 11
+        },
+        {
+          "checkpoint": "printed_cost_two_paid_before_priority",
+          "actions": 2,
+          "oracles": 35
+        },
+        {
+          "checkpoint": "attack_six_no_go_again",
+          "actions": 4,
+          "oracles": 37
+        },
+        {
+          "checkpoint": "no_early_hit_or_destruction",
+          "actions": 9,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "first_damage_requires_correct_hero_only_trigger",
+          "actions": 11,
+          "oracles": 42
+        },
+        {
+          "checkpoint": "mandatory_trigger_then_destroys_every_current_arsenal_card",
+          "actions": 13,
+          "oracles": 39
+        },
+        {
+          "checkpoint": "real_resolution_no_action_refund",
+          "actions": 15,
+          "oracles": 37
+        },
+        {
+          "checkpoint": "actual_final_priority_pass",
+          "actions": 16,
+          "oracles": 36
+        },
+        {
+          "checkpoint": "normal_owner_close",
+          "actions": 17,
+          "oracles": 34
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact",
+      "oracles": 359,
+      "actual_supported_actions_modeled": 18,
+      "individual_passes": 15,
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [],
+      "boundaries": [
+        {
+          "checkpoint": "real_pitch_payment_wait_0",
+          "actions": 1,
+          "oracles": 11
+        },
+        {
+          "checkpoint": "real_pitch_payment_wait_1",
+          "actions": 2,
+          "oracles": 15
+        },
+        {
+          "checkpoint": "printed_cost_two_paid_before_priority",
+          "actions": 3,
+          "oracles": 39
+        },
+        {
+          "checkpoint": "attack_six_no_go_again",
+          "actions": 5,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "no_early_hit_or_destruction",
+          "actions": 10,
+          "oracles": 45
+        },
+        {
+          "checkpoint": "first_damage_requires_correct_hero_only_trigger",
+          "actions": 12,
+          "oracles": 46
+        },
+        {
+          "checkpoint": "mandatory_trigger_then_destroys_every_current_arsenal_card",
+          "actions": 14,
+          "oracles": 43
+        },
+        {
+          "checkpoint": "real_resolution_no_action_refund",
+          "actions": 16,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "actual_final_priority_pass",
+          "actions": 17,
+          "oracles": 40
+        },
+        {
+          "checkpoint": "normal_owner_close",
+          "actions": 18,
+          "oracles": 38
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact",
+      "oracles": 312,
+      "actual_supported_actions_modeled": 17,
+      "individual_passes": 15,
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [],
+      "boundaries": [
+        {
+          "checkpoint": "real_pitch_payment_wait_0",
+          "actions": 1,
+          "oracles": 11
+        },
+        {
+          "checkpoint": "printed_cost_two_paid_before_priority",
+          "actions": 2,
+          "oracles": 35
+        },
+        {
+          "checkpoint": "attack_six_no_go_again",
+          "actions": 4,
+          "oracles": 37
+        },
+        {
+          "checkpoint": "no_early_hit_or_destruction",
+          "actions": 9,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "first_damage_requires_correct_hero_only_trigger",
+          "actions": 11,
+          "oracles": 42
+        },
+        {
+          "checkpoint": "mandatory_trigger_then_destroys_every_current_arsenal_card",
+          "actions": 13,
+          "oracles": 39
+        },
+        {
+          "checkpoint": "real_resolution_no_action_refund",
+          "actions": 15,
+          "oracles": 37
+        },
+        {
+          "checkpoint": "actual_final_priority_pass",
+          "actions": 16,
+          "oracles": 36
+        },
+        {
+          "checkpoint": "normal_owner_close",
+          "actions": 17,
+          "oracles": 34
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact",
+      "oracles": 269,
+      "actual_supported_actions_modeled": 16,
+      "individual_passes": 15,
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [],
+      "boundaries": [
+        {
+          "checkpoint": "printed_cost_two_paid_before_priority",
+          "actions": 1,
+          "oracles": 31
+        },
+        {
+          "checkpoint": "attack_six_no_go_again",
+          "actions": 3,
+          "oracles": 33
+        },
+        {
+          "checkpoint": "no_early_hit_or_destruction",
+          "actions": 8,
+          "oracles": 37
+        },
+        {
+          "checkpoint": "first_damage_requires_correct_hero_only_trigger",
+          "actions": 10,
+          "oracles": 38
+        },
+        {
+          "checkpoint": "mandatory_trigger_then_destroys_every_current_arsenal_card",
+          "actions": 12,
+          "oracles": 35
+        },
+        {
+          "checkpoint": "real_resolution_no_action_refund",
+          "actions": 14,
+          "oracles": 33
+        },
+        {
+          "checkpoint": "actual_final_priority_pass",
+          "actions": 15,
+          "oracles": 32
+        },
+        {
+          "checkpoint": "normal_owner_close",
+          "actions": 16,
+          "oracles": 30
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact",
+      "oracles": 269,
+      "actual_supported_actions_modeled": 16,
+      "individual_passes": 15,
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [],
+      "boundaries": [
+        {
+          "checkpoint": "printed_cost_two_paid_before_priority",
+          "actions": 1,
+          "oracles": 31
+        },
+        {
+          "checkpoint": "attack_six_no_go_again",
+          "actions": 3,
+          "oracles": 33
+        },
+        {
+          "checkpoint": "no_early_hit_or_destruction",
+          "actions": 8,
+          "oracles": 37
+        },
+        {
+          "checkpoint": "first_damage_requires_correct_hero_only_trigger",
+          "actions": 10,
+          "oracles": 38
+        },
+        {
+          "checkpoint": "mandatory_trigger_then_destroys_every_current_arsenal_card",
+          "actions": 12,
+          "oracles": 35
+        },
+        {
+          "checkpoint": "real_resolution_no_action_refund",
+          "actions": 14,
+          "oracles": 33
+        },
+        {
+          "checkpoint": "actual_final_priority_pass",
+          "actions": 15,
+          "oracles": 32
+        },
+        {
+          "checkpoint": "normal_owner_close",
+          "actions": 16,
+          "oracles": 30
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal",
+      "oracles": 344,
+      "actual_supported_actions_modeled": 17,
+      "individual_passes": 15,
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [],
+      "boundaries": [
+        {
+          "checkpoint": "printed_cost_two_paid_before_priority",
+          "actions": 1,
+          "oracles": 31
+        },
+        {
+          "checkpoint": "attack_six_no_go_again",
+          "actions": 3,
+          "oracles": 33
+        },
+        {
+          "checkpoint": "actual_printed_three_defense_per_blocker",
+          "actions": 6,
+          "oracles": 43
+        },
+        {
+          "checkpoint": "no_early_hit_or_destruction",
+          "actions": 9,
+          "oracles": 44
+        },
+        {
+          "checkpoint": "first_damage_requires_correct_hero_only_trigger",
+          "actions": 11,
+          "oracles": 45
+        },
+        {
+          "checkpoint": "mandatory_trigger_then_destroys_every_current_arsenal_card",
+          "actions": 13,
+          "oracles": 42
+        },
+        {
+          "checkpoint": "real_resolution_no_action_refund",
+          "actions": 15,
+          "oracles": 40
+        },
+        {
+          "checkpoint": "actual_final_priority_pass",
+          "actions": 16,
+          "oracles": 32
+        },
+        {
+          "checkpoint": "normal_owner_close",
+          "actions": 17,
+          "oracles": 34
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals",
+      "oracles": 345,
+      "actual_supported_actions_modeled": 16,
+      "individual_passes": 15,
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [],
+      "boundaries": [
+        {
+          "checkpoint": "printed_cost_two_paid_before_priority",
+          "actions": 1,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "attack_six_no_go_again",
+          "actions": 3,
+          "oracles": 43
+        },
+        {
+          "checkpoint": "no_early_hit_or_destruction",
+          "actions": 8,
+          "oracles": 47
+        },
+        {
+          "checkpoint": "first_damage_requires_correct_hero_only_trigger",
+          "actions": 10,
+          "oracles": 48
+        },
+        {
+          "checkpoint": "mandatory_trigger_then_destroys_every_current_arsenal_card",
+          "actions": 12,
+          "oracles": 44
+        },
+        {
+          "checkpoint": "real_resolution_no_action_refund",
+          "actions": 14,
+          "oracles": 42
+        },
+        {
+          "checkpoint": "actual_final_priority_pass",
+          "actions": 15,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "normal_owner_close",
+          "actions": 16,
+          "oracles": 39
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-ally-hit-does-not-trigger-or-destroy-hero-arsenal",
+      "oracles": 254,
+      "actual_supported_actions_modeled": 15,
+      "individual_passes": 13,
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [],
+      "boundaries": [
+        {
+          "checkpoint": "actual_target_choice_before_any_source_payment",
+          "actions": 1,
+          "oracles": 10
+        },
+        {
+          "checkpoint": "printed_cost_two_paid_before_priority",
+          "actions": 2,
+          "oracles": 31
+        },
+        {
+          "checkpoint": "attack_six_no_go_again",
+          "actions": 4,
+          "oracles": 38
+        },
+        {
+          "checkpoint": "no_early_hit_or_destruction",
+          "actions": 9,
+          "oracles": 37
+        },
+        {
+          "checkpoint": "first_damage_requires_correct_hero_only_trigger",
+          "actions": 11,
+          "oracles": 40
+        },
+        {
+          "checkpoint": "real_resolution_no_action_refund",
+          "actions": 13,
+          "oracles": 34
+        },
+        {
+          "checkpoint": "actual_final_priority_pass",
+          "actions": 14,
+          "oracles": 33
+        },
+        {
+          "checkpoint": "normal_owner_close",
+          "actions": 15,
+          "oracles": 31
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-total-one-resource-rejected",
+      "oracles": 24,
+      "actual_supported_actions_modeled": 1,
+      "individual_passes": 0,
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0
+      ],
+      "final_ap": [
+        1,
+        0
+      ],
+      "rejected_clicks": [
+        "p1Hand-0"
+      ],
+      "boundaries": [
+        {
+          "checkpoint": "actual_rejected_click_preserves_source_economy_and_priority",
+          "actions": 1,
+          "oracles": 24
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-total-one-red-card-rejected",
+      "oracles": 29,
+      "actual_supported_actions_modeled": 1,
+      "individual_passes": 0,
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        1,
+        0
+      ],
+      "rejected_clicks": [
+        "p1Hand-0"
+      ],
+      "boundaries": [
+        {
+          "checkpoint": "actual_rejected_click_preserves_source_economy_and_priority",
+          "actions": 1,
+          "oracles": 29
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-total-one-resource-rejected",
+      "oracles": 24,
+      "actual_supported_actions_modeled": 1,
+      "individual_passes": 0,
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0
+      ],
+      "final_ap": [
+        1,
+        0
+      ],
+      "rejected_clicks": [
+        "p1Arsenal-0"
+      ],
+      "boundaries": [
+        {
+          "checkpoint": "actual_rejected_click_preserves_source_economy_and_priority",
+          "actions": 1,
+          "oracles": 24
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-zero-ap-funded-hand-rejected",
+      "oracles": 24,
+      "actual_supported_actions_modeled": 1,
+      "individual_passes": 0,
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [
+        "p1Hand-0"
+      ],
+      "boundaries": [
+        {
+          "checkpoint": "actual_rejected_click_preserves_source_economy_and_priority",
+          "actions": 1,
+          "oracles": 24
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-nonturn-action-rejected-after-real-priority-pass",
+      "oracles": 24,
+      "actual_supported_actions_modeled": 2,
+      "individual_passes": 1,
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_ap": [
+        1,
+        0
+      ],
+      "rejected_clicks": [
+        "p2Hand-0"
+      ],
+      "boundaries": [
+        {
+          "checkpoint": "actual_rejected_click_preserves_source_economy_and_priority",
+          "actions": 2,
+          "oracles": 24
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-wrong-priority-rejected-after-real-pass",
+      "oracles": 24,
+      "actual_supported_actions_modeled": 2,
+      "individual_passes": 1,
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0
+      ],
+      "final_ap": [
+        1,
+        0
+      ],
+      "rejected_clicks": [
+        "p1Hand-0"
+      ],
+      "boundaries": [
+        {
+          "checkpoint": "actual_rejected_click_preserves_source_economy_and_priority",
+          "actions": 2,
+          "oracles": 24
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-no-permission-deck-click-rejected",
+      "oracles": 24,
+      "actual_supported_actions_modeled": 1,
+      "individual_passes": 0,
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0
+      ],
+      "final_ap": [
+        1,
+        0
+      ],
+      "rejected_clicks": [
+        "p1Deck-0"
+      ],
+      "boundaries": [
+        {
+          "checkpoint": "actual_rejected_click_preserves_source_economy_and_priority",
+          "actions": 1,
+          "oracles": 24
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-no-permission-graveyard-click-rejected",
+      "oracles": 23,
+      "actual_supported_actions_modeled": 1,
+      "individual_passes": 0,
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0
+      ],
+      "final_ap": [
+        1,
+        0
+      ],
+      "rejected_clicks": [
+        "p1Graveyard-0"
+      ],
+      "boundaries": [
+        {
+          "checkpoint": "actual_rejected_click_preserves_source_economy_and_priority",
+          "actions": 1,
+          "oracles": 23
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-no-permission-banish-click-rejected",
+      "oracles": 24,
+      "actual_supported_actions_modeled": 1,
+      "individual_passes": 0,
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0
+      ],
+      "final_ap": [
+        1,
+        0
+      ],
+      "rejected_clicks": [
+        "p1Banish-0"
+      ],
+      "boundaries": [
+        {
+          "checkpoint": "actual_rejected_click_preserves_source_economy_and_priority",
+          "actions": 1,
+          "oracles": 24
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-primary-pitched-for-exact-one-resource",
+      "oracles": 120,
+      "actual_supported_actions_modeled": 15,
+      "individual_passes": 13,
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [],
+      "boundaries": [
+        {
+          "checkpoint": "subject_is_only_pitch_candidate_for_cost_three",
+          "actions": 1,
+          "oracles": 18
+        },
+        {
+          "checkpoint": "actual_cnc_red_pitch_one_exactly_completes_payment",
+          "actions": 2,
+          "oracles": 23
+        },
+        {
+          "checkpoint": "only_support_attack_six_no_cnc_hit_ability_from_pitch",
+          "actions": 4,
+          "oracles": 22
+        },
+        {
+          "checkpoint": "ordinary_support_damage_has_no_cnc_trigger",
+          "actions": 11,
+          "oracles": 20
+        },
+        {
+          "checkpoint": "real_resolution_pass_after_primary_pitch",
+          "actions": 14,
+          "oracles": 13
+        },
+        {
+          "checkpoint": "support_close_primary_stays_pitch",
+          "actions": 15,
+          "oracles": 24
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-primary-defends-three-with-one-damage",
+      "oracles": 75,
+      "actual_supported_actions_modeled": 15,
+      "individual_passes": 13,
+      "final_health": [
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [],
+      "boundaries": [
+        {
+          "checkpoint": "primary_declares_real_hand_defense_three",
+          "actions": 6,
+          "oracles": 22
+        },
+        {
+          "checkpoint": "printed_three_blocks_exactly_three_of_four",
+          "actions": 11,
+          "oracles": 16
+        },
+        {
+          "checkpoint": "actual_resolution_priority_pass_defending_primary",
+          "actions": 14,
+          "oracles": 13
+        },
+        {
+          "checkpoint": "both_original_physical_owner_graveyards",
+          "actions": 15,
+          "oracles": 24
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-source-cannot-declare-ordinary-block",
+      "oracles": 77,
+      "actual_supported_actions_modeled": 15,
+      "individual_passes": 13,
+      "final_health": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [
+        "p2Arsenal-0"
+      ],
+      "boundaries": [
+        {
+          "checkpoint": "arsenal_attack_action_cannot_declare_ordinary_defense",
+          "actions": 6,
+          "oracles": 21
+        },
+        {
+          "checkpoint": "unblocked_support_hit_cannot_borrow_arsenal_cnc_trigger",
+          "actions": 11,
+          "oracles": 17
+        },
+        {
+          "checkpoint": "real_pass_after_rejected_arsenal_block",
+          "actions": 14,
+          "oracles": 13
+        },
+        {
+          "checkpoint": "arsenal_source_and_owner_preserved_at_close",
+          "actions": 15,
+          "oracles": 26
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-wrong-role-attack-reaction-rejected-with-real-spare-ap",
+      "oracles": 151,
+      "actual_supported_actions_modeled": 18,
+      "individual_passes": 15,
+      "final_health": [
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0
+      ],
+      "final_ap": [
+        1,
+        0
+      ],
+      "rejected_clicks": [
+        "p1Hand-0"
+      ],
+      "boundaries": [
+        {
+          "checkpoint": "real_timesnap_action_cost_before_gain_two",
+          "actions": 1,
+          "oracles": 20
+        },
+        {
+          "checkpoint": "actual_timesnap_two_ap_without_resource_cost",
+          "actions": 3,
+          "oracles": 19
+        },
+        {
+          "checkpoint": "support_attack_uses_first_of_two_real_ap",
+          "actions": 6,
+          "oracles": 23
+        },
+        {
+          "checkpoint": "cnc_actual_action_card_rejected_as_attack_reaction_despite_ap_and_funding",
+          "actions": 12,
+          "oracles": 29
+        },
+        {
+          "checkpoint": "support_hit_does_not_gain_hand_cnc_ability",
+          "actions": 14,
+          "oracles": 19
+        },
+        {
+          "checkpoint": "actual_resolution_pass_wrong_role_case",
+          "actions": 17,
+          "oracles": 13
+        },
+        {
+          "checkpoint": "normal_close_rejected_cnc_still_hand",
+          "actions": 18,
+          "oracles": 28
+        }
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-dr-prohibition-ends-at-next-real-chain-link",
+      "oracles": 540,
+      "actual_supported_actions_modeled": 36,
+      "individual_passes": 29,
+      "final_health": [
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "rejected_clicks": [
+        "p2Arsenal-0"
+      ],
+      "boundaries": [
+        {
+          "checkpoint": "real_timesnap_action_cost_before_gain_two",
+          "actions": 1,
+          "oracles": 20
+        },
+        {
+          "checkpoint": "actual_timesnap_two_ap_without_resource_cost",
+          "actions": 3,
+          "oracles": 19
+        },
+        {
+          "checkpoint": "first_cnc_link_uses_real_extra_ap_and_exact_two_resources",
+          "actions": 6,
+          "oracles": 28
+        },
+        {
+          "checkpoint": "ordinary_blocks_six_preserve_arsenal_for_later_witness",
+          "actions": 10,
+          "oracles": 43
+        },
+        {
+          "checkpoint": "funded_actual_arsenal_dodge_rejected_on_cnc_link",
+          "actions": 15,
+          "oracles": 44
+        },
+        {
+          "checkpoint": "first_link_no_hit_has_no_trigger_or_arsenal_loss",
+          "actions": 16,
+          "oracles": 29
+        },
+        {
+          "checkpoint": "first_link_resolved_source_remains_while_one_ap_available",
+          "actions": 18,
+          "oracles": 47
+        },
+        {
+          "checkpoint": "real_second_attack_announced_from_resolution_not_injected_link",
+          "actions": 19,
+          "oracles": 47
+        },
+        {
+          "checkpoint": "actual_second_link_has_only_new_active_attack",
+          "actions": 21,
+          "oracles": 51
+        },
+        {
+          "checkpoint": "same_original_dodge_now_legally_announced_on_link_two",
+          "actions": 28,
+          "oracles": 51
+        },
+        {
+          "checkpoint": "printed_dodge_two_defends_only_the_new_link",
+          "actions": 30,
+          "oracles": 53
+        },
+        {
+          "checkpoint": "old_cnc_on_link_one_does_not_trigger_for_new_attack_hit",
+          "actions": 32,
+          "oracles": 35
+        },
+        {
+          "checkpoint": "real_final_second_link_priority_pass",
+          "actions": 35,
+          "oracles": 27
+        },
+        {
+          "checkpoint": "normal_close_all_two_link_physical_owners",
+          "actions": 36,
+          "oracles": 46
+        }
+      ]
+    }
+  ],
+  "old_cache_oracle_rejected_by_source_aware_model": "('card-command-and-conquer-red-ordinary-arsenal-dr-prohibition-ends-at-next-real-chain-link', 26, 'printed_dodge_two_defends_only_the_new_link', \"('printed-model oracle', 'card-command-and-conquer-red-ordinary-arsenal-dr-prohibition-ends-at-next-real-chain-link', {'kind': 'state', 'key': 'defenseValue', 'value': 2}, 'got', 0)\")",
+  "semantic_faults_detected": [
+    "Dodge assigned prior link",
+    "Dodge missing from physical chain",
+    "Dodge defense1 instead of printed2",
+    "final_health",
+    "final_damage",
+    "source_uid",
+    "source_role"
+  ],
+  "retained": "Every action/pass/wait, cost/AP, physical card/UID/role/controller/owner/source-zone/link assertion and final damage2/cache2/HP18 is unchanged. Other23 full objects and first6 pilots remain exact. Native final snapshot pins physical cleanup. Existing recorder live defense check is author-only; do not claim a persisted computed-defense assertion exists.",
+  "required_gates": [
+    "Independent source/delta review.",
+    "Parent retry ONLY seventh; all physical assertions must actually pass and exact raw5 inspected.",
+    "Fresh clean replay and same-runtime controls/suites before checkpoint promotion."
+  ]
+}

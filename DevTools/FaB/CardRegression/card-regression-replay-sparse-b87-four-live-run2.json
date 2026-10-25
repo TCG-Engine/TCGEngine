@@ -1,0 +1,62 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch87.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T22:23:59.467000+00:00",
+  "fixtures": [
+    {
+      "slug": "card-stubby-hammerers-four-live-sparse-real-arms-destroy-and-low-base-attacking-buff",
+      "fixture_sha256": "8c54eefce8aa79ad9d0e15bdb29d4e5f82ef86e3c26a17d1ac586b3d61f2af8e",
+      "passed": true,
+      "result": "[PASS] Stubby Hammerers / four live sparse activated effect"
+    },
+    {
+      "slug": "card-diamond-amulet-blue-four-live-sparse-instant-destroy-watery-then-real-action-point-use",
+      "fixture_sha256": "0f8f4e85c8a8a79956dbfedbba80247e4b1ce178a0c05664d967e2441ec01837",
+      "passed": true,
+      "result": "[PASS] Diamond Amulet / four live sparse activated effect"
+    },
+    {
+      "slug": "card-pounamu-amulet-blue-four-live-sparse-action-destroy-watery-then-heal-and-go-again",
+      "fixture_sha256": "26a9c0d9a326cb0126df7d2f7e765eb0b7807316f83f88e8f22d0a7e65b24c83",
+      "passed": true,
+      "result": "[PASS] Pounamu Amulet / four live sparse activated effect"
+    },
+    {
+      "slug": "card-amethyst-amulet-blue-four-live-sparse-instant-destroy-watery-then-next-attack-plus-two",
+      "fixture_sha256": "f6dbe594550625ce8548f99f05487878d05835d33b442d533ed999894cab8080",
+      "passed": true,
+      "result": "[PASS] Amethyst Amulet / four live sparse activated effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-stubby-hammerers-four-live-sparse-real-arms-destroy-and-low-base-attacking-buff",
+      "returncode": 0,
+      "stdout": "[PASS] Stubby Hammerers / four live sparse activated effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-diamond-amulet-blue-four-live-sparse-instant-destroy-watery-then-real-action-point-use",
+      "returncode": 0,
+      "stdout": "[PASS] Diamond Amulet / four live sparse activated effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-pounamu-amulet-blue-four-live-sparse-action-destroy-watery-then-heal-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Pounamu Amulet / four live sparse activated effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-amethyst-amulet-blue-four-live-sparse-instant-destroy-watery-then-next-attack-plus-two",
+      "returncode": 0,
+      "stdout": "[PASS] Amethyst Amulet / four live sparse activated effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3101,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Imperial Ledger / four live sparse physical item",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:47:24+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actually activate owned Imperial Ledger5 as an Action for0resources and1AP. Paying its additional cost shuffles that same source5into its ownerP1Deck before any response, leaving Arenaempty and source not destroyed. The Deck contains exactly that one card, so no shuffle ordering/RNG is exercised. After four live manual responses, the actual non-Royal Dorinthea hero creates one owned/controlled CopperUID7. Ledger stays Deck0; no Gold or extraAP is created because this ability has no go again. Every four live young20 hero UID1..4 is owned/controlled by its seat. Every response/combat window is passed manually by real actors1,2,3,4, with no passive/autopass seat. All final queues, health, AP/resources and physical objects are pinned. Only non-Royal Copper result with singleton shuffle-self cost. Royal Gold replacement, multi-card shuffle randomness, source suppression, Copper activation and subsequent draw are untested. One positive primary representative only; sibling/support/hero/full-card/alternative-branch/internal callback completeness is not awarded. Sources: https://judge.fabtcg.com/cards/detail/1955/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DYN241.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

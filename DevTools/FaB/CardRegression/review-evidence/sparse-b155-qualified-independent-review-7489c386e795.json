@@ -1,0 +1,213 @@
+{
+  "status": "B155_TWO_EQUIPMENT_RESOURCE_AND_REAL_SWORD_DISCOUNT_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch155.json",
+  "input_sha256": "baa11f78da848c1977b4e640a0f739dabea4795d8ccd5ce87450705398a83c9b",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:19:34.724313+00:00",
+  "fixtures": [
+    {
+      "slug": "card-garland-of-spring-four-live-sparse-actual-generic-equipment-destruction-gains-one-resource-and-go-again",
+      "fixture_sha256": "d32eb183dcaba25255b996a157a4ce24ccc514e287db175eae3c09bc0e940bb8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3ef00a5e48f182be5ed72f65a5084e622cee7d09b87b89ec23b50c7896523eaa",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "36bfc3e183a373af496513005885018dd51ac9c438e35f1196490dd8008ad780",
+        "expected_final_gamestate.txt": "efb43c1814deb81dccd805d1abec14207b023f8b3c567ddb0882b8c8e5a5bcde",
+        "meta.json": "cc60ff6035c6fe10948ee49bcf4e8b9b608057b2921c476e2ec7b6829087b673"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 332,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-courage-of-bladehold-four-live-sparse-actual-equipment-discount-makes-printed-one-resource-sword-activation-free",
+      "fixture_sha256": "3bc7e2ccfadecc273f0cbf3b95ef68a86244f9ed013a8073212aba5390001b62",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3fe6a433e445f0626f61bffac9fb0da810727db04984bbfa15bd5db03c46080b",
+        "actions.json": "4f62038338ee3ba31621299e7ace1b858f7ecbf5b53c0ff28a8ad82cc9200158",
+        "assertions.json": "9d5102b31d7989bcf5c3003be9d070fd6f23dae45b3b1fdbcd8b330c8229e242",
+        "expected_final_gamestate.txt": "3806b3d4ad40a4ba80c8b7a9b5e4f7113fda671129636c76dbfbcbd6baa923ae",
+        "meta.json": "35a4dc5d4dbe36cd776f6ca79a8c611ded84f44e74643016883cb1effb437fec"
+      },
+      "semantically_approved": true,
+      "actions": 32,
+      "native_assertions": 1010,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 37,
+  "total_native_assertions": 1342,
+  "total_manual_passes": 33,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b155-actual-saved-independent-review.json",
+    "sha256": "bce870ac5710f56eaee06715a031e2ed5b446d7377d55fdc82eaeda92803f205"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b155-independent-spec-review.json",
+    "sha256": "fbb8cd2e83e16c6e5ef4ea7c148ff89d063fa71957fdba833607764050218395"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch155-20261022T201753Z-6ada6f717c0d6.json",
+    "sha256": "956e23f8a3c433e28c337935f82c2bd34dedba199bfe9ea5f4d347120b587bf1"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b155-four-live-run1.json",
+      "sha256": "b123e4c0dd84278ad2f55df9a4cb1f25ca7fa1e5ceb241dd575e0bc0720c59b8",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch155.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b155-four-live-run2.json",
+      "sha256": "49c3fdc4f3a61f29d8be0febd1b93f366ebc35cfcf7f4c927e88202759b295c5",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch155.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b155-fault-controls.json",
+    "sha256": "435b755806ddff3cd662533cddde2572fb797a8d6b1a4258781a21c75112dba5",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "4bbb738643ba2e5a8b0be85751be55fe2d9860e6b8ce6ff281201b9c9186c0a5",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b155_garland_of_spring_focused_effect_sensitivity",
+      "fixture": "card-garland-of-spring-four-live-sparse-actual-generic-equipment-destruction-gains-one-resource-and-go-again",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "garland_of_spring",
+            "uid": 5,
+            "from": "Graveyard",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 106,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b155_courage_of_bladehold_focused_effect_sensitivity",
+      "fixture": "card-courage-of-bladehold-four-live-sparse-actual-equipment-discount-makes-printed-one-resource-sword-activation-free",
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dawnblade",
+            "mode": "add",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 534,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b155-focused-fault-plan.json",
+    "sha256": "4bbb738643ba2e5a8b0be85751be55fe2d9860e6b8ce6ff281201b9c9186c0a5"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1859,
+  "native_evidence_review_checks": 65,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Two standaloneequipment positives: GarlandactualdestroyEq5/gainresource1/abilityGAAP1; CourageactualdestroyEq5/abilityGA then REALSword6printed1minus1cost0 withZEROresources/Hand/Pitch, proxy8power3/damage3/P4HP17/noattackGA/AP0/R0. No repeats/nonSword/expiry/Temper/resourcespending/hero/support/fullcard credit.",
+    "Only current TWO-case new packet audited; root alone executes native games and writes repo. Only established virtualABILITYrawOwner0/Controller1representation; physicalEq5 remains owned1. No broadownership or legacy review.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Garland completeprefix5 moves actuallydestroyedEq5 GYtoTemp; firstGY1to0 is physicaldestroy-cost destination sensitivity only, resource1/AP1remain. No isolatednative resourcegain mutation claim. Courage prefix11 adds unique syntheticWTR_POWER1 on actualunbuffedDawnbladeproxy8, firstcomputed3to4: numericattackoutcome sensitivity ONLY, NO isolatednative discount-removal claim. Discount remains present; independent printed1minus1=0 and both actuallegality/payment sourcepaths, actualSword6activationwithZEROresources/Hand/Pitch and purelosingdiscount fault separatelypin intended effect. Physicalsource5/sword6/target/economy preserved. No repeateduse/nonSwordfilter/expiry/Temper/hero/support/fullcard credit.",
+    "Garland completeprefix5 retains all originalfinaloracles asInitial/zero suffixactions; Courage prefix11 retains21remainingrealactions/alloriginalsuffixoracles. Same exact selectedraw5/runtime preserved. Existingexecutor assertion-failure contract unchanged; no unsupported action-denial control or helperextension/broad-suite claim."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "bf6fcafb7c18250688b8967a65b8576766a75548face01afba994dc8ca6fe3a7"
+}

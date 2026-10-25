@@ -1,0 +1,333 @@
+{
+  "status": "B114_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b105_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch114.json",
+  "input_sha256": "47962ee42deaa5f2c53ee8fc4abffa0432fc071cc91730dd38b54f9b652c0408",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:21:02.606929+00:00",
+  "fixtures": [
+    {
+      "slug": "card-seismic-eruption-yellow-four-live-sparse-actual-printed-instant-creates-3-owned-seismic-surge-tokens",
+      "fixture_sha256": "f89624c444a3ae073130a19d70243280ff9eda72a2f3b264655b9d5b7218f90f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "35722ce2df3343c7c84a614b785700abad4e68adccda8f96e829fc5f3e819079",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "2a6bb5e8d97e35ebd932542616f1c6c29c211ee5f5b7427e86cfea4cc17aed70",
+        "expected_final_gamestate.txt": "90b940ce7ad65376429bf57a9671b0fd0613dbc53efb21f7fc198d7dbcbb9a4c",
+        "meta.json": "04548b2f58a924e8325f1e70ee5cb2bdf419c4739871f86a332a9f8cf98c6915"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 483,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-tome-of-quandaries-blue-four-live-sparse-actual-printed-instant-creates-2-owned-ponder-tokens",
+      "fixture_sha256": "359d80dd805e07a86f4d24a2243c149b15d6cbb9f53495f7a51d9cc8b8c03735",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b59eff9eb133f86d2da6c984c600dfea4462505899bd36b58b3722a62895c541",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "d9b7321a73693a064a32eed86887475a991130c5e2c17fb05d9d235f9117007c",
+        "expected_final_gamestate.txt": "0c904bae114c3c9da66a65bb85c39f5e8df10ee7a1af5a281c51aa6a88a18390",
+        "meta.json": "d3e54a7c911546f3ab16ea2dbf658f9e4048bfd2cb2b84d91e90b10be8b7e92b"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 479,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        15,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-starworld-warning-yellow-four-live-sparse-actual-printed-instant-creates-2-owned-lightning-flow-tokens",
+      "fixture_sha256": "5f9de78af015fe42c5942035f032bc7da51cd98dbb62d5f2f9bdc048930d1e17",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f26667c8e57dfd08563b1615b7e719c151a12438f75506725e74c4d87e69cef4",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "e6eab022451d5b46fe9bd4658fe98dd27e8ca005a426b9b815c54d002929899d",
+        "expected_final_gamestate.txt": "4ed7f4b90719dea2d6823f9dae693092be5a0d335d6964e7694de8d66229d8ff",
+        "meta.json": "999059e348ccd2083ad0f74bd45ca45fa61cbe4fcbe64562f5729c0833c14ef7"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 574,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-runic-disposition-red-four-live-sparse-actual-zero-cost-discard-instant-creates-one-owned-runechant",
+      "fixture_sha256": "355f61e0a98a5109a6af17d9915ecbb6b27edf83c5653517d0a6ec13f188bcc5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cd47a8c5e24a8a9e9954c72c3ae13c46210bd24971baf45258f926be14b72c68",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "fecefea781fce3d87598b1eeac815ebeef559e78e83aa8a2dd7c199aca5d2958",
+        "expected_final_gamestate.txt": "b0d7753006a290f4223e1ba178858ade2d9bf98cbb345f97a39702ca721d2bcb",
+        "meta.json": "4859c1daa45bea86abb2376539375593a32226654eadac3235dc11607c7ba4f4"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 495,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 21,
+  "total_native_assertions": 2031,
+  "total_manual_passes": 16,
+  "checks": 96,
+  "actual_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b114-actual-saved-independent-review.json",
+    "sha256": "dd204958f3d759ee092047c5fd18dd361a2cfe3cc4a6e7399939c7a75faba67f"
+  },
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b114-independent-spec-review.json",
+    "sha256": "b7c497164e0954a336cd307525667c2b5e1a9618568c3a5d0ef78308a154269a"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch114-20261022T181912Z-6ada53a001d4f.json",
+    "sha256": "af65a92f50326c5980351ceffccba2fff37ab165156c7cc03015f9e7c847e18a"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b114-four-live-run1.json",
+      "sha256": "9b7bb56abf405ec531fc5e2b1cf590e86b9b53d59f159cf84fdfe4a9620ce486",
+      "passed": 4,
+      "total": 4,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b114-four-live-run2.json",
+      "sha256": "f3d6433b83a094024f9369473577192430bb2e5cce866d70afb7b458203aed82",
+      "passed": 4,
+      "total": 4,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b114-fault-controls.json",
+    "sha256": "a64802bdc281e5a717264dc54d191ff2874085d4351bd8a4ed4bb0aaa11b8eae"
+  },
+  "focused_native_controls": [
+    {
+      "id": "b114_seismic_eruption_yellow_focused_effect_sensitivity",
+      "fixture": "card-seismic-eruption-yellow-four-live-sparse-actual-printed-instant-creates-3-owned-seismic-surge-tokens",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "seismic_surge",
+            "uid": 6
+          }
+        ]
+      },
+      "retained_assertions": 122,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Select exactly one actual owned token by positive physical UID among identical token IDs and relocate it from Arena after real resolution; every terminal oracle retained. Exact multiplicity endpoint sensitivity, not an alternative legal move or later token ability/lifecycle branch. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b114_tome_of_quandaries_blue_focused_effect_sensitivity",
+      "fixture": "card-tome-of-quandaries-blue-four-live-sparse-actual-printed-instant-creates-2-owned-ponder-tokens",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "ponder",
+            "uid": 6
+          }
+        ]
+      },
+      "retained_assertions": 118,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Select exactly one actual owned token by positive physical UID among identical token IDs and relocate it from Arena after real resolution; every terminal oracle retained. Exact multiplicity endpoint sensitivity, not an alternative legal move or later token ability/lifecycle branch. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b114_starworld_warning_yellow_focused_effect_sensitivity",
+      "fixture": "card-starworld-warning-yellow-four-live-sparse-actual-printed-instant-creates-2-owned-lightning-flow-tokens",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "lightning_flow",
+            "uid": 7
+          }
+        ]
+      },
+      "retained_assertions": 122,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Select exactly one actual owned token by positive physical UID among identical token IDs and relocate it from Arena after real resolution; every terminal oracle retained. Exact multiplicity endpoint sensitivity, not an alternative legal move or later token ability/lifecycle branch. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b114_runic_disposition_red_focused_effect_sensitivity",
+      "fixture": "card-runic-disposition-red-four-live-sparse-actual-zero-cost-discard-instant-creates-one-owned-runechant",
+      "prefix_actions": 1,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 386,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "After real discard-this cost put source5 in own public Graveyard and created virtualABI6, remove sole arcSpec dispatch. WTR fallback has no Runic spec, so four original live passes resolve inert layer without Runechant. Every original suffix oracle retained; cost/source/AP stay intact. Missing printed-body dispatch sensitivity only, no attack/Usurp or cancellation-lifecycle credit. Every original suffix action and oracle retained; only step offsets change."
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b114-focused-fault-plan.json",
+    "sha256": "a82f555004a94660640bb00d6311a1f12a6fe1d6e5178a384e285239d3abc96f"
+  },
+  "targeted_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "limitations": [
+    "One positive primary representative per cycle; no sibling pitch, alternate branch, full-card, hero/support or callback lifecycle credit.",
+    "First three controls relocate exactly one physical token among identical copies using the reviewed positive-integer UID selector; exact Arena multiplicities3/2/2 decreaseby1. Runic removes sole virtual ability arcSpec after real public discard cost and preserves four manual passes, proving missing body dispatch sensitivity. No legal alternative token move, later token ability, Runicattack/Usurp or source-departure lifecycle credit.",
+    "Only these four new fixtures are rehashed/replayed. Unrelated fixture bytes are not freshly checked; no full suite or legacy audit is performed.",
+    "Every original suffix assertion retained; synthetic faults are sensitivity probes, not legal alternate-action branch coverage."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "3cfe4f681b578f9562b26d50c115b3a4cbfa780c93162676dace05dd3284620c",
+  "helper_selector_component_summary": {
+    "status": "PURE_OPTIONAL_MOVE_UID_SELECTOR_COMPONENT_CONTRACT_PASS",
+    "passed_cases": 18,
+    "total_cases": 18,
+    "source_sha256": "2d8b70d672021770ddacf971b270a1e814795b1b1771265c83ae5c878104ccbc",
+    "previous_source_sha256": "021627a41cf4a44bef7cafe48302357e74ffae6ba39b147c3c068388384f2974",
+    "selector_sha256": "598b17264131d1c1831a85af0c0f8ff3b849984cddeb2f3b1e716586910ec34b",
+    "result": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+      "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+    },
+    "contract": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\contract_optional_token_move_uid.php",
+      "sha256": "706533ac187a4771bebafee15d85f0df741ed964b775711066bba8f2796780b8"
+    },
+    "qualification": "Pure direct-extracted-selector old/newdefault andexactUID/type/uniqueness boundary contract; noengineimports/actions/writes. Root executed once before four native focusedcontrols. This is test-helper-only, not a gameplay or full-suite pass."
+  },
+  "reviewed_serial_orchestrator": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\run_approved_sparse_batch.py",
+    "sha256": "2bac9180062b6cc1b64ae0c449d225e9e2699a3254f7d8d8137f226f95b9c0db",
+    "qualification": "Thin guarded installer, native recorder and two selected-only replay CLIs; stops on nonzero and root alone keeps execution serial. No full-suite command or replacement oracle/framework."
+  }
+}

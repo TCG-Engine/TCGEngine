@@ -1,0 +1,172 @@
+{
+  "status": "INDEPENDENT_ACTUAL_B96_THREE_SPARSE_EFFECTS_TWO_CLEAN_REPLAYS_AND_THREE_INTENDED_NATIVE_FAULTS_APPROVED",
+  "reviewer": "/root/pilot_review",
+  "independent_of_scenario_author": true,
+  "recorder_exit0_confirmed_by_parent": true,
+  "completed_utc": "2026-10-21T00:09:59.281692+00:00",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "preserved_original_held_cost_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b96-three-passive-effects-proposed\\independent-held-original-cost-review.json",
+    "sha256": "5abf00de014d2bfe14c886e9cdcd093eddc61692d92fe40079a0ed61a2460f5c",
+    "original_manifest_sha256": "2822449691380719d9081bc5a2e73c65ca76fa564535d775fe8aa8fc62ca56e5",
+    "original_input_sha256": "f2ec95b5101ef13ad2bd91d2c150dc8695cf5fa35ffacc3a60a321e91c4644d0",
+    "native_literals_corrected": 29,
+    "only_additional_recipe_leaf": "Security cost/economy oracle prose",
+    "all_actions_and_other_two_cases_preserved": true
+  },
+  "source_context_bridge": {
+    "application_receipt": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\rise-above-choice-save-repair.json",
+      "sha256": "317640b774ddfeccb9345f5cf087af0d39aa277cbc0703a518acc8326dc75371"
+    },
+    "before_source_sha256": "f34346a0061cb7c970293f20016a485470faf6fa3088900ba8aaf012513e32cc",
+    "after_source_sha256": "79b04e30d9b9f7dca6fb78bd3e32e4e9429f137e1afa9d1d8af2a8faf718d74d",
+    "runtime_before_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "runtime_after_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+    "independent_source_review_sha256": "3670546f66b4a9f8ada86bfaf7e8ac2ab296b7e36ac9e2d9a1f6bce1d8157abb",
+    "exact_two_additions_reversed": true,
+    "relevance": "New helper requires pendingPayment.kind DEFENSE_REACTION/sourceRise. B96 traces use ordinary ATTACK payment and Hand normal block only; helper returns unchanged for every modeled boundary. No prior power/defense/prevention/card rule/generated/Core path changed."
+  },
+  "spec_sha256": "386bdfce5041580cc291e16e1ad618d96266a2de0c11b7953a2f6fcddec7dd16",
+  "independent_spec_review_sha256": "030fbf3501513b82ad4b9f28d4762f20af1ec4fccf1e73688eaadb538898ad6b",
+  "reviewer_script_sha256": "8025d25a5c96ef6a1c78746e49b55ca3e1084b495f41f800d01461ac4f5594f3",
+  "checks": 9762,
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch96-20261021T000244Z-6ad8012468901.json",
+    "sha256": "55f035155a81e5d8828194edbf0dc0b178531ed53fa3261cb50c8ebef1ed60d3"
+  },
+  "fixtures": [
+    {
+      "slug": "card-penetration-script-yellow-four-live-sparse-actual-mechanologist-attack-gets-one-from-controlled-script",
+      "fixture_sha256": "fc881a9c44dab17bb29429c9c3a41b4bb4e07063137ef8c03deb11e341952acd",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d2cb09235c5e3ab2e4c236553cf59ca3bb2d657d369ed092b8fb83eaac19b169",
+        "actions.json": "f2cec605d7f19cd447e781df38a6ac25ca2b84e3629ca0f6f6eb518384110919",
+        "assertions.json": "4983f77b920cf2c66d0672ea8443ded3f2de323406b0dbe307c2d871251783f4",
+        "expected_final_gamestate.txt": "1b0b65405b72e8e891b1de3b2905441eb263aba362f5e8c22ae1cfaf65cee2c2",
+        "meta.json": "9e8f56b1c28c78f20dad9c9f682a606cbb4f8b0ba910e6225ca1fa524f7ba9b9"
+      },
+      "actions": 28,
+      "native_assertions": 903,
+      "native_game_state_fields": 172,
+      "actual_manual_passes": 25,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual Payloadbase6/cost2 funded by real blue3 leaves1/AP0; one own Penetration Script raises controlled MechAA to7, unblocked adjacentP2 ends13. No Boost declaration/previousBoost history or conditionaldominate claim.",
+      "limits": [
+        "One sparse positive per standalone implemented identity. No item play, Crank, upkeep/steam removal, absence/suppression/multiple scripts, otherownership, othercard types or replacement-order coverage.",
+        "Payload printed conditional dominate is tied to Boost this combat chain, not certified by this no-Boost witness. Source3uid/power7 does not claim any Boost behavior.",
+        "Sphere exactly1 physical only; zero/two/arcane comparisons and other prevention remain untested. Head Jab support card completion is not inferred.",
+        "Boon remains preserved source-only hold, no native-confirmed issue, source repair or coverage claim from this reviewer.",
+        "Fresh actual native recording, complete immutable receipt, all5raw/behavior/actions/oracles/profiles review plus targeted clean replay/fault evidence remain parent gates; paper faults are not native evidence.",
+        "Original source epoch89d2/f343 is preserved; effective e947/79b04 source bridge is explicitly audited and bound to actual application/source-review receipts. No implied whole-corpus qualification."
+      ]
+    },
+    {
+      "slug": "card-security-script-blue-four-live-sparse-actual-mechanologist-hand-defender-three-plus-one-exact-four",
+      "fixture_sha256": "15c060e52a72c66e2f2f2d3809c902db015393329b2d6193500f30602c0eb593",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "02cff8d00a5790c9204636b81d684273b69799bcb320e55a343e54e27456a4ac",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "a8a334b39656a97b975e494bc0264cceada634aeaa2e6b83563260e6ad90893b",
+        "expected_final_gamestate.txt": "ad6abe80d8d80d94af7aba260b37abad7b0c752bd3d7b7956074493d0dd7ce94",
+        "meta.json": "8c59ffb5d5fcf0536046b08b86e5d98ba1cf975f0c4221e6c045cadb1a6b8388"
+      },
+      "actions": 29,
+      "native_assertions": 1152,
+      "native_game_state_fields": 184,
+      "actual_manual_passes": 25,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual Brutalbase6/cost2 funded by blue3 leaves1/AP0; P4Dash actually declares owned Mech Payload3, own Security adds1 defense=4, actualdamage2/HP18. DefenderUID7 moves ownGY; scriptUID8/steam1 remain.",
+      "limits": [
+        "One sparse positive per standalone implemented identity. No item play, Crank, upkeep/steam removal, absence/suppression/multiple scripts, otherownership, othercard types or replacement-order coverage.",
+        "Payload printed conditional dominate is tied to Boost this combat chain, not certified by this no-Boost witness. Source3uid/power7 does not claim any Boost behavior.",
+        "Sphere exactly1 physical only; zero/two/arcane comparisons and other prevention remain untested. Head Jab support card completion is not inferred.",
+        "Boon remains preserved source-only hold, no native-confirmed issue, source repair or coverage claim from this reviewer.",
+        "Fresh actual native recording, complete immutable receipt, all5raw/behavior/actions/oracles/profiles review plus targeted clean replay/fault evidence remain parent gates; paper faults are not native evidence.",
+        "Original source epoch89d2/f343 is preserved; effective e947/79b04 source bridge is explicitly audited and bound to actual application/source-review receipts. No implied whole-corpus qualification."
+      ]
+    },
+    {
+      "slug": "card-dissolution-sphere-yellow-four-live-sparse-actual-exactly-one-physical-damage-prevented-no-hit",
+      "fixture_sha256": "480b2ea7f740bc3af925415fb7ff0bbabc313d049c9e32d53d9d564980ac7b9c",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dab135efb60f1400b70f7e5d4f560d932f3a9504a55e239585a0073b5ca452ff",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "92e134995a57ea41fc2671772d8d0cc3e0b9e46e117829d73d26e540405ad6a2",
+        "expected_final_gamestate.txt": "82a071a980af367c00e20fe4a85ad4e18d7dd235e1e0232937483ec0d7782247",
+        "meta.json": "75a0ee781d34bdc8bcd8a6002e88badaabfdb27fee0c85c7e166839cff937e50"
+      },
+      "actions": 27,
+      "native_assertions": 938,
+      "native_game_state_fields": 158,
+      "actual_manual_passes": 25,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual legal Ninja HeadJabBluebase1/cost0 targetsP4Dash; own Sphere prevents exactly1 physical packet, damage0/nohit/HP20. SphereUID6/steam1 unchanged; printed attackGA refunds exactly1AP at Resolution only, independent of hit.",
+      "limits": [
+        "One sparse positive per standalone implemented identity. No item play, Crank, upkeep/steam removal, absence/suppression/multiple scripts, otherownership, othercard types or replacement-order coverage.",
+        "Payload printed conditional dominate is tied to Boost this combat chain, not certified by this no-Boost witness. Source3uid/power7 does not claim any Boost behavior.",
+        "Sphere exactly1 physical only; zero/two/arcane comparisons and other prevention remain untested. Head Jab support card completion is not inferred.",
+        "Boon remains preserved source-only hold, no native-confirmed issue, source repair or coverage claim from this reviewer.",
+        "Fresh actual native recording, complete immutable receipt, all5raw/behavior/actions/oracles/profiles review plus targeted clean replay/fault evidence remain parent gates; paper faults are not native evidence.",
+        "Original source epoch89d2/f343 is preserved; effective e947/79b04 source bridge is explicitly audited and bound to actual application/source-review receipts. No implied whole-corpus qualification."
+      ]
+    }
+  ],
+  "snapshot_property_decoding": "Actual Arena Counters storage is base64 JSON; TurnEffects uses tilde-separated tags; dash represents empty. Counters decoded to generated runtime map before exact comparison with native property assertion JSON. No nonempty TurnEffects property assertion is present in these recipes. Raw fixture bytes/hashes unchanged, no oracle dropped.",
+  "limits": [
+    "Sparse first-pass positive representatives only; no completed card, sibling pitch or full-catalog claim.",
+    "Known existing primary steam1 continuous sources remain physically in Arena. No item play, Crank, upkeep, BloodDebt, Boost, absent/suppression/multiplicity branch or sibling/support completion claim. No source is played, destroyed or held across an asynchronous effect.",
+    "Reviewer ran read-only source/evidence checks only. Parent executed both targeted clean3/3 replays and three disposable intended native semantic faults. These qualify the three sparse positive representatives only, not complete cards or full corpus."
+  ],
+  "supersedes_preserved_proof": {
+    "path": "sparse-b96-actual-saved-independent-review.json",
+    "sha256": "01668adbec9b4901ff3ccd2a0a101777168fe5ce07151adc57917a1d96fd6d09"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b96-three-four-live-run1.json",
+      "sha256": "b610502552a7f3a96a9e64fe4f051ed83a4190c617dc8887b367f98fc7ba417b",
+      "passed": 3,
+      "total": 3,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b96-three-four-live-run2.json",
+      "sha256": "ef794621abf951b2f073e414b769628706040c9d4433c5e936c47f42b96d47e1",
+      "passed": 3,
+      "total": 3,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b96-fault-controls.json",
+    "sha256": "6911e72aca2ac7983a2491d7535a6ccdae3ecb195a48906bc1985c108db70039",
+    "plan_sha256": "9037051b1ab822d2a327713cb406921f2dd796655096cee75dc5d12725241606",
+    "intended_semantic_failures": 3,
+    "total": 3,
+    "first_marker_steps": [
+      0,
+      1,
+      4
+    ],
+    "canonical_raw5_preserved": true
+  },
+  "focused_fault_plan": {
+    "path": "sparse-b96-focused-fault-plan.json",
+    "sha256": "9037051b1ab822d2a327713cb406921f2dd796655096cee75dc5d12725241606"
+  },
+  "stable_tool_review_reused": {
+    "path": "sparse-b88-actual-saved-qualified-independent-review.json",
+    "sha256": "d454ade1e876a654b33137ed6aa041935258ec3bfd602ebbc4880e5436c2f286",
+    "executor_sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a",
+    "existing_native_helper_sha256": "021627a41cf4a44bef7cafe48302357e74ffae6ba39b147c3c068388384f2974",
+    "scope": "Same reviewed unchanged tools; actual current first-failure outputs, source bindings and cleanup audited here, no repeat broad tool validation or execution by reviewer."
+  },
+  "native_evidence_review_checks": 73,
+  "native_evidence_reviewer_script_sha256": "cd50c3ef94681178bafdec8bbbde8458bb63888d570cb4fce2baeef643fc1581",
+  "captured_targeted_inventory_count": 3136,
+  "prior_shared_full_scope": "Previous e947 shared-change3125 full replay remains explicitly captured; these two reports are three-fixture targeted only. No additional whole-corpus replay or repeat unaffected fault suite requested."
+}

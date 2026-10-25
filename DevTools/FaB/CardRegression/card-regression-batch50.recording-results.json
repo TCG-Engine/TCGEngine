@@ -1,0 +1,236 @@
+[
+    {
+        "slug": "card-head-jab-red-innate-ga-hand-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 114
+    },
+    {
+        "slug": "card-head-jab-red-innate-ga-arsenal-facedown-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 114
+    },
+    {
+        "slug": "card-head-jab-red-innate-ga-arsenal-faceup-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 114
+    },
+    {
+        "slug": "card-head-jab-red-innate-ga-hand-overfunded-retains-one",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 114
+    },
+    {
+        "slug": "card-head-jab-red-innate-ga-zero-cost-keeps-spare-blue",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 118
+    },
+    {
+        "slug": "card-head-jab-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 166
+    },
+    {
+        "slug": "card-head-jab-red-innate-ga-printed-pitch-funds-generic-cost-three",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 69
+    },
+    {
+        "slug": "card-head-jab-red-innate-ga-printed-defense-exact-partial-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 72
+    },
+    {
+        "slug": "card-head-jab-red-innate-ga-hand-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 44
+    },
+    {
+        "slug": "card-head-jab-red-innate-ga-hand-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 44
+    },
+    {
+        "slug": "card-head-jab-red-innate-ga-arsenal-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 48
+    },
+    {
+        "slug": "card-head-jab-red-innate-ga-arsenal-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 48
+    },
+    {
+        "slug": "card-head-jab-red-innate-ga-hand-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 44
+    },
+    {
+        "slug": "card-head-jab-yellow-innate-ga-hand-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 114
+    },
+    {
+        "slug": "card-head-jab-yellow-innate-ga-arsenal-facedown-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 114
+    },
+    {
+        "slug": "card-head-jab-yellow-innate-ga-arsenal-faceup-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 114
+    },
+    {
+        "slug": "card-head-jab-yellow-innate-ga-hand-overfunded-retains-one",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 114
+    },
+    {
+        "slug": "card-head-jab-yellow-innate-ga-zero-cost-keeps-spare-blue",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 118
+    },
+    {
+        "slug": "card-head-jab-yellow-innate-ga-hand-fully-blocked-go-again-real-followup",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 166
+    },
+    {
+        "slug": "card-head-jab-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 69
+    },
+    {
+        "slug": "card-head-jab-yellow-innate-ga-printed-defense-exact-partial-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 72
+    },
+    {
+        "slug": "card-head-jab-yellow-innate-ga-hand-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 44
+    },
+    {
+        "slug": "card-head-jab-yellow-innate-ga-hand-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 44
+    },
+    {
+        "slug": "card-head-jab-yellow-innate-ga-arsenal-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 48
+    },
+    {
+        "slug": "card-head-jab-yellow-innate-ga-arsenal-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 48
+    },
+    {
+        "slug": "card-head-jab-yellow-innate-ga-hand-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 44
+    },
+    {
+        "slug": "card-head-jab-blue-innate-ga-hand-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 114
+    },
+    {
+        "slug": "card-head-jab-blue-innate-ga-arsenal-facedown-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 114
+    },
+    {
+        "slug": "card-head-jab-blue-innate-ga-arsenal-faceup-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 114
+    },
+    {
+        "slug": "card-head-jab-blue-innate-ga-hand-overfunded-retains-one",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 114
+    },
+    {
+        "slug": "card-head-jab-blue-innate-ga-zero-cost-keeps-spare-blue",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 118
+    },
+    {
+        "slug": "card-head-jab-blue-innate-ga-hand-fully-blocked-go-again-real-followup",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 166
+    },
+    {
+        "slug": "card-head-jab-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 69
+    },
+    {
+        "slug": "card-head-jab-blue-innate-ga-printed-defense-exact-partial-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 72
+    },
+    {
+        "slug": "card-head-jab-blue-innate-ga-hand-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 44
+    },
+    {
+        "slug": "card-head-jab-blue-innate-ga-hand-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 44
+    },
+    {
+        "slug": "card-head-jab-blue-innate-ga-arsenal-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 48
+    },
+    {
+        "slug": "card-head-jab-blue-innate-ga-arsenal-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 48
+    },
+    {
+        "slug": "card-head-jab-blue-innate-ga-hand-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 44
+    }
+]

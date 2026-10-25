@@ -1,0 +1,7 @@
+{
+    "name": "Drop of Dragon Blood / four live sparse zero-draconic-links-resource-and-one-draw",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T00:21:10+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "With no combat chain or Draconic links, printed cost remains2. Actual blue3 pitch leaves1 after payment. Resolution gains one resource, finishing2, and draws only the first known Deck card. The Instant spends no AP. One positive printed-effect demonstration only. Exactly four genuine live players and four recorded manual passes. The synchronous legacy ACTION/INSTANT resolver's internal source-clear-before-callback ordering is outside this atomic endpoint witness; no assertion labels it intended rules behavior. No full card/cycle/keyword, source-suppression, listener or lifecycle completion claim. Draconic-link discount is not exercised; no history flag is fabricated. Only one physical copy is included, respecting Legendary. Fai hero ability and optional starting Phoenix Flame are not used. A second known Deck card prevents an erroneous extra draw from passing. Sources: https://judge.fabtcg.com/cards/detail/3538/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/HNT155.webp https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

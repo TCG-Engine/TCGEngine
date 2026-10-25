@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T20:49:29+00:00",
+    "input_file": "card-regression-batch170.json",
+    "input_sha256": "f608676fd1ec04cbf0d4893766501d54e82b8197b3086ffe4174469b001827ac",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-tectonic-plating-four-live-sparse-actual-paid-retained-equipment-action-creates-owned-seismic-surge",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 395
+        }
+    ]
+}

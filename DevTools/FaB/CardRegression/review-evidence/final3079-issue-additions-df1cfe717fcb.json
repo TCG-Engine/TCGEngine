@@ -1,0 +1,65 @@
+{
+  "issues": [
+    {
+      "id": "FAB-REG-031",
+      "status": "applied_pending_final_qualification",
+      "card_ids": [
+        "destructive_deliberation_red",
+        "destructive_deliberation_yellow",
+        "destructive_deliberation_blue",
+        "strike_gold_red",
+        "strike_gold_yellow",
+        "strike_gold_blue",
+        "earth_form_red",
+        "earth_form_yellow",
+        "earth_form_blue",
+        "lightning_form_red",
+        "lightning_form_yellow",
+        "lightning_form_blue"
+      ],
+      "evidence": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch71-20261020T034315Z-6ad6e353e3e99.json",
+      "evidence_sha256": "3dc38372fa5b47df35b54ae7f70dfc9764baa133b35d4e9f179fa7ccb8e67294",
+      "description": "Token attack hit effects executed inline instead of a responseable layer.",
+      "scope_note": "Native correct-oracle before failures retained. Four families/twelve identities grouped by one bounded dispatcher repair.",
+      "individually_reproduced_card_ids": [
+        "destructive_deliberation_red",
+        "strike_gold_red",
+        "earth_form_red",
+        "lightning_form_red"
+      ]
+    },
+    {
+      "id": "FAB-REG-032",
+      "status": "applied_pending_final_qualification",
+      "card_ids": [
+        "sigil_of_solace_red"
+      ],
+      "evidence": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\source-review-evidence\\four-live-priority-and-dq-20261020T143005Z\\four-live-sigil-before-actual-independent-review.json",
+      "evidence_sha256": "a21f2ac20f043e5e0bfaf7afbac5c88fded47803864aa7f5f0604f616b7ccff2",
+      "description": "Common payment/announcement yielded despite explicit acting player holdPriority.",
+      "scope_note": "Actual P4Sigil correct-oracle failure and exact initial-state after witness; legacy false/default behavior retained."
+    },
+    {
+      "id": "FAB-REG-033",
+      "status": "applied_pending_final_qualification",
+      "card_ids": [
+        "aether_dart_red"
+      ],
+      "evidence": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\source-review-evidence\\four-live-priority-and-dq-20261020T143005Z\\held-priority-and-seat-hook-independent-source-review.json",
+      "evidence_sha256": "5ceaede8a33a4a46343de9974e090b39dcbb4105fec6829e37a39773c32fb2bd",
+      "description": "FaB did not expose configured seats to existing Core decision queue hook.",
+      "scope_note": "Before mechanism confirmed by source/components; actual after P4 chooser exercised. No native before action claim."
+    },
+    {
+      "id": "FAB-REG-034",
+      "status": "open_source_component_only_unapplied",
+      "card_ids": [
+        "gorganian_tome"
+      ],
+      "evidence": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\gorganian-open-issues-final-handoff.json",
+      "evidence_sha256": "5101b79a095b01d40b75565897c601882619d1733454ad45bbab2af3bea0cebb",
+      "description": "Gorganian missing printed plus-one and premature source departure cancel numerically.",
+      "scope_note": "Two open source/component defects. No native saved fixture, before recording, replay or covered identity. Candidate repairs held; foreign-owner and suppression risks remain."
+    }
+  ]
+}

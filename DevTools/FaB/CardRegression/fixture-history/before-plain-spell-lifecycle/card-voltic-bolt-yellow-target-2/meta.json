@@ -1,0 +1,7 @@
+{
+    "name": "Voltic Bolt / target-2",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:23:26+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact plain spell text: deal 4 arcane to chosen own/opposing hero. Printed cost2; 1 blue pitches leaves1. Action consumes one AP. Sources: FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_yellow https://rules.fabtcg.com/en/cr/07-combat/"
+}

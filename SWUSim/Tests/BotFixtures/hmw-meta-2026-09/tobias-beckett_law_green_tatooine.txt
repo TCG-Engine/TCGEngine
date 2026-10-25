@@ -1,0 +1,42 @@
+# Real-deck self-play fixture — Tobias Beckett, People are Predictable - Tusken Camp
+# Source: melee.gg 480819 (Nexus Invitational: Homeworlds, 2026-10-15), #18 of 32 (0-4-1), player Porg
+#   https://melee.gg/Decklist/View/43b78ae3-3a50-42ea-9896-b4e000763aab — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-20, HMW meta set v3): the best-finishing list of the Tobias Beckett (LAW) Green (Tatooine) archetype in this event — the only list of it.
+#   Base trait (Tatooine) is part of the archetype: a card in the deck or sideboard cares about a Tatooine base.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype (classifier, NOT yet owner-reviewed): midrange (shape, medium confidence) — shape score 1.66 — 31% aggro side (23 units ≤3 cost, 0 burn, 9 attack/buff cards); 5 units ≥6 cost, 3 removal events, 2 wipes
+# Style: midrange
+
+Leader
+1 LAW_002
+
+Base
+1 HMW_026
+
+Deck
+3 LAW_039
+3 LAW_093
+3 LOF_061
+3 LAW_090
+3 LAW_092
+3 LAW_091
+3 HMW_048
+2 HMW_234
+2 ASH_077
+3 SEC_215
+3 JTL_221
+3 SEC_179
+3 LAW_041
+2 SEC_078
+2 ASH_090
+3 LOF_215
+3 LAW_129
+3 ASH_135
+
+Sideboard
+2 JTL_235
+2 LAW_095
+2 ASH_079
+2 LOF_121
+1 ASH_090
+1 HMW_234

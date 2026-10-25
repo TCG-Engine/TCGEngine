@@ -1,0 +1,336 @@
+{
+  "status": "B119_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch119.json",
+  "input_sha256": "35f35d5a27dd24644448fd2f2b832ee51709a4ab3dbf837c3409e7448318ff5d",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:36:52.938112+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rites-of-nightfall-blue-four-live-sparse-real-one-resource-shadow-action-creates-one-owned-gate",
+      "fixture_sha256": "ce0fb5718d704eda394df0dd22d9967a80f334a27d307e940af36b32fcb34905",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "80c33602dbccaaf68f0f38958e5c0b5bab4866f64a1a5cc6138bab8253a354af",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "f1f7b7990bba1b627ec41f39bc7b43d1074722db937ced5d2aa1a1539843d10a",
+        "expected_final_gamestate.txt": "3037b39f7d160b8d0e5cd2c6e035ff51008a5a8816b3bd498cf17600c663adb1",
+        "meta.json": "b4fafd9471a8f667ff35189992571d0be98ecd9aa30f3f0684506dbdb5a22de2"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 331,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-planar-chaos-red-four-live-sparse-real-zero-resource-shadow-action-creates-one-owned-gate",
+      "fixture_sha256": "72763cce2fc11c7f156afd4eeb267b1f1555ab88b7fe0abfbb219f24005472cf",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e636688e72f1cfedd5b02bfdd3d1c0d236e816f5a28afa2d5cb3825283043016",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "9ba642675252de619ec3bdc7e2f2412910c6e6941ce01977bbebd6a324fdef7f",
+        "expected_final_gamestate.txt": "be5e67d785b05e9fee79713a139821ea21a78ef3af67e4f2a071e53d10aadf1b",
+        "meta.json": "1098dfb570a2dc9947197b8d5fdb74853b7f6b5a900497905f439c2325d56d61"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 294,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-pledge-fealty-red-four-live-sparse-real-zero-cost-draconic-instant-creates-one-owned-fealty",
+      "fixture_sha256": "136ab55b13799ab04edf36bfac0da4d35399be40e852f71bc9a68bd916d3a621",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3bab3d1854c072962b3f85b9aa7e3d159653d44db3c86f262e33ddd5a93ba1b7",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "c0ff8d47f9b7daf7514a467c7d8360c63d55a916949cfff675d9b42e395fc72f",
+        "expected_final_gamestate.txt": "be8cc55bf9bc1df776da1b0a44f662caa0c4238fbed50c94b568cc606aaa9fac",
+        "meta.json": "2dd7bbfeb8ad51f451f28a88d9bc10fd99aae3b6e774264bb7bd394338182198"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 294,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-spectral-manifestations-red-four-live-sparse-real-paid-action-with-no-other-illusionist-auras-creates-shield-with-three-power-counters",
+      "fixture_sha256": "3707eaba15c3a618c636467855232b69003bfa5ca2b6287658ac9aa7e8ca0f5e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1422e33b79246ab13c65fafde2467b480bbcb213808612165c61651a1f541334",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "ebdf1ee79141a59be945194d582368a4c139817a7211c4ee51928603fa8addbe",
+        "expected_final_gamestate.txt": "82a34ef884907cad9a1646daeb413815db3f9f85f2b43a3f46490b5278e028d7",
+        "meta.json": "f4a16d18bcb6a47f80d661ca84d6376f185d1396932ee4079309c39d70c5fcbd"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 332,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 22,
+  "total_native_assertions": 1251,
+  "total_manual_passes": 16,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b119-actual-saved-independent-review.json",
+    "sha256": "2a209eb64b6246230c77e76fd6f92563d45e3b51d875a11496a90ef4af148b42"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b119-independent-spec-review.json",
+    "sha256": "f4a64ca23dd84f8082631bca536a4549eb45319cebe604f8f80eac5222e2bd07"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch119-20261022T183522Z-6ada576ade591.json",
+    "sha256": "2d78ecec2fdc7ede26bd3f7803aaa9bbe4bc91a77114293b25535448212a37d3"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b119-four-live-run1.json",
+      "sha256": "fe0c7df3a250f785071114f6af0f255ea035cca1498883783448d2e56aeee2ce",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch119.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b119-four-live-run2.json",
+      "sha256": "15bad71c14ec89ce80911bce17efc69c444782803d57979c5ca6fc8fdbcb6361",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch119.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b119-fault-controls.json",
+    "sha256": "49893cadea23572e256d732733965e51a63747b03a7425262a473c250cc51991",
+    "total": 4,
+    "intended_semantic_failures": 4,
+    "plan_sha256": "62feff74f11589a7807ffaa73476dae3e214d88fdb60d9057752dce1b9b7d650",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b119_rites_of_nightfall_blue_focused_effect_sensitivity",
+      "fixture": "card-rites-of-nightfall-blue-four-live-sparse-real-one-resource-shadow-action-creates-one-owned-gate",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "gate_to_iarathael",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b119_planar_chaos_red_focused_effect_sensitivity",
+      "fixture": "card-planar-chaos-red-four-live-sparse-real-zero-resource-shadow-action-creates-one-owned-gate",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "gate_to_iarathael",
+            "uid": 6,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b119_pledge_fealty_red_focused_effect_sensitivity",
+      "fixture": "card-pledge-fealty-red-four-live-sparse-real-zero-cost-draconic-instant-creates-one-owned-fealty",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "fealty",
+            "uid": 6,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b119_spectral_manifestations_red_focused_effect_sensitivity",
+      "fixture": "card-spectral-manifestations-red-four-live-sparse-real-paid-action-with-no-other-illusionist-auras-creates-shield-with-three-power-counters",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "spectral_shield",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 116,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b119-focused-fault-plan.json",
+    "sha256": "62feff74f11589a7807ffaa73476dae3e214d88fdb60d9057752dce1b9b7d650"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 2401,
+  "native_evidence_review_checks": 103,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Three exact standalone groups and one red Spectral Manifestations pitch-cycle representative. Positive printed token creation and Spectral no-other-aura POWER3 counters; later Gate/Fealty use, Planar future permission, Shield attack/Ward, other-aura branch, sibling/hero/fullcard/internal callback-lifecycle untested.",
+    "Spectral raw endpoint Counters schema JSON cell was independently base64-decoded and validated as exact integer POWER3; original logical JSON oracle and all raw fixture bytes unchanged. Scratch reader correction only, not gameplay/expectation change.",
+    "Only current new four are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and four individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Each control omits the one exact created token after actual four-seat resolution: UID7 for paid Rites/Spectral, UID6 for zero-cost Planar/Pledge. Source5, actual Blue6 where present and economy remain unchanged. Direct token-presence sensitivity only. Spectral POWER3 is positively pinned and pure-model faults detected; no isolated native counter mutation or Gate activation/permission/Fealty/Shield Ward/alternate branch credit.",
+    "All four controls use complete original action prefixes (6,5,5,6) and retain every original final assertion as initial assertions with zero remaining actions. Only affected token-outcome sensitivity is claimed; positive action/model/physical evidence remains separately bound."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "cbb4fa596fda2c3bc1796451396af2acf1a819bba24ed0b385ec7e647230d410"
+}

@@ -1,0 +1,335 @@
+{
+  "status": "B117_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch117.json",
+  "input_sha256": "78f593b606ab91868893106962ba05bf2244d05814c3558ed26ddf22f907225f",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:30:57.483438+00:00",
+  "fixtures": [
+    {
+      "slug": "card-prismatic-shield-red-four-live-sparse-real-three-resource-instant-creates-three-owned-spectral-shields",
+      "fixture_sha256": "12f1ae62d8255250d5083a17033cbee5754a5359d73d0d1253e02a2b729ffd0e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "77606eb8d0e5033bc582e13fdf32aafe7bfe1c1444f8a3d38916c677e193aa76",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "5b6631577692a591f64628a7d89e9898b0cd5a3f929b8868c648c46612aeb62a",
+        "expected_final_gamestate.txt": "1b4be29751505f54f68958ddfd04c68a8ac328c8b5b956a0c6102e60546e32e6",
+        "meta.json": "e70370969adfb2b7f9de7b365a23772f5dd1feb4d7a968240c00f4fe499b23fc"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 341,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-future-sight-red-four-live-sparse-real-one-resource-instant-creates-three-owned-sigils-of-fate",
+      "fixture_sha256": "51d814b43bd4b54bb618870a577e5729ceeb4831757daaff4e77910cd7180122",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "65c852b387af7d7ac1282795b3e5168c5b2b5b1a0618aa0523af6ef229846303",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "78b1c6edd48a28b62d916b0bc6bd8bd71477b77f21fcba46404180fd853460a7",
+        "expected_final_gamestate.txt": "ed7443c44a0c6df1794e3ddc7a6c16c07e0fa6a8c4e3efcf3a166018b03e1480",
+        "meta.json": "e5ff4fd34dd00ea4f4dcd063607eeef0115cdb59e251d5d1f00255170f1facbe"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 341,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-oath-of-oak-red-four-live-sparse-real-zero-cost-earth-action-creates-three-owned-embodiments-of-earth",
+      "fixture_sha256": "923403d9462ff958721deb3e63fb1d931dd49aff1167b7f46be220d95b6bfe60",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1094f60bc9e6e2448d61d8067339d4f2492476759bc506917763fbd941df487e",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "a86a1c78779a4e006df65c99a626525f1b7ec9f07f3bcf4052c53d46b6dfa90a",
+        "expected_final_gamestate.txt": "b300d982e11c8828360dc1e1e06b4de285e0cb314bb09678a588b6bbab7c6317",
+        "meta.json": "9e834685e6fb9bcc28f40ed72ca6167c6dff73754f0acc5f6f0a9ed3c749f7e1"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 304,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-envelop-in-darkness-red-four-live-sparse-real-one-cost-shadow-runeblade-action-creates-one-owned-runechant",
+      "fixture_sha256": "5dc7915b55b4ae1343fbff25573924c0e1743b6be7f18c8abd9073af377d3b04",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "49680286e5da95ae0dd776c672c12d4571a7f93641770da9941d0a988b89c0fa",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "ff34c3af14e66a96f15981641c51e81007d3ae4bf58527dfbea09ed3cbf00174",
+        "expected_final_gamestate.txt": "8d877466df368712cafd6d2837443544425eabc055536172ebdf34ce0ce84fde",
+        "meta.json": "bd55d6d7c4f4c53d68f7f89e5e452608d44618a82e01a4c6fb14742e243c5a89"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 331,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 23,
+  "total_native_assertions": 1317,
+  "total_manual_passes": 16,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b117-actual-saved-independent-review.json",
+    "sha256": "dc9113121b256b388fbd43770ad27549fc989135dbba37d182d74c8184aac16c"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b117-independent-spec-review.json",
+    "sha256": "093bf70c06f19b29ac3a5842ed13dc4dc7bbdfe8b67267eca465f686a28fe47a"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch117-20261022T182951Z-6ada561f45324.json",
+    "sha256": "9484fe16bd94c53baa3bdf6388e9dd65f201660cd9f01ae343ff24497414022b"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b117-four-live-run1.json",
+      "sha256": "f85be0aa198dd61598fd8ef145253d4f64db8a1816d16d675d145225f2e7c918",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch117.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b117-four-live-run2.json",
+      "sha256": "9552a06db5ef66c99a2f79b5d6c0de944b15b9a678b9c0436fb5fe4d7cfea665",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch117.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b117-fault-controls.json",
+    "sha256": "7367abd0d9939c0dc8cbcf5fd5feb15bf22f5d4a98985a27a7726a3266aba9b1",
+    "total": 4,
+    "intended_semantic_failures": 4,
+    "plan_sha256": "bb45b0922ee79f3707ccd44563241e5a7caac8321a4daf620ea213a0204664fc",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b117_prismatic_shield_red_focused_effect_sensitivity",
+      "fixture": "card-prismatic-shield-red-four-live-sparse-real-three-resource-instant-creates-three-owned-spectral-shields",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "spectral_shield",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 125,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b117_future_sight_red_focused_effect_sensitivity",
+      "fixture": "card-future-sight-red-four-live-sparse-real-one-resource-instant-creates-three-owned-sigils-of-fate",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "sigil_of_fate",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 125,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b117_oath_of_oak_red_focused_effect_sensitivity",
+      "fixture": "card-oath-of-oak-red-four-live-sparse-real-zero-cost-earth-action-creates-three-owned-embodiments-of-earth",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "embodiment_of_earth",
+            "uid": 6,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 121,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b117_envelop_in_darkness_red_focused_effect_sensitivity",
+      "fixture": "card-envelop-in-darkness-red-four-live-sparse-real-one-cost-shadow-runeblade-action-creates-one-owned-runechant",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "runechant",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b117-focused-fault-plan.json",
+    "sha256": "bb45b0922ee79f3707ccd44563241e5a7caac8321a4daf620ea213a0204664fc"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 2528,
+  "native_evidence_review_checks": 103,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "One positive red representative per four pitch cycles; printed creation effects and correct action/instant payment/AP only. Envelop next RuneGate +3, token Ward/startphase/defense/use/expiry/replacement, sibling/support/hero/fullcard/internal callback-lifecycle remain untested.",
+    "Only current new four are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and four individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Each control omits the exact first created token after actual four-seat resolution: UID7 for the three paid cases, UID6 for Oath. Source5, actual Blue6 where present, every other token and economy remain unchanged. Direct creation-outcome sensitivity only; no Ward/startphase/token-use/RuneGate grant/alternate branch credit.",
+    "All four controls use complete original action prefixes (6,6,5,6) and retain every original final assertion as initial assertions with zero remaining actions. Only affected token-outcome sensitivity is claimed; positive action/model/physical evidence remains separately bound."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "7f28d5e15d162aaaf88af3ff4b566e4745b2ce9a71e6e3c51691ee5d11720008"
+}

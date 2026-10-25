@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-20T03:33:42+00:00",
+    "input_file": "card-regression-batch61-pilot.json",
+    "input_sha256": "7c1dbe96f1cf105790a19eb3a5dd4b77dd629ff2b3ca19fde92a01f3767f31e5",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-felling-swing-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 138
+        },
+        {
+            "slug": "card-en-garde-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 138
+        }
+    ]
+}

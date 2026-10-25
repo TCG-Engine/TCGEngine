@@ -1,0 +1,131 @@
+{
+  "status": "INDEPENDENT_ACTUAL_SAVED_WITNESS_APPROVED_PENDING_CURRENT_RUNTIME_REPLAY_AND_CONTROLS",
+  "reviewer": "/root/catalog_effect_map",
+  "review_basis": "Read-only independent audit of actual20 native actions,328 persisted assertions and initial/final snapshots against exact independently approved real two-Kano/Lead spec and official CR1.13.2b/8.5.7b/6.6.3. All18 captured checkpoint blocks inspected. No reviewer game/native source/fixture writes. Source permissions/UIDs/controller/economy/AP and delayed trigger existence validated. Current-runtime replay and semantic-control qualification remain separate parent gates.",
+  "authoritative_review_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\lead-nonturn-kano-ap-witness-actual-saved-independent-review.json",
+    "raw_sha256": "0b66da19ed23dda8fcb6a95fca14c15baae2764aef98b1a8f1d0bd257d9f9914"
+  },
+  "fixtures": [
+    {
+      "slug": "card-lead-the-charge-red-nonturn-real-kano-two-activations-no-action-point-gain",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "8a0477d88ac23ed5b26753b7361611b256c219f3e68a74d5515117f581604ef8",
+        "actions.json": "97d3755fa66bce13a2255973955ad764f51d6065ba3f52524b7eba2812ba596e",
+        "assertions.json": "852f1d6cd522d466f029aa0d460d9a188624c02a366843e9c2591a9e11ca7f80",
+        "expected_final_gamestate.txt": "c85f41095254003f55774aa151364c3a3063da9d3faf9eff517315248dfbeebc",
+        "meta.json": "f2fd6c59303f631d268bc9b47c014a2020d04a044f26cb9dfb57143f01872795"
+      },
+      "fixture_sha256": "9ddf78580d4ea1570ae1631ea416a4d733f242730896ff018bc60b63c1a58451",
+      "actions": 20,
+      "native_assertions": 328,
+      "native_game_state_fields": 14,
+      "checkpoints": [
+        {
+          "checkpoint": "legal_initial_state_no_permissions_or_duration",
+          "step": 0,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "turn_player_real_pass_gives_kano_priority",
+          "step": 1,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": "first_actual_kano_instant_assets_paid",
+          "step": 2,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "kano_real_top_card_choice_lead_the_charge_red",
+          "step": 4,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "kano_actual_banish_permission_lead_the_charge_red",
+          "step": 5,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "remaining_deck_top_preserved",
+          "step": 5,
+          "native_assertions": 2
+        },
+        {
+          "checkpoint": "real_priority_before_first_banished_spell",
+          "step": 6,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "lead_played_as_instant_no_action_point_cost",
+          "step": 7,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "lead_printed_go_again_cannot_gain_offturn",
+          "step": 9,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "real_priority_before_second_kano",
+          "step": 10,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "second_kano_activation_not_qualifying_card_play",
+          "step": 11,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "kano_real_top_card_choice_energy_potion_blue",
+          "step": 13,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "kano_actual_banish_permission_energy_potion_blue",
+          "step": 14,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "lead_source_stays_owner_graveyard_after_kano_ability",
+          "step": 14,
+          "native_assertions": 2
+        },
+        {
+          "checkpoint": "real_priority_before_potion_play",
+          "step": 15,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "qualifying_instant_action_creates_independent_delayed_layer_no_ap",
+          "step": 16,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "lead_trigger_resolves_but_nonturn_gain_fails",
+          "step": 18,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "potion_resolved_no_ap_no_resurrection_normal_priority",
+          "step": 20,
+          "native_assertions": 31
+        }
+      ],
+      "author_only_checks": []
+    }
+  ],
+  "checks": 650,
+  "native_writes": 0,
+  "game_actions": 0,
+  "scope_holds": [
+    "Read-only saved fixture review; no native rerun by reviewer. Current fullcorpus deterministic replay and semantic controls remain pending parent gates.",
+    "AP+Lead023 qualification only after final current gates. This one witness does not certify every AP source, every Lead branch, or full Kano/Potion behavior.",
+    "Generic Kano ABILITY lifetime across its chooser remains unverified. No Stack0 oracle at the awaited chooser is accepted.",
+    "SourceZoneGraveyard is current queued-source diagnostic; this does not certify ordinary Lead early-clear source lifecycle semantics.",
+    "No triggered layer UniqueID7 assertion is persisted; only sourceUID3/controller2/qualifierUID4 and Params are pinned. Final UniqueIDCounter7 is observed but not sufficient to certify a layer UID.",
+    "True END-phase spell witness held because rules give no priority there. Isolated phase components provide separate evidence.",
+    "Loss/copy/X/modified cost/foreign ownership/elimination and unrelated card abilities remain separate holds."
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "status": "APPROVED_EXACT_GORGANIAN_TEN_INITIAL_GUARDS_AND_SAVED_DELTA_GORG_ONLY_REPLAYS_PENDING",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "utc": "2026-10-24T18:18:19.090249+00:00",
+  "source_spec": "card-regression-batch193.json",
+  "input_sha256": "c1157e59f7d35d72bb96d45956253213b6846b8f597c372e3d43cfa21b0175ed",
+  "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+  "fixtures": [
+    {
+      "slug": "card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+      "semantically_approved": true,
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "fixture_sha256": "68beb93854cd29cfc94c4fd990e31ed089d034a5b08e5666ed088d9e5f23ce72",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a91afb1472a6c3c32688f15990cfc75a2b2579144f993c7bf3b37eeae232e4f7",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "8cb85507287ddc136be12755690c63b02ff300c43c96c41b362506e1f3f5dc31",
+        "expected_final_gamestate.txt": "b3e1a3e1329c1f4462c162c6fd0652b1467e67ee8f3b9cffa7c23f16d0ce28f6",
+        "meta.json": "af2048114b6bbd15d24f8402aafe1b9cd891340371de80ae9aee1644783e7d8f"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a91afb1472a6c3c32688f15990cfc75a2b2579144f993c7bf3b37eeae232e4f7",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "8cb85507287ddc136be12755690c63b02ff300c43c96c41b362506e1f3f5dc31",
+        "expected_final_gamestate.txt": "b3e1a3e1329c1f4462c162c6fd0652b1467e67ee8f3b9cffa7c23f16d0ce28f6",
+        "meta.json": "af2048114b6bbd15d24f8402aafe1b9cd891340371de80ae9aee1644783e7d8f"
+      },
+      "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+      "actions": 5,
+      "native_assertions": 110,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "four_healthy_young_heroes_one_legendary_copy_per_player",
+          "step": 0,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "zero_resource_one_ap_cost_source_still_stack_actor_holds",
+          "step": 1,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "only_1_of_four_actual_passes_no_early_draw_or_clear",
+          "step": 2,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "only_2_of_four_actual_passes_no_early_draw_or_clear",
+          "step": 3,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "only_3_of_four_actual_passes_no_early_draw_or_clear",
+          "step": 4,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "correct_printed_x4_first_four_known_uids_drawn_fifth_remains",
+          "step": 5,
+          "native_assertions": 45
+        }
+      ],
+      "prior_fixture_sha256": "a04ea2065f36a65c308cb6e687b4cff0984e6f4093d4d17d983fe0269aa5e339",
+      "source_spec": "card-regression-batch193.json",
+      "limits": "OnepositiveGorganianbranch; guardstrengtheningonly. Nativegameplayandprintedmodel unchanged. Draw4endpointalone doesnotcertifycancelled-count/lifetime/foreignowner/suppression; priorfocusedcomponents remain required. No newcard/cycle/sibling coverage."
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 5,
+  "total_native_assertions": 110,
+  "total_manual_passes": 4,
+  "backup_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repair-source-backups-20261024\\gorganian-initial-guard-strengthening\\receipt.json",
+    "sha256": "6220633eb4d66371abb5e1f40d5da1f99da95cff28b1cc860634d651f8ad6366",
+    "all_seven_backup_files_hash_verified": true
+  },
+  "reused_full_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repair193-subset106-final-actual-saved-review.json",
+    "sha256": "0b2bc8051467063d88c591a2825cbf12d814f5affa8db4f401988f62dc1c25f1"
+  },
+  "exact_delta": {
+    "source_initial_checks": [
+      22,
+      32
+    ],
+    "native_assertions": [
+      100,
+      110
+    ],
+    "only_additions": [
+      {
+        "step": 0,
+        "type": "game_state_field",
+        "rootName": "FaBSim",
+        "path": [
+          "gameMode"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"UPF\"",
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 0,
+        "type": "game_state_field",
+        "rootName": "FaBSim",
+        "path": [
+          "passiveSeats"
+        ],
+        "comparison": "equals",
+        "valueJson": "[]",
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 0,
+        "type": "card_property_equals",
+        "mzId": "p1Hero-0",
+        "property": "Owner",
+        "value": "1",
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 0,
+        "type": "card_property_equals",
+        "mzId": "p1Hero-0",
+        "property": "Controller",
+        "value": "1",
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 0,
+        "type": "card_property_equals",
+        "mzId": "p2Hero-0",
+        "property": "Owner",
+        "value": "2",
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 0,
+        "type": "card_property_equals",
+        "mzId": "p2Hero-0",
+        "property": "Controller",
+        "value": "2",
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 0,
+        "type": "card_property_equals",
+        "mzId": "p3Hero-0",
+        "property": "Owner",
+        "value": "3",
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 0,
+        "type": "card_property_equals",
+        "mzId": "p3Hero-0",
+        "property": "Controller",
+        "value": "3",
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 0,
+        "type": "card_property_equals",
+        "mzId": "p4Hero-0",
+        "property": "Owner",
+        "value": "4",
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 0,
+        "type": "card_property_equals",
+        "mzId": "p4Hero-0",
+        "property": "Controller",
+        "value": "4",
+        "viewerPlayerID": 1
+      }
+    ],
+    "old_native_oracles_removed": 0,
+    "old_native_oracle_order_preserved": true,
+    "gameplay_initial_actions_final_bytes_unchanged": true,
+    "all_other_source_cases_unchanged": true,
+    "meta_changed_keys": [
+      "createdAt"
+    ],
+    "before_raw5_sha256": {
+      "initial_gamestate.txt": "a91afb1472a6c3c32688f15990cfc75a2b2579144f993c7bf3b37eeae232e4f7",
+      "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+      "assertions.json": "d47cd8b36e2fd4a92e58b84625a07ff4dd8eeea3d80bb93bd86d9ab083347a88",
+      "expected_final_gamestate.txt": "b3e1a3e1329c1f4462c162c6fd0652b1467e67ee8f3b9cffa7c23f16d0ce28f6",
+      "meta.json": "e92873b421ba37d4631fb0edc0d029e118956382bee5a0a36821863a15ce76b9"
+    },
+    "after_raw5_sha256": {
+      "initial_gamestate.txt": "a91afb1472a6c3c32688f15990cfc75a2b2579144f993c7bf3b37eeae232e4f7",
+      "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+      "assertions.json": "8cb85507287ddc136be12755690c63b02ff300c43c96c41b362506e1f3f5dc31",
+      "expected_final_gamestate.txt": "b3e1a3e1329c1f4462c162c6fd0652b1467e67ee8f3b9cffa7c23f16d0ce28f6",
+      "meta.json": "af2048114b6bbd15d24f8402aafe1b9cd891340371de80ae9aee1644783e7d8f"
+    }
+  },
+  "semantic_assessment": [
+    "ActualinitialmodeUPF/passiveSeats[]andOwnerControllerseat1..4alreadycorrect; newlypersistedchecksnowpinexistinggenuinefourliveprofile.",
+    "Exactsamefive supportedactions(allfourseatsmanualresponses), physicaldraw4/leftover13/publicTomeGY/GAAP1, sameendpoints; nosourceframeworkgameplaychange.",
+    "Externalrecoverablebackupandoldsource/review/fivefilehashesverified beforeclaimingonlyguarddelta. Original100oraclesallretainedexact; only10initialnewchecks."
+  ],
+  "qualification_pending": [
+    "RootonlytwoGorganianmodifiedcasecleanreplays",
+    "Registry/coveragepromotionandboundedfinalhandoff; noneperformedbyreviewer"
+  ],
+  "php_execution": 0,
+  "native_actions": 0,
+  "native_engine_imports": 0,
+  "repository_writes": 0
+}

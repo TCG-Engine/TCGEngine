@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-goblet-of-bloodrun-wine-blue-four-live-sparse-actual-zero-cost-warrior-action-creates-owned-agility-and-vigor",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 298
+    },
+    {
+        "slug": "card-pint-of-strong-and-stout-blue-four-live-sparse-actual-zero-cost-guardian-action-creates-owned-might-and-vigor",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 298
+    },
+    {
+        "slug": "card-smashback-alehorn-blue-four-live-sparse-actual-zero-cost-brute-action-creates-owned-agility-and-might",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 298
+    },
+    {
+        "slug": "card-humble-entrance-blue-four-live-sparse-actual-zero-cost-revered-action-creates-three-owned-toughness",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 303
+    }
+]

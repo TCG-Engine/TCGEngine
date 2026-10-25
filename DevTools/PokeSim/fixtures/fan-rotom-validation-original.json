@@ -1,0 +1,106 @@
+{
+    "original": {
+        "policy": "bc8d286ca2491d98",
+        "deck": [
+            {
+                "id": "sv07-118",
+                "count": 4
+            },
+            {
+                "id": "me02-083",
+                "count": 3
+            },
+            {
+                "id": "me02-084",
+                "count": 3
+            },
+            {
+                "id": "sv08.5-079",
+                "count": 3
+            },
+            {
+                "id": "sv08.5-080",
+                "count": 2
+            },
+            {
+                "id": "sv08.5-004",
+                "count": 1
+            },
+            {
+                "id": "me02.5-192",
+                "count": 4
+            },
+            {
+                "id": "sv06.5-057",
+                "count": 4
+            },
+            {
+                "id": "me02.5-183",
+                "count": 3
+            },
+            {
+                "id": "me01-132",
+                "count": 3
+            },
+            {
+                "id": "me02.5-213",
+                "count": 4
+            },
+            {
+                "id": "me03-081",
+                "count": 4
+            },
+            {
+                "id": "sv05-144",
+                "count": 3
+            },
+            {
+                "id": "me01-130",
+                "count": 3
+            },
+            {
+                "id": "me02.5-181",
+                "count": 2
+            },
+            {
+                "id": "me02.5-196",
+                "count": 1
+            },
+            {
+                "id": "me02-085",
+                "count": 3
+            },
+            {
+                "id": "sv06-153",
+                "count": 2
+            },
+            {
+                "id": "sv08-177",
+                "count": 1
+            },
+            {
+                "id": "mee-005",
+                "count": 7
+            }
+        ],
+        "gamesPerOrder": 500,
+        "seed": 20001,
+        "opponent": "brisbane-lopunny",
+        "orders": {
+            "first": {
+                "fan": 365,
+                "fanWithBuneary": 281,
+                "pivot": 125,
+                "fanThenPivot": 96,
+                "stadium": 401
+            },
+            "second": {
+                "fan": 327,
+                "fanWithBuneary": 327,
+                "pivot": 114,
+                "fanThenPivot": 73,
+                "stadium": 334
+            }
+        }
+    }
+}

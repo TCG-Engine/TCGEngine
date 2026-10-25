@@ -1,0 +1,52 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch92.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T23:10:52.026136+00:00",
+  "fixtures": [
+    {
+      "slug": "card-blood-harvest-four-live-sparse-real-hand-banish-instant-gains-three-resources",
+      "fixture_sha256": "e9cbd2a01dbe97e72cf2a15270e6e74b15fdcbd81f66bbf696bfbabf38417cd4",
+      "passed": true,
+      "result": "[PASS] Blood Harvest / four live sparse effect"
+    },
+    {
+      "slug": "card-fallen-herald-yellow-four-live-sparse-real-hand-banish-instant-prevents-next-four-damage",
+      "fixture_sha256": "d528de4ff2927e89175b6ad42098523e2d4ea3f4215d1b859eade36bb099b2de",
+      "passed": true,
+      "result": "[PASS] Fallen Herald / four live sparse effect"
+    },
+    {
+      "slug": "card-dense-blue-mist-blue-four-live-sparse-real-paid-nochi-instant-reduces-targeting-attack-power",
+      "fixture_sha256": "4a2d66da561a25136105dbd6569bd5d5671ef217917822390c12ede2378380ba",
+      "passed": true,
+      "result": "[PASS] Dense Blue Mist / four live sparse effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blood-harvest-four-live-sparse-real-hand-banish-instant-gains-three-resources",
+      "returncode": 0,
+      "stdout": "[PASS] Blood Harvest / four live sparse effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-fallen-herald-yellow-four-live-sparse-real-hand-banish-instant-prevents-next-four-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Fallen Herald / four live sparse effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dense-blue-mist-blue-four-live-sparse-real-paid-nochi-instant-reduces-targeting-attack-power",
+      "returncode": 0,
+      "stdout": "[PASS] Dense Blue Mist / four live sparse effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3118,
+  "omitted_source_scenarios": [
+    "card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

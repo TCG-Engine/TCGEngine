@@ -1,0 +1,528 @@
+'use strict';
+// Read-only study snapshot. Refresh with sync-live-catalog.mjs; never imported by the game.
+window.DFGStudyLiveCatalog = {
+  "rulesVersion": 44,
+  "sha256": "9eae75d8906198c8a032fbc318e9ea06ea240161d380058fea3cfb2e256f2330",
+  "cards": [
+    {
+      "id": 1,
+      "name": "Quick Jab",
+      "color": "Red",
+      "attack": 3,
+      "block": 2,
+      "ability": "If you committed no bonus burns this round, gain +2 attack this round.\nIf you committed no bonus burns this round, for your damage calculation ignore block gained from reaction burns this round.",
+      "bonus": "Gain +1 attack this round.",
+      "reaction": "",
+      "switches": [
+        "Orange",
+        "Yellow"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Rushdown",
+      "color": "Red",
+      "attack": 6,
+      "block": 1,
+      "ability": "Spend Red advantage: If you deal damage, gain +2 attack next round.",
+      "bonus": "Gain +3 attack this round. Your opponent gains +1 attack this round.",
+      "reaction": "",
+      "switches": [
+        "Red",
+        "Orange"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Guarded Strike",
+      "color": "Red",
+      "attack": 0,
+      "block": 4,
+      "ability": "If you take no combat damage, deal 2 damage to your opponent after combat damage.\nObjective: Deal damage and take no damage: gain Green advantage.",
+      "bonus": "",
+      "reaction": "Gain +2 block this round.",
+      "switches": [
+        "Green",
+        "Blue"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Feint",
+      "color": "Red",
+      "attack": 2,
+      "block": 3,
+      "ability": "If your opponent's main card has a printed block value of 4 or more, gain +2 attack and ignore 3 opposing block this round.\nObjective: Deal damage against printed block 4+: gain Yellow advantage.",
+      "bonus": "If your opponent's main card has a printed block value of 4 or more, gain +3 attack this round. Otherwise, gain +1 attack this round.",
+      "reaction": "Gain +1 attack this round.",
+      "switches": [
+        "Orange",
+        "Yellow",
+        "Purple"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Combination Strike",
+      "color": "Red",
+      "attack": 3,
+      "block": 1,
+      "ability": "Spend up to two different advantages: One spent: +1 attack. Two spent instead: +4 attack, +2 block, and ignore 2 opposing block this round.",
+      "bonus": "Gain +2 attack this round.",
+      "reaction": "Gain +1 attack this round.",
+      "switches": [
+        "Blue",
+        "Purple"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Covering Step",
+      "color": "Red",
+      "attack": 3,
+      "block": 3,
+      "ability": "If your opponent's main card has a printed attack value of 5 or more, gain +2 block this round.\nObjective: Take no damage against printed attack 5+: gain Red advantage.",
+      "bonus": "Gain +2 block this round.",
+      "reaction": "Gain +1 block this round.",
+      "switches": [
+        "Green",
+        "Yellow",
+        "Blue"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Clinch Throw",
+      "color": "Orange",
+      "attack": 4,
+      "block": 1,
+      "ability": "For your damage calculation this round, treat your opponent's block as 2 lower, to a minimum of 0.\nSpend Orange advantage: If you deal damage, your opponent cannot burn bonus or reaction cards next round.",
+      "bonus": "For your damage calculation this round, treat your opponent's block as 2 lower, to a minimum of 0.",
+      "reaction": "",
+      "switches": [
+        "Yellow",
+        "Red"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Body Lock",
+      "color": "Orange",
+      "attack": 3,
+      "block": 4,
+      "ability": "If your opponent's main card has a printed block value of 4 or more, gain +3 attack this round.\nObjective: Deal damage against printed block 4+: gain Orange advantage.",
+      "bonus": "Gain +2 attack this round.",
+      "reaction": "Gain +1 block this round.",
+      "switches": [
+        "Blue",
+        "Green"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Driving Tackle",
+      "color": "Orange",
+      "attack": 6,
+      "block": 1,
+      "ability": "Spend Orange advantage: Ignore 2 opposing block this round. If you deal damage, choose one opposing legal next color to prohibit if more than one is available.",
+      "bonus": "Gain +3 attack this round. Your opponent gains +1 block this round.",
+      "reaction": "",
+      "switches": [
+        "Red",
+        "Purple"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Grip Break",
+      "color": "Orange",
+      "attack": 4,
+      "block": 2,
+      "ability": "If your opponent committed a block-increasing bonus burn this round, gain +2 attack and +1 block this round.\nIf your opponent has an attack bonus carried into this round, gain +3 block this round.\nObjective: Deal damage against a block-increasing bonus burn, or take no damage against an opponent with an attack bonus carried into this round: gain Blue advantage.",
+      "bonus": "",
+      "reaction": "Gain +2 block this round.",
+      "switches": [
+        "Yellow",
+        "Green",
+        "Blue"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Off-Balance Sweep",
+      "color": "Orange",
+      "attack": 3,
+      "block": 2,
+      "ability": "If your opponent's main card has a printed attack value of 3 or less, gain +3 attack this round.\nObjective: Deal damage against printed attack 3 or less: gain Yellow advantage.",
+      "bonus": "Gain +1 attack and +1 block this round.",
+      "reaction": "Gain +1 attack this round.",
+      "switches": [
+        "Orange",
+        "Yellow"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Counter Throw",
+      "color": "Orange",
+      "attack": 3,
+      "block": 3,
+      "ability": "If your opponent's main card has a printed attack value of 5 or more, gain +1 attack and +2 block this round.\nObjective: Deal damage against printed attack 5+: gain Orange advantage.",
+      "bonus": "Gain +2 block this round.",
+      "reaction": "",
+      "switches": [
+        "Red",
+        "Blue",
+        "Purple"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Sidestep",
+      "color": "Yellow",
+      "attack": 2,
+      "block": 4,
+      "ability": "If your opponent's main card has a printed attack value of 5 or more, gain +2 block this round.\nObjective: Take no damage against printed attack 5+: gain Green advantage.",
+      "bonus": "Gain +3 block this round.",
+      "reaction": "Gain +1 block this round.",
+      "switches": [
+        "Orange",
+        "Blue",
+        "Green"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Darting Strike",
+      "color": "Yellow",
+      "attack": 6,
+      "block": 0,
+      "ability": "Spend Yellow advantage: After reveal, before reactions, you may permanently burn this card and replace it with another available main from your Yellow hand. Keep your committed bonus. The replacement cannot spend advantage.",
+      "bonus": "Gain +2 attack this round.",
+      "reaction": "",
+      "switches": [
+        "Red",
+        "Orange",
+        "Yellow"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Bait and Slip",
+      "color": "Yellow",
+      "attack": 3,
+      "block": 2,
+      "ability": "If your opponent committed at least one bonus burn this round, gain +4 block this round.\nIf your opponent committed at least one bonus burn this round, you may return their main card to a different hand of your choice after damage.\nObjective: Take no damage against a bonus burn: gain Blue advantage.",
+      "bonus": "Gain +1 attack and +1 block this round.",
+      "reaction": "If your opponent committed at least one bonus burn this round, gain +2 block this round. Otherwise, gain +1 block this round.",
+      "switches": [
+        "Purple",
+        "Blue"
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Outside Step",
+      "color": "Yellow",
+      "attack": 1,
+      "block": 4,
+      "ability": "If your opponent's main card has a printed block value of 4 or more, gain +6 attack this round.\nIf you deal damage, gain +1 attack next round.",
+      "bonus": "Gain +2 attack this round.",
+      "reaction": "Gain +1 block this round.",
+      "switches": [
+        "Red",
+        "Blue",
+        "Purple"
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Glancing Step",
+      "color": "Yellow",
+      "attack": 3,
+      "block": 4,
+      "ability": "If you take exactly 1 damage, gain +2 attack next round.\nObjective: Take exactly 1 damage: gain Yellow advantage.",
+      "bonus": "Gain +1 attack and +1 block this round.",
+      "reaction": "Gain +1 block this round.",
+      "switches": [
+        "Red",
+        "Orange",
+        "Purple"
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Driving Kick",
+      "color": "Yellow",
+      "attack": 5,
+      "block": 0,
+      "ability": "If your opponent's main card has a printed block value of 2 or less, gain +4 block this round.\nSpend Yellow advantage: If you deal damage, choose your opponent's next hand from their legal destinations.",
+      "bonus": "Gain +2 attack this round.",
+      "reaction": "",
+      "switches": [
+        "Orange",
+        "Green",
+        "Purple"
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Rooted Guard",
+      "color": "Green",
+      "attack": 0,
+      "block": 6,
+      "ability": "If your opponent's main card has a printed attack value of 5 or more, gain +3 attack this round.\nObjective: Deal 4+ damage next round: gain Green advantage.",
+      "bonus": "Gain +3 block this round.",
+      "reaction": "Gain +2 block this round.",
+      "switches": [
+        "Purple",
+        "Blue"
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Forearm Check",
+      "color": "Green",
+      "attack": 3,
+      "block": 3,
+      "ability": "If your opponent's main card has a printed attack value of 3 or less, gain +2 attack this round.\nSpend Green advantage: Gain +2 block this round. You may stay in Green this round.",
+      "bonus": "Gain +2 attack this round.",
+      "reaction": "",
+      "switches": [
+        "Yellow",
+        "Orange"
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Firm Counter",
+      "color": "Green",
+      "attack": 2,
+      "block": 2,
+      "ability": "If your opponent committed at least one bonus burn this round, gain +3 attack and +3 block this round.",
+      "bonus": "Gain +2 block this round.",
+      "reaction": "Gain +1 block this round.",
+      "switches": [
+        "Red",
+        "Green",
+        "Blue"
+      ]
+    },
+    {
+      "id": 22,
+      "name": "Brace",
+      "color": "Green",
+      "attack": 2,
+      "block": 5,
+      "ability": "Objective: Take no damage against printed attack 5+: gain Blue advantage.\nSpend Green advantage: Your opponent's carried attack bonus does not apply this round. Neither player can gain attack bonuses for next round.",
+      "bonus": "",
+      "reaction": "Gain +2 block this round.",
+      "switches": [
+        "Blue",
+        "Yellow"
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Driving Palm",
+      "color": "Green",
+      "attack": 5,
+      "block": 2,
+      "ability": "If you deal damage, recover 1 life after damage. This cannot prevent a knockout.",
+      "bonus": "Gain +2 attack this round.",
+      "reaction": "Gain +1 attack this round.",
+      "switches": [
+        "Red",
+        "Purple"
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Measured Advance",
+      "color": "Green",
+      "attack": 3,
+      "block": 4,
+      "ability": "If you committed no bonus burns this round, gain +1 attack this round.\nObjective: Deal damage without a bonus or reaction burn: gain Orange advantage.",
+      "bonus": "Gain +1 attack and +1 block this round.",
+      "reaction": "Gain +1 block this round.",
+      "switches": [
+        "Orange",
+        "Yellow",
+        "Purple"
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Read the Strike",
+      "color": "Blue",
+      "attack": 2,
+      "block": 3,
+      "ability": "If your opponent's main card has a printed attack value of 5 or more, gain +1 attack and +3 block this round.\nObjective: Deal damage against printed attack 5+: gain Purple advantage.",
+      "bonus": "If your opponent's main card has a printed attack value of 5 or more, gain +3 block this round. Otherwise, gain +1 block this round.",
+      "reaction": "If your opponent's main card has a printed attack value of 5 or more, gain +2 block this round. Otherwise, gain +1 block this round.",
+      "switches": [
+        "Purple",
+        "Green"
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Catch the Opening",
+      "color": "Blue",
+      "attack": 3,
+      "block": 2,
+      "ability": "If your opponent's main card has a printed block value of 2 or less, gain +3 attack this round.",
+      "bonus": "Gain +2 attack this round.",
+      "reaction": "Gain +1 attack this round.",
+      "switches": [
+        "Red",
+        "Yellow"
+      ]
+    },
+    {
+      "id": 27,
+      "name": "Watchful Guard",
+      "color": "Blue",
+      "attack": 2,
+      "block": 5,
+      "ability": "If your opponent committed at least one bonus burn this round, gain +2 attack this round.\nObjective: Deal damage against a bonus burn: gain Red advantage.",
+      "bonus": "Gain +2 block this round.",
+      "reaction": "Gain +1 block this round.",
+      "switches": [
+        "Red",
+        "Green",
+        "Yellow"
+      ]
+    },
+    {
+      "id": 28,
+      "name": "Find the Gap",
+      "color": "Blue",
+      "attack": 4,
+      "block": 2,
+      "ability": "If your opponent's main card has a printed block value of 4 or more, gain +3 attack this round.",
+      "bonus": "If your opponent's main card has a printed block value of 4 or more, gain +3 attack this round. Otherwise, gain +1 attack this round.",
+      "reaction": "Gain +1 attack this round.",
+      "switches": [
+        "Green",
+        "Orange",
+        "Purple"
+      ]
+    },
+    {
+      "id": 29,
+      "name": "Mirror Step",
+      "color": "Blue",
+      "attack": 3,
+      "block": 3,
+      "ability": "If your opponent's main card has a printed attack value of 3, gain +2 block this round.\nIf your opponent's main card has a printed block value of 3, gain +2 attack this round.\nSpend Blue advantage: If you deal damage, remove one opposing held advantage of your choice. If you take no damage, remove one opposing held advantage of your choice.",
+      "bonus": "Gain +1 attack and +1 block this round.",
+      "reaction": "Gain +1 block this round.",
+      "switches": [
+        "Green",
+        "Yellow"
+      ]
+    },
+    {
+      "id": 30,
+      "name": "Counterpunch",
+      "color": "Blue",
+      "attack": 4,
+      "block": 2,
+      "ability": "If your opponent's main card has a printed attack value of 6 or more, gain +3 block this round.\nSpend Blue advantage: Gain +1 attack and +1 block this round. If you deal damage, your opponent cannot earn advantage this round.",
+      "bonus": "Gain +2 attack this round.",
+      "reaction": "Gain +1 attack and +1 block this round.",
+      "switches": [
+        "Red",
+        "Blue",
+        "Green"
+      ]
+    },
+    {
+      "id": 31,
+      "name": "Haymaker",
+      "color": "Purple",
+      "attack": 7,
+      "block": 0,
+      "ability": "If you deal no combat damage, you have -2 block next round, to a minimum of 0.\nObjective: Deal 4+ damage without a bonus burn: gain Purple advantage.",
+      "bonus": "Gain +4 attack this round. Your opponent gains +2 attack this round.",
+      "reaction": "",
+      "switches": [
+        "Red",
+        "Yellow"
+      ]
+    },
+    {
+      "id": 32,
+      "name": "Charged Fist",
+      "color": "Purple",
+      "attack": 5,
+      "block": 1,
+      "ability": "If you committed no bonus burns this round, gain +1 attack this round.\nSpend Purple advantage: If you deal damage, permanently burn your opponent's main card after damage.",
+      "bonus": "Gain +2 attack this round.",
+      "reaction": "Gain +1 attack this round.",
+      "switches": [
+        "Orange",
+        "Purple"
+      ]
+    },
+    {
+      "id": 33,
+      "name": "Crushing Blow",
+      "color": "Purple",
+      "attack": 5,
+      "block": 0,
+      "ability": "For your damage calculation this round, treat your opponent's block as 2 lower, to a minimum of 0.\nObjective: Deal damage against printed block 5+: gain Red advantage.",
+      "bonus": "For your damage calculation this round, treat your opponent's block as 2 lower, to a minimum of 0.",
+      "reaction": "",
+      "switches": [
+        "Orange",
+        "Green",
+        "Red"
+      ]
+    },
+    {
+      "id": 34,
+      "name": "Iron Guard",
+      "color": "Purple",
+      "attack": 1,
+      "block": 5,
+      "ability": "If you committed no bonus burns this round, gain +1 attack this round.\nIf you take no damage, gain +1 attack next round.\nObjective: Deal damage: gain Green advantage.",
+      "bonus": "Gain +3 block this round.",
+      "reaction": "Gain +1 block this round.",
+      "switches": [
+        "Green",
+        "Blue"
+      ]
+    },
+    {
+      "id": 35,
+      "name": "Trade Blows",
+      "color": "Purple",
+      "attack": 6,
+      "block": 1,
+      "ability": "If your opponent's main card has a printed attack value of 5 or more, gain +2 attack this round.",
+      "bonus": "Gain +3 attack this round. Your opponent gains +1 attack this round.",
+      "reaction": "Gain +1 attack this round.",
+      "switches": [
+        "Red",
+        "Green"
+      ]
+    },
+    {
+      "id": 36,
+      "name": "Heavy Feint",
+      "color": "Purple",
+      "attack": 4,
+      "block": 2,
+      "ability": "For your damage calculation this round, ignore block gained from your opponent's bonus burn.\nIf your opponent spent advantage this round, gain +2 attack this round.",
+      "bonus": "Gain +2 attack this round.",
+      "reaction": "Gain +1 attack this round.",
+      "switches": [
+        "Orange",
+        "Yellow",
+        "Blue"
+      ]
+    }
+  ]
+};

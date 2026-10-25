@@ -1,0 +1,7 @@
+{
+    "name": "Enclosed Firemind / physical-damage-not-prevented",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:10:38+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Unblocked Wounding Blow blue is printed2 physical damage, not arcane. Arcane Barrier1 does not offer a chooser, spend resources or reduce it: defenderHP18/resources1; equipment stays equipped with sameUID4 and no exhaustion/destruction. One attack only, so Ira second-attack passive is inapplicable. Sources: FaBSim/GeneratedCode/cardArrayCache.json#enclosed_firemind https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN016.webp DevTools/FaB/upr_abilities.json#aether_dart_red/PrepareCard,ResolveCard FaBSim/Custom/UPRCards.php::FaBUPRBarrierValue/FaBUPRBarrierChoices/FaBUPRDeal FaBSim/Custom/ARCCards.php::FaBARCPitchChoices/FaBARCPitchForEffect FaBSim/Custom/GameLogic.php::FaBFinishReactionResolution https://rules.fabtcg.com/en/cr/08-keywords/#838 https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/#8210"
+}

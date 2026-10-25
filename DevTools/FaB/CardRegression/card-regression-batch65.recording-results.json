@@ -1,0 +1,38 @@
+[
+    {
+        "slug": "card-savage-swing-red-mandatory-discard-distinct-candidates-preselection-bound",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 125
+    },
+    {
+        "slug": "card-savage-swing-yellow-mandatory-discard-distinct-candidates-preselection-bound",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 125
+    },
+    {
+        "slug": "card-savage-swing-blue-mandatory-discard-distinct-candidates-preselection-bound",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 125
+    },
+    {
+        "slug": "card-wrecker-romp-red-mandatory-discard-distinct-candidates-preselection-bound",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 125
+    },
+    {
+        "slug": "card-wrecker-romp-yellow-mandatory-discard-distinct-candidates-preselection-bound",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 125
+    },
+    {
+        "slug": "card-wrecker-romp-blue-mandatory-discard-distinct-candidates-preselection-bound",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 125
+    }
+]

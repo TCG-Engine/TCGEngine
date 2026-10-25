@@ -1,0 +1,729 @@
+[
+  {
+    "slug": "card-enlightened-strike-red-mode-draw",
+    "name": "Enlightened Strike / mode-draw",
+    "cardIDs": [
+      "enlightened_strike_red"
+    ],
+    "branches": [
+      "mode-draw"
+    ],
+    "zones": [
+      {
+        "cardID": "enlightened_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hand-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "answer",
+        "value": "0",
+        "player": 1,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "deck_ids",
+            "value": [
+              "head_jab_blue",
+              "wounding_blow_blue"
+            ],
+            "player": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "kind": "hand_ids",
+            "value": [
+              "head_jab_blue"
+            ],
+            "player": 1
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "wounding_blow_blue"
+            ],
+            "player": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay mandatory additional cost by bottoming Wounding Blow blue, then choose mode 0 (draw). Attack for 5; only draw mode draws original top Head Jab blue, only go-again mode returns an action point.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#enlightened_strike_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-enlightened-strike-red-mode-power",
+    "name": "Enlightened Strike / mode-power",
+    "cardIDs": [
+      "enlightened_strike_red"
+    ],
+    "branches": [
+      "mode-power"
+    ],
+    "zones": [
+      {
+        "cardID": "enlightened_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hand-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "answer",
+        "value": "1",
+        "player": 1,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "deck_ids",
+            "value": [
+              "head_jab_blue",
+              "wounding_blow_blue"
+            ],
+            "player": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 7
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "kind": "hand_ids",
+            "value": [],
+            "player": 1
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "head_jab_blue",
+              "wounding_blow_blue"
+            ],
+            "player": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay mandatory additional cost by bottoming Wounding Blow blue, then choose mode 1 (power). Attack for 7; only draw mode draws original top Head Jab blue, only go-again mode returns an action point.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#enlightened_strike_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-enlightened-strike-red-mode-go-again",
+    "name": "Enlightened Strike / mode-go-again",
+    "cardIDs": [
+      "enlightened_strike_red"
+    ],
+    "branches": [
+      "mode-go-again"
+    ],
+    "zones": [
+      {
+        "cardID": "enlightened_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hand-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "answer",
+        "value": "2",
+        "player": 1,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "deck_ids",
+            "value": [
+              "head_jab_blue",
+              "wounding_blow_blue"
+            ],
+            "player": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "kind": "hand_ids",
+            "value": [],
+            "player": 1
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "head_jab_blue",
+              "wounding_blow_blue"
+            ],
+            "player": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay mandatory additional cost by bottoming Wounding Blow blue, then choose mode 2 (go-again). Attack for 5; only draw mode draws original top Head Jab blue, only go-again mode returns an action point.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#enlightened_strike_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-enlightened-strike-red-missing-additional-cost",
+    "name": "Enlightened Strike / missing-additional-cost",
+    "cardIDs": [
+      "enlightened_strike_red"
+    ],
+    "branches": [
+      "missing-additional-cost"
+    ],
+    "zones": [
+      {
+        "cardID": "enlightened_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "enlightened_strike_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "The mandatory extra hand card is absent; cannot announce Enlightened Strike even though printed resource cost is zero.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#enlightened_strike_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-bravo-cost-three-dominate",
+    "name": "Bravo / cost-three-dominate",
+    "cardIDs": [
+      "bravo"
+    ],
+    "branches": [
+      "cost-three-dominate"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "crush_confidence_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hero-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "ACTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE"
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 1
+          },
+          {
+            "kind": "defense",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay 2 to activate Bravo (blue3 leaves1) and recover action point. crush_confidence_blue costs 3 and must get dominate: second hand block rejected; one block3 permits2 damage.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#bravo",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-bravo-cost-zero-no-dominate",
+    "name": "Bravo / cost-zero-no-dominate",
+    "cardIDs": [
+      "bravo"
+    ],
+    "branches": [
+      "cost-zero-no-dominate"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hero-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "ACTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE"
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "kind": "defense",
+            "value": 6
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay 2 to activate Bravo (blue3 leaves1) and recover action point. wounding_blow_red costs 0 and must not get dominate: both hand blocks legal and prevent all4 damage.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#bravo",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ]
+  }
+]

@@ -1,0 +1,7 @@
+{
+    "name": "Count Your Blessings / conditional heal / opponent-response-no-early-heal",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:44:10+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed count_your_blessings_red cost2, pitch1, no defense property, no action-point cost or gain as an Instant. Branch opponent-response-no-early-heal. Independent printed-rule model requires terminal health[13, 21], resources[0, 0], AP[1, 0].  Sources: https://judge.fabtcg.com/cards/detail/3331/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

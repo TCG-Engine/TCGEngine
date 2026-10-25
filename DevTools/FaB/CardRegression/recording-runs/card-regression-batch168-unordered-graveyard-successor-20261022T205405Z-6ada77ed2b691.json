@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T20:54:05+00:00",
+    "input_file": "card-regression-batch168-unordered-graveyard-successor.json",
+    "input_sha256": "d2f967ac6ed0178f36314296aab0eb6180e6d5d18d0593ad9892055b2e5d7a9d",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-talisman-of-tithes-blue-four-live-sparse-actual-four-hero-draw-first-opponent-reduced-to-zero-and-item-consumed-unordered-graveyard-membership",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 448
+        }
+    ]
+}

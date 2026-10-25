@@ -1,0 +1,7 @@
+{
+    "name": "Power Play / hand-insufficient-resources",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:48:30+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Only2 resources are available against cost3; there is no other hand card to pitch. The played card cannot pitch to pay for itself. Reject the supported click fromHand: preserve source card, HP, resources and AP; no stack layer, pitch or decision. Sources: FaBSim/GeneratedCode/cardArrayCache.json#power_play_yellow https://judge.fabtcg.com/cards/detail/4275/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

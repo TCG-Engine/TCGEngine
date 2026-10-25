@@ -1,0 +1,128 @@
+{
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "completed_utc": "2026-10-20T23:34:49.116638+00:00",
+  "plan_sha256": "7169128b7799bd0ba28045a27fe794761e2c3f629068dea04096e92d70023da8",
+  "independent_saved_proof_sha256": "735d4db17bf2d598204bde3207618fa6bfacfffeb50a13518620876e7e4e413d",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b93-focused-fault-plan.json",
+    "7169128b7799bd0ba28045a27fe794761e2c3f629068dea04096e92d70023da8",
+    "card-regression-sparse-b93-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b93_healing_potion_remove_original_arc_dispatch",
+      "fixture": "card-healing-potion-blue-four-live-sparse-actual-destroy-action-heals-two-and-go-again",
+      "fixture_sha256": "f6cb3ee7f0b687a921ac48b3b816e48be23397901b79722e35ad1694b4b037af",
+      "source_raw5": {
+        "initial_gamestate.txt": "995290c1b87ac046cc9a62ff782befbfe212c3b5774cbdf650994aef9c92fa4b",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "2d1f09c7af8430345ced4518ed5badc14705e64301c2d8336158097b84553038",
+        "expected_final_gamestate.txt": "ebad10e332339bd0856790a0b5d8b9ddb252a3c6282ccafd685c6dca71e8a980",
+        "meta.json": "8ca6c226d05764a94775c63f9b4942fc3283de45dcfaaa2b33973796aede817e"
+      },
+      "prefix_actions": 1,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 132,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Health to equal 22, got 20.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Healing Potion / compact four live positive effect: Step 4 assertion failed: Expected p1Health to equal 22, got 20.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual destroy cost and AP1 spend, remove original virtual abilityUID6 arcSpec; no WTR fallback exists. Heal2 and printed abilityGA are absent, but first retained life22 to20 detects before later AP refund. PhysicalPotionUID5 ownGY and every response/cost/source oracle stay unchanged.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b93_medkit_remove_original_arc_dispatch",
+      "fixture": "card-medkit-blue-four-live-sparse-actual-action-bottom-cost-heals-two-without-go-again",
+      "fixture_sha256": "45da7ef9127e0e082c0b9db146f4d399f346f59ce5e2106cfe9c06ea45241aa0",
+      "source_raw5": {
+        "initial_gamestate.txt": "94247d256a113a00a736e6dd379d6e73837cff07853506900be6839708db44ac",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "0b0fb697fc93d0372b9d13420d0bb6b2c526863906b10b1b074882d87db76c1e",
+        "expected_final_gamestate.txt": "d6e6631e86eb63ab004016f410df2298b4bd8ab8c072b3038ee7c4e5d68a82c1",
+        "meta.json": "95c5daa1e7bf55ee5498bdddb6abdafa49abf36f06d6669ca520a3c971c50670"
+      },
+      "prefix_actions": 1,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 142,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Health to equal 22, got 20.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Medkit / compact four live positive effect: Step 4 assertion failed: Expected p1Health to equal 22, got 20.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual owned MedkitUID5 bottom cost behind sentinel6/AP1 spend, remove original virtual abilityUID7 arcSpec; no WTR fallback exists. Four unchanged passes resolve without heal; first retained life22 to20 detects, exact physical Deck[6,5] and noGA/AP0 remain.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b93_fuel_injector_remove_original_arc_dispatch",
+      "fixture": "card-fuel-injector-blue-four-live-sparse-actual-instant-bottom-cost-gains-one-resource",
+      "fixture_sha256": "4b8765697c129501ade0b896efc2f8dff7a55de029ed655d92d863648a18f2b4",
+      "source_raw5": {
+        "initial_gamestate.txt": "4c4f4c43fff42af4e6db6eb823c33fc6fd30967460a6ed2fb605931a831f2a40",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "ed7a1b7dbea4ad9920e756bfbccfdd2ebd8312eddf9c54eeebf039d3133cfaa8",
+        "expected_final_gamestate.txt": "81a4d19d78191f9807ea73f78f756de4350f9b5d01422e9e6634f1b15c370a94",
+        "meta.json": "758be7e0b80abe6b389a17127049f07be230f8a5e5fc81f78e5bfe23988d5204"
+      },
+      "prefix_actions": 1,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 142,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Resources to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Fuel Injector / compact four live positive effect: Step 4 assertion failed: Expected p1Resources to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual owned InjectorUID5 bottom cost behind sentinel6 with AP1 unchanged, remove original virtual abilityUID7 arcSpec; no WTR fallback exists. Four unchanged passes resolve without resource1; first retained resource1 to0 detects. Keep exact Deck[6,5], source/controller, cost and noAPspend.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b93_deep_blue_sea_reduce_real_attack_power_by_one",
+      "fixture": "card-deep-blue-sea-blue-four-live-sparse-two-real-blue-pitches-pay-four-and-give-two-power",
+      "fixture_sha256": "9384c48f3ca941e0abd3b5b6d8b15a629cc9391e5b094d24b80b88db0ffd95ea",
+      "source_raw5": {
+        "initial_gamestate.txt": "395b057c01bbaa1185b05989f3c816a02d21dac767a2b05c953e668f20820fe1",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "3717d76b40ec2fd4cfd3aeaa798cabcb2a952519cae6b859a6d5eeb22a2290fb",
+        "expected_final_gamestate.txt": "44ba01506f841359fc63c0c2deb8d7573ab2addeb0437e5773e31acd3a13ac6c",
+        "meta.json": "91d7118f40ed59819891cc3d5ca083f1bbd9eae85986f2e5d0ab0dcc72ababf5"
+      },
+      "prefix_actions": 8,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "deep_blue_sea_blue",
+            "tag": "WTR_POWER:-1",
+            "mode": "add"
+          }
+        ]
+      },
+      "retained_assertions": 198,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Deep Blue Sea / compact four live positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After two actual distinct blue3 pitches paid printedcost4 leavingresources2/AP0, and actual attackUID5 reaches first ATTACK checkpoint, add only WTR_POWER:-1 via existing helper to that sole physical attack. Earliest retained computedPower7 to6 detects. This is arithmetic sensitivity, not a legal in-game history mutation; original pitch donors/history, source, cost and all damage/priority oracles remain.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

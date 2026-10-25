@@ -1,0 +1,121 @@
+[
+    {
+        "slug": "rule-end-turn-clears-unused-action-points",
+        "status": "blocked_or_incorrect",
+        "error": "Expected p1ActionPoints to equal 0, got 1.",
+        "attempted_actions": [
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            }
+        ],
+        "observed_state": {
+            "window": "ACTION",
+            "combatOpen": false,
+            "combatStep": "NONE",
+            "chainLink": 0,
+            "attacker": 0,
+            "defender": 0,
+            "attackUID": 0,
+            "attackTarget": null,
+            "pendingAttackTarget": null,
+            "previousAttackCardID": "",
+            "handBlockUIDs": [],
+            "intimidated": [],
+            "pendingPayment": null,
+            "lastAttackName": "",
+            "attackHit": false,
+            "attackPower": 0,
+            "defenseValue": 0,
+            "damageDealt": 0,
+            "declaredBlockUIDs": [],
+            "passiveSeats": [],
+            "gameMode": "",
+            "turnEffects": {
+                "1": [],
+                "2": []
+            },
+            "nextTurnEffects": [],
+            "hitsThisTurn": {
+                "2": []
+            },
+            "cardsPlayedThisTurn": [],
+            "mpgDurations": [],
+            "botProfiles": [],
+            "weaponHits": [],
+            "attackActionHits": [],
+            "arcNames": [],
+            "arcaneDealt": [],
+            "arcCards": {
+                "3": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "mstFree": false,
+                    "rosLastLightning": false,
+                    "iarPermission": []
+                }
+            },
+            "arcActions": [],
+            "dtdStarting": false,
+            "uprRefill": false,
+            "dynEdicts": []
+        }
+    }
+]

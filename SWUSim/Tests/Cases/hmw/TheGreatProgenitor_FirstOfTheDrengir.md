@@ -141,6 +141,36 @@ P1DISCARDUNIT:0:CARDID:HMW_067
 #// ("If you would create a number of tokens … create twice that number instead") doubles the WHOLE batch.
 #// One Weakness already on it → two after accepting → 2 Beasts, doubled to 4; Jerjerrod is defeated.
 #// Creating the Beasts one at a time would offer Jerjerrod per token and end on 3.
+#// ⚠ Since 2026-10-19 (owner: Jerjerrod doubles EVERY token) the Weakness give is a creation too, so it raises
+#// its own offer FIRST; this section DECLINES that one (NO) to reach the Beast batch. Accepting it instead is
+#// Jerjerrod_DoublesTheWeakness_ThreeBeasts below.
+
+## GIVEN
+CommonSetup: bbk/bbk/{}
+P1OnlyActions: true
+WithP1GroundArena: [HMW_067:1:0 ASH_094:1:0]
+WithP1GroundArenaUpgrade: 0:HMW_T02
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:NO
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:5
+P1GROUNDARENAUNIT:0:CARDID:HMW_067
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:ASH_094
+
+---
+
+# Jerjerrod_DoublesTheWeakness_ThreeBeasts
+#// The OTHER half: P1 doubles the WEAKNESS give instead. "Create a Beast token for each Weakness token on this
+#// unit" must count AFTER that offer resolves: 1 already + 1 given + 1 doubled = 3 Weakness → 3 Beasts. Jerjerrod
+#// is gone, so the Beast batch is not offered. Counting at the give (before the offer) would make 2 Beasts.
+#// Progenitor 4/7 with 3 Weakness (-3/-3) = 1/4, alive.
 
 ## GIVEN
 CommonSetup: bbk/bbk/{}
@@ -154,11 +184,11 @@ WithP1GroundArenaUpgrade: 0:HMW_T02
 - P1>AnswerDecision:YES
 
 ## EXPECT
-P1GROUNDARENACOUNT:5
+P1GROUNDARENACOUNT:4
 P1GROUNDARENAUNIT:0:CARDID:HMW_067
-P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
-P1DISCARDCOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:3
 P1DISCARDUNIT:0:CARDID:ASH_094
+P1NODECISION
 
 ---
 

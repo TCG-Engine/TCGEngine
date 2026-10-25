@@ -1,0 +1,71 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:56:30.059368+00:00",
+  "plan_sha256": "163848538302034878c610325febad5858f60e53d7e89bae317dc0611826c0f8",
+  "independent_saved_proof_sha256": "04ab17b44d031cb3fd6469423a0422c716a5f8b882ab851a05f93e2e1b3f1dcd",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b144-focused-fault-plan.json",
+    "163848538302034878c610325febad5858f60e53d7e89bae317dc0611826c0f8",
+    "card-regression-sparse-b144-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b144_transmogrify_red_focused_effect_sensitivity",
+      "fixture": "card-transmogrify-red-four-live-sparse-actual-paid-next-attack-set-base-eight-unblocked",
+      "fixture_sha256": "4ba92db0178c652c383391c81c360fed7fe2a715af4e291ee3cbf66e3c9d47c1",
+      "source_raw5": {
+        "initial_gamestate.txt": "ddc997f4f3d19ed5cb2d1613b7491113fa154d3155ef11fded6b8a339439dc10",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "297783feb9260b5759bd89e9f538159c0d88faf9b7e8dc0583de615892ca8864",
+        "expected_final_gamestate.txt": "3c4e47a2f983f14fb82d9b7ff11c695008ffa033b5c4e8a772536c49daaea794",
+        "meta.json": "89067c65ce544285b7002dc4c6ec7e5b08be3f82ef3670b793a997abeeb1aaf2"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "remove_effect": "UPR_TRANSMOGRIFY"
+      },
+      "retained_assertions": 791,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 8, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Transmogrify / four live actual unblocked attack: Step 6 assertion failed: Expected p1CombatChain-0 computed power to equal 8, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only the actual resolved Transmogrify source grant before actualWB6, preserving realBlue7/source1/payment/AP/history; computedpower8 becomes originalbase4. The removed source grant also carries unexercised class/phantasm/optional destruction-draw properties; no independent coverage or isolated attribute fault claim is made for them. Every original suffix action/oracle retained; exact intended FIRST computed-power failure required. No base-layer interaction, later destroy/pop/draw, legal alternative branch or sibling credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b144_veiled_intentions_red_focused_effect_sensitivity",
+      "fixture": "card-veiled-intentions-red-four-live-sparse-actual-paid-next-attack-plus-four-unblocked",
+      "fixture_sha256": "d97574c8e4ea8b5b4d0d9e242f83e9cab53e05e5da2a4564d91022ca21eb865c",
+      "source_raw5": {
+        "initial_gamestate.txt": "5df7e345e960c91eb6917548bc21859600bd1022b682b4a831679a0daa524624",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "0b2b9e9ea0bec709cacd2f0b20c236c803a874d0aeaf0ceb5a3e828f013e8b69",
+        "expected_final_gamestate.txt": "ed9c6eaff836668783a103b058710f7656548484c7a32c702bcaa5d1ed3e4c0f",
+        "meta.json": "0ef98ff460be1a6b07d811cba2dba77e3112bc98b42f0fc63632ec6c3fb03d8d"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "remove_effect": "EVR_NEXT_VEILED"
+      },
+      "retained_assertions": 791,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 8, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Veiled Intentions / four live actual unblocked attack: Step 6 assertion failed: Expected p1CombatChain-0 computed power to equal 8, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual resolved Veiled source grant before actualWB6, preserving realBlue7/source1/payment/AP/history; computedpower8 becomes originalbase4 without+4. The removed source grant also carries unexercised class/phantasm/optional destruction-draw properties; no independent coverage or isolated attribute fault claim is made for them. Every original suffix action/oracle retained; exact intended FIRST computed-power failure required. No base-layer interaction, later destroy/pop/draw, legal alternative branch or sibling credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

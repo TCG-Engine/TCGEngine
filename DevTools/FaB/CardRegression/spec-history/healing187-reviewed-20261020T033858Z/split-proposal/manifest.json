@@ -1,0 +1,1704 @@
+{
+  "status": "FROZEN_WORKSPACE_ONLY_SPLIT_PENDING_INDEPENDENT_OBJECT_PRESERVATION_REVIEW",
+  "author": "/root/wtr_attack_scenarios",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\conditional-heal-instants\\protocol-v2-corrected\\full187-corrected-proposed.json",
+    "sha256": "e721ac0c8750b4219e09c9efde6f40f7c1edaa61b37fc1acc5d8c00da5610c0a",
+    "spec_review_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\conditional-heal-instants\\protocol-v2-corrected\\independent-full187-spec-review.json",
+    "spec_review_sha256": "52d4df4e6187c26110a6acbdba13777fe80f0df01a29cc9647bddd0b621a1eb9",
+    "independent_model_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\conditional-heal-instants\\protocol-v2-corrected\\independent-action-model-full187.json",
+    "independent_model_sha256": "fcd93cce11d20e062403fb0cda5bd15528bcfd8656886368c8319cb32916f6c5"
+  },
+  "source_cases": 187,
+  "identities": 10,
+  "allocated_batches": [
+    66,
+    67,
+    68,
+    69
+  ],
+  "batches": [
+    {
+      "batch": 66,
+      "family": "arcane_polarity",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\healing187-serial-split-proposal\\card-regression-batch66.json",
+      "file_sha256": "5884fa05c93233352e53ead25ec23bf8d9f95d09654788cf6e030de521281db7",
+      "native_target": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch66.json",
+      "native_target_precondition": {
+        "exists": false,
+        "sha256": null
+      },
+      "cases": 51,
+      "identities": [
+        "arcane_polarity_red",
+        "arcane_polarity_yellow",
+        "arcane_polarity_blue"
+      ],
+      "per_identity_optional_serial_filters": [
+        {
+          "cardID": "arcane_polarity_red",
+          "cases": 17,
+          "optional_existing_recorder_filter": "card-arcane-polarity-red-",
+          "modeled_actions": 144
+        },
+        {
+          "cardID": "arcane_polarity_yellow",
+          "cases": 17,
+          "optional_existing_recorder_filter": "card-arcane-polarity-yellow-",
+          "modeled_actions": 144
+        },
+        {
+          "cardID": "arcane_polarity_blue",
+          "cases": 17,
+          "optional_existing_recorder_filter": "card-arcane-polarity-blue-",
+          "modeled_actions": 143
+        }
+      ],
+      "already_saved_slugs": [
+        "card-arcane-polarity-red-conditional-heal-real-self-dart-at-zero-ap"
+      ],
+      "new_case_count": 50,
+      "modeled_actions": 431,
+      "modeled_individual_passes": 318,
+      "modeled_oracles": 11790,
+      "planned_check_kind_counts": {
+        "scalar_zone_equals": 2262,
+        "zone_count": 6217,
+        "decision_queue_empty": 253,
+        "state": 740,
+        "card_property_equals": 2297,
+        "game_state_field": 21
+      },
+      "objects": [
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-real-self-dart-at-zero-ap",
+          "original_full_index": 0,
+          "exact_ordered_json_object_sha256": "dcbc0f4a97ccb89dddc5bb220a5de0076471a37f2818469f97bd5f0fde64318c"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-own-hand-floating-exact",
+          "original_full_index": 4,
+          "exact_ordered_json_object_sha256": "6fcf2f3926d40897d28c2d6b8b672715ea258645f72bfbc8418506d5be3fb5fc"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-own-hand-overfunded",
+          "original_full_index": 5,
+          "exact_ordered_json_object_sha256": "0ebab73c7512dd4f3fac8796c5e473fa06e1c5cd0628b75a76d5e0f70345c92b"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-own-hand-zero-ap",
+          "original_full_index": 6,
+          "exact_ordered_json_object_sha256": "d858fedbb3abf1c50f8ee61c69fecf9dc330c08dc730da7399eb9162bd679198"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-arsenal-face-up",
+          "original_full_index": 7,
+          "exact_ordered_json_object_sha256": "74959a2ffd9509c305efdf932ed24863a3e205d615bf2be0fa52b8a62d6d35e9"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-arsenal-face-down",
+          "original_full_index": 8,
+          "exact_ordered_json_object_sha256": "f0ac2145f92b8242c6abeb7dc582e59172bba9cd107cc5758cbc7da808906e43"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-nonturn-instant-zero-ap",
+          "original_full_index": 9,
+          "exact_ordered_json_object_sha256": "ef62eb329d37a688b99ef5cfb67b2d25a1c2ac3f44505b7bbdad716be6db7d0c"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-wrong-priority-rejected",
+          "original_full_index": 10,
+          "exact_ordered_json_object_sha256": "f33b450b2e7f7de4cf7a0b47b932853a2ebd7bc90b8bf5effd9b80efc6879127"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-no-defense-property-real-block-rejected",
+          "original_full_index": 11,
+          "exact_ordered_json_object_sha256": "91eeb0010be39443ddea75732c7dc68360307b8ba0a3525ff83b996cc5a2daf7"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-pitch-primary-real-funding",
+          "original_full_index": 12,
+          "exact_ordered_json_object_sha256": "d3ce8cc4996247c210844f934d8e8a3ddb9b950134b8f4c4863aac7292fe101a"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-opponent-response-no-early-heal",
+          "original_full_index": 13,
+          "exact_ordered_json_object_sha256": "9b1c344c7d18cfc9c94fbbf7e2b1801f7017085403ac4aec35f4595461394f60"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-own-hand-floating-exact",
+          "original_full_index": 39,
+          "exact_ordered_json_object_sha256": "1656553a67bdb6f0c14b7f9f4c77a810b8de93e3eba53de44ef2707044772642"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-own-hand-overfunded",
+          "original_full_index": 40,
+          "exact_ordered_json_object_sha256": "ca978aef32760580dda8c3aec8352add11fcfc78b747dee5637a901647034b44"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-own-hand-zero-ap",
+          "original_full_index": 41,
+          "exact_ordered_json_object_sha256": "14809cf7178fd21764486ac13b68196a85078c4e8fe2454981995eeec8b2cd6f"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-arsenal-face-up",
+          "original_full_index": 42,
+          "exact_ordered_json_object_sha256": "cf441f7fc194b71c740b1e0c8a7933c5901d97e428e5a0941ec289b498f42be0"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-arsenal-face-down",
+          "original_full_index": 43,
+          "exact_ordered_json_object_sha256": "4f8d3bfdacf0fb5d524c6d3598cd421ff6e7a2935965fddcedd0dd30b474a14b"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-nonturn-instant-zero-ap",
+          "original_full_index": 44,
+          "exact_ordered_json_object_sha256": "caa5038f8ca982c98fbbea481b724d993ac6772f38ad44948ff7334818f45e1c"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-wrong-priority-rejected",
+          "original_full_index": 45,
+          "exact_ordered_json_object_sha256": "fc2a631d0398a857c44c3ca7bac5cc351c92a7df13e4c10bd86547896dd49ad0"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-no-defense-property-real-block-rejected",
+          "original_full_index": 46,
+          "exact_ordered_json_object_sha256": "9b176d82f90ac5f64a4e7442f53ca488919d9ad01671c5702c5387c5b143e597"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-pitch-primary-real-funding",
+          "original_full_index": 47,
+          "exact_ordered_json_object_sha256": "e15263ebff1b48620aa81d074eeb31e3dd76862efe6133fee3e95abac729b3b9"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-opponent-response-no-early-heal",
+          "original_full_index": 48,
+          "exact_ordered_json_object_sha256": "a1aaaea84aa6646d4cadd8b010b515d5a9f47b7ed1883f09d45066029abd6007"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-own-hand-floating-exact",
+          "original_full_index": 75,
+          "exact_ordered_json_object_sha256": "cc471bc85209804598e6815f10c1b1c2286c24bcce1a07ff924960a83356dafc"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-own-hand-overfunded",
+          "original_full_index": 76,
+          "exact_ordered_json_object_sha256": "24ce7742ee083fe773fd6bbb68b144a06a4c0c1e0b892dfd866ec72be903f9a1"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-own-hand-zero-ap",
+          "original_full_index": 77,
+          "exact_ordered_json_object_sha256": "aa7726d18400fee8a48f555123ec992e5d80d171318c996f804eb6ef3634e3b2"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-arsenal-face-up",
+          "original_full_index": 78,
+          "exact_ordered_json_object_sha256": "cdf26cb11f8b02ba757d4f847b13faeb57af13ad489229beb3c040ff72afe563"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-arsenal-face-down",
+          "original_full_index": 79,
+          "exact_ordered_json_object_sha256": "1febdbb87ce1c82444c13df86550e9ff21e229faa8e83bab275c295351f53c25"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-nonturn-instant-zero-ap",
+          "original_full_index": 80,
+          "exact_ordered_json_object_sha256": "d1318355ce8c8937ace9d5ce1927be06f1473ca9a8aeebc038b0c8d7cd3fbf5b"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-wrong-priority-rejected",
+          "original_full_index": 81,
+          "exact_ordered_json_object_sha256": "f326831d17e014adb9297234db3bcf987455458ac7c94a3c4fcfb817ddb01b44"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-no-defense-property-real-block-rejected",
+          "original_full_index": 82,
+          "exact_ordered_json_object_sha256": "dbd1b4f317534b3cd4b5cad84e3e0dcf314b2666673bdb6a848f33441f49182b"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-pitch-primary-real-funding",
+          "original_full_index": 83,
+          "exact_ordered_json_object_sha256": "492fbec2cebe55b1764b155ee166cccff5e721e8b2b775696db2edb76886129b"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-opponent-response-no-early-heal",
+          "original_full_index": 84,
+          "exact_ordered_json_object_sha256": "ae588578d376133240e6946bfddbd7930ce68b74e49ae6ae3a7740e95b3a15e1"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-positive-real-opponent-arcane-before-play",
+          "original_full_index": 162,
+          "exact_ordered_json_object_sha256": "2e6f5cbd6669bb3a3e6b08cfaea751736d998a509bd2ff727220ea8cbf67cc99"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-physical-damage-only-negative",
+          "original_full_index": 163,
+          "exact_ordered_json_object_sha256": "4f04715314fb7b62c7869cd1361878a3236ee1dcef4d95f12ec9763b93d94a15"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-fully-prevented-arcane-negative",
+          "original_full_index": 164,
+          "exact_ordered_json_object_sha256": "72cac80115b9ebf0e49225d89dd3b985bee71ea890d6e2a66336e9283e6a1bb4"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-only-opponent-was-dealt-arcane-negative",
+          "original_full_index": 165,
+          "exact_ordered_json_object_sha256": "ee7fb3b44d66c983f76a482eecf8b69c90dcd455a877fdc7adc121fa342224fe"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-prior-turn-arcane-history-expires",
+          "original_full_index": 166,
+          "exact_ordered_json_object_sha256": "a547e54f974ef928557a47c985b5c79ad6dcaab756f957affb150b9853afe0a7"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-positive-real-self-arcane-before-play",
+          "original_full_index": 167,
+          "exact_ordered_json_object_sha256": "24bcbaf4d5e722cb255cdafb6a5ebca024451716c8cbdd1710425a398fd3b83b"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-positive-real-opponent-arcane-before-play",
+          "original_full_index": 168,
+          "exact_ordered_json_object_sha256": "d33c4e8e1eb4dcbd3303dcc386dc349dba12f0cd6be0b5bf7bf90b14f1ef8fa7"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-physical-damage-only-negative",
+          "original_full_index": 169,
+          "exact_ordered_json_object_sha256": "08feeb273578e1584b7072478ff9b737636b7881f2736ddf4c6e18867342e635"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-fully-prevented-arcane-negative",
+          "original_full_index": 170,
+          "exact_ordered_json_object_sha256": "03349c33f1d4e150bc307ac746b4fa8362d23351e0e067fef7dbd7ff75a13d57"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-only-opponent-was-dealt-arcane-negative",
+          "original_full_index": 171,
+          "exact_ordered_json_object_sha256": "7586822399d431ac1d6f94e02e25550ca49c5de441cfa389148004353ff44de4"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-prior-turn-arcane-history-expires",
+          "original_full_index": 172,
+          "exact_ordered_json_object_sha256": "c229310e566eda581c9bf5547985489a4a6620428de4c9fcd68c02f36feba143"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-positive-real-self-arcane-before-play",
+          "original_full_index": 173,
+          "exact_ordered_json_object_sha256": "ebcd434deef42dbd4690c4c99817eff8fd0ec8350acea5727ebb68bdc46856ce"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-positive-real-opponent-arcane-before-play",
+          "original_full_index": 174,
+          "exact_ordered_json_object_sha256": "053bd1417bed603a4510ffda96109fa20f8190ee30c33cb72ec5003554d62c7b"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-physical-damage-only-negative",
+          "original_full_index": 175,
+          "exact_ordered_json_object_sha256": "a055ffa4259b4a42b0fe8d679f693a0ae03d70c7f9f85e87e9c85369eeaf2449"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-fully-prevented-arcane-negative",
+          "original_full_index": 176,
+          "exact_ordered_json_object_sha256": "1ac22b6c581bb44315f1fc010662986f1148d2082a4f22d1c5c7fbd6d2136376"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-only-opponent-was-dealt-arcane-negative",
+          "original_full_index": 177,
+          "exact_ordered_json_object_sha256": "cf41ca2ee0e34a79ffe3c5bff8e4d5ab03a7073f18d6a12142463d54de5ee709"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-prior-turn-arcane-history-expires",
+          "original_full_index": 178,
+          "exact_ordered_json_object_sha256": "d032dffbb7c21fe76634f7cc43f937de83980d65d7163c34e6683961257a88d9"
+        },
+        {
+          "slug": "card-arcane-polarity-red-conditional-heal-arcane-after-announcement-before-resolution",
+          "original_full_index": 179,
+          "exact_ordered_json_object_sha256": "91f781f61adffc2392bc4b706a89b74d159a81d35a8ccab5132d2a5b536e3c69"
+        },
+        {
+          "slug": "card-arcane-polarity-yellow-conditional-heal-arcane-after-announcement-before-resolution",
+          "original_full_index": 180,
+          "exact_ordered_json_object_sha256": "af1a5192ea3100df4d4c16677a4db428c159e5f491937afaf5e8215bc816b188"
+        },
+        {
+          "slug": "card-arcane-polarity-blue-conditional-heal-arcane-after-announcement-before-resolution",
+          "original_full_index": 181,
+          "exact_ordered_json_object_sha256": "2d0ee3c522838d406bd7c76c4214a5d7bbc4c8ac88c352fa5570a28ad5768493"
+        }
+      ],
+      "future_parent_recorder_argv": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch66.json"
+      ],
+      "execution": "Parent only, serial, after guarded native staging and split independent review. No --rerecord-authored; preserve original four saved pilots and allow native existing-fixture skip. Optional per-ID slug filter is supported existing argv2, not a new runner."
+    },
+    {
+      "batch": 67,
+      "family": "count_your_blessings",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\healing187-serial-split-proposal\\card-regression-batch67.json",
+      "file_sha256": "ff170cd1e0ec2fd8515a7601d36ce7b33a0f3d4cd11bde644be0dfc4885027a0",
+      "native_target": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch67.json",
+      "native_target_precondition": {
+        "exists": false,
+        "sha256": null
+      },
+      "cases": 57,
+      "identities": [
+        "count_your_blessings_red",
+        "count_your_blessings_yellow",
+        "count_your_blessings_blue"
+      ],
+      "per_identity_optional_serial_filters": [
+        {
+          "cardID": "count_your_blessings_red",
+          "cases": 19,
+          "optional_existing_recorder_filter": "card-count-your-blessings-red-",
+          "modeled_actions": 103
+        },
+        {
+          "cardID": "count_your_blessings_yellow",
+          "cases": 19,
+          "optional_existing_recorder_filter": "card-count-your-blessings-yellow-",
+          "modeled_actions": 103
+        },
+        {
+          "cardID": "count_your_blessings_blue",
+          "cases": 19,
+          "optional_existing_recorder_filter": "card-count-your-blessings-blue-",
+          "modeled_actions": 102
+        }
+      ],
+      "already_saved_slugs": [
+        "card-count-your-blessings-red-conditional-heal-empty-graveyard-blue-pays-two"
+      ],
+      "new_case_count": 56,
+      "modeled_actions": 308,
+      "modeled_individual_passes": 225,
+      "modeled_oracles": 9732,
+      "planned_check_kind_counts": {
+        "scalar_zone_equals": 1870,
+        "zone_count": 5140,
+        "decision_queue_empty": 208,
+        "state": 621,
+        "card_property_equals": 1893
+      },
+      "objects": [
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-empty-graveyard-blue-pays-two",
+          "original_full_index": 2,
+          "exact_ordered_json_object_sha256": "e850521aa34050c2db06859d6faec6e2dc18b2249167126c7682ef87bfd22f79"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-own-hand-floating-exact",
+          "original_full_index": 14,
+          "exact_ordered_json_object_sha256": "93fa5e961ac9f70d018df22650804d6992e4304fdf2b08d56dbb0d6db4cf5b60"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-own-hand-overfunded",
+          "original_full_index": 15,
+          "exact_ordered_json_object_sha256": "aad092305730b08b6308a35aa3aa51002f5596647336810d0d60c33f3d03c7c9"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-own-hand-zero-ap",
+          "original_full_index": 16,
+          "exact_ordered_json_object_sha256": "1328c4d5575665c637d215b6fc1e8c3800cfbf22573104fdba4ccd3aa4caa82c"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-arsenal-face-up",
+          "original_full_index": 17,
+          "exact_ordered_json_object_sha256": "8b92fb912ee5b1533b02cae981af3ab79f86c029c9ce137284812fee4ba5cb31"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-arsenal-face-down",
+          "original_full_index": 18,
+          "exact_ordered_json_object_sha256": "7dfa6efdd8d9a364a04cc43b085e77006d48a7595d76190b2f9729e4029314c4"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-nonturn-instant-zero-ap",
+          "original_full_index": 19,
+          "exact_ordered_json_object_sha256": "d913d55a228a75a528807d27a9603bac4553f0403700ab601e1c5a956ca0a118"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-wrong-priority-rejected",
+          "original_full_index": 20,
+          "exact_ordered_json_object_sha256": "224a75dcced99fff973509645498d4daa7b28bf646036fd9dd7d3c00dbf7c67d"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-no-defense-property-real-block-rejected",
+          "original_full_index": 21,
+          "exact_ordered_json_object_sha256": "6fbfa62b1788b0a008c78f426a2b02a09847410dd975d243cc44fec029fb6fe5"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-pitch-primary-real-funding",
+          "original_full_index": 22,
+          "exact_ordered_json_object_sha256": "c2d0a8a4c54087b6a47fb714cd6d375d073a3c9b06b2a636ffadb335c7fae2f2"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-opponent-response-no-early-heal",
+          "original_full_index": 23,
+          "exact_ordered_json_object_sha256": "1da47d75836bc205e3f018b9a3a547039340193b29d9fdd89a05e2c5a60f3aba"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-insufficient-total-assets-no-pitch",
+          "original_full_index": 24,
+          "exact_ordered_json_object_sha256": "4170775754167ffad2a712061819a424a6230dd159d2bbfbfecc7f0ab1f4fd01"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-red-then-red-two-stage-payment",
+          "original_full_index": 25,
+          "exact_ordered_json_object_sha256": "4da8a0753dd36c557fac709c61e5f6d012aa1af1dba50bf7e9db8afed859f8fa"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-floating-exact",
+          "original_full_index": 49,
+          "exact_ordered_json_object_sha256": "d136f387fde9ad122f74ea7b74eb859a92a5a6e3bb805dc0b076c1aa7652696d"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-overfunded",
+          "original_full_index": 50,
+          "exact_ordered_json_object_sha256": "d0a7562e4c499fc02e62c573ad64b92c390e242041914966d4d63dee5e2b631b"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-zero-ap",
+          "original_full_index": 51,
+          "exact_ordered_json_object_sha256": "f099e4d38f4f7358e40b76c8b84ca0f919a8b8e73c914e5d523074cf49cf3a12"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-arsenal-face-up",
+          "original_full_index": 52,
+          "exact_ordered_json_object_sha256": "7a26bded055c3b80b33603484c670226d5cc3505e8f6d840225e554ed2a07ce7"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-arsenal-face-down",
+          "original_full_index": 53,
+          "exact_ordered_json_object_sha256": "9cc127dd5392548170d079164462decdb1a0b2b4a2182653e0f758bbefc13228"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-nonturn-instant-zero-ap",
+          "original_full_index": 54,
+          "exact_ordered_json_object_sha256": "11049e9d9150270e7fa7dcc202c2e76021173b1b8a933dd482cd73077c5b8a24"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-wrong-priority-rejected",
+          "original_full_index": 55,
+          "exact_ordered_json_object_sha256": "55cba46d4e329e9ad497ecf3e7a84403845d5f9a151c7641b43c9b8535787a08"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-no-defense-property-real-block-rejected",
+          "original_full_index": 56,
+          "exact_ordered_json_object_sha256": "32ba96bfcae324a18c885cda9ff1d2ac2982a1b3516d9382c17988df93c877a9"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-pitch-primary-real-funding",
+          "original_full_index": 57,
+          "exact_ordered_json_object_sha256": "6f0a8424ba034017fce31f47984c710cd06adedd3d2c11e0f29aca15dff9e17a"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-opponent-response-no-early-heal",
+          "original_full_index": 58,
+          "exact_ordered_json_object_sha256": "e73906d0eb46e9786f120fb3cc374fa4dcb210abb0098e0406af899286ae4be0"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-blue-pitch-overfunding",
+          "original_full_index": 59,
+          "exact_ordered_json_object_sha256": "69b8a307cc384b090ca344cbe3fa2454bce6eac9e8ef901667665d41cc6e7743"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-insufficient-total-assets-no-pitch",
+          "original_full_index": 60,
+          "exact_ordered_json_object_sha256": "f47c232aae36457107ee0afe8b61bf8db80421b272a9e10c82ff262174803828"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-red-then-red-two-stage-payment",
+          "original_full_index": 61,
+          "exact_ordered_json_object_sha256": "c61037cb900b261bbf911d750756e00afba72e6046bade2689927efa2666f01e"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-floating-exact",
+          "original_full_index": 85,
+          "exact_ordered_json_object_sha256": "4716a59ef90e2bb08c88aee64321263b0106b898b5288dcb4b5461ca3ac3669f"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-overfunded",
+          "original_full_index": 86,
+          "exact_ordered_json_object_sha256": "3df869a986e3e8cf54880c98d4d272f0f4fb1b8f4cc222bd20b7d765b5de4af6"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-zero-ap",
+          "original_full_index": 87,
+          "exact_ordered_json_object_sha256": "dbc09e25817b381021d786f42fef5a97122bba5b1d077bbcbcc34da608a936ef"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-arsenal-face-up",
+          "original_full_index": 88,
+          "exact_ordered_json_object_sha256": "b2cd8be99d10fa141eff54ef1096595dc0d4ec5fa1125f56aee29ee1cf320102"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-arsenal-face-down",
+          "original_full_index": 89,
+          "exact_ordered_json_object_sha256": "0c8fc09d2de2ce0f420f86608f98c3fb824b63300b8d03ed9a6d727141848f8a"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-nonturn-instant-zero-ap",
+          "original_full_index": 90,
+          "exact_ordered_json_object_sha256": "a6721d1a8b9a4b81c0e797fb4095e59c34ad613bc7ce450fcdf9c5c1a09acd68"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-wrong-priority-rejected",
+          "original_full_index": 91,
+          "exact_ordered_json_object_sha256": "a012b2661424012bec53ab9baf05bb265eb0d5f77dd64d5a5b46ff87e47df3c7"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-no-defense-property-real-block-rejected",
+          "original_full_index": 92,
+          "exact_ordered_json_object_sha256": "83d06ad66bbda1891185e5ac99cd3d738037e0a50562c8b6045ca2fb938d1cc3"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-pitch-primary-real-funding",
+          "original_full_index": 93,
+          "exact_ordered_json_object_sha256": "834a2ebd3744053309c2a77abba50fad10fe5af0310e890cfb01af244d21d2cf"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-opponent-response-no-early-heal",
+          "original_full_index": 94,
+          "exact_ordered_json_object_sha256": "567d5e578215a4df95c69ae5cd45244f2854384bd84f469193d259207164813f"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-blue-pitch-overfunding",
+          "original_full_index": 95,
+          "exact_ordered_json_object_sha256": "d0813d6527b716c4a5280564b3f7f71075a11fc21983537866c677fb44225992"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-insufficient-total-assets-no-pitch",
+          "original_full_index": 96,
+          "exact_ordered_json_object_sha256": "f5f575dc9c4d7cdfd7b8f924e461a2d99b9eddf6a3db19fc005020eb027efb94"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-red-then-red-two-stage-payment",
+          "original_full_index": 97,
+          "exact_ordered_json_object_sha256": "76beadce64ea53970aa5d1beb9f88471dd9f9e8d7a91824ca6b2566a443ff3fa"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-one-prior-same-pitch",
+          "original_full_index": 124,
+          "exact_ordered_json_object_sha256": "80b77afaed83aa0559c728acfeb5cd58572697b9902ec4e74930eb56dfb6dc5b"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-one-prior-other-pitch",
+          "original_full_index": 125,
+          "exact_ordered_json_object_sha256": "fa0f53a910e32cfb4b1fbfddaec4f3e605b0d5cef5006cd5e5aeb1e81b1bcaec"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-three-mixed-prior-same-name",
+          "original_full_index": 126,
+          "exact_ordered_json_object_sha256": "ee04af32036f873b609eeb5b98ae42e29e2543e06782be6290f8afb45454a247"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-unrelated-graveyard-negative",
+          "original_full_index": 127,
+          "exact_ordered_json_object_sha256": "a3410073285e73fce3941960b94cf2a85156d49158850c77a8bc02a8f1616adf"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-only-opponent-same-name-negative",
+          "original_full_index": 128,
+          "exact_ordered_json_object_sha256": "5c9e503cbae9574d60cda5ab650883ea235efcb7e013bb6875b17daa7407b4fb"
+        },
+        {
+          "slug": "card-count-your-blessings-red-conditional-heal-two-stacked-copies-resolve-one-then-other",
+          "original_full_index": 129,
+          "exact_ordered_json_object_sha256": "a29b4aaa49732d69e426eb6454f26dbdba0715b5f4f4f0b22ae8354b55fbdbfb"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-one-prior-same-pitch",
+          "original_full_index": 136,
+          "exact_ordered_json_object_sha256": "beb725547f2f140f01f8e4275bac54dd3f8711db615f443f1262387ccba560f5"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-one-prior-other-pitch",
+          "original_full_index": 137,
+          "exact_ordered_json_object_sha256": "b2dc0aa6b5837eb480e88e36879b3feae014d3bf2075536aeefa13bf325abd20"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-three-mixed-prior-same-name",
+          "original_full_index": 138,
+          "exact_ordered_json_object_sha256": "08b038dc205bef0c33dc0efeb82d3545ffb7fb19641d00ad89ff32e9ceedebc0"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-unrelated-graveyard-negative",
+          "original_full_index": 139,
+          "exact_ordered_json_object_sha256": "00999640f1cd5ed9d3ae095ed8c0ead94ca8be972abcb29c258386f6843e1aa7"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-only-opponent-same-name-negative",
+          "original_full_index": 140,
+          "exact_ordered_json_object_sha256": "a1727ae9cfedef89c7f5b28a284365b3e393379e1bea87398442c74b489ef5d9"
+        },
+        {
+          "slug": "card-count-your-blessings-yellow-conditional-heal-two-stacked-copies-resolve-one-then-other",
+          "original_full_index": 141,
+          "exact_ordered_json_object_sha256": "c0aceea8908e274ccd11f0c586d0d308ef794df40a51945f6f7f133f7335f659"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-one-prior-same-pitch",
+          "original_full_index": 149,
+          "exact_ordered_json_object_sha256": "425810f794b1b21f3e839ac88fb681f0aa893b52d77816a2a151bff37fc5f67a"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-one-prior-other-pitch",
+          "original_full_index": 150,
+          "exact_ordered_json_object_sha256": "bea6ba6e1c55da35062994e139acaac651230b137a11d7d60e7d819de3e2be82"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-three-mixed-prior-same-name",
+          "original_full_index": 151,
+          "exact_ordered_json_object_sha256": "aa00785678c61c3b912932fd254032e9fe27ec20b445508ad7d2fb64215805bb"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-unrelated-graveyard-negative",
+          "original_full_index": 152,
+          "exact_ordered_json_object_sha256": "172b4455d5e69d76d0089b34b8a70d8b6d5a78397533ef7863f89ff6799e8b33"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-only-opponent-same-name-negative",
+          "original_full_index": 153,
+          "exact_ordered_json_object_sha256": "95d42297c66be3e128f3164d8925ad5c6c9ae1fe2011a721d981f71b0d6435ba"
+        },
+        {
+          "slug": "card-count-your-blessings-blue-conditional-heal-two-stacked-copies-resolve-one-then-other",
+          "original_full_index": 154,
+          "exact_ordered_json_object_sha256": "049306eb17517e76f826bb45a13282293cad2c7b8fc11ce750db8d14a2f8dea7"
+        }
+      ],
+      "future_parent_recorder_argv": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch67.json"
+      ],
+      "execution": "Parent only, serial, after guarded native staging and split independent review. No --rerecord-authored; preserve original four saved pilots and allow native existing-fixture skip. Optional per-ID slug filter is supported existing argv2, not a new runner."
+    },
+    {
+      "batch": 68,
+      "family": "fertile_ground",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\healing187-serial-split-proposal\\card-regression-batch68.json",
+      "file_sha256": "28e2f12df009753ee25adfb1fdd23648c7d86d7649b95366fa261b65896607fa",
+      "native_target": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch68.json",
+      "native_target_precondition": {
+        "exists": false,
+        "sha256": null
+      },
+      "cases": 60,
+      "identities": [
+        "fertile_ground_red",
+        "fertile_ground_yellow",
+        "fertile_ground_blue"
+      ],
+      "per_identity_optional_serial_filters": [
+        {
+          "cardID": "fertile_ground_red",
+          "cases": 20,
+          "optional_existing_recorder_filter": "card-fertile-ground-red-",
+          "modeled_actions": 102
+        },
+        {
+          "cardID": "fertile_ground_yellow",
+          "cases": 20,
+          "optional_existing_recorder_filter": "card-fertile-ground-yellow-",
+          "modeled_actions": 102
+        },
+        {
+          "cardID": "fertile_ground_blue",
+          "cases": 20,
+          "optional_existing_recorder_filter": "card-fertile-ground-blue-",
+          "modeled_actions": 101
+        }
+      ],
+      "already_saved_slugs": [
+        "card-fertile-ground-red-conditional-heal-four-earth-exact-threshold"
+      ],
+      "new_case_count": 59,
+      "modeled_actions": 305,
+      "modeled_individual_passes": 222,
+      "modeled_oracles": 10725,
+      "planned_check_kind_counts": {
+        "scalar_zone_equals": 1900,
+        "zone_count": 5236,
+        "decision_queue_empty": 212,
+        "state": 631,
+        "card_property_equals": 2746
+      },
+      "objects": [
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-four-earth-exact-threshold",
+          "original_full_index": 1,
+          "exact_ordered_json_object_sha256": "9ad4abf4d3c96d571856c0fce688e3e459dbcc1f87509a70219138d09fc53c6a"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-own-hand-floating-exact",
+          "original_full_index": 26,
+          "exact_ordered_json_object_sha256": "ec7a3ea3813cf5e49bc73ad7e330dea960bb3ad8047e30281db07f8eabfb8fa1"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-own-hand-overfunded",
+          "original_full_index": 27,
+          "exact_ordered_json_object_sha256": "a8f996fd00dff9df511d39894f0d302fdced3be7df38cfb8ea32f8a59a41827a"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-own-hand-zero-ap",
+          "original_full_index": 28,
+          "exact_ordered_json_object_sha256": "72c74aeec86daf0ce7b3a5dc3a5ecfc7087c77663c62596da2c2ad7fed23c773"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-arsenal-face-up",
+          "original_full_index": 29,
+          "exact_ordered_json_object_sha256": "706a0541359b178ed6e8e4c99ccf5c2ab04ac12fccfb5666d5e9b17b923429ce"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-arsenal-face-down",
+          "original_full_index": 30,
+          "exact_ordered_json_object_sha256": "8c57e11dd68bbbb486d782f38619b615cf367aa643d050954a5a5abd3db6f68b"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-nonturn-instant-zero-ap",
+          "original_full_index": 31,
+          "exact_ordered_json_object_sha256": "dbf2fd099d222e2daa6445558985ca033b05a22af6f4ed7afe1a23da62de94b3"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-wrong-priority-rejected",
+          "original_full_index": 32,
+          "exact_ordered_json_object_sha256": "77798aad4aa1d20c2b3080dd63559c7e09fe334fd99db0984b93d22f72b44c29"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-no-defense-property-real-block-rejected",
+          "original_full_index": 33,
+          "exact_ordered_json_object_sha256": "8fd6763e5c9ae811571146b9f56b8aa95e8fc08f449ad78defd1a7ba8703e4ef"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-pitch-primary-real-funding",
+          "original_full_index": 34,
+          "exact_ordered_json_object_sha256": "ecb011a673323858bb00c80439bba2155ecc62e72a0b80261ec2ceb094f73ac9"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-opponent-response-no-early-heal",
+          "original_full_index": 35,
+          "exact_ordered_json_object_sha256": "c5545656ee81900392cfffcbeecbbeca089893b590ef8a5b81783b0ca0988d0e"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-blue-pitch-overfunding",
+          "original_full_index": 36,
+          "exact_ordered_json_object_sha256": "7ad68b6d6a1bcffe2b531d38e332f2b881e37e1673f027b3a2ec08bc62378187"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-insufficient-total-assets-no-pitch",
+          "original_full_index": 37,
+          "exact_ordered_json_object_sha256": "1688c3a880fac9c8a6da101ca496073f4a2cc6e4697a5159c1d145bfd555e028"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-red-then-red-two-stage-payment",
+          "original_full_index": 38,
+          "exact_ordered_json_object_sha256": "cc9d4c9a3d23811db73f8b887a5b42cca9ac2444b391db2253a8a6b71d2d09c8"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-own-hand-floating-exact",
+          "original_full_index": 62,
+          "exact_ordered_json_object_sha256": "77b656af41243a4159ca55b15c1ac4438b0883f713962c91dc141081d90ea981"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-own-hand-overfunded",
+          "original_full_index": 63,
+          "exact_ordered_json_object_sha256": "21ebb8769e2cd1f55f3841d1355179ec135b7d7ab19eff2ee0414904a7cc7e96"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-own-hand-zero-ap",
+          "original_full_index": 64,
+          "exact_ordered_json_object_sha256": "67fde44da294c8a5b2d829a97a93a27b67cbe8efd4d49e5a5e93ea255ecf36ac"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-arsenal-face-up",
+          "original_full_index": 65,
+          "exact_ordered_json_object_sha256": "761223ac49ba5dd4dbc2bb5997d4710ca59753bf2d93e668461c4e8ac6542bcc"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-arsenal-face-down",
+          "original_full_index": 66,
+          "exact_ordered_json_object_sha256": "e6b3f9852539c993b41590207e337a352db3a8b7a357f8bf4868a4b183ddd440"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-nonturn-instant-zero-ap",
+          "original_full_index": 67,
+          "exact_ordered_json_object_sha256": "9ea517c93d6be66082a2b5dba9f905daec7e508d0d3290e9c136af7fa93ee628"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-wrong-priority-rejected",
+          "original_full_index": 68,
+          "exact_ordered_json_object_sha256": "a0deab943c85dd72c03e518d98ea0154de5d993eeed82f61ee196c8e77c89aa0"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-no-defense-property-real-block-rejected",
+          "original_full_index": 69,
+          "exact_ordered_json_object_sha256": "88d02ac09beb37d095e7023256f1172ba16fbcc09fbe9acf4800ed86d814e8a7"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-pitch-primary-real-funding",
+          "original_full_index": 70,
+          "exact_ordered_json_object_sha256": "3384d4bb47e007f055a7df61a1942308cc41c113e09bf267edeb1acb5668090c"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-opponent-response-no-early-heal",
+          "original_full_index": 71,
+          "exact_ordered_json_object_sha256": "a59b337a0c9ed8ac12b5d8db92b82813b2734e2d0efeaf8a5d140be9de30bd1f"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-blue-pitch-overfunding",
+          "original_full_index": 72,
+          "exact_ordered_json_object_sha256": "1474b0d0567f3cd623031c50c78a9e3bd1281e4d84219c45cf2f61127e487c7c"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-insufficient-total-assets-no-pitch",
+          "original_full_index": 73,
+          "exact_ordered_json_object_sha256": "2a6ac55e79d459b34ad8d0bf7cb06d0689d9c92e79878d8eba0ed42c03a89424"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-red-then-red-two-stage-payment",
+          "original_full_index": 74,
+          "exact_ordered_json_object_sha256": "2aa6985b076bdf1b8e10a3c55f54074f08f952d5e93081691d6f5cbde176e76c"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-own-hand-floating-exact",
+          "original_full_index": 98,
+          "exact_ordered_json_object_sha256": "f7edc1f92053236f285470e4a7a6502481cf69db3df06e1f5ea9634b89f7edb8"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-own-hand-overfunded",
+          "original_full_index": 99,
+          "exact_ordered_json_object_sha256": "c6c59b3beb640b80869b19853529d5e5ef99d0bacc20df31cd05539959138bf5"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-own-hand-zero-ap",
+          "original_full_index": 100,
+          "exact_ordered_json_object_sha256": "d6d78dee9610b265259180f944a0fa919ca47c59b4eb960b8f61d848ed5b7f4b"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-arsenal-face-up",
+          "original_full_index": 101,
+          "exact_ordered_json_object_sha256": "e059e58c251463cb3ac91d21e7ad877110a3791886fb1de8321d894f58e307db"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-arsenal-face-down",
+          "original_full_index": 102,
+          "exact_ordered_json_object_sha256": "fd24d19752903b4c90685948ceb7ceaa743535dfbd89dafcc760c0d4d4fe2811"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-nonturn-instant-zero-ap",
+          "original_full_index": 103,
+          "exact_ordered_json_object_sha256": "c44e4152c71adbb69af858630db811bf5feb1bde32d1a397e5e89c7dcc241cac"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-wrong-priority-rejected",
+          "original_full_index": 104,
+          "exact_ordered_json_object_sha256": "3cadc71b388ddd58c1e150c29da9fcc205b90ef4375fcc9a05f6502891b73922"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-no-defense-property-real-block-rejected",
+          "original_full_index": 105,
+          "exact_ordered_json_object_sha256": "29353f4659f0d16443ece58f588b2cf386346c3f67588d0589ff1a7b0544a31b"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-pitch-primary-real-funding",
+          "original_full_index": 106,
+          "exact_ordered_json_object_sha256": "b11d9619ba1c33d4f0cef04948e6302382158aa579ef0d1fdf3a2687767575b4"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-opponent-response-no-early-heal",
+          "original_full_index": 107,
+          "exact_ordered_json_object_sha256": "1c808f668096ad604209a99f02ffbb649f9a4806b5502105feffc3a313ad9051"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-blue-pitch-overfunding",
+          "original_full_index": 108,
+          "exact_ordered_json_object_sha256": "16218840f311dfad49bf1936d388c7d18b6b2340d618a04cddf27affbb022fe2"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-insufficient-total-assets-no-pitch",
+          "original_full_index": 109,
+          "exact_ordered_json_object_sha256": "d64119a1df110b95a4c792809b7f15ce62221fa9f3c12284b0a82d58045b6205"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-red-then-red-two-stage-payment",
+          "original_full_index": 110,
+          "exact_ordered_json_object_sha256": "226c54e89e4e798a8f561caea1a364c2b5157dbfb336ac8787abf55367df2983"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-own-face-up-earth-count3",
+          "original_full_index": 130,
+          "exact_ordered_json_object_sha256": "cb87a1cfead7a61b69b67ca999ac33d0156e1cd6df9dbaa78dabab127a55c34a"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-own-face-up-earth-count5",
+          "original_full_index": 131,
+          "exact_ordered_json_object_sha256": "497836b2768d82289c9a6b1533a78c4255da68f191cb3aef846d0a43a8271949"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-three-earth-plus-elemental-non-earth-negative",
+          "original_full_index": 132,
+          "exact_ordered_json_object_sha256": "1c14eae7a847a3f0dc69ab77b149b0b0bcec12c8599a1d7b0288baed39976db8"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-three-public-earth-plus-fourth-face-down-negative",
+          "original_full_index": 133,
+          "exact_ordered_json_object_sha256": "10b08431eecb9e7fe6c8efa7e4dc4bff50c51ec1d34fcad31770d3c71a2998e3"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-only-opponent-four-earth-negative",
+          "original_full_index": 134,
+          "exact_ordered_json_object_sha256": "eda9f816c624d0293508ecc6ba351738b3cfcda0c2cab12eb3da4f5d81fc6c0b"
+        },
+        {
+          "slug": "card-fertile-ground-red-conditional-heal-four-earth-in-graveyard-negative",
+          "original_full_index": 135,
+          "exact_ordered_json_object_sha256": "609aeb0087f7ed8774cf1f7830c34f3acbf3d95bbec7a8cbdec59c56105d29c1"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-own-face-up-earth-count3",
+          "original_full_index": 142,
+          "exact_ordered_json_object_sha256": "cd8d152e3b9f0e1d6c42fd7385f8e2466a0e267a05fcd0f9c46f1c8820280302"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-own-face-up-earth-count4",
+          "original_full_index": 143,
+          "exact_ordered_json_object_sha256": "afb0b5d32341a600b78ce45a77ad518688d3cbf16b08f6825caf217632016624"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-own-face-up-earth-count5",
+          "original_full_index": 144,
+          "exact_ordered_json_object_sha256": "dedd0a3df9c1d4a9e00f648500e6bc962b6592a9d23aa543af60e352a6be3a19"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-three-earth-plus-elemental-non-earth-negative",
+          "original_full_index": 145,
+          "exact_ordered_json_object_sha256": "467fea1b7302c56ae394c620cac082492a9290ce48232e0c85b4e9dcf20a97d5"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-three-public-earth-plus-fourth-face-down-negative",
+          "original_full_index": 146,
+          "exact_ordered_json_object_sha256": "3ea130d2405131c37623393407a957e4a0b5ea02ea131e1291d862c9851d430e"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-only-opponent-four-earth-negative",
+          "original_full_index": 147,
+          "exact_ordered_json_object_sha256": "a7120433ef880dc3cb3922deb3af372cadf34e0a516b2c92efc6bf5b83d3783c"
+        },
+        {
+          "slug": "card-fertile-ground-yellow-conditional-heal-four-earth-in-graveyard-negative",
+          "original_full_index": 148,
+          "exact_ordered_json_object_sha256": "1abdbd0e300cd4afd8aaa6e39d59a09838a468e06837303158abce02916ef46e"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-own-face-up-earth-count3",
+          "original_full_index": 155,
+          "exact_ordered_json_object_sha256": "065784da2469ed1c87d7f59d3d87e1ce8e2e5c5d9cf45045a38ee56eab80b7e3"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-own-face-up-earth-count4",
+          "original_full_index": 156,
+          "exact_ordered_json_object_sha256": "2ed2e7c8d3267a2bee8b155a71b1a61716b661350a1e9386061dc6cad2f62a8b"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-own-face-up-earth-count5",
+          "original_full_index": 157,
+          "exact_ordered_json_object_sha256": "f2c53ee41bffa28006c17c0a1ad449210e1c227986e484dff3b9b4191e0ed50d"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-three-earth-plus-elemental-non-earth-negative",
+          "original_full_index": 158,
+          "exact_ordered_json_object_sha256": "19ffdc5cffae336a47e44cfa4ea6eae2b99eb561be8ea974acf10b2601195798"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-three-public-earth-plus-fourth-face-down-negative",
+          "original_full_index": 159,
+          "exact_ordered_json_object_sha256": "a5890c85d76bfc4a94f00a07bf62ad27cc35dae9af1ec4f9fb9e4470530cf8fa"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-only-opponent-four-earth-negative",
+          "original_full_index": 160,
+          "exact_ordered_json_object_sha256": "f3ba4809a04093942125843db63b11891d801b5669bcf9652302cf249dd507e4"
+        },
+        {
+          "slug": "card-fertile-ground-blue-conditional-heal-four-earth-in-graveyard-negative",
+          "original_full_index": 161,
+          "exact_ordered_json_object_sha256": "51fdbf6b72d9b0897afd7136544b38968905e39dca8777b1c64c33806207c295"
+        }
+      ],
+      "future_parent_recorder_argv": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch68.json"
+      ],
+      "execution": "Parent only, serial, after guarded native staging and split independent review. No --rerecord-authored; preserve original four saved pilots and allow native existing-fixture skip. Optional per-ID slug filter is supported existing argv2, not a new runner."
+    },
+    {
+      "batch": 69,
+      "family": "ominous_respite",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\healing187-serial-split-proposal\\card-regression-batch69.json",
+      "file_sha256": "42fdccb3e20c303d3f0d8acf14d698830262641a75175509f9b0a608d5b5e1a4",
+      "native_target": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch69.json",
+      "native_target_precondition": {
+        "exists": false,
+        "sha256": null
+      },
+      "cases": 19,
+      "identities": [
+        "ominous_respite_yellow"
+      ],
+      "per_identity_optional_serial_filters": [
+        {
+          "cardID": "ominous_respite_yellow",
+          "cases": 19,
+          "optional_existing_recorder_filter": "card-ominous-respite-yellow-",
+          "modeled_actions": 162
+        }
+      ],
+      "already_saved_slugs": [
+        "card-ominous-respite-yellow-conditional-heal-own-shield-real-opponent-physical-destroyed"
+      ],
+      "new_case_count": 18,
+      "modeled_actions": 162,
+      "modeled_individual_passes": 123,
+      "modeled_oracles": 3951,
+      "planned_check_kind_counts": {
+        "scalar_zone_equals": 754,
+        "zone_count": 2019,
+        "decision_queue_empty": 85,
+        "state": 249,
+        "card_property_equals": 836,
+        "power": 1,
+        "game_state_field": 7
+      },
+      "objects": [
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-own-shield-real-opponent-physical-destroyed",
+          "original_full_index": 3,
+          "exact_ordered_json_object_sha256": "e9dbe6f62bd703d10f522c2f880fcaa3031708ccd9262dec36f1e483cf510a0d"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-own-hand-floating-exact",
+          "original_full_index": 111,
+          "exact_ordered_json_object_sha256": "b6c5d2d2cabf97161da87984ee3f6de6e9ee67594b21225aa70d7fee0313471d"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-own-hand-overfunded",
+          "original_full_index": 112,
+          "exact_ordered_json_object_sha256": "0dab30ea1e63a49c080e079c5d68c982c224f0814d0473ed40980c367d49f59d"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-own-hand-zero-ap",
+          "original_full_index": 113,
+          "exact_ordered_json_object_sha256": "0937ca7175ec5984f46d3998d27dc5ebe44a91d4bcebbe2f0529a901b523af2d"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-arsenal-face-up",
+          "original_full_index": 114,
+          "exact_ordered_json_object_sha256": "16b00b322d41830c3644759d9ebfab57e1392807e7a95779c25ea1769dfe8e10"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-arsenal-face-down",
+          "original_full_index": 115,
+          "exact_ordered_json_object_sha256": "d519dec68ad260da3804a1b57eedba1128fece0de53cfbdb828f9417dd28d183"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-nonturn-instant-zero-ap",
+          "original_full_index": 116,
+          "exact_ordered_json_object_sha256": "934274568d1cab7ac1f01b98d93e677859c0924a54574ad8f7b9abca8778f4d7"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-wrong-priority-rejected",
+          "original_full_index": 117,
+          "exact_ordered_json_object_sha256": "78b05cde834c3ddb72df1cf835b4fa7a5ec555f8d683814e3471ba9a56332ec3"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-no-defense-property-real-block-rejected",
+          "original_full_index": 118,
+          "exact_ordered_json_object_sha256": "d22b1553cb8e1d7998c888a72bc12e86f85adc2ca1b1c8dc2b9098df43a3db2b"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-pitch-primary-real-funding",
+          "original_full_index": 119,
+          "exact_ordered_json_object_sha256": "ad0dc575b76b508e122c9385aa6101c3e6c30d7a7e1577adc62fef0f8e604fbb"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-opponent-response-no-early-heal",
+          "original_full_index": 120,
+          "exact_ordered_json_object_sha256": "5f3f49f7e4a32fad3eab2f433ffc699af16faee7f421f0464e49a7bc357ad6cd"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-blue-pitch-overfunding",
+          "original_full_index": 121,
+          "exact_ordered_json_object_sha256": "4aa52ce951e3d28c57227b53f89473857c3b0fb1ef262f8d1c8c29a8300f5b60"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-insufficient-total-assets-no-pitch",
+          "original_full_index": 122,
+          "exact_ordered_json_object_sha256": "766a9b54584d8ce005fe43814f309d6c9e21cd60b0d289d2d3d4e78489d71a8f"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-red-pitch-exact",
+          "original_full_index": 123,
+          "exact_ordered_json_object_sha256": "b69cf4ed4e314828d9d8d9191876e5bc9615bf0753e66285239f60a0e94f6a65"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-own-aura-present-not-destroyed-negative",
+          "original_full_index": 182,
+          "exact_ordered_json_object_sha256": "ec4bdd120cfaa2708471d49e30ace62dd34414c0942534ac3b9a199925cf2fe7"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-only-opponent-aura-destroyed-negative",
+          "original_full_index": 183,
+          "exact_ordered_json_object_sha256": "9fe180d4de4f9c11d90c182a93a65fe72289b564fa486919c8def7388e28a0f5"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-own-non-aura-item-destroyed-negative",
+          "original_full_index": 184,
+          "exact_ordered_json_object_sha256": "ad246e2c0c516057a40a342030a1ebd2446983ba8c3399541ac3e238c1bd034b"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-own-aura-destroyed-after-announcement-before-resolution",
+          "original_full_index": 185,
+          "exact_ordered_json_object_sha256": "26d0bd21996546b2ec380b98136a841a66f2c3cb0b112852a33f588838bfe2e1"
+        },
+        {
+          "slug": "card-ominous-respite-yellow-conditional-heal-prior-turn-aura-destruction-expires",
+          "original_full_index": 186,
+          "exact_ordered_json_object_sha256": "45a1ba5034a754c9fbb78a1f2cca92879d2a9b7af28a409d5b412352e5ec2eef"
+        }
+      ],
+      "future_parent_recorder_argv": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch69.json"
+      ],
+      "execution": "Parent only, serial, after guarded native staging and split independent review. No --rerecord-authored; preserve original four saved pilots and allow native existing-fixture skip. Optional per-ID slug filter is supported existing argv2, not a new runner."
+    }
+  ],
+  "original187_reconstructed_exactly": true,
+  "overlap": 0,
+  "missing": 0,
+  "changed_scenario_objects": 0,
+  "total_modeled_actions": 1206,
+  "total_modeled_oracles": 36198,
+  "existing_pilot_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\conditional-heal-instants\\saved-pilot4-independent-review.json",
+    "sha256": "b36ed95a92d3eb032e48b8dadaed0b18a0c12693b4dbc9ffa84e965f928b9af0",
+    "rows": [
+      {
+        "slug": "card-arcane-polarity-red-conditional-heal-real-self-dart-at-zero-ap",
+        "semantically_approved": true,
+        "file_sha256": {
+          "initial_gamestate.txt": "496b7a40d9ab340d1e724276a4db59e0f3077fef41c4b57985e397c80cbe674b",
+          "actions.json": "3d5b5c048544769188a5e9568fe9e55584fb85913b70536227b7060834fc03e9",
+          "assertions.json": "976a30be66a1337fb0b1dab9ee05de5ab21c5d86013a22a8c31a86b9eba69b00",
+          "expected_final_gamestate.txt": "02a988af1df04aab3d42da49f0e4b91aa9ff1f7f89a53d961325e3401ca4826e",
+          "meta.json": "6f1617dd985dbda688cf75d571855bf2d3eae5a1e3ec730844cdd453b697dc6b"
+        },
+        "fixture_sha256": "d76ec3b4acb5566bd816d76c8eb90581a2acf6b063dae4545b3536093b51b38e",
+        "actions": 7,
+        "native_assertions": 102,
+        "native_game_state_fields": 12,
+        "checkpoints": [
+          {
+            "checkpoint": "initial",
+            "step": 0,
+            "native_assertions": 20
+          },
+          {
+            "checkpoint": "dart_target_declaration",
+            "step": 1,
+            "native_assertions": 6
+          },
+          {
+            "checkpoint": "dart_paid_not_dealt",
+            "step": 2,
+            "native_assertions": 17
+          },
+          {
+            "checkpoint": "actual_arcane_damage_before_heal",
+            "step": 4,
+            "native_assertions": 21
+          },
+          {
+            "checkpoint": "instant_paid_at_zero_ap_not_early_healed",
+            "step": 5,
+            "native_assertions": 18
+          },
+          {
+            "checkpoint": "conditional_four_life_once",
+            "step": 7,
+            "native_assertions": 20
+          }
+        ],
+        "author_only_checks": [],
+        "fullNativeAssertionSequenceAndActionStepsMatch": true,
+        "review_basis": "All supported source/pitch/choice actions and each individual priority pass equal the separate prior printed-rule action model; all exact native assertions and complete terminal physical/economy snapshots checked read-only. No current engine output used to derive healing formulas.",
+        "independent_model": {
+          "slug": "card-arcane-polarity-red-conditional-heal-real-self-dart-at-zero-ap",
+          "semantically_approved": true,
+          "native_oracles": 102,
+          "modeled_actions": 7,
+          "modeled_priority_passes": 4,
+          "action_trace": [
+            {
+              "kind": "click",
+              "player": 1,
+              "mzID": "p1Hand-1"
+            },
+            {
+              "kind": "answer",
+              "player": 1,
+              "type": "MZCHOOSE",
+              "value": "p1Hero-0"
+            },
+            {
+              "kind": "pass",
+              "player": 2
+            },
+            {
+              "kind": "pass",
+              "player": 1
+            },
+            {
+              "kind": "click",
+              "player": 1,
+              "mzID": "p1Hand-0"
+            },
+            {
+              "kind": "pass",
+              "player": 2
+            },
+            {
+              "kind": "pass",
+              "player": 1
+            }
+          ],
+          "printed_heals": [
+            {
+              "cardID": "arcane_polarity_red",
+              "controller": 1,
+              "gain": 4
+            }
+          ],
+          "final_health": [
+            11,
+            20
+          ],
+          "final_resources": [
+            0,
+            0
+          ],
+          "final_AP": [
+            0,
+            0
+          ],
+          "final_GY_UIDs": {
+            "1": [
+              4,
+              3
+            ],
+            "2": []
+          }
+        },
+        "archived_native_run": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch63-20261020T030718Z-6ad6dae688712.json",
+          "sha256": "f3d6e8722f0d6fef219739919e508018ecd01a84bc2fb2dce9596e1e24db656f"
+        },
+        "no_native_replay_by_reviewer": true
+      },
+      {
+        "slug": "card-fertile-ground-red-conditional-heal-four-earth-exact-threshold",
+        "semantically_approved": true,
+        "file_sha256": {
+          "initial_gamestate.txt": "add88864632b2a61b295e198dd5d81fbbbff319b39b76b7fbc890d956d4b36ae",
+          "actions.json": "d092fc7c4cda805e63b782b6b911c7c0a735f25c94c6bd666b8e7608c7e3f591",
+          "assertions.json": "755326e26cdcb800c7e92e92a475a21bfd6f762c26de30ff91c8d6212ab15bf5",
+          "expected_final_gamestate.txt": "d94cc5304b34b73b295aeb236e6420a13a9173bb76488f6d5c71837d4c772cb0",
+          "meta.json": "5dc5758eb4b1f428d0561a5ad8757ed34a09a48bf1eb5c830095fe6710ccf73f"
+        },
+        "fixture_sha256": "793e41f5b0a070bf83196aeb2268f8dddecafa4a350a44da6bac7bc9df371a2e",
+        "actions": 3,
+        "native_assertions": 85,
+        "native_game_state_fields": 6,
+        "checkpoints": [
+          {
+            "checkpoint": "initial",
+            "step": 0,
+            "native_assertions": 32
+          },
+          {
+            "checkpoint": "cost_two_paid_zero_ap_preserved",
+            "step": 1,
+            "native_assertions": 19
+          },
+          {
+            "checkpoint": "four_earth_threshold_five_life",
+            "step": 3,
+            "native_assertions": 34
+          }
+        ],
+        "author_only_checks": [],
+        "fullNativeAssertionSequenceAndActionStepsMatch": true,
+        "review_basis": "All supported source/pitch/choice actions and each individual priority pass equal the separate prior printed-rule action model; all exact native assertions and complete terminal physical/economy snapshots checked read-only. No current engine output used to derive healing formulas.",
+        "independent_model": {
+          "slug": "card-fertile-ground-red-conditional-heal-four-earth-exact-threshold",
+          "semantically_approved": true,
+          "native_oracles": 85,
+          "modeled_actions": 3,
+          "modeled_priority_passes": 2,
+          "action_trace": [
+            {
+              "kind": "click",
+              "player": 1,
+              "mzID": "p1Hand-0"
+            },
+            {
+              "kind": "pass",
+              "player": 2
+            },
+            {
+              "kind": "pass",
+              "player": 1
+            }
+          ],
+          "printed_heals": [
+            {
+              "cardID": "fertile_ground_red",
+              "controller": 1,
+              "gain": 5
+            }
+          ],
+          "final_health": [
+            15,
+            20
+          ],
+          "final_resources": [
+            0,
+            0
+          ],
+          "final_AP": [
+            0,
+            0
+          ],
+          "final_GY_UIDs": {
+            "1": [
+              3
+            ],
+            "2": []
+          }
+        },
+        "archived_native_run": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch63-20261020T030718Z-6ad6dae688712.json",
+          "sha256": "f3d6e8722f0d6fef219739919e508018ecd01a84bc2fb2dce9596e1e24db656f"
+        },
+        "no_native_replay_by_reviewer": true
+      },
+      {
+        "slug": "card-count-your-blessings-red-conditional-heal-empty-graveyard-blue-pays-two",
+        "semantically_approved": true,
+        "file_sha256": {
+          "initial_gamestate.txt": "9a3d7daff85d780082af8dc257d38cb4e1096b000f12a84598aae9b1aebd82c9",
+          "actions.json": "f33c74de297dc5b2db90f4b8e989e9795640262629fb0973d5fa4f7a638f8474",
+          "assertions.json": "8cd3125d969088cbd7a80604f3dc04ff5745c50e57391a99ee5d3a6c25f28930",
+          "expected_final_gamestate.txt": "f9aadde0bc8c7bbe711c9bad19a2e89a2e4df266888eec8709628edb0ebb5097",
+          "meta.json": "67bfc6b74f75c3b7b06a0b967381c7c8ebfd64d5b36f400aa05161e07f2f7864"
+        },
+        "fixture_sha256": "f46437f3df08ec9aaaba694dd27949d87a188bfd3195c5b22b0e92937166625b",
+        "actions": 4,
+        "native_assertions": 81,
+        "native_game_state_fields": 7,
+        "checkpoints": [
+          {
+            "checkpoint": "initial",
+            "step": 0,
+            "native_assertions": 20
+          },
+          {
+            "checkpoint": "announced_needs_pitch_not_healed",
+            "step": 1,
+            "native_assertions": 16
+          },
+          {
+            "checkpoint": "blue_three_pays_two_and_leaves_one",
+            "step": 2,
+            "native_assertions": 23
+          },
+          {
+            "checkpoint": "empty_prior_graveyard_base_three_only",
+            "step": 4,
+            "native_assertions": 22
+          }
+        ],
+        "author_only_checks": [],
+        "fullNativeAssertionSequenceAndActionStepsMatch": true,
+        "review_basis": "All supported source/pitch/choice actions and each individual priority pass equal the separate prior printed-rule action model; all exact native assertions and complete terminal physical/economy snapshots checked read-only. No current engine output used to derive healing formulas.",
+        "independent_model": {
+          "slug": "card-count-your-blessings-red-conditional-heal-empty-graveyard-blue-pays-two",
+          "semantically_approved": true,
+          "native_oracles": 81,
+          "modeled_actions": 4,
+          "modeled_priority_passes": 2,
+          "action_trace": [
+            {
+              "kind": "click",
+              "player": 1,
+              "mzID": "p1Hand-0"
+            },
+            {
+              "kind": "click",
+              "player": 1,
+              "mzID": "p1Hand-0"
+            },
+            {
+              "kind": "pass",
+              "player": 2
+            },
+            {
+              "kind": "pass",
+              "player": 1
+            }
+          ],
+          "printed_heals": [
+            {
+              "cardID": "count_your_blessings_red",
+              "controller": 1,
+              "gain": 3
+            }
+          ],
+          "final_health": [
+            13,
+            20
+          ],
+          "final_resources": [
+            1,
+            0
+          ],
+          "final_AP": [
+            1,
+            0
+          ],
+          "final_GY_UIDs": {
+            "1": [
+              3
+            ],
+            "2": []
+          }
+        },
+        "archived_native_run": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch63-20261020T030718Z-6ad6dae688712.json",
+          "sha256": "f3d6e8722f0d6fef219739919e508018ecd01a84bc2fb2dce9596e1e24db656f"
+        },
+        "no_native_replay_by_reviewer": true
+      },
+      {
+        "slug": "card-ominous-respite-yellow-conditional-heal-own-shield-real-opponent-physical-destroyed",
+        "semantically_approved": true,
+        "file_sha256": {
+          "initial_gamestate.txt": "47a1a34edc9639b2fb1d31db144b93744dfec1d33184fbada23de3b58db5b34f",
+          "actions.json": "f972a776cfdd13cc661965f36f313f0b20b416137559878d56c5dca079c5e390",
+          "assertions.json": "5c669ba2ed2c042a355f75c54f3675a2a715aacd1034fde1d8e27dddd946ab23",
+          "expected_final_gamestate.txt": "42ec1790cc04ef12cee33d8130e3949a1927dea08e54168e651182ab0a2fd442",
+          "meta.json": "be9aa44a06d4fe03842f630d325f76213696cba934d817e46e539da4aa375d84"
+        },
+        "fixture_sha256": "1777282f13e124834bd5213b2fac56ca707563a6182d66739488bbee51f1de7f",
+        "actions": 19,
+        "native_assertions": 116,
+        "native_game_state_fields": 12,
+        "checkpoints": [
+          {
+            "checkpoint": "initial",
+            "step": 0,
+            "native_assertions": 23
+          },
+          {
+            "checkpoint": "actual_ward_prevention_choice_before_damage",
+            "step": 10,
+            "native_assertions": 11
+          },
+          {
+            "checkpoint": "ward_destroyed_then_three_actual_physical",
+            "step": 13,
+            "native_assertions": 19
+          },
+          {
+            "checkpoint": "respite_instant_paid_by_nonturn_player",
+            "step": 15,
+            "native_assertions": 19
+          },
+          {
+            "checkpoint": "own_aura_destroyed_gains_three_not_two",
+            "step": 17,
+            "native_assertions": 20
+          },
+          {
+            "checkpoint": "physical_source_clears_heal_preserved",
+            "step": 19,
+            "native_assertions": 24
+          }
+        ],
+        "author_only_checks": [],
+        "fullNativeAssertionSequenceAndActionStepsMatch": true,
+        "review_basis": "All supported source/pitch/choice actions and each individual priority pass equal the separate prior printed-rule action model; all exact native assertions and complete terminal physical/economy snapshots checked read-only. No current engine output used to derive healing formulas.",
+        "independent_model": {
+          "slug": "card-ominous-respite-yellow-conditional-heal-own-shield-real-opponent-physical-destroyed",
+          "semantically_approved": true,
+          "native_oracles": 116,
+          "modeled_actions": 19,
+          "modeled_priority_passes": 16,
+          "action_trace": [
+            {
+              "kind": "click",
+              "player": 1,
+              "mzID": "p1Hand-0"
+            },
+            {
+              "kind": "pass",
+              "player": 2
+            },
+            {
+              "kind": "pass",
+              "player": 1
+            },
+            {
+              "kind": "pass",
+              "player": 1
+            },
+            {
+              "kind": "pass",
+              "player": 2
+            },
+            {
+              "kind": "pass",
+              "player": 2
+            },
+            {
+              "kind": "pass",
+              "player": 1
+            },
+            {
+              "kind": "pass",
+              "player": 2
+            },
+            {
+              "kind": "pass",
+              "player": 1
+            },
+            {
+              "kind": "pass",
+              "player": 2
+            },
+            {
+              "kind": "answer",
+              "player": 2,
+              "type": "MZCHOOSE",
+              "value": "p2Arena-0"
+            },
+            {
+              "kind": "pass",
+              "player": 1
+            },
+            {
+              "kind": "pass",
+              "player": 2
+            },
+            {
+              "kind": "pass",
+              "player": 1
+            },
+            {
+              "kind": "click",
+              "player": 2,
+              "mzID": "p2Hand-0"
+            },
+            {
+              "kind": "pass",
+              "player": 1
+            },
+            {
+              "kind": "pass",
+              "player": 2
+            },
+            {
+              "kind": "pass",
+              "player": 1
+            },
+            {
+              "kind": "pass",
+              "player": 2
+            }
+          ],
+          "printed_heals": [
+            {
+              "cardID": "ominous_respite_yellow",
+              "controller": 2,
+              "gain": 3
+            }
+          ],
+          "final_health": [
+            20,
+            20
+          ],
+          "final_resources": [
+            0,
+            0
+          ],
+          "final_AP": [
+            0,
+            0
+          ],
+          "final_GY_UIDs": {
+            "1": [
+              3
+            ],
+            "2": [
+              4
+            ]
+          }
+        },
+        "archived_native_run": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch63-20261020T030718Z-6ad6dae688712.json",
+          "sha256": "f3d6e8722f0d6fef219739919e508018ecd01a84bc2fb2dce9596e1e24db656f"
+        },
+        "no_native_replay_by_reviewer": true
+      }
+    ]
+  },
+  "new_unrecorded_at_split": 183,
+  "held_three_excluded": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\conditional-heal-instants\\fertile-threshold-change-held-probes.json",
+    "sha256": "7b7e79691bd8abd3cd1245a9199eb9f7ea1c284972ecb146ba7b85042515e626",
+    "slugs": [
+      "card-fertile-ground-red-conditional-heal-count-changes-after-announcement-before-resolution",
+      "card-fertile-ground-yellow-conditional-heal-count-changes-after-announcement-before-resolution",
+      "card-fertile-ground-blue-conditional-heal-count-changes-after-announcement-before-resolution"
+    ],
+    "reason": "Separate unresolved Fertile threshold-change-after-announcement semantics; not in approved187 and not certified by this split."
+  },
+  "execution_gates": [
+    "Parent independently reviews exact split before guarded staging. Target files must satisfy recorded absent/hash preconditions; never overwrite another batch silently.",
+    "Run one batch/filter at a time using existing native recorder. No shared games collide. Existing four approved pilots are skipped, never rerecorded for convenience.",
+    "Read each immutable recording attempt and inspect actual saved source/actions/native assertions/physical owner and lifecycle snapshots before accepting cases. A passing recorder result alone does not establish intended semantics.",
+    "Any new rule-oracle failure stays unsaved/held with exact native proof; correct independent oracle defects separately preserving old inputs/attempts.",
+    "After source/actual review, bind current-runtime repeated clean replay, semantic controls, required suites and coverage reconciliation separately. Historical8ec pilot evidence is not current full qualification."
+  ],
+  "inherited_approved_source_limits": [
+    "Count macros subtract1 because ordinary healing source currently moves to Graveyard before resolving. Numerical context is correct here, but legacy source lifecycle is not approved as CR-correct.",
+    "Real Kano look await ability source lifetime and generic activation lifecycle remain outside this gate; physical primary remains pending, no false empty-source claim at Kano await.",
+    "Managed Dart Ward pending-source checks are based on actual generated continuation, not old synchronous snapshot fallback.",
+    "No ability loss, foreign ownership, replacement, antiheal, cap or healing-listener interaction is certified."
+  ],
+  "inherited_unexecuted_or_unresolved": [
+    "These187 expanded scenarios are proposed only; only the unchanged four separately saved pilots have actual independent review b36ed95a92d3eb032e48b8dadaed0b18a0c12693b4dbc9ffa84e965f928b9af0.",
+    "Three correct-rule Fertile Ground Art of War threshold-changes-after-announcement probes remain separately held and unapproved; Fertile intrinsic timing completion is open.",
+    "Finite baseline/completion, actual expansion snapshots, repeated clean replay and meaningful control sensitivity require separate parent gates."
+  ],
+  "native_writes": 0,
+  "native_game_actions": 0,
+  "new_verified_coverage": 0,
+  "builder_sha256": "35a9fa751d4e01815188494cd1d1c170f5c09582374f45ebed32c9e8069f5072"
+}

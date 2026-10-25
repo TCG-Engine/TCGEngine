@@ -24,6 +24,9 @@ P2HANDCOUNT:1
 # NoDiscardIfAlreadyExhausted
 #// LAW_075 Interrogation Droid — When Played: target an already-exhausted enemy unit (SHD_029 Pyke
 #// Sentinel, cost 2). Exhausting does nothing (already exhausted) -> "if you do" fails -> no discard.
+#// ⚠ P2NODECISION is the load-bearing line: P2 holds 2 cards, so a wrongly-queued discard does NOT
+#// resolve — it sits as a pending P2 pick and P2HANDCOUNT:2 stays true. This section passed while the
+#// bug was live (game 1647080: a bot's Interrogation Droid on a just-played, still-exhausted unit).
 
 ## GIVEN
 CommonSetup: ryk/bgw/{myResources:2}
@@ -40,6 +43,35 @@ WithP1Hand: LAW_075
 P2GROUNDARENAUNIT:0:CARDID:SHD_029
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P2HANDCOUNT:2
+P2NODECISION
+
+---
+
+# NoDiscardIfExhaustIsPrevented
+#// The OTHER way "if you do" fails: the target is READY but can't be exhausted by enemy card abilities.
+#// P2's Mythosaur (LOF_073) protects P2's upgraded Battlefield Marine (SOR_095, cost 2 -> under the cost
+#// gate), so the exhaust is refused, the Marine stays ready, and P2 discards nothing. A "was it ready
+#// before?" check alone passes this board wrongly; the handler must also see that the exhaust landed.
+
+## GIVEN
+CommonSetup: ryk/bgw/{myResources:2}
+WithActivePlayer: 1
+WithP2GroundArena: LOF_073:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 1:SOR_214
+WithP2Hand: SOR_095
+WithP2Hand: SOR_237
+WithP1Hand: LAW_075
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-1
+
+## EXPECT
+P2GROUNDARENAUNIT:1:CARDID:SOR_095
+P2GROUNDARENAUNIT:1:READY
+P2HANDCOUNT:2
+P2NODECISION
 
 ---
 

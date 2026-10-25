@@ -27,8 +27,26 @@ $tokenCardNames = [
 $startWeek = isset($_GET['startWeek']) ? intval($_GET['startWeek']) : null;
 $endWeek = isset($_GET['endWeek']) ? intval($_GET['endWeek']) : null;
 
-$sortColumn = isset($_GET['sort']) ? $_GET['sort'] : 'cardID';
+$sortColumn = isset($_GET['sort']) ? trim((string)$_GET['sort']) : 'cardID';
 $sortOrder = isset($_GET['order']) && $_GET['order'] == 'desc' ? 'desc' : 'asc';
+
+// `sort` used to go into ORDER BY verbatim — SQL injection (2026-10-22). Only a real cardmetastats column is
+// accepted, matched case-insensitively like MySQL does and written back in its canonical case, so every sort
+// that worked before builds the same query. Anything else used to make mysqli throw (a PHP fatal / HTTP 500);
+// it now fails cleanly with a 400 and the query never runs.
+$cardMetaColumns = ['cardID', 'week', 'format', 'timesIncluded', 'timesIncludedInWins', 'timesPlayed', 'timesPlayedInWins',
+  'timesResourced', 'timesResourcedInWins', 'timesDiscarded', 'timesDiscardedInWins', 'timesAttacking', 'timesAttackingInWins',
+  'timesAttacked', 'timesAttackedInWins', 'timesActivated', 'timesActivatedInWins', 'searchWhiffs', 'searchWhiffsInWins',
+  'timesDrawn', 'timesDrawnInWins'];
+$canonicalSort = null;
+foreach ($cardMetaColumns as $col) { if (strcasecmp($sortColumn, $col) === 0) { $canonicalSort = $col; break; } }
+if ($canonicalSort === null) {
+  http_response_code(400);
+  header('Content-Type: application/json');
+  echo json_encode(['error' => 'Invalid sort column.']);
+  exit;
+}
+$sortColumn = $canonicalSort;
 
 // Opt-in format filter (default premier keeps existing responses byte-identical). Whitelisted, so
 // safe to inline like the intval'd week clause.

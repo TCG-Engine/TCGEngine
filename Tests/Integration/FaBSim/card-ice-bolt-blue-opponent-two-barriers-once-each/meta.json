@@ -1,0 +1,7 @@
+{
+    "name": "Ice Bolt / opponent-two-barriers-once-each",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:01:23+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cast for printed cost2 and1AP, then resolve printed3 arcane toward hero2. Before prevention completes, both HP20, source on Stack and caster Graveyard0. Victim has distinct arm/head Barrier1 equipment and2resources. Pay each once; after the first payment HP is still20, resources1, and only the unused hood remains eligible. Second payment leaves0. Prevent2; damage=max(0,3-2)=1, victim life19, other hero20. Final resources[1, 0]; no go again. Source goes to its owner's graveyard after effects finish. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ice_bolt_blue https://judge.fabtcg.com/cards/detail/1635/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

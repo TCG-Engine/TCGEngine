@@ -1,0 +1,7 @@
+{
+    "name": "Plain spell lifecycle / spellvoid-decline",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:33:01+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Aether Dart red costs0 plus1AP and deals3 arcane. With only opposing Spell Fray Cloak, the live source remains Stack1/casterGY0 while its Spellvoid1 MZMAYCHOOSE awaits; both HP20 and casterAP0. Decline withPASS: Cloak remains equipped, prevent0, deal3 (opponent17); no resources are charged and no equipment is destroyed. Only after effects finish does Dart clear to ownerGY once. Final windowACTION, live turn-player priority1, no pending resolution marker/decisions and no go-again AP refund. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_dart_red DevTools/FaB/upr_abilities.json#aether_dart_red/PrepareCard,ResolveCard FaBSim/Custom/MONCards.php::FaBMONSpellvoidRefs/FaBMONSpellvoid FaBSim/Custom/GameLogic.php::FaBFinishReactionResolution/FaBFinishPlainSpellGoAgain https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ (5.3.4-5.3.7: effects, go again, clearing, priority) https://rules.fabtcg.com/en/cr/08-keywords/ (Spellvoid and Go again) https://rules.fabtcg.com/en/cr/01-game-concepts/ (priority and instant permission)"
+}

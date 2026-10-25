@@ -1,0 +1,134 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-21T00:42:37.605598+00:00",
+  "plan_sha256": "37a2448835a47c0ffe45f7b8e79561226e4abd53d722b393a05e3a6c06908e48",
+  "independent_saved_proof_sha256": "3024f5a09f1f0c497e89a0f1838fa45a8bb54c0436850677983d8091c98a4b9e",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b103-focused-fault-plan-v2-physical-defender.json",
+    "37a2448835a47c0ffe45f7b8e79561226e4abd53d722b393a05e3a6c06908e48",
+    "card-regression-sparse-b103-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b103_rising_tide_omit_actual_prior_blue_history",
+      "fixture": "card-rising-tide-blue-four-live-sparse-actual-other-blue-play-and-real-pitch-enable-two-power",
+      "fixture_sha256": "7d31c81d35ffc426c9adb07be012888b5198d4ad992d60f595342f4a44d67a1b",
+      "source_raw5": {
+        "initial_gamestate.txt": "ccc5c9da653f881b0ccdbbb6e5a75d18830fa27572d1650647f18aad92624148",
+        "actions.json": "af0923a412f70c231803d6f1590bd7961df3eebc483a9a90501e4804130a1474",
+        "assertions.json": "fddc1da3a2a467f3237e857193191c9514de68d9419bfe6c05bed8ddeb55aaea",
+        "expected_final_gamestate.txt": "4fd5d45b5565a76095ac6b62e8ad47ee893b1f1b481a9ea1144d7038e65c14c1",
+        "meta.json": "78c23d8aa9870a09e584773e30d920a66cbdaada83b7feb8cf6d817abb48f6a2"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "MST_BLUE_PLAYED"
+      },
+      "retained_assertions": 295,
+      "expected_failure_step": 7,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Rising Tide / compact four live positive effect: Step 7 assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real Wind6 blue play/resolution and its ownGA, remove exactly one MST_BLUE_PLAYED entry on disposable copy; retain physical WindGY and BLUE_GO. Actual primary5 later adds only its own blue-play count; other-blue +2 fails. First power oracle Step7 detects base-only value before identity/zone assertions. Synthetic history omission, not a legal reversal of played history; other generic bookkeeping remains intact. Preserve every original suffix action/oracle.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b103_spillover_omit_actual_prior_blue_history",
+      "fixture": "card-spillover-blue-four-live-sparse-actual-other-blue-play-and-real-pitch-enable-two-power",
+      "fixture_sha256": "fb770975fbcfe2a97f83862afecd73d8149f812fb31609808dcfd3c5f2b3a252",
+      "source_raw5": {
+        "initial_gamestate.txt": "0b82f8f75c66b0c0f3e1a1cc859ef22e86ef1e01ab57e9bc549f83268e6883b1",
+        "actions.json": "af0923a412f70c231803d6f1590bd7961df3eebc483a9a90501e4804130a1474",
+        "assertions.json": "be318b156497ff764b3d5e6047f63b9a87ccfa3c67ff3f6be131efd9c63c4597",
+        "expected_final_gamestate.txt": "76593b801f83932491d73c2350f775c821e4101ff2d5f6ad56818ab134fce813",
+        "meta.json": "077fd9bd3dd0d1d7733f558437390cdc7ed752e56a2cbe93d304325b32517c62"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "MST_BLUE_PLAYED"
+      },
+      "retained_assertions": 295,
+      "expected_failure_step": 7,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Spillover / compact four live positive effect: Step 7 assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real Wind6 blue play/resolution and its ownGA, remove exactly one MST_BLUE_PLAYED entry on disposable copy; retain physical WindGY and BLUE_GO. Actual primary5 later adds only its own blue-play count; other-blue +2 fails. First power oracle Step7 detects base-only value before identity/zone assertions. Synthetic history omission, not a legal reversal of played history; other generic bookkeeping remains intact. Preserve every original suffix action/oracle.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b103_smash_missing_actual_captain_defender_damage_sensitivity",
+      "fixture": "card-smash-with-big-rock-yellow-four-live-sparse-actual-two-defenders-cannot-gain-captain-defense",
+      "fixture_sha256": "71a8c22c252be50b515502798f7cefa4dea8ae2b77e9b03fef148a579bcface1",
+      "source_raw5": {
+        "initial_gamestate.txt": "1f178050774b59c73fd62544311238ebcf0063d14f56aca9ce60c235c4b60e47",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "3a53aac3567ba064de11a234b0d6bb460df8d35a3363e3a4b04443af8ecfdbf9",
+        "expected_final_gamestate.txt": "7c24236a582a5aab3ee8514476bf1ff0ce4d40bc12e197860362279c7ae11e26",
+        "meta.json": "55befeee9abb5d5beeb1edacb1cb8edcd0be9c6e40580bafa1002c8c48ee7408"
+      },
+      "prefix_actions": 18,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 4,
+            "from": "CombatChain",
+            "cardID": "captain_of_the_guard_blue",
+            "to": "Hand"
+          }
+        ]
+      },
+      "retained_assertions": 161,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p4Health to equal 19, got 17.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Smash with Big Rock / compact four live positive effect: Step 4 assertion failed: Expected p4Health to equal 19, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual P4 Wrecker7+Captain8 defend realSmash5 in REACTION, move only physicalCaptain8 CombatChain to ownHand on disposablecopy. Actual Wrecker7 remains printedDEF3; absentCaptain contributes neither its ownDEF2 nor positivepassivegrant. Fresh6\u22123=3damage instead of1, so FIRST Step4HP19\u219217 detects missingphysicaldefender. Preserveeveryoriginalsuffixoracle/action,includinglaterHand/defendercounts; syntheticphysicaldefense-composition sensitivity, not isolated removal of intrinsic Smash prohibition or legalin-gamemovement. No cacheddefenseValue query/change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b103_battalion_remove_one_actual_blue_pitch",
+      "fixture": "card-battalion-barque-red-four-live-sparse-two-real-blue-pitches-pay-four-and-enable-high-tide",
+      "fixture_sha256": "9aefb2df346440a24252d3302bd3e9ea4a479c97da3024619a658293e3ae5375",
+      "source_raw5": {
+        "initial_gamestate.txt": "bd2e3f9ab82cefd7a6b2b8b04dae2116516ce71dd4b58fc363639dbb8e0c942b",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "265a8ed46c727215f3866ce2fff35a4b6c0629f06dcb46c238063d94498050d8",
+        "expected_final_gamestate.txt": "dadfa212702805e0abde2580a275a469f6563ac74ab3ab26c0e602814e134547",
+        "meta.json": "3d88f71c25b9646beb57a5ee1721f1a4b844261f369d5e9694f1d61d4b820a76"
+      },
+      "prefix_actions": 17,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Pitch",
+            "cardID": "brutal_assault_blue",
+            "to": "Graveyard"
+          }
+        ]
+      },
+      "retained_assertions": 150,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 9, got 7.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Battalion Barque / compact four live positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 9, got 7.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real two distinctBlue pitches6/7 paid4 and primary5 reached REACTION, remove only actual Pitch7 to GY on disposable copy. HighTide twoBlue condition becomes oneBlue: printed7+2\u21927 at first Initial power oracle. Synthetic physical-condition fault; no legal in-game movement/extra branch claim. Preserve every original suffix action/oracle.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

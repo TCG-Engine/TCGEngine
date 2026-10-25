@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:27:53.478519+00:00",
+  "plan_sha256": "2ebd2fc47f98dd5a586f2aa7069bace1f24a85491b64d571ff6eb48ee26d0f57",
+  "independent_saved_proof_sha256": "a7088a81a0fe858154380bad727b586e867fbfab9ae7492ca326376cd7d93d20",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b160-focused-fault-plan.json",
+    "2ebd2fc47f98dd5a586f2aa7069bace1f24a85491b64d571ff6eb48ee26d0f57",
+    "card-regression-sparse-b160-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b160_spears_of_surreality_red_focused_effect_sensitivity",
+      "fixture": "card-spears-of-surreality-red-four-live-sparse-actual-paid-unblocked-five-damage-and-printed-go-again",
+      "fixture_sha256": "d5eb1bfc08f3e939cea11676a347d63136276b946360322c3c05f1a7e0f4e867",
+      "source_raw5": {
+        "initial_gamestate.txt": "fa57e812d8472aafee2804b0e126222f31d5fd24c7e44cd1f44a3df15d0ff962",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "549a5b98a544362e36ad0a819102c60312b42c2c43d7c6c2c414f5be3f462088",
+        "expected_final_gamestate.txt": "a37ea02a753fb775f22c55ad54fdddf60e1daadc63e575e31888cd3a24c97213",
+        "meta.json": "7a9d2145892b077a493ef43eb8212279358575db254ecdd11c9f57a164280f55"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "spears_of_surreality_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 255,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Spears of Surreality / four live actual printed go again attack: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add the existing ELE_NO_GO attack tag only to physical primary5 after real payment and attack entry; computed power5/payment/UID preserved, first computed printedGA1 becomes0. All original suffix actions and oracles retained. Synthetic grant sensitivity only, not a legal inhibition/Phantasm/destruction/Ash branch. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b160_dunebreaker_cenipai_red_focused_effect_sensitivity",
+      "fixture": "card-dunebreaker-cenipai-red-four-live-sparse-actual-paid-unblocked-five-damage-and-printed-go-again",
+      "fixture_sha256": "758bcf3c8337e48bc9e21cc353c612f04b09cb7f329b4aff86a83c590c6c4398",
+      "source_raw5": {
+        "initial_gamestate.txt": "9bd25ddc85e656b9b61fcf8f36b31fac678de1c7fe6c994415345b66f3539a76",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "8770cf62876c58b49c1355cc448dd3bcb6f1e5e3dcae84b2f6b44fe87cad34b1",
+        "expected_final_gamestate.txt": "fd9da98debf4be10d7811c9495a06cbd8630245db8152c341a6be424571f62db",
+        "meta.json": "699229738b75691d71e72dc6046a7a92f7aa714344d8d6a5a05142c3409772e2"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dunebreaker_cenipai_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 255,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Dunebreaker Cenipai / four live actual printed go again attack: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add the existing ELE_NO_GO attack tag only to physical primary5 after real payment and attack entry; computed power5/payment/UID preserved, first computed printedGA1 becomes0. All original suffix actions and oracles retained. Synthetic grant sensitivity only, not a legal inhibition/Phantasm/destruction/Ash branch. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

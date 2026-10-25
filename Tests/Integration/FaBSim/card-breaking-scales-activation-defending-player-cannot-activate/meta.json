@@ -1,0 +1,7 @@
+{
+    "name": "Breaking Scales / defending-player-cannot-activate",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:34+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Opposing attack has Combo, but defender does not control it. Defender cannot activate its Attack Reaction ability; source remains and incoming damage stays3. Sources: FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

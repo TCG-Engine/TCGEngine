@@ -1,0 +1,65 @@
+{
+  "status": "FROZEN_PRE_REPAIR_BREADTH_CHECKPOINT_NOT_POST_REPAIR_FULL_SUITE",
+  "captured_utc": "2026-10-22T21:49:50.168781+00:00",
+  "head": "765666dbfa49a106597a4ade32b078de19a05e56",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "canonical_saved_scenarios": 3341,
+  "qualified_at_this_runtime": 3341,
+  "breadth_resumption_additions": 180,
+  "preserved_duel_scenarios": 3074,
+  "four_live_scenarios": 267,
+  "exact_primary_identities": 501,
+  "catalog_identities": 5196,
+  "represented_groups": 376,
+  "catalog_groups": 3324,
+  "canonical_directories_counted_without_rehashing_unrelated_fixture_files": 3341,
+  "cycle_summary": {
+    "catalog_functional_ids": 5196,
+    "catalog_groups": 3324,
+    "implementation_candidate_ids": 4811,
+    "implementation_candidate_groups": 3002,
+    "groups_with_any_saved_primary_scenario": 376,
+    "all_profiles": {
+      "recorded": 376,
+      "saved_reviewed": 376,
+      "one_current_replay_or_more": 376,
+      "two_current_replays": 217
+    },
+    "actual_four_live": {
+      "recorded": 267,
+      "saved_reviewed": 267,
+      "one_current_replay_or_more": 267,
+      "two_current_replays": 217
+    },
+    "sparse_four_live_first_pass_groups": 267,
+    "catalog_groups_remaining_without_qualified_four_live_representative": 3057,
+    "implementation_candidate_groups_with_qualified_four_live_representative": 267,
+    "implementation_candidate_groups_remaining_without_qualified_four_live_representative": 2735,
+    "represented_or_blocked_group_rows": 380
+  },
+  "authoritative_document_hashes": {
+    "card-regression-coverage.json": "9b36a482200fc1aab2ac14a8a944f269acb22d13315f7a584c364fa19728d46f",
+    "cycle-coverage-current.json": "df613b959d69d01a199e172a00e6783286ee8b24edf5602a348cb4cf38f28d3a",
+    "card-regression-review.json": "56d0a28e7b92639b5b9269c198e804b50a35d0e1f1276594d8c04bdd4e1011f3",
+    "card-regression-issues.json": "eae2d00123cda1385ededa9a0d4b53cb486769cec8c9148ae7925a1d5d928827",
+    "sparse-source-only-holds.json": "9feefdae44622f5a2427afe9ea97566828364ce14f2a5309b17fe59eccf64646"
+  },
+  "quarantined_rejected_fixture_sets": [
+    "held-incorrect-gameplay/FAB-REG-037",
+    "held-incorrect-gameplay/b179-tome-of-harvests-cost-order"
+  ],
+  "full_suite_runs_this_resumption": 0,
+  "qualification": "Retained exact independent review and targeted creation replay evidence at e947. Shared engine repairs will change the runtime; this checkpoint must remain historical, never retagged as post-repair validation.",
+  "git_changed_paths": 1512,
+  "git_categories": {
+    "DevTools/FaB/CardRegression": 612,
+    "Tests/Integration/FaBSim": 900
+  },
+  "staged_paths": [],
+  "deferred_unrecorded": {
+    "B189": "Unapproved draft oracle pendingPayment.uid5 vs actual7; preserved scratch only.",
+    "B190": "Approved two-case scratch packet, zero native actions/fixtures.",
+    "B191": "Unexecuted partial author script only; no packet or fixtures.",
+    "B192": "No packet, reservation or native actions."
+  }
+}

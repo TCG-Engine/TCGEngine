@@ -1,0 +1,193 @@
+{
+  "status": "B152_TWO_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b105_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch152.json",
+  "input_sha256": "3dc235362f591cd586f5feb3a37ce17c59e3e5f21447df15e9a881f3643d394a",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:13:23.744333+00:00",
+  "fixtures": [
+    {
+      "slug": "card-time-skippers-four-live-sparse-actual-blue-pitch-three-destroy-gain-two-ap",
+      "fixture_sha256": "8762faae527de7d913c1a42e7614f17c66bf461113d799f3dcc48ee84b913bd9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a63bac51374c93f650995e0dd3df6bf0158319b2c44dbbcb3dcf4f8b63575e0a",
+        "actions.json": "02e014fcbc767be35abb52b1fba8950f602a853b060793ec33880f9f114fa6e5",
+        "assertions.json": "0f78f19217200d44001ada77256de582ec42ca8a218d6c5d75c3654ab4331446",
+        "expected_final_gamestate.txt": "e0bb79929b22a55bd883e673da39ee733b0d6f4d8507c72a2b56d77c7563cd0c",
+        "meta.json": "c40032659ccdd216e56a3903d11842208de5a94b9b4b91efb7071e8f1168d994"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 395,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-skullhorn-four-live-sparse-actual-destroy-draw-sole-card-random-discard",
+      "fixture_sha256": "536e8668cdf50523f25471bf7ab70ff610783bf5c1eb9d2d5caf09f890c14965",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ac232edae8d4bc5359752c34b09301bda16705aada7e23dcb947044694bb00ef",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "e2a7c20403b68241f37d25108efdffaaefeb1353826c1fa7b8a35e5148bab7eb",
+        "expected_final_gamestate.txt": "076a405256fd1ab4586567b7939d021380d703e0d3f9b5b3cce0998043a5fd71",
+        "meta.json": "4719bbc2d2157789ad64577fb9bb5275845ed03d2aa2187767eb301b70b20fa7"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 361,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 11,
+  "total_native_assertions": 756,
+  "total_manual_passes": 8,
+  "checks": 59,
+  "actual_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b152-actual-saved-independent-review.json",
+    "sha256": "4c9ee5d11a18ede6bcae317861d366e3b6489db982fcea46c020a16675e29e4c"
+  },
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b152-independent-spec-review.json",
+    "sha256": "3230311889447325425aa7836e61c29919cbdfdf14ebbe494ed2cea7c50c945c"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch152-20261022T201145Z-6ada6e014da1b.json",
+    "sha256": "b2cb4aa682027eacf6bd9f64e312871cd781821281deb7e4bf7067c820af21f2"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b152-four-live-run1.json",
+      "sha256": "0f18989c02b58172f83fcabd9d4560d547032e476d922883a83b8fe64e3b05d6",
+      "passed": 2,
+      "total": 2,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b152-four-live-run2.json",
+      "sha256": "c09bfc5ca5199e622f31bc77ff649fea6aec9ca7bf0a4d4d98f5337e683be179",
+      "passed": 2,
+      "total": 2,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b152-fault-controls.json",
+    "sha256": "63ade0b118a7f4e3987c6195cf2012d08ece3c894e2bac52fe66c41cb5c332e0"
+  },
+  "focused_native_controls": [
+    {
+      "id": "b152_time_skippers_focused_effect_sensitivity",
+      "fixture": "card-time-skippers-four-live-sparse-actual-blue-pitch-three-destroy-gain-two-ap",
+      "prefix_actions": 2,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 250,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1ActionPoints to equal 2, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "After actual Blue6pitch3 paid3 and physicalEquipment5 destroy cost/AP0, remove only sole virtualABI7 arcSpec dispatch. Old WTRAbilitySpec has no TimeSkippers entry, so four original manual responses resolve inert body withAP0 instead of printed2. SourceGY0/Pitch6/R0 preserved. Missing printed AP-gain body sensitivity; not an isolated +1-vs+2 parameter mutation or legal alternative action. Every original suffix action/oracle retained; exact FIRST intended semantic assertion required, no incidental snapshot credit. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b152_skullhorn_focused_effect_sensitivity",
+      "fixture": "card-skullhorn-four-live-sparse-actual-destroy-draw-sole-card-random-discard",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Graveyard",
+            "to": "Temp",
+            "cardID": "wounding_blow_blue",
+            "uid": 6
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Relocate only actual sole eligible drawn-then-discarded Blue6 from publicownGY1 after real Skullhorn cost and four responses. Source5 remains publicGY0, Deckempty/AP1/R0 unchanged; first Graveyard2 becomes1. Exact physical discarded-card endpoint sensitivity only; no observed atomic intermediateHand, missing dispatch, multi-card random distribution, Rhinar>=6 or ArcaneBarrier credit. Every original suffix action/oracle retained; exact FIRST intended semantic assertion required, no incidental snapshot credit. Every original suffix action and oracle retained; only step offsets change."
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b152-focused-fault-plan.json",
+    "sha256": "2e422e3507b442b44f9cc26aa4836a04b835f505e7649b7d769cbad2602afabd"
+  },
+  "targeted_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "limitations": [
+    "Four living seats manually pass priority; no response card is played, so active response-card interaction is not covered.",
+    "One positive primary representative per cycle; no sibling pitch, alternate branch, full-card, hero/support or callback lifecycle credit.",
+    "TimeSkippers removes only actual ABI7 arcSpec after realBlue6pitch3/payment3 anddestroyEquipment5/AP0; oldWTRfallback lacksTimeSkippers, so fourresponses produceAP0 versusprinted2. Missing body-dispatch sensitivity, not an isolated amount mutation. Skullhorn relocates only actual sole drawn/discardedBlue6 fromownGY1, preserving sourceGY0/Deckempty/AP1/R0; Graveyard2 becomes1. Exact endpoint only, no intermediateHand, multi-card RNG, highdiscardRhinar, ArcaneBarrier, laterAPspending or hero/support/full-card credit. All suffix assertions retained.",
+    "Only these two new fixtures are rehashed/replayed. Unrelated fixture bytes are not freshly checked; no full suite or legacy audit is performed.",
+    "Every original suffix assertion retained; synthetic faults are sensitivity probes, not legal alternate-action branch coverage."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "a7f3823b7229b0a1ce4eafecc65401a3a73c15ab1dbdad8a1a4cbd4bcf3bd3c5",
+  "reused_stable_helper_and_orchestration_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b114-qualified-independent-review.json",
+    "sha256": "34f4ed518b19c89242bafc46b95e1e16e2fb0bf55583e8348b81dea4c76f7287",
+    "qualification": "Exact unchanged UID helper and prior18/18 component/orchestration evidence reused without new helper contract execution or broad audit."
+  }
+}

@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T00:27:47+00:00",
+    "input_file": "card-regression-batch30.json",
+    "input_sha256": "02baa29a655918220b9a80c235e41143bb6ab41d3d7cbdcd9e77741934527880",
+    "filter": "card-aetherstorm-wellingtons-pay-red-pitch-twice",
+    "results": [
+        {
+            "slug": "card-aetherstorm-wellingtons-pay-red-pitch-twice",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 156
+        }
+    ]
+}

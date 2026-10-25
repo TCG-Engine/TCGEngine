@@ -1,0 +1,47 @@
+# Self-play fixture — "Ahsoka Blue Updated" (Ahsoka Tano, Trust in the Force - Nevarro City, Restored)
+# Source: a list by the creator StarWarsDad, given by the owner as JSON 2026-10-13. 50 main-deck cards, 10 sideboard.
+#   Base: Nevarro City is a 30-HP Vigilance common, so the base name is the bare colour (Blue).
+#   Ideal opener (owner, 2026-10-13): Neel ASH_248 + Captain Tarpals HMW_254, or Neel + Han Solo LAW_037 — "while you won't be able to
+#   buff the Han Solo right away, it still gives value in the free 2 damage to base plus shielded 2/2" (p47 'neelcombo').
+# Author: Star Wars Dad
+# Archetype (owner, 2026-10-13): "my guess is soft aggro but i want to defer to the classifier". Classifier (SWUBotDeckStyle,
+#   2026-10-13): softaggro, LOW confidence, source shape — score 0.63, 91% aggro side (31 units <= 3 cost, 14 attack/buff cards,
+#   2 units >= 6 cost, 2 removal events, 0 wipes); nearest labelled list ash-meta-2026-09/ahsoka-tano_ash_blue at only 62%.
+# Style: softaggro
+# Flavours: ground, combo
+
+Leader
+1 ASH_009
+
+Base
+1 ASH_020
+
+Deck
+3 LOF_045
+3 HMW_074
+2 LOF_100
+2 LOF_111
+3 HMW_254
+1 ASH_062
+2 LOF_061
+3 SEC_101
+3 ASH_248
+3 ASH_079
+3 SEC_111
+3 LOF_093
+3 HMW_038
+3 LAW_039
+3 LOF_096
+2 LAW_041
+3 SEC_099
+3 LAW_037
+2 SEC_046
+
+Sideboard
+1 ASH_077
+1 LOF_100
+1 ASH_112
+2 JTL_078
+2 SEC_073
+1 LAW_149
+2 LAW_132

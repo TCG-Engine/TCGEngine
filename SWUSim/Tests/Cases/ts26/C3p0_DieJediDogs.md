@@ -221,3 +221,110 @@ WithP4Base: SOR_021:0
 ## EXPECT
 SEATCOUNT:4
 P4UNITACTIONSNOT:myGroundArena-0
+
+---
+
+# LiveInput_TwoSeats_TheOpponentFiresHimThroughTheClientVerb
+#// ⚠ THE PRODUCTION-PATH CELL — added 2026-10-22 (Discord: "the TS26 C-3PO unit is not letting them use its ability").
+#// Every section above fires the Action through UseUnitAbility, which calls SWUUnitAction() directly. The live client
+#// sends "<mz>!CustomInput!Activate" to CustomWidgetInput, whose arena case handled myGroundArena/mySpaceArena only —
+#// C-3PO is by construction on ANOTHER player's board, so his click fell to `default: break` and did nothing, at
+#// every seat count, with every section green. ActivateUnitAbility drives that real input.
+#// Mutation check: remove the opponent-arena routing in CustomInput.php and this reds (C-3PO stays ready, no damage).
+
+## GIVEN
+CommonSetup: gbw/rrk/{myResources:6}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP2GroundArena: TS26_15:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>ActivateUnitAbility:theirGroundArena-0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# LiveInput_FourSeats_AFarSeatFiresHimThroughTheClientVerb
+#// The Twin Suns half of the production-path cell: seat 3 fires the C-3PO seat 4 controls, addressed as the
+#// seat-tagged p4GroundArena-0 the offer list (and the Home panel tile) carries.
+#// Mutation check: remove the p{n} arena routing in CustomInput.php and this reds.
+
+## GIVEN
+CommonSetup: gbw/rrk/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 3
+WithGamePhase: ActionPhase
+WithP1GroundArena: SOR_046:1:0
+WithP4GroundArena: TS26_15:1:0
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P3>ActivateUnitAbility:p4GroundArena-0
+- P3>AnswerDecision:p1GroundArena-0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P4GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# LiveInput_TheControllerStillCannotFireHim
+#// The gate holds on the live path too: seat 4 controls C-3PO and is active; its own click (myGroundArena-0, the
+#// pre-existing route) must do nothing — "Only opponents may use this ability."
+#// Mutation check: drop the TS26_15 controller gate in SWUUnitActionAffordable and this reds.
+
+## GIVEN
+CommonSetup: gbw/rrk/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 4
+WithGamePhase: ActionPhase
+WithP1GroundArena: SOR_046:1:0
+WithP4GroundArena: TS26_15:1:0
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P4>ActivateUnitAbility:myGroundArena-0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P4GROUNDARENAUNIT:0:READY
+
+---
+
+# LiveInput_AnOpponentsORDINARYActionIsNotMineToUse
+#// The new opponent-arena route must open ONLY any-player Actions ($anyPlayerUnitActions). SEC_093 C-3PO ("Action
+#// [Exhaust, return this unit to its owner's hand]: Give a unit +2/+2") is P2's own ability; SWUUnitAction has no
+#// controller gate, so a route that skipped the registry check would let P1 bounce P2's unit by clicking it.
+#// Mutation check: drop the $anyPlayerUnitActions check from the new route and this reds (SEC_093 leaves play).
+
+## GIVEN
+CommonSetup: gbw/rrk/{myResources:6}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP2GroundArena: SEC_093:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>ActivateUnitAbility:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SEC_093
+P2GROUNDARENAUNIT:0:READY

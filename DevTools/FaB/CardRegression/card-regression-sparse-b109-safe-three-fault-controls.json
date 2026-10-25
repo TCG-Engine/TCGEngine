@@ -1,0 +1,104 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T17:53:52.047041+00:00",
+  "plan_sha256": "b0bb8e179b9592550afc17c7c38842c1919b36c6703535f6d759730bfb821dc1",
+  "independent_saved_proof_sha256": "ebbfb4c141d1638118a98d0678874d7ffa78b9288fb978e4cefbed4ded6d0a52",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b109-safe-three-focused-fault-plan.json",
+    "b0bb8e179b9592550afc17c7c38842c1919b36c6703535f6d759730bfb821dc1",
+    "card-regression-sparse-b109-safe-three-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b109_onyx_amulet_blue_focused_effect_sensitivity",
+      "fixture": "card-onyx-amulet-blue-four-live-sparse-actual-action-and-watery-trigger-tap-all-four-live-heroes",
+      "fixture_sha256": "a75c47b7852f49ff666a4ae378a1405fd4e1476ac6298a1c41bc7a3913165b7c",
+      "source_raw5": {
+        "initial_gamestate.txt": "f8c04b6f1042497be12cbf6a8ed3cf379a1dcc4861810b9aae448778abd06d13",
+        "actions.json": "4bf2661ebc4867f904a2a9fe3ae51f233789b0ad0e83bc2e0770d7e9ebbeb0f7",
+        "assertions.json": "c9e6df3834915fb74e40d0715fd8f95209801774d902e3b127227ab50a1b5db8",
+        "expected_final_gamestate.txt": "7bd7fd985f63295916dacd1da633a5957e851b026226d0c90a7765e370c0fe28",
+        "meta.json": "7e68134870569ceb355a52cec2458bbff62ceb4682247d69a2295fb17e7f3e1e"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 226,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Hero-0.Status to equal '1', got '2'.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Onyx Amulet / four live sparse physical item: Step 4 assertion failed: Expected p1Hero-0.Status to equal '1', got '2'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only the sole original activated ability arcSpec after real source cost (and Onyx Watery resolution). Existing fallback has no corresponding WTR ability; primary body is omitted without altering physical source or original suffix oracles. Synthetic dispatch sensitivity, not legal alternate gameplay. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b109_imperial_ledger_red_focused_effect_sensitivity",
+      "fixture": "card-imperial-ledger-red-four-live-sparse-actual-singleton-shuffle-self-cost-creates-owned-copper-for-nonroyal",
+      "fixture_sha256": "9c02154ca40e646ff4c25f7e14ce1fd599a1355bc9c8525ab71322919687ff58",
+      "source_raw5": {
+        "initial_gamestate.txt": "0162b1f317464a4c8274a99c22203d181570773d81b8b59b789c3f77ab93809a",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "555ced28f7c3fc376eec8a9d0f1b972af2d10216383c2d608cd6b3672ce93819",
+        "expected_final_gamestate.txt": "5c2bc68731ad0dc8668352ff6cfae212daadf57a1bea9ad321a415b0f0043ef7",
+        "meta.json": "41de9a42ae42f3310c4ec783aaab7615b05a4a4a3225a84c7859db0c9915e26e"
+      },
+      "prefix_actions": 1,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 197,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Imperial Ledger / four live sparse physical item: Step 4 assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only the sole original activated ability arcSpec after real source cost (and Onyx Watery resolution). Existing fallback has no corresponding WTR ability; primary body is omitted without altering physical source or original suffix oracles. Synthetic dispatch sensitivity, not legal alternate gameplay. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b109_talisman_of_recompense_yellow_focused_effect_sensitivity",
+      "fixture": "card-talisman-of-recompense-yellow-four-live-sparse-actual-red-one-pitch-replacement-pays-real-cost-three-attack",
+      "fixture_sha256": "a785dcae5c706675bc5a7ed6e559a26162feaf7654370964fe645e85c8d6c56d",
+      "source_raw5": {
+        "initial_gamestate.txt": "7d963fcb00bdca7971aad62966d56b0709a18cf33ad72f34a25b7a1ee7a1723e",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "30b7cb20865d1488df8c1cbfd72348679b701c089fe7768549e282e0a2c0303a",
+        "expected_final_gamestate.txt": "d179b8495b1673f8df4f1bc02f5ccf65f8657c574781288784131a47310e9d3c",
+        "meta.json": "a850f077e24726d07b8bafdad788cb3917e7b647881f2ef5b1fac5ee46150757"
+      },
+      "prefix_actions": 3,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "talisman_of_recompense_yellow",
+            "from": "Graveyard",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 302,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Talisman of Recompense / four live sparse physical item: Initial assertion failed: Expected p1Graveyard count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit the actual consumed primary from own Graveyard after the real replacement pitch/payment, retaining real yield/economy/attack source. Physical destruction/conservation endpoint sensitivity only, not isolated replacement-body omission or an alternate pitch branch. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 3
+}

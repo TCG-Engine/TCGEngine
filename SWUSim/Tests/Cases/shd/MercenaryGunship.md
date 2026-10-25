@@ -127,3 +127,31 @@ WithP4Base: SOR_021:0
 ## EXPECT
 SEATCOUNT:4
 P2UNITACTIONSHAS:p3SpaceArena-0&p4SpaceArena-0
+
+---
+
+# LiveInput_OpponentTakesControlThroughTheClientVerb
+#// ⚠ PRODUCTION PATH (2026-10-22). OpponentTakesControl drives UseUnitAbility → SWUUnitAction() directly; the live client
+#// sends "<mz>!CustomInput!Activate", and CustomWidgetInput routed my-arena mzIDs only, so the opponent's click on the
+#// Gunship did nothing. The SPACE-arena half of the route (TS26_15 covers ground).
+#// Mutation check: remove the opponent-arena routing in CustomInput.php and this reds.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  theirResources:5
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1SpaceArena: SHD_256:1:0
+
+## WHEN
+- P2>ActivateUnitAbility:theirSpaceArena-0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SHD_256
+P2RESAVAILABLE:1

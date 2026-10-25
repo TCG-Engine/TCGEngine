@@ -1,0 +1,46 @@
+# Real-deck self-play fixture — Kazuda Xiono, Best Pilot in the Galaxy - Data Vault
+# Source: melee.gg 480819 (Nexus Invitational: Homeworlds, 2026-10-15), #27 of 32 (0-5-0), player Baytonator
+#   https://melee.gg/Decklist/View/afda8834-ef4e-4059-b395-b4e00093531f — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-20, HMW meta set v3): the best-finishing list of the Kazuda Xiono (JTL) Data Vault archetype in this event — the only list of it.
+#   Main 60 (base minimum 60), sideboard 10.
+# Archetype (classifier, NOT yet owner-reviewed): softaggro (shape, high confidence) — shape score 0.97 — 90% aggro side (32 units ≤3 cost, 3 burn, 12 attack/buff cards); 4 units ≥6 cost, 0 removal events, 0 wipes
+# Style: softaggro
+# Flavours: tempo
+
+Leader
+1 JTL_018
+
+Base
+1 JTL_024
+
+Deck
+3 LAW_228
+3 JTL_103
+3 JTL_216
+3 JTL_203
+3 LAW_067
+1 LAW_149
+3 SEC_204
+3 JTL_096
+3 JTL_198
+3 JTL_249
+3 LOF_192
+3 JTL_095
+3 JTL_104
+3 JTL_223
+3 JTL_221
+3 ASH_222
+3 ASH_253
+2 ASH_204
+3 SEC_179
+3 LAW_168
+2 JTL_131
+1 JTL_207
+
+Sideboard
+3 JTL_217
+2 JTL_207
+2 IBH_052
+1 ASH_204
+1 LOF_100
+1 LAW_149

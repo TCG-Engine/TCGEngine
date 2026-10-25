@@ -1,0 +1,7 @@
+{
+    "name": "Dust Runner Outlaw / innate go again / yellow / hand-blue-pitch",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T04:00:17+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "dust_runner_outlaw_yellow: printed cost1, pitch2, power3, defense2; exact printed text Go again. Actual supported pitch input supplies3 toward printedcost1. AP remains1 while underfunded; each current Hand0 pitch preserves its original UID. Once fully paid AP0, residualresources2; then printed3damage and unconditional ResolutionAP1. Original funding cards stay Pitch through close. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dust_runner_outlaw_yellow https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/UPR067.webp https://rules.fabtcg.com/en/cr/08-keywords/#835 https://rules.fabtcg.com/en/cr/08-keywords/#826 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#517 https://rules.fabtcg.com/en/cr/07-combat/#762 FaBSim/Custom/GameLogic.php::CanPlayCard/FaBTryCompletePayment/FaBDeclareBlock/FaBBeginDamageStep/FaBBeginResolutionStep/FaBCleanupResolvedLink/FaBCloseCombatChain"
+}

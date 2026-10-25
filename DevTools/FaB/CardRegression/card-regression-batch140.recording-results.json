@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-flash-red-four-live-sparse-actual-zero-cost-action-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 815
+    },
+    {
+        "slug": "card-hit-and-run-red-four-live-sparse-first-real-weapon-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 1334
+    }
+]

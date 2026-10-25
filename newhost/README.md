@@ -1,4 +1,47 @@
-# newhost/ — XAMPP/LAMPP provisioning kit
+# newhost/ — server provisioning kit
+
+## New box: `setup-box.sh` (start here)
+
+One command takes a **fresh Ubuntu 24.04 / Debian 12 server** to a running TCGEngine box. It uses a
+native LAMP stack (distro Apache + mod_php, MariaDB, PHP from the ondrej/sury package source)
+instead of XAMPP. It's the same stack and speed, but a PHP security fix is an `apt upgrade`, and with
+`UNATTENDED_UPGRADES=1` it installs itself. XAMPP's bundled PHP 8.2.12 is what the 2026-10-21 PHP RCE
+hit, with no patched bundle to move to.
+
+```bash
+# on the new server, as root (log in with your SSH KEY)
+git clone https://github.com/TCG-Engine/TCGEngine.git /root/tcgengine-setup   # or scp -r newhost/
+cd /root/tcgengine-setup/newhost
+cp box.conf.example box.conf && nano box.conf      # sites, DB_APP_PASS, ADMIN_IPS, dumps, secrets
+sudo ./setup-box.sh                                 # prints the plan, asks once, then runs every phase
+```
+
+| Phase | What it does |
+|---|---|
+| `system` | apt upgrade, base tools, UTC, 2 GB swap on boxes under 2 GB RAM, unattended security upgrades **including PHP**, at `UPGRADE_TIME` (an Apache restart clears APCu, which holds live games' seat keys) |
+| `ssh` | key-only login. Only when a key is installed **and** this session logged in with one, so it can't lock you out |
+| `firewall` | ufw: SSH from `ADMIN_IPS` plus the address you're connected from; 80/443 from Cloudflare's ranges only |
+| `stack` | Apache prefork + mod_php, PHP + the Dockerfile's extension set, MariaDB on localhost, all sized from RAM; APCu 128M with `apc.ttl` so a full cache evicts instead of wiping |
+| `app` | clone or fast-forward the repo to `/var/www/html/TCGEngine` (never resets local changes), Composer deps, secret files from `SECRETS_DIR`, owned by `www-data` |
+| `db` | per site database: an EMPTY one is restored from `RESTORE_DIR/<db>.sql[.gz]`, else gets the fresh schema; a database with tables is never touched. App user `DB_APP_USER` with grants on its own databases only |
+| `sites` | TLS (Cloudflare origin cert, or self-signed), deny-all catch-all vhost, one vhost per site with its `SetEnv`s (+ `SECRETS_DIR/<db>.env`), docroot `.htaccess` via `harden-htaccess.sh` |
+| `fail2ban` | `harden-fail2ban.sh` with `STACK=native`: real client IP behind Cloudflare, the tuned jails |
+| `generate` | `GenerateSites.php all`, then `zzGameCodeGenerator` / `zzCardCodeGenerator` per root, as `www-data` with `DEVENV=true` on the command only (first card run uses `withPreview=1`) |
+| `backups` | `backup-db.sh` nightly via cron (databases + secrets, local rotation, optional `rclone` off-box copy), plus one run now |
+| `verify` | PASS/FAIL checks: PHP version + extensions, WebP, services, ufw, catch-all 403, each site's MainMenu 200 and https redirect, `Games/` not served, backups |
+
+Every phase is idempotent: `--only "sites verify"`, `--skip generate`, `--list`, `--yes`. A transcript
+goes to `/var/log/tcgengine-setup/`. After it finishes: test a new SSH login, point Cloudflare DNS at
+the box, check `tail /var/log/apache2/<db>-access.log` shows real visitor IPs, then **snapshot** the
+box as the golden image.
+
+Moving an existing site: on the old box, `mysqldump --single-transaction <db> | gzip > <db>.sql.gz` for
+each database, and copy those dumps, `APIKeys/APIKeys.php`, `SWUDeck/SimulationConfig.local.php` and
+the vhost `SetEnv` secrets (as `<db>.env`) to the new box. Then set `RESTORE_DIR` and `SECRETS_DIR`.
+⚠ A dump whose `USE` names a different database (SWUStats may be `swuonline`) is refused rather than
+restored into the wrong place.
+
+## XAMPP/LAMPP boxes (the original kit)
 
 Scripts for standing up apps on a **native XAMPP/LAMPP** Linux host (`/opt/lampp`),
 the kind you get when you restore a LAMPP server from another box. The work has two
@@ -79,6 +122,11 @@ Idempotent, safe on a live box, backs up everything first. It:
    `logs/<app>-access_log`, so the shared `access_log` alone can be nearly empty there.
 6. **Releases held bans the new whitelist covers**, and leaves every other ban in place — a box
    that already ate this outage may still be holding CF edges for up to a week.
+
+Works on both stacks. `STACK` is auto-detected (`/opt/lampp` present → `lampp`, else `/etc/apache2` →
+`native`, as `setup-box.sh` builds). The native branch uses `a2enmod remoteip` plus
+`conf-available/remoteip-cdn.conf`, logs in `/var/log/apache2/` (per-site `*-access.log`), and
+`apache2ctl -t` before restarting. XAMPP boxes behave exactly as before.
 
 Flags: `--skip-apache` (jails only), `--skip-restart`, `--no-unban`, `--offline` (skip the live
 fetch), `--yes`. Tuning via env: `BANTIME`, `FINDTIME`, `MAXRETRY`, `RECIDIVE_*`, `REAL_IP_HEADER`

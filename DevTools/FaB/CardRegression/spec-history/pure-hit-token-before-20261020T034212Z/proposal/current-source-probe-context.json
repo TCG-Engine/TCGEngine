@@ -1,0 +1,99 @@
+{
+  "status": "READ_ONLY_CURRENT_SOURCE_CONTEXT_NOT_RUNTIME_QUALIFICATION",
+  "historical8ec_audit": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pure-hit-token-attacks\\catalog12-and-source-audit.json",
+    "sha256": "07f5234d265146ab008efe67395e51f760609a7a219c7f6b334de4d7433079d2"
+  },
+  "current_raw_sources": {
+    "FaBSim/Custom/GameLogic.php": "6dad79ced6fcf485226e887c4ac4cf709982fb1b8086c0cd5ea4e8817bb91af1",
+    "FaBSim/Custom/WTRCards.php": "427c3a85b6ea1eb11cce2f561adc6b733d5af3b5b963d72cf5821ef5395ec240",
+    "FaBSim/Custom/WTRAbilities.php": "00b0ef1df18a5288a68dcce12178c9b72ef8d9e8dbb92caecbd51ee5bd77c63d",
+    "FaBSim/Custom/HVYCards.php": "58347c63bfec8f12090883bae6fb092928660c02da19f8b698588a5ebf823a7c",
+    "FaBSim/Custom/OUTRuntime.php": "328acd2b4fa25c65e1f1691f75573456004057002415f9601f5d861064000564",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "de2813a1f1d56801361c0b8b393c92bbf97866d1efd48d87182280b184acf268"
+  },
+  "function_comparisons": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "file_sha256": "6dad79ced6fcf485226e887c4ac4cf709982fb1b8086c0cd5ea4e8817bb91af1",
+      "function": "OnHit",
+      "body_sha256": "5490f2b86f940c3a0f46ed275e7c6fa1ccbb175db30832572c9c844c45d14362",
+      "matches_frozen8ec_body": false
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "file_sha256": "6dad79ced6fcf485226e887c4ac4cf709982fb1b8086c0cd5ea4e8817bb91af1",
+      "function": "FaBRunSourceMacro",
+      "body_sha256": "9ae6e5b3cb122382137f98f6079fda159c8fe81d635034a11e9c6ffffcd8b643",
+      "matches_frozen8ec_body": true
+    },
+    {
+      "path": "FaBSim/Custom/HVYCards.php",
+      "file_sha256": "58347c63bfec8f12090883bae6fb092928660c02da19f8b698588a5ebf823a7c",
+      "function": "FaBHVYToken",
+      "body_sha256": "279d3bd08216a6879330f0fef40b23cdfa24cf9b31e83c39384f97ea5e657fbe",
+      "matches_frozen8ec_body": true
+    },
+    {
+      "path": "FaBSim/Custom/OUTRuntime.php",
+      "file_sha256": "328acd2b4fa25c65e1f1691f75573456004057002415f9601f5d861064000564",
+      "function": "FaBOUTToken",
+      "body_sha256": "34d0d0b242ed062f2ca22c7bc6679eb7ec1d6e3decdbb9b7abca9a74233921ef",
+      "matches_frozen8ec_body": true
+    },
+    {
+      "path": "FaBSim/Custom/FaiCards.php",
+      "file_sha256": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+      "function": "FaBFaiHeroHit",
+      "body_sha256": "2b9844d346e31db7993ec7a633ba18c25c19fe3698f402c93ca48bcbd9e3dba1",
+      "matches_frozen8ec_body": true
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "file_sha256": "427c3a85b6ea1eb11cce2f561adc6b733d5af3b5b963d72cf5821ef5395ec240",
+      "function": "FaBWTRCreateArena",
+      "body_sha256": "d1928b311c2c33f4bde57d7ff464aaa8337447a63c9437bb6b5e00ef58c6f79c",
+      "matches_frozen8ec_body": true
+    },
+    {
+      "path": "FaBSim/Custom/WTRAbilities.php",
+      "file_sha256": "00b0ef1df18a5288a68dcce12178c9b72ef8d9e8dbb92caecbd51ee5bd77c63d",
+      "function": "FaBWTRQueueDrawOnHit",
+      "body_sha256": "a17048540a3b3de545e3910d11206ad2cd83bd055c712552de555e39a8e2b459",
+      "matches_frozen8ec_body": true
+    },
+    {
+      "path": "FaBSim/Custom/ELECards.php",
+      "file_sha256": "af45a8b56294e3b64832b83d1a4c1db55daeb4ed7c3406e5d5e1eda33843b2ec",
+      "function": "FaBELEPlayed",
+      "body_sha256": "3722b2d3a2805d614e5cdef72db4d0d7a4f94d01e6e529e43c99b82aaa50d0d2",
+      "matches_frozen8ec_body": true
+    },
+    {
+      "path": "FaBSim/Custom/ELECards.php",
+      "file_sha256": "af45a8b56294e3b64832b83d1a4c1db55daeb4ed7c3406e5d5e1eda33843b2ec",
+      "function": "FaBELEDefense",
+      "body_sha256": "061fce698c37ca19dc19fd5063f399a5d89419e6b66799211ef0c0dac123b2dd",
+      "matches_frozen8ec_body": true
+    },
+    {
+      "path": "FaBSim/Custom/ELECards.php",
+      "file_sha256": "af45a8b56294e3b64832b83d1a4c1db55daeb4ed7c3406e5d5e1eda33843b2ec",
+      "function": "FaBELEStart",
+      "body_sha256": "2e5e422d3cb8206e02236b6484c3fe315e4463f0aaae60358c1c02dd5334e842",
+      "matches_frozen8ec_body": true
+    }
+  ],
+  "changed_function_details": [
+    {
+      "function": "OnHit",
+      "before_sha256": "36e505a6277e33082747ef853a2e612a5b542304bae1c9b4ec6794fecd1bc403",
+      "after_sha256": "5490f2b86f940c3a0f46ed275e7c6fa1ccbb175db30832572c9c844c45d14362",
+      "diff": "--- historical8ec\n+++ currentCNC\n@@ -10,7 +10,10 @@\n     if($found!==null){FaBIARHit(intval($player),$found['object']);FaBOMNHit(intval($player),$found['object']);FaBSUPHit(intval($player),$found['object']);FaBPENHit(intval($player));FaBMPGHit(intval($player),$found['object'],intval($amount));FaBSEAHit(intval($player),$found['object'],intval($amount));FaBCRUHit(intval($player),$found['object'],intval($amount));FaBMONHit(intval($player),$found['object']);FaBELEHit(intval($player),$found['object'],intval($amount));FaBEVRHit(intval($player),$found['object'],intval($amount));FaBDYNHit(intval($player),$found['object'],intval($amount));FaBOUTHit(intval($player),$found['object'],intval($amount));FaBDTDHit(intval($player),$found['object'],intval($amount));FaBEVOHit(intval($player),$found['object'],intval($amount));FaBHVYHit(intval($player),$found['object'],intval($amount));FaBMSTHit(intval($player),$found['object']);FaBROSHit(intval($player),$found['object']);if(FaBFaiHeroHit())FaBHNTHit(intval($player),$found['object'],intval(FaBGetState()['defender']));FaBEVRFractalDispatch(intval($player),$found['object'],'Hit',['mzID'=>$mzID,'amount'=>$amount]);if(intval($amount)>0)FaBBoltynHit(intval($player));}\n     // Effects such as Seek Enlightenment can move the attack before its own hit ability.\n     if($found!==null){$live=FaBFindUID(intval($found['object']->UniqueID));if($live!==null)$params['mzID']=$live['mzID'];}\n-    $count = $found === null || FaBCRUHitSuppressed($found['object']) ? 0 : FaBRunSourceMacro('Hit', intval($player), $found['object']->CardID, $params);\n+    // CnC's printed hit ability is queued by FaBWTRHit; skip its old inline macro only.\n+    $count = $found === null || FaBCRUHitSuppressed($found['object'])\n+        || $found['object']->CardID === 'command_and_conquer_red' ? 0\n+        : FaBRunSourceMacro('Hit', intval($player), $found['object']->CardID, $params);\n     $count += function_exists('DispatchMacroListeners') ? DispatchMacroListeners('Hit', intval($player), $params) : 0;\n     if ($found !== null) FaBARCAfterHit(intval($player), $found['object'], intval($amount));\n     if($found!==null&&in_array('WTR_RETURN_HAND',(array)$found['object']->TurnEffects,true)){\n"
+    }
+  ],
+  "conclusion": "The compiled12 Hit callbacks and nine audited helper function bodies remain byte-equivalent after text decoding. OnHit differs only by the bounded CnC inline-skip condition, retaining generic direct Hit dispatch for these12. This supplements the historical8ec source context; it does not establish clean runtime qualification for the currentCNC build.",
+  "native_actions": 0,
+  "native_writes": 0
+}

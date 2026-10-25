@@ -1,0 +1,45 @@
+# Real-deck self-play fixture — Maul, Old Master - Dune Sea
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #35 of 39 (2-4-0), player Magniloquence
+#   https://melee.gg/Decklist/View/6f39b544-f135-4abf-9d24-b4df00147de2 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Maul (HMW) Blue archetype in this event — the only list of it.
+#   Main 53 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): softcontrol — the classifier read softcontrol (shape, high confidence: shape score 2.88 (avg cost 3.98, 12 cheap, 10 big, 11 removal, 3 wipe, 0 draw))
+# Style: softcontrol
+# Flavours: tempo
+#   tempo: 29% by detection (rule > 28%, BotTempo.php)
+
+Leader
+1 HMW_016
+
+Base
+1 HMW_019
+
+Deck
+3 LOF_070
+3 LAW_118
+3 ASH_048
+3 LOF_057
+3 LAW_237
+3 LOF_242
+2 ASH_192
+2 ASH_219
+2 ASH_053
+3 ASH_052
+3 JTL_184
+3 JTL_033
+3 ASH_194
+3 LOF_034
+3 LOF_213
+3 JTL_043
+2 LAW_133
+1 SEC_078
+3 HMW_198
+2 HMW_204
+
+Sideboard
+2 JTL_041
+2 SEC_186
+2 SEC_078
+2 ASH_220
+1 HMW_204
+1 ASH_053

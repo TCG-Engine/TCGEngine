@@ -1,0 +1,7 @@
+{
+    "name": "Ironrot Gauntlet / Blade Break hand-first-equipment-second-no-hit",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:02:23+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed defense1 and only Blade Break. CR8.3.3 destroys this when the combat chain closes if it defended. CR7.7.1/7.7.4 gives no priority during Close Step and resolves close triggers automatically before remaining equipment returns (7.7.5). Declare the3-defense hand card first and equipment1 second. This is still legal free defense and full block4, with the equipment at defending index1. Its close destruction is independent of declaration ordering; ordinary hand blocker clears separately. Sources: https://rules.fabtcg.com/en/cr/08-keywords/#833 https://rules.fabtcg.com/en/cr/07-combat/#77 https://rules.fabtcg.com/en/cr/06-effects/#66 FaBSim/GeneratedCode/cardArrayCache.json#ironrot_gauntlet"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Sigil of Solace / gain",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:26+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed text gains 3 life. Injured controller starts at 10 life; instant consumes no action point. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_solace_red https://rules.fabtcg.com/en/cr/07-combat/"
+}

@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 231
+    },
+    {
+        "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-empty-arsenal-still-triggers",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 207
+    }
+]

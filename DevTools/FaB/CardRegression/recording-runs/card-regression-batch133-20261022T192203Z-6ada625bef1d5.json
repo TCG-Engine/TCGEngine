@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T19:22:03+00:00",
+    "input_file": "card-regression-batch133.json",
+    "input_sha256": "338134bdca46d00752a9c36225e16074f81657c2cb8d8f83174e412f34ecce74",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-flying-high-red-four-live-sparse-actual-red-next-attack-plus-one-and-granted-go-again-through-real-combat",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 815
+        },
+        {
+            "slug": "card-pulse-of-volthaven-red-four-live-sparse-actual-zero-cost-dual-talent-instant-next-real-elemental-attack-plus-four",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 974
+        }
+    ]
+}

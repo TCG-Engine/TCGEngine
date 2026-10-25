@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T21:12:18+00:00",
+    "input_file": "card-regression-batch178.json",
+    "input_sha256": "f575f963c7eea5fbc1c3a197483539dc823c05f56e3c4ca610f5cf5f2eb30ea1",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-punching-gloves-four-live-sparse-actual-paid-destruction-gives-next-real-attack-action-plus-two-power",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1029
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch130.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T19:12:51.552478+00:00",
+  "fixtures": [
+    {
+      "slug": "card-beat-the-same-drum-blue-four-live-sparse-real-goblet-history-repeats-agility-and-vigor",
+      "fixture_sha256": "7b39a633ebea3a3e920b0d1990cec56c8ea1b328f9cacd049a102c5e2f256919",
+      "passed": true,
+      "result": "[PASS] Beat the Same Drum / four live actual controlled-token conditions"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-beat-the-same-drum-blue-four-live-sparse-real-goblet-history-repeats-agility-and-vigor",
+      "returncode": 0,
+      "stdout": "[PASS] Beat the Same Drum / four live actual controlled-token conditions\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

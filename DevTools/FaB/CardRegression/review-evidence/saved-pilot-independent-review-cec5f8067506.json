@@ -1,0 +1,245 @@
+{
+  "status": "INDEPENDENT_ACTUAL_SAVED_THREE_PILOTS_APPROVED_PENDING_CONTROLS_AND_CURRENT_RUNTIME_REPLAY",
+  "reviewer": "/root/pilot_review",
+  "checks": 425,
+  "native_writes": 0,
+  "game_actions": 0,
+  "exact_pilot_spec_sha256": "3070260772f9e5a23d37116e5ccc02dacf4799a4e70d2c257f580a84ca178f5d",
+  "full_spec_sha256": "0ec1b73c4f8159d634b2ce931115bd7127f0c0da52b8c4907e53df293ed33886",
+  "static_semantic_review": "blade-break-review/independent-spec-review.json",
+  "static_semantic_review_sha256": "ac05c330cdc1b5e48f64eaa959e9b18d829206a3a82674fab64ae9901eb89711",
+  "totals": {
+    "fixtures": 3,
+    "actions": 47,
+    "native_assertions": 165,
+    "native_game_state_fields": 39
+  },
+  "fixtures": [
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-fully-blocked-no-hit-still-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "37aa17f467c010c504e1fdc85c641f1ac5f02a4255a2cebfc7e9fe1973475739",
+        "actions.json": "f34a43a1e35bb56bbe4be7bcfa1efa17ed2cff6c1015ac1961862376bdf65f02",
+        "assertions.json": "d3d1dd45e89518e1507ee64fc80ac9bcc87b3edb2225671123368f40e89ad019",
+        "expected_final_gamestate.txt": "49d90cf6b8d16b4579655ddda6433dda0452ebbfb4bb92cdf80fd530f06a63e0",
+        "meta.json": "1413f4945232a2ede9fca1449a99263c571d302779fd68571d70664acff74dec"
+      },
+      "fixture_sha256": "4ec8044fb6fe63b6cc0e1f7c910cf2ef075ebebe23b88545f3f5d44fc3ca6462",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "verified_saved_boundary": {
+        "source_declared_step": 7,
+        "resolved_live_step": 14,
+        "closed_destroyed_step": 16,
+        "exact_close_actions": [
+          {
+            "playerID": 1,
+            "mode": 10001,
+            "buttonInput": "",
+            "cardID": "!CustomInput!Pass",
+            "chkInput": [],
+            "inputText": ""
+          },
+          {
+            "playerID": 2,
+            "mode": 10001,
+            "buttonInput": "",
+            "cardID": "!CustomInput!Pass",
+            "chkInput": [],
+            "inputText": ""
+          }
+        ],
+        "terminal_p2_health": 20,
+        "logical_off_hand_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-defend-alone-three-damage",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "991b74ee60b536e0766becd5d5ecc272870ca26eee3b8dc2be78f40e8116fc3f",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "fab9f6154bd4c8ba4e664c0e218b2856e957151ea699c13b4c2c6eaf5d189ceb",
+        "expected_final_gamestate.txt": "6ee385af2f4d4bb9ee0387f9cd1a08601ccf9fe48105fe42b247a00c8ff92a59",
+        "meta.json": "fcf1a327d1717a6439aeb5a1f18b62cae79a46021a4fb074ce4b5ed93d18eec4"
+      },
+      "fixture_sha256": "32f992ef63a38eea5f47dc396f43bbbfa013cd77fdb8bbedad2250e405d3ce24",
+      "actions": 15,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "verified_saved_boundary": {
+        "source_declared_step": 6,
+        "resolved_live_step": 13,
+        "closed_destroyed_step": 15,
+        "exact_close_actions": [
+          {
+            "playerID": 1,
+            "mode": 10001,
+            "buttonInput": "",
+            "cardID": "!CustomInput!Pass",
+            "chkInput": [],
+            "inputText": ""
+          },
+          {
+            "playerID": 2,
+            "mode": 10001,
+            "buttonInput": "",
+            "cardID": "!CustomInput!Pass",
+            "chkInput": [],
+            "inputText": ""
+          }
+        ],
+        "terminal_p2_health": 17,
+        "logical_off_hand_storage": null
+      }
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-fully-blocked-no-hit-still-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3928fce5e7e2b557fc0b790b83dbf671163391de4025c50bea67680e91961466",
+        "actions.json": "f34a43a1e35bb56bbe4be7bcfa1efa17ed2cff6c1015ac1961862376bdf65f02",
+        "assertions.json": "b73a757b61ca583e44abcfd03e8acd54a58865cc8fe43227eb5012d17782db46",
+        "expected_final_gamestate.txt": "639af1bc743e1665a6fe189ff9ae7ff2e272ea165d77cb667c62d228efa18a43",
+        "meta.json": "bad21ae0eea222c7dd97d30f71975b06212959bac7b92d1b8cedccba8b0df994"
+      },
+      "fixture_sha256": "6e2936ae76e109a8c36aec7ea73daafb9f55d7af718526e42a772033ae269d46",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "verified_saved_boundary": {
+        "source_declared_step": 7,
+        "resolved_live_step": 14,
+        "closed_destroyed_step": 16,
+        "exact_close_actions": [
+          {
+            "playerID": 1,
+            "mode": 10001,
+            "buttonInput": "",
+            "cardID": "!CustomInput!Pass",
+            "chkInput": [],
+            "inputText": ""
+          },
+          {
+            "playerID": 2,
+            "mode": 10001,
+            "buttonInput": "",
+            "cardID": "!CustomInput!Pass",
+            "chkInput": [],
+            "inputText": ""
+          }
+        ],
+        "terminal_p2_health": 20,
+        "logical_off_hand_storage": "Equipment"
+      }
+    }
+  ],
+  "conclusion": "All three exact current saved pilots match independent printed/rules expectations and original proposals. Ironrot/Buckler full block proves hit is unnecessary; Teklo arms takes3. Source remains on CombatChain/GY0 at RESOLUTION and two real priority passes reach automatic Close destruction. Canonical Equipment Buckler storage follows supported logical Weapon-slot representation; no slot bug inferred.",
+  "remaining_native_gates": [
+    "Disposable missing-keyword/wrong-defense/premature-clear semantic fault controls must fail native assertions; fixture setup exceptions and snapshot-only mismatches do not count.",
+    "Clean deterministic replay against exact final current runtime; inspect full-family saved results after serial remaining63 expansion."
+  ],
+  "scope_holds": [
+    "No destruction callback/replacement proof from Graveyard membership alone.",
+    "Dynamic keyword eligibility changes after link cleanup, earlyclose/sourceleave/ownership/elimination/UPF and other external interactions remain unverified."
+  ],
+  "execution": "Read-only actual fixture/source/spec review. No reviewer game actions or replay claimed."
+}

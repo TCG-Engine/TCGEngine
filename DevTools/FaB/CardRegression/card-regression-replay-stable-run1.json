@@ -1,0 +1,957 @@
+{
+  "command": "php DevTools/RunIntegrationTests.php --root=FaBSim",
+  "returncode": 0,
+  "completed_utc": "2026-10-19T21:09:17.623726+00:00",
+  "fixtures": [
+    {
+      "slug": "card-autumns-touch-blue-blocked",
+      "fixture_sha256": "69b9b87cfea84f4d591c2e41bc60404ebf7cab86f20532561a963871b005e092",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / blocked"
+    },
+    {
+      "slug": "card-autumns-touch-blue-insufficient-resources",
+      "fixture_sha256": "2a18f41ef7455fe52edd7d6256afda90fc527d1daecf141e7bbcebf9f4506f62",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / insufficient-resources"
+    },
+    {
+      "slug": "card-autumns-touch-blue-unblocked",
+      "fixture_sha256": "41eece90ef3ba746b4c2901b717b84fed719c5828686d15b80202c039707aaf8",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / unblocked"
+    },
+    {
+      "slug": "card-autumns-touch-red-blocked",
+      "fixture_sha256": "a343ca7e854dbacc0ae9eb5953a88ca0c8ccb6a43ab1f9608bf2d87fe8ceeba5",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / blocked"
+    },
+    {
+      "slug": "card-autumns-touch-red-insufficient-resources",
+      "fixture_sha256": "337a9d0e0e26cf0d3030cc7dba0b238d28d93bd7e196739234b247825b53e1de",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / insufficient-resources"
+    },
+    {
+      "slug": "card-autumns-touch-red-unblocked",
+      "fixture_sha256": "c736d9b7a67ceca686387bf496f554da1d44cdafb0e273e5376367527e2e2017",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / unblocked"
+    },
+    {
+      "slug": "card-autumns-touch-yellow-blocked",
+      "fixture_sha256": "83c00ad8419fbb0a741db4e37cbbe0977bebd6878cba23387ec66ac4b3632854",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / blocked"
+    },
+    {
+      "slug": "card-autumns-touch-yellow-insufficient-resources",
+      "fixture_sha256": "d53f91ef54ccea168e69a0d8790702307e37a9c5aa4f4b44c9fbc0ec08f6a533",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / insufficient-resources"
+    },
+    {
+      "slug": "card-autumns-touch-yellow-unblocked",
+      "fixture_sha256": "81eeb2a38651b6d0c808377086d81a6e89086551b7fc6e1e7b7a25b4a032c6dd",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / unblocked"
+    },
+    {
+      "slug": "card-bravo-cost-three-dominate",
+      "fixture_sha256": "78cc5ff32f827bc550c8f93af4d9e8ed661ce14a229161c977bddf0dfc764c77",
+      "passed": true,
+      "result": "[PASS] Bravo / cost-three-dominate"
+    },
+    {
+      "slug": "card-bravo-cost-zero-no-dominate",
+      "fixture_sha256": "c9fd360094e1742e14bf962fb7d371fe5f40a6c1ff778e7bf2d3fa852c2e0d75",
+      "passed": true,
+      "result": "[PASS] Bravo / cost-zero-no-dominate"
+    },
+    {
+      "slug": "card-brutal-assault-blue-blocked",
+      "fixture_sha256": "e550a3b429b0d4b86a37fb93b100ce728b55750e58d01a82bd0194c81b8f496e",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / blocked"
+    },
+    {
+      "slug": "card-brutal-assault-blue-insufficient-resources",
+      "fixture_sha256": "c16db761f45bb664ab6cec9686411b6debfa2f4a16b96fa0eaf81e1c21bcdfd8",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / insufficient-resources"
+    },
+    {
+      "slug": "card-brutal-assault-blue-unblocked",
+      "fixture_sha256": "a5f436c2ec4c9108557ff61ca5312d2d7ab57279be274eb7d66e63a97cd34ebb",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / unblocked"
+    },
+    {
+      "slug": "card-brutal-assault-red-blocked",
+      "fixture_sha256": "8acfe6ba3b99626e46a611b72dab34e3e13694487d3540ce2f3e09543c3bc9c4",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / blocked"
+    },
+    {
+      "slug": "card-brutal-assault-red-insufficient-resources",
+      "fixture_sha256": "2ec598453ce00d2649449cd37af3a557210588aae0e1f170ed60c13604f204ee",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / insufficient-resources"
+    },
+    {
+      "slug": "card-brutal-assault-red-unblocked",
+      "fixture_sha256": "4303169c923dfe42ab50e20b928882d4ad5a71287e800965252a777eb07e7ed5",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / unblocked"
+    },
+    {
+      "slug": "card-brutal-assault-yellow-blocked",
+      "fixture_sha256": "a0c568018757aace4880c876fd4b90458f335c38462cb4898564849ea4febc40",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / blocked"
+    },
+    {
+      "slug": "card-brutal-assault-yellow-insufficient-resources",
+      "fixture_sha256": "caa59d183d25fce613609c2d36c378c5da49e0cc3da9416cfd1404709fc8f9c6",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / insufficient-resources"
+    },
+    {
+      "slug": "card-brutal-assault-yellow-unblocked",
+      "fixture_sha256": "7b69a77ffd87379db3912c0fbe028a0442c41f79857410a47370e0bd79be4c03",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / unblocked"
+    },
+    {
+      "slug": "card-critical-strike-blue-blocked",
+      "fixture_sha256": "b34b0469cb493e9ae617be771164dd0ac2710507ffa109df00540e5a83312932",
+      "passed": true,
+      "result": "[PASS] Critical Strike / blocked"
+    },
+    {
+      "slug": "card-critical-strike-blue-insufficient-resources",
+      "fixture_sha256": "2ab535b3097fdf6fbed3e6eafc46ef38c99c5b768d47ab4aaff808136a9a0756",
+      "passed": true,
+      "result": "[PASS] Critical Strike / insufficient-resources"
+    },
+    {
+      "slug": "card-critical-strike-blue-unblocked",
+      "fixture_sha256": "3e4048d89f1bd93a6a42f315455009e251d86425c77c5202a0462a8f9eeefb25",
+      "passed": true,
+      "result": "[PASS] Critical Strike / unblocked"
+    },
+    {
+      "slug": "card-critical-strike-red-blocked",
+      "fixture_sha256": "6213a16df7d4455fdd3f100dedc0efa9e6920c7e386385830bcc63ab024b1349",
+      "passed": true,
+      "result": "[PASS] Critical Strike / blocked"
+    },
+    {
+      "slug": "card-critical-strike-red-insufficient-resources",
+      "fixture_sha256": "9a01de2079349703156c60c800a6ff038b2e2b3ae93c45f306bab2ad2ac29ed8",
+      "passed": true,
+      "result": "[PASS] Critical Strike / insufficient-resources"
+    },
+    {
+      "slug": "card-critical-strike-red-unblocked",
+      "fixture_sha256": "2277df3a81e869f954bcc21843830fcd79b18ea0f9cd5e784ed33cd6d3325a9c",
+      "passed": true,
+      "result": "[PASS] Critical Strike / unblocked"
+    },
+    {
+      "slug": "card-critical-strike-yellow-blocked",
+      "fixture_sha256": "185a2d6a5a71c5bc20fdf6e9042a5864df2117535ad1090d9320cbdb67b39463",
+      "passed": true,
+      "result": "[PASS] Critical Strike / blocked"
+    },
+    {
+      "slug": "card-critical-strike-yellow-insufficient-resources",
+      "fixture_sha256": "72895886d02ad8648956b2578a827f7ca8a903be2af5d4474a60e05dfc234679",
+      "passed": true,
+      "result": "[PASS] Critical Strike / insufficient-resources"
+    },
+    {
+      "slug": "card-critical-strike-yellow-unblocked",
+      "fixture_sha256": "c74e75bf0e73dae3dd8eb84827cb257ee7a4cbec790bdda05bf7f52bad0128e7",
+      "passed": true,
+      "result": "[PASS] Critical Strike / unblocked"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-blocked",
+      "fixture_sha256": "9083f96912cb652e5b1e5273c93aa1f8f40d5cf1ba71aa2d86e388cb1382e9be",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / blocked"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-insufficient-resources",
+      "fixture_sha256": "7a07c6419a23302c23dc9a486fab1612f422eb7b3bafcb5b6c82e35db0d8a0f6",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / insufficient-resources"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-unblocked",
+      "fixture_sha256": "107c08dcacca7923e649f82c5ecbbb1babc189328b9394c38f1d9521e6464252",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / unblocked"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-blocked",
+      "fixture_sha256": "9dd228ced24e5b5ff5fbd7d2701d67f19770cdac3425954ce3398c9393870ec7",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / blocked"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-insufficient-resources",
+      "fixture_sha256": "b29fdd3597a49c663250ec8939337132e8f4a308171217a256aa4b0f0ea16996",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / insufficient-resources"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-unblocked",
+      "fixture_sha256": "4f2c973a91d3e20dcced93e70162dbc83ee4f514580f7bbe7ceaea5c4c819399",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / unblocked"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-blocked",
+      "fixture_sha256": "6e2493c1f167b4548a91b1fd556eccd8a21a622c0b8b217fd5e80b01e7bfd515",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / blocked"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-insufficient-resources",
+      "fixture_sha256": "7f32d1ccd1ca2cbe2f7d9fd7b852a7a85c981d739d55a2eb47b4c89bbae870c6",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / insufficient-resources"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-unblocked",
+      "fixture_sha256": "d1d7e97109315712f4549e866ba9fa03b037ba8fe64aa65c0b74430d91f0bc1c",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / unblocked"
+    },
+    {
+      "slug": "card-electrolyze-blue-blocked",
+      "fixture_sha256": "642bbf6faa56a4e43a64eeb76437418d1ca51297c9400a54416cf7b75af0327d",
+      "passed": true,
+      "result": "[PASS] Electrolyze / blocked"
+    },
+    {
+      "slug": "card-electrolyze-blue-insufficient-resources",
+      "fixture_sha256": "0426f02f9d4021a4bac93fa61c6e5fb647eac141290aa2d256d4cfc83f679c60",
+      "passed": true,
+      "result": "[PASS] Electrolyze / insufficient-resources"
+    },
+    {
+      "slug": "card-electrolyze-blue-unblocked",
+      "fixture_sha256": "fa22ebc71bd22a042ee971bc3e4da97035e94c005bd4f4a98ac801c18234b05c",
+      "passed": true,
+      "result": "[PASS] Electrolyze / unblocked"
+    },
+    {
+      "slug": "card-electrolyze-red-blocked",
+      "fixture_sha256": "f7c70b706f2f7787d7d4b5bb45503c322aa4a77f80dbc26d3e8c2325d8273df5",
+      "passed": true,
+      "result": "[PASS] Electrolyze / blocked"
+    },
+    {
+      "slug": "card-electrolyze-red-insufficient-resources",
+      "fixture_sha256": "026a5344994a1468711e95087340aa6616a50cfe373356364aaf4807be3aa2c8",
+      "passed": true,
+      "result": "[PASS] Electrolyze / insufficient-resources"
+    },
+    {
+      "slug": "card-electrolyze-red-unblocked",
+      "fixture_sha256": "82c610de6e70448c22f555c9d080c7646173d6fe11c934f1e8a94710ce6b6547",
+      "passed": true,
+      "result": "[PASS] Electrolyze / unblocked"
+    },
+    {
+      "slug": "card-electrolyze-yellow-blocked",
+      "fixture_sha256": "5815b34eb18b6c34c9c2b4179f58294333a165080a5cba7738e10a4ec49098aa",
+      "passed": true,
+      "result": "[PASS] Electrolyze / blocked"
+    },
+    {
+      "slug": "card-electrolyze-yellow-insufficient-resources",
+      "fixture_sha256": "019dbc94663d266a5d99df85e7613c1d7d30b95b3d4e0d51a91c2d4a31d9ce19",
+      "passed": true,
+      "result": "[PASS] Electrolyze / insufficient-resources"
+    },
+    {
+      "slug": "card-electrolyze-yellow-unblocked",
+      "fixture_sha256": "e117aeaa3898f43bd7d7926fe42ede5e39d1cacbcb5a07633f3503c4d622d42e",
+      "passed": true,
+      "result": "[PASS] Electrolyze / unblocked"
+    },
+    {
+      "slug": "card-enlightened-strike-red-missing-additional-cost",
+      "fixture_sha256": "b42e2b284f5bbbc9fec493eafb742683d4dcfb8f226dcac36cb9f4444fd086f5",
+      "passed": true,
+      "result": "[PASS] Enlightened Strike / missing-additional-cost"
+    },
+    {
+      "slug": "card-enlightened-strike-red-mode-draw",
+      "fixture_sha256": "b2d2734204eee22f870ead9dfe2a7003fe82b2e869245034fd8696aae58f4a68",
+      "passed": true,
+      "result": "[PASS] Enlightened Strike / mode-draw"
+    },
+    {
+      "slug": "card-enlightened-strike-red-mode-go-again",
+      "fixture_sha256": "47e23df39fdb9cc6a4cacce211c3cd62f280a0e118e22a90c2b3ef24b3045fe2",
+      "passed": true,
+      "result": "[PASS] Enlightened Strike / mode-go-again"
+    },
+    {
+      "slug": "card-enlightened-strike-red-mode-power",
+      "fixture_sha256": "cbc93f9a883376424d235707502f0d6ee0552cb2a68635d3ca90dfe5657299eb",
+      "passed": true,
+      "result": "[PASS] Enlightened Strike / mode-power"
+    },
+    {
+      "slug": "card-fry-blue-blocked",
+      "fixture_sha256": "8bd8eab30420393319003ea1241438bc9a2c14683b7935272cddff839d2fefd9",
+      "passed": true,
+      "result": "[PASS] Fry / blocked"
+    },
+    {
+      "slug": "card-fry-blue-unblocked",
+      "fixture_sha256": "14db7c8c60a5de4302f6ba92b4fbf15e5776a04a9341f5196a6dfdb992e2df89",
+      "passed": true,
+      "result": "[PASS] Fry / unblocked"
+    },
+    {
+      "slug": "card-fry-red-blocked",
+      "fixture_sha256": "d964d301a2bda674d6467a50796d68c298a05bdd667d38126130fdfea2c74943",
+      "passed": true,
+      "result": "[PASS] Fry / blocked"
+    },
+    {
+      "slug": "card-fry-red-unblocked",
+      "fixture_sha256": "e230491efdcdb05e95e5ff62d185f333ee86aa042991f77a768e494f727948bd",
+      "passed": true,
+      "result": "[PASS] Fry / unblocked"
+    },
+    {
+      "slug": "card-fry-yellow-blocked",
+      "fixture_sha256": "ee39c464c44f442b84afa1f5c06af2927534e83c88c459cd923241b8fda83e81",
+      "passed": true,
+      "result": "[PASS] Fry / blocked"
+    },
+    {
+      "slug": "card-fry-yellow-unblocked",
+      "fixture_sha256": "d8f6eff6a116b07bbc725f896f3cb67939ee65e5f6d73fead430cd9918cd5c71",
+      "passed": true,
+      "result": "[PASS] Fry / unblocked"
+    },
+    {
+      "slug": "card-goliath-gauntlet-destroy-buff",
+      "fixture_sha256": "2509afd026a4da6dfde9489c482d5b1ee9c2fc719e6e7f4aa9b7a2fd5578ece5",
+      "passed": true,
+      "result": "[PASS] Goliath Gauntlet / destroy-buff"
+    },
+    {
+      "slug": "card-harmonized-kodachi-no-cost-pitch",
+      "fixture_sha256": "d7301ea6c04c2e87fb1f4132dfb19ee5babcd62ff8e4dd310366d43ad2edd05c",
+      "passed": true,
+      "result": "[PASS] Harmonized Kodachi / no-cost-pitch"
+    },
+    {
+      "slug": "card-harmonized-kodachi-nonzero-cost-pitch",
+      "fixture_sha256": "9ca9c7336a511d68a47beb1bf068fc95b5f81eff4c028d96b02621b57e4e608c",
+      "passed": true,
+      "result": "[PASS] Harmonized Kodachi / nonzero-cost-pitch"
+    },
+    {
+      "slug": "card-harmonized-kodachi-zero-cost-pitch",
+      "fixture_sha256": "66e66e994dfacdf279127f225afb5d73be8698b0a311a79babc45c22e270138f",
+      "passed": true,
+      "result": "[PASS] Harmonized Kodachi / zero-cost-pitch"
+    },
+    {
+      "slug": "card-head-jab-blue-blocked",
+      "fixture_sha256": "4bc51d84d075558a483a5c1bd1efc1dde932a5022dcf0869e6bb4e7c46aa7159",
+      "passed": true,
+      "result": "[PASS] Head Jab / blocked"
+    },
+    {
+      "slug": "card-head-jab-blue-unblocked",
+      "fixture_sha256": "668512dd119852e6d39b550fd3ec4b5a60b2aa5e9671a1986b8151c8429b2ad9",
+      "passed": true,
+      "result": "[PASS] Head Jab / unblocked"
+    },
+    {
+      "slug": "card-head-jab-red-blocked",
+      "fixture_sha256": "a9fa85dafa86655dc4a8c761c7039ed7ff158238939c43a0168838eb8b363c5d",
+      "passed": true,
+      "result": "[PASS] Head Jab / blocked"
+    },
+    {
+      "slug": "card-head-jab-red-unblocked",
+      "fixture_sha256": "d9f79ce9eff7dbffbd5aa24e1b5a513989656cd26653dbd818362504816d8905",
+      "passed": true,
+      "result": "[PASS] Head Jab / unblocked"
+    },
+    {
+      "slug": "card-head-jab-yellow-blocked",
+      "fixture_sha256": "cc63725f22c3e9f36270b8d99f07b6a284894046f705ecc859dd6d8da4315c1f",
+      "passed": true,
+      "result": "[PASS] Head Jab / blocked"
+    },
+    {
+      "slug": "card-head-jab-yellow-unblocked",
+      "fixture_sha256": "97759706dc0dc65f1f5136c101eb79715af0bbe8cccce36e9f3162ff627b3f6c",
+      "passed": true,
+      "result": "[PASS] Head Jab / unblocked"
+    },
+    {
+      "slug": "card-heavens-claws-blue-blocked",
+      "fixture_sha256": "996095b5096dd6c725154cc97ea84ab1faa52a956286853bef3a087a2b32e9fe",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / blocked"
+    },
+    {
+      "slug": "card-heavens-claws-blue-insufficient-resources",
+      "fixture_sha256": "7b8ace629ea4ccd5bc9f075956e4fda71cdf8eca2876020cd4012284d1dc8700",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / insufficient-resources"
+    },
+    {
+      "slug": "card-heavens-claws-blue-unblocked",
+      "fixture_sha256": "224cb5dd1d693fce8c11877ad911092310474bfb0b0f7ea61ca6f9c86d1f5cca",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / unblocked"
+    },
+    {
+      "slug": "card-heavens-claws-red-blocked",
+      "fixture_sha256": "6088dbcd0f61493b5b45e06cf50a8669358699c69ca8d9918bdb2b0839345d9b",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / blocked"
+    },
+    {
+      "slug": "card-heavens-claws-red-insufficient-resources",
+      "fixture_sha256": "ceb2d3cebd5bc339c38b64f35c151f15fc6da7358152eb2e5f78c09032d3de1c",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / insufficient-resources"
+    },
+    {
+      "slug": "card-heavens-claws-red-unblocked",
+      "fixture_sha256": "9e272894e30c0974f097c805f02074a3c3b0b29a8c802559e024611df7a045cf",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / unblocked"
+    },
+    {
+      "slug": "card-heavens-claws-yellow-blocked",
+      "fixture_sha256": "2feb7f50e735b41f9c7a389ac21e62805c53b23b777f9c66603d9c1c88d0dcd6",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / blocked"
+    },
+    {
+      "slug": "card-heavens-claws-yellow-insufficient-resources",
+      "fixture_sha256": "4f03acc833f2fc2ff32bc4e59f1264cc48b7ae465892cd8f2a8ce20511d2c89d",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / insufficient-resources"
+    },
+    {
+      "slug": "card-heavens-claws-yellow-unblocked",
+      "fixture_sha256": "f7055bdef6688002392e0cb7224d77e4ea3b2d356673b177a6f84af3cab0dad7",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / unblocked"
+    },
+    {
+      "slug": "card-leg-tap-blue-blocked",
+      "fixture_sha256": "9c640409fe7c6894dcc7cae78302cfba3bfdc649a7bde0669aaa2d5cea3ea0e2",
+      "passed": true,
+      "result": "[PASS] Leg Tap / blocked"
+    },
+    {
+      "slug": "card-leg-tap-blue-insufficient-resources",
+      "fixture_sha256": "4a2c04d24bc5f054c6fd1feb48f3bac044b66dc6f00a47164f9b4b18b659cc0d",
+      "passed": true,
+      "result": "[PASS] Leg Tap / insufficient-resources"
+    },
+    {
+      "slug": "card-leg-tap-blue-unblocked",
+      "fixture_sha256": "72950d996a43d7d3f38805eb1c213af1859fa3427be2bb419d81092f2db0c872",
+      "passed": true,
+      "result": "[PASS] Leg Tap / unblocked"
+    },
+    {
+      "slug": "card-leg-tap-red-blocked",
+      "fixture_sha256": "e83e516958b2e804f5f96632fa2d91f4fe3fea0acb4bbf922c660e0f38191169",
+      "passed": true,
+      "result": "[PASS] Leg Tap / blocked"
+    },
+    {
+      "slug": "card-leg-tap-red-insufficient-resources",
+      "fixture_sha256": "42e810c0434d938857aa2a8e9ab8d8f078a7c126ec5c4cd5ebec947de2744077",
+      "passed": true,
+      "result": "[PASS] Leg Tap / insufficient-resources"
+    },
+    {
+      "slug": "card-leg-tap-red-unblocked",
+      "fixture_sha256": "3581bb50e8e6c6b767e4e608644e8290dd231a84cb701596a5e7834c5d879410",
+      "passed": true,
+      "result": "[PASS] Leg Tap / unblocked"
+    },
+    {
+      "slug": "card-leg-tap-yellow-blocked",
+      "fixture_sha256": "ddf17157eed5a47c3df9b39800fb751580521bb9847347e8967dc6e248d0a3a8",
+      "passed": true,
+      "result": "[PASS] Leg Tap / blocked"
+    },
+    {
+      "slug": "card-leg-tap-yellow-insufficient-resources",
+      "fixture_sha256": "cdac908eb1e36b11d7376a38354b8bf590ad8ab738531c16537bd8f6f991c57c",
+      "passed": true,
+      "result": "[PASS] Leg Tap / insufficient-resources"
+    },
+    {
+      "slug": "card-leg-tap-yellow-unblocked",
+      "fixture_sha256": "834fc96722aa0199645128c3b798111399a825aba7bb29732e997474fb911716",
+      "passed": true,
+      "result": "[PASS] Leg Tap / unblocked"
+    },
+    {
+      "slug": "card-raging-onslaught-blue-blocked",
+      "fixture_sha256": "c69b534c0f0dc9139a1a5e32ad19ca8fd5d5f3cc1071978c6ddd9ccfdb4c40aa",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / blocked"
+    },
+    {
+      "slug": "card-raging-onslaught-blue-insufficient-resources",
+      "fixture_sha256": "ab46bc630ee88636ee6037630bd3d44a58e9f02de1c0c454f71172ea456ab2d4",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / insufficient-resources"
+    },
+    {
+      "slug": "card-raging-onslaught-blue-unblocked",
+      "fixture_sha256": "3f8566a902406dbed600188f868d7109d0bbf31aa50f566aecd917bd00912ded",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / unblocked"
+    },
+    {
+      "slug": "card-raging-onslaught-red-blocked",
+      "fixture_sha256": "3da84359e4f67880e41304d028b73a50141a17af02a232e8dba64776d606dcc8",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / blocked"
+    },
+    {
+      "slug": "card-raging-onslaught-red-insufficient-resources",
+      "fixture_sha256": "d6d2e7998a6446c627bccca0fa0b483425106eaab1ecc4e393b93a02ce30e6cb",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / insufficient-resources"
+    },
+    {
+      "slug": "card-raging-onslaught-red-unblocked",
+      "fixture_sha256": "b79c4769e511241e8b590d4b8d983bb0b9a0ab35ee4ba781764c4a1fad8b2554",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / unblocked"
+    },
+    {
+      "slug": "card-raging-onslaught-yellow-blocked",
+      "fixture_sha256": "a8cd848578afe54bd8e16c699457d4286818c8b5510728fa7fad3ea42f7f6a7f",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / blocked"
+    },
+    {
+      "slug": "card-raging-onslaught-yellow-insufficient-resources",
+      "fixture_sha256": "10d77188457c0c99fc9b60503622ddd0b3d813082d291f7849aabe6a44c6222c",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / insufficient-resources"
+    },
+    {
+      "slug": "card-raging-onslaught-yellow-unblocked",
+      "fixture_sha256": "c4d5159e09c9df9ef8a514e039ca02bf23d4b9c807fb2d4b22a3548d0b6cc414",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / unblocked"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-blocked",
+      "fixture_sha256": "02fdaa6c293e869f089d47cdc34895021ae7ec62166b10898edf32ce11039a78",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / blocked"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-insufficient-resources",
+      "fixture_sha256": "894a553dac70c841cdc9a409cd78bd5cae806d25d935bd7d4721b83b5c12c831",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / insufficient-resources"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-unblocked",
+      "fixture_sha256": "614202657370fd350697950a37e60ef7297ec1a36d5f6c305fbc0ae90acb8978",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / unblocked"
+    },
+    {
+      "slug": "card-rebellious-rush-red-blocked",
+      "fixture_sha256": "b1a09d1451053f8571169cc51388278f5f6b7a4c68fef460a7951a5ca3e9c5b3",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / blocked"
+    },
+    {
+      "slug": "card-rebellious-rush-red-insufficient-resources",
+      "fixture_sha256": "16a68cb743ccad655d81558a805f4722c768146a25c7287807b3fc7297b8f415",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / insufficient-resources"
+    },
+    {
+      "slug": "card-rebellious-rush-red-unblocked",
+      "fixture_sha256": "a313e8f5d4b3349cc85d99b0f088f3f25f7e17e03e61a63d3f7adc9398de1ba5",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / unblocked"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-blocked",
+      "fixture_sha256": "4241466a43df2c22e9aa2670ff02172aa12343e86c3ef94de47da96c1a9bd511",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / blocked"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-insufficient-resources",
+      "fixture_sha256": "33e285e807259eaedcd1e54a6f4a47dcdaa5ad7e0d81d3296062f84443060bb7",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / insufficient-resources"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-unblocked",
+      "fixture_sha256": "026e5288408c3f4752ffd32de3595a0dc37d24523a2af581bbac87077c744c28",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / unblocked"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-blocked",
+      "fixture_sha256": "e6a586bd3f737fdd0c0287ab10ebfe707004f4da468292d645aee3f99c505a41",
+      "passed": true,
+      "result": "[PASS] Ronin Renegade / blocked"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-unblocked",
+      "fixture_sha256": "2d9d13cedfcb6b7d5c3407820885c6f562cce4e13d25ecee7c21de512e38a277",
+      "passed": true,
+      "result": "[PASS] Ronin Renegade / unblocked"
+    },
+    {
+      "slug": "card-ronin-renegade-red-blocked",
+      "fixture_sha256": "4cdb01db70c99d160ff4879c23e55e66e6f4a50ad5a3d9175d68df6eeccac8c8",
+      "passed": true,
+      "result": "[PASS] Ronin Renegade / blocked"
+    },
+    {
+      "slug": "card-ronin-renegade-red-unblocked",
+      "fixture_sha256": "a0c94af48c433bd674062034b7e97f3964b13eae7c9e5862b84495e1cca99910",
+      "passed": true,
+      "result": "[PASS] Ronin Renegade / unblocked"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-blocked",
+      "fixture_sha256": "070bf999a6feab97af5002f36cc205726ead2e1d3512342617f3b5d440777b50",
+      "passed": true,
+      "result": "[PASS] Ronin Renegade / blocked"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-unblocked",
+      "fixture_sha256": "3e2ca6c82c9c55318228a1012277ca82fd22c102ccf068c7823447d67e76e62f",
+      "passed": true,
+      "result": "[PASS] Ronin Renegade / unblocked"
+    },
+    {
+      "slug": "card-rusty-harpoon-blue-blocked",
+      "fixture_sha256": "05d5b73bb719c2acfc0e91ea03d787dfc526c2b2ec37e0acdbe5ab6d7f87458a",
+      "passed": true,
+      "result": "[PASS] Rusty Harpoon / blocked"
+    },
+    {
+      "slug": "card-rusty-harpoon-blue-unblocked",
+      "fixture_sha256": "787d2d31087d3c27837b2f7b8b4d119ef9e93ad3b8a2cd031551645ce18d0cbd",
+      "passed": true,
+      "result": "[PASS] Rusty Harpoon / unblocked"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-blocked",
+      "fixture_sha256": "0dfc77574eecc44a0c579b5428e77ec801132d0e67c7f8eb414bebfcee08d626",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / blocked"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-insufficient-resources",
+      "fixture_sha256": "db5d8bd996baae10a8c41ca4071348004085e125234e1e6ddf93e282b84a4526",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / insufficient-resources"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-unblocked",
+      "fixture_sha256": "15862fcf0d0411438a156b98e6795f42d2d9c99ee4d99ec164bbc6c942498c65",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / unblocked"
+    },
+    {
+      "slug": "card-sic-em-shot-red-blocked",
+      "fixture_sha256": "da2a18330850d90cd39eb804fc5d2f2d8af51fcf541ce7c99990f565497312db",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / blocked"
+    },
+    {
+      "slug": "card-sic-em-shot-red-insufficient-resources",
+      "fixture_sha256": "3d21bdb8937a9b4b11a05485f3f3de59248e5e2f186520921a52f7cae3b0728b",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / insufficient-resources"
+    },
+    {
+      "slug": "card-sic-em-shot-red-unblocked",
+      "fixture_sha256": "dc0a740c608dff45c6329adf6c213bfa96f4bcc3c6f8744bf6d54da41fd40269",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / unblocked"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-blocked",
+      "fixture_sha256": "ce5a3a7d09f8c498e2100615301681454f05f814f382a7eabddbf265d5967bad",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / blocked"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-insufficient-resources",
+      "fixture_sha256": "3c768da149edc0bbecd16040410e11009dcb3e4d92c417e5c806f187074f9e0a",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / insufficient-resources"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-unblocked",
+      "fixture_sha256": "ea16cc3e0fed4019a150a0710c0c8ce49e90f26a61a137ebbeb7967effd6c023",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / unblocked"
+    },
+    {
+      "slug": "card-sigil-of-solace-blue-gain",
+      "fixture_sha256": "f0d070511fbf0196b769792619a9f365008675656cbbde31f88bf2992b576245",
+      "passed": true,
+      "result": "[PASS] Sigil of Solace / gain"
+    },
+    {
+      "slug": "card-sigil-of-solace-red-gain",
+      "fixture_sha256": "b5b70894d0c041fee01c1d26649f36663835db0d6785dff2303c98a087347744",
+      "passed": true,
+      "result": "[PASS] Sigil of Solace / gain"
+    },
+    {
+      "slug": "card-sigil-of-solace-yellow-gain",
+      "fixture_sha256": "ae755a19501ffc85a76318ea2bee40eb85d2c5328a2b5f945bc5a80755165463",
+      "passed": true,
+      "result": "[PASS] Sigil of Solace / gain"
+    },
+    {
+      "slug": "card-sink-below-red-decline",
+      "fixture_sha256": "60c1a83d82a4978c5ed5288b55cdd2b96eec1597b6d4e3e14fe9df61c9f11967",
+      "passed": true,
+      "result": "[PASS] Sink Below / decline"
+    },
+    {
+      "slug": "card-sink-below-red-exchange",
+      "fixture_sha256": "0aa3f37209f73fb32fc4954e8c83f5df90ce8b0f49a118d4164ed7a6c8e25130",
+      "passed": true,
+      "result": "[PASS] Sink Below / exchange"
+    },
+    {
+      "slug": "card-smash-with-big-tree-blue-blocked",
+      "fixture_sha256": "34f7c83853b620266debfdda954159cdcf229371cdc419a6f88af22e528dde78",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / blocked"
+    },
+    {
+      "slug": "card-smash-with-big-tree-blue-insufficient-resources",
+      "fixture_sha256": "bc35fa8e09206ce5f142b0af77254d45c95883624e92d69f8e361fe13c595aeb",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / insufficient-resources"
+    },
+    {
+      "slug": "card-smash-with-big-tree-blue-unblocked",
+      "fixture_sha256": "b68562a7ab602d4ff25f6e73373b3f666eb9333c5b061cd12f61633736947aa1",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / unblocked"
+    },
+    {
+      "slug": "card-smash-with-big-tree-red-blocked",
+      "fixture_sha256": "8271ac4a14bc59bf2b9f4ac7c3d0d804726453eb1e9ecd3b7b93953aba427d96",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / blocked"
+    },
+    {
+      "slug": "card-smash-with-big-tree-red-insufficient-resources",
+      "fixture_sha256": "6985df298edd91498b89d10ad167cc5a28e9d68320154d9c5fac602a4e73a36c",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / insufficient-resources"
+    },
+    {
+      "slug": "card-smash-with-big-tree-red-unblocked",
+      "fixture_sha256": "9463f89b538630336a8b96e17087946a49d595fd6f32841b39576c7199e0eb5b",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / unblocked"
+    },
+    {
+      "slug": "card-smash-with-big-tree-yellow-blocked",
+      "fixture_sha256": "89b98f634d607e491a398fdf7203d697c2a4a8b145c49d11b9738eae5c0e2641",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / blocked"
+    },
+    {
+      "slug": "card-smash-with-big-tree-yellow-insufficient-resources",
+      "fixture_sha256": "982db15ded20cc1c11988213ce6f3859841f3328806ab1872be7c8b5dbae2727",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / insufficient-resources"
+    },
+    {
+      "slug": "card-smash-with-big-tree-yellow-unblocked",
+      "fixture_sha256": "4e61a4db0067def2bc7e81ff3bec3db48d131eadce617cae26a2e445c5009b3e",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / unblocked"
+    },
+    {
+      "slug": "card-surging-strike-blue-blocked",
+      "fixture_sha256": "8a1862879beda3760b195cd026fcbb82554f2766842b09276ad74fdc19ef8c87",
+      "passed": true,
+      "result": "[PASS] Surging Strike / blocked"
+    },
+    {
+      "slug": "card-surging-strike-blue-insufficient-resources",
+      "fixture_sha256": "f41da637d834b9b408b57d489d015647e6c188f1c9a7b16012b80b6d101dbc46",
+      "passed": true,
+      "result": "[PASS] Surging Strike / insufficient-resources"
+    },
+    {
+      "slug": "card-surging-strike-blue-unblocked",
+      "fixture_sha256": "0e0a26969334a9d2331155643fec4df7e2a3efde79b5bfa995de2945d8f83a37",
+      "passed": true,
+      "result": "[PASS] Surging Strike / unblocked"
+    },
+    {
+      "slug": "card-surging-strike-red-blocked",
+      "fixture_sha256": "ea8ca0a4e1d6a8cb7d8953a39ca2c75034b41841dee80b01ed29f81741f4a724",
+      "passed": true,
+      "result": "[PASS] Surging Strike / blocked"
+    },
+    {
+      "slug": "card-surging-strike-red-insufficient-resources",
+      "fixture_sha256": "748a12b7ff9f2ce806e4d8916ed1e8a6a3220b38895dcef023094c38bb40e9ba",
+      "passed": true,
+      "result": "[PASS] Surging Strike / insufficient-resources"
+    },
+    {
+      "slug": "card-surging-strike-red-unblocked",
+      "fixture_sha256": "4b9cf376e390d35e524d2260a9417460722724148df4de1ecb4c0c99ab9affec",
+      "passed": true,
+      "result": "[PASS] Surging Strike / unblocked"
+    },
+    {
+      "slug": "card-surging-strike-yellow-blocked",
+      "fixture_sha256": "8ef15fc78c96315fc2e275efee9aa5c366654a50391d9456d24cdffce6f56985",
+      "passed": true,
+      "result": "[PASS] Surging Strike / blocked"
+    },
+    {
+      "slug": "card-surging-strike-yellow-insufficient-resources",
+      "fixture_sha256": "24d247b3dc1125a416983d50ec03ce7d40bd2cd32721539b73c1c41a693a8284",
+      "passed": true,
+      "result": "[PASS] Surging Strike / insufficient-resources"
+    },
+    {
+      "slug": "card-surging-strike-yellow-unblocked",
+      "fixture_sha256": "9f81ad4dc72c32d18b1bf99111d301518d97c8d5edbc848856f7394b0040c495",
+      "passed": true,
+      "result": "[PASS] Surging Strike / unblocked"
+    },
+    {
+      "slug": "card-winters-grasp-blue-blocked",
+      "fixture_sha256": "2e9d004c88de352e16b5847d3f269e5d4be39d803dbb6c2697e55433fbe065c6",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / blocked"
+    },
+    {
+      "slug": "card-winters-grasp-blue-insufficient-resources",
+      "fixture_sha256": "746b73d28db99f3df806c1b0ad275fa8fda59ce0f5d5e42051adc2901a880a5f",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / insufficient-resources"
+    },
+    {
+      "slug": "card-winters-grasp-blue-unblocked",
+      "fixture_sha256": "2dc89e24d9b29cf2b8fa380a3b5f0e21a9ba26843b280aca0b0f279ab7944a34",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / unblocked"
+    },
+    {
+      "slug": "card-winters-grasp-red-blocked",
+      "fixture_sha256": "6c4ad0aaa2ad3d49d5ee827fcbb51116e882cd2adb939a6fec51b895bd47054f",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / blocked"
+    },
+    {
+      "slug": "card-winters-grasp-red-insufficient-resources",
+      "fixture_sha256": "51dde42e6f4ec43080ccd452a6eb6e7f10aeba3da5564a54c9bb269aa82187af",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / insufficient-resources"
+    },
+    {
+      "slug": "card-winters-grasp-red-unblocked",
+      "fixture_sha256": "3c572f406cd2a31133438fdc4a854674964e04c11752df093015e30d06187daf",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / unblocked"
+    },
+    {
+      "slug": "card-winters-grasp-yellow-blocked",
+      "fixture_sha256": "71452131a4078facf7ac4bc7317a120f1d2f8df7f4643b78b5a3b412596961ac",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / blocked"
+    },
+    {
+      "slug": "card-winters-grasp-yellow-insufficient-resources",
+      "fixture_sha256": "c5f19c08188f77f6dae2e41268cbbcc9f363f2fcc001cb03d7e4d7bc33e7335d",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / insufficient-resources"
+    },
+    {
+      "slug": "card-winters-grasp-yellow-unblocked",
+      "fixture_sha256": "54cc1a3cf42787531ef2ad62011cea69d66701b8e9bdfcb6b94490941861a5a1",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / unblocked"
+    },
+    {
+      "slug": "card-wounding-blow-blue-blocked",
+      "fixture_sha256": "d4cff1dec9a9ed01089d3e7e050e53815b367a06f6c3bbc1ca4b59bd8f4e67b4",
+      "passed": true,
+      "result": "[PASS] Wounding Blow / blocked"
+    },
+    {
+      "slug": "card-wounding-blow-blue-unblocked",
+      "fixture_sha256": "7cdfb58d471726ef9efe6720af160e20f494b507e67ef4465ce0841c1388d5ae",
+      "passed": true,
+      "result": "[PASS] Wounding Blow / unblocked"
+    },
+    {
+      "slug": "card-wounding-blow-red-blocked",
+      "fixture_sha256": "58323485d410fb89a9c9c9856d3ddf77760b3462b5538cabc48f16a79af93eaf",
+      "passed": true,
+      "result": "[PASS] Wounding Blow / blocked"
+    },
+    {
+      "slug": "card-wounding-blow-red-unblocked",
+      "fixture_sha256": "8cbd497428caa2044106c74355da1590a209ff41d82010f2c3b23f47f63ae30c",
+      "passed": true,
+      "result": "[PASS] Wounding Blow / unblocked"
+    },
+    {
+      "slug": "card-wounding-blow-yellow-blocked",
+      "fixture_sha256": "3f70685a9b63019a5eb3b05ec96537e9b2ea9c2be7339fdcae6e8b65e02e0169",
+      "passed": true,
+      "result": "[PASS] Wounding Blow / blocked"
+    },
+    {
+      "slug": "card-wounding-blow-yellow-unblocked",
+      "fixture_sha256": "b83fa8be9a7c2048a7545d5ed95d0bcf59d9dc98b79318450d1f361851c2582e",
+      "passed": true,
+      "result": "[PASS] Wounding Blow / unblocked"
+    }
+  ],
+  "stdout": "[PASS] Autumn's Touch / blocked\n[PASS] Autumn's Touch / insufficient-resources\n[PASS] Autumn's Touch / unblocked\n[PASS] Autumn's Touch / blocked\n[PASS] Autumn's Touch / insufficient-resources\n[PASS] Autumn's Touch / unblocked\n[PASS] Autumn's Touch / blocked\n[PASS] Autumn's Touch / insufficient-resources\n[PASS] Autumn's Touch / unblocked\n[PASS] Bravo / cost-three-dominate\n[PASS] Bravo / cost-zero-no-dominate\n[PASS] Brutal Assault / blocked\n[PASS] Brutal Assault / insufficient-resources\n[PASS] Brutal Assault / unblocked\n[PASS] Brutal Assault / blocked\n[PASS] Brutal Assault / insufficient-resources\n[PASS] Brutal Assault / unblocked\n[PASS] Brutal Assault / blocked\n[PASS] Brutal Assault / insufficient-resources\n[PASS] Brutal Assault / unblocked\n[PASS] Critical Strike / blocked\n[PASS] Critical Strike / insufficient-resources\n[PASS] Critical Strike / unblocked\n[PASS] Critical Strike / blocked\n[PASS] Critical Strike / insufficient-resources\n[PASS] Critical Strike / unblocked\n[PASS] Critical Strike / blocked\n[PASS] Critical Strike / insufficient-resources\n[PASS] Critical Strike / unblocked\n[PASS] Dust Runner Outlaw / blocked\n[PASS] Dust Runner Outlaw / insufficient-resources\n[PASS] Dust Runner Outlaw / unblocked\n[PASS] Dust Runner Outlaw / blocked\n[PASS] Dust Runner Outlaw / insufficient-resources\n[PASS] Dust Runner Outlaw / unblocked\n[PASS] Dust Runner Outlaw / blocked\n[PASS] Dust Runner Outlaw / insufficient-resources\n[PASS] Dust Runner Outlaw / unblocked\n[PASS] Electrolyze / blocked\n[PASS] Electrolyze / insufficient-resources\n[PASS] Electrolyze / unblocked\n[PASS] Electrolyze / blocked\n[PASS] Electrolyze / insufficient-resources\n[PASS] Electrolyze / unblocked\n[PASS] Electrolyze / blocked\n[PASS] Electrolyze / insufficient-resources\n[PASS] Electrolyze / unblocked\n[PASS] Enlightened Strike / missing-additional-cost\n[PASS] Enlightened Strike / mode-draw\n[PASS] Enlightened Strike / mode-go-again\n[PASS] Enlightened Strike / mode-power\n[PASS] Fry / blocked\n[PASS] Fry / unblocked\n[PASS] Fry / blocked\n[PASS] Fry / unblocked\n[PASS] Fry / blocked\n[PASS] Fry / unblocked\n[PASS] Goliath Gauntlet / destroy-buff\n[PASS] Harmonized Kodachi / no-cost-pitch\n[PASS] Harmonized Kodachi / nonzero-cost-pitch\n[PASS] Harmonized Kodachi / zero-cost-pitch\n[PASS] Head Jab / blocked\n[PASS] Head Jab / unblocked\n[PASS] Head Jab / blocked\n[PASS] Head Jab / unblocked\n[PASS] Head Jab / blocked\n[PASS] Head Jab / unblocked\n[PASS] Heaven's Claws / blocked\n[PASS] Heaven's Claws / insufficient-resources\n[PASS] Heaven's Claws / unblocked\n[PASS] Heaven's Claws / blocked\n[PASS] Heaven's Claws / insufficient-resources\n[PASS] Heaven's Claws / unblocked\n[PASS] Heaven's Claws / blocked\n[PASS] Heaven's Claws / insufficient-resources\n[PASS] Heaven's Claws / unblocked\n[PASS] Leg Tap / blocked\n[PASS] Leg Tap / insufficient-resources\n[PASS] Leg Tap / unblocked\n[PASS] Leg Tap / blocked\n[PASS] Leg Tap / insufficient-resources\n[PASS] Leg Tap / unblocked\n[PASS] Leg Tap / blocked\n[PASS] Leg Tap / insufficient-resources\n[PASS] Leg Tap / unblocked\n[PASS] Raging Onslaught / blocked\n[PASS] Raging Onslaught / insufficient-resources\n[PASS] Raging Onslaught / unblocked\n[PASS] Raging Onslaught / blocked\n[PASS] Raging Onslaught / insufficient-resources\n[PASS] Raging Onslaught / unblocked\n[PASS] Raging Onslaught / blocked\n[PASS] Raging Onslaught / insufficient-resources\n[PASS] Raging Onslaught / unblocked\n[PASS] Rebellious Rush / blocked\n[PASS] Rebellious Rush / insufficient-resources\n[PASS] Rebellious Rush / unblocked\n[PASS] Rebellious Rush / blocked\n[PASS] Rebellious Rush / insufficient-resources\n[PASS] Rebellious Rush / unblocked\n[PASS] Rebellious Rush / blocked\n[PASS] Rebellious Rush / insufficient-resources\n[PASS] Rebellious Rush / unblocked\n[PASS] Ronin Renegade / blocked\n[PASS] Ronin Renegade / unblocked\n[PASS] Ronin Renegade / blocked\n[PASS] Ronin Renegade / unblocked\n[PASS] Ronin Renegade / blocked\n[PASS] Ronin Renegade / unblocked\n[PASS] Rusty Harpoon / blocked\n[PASS] Rusty Harpoon / unblocked\n[PASS] Sic 'Em Shot / blocked\n[PASS] Sic 'Em Shot / insufficient-resources\n[PASS] Sic 'Em Shot / unblocked\n[PASS] Sic 'Em Shot / blocked\n[PASS] Sic 'Em Shot / insufficient-resources\n[PASS] Sic 'Em Shot / unblocked\n[PASS] Sic 'Em Shot / blocked\n[PASS] Sic 'Em Shot / insufficient-resources\n[PASS] Sic 'Em Shot / unblocked\n[PASS] Sigil of Solace / gain\n[PASS] Sigil of Solace / gain\n[PASS] Sigil of Solace / gain\n[PASS] Sink Below / decline\n[PASS] Sink Below / exchange\n[PASS] Smash with Big Tree / blocked\n[PASS] Smash with Big Tree / insufficient-resources\n[PASS] Smash with Big Tree / unblocked\n[PASS] Smash with Big Tree / blocked\n[PASS] Smash with Big Tree / insufficient-resources\n[PASS] Smash with Big Tree / unblocked\n[PASS] Smash with Big Tree / blocked\n[PASS] Smash with Big Tree / insufficient-resources\n[PASS] Smash with Big Tree / unblocked\n[PASS] Surging Strike / blocked\n[PASS] Surging Strike / insufficient-resources\n[PASS] Surging Strike / unblocked\n[PASS] Surging Strike / blocked\n[PASS] Surging Strike / insufficient-resources\n[PASS] Surging Strike / unblocked\n[PASS] Surging Strike / blocked\n[PASS] Surging Strike / insufficient-resources\n[PASS] Surging Strike / unblocked\n[PASS] Winter's Grasp / blocked\n[PASS] Winter's Grasp / insufficient-resources\n[PASS] Winter's Grasp / unblocked\n[PASS] Winter's Grasp / blocked\n[PASS] Winter's Grasp / insufficient-resources\n[PASS] Winter's Grasp / unblocked\n[PASS] Winter's Grasp / blocked\n[PASS] Winter's Grasp / insufficient-resources\n[PASS] Winter's Grasp / unblocked\n[PASS] Wounding Blow / blocked\n[PASS] Wounding Blow / unblocked\n[PASS] Wounding Blow / blocked\n[PASS] Wounding Blow / unblocked\n[PASS] Wounding Blow / blocked\n[PASS] Wounding Blow / unblocked\n[SUMMARY] Total: 158 | Pass: 158 | Fail: 0\n",
+  "stderr": ""
+}

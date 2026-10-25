@@ -1,0 +1,213 @@
+{
+  "status": "B137_TWO_PAID_MECH_POWER_AND_RANGER_DRAW_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch137.json",
+  "input_sha256": "df048c0367b55619a1f9bf6d3383a47ee711270344e74ff6cca9e5d80ad1d3a3",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:35:36.269588+00:00",
+  "fixtures": [
+    {
+      "slug": "card-draw-back-the-hammer-red-four-live-sparse-actual-paid-mechanologist-grant-and-two-real-blue-pitches-produce-seven-attack-damage",
+      "fixture_sha256": "697d7c7b1c80033e4e79b6a8f50f0affc7cf0fc3f0c3ce7ef91b310b1143ae59",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b4c300ea6cbd3c10d57f2ceda381de3b844a4e9a8e8900ef623a6857bd0638c1",
+        "actions.json": "66614d0e7ea65f7f074dcede3207fe36c3a117526537b1d368db241ff7daf539",
+        "assertions.json": "e275828b6962b72613c4e07a06e1736a33301a0a80534a44128bf9830d81b028",
+        "expected_final_gamestate.txt": "dc71d0cf4d2cd3370fdc422db7b3573f29c05fb469330a3556781452767916d2",
+        "meta.json": "ac23dbc39b1f27a5c90da8eced5129794c70d7eb473ce3db66a20454649f87a3"
+      },
+      "semantically_approved": true,
+      "actions": 34,
+      "native_assertions": 1217,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-monkey-powder-red-four-live-sparse-actual-blue-pitch-full-three-cost-ranger-action-draws-one-owned-physical-card",
+      "fixture_sha256": "2b585bac2270b2772fe409148138e50669cfc9696e82005d38f4cac2c227af0b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a6732bc7f67f776fed573a82625ed0887016a5e786fea6489a732162c7968017",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "54196247322733107590147371453abdd2692b929dc61a18c5bdaf93ce22c8ab",
+        "expected_final_gamestate.txt": "9f1784c136500ddb4b43d2c6040a0777f261ce4eff2e7fee8b1ac7e9ade1fe35",
+        "meta.json": "b97c361073c086f59134d651ff4541cba0642b9a7d09a18d1d780eb000fe0d78"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 388,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 40,
+  "total_native_assertions": 1605,
+  "total_manual_passes": 33,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b137-actual-saved-independent-review.json",
+    "sha256": "2b7c13827f137d765f6f0744797df29b127408b1c6a680fa53519f3a609c6522"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b137-independent-spec-review.json",
+    "sha256": "f7d414784f7cc8a03528ce3f0314013f0387ee288d05e1ecd2259c85079308b7"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch137-20261022T193234Z-6ada64d2305d0.json",
+    "sha256": "dae44bae84acc3105db1df3471e0915d4b381066ef2b71da69e9dda2618d8709"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b137-four-live-run1.json",
+      "sha256": "e092ccce102b179826cf30929bb43c7c863209feb59e0e5e13bb0f8e33896bbc",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch137.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b137-four-live-run2.json",
+      "sha256": "0ab00359717b83aba9b4138b498a44bfd599b437a4aa55f0b697c5010ecd2434",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch137.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b137-fault-controls.json",
+    "sha256": "0814da955b1c2982b0a2192f875ff0d31c253dd69e8792768ba70bab374bf873",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "b86882f07a538dc8f925c3e4db3fd9258963b3ee488680c23845e8fa77cf850e",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b137_draw_back_the_hammer_red_focused_effect_sensitivity",
+      "fixture": "card-draw-back-the-hammer-red-four-live-sparse-actual-paid-mechanologist-grant-and-two-real-blue-pitches-produce-seven-attack-damage",
+      "prefix_actions": 13,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "mechanical_strength_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:4"
+          }
+        ]
+      },
+      "retained_assertions": 650,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b137_monkey_powder_red_focused_effect_sensitivity",
+      "fixture": "card-monkey-powder-red-four-live-sparse-actual-blue-pitch-full-three-cost-ranger-action-draws-one-owned-physical-card",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "wounding_blow_red",
+            "uid": 7,
+            "from": "Hand",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b137-focused-fault-plan.json",
+    "sha256": "b86882f07a538dc8f925c3e4db3fd9258963b3ee488680c23845e8fa77cf850e"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 2151,
+  "native_evidence_review_checks": 65,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Two standalone positive cases: DrawBack actualnextMechgrant+4/real7damage with twoBluepayments/zeroEvos/noGuns, and Monkeyactualcost3/onedraw. NoGununtap/positiveEvoUpgrade/futurearrowbuff/overpower/drawobserver/replacement/hero/support/fullcard/internalcallback credit.",
+    "Only current TWO-case new packet audited; root alone executes native games and writes repo. No Tiger raw-owner0 factory cases or legacy reviews.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "DrawBack control removes actual WTR_POWER4 from real MechanicalStrength6 at prefix13; intended computed7to3 detects nextMechgrant while preserving both actualBlue7/8 payments, physicalsource5/6/target/R2/AP0. Monkey control moves actual drawn UID7 from Hand toTemp at prefix6; intended Hand1to0 detects actualdrawoutcome. No Gununtap/positiveEvoUpgrade/futurearrowbuff/overpower/drawobserver/replacement/hero/support/fullcardcredit.",
+    "DrawBack prefix13 retains21remainingrealactions and alloriginalsuffixoracles; Monkey prefix6 retains everyoriginalfinaloracle asInitial withzerosuffixactions. Exact canonical raw5 and same runtime preserved; no further branch or broad-suite validation."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "675364efbd3f6f24b9a568f66479f55b7f6490e063f183a116826525fa909d39"
+}

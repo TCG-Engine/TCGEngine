@@ -55,9 +55,15 @@ $check(array_map(fn($r)=>FaBIdentityFromMZ($r)['object']->CardID,FaBChoiceRefs(4
 $arcReset();AddHand(4,CardID:'head_shot_red');
 $check(!CanPlayCard(4,'p4Hand-0'),'Arrow can be played from hand.');
 FaBARCLoadArsenal(4,'p4Hand-0',true,1);
-$a=GetArsenal(4)[0];$check(intval($a->FaceDown)===0&&count($a->TurnEffects)===2,'Arrow face-up entry bonuses were lost.');
+$a=GetArsenal(4)[0];
+$check(intval($a->FaceDown)===0&&$a->TurnEffects===['WTR_POWER:1'],'Head Shot received its triggered bonus before resolution.');
+$headTrigger=FaBStackTop();
+$check($headTrigger!==null&&$headTrigger->Kind==='ABILITY'&&$headTrigger->CardID==='head_shot_red'&&intval($headTrigger->Controller)===4&&intval($headTrigger->SourceUniqueID)===intval($a->UniqueID)&&!empty($headTrigger->Params['rosTrigger'])&&($headTrigger->Params['rosEvent']??'')==='arcHeadShot','Head Shot face-up entry did not create its real triggered layer.');
+if($headTrigger!==null)DoResolveCard(4,FaBFindUID(intval($headTrigger->UniqueID))['mzID']);
+$a=GetArsenal(4)[0];
+$check(intval($a->FaceDown)===0&&$a->TurnEffects===['WTR_POWER:1','WTR_POWER:2'],'Resolved Head Shot trigger did not add exactly its printed +2.');
 $copy=new Arsenal($a->Serialize(),'Arsenal',4,0);
-$check(intval($copy->FaceDown)===0&&count($copy->TurnEffects)===2,'Arsenal flags do not survive serialization.');
+$check(intval($copy->FaceDown)===0&&$copy->TurnEffects===['WTR_POWER:1','WTR_POWER:2'],'Arsenal flags or resolved Head Shot bonuses do not survive serialization.');
 
 $arcReset();AddHand(1,CardID:'zero_to_sixty_red');AddDeck(1,CardID:'zipper_hit_red');
 DoPlayCard(1,'p1Hand-0');$answer(1,'p2Hero-0');
@@ -69,12 +75,19 @@ $arcReset();AddHero(1,CardID:'viserai',Owner:1,Controller:1);FaBARCCreateRunes(1
 AddHand(1,CardID:'rune_flash_red');AddResources(1,1);
 $check(FaBCardCost(GetHand(1)[0],1)===1,'Runechant cost reduction incorrect.');
 DoPlayCard(1,'p1Hand-0');$answer(1,'p2Hero-0');
-$check(FaBARCRunechants(1)===0&&FaBStackCount()===3,'Runechants were not placed above the attack as separate triggers.');
+$check(FaBARCRunechants(1)===2&&FaBStackCount()===3,'Runechant physical sources must remain until their separate triggered layers resolve.');
 $answer(1,'p2Hero-0');$answer(1,'p4Hero-0');
-$runeTargets=[];foreach(GetStack() as $rune)if(is_object($rune)&&$rune->CardID==='runechant'&&empty($rune->removed))$runeTargets[]=intval(FaBARCCard(intval($rune->UniqueID),'target'));
-sort($runeTargets);$check($runeTargets===[2,4]&&!FaBHasPendingDecision(),'Runechant targets were not retained separately on announcement.');
+$runeTargets=[];foreach(GetStack() as $rune)if(is_object($rune)&&$rune->CardID==='runechant'&&empty($rune->removed)){
+    $runeTargets[]=intval(FaBARCCard(intval($rune->UniqueID),'target'));
+    $physical=FaBFindUID(intval($rune->SourceUniqueID));
+    $check($rune->Kind==='TRIGGER'&&($rune->Params['arcRunechant']??false)===true&&$physical!==null&&$physical['zone']==='Arena'&&$physical['object']->CardID==='runechant','Runechant layer lost its captured physical source.');
+}
+sort($runeTargets);$check($runeTargets===[2,4]&&!FaBHasPendingDecision()&&FaBARCRunechants(1)===2,'Runechant targets or physical sources were not retained separately on announcement.');
+$runeTop=FaBStackTop();$runeProxyUID=intval($runeTop->UniqueID);$runePhysicalUID=intval($runeTop->SourceUniqueID);
+DoResolveCard(1,FaBFindUID($runeProxyUID)['mzID']);
+$check(!FaBHasPendingDecision()&&intval(GetHealth(4))===19&&FaBARCRunechants(1)===1&&FaBFindUID($runePhysicalUID)===null&&FaBFindUID($runeProxyUID)===null&&FaBStackCount()===2&&count(FaBChoiceRefs(1,'Graveyard'))===0,'First Runechant must deal damage, consume only its own source, and clear its proxy without a Graveyard token.');
 DoResolveCard(1,FaBFindUID(intval(FaBStackTop()->UniqueID))['mzID']);
-$check(!FaBHasPendingDecision()&&intval(GetHealth(4))===19,'Runechant asked for its target again at resolution.');
+$check(!FaBHasPendingDecision()&&intval(GetHealth(2))===19&&FaBARCRunechants(1)===0&&FaBStackCount()===1&&FaBStackTop()->CardID==='rune_flash_red'&&count(FaBChoiceRefs(1,'Graveyard'))===0,'Second Runechant must independently deal damage and clear without consuming the attack or creating a Graveyard token.');
 
 $arcReset();$pistol=AddWeapons(1,CardID:'teklo_plasma_pistol',Owner:1,Controller:1);AddResources(1,3);
 $check(FaBWTRActivate(1,'p1Weapons-0'),'Pistol could not load.');DoResolveCard(1,FaBFindUID(intval(FaBStackTop()->UniqueID))['mzID']);

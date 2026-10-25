@@ -1,0 +1,7 @@
+{
+    "name": "Quicken / weapon-activation-trigger-timing",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:33:06+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Guardian Bravo activates Sledge of Anvilheim for four floating resources and one AP. Quicken triggers from activating a weapon attack: Stack2/Arena1, no early grant. Trigger destroys token and grants go again before weapon attack resolves. Sledge printed6 deals6, opponent14 and AP1 at resolution. This covers the weapon-activation trigger independently from an attack action card. Token boundary CR8.1.8a: destroyed Quicken is removed from the game, so it never remains in Graveyard; explicit graveyard counts verify this. Sources: FaBSim/GeneratedCode/cardArrayCache.json#quicken FaBSim/GeneratedCode/cardArrayCache.json#wounding_blow_red https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

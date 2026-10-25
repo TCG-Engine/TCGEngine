@@ -1,0 +1,243 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch193.json",
+  "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+  "returncode": 0,
+  "completed_utc": "2026-10-24T17:31:33.618749+00:00",
+  "fixtures": [
+    {
+      "slug": "card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+      "fixture_sha256": "a04ea2065f36a65c308cb6e687b4cff0984e6f4093d4d17d983fe0269aa5e339",
+      "passed": true,
+      "result": "[PASS] Gorganian Tome / four live players, three other graveyards, correct four-card draw"
+    },
+    {
+      "slug": "card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+      "fixture_sha256": "be9f55ba6446ec324ca64c1dcfb0bd6a26b396986508add9b26bbf4caf9ea349",
+      "passed": true,
+      "result": "[PASS] Nip at the Heels / four live sparse reaction"
+    },
+    {
+      "slug": "card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+      "fixture_sha256": "6e43fe4cc82dd463759416237d91034190e899040a46eebd623d61eeaf398a49",
+      "passed": true,
+      "result": "[PASS] Shred / four live sparse reaction"
+    },
+    {
+      "slug": "card-talisman-of-warfare-yellow-four-live-repair-trigger-priority-and-public-arsenals",
+      "fixture_sha256": "8a31a581222124d192cd5127927b019f50a5a8daaa588d47918edb85483eec4d",
+      "passed": true,
+      "result": "[PASS] Talisman of Warfare / four live trigger responses then public destroyed arsenals"
+    },
+    {
+      "slug": "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+      "fixture_sha256": "960b57bcf6fe8c565184df91ba8ff3c346ba616dae9c03553ab176d1ca2d9c0c",
+      "passed": true,
+      "result": "[PASS] Abyssal Bite / four live sparse positive effect"
+    },
+    {
+      "slug": "card-blasmophets-boon-blue-four-live-repair-controlled-blasmophet-base-six-real-damage",
+      "fixture_sha256": "9eed20f12e4dcb3e0838ae03f6d8e51dd83b85c8b7f00df76c50c4600b5379e7",
+      "passed": true,
+      "result": "[PASS] Blasmophet's Boon / four live controlled Blasmophet defines six power"
+    },
+    {
+      "slug": "card-flying-high-blue-four-live-bugfix-actual-blue-next-attack-receives-matching-color-plus-one-and-go-again",
+      "fixture_sha256": "cc36dc1748ceeb1720850223556db36be75f56541817e9f11e97e86b096abf7b",
+      "passed": true,
+      "result": "[PASS] Flying High Blue / four live color-condition repair proof"
+    },
+    {
+      "slug": "card-head-shot-red-four-live-sparse-actual-face-up-load-queues-four-live-trigger-then-real-arrow-power-six",
+      "fixture_sha256": "68b6f0665c9ebe3a1c7d27e05950e191547d0e2271fe292129f568c001ec0425",
+      "passed": true,
+      "result": "[PASS] Head Shot / four live sparse positive effect"
+    },
+    {
+      "slug": "card-icy-encounter-red-four-live-repair-hit-trigger-creates-creator-owned-opposing-frostbite",
+      "fixture_sha256": "bd37440df5da708e31790207979b3bd548c5cd688ac5c2b9b37d0d9ce4816b23",
+      "passed": true,
+      "result": "[PASS] Icy Encounter / four live hero-hit trigger creates opposing Frostbite owned by creator"
+    },
+    {
+      "slug": "fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+      "fixture_sha256": "0874d6fd8f2aff02c2898f5a8fd6169328e7d3cf4c978c3713f38d339cb2a08b",
+      "passed": true,
+      "result": "[PASS] FAB-REG-039 / Tome of Harvests / four live asset-before-effect costs"
+    },
+    {
+      "slug": "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+      "fixture_sha256": "dcc9687493360ea91c318f5f53a905886b2a477c559ce47c81cbbe31af25440a",
+      "passed": true,
+      "result": "[PASS] FAB-REG-039 / Rouse the Ancients / four live asset-before-reveal costs"
+    },
+    {
+      "slug": "card-chorus-of-rotwood-red-four-live-repair-empty-graveyard-source-stays-stack-three-runechants",
+      "fixture_sha256": "6a3fb0d965298c91b220a0a7b7bef7c7248a4bd2596769382e40464d25f088e9",
+      "passed": true,
+      "result": "[PASS] Chorus of Rotwood / empty Graveyard source stays Stack until three Runechants"
+    },
+    {
+      "slug": "card-battle-prep-red-four-live-repair-opt-two-source-stack-until-answer-before-go-again",
+      "fixture_sha256": "3b767151f41aee04c61b05a707820b2c593d62b0bbc93f4f6ff1cdd9a1e7a97d",
+      "passed": true,
+      "result": "[PASS] Battle Prep / Opt2 keeps physical source Stack and AP0 until actual ordered answer"
+    },
+    {
+      "slug": "repair-opal-amulet-blue-four-live-watery-trigger-then-pending-opt-two-physical-order",
+      "fixture_sha256": "c7eeedbb1f017b9700c6e3d8e08a454274a5969c0787a45309dcc3ff845855e0",
+      "passed": true,
+      "result": "[PASS] Opal Amulet / four live known lifecycle repair"
+    },
+    {
+      "slug": "repair-potion-of-deja-vu-blue-four-live-actual-own-pitch-staging-top-order-and-pending-layer",
+      "fixture_sha256": "e0349f5544e9abd76b26d6104b5c5afbe196c5200f458e05767b6acb54383bac",
+      "passed": true,
+      "result": "[PASS] Potion of Deja Vu / four live known Pitch and lifecycle repair"
+    },
+    {
+      "slug": "card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation",
+      "fixture_sha256": "ba388bc64005fe434b78c50df256089102a43a46b5bfd1b1e292b67eb20b94fc",
+      "passed": true,
+      "result": "[PASS] Runechant / delayed physical destruction and live source through barrier choice"
+    },
+    {
+      "slug": "card-regain-composure-blue-four-live-repair-granted-hit-trigger-delays-hero-untap",
+      "fixture_sha256": "4f16541d3e50c44b443927a8715730e91da3cf2d14781457665b821a3a9132ed",
+      "passed": true,
+      "result": "[PASS] Regain Composure / actual Old Knocker costs and four-live hit responses before untap"
+    },
+    {
+      "slug": "repair-bloodtorn-bodice-four-live-real-aura-declaration-action-asset-before-both-destructions",
+      "fixture_sha256": "fedb29cfe050b68f0d3f69f21651abf286d25c59f41634a28bcdc54fea968e00",
+      "passed": true,
+      "result": "[PASS] Bloodtorn Bodice / four live corrected action-before-effect costs"
+    },
+    {
+      "slug": "repair-laden-with-lightning-four-live-real-bond-next-attack-and-responseable-embodiment-trigger",
+      "fixture_sha256": "aa6dc6827ccb4f5228e23022a7f5336eb04dd6adc2a5f7073aa85f3bc48fc9ba",
+      "passed": true,
+      "result": "[PASS] Laden with Lightning / four live repaired Embodiment timing"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+      "returncode": 0,
+      "stdout": "[PASS] Gorganian Tome / four live players, three other graveyards, correct four-card draw\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+      "returncode": 0,
+      "stdout": "[PASS] Nip at the Heels / four live sparse reaction\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+      "returncode": 0,
+      "stdout": "[PASS] Shred / four live sparse reaction\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-talisman-of-warfare-yellow-four-live-repair-trigger-priority-and-public-arsenals",
+      "returncode": 0,
+      "stdout": "[PASS] Talisman of Warfare / four live trigger responses then public destroyed arsenals\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Abyssal Bite / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blasmophets-boon-blue-four-live-repair-controlled-blasmophet-base-six-real-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Blasmophet's Boon / four live controlled Blasmophet defines six power\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-flying-high-blue-four-live-bugfix-actual-blue-next-attack-receives-matching-color-plus-one-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Flying High Blue / four live color-condition repair proof\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-head-shot-red-four-live-sparse-actual-face-up-load-queues-four-live-trigger-then-real-arrow-power-six",
+      "returncode": 0,
+      "stdout": "[PASS] Head Shot / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-icy-encounter-red-four-live-repair-hit-trigger-creates-creator-owned-opposing-frostbite",
+      "returncode": 0,
+      "stdout": "[PASS] Icy Encounter / four live hero-hit trigger creates opposing Frostbite owned by creator\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+      "returncode": 0,
+      "stdout": "[PASS] FAB-REG-039 / Tome of Harvests / four live asset-before-effect costs\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+      "returncode": 0,
+      "stdout": "[PASS] FAB-REG-039 / Rouse the Ancients / four live asset-before-reveal costs\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-chorus-of-rotwood-red-four-live-repair-empty-graveyard-source-stays-stack-three-runechants",
+      "returncode": 0,
+      "stdout": "[PASS] Chorus of Rotwood / empty Graveyard source stays Stack until three Runechants\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-battle-prep-red-four-live-repair-opt-two-source-stack-until-answer-before-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Battle Prep / Opt2 keeps physical source Stack and AP0 until actual ordered answer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=repair-opal-amulet-blue-four-live-watery-trigger-then-pending-opt-two-physical-order",
+      "returncode": 0,
+      "stdout": "[PASS] Opal Amulet / four live known lifecycle repair\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=repair-potion-of-deja-vu-blue-four-live-actual-own-pitch-staging-top-order-and-pending-layer",
+      "returncode": 0,
+      "stdout": "[PASS] Potion of Deja Vu / four live known Pitch and lifecycle repair\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation",
+      "returncode": 0,
+      "stdout": "[PASS] Runechant / delayed physical destruction and live source through barrier choice\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-regain-composure-blue-four-live-repair-granted-hit-trigger-delays-hero-untap",
+      "returncode": 0,
+      "stdout": "[PASS] Regain Composure / actual Old Knocker costs and four-live hit responses before untap\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=repair-bloodtorn-bodice-four-live-real-aura-declaration-action-asset-before-both-destructions",
+      "returncode": 0,
+      "stdout": "[PASS] Bloodtorn Bodice / four live corrected action-before-effect costs\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=repair-laden-with-lightning-four-live-real-bond-next-attack-and-responseable-embodiment-trigger",
+      "returncode": 0,
+      "stdout": "[PASS] Laden with Lightning / four live repaired Embodiment timing\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 19,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

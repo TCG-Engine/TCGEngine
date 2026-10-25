@@ -1,0 +1,7 @@
+{
+    "name": "Potion of Strength / nonturn-activation-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:11+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Give player2 priority during player1 ACTION window, with player2 AP0. The Potion ability is an Action, so the non-turn player cannot activate it. Clicking must preserve the Item, leave no stack ability, and preserve both action-point totals. Sources: FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue https://judge.fabtcg.com/cards/detail/284/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

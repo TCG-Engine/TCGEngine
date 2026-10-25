@@ -1,0 +1,51 @@
+# Self-play fixture — "Ahsoka Yellow w Neel" (Ahsoka Tano, Trust in the Force - Otoh Gunga)
+# Source: the HMW-meta list of Force Fam member Ninin (NininTCG), given by the owner 2026-10-01 as JSON; replaced by the owner's
+#   "Ahsoka Yellow w Neel" JSON 2026-10-13. 51 main-deck cards, 7 sideboard.
+#   2026-10-13 vs the 2026-10-01 list: +3 Neel ASH_248, +3 BD-1 LOF_191 (was 1 in the sideboard), +3 Luke Skywalker HMW_208,
+#   +3 Captain Tarpals HMW_254; -3 Obi-Wan Kenobi LOF_096, -3 Mando's N-1 Starfighter ASH_203, -3 Republic Y-Wing JTL_212,
+#   -1 Punch It JTL_231, Han Solo JTL_203 3 -> 2 (the third moved to the sideboard). Sideboard: +1 Han Solo JTL_203, +2 Galen Erso
+#   LAW_233 (now 3); -1 BD-1, -1 The Darksaber ASH_135.
+#   Base trait: Otoh Gunga is Naboo, but no card in the deck cares, so the trait is not part of its name.
+#   Owner, 2026-10-01: "Ninin's Ahsoka Yellow is actually a hyperaggro deck and not softaggro" — it races the base
+#   (38 of 39 attacks in 5 human games) and stops resourcing at 6 to keep cards for Aggressive Negotiations.
+# Author: Ninin
+# Variant: With Neel
+#   (owner 2026-10-14: shown "Ahsoka Tano (ASH) Yellow With Neel By Ninin" beside her space build, ahsoka-tano_ash_yellow_v-space.txt;
+#   file was ahsoka-tano_ash_yellow.txt until then)
+# Archetype (owner's label, 2026-10-01): Hyper aggro
+# Style: hyperaggro
+# Flavours: mixed-space
+
+Leader
+1 ASH_009
+
+Base
+1 HMW_033
+
+Deck
+2 ASH_109
+2 ASH_110
+3 ASH_201
+3 ASH_248
+3 HMW_208
+3 HMW_213
+3 HMW_254
+3 HMW_256
+2 JTL_103
+2 JTL_203
+3 JTL_095
+3 LOF_191
+3 SEC_101
+3 SEC_111
+1 SEC_179
+3 SEC_213
+3 SEC_215
+3 SEC_098
+3 SEC_099
+
+Sideboard
+1 JTL_103
+1 JTL_203
+1 LAW_223
+3 LAW_233
+1 SEC_179

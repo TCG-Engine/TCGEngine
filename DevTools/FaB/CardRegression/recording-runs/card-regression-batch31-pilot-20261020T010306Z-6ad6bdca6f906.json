@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-20T01:03:06+00:00",
+    "input_file": "card-regression-batch31-pilot.json",
+    "input_sha256": "dba6218595f2c070ef23712e20c597c0ad3ff7c20dac940c963bc9a56f494ad1",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-savage-swing-red-mandatory-discard-hand-blue-pitch-singleton",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 125
+        },
+        {
+            "slug": "card-wrecker-romp-blue-mandatory-discard-two-red-pitches-before-singleton-discard",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 146
+        },
+        {
+            "slug": "card-wrecker-romp-red-mandatory-discard-fully-blocked-still-pays-discard",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 130
+        }
+    ]
+}

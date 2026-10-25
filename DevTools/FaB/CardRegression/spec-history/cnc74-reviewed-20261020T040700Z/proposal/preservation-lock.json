@@ -1,0 +1,71 @@
+{
+  "prior_native_recipes": {
+    "card-regression-batch59.json": "0821527f4056adfb5475090a87e261554c712d88f5aa39aebb967f8b99ca5e71",
+    "card-regression-batch64.json": "7c03bf0b7f04ba1064a035bec1045ce78f41d0b2fe23a5b7454096fe6deb9925",
+    "card-regression-batch58.json": "80e569f1472ce4cea545e027713af651a0c8203569fb1bb0bbe96bca2ac1eb99"
+  },
+  "existing_six_reviewed_source_fixtures": {
+    "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present": {
+      "file_sha256": {
+        "initial_gamestate.txt": "5fb449c3126d84949347052689f5c43486e60b491879701463158d446945ad94",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "24e76b848deb92d9931d0370790ec5af6adbbabfdcafe4d214c41b443d494d93",
+        "expected_final_gamestate.txt": "bdb9dfecadb5bab6ad4fa58d711e382204aebde0d187e39e992bc711b33377af",
+        "meta.json": "1257eab23687176445922d0bd4e2957394f8b05a6aaa12e04161f7ce84ea6657"
+      },
+      "fixture_sha256": "bed06a4057ac2db1b7c3a10ebe62f5002d753fe6d85213e6f3fa7ea8dc4fa7a2"
+    },
+    "probe-command-and-conquer-red-mandatory-hit-trigger-empty-arsenal-still-triggers": {
+      "file_sha256": {
+        "initial_gamestate.txt": "ef3e3a9df861ef4a9a64761a7ab8dabe900f923fd50f4dede3e77f24aa93f85e",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "a10fde56ddd877138c31592c216ad8dbfcb44bc8c69c22a5e444ccb7a3d9c0a2",
+        "expected_final_gamestate.txt": "6bb3492dbaec29bc70fd21e3bab391477c66ef87cbcabd4c94de1da6f16727b1",
+        "meta.json": "42f6773df84afccfe01583c39811133d693d4f69a4357102d57e6c92765fa8f9"
+      },
+      "fixture_sha256": "68b446a9a4b8b72e3e444364fbe4ddfe081bdf9ba5821598441e950e6a7351fe"
+    },
+    "card-command-and-conquer-red-hit-trigger-sigil-hand-response": {
+      "file_sha256": {
+        "initial_gamestate.txt": "1129cf7655f720d712d25e3e495e8f7f6e54aa2b8487cccbb8e9adb44a826f52",
+        "actions.json": "092e7422b03aaa42976ef80417893fa172878213c664ae5b8cf280e3e3f19071",
+        "assertions.json": "64ce9a35ce856bb6f78d330eda183cb1b625e2c5b10e9bdca8a1ae8d9915faaf",
+        "expected_final_gamestate.txt": "1080660a82dbac3ac8d5d9b260edbcc90fd1c22c8ead376a32b720d82af15edf",
+        "meta.json": "5013cf2e737a56ddcb89dc16adc31fdbd3c620d9940ade3e6ba991de8b4130ae"
+      },
+      "fixture_sha256": "1c24592726ae072b72eaa2d60cb4f44525c69d4990790969065fd9e86143deda"
+    },
+    "card-command-and-conquer-red-hit-trigger-sigil-arsenal-response": {
+      "file_sha256": {
+        "initial_gamestate.txt": "cba219ff28d7db660ef5795d7480d1a1ba86a1928e679500375a6c3a20957003",
+        "actions.json": "6b95d29af7222629c91710a2f554a24c44f4b93e1c14083ac3fa9539ae863756",
+        "assertions.json": "109081cee21be3eccd891f3c7be64aafa3df86bc1f371695ba5e0a1205d24bb9",
+        "expected_final_gamestate.txt": "7e59a831f5233a24d4fa8054a2e715ffba0287769f13383f13e85a0d93592ed6",
+        "meta.json": "13f9a2ab344f40ab68d70fa9a2b878fbe9d13a6925d9e476adc189f39dcbff37"
+      },
+      "fixture_sha256": "6b3d669a1c882bc92dd078ceb31452e59c7db8766c5409d929a89c6a9847ceaf"
+    },
+    "card-command-and-conquer-red-fully-blocked-no-hit-keeps-arsenal": {
+      "file_sha256": {
+        "initial_gamestate.txt": "d1092a25a55dec86ffdfbd26932a7b6b06a95689c7b967f8001d87cccfeb24f3",
+        "actions.json": "ee1554813ae56fd5c4c952b7aaffeb1e1c944bd939f62ac3555a1102072258ca",
+        "assertions.json": "b57a7de184a65dc8d65b197a0a824f3c6ccb85cfb5ccc9f23579263d349f8c07",
+        "expected_final_gamestate.txt": "33b8858371cb194b44de9aacc448d242ccf46ff24f18ea1849c2a8af28f57f83",
+        "meta.json": "be2d118e86bc85dbb2d3ae4245fb53997c244576dc9967333343dbdbe3b6d3cf"
+      },
+      "fixture_sha256": "9487865f8cc83761af02e0d4470d02b06126b9be956fb16e3a4f3c4ba607b3a2"
+    },
+    "compat-reaction-priority028-cnc-prohibition-physical-source-owner": {
+      "file_sha256": {
+        "initial_gamestate.txt": "aa0d48b1e4cc4992bc852f4ab05aaba456424a7a0d1d8408eb5c366412c35840",
+        "actions.json": "ed9673fbd25911fff78f59859fef3799d6f6ac48fc129b80720baa23bb232302",
+        "assertions.json": "1461afc292a3d305d2ba87659e92e7c6a47bcf6b9d70f23c699eff656fe47c75",
+        "expected_final_gamestate.txt": "b36d73d716e9468f485ea0ef7692227fae59e1437e083a85ce7173c34ad76b88",
+        "meta.json": "50cb5d20596c7ec6e5e0fd6cea9b7fda78cd7e467d68a7d8181f6f88840953a6"
+      },
+      "fixture_sha256": "89cc35cbfc354ba31db4bcfa7c09558c1072763ef239ae71d58a833baabb3092"
+    }
+  },
+  "native_writes": 0,
+  "game_actions": 0
+}

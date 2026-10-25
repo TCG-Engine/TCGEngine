@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.'/LopunnyBot.php';
+require_once __DIR__.'/FanRotomBot.php';
 require_once __DIR__.'/MeowthBot.php';
 require_once __DIR__.'/PrizeLogic.php';
 require_once __DIR__.'/RelicanthBot.php';
@@ -281,6 +282,7 @@ function PokeBotChoose(array $view): ?array {
     if (in_array($view['players'][$view['viewer']]['deckKey']??'', ['relicanth-v4-colress','relicanth-v5-bastiodon','relicanth-v6-explorers-guidance','relicanth-v7-lanas-aid'], true)) return PokeRelicanthColressChoose($view);
     if (($view['players'][$view['viewer']]['deckKey']??'')==='relicanth-v2-draw') return PokeRelicanthDrawChoose($view);
     if (($view['players'][$view['viewer']]['deckKey']??'')==='relicanth-fossils') return PokeRelicanthChoose($view);
+    if (($view['players'][$view['viewer']]['deckKey']??'')==='fan-rotom-lopunny') return PokeFanChoose($view);
     if (($view['players'][$view['viewer']]['deckKey']??'')==='brisbane-lopunny') return PokeLopunnyChoose($view);
     $ctx=PokeBotContext($view);$d=$view['decision'];
     if($d)return ['type'=>'decision','player'=>$ctx['seat'],'value'=>PokeBotDecision($ctx,$d)];

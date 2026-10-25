@@ -129,6 +129,41 @@ function _WaitingRoomStyles(): string {
                        resize: vertical; font-family: inherit; white-space: pre; overflow-x: auto; }
 .wr-deckbar .btn { flex: 0 0 auto; display: inline-flex; align-items: center; }
 
+/* House Rules (Twin Suns — only rooms whose sim sends `houseRules` show it). A native <details>, so it collapses with
+   no script; ⚠ the marker is hidden with BOTH list-style and ::-webkit-details-marker — Safari ignores the first.
+   Scoped under #wr-root because the site theme gives bare text/number inputs a 10px/20px margin. */
+#wr-root .wr-hr { margin-bottom: 16px; border: 1px solid #ffffff1f; border-radius: 8px; padding: 0 12px; }
+#wr-root .wr-hr > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px;
+                            min-height: 44px; font-weight: 600; }
+#wr-root .wr-hr > summary::-webkit-details-marker { display: none; }
+#wr-root .wr-hr > summary::before { content: ""; width: 7px; height: 7px; flex: none; margin: 0 2px;
+                                    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+                                    transform: rotate(-45deg); transition: transform .15s ease; }
+#wr-root .wr-hr[open] > summary::before { transform: rotate(45deg); }
+#wr-root .wr-hr-count { font-size: 12px; font-weight: 600; color: #3ddc84; }
+#wr-root .wr-hr-note { font-size: 12px; color: #aab6c4; margin: 0 0 8px; }
+#wr-root .wr-hr-rows { display: grid; gap: 6px; padding-bottom: 12px; }
+#wr-root .wr-hr-row { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 4px 10px;
+                      border-radius: 6px; background: #ffffff08; }
+#wr-root .wr-hr-row.is-locked { opacity: .5; }
+#wr-root .wr-hr-main { display: flex; align-items: center; gap: 10px; flex: 1 1 auto; min-width: 0; margin: 0;
+                       cursor: pointer; }
+#wr-root .wr-hr-row.is-locked .wr-hr-main, #wr-root .wr-hr-main.is-readonly { cursor: default; }
+#wr-root .wr-hr-main input[type=checkbox] { width: 20px; height: 20px; margin: 0; flex: none; }
+#wr-root .wr-hr-text { display: flex; flex-direction: column; min-width: 0; }
+#wr-root .wr-hr-label { font-size: 14px; font-weight: 600; }
+#wr-root .wr-hr-desc { font-size: 12px; color: #9fadbd; }
+#wr-root .wr-hr-value { width: 64px; height: 32px; flex: none; box-sizing: border-box; margin: 0; padding: 4px 6px;
+                        font-size: 14px; text-align: center; }
+#wr-root .wr-hr-tally { flex: none; min-width: 30px; text-align: right; font-size: 12px; color: #9fadbd;
+                        font-variant-numeric: tabular-nums; }
+/* The light. Dark until the rule is on; then green with a slow glow. */
+#wr-root .wr-hr-dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: #ffffff24; }
+#wr-root .wr-hr-row.is-active .wr-hr-dot { background: #3ddc84; box-shadow: 0 0 6px 2px rgba(61,220,132,.6);
+                                           animation: wr-hr-glow 2.4s ease-in-out infinite; }
+@keyframes wr-hr-glow { 50% { box-shadow: 0 0 11px 4px rgba(61,220,132,.85); } }
+@media (prefers-reduced-motion: reduce) { #wr-root .wr-hr-row.is-active .wr-hr-dot { animation: none; } }
+
 /* Leave sits away from the two buttons that COMMIT something, so the destructive action is never
    next to Start. Ready is yours (bottom left); Start is the host's (bottom right). */
 .wr-head { display: flex; align-items: center; justify-content: space-between; gap: 12px;
@@ -230,6 +265,8 @@ function _WaitingRoomStyles(): string {
 .wr-botdlg-pcrow:hover { --plane: #1e2a38; --rim: rgba(190, 210, 236, .42); }
 .wr-botdlg-pcin:checked + .wr-botdlg-pcrow { --plane: #222a2c; --rim: rgba(226, 184, 92, .8); }
 .wr-botdlg-pcin:focus-visible + .wr-botdlg-pcrow { --rim: #f0c96a; outline: none; }
+/* Team Suns: a pre-con repeating a leader already on that team (disabled radio). */
+.wr-botdlg-pc-off .wr-botdlg-pcrow, .wr-botdlg-pc-off .wr-botdlg-pcrow:hover { opacity: .45; cursor: not-allowed; --plane: #18222e; --rim: rgba(160, 182, 210, .22); }
 .wr-botdlg-pccards { display: flex; align-items: center; gap: 3px; }
 .wr-botdlg-pccards .wr-cardwrap { padding: 1px; border-radius: 3px; }
 .wr-botdlg-pccards .wr-card { width: 44px; border-radius: 2px; }
@@ -277,6 +314,11 @@ function _WaitingRoomMarkup(array $cfg): string {
       <div id="wr-state" style="margin-bottom:12px;"></div>
       <div id="wr-invite" style="margin-bottom:16px;"></div>
       <div id="wr-roster" style="margin-bottom:16px;"></div>
+      <details id="wr-hr" class="wr-hr" style="display:none;">
+        <summary class="wr-hr-sum"><span class="wr-hr-title">House Rules</span><span id="wr-hr-count" class="wr-hr-count"></span></summary>
+        <div id="wr-hr-note" class="wr-hr-note"></div>
+        <div id="wr-hr-rows" class="wr-hr-rows"></div>
+      </details>
       <div class="wr-actions">
         <div class="wr-actions-main">
       <div id="wr-removed" style="display:none;margin:8px 0;padding:8px 10px;border-radius:6px;
@@ -489,6 +531,8 @@ function _WaitingRoomScript(array $cfg): string {
           var full = occupied >= slots.length;
           var mine = (myTeam === team);
           var label;
+          // The host may fill it with a bot ON THIS TEAM (owner 2026-10-12); the server seats it in the team's lowest free slot.
+          var fill = (!full && iAmHost && d.state === 'open' && botsTakeDecks()) ? '<div style="margin-top:6px;">' + fillButton('', team) + '</div>' : '';
           if (full || mine) {
             label = '<div style="font-size:13px;">Open</div>';
           } else if (!myDeckOk) {
@@ -500,7 +544,7 @@ function _WaitingRoomScript(array $cfg): string {
                     team.charAt(0).toUpperCase() + team.slice(1) + '</button>';
           }
           return '<div class="wr-seat wr-seat-empty" data-seat="' + sn + '" style="border-color:' + accent + '55;">' +
-                 emptySeat(sn, label) + '</div>';
+                 emptySeat(sn, label + fill) + '</div>';
         }).join('');
         return '<div class="wr-teamcol"><div class="wr-teamhdr" style="color:' + accent + ';">' +
                team.charAt(0).toUpperCase() + team.slice(1) + ' (' + occupied + '/' + slots.length + ')</div>' + cells + '</div>';
@@ -520,6 +564,7 @@ function _WaitingRoomScript(array $cfg): string {
       Array.prototype.forEach.call(host.querySelectorAll('.wr-join-team'), function (btn) {
         btn.onclick = function () { doSetTeam(btn.getAttribute('data-team')); };
       });
+      bindFills(host);
       bindKicks(host);
       return;
     }
@@ -543,9 +588,7 @@ function _WaitingRoomScript(array $cfg): string {
     }
     host.innerHTML = '<div class="wr-grid">' + rows.join('') + '</div>';
     bindKicks(host);
-    Array.prototype.forEach.call(host.querySelectorAll('.wr-fill-bot'), function (button) {
-      button.onclick = function () { if (botWaitSecs() <= 0) openFillBotDialog(button.getAttribute('data-bot-seat')); };
-    });
+    bindFills(host);
     Array.prototype.forEach.call(host.querySelectorAll('.wr-add-bot'), function (button) {
       button.onclick = function () {
         var profile = button.parentNode.querySelector('select').value;
@@ -582,14 +625,23 @@ function _WaitingRoomScript(array $cfg): string {
   }
   setInterval(tickFill, 1000);
 
+  // seat: the flat grid's seat number; team: a Team Suns column's 'red'|'blue' (the seat is the server's pick).
+  function fillButton(seat, team) {
+    var wait = botWaitSecs();
+    return '<button type="button" class="btn wr-fill-bot" data-bot-seat="' + esc(seat) + '"' + (team ? ' data-bot-team="' + esc(team) + '"' : '') +
+           (wait > 0 ? ' disabled title="' + FILL_WAIT_TITLE + '"' : '') + '>' + fillLabel(wait) + '</button>';
+  }
+  function bindFills(host) {
+    Array.prototype.forEach.call(host.querySelectorAll('.wr-fill-bot'), function (button) {
+      button.onclick = function () {
+        if (botWaitSecs() <= 0) openFillBotDialog(button.getAttribute('data-bot-seat'), button.getAttribute('data-bot-team') || '');
+      };
+    });
+  }
   function botPicker(d, seat) {
     var profiles = Object.keys(botProfiles);
     if (!iAmHost || d.state !== 'open' || !profiles.length) return 'Waiting…';
-    if (botsTakeDecks()) {
-      var wait = botWaitSecs();
-      return '<button type="button" class="btn wr-fill-bot" data-bot-seat="' + seat + '"' +
-             (wait > 0 ? ' disabled title="' + FILL_WAIT_TITLE + '"' : '') + '>' + fillLabel(wait) + '</button>';
-    }
+    if (botsTakeDecks()) return fillButton(seat, '');
     return '<label>Bot <select aria-label="Bot type">' + profiles.map(function (id) {
       return '<option value="' + esc(id) + '">' + esc(botProfiles[id].name) + '</option>';
     }).join('') + '</select></label> <button type="button" class="btn wr-add-bot" data-bot-seat="' + seat + '">Add bot</button>';
@@ -612,8 +664,11 @@ function _WaitingRoomScript(array $cfg): string {
     if (p.count) meta += ' · <b>' + Number(p.count) + ' cards</b> · singleton';
     return meta;
   }
-  function openFillBotDialog(seat) {
+  function openFillBotDialog(seat, team) {
     if (document.querySelector('.wr-botdlg-overlay')) return;
+    var teamName = team ? team.charAt(0).toUpperCase() + team.slice(1) : '';
+    // Team Suns: a pre-con repeating a leader already on this team cannot be added (team-wide unique leaders).
+    var clashes = function (id) { return !!team && ((botProfiles[id] || {}).clashTeams || []).indexOf(team) >= 0; };
     var ids = Object.keys(botProfiles);
     var pasteId = ids.filter(function (id) { return (botProfiles[id] || {}).deck === 'paste'; })[0] || '';
     var preIds = ids.filter(function (id) { return (botProfiles[id] || {}).deck === 'precon'; });
@@ -650,19 +705,20 @@ function _WaitingRoomScript(array $cfg): string {
         ', each a complete Twin Suns deck.</div>' +
         '<div class="wr-botdlg-well"><ul class="wr-botdlg-pcs" role="radiogroup" aria-labelledby="wr-botdlg-pclbl">' +
         preIds.map(function (id, i) {
-          var p = botProfiles[id] || {}, rid = 'wr-botdlg-pc-' + i;
-          return '<li class="wr-botdlg-pc"><input class="wr-botdlg-pcin" type="radio" name="wr-botdlg-pick" id="' + rid + '"' +
-            ' value="' + esc(id) + '"' + (i === 0 ? ' checked' : '') + '>' +
+          var p = botProfiles[id] || {}, rid = 'wr-botdlg-pc-' + i, clash = clashes(id);
+          var first = preIds.filter(function (x) { return !clashes(x); })[0];
+          return '<li class="wr-botdlg-pc' + (clash ? ' wr-botdlg-pc-off' : '') + '"><input class="wr-botdlg-pcin" type="radio" name="wr-botdlg-pick" id="' + rid + '"' +
+            ' value="' + esc(id) + '"' + (id === first ? ' checked' : '') + (clash ? ' disabled' : '') + '>' +
             '<label class="wr-botdlg-pcrow" for="' + rid + '">' +
             '<span class="wr-botdlg-pccards">' + (p.cards || []).map(thumb).join('') + '</span>' +
             '<span class="wr-botdlg-pctext"><span class="wr-botdlg-pcname">' + esc(p.deckName || p.name) + BOTDLG_MARK + '</span>' +
-            '<span class="wr-botdlg-pcmeta">' + preconMeta(p) + '</span></span></label></li>';
+            '<span class="wr-botdlg-pcmeta">' + (clash ? 'Team ' + esc(teamName) + ' already has this leader' : preconMeta(p)) + '</span></span></label></li>';
         }).join('') + '</ul></div></div>';
     }
     var o = document.createElement('div');
     o.className = 'wr-botdlg-overlay';
     o.innerHTML = '<div class="wr-botdlg" role="dialog" aria-modal="true" aria-labelledby="wr-botdlg-title">' +
-      '<div class="wr-botdlg-head" id="wr-botdlg-title">Fill Seat ' + esc(seat) + ' with Bot</div>' +
+      '<div class="wr-botdlg-head" id="wr-botdlg-title">' + (team ? 'Add a Bot to Team ' + esc(teamName) : 'Fill Seat ' + esc(seat) + ' with Bot') + '</div>' +
       '<div class="wr-botdlg-body">' + secs + '</div>' +
       '<div class="wr-botdlg-err" role="alert"></div>' +
       '<div class="wr-botdlg-actions"><button type="button" class="btn wr-botdlg-cancel">Cancel</button>' +
@@ -713,12 +769,12 @@ function _WaitingRoomScript(array $cfg): string {
       add.disabled = true; err.textContent = 'Checking the deck…';
       post('APIs/Lobbies/AddBot.php', 'lobbyID=' + encodeURIComponent(lobbyID) +
         '&authKey=' + encodeURIComponent(loadKey(lobbyID)) + '&botProfile=' + encodeURIComponent(profile) +
-        '&botDeck=' + encodeURIComponent(deck) + '&seat=' + encodeURIComponent(seat), function (r) {
+        '&botDeck=' + encodeURIComponent(deck) + (team ? '&team=' + encodeURIComponent(team) : '&seat=' + encodeURIComponent(seat)), function (r) {
           add.disabled = false;
           if (!r || !r.success) { err.textContent = (r && r.message) || 'Could not add the bot.'; return; }
           close();
           lastSig = '';   // the roster just changed
-          if (typeof Toast === 'function') Toast('Bot added to seat ' + seat + '.', { type: 'success' });
+          if (typeof Toast === 'function') Toast(team ? 'Bot added to Team ' + teamName + '.' : 'Bot added to seat ' + seat + '.', { type: 'success' });
         });
     };
     document.addEventListener('keydown', onKey, true);
@@ -936,6 +992,7 @@ function _WaitingRoomScript(array $cfg): string {
     }
     renderInvite(d);
     renderRoster(d);
+    renderHouseRules(d);
     renderControls(d, seated);
   }
 
@@ -1090,6 +1147,109 @@ function _WaitingRoomScript(array $cfg): string {
 
   // Ready is sent as an explicit value rather than a bare toggle, so a double-click cannot leave the
   // button and the seat disagreeing.
+  // ── House Rules ─────────────────────────────────────────────────────────────────────────────────
+  // Drawn from the poll's `houseRules` (Classes/HouseRules.php LobbyHouseRulesView); absent = no panel. The server
+  // does the unreadying and the green lights, so the page only draws what it is told and posts clicks.
+  var HR_OPEN_KEY = 'tcg:wrHouseRulesOpen';
+  // hrEpoch counts house-rule writes that have COMPLETED; hrPending those still in flight. A poll records the epoch it
+  // was sent at — if a write completed (or is still pending) since, its answer predates that write and is stale.
+  var hrEpoch = 0, hrPending = 0, hrLatest = null, hrDeferred = false;
+  function renderHouseRules(d) {
+    var box = el('wr-hr');
+    if (!box) return;
+    var hr = d.houseRules;
+    if (!hr || !hr.rows || !hr.rows.length) { box.style.display = 'none'; return; }
+    box.style.display = '';
+    // Never redraw under the host's cursor: a poll landing mid-edit would wipe the number being typed. Keep the
+    // latest payload and draw it when the box loses focus — NOT by clearing lastSig, which rebuilt the whole room
+    // (roster art and all) on every poll for as long as the cursor sat there.
+    // A poll sent before your own click landed describes the room as it was: drawing it would flip your checkbox back.
+    // Skip it, and clear lastSig so the next (fresh) poll redraws even if it happens to look identical.
+    if (d._hrStale) { lastSig = ''; return; }
+    hrLatest = d;
+    var ae = document.activeElement;
+    if (ae && box.contains(ae) && ae.classList && ae.classList.contains('wr-hr-value')) { hrDeferred = true; return; }
+    hrDeferred = false;
+    var lit = hr.rows.filter(function (r) { return r.active; }).length;
+    el('wr-hr-count').textContent = lit ? (lit + ' active') : '';
+    el('wr-hr-note').textContent = hr.private
+      ? (hr.isHost ? 'You choose the house rules for this room.' : 'The host chooses the house rules for this room.')
+      : ('A rule is on when ' + hr.needed + ' player' + (hr.needed === 1 ? '' : 's') + ' check it. ' +
+         'Checking a rule sets you to not ready.' + (hr.isHost ? ' Changing a number sets everyone else to not ready.' : ''));
+    var html = '';
+    hr.rows.forEach(function (r) {
+      var cls = 'wr-hr-row' + (r.active ? ' is-active' : '') + (r.locked ? ' is-locked' : '');
+      var title = r.locked ? 'Cannot be combined with the active 4th-action rule' : '';
+      html += '<div class="' + cls + '" data-rule="' + esc(r.id) + '"' + (title ? ' title="' + esc(title) + '"' : '') + '>' +
+        '<label class="wr-hr-main' + (r.canVote ? '' : ' is-readonly') + '">' +
+          '<input type="checkbox" class="wr-hr-check"' + ((hr.private ? r.active : r.mine) ? ' checked' : '') +
+            (r.canVote ? '' : ' disabled') + ' aria-label="' + esc(r.label) + '">' +
+          '<span class="wr-hr-text"><span class="wr-hr-label">' + esc(r.label) + '</span>' +
+          '<span class="wr-hr-desc">' + esc(r.desc) + '</span></span>' +
+        '</label>';
+      if (r.value) {
+        html += '<input type="number" class="wr-hr-value" inputmode="numeric" min="' + r.value.min + '" max="' + r.value.max +
+          '" step="' + r.value.step + '" value="' + r.value.cur + '"' + (r.canEditValue ? '' : ' disabled') +
+          ' aria-label="' + esc(r.label) + ' value"' + (r.canEditValue ? '' : ' title="Only the host can change this"') + '>';
+      }
+      if (!hr.private) html += '<span class="wr-hr-tally" title="Votes / needed">' + r.votes + '/' + hr.needed + '</span>';
+      html += '<span class="wr-hr-dot" role="img" aria-label="' + (r.active ? 'Active' : 'Off') + '"></span></div>';
+    });
+    var rows = el('wr-hr-rows');
+    rows.innerHTML = html;
+    Array.prototype.forEach.call(rows.querySelectorAll('.wr-hr-row'), function (rowEl) {
+      var id = rowEl.getAttribute('data-rule');
+      var cb = rowEl.querySelector('.wr-hr-check');
+      if (cb) cb.onchange = function () { doHouseRuleVote(id, cb.checked); };
+      var num = rowEl.querySelector('.wr-hr-value');
+      if (num) {
+        num.onchange = function () {
+          // A cleared (or non-numeric) box is not a value: put the current one back instead of sending 0, which
+          // snapped to the minimum and unreadied everyone.
+          if (isNaN(parseInt(num.value, 10))) { num.value = hrCurrentValue(id, num); return; }
+          doHouseRuleValue(id, num.value);
+        };
+        num.onblur = function () {
+          // WebKit fires no `change` for a number box that was cleared, so put the value back here as well.
+          if (isNaN(parseInt(num.value, 10))) num.value = hrCurrentValue(id, num);
+          setTimeout(function () { if (hrDeferred && hrLatest) renderHouseRules(hrLatest); }, 0);
+        };
+      }
+    });
+  }
+  // The rule's value as the server last said it — hrLatest is kept current even while a redraw is deferred under the
+  // cursor, so it is newer than the box's own default (the value it was last DRAWN with).
+  function hrCurrentValue(id, num) {
+    var rows = (hrLatest && hrLatest.houseRules && hrLatest.houseRules.rows) || [];
+    for (var i = 0; i < rows.length; i++) if (rows[i].id === id && rows[i].value) return String(rows[i].value.cur);
+    return num.defaultValue;
+  }
+  function hrWriteDone() { hrPending = Math.max(0, hrPending - 1); hrEpoch++; }
+  function doHouseRuleVote(id, on) {
+    hrPending++;
+    post('APIs/Lobbies/UpdateHouseRules.php',
+      'lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(loadKey(lobbyID)) +
+      '&op=vote&rule=' + encodeURIComponent(id) + '&on=' + (on ? '1' : '0'),
+      function (r) {
+        hrWriteDone();
+        if (!r.success) el('wr-hint').textContent = r.message || 'Could not record your vote.';
+        lastSig = '';   // redraw from the server's answer, not the optimistic click
+      });
+  }
+  function doHouseRuleValue(id, value) {
+    var n = el('wr-hr-rows').querySelector('[data-rule="' + id + '"] .wr-hr-value');
+    if (n) n.blur();
+    hrPending++;
+    post('APIs/Lobbies/UpdateHouseRules.php',
+      'lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(loadKey(lobbyID)) +
+      '&op=value&rule=' + encodeURIComponent(id) + '&value=' + encodeURIComponent(String(parseInt(value, 10) || 0)),
+      function (r) {
+        hrWriteDone();
+        if (!r.success) el('wr-hint').textContent = r.message || 'Could not change the value.';
+        lastSig = '';
+      });
+  }
+
   function doSetReady(want) {
     var b = el('wr-ready'); if (b) b.disabled = true;
     post('APIs/Lobbies/SetReady.php',
@@ -1191,8 +1351,11 @@ function _WaitingRoomScript(array $cfg): string {
                  '&inviteCode=' + encodeURIComponent(inviteCode) +
                  '&playerID=' + encodeURIComponent(myPlayerID) +
                  '&authKey=' + encodeURIComponent(key);
+    var sentEpoch = hrEpoch;
     post('APIs/Lobbies/PollLobbyUpdates.php', params, function (r) {
       if (navigating) return;
+      // Stale for the House Rules panel if a rules write finished (or is still in flight) since this poll was sent.
+      if (r && r.houseRules) r._hrStale = (sentEpoch !== hrEpoch) || hrPending > 0;
       if (r.gone) { renderGone(r.message, r); return; }
 
       if (r.lobbyID && r.lobbyID !== lobbyID) { lobbyID = r.lobbyID; rewriteUrl(); }
@@ -1257,7 +1420,7 @@ function _WaitingRoomScript(array $cfg): string {
         noteKickDeadlines(r.roster);
         var bw = Number(r.botAddableIn) || 0;
         botAddDeadline = bw > 0 ? Date.now() + bw * 1000 : 0;
-        var sig = JSON.stringify([rosterForSig(r.roster), r.seatModel, r.botProfiles, r.state, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed, r.hostVote]);
+        var sig = JSON.stringify([rosterForSig(r.roster), r.seatModel, r.botProfiles, r.houseRules, r.state, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed, r.hostVote]);
         if (sig !== lastSig) { lastSig = sig; render(r); }
       }
       pollTimer = setTimeout(poll, POLL_MS);
@@ -1269,6 +1432,11 @@ function _WaitingRoomScript(array $cfg): string {
     inviteCode = qs('invite');
     if (!lobbyID && !inviteCode) { renderGone('No lobby specified.'); return; }
     myPlayerID = 0;
+    var hrBox = el('wr-hr');
+    if (hrBox) {
+      try { hrBox.open = localStorage.getItem(HR_OPEN_KEY) === '1'; } catch (e) {}
+      hrBox.addEventListener('toggle', function () { try { localStorage.setItem(HR_OPEN_KEY, hrBox.open ? '1' : '0'); } catch (e) {} });
+    }
     var btn = el('wr-deck-btn');
     if (btn) btn.onclick = function () { if (el('wr-root').getAttribute('data-state') === 'seated') doChangeDeck(); else doJoin(); };
     if (lobbyID) rewriteUrl();

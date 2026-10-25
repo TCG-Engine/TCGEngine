@@ -165,9 +165,11 @@ function SWUBotHeuristicChoose(string $style, array $actions, array $legal, stri
     // The deciding seat, for valuations that read a hand: feature 'lockpiece' (p35) prices a name-lock only from the locked seat.
     $prevViewer = $GLOBALS['SWUBotViewerSeat'] ?? null;
     $GLOBALS['SWUBotViewerSeat'] = intval($legal['playerID'] ?? 0);
+    if (function_exists('SWUBotMemoBegin')) SWUBotMemoBegin();   // per-decision memo (BotEvaluator.php)
     try {
         return _SWUBotHeuristicChooseStack($style, $actions, $legal);
     } finally {
+        if (function_exists('SWUBotMemoEnd')) SWUBotMemoEnd();
         SWUBotSetDisabledFeatures($prev);
         $GLOBALS['SWURlOn'] = $prevRl;
         $GLOBALS['SWUValueOn'] = $prevValue;
@@ -180,7 +182,9 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
     $ctx = ['style' => $style, 'seat' => $seat, 'opp' => SWUBotOpponent($seat),
             'kind' => strval($legal['kind'] ?? ''), 'type' => strval($legal['decisionType'] ?? ''),
             'param' => strval($legal['decisionParam'] ?? ''), 'tooltip' => strval($legal['decisionTooltip'] ?? ''),
-            'following' => (array)($legal['following'] ?? []), 'actions' => array_values($actions)];
+            'following' => (array)($legal['following'] ?? []),
+            // Answers a proposal gates (BotLegalActions.php SWUBotStripGatedAnswers) leave unless that proposal is on for this decision.
+            'actions' => array_values(function_exists('SWUBotStripGatedAnswers') ? SWUBotStripGatedAnswers($actions) : $actions)];
     SWUValueLogPosition($ctx);   // value-model data collection (spec 2026-09-19); a no-op unless SWU_VALUE_LOG is set
     $inSet = function ($pick) use (&$ctx) {
         foreach ($ctx['actions'] as $a) { if (($a['cardID'] ?? null) === ($pick['cardID'] ?? '')) return true; }
@@ -200,6 +204,15 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
         }
         return null;
     };
+    // FEATURE 'selfburnguard' (p50, 2026-10-15, BotFallback.php): a play whose own-base damage defeats my base is never on the list.
+    if (function_exists('SWUBotSelfBurnFilter')) {
+        $sb = SWUBotSelfBurnFilter($ctx);
+        if (count($sb) !== count($ctx['actions'])) { SWUBotRecordCoverage($seat, 'filter:self-burn'); $ctx['actions'] = $sb; }
+    }
+    if (function_exists('SWUBotLeverChain')) {   // lever registry (Custom/BotLevers.php): an action filter; never empties the list
+        $lf = SWUBotLeverChain('filter', $ctx['actions'], $ctx);
+        if (is_array($lf) && !empty($lf)) $ctx['actions'] = array_values($lf);
+    }
     $all = $ctx['actions'];
     if (($p = $run(SWUBotRulesBeforeFilter())) !== null) return SWUBotTrace($ctx, $all, SWUBotRandomiseClass($ctx, $p), 'rule');
     $ctx['actions'] = SWUBotStyleFilter($ctx);

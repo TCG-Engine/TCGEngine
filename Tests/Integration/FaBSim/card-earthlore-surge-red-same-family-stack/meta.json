@@ -1,0 +1,7 @@
+{
+    "name": "Earthlore Surge / same-family-stack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:05:06+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Resolve earthlore_surge_red then earthlore_surge_blue in order, paying total4 from floating resources. Each source's own go again keepsAP1. Their independent next-attack-action modifiers sum to8; first Wounding Blow red attacks for4+8=12, opponent8, AP0. Neither effect consumes the other when the second nonattack action is played. Printed values establish the sum independently of runtime effect tags. Sources: FaBSim/GeneratedCode/cardArrayCache.json#earthlore_surge_red https://judge.fabtcg.com/cards/detail/1177/ https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/ FaBSim/GeneratedCode/cardArrayCache.json#earthlore_surge_blue https://judge.fabtcg.com/cards/detail/1179/"
+}

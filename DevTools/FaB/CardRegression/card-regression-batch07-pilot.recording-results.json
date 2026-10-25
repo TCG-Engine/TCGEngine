@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-unmovable-red-hand-paid-blue-three",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 14
+    },
+    {
+        "slug": "card-unmovable-red-arsenal-paid-blue-three",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 14
+    },
+    {
+        "slug": "card-fate-foreseen-red-hand-opt-one-top-then-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 24
+    },
+    {
+        "slug": "card-fate-foreseen-red-hand-opt-one-bottom-then-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 24
+    }
+]

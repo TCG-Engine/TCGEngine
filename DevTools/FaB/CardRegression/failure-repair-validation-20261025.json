@@ -1,0 +1,199 @@
+{
+  "status": "PASS_ALL15_CORRECTED_FINAL_FULL_SUITE_3363_OF3363",
+  "generated_utc": "2026-10-25T14:57:26.093892+00:00",
+  "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+  "gameplay_runtime_changed": false,
+  "repository_core_changed": false,
+  "generated_code_changed": false,
+  "baseline": {
+    "total": 3363,
+    "passed": 3348,
+    "failed": 15,
+    "exit_code": 1,
+    "complete_output": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-full-suite-20261025-baseline\\combined-output.log",
+      "sha256": "db70bdb07ed641be58091906e492c0fde4f3c0d7303f7c77a8f128ad9d6de522"
+    },
+    "receipt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-full-suite-20261025-baseline\\receipt.json",
+      "sha256": "a19744db2ed0bf81a035b0ebadd954ad3acb7794ba03db29e9c32060b4f3c4dc"
+    }
+  },
+  "focused": {
+    "total": 15,
+    "passed": 15,
+    "failed": 0,
+    "report": "card-regression-replay-failure15-20261025-focused.json",
+    "sha256": "4e909fbc6fac146693c64976a35bfd6f83bf9c0edbaaf55c1029c88f3fb58b06"
+  },
+  "final_full": {
+    "total": 3363,
+    "passed": 3363,
+    "failed": 0,
+    "exit_code": 0,
+    "report": "card-regression-replay-failure15-20261025-final.json",
+    "sha256": "9d540a66bfd6aae00a22d0afb76b5adadc8135106558142480affba43f8c6b1c",
+    "complete_output": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-full-suite-20261025-final\\combined-output.log",
+      "sha256": "04ab245182e8cc12f773fad35dc58517343f68fb500b9bbc64d2e757e3061667"
+    }
+  },
+  "full_suite_invocations": 2,
+  "candidate_capture_invocations": 15,
+  "post_correction_focused_invocations": 15,
+  "reason_for_candidate_runs": "Disposable clone captures allowed independent complete expected-state review before modifying any canonical snapshot; these are not claimed as clean comparison passes.",
+  "classification": {
+    "new_gameplay_defects_found": 0,
+    "stale_snapshot_fixtures_corrected": 15,
+    "visibility": 12,
+    "visibility_detail": "Eleven Command and Conquer cases and one hidden Skybody Keikoi activation: correct face-up Graveyard value also mirrored in saved history.",
+    "chronology": 3,
+    "chronology_detail": "Laden, Talisman of Tithes and This Round on Me: effect/source-clear order, Tithes Graveyard order and preserved Stack source-reference fields."
+  },
+  "independent_review": {
+    "path": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+    "sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+    "approvals": [
+      {
+        "path": "review-evidence/public-graveyard-20261025-twelve-actual-snapshot-approval.json",
+        "sha256": "70c473e96d439ab68053ed6377fb90d7fc40976b4306b9178684669dfe76451a"
+      },
+      {
+        "path": "review-evidence/fab-three-timing-snapshot-candidates-independent-review-106.json",
+        "sha256": "30f811fd6a34d828a9ba4dbc0d011757b93b1bab5633e5b95301e96719272337"
+      }
+    ],
+    "qualification": "Prior actions/oracle semantics preserved; full actual snapshot deltas independently checked against card/rules/source. No global snapshot normalization or ignored fields added."
+  },
+  "preservation": {
+    "scenarios_before": 3363,
+    "scenarios_after": 3363,
+    "files_intentionally_modified": [
+      {
+        "slug": "card-command-and-conquer-red-hit-trigger-sigil-hand-response",
+        "file": "expected_final_gamestate.txt",
+        "before": "1080660a82dbac3ac8d5d9b260edbcc90fd1c22c8ead376a32b720d82af15edf",
+        "after": "e13d93cde6efc22db9e4bdb795df9594581a319b6bbd3d30ede0114afa162680"
+      },
+      {
+        "slug": "card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact",
+        "file": "expected_final_gamestate.txt",
+        "before": "c6d4e5d72be7d0fc8cc36836f78fd4495472f9295457bd33c4779fe350c2780e",
+        "after": "4bd62e655de5317303da0e0c7a97866d049dbd4a237c26009e42ea0b327c07b8"
+      },
+      {
+        "slug": "card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact",
+        "file": "expected_final_gamestate.txt",
+        "before": "ef01c1a45adb1bcb469d9bc1688578882efb17839ba085965d34eb55f1cdd49b",
+        "after": "4e805b56f4e43212943ec179f290427951585749a061e64578a4fe12d91f1fe4"
+      },
+      {
+        "slug": "card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus",
+        "file": "expected_final_gamestate.txt",
+        "before": "edd3408ad274e15f8bf367e561554c2f090d9c16c63a08654c37fd96d6c77267",
+        "after": "cf4981c78c082f688bc45d1c4456b106bb7fcf7b74d937f5154ce11c0395212c"
+      },
+      {
+        "slug": "card-command-and-conquer-red-ordinary-hand-floating-overfunded",
+        "file": "expected_final_gamestate.txt",
+        "before": "dcae512600930a0564e486c069bc37613478190427d33cad0a2cd54c5eff0709",
+        "after": "29fc98aeacd2559a7b9cec593197ac6779c25a05888828f1c18b6c40b690501a"
+      },
+      {
+        "slug": "card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact",
+        "file": "expected_final_gamestate.txt",
+        "before": "dec8a4e13dcef14322a4168a7aa11fa04ed62a1b5eb70c7d298503839590f413",
+        "after": "36fbc2686d7bd3adc3cce013df5842559a16d74fcc1487d8ae2582898600ad6d"
+      },
+      {
+        "slug": "card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact",
+        "file": "expected_final_gamestate.txt",
+        "before": "004ad4fbe434a401e88a4e16450bbb2f941c6016983fd95f30181777ef248ca9",
+        "after": "e1afc230e0cee8ae87a04f4d1c271f1f06ad18b32dae83530428162b07bb1a9e"
+      },
+      {
+        "slug": "card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact",
+        "file": "expected_final_gamestate.txt",
+        "before": "e86957d8acce38ad7b100153d64bcf551453891792b922d8c96eac149126b8bf",
+        "after": "b1ebd3ee2d2a51c9815a77378d899ebf47723166d888fc03df177bf37096dbb7"
+      },
+      {
+        "slug": "card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals",
+        "file": "expected_final_gamestate.txt",
+        "before": "e5de78ba1db3a37736c22bdf33a788aee3c1abf5e98a0277ce9db040f58af02e",
+        "after": "24fc33de71cdab6b42b68557a6c3ec887e0fbe00ca7356cf72e013eb7f13d4da"
+      },
+      {
+        "slug": "card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal",
+        "file": "expected_final_gamestate.txt",
+        "before": "0db304527f8b0114b9a9026cd4a2d5caf4f25766ae3a28713aa3d2c9dd1ccde1",
+        "after": "f3a5eed6cd467247b8a514dd0ee84ddf1c3705de07234518097f6fa873c73f5c"
+      },
+      {
+        "slug": "card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token",
+        "file": "expected_final_gamestate.txt",
+        "before": "da1e42dc2640e12c8136d8ca879fbaf9e92b29da7e827ab11ddc02cae3fd743d",
+        "after": "c0684dd07ce27b8b4010fa2718001b50c41ca2b94f9277b4bef4daf90cf8ed90"
+      },
+      {
+        "slug": "card-talisman-of-tithes-blue-four-live-sparse-actual-four-hero-draw-first-opponent-reduced-to-zero-and-item-consumed-unordered-graveyard-membership",
+        "file": "expected_final_gamestate.txt",
+        "before": "0d9bfd550adb936220987b0e6c47995f14ed0644cdce89b3d12ec8061c4e072f",
+        "after": "19647acfa8937c2780df94fa3b6676303355d35912ad7596f34033b019c240dc"
+      },
+      {
+        "slug": "card-this-rounds-on-me-blue-four-live-sparse-actual-blue-pitch-play-draws-one-owned-card-for-each-live-hero",
+        "file": "expected_final_gamestate.txt",
+        "before": "314e0fe80a5aa2bc8e603b37962d3aaded3876994b72f27159b7338f3bb3daec",
+        "after": "44d8c709f36f1123613f1503a6eb97ec35ef7e28faf962ac402c370738dfc056"
+      },
+      {
+        "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+        "file": "expected_final_gamestate.txt",
+        "before": "bdb9dfecadb5bab6ad4fa58d711e382204aebde0d187e39e992bc711b33377af",
+        "after": "9cb87e8ac5ca309d7ecba4ba6dc4ea250cda82a6f08b0401a779205874349554"
+      },
+      {
+        "slug": "rule-activation-guard-skybody-hidden-activation-positive",
+        "file": "expected_final_gamestate.txt",
+        "before": "ef594d821736fa7c5873f13057f141150e5311dc40b33b5a15018edf51fdd2f3",
+        "after": "49cd90eec58df5e835e6aaa1ad3edbb5788bcf02dac9dffba3a3cebc88dee1b2"
+      }
+    ],
+    "all_other_fixture_bytes_unchanged": true,
+    "initial_states_actions_assertions_meta_all_unchanged": true,
+    "recorded_actions_preserved": 220,
+    "explicit_assertions_preserved": 4899
+  },
+  "coverage": {
+    "saved_reviewed": 3363,
+    "current_compatibility_passed": 3363,
+    "two_current_clean_passes": 37,
+    "primary_identities": 522,
+    "identity_denominator": 5196,
+    "cycle_or_standalone_groups": 396,
+    "group_denominator": 3324,
+    "two_player": 3074,
+    "four_live": 289,
+    "new_cards_or_cycles": 0,
+    "limits": "Full replay compatibility is not exhaustive card semantics; historical590-entry review caveat, named branch/pitch limits and existing implementation holds remain."
+  },
+  "git": {
+    "head": "897ba7d9732fb0a3cf0301ca250cd955b74ff101",
+    "staged_paths": [],
+    "agent_staged": false,
+    "agent_committed": false,
+    "agent_pushed": false,
+    "user_DFGSim_work_untouched": true
+  },
+  "git_diff_check": {
+    "exit": 0,
+    "stderr": "warning: in the working copy of 'DevTools/FaB/CardRegression/last-recording-results.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/card-command-and-conquer-red-hit-trigger-sigil-hand-response/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hand-floating-overfunded/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/card-talisman-of-tithes-blue-four-live-sparse-actual-four-hero-draw-first-opponent-reduced-to-zero-and-item-consumed-unordered-graveyard-membership/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/card-this-rounds-on-me-blue-four-live-sparse-actual-blue-pitch-play-draws-one-owned-card-for-each-live-hero/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it\nwarning: in the working copy of 'Tests/Integration/FaBSim/rule-activation-guard-skybody-hidden-activation-positive/expected_final_gamestate.txt', CRLF will be replaced by LF the next time Git touches it"
+  },
+  "recovery": {
+    "candidate_and_old_fixture_root": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025",
+    "registry_and_doc_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure15-20261025-metadata-backup",
+    "restore": "Each capture row identifies its short external directory and original-raw5 backup. Restore only the reviewed old expected-final file if desired; registry before-copy and old review history are also retained."
+  },
+  "limitations": "No new source bug remained among these15 failures. Existing broader implementation/legacy compatibility holds remain as documented24October; no new coverage, code generation, suite-policy weakening, staging, commit, push or deployment."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Earthlore Surge / weapon-excluded-preserves-buff",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:04:59+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed text independently specifies cost 2, next attack action this turn +4 power and this source's own go again. It neither limits the attack's printed cost nor grants that attack go again. Oldhim's unactivated defense reaction does not modify these attacks; its Essence permits Earth cards and its Guardian class permits Sledge. The fixture starts with2 action points and6 floating resources, a legal state obtainable from AP/resource effects. Buff costs2 and its go again leaves AP2/resources4. Sledge costs4 and attacks for printed6, not10; AP1 remains because fixture had2, not because Sledge has go again. Next Wounding Blow gets4+4, leaving opponent6. Weapon exclusion must preserve the unused effect. Sources: FaBSim/GeneratedCode/cardArrayCache.json#earthlore_surge_yellow https://judge.fabtcg.com/cards/detail/1178/ https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

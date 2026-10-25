@@ -1,0 +1,194 @@
+{
+  "status": "INDEPENDENT_CORRECTED_FOUR_COMPATIBILITY_SPECS_APPROVED_FOR_SERIAL_NATIVE_PILOTS",
+  "reviewer": "/root/pilot_review",
+  "checks": 2239,
+  "scenario_sha256": "ede1583bfe34dd673d3bfbf47b6073d2ae34289e38a4210797d8b78555007d91",
+  "manifest_sha256": "41007b7567461afc48872effa138f4a534d006aef4b8472e41a8ad0a70deda97",
+  "correction_delta_sha256": "7de6f2895af5e1a34362ed25ab4aabf1eff9f0ed4fdf1ecf0e29523465e15562",
+  "preserved_rejected_original_sha256": "9d2fae4545c7a0462664ef171b2d57b49d7f0db366b2c8c759c923009b4300c5",
+  "native_writes": 0,
+  "game_actions": 0,
+  "accepted_saved_coverage": 0,
+  "independent_printed_faces_viewed": {
+    "wounding_blow_red": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\wounding_blow_red.webp",
+      "sha256": "eeef3533671017d126b9b4e7303e07429cdc2fce84986f95abb2314fd5519dc7",
+      "independent_viewed_stats": {
+        "cost": 0,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      }
+    },
+    "dodge_blue": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\dodge_blue.webp",
+      "sha256": "754294201ee584bb89a2d6a352d1822f463197960ed405cd07ca998cc25cd6d8",
+      "independent_viewed_stats": {
+        "cost": 0,
+        "defense": 2,
+        "pitch": 3
+      }
+    },
+    "razor_reflex_red": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\razor_reflex_red.webp",
+      "sha256": "1536863449891a69ee96e558b1975ae1a758e496633d683ba0df39bb03f334e0",
+      "independent_viewed_stats": {
+        "cost": 1,
+        "defense": 2,
+        "pitch": 1
+      }
+    },
+    "lunging_press_blue": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\lunging_press_blue.webp",
+      "sha256": "84d527fb8f8df397e702566f861fd579a3ec267a17f425867e9c49db8236fbf2",
+      "independent_viewed_stats": {
+        "cost": 0,
+        "defense": 2,
+        "pitch": 3
+      }
+    },
+    "pummel_red": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\pummel_red.webp",
+      "sha256": "9a13d9dfb337987733d55ea2f309e320037c9b406ecba2d1f223bc59ea0b6d1e",
+      "independent_viewed_stats": {
+        "cost": 2,
+        "defense": 2,
+        "pitch": 1
+      }
+    },
+    "command_and_conquer_red": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\command_and_conquer_red.webp",
+      "sha256": "e79de808a68b6562582e32a2c5a0dfc9b4cb61c93fc968dfc52fb602449eb612",
+      "independent_viewed_stats": {
+        "cost": 2,
+        "power": 6,
+        "defense": 3,
+        "pitch": 1
+      }
+    },
+    "energy_potion_blue": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\energy_potion_blue.webp",
+      "sha256": "964d29122aa02196d69a557f5ee7b1a49915a04a689c88205f96e64e0cd075f5",
+      "independent_viewed_stats": {
+        "cost": 0,
+        "pitch": 3
+      }
+    }
+  },
+  "cases": [
+    {
+      "slug": "compat-reaction-priority028-further-ar-lunging-press",
+      "semantically_approved": true,
+      "scenario_sha256": "60431f35fab42bdf4c7cd5533a4aa4b85354f507cd39f50a7d813a0aa32c9bd1",
+      "native_persistable_assertions": 273,
+      "author_only_defense_diagnostics": 7,
+      "checkpoint_count": 12,
+      "bounded_end": "actual Resolution pass then normal Close/exact owner destinations",
+      "expected_model": {
+        "subject": "lunging_press_blue",
+        "accepted": true,
+        "initial_resources": 1,
+        "remaining_resources": 0,
+        "power": 8,
+        "defense": 2,
+        "damage": 6,
+        "health": 14,
+        "action_points": 1
+      }
+    },
+    {
+      "slug": "compat-reaction-priority028-wrong-target-funded-pummel-rejected",
+      "semantically_approved": true,
+      "scenario_sha256": "0149e69ef6ad80c2fd0c9bdcc69bb3bf46d24d1f44a96c0496b4e4f50e118bbb",
+      "native_persistable_assertions": 245,
+      "author_only_defense_diagnostics": 6,
+      "checkpoint_count": 11,
+      "bounded_end": "actual Resolution pass then normal Close/exact owner destinations",
+      "expected_model": {
+        "subject": "pummel_red",
+        "accepted": false,
+        "initial_resources": 3,
+        "remaining_resources": 2,
+        "power": 7,
+        "defense": 2,
+        "damage": 5,
+        "health": 15,
+        "action_points": 1
+      }
+    },
+    {
+      "slug": "compat-reaction-priority028-insufficient-cost-valid-razor-rejected",
+      "semantically_approved": true,
+      "scenario_sha256": "2c9111d53e59083c0b99a7459cb1504f6b8d85cae59e9e84d005ef4f3a7b9185",
+      "native_persistable_assertions": 245,
+      "author_only_defense_diagnostics": 6,
+      "checkpoint_count": 11,
+      "bounded_end": "actual Resolution pass then normal Close/exact owner destinations",
+      "expected_model": {
+        "subject": "razor_reflex_red",
+        "accepted": false,
+        "initial_resources": 1,
+        "remaining_resources": 0,
+        "power": 7,
+        "defense": 2,
+        "damage": 5,
+        "health": 15,
+        "action_points": 1
+      }
+    },
+    {
+      "slug": "compat-reaction-priority028-real-command-and-conquer-prohibition",
+      "semantically_approved": true,
+      "scenario_sha256": "70970c8f48595dd7c5e3831ae7afa0264e4ea340bb14b1b7dca046d074fffef5",
+      "native_persistable_assertions": 211,
+      "author_only_defense_diagnostics": 5,
+      "checkpoint_count": 9,
+      "bounded_end": "REACTION priority2/pass1 before damage; live attack source retained",
+      "expected_model": {
+        "subject": "dodge_blue",
+        "accepted": false,
+        "real_prohibition": "command_and_conquer_red",
+        "lower_ability": "energy_potion_blue",
+        "initial_resources": 2,
+        "remaining_resources": 2,
+        "power": 7,
+        "defense": 0,
+        "damage": 0,
+        "damage_attempted": false,
+        "health": 20,
+        "action_points": 0,
+        "end_window": "REACTION"
+      }
+    }
+  ],
+  "native_persistable_assertions": 974,
+  "author_only_defense_diagnostics": 24,
+  "required_correction_resolved": "Original CnC DAMAGE/Stack0 absence oracle was incorrect: a non-targeted hit trigger is created even with empty Arsenal. Corrected fourth stops after actual prohibited DR rejection, lower Potion resource resolution and one real Reaction pass; no CnC hit trigger behavior or normal Close certified.",
+  "rules_basis": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "basis": "CR7.4.2a/b/c and7.4.3 allow eligible reactions at priority throughout the Reaction Step; card restrictions still apply. Damage and normal resolution are separate later boundaries."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "basis": "CR5.3.7 turn player receives priority after a top layer clears, with lower layers still pending."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "basis": "CR6.6.5/6.6.6 creates non-targeted hit trigger on hit even if its eventual effect is a no-op."
+    }
+  ],
+  "source_basis": {
+    "current_game_logic_sha256": "1163845d1d651b2c0606d64b9b7d403b614bf901fbb0b47ec4e553b723d904dd",
+    "wtr_cards_sha256": "56a163154630515b73e3e8f40113a3a61aa9c23203c273df45edd963fa4523b8",
+    "arc_cards_sha256": "c3b8c93aeea5bb8915e879b45c0065ac9d18ed78111691e13813868327543636",
+    "recorder_sha256": "8006846e96e707a9b6fec304251d99a1d7c0d32ae8cd4492e06e0deb02a8e0f5"
+  },
+  "holds": [
+    "Actual saved native recordings/assertions/final snapshots and current clean replay remain mandatory before coverage.",
+    "kind=defense is author-time only. Native state defense/damage/HP and physical movement pin the tested later behavior; no private defense-query guarantee is inferred.",
+    "CnC generated Hit implementation is source-only inline timing concern and outside corrected fourth; no native beforeproof/fix or full CnC coverage is claimed.",
+    "Exact EVO NO_DEFEND field route remains component-only; no valid DR transformation/setup demonstrated.",
+    "Shortcut observers, external costs/targets/prohibitions, abilities loss/grant/provenance, multiplayer and async reaction effects remain separate."
+  ]
+}

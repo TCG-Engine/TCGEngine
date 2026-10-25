@@ -64,7 +64,12 @@ function PokeHasRuleBox(string $id): bool {
     return !empty(CardSuffix($id)) || str_ends_with(CardName($id) ?? '', ' ex') || in_array(CardStage($id), ['VMAX', 'VSTAR', 'V-UNION'], true) || str_starts_with(CardName($id) ?? '', 'Radiant ');
 }
 function EffectiveCardType($obj): string { return !is_string($obj) && in_array($obj->Location,['Active','Bench'],true) && PokeIsFossil($obj->CardID) ? 'Pokemon' : (CardType(is_string($obj) ? $obj : $obj->CardID) ?? ''); }
-function EffectiveCardSubtypes($obj): array { return !is_string($obj) && in_array($obj->Location,['Active','Bench'],true) && PokeIsFossil($obj->CardID) ? ['Basic'] : array_filter([CardStage(is_string($obj) ? $obj : $obj->CardID), CardTrainerType(is_string($obj) ? $obj : $obj->CardID)]); }
+function PokeCardIsTera(string $id): bool {
+    static $cards = null;
+    $cards ??= json_decode(file_get_contents(__DIR__.'/TeraCards.json'), true, 512, JSON_THROW_ON_ERROR)['cards'];
+    return isset($cards[$id]);
+}
+function EffectiveCardSubtypes($obj): array { return !is_string($obj) && in_array($obj->Location,['Active','Bench'],true) && PokeIsFossil($obj->CardID) ? ['Basic'] : array_filter([CardStage(is_string($obj) ? $obj : $obj->CardID), CardTrainerType(is_string($obj) ? $obj : $obj->CardID), PokeCardIsTera(is_string($obj) ? $obj : $obj->CardID) ? 'Tera' : null]); }
 function EffectiveCardClasses($obj): array { return []; }
 function EffectiveCardElement($obj): string { return !is_string($obj) && in_array($obj->Location,['Active','Bench'],true) && PokeIsFossil($obj->CardID) ? 'Colorless' : (CardTypes(is_string($obj) ? $obj : $obj->CardID) ?? ''); }
 function HasNoAbilities($obj): bool { return !empty($obj->Counters['noAbilities']); }

@@ -1,0 +1,153 @@
+{
+  "schema_version": 2,
+  "status": "HISTORICAL_REVIEW_BULK_ARCHIVED_RECOVERABLY_OUTSIDE_GIT",
+  "removed_files": 1597,
+  "removed_bytes": 167690037,
+  "retained_source_proof_files": 18,
+  "retained_source_proof_bytes": 62255,
+  "retained_roles": {
+    "current_primary_issue_reports": 5,
+    "compact_apply_receipts": 13
+  },
+  "no_runnable_tests_removed": true,
+  "archives": [
+    {
+      "status": "REMOVED_REVIEW_COPIES_BACKUP_VERIFIED_PROTECTED_BYTES_UNCHANGED",
+      "backup_root": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\retained-fab-regression-evidence\\review-artifacts-20261020T104722",
+      "removed_directories": 20,
+      "removed_files": 333,
+      "removed_bytes": 17776524,
+      "protected_fixture_folders": 3079,
+      "protected_fixture_files": 15395,
+      "protected_top_level_tool_metadata_files": 369,
+      "backup_manifest_sha256": "682bf0a4d38e909697f5aa87dfbb3e167458404b2cce7432fd5bc0a0ba19fd2f",
+      "completed_utc": "2026-10-20T15:47:34.4761712Z"
+    },
+    {
+      "status": "BULK_HISTORICAL_SOURCE_REVIEW_COPIES_REMOVED_FULL_BACKUP_VERIFIED",
+      "backup_root": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\retained-fab-regression-evidence\\source-review-history-20261020T155901Z",
+      "removed_files": 1264,
+      "removed_bytes": 149913513,
+      "retained_source_files": 18,
+      "retained_source_bytes": 62255,
+      "retained_primary_issue_evidence": 5,
+      "retained_apply_receipts": 13,
+      "protected_fixture_files": 15395,
+      "protected_files": 15838,
+      "backup_manifest_sha256": "eaa74b6f65d10898967bcac75cf6cabf49b6c947159133341dc4301784f3246c",
+      "completed_utc": "2026-10-20T15:59:30.0394848Z"
+    }
+  ],
+  "restore_instructions": "Each backup has files/ preserving original repository-relative paths, a complete SHA256 manifest.json, reviewed-plan.json, README.txt and RESTORE.ps1. Run its RESTORE.ps1 using PowerShell7; it verifies hashes and refuses to overwrite different existing files.",
+  "historical_reference_rule": "Values marked archived: in current metadata describe archived original paths. Resolve them through the corresponding external backup manifest; restore before reconstructing old code/proposal bundles. Immutable historical proof packets retain their original captured paths and hashes. Their internal paths may also require restoration. Current issue primary reports, actual review-evidence, source inputs and runtime dependencies remain in-repo.",
+  "retained_meaningful_source_files": [
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/ap-framework-native-20261020T001544Z-f8c04b07/applied-manifest.json",
+      "bytes": 2664,
+      "sha256": "0bc56af6150c5a6e94f005fa8e0df1cc52f8464be2630daffa7eaac9d48b0e69",
+      "role": "Compact source/tool apply receipt; historical before/after and archive provenance retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/cnc029-20261020T032334Z/applied.json",
+      "bytes": 698,
+      "sha256": "968dc961f3f630bbe18e6810b9b9206e568c72963f7cb7435e52b58df9835497",
+      "role": "Compact source/tool apply receipt; historical before/after and archive provenance retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/en-garde-20261020T011945Z/applied.json",
+      "bytes": 526,
+      "sha256": "e1bd2d997e05483d03bbcc4cf45b89f04b7dad07282a484cd4a55945af860570",
+      "role": "Compact source/tool apply receipt; historical before/after and archive provenance retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/en-garde-20261020T011945Z/proposal/issue027-numeric-beforeproof.json",
+      "bytes": 8194,
+      "sha256": "e7970cca71d2446ed24d06f100411b6dbe1c35224be4143024901e30d4e1df12",
+      "role": "Current issue FAB-REG-027 primary top-level evidence; retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/fcr4-20261020T141714Z/applied.json",
+      "bytes": 562,
+      "sha256": "5e36cb049242870fb00ad44d619d5161d4bd1ac73479898d4e5277f7e77e4195",
+      "role": "Compact source/tool apply receipt; historical before/after and archive provenance retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/four-live-control-blank-20261020T150725Z/applied.json",
+      "bytes": 530,
+      "sha256": "df886a337c81211a45274a754ee17b4fa9cf1c71d6f784294fdd3411b434e266",
+      "role": "Compact source/tool apply receipt; historical before/after and archive provenance retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/four-live-control-queue-20261020T152644Z/applied.json",
+      "bytes": 531,
+      "sha256": "e2ab93c7284f26966ab9eff3eddbef9eb06e9652ecdd34d0c591a7700d097aef",
+      "role": "Compact source/tool apply receipt; historical before/after and archive provenance retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/four-live-controls-20261020T145657Z/applied.json",
+      "bytes": 804,
+      "sha256": "23cbacba71d8d9835a27c66ae3d4678febf422e65c7b91a75ab2c1869b7b1fa5",
+      "role": "Compact source/tool apply receipt; historical before/after and archive provenance retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/four-live-priority-and-dq-20261020T143005Z/applied.json",
+      "bytes": 592,
+      "sha256": "7a6a3c20ff5e6f5c8e5440f6fcb97497e58213c396b4e9d085a05a9b6e8a0674",
+      "role": "Compact source/tool apply receipt; historical before/after and archive provenance retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/four-live-priority-and-dq-20261020T143005Z/four-live-sigil-before-actual-independent-review.json",
+      "bytes": 7711,
+      "sha256": "a21f2ac20f043e5e0bfaf7afbac5c88fded47803864aa7f5f0604f616b7ccff2",
+      "role": "Current issue FAB-REG-032 primary top-level evidence; retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/four-live-priority-and-dq-20261020T143005Z/held-priority-and-seat-hook-independent-source-review.json",
+      "bytes": 19577,
+      "sha256": "5ceaede8a33a4a46343de9974e090b39dcbb4105fec6829e37a39773c32fb2bd",
+      "role": "Current issue FAB-REG-033 primary top-level evidence; retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/lp-choice-resume-20261020T134930Z/applied.json",
+      "bytes": 466,
+      "sha256": "07dae46df2a4b2aa2635b3cac58257c375b2dba52fcf8f95074bccb3554ac0fd",
+      "role": "Compact source/tool apply receipt; historical before/after and archive provenance retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/lp030-20261020T035605Z/applied.json",
+      "bytes": 839,
+      "sha256": "b6dc02fc4a2ec9712908716bb3cfedb4ef8f99217f2ada5a2fdacd23a8155aa0",
+      "role": "Compact source/tool apply receipt; historical before/after and archive provenance retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/reaction-priority028-20261020T013944Z/applied.json",
+      "bytes": 4234,
+      "sha256": "f4f7c86e531a4a82343c69ea984ffea5e43206c573ba9429feb2df38b2b501c1",
+      "role": "Compact source/tool apply receipt; historical before/after and archive provenance retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/reaction-priority028-20261020T013944Z/proposal/issue028-before-proof.json",
+      "bytes": 2682,
+      "sha256": "41c3921fcf2a09b2a09499cde9911480d01ec59f41022d024481570fff99187a",
+      "role": "Current issue FAB-REG-028 primary top-level evidence; retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/runner-persisted-boundary-20261020T003906Z/applied.json",
+      "bytes": 655,
+      "sha256": "b3759ab7f9b46f0bde202115c81a99c6d2dbfad1d4dbe418415107a75584cc8a",
+      "role": "Compact source/tool apply receipt; historical before/after and archive provenance retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/runner-persisted-boundary-20261020T003906Z/runner-boundary-native-diagnostic-results.json",
+      "bytes": 10209,
+      "sha256": "beeb35460585f4ffba049802b6451e84e544c39724053442c1bc6edfd769df01",
+      "role": "Current issue FAB-REG-026 primary top-level evidence; retained locally"
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/source-review-evidence/token031-20261020T041147Z/applied.json",
+      "bytes": 781,
+      "sha256": "b4e9a6fcab3bf8fce38b221f15586f04a767189c6efce201455c268c50e42ce4",
+      "role": "Compact source/tool apply receipt; historical before/after and archive provenance retained locally"
+    }
+  ]
+}

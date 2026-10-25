@@ -1,0 +1,7 @@
+{
+    "name": "Ravenous Rabble / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:56:02+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActualprimaryUID5 isplayedfor0/AP1andtargetsadjacentP4. Onrealattackdeclaration revealunchangedphysicaltopDeckYellowRagingOnslaughtUID6(pitch2); printedbase5minus2=3. Printedgoagainistruebeforehit. Unblocked3damageP4to17; AP0duringDAMAGE thenAP1atRESOLUTIONentry. RevealedUID6remainsownDecktopthroughcleanup; source5ownGY. OnlyoneYellowtoppositivepenalty; emptyDeck/otherpitchvalues/revealobservers/dynamicpower/suppression/latereffects remainuntested. FourlivingyoungDorintheaheroesandallmanualpriorityactorsareverified. No seededhistory/effecttags orsharedbookkeepingarrayoracles; nosibling/support/fullcardcredit. Sources: https://judge.fabtcg.com/cards/detail/530/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP393.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

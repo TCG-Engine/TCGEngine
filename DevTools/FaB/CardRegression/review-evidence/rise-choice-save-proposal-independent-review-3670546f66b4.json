@@ -1,0 +1,1030 @@
+{
+  "status": "INDEPENDENT_RISE_CHOICE_PROPOSAL_APPROVED",
+  "approved": true,
+  "reviewer": "/root/resume_actual_audit",
+  "captured_utc": "2026-10-20T23:12:03.095462+00:00",
+  "proposal_sha256": "4f6795fa72423305c8a09b788d34d6c533568d7d9dd607ea6511b26a8ddbd7fe",
+  "candidate_sha256": "79b04e30d9b9f7dca6fb78bd3e32e4e9429f137e1afa9d1d8af2a8faf718d74d",
+  "native_before_sha256": "f34346a0061cb7c970293f20016a485470faf6fa3088900ba8aaf012513e32cc",
+  "reverse_exact_before_verified": true,
+  "exact_changes": [
+    "one scoped copied-choice helper",
+    "one existing writer hook call"
+  ],
+  "component_script_sha256": "976707310d6e3de88e5682f825cba561bc4068da22fcb9323f915171f1cce7e9",
+  "component_results": {
+    "checks": 1880,
+    "passed_cases": 239,
+    "cases": [
+      {
+        "id": "valid_1_red_0_0",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_0_1",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_0_2",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_0_3",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_0_4",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_0_5",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_0_6",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_0_7",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_1_0",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_1_1",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_1_2",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_1_3",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_1_4",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_1_5",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_1_6",
+        "pass": true
+      },
+      {
+        "id": "valid_1_red_1_7",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_0_0",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_0_1",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_0_2",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_0_3",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_0_4",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_0_5",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_0_6",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_0_7",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_1_0",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_1_1",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_1_2",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_1_3",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_1_4",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_1_5",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_1_6",
+        "pass": true
+      },
+      {
+        "id": "valid_1_yellow_1_7",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_0_0",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_0_1",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_0_2",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_0_3",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_0_4",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_0_5",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_0_6",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_0_7",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_1_0",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_1_1",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_1_2",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_1_3",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_1_4",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_1_5",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_1_6",
+        "pass": true
+      },
+      {
+        "id": "valid_1_blue_1_7",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_0_0",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_0_1",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_0_2",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_0_3",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_0_4",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_0_5",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_0_6",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_0_7",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_1_0",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_1_1",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_1_2",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_1_3",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_1_4",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_1_5",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_1_6",
+        "pass": true
+      },
+      {
+        "id": "valid_2_red_1_7",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_0_0",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_0_1",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_0_2",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_0_3",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_0_4",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_0_5",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_0_6",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_0_7",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_1_0",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_1_1",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_1_2",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_1_3",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_1_4",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_1_5",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_1_6",
+        "pass": true
+      },
+      {
+        "id": "valid_2_yellow_1_7",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_0_0",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_0_1",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_0_2",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_0_3",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_0_4",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_0_5",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_0_6",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_0_7",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_1_0",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_1_1",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_1_2",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_1_3",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_1_4",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_1_5",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_1_6",
+        "pass": true
+      },
+      {
+        "id": "valid_2_blue_1_7",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_0_0",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_0_1",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_0_2",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_0_3",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_0_4",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_0_5",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_0_6",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_0_7",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_1_0",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_1_1",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_1_2",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_1_3",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_1_4",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_1_5",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_1_6",
+        "pass": true
+      },
+      {
+        "id": "valid_3_red_1_7",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_0_0",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_0_1",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_0_2",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_0_3",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_0_4",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_0_5",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_0_6",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_0_7",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_1_0",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_1_1",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_1_2",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_1_3",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_1_4",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_1_5",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_1_6",
+        "pass": true
+      },
+      {
+        "id": "valid_3_yellow_1_7",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_0_0",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_0_1",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_0_2",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_0_3",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_0_4",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_0_5",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_0_6",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_0_7",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_1_0",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_1_1",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_1_2",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_1_3",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_1_4",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_1_5",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_1_6",
+        "pass": true
+      },
+      {
+        "id": "valid_3_blue_1_7",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_0_0",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_0_1",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_0_2",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_0_3",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_0_4",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_0_5",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_0_6",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_0_7",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_1_0",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_1_1",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_1_2",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_1_3",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_1_4",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_1_5",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_1_6",
+        "pass": true
+      },
+      {
+        "id": "valid_4_red_1_7",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_0_0",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_0_1",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_0_2",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_0_3",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_0_4",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_0_5",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_0_6",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_0_7",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_1_0",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_1_1",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_1_2",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_1_3",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_1_4",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_1_5",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_1_6",
+        "pass": true
+      },
+      {
+        "id": "valid_4_yellow_1_7",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_0_0",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_0_1",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_0_2",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_0_3",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_0_4",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_0_5",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_0_6",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_0_7",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_1_0",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_1_1",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_1_2",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_1_3",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_1_4",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_1_5",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_1_6",
+        "pass": true
+      },
+      {
+        "id": "valid_4_blue_1_7",
+        "pass": true
+      },
+      {
+        "id": "dead_seat",
+        "pass": true
+      },
+      {
+        "id": "bad_seat",
+        "pass": true
+      },
+      {
+        "id": "no_pending",
+        "pass": true
+      },
+      {
+        "id": "pending_wrong_player",
+        "pass": true
+      },
+      {
+        "id": "pending_wrong_kind",
+        "pass": true
+      },
+      {
+        "id": "source_missing",
+        "pass": true
+      },
+      {
+        "id": "source_wrong_zone",
+        "pass": true
+      },
+      {
+        "id": "source_wrong_card",
+        "pass": true
+      },
+      {
+        "id": "source_wrong_controller",
+        "pass": true
+      },
+      {
+        "id": "source_wrong_sourceuid",
+        "pass": true
+      },
+      {
+        "id": "source_wrong_kind",
+        "pass": true
+      },
+      {
+        "id": "choice_wrong_type",
+        "pass": true
+      },
+      {
+        "id": "choice_wrong_tooltip",
+        "pass": true
+      },
+      {
+        "id": "choice_removed",
+        "pass": true
+      },
+      {
+        "id": "resume_wrong_type",
+        "pass": true
+      },
+      {
+        "id": "resume_removed",
+        "pass": true
+      },
+      {
+        "id": "resume_wrong_handler",
+        "pass": true
+      },
+      {
+        "id": "resume_barrier_handler",
+        "pass": true
+      },
+      {
+        "id": "resume_flock_handler",
+        "pass": true
+      },
+      {
+        "id": "resume_wrong_returnvar",
+        "pass": true
+      },
+      {
+        "id": "resume_bad_parts",
+        "pass": true
+      },
+      {
+        "id": "frame_missing",
+        "pass": true
+      },
+      {
+        "id": "frame_wrong_uid",
+        "pass": true
+      },
+      {
+        "id": "frame_missing_locals",
+        "pass": true
+      },
+      {
+        "id": "wrong_program_counter",
+        "pass": true
+      },
+      {
+        "id": "foreign_frame_same_uid",
+        "pass": true
+      },
+      {
+        "id": "other_variant_frame_same_uid",
+        "pass": true
+      },
+      {
+        "id": "zero_frame_id",
+        "pass": true
+      },
+      {
+        "id": "malformed_frame_id",
+        "pass": true
+      },
+      {
+        "id": "DQ_tombstones_1",
+        "pass": true
+      },
+      {
+        "id": "DQ_tombstones_2",
+        "pass": true
+      },
+      {
+        "id": "DQ_tombstones_3",
+        "pass": true
+      },
+      {
+        "id": "DQ_tombstones_4",
+        "pass": true
+      },
+      {
+        "id": "hook_LP_SENTINEL",
+        "pass": true
+      },
+      {
+        "id": "hook_AB_SENTINEL",
+        "pass": true
+      },
+      {
+        "id": "hook_Flock_1",
+        "pass": true
+      },
+      {
+        "id": "hook_Rise_1",
+        "pass": true
+      },
+      {
+        "id": "hook_nonDQ_1",
+        "pass": true
+      },
+      {
+        "id": "hook_Flock_2",
+        "pass": true
+      },
+      {
+        "id": "hook_Rise_2",
+        "pass": true
+      },
+      {
+        "id": "hook_nonDQ_2",
+        "pass": true
+      },
+      {
+        "id": "hook_Flock_3",
+        "pass": true
+      },
+      {
+        "id": "hook_Rise_3",
+        "pass": true
+      },
+      {
+        "id": "hook_nonDQ_3",
+        "pass": true
+      },
+      {
+        "id": "hook_Flock_4",
+        "pass": true
+      },
+      {
+        "id": "hook_Rise_4",
+        "pass": true
+      },
+      {
+        "id": "hook_nonDQ_4",
+        "pass": true
+      }
+    ],
+    "errors": []
+  },
+  "native_before": {
+    "path": "recording-runs/card-regression-batch92-20261020T225720Z-6ad7f1d03aa3e.json",
+    "sha256": "2f58188f94bb29220f13fd9a38093d74630477195021dacf4577c07992f5dd85",
+    "original_error": "Expected p4DecisionQueue-0.Param to equal 'p4Hand-0', got 'p4Hand-1'.",
+    "actual_hand_refs": [
+      "p4Hand-0"
+    ]
+  },
+  "scope": "All-Hand choices are printed eligible; writer-compacted references must be copied without changing any in-memory objects/frame. Correct regression Hand0 expectation remains unchanged. Source/runtime qualification and original failed recording remain separate from proposal components.",
+  "v2_narrow_delta": {
+    "previous_sha256": "1122d5baca62973d19f23431e1ecea86845dadf5390ec954febd659f07af1573",
+    "exact_guard_delta_reversed": true,
+    "guards": [
+      "continuation PC4",
+      "matching source-card PrepareCard#positive-integer frame namespace"
+    ]
+  },
+  "generated_continuation_bindings": [
+    {
+      "card_id": "rise_above_red",
+      "exact_pc": 4,
+      "return_var": "chosen",
+      "targets_diagnostic_not_consumed_after_await": true
+    },
+    {
+      "card_id": "rise_above_yellow",
+      "exact_pc": 4,
+      "return_var": "chosen",
+      "targets_diagnostic_not_consumed_after_await": true
+    },
+    {
+      "card_id": "rise_above_blue",
+      "exact_pc": 4,
+      "return_var": "chosen",
+      "targets_diagnostic_not_consumed_after_await": true
+    }
+  ],
+  "generated_source_sha256": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+  "unchanged_correct_scenario_input_sha256": "071c8ce336355e3aa6a38b2c79b65e8c715bff3e99ef90032e4417dc2cc8f954",
+  "correct_rise_still_unsaved": true,
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "native_runtime_before_and_after": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "review_script_sha256": "a3f33056667e20a389ffe5a3dfa9c0c42fd38d97901e612b08f841df7df39733",
+  "official_printed_sources": [
+    "https://judge.fabtcg.com/cards/detail/987/",
+    "https://judge.fabtcg.com/cards/detail/988/",
+    "https://judge.fabtcg.com/cards/detail/989/"
+  ],
+  "eligibility_basis": "Printed alternative resource cost may topdeck any card from own Hand. The patch restores those same eligible physical survivors after writer compaction; it does not change costs, effects, choice optionality, priority or target legality.",
+  "integration_limit": "Extracted exact old and candidate full hooks were compared with named LP/Barrier dependency stubs and existing Flock hook body; no output/order change for those branches. Their native runtime implementations remain byte-identical through exact candidate reversal. Native games/replays/suites remain the parent validation gate."
+}

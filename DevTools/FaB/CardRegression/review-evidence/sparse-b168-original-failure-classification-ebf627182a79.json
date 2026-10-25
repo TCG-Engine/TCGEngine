@@ -1,0 +1,84 @@
+{
+  "status": "B168_ORIGINAL_UNSAVED_ORACLE_ORDER_OVERCONSTRAINT_CLASSIFIED_WITH_SEPARATE_SOURCE_TIMING_LIMIT",
+  "reviewer": "/root/b105_semantic_review",
+  "completed_utc": "2026-10-22T20:50:25.226454+00:00",
+  "input": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b168-first-opponent-multiplayer-draw-replacement\\b168-one-case-proposed.json",
+    "sha256": "4244d140fb395e03b3ac4e3c9c3e52fbc1e4031ea25d6cb008a7f608a0652f6c"
+  },
+  "failed_recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch168-20261022T204710Z-6ada764e7dbd9.json",
+    "sha256": "038ff5b4a445e60b10f58b85d97aac6b64e41d6500a96ed90537673563adb6ee"
+  },
+  "attempted_actions": 6,
+  "saved_scenarios": 0,
+  "qualified_scenarios": 0,
+  "replays_run": 0,
+  "exact_failure": "Expected p1Graveyard-1.CardID to equal 'this_rounds_on_me_blue', got 'talisman_of_tithes_blue'.",
+  "classification": {
+    "final_graveyard_order": "TRP5.6 only strictly orders deck/combat-chain, permits rearranging own graveyard. Original model overconstrained final card/UID slot order; mismatch alone is NOT a confirmed gameplay defect. Do not swap expected indices to observed order.",
+    "resolution_timing": "Independently source-derived: ordinary nonpersistent TRoM is outside managed lifecycle allowlist. GameLogic1488 moves its actual source toGraveyard before1489 invokes resolution macro; generated8044-8056 draws each live seat then applies protection. CR5.3.4-5.3.7 requires resolution effects before sourceclear. This is separate FaB shared-resolution timing concern, potentially same heldChorus family; original scenario has no internal source-zone witness, no separate/new defect count awarded.",
+    "primary_replacement": "First101 terminal checks completed before fixed GY-sourceCardID check failed; these include all final health/resources/AP and all zone counts (P2Hand0/Deck1,P1/P3/P4Hand1,Arena0,GY2). Full UID/owner/FaceDown checks later in terminal list were NOT completed. Receipt handrefs corroborate differentseatdraw counts; primary not yet qualified."
+  },
+  "receipt_limits": {
+    "final_full_snapshot_available": false,
+    "initial_full_snapshot_available": true,
+    "direct_observation": "Receipt explicitly reports TithesCardID atGYindex1. Does not directly serialize all finalphysicalUIDs/order; do not invent snapshot evidence.",
+    "native_cleanup": "Recorder finally deleted only unique isolated author game; no current/shared live game state inspected.",
+    "successful_authored_checks_before_error": 420,
+    "remaining_checks_not_run": 29
+  },
+  "proposed_minimal_existing_dsl_successor": {
+    "actions_unchanged": true,
+    "draw_cost_health_ap_expectations_unchanged": true,
+    "remove_exactly": "Final two GY CardID and two UniqueID slot assertions only.",
+    "replace_with": [
+      {
+        "type": "card_exists",
+        "zone": "p1Graveyard",
+        "cardID": "talisman_of_tithes_blue"
+      },
+      {
+        "type": "card_exists",
+        "zone": "p1Graveyard",
+        "cardID": "this_rounds_on_me_blue"
+      }
+    ],
+    "retain": "GYcount2, both-slotOwner1/Controller1/FaceDown0, all other checks and actual actions.",
+    "new_assertion_count": 448,
+    "actual_saved_review": "Require unordered exact raw endpoint set {(UID5,Tithes,Owner1,Controller1,FaceDown0),(UID6,TRoM,Owner1,Controller1,FaceDown0)}; compare GY semantically as unordered, avoid asserting internal macrozone/timing is verified.",
+    "provenance": "Preserve original input, approval, failedreceipt and paper model unchanged; immutable successor with exact structural diff/hash before root may record."
+  },
+  "authoritative_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/trp/05-gameplay-logistics/",
+      "section": "5.6",
+      "supports": "Unordered freely rearrangeable graveyard; no fixed final order semantics."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "section": "5.3.4-5.3.7",
+      "supports": "Effects/GA precede leave-stack/clear."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "section": "1.9.2c",
+      "supports": "TRoM controller-first clockwise individual draw events."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/03-zones/",
+      "section": "3.8.1-2",
+      "supports": "Graveyard public/owncards only."
+    }
+  ],
+  "source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+    "FaBSim/Custom/EVRCards.php": "1074ad8eb4531e73345cf11d5af049eb96ce4acccfff493c902679036031adcc",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+    "Core/RegressionTestFramework.php": "269a1c52d9442f7ffa1d4a73f27eae6f0d17862cc7134f5e7093fec235dd9c99",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "f40e2a840e66a927c888957341e6b3e3bc1e63db9c461fc25487bdb55cc90dca"
+  },
+  "native_actions_by_reviewer": 0,
+  "engine_imports": 0,
+  "repository_writes": 0
+}

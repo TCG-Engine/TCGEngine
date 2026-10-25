@@ -77,7 +77,7 @@ for c in cards:
  if base=='vexing_quillhand':add('ResolveAbility','FaBARCCreateRunes($player, 2);')
  if base=='potion_of_ironhide':add('ResolveAbility',"FaBEVRAdd($player, 'IRONHIDE');")
  if base=='potion_of_luck':add('ResolveAbility',"$count = FaBEVRShuffleHandArsenal($player); DoDrawCard($player, $count);")
- if base=='potion_of_deja_vu':add('ResolveAbility',"$uids = FaBARCStageRefs($player, implode('&', FaBChoiceRefs($player, 'Pitch'))); if (count($uids) > 0) { $orderParam = FaBARCOrderParam($uids, 'Top'); $order = await $player.Rearrange($orderParam); FaBARCFinishOrder($player, $uids, $order); }")
+ if base=='potion_of_deja_vu':add('ResolveAbility',"$uids = FaBARCStageRefs($player, implode('&', FaBChoiceRefs($player, 'Pitch')), 'Pitch'); if (count($uids) > 0) { $orderParam = FaBARCOrderParam($uids, 'Top'); $order = await $player.Rearrange($orderParam); FaBARCFinishOrder($player, $uids, $order); }")
  if base=='potion_of_seeing':add('ResolveAbility',target()+"$shownUIDs = FaBEVRPrivateHand($player, $target); $view = FaBEVRUIDRefs($shownUIDs); if ($view !== '') { $seen = await $player.MZChoose($view, \"View_hand_and_continue\"); } FaBEVRForgetHand($shownUIDs);")
  if base=='amulet_of_ignition':add('ResolveAbility',"FaBEVRAdd($player, 'IGNITION');")
  if base=='amulet_of_intervention':add('ResolveAbility',"FaBWTRAddEffect($player, 'PREVENT_DAMAGE', 1);")

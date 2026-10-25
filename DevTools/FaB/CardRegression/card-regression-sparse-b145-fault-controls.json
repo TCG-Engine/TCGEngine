@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:58:38.140787+00:00",
+  "plan_sha256": "6265b58ebb25540fdf98dbaa2b305d0f65123f7fd50275de53dca603f404df67",
+  "independent_saved_proof_sha256": "439c4b2a16f03f2cd68c27b34e7cdadd23c7c203a8dabaf24c65a83a28cae7b5",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b145-focused-fault-plan.json",
+    "6265b58ebb25540fdf98dbaa2b305d0f65123f7fd50275de53dca603f404df67",
+    "card-regression-sparse-b145-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b145_vexing_quillhand_focused_effect_sensitivity",
+      "fixture": "card-vexing-quillhand-four-live-sparse-actual-destroy-equipment-action-creates-two-owned-runechants-and-go-again",
+      "fixture_sha256": "ca8fbb902d448f8cf8303f074033bd03b8e30ff12e64b07bf500364f8dbc897d",
+      "source_raw5": {
+        "initial_gamestate.txt": "1d39dfd3a73fff3d7da479f66a45a304452900094912b1bcf0b30389a5099610",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "ab6e125f7e2e117aab95bc381309212fe929e8c932526b73177d067edfc12e33",
+        "expected_final_gamestate.txt": "6ad6834b3a6cbe4c3870f4f57e6064fc97483a3cdf288bd29cfe812b29bc0a7e",
+        "meta.json": "14a1e3aad83fe77b6533c1280e5ccbf8ba8f8f9b8f674a0686576d579c45f6d5"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "runechant",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 116,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Vexing Quillhand / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact actual created RunechantUID7 after realEquipment5activation/printedcost andfourmanualresponses. Vexingphysicalsource5publicGY0 orGraspretainedEq5/BluePitch6/economy/abilityGA remain. Originalcreatedcount2to1 detects directabilityoutput only; noRunechantdamage/lifecycle/defense/surcharge/once/repeat/hero/supportcredit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b145_grasp_of_the_arknight_focused_effect_sensitivity",
+      "fixture": "card-grasp-of-the-arknight-four-live-sparse-actual-blue-pitch-pays-two-resource-equipment-action-for-one-owned-runechant",
+      "fixture_sha256": "5e768ef19455f48a3fa0748442912a4717d338849679b377cd1b8efc2aa73813",
+      "source_raw5": {
+        "initial_gamestate.txt": "50308981891bb6744dbda730e937433d9a44bde932bf0276cd0ca30361be2151",
+        "actions.json": "02e014fcbc767be35abb52b1fba8950f602a853b060793ec33880f9f114fa6e5",
+        "assertions.json": "1a50bddca05c86cda64849a02a97fe78face900c11dfa34386f82ca90ffc1b2f",
+        "expected_final_gamestate.txt": "c32f701797a6aabd35d2d42db1eb0a96ba99100c76711005969fbedd52879f51",
+        "meta.json": "524d599f720acdc7eae9b914f2dd79a29a6f410756662db4ff76188a84be6526"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "runechant",
+            "uid": 8,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Grasp of the Arknight / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact actual created RunechantUID8 after realEquipment5activation/printedcost andfourmanualresponses. Vexingphysicalsource5publicGY0 orGraspretainedEq5/BluePitch6/economy/abilityGA remain. Originalcreatedcount1to0 detects directabilityoutput only; noRunechantdamage/lifecycle/defense/surcharge/once/repeat/hero/supportcredit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

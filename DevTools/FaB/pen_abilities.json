@@ -2500,7 +2500,7 @@
       },
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$number = intval(DecisionQueueController::GetVariable(\"penFrostNumber\"));\n $creator = intval(DecisionQueueController::GetVariable(\"penFrostCreator\"));\n $action = boolval(DecisionQueueController::GetVariable(\"penFrostAction\"));\n $wager = boolval(DecisionQueueController::GetVariable(\"penFrostWager\"));\n $chosen = \"-\";\n $refs = FaBPENFrostReplacements($player);\n if ($refs !== \"\") {\n $chosen = await $player.MZMultiChoose($refs, 0, 1, \"Replace_Frostbite_creation\");\n \n}\nFaBPENFinishFrost($player, $chosen, $number, $creator, $action, $wager);\n",
+        "abilityCode": "$number = intval(DecisionQueueController::GetVariable(\"penFrostNumber\"));\n $creator = intval(DecisionQueueController::GetVariable(\"penFrostCreator\"));\n $owner = DecisionQueueController::GetVariable(\"penFrostOwner\"); $owner = is_numeric($owner) ? intval($owner) : null;\n $action = boolval(DecisionQueueController::GetVariable(\"penFrostAction\"));\n $wager = boolval(DecisionQueueController::GetVariable(\"penFrostWager\"));\n $chosen = \"-\";\n $refs = FaBPENFrostReplacements($player);\n if ($refs !== \"\") {\n $chosen = await $player.MZMultiChoose($refs, 0, 1, \"Replace_Frostbite_creation\");\n \n}\nFaBPENFinishFrost($player, $chosen, $number, $creator, $action, $wager, $owner);\n",
         "isImplemented": true,
         "previousCodeHash": "1aed8d19e3ae614f723de43bc880421b4ff10007109c76922f9c07c86b0199df"
       }
@@ -2521,7 +2521,7 @@
     "abilities": [
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$number = intval(DecisionQueueController::GetVariable(\"penFrostNumber\"));\n $creator = intval(DecisionQueueController::GetVariable(\"penFrostCreator\"));\n $action = boolval(DecisionQueueController::GetVariable(\"penFrostAction\"));\n $wager = boolval(DecisionQueueController::GetVariable(\"penFrostWager\"));\n $chosen = \"-\";\n $refs = FaBPENFrostReplacements($player);\n if ($refs !== \"\") {\n $chosen = await $player.MZMultiChoose($refs, 0, 1, \"Replace_Frostbite_creation\");\n \n}\nFaBPENFinishFrost($player, $chosen, $number, $creator, $action, $wager);\n",
+        "abilityCode": "$number = intval(DecisionQueueController::GetVariable(\"penFrostNumber\"));\n $creator = intval(DecisionQueueController::GetVariable(\"penFrostCreator\"));\n $owner = DecisionQueueController::GetVariable(\"penFrostOwner\"); $owner = is_numeric($owner) ? intval($owner) : null;\n $action = boolval(DecisionQueueController::GetVariable(\"penFrostAction\"));\n $wager = boolval(DecisionQueueController::GetVariable(\"penFrostWager\"));\n $chosen = \"-\";\n $refs = FaBPENFrostReplacements($player);\n if ($refs !== \"\") {\n $chosen = await $player.MZMultiChoose($refs, 0, 1, \"Replace_Frostbite_creation\");\n \n}\nFaBPENFinishFrost($player, $chosen, $number, $creator, $action, $wager, $owner);\n",
         "isImplemented": true,
         "previousCodeHash": "1aed8d19e3ae614f723de43bc880421b4ff10007109c76922f9c07c86b0199df"
       }

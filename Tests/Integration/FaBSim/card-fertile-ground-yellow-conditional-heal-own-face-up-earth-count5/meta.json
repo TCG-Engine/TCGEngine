@@ -1,0 +1,7 @@
+{
+    "name": "Fertile Ground / conditional heal / own-face-up-earth-count5",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:47:41+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed fertile_ground_yellow cost2, pitch2, no defense property, no action-point cost or gain as an Instant. Branch own-face-up-earth-count5. Independent printed-rule model requires terminal health[14, 20], resources[0, 0], AP[1, 0].  Sources: https://judge.fabtcg.com/cards/detail/3357/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

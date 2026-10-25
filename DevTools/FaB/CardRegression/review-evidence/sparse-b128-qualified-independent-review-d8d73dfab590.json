@@ -1,0 +1,181 @@
+{
+  "reviewed_subset": true,
+  "held_source_scenarios": [
+    {
+      "slug": "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+      "card_id": "abyssal_bite_blue",
+      "status": "HELD_UNSAVED_INCORRECT_GAMEPLAY",
+      "issue_id": "FAB-REG-038",
+      "expected_action_points": 1,
+      "observed_action_points": 0,
+      "attempted_actions": 6
+    }
+  ],
+  "preserved_held_issue_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b128-abyssal-bite-printed-go-again-hold.json",
+    "sha256": "e1955e2405ca8db6164a3f8894570b165ea9d29fb6f6416c139235cc1abf2f2e"
+  },
+  "status": "B128_HOWL_ONLY_ONE_REPRESENTATIVE_TWO_CLEAN_TARGETED_REPLAYS_ONE_EXACT_NATIVE_CONTROL_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch128.json",
+  "input_sha256": "a315491410dc2f01a03aad6e6ac43d773ea8c6ab2d2e7c2ccf151c6b06e73885",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:04:27.481387+00:00",
+  "fixtures": [
+    {
+      "slug": "card-howl-from-beyond-red-four-live-sparse-actual-paid-shadow-action-next-paid-attack-action-plus-three",
+      "fixture_sha256": "e78315764c0d41b38ca522d875b2ff58845c295116c83a8f0252de983e5cb5b7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8e46b22443ade68dd30c7c235c89137d8a9df3bca3b577f44bf9aa424063b8f1",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "d7c479de6bcba862c090d2303a3fac84bd21a594b1b1f192e85df00232127abb",
+        "expected_final_gamestate.txt": "9e579e34cfa91b84dc5f2d6dfef32b7e5e648be29185b459e64207bcb1931c91",
+        "meta.json": "b7ae1c290161276e625e992c4705457c2d41c54165c009bb3384ec28cb5dd2cc"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 1269,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 33,
+  "total_native_assertions": 1269,
+  "total_manual_passes": 29,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b128-actual-saved-independent-review.json",
+    "sha256": "9a09ee6ffd095ae4ee8ab53eab0f272013cc833b88397840397bc2c64ea190f5"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b128-independent-spec-review.json",
+    "sha256": "04ef8757d116afa5dafd986801c50abd485a40c6c67a20fbf2bcb6429614dc38"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch128-20261022T190007Z-6ada5d370033e.json",
+    "sha256": "5df4ac29209f3dc027cc23df8a01d610106442ad7e588dca11ccae84c4703f6b"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b128-safe-howl-four-live-run1.json",
+      "sha256": "92357a00698d36b772bb49087b542e39c4521e5b55b119b4503b46106604ffcd",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch128.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b128-safe-howl-four-live-run2.json",
+      "sha256": "cad9ef1123ba7193d4f2ad70fdb18c2cda32b135aa83152af2327ca816111adb",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch128.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b128-fault-controls.json",
+    "sha256": "144208e2223c9862a8935f7a1ab06b0f1b2c1a6f765201fb462b0fe685237fb0",
+    "total": 1,
+    "intended_semantic_failures": 1,
+    "plan_sha256": "715c7bce3620d55ca363c33938b115bd8aa1c8185420eb0aeb8881172aef9d0e",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b128_howl_from_beyond_red_exact_source_effect_sensitivity",
+      "fixture": "card-howl-from-beyond-red-four-live-sparse-actual-paid-shadow-action-next-paid-attack-action-plus-three",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "ghostly_visit_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 559,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b128-focused-fault-plan.json",
+    "sha256": "715c7bce3620d55ca363c33938b115bd8aa1c8185420eb0aeb8881172aef9d0e"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1535,
+  "native_evidence_review_checks": 46,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Only ordinaryHandsource and qualifyingactualShadowattackAction; no Banish/BloodDebt/alternateeligibility/weapon/expiry/support/hero, ordinarysource-departure or asynchronous-lifecycle credit.",
+    "Only saved Howl representative is audited; correct unsaved Bite attempt explicitly held; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and one intended native control only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Only Howl qualifies: actualsource+3 on realGhost6, both separately paid costs retained, focused7to4 effect omission. AbyssalBite correct AP1 expectation failed aftersixnativeactions; no savedfixture/retry/fix/credit, heldFAB-REG-038. Both targeted clean reports deliberately omit Bite; this is a reviewed subset of mixed source."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "f28e6abc6860dbfb73960e947a6ea94ced6a4ecced3177ce6cbb7fb48640c05d",
+  "current_independent_delta_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b128_independent.py",
+    "sha256": "2dcfe4c889c66c666b33382b3767ff5f0ad045226bd6b4ea82a8b1a9a58105ce"
+  },
+  "blocked_attempts": [
+    {
+      "slug": "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+      "card_id": "abyssal_bite_blue",
+      "issue_id": "FAB-REG-038",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "hold_evidence": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse-b128-abyssal-bite-printed-go-again-hold-e1955e2405ca.json",
+        "sha256": "e1955e2405ca8db6164a3f8894570b165ea9d29fb6f6416c139235cc1abf2f2e"
+      },
+      "reason": "Correct printed go again requires AP1 after6 native actions; observedAP0. No fixture saved or passing credit, no native retry/sourcefix."
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-20T23:47:51.802521+00:00",
+  "plan_sha256": "84421f3de99a7af3c835d5d7a8c2c154f4e77b132d11e7e6061176098381af01",
+  "independent_saved_proof_sha256": "697a281d07e5b704aff492252a35532c1a8b864d99d0872a24c6a35b74553edb",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b92-rise-after-focused-fault-plan.json",
+    "84421f3de99a7af3c835d5d7a8c2c154f4e77b132d11e7e6061176098381af01",
+    "card-regression-sparse-rise-e947-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "rise_above_paid_donor_top_to_bottom",
+      "fixture": "card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense",
+      "fixture_sha256": "eaa39151208c73c92ba984df0d6d89ea05cb0c5be0fcb6e7c907a71f7b172fa5",
+      "source_raw5": {
+        "initial_gamestate.txt": "2ee575631dc9ab1076937c0686e66158b2f1758a626c3da12a733d0fa1d7c789",
+        "actions.json": "540cb8a0c0a6bb8742936e3537159f9f0109017fe3ff0240255b1f3ccc9d84d9",
+        "assertions.json": "f2f02c63b9392679db374755730d87082f71590e9693866520ebcbda49a59c1a",
+        "expected_final_gamestate.txt": "256fd81e5ee7c5704a4840ad8b3bfeac123989d7a0a511edabd03c6496274aa9",
+        "meta.json": "66c7080efdca93df8845f3277e521fa0278216ae8ecfcf9f82328fc6335b6582"
+      },
+      "prefix_actions": 20,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 4,
+            "from": "Deck",
+            "cardID": "wounding_blow_red",
+            "to": "Deck"
+          }
+        ]
+      },
+      "retained_assertions": 204,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p4Deck-0.CardID to equal 'wounding_blow_red', got 'brutal_assault_red'.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Rise Above / four live sparse effect: Initial assertion failed: Expected p4Deck-0.CardID to equal 'wounding_blow_red', got 'brutal_assault_red'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual original Hand0 alternative-cost donorUID7 is put on own DeckTOP above sentinel8 and sourceRiseUID6 is paidStack, move the sole actual Wounding Blow Red from P4Deck back to P4Deck using the existing helper. Normal FaBMoveUID\u2192AddDeck appends with all native callbacks, producing [sentinel8,donor7] after save compaction. Keep every original source/economy/payment/priority/physical-defense/damage assertion; first retained Initial Deck0.CardID must fail. This is a disposable topdeck-payment-result sensitivity fault, not a legal in-game move, queued-choice mutation or source repair.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

@@ -504,13 +504,13 @@ P1SPACEARENACOUNT:1
 # WhenPlayedResolvesEvenIfDefeatedByUniqueness
 #// JTL_039 Chimaera — the When Played "use another unit's When Defeated" STILL RESOLVES even though this
 #// copy is immediately defeated by the uniqueness rule (CR 8.19.1.b). P1 already controls one Chimaera and
-#// The Legacy Run (LOF_213); P1 plays a SECOND Chimaera. Its When Played fires first (SWUSim resolves the
-#// played unit's own trigger before the uniqueness state-check), and P1 picks LOF_213 → its "Deal 6 divided
-#// among enemy units" hits SOR_046 for 6. The uniqueness rule then forces P1 to defeat a Chimaera copy; P1
-#// defeats the freshly-played one, whose "When Defeated: create 2 TIE Fighters" makes two JTL_T01 tokens.
+#// The Legacy Run (LOF_213); P1 plays a SECOND Chimaera. The uniqueness rule comes FIRST (CR 2.x.5.b — it takes
+#// priority over waiting triggered abilities; owner 2026-10-20): P1 defeats the freshly-played copy, whose
+#// "When Defeated: create 2 TIE Fighters" makes two JTL_T01 tokens. Its When Played still resolves (CR 8.30.3)
+#// and P1 picks LOF_213 (now mySpaceArena-1) → its "Deal 6 divided among enemy units" hits SOR_046 for 6.
 #// End state: SOR_046 has 6 damage, the original Chimaera + Legacy Run + 2 TIE remain, the new copy is in
-#// discard. (SWUSim orders the When-Played before the uniqueness defeat; either ordering — When-Played
-#// first, or the defeat first then the simultaneous triggers — yields the identical board state.)
+#// discard. (Until 2026-10-20 SWUSim resolved the When Played first and the uniqueness defeat at the action's
+#// end; the board this section pins is the same either way — only the order of the answers changed.)
 
 ## GIVEN
 CommonSetup: bbk/rrk
@@ -523,9 +523,9 @@ WithP2GroundArena: SOR_046:1:0
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-2
 - P1>AnswerDecision:mySpaceArena-1
 - P1>AnswerDecision:theirGroundArena-0:6
-- P1>AnswerDecision:mySpaceArena-2
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:6

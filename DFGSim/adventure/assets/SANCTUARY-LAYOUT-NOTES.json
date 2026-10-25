@@ -1,0 +1,147 @@
+{
+  "width": 1536,
+  "height": 1024,
+  "grid": {
+    "columns": 24,
+    "rows": 16,
+    "tile": 64
+  },
+  "anchors": {
+    "keeper": {
+      "tile": [
+        11,
+        6
+      ],
+      "foot": [
+        736,
+        416
+      ]
+    },
+    "arrival": {
+      "tile": [
+        11,
+        12
+      ],
+      "foot": [
+        736,
+        800
+      ]
+    },
+    "exit": {
+      "tile": [
+        11,
+        14
+      ],
+      "foot": [
+        736,
+        928
+      ]
+    }
+  },
+  "blockedRectangles": [
+    {
+      "id": "top-wall",
+      "rect": [
+        0,
+        0,
+        1536,
+        150
+      ]
+    },
+    {
+      "id": "left-wall",
+      "rect": [
+        0,
+        0,
+        70,
+        1024
+      ]
+    },
+    {
+      "id": "right-wall",
+      "rect": [
+        1460,
+        0,
+        76,
+        1024
+      ]
+    },
+    {
+      "id": "bed",
+      "rect": [
+        80,
+        155,
+        285,
+        185
+      ]
+    },
+    {
+      "id": "shrine",
+      "rect": [
+        570,
+        145,
+        395,
+        120
+      ]
+    },
+    {
+      "id": "desk",
+      "rect": [
+        1150,
+        155,
+        190,
+        125
+      ]
+    },
+    {
+      "id": "reed-mats",
+      "rect": [
+        1300,
+        180,
+        150,
+        160
+      ]
+    },
+    {
+      "id": "left-planter",
+      "rect": [
+        65,
+        420,
+        110,
+        170
+      ]
+    },
+    {
+      "id": "right-planter",
+      "rect": [
+        1380,
+        420,
+        100,
+        170
+      ]
+    },
+    {
+      "id": "front-wall-left",
+      "rect": [
+        0,
+        850,
+        675,
+        174
+      ]
+    },
+    {
+      "id": "front-wall-right",
+      "rect": [
+        865,
+        850,
+        671,
+        174
+      ]
+    }
+  ],
+  "notes": [
+    "Generated image inspected; intended keeper/arrival/exit anchors lie on clear floor.",
+    "Keep bottom-center doorway x675–865 y850–1024 clear.",
+    "Furniture rectangles are conservative proposed collision geometry; main walking area x200–1350 y350–820 remains open."
+  ]
+}

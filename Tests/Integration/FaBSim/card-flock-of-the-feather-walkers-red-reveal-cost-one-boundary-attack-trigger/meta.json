@@ -1,0 +1,7 @@
+{
+    "name": "Flock of the Feather Walkers / reveal-cost-one-boundary-attack-trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:47:19+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Pay printed1 from floating1 and reveal leg_tap_blue, which remains in hand. Printed reveal threshold includes costs0 and1. Flock becomes an attack for printed5; its attack trigger is a separate layer: before resolution, Arena0/Stack1; afterward exactly one Quicken. The newly created Quicken cannot grant go again to the already-played Flock. Unblocked damage5, AP0; token remains. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9. Sources: FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red https://judge.fabtcg.com/cards/detail/295/ https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

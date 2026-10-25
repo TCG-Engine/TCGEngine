@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T19:32:05+00:00",
+    "input_file": "card-regression-batch134.json",
+    "input_sha256": "a324e73dc0fc4fc0fb7fff34e6702a4f4a24a462cb528dec86d6a9cce0304260",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-driving-blade-red-four-live-sparse-actual-paid-weapon-plus-three-and-granted-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1425
+        },
+        {
+            "slug": "card-precision-press-red-four-live-sparse-actual-sword-go-again-and-piercing-against-real-equipment-block",
+            "status": "recorded_semantically_checked",
+            "actions": 34,
+            "assertions": 1677
+        }
+    ]
+}

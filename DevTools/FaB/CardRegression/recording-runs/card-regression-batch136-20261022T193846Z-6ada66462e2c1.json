@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T19:38:46+00:00",
+    "input_file": "card-regression-batch136.json",
+    "input_sha256": "0404a4a4dc9a680f18e5293e0a72e1dd98d21afee9fb32817cd910a3ccf9e477",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-slice-and-dice-red-four-live-sparse-actual-first-sword-plus-one",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1331
+        },
+        {
+            "slug": "card-engaged-swiftblade-red-four-live-sparse-actual-paid-warrior-attack-plus-three",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1269
+        }
+    ]
+}

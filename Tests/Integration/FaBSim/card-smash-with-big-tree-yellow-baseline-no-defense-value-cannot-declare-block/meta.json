@@ -1,0 +1,7 @@
+{
+    "name": "Smash with Big Tree / ordinary baseline / no-defense-value-cannot-declare-block",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:28:17+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost2, power6, pitch2, defenseabsent, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Printed defenseabsent: a missing defense value is not zero defense and the actual attempted declaration must leave the card in Hand; printed Wounding Blow red4 deals4 (HP16). Sources: FaBSim/GeneratedCode/cardArrayCache.json#smash_with_big_tree_yellow https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

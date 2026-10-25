@@ -56,6 +56,11 @@ function _SWUBotLookaheadTransientGlobalNames(): array {
         'gPlayGrantShield', 'gPlayGrantPrevent2', 'gEntryPlayGrantTE', 'gForceEnterReady', 'gInCombatDamage',
         // Not in the request-boundary list (they are not continuation state) but a dispatch mutates them:
         'playerID', 'updateNumber', 'frameAnimations', 'gFlashMessage',
+        // The in-memory winner SWUDeclareGameWinner() sets beside GAMEOVER_WINNER. The payload restore puts the serialized winner
+        // back, but this one stayed set after a WINNING line, so every later DoDrawCard() bailed as if the game were decided — no
+        // regroup draws, no deck-out — and the real game never ended (ASH meta run 2026-10-14: Dedra Colossus vs Krennic Nevarro City,
+        // 300+ rounds at 1 HP each). In production it is reset only by the next ParseGamestate, so the rest of the request was affected too.
+        'gWinner',
     ];
 }
 
@@ -141,10 +146,15 @@ function SWUBotLookahead(int $seat, array $action, callable $read): ?array {
     if (function_exists('SWUBotDataEnterLookahead')) SWUBotDataEnterLookahead();
     ob_start();
     try {
-        if (_SWUBotLookaheadDispatch($seat, $action)) $out = $read();
+        // The per-decision memo (BotEvaluator.php) is off while the action runs and empty for the board it leaves.
+        if (function_exists('SWUBotMemoSuspend')) SWUBotMemoSuspend();
+        try { $dispatched = _SWUBotLookaheadDispatch($seat, $action); }
+        finally { if (function_exists('SWUBotMemoResume')) SWUBotMemoResume(); }
+        if ($dispatched) $out = $read();
     } finally {
         if (function_exists('SWUBotDataExitLookahead')) SWUBotDataExitLookahead();
         ob_end_clean();
+        if (function_exists('SWUBotMemoReset')) SWUBotMemoReset();   // ...and empty again for the restored board
         _SWURestoreSerializedPayload($payload);
         _SWUBotReapplyRemovedSlots($removedSlots);
         _SWUReapplyUndoBlocks($blocked);
@@ -154,6 +164,7 @@ function SWUBotLookahead(int $seat, array $action, callable $read): ?array {
             unset($z);
         }
         foreach ($saved as $name => $value) $GLOBALS[$name] = $value;
+        if (function_exists('SWUBotMemoReset')) SWUBotMemoReset();
     }
     return is_array($out) ? $out : null;
 }
@@ -200,6 +211,8 @@ function _SWUBotLookaheadContinue(int $seat, callable $read, callable $score, in
     };
     if ($depth <= 0 || $budget <= 0 || !function_exists('SWUBotLegalActions') || SWUBotPendingDecisionSeat() !== $seat) return $leaf();
     $legal = SWUBotLegalActions(strval($GLOBALS['gameName'] ?? ''), $seat);
+    // Answers a proposal gates (SWUBotStripGatedAnswers, BotLegalActions.php) leave unless that proposal is on for this decision.
+    if (function_exists('SWUBotStripGatedAnswers')) $legal['actions'] = SWUBotStripGatedAnswers((array)($legal['actions'] ?? []));
     $answers = array_slice((array)($legal['actions'] ?? []), 0, min(SWU_BOT_LOOKAHEAD_BRANCH, $budget));
     $truncated = count($answers) < count((array)($legal['actions'] ?? []));
     if (($legal['kind'] ?? '') !== 'decision' || empty($answers)) return $leaf();

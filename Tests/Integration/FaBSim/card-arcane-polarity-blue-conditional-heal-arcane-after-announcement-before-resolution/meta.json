@@ -1,0 +1,7 @@
+{
+    "name": "Arcane Polarity / conditional heal / arcane-after-announcement-before-resolution",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:40:56+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed arcane_polarity_blue cost0, pitch3, no defense property, no action-point cost or gain as an Instant. Branch arcane-after-announcement-before-resolution. Independent printed-rule model requires terminal health[9, 20], resources[0, 0], AP[1, 0]. Real Kano source ability lifetime during its own look await is not qualified: no Stack-count/ability-source absence oracle is recorded at that await. Physical primary spell remains pending and Dart real Banish permission is asserted. Sources: https://judge.fabtcg.com/cards/detail/3299/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Pummel / hero-hit-empty-hand-trigger-resolves-without-discard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:24+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Hero takes6 and the mandatory hit ability still triggers as Stack1, even though defender has no cards. Resolving it cannot choose or discard anything; hand0/graveyard0, no queue, life and AP0 must remain correct. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pummel_blue https://judge.fabtcg.com/cards/detail/321/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

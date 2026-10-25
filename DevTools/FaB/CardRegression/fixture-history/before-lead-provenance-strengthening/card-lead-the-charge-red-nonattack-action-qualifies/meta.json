@@ -1,0 +1,7 @@
+{
+    "name": "Lead the Charge / nonattack-action-qualifies",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:54:19+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost0, own go again, next played ACTION CARD with cost at least0 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. energy_potion_blue is a Generic nonattack Action with cost0, meeting threshold. It creates the trigger before its own resolution; the trigger returnsAP1. Energy Potion enters Arena with no own go again, leavesAP1. Sources: https://judge.fabtcg.com/cards/detail/548/ https://rules.fabtcg.com/en/cr/06-effects/#663 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_red"
+}

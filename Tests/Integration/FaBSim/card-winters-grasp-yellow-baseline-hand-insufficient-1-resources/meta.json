@@ -1,0 +1,7 @@
+{
+    "name": "Winter's Grasp / ordinary baseline / hand-insufficient-1-resources",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:28:44+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost2, power5, pitch2, defense3, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Actual Hand click must be rejected for hand-insufficient-1-resources. Preserve source, AP/resources[1, 0]/[1, 0], health20/20, priority1, empty Stack and graveyard; no author-only legality query is substituted for the action. Sources: FaBSim/GeneratedCode/cardArrayCache.json#winters_grasp_yellow https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

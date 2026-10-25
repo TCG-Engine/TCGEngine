@@ -3,9 +3,13 @@
 // SWUBotFeatureOn() where its behaviour lives, so a chooser profile can switch some of them off.
 // ⚠ SHIP/HOLD RULE (owner, 2026-10-03 — replaces 2026-09-14's "every change must beat the stack head-to-head", which the
 // 2026-09-16 fidelity reframe had already retired): a lever that CORRECTS something demonstrably wrong (shown on a test
-// board), measures with no deck significantly hurt (a NULL passes), and has every line under a mutation-checked test ships
-// ON as a feature group. A proposal stays a "@try-" only when it measures HARMFUL or is a judgement call rather than a fix.
+// board), measures with no deck significantly hurt (a NULL passes), and is shown to FIRE in a smoke run ships ON as a feature
+// group. A proposal stays a "@try-" only when it measures HARMFUL or is a judgement call rather than a fix.
 // Owner: "i fear this outdated rule might be hurting potential explorations." The measurement is a SAFETY check.
+// ⚠ NO PER-FEATURE UNIT TESTS (owner, 2026-10-12): bot features are verified by RUNS — a smoke run whose coverage shows the
+// branch fired ("proposal:<name>", _SWUBotFired in BotFallback.php) and the ASH meta run. The ~156 per-feature pick/score tests
+// were retired that day; the "Guard: bot_<x>_test.php" notes below name files that now live only in git history. Kept: the
+// infrastructure tests (lookahead, legal actions, stack, tags, labels, traces, Bot Practice gates) and bot_invariants_test.php.
 // Chooser profiles:
 //   heuristic-<style>            everything on
 //   heuristic-<style>@base       every feature in SWUBotFeatureList() off — the stack before them
@@ -111,7 +115,12 @@ const SWU_BOT_PART9_FEATURES = ['nogift'];
 // inert for every aggro seat and the order was decided by where the cards sat in hand (measured both ways on the
 // reported board). The guide now puts an enabler in its own subset first, under the same switch — '@no-enablerfirst'
 // and '@no-p10' turn off BOTH halves, so they stay one A/B.
-// Guard: SWUSim/DevTools/tests/bot_enablerfirst_test.php (A-E the scorer half, F-J the guide half).
+// ⚠ THIRD HALF, added 2026-10-12 from Bug Report game 1647080: "bot did not attack with Neel before playing Tarpals".
+// Neel's grant is "When Played/ON ATTACK", and both halves above read When Played only — a Neel already in play
+// scored his swing as a 1-power poke while the go-wide guide named Tarpals. An attack whose On Attack arms the grant
+// for an affordable payoff now carries the same price (_SWUBotAttackEnablerBonus), and the guide starts its line with
+// that swing when the payoff is in its subset. Same switch.
+// Guard: SWUSim/DevTools/tests/bot_enablerfirst_test.php (A-E the scorer half, F-J the guide half, K-R the attack half).
 const SWU_BOT_PART10_FEATURES = ['enablerfirst'];
 
 // Part 11 (2026-09-23): 'mgkeep' — THE FIRST MIDRANGE RULE THIS ENGINE HAS. Owner ruling 2026-09-23 (6):
@@ -242,7 +251,7 @@ const SWU_BOT_PART16_FEATURES = ['aspectwaiver'];
 const SWU_BOT_PART17_FEATURES = ['hostpolicy'];
 
 // Part 18 (2026-10-01): 'doomedsac' — a unit that is going to die anyway is cheap to sacrifice. Owner rulings, from the
-// Karabast Krennic games (the human sent their own deployed Krennic back with Chimaera):
+// human Krennic games (the human sent their own deployed Krennic back with Chimaera):
 //   2a a DEPLOYED LEADER is a sacrifice (Chimaera's friendly pick) when it is Condemned (SEC_038 — sending it back
 //      restores its front side) or has 2 or less HP left and the opponent can deal with it — but only when no other
 //      fodder is available, so it is priced above a 2-cost body (SWU_BOT_DOOMED_LEADER_SAC_COST).
@@ -266,7 +275,7 @@ const SWU_BOT_PART18_FEATURES = ['doomedsac', 'unusedsac'];
 // SHIPPED on the owner's request, not on an A/B. Guard: SWUSim/DevTools/tests/bot_weakness_test.php.
 const SWU_BOT_PART19_FEATURES = ['weakness'];
 
-// Part 20 (2026-10-02): owner rulings from Ninin's Ahsoka Yellow (ASH_009) Karabast games.
+// Part 20 (2026-10-02): owner rulings from Ninin's Ahsoka Yellow (ASH_009) human games.
 // 'buffspread' — a Support leader's flip turn SPREADS its "+N for this phase" buffs so every one lands on a unit that
 //   still attacks: "+2 Raid from the Naboo ship onto the Supported unit, +2 from Jar Jar to this or another unit, +2
 //   Supported attack buffs someone else (or Ahsoka), then +2 Raid from Ahsoka attacking and another +2 on her own On
@@ -635,6 +644,219 @@ const SWU_BOT_PART41_FEATURES = ['phaseexpiry', 'observertax', 'uniquerefresh', 
 //   wallstack — hard control vs an aggro leader keeps putting Sentinels down in rounds 1-4 even with one already up ('wallfirst' stopped at
 //          one per arena) — owner, Mando vs aggro 2026-10-09: "sentinel up most turns". Guard: bot_wallstack_test.php.
 const SWU_BOT_PART42_FEATURES = ['tuck', 'doubleplay', 'unitedge', 'playdefeat', 'deployreplay', 'villainpitch', 'attackreserve', 'shipdiscount', 'deployfirst', 'pilotchoice', 'plantruncate', 'twoping', 'forcebuff', 'dedra', 'thrawnwd', 'armorerpicks', 'freekill', 'advready', 'tokenfirst', 'deploybuff', 'creditdeploy', 'aspectpick', 'actionfirst', 'healamount', 'deployswing', 'landomill', 'landoflip', 'splitzero', 'yodaloop', 'healwaste', 'searchvalue', 'mandoclaim', 'baseheal', 'lciwplan', 'supportfirst', 'cleanup', 'stabkeep', 'pitchtarget', 'anakinpitch', 'bokatanres', 'forceregen', 'chewieattack', 'sentinelsac', 'selectivewipe', 'mitigation', 'wallstack'];
+// Part 43 (2026-10-12, owner "let's ship gapstack") — the 2026-10-07 gap screen's '@try-gapstack' group (control vs SPACE aggro),
+// shipped after the ASH meta screen (.claude/tmp/ash-meta-runs/gapstack-20261012, 19,515 games paired with today's plain stack):
+// hyper aggro 176:222 newly won:lost (p .024), hard control 90:67 (p .08), soft control 240:217; archetype Pearson +0.03 → +0.06, MAE
+// 0.100 → 0.097, style bias +9.6/−12.5 → +9.0/−12.0 — the first lever to move the anti-control gradient the right way.
+//   wallkeeparena — resourcing vs SPACE aggro: 'wallkeep' (p39) no longer keeps a Sentinel in an arena the opponent has no unit in; it is
+//          the card that goes, ahead of a space answer (Aurra s012 resourced Pirate Snub Fighter, kept a ground Moff Gideon vs four Vader
+//          ships). Owner ruling 2026-10-12 by shipping: "never resource a Sentinel vs aggro" means a Sentinel that can wall. Guard: bot_wallkeeparena_test.php.
+//   cravinganswer — resourcing: a power-strike that damages an enemy unit (Craving Power LOF_091) counts as an answer — Krennic Blue's
+//          only spot answer to a piloted ship, resourced in 30 of 82 losses to Boba Blue. Guard: bot_bobaspace_test.php.
+//   wallarena — rule 'wall-first': against a SPACE-flavoured deck a wall stands only where the opponent has units, so a ground Sentinel
+//          is not the first play into an all-space board. Guard: bot_wallarena_test.php.
+//   bobaspace — Boba Fett (JTL_009) reads as a 'space' deck (owner: "space midrange, 27 of 41 units space"), so Hyperspace Disaster is
+//          kept against him, not resourced. ⚠ keyed on the leader alone, every base (the 10-07 canary suspected Lake Country). Guard: bot_bobaspace_test.php.
+const SWU_BOT_PART43_FEATURES = ['wallkeeparena', 'cravinganswer', 'wallarena', 'bobaspace'];
+// Part 44 'controlvalue' (2026-10-13, owner "let's ship it") — ten value / answer rules for the midrange and control seats, built from the
+// owner's rulings on Ninin's Maul Blue v2, Grievous Blue and Krennic Blue Splash games (human-game read, 2026-10-12).
+// ASH meta screen (2026-10-13, paired with the plain stack on the same code): hard control 234:169
+// newly won:lost (p .0014), midrange 290:345 (p .032) — lost mostly TO control, moving hard control vs midrange 36.9% → 40.4% (real 56.4%);
+// archetype Pearson +0.04 → +0.08, matchup-cell Pearson +0.20 → +0.22, hard control bias −12.2 → −10.7. '@no-p44' / '@no-controlvalue'.
+//   handhate — a look-and-discard play (tag discard-opponent-hand) is worth the card it takes (seen cards in full, else the meta model);
+//          "If you do, they draw" (tag opponent-draw) hands one back (owner: Bazine Netal SHD gets the same treatment).
+//   leaderkill — a midrange/control deck's kill of an enemy leader unit passes the racing target filter and adds 2 rounds of that leader's damage.
+//   freshsac — rounds 1-5: a non-fodder unit played this phase (not yet attacked) is charged like a ready one when sacrificed.
+//   maulpitch — Maul's play-then-defeat Action on an off-aspect Heroism unit sets up Anakin (in hand, or still in the deck); a hard cast of
+//          that unit waits for the Action (owner: always via Maul's ability).
+//   condetb — a gated When Played (Disposable B1, Lifetree Caravan) waits for the unit that switches it on (owner: "B1 should always come
+//          after other units").
+//   gloom — "give each enemy unit -N/-N" joins the control wing's wipe plan (rule 5), judged by the lookahead's actual kills (owner: these
+//          are gloom effects, not guaranteed wipes).
+//   wdattack — an attacker that dies also fires its When Defeated: its damage kills count toward the attack.
+//   spenttrade — midrange: a cheap spent body (When Played fired / When Defeated pays back) trades into an equal unit.
+//   enginekill — a kill of an engine (Restore, base burn, Credit maker, Sentinel strip, ally buff) adds its per-round value.
+//   cleanupsoft — feature 'cleanup' extends to SOFT control vs an aggro leader in rounds 1-5.
+const SWU_BOT_PART44_FEATURES = ['handhate', 'leaderkill', 'freshsac', 'maulpitch', 'condetb', 'gloom', 'wdattack', 'spenttrade', 'enginekill', 'cleanupsoft'];
+// Part 45 (2026-10-13, owner bug report, game 1647080).
+//   playdefeatwd — Maul's "play it, then defeat it" fires the unit's DAMAGE When Defeated at once, so it is priced by what it kills on the
+//          board as it stands (_SWUBotWdKillValue), not by flat damage tags. The bot played Snub Fighter Squadron on 4 resources with The
+//          Legacy Run in hand (6 divided = Disposable B1 + Supreme Council Aide), then hard-cast The Legacy Run for 5 a round later; owner:
+//          "should have used Maul's ability to use Legacy Run as almost a board wipe".
+//   uniquewd — Maul's Action on a second copy of a unique I control: the uniqueness rule defeats the old copy too, so its body is lost and
+//          its damage When Defeated fires as well (Ninin vs Poggle: The Legacy Run twice, 6 + 6); the uniqueness pick defeats the copy
+//          Maul is NOT about to defeat.
+//   wdshieldpop — that When Defeated's value counts a point spent popping an enemy Shield (Ninin vs Ahsoka: 4 to Neel, 2 into Han's Shield),
+//          priced as the split picker already prices it ('splitpop', p32).
+const SWU_BOT_PART45_FEATURES = ['playdefeatwd', 'uniquewd', 'wdshieldpop'];
+// Part 46 'tempolines' (2026-10-13, owner "drop only softenkill and ship the rest") — from the deep read of Ninin's 18 Maul Blue v2 games.
+// Maul v3 single-rule screen (.claude/tmp/maul-v3-single-screen, Maul's seat only, 9 opponents x 128 paired games each): nightpick −4
+// (20:24), wdbait +3 (5:2), ambushsetup −2 (0:2) — all near neutral; 'softenkill' (−16, p .06) was dropped. '@no-p46' / '@no-tempolines'.
+//   nightpick — HMW_204 Nightbrother's replay from the discard is the unit worth its EFFECTS (When Played now; a damage When Defeated at
+//          the regroup, priced by its kills) plus the one attack it makes now — not the first unit in the discard.
+//   wdbait — a damage When Defeated unit (The Legacy Run) played while a SEEN card in an opponent's hand would defeat it is bait: + half
+//          of what its When Defeated kills now. A take-control card (No Glory, Only Results) is no bait.
+//   ambushsetup — a ping counts the just-played unit's pending Ambush as a finisher (Snub Fighter Squadron pings what its Ambush then kills).
+const SWU_BOT_PART46_FEATURES = ['nightpick', 'wdbait', 'ambushsetup'];
+// Part 47 'neelcombo' (2026-10-13, owner: "this list should now try to get the 'Neel combo' on Turn 1 … play Neel first, then Tarpals, and
+// buff Tarpals for a free 4 damage to base") — Ahsoka Yellow w Neel (force-fam-HMW-predictions/ahsoka-tano_ash_yellow_v-with-neel). Round 1 under
+// ASH_009: a hard rule plays ASH_248 Neel, then the payoff with the most power + Raid (HMW_254 Tarpals); the opening resourcer never banks
+// either. Logic: _SWUBotNeelComboPlan / SWUBotRuleNeelCombo (BotRules.php). SHIPPED ON THE OWNER'S RULING, like p7/p9. '@no-p47'.
+const SWU_BOT_PART47_FEATURES = ['neelcombo'];
+// Part 48 'sentinelclear' (2026-10-13, owner on Bug Report game 1647080: "an aggro bot should not ignore attacks into a Sentinel if it means
+// it can clear it this round especially if the opponent has no resources left"). An aggro hit softening the lone unshielded Sentinel that
+// this round's ready attackers (+ a ready leader buff Action) can clear is worth its share of the kill — in full when the opponent has no
+// ready resource. Logic: _SWUBotSentinelClearShare (BotFallback.php). SHIPPED ON THE OWNER'S RULING, like p47. '@no-p48'.
+const SWU_BOT_PART48_FEATURES = ['sentinelclear'];
+// Part 49 'creditengine' (2026-10-13, owner: "do a deep, thorough analysis of these games. look for at least 10 bot features we can ship
+// immediately and turn them on") — Ninin's 5 human games on Krennic Blue Naboo vs 420 bot games on the list. Logic + evidence per
+// feature: BotCreditEngine.php. SHIPPED ON at the owner's request (each corrects a measured gap); '@no-p49' / '@no-creditengine' is the stack before.
+//   powerdamage   — "deal damage equal to its power to a unit" (ASH_102 Ravager) is hostile, its amount the dealer's power (self-hits 55/90).
+//   fodderkeep    — the opening/early resource pick keeps the Credit engine's first 2 fodder bodies (Ant Droid banked 26/30).
+//   mercres       — …and its resource-loop unit (LAW_159 Expendable Mercenary, banked 12/26).
+//   mercplay      — Mercenary's play carries the resource it becomes while the Credit Action is ready (never cast in 88/120 games).
+//   sachealwait   — the Credit Action yields while the unit it takes would heal an undamaged base (43% of heal sacs healed nothing).
+//   healfodder    — a heal-on-defeat counts toward sacrifice pricing only up to my base's damage.
+//   condetbvalue  — an unmet conditional When Played (Disposable B1, Lifetree Caravan) carries none of its value (B1 61%, Lifetree 43%).
+//   krennicengine — JTL_032's "first When Defeated unit each round costs 1 less" is priced as an engine (sacrificed 46x, Chimaera'd 22x).
+//   strikeleader  — a deploy/Strike True strike takes a killable enemy leader unit (missed 3 of 14).
+//   foddermull    — a Credit-sac hand with no unit costing 2 or less is mulliganed (owner's keep: Krennic unit + a 1-drop; bot 0/120).
+const SWU_BOT_PART49_FEATURES = ['powerdamage', 'fodderkeep', 'mercres', 'mercplay', 'sachealwait', 'healfodder', 'condetbvalue', 'krennicengine', 'strikeleader', 'foddermull'];
+// Part 50 'bugfix1' (2026-10-15, owner: "go" on shipping step 1 of the ASH lever hunt, .claude/tmp/ash-levers-20261015/LEVERS.md). The bug class:
+// prompts the bot answered by the index tiebreak, and self-harm it never guarded. Measured as '@try-bugfix1' on the full ASH set vs baseline v2.2:
+// soft control +66 (p .002), hard control +52 (p .0005), soft aggro −75 (p .0001); archetype Pearson +0.08 → +0.11; every style but midrange
+// moved toward real. Helpers at the end of BotFallback.php; the self-burn filter is in BotHeuristic.php. '@no-p50' / '@no-bugfix1'.
+//   discloseanswer  — a free disclose is answered with the smallest covering set (Condemn's -6/-0 defence was declined 2,228/2,228).
+//   selfburnguard   — a card whose own-base damage defeats my base is never played (79 games lost to Operation Cinder / Rancor, 54 Dedra).
+//   plotpick        — the Plot pick by play value (the first candidate in 99% of 10,750 picks).
+//   hostileexhaust  — Shin Hati never exhausts my own unit; the front trigger waits for a ready enemy to exhaust.
+//   nohostiletarget — an unqualified hostile Action ("Give a unit -1/-1") waits while no enemy unit is on the board (Talzin self-hits 115).
+//   downgradehost   — the Armorer never plays a downgrade from its resources onto my own unit (Grav Charge 13/13 on its own).
+const SWU_BOT_PART50_FEATURES = ['discloseanswer', 'selfburnguard', 'plotpick', 'hostileexhaust', 'nohostiletarget', 'downgradehost'];
+// Part 51 'step2' (2026-10-16, owner: "sounds good go" — including his OK on the mulligan rule). Step 2 of the ASH lever hunt: the two of six
+// gradient levers that moved toward real. Measured TOGETHER as '@try-step2' vs baseline v2.3: hyper aggro −109 (p .0002), soft aggro −128
+// (p .0004), soft control +206 (p <.0001); archetype Pearson +0.11 → +0.16, Spearman +0.08 → +0.17, MAE 0.094 → 0.087; style bias hyper +5.4,
+// soft aggro +4.0, midrange −0.3, soft control −3.2, hard control −8.6. '@no-p51' / '@no-step2'.
+//   mullfloor          — a hand with 3+ cards castable by round 3 including a unit (2+ in a 5-card hand) is kept, whatever the summed curve
+//                        surplus (Dedra mulliganed 64%, Lando Colossus 65%, Greef Red 54% of hands with 3+ cheap cards). _SWUBotCurveMulligan.
+//   actionbeforeclaim  — the Force token is in the ability signature (Avar's "The Force is with you" scored -0.5 as a no-op); a worthwhile
+//                        Action goes before the claim; control passes rather than claims while its front Action waits for an enemy target.
+const SWU_BOT_PART51_FEATURES = ['mullfloor', 'actionbeforeclaim'];
+// Part 52 'engines3' (2026-10-16, owner: "ship and freeze plox"). Step 3 of the ASH lever hunt: each deck's leader/engine played as built.
+// Measured TOGETHER as '@try-engines3' vs baseline v2.4: archetype Pearson +0.16 → +0.36, Spearman +0.17 → +0.30, MAE 0.087 → 0.070
+// (spread SD 10.6 → 8.7pp, real 5.8); Kylo 14% → 52% (real 57), Leia SEC 18% → 55% (53), Asajj 37% → 48% (48), Talzin Green 36% → 48% (56),
+// Chewbacca Outpost 24% → 33% (53); Armorer and Krennic (Koska) unchanged. Helpers at the end of BotFallback.php. '@no-p52' / '@no-engines3'.
+//   kyloengine    — LOF_001 Kylo: the Action waits without an upgrade in hand; the discard is an upgrade he can wear (downgrades kept);
+//                   the replay never puts a downgrade on him; the deploy goes first while an affordable upgrade waits in the discard.
+//   leiadisclose  — SEC_004 Leia: the disclosed card is the one that leaves a FRIENDLY Experience recipient; the Action waits without one.
+//   talzinforce   — LOF_002 Talzin: a non-killing -1/-1 waits while other Force cards (hand, or 2+ in deck) need the token; a "use the
+//                   Force" unit without it waits while a ready Force-unit attack can refill it.
+//   armorerengine — ASH_230 Improvised Identity is the host's attack (worthless once exhausted; the plain attack waits for it); JTL_028
+//                   Nabat Village bottoms the 3 cards worth least to keep.
+//   chewieline    — LAW_013 Chewbacca: the front Action only kills a 3+ cost unit before the deploy; the 4-resource deploy goes first.
+//   koskaorder    — ASH_079 Koska Reeves waits for the round's Credit sacrifice (her token and Sentinel need a friendly defeat this phase).
+//   asajjping     — JTL_001 Asajj: the ping waits without a contested arena; the friendly pick is in one and survives.
+const SWU_BOT_PART52_FEATURES = ['kyloengine', 'leiadisclose', 'talzinforce', 'armorerengine', 'chewieline', 'koskaorder', 'asajjping'];
+// Part 53 'hardctl4' (2026-10-17, owner: "1 then 2" — ship and freeze, then fix the trigger-order engine bug). Step 4a of the ASH lever hunt:
+// hard control + the biggest remaining deck gaps. Measured TOGETHER as '@try-hardctl4' vs baseline v2.5: archetype Spearman +0.30 → +0.32,
+// MAE 0.070 → 0.067, cells MAE 0.132 → 0.130; hard control bias −9.1 → −8.2 (first lever to move it); Mando Colossus 49% → 53% (real 54),
+// Mando Yellow 26% → 29% (39), Chewbacca Outpost 33% → 35% (53); Lando and Dedra unchanged. Helpers at the end of BotFallback.php. '@no-p53'.
+//   removalfirst    — the removal 'shrink-first' would cast on a ready 3+ power enemy goes before 'blocker-first's body (BotRules.php).
+//   mandoclaimplay  — Mando's claim-and-draw loses to a castable play when the claim would leave 2+ resources idle.
+//   mandodrawattack — deployed Mando's attack carries his "if you have the initiative, draw" while I hold it.
+//   landoflipbomb   — LAW_018 Lando's flip round with a 9-drop castable after it: the deploy first, other plays wait; Bo-Katan +2 vs 2+ kills.
+//   homeonewall     — ASH_065 Home One is the space Sentinel wall vs a space deck with ships out.
+//   dedratarget     — SEC_010 Dedra picks a unit her 2 damage defeats (both answers good for me), not a healthy chip target.
+//   outpostepic     — LAW_019 Alliance Outpost's once-per-game Epic waits unless a token unit or a doomed unit's token can be spent.
+const SWU_BOT_PART53_FEATURES = ['removalfirst', 'mandoclaimplay', 'mandodrawattack', 'landoflipbomb', 'homeonewall', 'dedratarget', 'outpostepic'];
+// Part 54 'finalists' (2026-10-19, owner: "ship the 8 and freeze"). The ASH lever hunt's step 4b, screened one lever at a time: 107 registry levers
+// (Custom/levers/) → a targeted 1,000-game canary each → 26 to a 5,000-game fresh-seed stage → the 8 that moved toward real in BOTH
+// (.claude/tmp/ash-levers-20261015/{canary,stage2}/RESULTS.md). Measured TOGETHER as '@try-finalists' vs baseline v2.6: archetype MAE 0.067 → 0.066,
+// spread SD 8.5 → 8.0pp (real 5.8); Thrawn DV 43% → 50% (real 52), Thrawn Yellow 34% → 41% (42), Rio 21% → 29% (44), Leia LAW 31% → 36% (50),
+// Vane 42% → 46% (55); Armorer Yellow −3.7, Sloane Blue −3.5, Client −3.3 the other way; no style moved at p < .14. These are REGISTRY levers: each
+// lives in Custom/levers/<theme>_<name>.php and runs while its feature is on (BotLevers.php, SWU_BOT_SHIPPED_LEVERS). '@no-p54' / '@no-<name>'.
+//   wdpaybackkeep (Thrawn keeps his When Defeated payback bodies) · hostkeep (upgrade decks keep unique hosts) · forcexpfirst (a ready unit waits
+//   for Obi-Wan's Experience) · disclosecover (a disclose-gated card waits while the rest of the hand cannot cover it) · riosaboteur (Rio's Action
+//   priced as the +1/Saboteur swing) · pilotdeployfirst (a pilot leader deploys before the host Vehicle swings) · vanecheapupgrade (Vane pays with
+//   tokens first) · tempcapturevalue (Arrest priced by the damage it removes this phase).
+const SWU_BOT_PART54_FEATURES = ['wdpaybackkeep', 'hostkeep', 'forcexpfirst', 'disclosecover', 'riosaboteur', 'pilotdeployfirst', 'vanecheapupgrade', 'tempcapturevalue'];
+// Part 55 'selfweakfix' (2026-10-19, owner: "let's fix those issues" — the Hemlock DV lever build's review). A bug fix, shipped ON:
+//   noweaknesstarget — HMW_003 Doctor Hemlock's mandatory "Give a Weakness token to a unit without a Weakness token on it" Action waits while no
+//                      ENEMY unit can take the token ('nohostiletarget' only knew "-N/-N", damage and exhaust). 20 self-gives in 40 plain games
+//                      vs Mando Colossus (R1-R2 on my own Mandalorian token). '@no-p55' / '@no-noweaknesstarget' turn it off.
+//   sentinelclearfloor — 'sentinelclear' (p48) took max(Action value, Sentinel-clear buff value) for racing seats; with no buff to clear for that
+//                      value is 0, so a WAITING (negative) leader Action was lifted to 0, tied PASS and won on index. That, not the missing
+//                      pattern alone, is what fired Hemlock's target-less Action (nb002 R15). Only a positive clear value raises the Action now.
+const SWU_BOT_PART55_FEATURES = ['noweaknesstarget', 'sentinelclearfloor'];
+// Part 56 'controlkit' (2026-10-19, owner: "sure ship those as suggested"). The Hemlock DV levers (plans 2026-10-19-hemlock-dv-levers{,-plan2}),
+// measured one at a time on the HMW meta baseline (390 games/arm) and Hemlock DV vs the hmw-meta field (440): nothing significant either way,
+// so under the ship/hold rule every null-or-better one ships. HELD (trended harmful on Hemlock DV): 'handfinisher' (10:18) and 'upgradedtext'
+// (3:7) stay off-by-default proposals. Report: .claude/tmp/lever-runs-20261019/m3/REPORT.md. 19 are registry levers (Custom/levers/), and
+// 'handpick' was a proposal (BotFallback.php). '@no-p56' / '@no-controlkit' / '@no-<name>' turn them off.
+const SWU_BOT_PART56_FEATURES = ['healobserver', 'enginewatch', 'koskawait', 'leadergone', 'nebulashield', 'fatiguefeed', 'widewipe',
+    'clockdefence', 'wipecap', 'finisherexposure', 'finisherhold', 'curvesink', 'threatshape', 'blockerdeny', 'xpsink', 'shuttlemove',
+    'doomedsoak', 'removalbeforewall', 'plotfirst', 'handpick'];
+// Part 57 'readytie' (owner 2026-10-20, Bug Report game 1647080): "when two threats of the same stats can create a value kill situation,
+// then take the one that is ready. that is more valuable to kill in a unit to unit combat strategy." Koska Reeves (4/4) chose between two
+// 3/3 Beast tokens — one had just attacked (exhausted), one was ready — and they scored the same (3.9), so the first-listed, exhausted one
+// died. An attack-target tie-break: a READY enemy unit the attack kills while the attacker survives gets +0.001 — far below any real
+// difference, so it decides only ties. Every style. '@no-p57' / '@no-readytie' turn it off.
+// readythreat (same day, owner): for a CONTROL seat a READY enemy kill is also worth its attack power in kill currency when no friendly
+// Sentinel guards its arena — a ready 3/3 then ties an exhausted 5/4 (readytie breaks it). See _SWUBotReadyThreatPremium.
+// readykill (registry lever Custom/levers/pricing_readykill.php, owner 2026-10-19, built default-OFF) SHIPPED here 2026-10-20: the owner asked
+// for it a second time on the same board (game 1647080 — the Chimaera took the exhausted, Chewbacca-piloted N-1 4/6 over the READY,
+// buffed Emissary's Sheathipede 4/4 against Ahsoka; readythreat lifted the Sheathipede to 7.8, still under the N-1's 9.1).
+const SWU_BOT_PART57_FEATURES = ['readytie', 'readythreat', 'readykill'];
+// Part 58 'tempo' (2026-10-21, owner: "design them all now before running the ASH baseline"). The GENERIC TEMPO LAYER (spec
+// docs/superpowers/specs/2026-10-20-swusim-tempo-flavour-design.md §2): a deck DETECTED as tempo (BotTempo.php, > 28% tempo pieces) spends its
+// tempo pieces by its style and the opponent's. Registry levers, Custom/levers/tempo_*.php (helpers: tempo_util.php). Inert for non-tempo
+// decks and in Twin Suns. '@no-p58' / '@no-tempo' / '@no-<name>' turn them off.
+//   bigattacker — aggro tempo vs aggro: a blunting piece (exhaust/bounce/debuff/Weakness/capture/lock) takes the opponent's BIGGEST ready attacker.
+//   debufffirst — every tempo deck: "debuffs before trades" — an attack waits while a castable shrink turns its trade into a clean kill.
+//   stallpivot  — midrange/control tempo vs aggro or midrange: blunt their threats until the pivot (midrange: my leader deployed; control:
+//                 "I can now play my big stuff"), then lean on the base.
+//   pressure    — midrange tempo vs control, soft control vs soft/hard control: lean on the base; a blunting piece clears a Sentinel.
+//   hardhandhate — hard control vs hard control: discard their big threats and the cards that refill their deck (p44 owns 'handhate').
+const SWU_BOT_PART58_FEATURES = ['bigattacker', 'debufffirst', 'stallpivot', 'pressure', 'hardhandhate'];
+// Part 59 'tempoplans' (2026-10-21). The tempo DECK PLANS (spec docs/superpowers/specs/2026-10-20-swusim-tempo-deck-plans-design.md). Registry
+// levers, Custom/levers/plan_*.php (helpers: plan_util.php), plus the Lake Country bar inside _SWUBotLandoBombFlip. '@no-p59' / '@no-tempoplans';
+// '@no-tempoall' turns p58 and p59 off together (the measurement's off arm).
+//   talzinflip — LOF_002 Talzin deploys in her 5-resource round ("deploy on 5"), timed within it: after the opponent's big attackers have swung
+//                and their resources are spent, or before the round would be wasted; −1/−1 first, then deploy, upgrades on her, attack.
+//   talzinend  — Talzin RED after the flip: burn when ahead or even with my base above 50%, else defend ("even" = remaining HP within 3).
+//   talzinpivot — Talzin YELLOW's stall pivot is "I can play my big stuff", not the deploy (tempo_util.php _SWUBotTempoPivoted).
+//   nuvochain  — while Doctor Hemlock is on his leader side, an optional Weakness never goes on an un-Weakened enemy (his Action's targets)
+//                unless it kills or sets up a clean kill this turn.
+//   landolc    — Lando on Lake Country (JTL_031): the 1-resource Action before the deploy, then 5R + 3C = 8 for The Mandalorian / Liberty.
+const SWU_BOT_PART59_FEATURES = ['talzinflip', 'talzinend', 'talzinpivot', 'nuvochain', 'landolc'];
+// Part 60 'stealwd' (2026-10-21, owner: "yes" to shipping the 2026-10-10 proposal). Measured null in its screen (0 changed games, no Qui-Gon
+// in that field), shipped under the null-ships-ON rule after the Lando Blue vs Hemlock DV human games: No Glory took Qui-Gon in R6 of 2 of 4
+// games and his When Defeated tucked a unit of the Lando player's. '@no-p60' / '@no-stealwd' / '@no-noglorywd' turn it off.
+//   noglorywd — "take control of a non-leader unit, then defeat it" (JTL_043 No Glory, Only Results) adds the stolen unit's When Defeated, which
+//               fires for ME, to the target's value (_SWUBotStolenWdValue, BotFallback.php).
+const SWU_BOT_PART60_FEATURES = ['noglorywd'];
+// Part 61 'budgetwipe' (2026-10-22, bug report P-1, Petranaki game 308: "the bot claimed thinking Pre Vizsla was a wipe. but it did nothing
+// when it played it"). A budget wipe (ASH_053 Pre Vizsla: "…non-leader units with a total of 6 or less remaining HP") is valued — for the
+// initiative claim ('wipeinit'/'wipedraw') and its losses — by what it can actually defeat (_SWUBotBudgetWipeKillSet, BotResourcing.php),
+// not the whole arena. Shown on the game's own undo stack (R6 claim valued at 13 threat; real kill set empty → plays Koska instead).
+// HMW meta 2026-10-22 vs a plain arm on the same code: 2 of 526 games changed (1:1, null), fired in 185 games; shipped under the
+// null-ships-ON rule. Report: .claude/tmp/ash-meta-runs/budgetwipe-hmw-20261022/REPORT.md. '@no-p61' / '@no-budgetwipe' turn it off.
+const SWU_BOT_PART61_FEATURES = ['budgetwipe'];
+// Part 62 'copypick' (2026-10-22, Discord: "a bot play Fives, copying TS C3P0s when played to give away the sentinel? When there was a TS R2
+// on board?"). TS26_34 Fives' copy pick was first-listed; each copy is now resolved in the lookahead and scored by the board change
+// (_SWUBotCopyPickValue, BotFallback.php). '@no-p62' / '@no-copypick' turn it off.
+const SWU_BOT_PART62_FEATURES = ['copypick'];
+// Part 63 'tsfocus' (2026-10-22, Discord: "the bots will never attack into units they cant kill outright regardless of if that player's
+// winning … they're ignoring everything else to kick you while you're down"; owner chose both rules). Twin Suns free-for-all only:
+//   tslowseat      — trailing the healthiest opponent, a hit on a LOWER seat's base is worth a chip (it only brings on an elimination I lose).
+//   tssentinelchip — a surviving hit on the lone Sentinel walling the leader's base is its share of the clear, and passes every style filter.
+// (BotFallback.php _SWUBotTSLowSeatBaseCap / _SWUBotTSSentinelChipValue.) '@no-p63' / '@no-tsfocus' turn it off.
+const SWU_BOT_PART63_FEATURES = ['tslowseat', 'tssentinelchip'];
+// Part 64 'chipfirst' (2026-10-23, bug report P-5, Petranaki game 512: "bot kept claiming when it should have chipped damage"; owner chose
+// "chip first, then claim"). Rule 3 'initiative-for-lethal' claimed the moment it saw lethal next round, passing away every ready attacker:
+// the game's own undo stack replays it at R4 (5 attackers left) and R5 (7 attackers + 2 plays). The rule now waits while a ready unit can
+// hit their base and claims once the attacks are spent (SWUBotRuleInitiativeForLethal, BotRules.php). '@no-p64' / '@no-chipfirst'.
+const SWU_BOT_PART64_FEATURES = ['chipfirst'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
@@ -644,7 +866,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES);   // part 2, then 3-42
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES, SWU_BOT_PART46_FEATURES, SWU_BOT_PART47_FEATURES, SWU_BOT_PART48_FEATURES, SWU_BOT_PART49_FEATURES, SWU_BOT_PART50_FEATURES, SWU_BOT_PART51_FEATURES, SWU_BOT_PART52_FEATURES, SWU_BOT_PART53_FEATURES, SWU_BOT_PART54_FEATURES, SWU_BOT_PART55_FEATURES, SWU_BOT_PART56_FEATURES, SWU_BOT_PART57_FEATURES, SWU_BOT_PART58_FEATURES, SWU_BOT_PART59_FEATURES, SWU_BOT_PART60_FEATURES, SWU_BOT_PART61_FEATURES, SWU_BOT_PART62_FEATURES, SWU_BOT_PART63_FEATURES, SWU_BOT_PART64_FEATURES);   // part 2, then 3-49
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -659,7 +881,8 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES, 'p46' => SWU_BOT_PART46_FEATURES, 'tempolines' => SWU_BOT_PART46_FEATURES, 'p47' => SWU_BOT_PART47_FEATURES, 'p48' => SWU_BOT_PART48_FEATURES, 'p49' => SWU_BOT_PART49_FEATURES, 'creditengine' => SWU_BOT_PART49_FEATURES, 'p50' => SWU_BOT_PART50_FEATURES, 'bugfix1' => SWU_BOT_PART50_FEATURES, 'p51' => SWU_BOT_PART51_FEATURES, 'step2' => SWU_BOT_PART51_FEATURES, 'p52' => SWU_BOT_PART52_FEATURES, 'engines3' => SWU_BOT_PART52_FEATURES, 'p53' => SWU_BOT_PART53_FEATURES, 'hardctl4' => SWU_BOT_PART53_FEATURES, 'p54' => SWU_BOT_PART54_FEATURES, 'finalists' => SWU_BOT_PART54_FEATURES, 'p55' => SWU_BOT_PART55_FEATURES, 'selfweakfix' => SWU_BOT_PART55_FEATURES, 'p56' => SWU_BOT_PART56_FEATURES, 'controlkit' => SWU_BOT_PART56_FEATURES, 'p57' => SWU_BOT_PART57_FEATURES, 'p58' => SWU_BOT_PART58_FEATURES, 'tempo' => SWU_BOT_PART58_FEATURES, 'p59' => SWU_BOT_PART59_FEATURES, 'tempoplans' => SWU_BOT_PART59_FEATURES, 'tempoall' => array_merge(SWU_BOT_PART58_FEATURES, SWU_BOT_PART59_FEATURES), 'p60' => SWU_BOT_PART60_FEATURES, 'stealwd' => SWU_BOT_PART60_FEATURES, 'p61' => SWU_BOT_PART61_FEATURES, 'p62' => SWU_BOT_PART62_FEATURES, 'p63' => SWU_BOT_PART63_FEATURES, 'tsfocus' => SWU_BOT_PART63_FEATURES, 'p64' => SWU_BOT_PART64_FEATURES,
+            'controlvalue' => SWU_BOT_PART44_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,
@@ -996,13 +1219,7 @@ const SWU_BOT_PROPOSALS = [
     'mullhandsize',    // curvemull: the castable requirement is max(1, hand size - 4) (6 cards -> 2, a Colossus 5 -> 1)
     'mulleventclamp',  // curvemull: an Event's surplus counts max(0, s) at the mulligan — removal has nothing to price against
     'mullanswer',      // curvemull: control (rank >= 3) keeps an answer (removal / wipe) plus one castable card
-    // Krennic vs Boba Fett (JTL) Blue (diagnosis .claude/tmp/diag_boba: Krennic loses the SPACE arena). Guard: bot_bobaspace_test.php.
-    'bobaspace',       // Boba Fett JTL_009 reads as a 'space' deck, so Hyperspace Disaster is kept, not resourced
-    'cravinganswer',   // resourcing: a power-strike that damages an enemy unit (Craving Power) counts as an answer
-    // Vader (JTL) Yellow vs control (diagnosis .claude/tmp/diag_vader: control plays GROUND walls into a SPACE-only Vader).
-    'wallarena',       // wall-first: a Sentinel is a wall only where the opponent has units (or vs a deck not space-flavoured). bot_wallarena_test
-    'wallkeeparena',   // resourcing vs SPACE aggro: 'wallkeep' skips a Sentinel whose arena the opponent is not in. ⚠ owner ruling
-                       // needed ("never resource a Sentinel vs aggro" — off-arena too?). bot_wallkeeparena_test
+    // ('bobaspace', 'cravinganswer', 'wallarena', 'wallkeeparena' — the 'gapstack' four — SHIPPED 2026-10-12 as feature group 'p43'.)
     'indirectthreat',  // a unit's base threat adds its On Attack damage to the defending player (TIE Bomber: 3). bot_indirectthreat_test
     'indirectsoak',    // a split share that puts my unit within the strongest enemy attacker's reach costs 0.75 x its loss, not chip.
                        // ⚠ owner ruling needed (base or units vs indirect while the base is healthy?). bot_indirectsoak_test
@@ -1018,9 +1235,110 @@ const SWU_BOT_PROPOSALS = [
     // 2026-10-09: the tuck re-buy share SHIPPED at 0.25 (0.1 / 0 probed better but switch off the owner's loops); 16 dead / harmful /
     // faded levers DELETED (results: memory lever-screen-2026-10-09).
     // Numeric levers (an alternative value of a p42 knob — SWU_BOT_LEVER_VALUES below):
-    'mandoclaimhalf', 'mandoclaimx2', 'supporthalf', 'basehealx2', 'basehealhalf', 'anakinpitchx2', 'anakinpitchhalf', 'sentsac2', 'barefodder1', 'yodaloop4', 'yodaloop6', 'pitchline15', 'pitchline7', 'attackreservehalf', 'race2', 'race4', 'healpress20', 'healpress10', 'healunit075', 'searchhalf', 'searchx2',
+    // 2026-10-11: 'mandoclaimx2' (CLAIM_DRAW_MULT 2.0) DELETED — the 2026-10-10 overnight screen measured it −8.8pp on Mando Colossus
+    // (5:28 paired, p .0001); the shipped multiplier 1.0 stands.
+    'mandoclaimhalf', 'supporthalf', 'basehealx2', 'basehealhalf', 'anakinpitchx2', 'anakinpitchhalf', 'sentsac2', 'barefodder1', 'yodaloop4', 'yodaloop6', 'pitchline15', 'pitchline7', 'attackreservehalf', 'race2', 'race4', 'healpress20', 'healpress10', 'healunit075', 'searchhalf', 'searchx2',
     // Behaviour levers (a p42 rule read another way — gated at their site with SWUBotProposalOn):
     'cleanupkillonly', 'cleanupall', 'cleanupclock', 'bokatan4r', 'pitchdeck', 'stabkeepdup', 'sentsacdoomed', 'forcerefillonly', 'forcespendonly', 'yodapartial', 'landoflipaction', 'deployswingall', 'doubleplaycost',
+    // ── 2026-10-10 HUMAN-GAME LEVER SCREEN. New levers derived from Ninin's human-vs-human logs (private + public games), NOT
+    // from bot traces (those games never hit BotData). Each is screened against the full stack on its focus deck; default OFF;
+    // each has a mutation-checked guard test. See memory `swusim-human-game-levers-2026-10-10`.
+    // Fatigue / deck-out (CR §6.1, 3 damage per undrawable card, 2 drawn per regroup). Maul vs Hemlock was decided by a
+    // deck-out finish — nothing modelled the opponent's deck-out as a clock. The three arms each enable the behaviour AND set
+    // the horizon (opp deck size at which it activates): fatiguewin = 5, fatiguehorizon3 = 3, fatiguehorizon8 = 8.
+    'fatiguewin', 'fatiguehorizon3', 'fatiguehorizon8',
+    'fatigueself',      // my deck about to deck-out + I have a board: stop drawing, close (SWUBotDrawMultiplier)
+    'millcredit',       // milling THEIR deck is worth its deck-out damage (3/card) when their deck is low
+    // Heal as race equity (Chimaera/Owen Lars Restore out-races Boba burn; the bot "can't close vs a healing deck"). A seat's
+    // recurring base-heal (Restore N) raises ITS effective base HP in the race math — symmetric, so it covers both "don't count
+    // damage the opponent heals back as progress" (attacking a healer) and "my heal is survival equity" (racing while I heal).
+    'healrace',
+    // Tempo layer (owner-wanted, deferred): value an exhaust effect by the enemy attack it denies this round (Vane/Hemlock tempo).
+    'exhaustlock',      // scale the 'exhaust' tag by the opponent's best ready attacker — big threat = worth more, empty board = ~0
+    // "Take control of a unit, then defeat it" (JTL_043 No Glory, Only Results): the stolen unit dies under MY control, so its When
+    // Defeated fires for me. Kyzzy (Hemlock) stole Ninin's Annihilator and its When Defeated killed Anakin and stripped the other Anakin
+    // from hand. The take-control picker ranked targets by unit value alone.
+    // ('noglorywd' — SHIPPED 2026-10-21 as feature group 'p60' / 'stealwd'.)
+    // ── 2026-10-11 KRENNIC WORKSHOP — owner rulings answering memory `krennic-underperformance-2026-10-11` (bot Krennic 25% vs the exact
+    // bot Hemlock list the owner beat 4/5; it deploys R6 vs the owner's R11 and claims initiative ~2x as often per round).
+    'krennicdeploy', 'krennicdeploy4', 'krennicdeploy6',   // Q1: deploy LAW_008 only for a BIG strike from a host that sticks (power
+                                                           // >= 5 / 4 / 6) or once stabilised — "saving for a big unit in play that i
+                                                           // know would stick … or if i knew i was already stabilized i deployed to apply pressure"
+    'claimspent',       // Q2: control wing PASSES instead of claiming initiative while the opponent can still act (claiming forfeits the rest
+                        // of the round; 239 of 279 traced Krennic claims came from the fallback's flat +0.05 over pass)
+    'claimbomb',        // Q2: claim early when I hold next-round removal for their bomb (cost >= 5) and they are spent — "they just played a
+                        // bomb and i know they won't play anything else or attack with anything else"
+    'nogideon',         // Q3: ASH_097 Moff Gideon is never sacrificed (Credit Action, Chimaera, any sacrifice pick)
+    'chimaeraweakest',  // Q3: Chimaera's friendly pick is the WEAKEST unit (lowest unit value), not the cheapest after When Defeated payback
+    // ── 2026-10-11 HUMAN-GAME RESOURCING — Ninin's 22 human games on Krennic Blue Splash v2 vs 600 bot games on the same list
+    // (human-game read, 2026-10-11): the bot's OPENING resource pick banks the cards she wins with.
+    'stylemap',         // "is the opponent aggro" read from the meta's leader + BASE map (BotOpponentStyles.php), not SWU_BOT_AGGRO_LEADERS. bot_stylemap_test
+    'rampres',          // credit-ramp control seat: keep answers + ramp pieces, Lawbringer vs aggro, HSD resourced unless space. bot_rampres_test
+    // ── 2026-10-12 HUMAN-GAME READ — the owner's 31 games on Maul Blue (2-8), Grievous Blue (9-1) and Krennic Splash (6-5); memory
+    // the 2026-10-12 human-game read. General rules for the midrange / control seats; group '@try-leaderwatch'.
+    // ASH meta screen 2026-10-13: neutral (2.4% of games changed vs the plain stack, no style significant).
+    'deploysafe',       // midrange/control (racing rank >= 2) holds a deploy whose leader unit dies at the opponent's next action (a ready
+                        // enemy that can attack and kill it, or an enemy deploy strike that can go now) — unless the deploy itself defeats
+                        // an enemy unit. ~12 opponent leaders died within one action of deploying. bot_deploysafe_test
+    'leaderhunt',       // a kill of a deployed ENEMY LEADER unit carries a premium (it cannot deploy again): x W['kill'], so control most,
+                        // aggro least. Grievous killed 9/9 deployed leaders, Krennic answered 9/10. bot_leaderhunt_test
+    // ('handpick' — SHIPPED 2026-10-19 as part of feature group 'p56' / 'controlkit'.)
+    // ('handhate', 'leaderkill', 'freshsac', 'maulpitch', 'condetb', 'gloom', 'wdattack', 'spenttrade', 'enginekill', 'cleanupsoft' — the
+    // 2026-10-12 re-read's ten owner-ruled rules — SHIPPED 2026-10-13 as feature group 'p44' / 'controlvalue'.)
+    // ('nightpick', 'wdbait', 'ambushsetup' — the 2026-10-13 deep read of the Maul Blue v2 games — SHIPPED 2026-10-13 as feature group 'p46'.)
+    // Levers considered and DROPPED after grounding against the real scorer (kept as notes so they are not re-proposed):
+    //   legacysplitkill — _SWUBotSplitScore already scores W['kill'] x value + 0.5 per killed target, plus 'splitlethal'.
+    //   debuffkill      — _SWUBotWeaknessScore already returns a KILL when a -X/-X's loss >= the target's remaining HP (~line 1159).
+    //   graveyardtheft  — _SWUBotPlayValue already prices a play-from-discard ('discard' route); opponent-discard theft is a ~2-card niche.
+    //   (handhate was dropped here for want of a tag, then built on the discard-opponent-hand tag and shipped in p44.)
+    //   softenkill      — 'popkill' for plain damage (an attack that leaves its target alive, credited the kill a follow-up then makes).
+    //                     Maul v3 single-rule screen 2026-10-13: −16 (24:40, p .06) — DROPPED by the owner.
+    //   recursionwipe   — no "overcommit into the opponent's wipe" penalty exists to discount; would need a new penalty built first.
+    //   saboteurgrant   — needs a dedicated board computation (does the grant give a specific attacker lethal through a Sentinel).
+    // 2026-10-14 Krennic Blue vs Ahsoka Blue canary (10k games, Krennic 32.6%): LAW_037 Han Solo ("On Attack: Give an Experience token to
+    // this unit") survived the game in 50% of Krennic's losses vs 28% of its wins, and dealt 5.1 base damage a game in losses vs 2.9. A kill
+    // of a unit that GROWS on attack earns the base damage its next rounds would deal. _SWUBotGrowKillPremium (BotFallback.php).
+    'growkill',
+    // Same canary, owner 2026-10-14 ("let's test those 2 and then also test this line … build those 4 features and run 10k games each"):
+    'popfirst',      // the Credit Action's pick pops an enemy Shield first when it survives (BotCreditEngine.php)
+    'rewall',        // vs aggro: never sacrifice the last Sentinel in a contested arena; 'wall-first' through round 6
+    'mercramp',      // R1 weenie + sacrifice → R2 Expendable Mercenary on 3 resources + the Credit, sacrificed the same round (rule 'merc-line')
+    'krennicmerc',   // R1 Krennic unit (JTL_032) → R2 Mercenary at the discount, sacrificed the same round (rule 'merc-line')
+    // ('discloseanswer', 'selfburnguard', 'plotpick', 'hostileexhaust', 'nohostiletarget', 'downgradehost' — the 2026-10-15 lever hunt's bug
+    // class — SHIPPED 2026-10-15 as feature group 'p50' / 'bugfix1'.)
+    // 2026-10-15 ASH lever hunt, STEP 2 — the style-gradient levers, one ASH arm each (owner: "proceed with your suggested order").
+    'lukeaggro',          // G4-01: Luke JTL on Data Vault reads as an aggro leader (SWUBotOpponentIsAggroLeader)
+    'indirectprice',      // G1-05/G2-18: the 'indirect-damage' tag takes the base-damage weight (it priced 0 after the tags v3 split)
+    'pilotcost',          // G2-24/G3-09: a Piloting card costs its Piloting cost while a Vehicle can carry it (resourcing, curve, mulligan)
+    'enginedeploy',       // G3-05/G3-06: a control leader with a repeatable front Action stays home until round 7 unless under pressure
+    // ('kyloengine', 'leiadisclose', 'talzinforce', 'armorerengine', 'chewieline', 'koskaorder', 'asajjping' — the lever hunt's step 3 deck
+    // engines — SHIPPED 2026-10-16 as feature group 'p52' / 'engines3'.)
+    // ('removalfirst', 'mandoclaimplay', 'mandodrawattack', 'landoflipbomb', 'homeonewall', 'dedratarget', 'outpostepic' — the lever hunt's
+    // step 4a — SHIPPED 2026-10-17 as feature group 'p53' / 'hardctl4'.)
+    // Step 2 measured 2026-10-16 vs baseline v2.3 (archetype Pearson +0.11 / MAE 0.094): lukeaggro null (+0.12 / 0.095, Luke DV rose);
+    // indirectprice aggro +29 / control −39 (+0.10 / 0.096) — HOLD, pair with control-side levers; pilotcost soft aggro +109 / soft control −62
+    // (+0.09 / 0.100); enginedeploy Piett Colossus −27pp, control −216 (+0.01 / 0.100). ('mullfloor', 'actionbeforeclaim' SHIPPED as p51.)
+    // Bug report game 1647080 (2026-10-19): the bot played a second Blue Leader while the copy in play was READY at 2 damage — the
+    // uniqueness rule defeated the old copy and its attack was thrown away. A second copy of a unique unit I control now waits while
+    // the copy in play is ready with an attack that scores above zero; once it is spent the replacement is priced as before.
+    'uniqueattackfirst',
+    // Owner 2026-10-19 (Ahsoka flip turn; "split it" for every Plot deck). 'flippackage': the resourcer banks the deck's FLIP PACKAGE first (owner
+    // table — Ahsoka: Naboo Royal Starship + Jar Jar, else 2 Jar Jars — or the most valuable Plot set that fits the deploy threshold), every
+    // copy of a missing card; the Plot window plays that package first. 'flipholdhand': flip-dependent Plot cards (a leader-unit grant, an
+    // on-play phase buff) wait in hand for the resources while the leader is undeployed; a banked buff is cast only to clear a Sentinel or
+    // set up lethal next round.
+    'flippackage', 'flipholdhand',
+    // 'exhausteddiscount' (owner 2026-10-20, after readykill/readythreat on game 1647080: "we may need to devalue exhausted units a bit more
+    // to ensure this kind of pricing"): an EXHAUSTED enemy cannot attack this round, so the body share of an attack-kill on it is worth
+    // EXHAUSTED_KILL_SHARE (0.75) of a ready one's — in _SWUBotUnitTargetValue, so every style and every caller of that pricing sees it.
+    'exhausteddiscount',
+    // Owner rulings 2026-10-21 (Lando Blue vs Hemlock DV human games, docs/superpowers/swuforge-research/2026-10-21_lando-blue_bot-feature-report.md):
+    // 'millclock': "after flip, if Lando blue has 10+ resources or Lando LC has 8+ resources, then mill the opponent" — the post-flip Action is a
+    // real play (above the initiative claim) instead of a Credit worth nothing once the hand is castable. Bot 28% of spare post-flip rounds vs
+    // softcontrol, the human 75%. 'rebuildafterwipe': "rebuild is best especially if their wipe cost them all their resources" — the
+    // 'wipeaware' / 'wipecap' holds lift while an opponent who has SHOWN a wipe cannot pay for another this round.
+    'millclock', 'rebuildafterwipe',
+    // ('budgetwipe' — SHIPPED 2026-10-22 as feature group 'p61'.)
 ];
 
 
@@ -1028,7 +1346,6 @@ const SWU_BOT_PROPOSALS = [
 // default (the shipped p42 value) unless one of that knob's proposals is on.
 const SWU_BOT_LEVER_VALUES = [
     'mandoclaimhalf' => ['CLAIM_DRAW_MULT', 0.5],
-    'mandoclaimx2' => ['CLAIM_DRAW_MULT', 2.0],
     'supporthalf' => ['SUPPORT_ATTACK_SHARE', 0.5],
     'basehealx2' => ['BASEHEAL_MULT', 2.0],
     'basehealhalf' => ['BASEHEAL_MULT', 0.5],
@@ -1054,8 +1371,29 @@ function SWUBotLeverNum(string $knob, float $default): float {
     return $default;
 }
 
+// 2026-10-10 human-game screen. The fatigue (deck-out) behaviour is enabled by any of its three arms, each carrying its own
+// horizon (the opponent deck size at which deck-out damage starts counting as a clock). Kept as one on/off helper so the hook
+// sites read the same gate.
+function SWUBotFatigueOn(): bool {
+    return SWUBotProposalOn('fatiguewin') || SWUBotProposalOn('fatiguehorizon3') || SWUBotProposalOn('fatiguehorizon8');
+}
+// 2026-10-11 Krennic workshop: the deploy rule is enabled by any of its three arms; each carries its "big host" power bar.
+function SWUBotKrennicDeployOn(): bool {
+    return SWUBotProposalOn('krennicdeploy') || SWUBotProposalOn('krennicdeploy4') || SWUBotProposalOn('krennicdeploy6');
+}
+function SWUBotKrennicDeployBig(): int {
+    if (SWUBotProposalOn('krennicdeploy4')) return 4;
+    if (SWUBotProposalOn('krennicdeploy6')) return 6;
+    return 5;
+}
+function SWUBotFatigueHorizon(): int {
+    if (SWUBotProposalOn('fatiguehorizon3')) return 3;
+    if (SWUBotProposalOn('fatiguehorizon8')) return 8;
+    return 5;
+}
+
 function SWUBotProposalList(): array {
-    return SWU_BOT_PROPOSALS;
+    return array_merge(SWU_BOT_PROPOSALS, function_exists('SWUBotLeverProposals') ? SWUBotLeverProposals() : []);   // + the lever registry (BotLevers.php)
 }
 
 // Named proposal GROUPS, switched on together by "@try-<group>" — the mirror of SWUBotFeatureGroups(). Used to
@@ -1074,8 +1412,18 @@ function SWUBotProposalList(): array {
 const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue'],
                                  'krennicfull' => ['creditvalue', 'krennicscript'],
                                  'mullfix'     => ['mullhandsize', 'mulleventclamp', 'mullanswer'],   // 2026-10-07 gap screen
-                                 // 2026-10-07 canary: the four gap-screen levers that pointed the right way (unconfirmed at 60 g/cell).
-                                 'gapstack'    => ['wallkeeparena', 'cravinganswer', 'wallarena', 'bobaspace'],
+                                 // ('gapstack' SHIPPED 2026-10-12 as feature group 'p43' — '@no-p43' switches the four off.)
+                                 // 2026-10-11 Krennic workshop: all five owner rulings together.
+                                 'krennicws'   => ['krennicdeploy', 'claimspent', 'claimbomb', 'nogideon', 'chimaeraweakest'],
+                                 // 2026-10-12 human-game read: the three general rules together.
+                                 'leaderwatch' => ['deploysafe', 'leaderhunt'],   // ('handpick' shipped 2026-10-19, p56)
+                                 // 2026-10-19 owner's Plot flip plan (Ahsoka; split for every Plot deck): both halves together.
+                                 'flipplan'    => ['flippackage', 'flipholdhand'],
+                                 // ('tempolines' SHIPPED 2026-10-13 as feature group 'p46', without 'softenkill', which was dropped.)
+                                 // (the re-read's ten SHIPPED 2026-10-13 as feature group 'p44' / 'controlvalue'.)
+                                 // 2026-10-15 Krennic vs Ahsoka canary: the two winners together (popfirst +63, krennicmerc +94 alone).
+                                 'creditpop'   => ['popfirst', 'krennicmerc'],
+                                 // ('finalists' SHIPPED 2026-10-19 as feature group 'p54'.)
                                  ];
 // ⚠ No 'creditline' group. #1098 + #1099 are one chain, but p16 shipped the waiver half as a FEATURE, so
 // plain @try-creditbank already measures "the Credit half ON TOP OF the waiver fix" — a group would just
@@ -1124,6 +1472,8 @@ function SWUBotVariantDisabled(string $variant): ?array {
     if (str_starts_with($variant, 'try-')) {
         $p = substr($variant, 4);
         if (isset(SWU_BOT_PROPOSAL_GROUPS[$p])) return array_map(fn($x) => "try:$x", SWU_BOT_PROPOSAL_GROUPS[$p]);
+        $lg = function_exists('SWUBotLeverGroups') ? SWUBotLeverGroups() : [];   // a lever THEME switches its levers on together
+        if (isset($lg[$p])) return array_map(fn($x) => "try:$x", $lg[$p]);
         return in_array($p, SWUBotProposalList(), true) ? ["try:$p"] : null;
     }
     if (str_starts_with($variant, 'no-') && isset(SWUBotFeatureGroups()[substr($variant, 3)])) return SWUBotFeatureGroups()[substr($variant, 3)];
@@ -1139,7 +1489,8 @@ function SWUBotVariants(): array {
                        array_map(fn($p) => "w-$p", SWUBotWeightProbeList()),
                        array_map(fn($c) => "rand:$c", SWUBotRandomClassList()),
                        array_map(fn($p) => "try-$p", SWUBotProposalList()),
-                       array_map(fn($g) => "try-$g", array_keys(SWU_BOT_PROPOSAL_GROUPS)));
+                       array_map(fn($g) => "try-$g", array_keys(SWU_BOT_PROPOSAL_GROUPS)),
+                       array_map(fn($g) => "try-$g", array_keys(function_exists('SWUBotLeverGroups') ? SWUBotLeverGroups() : [])));
 }
 
 function SWUBotSetDisabledFeatures(array $features): void {
@@ -1152,3 +1503,6 @@ function SWUBotFeatureOn(string $feature): bool {
     return !in_array($feature, $GLOBALS['SWUBotDisabledFeatures'] ?? [], true)
         && !in_array($feature, $GLOBALS['SWUBotPinnedDisabled'] ?? [], true);
 }
+
+// The lever registry (2026-10-17): one file per lever under Custom/levers/, each an off-by-default proposal.
+require_once __DIR__ . '/BotLevers.php';

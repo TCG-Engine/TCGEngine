@@ -1,0 +1,222 @@
+{
+  "reused_weapon_proxy_source_review": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse-b132-qualified-independent-review-129fbcc21c25.json",
+    "sha256": "129fbcc21c25fefa5f9e3929ebf712e76f8b9bd5630853dac217799950532527"
+  },
+  "status": "B138_TWO_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch138.json",
+  "input_sha256": "ed7d847531db9ea3eff478e5c357b2cc3da01f91044c90d8aba68b2356bf3220",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:47:16.082442+00:00",
+  "fixtures": [
+    {
+      "slug": "card-commanding-performance-red-four-live-sparse-actual-paid-warrior-plus-three",
+      "fixture_sha256": "49afb135b709ed65c30f788ca441643fd12406a423a571b8998f046d74db37cf",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2f89fe933852dac414d4330ea0da7286045849a387d5ce7d86baa050ad9d72a1",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "eed31966c0f4d2eed7fccb4d952c46795653a072ffb1a8ffe92f959e350bc53d",
+        "expected_final_gamestate.txt": "7e32e0fd15228087dd2664f5df395d1c0342e415815d3cfa16f8309f47abedae",
+        "meta.json": "f9fa3ef4cad9ea6bfc11752706e0b981346d7474df5b1978e5c81a3dd3467ec3"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 1269,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "actual_attack_uid": 6,
+      "physical_weapon_uid": null,
+      "distinct_virtual_weapon_attack_uid": null,
+      "final_health": [
+        20,
+        20,
+        20,
+        11
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-plow-through-red-four-live-sparse-actual-paid-weapon-plus-three",
+      "fixture_sha256": "9908cd9da99b0f78afcfc94f48d4111376d212ed588a79b225be86a66d4714c0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "92c7fca466e3d97a2f77d00c26752d403b4b62153a533189b269dff64692eb74",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "ffa4a5dc32edb843e2da7b68a7a56788638e2ba361d764a59c7e39d93676e93e",
+        "expected_final_gamestate.txt": "9db09a3e009119d1a02bd9aaa2479bb0fa8e34e78ecff5c252ec5b0ea4a9c19e",
+        "meta.json": "ba23622f090383ff394b4d1250e551f0324d237212407f6c831e1fd84210c2ff"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 1332,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "actual_attack_uid": 8,
+      "physical_weapon_uid": 7,
+      "distinct_virtual_weapon_attack_uid": 8,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 66,
+  "total_native_assertions": 2601,
+  "total_manual_passes": 58,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b138-actual-saved-independent-review.json",
+    "sha256": "0e12a8215e911a36b9bea7f1ebc142c213fb12a3b70b42123f5b48a729f698b9"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b138-independent-spec-review.json",
+    "sha256": "1a92df67ba025cd91659a463b4c41f929a5fa38c0db155b9a3c6b2d9a576d49b"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch138-20261022T194241Z-6ada67310e58a.json",
+    "sha256": "db23f8d9bf72a4192931c747f6eeaf90bc944db733e4d510d63f9d69702c089f"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b138-four-live-run1.json",
+      "sha256": "8ec5408189b04773e39b0102f7e082f132232bcb95a25935866d7d302eee693a",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch138.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b138-four-live-run2.json",
+      "sha256": "9aeb00c45589dc238f89e2bc39f034ee1f44c5ab4a4166ce56a28692ab83f268",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch138.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b138-fault-controls.json",
+    "sha256": "eaeb6d181296360d946b22735e37d935d005b17c9c8ad02299135a9780cd7bfd",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "af6789f9841b5bcca3b9b4d4b6a5f5d13108d9a629cfd9eaaec9c1f6ee933736",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b138_commanding_performance_red_exact_source_power_sensitivity",
+      "fixture": "card-commanding-performance-red-four-live-sparse-actual-paid-warrior-plus-three",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "clash_of_vigor_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 559,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 9, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b138_plow_through_red_exact_source_power_sensitivity",
+      "fixture": "card-plow-through-red-four-live-sparse-actual-paid-weapon-plus-three",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dawnblade",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 623,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b138-focused-fault-plan.json",
+    "sha256": "af6789f9841b5bcca3b9b4d4b6a5f5d13108d9a629cfd9eaaec9c1f6ee933736"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 3112,
+  "native_evidence_review_checks": 62,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "One nextWarriorAA/one nextweapon +3 endpoint only; conditionalAAdefenderarsenal/+1unexercised, no otherrecipients/skips/secondhit/expiry/support/hero/siblings. No grantedattackGA. PhysicalWeapon7owned, proxy0Stackto1Chain stableB132/B134; no newownersemantics/lifecycle credit.",
+    "Only current new two are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Both controls remove only actualprimary+3 on actualWarriorClash6 or actualweaponproxy8: power9to6/6to3, keeping physicalcards/bothpaidcosts/target/noattackGA/history unchanged and allsuffixoracles/actions retained. ConditionalAAdefenderarsenal/+1 remainsunexercised; no legalalternative/expiry/globalowner/lifecycle credit."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "8e630c99c03fbedcb495bc56285214cef2a973a5fcea99f2633a3ce236ce75f2",
+  "current_independent_delta_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b138_independent.py",
+    "sha256": "4ac74eb09a177f4591940f84adae73291723287b6fe3a1f4716609e0fce84570"
+  }
+}

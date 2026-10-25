@@ -1,0 +1,50 @@
+# Real-deck self-play fixture — Mother Talzin, Power Through Magick - Strangled Cliffs
+# Source: melee.gg 463642 (Datacup II - El Abismo de Helm Wargames, 2026-10-18), #8 of 52, match record 4-2-1 (from the set's results), player OTC_Callak
+#   https://melee.gg/Decklist/View/9d231e9f-61b9-4760-a813-b4e501891624 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture — UPDATED 2026-10-20 (owner: "update the fixtures with the better performers"): the best match record of the
+#   Mother Talzin (LOF) Red Force archetype across the HMW set's three events. Replaced melee 480807 DarthKenaz (2-3-0).
+#   Main 51 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): midrange — the classifier read midrange (shape, medium confidence: shape score 2.31 (avg cost 3.63, 14 cheap, 8 big, 15 removal, 2 wipe, 2 draw); nearest labelled list mother-talzin_lof_red-force is only 62%)
+# Style: midrange
+# Flavours: tempo, force
+
+Leader
+1 LOF_002
+
+Base
+1 LOF_027
+
+Deck
+3 LOF_129
+3 LOF_031
+3 ASH_030
+3 HMW_039
+3 ASH_053
+3 LOF_035
+2 LOF_070
+2 LOF_231
+2 ASH_079
+2 ASH_148
+2 LOF_061
+1 SEC_163
+2 ASH_078
+2 JTL_143
+2 SEC_028
+3 JTL_043
+2 LAW_208
+2 LOF_079
+1 SEC_078
+1 LAW_044
+2 LOF_261
+1 ASH_183
+3 ASH_052
+1 JTL_175
+
+Sideboard
+2 LAW_191
+2 SEC_078
+2 JTL_181
+1 ASH_078
+1 LAW_208
+1 HMW_161
+1 LAW_044

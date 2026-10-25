@@ -1,0 +1,23 @@
+{
+  "status": "AUTHOR_ONLY_NOT_INDEPENDENT_REVIEW",
+  "cases": 12,
+  "native_intended_oracles": 8892,
+  "supported_step_descriptors": 156,
+  "all12_unique": true,
+  "all4_pilots_exact_subset": true,
+  "no_initial_permission_history_combat": true,
+  "frozen_originals_preserved": {
+    "catalog9-source-and-rules-audit.json": "634542e421c0b295cbac6443da7fd5ad091f96ffdf5075948df041b61e6da86b",
+    "ordinary-requirements-matrix-proposed.json": "95fcf0bbdf1d5bad37dc2b6da119dc715b92d1cc5eb3ee28e395a089609367d0",
+    "pilots4-proposed.json": "aa169be595ed6811c4ce14d06a7b7b47e84e8c3b8ceaa1bcea4098f6e5adf235",
+    "pilot4-author-rule-model-validation.json": "d7e80762a5d1f7479961bc0584d06f06d674f3f05dab8b9b9c876ca90a6e29af"
+  },
+  "outputs": {
+    "scenarios12-proposed.json": "c37e689e8c6e2649f13628ee9ed2d59bc4a4f0ad22140de1d7d01d2b2eb44562",
+    "pilots4-exact-subset-proposed.json": "7579e2179497b11c93b70be2ef75e604661bb0605444f451e1dda324fd12b21f",
+    "construction-and-source-audit.json": "f730837b322d69e3b6693f8ee1285bdc0669825ef5e51d3d68ae6edea9d0ef7f"
+  },
+  "native_writes": 0,
+  "game_actions": 0,
+  "script_sha256": "7b0ab3654078f48416ff006817a0aab2aeebe0d38e1576f2364da908aaf977b5"
+}

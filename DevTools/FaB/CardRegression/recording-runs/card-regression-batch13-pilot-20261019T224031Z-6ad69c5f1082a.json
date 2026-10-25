@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-19T22:40:31+00:00",
+    "input_file": "card-regression-batch13-pilot.json",
+    "input_sha256": "d51238be14ddb5b01780c48d7ab96332cb7712b4cb6dfcfeb54afdb3a47105e0",
+    "filter": "card-razor-reflex-red-fully-blocked-no-hit-no-go-again",
+    "results": [
+        {
+            "slug": "card-razor-reflex-red-fully-blocked-no-hit-no-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 19
+        }
+    ]
+}

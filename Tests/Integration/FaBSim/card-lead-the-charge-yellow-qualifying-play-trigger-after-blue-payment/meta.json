@@ -1,0 +1,7 @@
+{
+    "name": "Lead the Charge / qualifying-play-trigger-after-blue-payment",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:08:34+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost0, own go again, next played ACTION CARD with cost at least1 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. Announcement of cost1 attack leaves it unpaid: PITCH, Stack1, AP1. Pitch blue3, pay assets, AP0; only completed play creates the delayed-trigger above the attack. Trigger restoresAP1, float2. Sources: https://judge.fabtcg.com/cards/detail/549/ https://rules.fabtcg.com/en/cr/06-effects/#663 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_yellow"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Ominous Respite / conditional heal / own-shield-real-opponent-physical-destroyed",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:07:18+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Prism legally controls an existing Spectral Shield Aura with mandatory Ward1 (CR8.6.8/8.3.20). Actual opponent Wounding Blow red4 would deal4, so choosing this sole Ward source destroys it and prevents1; hero20->17 and token ceases outside arena. During Resolution Step after turn-player passes priority, nonturn Prism plays the cost1 Instant with0AP. Her own aura was destroyed this turn, so Respite heals3 (17->20), not2. No destruction history is seeded and Frostbite trigger timing is not used. Sources: https://judge.fabtcg.com/cards/detail/4855/ FaBSim/GeneratedCode/cardArrayCache.json#ominous_respite_yellow https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

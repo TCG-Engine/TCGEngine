@@ -1,0 +1,86 @@
+[
+    {
+        "slug": "card-muscle-mutt-yellow-hand-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 39
+    },
+    {
+        "slug": "card-muscle-mutt-yellow-hand-floating-overfunded",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 39
+    },
+    {
+        "slug": "card-muscle-mutt-yellow-arsenal-facedown-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 39
+    },
+    {
+        "slug": "card-muscle-mutt-yellow-arsenal-faceup-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 39
+    },
+    {
+        "slug": "card-muscle-mutt-yellow-hand-red-then-yellow-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 51
+    },
+    {
+        "slug": "card-muscle-mutt-yellow-single-block-three-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 43
+    },
+    {
+        "slug": "card-muscle-mutt-yellow-fully-blocked-no-hit",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 43
+    },
+    {
+        "slug": "card-muscle-mutt-yellow-pitched-yellow-for-two",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 20
+    },
+    {
+        "slug": "card-muscle-mutt-yellow-hand-insufficient-two-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 8
+    },
+    {
+        "slug": "card-muscle-mutt-yellow-arsenal-insufficient-two-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 8
+    },
+    {
+        "slug": "card-muscle-mutt-yellow-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-muscle-mutt-yellow-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 10
+    },
+    {
+        "slug": "card-muscle-mutt-yellow-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 10
+    },
+    {
+        "slug": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 35
+    }
+]

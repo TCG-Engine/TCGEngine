@@ -16,13 +16,19 @@ require_once __DIR__ . '/../NetworkingLibraries.php';
 
 // A lobby-player stand-in for spawning child games (mid-match, no real lobby).
 class MatchSyntheticPlayer {
-    private $seat; private $authKey;
-    public function __construct($seat, $authKey) { $this->seat = intval($seat); $this->authKey = strval($authKey); }
+    private $seat; private $authKey; private $table;
+    // $table (optional): the seat's table facts from the match record — botProfile / username / team — so a
+    // multi-seat rematch's setupGame still sees its bot seats, names and teams.
+    public function __construct($seat, $authKey, array $table = []) { $this->seat = intval($seat); $this->authKey = strval($authKey); $this->table = $table; }
     public function getGamePlayerID() { return $this->seat; }
     public function setGamePlayerID($s) { $this->seat = intval($s); }
     public function getAuthKey() { return $this->authKey; }
     public function getDeckLink() { return ''; }            // decks injected via resolvedDecks
     public function getPreconstructedDeck() { return ''; }
+    public function getBotProfile() { return strval($this->table['botProfile'] ?? ''); }
+    public function getUsername() { return strval($this->table['username'] ?? ''); }
+    public function getTeam() { return isset($this->table['team']) ? strval($this->table['team']) : null; }
+    public function getSeat() { return $this->seat; }
 }
 
 // ── Per-game pointer files (canonical SWUSim storage model) ───────────────────
@@ -254,6 +260,21 @@ function MatchCreateFromLobby($rootName, $lobby) {
         });
     }
 
+    // The host's GAME seat, for a multi-seat rematch room (StartRoom has already renumbered the seats, so the lobby's
+    // hostPlayerID IS the game seat). Multi-seat only: a 2-seat record keeps its old shape.
+    if (count($resolved) > 2 && isset($lobby->hostPlayerID)) {
+        $hostSeat = intval($lobby->hostPlayerID);
+        MatchWithLock($rootName, $matchId, function (&$m) use ($hostSeat) { $m['hostSeat'] = $hostSeat; });
+    }
+
+    // House rules the room agreed on (SWUSim Twin Suns). Stored on the MATCH because a later game is spawned from a
+    // synthetic lobby with no options (MatchSpawnNextGameWithDecks) — this is where it reads them back from.
+    // ⚠ ABSENT when there are none, like inviteCode below.
+    if (is_array($lobby->houseRulesActive ?? null) && !empty($lobby->houseRulesActive)) {
+        $houseRules = $lobby->houseRulesActive;
+        MatchWithLock($rootName, $matchId, function (&$m) use ($houseRules) { $m['houseRules'] = $houseRules; });
+    }
+
     // Carry the private lobby's invite code onto the match so the link keeps resolving after the
     // lobby's APCu entry has expired — see the durable invite index above.
     // ⚠ ABSENT, not empty, when there is none (public queues, bot/goldfish lobbies), matching how
@@ -296,6 +317,7 @@ function MatchSpawnNextGameWithDecks($rootName, $matchId, $firstPlayer, $priorGa
     $lobby = new stdClass();
     $lobby->isPrivate = !empty($m['isPrivate']);
     $lobby->players = $players;
+    if (!empty($m['houseRules']) && is_array($m['houseRules'])) $lobby->houseRulesActive = $m['houseRules'];
 
     $nextNumber = count($m['games']) + 1;
     $next = MatchHook($rootName, 'setupGame', $lobby, [
@@ -477,10 +499,15 @@ function MatchAcceptRematch($rootName, $oldMatchId) {
     $sideboard = !empty($r1['sideboard']) || !empty($r2['sideboard']);
     $queueType = ($bestOf === 3) ? 'bo3' : 'bo1';
 
-    $newId = MatchCreate($rootName, strval($m['format'] ?? ''), $queueType, [
-        1 => ['originalDeck' => $m['players']['1']['originalDeck'] ?? [], 'authKey' => $m['players']['1']['authKey'] ?? ''],
-        2 => ['originalDeck' => $m['players']['2']['originalDeck'] ?? [], 'authKey' => $m['players']['2']['authKey'] ?? ''],
-    ], !empty($m['isPrivate']));   // a private match rematches private (no forced sideboard timer)
+    // The same two players: each seat keeps its account, deck identity, deck link and cosmetics, not just its deck and key
+    // (a rematch's games otherwise belonged to no account).
+    $seat = fn(string $s) => [
+        'originalDeck' => $m['players'][$s]['originalDeck'] ?? [], 'authKey' => $m['players'][$s]['authKey'] ?? '',
+        'userId' => $m['players'][$s]['userId'] ?? null, 'deckIdentity' => strval($m['players'][$s]['deckIdentity'] ?? ''),
+        'deckLink' => strval($m['players'][$s]['deckLink'] ?? ''), 'cosmetics' => $m['players'][$s]['cosmetics'] ?? null,
+    ];
+    $newId = MatchCreate($rootName, strval($m['format'] ?? ''), $queueType, [1 => $seat('1'), 2 => $seat('2')],
+        !empty($m['isPrivate']));   // a private match rematches private (no forced sideboard timer)
     // A rematch has no originating lobby, so it opens its OWN conversation keyed on itself. Stamped
     // here rather than passed to MatchCreate because the id does not exist until MatchCreate returns.
     // ⚠ This must land BEFORE any MatchWriteRef below: that is where the per-game sidecar is

@@ -1,0 +1,24 @@
+{
+  "status": "FROZEN_CORRECT_PROPOSED31_PENDING_INDEPENDENT_SPEC_REVIEW_AND_PARENT_NATIVE",
+  "nativeWrites": 0,
+  "nativeGameActions": 0,
+  "ordinaryRecorderCases": 31,
+  "revisedOriginalCases": 21,
+  "targetAdditiveCases": 10,
+  "pilots": 5,
+  "disposableInvalidAnswerContracts": 5,
+  "files": {
+    "author-static-validation.json": "5b63836fa841b0f002efee7b3e8dfbbd93b503236e09c002fd42d40babc2e66d",
+    "full31-proposed.json": "d52e40bf904486ee36d79589371cdefce1895531f748090bcf25a272b6036b12",
+    "hand-schema-correction-delta.json": "61e093ca9ae0c0f1bbe0d9be96afd3193c289ab739202e2b74657146d4a4d675",
+    "invalid-answer-native-contracts-proposed.json": "6da79110166a0a7b067e0c91f205c8c50c3fa62034bd6e7f3252d1fa9ed66767",
+    "original21-preservation-audit.json": "0798d94ae95dc646b631c8bade3f621e9601b609504cd7039960dc7ba67df1a0",
+    "pilots5-proposed.json": "f3b66d1fae1aa6d3e85287dec718f5fcd809a1fe4299c75065c33d4b9ff59898",
+    "revised-original21-proposed.json": "b94d03a1b5f0a25929bbb485b19050d0fc6f695a7a5fe139e5a8227da997739b",
+    "scope-source-audit.json": "1512ae85830e150afe4744dc458fb07c826a8614a4f54d65de813f9715ed5f4d",
+    "target-additive10-proposed.json": "4f3a6697fe56dfb7ed36a465bd5dde73ead265351717bd04b9f32b1de103f8e6"
+  },
+  "authorScriptSHA256": "29e36f531a06001a87dceda553652f700892fb3afb0bff146e206e6c7b005009",
+  "authorValidatorSHA256": "8dd2d0c6022e957b599286c2493b62bad05a170a9b50b5b3b00a281e1f33b594",
+  "schemaCorrection": "Remove only unsupported Hand TurnEffects fallback; no dynamic Hand-tag proof claim."
+}

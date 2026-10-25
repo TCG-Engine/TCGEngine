@@ -1,0 +1,14 @@
+.gallery-link{color:var(--ink);text-decoration:none;white-space:nowrap}
+.gallery-shell .section-heading h1{font-size:28px;margin:0 0 18px}
+.gallery-toolbar{display:flex;align-items:end;flex-wrap:wrap;gap:18px}
+.gallery-toolbar label{flex:1 1 260px;min-width:0}
+.gallery-colors{display:flex;flex:2 1 500px;flex-wrap:wrap;gap:6px}
+.gallery-colors .hand-tab{flex:1;min-width:65px;padding:12px 8px}
+.gallery-colors .hand-tab:first-child{--hand:var(--accent)}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;align-items:stretch}
+.gallery-grid .card{max-width:100%;border-color:var(--hand)}
+.gallery-grid .card-top h3{font-size:19px}
+.gallery-grid .card-text p{font-size:13px;line-height:1.5}
+.gallery-grid .card-text b{font-size:10px}
+.gallery-grid .card-switches{margin-top:auto}
+@media(max-width:560px){.gallery-grid{grid-template-columns:minmax(0,1fr)}.gallery-toolbar{gap:12px}.gallery-colors{flex-basis:100%}.gallery-colors .hand-tab{min-width:calc(25% - 6px)}.gallery-shell .section-heading h1{font-size:24px}}

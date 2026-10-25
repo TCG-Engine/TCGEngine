@@ -198,3 +198,75 @@ P2BASEDMG:2
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0
 P1LEADER:EXHAUSTED
+
+---
+
+# LeaderAction_MyUpgradeOnAnENEMYUnit_IsFriendly
+#// ★ REPORTED 2026-10-19: "Vane can't defeat upgrades played on enemy units such as Ascension Cable and Sudden
+#// Ferocity." CR: "A player may play an upgrade onto an enemy unit. That player is still the controller of that
+#// upgrade"; a card a player controls is "friendly" for them. Official Vane ruling: "A friendly upgrade is any
+#// upgrade you put into play or any token upgrade on a friendly unit." P1 plays LOF_215 Ascension Cable onto
+#// P2's SOR_046, then pays Vane's Action with it: the Cable goes to P1's discard (its owner) and P2's base takes 2.
+## GIVEN
+CommonSetup: grk/brk/{myLeader:ASH_012;myResources:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: LOF_215
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1DISCARDUNIT:0:CARDID:LOF_215
+P2BASEDMG:2
+P1LEADER:EXHAUSTED
+
+---
+
+# Deployed_OnAttack_EnemysUpgradeOnMyUnit_IsNotFriendly
+#// The other direction: an upgrade P2 PLAYED onto P1's unit is P2's (CR), so it is NOT a friendly upgrade for
+#// Vane even though it sits on P1's unit. P2 plays SOR_071 Electrostaff onto P1's SOR_095; P1's deployed Vane
+#// attacks P2's base and is offered nothing — the Electrostaff survives and only combat damage lands.
+## GIVEN
+CommonSetup: grk/brk/{myLeader:ASH_012:1:1:1}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP2Resources: 8
+WithP2Hand: SOR_071
+WithP1GroundArena: SOR_095:1:0
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>AttackGroundArena:1:BASE
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2BASEDMG:3
+P1NODECISION
+
+---
+
+# LeaderAction_MixedHost_OnlyMyUpgradeOnItCounts
+#// One host, two upgrades, one friendly: P2's SOR_046 carries P2's own Experience token (a token on P2's unit is
+#// P2's) and P1's LOF_215 Ascension Cable (played by P1, so P1's). Vane's cost must defeat the CABLE — the only
+#// friendly upgrade — with no "which upgrade?" picker; the Experience token stays on P2's unit.
+## GIVEN
+CommonSetup: grk/brk/{myLeader:ASH_012;myResources:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: LOF_215
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T01
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1DISCARDUNIT:0:CARDID:LOF_215
+P2BASEDMG:2
+P1LEADER:EXHAUSTED

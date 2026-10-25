@@ -55,7 +55,10 @@ for c in json.loads((HERE/'ros_catalog.json').read_text()):
  if b in ['verdance','verdance_thorn_of_the_rose']:add('ResolveAbility',"$uid = intval(DecisionQueueController::GetVariable('rosSource')); "+choose('FaBROSAnyOpposing($player)','Deal_one_arcane_damage')+"if ($chosen !== '-') { $targetUID = FaBUPRUIDs($chosen)[0]; "+deal(1)+' }')
  if b in ['oscilio','oscilio_constella_intelligence','bloodtorn_bodice']:
   expr="FaBROSRefs($player, 'Hand', 'Instant')" if b.startswith('oscilio') else "FaBROSRefs($player, 'Arena', 'Aura')"
-  add('PrepareCard',UID+choose(expr,'Pay_additional_cost',False)+( "FaBDiscardChoice($player, $chosen);" if b.startswith('oscilio') else "FaBHVYDestroyChoices($chosen);")+"FaBFinishPreparedCard($uid);")
+  add('PrepareCard',UID+choose(expr,'Pay_additional_cost',False)+( "FaBDiscardChoice($player, $chosen);" if b.startswith('oscilio') else "if (!FaBDeclareBodiceAuraCost($player, $uid, $chosen)) { return; }")+"FaBFinishPreparedCard($uid);")
+  if b=='bloodtorn_bodice':
+   prepared=next(x for x in a if x['macroName']=='PrepareCard')
+   prepared['abilityCode']='\n'.join(line.rstrip() for line in prepared['abilityCode'].splitlines())+'\n'
   add('ResolveAbility','DoDrawCard($player, 1);' if b.startswith('oscilio') else 'AddResources($player, intval(GetResources($player)) + 1);')
  if b in ['aether_bindings_of_the_third_age','hold_focus','runehold_release','calming_cloak','calming_gesture','lightning_greaves','ink_lined_cloak','volzar_the_lightning_rod','staff_of_verdant_shoots']:
   add('ResolveAbility',{'aether_bindings_of_the_third_age':"FaBROSAdd($player, 'BINDINGS');",'hold_focus':"FaBMSTAdd($player, 'AMP');",'runehold_release':"FaBARCCreateRunes($player, 1);",'calming_cloak':"FaBROSAdd($player, 'AURA_DISCOUNT');",'calming_gesture':"FaBMSTShield($player);",'lightning_greaves':"FaBROSAdd($player, 'INSTANT_GO');",'ink_lined_cloak':'AddResources($player, intval(GetResources($player)) + 1);','volzar_the_lightning_rod':"FaBMSTAdd($player, 'AMP', FaBROSCount($player, 'LIGHTNING'));",'staff_of_verdant_shoots':"FaBMSTAdd($player, 'AMP'); if (FaBARCCard(intval(DecisionQueueController::GetVariable('arcAbilityUID')), 'rosEarthPitch')) { FaBROSAdd($player, 'STAFF_EARTH'); }"}[b])

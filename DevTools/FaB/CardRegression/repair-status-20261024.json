@@ -1,0 +1,881 @@
+{
+  "status": "BOUNDED_REPAIR_WRAPUP_QUALIFIED_FOCUSED_EVIDENCE_FULL_CORPUS_UNRUN",
+  "generated_utc": "2026-10-24T18:24:28.977648+00:00",
+  "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+  "historical_issue_rows": [
+    {
+      "id": "FAB-REG-001",
+      "mechanism": "Arrow play requires Arsenal and controlled Bow",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-002",
+      "mechanism": "Runner loads fresh runtime/state before initial assertions",
+      "category": "runner_harness_fixed",
+      "reconciled_status": "Fixed runner defect, not gameplay",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-003",
+      "mechanism": "End-turn clears all seats action points",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-004",
+      "mechanism": "Snatch draw-on-hit is responseable",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-005",
+      "mechanism": "Life-conditional play triggers evaluate on resolution",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-006",
+      "mechanism": "Lost abilities prohibit native fallback activation",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-007",
+      "mechanism": "Battleworn waits for Close Step",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-008",
+      "mechanism": "Attack-reaction source stays live through resolution then clears",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-009",
+      "mechanism": "Flock assets before reveal and responseable attack trigger",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-010",
+      "mechanism": "Quicken token trigger is separate and responseable",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-011",
+      "mechanism": "Blinding removes Flock reveal cost/legality prerequisite",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-012",
+      "mechanism": "Blinding removes Flock attack-trigger token",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-013",
+      "mechanism": "Consumed Tokens cease at off-Arena boundary",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-014",
+      "mechanism": "Pummel hero-hit ability excludes ally hits",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-015",
+      "mechanism": "Pummel discard waits for responseable hit layer",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-016",
+      "mechanism": "Multiple Pummels produce independent hit layers",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-017",
+      "mechanism": "Razor granted go-again waits for its hit layer",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-018",
+      "mechanism": "Boost banishment waits until asset payment",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-019",
+      "mechanism": "Heart Wrencher exposes its printed Boost preparation",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-020",
+      "mechanism": "Burgeoning/Power Play initial intrinsic bonus suppressed under known BLIND",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Initial known-BLIND fix qualified; dynamic changes unverified",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-021",
+      "mechanism": "Managed plain arcane source survives prevention decisions",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-022",
+      "mechanism": "Generated arcane continuation retains caster attribution",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-023",
+      "mechanism": "Lead the Charge delayed AP gain uses responseable layer",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-024",
+      "mechanism": "Action-point gains restricted to recipients own Action Phase",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-025",
+      "mechanism": "Arcane Barrier second pitch chooser survives save compaction",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-026",
+      "mechanism": "Runner observes persisted request coordinates after actions",
+      "category": "runner_harness_fixed",
+      "reconciled_status": "Fixed runner defect, not gameplay",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-027",
+      "mechanism": "En Garde implements printed next-weapon +3",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-028",
+      "mechanism": "Reaction cards may be announced after partial stack resolution",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-029",
+      "mechanism": "Command and Conquer mandatory hero-hit Arsenal trigger",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-030",
+      "mechanism": "Lunging Press accepts public prior attack-action targets and continuation",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation. FAB-REG-030 original bounded Lunging fix remains in HEAD; extensions are unverified."
+    },
+    {
+      "id": "FAB-REG-031",
+      "mechanism": "Whitelisted token-hit abilities use captured-controller layers",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-032",
+      "mechanism": "FaB announcements honor acting player holdPriority",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-033",
+      "mechanism": "FaB exposes configured seats to existing Core decision queue",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-034",
+      "mechanism": "Gorganian missing +1 and premature source departure",
+      "category": "source_component_open",
+      "reconciled_status": "Two source/component defects; no native passing Tome",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": "gorganian",
+      "current_validation_note": "See linked repair group; historical statuses do not describe post-repair qualification."
+    },
+    {
+      "id": "FAB-REG-035",
+      "mechanism": "Nip at Heels/Shred defer target binding until resolution",
+      "category": "gameplay_open_native_reproduced",
+      "reconciled_status": "Confirmed native failure; root-assigned repair pending",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": "declared_reactions",
+      "current_validation_note": "See linked repair group; historical statuses do not describe post-repair qualification."
+    },
+    {
+      "id": "FAB-REG-036",
+      "mechanism": "Rise Above alternative-cost choice survives save/load",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Red native fix qualified; RGB source/components only",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-037",
+      "mechanism": "Warfare discarded physical cards remain incorrectly face-down",
+      "category": "gameplay_open_native_reproduced",
+      "reconciled_status": "Confirmed native failure; root-assigned repair pending",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": "warfare_visibility_trigger",
+      "current_validation_note": "See linked repair group; historical statuses do not describe post-repair qualification."
+    },
+    {
+      "id": "FAB-REG-038",
+      "mechanism": "Abyssal Bite own go-again hidden by granted-keyword parser",
+      "category": "gameplay_open_native_reproduced",
+      "reconciled_status": "Confirmed native failure; root-assigned repair pending",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": "printed_keyword",
+      "current_validation_note": "See linked repair group; historical statuses do not describe post-repair qualification."
+    },
+    {
+      "id": "FAB-REG-039",
+      "mechanism": "Tome/Rouse effect-cost mutation precedes asset payment; wrong saved oracle",
+      "category": "oracle_rejected_shared_preparation_concern",
+      "reconciled_status": "Incorrect timing oracle quarantined; source-supported concern, no separate outcome defect claimed",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": "prepared_effect_costs",
+      "current_validation_note": "See linked repair group; historical statuses do not describe post-repair qualification."
+    }
+  ],
+  "historical_counts": {
+    "ledger_entries": 39,
+    "categories": {
+      "gameplay_fixed_bounded_existing_evidence": 32,
+      "runner_harness_fixed": 2,
+      "source_component_open": 1,
+      "gameplay_open_native_reproduced": 3,
+      "oracle_rejected_shared_preparation_concern": 1
+    },
+    "historical_grouped_applied_gameplay_mechanisms": 26,
+    "additional_qualified_Rise_036": 1,
+    "applied_gameplay_mechanisms_with_existing_bounded_evidence": 27,
+    "group_count_qualification": "26 is the retained final3079 grouping, not independently regrouped39rows;036 adds one. Historical runtimes/evidence are not retagged as fresh current full qualification.",
+    "native_open_gameplay_groups_already_assigned": 3,
+    "source_component_Gorganian_defects_already_assigned": 2,
+    "additional_unassigned_confirmed_native_gameplay_groups": 0,
+    "source_only_or_unverified_hold_entries": 23
+  },
+  "applied_repair_groups": [
+    {
+      "key": "printed_keyword",
+      "existing_issue_id": "FAB-REG-038",
+      "mechanism": "Own inline go again parser",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 1,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "historical_checkpoint_evidence": "32/32 parser contracts; native Bite post-fix pending",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "warfare_visibility_trigger",
+      "existing_issue_id": "FAB-REG-037",
+      "mechanism": "Public Graveyard visibility and responseable Warfare trigger",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/EVRCards.php",
+        "FaBSim/Custom/ROSCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 1,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "historical_checkpoint_evidence": "EVR family check PASS; correct four-live recording pending",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-talisman-of-warfare-yellow-four-live-repair-trigger-priority-and-public-arsenals",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "gorganian",
+      "existing_issue_id": "FAB-REG-034",
+      "mechanism": "Gorganian printed addend and source/GA lifetime",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/CRUCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 1,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "canonical_regeneration_pending": false,
+      "active_via_custom_compatibility": true,
+      "historical_checkpoint_evidence": "36 component profiles/541 assertions PASS; both count and lifecycle checked; native pending",
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/gorganian-initial-guards-20261024-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "declared_reactions",
+      "existing_issue_id": "FAB-REG-035",
+      "mechanism": "Nip/Shred announcement-time physical target binding",
+      "source_paths": [
+        "FaBSim/Custom/CardChoices.php",
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/WTRCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 2,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "canonical_regeneration_pending": false,
+      "active_via_custom_compatibility": true,
+      "historical_checkpoint_evidence": "30 component profiles/150 assertions PASS; four controls with Gorganian detected; DYN/IAR family PASS; native save/replay pending",
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "boon_base",
+      "existing_issue_id": null,
+      "mechanism": "Boon combat base uses controlled Blasmophet",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 1,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "historical_checkpoint_evidence": "Native pre-fix expected6 got0; IAR component family now PASS; native positive pending",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-blasmophets-boon-blue-four-live-repair-controlled-blasmophet-base-six-real-damage",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "flying_high",
+      "existing_issue_id": null,
+      "mechanism": "Flying High pitch-specific next-attack bonus",
+      "source_paths": [
+        "FaBSim/Custom/SEARuntime.php",
+        "FaBSim/Custom/CodeGeneration.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 1,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "historical_checkpoint_evidence": "Native Blue pre-fix expected3 got2; generated color callbacks inactive pending regeneration",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-flying-high-blue-four-live-bugfix-actual-blue-next-attack-receives-matching-color-plus-one-and-go-again",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "head_shot",
+      "existing_issue_id": null,
+      "mechanism": "Head Shot public-load trigger and captured entry",
+      "source_paths": [
+        "FaBSim/Custom/ARCCards.php",
+        "FaBSim/Custom/ROSCards.php",
+        "FaBSim/Custom/GameLogic.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 1,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "historical_checkpoint_evidence": "Native pre-fix missing priority layer; ARC component checks PASS; native positive pending",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-head-shot-red-four-live-sparse-actual-face-up-load-queues-four-live-trigger-then-real-arrow-power-six",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "icy_encounter",
+      "existing_issue_id": null,
+      "mechanism": "Icy hit trigger and creator-owned Frostbite",
+      "source_paths": [
+        "FaBSim/Custom/WTRAbilities.php",
+        "FaBSim/Custom/HVYCards.php",
+        "FaBSim/Custom/PENCards.php",
+        "FaBSim/Custom/WTRCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 1,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "active_scope": "Custom hit trigger and explicit creator factory active; generated Smoldering replacement await still stale.",
+      "historical_checkpoint_evidence": "Native pre-fix missing trigger; current ELE leaves one stale-generated Smoldering owner failure; native positive pending",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-icy-encounter-red-four-live-repair-hit-trigger-creates-creator-owned-opposing-frostbite",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Native Icy hit/creator-owned token representative qualified. Smoldering replacement-await ownership is focused ELE/component evidence, not a recorded replacement-choice branch."
+    },
+    {
+      "key": "prepared_effect_costs",
+      "existing_issue_id": "FAB-REG-039",
+      "mechanism": "Tome/Rouse and Bodice asset-before-effect costs",
+      "source_paths": [
+        "FaBSim/Custom/CardChoices.php",
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/ARCAbilities.php",
+        "FaBSim/Custom/CodeGeneration.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 3,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "historical_checkpoint_evidence": "19 actual-source payment contracts/116 assertions PASS; canonical/local generation bridges applied, restored old Prepare callbacks remain incompatible/unqualified",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/repair-bloodtorn-bodice-four-live-real-aura-declaration-action-asset-before-both-destructions",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "named_plain_lifecycle",
+      "existing_issue_id": null,
+      "mechanism": "Bounded 17-ID ordinary spell source/AP lifetime",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/DYNCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 8,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "historical_checkpoint_evidence": "Chorus native pre-fix source departed before Decompose; per-card native positives still pending; no blanket ordinary-spell claim",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-chorus-of-rotwood-red-four-live-repair-empty-graveyard-source-stays-stack-three-runechants",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-battle-prep-red-four-live-repair-opt-two-source-stack-until-answer-before-go-again",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-flying-high-blue-four-live-bugfix-actual-blue-next-attack-receives-matching-color-plus-one-and-go-again",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-regain-composure-blue-four-live-repair-granted-hit-trigger-delays-hero-untap",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/repair-laden-with-lightning-four-live-real-bond-next-attack-and-responseable-embodiment-trigger",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-rousing-aether-red-four-live-repair-earned-boots-go-again-source-stays-stack-through-barrier",
+          "source_spec": "card-regression-batch194.json",
+          "review_evidence": "review-evidence/repair194-20261024-qualified-saved-review.json"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-aether-quickening-red-four-live-repair-earned-surge-and-external-go-again-once",
+          "source_spec": "card-regression-batch194.json",
+          "review_evidence": "review-evidence/repair194-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "managed_virtual_lifetime",
+      "existing_issue_id": null,
+      "mechanism": "Opal/Deja ability and marked Runechant proxy lifetime",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/ARCAbilities.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 3,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "historical_checkpoint_evidence": "Opal/Deja native pre-fix premature ACTION/END_PHASE; normal prevention/await source review complete; native positives pending",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/repair-opal-amulet-blue-four-live-watery-trigger-then-pending-opt-two-physical-order",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/repair-potion-of-deja-vu-blue-four-live-actual-own-pitch-staging-top-order-and-pending-layer",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "runechant_consumption",
+      "existing_issue_id": null,
+      "mechanism": "Runechant source survives until its queued trigger resolves",
+      "source_paths": [
+        "FaBSim/Custom/ARCCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 1,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "historical_checkpoint_evidence": "Native pre-fix source consumed before responses; ARC component checks PASS; native positive pending",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "deja_pitch_staging",
+      "existing_issue_id": null,
+      "mechanism": "Deja Vu stages declared physical Pitch cards",
+      "source_paths": [
+        "FaBSim/Custom/ARCCards.php",
+        "FaBSim/Custom/CodeGeneration.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 1,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "historical_checkpoint_evidence": "Source/canonical bridge reviewed; generated Pitch staging callback inactive; native branch not yet reached",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/repair-potion-of-deja-vu-blue-four-live-actual-own-pitch-staging-top-order-and-pending-layer",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "regain_trigger",
+      "existing_issue_id": null,
+      "mechanism": "Regain hero untap is a captured hit trigger",
+      "source_paths": [
+        "FaBSim/Custom/SEARuntime.php",
+        "FaBSim/Custom/ROSCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 1,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "historical_checkpoint_evidence": "Native pre-fix missing layer; source reviewed; native positive pending",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-regain-composure-blue-four-live-repair-granted-hit-trigger-delays-hero-untap",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "intimidate_trigger",
+      "existing_issue_id": null,
+      "mechanism": "Named attack Intimidate captured-target trigger, marker survival and responseable beginning-of-end-phase per-invocation return",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/WTRCards.php",
+        "FaBSim/Custom/ROSCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 1,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "historical_checkpoint_evidence": "Native Smash pre-fix missing layer; exact Smash/Pack/Alpha scope; native positive pending",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-smash-instinct-red-four-live-repair-declared-other-hero-intimidate-after-responses-end-turn-return",
+          "source_spec": "card-regression-batch195.json",
+          "review_evidence": "review-evidence/repair195-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated.",
+      "additional_issue_id": "FAB-REG-042"
+    },
+    {
+      "key": "embodiment_trigger",
+      "existing_issue_id": null,
+      "mechanism": "Embodiment/Laden token grant resolves on a separate layer",
+      "source_paths": [
+        "FaBSim/Custom/ELECards.php",
+        "FaBSim/Custom/ROSCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "new_native_qualified_scenarios": 1,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_REPRESENTATIVES_WITH_EXPLICIT_LIMITS",
+      "historical_checkpoint_evidence": "Native pre-fix expectedStack2 got1; focused live-seat/token/epoch assertions now PASS inside ELE; native recording/replays pending",
+      "canonical_regeneration_pending": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/repair-laden-with-lightning-four-live-real-bond-next-attack-and-responseable-embodiment-trigger",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        }
+      ],
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+    },
+    {
+      "key": "FAB-REG-040",
+      "existing_issue_id": "FAB-REG-040",
+      "mechanism": "Quickening omitted from Crucible arcane-card classifier",
+      "source_paths": [
+        "FaBSim/Custom/ARCCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "status": "QUALIFIED_EXACT_RED_FOUR_LIVE_REPRESENTATIVE",
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-aether-quickening-red-four-live-repair-earned-surge-and-external-go-again-once",
+          "source_spec": "card-regression-batch194.json",
+          "review_evidence": "review-evidence/repair194-20261024-qualified-saved-review.json"
+        }
+      ],
+      "new_native_qualified_scenarios": 1,
+      "scope": "Exact Red identity; source family normalization coversRGB mechanically but no native sibling credit."
+    },
+    {
+      "key": "FAB-REG-041",
+      "existing_issue_id": "FAB-REG-041",
+      "mechanism": "Quickening damage attribution after opposing barrier await",
+      "source_paths": [
+        "FaBSim/Custom/UPRCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "status": "QUALIFIED_EXACT_RED_FOUR_LIVE_REPRESENTATIVE",
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-aether-quickening-red-four-live-repair-earned-surge-and-external-go-again-once",
+          "source_spec": "card-regression-batch194.json",
+          "review_evidence": "review-evidence/repair194-20261024-qualified-saved-review.json"
+        }
+      ],
+      "new_native_qualified_scenarios": 1,
+      "scope": "Exact Red identity; source family normalization coversRGB mechanically but no native sibling credit."
+    }
+  ],
+  "counting_note": "18 repair work groups overlap earlier mechanisms and one another; not18 independent new bugs.22 exact current representative scenarios qualify; group scenario counts overlap and must not be summed. Original27 historical grouped fixes are not retagged or added mechanically.",
+  "proposed_unapplied": [],
+  "remaining_holds": [
+    "No full3,363-scenario suite was run;22 new/modified cases passed twice at final code. Historical3,341 evidence retains its runtime and590-entry review caveat.",
+    "Skyzyk red, Visit the Blacksmith blue and Peaceful Sanctuary red remain bounded implementation gaps, not newly demonstrated native defects.",
+    "Potion of Luck multi-card shuffle determinism and Slog mode10002 rejection recording remain unproved/unsupported.",
+    "Legacy flat Intimidate saves lack controller/source/group data; compatibility late cleanup remains unqualified for repaired timing. Anonymous legacy sources, simultaneous group ordering and eliminated-controller alternatives are untested.",
+    "Wider target universes, ownership/copy/dynamic restoration and untested pitch siblings receive no coverage inheritance."
+  ],
+  "quarantined_incorrect_fixtures": [
+    "held-incorrect-gameplay/FAB-REG-037",
+    "held-incorrect-gameplay/b179-tome-of-harvests-cost-order",
+    "held-incorrect-gameplay/b193-smash-return-state-stale"
+  ],
+  "coverage_credit_for_holds": false,
+  "qualified_current_repair_scenarios": 22,
+  "full_suite_run": false,
+  "current_issue_ledger_entries": 42,
+  "new_issue_ids": [
+    "FAB-REG-040",
+    "FAB-REG-041",
+    "FAB-REG-042"
+  ],
+  "current_validation": "repair-validation-20261024.json",
+  "generation_status": "SUCCESS; previous HTTP521 and pending notes are dated historical checkpoint evidence.",
+  "historical_note": "historical_issue_rows and historical_checkpoint_evidence deliberately retain original dates/statuses; current status, representatives and validation supersede those pending notes without rewriting history."
+}

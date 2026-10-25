@@ -1,0 +1,7 @@
+{
+    "name": "Burgeoning / arsenal-nonturn-action-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:48:03+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Seat2 has priority,0AP and enough resources, but it is seat1's turn; this action has no instant permission. This fresh nonturn setup tests combined turn-timing/AP rejection and does not isolate turn timing from the action-point requirement. Reject the supported click fromArsenal: preserve source card, HP, resources and AP; no stack layer, pitch or decision. Sources: FaBSim/GeneratedCode/cardArrayCache.json#burgeoning_red https://judge.fabtcg.com/cards/detail/1174/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

@@ -1,0 +1,614 @@
+{
+  "status": "APPROVED_THREE_TIMING_SNAPSHOT_CANDIDATES_FOR_EXPECTED_FINAL_ONLY_REPLACEMENT_VALIDATION_PENDING",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "utc": "2026-10-25T14:44:29.776292+00:00",
+  "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+  "capture_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\receipt.json",
+    "sha256": "38976d3b1e219e093ee817d089a711d20ccd972a5d4d29214d53f5055b6784af"
+  },
+  "baseline_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-full-suite-20261025-baseline\\receipt.json",
+    "sha256": "a19744db2ed0bf81a035b0ebadd954ad3acb7794ba03db29e9c32060b4f3c4dc"
+  },
+  "fixtures": [
+    {
+      "slug": "card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token",
+      "name": "Laden with Lightning / four live sparse positive effect",
+      "semantically_approved": true,
+      "verdict": "APPROVED_EXPECTED_FINAL_ONLY_CANDIDATE_REPLACEMENT_PENDING_NATIVE_VALIDATION",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+      "fixture_sha256": "d9ae0d72c5e703562fcd6a19c16e3388761771610bc86904d524f1db38e92e14",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a7d49f985c250a804d01797ed178d53ed2daa63f5ed6a433819a9ed20eb38286",
+        "actions.json": "7cf179fdcacde46a1c7aa457b42b0d35f16587dc757f685870dc6891428fd508",
+        "assertions.json": "5d5647638aae1c802437a549d555b3a76f8a05cf853304ac3ee53687225a9d2e",
+        "expected_final_gamestate.txt": "c0684dd07ce27b8b4010fa2718001b50c41ca2b94f9277b4bef4daf90cf8ed90",
+        "meta.json": "f54956f2f55cfe6c49182181c26ab74903aed4b458a95543623dc71e2927f7af"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a7d49f985c250a804d01797ed178d53ed2daa63f5ed6a433819a9ed20eb38286",
+        "actions.json": "7cf179fdcacde46a1c7aa457b42b0d35f16587dc757f685870dc6891428fd508",
+        "assertions.json": "5d5647638aae1c802437a549d555b3a76f8a05cf853304ac3ee53687225a9d2e",
+        "expected_final_gamestate.txt": "c0684dd07ce27b8b4010fa2718001b50c41ca2b94f9277b4bef4daf90cf8ed90",
+        "meta.json": "f54956f2f55cfe6c49182181c26ab74903aed4b458a95543623dc71e2927f7af"
+      },
+      "canonical_before_raw5_sha256": {
+        "initial_gamestate.txt": "a7d49f985c250a804d01797ed178d53ed2daa63f5ed6a433819a9ed20eb38286",
+        "actions.json": "7cf179fdcacde46a1c7aa457b42b0d35f16587dc757f685870dc6891428fd508",
+        "assertions.json": "5d5647638aae1c802437a549d555b3a76f8a05cf853304ac3ee53687225a9d2e",
+        "expected_final_gamestate.txt": "da1e42dc2640e12c8136d8ca879fbaf9e92b29da7e827ab11ddc02cae3fd743d",
+        "meta.json": "f54956f2f55cfe6c49182181c26ab74903aed4b458a95543623dc71e2927f7af"
+      },
+      "prior_fixture_sha256": "d077239e65ecaa9d3e7d48d5725b3a16efefb044f120f52bc13d44bb4b56a685",
+      "candidate_expected_final_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token\\actual_final_gamestate.txt",
+      "candidate_expected_final_sha256": "c0684dd07ce27b8b4010fa2718001b50c41ca2b94f9277b4bef4daf90cf8ed90",
+      "canonical_not_yet_replaced": true,
+      "unchanged_files": [
+        "initial_gamestate.txt",
+        "actions.json",
+        "assertions.json",
+        "meta.json"
+      ],
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch122.json",
+      "source_spec_sha256": "c8fdbe58dcc21602d288b059ffd508270d574abf14414afaa09e7db36d146368",
+      "reused_semantic_review": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse-b122-qualified-independent-review-f60789c81e43.json",
+        "sha256": "f60789c81e4362eac44f79714ab4135dadaa0722bae41f725f17e784a2ed984c"
+      },
+      "actions": 6,
+      "native_assertions": 598,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_four_live_legal_heroes_and_unmodified_physical_inputs",
+          "step": 0,
+          "native_assertions": 117
+        },
+        {
+          "checkpoint": "actual_printed_action_cost_requires_real_blue_pitch",
+          "step": 1,
+          "native_assertions": 75
+        },
+        {
+          "checkpoint": "actual_action_paid_spends_ap_no_early_life_token_or_cleanup",
+          "step": 2,
+          "native_assertions": 71
+        },
+        {
+          "checkpoint": "actual_primary_action_pass_1_of_four_no_early_resolution",
+          "step": 3,
+          "native_assertions": 71
+        },
+        {
+          "checkpoint": "actual_primary_action_pass_2_of_four_no_early_resolution",
+          "step": 4,
+          "native_assertions": 71
+        },
+        {
+          "checkpoint": "actual_primary_action_pass_3_of_four_no_early_resolution",
+          "step": 5,
+          "native_assertions": 71
+        },
+        {
+          "checkpoint": "fourth_primary_response_effect_exact_life_token_ap_and_public_source",
+          "step": 6,
+          "native_assertions": 122
+        }
+      ],
+      "changed_raw_lines": [
+        90,
+        110
+      ],
+      "changed_parsed_fields": [
+        "GameState",
+        "DecisionQueueVariables"
+      ],
+      "game_state_changed_fields": [
+        "turnEffects"
+      ],
+      "exact_effect_multisets_retained_all_seats": true,
+      "usable_effect_relative_order_retained": true,
+      "effect_type_order": {
+        "1": {
+          "before": [
+            "MST_BLUE_PITCHED",
+            "SUP_COST_ONE",
+            "EVR_PLAYED",
+            "EVR_GRAVEYARD",
+            "NEXT_ATTACK",
+            "EVR_AURAS",
+            "ROS_AURA",
+            "PEN_AURAS",
+            "PEN_CREATED"
+          ],
+          "after": [
+            "MST_BLUE_PITCHED",
+            "SUP_COST_ONE",
+            "EVR_PLAYED",
+            "NEXT_ATTACK",
+            "EVR_AURAS",
+            "ROS_AURA",
+            "PEN_AURAS",
+            "PEN_CREATED",
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "2": {
+          "before": [
+            "EVR_GRAVEYARD"
+          ],
+          "after": [
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "3": {
+          "before": [
+            "EVR_GRAVEYARD"
+          ],
+          "after": [
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "4": {
+          "before": [
+            "EVR_GRAVEYARD"
+          ],
+          "after": [
+            "EVR_GRAVEYARD"
+          ]
+        }
+      },
+      "decision_queue_variables_delta": {
+        "mzID": {
+          "before": "p1Graveyard-0",
+          "after": "Stack-0"
+        }
+      },
+      "decision_context_assessment": "The stored last macro mzID now identifies its actual Stack source during managed resolution. This is residual macro context after queues/frames drain, not a claim that a live Stack source remains in the final state.",
+      "semantic_assessment": "Actual Lightning pitch pays cost 1; the fourth live response creates owned Embodiment of Lightning UID8 and printed go again restores AP1. NEXT_ATTACK and creation histories now precede source graveyard history. Next attack/token lifecycle remains outside this old representative.",
+      "limits": [
+        "No new card/cycle/branch coverage awarded.",
+        "No engine fix or new gameplay-defect count.",
+        "No general effect sorting, snapshot normalization or assertion change approved.",
+        "Native replays after guarded replacement remain root scope."
+      ]
+    },
+    {
+      "slug": "card-talisman-of-tithes-blue-four-live-sparse-actual-four-hero-draw-first-opponent-reduced-to-zero-and-item-consumed-unordered-graveyard-membership",
+      "name": "Talisman of Tithes / four live first-opponent draw replacement / unordered graveyard membership",
+      "semantically_approved": true,
+      "verdict": "APPROVED_EXPECTED_FINAL_ONLY_CANDIDATE_REPLACEMENT_PENDING_NATIVE_VALIDATION",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+      "fixture_sha256": "15a908a1121d34685dcbd4753725e5423511d39633895319a4b23d19ca6f3a70",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1cafd9864069de141fc9e0d6548af788bf011158831c11d8f2368e9ac9502ee3",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "457b2a4668057db352124c5d19a767ac20925fffe4ad217adc2948b91f5bd7aa",
+        "expected_final_gamestate.txt": "19647acfa8937c2780df94fa3b6676303355d35912ad7596f34033b019c240dc",
+        "meta.json": "a7d0ec82356523adc94f0e02afc8cb07e2e56e7510ca5536668d3ddc43c2f1f7"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1cafd9864069de141fc9e0d6548af788bf011158831c11d8f2368e9ac9502ee3",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "457b2a4668057db352124c5d19a767ac20925fffe4ad217adc2948b91f5bd7aa",
+        "expected_final_gamestate.txt": "19647acfa8937c2780df94fa3b6676303355d35912ad7596f34033b019c240dc",
+        "meta.json": "a7d0ec82356523adc94f0e02afc8cb07e2e56e7510ca5536668d3ddc43c2f1f7"
+      },
+      "canonical_before_raw5_sha256": {
+        "initial_gamestate.txt": "1cafd9864069de141fc9e0d6548af788bf011158831c11d8f2368e9ac9502ee3",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "457b2a4668057db352124c5d19a767ac20925fffe4ad217adc2948b91f5bd7aa",
+        "expected_final_gamestate.txt": "0d9bfd550adb936220987b0e6c47995f14ed0644cdce89b3d12ec8061c4e072f",
+        "meta.json": "a7d0ec82356523adc94f0e02afc8cb07e2e56e7510ca5536668d3ddc43c2f1f7"
+      },
+      "prior_fixture_sha256": "f9c57e25b876670c8b888da4a68c6cefdaf530793de9d284892c391416c87b98",
+      "candidate_expected_final_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\case-3decf810760fa0\\actual_final_gamestate.txt",
+      "candidate_expected_final_sha256": "19647acfa8937c2780df94fa3b6676303355d35912ad7596f34033b019c240dc",
+      "canonical_not_yet_replaced": true,
+      "unchanged_files": [
+        "initial_gamestate.txt",
+        "actions.json",
+        "assertions.json",
+        "meta.json"
+      ],
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch168-unordered-graveyard-successor.json",
+      "source_spec_sha256": "d2f967ac6ed0178f36314296aab0eb6180e6d5d18d0593ad9892055b2e5d7a9d",
+      "reused_semantic_review": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse-b168-unordered-qualified-independent-review-07bedadee619.json",
+        "sha256": "07bedadee619008c24528d4678e17df0de7d27505b74d4e0a93ca40bd21d8386"
+      },
+      "actions": 6,
+      "native_assertions": 448,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "four_live_owned_tithes_and_actual_four_hero_draw_inputs",
+          "step": 0,
+          "native_assertions": 130
+        },
+        {
+          "checkpoint": "real_action_printed_cost_requires_actual_blue_pitch",
+          "step": 1,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "actual_blue_pitch_pays_one_leaves_two_waits_before_any_draw",
+          "step": 2,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "source_5_real_pass_1_of_four_holds_physical_pending_source",
+          "step": 3,
+          "native_assertions": 44
+        },
+        {
+          "checkpoint": "source_5_real_pass_2_of_four_holds_physical_pending_source",
+          "step": 4,
+          "native_assertions": 44
+        },
+        {
+          "checkpoint": "source_5_real_pass_3_of_four_holds_physical_pending_source",
+          "step": 5,
+          "native_assertions": 44
+        },
+        {
+          "checkpoint": "fourth_live_response_first_opponent_draw_replaced_and_later_seats_draw_actual_cards",
+          "step": 6,
+          "native_assertions": 129
+        }
+      ],
+      "changed_raw_lines": [
+        44,
+        45,
+        93,
+        113
+      ],
+      "changed_parsed_fields": [
+        "p1Graveyard",
+        "GameState",
+        "DecisionQueueVariables"
+      ],
+      "game_state_changed_fields": [
+        "turnEffects"
+      ],
+      "exact_effect_multisets_retained_all_seats": true,
+      "usable_effect_relative_order_retained": true,
+      "effect_type_order": {
+        "1": {
+          "before": [
+            "MST_BLUE_PITCHED",
+            "SUP_COST_ONE",
+            "MST_BLUE_PLAYED",
+            "EVR_PLAYED",
+            "EVR_GRAVEYARD",
+            "SEA_BLUE_GRAVE",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_GRAVEYARD",
+            "SEA_BLUE_GRAVE",
+            "EVO_ITEM_DESTROYED",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "MST_BLUE_PITCHED",
+            "SUP_COST_ONE",
+            "MST_BLUE_PLAYED",
+            "EVR_PLAYED",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_GRAVEYARD",
+            "SEA_BLUE_GRAVE",
+            "EVO_ITEM_DESTROYED",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD",
+            "SEA_BLUE_GRAVE"
+          ]
+        },
+        "2": {
+          "before": [
+            "EVR_GRAVEYARD",
+            "EVR_GRAVEYARD",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "EVR_GRAVEYARD",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "3": {
+          "before": [
+            "EVR_GRAVEYARD",
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "4": {
+          "before": [
+            "EVR_GRAVEYARD",
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD"
+          ]
+        }
+      },
+      "decision_queue_variables_delta": {
+        "mzID": {
+          "before": "p1Graveyard-0",
+          "after": "Stack-0"
+        }
+      },
+      "decision_context_assessment": "The stored last macro mzID now identifies its actual Stack source during managed resolution. This is residual macro context after queues/frames drain, not a claim that a live Stack source remains in the final state.",
+      "semantic_assessment": "P1 draws UID8; P2 draw1 is replaced by draw0 and physical Talisman UID5 is destroyed while This Round UID6 is still resolving on Stack; P3/P4 subsequently draw UID10/11. Thus exact final public graveyard UID5 then UID6 is correct. All existing unordered-membership/public-ownership assertions are retained.",
+      "limits": [
+        "No new card/cycle/branch coverage awarded.",
+        "No engine fix or new gameplay-defect count.",
+        "No general effect sorting, snapshot normalization or assertion change approved.",
+        "Native replays after guarded replacement remain root scope."
+      ]
+    },
+    {
+      "slug": "card-this-rounds-on-me-blue-four-live-sparse-actual-blue-pitch-play-draws-one-owned-card-for-each-live-hero",
+      "name": "This Round's on Me / four live sparse positive effect",
+      "semantically_approved": true,
+      "verdict": "APPROVED_EXPECTED_FINAL_ONLY_CANDIDATE_REPLACEMENT_PENDING_NATIVE_VALIDATION",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+      "fixture_sha256": "fca2f47029598d248dce2c71143040b449d027aa8f68666d30ed078dfc9e2a97",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3f904fef161e4fc90998a852517e66fe181641f38e542784c43951e28232544a",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "1253843e6b41f92bd3b5d914fe8f021d780e3695814222c85563386e4e0e1de2",
+        "expected_final_gamestate.txt": "44d8c709f36f1123613f1503a6eb97ec35ef7e28faf962ac402c370738dfc056",
+        "meta.json": "2fa749fffc744098237fe50c95775eee8c62e37ec89a44bf6042c5b36a0a78cb"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3f904fef161e4fc90998a852517e66fe181641f38e542784c43951e28232544a",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "1253843e6b41f92bd3b5d914fe8f021d780e3695814222c85563386e4e0e1de2",
+        "expected_final_gamestate.txt": "44d8c709f36f1123613f1503a6eb97ec35ef7e28faf962ac402c370738dfc056",
+        "meta.json": "2fa749fffc744098237fe50c95775eee8c62e37ec89a44bf6042c5b36a0a78cb"
+      },
+      "canonical_before_raw5_sha256": {
+        "initial_gamestate.txt": "3f904fef161e4fc90998a852517e66fe181641f38e542784c43951e28232544a",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "1253843e6b41f92bd3b5d914fe8f021d780e3695814222c85563386e4e0e1de2",
+        "expected_final_gamestate.txt": "314e0fe80a5aa2bc8e603b37962d3aaded3876994b72f27159b7338f3bb3daec",
+        "meta.json": "2fa749fffc744098237fe50c95775eee8c62e37ec89a44bf6042c5b36a0a78cb"
+      },
+      "prior_fixture_sha256": "89880b9ee0870e73d12ef813ba47ce797595b7f7580577cad9e85d5f211e3e8b",
+      "candidate_expected_final_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\case-a0ae27eccf3cf9\\actual_final_gamestate.txt",
+      "candidate_expected_final_sha256": "44d8c709f36f1123613f1503a6eb97ec35ef7e28faf962ac402c370738dfc056",
+      "canonical_not_yet_replaced": true,
+      "unchanged_files": [
+        "initial_gamestate.txt",
+        "actions.json",
+        "assertions.json",
+        "meta.json"
+      ],
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch108.json",
+      "source_spec_sha256": "04d96e3a96ce23c17c15ed01254a63a3745ccd71cb2edfed6271d7496fb527c7",
+      "reused_semantic_review": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse-b108-qualified-independent-review-4bc98c4074cb.json",
+        "sha256": "4bc98c4074cbacd858c70a44e59d2c71b9968869be18735dbbd79ba157d255d7"
+      },
+      "actions": 6,
+      "native_assertions": 409,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "all_four_live_initial_inputs_one_physical_deck_card_per_hero",
+          "step": 0,
+          "native_assertions": 125
+        },
+        {
+          "checkpoint": "real_action_printed_cost_requires_actual_blue_pitch",
+          "step": 1,
+          "native_assertions": 24
+        },
+        {
+          "checkpoint": "actual_blue_pitch_pays_one_leaves_two_waits_before_any_draw",
+          "step": 2,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "source_5_real_pass_1_of_four_holds_physical_pending_source",
+          "step": 3,
+          "native_assertions": 38
+        },
+        {
+          "checkpoint": "source_5_real_pass_2_of_four_holds_physical_pending_source",
+          "step": 4,
+          "native_assertions": 38
+        },
+        {
+          "checkpoint": "source_5_real_pass_3_of_four_holds_physical_pending_source",
+          "step": 5,
+          "native_assertions": 38
+        },
+        {
+          "checkpoint": "fourth_real_pass_draws_exact_one_physical_owned_card_for_every_hero",
+          "step": 6,
+          "native_assertions": 125
+        }
+      ],
+      "changed_raw_lines": [
+        92,
+        112
+      ],
+      "changed_parsed_fields": [
+        "GameState",
+        "DecisionQueueVariables"
+      ],
+      "game_state_changed_fields": [
+        "turnEffects"
+      ],
+      "exact_effect_multisets_retained_all_seats": true,
+      "usable_effect_relative_order_retained": true,
+      "effect_type_order": {
+        "1": {
+          "before": [
+            "MST_BLUE_PITCHED",
+            "SUP_COST_ONE",
+            "MST_BLUE_PLAYED",
+            "EVR_PLAYED",
+            "EVR_GRAVEYARD",
+            "SEA_BLUE_GRAVE",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "MST_BLUE_PITCHED",
+            "SUP_COST_ONE",
+            "MST_BLUE_PLAYED",
+            "EVR_PLAYED",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD",
+            "SEA_BLUE_GRAVE"
+          ]
+        },
+        "2": {
+          "before": [
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "3": {
+          "before": [
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "4": {
+          "before": [
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD"
+          ]
+        }
+      },
+      "decision_queue_variables_delta": {
+        "mzID": {
+          "before": "p1Graveyard-0",
+          "after": "Stack-0"
+        }
+      },
+      "decision_context_assessment": "The stored last macro mzID now identifies its actual Stack source during managed resolution. This is residual macro context after queues/frames drain, not a claim that a live Stack source remains in the final state.",
+      "semantic_assessment": "Each of four live heroes draws its exact owned card; EVR_ROUND is established before source UID5 leaves Stack. Printed go again restores AP1; source enters public graveyard only after its effects. Later attack reduction is not newly credited.",
+      "limits": [
+        "No new card/cycle/branch coverage awarded.",
+        "No engine fix or new gameplay-defect count.",
+        "No general effect sorting, snapshot normalization or assertion change approved.",
+        "Native replays after guarded replacement remain root scope."
+      ]
+    }
+  ],
+  "total_actions": 18,
+  "total_native_assertions": 1455,
+  "total_manual_passes": 12,
+  "source_review": {
+    "FaBSim/Custom/GameLogic.php": "524d6ee4e6d8e157dba34b2260304d0b3df9cfa1613a7836c554045dc8ec1a0e",
+    "FaBSim/Custom/EVRCards.php": "30e33826659bf44af3658f7b3ab9a113e86044b7f0ff695143a7748debfedbc9",
+    "FaBSim/Custom/ARCCards.php": "b8f3c0d36e78794d24a61365aed387e6ec171c5eb2a4785b84f028475fac9b4b",
+    "FaBSim/Custom/WTRCards.php": "2b8c672f47413d475c8cc23fbbc3530c60b2e7f0f41f5bba8e52ffc5166a3ea4"
+  },
+  "rules_basis": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.3.4 effects",
+        "5.3.5 go again",
+        "5.3.6 leave the layer",
+        "5.3.7 clear"
+      ]
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4560/",
+      "card": "Laden with Lightning"
+    },
+    {
+      "local_official_faces": [
+        "FaBSim/WebpImages/talisman_of_tithes_blue.webp",
+        "FaBSim/WebpImages/this_rounds_on_me_blue.webp"
+      ],
+      "previously_visually_reviewed_in_this_task": true
+    }
+  ],
+  "source_assessment": "Existing managed plain-spell resolution keeps This Round and Laden on Stack for ResolveCard, waits for owned work, grants go again, then moves the physical source to owner graveyard. EVR draw replacement destroys Tithes during the draw body. Graveyard histories append through movement hooks; exact count consumers sum by type. These exact changes follow that chronology and retain all entries, fields, identities, costs and outcomes.",
+  "allowed_root_action": "Create/verify recoverable backup, hash-guard replacement of only these three expected_final_gamestate.txt from the approved candidate bytes, then execute the authorized focused and final full-suite validations. Preserve initial/actions/assertions/meta and source specs byte-for-byte.",
+  "qualification_pending": true,
+  "php_execution": false,
+  "native_actions": 0,
+  "native_engine_imports": false,
+  "repository_writes": 0
+}

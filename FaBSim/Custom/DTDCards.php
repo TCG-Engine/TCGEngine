@@ -154,7 +154,10 @@ function FaBDTDPreventionPay(int $p,string $r,int $n,array &$used=[],int $source
 }
 function FaBDTDStorePrevention(int $p,int $source,int $n): void {if($n>0)FaBDTDAdd($p,'PREVENT_PACKET',$n,['sourceUID'=>$source]);}
 function FaBDTDConsumePrevention(int $p,int $source,int $n): int {$left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='DTD_PREVENT_PACKET'&&intval($e['sourceUID']??0)===$source)$n=max(0,$n-intval($e['amount']));else $left[]=$e;}FaBWTRSetEffects($p,$left);return $n;}
-function FaBDTDUnpreventable(int $p,int $source,string $type): bool {return ($type==='PHYSICAL'&&FaBARCEffect($p,'OMN_UNPREVENTABLE'))||FaBUPRUnpreventable($source)||($type==='ARCANE'&&FaBEVRUnpreventable($p,0));}
+function FaBDTDUnpreventable(int $p,int $source,string $type): bool {
+ $p=FaBUPRPlainSpellActor($source,$p,$type);
+ return ($type==='PHYSICAL'&&FaBARCEffect($p,'OMN_UNPREVENTABLE'))||FaBUPRUnpreventable($source)||($type==='ARCANE'&&FaBEVRUnpreventable($p,0));
+}
 function FaBDTDCombatPrevention(): bool {
  $s=FaBGetState();$uid=intval($s['attackUID']);$targets=$s['attackTargets']??[];if(!$targets)$targets=[$s['attackTarget']??[]];
  foreach($targets as $target){if(($target['type']??'HERO')!=='HERO')continue;$victim=intval($target['player']??0);if(!$victim)continue;

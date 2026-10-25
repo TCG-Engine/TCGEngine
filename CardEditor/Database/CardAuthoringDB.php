@@ -6,12 +6,16 @@ class CardAuthoringDB {
     const ASSET_TYPE_CARD_EDITOR_GAME = 9001;
 
     private $conn;
+    // Explicit identity for authenticated service requests; null preserves browser sessions.
+    private $actorUserId;
 
-    public function __construct($conn) {
+    public function __construct($conn, ?int $actorUserId = null) {
         if (!$conn) {
             throw new Exception("Database connection failed");
         }
         $this->conn = $conn;
+        if ($actorUserId !== null && $actorUserId <= 0) throw new InvalidArgumentException('Invalid authoring identity');
+        $this->actorUserId = $actorUserId;
         $this->ensureSchema();
     }
 
@@ -85,7 +89,12 @@ class CardAuthoringDB {
     }
 
     private function currentUserId() {
+        if ($this->actorUserId !== null) return $this->actorUserId;
         return IsUserLoggedIn() ? (int)LoggedInUser() : 0;
+    }
+
+    public function requireGameEditAccess($gameId) {
+        return $this->assertCanEditGame($gameId);
     }
 
     private function requireLoggedIn() {
@@ -877,9 +886,10 @@ class CardAuthoringDB {
         return $this->getTemplate($id);
     }
 
-    public function saveTemplateFields($templateId, $fields) {
+    public function saveTemplateFields($templateId, $fields, $expectedUpdatedAt = null) {
         $template = $this->getTemplate($templateId);
         $this->assertCanEditGame((int)$template['game_id']);
+        $this->assertFresh('ce_templates', $templateId, $expectedUpdatedAt);
         if (!is_array($fields)) throw new Exception("Fields must be an array");
         $validTypes = ['text', 'longtext', 'number', 'boolean', 'select', 'multiselect', 'image', 'icon_enum'];
         $now = $this->now();
@@ -933,9 +943,10 @@ class CardAuthoringDB {
         }
     }
 
-    public function saveTemplateLayout($templateId, $elements) {
+    public function saveTemplateLayout($templateId, $elements, $expectedUpdatedAt = null) {
         $template = $this->getTemplate($templateId);
         $this->assertCanEditGame((int)$template['game_id']);
+        $this->assertFresh('ce_templates', $templateId, $expectedUpdatedAt);
         if (!is_array($elements)) throw new Exception("Layout must be an array");
         $now = $this->now();
         mysqli_query($this->conn, "START TRANSACTION");
@@ -1067,9 +1078,10 @@ class CardAuthoringDB {
         }
     }
 
-    public function saveCardFieldValues($cardId, $values) {
+    public function saveCardFieldValues($cardId, $values, $expectedUpdatedAt = null) {
         $card = $this->getCard($cardId);
         $this->assertCanEditGame((int)$card['game_id']);
+        $this->assertFresh('ce_cards', $cardId, $expectedUpdatedAt);
         if (!is_array($values)) throw new Exception("Values must be an array");
         $fields = [];
         foreach ($card['template']['fields'] as $field) {

@@ -1,0 +1,7 @@
+{
+    "name": "Roaring Beam / resolution lifecycle / nonempty-soul-no-return-no-charge",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:28:41+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "A card already in Boltyn soul makes the condition false. Create one Courage; do not return the reaction or charge any card. The macro finishes synchronously despite having await code in its other branch. Clear the source once to owner graveyard, preserving the existing soul and the other hand card. Sources: https://judge.fabtcg.com/cards/detail/4621/ https://rules.fabtcg.com/en/cr/08-keywords/#812b https://rules.fabtcg.com/en/cr/03-zones/#3012 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537 FaBSim/GeneratedCode/cardArrayCache.json#roaring_beam_yellow"
+}

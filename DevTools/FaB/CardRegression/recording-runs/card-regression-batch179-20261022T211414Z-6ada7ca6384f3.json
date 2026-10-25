@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T21:14:14+00:00",
+    "input_file": "card-regression-batch179.json",
+    "input_sha256": "f31efd07a8a328388b5081d767cffcf38c38b49ed7f319a378c2fb9876de2ba7",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-tome-of-harvests-blue-four-live-sparse-actual-arsenal-bottom-additional-cost-and-three-resource-payment-draws-original-top-three",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 1028
+        }
+    ]
+}

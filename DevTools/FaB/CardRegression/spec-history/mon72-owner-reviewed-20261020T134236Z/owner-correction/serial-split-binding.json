@@ -1,0 +1,1297 @@
+{
+  "status": "EXACT_OWNER_DESCRIPTOR_CORRECTED_SERIAL_BINDING_PENDING_GATE",
+  "original_split_manifest_sha256": "6ed4a5f3142ee4b85c2b9f22eca29acb4836b78446bfb8ed11e454e78dee0c8f",
+  "corrected_full210_sha256": "0a2630d9714382fd0779ef3c9aa426d50b45542e57d78718aec16b1a87b96db3",
+  "batches": [
+    {
+      "family": "surging_militia",
+      "path": "mon210-serial-family-split-proposal\\card-regression-batch72-surging.json",
+      "sha256": "38d0c4c7bbf0a986336e332b5385c23f39c198f00209e58ce50cb8e95c675788",
+      "cases": 69,
+      "source_index_object_map": [
+        {
+          "source_index": 0,
+          "split_index": 0,
+          "slug": "card-surging-militia-red-mon-static-hand-floating-unblocked",
+          "object_sha256": "05146e2f5a1abb9d342c2f11698da9ed5555d0ae9a180cbf67347819bf4a36f2"
+        },
+        {
+          "source_index": 1,
+          "split_index": 1,
+          "slug": "card-surging-militia-red-mon-static-arsenal-face-down",
+          "object_sha256": "9c07c8d58b5516d1b6dc08456b33307d5a15db34c12200ae8ddb58813d5f17b4"
+        },
+        {
+          "source_index": 2,
+          "split_index": 2,
+          "slug": "card-surging-militia-red-mon-static-arsenal-face-up",
+          "object_sha256": "e0c92fef453b6314b6adc7bbcff750fed5c6ddc809c5b9e73d8e1f7f528969c1"
+        },
+        {
+          "source_index": 3,
+          "split_index": 3,
+          "slug": "card-surging-militia-red-mon-static-overfund-one",
+          "object_sha256": "6aac681049d58f727081c95f13bd0d64eefe91fe02ab3afd589c14c377ac6ccd"
+        },
+        {
+          "source_index": 4,
+          "split_index": 4,
+          "slug": "card-surging-militia-red-mon-static-zero-ap-reject",
+          "object_sha256": "358fcb3049e624b7842826d54c8d5c97aa3306457741afb2c00598744fa4f066"
+        },
+        {
+          "source_index": 5,
+          "split_index": 5,
+          "slug": "card-surging-militia-red-mon-static-wrong-priority-reject",
+          "object_sha256": "73fb83404d66dec8b82d5d31cb71d9655a6b15b89b78ffc84899d842f2ae4ed8"
+        },
+        {
+          "source_index": 6,
+          "split_index": 6,
+          "slug": "card-surging-militia-red-mon-static-nonturn-ordinary-reject",
+          "object_sha256": "2699c18c6d29ea9b2e428c810e6ecefd0124707ea1747b9e3f5ceee428d18e23"
+        },
+        {
+          "source_index": 7,
+          "split_index": 7,
+          "slug": "card-surging-militia-red-mon-static-graveyard-origin-reject",
+          "object_sha256": "7ce0cecb8ecfa6dd06a54feb74c754d4d2d97e954f68ab01b1b3e88acef0078a"
+        },
+        {
+          "source_index": 8,
+          "split_index": 8,
+          "slug": "card-surging-militia-red-mon-static-printed-pitch",
+          "object_sha256": "3308f5a07edf3fe04ddbd51e963c9319ca6101f2ac40a9cb42e88a4cc16a7900"
+        },
+        {
+          "source_index": 9,
+          "split_index": 9,
+          "slug": "card-surging-militia-red-mon-static-printed-defense-no-aura",
+          "object_sha256": "5b4d41b784614343486b704bdf39393f3dac173f22d28b710465b023bc4772a9"
+        },
+        {
+          "source_index": 10,
+          "split_index": 10,
+          "slug": "card-surging-militia-red-mon-static-exact-full-block",
+          "object_sha256": "c2b1264d3520d74c7a97695084fc3edaf75d2a513460c56bb102a369ca18db96"
+        },
+        {
+          "source_index": 11,
+          "split_index": 11,
+          "slug": "card-surging-militia-red-mon-static-overblock",
+          "object_sha256": "76974e9d0e9a0b89054a13f16870bea886be9576ed6509420a90380b3cac3933"
+        },
+        {
+          "source_index": 12,
+          "split_index": 12,
+          "slug": "card-surging-militia-red-mon-static-blue-three-payment",
+          "object_sha256": "1da3ac29c457f39b395eaf4c08838a44c65fff659c6daccb593fd38051a4dce2"
+        },
+        {
+          "source_index": 13,
+          "split_index": 13,
+          "slug": "card-surging-militia-red-mon-static-red-then-red-payment",
+          "object_sha256": "3bd264692ad6307e4c19ad4d4a9b248903d223a19f228db3a9826e97243967be"
+        },
+        {
+          "source_index": 14,
+          "split_index": 14,
+          "slug": "card-surging-militia-red-mon-static-unfundable-cost-minus-one-reject",
+          "object_sha256": "4afa6379d578cea889d8b45904141cf4f955a9ef42a4fc5b52b526c6b80d53b7"
+        },
+        {
+          "source_index": 15,
+          "split_index": 15,
+          "slug": "card-surging-militia-red-mon-continuous-one-normal-hand-card",
+          "object_sha256": "db9d1c4a0a20875e4b1deab47fec8c85a9fbad0e8f7827cc91b64893b60d13b2"
+        },
+        {
+          "source_index": 16,
+          "split_index": 16,
+          "slug": "card-surging-militia-red-mon-static-two-normal-hand-cards",
+          "object_sha256": "d51710a898aa601ef90c8870928aa0ee13c025c97e024f5eeb9b2501b3509175"
+        },
+        {
+          "source_index": 17,
+          "split_index": 17,
+          "slug": "card-surging-militia-red-mon-static-three-normal-hand-cards",
+          "object_sha256": "da1ff5e0d0be93a475220465dcfae999975825ffdb39530e89800ef97a417952"
+        },
+        {
+          "source_index": 18,
+          "split_index": 18,
+          "slug": "card-surging-militia-red-mon-static-equipment-only-excluded",
+          "object_sha256": "2ec5a48be9786db3346297ece530dc59df6b6fda3af9bee609ddb7a73d4b19dd"
+        },
+        {
+          "source_index": 19,
+          "split_index": 19,
+          "slug": "card-surging-militia-red-mon-static-one-hand-plus-two-equipment",
+          "object_sha256": "7f204d1e2a95b2821244c9437cedeb43742c8ab7d96f663dfd7c6a83f505b808"
+        },
+        {
+          "source_index": 20,
+          "split_index": 20,
+          "slug": "card-surging-militia-red-mon-static-defense-reaction-pending-then-resolved",
+          "object_sha256": "f8556f69d332ec0b92a019b4b345aeed2202de23fd1435f85ea495219a3d1219"
+        },
+        {
+          "source_index": 21,
+          "split_index": 21,
+          "slug": "card-surging-militia-red-mon-static-previous-link-defenders-excluded",
+          "object_sha256": "a2ac4308be4a44a9fa3685a137e3aba499090d7fd05ded0f4e64e4bffb23ee0d"
+        },
+        {
+          "source_index": 22,
+          "split_index": 22,
+          "slug": "card-surging-militia-red-mon-static-ordinary-nonattack-defender-counts",
+          "object_sha256": "4f1c8f557d8384d7dbe0a29a09e5e90ca9ffbc4354e9af6a14918bff28798f4c"
+        },
+        {
+          "source_index": 23,
+          "split_index": 23,
+          "slug": "card-surging-militia-yellow-mon-static-hand-floating-unblocked",
+          "object_sha256": "8970f03f175cb47ae544d6688802ba8fd145d0bb5e397515e5b2d9101647405d"
+        },
+        {
+          "source_index": 24,
+          "split_index": 24,
+          "slug": "card-surging-militia-yellow-mon-static-arsenal-face-down",
+          "object_sha256": "7e37b13b611418478d7af111876119cfac496d5da6623fdce2286b039407844f"
+        },
+        {
+          "source_index": 25,
+          "split_index": 25,
+          "slug": "card-surging-militia-yellow-mon-static-arsenal-face-up",
+          "object_sha256": "a7165e8ff7fa9ac88f2e07b15ca1ae3c4502e16e9112c621c4f5fa1af1114b6a"
+        },
+        {
+          "source_index": 26,
+          "split_index": 26,
+          "slug": "card-surging-militia-yellow-mon-static-overfund-one",
+          "object_sha256": "bbb18bbf01885441dcea826cd69645d2da26cce94511b60d952d408dbe60c316"
+        },
+        {
+          "source_index": 27,
+          "split_index": 27,
+          "slug": "card-surging-militia-yellow-mon-static-zero-ap-reject",
+          "object_sha256": "105b294b96097b9bee0e9472b7776775d89e603e2935953d59f04dbca4e09398"
+        },
+        {
+          "source_index": 28,
+          "split_index": 28,
+          "slug": "card-surging-militia-yellow-mon-static-wrong-priority-reject",
+          "object_sha256": "7ca238e74d1209a5f12e0b6d7148b9b57a17b280973b4968bfee8ff0e085088d"
+        },
+        {
+          "source_index": 29,
+          "split_index": 29,
+          "slug": "card-surging-militia-yellow-mon-static-nonturn-ordinary-reject",
+          "object_sha256": "50416ec666e97d7881e49e4f47615a58d8eab79ef048d87530bea60aadd8f1a1"
+        },
+        {
+          "source_index": 30,
+          "split_index": 30,
+          "slug": "card-surging-militia-yellow-mon-static-graveyard-origin-reject",
+          "object_sha256": "2c68d7ffb71dc3509ba7b812c730602b9f12cf41cf5c4de0f7602e8deccdecc7"
+        },
+        {
+          "source_index": 31,
+          "split_index": 31,
+          "slug": "card-surging-militia-yellow-mon-static-printed-pitch",
+          "object_sha256": "4cf3a47dae7c9a50cb1f5ca55f16fa36a6c61c2a38e98d33f96b481e32d36504"
+        },
+        {
+          "source_index": 32,
+          "split_index": 32,
+          "slug": "card-surging-militia-yellow-mon-static-printed-defense-no-aura",
+          "object_sha256": "1f2ddc7b26c43f03b55c4df472487e9d7a121f45bfd9ab1ce45fe08b9aa49728"
+        },
+        {
+          "source_index": 33,
+          "split_index": 33,
+          "slug": "card-surging-militia-yellow-mon-static-exact-full-block",
+          "object_sha256": "67bcb02721a5268496af0735129c0ce6caf3b89e287f35b1c1c5893ccf444f0f"
+        },
+        {
+          "source_index": 34,
+          "split_index": 34,
+          "slug": "card-surging-militia-yellow-mon-static-overblock",
+          "object_sha256": "1e29a0bb48829f00941c5b801d4bba08f2877371627986ebbc2792dacd90249c"
+        },
+        {
+          "source_index": 35,
+          "split_index": 35,
+          "slug": "card-surging-militia-yellow-mon-static-blue-three-payment",
+          "object_sha256": "9270ba114833cd9c987b1a50e0049919c5109e3ec02a81046250d90a03dac99b"
+        },
+        {
+          "source_index": 36,
+          "split_index": 36,
+          "slug": "card-surging-militia-yellow-mon-static-red-then-red-payment",
+          "object_sha256": "9b9839701fd1536ea575ec2b32858531a2ecd931a7e6c7e48a1305a96a98369d"
+        },
+        {
+          "source_index": 37,
+          "split_index": 37,
+          "slug": "card-surging-militia-yellow-mon-static-unfundable-cost-minus-one-reject",
+          "object_sha256": "4a54af8530d1e5c658aa70dc3b34e71863305905a0c05b5ad50ad038f800b601"
+        },
+        {
+          "source_index": 38,
+          "split_index": 38,
+          "slug": "card-surging-militia-yellow-mon-static-one-normal-hand-card",
+          "object_sha256": "205501d416948d528e7d8dc2665918217655350d3aec4f74b389f10cf321a99b"
+        },
+        {
+          "source_index": 39,
+          "split_index": 39,
+          "slug": "card-surging-militia-yellow-mon-static-two-normal-hand-cards",
+          "object_sha256": "64a28c767ffa98a3135be11260287a9ed4d32b7515218275c175ff784a32c8c8"
+        },
+        {
+          "source_index": 40,
+          "split_index": 40,
+          "slug": "card-surging-militia-yellow-mon-static-three-normal-hand-cards",
+          "object_sha256": "565edf11836ad7d5a54e6854f0d147fba6a667c678f325c5a436f34d9f7fee54"
+        },
+        {
+          "source_index": 41,
+          "split_index": 41,
+          "slug": "card-surging-militia-yellow-mon-static-equipment-only-excluded",
+          "object_sha256": "f3e917564b9f230101ad018972fd58c7d7a9d9f8e40028c74ccf26f361be96e6"
+        },
+        {
+          "source_index": 42,
+          "split_index": 42,
+          "slug": "card-surging-militia-yellow-mon-static-one-hand-plus-two-equipment",
+          "object_sha256": "0a46cab8e440460b3cf96a285284c16b80a53c5f4975c9b9118081793130bc3c"
+        },
+        {
+          "source_index": 43,
+          "split_index": 43,
+          "slug": "card-surging-militia-yellow-mon-static-defense-reaction-pending-then-resolved",
+          "object_sha256": "bf394d9809cad84048b177691269c171454a03967e531967f40b2019d6e12140"
+        },
+        {
+          "source_index": 44,
+          "split_index": 44,
+          "slug": "card-surging-militia-yellow-mon-static-previous-link-defenders-excluded",
+          "object_sha256": "678022848fbe13f3cf1b245659eb24cebe3f9df2d26d7c08aec36c929ba27dd7"
+        },
+        {
+          "source_index": 45,
+          "split_index": 45,
+          "slug": "card-surging-militia-yellow-mon-static-ordinary-nonattack-defender-counts",
+          "object_sha256": "3fe2e4d2a8dc8bd421b38f6b56894603462073119b25953f152744f7e129b868"
+        },
+        {
+          "source_index": 46,
+          "split_index": 46,
+          "slug": "card-surging-militia-blue-mon-static-hand-floating-unblocked",
+          "object_sha256": "d885119dfeb4dec60c60a15787b6988a016d02e48ae229dbb488e4f0529f5a3c"
+        },
+        {
+          "source_index": 47,
+          "split_index": 47,
+          "slug": "card-surging-militia-blue-mon-static-arsenal-face-down",
+          "object_sha256": "717f4c549d0673233c0cd81bd0fa03ce5ae3822544b92179c1c335d37b89f460"
+        },
+        {
+          "source_index": 48,
+          "split_index": 48,
+          "slug": "card-surging-militia-blue-mon-static-arsenal-face-up",
+          "object_sha256": "f5f62482f409eec65af182b993ee2293dfd9bc822021468fb17126257ee100a3"
+        },
+        {
+          "source_index": 49,
+          "split_index": 49,
+          "slug": "card-surging-militia-blue-mon-static-overfund-one",
+          "object_sha256": "8fc5a4e84bec0003f7af6f3c10efbf6eef905304e0fa2faa3e164481dc1499db"
+        },
+        {
+          "source_index": 50,
+          "split_index": 50,
+          "slug": "card-surging-militia-blue-mon-static-zero-ap-reject",
+          "object_sha256": "bccac17f7e99e312937879cb7611253a63f2e9cafb88442079c9d4674e7cb5fa"
+        },
+        {
+          "source_index": 51,
+          "split_index": 51,
+          "slug": "card-surging-militia-blue-mon-static-wrong-priority-reject",
+          "object_sha256": "803fda3a9c5017f2159265ce89cd3e918f240a1f3f2d4fc87d11c0a946fadcef"
+        },
+        {
+          "source_index": 52,
+          "split_index": 52,
+          "slug": "card-surging-militia-blue-mon-static-nonturn-ordinary-reject",
+          "object_sha256": "a53fb9f02c4b86b6c6bd876dd6db0b48e05c52dbf6addf1826999d1332e71f8b"
+        },
+        {
+          "source_index": 53,
+          "split_index": 53,
+          "slug": "card-surging-militia-blue-mon-static-graveyard-origin-reject",
+          "object_sha256": "db330d89471bd72adc86483e4188b32b817622b1e238dfa8d2fbd56452f412cb"
+        },
+        {
+          "source_index": 54,
+          "split_index": 54,
+          "slug": "card-surging-militia-blue-mon-static-printed-pitch",
+          "object_sha256": "bb1814a9dcdeff8bfd93d2bd9515849e2f123bdeb32b65585cce4c6437ec3bf0"
+        },
+        {
+          "source_index": 55,
+          "split_index": 55,
+          "slug": "card-surging-militia-blue-mon-static-printed-defense-no-aura",
+          "object_sha256": "2063c0891ab02ea78757a40eb1c2795a4917f3d203ef75ae6594425885c22b41"
+        },
+        {
+          "source_index": 56,
+          "split_index": 56,
+          "slug": "card-surging-militia-blue-mon-static-exact-full-block",
+          "object_sha256": "7ec6914dd944d7c4dd10476514077f61c5f4897f431dcdd48a7d3a1f4d7d22d7"
+        },
+        {
+          "source_index": 57,
+          "split_index": 57,
+          "slug": "card-surging-militia-blue-mon-static-overblock",
+          "object_sha256": "117f9ba41ba8764695ed7bc0fdf678f69122fa7a302843e701c2d5ab6078676d"
+        },
+        {
+          "source_index": 58,
+          "split_index": 58,
+          "slug": "card-surging-militia-blue-mon-static-blue-three-payment",
+          "object_sha256": "b3571826a9fcf65ac1d51b87d39d69967654c44fc0c9e8472eae7914e60e9ed0"
+        },
+        {
+          "source_index": 59,
+          "split_index": 59,
+          "slug": "card-surging-militia-blue-mon-static-red-then-red-payment",
+          "object_sha256": "0d4515788b0e45c013580cea48ffa594ccc08e12bc4a4a27772be7a4aaaa43a3"
+        },
+        {
+          "source_index": 60,
+          "split_index": 60,
+          "slug": "card-surging-militia-blue-mon-static-unfundable-cost-minus-one-reject",
+          "object_sha256": "72aff6da8185915f84d2651a2631a55d4f74367d6924036ce31359f4568f037f"
+        },
+        {
+          "source_index": 61,
+          "split_index": 61,
+          "slug": "card-surging-militia-blue-mon-static-one-normal-hand-card",
+          "object_sha256": "a2cb8f3dfd55e0d103d2e26f47ebe641ad2cecda58e8bccc6c5c3f1992c5f1b5"
+        },
+        {
+          "source_index": 62,
+          "split_index": 62,
+          "slug": "card-surging-militia-blue-mon-static-two-normal-hand-cards",
+          "object_sha256": "779750ea825f3030ff5d4cffa1fbb50dc21ee1e76701e8ca1222367495f0390a"
+        },
+        {
+          "source_index": 63,
+          "split_index": 63,
+          "slug": "card-surging-militia-blue-mon-static-three-normal-hand-cards",
+          "object_sha256": "32317506e9140a23cb41e005345a22f4499025e049a78893522d6a23f546d7c0"
+        },
+        {
+          "source_index": 64,
+          "split_index": 64,
+          "slug": "card-surging-militia-blue-mon-static-equipment-only-excluded",
+          "object_sha256": "255cd99b4013d72baea997016d827550da2250a2f2bbc94010c6369c6c367932"
+        },
+        {
+          "source_index": 65,
+          "split_index": 65,
+          "slug": "card-surging-militia-blue-mon-static-one-hand-plus-two-equipment",
+          "object_sha256": "845a0680795ec7cdfb2b30335a306e48739a3cd716a82945977893cdabf03c2d"
+        },
+        {
+          "source_index": 66,
+          "split_index": 66,
+          "slug": "card-surging-militia-blue-mon-static-defense-reaction-pending-then-resolved",
+          "object_sha256": "709bdc3ffd718cf08bbdf24a4505b376d890107cd664aaa1c2aaab7c2e2bac49"
+        },
+        {
+          "source_index": 67,
+          "split_index": 67,
+          "slug": "card-surging-militia-blue-mon-static-previous-link-defenders-excluded",
+          "object_sha256": "d987e1085ce2cc20d6964d7857bbf59fbd14fa814d9eed68d12b4eb49da83354"
+        },
+        {
+          "source_index": 68,
+          "split_index": 68,
+          "slug": "card-surging-militia-blue-mon-static-ordinary-nonattack-defender-counts",
+          "object_sha256": "b37827f84b85a5bffe0566c2eeefd7b7c6573c8a29161fe37acf40c9e697d88f"
+        }
+      ]
+    },
+    {
+      "family": "stony_woottonhog",
+      "path": "mon210-serial-family-split-proposal\\card-regression-batch72-stony.json",
+      "sha256": "f02e4f22e78d65c4ed597ebfe05f585fe4165ebd2dbfcede241363e4367886b0",
+      "cases": 69,
+      "source_index_object_map": [
+        {
+          "source_index": 69,
+          "split_index": 0,
+          "slug": "card-stony-woottonhog-red-mon-static-hand-floating-unblocked",
+          "object_sha256": "85ec541e00edd50ec8fcf50bf0aab4db57ac95e32a93b07e77b23496f8725a2e"
+        },
+        {
+          "source_index": 70,
+          "split_index": 1,
+          "slug": "card-stony-woottonhog-red-mon-static-arsenal-face-down",
+          "object_sha256": "e7d7f7661a2682d27afd0bd894bba1a40b18204dcc9d1b324244aecfeb5ed17f"
+        },
+        {
+          "source_index": 71,
+          "split_index": 2,
+          "slug": "card-stony-woottonhog-red-mon-static-arsenal-face-up",
+          "object_sha256": "1cb6608b9a23e5e82e4454a69ff3f182a339800a53ef04cb2cd91e11a9b39cb0"
+        },
+        {
+          "source_index": 72,
+          "split_index": 3,
+          "slug": "card-stony-woottonhog-red-mon-static-overfund-one",
+          "object_sha256": "39b1203eb25b8ed08983e5142679064f0581b0b3e17a3ab369cbf3375cbb33c7"
+        },
+        {
+          "source_index": 73,
+          "split_index": 4,
+          "slug": "card-stony-woottonhog-red-mon-static-zero-ap-reject",
+          "object_sha256": "ab754e53b6dbc24d9d3d01ab7ea7c9e0e60e1178752464fec94e779c1c05fa5f"
+        },
+        {
+          "source_index": 74,
+          "split_index": 5,
+          "slug": "card-stony-woottonhog-red-mon-static-wrong-priority-reject",
+          "object_sha256": "ace68b294db710a444a1e97d74645f714e492042f95d4bf48b551a7533ee723a"
+        },
+        {
+          "source_index": 75,
+          "split_index": 6,
+          "slug": "card-stony-woottonhog-red-mon-static-nonturn-ordinary-reject",
+          "object_sha256": "5f9a9df76fccafc9b59bb69ee1cc34deb72b8066097c2809064940934cd5e4d6"
+        },
+        {
+          "source_index": 76,
+          "split_index": 7,
+          "slug": "card-stony-woottonhog-red-mon-static-graveyard-origin-reject",
+          "object_sha256": "0fa68d3103b43607a5a0f0b19af928acfc29aa644f24efc8507b885d3a6f917c"
+        },
+        {
+          "source_index": 77,
+          "split_index": 8,
+          "slug": "card-stony-woottonhog-red-mon-static-printed-pitch",
+          "object_sha256": "5bb42f6bd6bfc6124ab5071e544e22be16d638ca4788ff7612f4e548f70bc462"
+        },
+        {
+          "source_index": 78,
+          "split_index": 9,
+          "slug": "card-stony-woottonhog-red-mon-static-printed-defense-no-aura",
+          "object_sha256": "ce0aeca5d1db78ef515dbc03b7d614a98a7fabcdac5700abf3f49030a0ae3df0"
+        },
+        {
+          "source_index": 79,
+          "split_index": 10,
+          "slug": "card-stony-woottonhog-red-mon-static-exact-full-block",
+          "object_sha256": "c7e77bbddc7a4e7122250306582615ba341a6c87f30351d77e69f3f43438a1fb"
+        },
+        {
+          "source_index": 80,
+          "split_index": 11,
+          "slug": "card-stony-woottonhog-red-mon-static-overblock",
+          "object_sha256": "4500dead5663ad3e94de846153714908719c339d80b7f1d790a9e93d5c7de68c"
+        },
+        {
+          "source_index": 81,
+          "split_index": 12,
+          "slug": "card-stony-woottonhog-red-mon-static-blue-three-payment",
+          "object_sha256": "71e7807d4805efd70725ba765cf16403170af35d5dae6b42f2979b50d7d6c8bc"
+        },
+        {
+          "source_index": 82,
+          "split_index": 13,
+          "slug": "card-stony-woottonhog-red-mon-static-red-then-red-payment",
+          "object_sha256": "917572a8f93fcfe4f0abc16e92014953abc905f6f92aaa7276f6f2f7e457bd75"
+        },
+        {
+          "source_index": 83,
+          "split_index": 14,
+          "slug": "card-stony-woottonhog-red-mon-static-unfundable-cost-minus-one-reject",
+          "object_sha256": "5889671233392fb5b8f5b70b671ebbd7fca4dc7734c29dd0aaae0a0d7d79ba35"
+        },
+        {
+          "source_index": 84,
+          "split_index": 15,
+          "slug": "card-stony-woottonhog-red-mon-static-one-normal-hand-card",
+          "object_sha256": "bfb9bda90f999c811d0477f411dff6ae59fcb99c7a8e054d73fa8b7fb0b84060"
+        },
+        {
+          "source_index": 85,
+          "split_index": 16,
+          "slug": "card-stony-woottonhog-red-mon-continuous-two-normal-hand-cards",
+          "object_sha256": "c0fc981149b2cc45394c12a375ad64257760318e9193cafb674448564d9ad3ad"
+        },
+        {
+          "source_index": 86,
+          "split_index": 17,
+          "slug": "card-stony-woottonhog-red-mon-static-three-normal-hand-cards",
+          "object_sha256": "4b66fb34c0478794bc90108d152eade81a3a663b452424c9b4aec8d699dcc835"
+        },
+        {
+          "source_index": 87,
+          "split_index": 18,
+          "slug": "card-stony-woottonhog-red-mon-static-equipment-only-excluded",
+          "object_sha256": "3e52da591671b9c37b09dbd77940bcb2fea289811bad88a459d67cde7aeffd41"
+        },
+        {
+          "source_index": 88,
+          "split_index": 19,
+          "slug": "card-stony-woottonhog-red-mon-static-one-hand-plus-two-equipment",
+          "object_sha256": "f0cd26d139c664132e4f6062ef0c299cc53fc6d181ba428eb23a6580319d0d55"
+        },
+        {
+          "source_index": 89,
+          "split_index": 20,
+          "slug": "card-stony-woottonhog-red-mon-static-defense-reaction-pending-then-resolved",
+          "object_sha256": "4fac7f16265fa26dd5ceeb45a6754c1774911999b9801cd48b2ead7ae353087e"
+        },
+        {
+          "source_index": 90,
+          "split_index": 21,
+          "slug": "card-stony-woottonhog-red-mon-static-previous-link-defenders-excluded",
+          "object_sha256": "9afefacc1bd2decf66675a643e41100c371a5edf1339b7cf39737ad63a5a33f6"
+        },
+        {
+          "source_index": 91,
+          "split_index": 22,
+          "slug": "card-stony-woottonhog-red-mon-static-ordinary-nonattack-defender-counts",
+          "object_sha256": "4318373dcf254f61dd132e524aba56d5db1c7fc89643e51c283a818e7e2274b5"
+        },
+        {
+          "source_index": 92,
+          "split_index": 23,
+          "slug": "card-stony-woottonhog-yellow-mon-static-hand-floating-unblocked",
+          "object_sha256": "19a130ae7f2700eeb985887ffdabeda1dad09f87da4707f12f0ae93fc76271ed"
+        },
+        {
+          "source_index": 93,
+          "split_index": 24,
+          "slug": "card-stony-woottonhog-yellow-mon-static-arsenal-face-down",
+          "object_sha256": "f2c4ce421e31dc512865ea0ee6c2e4e1d7498629482daba9f47dfe88feb39af9"
+        },
+        {
+          "source_index": 94,
+          "split_index": 25,
+          "slug": "card-stony-woottonhog-yellow-mon-static-arsenal-face-up",
+          "object_sha256": "95a22f9cae0c02c92459e9aa7ea9a62008fa79249a79104cbad0b7d5bd4c3934"
+        },
+        {
+          "source_index": 95,
+          "split_index": 26,
+          "slug": "card-stony-woottonhog-yellow-mon-static-overfund-one",
+          "object_sha256": "1d090b027fa65050a4f66162e46970fe0124687510a19c26f18238c78d851392"
+        },
+        {
+          "source_index": 96,
+          "split_index": 27,
+          "slug": "card-stony-woottonhog-yellow-mon-static-zero-ap-reject",
+          "object_sha256": "0da22d3f7f5bae92ab4056b506c07a6c63ba06c8bedb8d1fd4da3eaa4adeb420"
+        },
+        {
+          "source_index": 97,
+          "split_index": 28,
+          "slug": "card-stony-woottonhog-yellow-mon-static-wrong-priority-reject",
+          "object_sha256": "f991be27c09e8ba3b6c39af6ca51fcdd7b64dd5244b55e56e6ceb0dcfebcc1f0"
+        },
+        {
+          "source_index": 98,
+          "split_index": 29,
+          "slug": "card-stony-woottonhog-yellow-mon-static-nonturn-ordinary-reject",
+          "object_sha256": "9d046f7f4066cc7fe98edfe9c563cbcdddc9fb1f697670044a9132e8ed009756"
+        },
+        {
+          "source_index": 99,
+          "split_index": 30,
+          "slug": "card-stony-woottonhog-yellow-mon-static-graveyard-origin-reject",
+          "object_sha256": "a479e87c0727535a21b9f45139d7c7c2ce0b06e93d6e0c6ba6e8c3b547dd7cf9"
+        },
+        {
+          "source_index": 100,
+          "split_index": 31,
+          "slug": "card-stony-woottonhog-yellow-mon-static-printed-pitch",
+          "object_sha256": "6022fa14b0f0347ce37ec127421745b3a5a67c24d3409a8961ec7542186cacec"
+        },
+        {
+          "source_index": 101,
+          "split_index": 32,
+          "slug": "card-stony-woottonhog-yellow-mon-static-printed-defense-no-aura",
+          "object_sha256": "334433958c732be0cab8c46a7418be10681f8abf56d8528f8c494346caee9020"
+        },
+        {
+          "source_index": 102,
+          "split_index": 33,
+          "slug": "card-stony-woottonhog-yellow-mon-static-exact-full-block",
+          "object_sha256": "3d41c38ba6b6c670d646bd7244d95d8b34f01e85061cdadc42d403ac006a2b88"
+        },
+        {
+          "source_index": 103,
+          "split_index": 34,
+          "slug": "card-stony-woottonhog-yellow-mon-static-overblock",
+          "object_sha256": "2134f8f2c7895a5c3b6cd6809576a4fbfd26b016ef548fb63a9300d162bcfd1f"
+        },
+        {
+          "source_index": 104,
+          "split_index": 35,
+          "slug": "card-stony-woottonhog-yellow-mon-static-blue-three-payment",
+          "object_sha256": "08d8e5ddc85249221cf30d3072970f5e8517726750da871415b68ed53da52120"
+        },
+        {
+          "source_index": 105,
+          "split_index": 36,
+          "slug": "card-stony-woottonhog-yellow-mon-static-red-then-red-payment",
+          "object_sha256": "385c75e46d7daf7d1288c7325bff8365597eccac38b119cb28480bf562468d7a"
+        },
+        {
+          "source_index": 106,
+          "split_index": 37,
+          "slug": "card-stony-woottonhog-yellow-mon-static-unfundable-cost-minus-one-reject",
+          "object_sha256": "0c70edab1e2705adf925e61f36ca57879bf29e7f131d0865f1de022c517d6564"
+        },
+        {
+          "source_index": 107,
+          "split_index": 38,
+          "slug": "card-stony-woottonhog-yellow-mon-static-one-normal-hand-card",
+          "object_sha256": "5591bfe664fdd33c8253436715884c502108f58abd27dff0bb5d2f84751abf30"
+        },
+        {
+          "source_index": 108,
+          "split_index": 39,
+          "slug": "card-stony-woottonhog-yellow-mon-static-two-normal-hand-cards",
+          "object_sha256": "34a29328bc9e7832cb1337e9edd0addfb0240c8316f098444604b439f711d4db"
+        },
+        {
+          "source_index": 109,
+          "split_index": 40,
+          "slug": "card-stony-woottonhog-yellow-mon-static-three-normal-hand-cards",
+          "object_sha256": "6ac970f5c2de75470fe3b75c40b7828e1d837793d1b7441f32109b3c072d3cdb"
+        },
+        {
+          "source_index": 110,
+          "split_index": 41,
+          "slug": "card-stony-woottonhog-yellow-mon-static-equipment-only-excluded",
+          "object_sha256": "631b6af1d266db199d221ada6037e615000aed0e1a2f964c57c12ce2c60a4531"
+        },
+        {
+          "source_index": 111,
+          "split_index": 42,
+          "slug": "card-stony-woottonhog-yellow-mon-static-one-hand-plus-two-equipment",
+          "object_sha256": "1fc70a2bf70b078532f52ce1a7144db6b450c4ab1083306f5af4911920f462d5"
+        },
+        {
+          "source_index": 112,
+          "split_index": 43,
+          "slug": "card-stony-woottonhog-yellow-mon-static-defense-reaction-pending-then-resolved",
+          "object_sha256": "34f19e605c08e896cb6a7bd4149ca470e6ba2ddee0fbdf9dc3216bf04b2a0498"
+        },
+        {
+          "source_index": 113,
+          "split_index": 44,
+          "slug": "card-stony-woottonhog-yellow-mon-static-previous-link-defenders-excluded",
+          "object_sha256": "94b9b3d61dd426c3bdd508403643a6376852533d2d89c053794a9cf3886dc947"
+        },
+        {
+          "source_index": 114,
+          "split_index": 45,
+          "slug": "card-stony-woottonhog-yellow-mon-static-ordinary-nonattack-defender-counts",
+          "object_sha256": "7c70c00011b031c35fded94472b5f42af1df44f21d860eabc248e14af32a44f1"
+        },
+        {
+          "source_index": 115,
+          "split_index": 46,
+          "slug": "card-stony-woottonhog-blue-mon-static-hand-floating-unblocked",
+          "object_sha256": "9907a31bf2794acdd06bd8ccfdac588f8bb5679ad76deab5c8f900e51cb75e90"
+        },
+        {
+          "source_index": 116,
+          "split_index": 47,
+          "slug": "card-stony-woottonhog-blue-mon-static-arsenal-face-down",
+          "object_sha256": "5d22c3f46fbe37a0b7679c1e40dcbf13a07485f5d3ee5b4ac8706dfeea5c7577"
+        },
+        {
+          "source_index": 117,
+          "split_index": 48,
+          "slug": "card-stony-woottonhog-blue-mon-static-arsenal-face-up",
+          "object_sha256": "f9eb8cfe25181f2b68f8c33506008c7112e28fed928b90e26426467d53956d87"
+        },
+        {
+          "source_index": 118,
+          "split_index": 49,
+          "slug": "card-stony-woottonhog-blue-mon-static-overfund-one",
+          "object_sha256": "072579bd01ace130186ae26cc3cc33d331855226845532d86689e103269cc03c"
+        },
+        {
+          "source_index": 119,
+          "split_index": 50,
+          "slug": "card-stony-woottonhog-blue-mon-static-zero-ap-reject",
+          "object_sha256": "ed6b1a18f19acd49c9585e169a89ad3b2decf8467e8e868e68cfd288d98351b2"
+        },
+        {
+          "source_index": 120,
+          "split_index": 51,
+          "slug": "card-stony-woottonhog-blue-mon-static-wrong-priority-reject",
+          "object_sha256": "5b48e4dc0ae3512a4fb2df9590e1c0839cdae4504c295e491f64b2c2d1a1ab70"
+        },
+        {
+          "source_index": 121,
+          "split_index": 52,
+          "slug": "card-stony-woottonhog-blue-mon-static-nonturn-ordinary-reject",
+          "object_sha256": "7a8007c48f674d8ad354b21176a30b5e48272f4a57caa837e5b1dd9d9c6b04b1"
+        },
+        {
+          "source_index": 122,
+          "split_index": 53,
+          "slug": "card-stony-woottonhog-blue-mon-static-graveyard-origin-reject",
+          "object_sha256": "f0910d87460c14c7d7e18a3a3d0ab2f58e38fb4ee987021e679cb7816069ce52"
+        },
+        {
+          "source_index": 123,
+          "split_index": 54,
+          "slug": "card-stony-woottonhog-blue-mon-static-printed-pitch",
+          "object_sha256": "2c6ae98960ed9a4d9c64931508887e2b953f9d1ee1a28eb92ac95d9d377f0464"
+        },
+        {
+          "source_index": 124,
+          "split_index": 55,
+          "slug": "card-stony-woottonhog-blue-mon-static-printed-defense-no-aura",
+          "object_sha256": "16e07e68e1d067b650919c3ca546fa95712dd697324465668008a17e8b44cd46"
+        },
+        {
+          "source_index": 125,
+          "split_index": 56,
+          "slug": "card-stony-woottonhog-blue-mon-static-exact-full-block",
+          "object_sha256": "2bd9422c67a50f69aa3aa47c91c1ec2b91562574ff39739c3e662e84a9dae893"
+        },
+        {
+          "source_index": 126,
+          "split_index": 57,
+          "slug": "card-stony-woottonhog-blue-mon-static-overblock",
+          "object_sha256": "cae2dbebde798914aeddd34c33e75c5d8d1742b3419e3b9b0363c43d0b5f8b20"
+        },
+        {
+          "source_index": 127,
+          "split_index": 58,
+          "slug": "card-stony-woottonhog-blue-mon-static-blue-three-payment",
+          "object_sha256": "3083f13bb7e3d5babe7fa474c8b3d7836f00f2f0ec67685fd6e5fe6b8b60609f"
+        },
+        {
+          "source_index": 128,
+          "split_index": 59,
+          "slug": "card-stony-woottonhog-blue-mon-static-red-then-red-payment",
+          "object_sha256": "4bddff739494aefe77ae3ff2236ebc527dd1f1e7f634fa2ec23b5b33f5208ca7"
+        },
+        {
+          "source_index": 129,
+          "split_index": 60,
+          "slug": "card-stony-woottonhog-blue-mon-static-unfundable-cost-minus-one-reject",
+          "object_sha256": "1ef674bf8d1cdc623e07946eea97088434e2f1d292c088ca5fa1506cab0ee693"
+        },
+        {
+          "source_index": 130,
+          "split_index": 61,
+          "slug": "card-stony-woottonhog-blue-mon-static-one-normal-hand-card",
+          "object_sha256": "04e7247b84e8af769fedbb8d1dd22e271f49583342f3525471f0551b9ffd58ca"
+        },
+        {
+          "source_index": 131,
+          "split_index": 62,
+          "slug": "card-stony-woottonhog-blue-mon-static-two-normal-hand-cards",
+          "object_sha256": "a93394cc47301366795f7895705d213995e288cbd5e85dbf8dc328e423e5c010"
+        },
+        {
+          "source_index": 132,
+          "split_index": 63,
+          "slug": "card-stony-woottonhog-blue-mon-static-three-normal-hand-cards",
+          "object_sha256": "58e48e60584b943495f81c28e7032ac02ad1861d1cab7fe827de69397af15ba9"
+        },
+        {
+          "source_index": 133,
+          "split_index": 64,
+          "slug": "card-stony-woottonhog-blue-mon-static-equipment-only-excluded",
+          "object_sha256": "9315deb5c63bc77e560c1f4bc4dcdf48918984cb3590f75e216f9fa1675672cd"
+        },
+        {
+          "source_index": 134,
+          "split_index": 65,
+          "slug": "card-stony-woottonhog-blue-mon-static-one-hand-plus-two-equipment",
+          "object_sha256": "8d01a4f6b06feb365ad87f2d367598ed3eb529a2f36d2dfbe2dbdc2f43a33d7d"
+        },
+        {
+          "source_index": 135,
+          "split_index": 66,
+          "slug": "card-stony-woottonhog-blue-mon-static-defense-reaction-pending-then-resolved",
+          "object_sha256": "e3b1be6f4f15c3dd2a3379faf5e8581aaf7a6997f14c471eb8a12f4583a6f407"
+        },
+        {
+          "source_index": 136,
+          "split_index": 67,
+          "slug": "card-stony-woottonhog-blue-mon-static-previous-link-defenders-excluded",
+          "object_sha256": "b892b9bb58d3cfd9101b1e3eded0abf96fa141170b27d0ee29f25b7be937b70c"
+        },
+        {
+          "source_index": 137,
+          "split_index": 68,
+          "slug": "card-stony-woottonhog-blue-mon-static-ordinary-nonattack-defender-counts",
+          "object_sha256": "aba5f0a74e196f626a21987b0ef6f27733b30416bc9a75714fde30d9dfcb040e"
+        }
+      ]
+    },
+    {
+      "family": "yinti_yanti",
+      "path": "mon-continuous-stat-attacks\\virtual-kano-owner-corrected\\card-regression-batch72-yinti.json",
+      "sha256": "825de6b4996854329330cabb9ab6eaefe23cd847183fb6167d031409e2bb2ef4",
+      "cases": 72,
+      "source_index_object_map": [
+        {
+          "source_index": 138,
+          "split_index": 0,
+          "slug": "card-yinti-yanti-red-mon-static-hand-floating-unblocked",
+          "object_sha256": "2cc30a0cb7778d20d2042950dedf7c0615d5307c62a5f4cbb79c8071e4acf8bc"
+        },
+        {
+          "source_index": 139,
+          "split_index": 1,
+          "slug": "card-yinti-yanti-red-mon-static-arsenal-face-down",
+          "object_sha256": "7faafcee8477644107142d69015ccc74bee05ed90f4e6eb2e1235eea01445a40"
+        },
+        {
+          "source_index": 140,
+          "split_index": 2,
+          "slug": "card-yinti-yanti-red-mon-static-arsenal-face-up",
+          "object_sha256": "2e373efb6726009bda2ac7c40e0e5c5dee2b9e1df3536ffa25f94581622827a8"
+        },
+        {
+          "source_index": 141,
+          "split_index": 3,
+          "slug": "card-yinti-yanti-red-mon-static-overfund-one",
+          "object_sha256": "c9f1a9de045a7b8ad36085d647d3c96b13293ed877f97abd4dbb27853d891e41"
+        },
+        {
+          "source_index": 142,
+          "split_index": 4,
+          "slug": "card-yinti-yanti-red-mon-static-zero-ap-reject",
+          "object_sha256": "bfdad0cf9560832bf54a3803fb505674ccfa5b29187e38f1e9edde8d05778c66"
+        },
+        {
+          "source_index": 143,
+          "split_index": 5,
+          "slug": "card-yinti-yanti-red-mon-static-wrong-priority-reject",
+          "object_sha256": "4ae9a80641d80acfde0a62678296cf184b01edd86425da292a235ad6d0dc4c8e"
+        },
+        {
+          "source_index": 144,
+          "split_index": 6,
+          "slug": "card-yinti-yanti-red-mon-static-nonturn-ordinary-reject",
+          "object_sha256": "97536ef1f8be4bccfd0644b16df23b43bec8b2b5ba7f044c57fa0b014b39d9cc"
+        },
+        {
+          "source_index": 145,
+          "split_index": 7,
+          "slug": "card-yinti-yanti-red-mon-static-graveyard-origin-reject",
+          "object_sha256": "1b05bd8acc9e98987ff01cab8509599b44b2fdcf9211681f085fb25e45bf5f60"
+        },
+        {
+          "source_index": 146,
+          "split_index": 8,
+          "slug": "card-yinti-yanti-red-mon-static-printed-pitch",
+          "object_sha256": "5deeb3a519b4f27178d710e0e426813a6de102722fad745ee28899aa6b6c84e1"
+        },
+        {
+          "source_index": 147,
+          "split_index": 9,
+          "slug": "card-yinti-yanti-red-mon-static-printed-defense-no-aura",
+          "object_sha256": "1ec9973bae14addecb4314500bc0a61e0a5d5818570ebfffe84cbb548cda8cea"
+        },
+        {
+          "source_index": 148,
+          "split_index": 10,
+          "slug": "card-yinti-yanti-red-mon-static-exact-full-block",
+          "object_sha256": "7367393ad2a77eb3f27cb37baa3c5df5d456a3fb74ecc0bdae86519ea029369d"
+        },
+        {
+          "source_index": 149,
+          "split_index": 11,
+          "slug": "card-yinti-yanti-red-mon-static-overblock",
+          "object_sha256": "f1c709b2190d11abb7e88c5125f1f77b95736f5eca871b6fe86c2a35533bea90"
+        },
+        {
+          "source_index": 150,
+          "split_index": 12,
+          "slug": "card-yinti-yanti-red-mon-continuous-attack-own-aura-present",
+          "object_sha256": "201be6fc3e690bd9d8e9827f2ceb20025714a4bde285d4f9088b5fd459b044df"
+        },
+        {
+          "source_index": 151,
+          "split_index": 13,
+          "slug": "card-yinti-yanti-red-mon-static-attack-two-own-auras-not-plus-two",
+          "object_sha256": "25544adaf9299aa1f73b305595f5cbcec15af80dab3c9ac54bc33e3917d157cc"
+        },
+        {
+          "source_index": 152,
+          "split_index": 14,
+          "slug": "card-yinti-yanti-red-mon-static-attack-only-opponent-aura-negative",
+          "object_sha256": "92cc6e9b79d6f7330ef778776a92f260be06989793553ecac7cc32e3a9d9c33a"
+        },
+        {
+          "source_index": 153,
+          "split_index": 15,
+          "slug": "card-yinti-yanti-red-mon-static-attack-own-item-only-negative",
+          "object_sha256": "b9231c92912811f30ce76643b4122e298ce703ecf2db2c6385f22d61408e133f"
+        },
+        {
+          "source_index": 154,
+          "split_index": 16,
+          "slug": "card-yinti-yanti-red-mon-static-defend-own-aura-present",
+          "object_sha256": "07a41d915ddf2554789479e8b335b6d22cb000849f2aec536d38ff7ec41ac295"
+        },
+        {
+          "source_index": 155,
+          "split_index": 17,
+          "slug": "card-yinti-yanti-red-mon-static-defend-two-own-auras-not-plus-two",
+          "object_sha256": "b0d498e324b33fffec340c229a033bbfa3825d01f5121063a05051c4dd699e16"
+        },
+        {
+          "source_index": 156,
+          "split_index": 18,
+          "slug": "card-yinti-yanti-red-mon-static-defend-opponent-only-aura-negative",
+          "object_sha256": "e0d9d742826fb4d3330f5bdcce63b9fff8ac38562d8d4e40d6dbc48a69e7c54b"
+        },
+        {
+          "source_index": 157,
+          "split_index": 19,
+          "slug": "card-yinti-yanti-red-mon-static-defend-own-item-only-negative",
+          "object_sha256": "774981c4fdfc5e53fb15282c672b179396d0de4592b64aa869cd2495d90586c5"
+        },
+        {
+          "source_index": 158,
+          "split_index": 20,
+          "slug": "card-yinti-yanti-red-mon-live-enters-attack",
+          "object_sha256": "4f017b2d6feb9ead075a77431fc336a389e50efafc95a776df8a1bf907882395"
+        },
+        {
+          "source_index": 159,
+          "split_index": 21,
+          "slug": "card-yinti-yanti-red-mon-live-enters-defense",
+          "object_sha256": "70c77c1047bd612886a20aefe6be8db8fb4e869d2b446b616b9576222e765543"
+        },
+        {
+          "source_index": 160,
+          "split_index": 22,
+          "slug": "card-yinti-yanti-red-mon-live-destroyed-attack",
+          "object_sha256": "8f87aca80c73a5e09fae617fe6235bf085a4439d1fad691b507c218589c5535e"
+        },
+        {
+          "source_index": 161,
+          "split_index": 23,
+          "slug": "card-yinti-yanti-red-mon-live-destroyed-defense",
+          "object_sha256": "e386f487cabb4c17315d8ec335f8c94d99ceb96f3dac9fdee6f8bb3f0d7278d5"
+        },
+        {
+          "source_index": 162,
+          "split_index": 24,
+          "slug": "card-yinti-yanti-yellow-mon-static-hand-floating-unblocked",
+          "object_sha256": "ed23f3d0d3e49dfb74a32c222166f36cbdcc6d4ecb47b842b3c2beb84ab6dc7d"
+        },
+        {
+          "source_index": 163,
+          "split_index": 25,
+          "slug": "card-yinti-yanti-yellow-mon-static-arsenal-face-down",
+          "object_sha256": "8ea461440c69ae5e96d97670e8506ba243d8cc5d97a48f75fc5d0e830092fea0"
+        },
+        {
+          "source_index": 164,
+          "split_index": 26,
+          "slug": "card-yinti-yanti-yellow-mon-static-arsenal-face-up",
+          "object_sha256": "56616f99f2ba84941cd2c38956b6a3960d43de920600fbb0bc3a2e7acbd5561c"
+        },
+        {
+          "source_index": 165,
+          "split_index": 27,
+          "slug": "card-yinti-yanti-yellow-mon-static-overfund-one",
+          "object_sha256": "c015ffcb1b6d68b4711cee7d78b63576dfbfeeb3a8685639c5e436436c9606bc"
+        },
+        {
+          "source_index": 166,
+          "split_index": 28,
+          "slug": "card-yinti-yanti-yellow-mon-static-zero-ap-reject",
+          "object_sha256": "726f71a57f0f99b23645f7d8306ad4dc03c6e5930bdfe7fdd494722cda5633af"
+        },
+        {
+          "source_index": 167,
+          "split_index": 29,
+          "slug": "card-yinti-yanti-yellow-mon-static-wrong-priority-reject",
+          "object_sha256": "1285a2fa45a367dadcb9d619f27e8ce43b619dac57825d28237677fecbedec1a"
+        },
+        {
+          "source_index": 168,
+          "split_index": 30,
+          "slug": "card-yinti-yanti-yellow-mon-static-nonturn-ordinary-reject",
+          "object_sha256": "b1b632fe3bcd4bffd8bbc972da73d8eca060a279c9fa464ca584818c2cc233c1"
+        },
+        {
+          "source_index": 169,
+          "split_index": 31,
+          "slug": "card-yinti-yanti-yellow-mon-static-graveyard-origin-reject",
+          "object_sha256": "a2b4dc617936734689cbf9cd53edd378985e46c12051650902078ee9aaa602ac"
+        },
+        {
+          "source_index": 170,
+          "split_index": 32,
+          "slug": "card-yinti-yanti-yellow-mon-static-printed-pitch",
+          "object_sha256": "58efa67895fb5c1e061d92df1bfef778ca867f5f3c40a18cc1bc63a4d6dcce40"
+        },
+        {
+          "source_index": 171,
+          "split_index": 33,
+          "slug": "card-yinti-yanti-yellow-mon-static-printed-defense-no-aura",
+          "object_sha256": "1823df1a51b32fd1dcd9260ee9a0ca1988035f61cde1ab376bbc16d096c35912"
+        },
+        {
+          "source_index": 172,
+          "split_index": 34,
+          "slug": "card-yinti-yanti-yellow-mon-static-exact-full-block",
+          "object_sha256": "e49c9bd19c1fed6a912c2242d0fce8b60e2adf51769c739e2797599d8aef7105"
+        },
+        {
+          "source_index": 173,
+          "split_index": 35,
+          "slug": "card-yinti-yanti-yellow-mon-static-overblock",
+          "object_sha256": "ff7c0ec05226038a662f29a4f748c9a2bd5e8403091b32e0ff5c68ed5f58bf5a"
+        },
+        {
+          "source_index": 174,
+          "split_index": 36,
+          "slug": "card-yinti-yanti-yellow-mon-static-attack-own-aura-present",
+          "object_sha256": "1f3f213bc92328c4e91e47c923122179e37ceb6c512596c190d31c42f3c157f6"
+        },
+        {
+          "source_index": 175,
+          "split_index": 37,
+          "slug": "card-yinti-yanti-yellow-mon-static-attack-two-own-auras-not-plus-two",
+          "object_sha256": "184132fea6c58f031460bcfa2abaf9460b74dfafde8b2a4fc85ce9108bed80b7"
+        },
+        {
+          "source_index": 176,
+          "split_index": 38,
+          "slug": "card-yinti-yanti-yellow-mon-static-attack-only-opponent-aura-negative",
+          "object_sha256": "142de7ef475c0432b94c77b373d7dedcafbe1572e0efc280db4dce849b76d930"
+        },
+        {
+          "source_index": 177,
+          "split_index": 39,
+          "slug": "card-yinti-yanti-yellow-mon-static-attack-own-item-only-negative",
+          "object_sha256": "d7440f1e4789dced1786005031d832312aa7c8821328c655becac733d00ec74e"
+        },
+        {
+          "source_index": 178,
+          "split_index": 40,
+          "slug": "card-yinti-yanti-yellow-mon-static-defend-own-aura-present",
+          "object_sha256": "f8a2712ef6c0e1b6b29a3f61672af346f547d681abc18d4103a717c43aa7250c"
+        },
+        {
+          "source_index": 179,
+          "split_index": 41,
+          "slug": "card-yinti-yanti-yellow-mon-static-defend-two-own-auras-not-plus-two",
+          "object_sha256": "3d7a7265603b4a1934f3147184ff980fca2939feff464b22801b8408df2b70b9"
+        },
+        {
+          "source_index": 180,
+          "split_index": 42,
+          "slug": "card-yinti-yanti-yellow-mon-static-defend-opponent-only-aura-negative",
+          "object_sha256": "35684253a803b1ec40f3f4bad052b84570b2e957a0ac6a57e5730add57e21922"
+        },
+        {
+          "source_index": 181,
+          "split_index": 43,
+          "slug": "card-yinti-yanti-yellow-mon-static-defend-own-item-only-negative",
+          "object_sha256": "1a1da53f16787cfe6a0d87f1858f86f6f141fc2d998a52031c3c2ac3682d2026"
+        },
+        {
+          "source_index": 182,
+          "split_index": 44,
+          "slug": "card-yinti-yanti-yellow-mon-live-enters-attack",
+          "object_sha256": "24b6bfe4f67d0a26846472f746361b0087da9bb985aad4d1d083993b1ea15f2b"
+        },
+        {
+          "source_index": 183,
+          "split_index": 45,
+          "slug": "card-yinti-yanti-yellow-mon-live-enters-defense",
+          "object_sha256": "00d823dfd0cd7fcd13541500b315389ec4b7ac34d063593647d1d94ada8d1d53"
+        },
+        {
+          "source_index": 184,
+          "split_index": 46,
+          "slug": "card-yinti-yanti-yellow-mon-live-destroyed-attack",
+          "object_sha256": "e2ab9620a7fe0171d8005d32dd99e5f5daab96539ea2c9252f3e2f1884e3911c"
+        },
+        {
+          "source_index": 185,
+          "split_index": 47,
+          "slug": "card-yinti-yanti-yellow-mon-live-destroyed-defense",
+          "object_sha256": "00734ad1f76272583dd3171f5932c800da422569a970ea65b98365e0085b9dbd"
+        },
+        {
+          "source_index": 186,
+          "split_index": 48,
+          "slug": "card-yinti-yanti-blue-mon-static-hand-floating-unblocked",
+          "object_sha256": "da9d7c4f9723eae4de9e736286030470ad34ecd4f57522f00100ae47fe15810c"
+        },
+        {
+          "source_index": 187,
+          "split_index": 49,
+          "slug": "card-yinti-yanti-blue-mon-static-arsenal-face-down",
+          "object_sha256": "26666128615b4448886bf3b12e6d151ffa0e12d03772776a4004cfde696a7788"
+        },
+        {
+          "source_index": 188,
+          "split_index": 50,
+          "slug": "card-yinti-yanti-blue-mon-static-arsenal-face-up",
+          "object_sha256": "284818839afca49e362e3c70928385cfe871b5bee4fb36013af544d763c0b2de"
+        },
+        {
+          "source_index": 189,
+          "split_index": 51,
+          "slug": "card-yinti-yanti-blue-mon-static-overfund-one",
+          "object_sha256": "5be7367fc4ec4e624ee81c40576ba217af5431c8341213b6a0de246074da5ca4"
+        },
+        {
+          "source_index": 190,
+          "split_index": 52,
+          "slug": "card-yinti-yanti-blue-mon-static-zero-ap-reject",
+          "object_sha256": "86de70578852f640018087c06ddaf7d013056b79f5443e8ee34b86d20f2d5738"
+        },
+        {
+          "source_index": 191,
+          "split_index": 53,
+          "slug": "card-yinti-yanti-blue-mon-static-wrong-priority-reject",
+          "object_sha256": "099a274c8b1a09d1cc8521a3ca4688d8857cd2ee5b271e95ec9397eaaff78482"
+        },
+        {
+          "source_index": 192,
+          "split_index": 54,
+          "slug": "card-yinti-yanti-blue-mon-static-nonturn-ordinary-reject",
+          "object_sha256": "a740f39726df9f1ee2f2f09b9cb2a1e109c9a8ee3149725f2229196c3c4408d7"
+        },
+        {
+          "source_index": 193,
+          "split_index": 55,
+          "slug": "card-yinti-yanti-blue-mon-static-graveyard-origin-reject",
+          "object_sha256": "06e28d3580302ae32e1dc969c6be3cb143faf6067b84804240d7e815f64ddd28"
+        },
+        {
+          "source_index": 194,
+          "split_index": 56,
+          "slug": "card-yinti-yanti-blue-mon-static-printed-pitch",
+          "object_sha256": "20449db5c1854bcf3f2536a443759a0593c98654dbf35cd3b23cf377baceae3a"
+        },
+        {
+          "source_index": 195,
+          "split_index": 57,
+          "slug": "card-yinti-yanti-blue-mon-static-printed-defense-no-aura",
+          "object_sha256": "0b61cd8be81a6658bfa7bee1846a9630af5b72d466b06ce38727ce7116c573e8"
+        },
+        {
+          "source_index": 196,
+          "split_index": 58,
+          "slug": "card-yinti-yanti-blue-mon-static-exact-full-block",
+          "object_sha256": "b38c8a027510dad58bcb669b2faf6e18a15b307580a1ccceb3c5207120be3586"
+        },
+        {
+          "source_index": 197,
+          "split_index": 59,
+          "slug": "card-yinti-yanti-blue-mon-static-overblock",
+          "object_sha256": "000969daa56b7e1f782457c2b32f42845a72debc52c518ff68639653088a2f50"
+        },
+        {
+          "source_index": 198,
+          "split_index": 60,
+          "slug": "card-yinti-yanti-blue-mon-static-attack-own-aura-present",
+          "object_sha256": "ba7e9b32efa75a41e471439cbb32ba254580f47e455c2c4432876940100240c2"
+        },
+        {
+          "source_index": 199,
+          "split_index": 61,
+          "slug": "card-yinti-yanti-blue-mon-static-attack-two-own-auras-not-plus-two",
+          "object_sha256": "c9577784a090199ec2547466762c5e94b42dfbaee81a98be89b547f050d237d6"
+        },
+        {
+          "source_index": 200,
+          "split_index": 62,
+          "slug": "card-yinti-yanti-blue-mon-static-attack-only-opponent-aura-negative",
+          "object_sha256": "b08df93ff421d43d3f5323a46ec4704f790c0cfc8ff3d00d760f51f07cdad1d4"
+        },
+        {
+          "source_index": 201,
+          "split_index": 63,
+          "slug": "card-yinti-yanti-blue-mon-static-attack-own-item-only-negative",
+          "object_sha256": "edb5945ab07660a9dbf960fcdaae2354043208ad1827934ca9f0687b3f4c4ade"
+        },
+        {
+          "source_index": 202,
+          "split_index": 64,
+          "slug": "card-yinti-yanti-blue-mon-continuous-defend-own-aura-present",
+          "object_sha256": "91830d50b8e96c4fb5cbc0d129e71d04a919e3d2dfe25d37d1efce1807422a5c"
+        },
+        {
+          "source_index": 203,
+          "split_index": 65,
+          "slug": "card-yinti-yanti-blue-mon-static-defend-two-own-auras-not-plus-two",
+          "object_sha256": "4aac78cf959b546f30efc78029d17f6682cc441d788c15d113dfdc71ad8a2a66"
+        },
+        {
+          "source_index": 204,
+          "split_index": 66,
+          "slug": "card-yinti-yanti-blue-mon-static-defend-opponent-only-aura-negative",
+          "object_sha256": "4443a766e2839d298f82e8b21552130037fc14eaabbdd1e42b170f8fec06bda7"
+        },
+        {
+          "source_index": 205,
+          "split_index": 67,
+          "slug": "card-yinti-yanti-blue-mon-static-defend-own-item-only-negative",
+          "object_sha256": "d738c7a136106c758e7b8a78a24267c00ee29c6293d075d4338790c8aa8a1eca"
+        },
+        {
+          "source_index": 206,
+          "split_index": 68,
+          "slug": "card-yinti-yanti-blue-mon-live-enters-attack",
+          "object_sha256": "b7ea6a51f7b3af3a4bceae72e4099caac8ae9e032dedd2c665cb423878f7f5a8"
+        },
+        {
+          "source_index": 207,
+          "split_index": 69,
+          "slug": "card-yinti-yanti-blue-mon-live-enters-defense",
+          "object_sha256": "ac3b6723186a1146b8fc1bef669cd703e9b3bf8cb5913a442cded49f162235e6"
+        },
+        {
+          "source_index": 208,
+          "split_index": 70,
+          "slug": "card-yinti-yanti-blue-mon-live-destroyed-attack",
+          "object_sha256": "23cdf57c4c877515dac49290d9e6ca5fbd867bc21e3ad1d332ec6352fe504165"
+        },
+        {
+          "source_index": 209,
+          "split_index": 71,
+          "slug": "card-yinti-yanti-blue-mon-live-destroyed-defense",
+          "object_sha256": "47dbb1d054c0d44144f460b14c3fa37bae913ed6958003a7a4e3a57c30293a28"
+        }
+      ]
+    }
+  ],
+  "unchanged_228_requirement_map_sha256": "3bb60e85fc1ee04efb048d1cefbd296224e7dce8f3b592e25e68138e66d3aa2a",
+  "all210_objects_reconstruct_corrected_source_order": true,
+  "unchanged_original4_skip_only": true,
+  "only_yinti_six_objects_change": true,
+  "native_writes": 0,
+  "game_actions": 0
+}

@@ -1,0 +1,152 @@
+{
+  "status": "B185_ONE_ACTUAL_EARNED_SIX_POWER_PITCH_PREREQUISITE_REAL_BEAR_HUG_TWO_CLEAN_TARGETED_REPLAYS_ONE_EXACT_NATIVE_CONTROL_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch185.json",
+  "input_sha256": "dcb50458de362a5ab4325666a5f27b6ed79dcee54eaab36e2ba0a00a658c438a",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:27:43.525683+00:00",
+  "fixtures": [
+    {
+      "slug": "card-bear-hug-red-four-live-sparse-actual-six-power-pitch-earns-legal-play-then-paid-bear-hug-attack",
+      "fixture_sha256": "e822e253351102d6564d841ca40c42a13919b060f33812291da37878e3c8b825",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95c13686f46fcf0c4a1c08d0d7a9bf18088070ad4a2450d2f6315a2d4007ba0d",
+        "actions.json": "9bb2d35026add310bf66342afa99f03bc44475b01cc258122982e0e567186b7e",
+        "assertions.json": "0e8223a5fad9b4ef5011074c99c5ba869e9b9005f60fb129b04d5544f71c783f",
+        "expected_final_gamestate.txt": "2f40111678cbddc645f7527afaaadc461d06663bbff735bb97121f008d7921eb",
+        "meta.json": "f5933acfb3a0bc60bf5ce307d7e89293237992644296e8afe3da954d4c37b8c7"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 1565,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 8,
+      "final_health": [
+        20,
+        20,
+        20,
+        10
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 33,
+  "total_native_assertions": 1565,
+  "total_manual_passes": 29,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b185-actual-saved-independent-review.json",
+    "sha256": "d87c3a7ee66582d7b898843c979fb7dfb58fcc40416569983171db603756990d"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b185-independent-spec-review.json",
+    "sha256": "bfbaa45300d2425e7937a75e52e74439b3476ab4bcaaab15b796e317ffe18d11"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch185-20261022T212625Z-6ada7f81d346f.json",
+    "sha256": "c3574bf0622dc286068006c64fcebaade0bb57ece2a34424f91d89717523a0e3"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b185-four-live-run1.json",
+      "sha256": "e11e4fac0fc605ce1cf2eea48cb1ac3b1f1ed314e7e38147783f66338905fa7a",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch185.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b185-four-live-run2.json",
+      "sha256": "52208fb783d6de54fe5fa95bdf2b32f94e54e2a82f854133275a04e726a6e79b",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch185.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-b185-focused-fault-results.json",
+    "sha256": "7a2c98f620e7e117b2cda3428928c14ed2bab597bbd8a5ad676a23f3c6689f34",
+    "total": 1,
+    "intended_semantic_failures": 1,
+    "plan_sha256": "2b414c8de0db6f89000c00168746897a8e5c2ebd5c901fcdd0641d8380d23984",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b185_bear_hug_red_focused_effect_sensitivity",
+      "fixture": "card-bear-hug-red-four-live-sparse-actual-six-power-pitch-earns-legal-play-then-paid-bear-hug-attack",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "bear_hug_red",
+            "mode": "add",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 435,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 10, got 11.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b185-focused-fault-plan.json",
+    "sha256": "2b414c8de0db6f89000c00168746897a8e5c2ebd5c901fcdd0641d8380d23984"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1796,
+  "native_evidence_review_checks": 46,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "One Red BearHug cycle representative primary8: actualsupport5 ordinarycost1/Blue6 before resolution, actualDeck7 draw then solecandidate forcedpitch1 resources2to3 earns six-power prerequisite, realArsenal8 primarycost2 leavesR1/base7plus3/damage10. Negative prerequisite rejection/thresholdedge/siblings uncredited. No lowpower/emptyDeck/multicandidateRNG/alternatepitch/expiry/hero/support/fullcard or transientHand/pitch-trigger scheduling credit.",
+    "Only current ONE-case new packet audited; root alone executes native games and writes repo. B179/B181 held timing drafts and legacy cases are outside this review.",
+    "Two new targeted clean replays and one intended native control only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Prefix12 adds one supported WTR_POWER1 tag only to actual primary BearHugRed8; exact Initial computed10to11 tests actual attack outcome, preserving UID8/OwnerController1/target/publicGYsupport5/Pitch6,7/resources1/AP0/noGA. All21 remaining manual responses and every original suffix oracle retained. Numeric-outcome sensitivity only: no isolated native prerequisite-denial control because pre-proposal removal causes action-denial outside existing executor assertion-first-failure contract. Actual support ordinary payment before effect, seven-power real Pitch7 earning play permission, then primary printed2payment/base7plus3/power10/damage10 independently pinned. No negative prerequisite/thresholdedge/pitchsibling/RNGdistribution/transientHand/expiry/hero/support/fullcard credit.",
+    "Prefix12 retains21remainingrealmanualresponses and everyoriginalsuffixoracle with onlyoffsetschanged; selectedraw5/runtimepreserved. No helper/executorchanges/broadtests/positivereplayrepeats."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "540a511fb3b9ebe437dd9e75c03c406a768f5b94fed97a8cd6849e4b1cd8428c"
+}

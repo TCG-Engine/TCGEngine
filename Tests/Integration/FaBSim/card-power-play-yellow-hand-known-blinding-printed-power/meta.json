@@ -1,0 +1,7 @@
+{
+    "name": "Power Play / hand-known-blinding-printed-power",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:48:32+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed power2, cost3; originHand. The arsenal-only intrinsic bonus is5; expected current power2. Known active Blinding removes the intrinsic static ability; printed power remains. Pay exactly3 floating resources and1AP, leaving0/0. Defense0; damage=max(0,2-0)=2; defender life20->18. Origin is checked independently on Stack and CombatChain; the arsenal becomes empty as the attack leaves it. Sources: FaBSim/GeneratedCode/cardArrayCache.json#power_play_yellow https://judge.fabtcg.com/cards/detail/4275/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf https://judge.fabtcg.com/cards/detail/3761/"
+}

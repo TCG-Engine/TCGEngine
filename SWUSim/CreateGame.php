@@ -198,6 +198,10 @@ function SWUSetupGame($lobby, $opts = []) {
     $currentPhase = 'APS';
     SetPhaseParameters("-");
 
+    // SWU-PGN writer: start recording a human 2-seat PvP game (a no-op otherwise). The decks are shuffled, so this
+    // captures their order; the setup frame it opens is committed just before the WriteGamestate below.
+    SwuPgnRecStart($lobby, $opts, $deckLoadOk);
+
     // ─── Steps 4–6: Draw opening hands, queue mulligan decisions, resource 2 ──────
     if ($deckLoadOk) {
         QueuePregameSetup($firstPlayer);
@@ -222,7 +226,12 @@ function SWUSetupGame($lobby, $opts = []) {
     SetSWUVar('GAME_IS_PRIVATE',
         ((is_object($lobby) && !empty($lobby->isPrivate)) || $mode !== '') ? 'true' : 'false');
     SetSWUVar('GAME_SEAT_COUNT', strval(SeatCountForGame()));
+    // Twin Suns house rules the room agreed on (StartRoom resolves them; a rematch re-reads them from the match).
+    if (is_object($lobby) && is_array($lobby->houseRulesActive ?? null) && !empty($lobby->houseRulesActive)) {
+        SWUApplyHouseRules($lobby->houseRulesActive);
+    }
 
+    SwuPgnRecFrameCommit();   // the setup frame SwuPgnRecStart opened (no-op for an unrecorded game)
     WriteGamestate(__DIR__ . "/");
     $lobby->gameName = $gameName;
     if (!SimGameWriteAuthKeysFromLobby('SWUSim', $gameName, $lobby)) {
@@ -243,6 +252,19 @@ if (isset($lobby) && is_object($lobby)) {
  * Resolve and load a deck for one player.
  * Returns true on success, false on failure (caller should abort game setup).
  */
+// Per-game secret RNG seed — established ONCE (idempotent across the per-player calls), before any
+// shuffle, so the deterministic shuffles (Task 3) are unpredictable yet reproducible for undo.
+// RNG_V 2: the RNG material leaves out $updateNumber (Core/DeterministicRNG.php), which Undo cannot roll
+// back — without it, mulligan → Undo → mulligan redrew a different hand. Versioned so games created
+// before it, and their input replays, keep the old formula.
+function SWUEnsureRandomnessSeed(): void
+{
+    if (GetSWUVar('RNG_SEED', '') === '') {
+        SetSWUVar('RNG_SEED', bin2hex(random_bytes(16)));
+    }
+    if (GetSWUVar('RNG_V', '') === '') SetSWUVar('RNG_V', '2');
+}
+
 function LoadPlayerDeck($playerID, $deckLink, $preconstructedDeck = '', $resolved = null) {
     if ($resolved === null) {
         if (empty($deckLink)) {
@@ -297,11 +319,7 @@ function LoadPlayerDeck($playerID, $deckLink, $preconstructedDeck = '', $resolve
         array_push($baseZone, $newBase);
     }
 
-    // Per-game secret RNG seed — established ONCE (idempotent across the per-player calls), before any
-    // shuffle, so the deterministic shuffles (Task 3) are unpredictable yet reproducible for undo.
-    if (GetSWUVar('RNG_SEED', '') === '') {
-        SetSWUVar('RNG_SEED', bin2hex(random_bytes(16)));
-    }
+    SWUEnsureRandomnessSeed();
 
     // Main deck → Deck zone (shuffled)
     if (!empty($resolved['mainDeck'])) {

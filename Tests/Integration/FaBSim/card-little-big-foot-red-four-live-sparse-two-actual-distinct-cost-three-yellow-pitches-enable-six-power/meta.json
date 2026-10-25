@@ -1,0 +1,7 @@
+{
+    "name": "Little Big Foot / compact four live positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T02:23:46+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1youngBravo20 owns LittleBigFootRed5Hand anddistinctGenericRagingYellow6/BrawnhideYellow7. Bothdonorshaveprintedcost3/pitch2. Actuallyplayprimary5/targetadjacentP4; actualpitch6for2isinsufficientcost4, sosource5heldStack/AP1/resources2; actuallypitch7for2thenpay4from4/AP0/resources0. TwoactualPitchcardswithcost3+meetprintedcondition; base3+6=9freshpower. Allfourliveheldplayers manuallypasseachcombatwindow; P4noblockers means9physicaldamage/P4HP11. Finalsource5ownGY, Pitch[6,7]inactualorder/APresources0/otherheroes20. NoBravoability or donorplay occurs. One realtwo-distinct-eligiblePitch positivepower/costwitness; pitchdonorprintedcostisindependentfromitsresourcepitchvalue. Zero/one/highcounts/lowcostdonors, changingPitch and otherprimarypitchvariants remainuncovered. Existingrecorderfourliveprofile enforcesallmanualholds/all11windowsfalse; actualsavedprofile remainsindependentgate. Fulllegalhero/live/physicalUID/economy initial+final, onlychangingintermediatechecks. Onepositive/exactgroup, no sibling/support/fullcardcoverage transfer. Sources: https://judge.fabtcg.com/cards/detail/4102/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MPG038.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

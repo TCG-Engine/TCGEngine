@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-20T22:23:09+00:00",
+    "input_file": "card-regression-batch87.json",
+    "input_sha256": "440ac631d8700a1d36f20ef292e0fff51880d08f10cc5d8f9cc90ee4afc4f56b",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-stubby-hammerers-four-live-sparse-real-arms-destroy-and-low-base-attacking-buff",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 408
+        },
+        {
+            "slug": "card-diamond-amulet-blue-four-live-sparse-instant-destroy-watery-then-real-action-point-use",
+            "status": "recorded_semantically_checked",
+            "actions": 36,
+            "assertions": 483
+        },
+        {
+            "slug": "card-pounamu-amulet-blue-four-live-sparse-action-destroy-watery-then-heal-and-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 9,
+            "assertions": 252
+        },
+        {
+            "slug": "card-amethyst-amulet-blue-four-live-sparse-instant-destroy-watery-then-next-attack-plus-two",
+            "status": "recorded_semantically_checked",
+            "actions": 36,
+            "assertions": 483
+        }
+    ]
+}

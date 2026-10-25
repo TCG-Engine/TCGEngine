@@ -1,0 +1,7 @@
+{
+    "name": "Flock of the Feather Walkers / known-blinding-spare-card-no-chooser-no-trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:31:17+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Known already-resolved Blinding of the Old Ones during Guardian Bravo turn suppresses all owned-card abilities. Flock has no additional reveal ability, even with no spare card, and no attack trigger. Pay only printed1; no chooser, no token or pending trigger, printed power5, no go again. This tests interaction with a known persistent effect; it does not cover Blinding generation, crush or expiry. Sources: FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red https://judge.fabtcg.com/cards/detail/295/ https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects https://judge.fabtcg.com/cards/detail/3761/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

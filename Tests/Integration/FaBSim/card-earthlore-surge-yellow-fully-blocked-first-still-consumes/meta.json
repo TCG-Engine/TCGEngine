@@ -1,0 +1,7 @@
+{
+    "name": "Earthlore Surge / fully-blocked-first-still-consumes",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:05:01+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed text independently specifies cost 2, next attack action this turn +4 power and this source's own go again. It neither limits the attack's printed cost nor grants that attack go again. Oldhim's unactivated defense reaction does not modify these attacks; its Essence permits Earth cards and its Guardian class permits Sledge. At18 versus20, Scar receives go again from its on-play trigger and power4+4 from the source buff. Three distinct3-defense hand cards supply9, fully blocking every variant (maximum9power). No damage is dealt, but the effect was consumed when Scar was played. Scar's own go again returnsAP1 even though it did not hit. Next Wounding Blow remains4, opponent16. Defense cards compact Hand after each click. Sources: FaBSim/GeneratedCode/cardArrayCache.json#earthlore_surge_yellow https://judge.fabtcg.com/cards/detail/1178/ https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

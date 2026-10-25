@@ -1,0 +1,58 @@
+{
+  "status": "PROPOSED_SEPARATE_FOURTH_ONLY_PENDING_INDEPENDENT_EXACT_DELTA_REVIEW",
+  "original_input_path": "native-compatibility-proposed.json",
+  "original_input_sha256": "ede1583bfe34dd673d3bfbf47b6073d2ae34289e38a4210797d8b78555007d91",
+  "new_path": "native-compatibility-cnc-representation-proposed.json",
+  "new_sha256": "80e569f1472ce4cea545e027713af651a0c8203569fb1bb0bbe96bca2ac1eb99",
+  "new_slug": "compat-reaction-priority028-cnc-prohibition-physical-source-owner",
+  "immutable_failure_archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch57-20261020T015119Z-6ad6c9179ef7b.json",
+  "immutable_failure_archive_sha256": "1c84c5b141bf52a6182b7918991c97997d66546043cbab0ac353a5675e1a1b5e",
+  "failed_oracle": "Expected Stack-0.Owner to equal '1', got '0'.",
+  "removed_virtual_only_assertions": [
+    {
+      "step_index": 4,
+      "assertion_index": 20,
+      "checkpoint": "real_energy_potion_activation_cost_paid_effect_pending",
+      "assertion": {
+        "type": "card_property_equals",
+        "mzId": "Stack-0",
+        "property": "Owner",
+        "value": "1"
+      }
+    },
+    {
+      "step_index": 10,
+      "assertion_index": 22,
+      "checkpoint": "partial_ar_resolution_preserves_real_printed_prohibition",
+      "assertion": {
+        "type": "card_property_equals",
+        "mzId": "Stack-0",
+        "property": "Owner",
+        "value": "1"
+      }
+    },
+    {
+      "step_index": 14,
+      "assertion_index": 26,
+      "checkpoint": "actual_dr_click_rejected_by_real_command_and_conquer",
+      "assertion": {
+        "type": "card_property_equals",
+        "mzId": "Stack-0",
+        "property": "Owner",
+        "value": "1"
+      }
+    }
+  ],
+  "assertion_change_count": 3,
+  "new_owner_zero_assertions": 0,
+  "all_other_original_recipe_fields_reconstructed_exact": true,
+  "first_three_cases_preserved_in_original_input": true,
+  "metadata_changes": [
+    "Distinct new slug",
+    "representationScope records logical owner1, unpopulated synthetic rawOwner, retained physical/controller/UID checks and owner-sensitive interaction hold"
+  ],
+  "native_source_changes": 0,
+  "native_writes": 0,
+  "game_actions": 0,
+  "accepted_coverage": 0
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-draw-swords-red-four-live-sparse-actual-three-cost-warrior-action-draws-one",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 839
+    },
+    {
+        "slug": "card-high-octane-red-four-live-sparse-actual-paid-mechanologist-action-draws-one",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 839
+    },
+    {
+        "slug": "card-cash-in-yellow-four-live-sparse-actual-four-resource-two-card-pitch-draws-two",
+        "status": "recorded_semantically_checked",
+        "actions": 7,
+        "assertions": 1027
+    }
+]

@@ -1,0 +1,344 @@
+{
+    "completed_at_utc": "2026-10-20T03:57:58+00:00",
+    "input_file": "card-regression-batch70-pilot.json",
+    "input_sha256": "f3b66d1fae1aa6d3e85287dec718f5fcd809a1fe4299c75065c33d4b9ff59898",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-lunging-press-blue-ordinary-reaction-hand-zero-ap-exact-plus-one",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 137
+        },
+        {
+            "slug": "card-lunging-press-blue-target-scope-previous-aa-during-real-weapon-resolve-close",
+            "status": "recorded_semantically_checked",
+            "actions": 29,
+            "assertions": 193
+        },
+        {
+            "slug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-opponent",
+            "status": "blocked_or_incorrect",
+            "error": "Expected p1DecisionQueue count 2, got 4.",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p2Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "REACTION",
+                "combatOpen": true,
+                "combatStep": "REACTION",
+                "chainLink": 1,
+                "attacker": 1,
+                "defender": 2,
+                "attackUID": 3,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [
+                    5
+                ],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Wounding Blow",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 3,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [
+                    5
+                ],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_AA_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_2",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_wounding_blow",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MST_BLUE_DEFENDED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "wounding_blow_red"
+                    ]
+                },
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true
+                    },
+                    "5": {
+                        "iarPermission": []
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "outPreviousNames": {
+                    "1": []
+                },
+                "lastAttackCardID": "wounding_blow_red",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 2,
+                        "uid": 2,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false,
+                "pendingLungingTarget": {
+                    "player": 1,
+                    "sourceUID": 4,
+                    "sourceZone": "Hand",
+                    "sourcePlayer": 1,
+                    "sourceOwner": 1,
+                    "sourceController": 1,
+                    "turnNumber": 2,
+                    "turnPlayer": 1,
+                    "window": "REACTION",
+                    "attackUID": 3,
+                    "chainLink": 1,
+                    "eligibleUIDs": [
+                        3,
+                        5
+                    ],
+                    "eligibleLinks": {
+                        "3": 1,
+                        "5": 1
+                    }
+                }
+            },
+            "observed_decisions": {
+                "1": [
+                    {
+                        "Type": "MZCHOOSE",
+                        "Param": "p1CombatChain-0&p2CombatChain-0",
+                        "Block": 1,
+                        "Tooltip": "Choose_Lunging_Press_target",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "DecisionQueue",
+                        "PlayerID": 1,
+                        "mzIndex": 0,
+                        "_sourceZone": null
+                    },
+                    {
+                        "Type": "CUSTOM",
+                        "Param": "FAB_LUNGING_TARGET|4",
+                        "Block": 1,
+                        "Tooltip": "",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "DecisionQueue",
+                        "PlayerID": 1,
+                        "mzIndex": 1,
+                        "_sourceZone": null
+                    },
+                    {
+                        "Type": "PASSPARAMETER",
+                        "Param": "1",
+                        "Block": 99,
+                        "Tooltip": "",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "DecisionQueue",
+                        "PlayerID": 1,
+                        "mzIndex": 2,
+                        "_sourceZone": null
+                    },
+                    {
+                        "Type": "SYSTEM",
+                        "Param": "PlayCard_AfterAction",
+                        "Block": 99,
+                        "Tooltip": "",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "DecisionQueue",
+                        "PlayerID": 1,
+                        "mzIndex": 3,
+                        "_sourceZone": null
+                    }
+                ],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [
+                    "p1Hand-0"
+                ],
+                "2": []
+            }
+        },
+        {
+            "slug": "card-lunging-press-blue-target-scope-weapon-with-sole-opponent-defending-aa-auto",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 145
+        },
+        {
+            "slug": "card-lunging-press-blue-target-scope-real-rout-returns-declared-defender-before-lp-fizzles",
+            "status": "recorded_semantically_checked",
+            "actions": 23,
+            "assertions": 253
+        }
+    ]
+}

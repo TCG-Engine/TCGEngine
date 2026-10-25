@@ -1,0 +1,7 @@
+{
+    "name": "Potion of Strength / destroy-cost-attack-action",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:10+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Activate a Potion already in Arena. Destroy it as an announcement cost: it is gone before the ability resolves and the stack has1. Resolution has go again, returning AP1. Next Wounding Blow red attacks for4+2=6, with no attack go again, and deals6. This separately pins destruction timing, buff amount, and activated-ability go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue https://judge.fabtcg.com/cards/detail/284/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

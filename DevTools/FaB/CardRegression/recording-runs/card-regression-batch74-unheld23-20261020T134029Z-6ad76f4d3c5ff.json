@@ -1,0 +1,110 @@
+{
+    "completed_at_utc": "2026-10-20T13:40:29+00:00",
+    "input_file": "card-regression-batch74-unheld23.json",
+    "input_sha256": "c80e7cdd5fe71dfac8d463d483313b1d9626da381d3abf876932790ad0c43b02",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-command-and-conquer-red-ordinary-hand-floating-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 269
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 312
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 312
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 312
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 269
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 269
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 344
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-hand-total-one-resource-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-hand-total-one-red-card-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 29
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-arsenal-total-one-resource-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-zero-ap-funded-hand-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-nonturn-action-rejected-after-real-priority-pass",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 24
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-wrong-priority-rejected-after-real-pass",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 24
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-no-permission-deck-click-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-no-permission-graveyard-click-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 23
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-no-permission-banish-click-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-command-and-conquer-red-ordinary-arsenal-source-cannot-declare-ordinary-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 77
+        }
+    ]
+}

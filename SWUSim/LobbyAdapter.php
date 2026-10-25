@@ -7,19 +7,19 @@ require_once __DIR__ . '/../APIs/Lobbies/Classes/LobbyAdapter.php';
 require_once __DIR__ . '/Custom/DeckImport.php';
 require_once __DIR__ . '/../APIs/Lobbies/Classes/TeamRooms.php';
 require_once __DIR__ . '/Custom/SetupPanels.php';   // SWUSetupTwinSunsPreCons
+require_once __DIR__ . '/HouseRuleDefs.php';
 
-class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAdapter {
+class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAdapter, LobbyHouseRulesAdapter {
 
     // ── Twin Suns "Fill Seat with Bot" (SWUSim/docs/todo-twinsuns-fill-bot.md) ──────────────────────────────────
     // A PUBLIC room offers bots only once nobody new has joined for this long (Decision 5); a private room at once.
     // 30s (was 60s) — owner, 2026-10-09.
     public const BOT_ADD_WAIT_PUBLIC = 30;
 
-    // Free-for-all Twin Suns rooms only. Team Suns is out of scope for v1: the bot would read its teammate as an
-    // opponent, and the room's team/seat picking has no bot path.
+    // Twin Suns rooms, free-for-all AND Team Suns (owner 2026-10-12). In a team room the host fills a slot on a chosen
+    // team (LobbyAddBot's $team), and the bot never harms its teammate (SWUBotIsTeammateMz, Custom/BotEvaluator.php).
     private function _offersBots(object $lobby): bool {
-        $format = strval($lobby->format ?? '');
-        return $this->wantsWaitingRoom($lobby) && SWUFormatIsRoomFormat($format) && !SWUFormatIsTeamFormat($format);
+        return $this->wantsWaitingRoom($lobby) && SWUFormatIsRoomFormat(strval($lobby->format ?? ''));
     }
 
     // Profile = where the bot's deck comes from (Decision 3): one of the official Twin Suns pre-cons, or the
@@ -30,10 +30,22 @@ class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAd
         // 'deck' tells the waiting room which control to draw: a pre-con row, or the paste box (the "Fill Seat with
         // Bot" popup). 'cards' = the pre-con's leaders + base in the roster's identity-strip shape, built from the
         // CardIDs alone — this runs on every 1.5s poll, so no deck is resolved here.
+        // Team Suns: each team's leaders now, so a pre-con that would repeat one (team-wide unique leaders) is greyed out on that
+        // team's "Fill Seat with Bot" (LobbyAddBot refuses it either way). Canonical, like the start check.
+        $teamLeaders = null;
+        if (SWURoomIsTeamLobby($lobby) && function_exists('SWUTeamLeaderConflicts')) {
+            $teamLeaders = [];
+            foreach (SWURoomTeamNames() as $t) $teamLeaders[$t] = array_map(fn($m) => $m->getLeaders(), SWURoomTeamMembers($lobby, $t));
+        }
         foreach (SWUSetupTwinSunsPreCons() as $pc) {
-            $out['precon:' . $pc['key']] = ['name' => 'Arenabot · ' . $pc['name'], 'description' => 'Plays the official ' . $pc['name'] . ' pre-con.',
+            $row = ['name' => 'Arenabot · ' . $pc['name'], 'description' => 'Plays the official ' . $pc['name'] . ' pre-con.',
                 'deck' => 'precon', 'deckName' => $pc['name'], 'count' => (int)$pc['count'],
                 'cards' => $this->_identityCards(['leader' => $pc['leaders'], 'base' => $pc['base']])];
+            if ($teamLeaders !== null) {
+                $row['clashTeams'] = array_values(array_filter(array_keys($teamLeaders),
+                    fn($t) => !empty(SWUTeamLeaderConflicts(array_merge($teamLeaders[$t], [(array)$pc['leaders']])))));
+            }
+            $out['precon:' . $pc['key']] = $row;
         }
         $out['custom'] = ['name' => 'Arenabot · your decklist', 'description' => 'Plays a Twin Suns list you paste.', 'deck' => 'paste'];
         return $out;
@@ -98,6 +110,13 @@ class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAd
         if ($f === null || !empty($f['localMode'])) return false;   // unknown / goldfish / hotseat -> no page
         if (!empty($lobby->isPrivate)) return true;                 // every private non-local lobby
         return SWUFormatIsRoomFormat($lobby->format ?? '');         // public: Twin Suns family only
+    }
+
+    // House Rules panel: the Twin Suns family only (Twin Suns, Team Suns and their previews), public or private.
+    // docs/superpowers/specs/2026-10-18-twinsuns-house-rules-design.md
+    public function houseRuleDefs(object $lobby): array {
+        if (!$this->wantsWaitingRoom($lobby) || !SWUFormatIsRoomFormat(strval($lobby->format ?? ''))) return [];
+        return SWUHouseRuleDefs();
     }
 
     // RENDERING: how many seats to draw, and whether they split into teams.

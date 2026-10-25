@@ -1,0 +1,62 @@
+[
+    {
+        "slug": "card-rusty-harpoon-blue-baseline-arsenal-faceup-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-rusty-harpoon-blue-baseline-arsenal-floating-overfunded",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-rusty-harpoon-blue-baseline-single-three-defense-block",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 85
+    },
+    {
+        "slug": "card-rusty-harpoon-blue-baseline-defends-for-3-no-hit",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 54
+    },
+    {
+        "slug": "card-rusty-harpoon-blue-baseline-defends-exactly-3-partial-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 54
+    },
+    {
+        "slug": "card-rusty-harpoon-blue-baseline-pitched-for-exact-3",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-rusty-harpoon-blue-baseline-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 21
+    },
+    {
+        "slug": "card-rusty-harpoon-blue-baseline-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 21
+    },
+    {
+        "slug": "card-rusty-harpoon-blue-baseline-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 21
+    },
+    {
+        "slug": "card-rusty-harpoon-blue-baseline-arsenal-arrow-rejected-nonbow-weapon",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 21
+    }
+]

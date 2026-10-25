@@ -186,8 +186,9 @@ function FaBARCMaintainShield(int $player,int $uid,string $choice): void {
     if($choice==='0'&&intval(FaBObjectCounters($f['object'])['STEAM']??0)>0)FaBARCSteam($f['object'],-1);
     else FaBMoveUID($uid,'Graveyard',$player);
 }
-function FaBARCStageRefs(int $player,string $refs): array {
-    $uids=[];foreach(explode('&',$refs) as $ref){$f=FaBIdentityFromMZ($ref);if($f!==null&&$f['player']===$player&&$f['zone']==='Deck')$uids[]=intval($f['object']->UniqueID);}
+function FaBARCStageRefs(int $player,string $refs,string $sourceZone='Deck'): array {
+    if(!in_array($sourceZone,['Deck','Pitch'],true))return [];
+    $uids=[];foreach(explode('&',$refs) as $ref){$f=FaBIdentityFromMZ($ref);if($f!==null&&$f['player']===$player&&$f['zone']===$sourceZone){$uid=intval($f['object']->UniqueID);if(!in_array($uid,$uids,true))$uids[]=$uid;}}
     foreach($uids as $uid)FaBMoveUID($uid,'Temp',$player,false);return $uids;
 }
 function FaBARCBanishInstant(int $player,string $chosen,string $zone,int $discount=0): void {
@@ -220,9 +221,21 @@ function FaBARCArsenalFaceUp(int $player,object $o,string $from='Arsenal'): void
     if(in_array($from,['Deck','Temp'],true)&&FaBHasType($o,'Arrow')&&FaBMONWeapon($player,'sandscour_greatbow'))FaBSetObjectCounter($o,'AIM',intval(FaBObjectCounters($o)['AIM']??0)+1);
     if($o->CardID==='remorseless_red'&&$from!=='Arsenal')FaBWTRTag($o,'CRU_NO_ARSENAL_DR');
     $base=FaBWTRBase($o->CardID);
-    if($base==='head_shot'&&$from!=='Arsenal')FaBWTRTag($o,'WTR_POWER:2');
+    if($base==='head_shot'&&$from!=='Arsenal'&&!HasNoAbilities($o))FaBROSQueue($player,$o->CardID,intval($o->UniqueID),['rosEvent'=>'arcHeadShot','arcHeadShotEpoch'=>intval(FaBARCCard(intval($o->UniqueID),'headShotArsenalEpoch'))]);
     if($base==='ridge_rider_shot'&&$from!=='Arsenal')FaBRunSourceMacro('StartTurn',$player,$o->CardID,['mzID'=>FaBFindUID(intval($o->UniqueID))['mzID']]);
     if($base==='back_alley_breakline'&&$from==='Deck')AddActionPoints($player,intval(GetActionPoints($player))+1);
+}
+// The same physical UID can leave and re-enter Arsenal; old triggers must not
+// modify the new game object after such a zone change.
+function FaBARCHeadShotArsenalEntry(object $o): void {
+    if(FaBWTRBase($o->CardID)!=='head_shot')return;
+    $uid=intval($o->UniqueID);
+    FaBARCSetCard($uid,'headShotArsenalEpoch',intval(FaBARCCard($uid,'headShotArsenalEpoch'))+1);
+}
+function FaBARCResolveHeadShot(int $player,object $trigger): void {
+    $uid=intval($trigger->SourceUniqueID);$f=FaBFindUID($uid);
+    if(!$f||$f['zone']!=='Arsenal'||!empty($f['object']->FaceDown)||intval(FaBARCCard($uid,'headShotArsenalEpoch'))!==intval($trigger->Params['arcHeadShotEpoch']??-1))return;
+    FaBWTRTag($f['object'],'WTR_POWER:2');
 }
 function FaBARCLoseLife(int $target,int $amount,int $source): void {
     if(!FaBSeatIsLive($target))return;AddHealth($target,max(0,intval(GetHealth($target))-$amount));
@@ -240,7 +253,8 @@ function FaBARCCanPlay(int $player,array $found): bool {
     $obj=$found['object'];$id=$obj->CardID;
     if(FaBARCNamedProhibited($id))return false;
     if(FaBARCEffect($player,'ARC_LEDGER')&&FaBHasType($obj,'Action')&&FaBARCEffect($player,'ARC_ACTIONS')>=1)return false;
-    if(FaBHasType($obj,'Arrow')&&$found['zone']!=='Arsenal')return false;
+    // CR 8.2.6a: arrows require arsenal origin and a controlled equipped bow.
+    if(FaBHasType($obj,'Arrow')&&($found['zone']!=='Arsenal'||empty(FaBChoiceRefs($player,'Weapons',['type'=>'Bow']))))return false;
     if(FaBARCEffect($player,'ARC_THREE_KIND')&&$found['zone']!=='Arsenal')return false;
     if($id==='maximum_velocity_red'&&FaBARCEffect($player,'ARC_BOOSTED')<3)return false;
     $s=FaBGetState();$attack=FaBFindUID(intval($s['attackUID']));
@@ -253,6 +267,44 @@ function FaBARCCostModifier(int $player,object $obj): int {
     if(FaBWTRIsAttackAction($obj)||FaBWTRIsWeapon($obj))$delta+=FaBARCEffect($player,'ARC_FIRST_ATTACK_COST');
     if(FaBARCCard(intval($obj->UniqueID),'instantTurn')===intval(GetTurnNumber()))$delta-=intval(FaBARCCard(intval($obj->UniqueID),'discount'));
     return $delta;
+}
+
+/** Capture the resolved Lead source while its synchronous ResolveCard context is live. */
+function FaBARCLeadEffectData(int $player, array $data): array {
+    $source = FaBIdentityFromMZ((string)DecisionQueueController::GetVariable('mzID'));
+    $known = $source !== null && in_array((string)$source['object']->CardID,
+        ['lead_the_charge_red','lead_the_charge_yellow','lead_the_charge_blue'], true);
+    // Metadata is diagnostic identity, not a persistent-source dependency.
+    $data['arcLeadSource'] = ['version'=>1, 'controller'=>$player, 'known'=>$known,
+        'uid'=>$known ? intval($source['object']->UniqueID) : 0,
+        'cardID'=>$known ? (string)$source['object']->CardID : '',
+        'zone'=>$known ? (string)$source['zone'] : ''];
+    return $data;
+}
+
+/** Each matching next-time effect creates its own independently resolving layer. */
+function FaBARCQueueLeadTrigger(int $player, array $effect, object $qualifier, string $fromZone): void {
+    $source = is_array($effect['arcLeadSource'] ?? null) ? $effect['arcLeadSource'] : [];
+    $controller = intval($source['controller'] ?? $player);
+    if (!in_array($controller, FaBSeatOrder(), true)) $controller = $player;
+    if (!FaBSeatIsLive($controller)) return;
+    $known = !empty($source['known']) && intval($source['uid'] ?? 0) > 0
+        && in_array((string)($source['cardID'] ?? ''),
+            ['lead_the_charge_red','lead_the_charge_yellow','lead_the_charge_blue'], true);
+    $threshold = intval($effect['amount'] ?? 0);
+    // Legacy saves have no physical source identity. This ID is a display fallback only.
+    $displayID = $known ? (string)$source['cardID'] : ([0=>'lead_the_charge_red',
+        1=>'lead_the_charge_yellow', 2=>'lead_the_charge_blue'][$threshold] ?? '-');
+    AddStack(CardID:$displayID, Controller:$controller, Kind:'ABILITY',
+        SourceUniqueID:$known ? intval($source['uid']) : 0,
+        SourceZone:$known ? (string)($source['zone'] ?? '') : '',
+        Params:['arcLeadTrigger'=>true, 'arcLeadController'=>$controller,
+            'arcLeadThreshold'=>$threshold, 'arcLeadQualifierUID'=>intval($qualifier->UniqueID),
+            'arcLeadQualifierCardID'=>(string)$qualifier->CardID, 'arcLeadFromZone'=>$fromZone,
+            'arcLeadSourceKnown'=>$known]);
+    $state = FaBGetState();
+    if ($state['pendingPayment'] === null) $state['window'] = 'PRIORITY';
+    FaBSetState($state);
 }
 
 function FaBARCCardPlayed(int $player,object $obj,string $fromZone): void {
@@ -270,7 +322,10 @@ function FaBARCCardPlayed(int $player,object $obj,string $fromZone): void {
         if($type==='ARC_NEXT_RANGER')$applies=$aa&&FaBHasType($obj,'Ranger');
         if($type==='ARC_NEXT_RUNEBLADE')$applies=$attack&&FaBHasType($obj,'Runeblade');
         if($type==='ARC_NEXT_ARCANE'&&FaBARCIsArcaneCard($obj->CardID)){$bonus+=intval($e['amount']);continue;}
-        if($type==='ARC_LEAD'&&FaBHasType($obj,'Action')&&intval(CardCost($obj->CardID))>=intval($e['amount'])){AddActionPoints($player,intval(GetActionPoints($player))+1);continue;}
+        if($type==='ARC_LEAD'&&in_array($fromZone,['Hand','Arsenal','Banish','Deck','Graveyard'],true)
+            &&FaBHasType($obj,'Action')&&intval(CardCost($obj->CardID))>=intval($e['amount']??0)){
+            FaBARCQueueLeadTrigger($player,$e,$obj,$fromZone);continue;
+        }
         if(!$applies){$effects[]=$e;continue;}
         if(intval($e['amount']??0))FaBWTRTag($obj,'WTR_POWER:'.intval($e['amount']));
         if(!empty($e['dominate']))FaBWTRTag($obj,'DOMINATE');
@@ -285,14 +340,30 @@ function FaBARCCardPlayed(int $player,object $obj,string $fromZone): void {
     if($obj->CardID==='nebula_blade'&&count(FaBARCPlayed($player,true)))FaBWTRTag($obj,'WTR_POWER:3');
     if($attack){
         foreach(FaBChoiceRefs($player,'Arena',['base'=>'runechant']) as $ref){
-            FaBMoveChoice($player,$ref,'Arena','Graveyard');
-            $rune=AddStack(CardID:'runechant',Controller:$player,Kind:'TRIGGER',SourceZone:'Arena');
+            $physical=FaBIdentityFromMZ($ref);if(!$physical||HasNoAbilities($physical['object']))continue;
+            $rune=AddStack(CardID:'runechant',Controller:$player,Kind:'TRIGGER',SourceZone:'Arena',SourceUniqueID:intval($physical['object']->UniqueID),Params:['arcRunechant'=>true]);
             FaBRunSourceMacro('PrepareCard',$player,'runechant',['mzID'=>FaBFindUID(intval($rune->UniqueID))['mzID']]);
         }
     }
     $previous=FaBARCPlayed($player,true);
     if(FaBHasType($obj,'Action')&&!$aa)array_pop($previous);
     if($previous&&FaBHasType($obj,'Runeblade')&&FaBWTRHeroActive($player)&&!FaBSEAHeroCreationBlocked($player))foreach(GetHero($player) as $hero)if(is_object($hero)&&in_array($hero->CardID,['viserai','viserai_rune_blood'],true))FaBARCCreateRunes($player,1);
+}
+// Called by the exact managed Runechant TRIGGER path while its proxy stays
+// live through the unchanged generated ResolveCard prevention continuations.
+function FaBARCResolveRunechantTrigger(int $player,object $trigger): void {
+    $target=intval(FaBARCCard(intval($trigger->UniqueID),'target'));
+    if(!FaBSeatIsLive($target)||!in_array($target,FaBOpponents($player),true))return;
+    $had=array_key_exists('fabEffectController',$GLOBALS);$prior=$GLOBALS['fabEffectController']??null;
+    $GLOBALS['fabEffectController']=$player;
+    try {
+        $physical=FaBFindUID(intval($trigger->SourceUniqueID));
+        if($physical&&$physical['zone']==='Arena'&&FaBWTRBase($physical['object']->CardID)==='runechant')FaBMONDestroy(intval($trigger->SourceUniqueID));
+        // Destruction is an independent effect, not a cost or an if-you-do gate.
+        FaBResolveRules($player,$trigger,$trigger);
+    } finally {
+        if($had)$GLOBALS['fabEffectController']=$prior;else unset($GLOBALS['fabEffectController']);
+    }
 }
 function FaBARCAfterHit(int $player,object $attack,int $amount): void {
     $base=FaBWTRBase($attack->CardID);
@@ -316,7 +387,7 @@ function FaBARCEndTurn(int $player): void {
     if(!FaBARCPlayed($player,true))foreach(FaBChoiceRefs($player,'Arena',['base'=>'enchanting_melody']) as $ref)FaBMoveChoice($player,$ref,'Arena','Graveyard');
 }
 function FaBARCIsArcaneCard(string $id): bool {
-    return in_array(FaBWTRBase($id),['aether_wildfire','emeritus_scolding','timekeepers_whim','scour','foreboding_bolt','rousing_aether','snapback','chain_lightning','aether_flare','aether_spindle','blazing_aether','forked_lightning','lesson_in_lava','reverberate','scalding_rain','sonic_boom','voltic_bolt','zap'],true);
+    return in_array(FaBWTRBase($id),['aether_wildfire','aether_quickening','emeritus_scolding','timekeepers_whim','scour','foreboding_bolt','rousing_aether','snapback','chain_lightning','aether_flare','aether_spindle','blazing_aether','forked_lightning','lesson_in_lava','reverberate','scalding_rain','sonic_boom','voltic_bolt','zap'],true);
 }
 
 function FaBARCPreventDamage(int $player,int $amount,string $type): int {

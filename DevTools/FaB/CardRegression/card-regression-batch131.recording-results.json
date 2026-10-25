@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-tome-of-the-arknight-blue-four-live-sparse-actual-blue-pitch-paid-tome-reveals-aa-and-non-aa-and-moves-both-owned-cards-to-hand",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 416
+    },
+    {
+        "slug": "card-heartbeat-of-candlehold-blue-four-live-sparse-actual-blue-pitch-paid-specialization-gains-three-life-with-empty-earth-banish",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 360
+    }
+]

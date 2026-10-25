@@ -1,0 +1,155 @@
+{
+  "status": "B186_ONE_SPARSE_OPPOSING_AURA_STATIC_REPRESENTATIVE_TWO_CLEAN_TARGETED_REPLAYS_ONE_EXACT_NATIVE_CONTROL_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch186.json",
+  "input_sha256": "550119e2617aa4199ddc9965f80582532a190618a162fe3c87488ce5b59b7cb4",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:29:37.645086+00:00",
+  "fixtures": [
+    {
+      "slug": "card-fog-down-yellow-four-live-sparse-opposing-live-seat-static-aura-removes-printed-go-again-from-real-nonattack",
+      "fixture_sha256": "bff580cda9ec1bb8a08ba0a0ed9e731a1a85b5d02d247a6c68cc8d2de31f8ed6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94664bae39fe5a9b01d820221e69ba6db33db1a6bc4a073645c0300baf4dd491",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "93f439929ca88e0ac3e71bafb0b827f5e26a424f3c84afb9a0bce25ca638d23a",
+        "expected_final_gamestate.txt": "499f93f59a687b7834e597f1f1268cfa1e702522a3f6b672b2809f3b58d4c95b",
+        "meta.json": "0403e0caab2ac482fe5da6312b69d0256b44a93d2e35ef8e787a241173dee213"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 319,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "primary_initial_player": 4,
+      "primary_play_recorded": false,
+      "actual_nonattack_uid": 6,
+      "covered_static_opponent_suppression_only": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One opponent-controlled Fog static loss-of-existingNAAprintedGA representative only; primary originalplay/cost/expiry and latercantgain untested.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 5,
+  "total_native_assertions": 319,
+  "total_manual_passes": 4,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b186-actual-saved-independent-review.json",
+    "sha256": "3f56b7845efd30661c53f1d8f4140b85022491ff14569545c17eb63701001652"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b186-independent-spec-review.json",
+    "sha256": "ec893f08ce09136a15c7ace2a20c72236e3102667aa4ab1337babdfc50e0b7a6"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch186-20261022T212808Z-6ada7fe827caf.json",
+    "sha256": "8ba710704a3c288c286362e36115ec3640485ae31bb64d75950ca73fbc8e68d3"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b186-four-live-run1.json",
+      "sha256": "53a05de36f1b7dcd46b715bbbff570dd43466140e44df6446f78b726626caf14",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch186.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b186-four-live-run2.json",
+      "sha256": "fde54c2e80240c2ac0ce7f8bf46c63f58e1d1956ea5e4f586cc695c4c1537f1b",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch186.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-b186-focused-fault-results.json",
+    "sha256": "bcd4793fb066ec43c0318e62173ecaf0c1396f333ea24914ab13a29546ddc19f",
+    "total": 1,
+    "intended_semantic_failures": 1,
+    "plan_sha256": "bdef62480bf08ee9be4fb0dba0efa000d2c162a24ecee8149b01325f32b1d34a",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b186_fog_down_yellow_opposing_static_go_again_suppression_sensitivity",
+      "fixture": "card-fog-down-yellow-four-live-sparse-opposing-live-seat-static-aura-removes-printed-go-again-from-real-nonattack",
+      "prefix_actions": 1,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "Arena",
+            "cardID": "fog_down_yellow",
+            "mode": "add",
+            "tag": "NO_ABILITIES"
+          }
+        ]
+      },
+      "retained_assertions": 209,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1ActionPoints to equal 0, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b186-focused-fault-plan.json",
+    "sha256": "bdef62480bf08ee9be4fb0dba0efa000d2c162a24ecee8149b01325f32b1d34a"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 611,
+  "native_evidence_review_checks": 43,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Primary Fog5 was initially opposingP4Arena/Owner4/Controller4 and remains; activeP1 is beforeP4nextactionphase. Actual P1 Nimblism6 cost0/printedGA source spentAP1-to0 and fourmanualresponses resolvedpublicGY6FaceDown0 while APstayed0 under globalFog. No primaryplay/cost3/expiry/latercantgain, Nimblismbuff/use or source-departure ordering/hero/support/fullcard credit. Nativecontrol blanks only retainedFog via existingNO_ABILITIES, preserving every original physicalpresence assertion.",
+    "Only the current new one is audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and one intended native opposing Fog ability omission only. Full-suite runs explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Native control adds only existingNO_ABILITIES on actual retainedopponentP4Fog5 after actualP1Nimblism6 Action0 announcement/APcost, preserving every original Aura presence/UID/owner/controller/status assertion plus allfour suffixlive responses/alloracles. HasNoAbilities/FArena filtering removes selected static suppression and original Step4 finalAP0-to1 is exact first failure. Synthetic sourceability omission only, no legalblankingbranch/primaryFogplay/cost3/expiry/latercantgain/otherrecipient/Nimblismbuff/hero/support/fullcard/global claim. PhysicalAura remains inArena, unlike rejected masking removal plan."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "f15f56f1831ab07afb14f29f80de6e216e5600443d6fc443727a31f06c41779c",
+  "current_independent_delta_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b186_independent.py",
+    "sha256": "950490509c3f8c5e095d90b78961074f1f16672c36f39d823f92d9640f3767c7"
+  }
+}

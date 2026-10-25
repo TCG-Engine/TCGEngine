@@ -1,0 +1,7 @@
+{
+    "name": "Snatch / hit trigger response window",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:29:39+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR1.6.2c Snatch example: hitting creates a triggered Draw a card layer. After combat damage and before resolving that layer, hand0/deck2/Stack1; after priority passes hand1/deck1. Sources: https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

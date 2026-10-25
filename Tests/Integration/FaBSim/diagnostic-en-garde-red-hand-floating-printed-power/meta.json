@@ -1,0 +1,7 @@
+{
+    "name": "En Garde / unchanged legal pilot with printed numeric witness",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:20:00+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost1, exactly1AP to play, then source's own go again returns exactly1AP on resolution. The next weapon attack this turn gets +3 power. It does not grant that attack go again. First cintari_saber is printed power2, becomes5, deals5; all resources are paid exactly and finalAP0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#en_garde_red https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/06-effects/"
+}

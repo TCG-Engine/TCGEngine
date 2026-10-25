@@ -5,6 +5,7 @@ require_once "./Classes/Player.php";
 require_once "./Classes/TeamRooms.php";
 require_once "./Classes/LobbyAdapter.php";
 require_once "./Classes/LobbyStore.php";
+require_once "./Classes/HouseRules.php";
 $swuFormatsPath = __DIR__ . '/../../AppCore/SWU/Formats.php';
 if (is_file($swuFormatsPath)) require_once $swuFormatsPath;
 $swuMatchFlowPath = __DIR__ . '/../../SWUSim/MatchFlow.php';
@@ -47,8 +48,20 @@ $prepared = LobbyMutate($lobbyID, function ($lobby) use (&$startErr) {
   if (!empty($lobby->gameName) || ($lobby->state ?? '') === 'starting') { $startErr = 'Already starting or started.'; return false; }
   // Pass the cached leader sets, or the team leader-conflict check never runs in the live path.
   $adapter = LobbyAdapterFor(strval($lobby->rootName ?? ''));
+  // House rules: resolve once more FIRST — the roster may have moved since the last poll. If that changes the active
+  // set, this Start is refused (and LobbyHouseRulesResolve has unreadied every human) rather than starting on rules
+  // nobody saw. The set is frozen BEFORE the seats are renumbered below — votes are keyed by the pre-start playerIDs.
+  // SWUSetupGame and the match record read $lobby->houseRulesActive.
+  $hrDefs = ($adapter instanceof LobbyHouseRulesAdapter) ? $adapter->houseRuleDefs($lobby) : [];
+  if (!empty($hrDefs)) {
+    $hrBefore = LobbyHouseRulesActive($lobby, $hrDefs);
+    LobbyHouseRulesResolve($lobby, $hrDefs);
+    // return TRUE: the write must land (the resolved votes and the unreadied seats) even though this Start is refused.
+    if (LobbyHouseRulesActive($lobby, $hrDefs) !== $hrBefore) { $startErr = 'House rules changed — check them and ready up.'; return true; }
+  }
   $blockers = $adapter ? $adapter->startBlockers($lobby) : ['Waiting room unavailable.'];
   if (!empty($blockers)) { $startErr = implode(' ', array_slice($blockers, 0, 3)); return false; }
+  if (!empty($hrDefs)) $lobby->houseRulesActive = LobbyHouseRulesActive($lobby, $hrDefs);
 
   // Compact seats to 1..N in TABLE order so a mid-room leave doesn't leave a gap.
   // Team rooms carry an explicit $seat (red 1,3 / blue 2,4) — sort by it first so the array reads
@@ -63,7 +76,10 @@ $prepared = LobbyMutate($lobbyID, function ($lobby) use (&$startErr) {
   $seat = 1;
   $host = null;
   foreach ($lobby->players as $p) if (intval($p->getPlayerID()) === intval($lobby->hostPlayerID ?? 0)) $host = $p;
-  foreach ($lobby->players as $p) { $p->setPlayerID($seat); ++$seat; }
+  $idMap = [];
+  foreach ($lobby->players as $p) { $idMap[intval($p->getPlayerID())] = $seat; $p->setPlayerID($seat); ++$seat; }
+  // House-rule votes are keyed by playerID: move them with their players (a failed Start keeps the new numbers).
+  LobbyHouseRulesRemapPlayerIDs($lobby, $idMap);
   if ($host !== null) $lobby->hostPlayerID = $host->getPlayerID();
   $lobby->numPlayers = count($lobby->players);
   $lobby->ready = true;

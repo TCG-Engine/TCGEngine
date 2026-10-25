@@ -2,6 +2,7 @@
 function PokeEffectProtected($target, $source, string $kind = 'Attack'): bool {
     if (!in_array($kind, ['Attack', 'Ability'], true)) return false;
     if ($target->Controller === $source->Controller) return false;
+    if ($kind === 'Attack' && ($target->TurnEffects['digThrough'] ?? -1) >= GetTurnNumber()) return true;
     $evaluate = $kind === 'Ability' ? 'EvaluateAbilityEffectProtection' : 'EvaluateAttackEffectProtection';
     if (!HasNoAbilities($target) && $evaluate($target->CardID, $target->Controller, $target, $source)>0) return true;
     foreach ($target->Energy as $id) if ($evaluate($id,$target->Controller,$target,$source)>0) return true;
@@ -20,10 +21,11 @@ function PokePlaceDamageCounters(string $sourceRef, string $targetRef, int $coun
 function PokeDealAttackDamage(int $player, string $sourceRef, int $damage, bool $ignoreEffects=false, ?string $targetRef=null): void {
     $source = GetZoneObject($sourceRef); $targetRef ??= PokeFirstRef(3 - $player, 'Active');
     if (!$source || $targetRef === '') return; $target = GetZoneObject($targetRef);
+    if (!$ignoreEffects && $target->Controller !== $source->Controller && ($target->TurnEffects['digThrough'] ?? -1) >= GetTurnNumber()) return;
     if ($damage <= 0) return; // Damage boosts do not turn a non-damaging attack into damage.
     if (!$ignoreEffects && PokeFieldModifier('BenchDamageProtection',3-$player,$target,$source)>0) return;
     $damage += EvaluateAttackDamageModifier($source->CardID, $player, $source, $damage, $source);
-    if($source->Tool!=='-')$damage+=EvaluateAttackDamageModifier($source->Tool,$player,$target,$damage,$source);
+    if($source->Tool!=='-' && PokeToolsEnabled())$damage+=EvaluateAttackDamageModifier($source->Tool,$player,$target,$damage,$source);
     if (PokeVar('blackBelt:' . $player) === GetTurnNumber() && in_array(CardSuffix($target->CardID), ['ex'], true)) $damage += 40;
     if (!$ignoreEffects && !HasNoAbilities($target)) $damage += EvaluateIncomingAttackDamageModifier($target->CardID, $target->Controller, $target, $source);
     $damage = max(0, $damage);
@@ -41,8 +43,8 @@ function PokeDealAttackDamage(int $player, string $sourceRef, int $damage, bool 
     if(!$ignoreEffects&&$armor!==''&&GetZoneObject($armor)->CardID==='me05-072'&&!HasNoAbilities(GetZoneObject($armor)))$damage-=10;
     $target->Damage += max(0, $damage);
     if($damage>0){
-        $target->Counters['opposingAttackKO']=$target->Controller!==$source->Controller && $target->Damage >= (int)CardHp($target->CardID);
-        if($target->Tool!=='-'){
+        $target->Counters['opposingAttackKO']=$target->Controller!==$source->Controller && $target->Damage >= PokeCurrentHP($target);
+        if($target->Tool!=='-' && PokeToolsEnabled()){
             $draw=EvaluateAttackDamageDraw($target->Tool,$target->Controller,$target,$source);
             if($draw>0)PokeDraw($target->Controller,$draw,false);
         }
@@ -70,7 +72,7 @@ function PokeResolveKnockouts(): void {
     $claims = [1=>0,2=>0];
     foreach ([1,2] as $seat) foreach (PokeFieldRefs($seat) as $ref) {
         $obj = GetZoneObject($ref);
-        if ($obj->Damage < (int)CardHp($obj->CardID)) continue;
+        if ($obj->Damage < PokeCurrentHP($obj)) continue;
         if (GetTurnPlayer() !== $seat && GetCurrentPhase() === 'MAIN') PokeSetVar('knockedOutOnOpponentTurn:'.$seat, GetTurnNumber());
         $prizes=PokePrizeValue($obj->CardID);
         foreach($obj->Energy as $energy)$prizes+=EvaluateKnockoutPrizeModifier($energy,$seat,$obj,$prizes);

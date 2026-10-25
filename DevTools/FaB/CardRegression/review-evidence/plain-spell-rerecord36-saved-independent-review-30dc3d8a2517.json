@@ -1,0 +1,2918 @@
+{
+  "status": "ACTUAL_SAVED_36_SEMANTICS_APPROVED_CLEAN_CURRENT_RUNTIME_REPLAY_REQUIRED",
+  "reviewer": "/root/wtr_buff_scenarios",
+  "approvedSpecSHA256": "8ab612caa3ae68b91799b91be2d19a131dd538136ae3834b2151f4f40bf04e25",
+  "scope": "Thirty-six fresh native Scalding Rain, Voltic Bolt and Zap recordings only.",
+  "method": "Read-only byte, JSON, and offline serialized-zone comparison; no game actions, native PHP execution, or native writes.",
+  "evidencePaths": {
+    "spec": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\card-regression-plain-spell-rerecord36.json",
+    "archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\fixture-history\\before-plain-spell-lifecycle",
+    "fixtures": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim",
+    "diagnostics": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\plain-spell-snapshot-diagnostics"
+  },
+  "diagnosticRuntimeSHA256": "877d9b3088fe9d4493790431eb12e0d370b4f11bf2021bcb2557a83f9de72c8c",
+  "diagnosticReportSHA256": "4b59d88b188423e70e3244169196983d1385ef1c0e68d1b7424cc094995e11b6",
+  "totals": {
+    "cases": 36,
+    "actions": 186,
+    "priorAssertions": 180,
+    "currentAssertions": 288,
+    "addedGameStateAssertions": 108,
+    "initialRawIdentical": 36,
+    "actionsRawIdentical": 36,
+    "priorAssertionsUnchanged": 36,
+    "finalEqualsDiagnosticText": 36,
+    "finalEqualsDiagnosticRaw": 36,
+    "turnEffectOrderChanged": 35
+  },
+  "oracleLineage": "Printed flat card text determines base damage; actual target choice and paid AB1 determine target/reduction. All original numeric/resource/AP/equipment assertions remain an identical prefix. Values were not inferred from fresh outputs.",
+  "classification": "Every final change is the previously reviewed source-resolution lifecycle effect ordering and final source reference. All other serialized fields and all turn-effect multisets remain unchanged. Fresh finals equal earlier diagnostic actuals; no expected snapshots were written by this review.",
+  "explicitZeroCredit": "The fully prevented blue Zap preserves an explicit caster1-to-target2 zero credit per the existing native counter contract.",
+  "approvalLimit": "These existing scenarios and appended attribution/cleanup checks are approved. Deterministic current-runtime replay is a separate parent-owned gate; this is not comprehensive coverage of all abilities, external listeners or replacements.",
+  "reviewerNativeWrites": 0,
+  "reviewerGameActions": 0,
+  "reviewerNativePHPExecutions": 0,
+  "deniedOrUncertainAction": null,
+  "fixturesReviewed": [
+    {
+      "slug": "card-scalding-rain-blue-barrier-decline",
+      "cardID": "scalding_rain_blue",
+      "printedText": "Deal 2 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 2,
+      "expectedCredit": {
+        "1": {
+          "2": 2
+        }
+      },
+      "actions": 6,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":2}}"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "64e4d63946b685c2797bb95878745c88abb20181db9bb7f90ffb66f0bda70ead",
+      "currentBehaviorSHA256": "3104dad48a46f9f232065c9b0fefe9c1bd707817e4043f176a199e66dca58870",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "4f70e25025407042764375b0a4539946f894492f1483e03dbdd2d4349e73991b",
+        "actions.json": "c133077b282ac8e8d479c412a6f293dd4a7d688580692468545b523c26add543",
+        "assertions.json": "003621d9466a067490ee94b7303d697405a298b543827f6fcf47ca355bd0ac5e",
+        "expected_final_gamestate.txt": "8e2dd37e69ec40e6ba75118be769cfc555cb74decc92036984cff172d8d07755",
+        "meta.json": "4f99657a18efc518cf23447c7e692f681ea11367b71622ce0f54209c52a3a3c7"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "4f70e25025407042764375b0a4539946f894492f1483e03dbdd2d4349e73991b",
+        "actions.json": "c133077b282ac8e8d479c412a6f293dd4a7d688580692468545b523c26add543",
+        "assertions.json": "c2af95eccc72c3b8e53bde8c5c7349c2e2663579198640894f47448b077fa8f6",
+        "expected_final_gamestate.txt": "8c8c8e6495782971e1fc2832365f97934fe682f40246913f38a4b065a49433c5",
+        "meta.json": "9f1025fcf09ea5f5cba77b7fa88294689bb6879d6fb51c76526c379e9e119ac5"
+      },
+      "diagnosticActualSHA256": "8c8c8e6495782971e1fc2832365f97934fe682f40246913f38a4b065a49433c5"
+    },
+    {
+      "slug": "card-scalding-rain-blue-barrier-pay",
+      "cardID": "scalding_rain_blue",
+      "printedText": "Deal 2 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 1,
+      "expectedDamage": 1,
+      "expectedCredit": {
+        "1": {
+          "2": 1
+        }
+      },
+      "actions": 6,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":1}}"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "c3c3faeab31d82b1ca0e60e7df69099644a33eca6b5b0fb90015cd688207dd82",
+      "currentBehaviorSHA256": "f75c9d4d2e12cedd7835b6c3ede5ef6628d0524ce4317b75d03728d7de467a13",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "4f70e25025407042764375b0a4539946f894492f1483e03dbdd2d4349e73991b",
+        "actions.json": "ee97742f920d5a718e6ba3ca7dfda6526159fcdd5344599a62dbf61cf5ff098c",
+        "assertions.json": "7113099904f78a8eea39165cdf2deaa99381ded39127f5a416fc0559bb128dea",
+        "expected_final_gamestate.txt": "1492dd61fccfc2fedc30b6b0c2346cd8c9231a647c44cc7a09b9110e5e5fe29a",
+        "meta.json": "3ddff99241409ea50dbfacd6397518356a05808316a4aa890a25cc734404b899"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "4f70e25025407042764375b0a4539946f894492f1483e03dbdd2d4349e73991b",
+        "actions.json": "ee97742f920d5a718e6ba3ca7dfda6526159fcdd5344599a62dbf61cf5ff098c",
+        "assertions.json": "9353292ac982396cb1c86126ae5769b69c73685c53955f0d79af8affae98f3c1",
+        "expected_final_gamestate.txt": "3de38afbbc64bc2269e21709aac8cab88a83af59cce88f62018d6afc65cf176e",
+        "meta.json": "801ea0fbfe54855c690592c3cb34db7c32fa319f76e94ccbe57b61b543c2a725"
+      },
+      "diagnosticActualSHA256": "3de38afbbc64bc2269e21709aac8cab88a83af59cce88f62018d6afc65cf176e"
+    },
+    {
+      "slug": "card-scalding-rain-blue-target-1",
+      "cardID": "scalding_rain_blue",
+      "printedText": "Deal 2 arcane damage to target hero.",
+      "target": 1,
+      "barrierPaid": 0,
+      "expectedDamage": 2,
+      "expectedCredit": {
+        "1": {
+          "1": 2
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"1\":2}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "7c97bb3252e57ae62b0adfcf9ccfd202b753362d4941e689207f1473622d57a8",
+      "currentBehaviorSHA256": "a8ad035c89a672a4e985e2cc581997eca2b8073812272db22c1be7ea7252f958",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "17c824cdb159879fd4b56c0751ee06dbf024e96460a076a9a6244b80bd30ad66",
+        "actions.json": "eb4e8e573712e0e6bcd4a32450f8e8fab05c363020c332202e7f80e51579749e",
+        "assertions.json": "95d9811b199d628ddd3bc0a638893c8dc3dd57f4ab57a093405c18c561a9d80c",
+        "expected_final_gamestate.txt": "93a074d3ce3400c3ed252826befee547d489ab14f151d9072a61a70e882df4ba",
+        "meta.json": "2617d3d7623ababc7b8ef1ca75d3ef9179337a4564140d34188cf2294f39ad90"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "17c824cdb159879fd4b56c0751ee06dbf024e96460a076a9a6244b80bd30ad66",
+        "actions.json": "eb4e8e573712e0e6bcd4a32450f8e8fab05c363020c332202e7f80e51579749e",
+        "assertions.json": "7a0c295ad0f815bfe3c9ef752272ba0f52270b3d9db586826fbfddb18a6a4236",
+        "expected_final_gamestate.txt": "1f60c00744bf118499132468e0201ccbeb7de021bdbfe27a2dcedd39a376e9b8",
+        "meta.json": "b72b000c736a3ef3fea398ca00bff436ae6f1f073c105d1b25dd2e7b54361676"
+      },
+      "diagnosticActualSHA256": "1f60c00744bf118499132468e0201ccbeb7de021bdbfe27a2dcedd39a376e9b8"
+    },
+    {
+      "slug": "card-scalding-rain-blue-target-2",
+      "cardID": "scalding_rain_blue",
+      "printedText": "Deal 2 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 2,
+      "expectedCredit": {
+        "1": {
+          "2": 2
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":2}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "c8cdffcadabe7060e3a8b287b8e697922c380ccd7ce96122ba0663c9b6ab6919",
+      "currentBehaviorSHA256": "9522739b09a7c23e131d020408e13b863a2a66537a8bb1f9cb9d0bb1260260fa",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "17c824cdb159879fd4b56c0751ee06dbf024e96460a076a9a6244b80bd30ad66",
+        "actions.json": "4c1b5d1e5397953553190429a2b045ff1da856de2df3dfb446379c3bbd38e6c9",
+        "assertions.json": "74e41b0610aa061ab6dbf27584bec6d32a98f3c5ae4c0db6b40db47a54446b66",
+        "expected_final_gamestate.txt": "3b4c7277ec201a741bbd453492a241a51dcb20d00a73d3fa31faece7057de2c5",
+        "meta.json": "27436b2efc71ab2c6a76762611de3d0511d3ea3d6853fa7a7070a47ace466252"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "17c824cdb159879fd4b56c0751ee06dbf024e96460a076a9a6244b80bd30ad66",
+        "actions.json": "4c1b5d1e5397953553190429a2b045ff1da856de2df3dfb446379c3bbd38e6c9",
+        "assertions.json": "070ad221e6cf0e52d526de7927c9e6d363aa2a7e55cc13bea8542fb74eb611e3",
+        "expected_final_gamestate.txt": "566effe271543a2906b5d798a6dee4af490edc1a8dfca9568c1f030ef7c910f0",
+        "meta.json": "3325697db591f83539915e2e31da4fd939b14c151db017baf59e4f446abfcd99"
+      },
+      "diagnosticActualSHA256": "566effe271543a2906b5d798a6dee4af490edc1a8dfca9568c1f030ef7c910f0"
+    },
+    {
+      "slug": "card-scalding-rain-red-barrier-decline",
+      "cardID": "scalding_rain_red",
+      "printedText": "Deal 4 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 4,
+      "expectedCredit": {
+        "1": {
+          "2": 4
+        }
+      },
+      "actions": 6,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":4}}"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "8bad8e0790eb746e8732db1fff5facd7f952264fca95b04186a79478ff54d27a",
+      "currentBehaviorSHA256": "ee0ce0dbc8bd393f8abf1a27d4dae6573b563a033137c1ec3300e0cea462612f",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "8482f278a05cac59f7f91f1e5b13953fe3753ab5d8ec5c071ad00894b7a17fc4",
+        "actions.json": "c133077b282ac8e8d479c412a6f293dd4a7d688580692468545b523c26add543",
+        "assertions.json": "248d10a6919c287eacd2d964c09716919d3171a596cb513cb10ee0f8fa34b4ea",
+        "expected_final_gamestate.txt": "87d2d4b0821e5b691fdf6373f00e68dfaa8a62de8f597f67f4f23bf40e7adcd4",
+        "meta.json": "62a287dfa452a0eeeded507e8d01f9327f5375550ecf3916cd617b2c6789a27a"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "8482f278a05cac59f7f91f1e5b13953fe3753ab5d8ec5c071ad00894b7a17fc4",
+        "actions.json": "c133077b282ac8e8d479c412a6f293dd4a7d688580692468545b523c26add543",
+        "assertions.json": "349b10b8b592ca68b00618872d9742f386727702b68ddb6a72491024e55f07f4",
+        "expected_final_gamestate.txt": "10a7701d6473bf6309f9ff706e4560dbc12606619a3253757cbdda9836326f7b",
+        "meta.json": "b402cebcab54895371fb53164e8f9a2bdcf9d1380ef00d5b90ec83ab35f5819a"
+      },
+      "diagnosticActualSHA256": "10a7701d6473bf6309f9ff706e4560dbc12606619a3253757cbdda9836326f7b"
+    },
+    {
+      "slug": "card-scalding-rain-red-barrier-pay",
+      "cardID": "scalding_rain_red",
+      "printedText": "Deal 4 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 1,
+      "expectedDamage": 3,
+      "expectedCredit": {
+        "1": {
+          "2": 3
+        }
+      },
+      "actions": 6,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":3}}"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "f03d850f7148d73ea275f41b40ce6c632aac0b27ae3aa8114164c65c8fdbe6d3",
+      "currentBehaviorSHA256": "913538b2a7eda8d0030aa6ad6dbabb67990e2330e55fce30c4ccf5aa1936af4c",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "8482f278a05cac59f7f91f1e5b13953fe3753ab5d8ec5c071ad00894b7a17fc4",
+        "actions.json": "ee97742f920d5a718e6ba3ca7dfda6526159fcdd5344599a62dbf61cf5ff098c",
+        "assertions.json": "3b2ce1a3735443b6b1dfd4b2f9982e0deadef7822f7b909dcc054eccdf6eec65",
+        "expected_final_gamestate.txt": "7a4f733222d6d9ee1e98756bfbe8369079cdec392d0d591e82e6d0fc5836fe39",
+        "meta.json": "97c788da8bc2fce85bd610c5e9db56824623dc8fe83dff29bac85271d3605cef"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "8482f278a05cac59f7f91f1e5b13953fe3753ab5d8ec5c071ad00894b7a17fc4",
+        "actions.json": "ee97742f920d5a718e6ba3ca7dfda6526159fcdd5344599a62dbf61cf5ff098c",
+        "assertions.json": "2fd41344eb4d3a19fc66f56bd3c8bd049a8b399fd8a0bfaf66d6d4f63d994a84",
+        "expected_final_gamestate.txt": "2b3cc38faaf75b7c282ca91576e2a2a6583cc4d862a84b3217e5206139bf1169",
+        "meta.json": "aa640f15170f08f030b1f9f25627f0e1e586b4df22ea9ae411ff3d49ef2edb7e"
+      },
+      "diagnosticActualSHA256": "2b3cc38faaf75b7c282ca91576e2a2a6583cc4d862a84b3217e5206139bf1169"
+    },
+    {
+      "slug": "card-scalding-rain-red-target-1",
+      "cardID": "scalding_rain_red",
+      "printedText": "Deal 4 arcane damage to target hero.",
+      "target": 1,
+      "barrierPaid": 0,
+      "expectedDamage": 4,
+      "expectedCredit": {
+        "1": {
+          "1": 4
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"1\":4}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "63f6ebc8613fa41c947dc5d7a25052c98d4fd6789ecd08a8a8b698533413604c",
+      "currentBehaviorSHA256": "9aab4a8350795201914e2071c8a333b76b484eeb97bb982e44deb1781979eff2",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "aae3bae8f7342c011039e8204d2e1667929a99215d33df4bc57f350e4b14620e",
+        "actions.json": "eb4e8e573712e0e6bcd4a32450f8e8fab05c363020c332202e7f80e51579749e",
+        "assertions.json": "835f0266a9910b90663797a19862e04974a887bfe229b0e3930d7e4d0c4942c8",
+        "expected_final_gamestate.txt": "37ed83dca3a3d2ea3af05ff606c86e522bdc93174b7d20bba9ad43d5bea0799f",
+        "meta.json": "cd3c4e3b952ff8f66d8b7ba2eb55e0658ded4dbd7459d0473d643a9e9f7dea32"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "aae3bae8f7342c011039e8204d2e1667929a99215d33df4bc57f350e4b14620e",
+        "actions.json": "eb4e8e573712e0e6bcd4a32450f8e8fab05c363020c332202e7f80e51579749e",
+        "assertions.json": "96fcc4b2a357766083d0a4482cfc7637b1af313e1a3e07afad6f726591564f34",
+        "expected_final_gamestate.txt": "3289cccf07ed05059769c2ab3c97d96b3855351ee35df663acf97a65b96ab932",
+        "meta.json": "517fa85896ea7febbfb96294e470843241bab6d9f3647c60d9765ffbcc979e2f"
+      },
+      "diagnosticActualSHA256": "3289cccf07ed05059769c2ab3c97d96b3855351ee35df663acf97a65b96ab932"
+    },
+    {
+      "slug": "card-scalding-rain-red-target-2",
+      "cardID": "scalding_rain_red",
+      "printedText": "Deal 4 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 4,
+      "expectedCredit": {
+        "1": {
+          "2": 4
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":4}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "744b26a92ce54bd2b34e04ff47c35a889b35d701c9f61ff049b9c95d065eb602",
+      "currentBehaviorSHA256": "8639a9f0af975e77829879c141b63b9d580eb59be38939649afee4fe35f07116",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "aae3bae8f7342c011039e8204d2e1667929a99215d33df4bc57f350e4b14620e",
+        "actions.json": "4c1b5d1e5397953553190429a2b045ff1da856de2df3dfb446379c3bbd38e6c9",
+        "assertions.json": "a89a10d97576cab78d74e1b4c7cc767103781d6e3b8043cac9ee7f4c28a2f44d",
+        "expected_final_gamestate.txt": "201a9930df0f5cb6620104a5fda2340b4cf4520d03638d7e5ba174a8d83440d5",
+        "meta.json": "be3b165adfc089193e47062799c9310ddbbf6afb3a28275f3c901e8e3acc1578"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "aae3bae8f7342c011039e8204d2e1667929a99215d33df4bc57f350e4b14620e",
+        "actions.json": "4c1b5d1e5397953553190429a2b045ff1da856de2df3dfb446379c3bbd38e6c9",
+        "assertions.json": "46caa8f81d06f042207d4f6fe917938b039b80806bab5401a7209f187d79b775",
+        "expected_final_gamestate.txt": "36e719e08eb72720578a60fc98638d695d9b2577ae326aa65a781978a716233c",
+        "meta.json": "1c9d5cc454e31253370f026f5190caecc4e2444246e116f458010724c2efb466"
+      },
+      "diagnosticActualSHA256": "36e719e08eb72720578a60fc98638d695d9b2577ae326aa65a781978a716233c"
+    },
+    {
+      "slug": "card-scalding-rain-yellow-barrier-decline",
+      "cardID": "scalding_rain_yellow",
+      "printedText": "Deal 3 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 3,
+      "expectedCredit": {
+        "1": {
+          "2": 3
+        }
+      },
+      "actions": 6,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":3}}"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "3860b5933173a8823c3de77771ddbdef8cca28783706ceb992116319b50919a6",
+      "currentBehaviorSHA256": "8d9f002d8095009c412038b5f331222311e74cf28125025eb00a22ce7cc7c3c9",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "a610631d7b92059857b843dc4ea750e7623590d3e3e356ff4d89038e191715eb",
+        "actions.json": "c133077b282ac8e8d479c412a6f293dd4a7d688580692468545b523c26add543",
+        "assertions.json": "3724552853e027103a5705d74a0e81c053d0693745b22aca7dc549b1e64d73bb",
+        "expected_final_gamestate.txt": "51a04fa8d7edda29c38126d54e2d57e3a4b29ab899af556f1609c4c5207379ce",
+        "meta.json": "aae645dfad9a30f33b1b6edd23dd831ceacecc19e907f75abc155a22eae1fe12"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "a610631d7b92059857b843dc4ea750e7623590d3e3e356ff4d89038e191715eb",
+        "actions.json": "c133077b282ac8e8d479c412a6f293dd4a7d688580692468545b523c26add543",
+        "assertions.json": "7603220df921954b2bd9b765aed08aa816e3d1d76a9c0cf5f4d2c577b3672dd7",
+        "expected_final_gamestate.txt": "97e8344b4a06c3d0ff44bbc9bd9f497bc1c45e4445beee8b9e6b467dc8ddc5fe",
+        "meta.json": "a400585e1d5a4ba4a4aed06b9b67f1ef411281fc92dba162645eef5de6a7854b"
+      },
+      "diagnosticActualSHA256": "97e8344b4a06c3d0ff44bbc9bd9f497bc1c45e4445beee8b9e6b467dc8ddc5fe"
+    },
+    {
+      "slug": "card-scalding-rain-yellow-barrier-pay",
+      "cardID": "scalding_rain_yellow",
+      "printedText": "Deal 3 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 1,
+      "expectedDamage": 2,
+      "expectedCredit": {
+        "1": {
+          "2": 2
+        }
+      },
+      "actions": 6,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":2}}"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "39c1dd6691a2b4fde8dcada6190b427a5d129d3ffa3efafdbbfb6737fc6afb04",
+      "currentBehaviorSHA256": "40c40d5459927692b0ac48f8e824f27b2660b3378debfd77e5f1c17c2ada70d1",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "a610631d7b92059857b843dc4ea750e7623590d3e3e356ff4d89038e191715eb",
+        "actions.json": "ee97742f920d5a718e6ba3ca7dfda6526159fcdd5344599a62dbf61cf5ff098c",
+        "assertions.json": "b65f28a897f12b3aca4c92e4c44f78dedd196de26dcf4454bdebdbb6e15c7874",
+        "expected_final_gamestate.txt": "1743c132aabacd24c7eb9d557e695778b3962a9787e3057c54c06a51436cf275",
+        "meta.json": "9e0b249ee320af7387641b61714144928b4c72978abc6f83f1c3eaaec880be34"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "a610631d7b92059857b843dc4ea750e7623590d3e3e356ff4d89038e191715eb",
+        "actions.json": "ee97742f920d5a718e6ba3ca7dfda6526159fcdd5344599a62dbf61cf5ff098c",
+        "assertions.json": "cf7ddc8aad78d4f812f8846a8f505acb2ea6db6c386e7d579844ff4604d35c32",
+        "expected_final_gamestate.txt": "80e0755f4f701a21d2f4141f75e06080ac29f95cd919d52f3f85959b7d1f7391",
+        "meta.json": "435d05248cf6b56d5a13e9720183468feaa4c7df8d5bb20f8ee6c99e9dd93a60"
+      },
+      "diagnosticActualSHA256": "80e0755f4f701a21d2f4141f75e06080ac29f95cd919d52f3f85959b7d1f7391"
+    },
+    {
+      "slug": "card-scalding-rain-yellow-target-1",
+      "cardID": "scalding_rain_yellow",
+      "printedText": "Deal 3 arcane damage to target hero.",
+      "target": 1,
+      "barrierPaid": 0,
+      "expectedDamage": 3,
+      "expectedCredit": {
+        "1": {
+          "1": 3
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"1\":3}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "19cd20f83916d4c3205308236ea6fbba0bc1c549738289f50d8a00dc3304085b",
+      "currentBehaviorSHA256": "cbf6ea5a24deb126a3fd08416529c70c10c01e49f1e14d505e947860ee2fc996",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "7d99f64222e3dbe7e9c5628eb00a10c1d47d13e75134cfb461f3efcc9d46f995",
+        "actions.json": "eb4e8e573712e0e6bcd4a32450f8e8fab05c363020c332202e7f80e51579749e",
+        "assertions.json": "f3dd2eedcd4e4b9de6bfff5939a9043709053cb1787443c0852dd0b64edf59cf",
+        "expected_final_gamestate.txt": "2a79de608d734d4a58c53c32af617bc20675b19f1391083df9a63fa46d590c3b",
+        "meta.json": "1b87c651299cdc7119e033db433d8f86025acc74948ce8558165ef832affb48b"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "7d99f64222e3dbe7e9c5628eb00a10c1d47d13e75134cfb461f3efcc9d46f995",
+        "actions.json": "eb4e8e573712e0e6bcd4a32450f8e8fab05c363020c332202e7f80e51579749e",
+        "assertions.json": "4561765ef4e19e06c71be9d6eaf5800cce6abdd6387d6c941c03f063ef1cddde",
+        "expected_final_gamestate.txt": "5a1c0c1b21ff09afd48afe4cd78da0a2777c14054b5369610a98f5018d3f6fbd",
+        "meta.json": "349a4c5df8e0478fbabc009d9eb21c995b32a62ed682d1cc95d87b5aaef1cd87"
+      },
+      "diagnosticActualSHA256": "5a1c0c1b21ff09afd48afe4cd78da0a2777c14054b5369610a98f5018d3f6fbd"
+    },
+    {
+      "slug": "card-scalding-rain-yellow-target-2",
+      "cardID": "scalding_rain_yellow",
+      "printedText": "Deal 3 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 3,
+      "expectedCredit": {
+        "1": {
+          "2": 3
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":3}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "f5a212914605ac3fa421293fcc88512d82af7041f9fff8867d5b1c0584b64026",
+      "currentBehaviorSHA256": "a10015c4d423e4499ce624608a8a64dea8ee02b0f799e033fb0aa467989b0680",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "7d99f64222e3dbe7e9c5628eb00a10c1d47d13e75134cfb461f3efcc9d46f995",
+        "actions.json": "4c1b5d1e5397953553190429a2b045ff1da856de2df3dfb446379c3bbd38e6c9",
+        "assertions.json": "d052a3025573342ae85de376b9ee8758cd4f7283916c1eebf156ae3f5358f472",
+        "expected_final_gamestate.txt": "55779f0f46425bed59dc91c14603f38218302ba9114f8796a040b89ab3fe4503",
+        "meta.json": "d4a2b98d9d44f88ac58f2e0ea95a654b25e3f9959fd4b1772d2ddef4aa7c32e7"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "7d99f64222e3dbe7e9c5628eb00a10c1d47d13e75134cfb461f3efcc9d46f995",
+        "actions.json": "4c1b5d1e5397953553190429a2b045ff1da856de2df3dfb446379c3bbd38e6c9",
+        "assertions.json": "94f2bba15eae53f0414b0831907602e87bfcd9fc5defd846511419fee5b24cc8",
+        "expected_final_gamestate.txt": "6a7ec7ab90214da9e9f2004406a00e3e5e2c86a080860d6b8b296f56bef263d7",
+        "meta.json": "ff733744f34dcc777b5e4c0829e23de5258e3213edf55738825dae07fc241c52"
+      },
+      "diagnosticActualSHA256": "6a7ec7ab90214da9e9f2004406a00e3e5e2c86a080860d6b8b296f56bef263d7"
+    },
+    {
+      "slug": "card-voltic-bolt-blue-barrier-decline",
+      "cardID": "voltic_bolt_blue",
+      "printedText": "Deal 3 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 3,
+      "expectedCredit": {
+        "1": {
+          "2": 3
+        }
+      },
+      "actions": 6,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":3}}"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "b9fec7fb63762fca6e120ecb63b83bda62cd8179c429b0b898d12eb6a9b5e343",
+      "currentBehaviorSHA256": "1404f2497308550197c663ce0441094940e5cfa8162c134b27ac84f468b95f56",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "627dadfbf1a60ec660e5956b98f72c097095d6c583f0e429211f2e35bee85caf",
+        "actions.json": "c133077b282ac8e8d479c412a6f293dd4a7d688580692468545b523c26add543",
+        "assertions.json": "7d10852307455e0a1d7c7c1a477cb56850bf71d459cff32ad61db6a7a8223de3",
+        "expected_final_gamestate.txt": "d13e09aa234cd3c0d7165641221fc95c8faf7536c4539676372270049f302d6b",
+        "meta.json": "81d16486742d4a60cd6750eb58bd36cdc95dd9c7802d47a169f837cfcdf01be2"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "627dadfbf1a60ec660e5956b98f72c097095d6c583f0e429211f2e35bee85caf",
+        "actions.json": "c133077b282ac8e8d479c412a6f293dd4a7d688580692468545b523c26add543",
+        "assertions.json": "475d1d005c7d8de715d90272258512bad81003691c0175d4489fb6403bd63620",
+        "expected_final_gamestate.txt": "d8f15cdf77ce75d82bf3cb0614b640a9b151629f16e2a9bde09d587d74f919f7",
+        "meta.json": "bd928431d2e4c63af5f9b22ddaa904f8e61fde399fce09b7e98d969ec78ce472"
+      },
+      "diagnosticActualSHA256": "d8f15cdf77ce75d82bf3cb0614b640a9b151629f16e2a9bde09d587d74f919f7"
+    },
+    {
+      "slug": "card-voltic-bolt-blue-barrier-pay",
+      "cardID": "voltic_bolt_blue",
+      "printedText": "Deal 3 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 1,
+      "expectedDamage": 2,
+      "expectedCredit": {
+        "1": {
+          "2": 2
+        }
+      },
+      "actions": 6,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":2}}"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "c577c956ce9b439d356be3ac5534b5e4698476eb8c272c331b5c95a14d299a24",
+      "currentBehaviorSHA256": "f60a857d2650844214756af732b06fb3aeb97396b1b583743cdcb5728643462d",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "627dadfbf1a60ec660e5956b98f72c097095d6c583f0e429211f2e35bee85caf",
+        "actions.json": "ee97742f920d5a718e6ba3ca7dfda6526159fcdd5344599a62dbf61cf5ff098c",
+        "assertions.json": "b9e47437aa38af545c76d843d6b6777d968cf3ddaeed1bcfec0bc201f975a905",
+        "expected_final_gamestate.txt": "23e56df69e32ef87e5746c8035d102e7a1352c99ee593192f20f1d6f8dc398e4",
+        "meta.json": "22a555c0e5ba105811013cc231a9d12c11340fc361829059a0d1d0c326d8850b"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "627dadfbf1a60ec660e5956b98f72c097095d6c583f0e429211f2e35bee85caf",
+        "actions.json": "ee97742f920d5a718e6ba3ca7dfda6526159fcdd5344599a62dbf61cf5ff098c",
+        "assertions.json": "447dd7113faf860ed8807192061c6df730d597cde56bdeaf5292dfa26c651301",
+        "expected_final_gamestate.txt": "f72d24f0d1d6329c6a8847d0afed38fbb8f2c104cf56e1664d2c267f259af463",
+        "meta.json": "f61ae64382ee676e368ce40255f6521fe03ae39f0a04cc4459beac097b6a5ce2"
+      },
+      "diagnosticActualSHA256": "f72d24f0d1d6329c6a8847d0afed38fbb8f2c104cf56e1664d2c267f259af463"
+    },
+    {
+      "slug": "card-voltic-bolt-blue-target-1",
+      "cardID": "voltic_bolt_blue",
+      "printedText": "Deal 3 arcane damage to target hero.",
+      "target": 1,
+      "barrierPaid": 0,
+      "expectedDamage": 3,
+      "expectedCredit": {
+        "1": {
+          "1": 3
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"1\":3}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "d2bfb29024b3af91185139ca6bc4d0b2547a9df9ea2e07c3045345936ec10e33",
+      "currentBehaviorSHA256": "52fd8bb96c0b7e672e73509f0aee32891ba98c225026c0c04856b4f3a690f6c8",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "ad8fbafc62f576f34eeda6f1082010a08f432fbd503ed2b80d608449542e44b3",
+        "actions.json": "eb4e8e573712e0e6bcd4a32450f8e8fab05c363020c332202e7f80e51579749e",
+        "assertions.json": "86269e4359d0000bb034d27ec2facbbbe02bc26f05cede5a4131c2ee059c18c6",
+        "expected_final_gamestate.txt": "87ff84a11d6def89148eff7716d487f29ecf35c67a6bd4abef39d49495a2227f",
+        "meta.json": "b13d632195c5f700b5b245176f9f33f62ceb9313456d1c9a43d741949beb3c01"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "ad8fbafc62f576f34eeda6f1082010a08f432fbd503ed2b80d608449542e44b3",
+        "actions.json": "eb4e8e573712e0e6bcd4a32450f8e8fab05c363020c332202e7f80e51579749e",
+        "assertions.json": "62845658d73fc22c3b724304b0a6b72605cbefbc823ab9dfb5f6c64dd1c9dc06",
+        "expected_final_gamestate.txt": "dd682efb78a034096b160cf285a6ab03075a04c6d8bd66915b4a3424ecfdf0db",
+        "meta.json": "886315d9bb3c58305df0f500aa195918f2f3361c4b8578205429657c01b3ea29"
+      },
+      "diagnosticActualSHA256": "dd682efb78a034096b160cf285a6ab03075a04c6d8bd66915b4a3424ecfdf0db"
+    },
+    {
+      "slug": "card-voltic-bolt-blue-target-2",
+      "cardID": "voltic_bolt_blue",
+      "printedText": "Deal 3 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 3,
+      "expectedCredit": {
+        "1": {
+          "2": 3
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":3}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "4e4822d338a1d83a8b0d007fa5ec08612a871911203d676c5168d14b7fc3709c",
+      "currentBehaviorSHA256": "6fef6398c4ee2e5767904aaff34f98cbae78c5f0dd766de06f5189fba83903b8",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "ad8fbafc62f576f34eeda6f1082010a08f432fbd503ed2b80d608449542e44b3",
+        "actions.json": "4c1b5d1e5397953553190429a2b045ff1da856de2df3dfb446379c3bbd38e6c9",
+        "assertions.json": "a1a3c66d2aa2ac107cbf74c619995b137042335351d5a32e9ce9d70d05bb4a20",
+        "expected_final_gamestate.txt": "7069e11c7592e05c059dbedcc3c50fa3439871e2d492c16fde1221a4be8ac894",
+        "meta.json": "3e2afa5f92badc9aca9f1a5c8db99d8895e8742321bffe30e702fc103d324833"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "ad8fbafc62f576f34eeda6f1082010a08f432fbd503ed2b80d608449542e44b3",
+        "actions.json": "4c1b5d1e5397953553190429a2b045ff1da856de2df3dfb446379c3bbd38e6c9",
+        "assertions.json": "8061c79d202c7503c702ddc737e5b0a17698a631f881bbd6e29da3582e4ef1b4",
+        "expected_final_gamestate.txt": "fbe3add4a1003cfe37da7d99b7cd24fa7d433f9c1754cd4f1cd1b15a7dff521b",
+        "meta.json": "21470e25da14011a0718a77b74b64f86e2ceb07d41c3502f90c5ae75989d9f8a"
+      },
+      "diagnosticActualSHA256": "fbe3add4a1003cfe37da7d99b7cd24fa7d433f9c1754cd4f1cd1b15a7dff521b"
+    },
+    {
+      "slug": "card-voltic-bolt-red-barrier-decline",
+      "cardID": "voltic_bolt_red",
+      "printedText": "Deal 5 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 5,
+      "expectedCredit": {
+        "1": {
+          "2": 5
+        }
+      },
+      "actions": 6,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":5}}"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "0734e3c838ac19cb1ee416aba708da8dc2ed709fda2bd8fcc8dbbc65535083f8",
+      "currentBehaviorSHA256": "4997b81922c6ecbd50268bfc37a035567668377b5e1b269ecd5b6177eec5c3f1",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "b3b081fb8fbad47a818164b6449b4e6788ac0f0fc3592508c162d289ebe82c02",
+        "actions.json": "c133077b282ac8e8d479c412a6f293dd4a7d688580692468545b523c26add543",
+        "assertions.json": "9c30da56b9059076ed118f02c99f6c5c72f48b45bb6ce1b28096546241f81c47",
+        "expected_final_gamestate.txt": "505f3f810e61519b51f84bc6e30f6f80933c5a70da295e23c7df244907d28a9b",
+        "meta.json": "57a1aa0ef58751f7ca082884769c812f7679d505f694e9d40293c2b8cfebc579"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "b3b081fb8fbad47a818164b6449b4e6788ac0f0fc3592508c162d289ebe82c02",
+        "actions.json": "c133077b282ac8e8d479c412a6f293dd4a7d688580692468545b523c26add543",
+        "assertions.json": "6f7a1cc3a6de91f771af1c049e19fac4f994be8dd6bc95bc9d546ce834dfa755",
+        "expected_final_gamestate.txt": "693d4aee5dbafa8e0953696fc7f6c6e542fff16a6dc39271662cc5342abac4df",
+        "meta.json": "f7334bbed518e82ca9f132d5209c290d220c57506a576b565c39c59880dcaf59"
+      },
+      "diagnosticActualSHA256": "693d4aee5dbafa8e0953696fc7f6c6e542fff16a6dc39271662cc5342abac4df"
+    },
+    {
+      "slug": "card-voltic-bolt-red-barrier-pay",
+      "cardID": "voltic_bolt_red",
+      "printedText": "Deal 5 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 1,
+      "expectedDamage": 4,
+      "expectedCredit": {
+        "1": {
+          "2": 4
+        }
+      },
+      "actions": 6,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":4}}"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "179efb971ec64acf76ec91a52ad910211be696094a1f23b5fd182def804510a6",
+      "currentBehaviorSHA256": "a8f61bb08ee66d3f518e683482f5fad7fc96766460c3fd82b5bbc641b1e182e7",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "b3b081fb8fbad47a818164b6449b4e6788ac0f0fc3592508c162d289ebe82c02",
+        "actions.json": "ee97742f920d5a718e6ba3ca7dfda6526159fcdd5344599a62dbf61cf5ff098c",
+        "assertions.json": "2e89a94b07d67cb8e85207cd4003fab644ffd5a7668fa4bf10fbf5a3304b6d04",
+        "expected_final_gamestate.txt": "5f5d68473aa4234e589d2909f705fd4bc29f4c3d84e2fc0a64f91a937135ee21",
+        "meta.json": "832a307836bbaa38b3818a9220b88401414e18c0c7be524b65c98d76401bbe6a"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "b3b081fb8fbad47a818164b6449b4e6788ac0f0fc3592508c162d289ebe82c02",
+        "actions.json": "ee97742f920d5a718e6ba3ca7dfda6526159fcdd5344599a62dbf61cf5ff098c",
+        "assertions.json": "f35a37331c31db2a9f00438ad67f543e4883989727215eb7e9b5d447d1044535",
+        "expected_final_gamestate.txt": "f5d1fbc92e75a3c6f4dd2ce13f3d316ec8ab4db776cbd8c2536292a70483935b",
+        "meta.json": "8c54f565909a3296a47625e5653e7a024d41f5b19c513b548e42759557b510e0"
+      },
+      "diagnosticActualSHA256": "f5d1fbc92e75a3c6f4dd2ce13f3d316ec8ab4db776cbd8c2536292a70483935b"
+    },
+    {
+      "slug": "card-voltic-bolt-red-target-1",
+      "cardID": "voltic_bolt_red",
+      "printedText": "Deal 5 arcane damage to target hero.",
+      "target": 1,
+      "barrierPaid": 0,
+      "expectedDamage": 5,
+      "expectedCredit": {
+        "1": {
+          "1": 5
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"1\":5}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "ecc92bfa6c95276457751205e77ae65d896e16e5f0f4f1187c9bfb5a32812fb3",
+      "currentBehaviorSHA256": "9d5b22098f2f60a2af349f9710a45530776e049f66e12f7cf0d813917292645b",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "28271ac55704d8a511113041cc6724c92319d5fa472e327189d1a63e6a8ca501",
+        "actions.json": "eb4e8e573712e0e6bcd4a32450f8e8fab05c363020c332202e7f80e51579749e",
+        "assertions.json": "c1c883d86199cd12b2387fcf4ce76f3af91914cb048e8c65c3610f515c336a27",
+        "expected_final_gamestate.txt": "ab0ce8391f31e91c4111e92d25d82f0fe0aea258f8faf31e0101aef915dcb811",
+        "meta.json": "a66f3af85ea5f839218e244837097e40be0a4256677773bd31a3e70eb92c46d6"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "28271ac55704d8a511113041cc6724c92319d5fa472e327189d1a63e6a8ca501",
+        "actions.json": "eb4e8e573712e0e6bcd4a32450f8e8fab05c363020c332202e7f80e51579749e",
+        "assertions.json": "f19afb5291acc0a2666ab2beec4a18b0f4999a39dac643bf6680dc00a1ab09ef",
+        "expected_final_gamestate.txt": "3c2d5dc90b80183d85564c8b55cae7185336a60456b9eb42474fd10111fddc88",
+        "meta.json": "d87b1354d6d1cd899912baef90b150a5659a458c405a8840980e3d2920752180"
+      },
+      "diagnosticActualSHA256": "3c2d5dc90b80183d85564c8b55cae7185336a60456b9eb42474fd10111fddc88"
+    },
+    {
+      "slug": "card-voltic-bolt-red-target-2",
+      "cardID": "voltic_bolt_red",
+      "printedText": "Deal 5 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 5,
+      "expectedCredit": {
+        "1": {
+          "2": 5
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":5}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "d000a481fb7763514b8d240cdf686dfd735642d0c734f398f1883494c15aabef",
+      "currentBehaviorSHA256": "ab845a5d42e213521bafdb92faabe98377ea43496e67cff261fb7e2158d38e17",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "28271ac55704d8a511113041cc6724c92319d5fa472e327189d1a63e6a8ca501",
+        "actions.json": "4c1b5d1e5397953553190429a2b045ff1da856de2df3dfb446379c3bbd38e6c9",
+        "assertions.json": "6ccf76ae47ba8e6a7316521723d92bd72185f7ae8caa22ba289c1b6d7923db5d",
+        "expected_final_gamestate.txt": "80b4589a3638ea7ec97d0543c5ed49eac88fcc20f960b8c224ccbefdc9e669a4",
+        "meta.json": "e63618e682a194028efaa2c4c70164e5314ec478911768a4dcfe557bc828c28b"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "28271ac55704d8a511113041cc6724c92319d5fa472e327189d1a63e6a8ca501",
+        "actions.json": "4c1b5d1e5397953553190429a2b045ff1da856de2df3dfb446379c3bbd38e6c9",
+        "assertions.json": "df655c37f00275c22f81541e3b6a451efff277f157398f7672c45e570443559f",
+        "expected_final_gamestate.txt": "2842dc9459b4ea65cdbb3a8f661e3007fd025be1338edbcae83be197fbef8d88",
+        "meta.json": "9d3bef6fe2dc2b1893f494e2995b9f6989b48e5165df4641d48ed0c6e43c6464"
+      },
+      "diagnosticActualSHA256": "2842dc9459b4ea65cdbb3a8f661e3007fd025be1338edbcae83be197fbef8d88"
+    },
+    {
+      "slug": "card-voltic-bolt-yellow-barrier-decline",
+      "cardID": "voltic_bolt_yellow",
+      "printedText": "Deal 4 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 4,
+      "expectedCredit": {
+        "1": {
+          "2": 4
+        }
+      },
+      "actions": 6,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":4}}"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "b663f67a18787b91979e19651577eaabc6dd5a41849894a3914a91d0dbb0befd",
+      "currentBehaviorSHA256": "530a62b2c4c34b15f4d56e1ce5756db8e1b0e4c94771aaa3a3a2112f85ed9803",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "9cf245a8ad96bc9adf27a6fd208378e55356d28289a7de6933c9f4e25be14cb8",
+        "actions.json": "c133077b282ac8e8d479c412a6f293dd4a7d688580692468545b523c26add543",
+        "assertions.json": "2dad449b838c12952827db72870d61167c7e7ff71c1c5e58482c919f6da53a2d",
+        "expected_final_gamestate.txt": "723d66773f5fd35b8fb8c64b9040f82d7c4a0ebdd3f1508721fae10dd4f74776",
+        "meta.json": "f531d28449a7b383509f40193e53ed1b1824bf5cda573a0aa539bbbbefbb4383"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "9cf245a8ad96bc9adf27a6fd208378e55356d28289a7de6933c9f4e25be14cb8",
+        "actions.json": "c133077b282ac8e8d479c412a6f293dd4a7d688580692468545b523c26add543",
+        "assertions.json": "559b8daef5b2c6ecebf4616f6d3425aae279fae919b5e71973dc78dbb8f0bffb",
+        "expected_final_gamestate.txt": "331158d132649c461ad29b7dd5af8f04a4c7a89252243486182cd13ae86e0412",
+        "meta.json": "c1de45125a550d88768a340128a3b4b849be68b0bad0ec03484d69eeaab7f551"
+      },
+      "diagnosticActualSHA256": "331158d132649c461ad29b7dd5af8f04a4c7a89252243486182cd13ae86e0412"
+    },
+    {
+      "slug": "card-voltic-bolt-yellow-barrier-pay",
+      "cardID": "voltic_bolt_yellow",
+      "printedText": "Deal 4 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 1,
+      "expectedDamage": 3,
+      "expectedCredit": {
+        "1": {
+          "2": 3
+        }
+      },
+      "actions": 6,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":3}}"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "725c719a99c1052a7c3eaea846ac712ba95f46e0cba23c6601c0d283ef6efd0a",
+      "currentBehaviorSHA256": "70dba3a685022638f809b64c3911cb8b8d9db1708241ea6c2f9f573709791401",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "9cf245a8ad96bc9adf27a6fd208378e55356d28289a7de6933c9f4e25be14cb8",
+        "actions.json": "ee97742f920d5a718e6ba3ca7dfda6526159fcdd5344599a62dbf61cf5ff098c",
+        "assertions.json": "6b289b7a9a1d1fa615bf856e41b1477b0990bc7578db38eac7ff921e2c241853",
+        "expected_final_gamestate.txt": "5dcdf20482257b9c8634968ea7eccc576f81cb467d1a6bfc65c5b10e756d4b1a",
+        "meta.json": "0fbab0fc8d8c8e7fc81259c5429a1a35914fccafaa1440d660a7b19543e132e0"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "9cf245a8ad96bc9adf27a6fd208378e55356d28289a7de6933c9f4e25be14cb8",
+        "actions.json": "ee97742f920d5a718e6ba3ca7dfda6526159fcdd5344599a62dbf61cf5ff098c",
+        "assertions.json": "6cdf14114fa443441eaa20b3506da0f0a721b0a1cc8c82ec641370512f981e9c",
+        "expected_final_gamestate.txt": "c453de347cf41cd43403dea4c6f9ad41046822a4678ce05887130d77ee0719b0",
+        "meta.json": "254a96baa5bbba22d342d8197e401bafcb716c5b8ce567648ac4fa7409ca3b4c"
+      },
+      "diagnosticActualSHA256": "c453de347cf41cd43403dea4c6f9ad41046822a4678ce05887130d77ee0719b0"
+    },
+    {
+      "slug": "card-voltic-bolt-yellow-target-1",
+      "cardID": "voltic_bolt_yellow",
+      "printedText": "Deal 4 arcane damage to target hero.",
+      "target": 1,
+      "barrierPaid": 0,
+      "expectedDamage": 4,
+      "expectedCredit": {
+        "1": {
+          "1": 4
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"1\":4}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "cc5fccbad56c25ff5ae6e4ccd817def0f97868f2e095a4f959e124baf2a96774",
+      "currentBehaviorSHA256": "81cf10a05dce0ea97cd30ec132c7b8d2b0efaafe27d11ebfbb4a185c1970f756",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "4ee287fec0614a9cc5fa917e4ee49165e871eb2b45ee0e39c40c149fb24fdb9c",
+        "actions.json": "eb4e8e573712e0e6bcd4a32450f8e8fab05c363020c332202e7f80e51579749e",
+        "assertions.json": "053b3f3bcf3b78210f8c67d24484df48c98a3883f0a6b81ad88e4467772b589f",
+        "expected_final_gamestate.txt": "e78ac5409c3e4fb07bd86c55fb94aedd32c090316c2dd08f100a712bbe84ac0e",
+        "meta.json": "850e2930436efd6c62e1ae0fad679ee72d318996dc12ae7984777c2a470b24b2"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "4ee287fec0614a9cc5fa917e4ee49165e871eb2b45ee0e39c40c149fb24fdb9c",
+        "actions.json": "eb4e8e573712e0e6bcd4a32450f8e8fab05c363020c332202e7f80e51579749e",
+        "assertions.json": "f8e1a736a50b6dbc263d929861d262ba5fc3d25948710a92bd4eb8ddfba86865",
+        "expected_final_gamestate.txt": "3ce43331a68f98fd1fa81ebbab19d8a4fb7f3f98cc6b28a924f70999e5b6fa73",
+        "meta.json": "b9fc873aa03fd7c55179e56169191433303a081227959e3eaef063629e8f577b"
+      },
+      "diagnosticActualSHA256": "3ce43331a68f98fd1fa81ebbab19d8a4fb7f3f98cc6b28a924f70999e5b6fa73"
+    },
+    {
+      "slug": "card-voltic-bolt-yellow-target-2",
+      "cardID": "voltic_bolt_yellow",
+      "printedText": "Deal 4 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 4,
+      "expectedCredit": {
+        "1": {
+          "2": 4
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":4}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "e4bd48efcaed0e68840c5aa92e0687a1e5ddd7a2cf9dc5ce752b2fdbc85caa66",
+      "currentBehaviorSHA256": "7c58911790c492f1aa2e1105775f9371facee82c7cef7dd7378a7fa795dec6a0",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "4ee287fec0614a9cc5fa917e4ee49165e871eb2b45ee0e39c40c149fb24fdb9c",
+        "actions.json": "4c1b5d1e5397953553190429a2b045ff1da856de2df3dfb446379c3bbd38e6c9",
+        "assertions.json": "21e94f352feb3de2c3df5782788e5c8a5c22556562e11057a756c41b4a82f532",
+        "expected_final_gamestate.txt": "9e40b6b617ee12f6c7d8b28e6961b6d9aadbf36fa554ed7f42776934301f9f34",
+        "meta.json": "3f35db887a5319c43df2bad7dd98c006fa422dea7ad9da22585aa107dbc571f5"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "4ee287fec0614a9cc5fa917e4ee49165e871eb2b45ee0e39c40c149fb24fdb9c",
+        "actions.json": "4c1b5d1e5397953553190429a2b045ff1da856de2df3dfb446379c3bbd38e6c9",
+        "assertions.json": "298c38d8d0f936ed03181ce0ba429b8b8d9292da523c9f427fe17a23000e3f94",
+        "expected_final_gamestate.txt": "8d03344a69b9fb69a9a6a5ff29ef11467e01ce492ff70f435e062f77b82107ee",
+        "meta.json": "4907904aa84e4c63c8b39d1f49ff4e895650eb7d8828767082d784ad6f000c36"
+      },
+      "diagnosticActualSHA256": "8d03344a69b9fb69a9a6a5ff29ef11467e01ce492ff70f435e062f77b82107ee"
+    },
+    {
+      "slug": "card-zap-blue-barrier-decline",
+      "cardID": "zap_blue",
+      "printedText": "Deal 1 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 1,
+      "expectedCredit": {
+        "1": {
+          "2": 1
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":1}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "88b7f0d123d8c603a381b21046aa88d68832f65f59b33c359cffdc92521696c7",
+      "currentBehaviorSHA256": "f6c7008f33605c1252954b2d072c142a21455f4fee1d8d6b6d554ad971260807",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "c9cb1a5ab90fcf39b31dc1647657eeb1a689ee6f1cc3f778e08ffea07e3c5fa5",
+        "actions.json": "7e943d3d2101cb53ee17db767ff87886806055672f427e2fe5f5ac30e3a389d9",
+        "assertions.json": "1f298ab116c48f8931988f3586486bd1530ae7ebe16fb9b94ffc32bd5de91f55",
+        "expected_final_gamestate.txt": "a2addd5b3f3f734eb2d32e863f6a9d993853be7c6e8c7c31236c5fcc5c8984af",
+        "meta.json": "e8c98222d300e6af07a1843924e84cb82a1d1eac8e637905f902af1b16414ab8"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "c9cb1a5ab90fcf39b31dc1647657eeb1a689ee6f1cc3f778e08ffea07e3c5fa5",
+        "actions.json": "7e943d3d2101cb53ee17db767ff87886806055672f427e2fe5f5ac30e3a389d9",
+        "assertions.json": "3eba484164cbcf12c7fd53b552c2512b718602ed9d47db6e3eaca51984c9aafb",
+        "expected_final_gamestate.txt": "fea18d680dba29a1fcbd4e4a98027a836689191cf85c48f68893c643146ddc6f",
+        "meta.json": "957a3d1ee454b3cda0e852a1e5b2e4b18ad7037ccc8a961a74d0a5f294af3343"
+      },
+      "diagnosticActualSHA256": "fea18d680dba29a1fcbd4e4a98027a836689191cf85c48f68893c643146ddc6f"
+    },
+    {
+      "slug": "card-zap-blue-barrier-pay",
+      "cardID": "zap_blue",
+      "printedText": "Deal 1 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 1,
+      "expectedDamage": 0,
+      "expectedCredit": {
+        "1": {
+          "2": 0
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":0}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": false,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "3f771dc3ef8c53f668d24a10db12a77b1a971960e9b51a4b7210fd86e418afac",
+      "currentBehaviorSHA256": "6a1889bd5e0443be218ebfd58b59717563cfc0fa3b0ab1dbf341952fe6eb2596",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "c9cb1a5ab90fcf39b31dc1647657eeb1a689ee6f1cc3f778e08ffea07e3c5fa5",
+        "actions.json": "2a766ee0b65d84be46f8d65599b94d0ce19fe93f20ddf1d1265008d4fcf36929",
+        "assertions.json": "52652775152b9d1366a26f006db87c5fa954e97da3f1da4818397fff5dc9b075",
+        "expected_final_gamestate.txt": "37484fb650ae97b52bfbf0a00d3567345fd7f5870f08fdc673fe74ba2a535c82",
+        "meta.json": "10c4d0c60a234bb92a38f811c6e54c087367369ceec54b67a6f1ca1c592c6e1a"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "c9cb1a5ab90fcf39b31dc1647657eeb1a689ee6f1cc3f778e08ffea07e3c5fa5",
+        "actions.json": "2a766ee0b65d84be46f8d65599b94d0ce19fe93f20ddf1d1265008d4fcf36929",
+        "assertions.json": "63d3f788a553fd4ff871722b83f9d5f19da14ec7de6be0013cd8b950b9a9bde7",
+        "expected_final_gamestate.txt": "6bca94443f282ddc1c630b8152c3dba0c4915ece8817af94fdcbe7ded0e2d86f",
+        "meta.json": "943d560b34ad1abe6ddc33f91d24fcadb35082619b305f743dde4e205f1341fc"
+      },
+      "diagnosticActualSHA256": "6bca94443f282ddc1c630b8152c3dba0c4915ece8817af94fdcbe7ded0e2d86f"
+    },
+    {
+      "slug": "card-zap-blue-target-1",
+      "cardID": "zap_blue",
+      "printedText": "Deal 1 arcane damage to target hero.",
+      "target": 1,
+      "barrierPaid": 0,
+      "expectedDamage": 1,
+      "expectedCredit": {
+        "1": {
+          "1": 1
+        }
+      },
+      "actions": 4,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"1\":1}}"
+        },
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "c55c05f15443e4773ea9f9fd1012ca71a1caef50090b76144a3f5769be6a93a4",
+      "currentBehaviorSHA256": "8e6e3e650b07ab2c6f77079842a249768ca362ea8eb7a4709fe57bbdc64c2831",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "ffb4cdc86a7ae88deed317417419ce38540b93ebc85ec7398757aaa3b711ebbc",
+        "actions.json": "96257774bd71597d2326decf1fda75118303879485fe62ba1c481d6438e57899",
+        "assertions.json": "b0eb0c4d58f13c882790b3f19e3bf79b1ebcff9c6743aa6c7eecb65f87d515ab",
+        "expected_final_gamestate.txt": "3425bcc02e32c47c37e19e65e9297870b232dc2251dabb2a63c2c8878d2f3665",
+        "meta.json": "e2206d9c23e973df199a58cb593978153e23989d154ed4ed25c1744a783a31ce"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "ffb4cdc86a7ae88deed317417419ce38540b93ebc85ec7398757aaa3b711ebbc",
+        "actions.json": "96257774bd71597d2326decf1fda75118303879485fe62ba1c481d6438e57899",
+        "assertions.json": "bbd66acda1ff452b8727ef16088586d45ecd708d822e9765b0646302b561f8c2",
+        "expected_final_gamestate.txt": "316350aa1704947de9879f71069a568cf29f56ca44258c2a9ff9ab0dc171ce31",
+        "meta.json": "6bc6996448c451b6ee565ce57f32eae868231fd90a97cbb0fafe531dadde92a5"
+      },
+      "diagnosticActualSHA256": "316350aa1704947de9879f71069a568cf29f56ca44258c2a9ff9ab0dc171ce31"
+    },
+    {
+      "slug": "card-zap-blue-target-2",
+      "cardID": "zap_blue",
+      "printedText": "Deal 1 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 1,
+      "expectedCredit": {
+        "1": {
+          "2": 1
+        }
+      },
+      "actions": 4,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":1}}"
+        },
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "e62ecf8f97c3b7955a897a28dd249e417317d62bb420ca40e2c1b5af6c92d976",
+      "currentBehaviorSHA256": "c6083a2b9057f74f15060754dcfb997df9787b320846cb4c6db355abb123e48d",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "ffb4cdc86a7ae88deed317417419ce38540b93ebc85ec7398757aaa3b711ebbc",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "db2050eeb4e305d394a68c967e619678698195fd2e9274424232e707edf8f523",
+        "expected_final_gamestate.txt": "18235e1668db489f841a6fd62967c659f8ec05acafa4367f1aa00d15f01bf3ce",
+        "meta.json": "94b3246a534baf519823786d74a013b100abc0886f0e33bae0bfec0886e9e604"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "ffb4cdc86a7ae88deed317417419ce38540b93ebc85ec7398757aaa3b711ebbc",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "7b99a122976d335a26e8f619db40876542130d92db34f7a808b90a4ebfb0d9d4",
+        "expected_final_gamestate.txt": "ec7ec6daab3a96b2b63bba199f28c0571bd524c38209c00446fe2273781aa301",
+        "meta.json": "f4bef8415a897335bdbe0382ef9b90d841367b91b9c8837a2b3e7462bcc37628"
+      },
+      "diagnosticActualSHA256": "ec7ec6daab3a96b2b63bba199f28c0571bd524c38209c00446fe2273781aa301"
+    },
+    {
+      "slug": "card-zap-red-barrier-decline",
+      "cardID": "zap_red",
+      "printedText": "Deal 3 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 3,
+      "expectedCredit": {
+        "1": {
+          "2": 3
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":3}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "5f3379d56e487f812cd5c67d17f863680b660e6849ba68a428710c55593e6142",
+      "currentBehaviorSHA256": "df9d14cea3701a771e58784e21e40eb3b69c9d28f0b43f91dad576aeaf5ff054",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "4e188687e18f6362c4ccc0d9d68c4050a0303a4982a72292f3ae152d4fd2e5b6",
+        "actions.json": "7e943d3d2101cb53ee17db767ff87886806055672f427e2fe5f5ac30e3a389d9",
+        "assertions.json": "51267f207335ed94bbb8d5e372f7a8cf32169b7a16c878ae253ebacc73d172c3",
+        "expected_final_gamestate.txt": "4562cbdf60d077bf5bf6f655c26528d9a5a019ffc94da3cc29cb7eee738c7e61",
+        "meta.json": "c3ea572d5afc4e71438e8cdef4e2db925d06b538b659a434091ab399966c0644"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "4e188687e18f6362c4ccc0d9d68c4050a0303a4982a72292f3ae152d4fd2e5b6",
+        "actions.json": "7e943d3d2101cb53ee17db767ff87886806055672f427e2fe5f5ac30e3a389d9",
+        "assertions.json": "0361b029f00fdae7fa1dda33f88f7a9ddec73d67516fb936452ef57e3fd54b71",
+        "expected_final_gamestate.txt": "96f18750526cb6eba68d50ac6ddc619d26f191e83332c9acb3a817ef30bbd00a",
+        "meta.json": "f6a3cc46351cdfe9c194ed569dd0b2b3d165946b3f1cfe29967270ad055c08c8"
+      },
+      "diagnosticActualSHA256": "96f18750526cb6eba68d50ac6ddc619d26f191e83332c9acb3a817ef30bbd00a"
+    },
+    {
+      "slug": "card-zap-red-barrier-pay",
+      "cardID": "zap_red",
+      "printedText": "Deal 3 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 1,
+      "expectedDamage": 2,
+      "expectedCredit": {
+        "1": {
+          "2": 2
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":2}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "9ba0bc3a03e12d625f10f39d95b5e29644c075b0e4a397fa409bab7fedd0f2e5",
+      "currentBehaviorSHA256": "0df8a731b375c869873372b11f8b75949408aed1797875d68f02b56df3aa093d",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "4e188687e18f6362c4ccc0d9d68c4050a0303a4982a72292f3ae152d4fd2e5b6",
+        "actions.json": "2a766ee0b65d84be46f8d65599b94d0ce19fe93f20ddf1d1265008d4fcf36929",
+        "assertions.json": "abc8eb9756530e9f8e4efef59bdc517640d73d225db26b9b8df42cefb35d93ef",
+        "expected_final_gamestate.txt": "6f635c2e299fa51d141e3b0c45b7e62ca754b59dfd991ef0a9c2b9b31ac74d20",
+        "meta.json": "b1ecf8301eefe365068998c34d5d60db259a2f6040bb65114ff515d9d014e2a3"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "4e188687e18f6362c4ccc0d9d68c4050a0303a4982a72292f3ae152d4fd2e5b6",
+        "actions.json": "2a766ee0b65d84be46f8d65599b94d0ce19fe93f20ddf1d1265008d4fcf36929",
+        "assertions.json": "ec51739d3af2a6b648dff94d69959f743414b79931753aa6e7004e209a9d8e65",
+        "expected_final_gamestate.txt": "3da27af9913c7d2957582df84616b54178f5f7c5c0293428e00cdc78bf83820e",
+        "meta.json": "639e7f2002ed9b7473c341f3c04551569eba45e0125e9374d1acb381b79b1f44"
+      },
+      "diagnosticActualSHA256": "3da27af9913c7d2957582df84616b54178f5f7c5c0293428e00cdc78bf83820e"
+    },
+    {
+      "slug": "card-zap-red-target-1",
+      "cardID": "zap_red",
+      "printedText": "Deal 3 arcane damage to target hero.",
+      "target": 1,
+      "barrierPaid": 0,
+      "expectedDamage": 3,
+      "expectedCredit": {
+        "1": {
+          "1": 3
+        }
+      },
+      "actions": 4,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"1\":3}}"
+        },
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "6af4995a37c4bf8fad14973c8332e7733e4d5323eb4e20d514a97bd29a3abea6",
+      "currentBehaviorSHA256": "b5a9220144d7ce77f8d85c4dfe685f30276ee6ba4002be0c04c0e76896446198",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "6ba0d444368e73c77f701e69b1024f29b16c8529251db189f0ba109de1c96781",
+        "actions.json": "96257774bd71597d2326decf1fda75118303879485fe62ba1c481d6438e57899",
+        "assertions.json": "ed5e8a7236320be5436864efe9ae80f93e6d9699469e64741d8fb2ad3368664a",
+        "expected_final_gamestate.txt": "0178029d40b026452b3fda4febae37752338cc45a30cffd364aba4d6a4fd79e2",
+        "meta.json": "d5078f12f1e926bcf748fb46ed08641908dab2d3b30a3e086c81758d8f416abb"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "6ba0d444368e73c77f701e69b1024f29b16c8529251db189f0ba109de1c96781",
+        "actions.json": "96257774bd71597d2326decf1fda75118303879485fe62ba1c481d6438e57899",
+        "assertions.json": "7cd9ba6678a05a701dd6ad032f968f90e1c1004e9522753b57a6e2b7d118987e",
+        "expected_final_gamestate.txt": "68e6e1163de727afe28ce9523161dd0c52f83f58e4e951aad589b37973e03cae",
+        "meta.json": "79589f81a92c5f3b116882ce92ca63a49fbbc47a46b71ab220a5c1c9c7653f08"
+      },
+      "diagnosticActualSHA256": "68e6e1163de727afe28ce9523161dd0c52f83f58e4e951aad589b37973e03cae"
+    },
+    {
+      "slug": "card-zap-red-target-2",
+      "cardID": "zap_red",
+      "printedText": "Deal 3 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 3,
+      "expectedCredit": {
+        "1": {
+          "2": 3
+        }
+      },
+      "actions": 4,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":3}}"
+        },
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "62b9f19f4c8a15e68d0afe2b0328074905cad8f0e41b656f557e1d1da14732f5",
+      "currentBehaviorSHA256": "f6218f6e5975569cce77a3ed81baa805ae6beecaa0e29825ba1ae69f71b68c4e",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "6ba0d444368e73c77f701e69b1024f29b16c8529251db189f0ba109de1c96781",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "ab2e4351be9a0e5d33f96b1720b94ea979ba6265eb44990ee1a5db9dd77505b4",
+        "expected_final_gamestate.txt": "ea19ef1cd7fb986ae1106ee11d9527be1cc7dbbcb30979ba899a373419207149",
+        "meta.json": "bb1764cb87243f9dd5718ef48e9fa02c44470dc4ef55060a98349e2ffbd5c27f"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "6ba0d444368e73c77f701e69b1024f29b16c8529251db189f0ba109de1c96781",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "e8032373c1bab200fdf741810e34829bbedeb8ee2d11d2c7fe7f65c28b5767ac",
+        "expected_final_gamestate.txt": "41c8ae3b58b6407619e4b56bf8529670e584da3ad1c2ebdbbf8b6f35a0c01cf5",
+        "meta.json": "6ec0ed7206aa03a7064be364cc64980b54e51ee920d3df7f25f1c278b5453d41"
+      },
+      "diagnosticActualSHA256": "41c8ae3b58b6407619e4b56bf8529670e584da3ad1c2ebdbbf8b6f35a0c01cf5"
+    },
+    {
+      "slug": "card-zap-yellow-barrier-decline",
+      "cardID": "zap_yellow",
+      "printedText": "Deal 2 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 2,
+      "expectedCredit": {
+        "1": {
+          "2": 2
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":2}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "24ab14ece5987640ac4159cf8fddc44c68a2f64534ef8ce8da984bd81d6749cb",
+      "currentBehaviorSHA256": "ba19de0a63604246b638078820a6c10e4e720f2d122f57e5517e9d5494c1b630",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "0af56efb869079d362123af526494930749645982873eab275fed1dd34f75210",
+        "actions.json": "7e943d3d2101cb53ee17db767ff87886806055672f427e2fe5f5ac30e3a389d9",
+        "assertions.json": "cc4cfab81db69be37f3414eb9cc4bf1dbb4c93c4e35975781cfd7bebfa378bc1",
+        "expected_final_gamestate.txt": "74c64a93456f9b67251aba168da60c2f25f1b4299ee06a43ffcc69cde81a0148",
+        "meta.json": "4e6368c3dcd2daa003f0331c6aee1bfac614d0886038c32711d5dccbe9a2f0d2"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "0af56efb869079d362123af526494930749645982873eab275fed1dd34f75210",
+        "actions.json": "7e943d3d2101cb53ee17db767ff87886806055672f427e2fe5f5ac30e3a389d9",
+        "assertions.json": "b71f22467d6c82903c06aad59347711e26835753cdd79e29ad8b1dd3a7b63798",
+        "expected_final_gamestate.txt": "efcac38e293fd72b21007140c906e883c7b5c0e54dbd06f4fa2df1e95575bb3a",
+        "meta.json": "dc3fb5578b6b1ce2a4c10f1be3a83094504c164ec574d90270f4bb9acee8410f"
+      },
+      "diagnosticActualSHA256": "efcac38e293fd72b21007140c906e883c7b5c0e54dbd06f4fa2df1e95575bb3a"
+    },
+    {
+      "slug": "card-zap-yellow-barrier-pay",
+      "cardID": "zap_yellow",
+      "printedText": "Deal 2 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 1,
+      "expectedDamage": 1,
+      "expectedCredit": {
+        "1": {
+          "2": 1
+        }
+      },
+      "actions": 5,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":1}}"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 5,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "189f2c9ff3037ddd1c9a228e88a6a233023f24187b498f9c066b90582b787ed2",
+      "currentBehaviorSHA256": "49a87e057aa9e3a01bfdafa4a8be6e50fe1bd1af6e454e3ad379a858701d323c",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "0af56efb869079d362123af526494930749645982873eab275fed1dd34f75210",
+        "actions.json": "2a766ee0b65d84be46f8d65599b94d0ce19fe93f20ddf1d1265008d4fcf36929",
+        "assertions.json": "b4066e00dda71f2406c7a251a93e3cd0a96a1efd07388fb992e3638f82e21493",
+        "expected_final_gamestate.txt": "f3c73d07ccb5ea3527edd50bcd8ad4483243e303090c90e633c009357f2182ef",
+        "meta.json": "0ff72a0d957975079a995285c83bc0f9547ee355e3ea739f49ba42755007b0d7"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "0af56efb869079d362123af526494930749645982873eab275fed1dd34f75210",
+        "actions.json": "2a766ee0b65d84be46f8d65599b94d0ce19fe93f20ddf1d1265008d4fcf36929",
+        "assertions.json": "61a0c97d9b222752c85b46216bd567e8d42bba2098f5774123be8d3ddfae1538",
+        "expected_final_gamestate.txt": "18dc5b2ac17b5135ad84e61f633bfb6d34fc338287f88bd7abe1e08c11cb21fa",
+        "meta.json": "2cbd00c6f6582b4a0c9611afb921d37b3cc300c93f5127f4908f05f2fd03ca26"
+      },
+      "diagnosticActualSHA256": "18dc5b2ac17b5135ad84e61f633bfb6d34fc338287f88bd7abe1e08c11cb21fa"
+    },
+    {
+      "slug": "card-zap-yellow-target-1",
+      "cardID": "zap_yellow",
+      "printedText": "Deal 2 arcane damage to target hero.",
+      "target": 1,
+      "barrierPaid": 0,
+      "expectedDamage": 2,
+      "expectedCredit": {
+        "1": {
+          "1": 2
+        }
+      },
+      "actions": 4,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"1\":2}}"
+        },
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "8790d70591db8edc006d47b40987c0ad13b3e51b8d038af1a395beee5ffd8c52",
+      "currentBehaviorSHA256": "1ab3c127023219312ec99864e8c12ea5b9b8b9989a51ca22e1aeb00fccd27e13",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "8e6304dbf242afcde2c57c73bf466d8f424d9c843bf88d1f7c773ea7428b2105",
+        "actions.json": "96257774bd71597d2326decf1fda75118303879485fe62ba1c481d6438e57899",
+        "assertions.json": "7af478a07f073d9dec00d023ee03e44b887ae1a043fca06811ceb966f62405bd",
+        "expected_final_gamestate.txt": "ea04545577aa83a3f14c02c09596301a86f6a18ecdc64fbfc12f70e4dd28edd9",
+        "meta.json": "e88a4918b08c89596939d94d20421f8917101dc966f2858c18c2d9363a077633"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "8e6304dbf242afcde2c57c73bf466d8f424d9c843bf88d1f7c773ea7428b2105",
+        "actions.json": "96257774bd71597d2326decf1fda75118303879485fe62ba1c481d6438e57899",
+        "assertions.json": "4d33f31ea64cc42a4c98098e9400b251b69ee668095de25ebccd4b1f8a0bdc60",
+        "expected_final_gamestate.txt": "75e0478f66dbbfd961ba0cfe5299aabc56dddd83ff390a03b82382cf14451bf7",
+        "meta.json": "c3475cd6f2425ec3202581b9835e12c268efa6f3677e2f183885bc484f62308b"
+      },
+      "diagnosticActualSHA256": "75e0478f66dbbfd961ba0cfe5299aabc56dddd83ff390a03b82382cf14451bf7"
+    },
+    {
+      "slug": "card-zap-yellow-target-2",
+      "cardID": "zap_yellow",
+      "printedText": "Deal 2 arcane damage to target hero.",
+      "target": 2,
+      "barrierPaid": 0,
+      "expectedDamage": 2,
+      "expectedCredit": {
+        "1": {
+          "2": 2
+        }
+      },
+      "actions": 4,
+      "priorAssertions": 5,
+      "currentAssertions": 8,
+      "initialRawIdentical": true,
+      "actionsRawIdentical": true,
+      "allPriorAssertionsUnchanged": true,
+      "addedNativeAssertionsExact": [
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":2}}"
+        },
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null"
+        },
+        {
+          "step": 4,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ],
+      "allOtherSnapshotFieldsUnchanged": true,
+      "turnEffectMultisetsEqual": true,
+      "turnEffectOrderChanged": true,
+      "onlyDecisionQueueVariableChange": {
+        "mzID": [
+          "p1Graveyard-0",
+          "Stack-0"
+        ]
+      },
+      "finalEqualsDiagnosticText": true,
+      "finalEqualsDiagnosticRaw": true,
+      "archiveBehaviorSHA256": "3f132f0708626ac08942126e3681167e90f8275151596707ee0e587ce9ce1bf2",
+      "currentBehaviorSHA256": "62e91ed38d2aa474d182b0bf30ee1ec83d2489c5d8d6ae0ac847d3d028f68674",
+      "archiveRawSHA256": {
+        "initial_gamestate.txt": "8e6304dbf242afcde2c57c73bf466d8f424d9c843bf88d1f7c773ea7428b2105",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "618c6226cc936ada6698e3c0ff4b322787acbf30f97f7520ae030df932df69e5",
+        "expected_final_gamestate.txt": "f617f210c0112bb23c6a929cbf6bbf1f96e8fdf86b7e2b1d88b8ab3a4a2ede8f",
+        "meta.json": "7627ea3b446ae5ec457741fd500fe0ee6de5345b62f39c389bcde629cba3e967"
+      },
+      "currentRawSHA256": {
+        "initial_gamestate.txt": "8e6304dbf242afcde2c57c73bf466d8f424d9c843bf88d1f7c773ea7428b2105",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "3acd7e80914d717d82a8a467cfa7c1c2efe783aef508404c8a3c3feb1c8626da",
+        "expected_final_gamestate.txt": "7452c8a39fb96a8a5dce3e4ed0d37e3d7ac411d3908cc51facfad5ec7ab3cc88",
+        "meta.json": "ae6a87925ee603b134262cc9e59d2f677d5a9526e918b2df9b4e68fb8340db6c"
+      },
+      "diagnosticActualSHA256": "7452c8a39fb96a8a5dce3e4ed0d37e3d7ac411d3908cc51facfad5ec7ab3cc88"
+    }
+  ]
+}

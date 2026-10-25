@@ -1,0 +1,48 @@
+{
+  "blue": {
+    "light": {
+      "src": "assets/fighter-blue-hit-light.webp?v=1792293368073952800",
+      "durationMs": 1217
+    },
+    "medium": {
+      "src": "assets/fighter-blue-hit-medium.webp?v=1792293374042183200",
+      "durationMs": 1217
+    },
+    "heavy": {
+      "src": "assets/fighter-blue-hit-heavy.webp?v=1792293379604655300",
+      "durationMs": 1217
+    },
+    "block": {
+      "src": "assets/fighter-blue-hit-block.webp?v=1792293385343326000",
+      "durationMs": 1217
+    },
+    "knockout": {
+      "src": "assets/fighter-blue-hit-knockout.webp?v=1792330948026585500",
+      "durationMs": 3361,
+      "finalSrc": "assets/fighter-blue-hit-knockout-final.webp?v=1792330959531927700"
+    }
+  },
+  "red": {
+    "light": {
+      "src": "assets/fighter-red-hit-light.webp?v=1792293437610286600",
+      "durationMs": 1217
+    },
+    "medium": {
+      "src": "assets/fighter-red-hit-medium.webp?v=1792293443900004700",
+      "durationMs": 1217
+    },
+    "heavy": {
+      "src": "assets/fighter-red-hit-heavy.webp?v=1792293450607998000",
+      "durationMs": 1217
+    },
+    "block": {
+      "src": "assets/fighter-red-hit-block.webp?v=1792293456973495100",
+      "durationMs": 1217
+    },
+    "knockout": {
+      "src": "assets/fighter-red-hit-knockout.webp?v=1792330958269743300",
+      "durationMs": 3361,
+      "finalSrc": "assets/fighter-red-hit-knockout-final.webp?v=1792330960237852000"
+    }
+  }
+}

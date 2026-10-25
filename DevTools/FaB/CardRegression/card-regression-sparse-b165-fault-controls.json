@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:43:21.202048+00:00",
+  "plan_sha256": "40b8480a0d1041c5c9478e1db4d6af7b7020d73835fbe817196592ac6a15ba2a",
+  "independent_saved_proof_sha256": "73efae5654f605f744e2ab352abd01e555cbb33be8a26214a092491e74e13939",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b165-focused-fault-plan.json",
+    "40b8480a0d1041c5c9478e1db4d6af7b7020d73835fbe817196592ac6a15ba2a",
+    "card-regression-sparse-b165-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b165_talismanic_lens_focused_effect_sensitivity",
+      "fixture": "card-talismanic-lens-four-live-sparse-actual-instant-destroy-opt-two-splits-top-and-bottom-with-physical-uid-order",
+      "fixture_sha256": "a60987f504c61d682ba7c69363ccca0a948856bcca106e0df2256997fbc38e66",
+      "source_raw5": {
+        "initial_gamestate.txt": "6379b2c330333a84d7ee4264641f05c315e0df8918f0cd5fd9ed7a7b947b364b",
+        "actions.json": "42c90415e6c0b1a23f6d4d868fea5bf94340424dd5b1f875621c6d7557ce8d62",
+        "assertions.json": "270e2b5313cc7f82c0962279909dbb0433fe13add7aff9cd5866cfc88234522a",
+        "expected_final_gamestate.txt": "1143330c70bd4cb7b52291c19fda7c4d82d7c49ea82918351cdcaa94d0b593be",
+        "meta.json": "e08310e0b6e295d46b7480b52277ef125eefbbd3b92ae8e185b22078815ffc74"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "wounding_blow_blue",
+            "uid": 7,
+            "from": "Deck",
+            "to": "Deck"
+          }
+        ]
+      },
+      "retained_assertions": 118,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Deck-0.CardID to equal 'wounding_blow_blue', got 'wounding_blow_yellow'.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Talismanic Lens / four live sparse positive effect: Initial assertion failed: Expected p1Deck-0.CardID to equal 'wounding_blow_blue', got 'wounding_blow_yellow'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Re-append exact actual chosen top Blue7 to same own Deck after supported Opt2 BlueTop/RedBottom answer, changing [Blue7,Yellow8,Red6] to [Yellow8,Red6,Blue7] while physical set/count/owners/source5publicGY/AP1/R0 stay intact. Existing helper move_card plus GameLogic675/681 remove+append supports this selected order mutation. First original Deck0CardID blue-to-yellow directly detects chosen ordering; no draw, shortDeck, duplicateID, response/privacy/lifecycle/hero/support/full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

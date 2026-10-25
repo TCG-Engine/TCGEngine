@@ -1,0 +1,155 @@
+{
+  "status": "INDEPENDENT_ACTUAL_B85_FOUR_SPARSE_EFFECTS_TWO_CLEAN_REPLAYS_AND_FOUR_INTENDED_NATIVE_FAULTS_APPROVED",
+  "reviewer": "/root/pilot_review",
+  "independent_of_scenario_author": true,
+  "completed_utc": "2026-10-20T22:24:01.286315+00:00",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "spec_sha256": "9eb16fe2319c8a9cf5c370238e954e24ccdb5783630312d20f010f2d17f04e1b",
+  "independent_spec_review_sha256": "806588317f2de816b2768e9f7db1a217094c4306e06a386fe98b8ab2066ba3f5",
+  "reviewer_script_sha256": "9f17f722ce2c128c72240363f6e91daf9b594bd8e85700fdad5c13a5c1081f27",
+  "checks": 4382,
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch85-20261020T221220Z-6ad7e74426c0d.json",
+    "sha256": "fab980b44d61468ce04be76c359eba49d72b13a18b68baf4728643620be13e03"
+  },
+  "fixtures": [
+    {
+      "slug": "card-minnowism-red-four-live-sparse-next-small-base-real-attack-buff",
+      "fixture_sha256": "a98a8f7620824668caf05e06a0520a7d8f4b5e9fdd6128a730a63ecc80c60df8",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d10c82f14bd44efb2779a39c48870fd26e3213767077173240c64c1cb5b6682d",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "5a210e05c1a2aad912310a86a267497e3a7b025ba079c254fceb2ab596860698",
+        "expected_final_gamestate.txt": "dfd40d3b2023795792180fb8d2f1957fbd02aa9e1b143400c68e01e3ee40610f",
+        "meta.json": "b3065c56a98517d5d98050cc75a4056e39a677eaac1a2103988f76ae1340844f"
+      },
+      "actions": 32,
+      "native_assertions": 385,
+      "native_game_state_fields": 46,
+      "actual_manual_passes": 29,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Minnow cost0/own go-again, next actual Wounding Blow blue base2+3=5; adjacent seat4 takes5, then normal Close and exact own source graveyard UIDs.",
+      "limits": [
+        "Only one small-base next-attack positive branch; no exclusion, repeat-use or other pitch variants."
+      ]
+    },
+    {
+      "slug": "card-tome-of-fyendal-yellow-four-live-sparse-arsenal-draw-two-then-heal-current-hand",
+      "fixture_sha256": "18168536dbd4a00314a5c6be42eb582d6a042650f08a0978aa50f9485c51b7fe",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "92ec6d0b198d1f276a100c987d996974f58634cc264fbcde19e70a695f0d67da",
+        "actions.json": "8119daa30a3742b7276dc16ec99b5054cdfb9216aa0262960e344b9ea6c7c079",
+        "assertions.json": "bb824b16707d2497cd0a55e633aa5136b7c0c94aa1e79cc5e9085f6e5fc39a2f",
+        "expected_final_gamestate.txt": "ac607304e443b9b859dd10fce3d5eddc130da310b01e2712e31b611109564e4a",
+        "meta.json": "d3231441e14816d5787823b2c7540c1a6c19c98cdd9560a867502eeda97935b5"
+      },
+      "actions": 5,
+      "native_assertions": 197,
+      "native_game_state_fields": 14,
+      "actual_manual_passes": 4,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Arsenal Tome cost1/no go-again; exact top two cards UID6/7 drawn, then current hand2 heals20 to22; source own graveyard.",
+      "limits": [
+        "Only Arsenal draw-two/current-hand heal positive branch; no Hand, short-deck, prevention or replacement branch."
+      ]
+    },
+    {
+      "slug": "card-ruby-amulet-blue-four-live-sparse-instant-destroy-watery-trigger-then-two-resources",
+      "fixture_sha256": "1d67157a14ffb809151bf8abbf7edefad8af7afac1c18555b4c5c319205cd88e",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "faae58295a5730677f53e61ce0788665b786b1fe429d78ec04871aa868ef9f34",
+        "actions.json": "4bf2661ebc4867f904a2a9fe3ae51f233789b0ad0e83bc2e0770d7e9ebbeb0f7",
+        "assertions.json": "014f99f4fd03998c12b105e4f1b8e55e427a0829c55ffd8fb78e3e99749b545b",
+        "expected_final_gamestate.txt": "6b85676d61743f474ddf4b64e9c531a2245987de247655efd8a71d7c63cd343f",
+        "meta.json": "5da189fc08675afd200b513cf75cede4b000288e9c41c853e9c8eaa1e014b710"
+      },
+      "actions": 9,
+      "native_assertions": 240,
+      "native_game_state_fields": 18,
+      "actual_manual_passes": 8,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Instant destroy physical Ruby5; upper Watery7 resolves face-down graveyard before lower ability6 grants exactly2 resources, no AP spent or gained.",
+      "limits": [
+        "Activation of an existing owned item, not deployment; raw Owner0 on virtual layers is serialized representation only, not a logical-ownership rule."
+      ]
+    },
+    {
+      "slug": "card-dissolve-reality-yellow-four-live-sparse-all-four-arsenals-bottom-decks-and-own-ponder",
+      "fixture_sha256": "9ff53b21bce09f0fba087b9238dce61e3c59f5ba86236ce4cc05afb8108b8eb3",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "898cad6ec148bc2b022e357cd06d8713dcb9f8f2131819e4a95c414807a21742",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "4fc5900ccd6c83a427851446188389d0a97784d8a99bb631d954e4a4ff08e49f",
+        "expected_final_gamestate.txt": "52710de8a5972f8654594c0248dc0a67665b87a9ea8fb745941e2ac59891cc6f",
+        "meta.json": "1e6bb41e1472228bd6ddfd47dd8f44f5d647f375f253110ec9014019108d2564"
+      },
+      "actions": 5,
+      "native_assertions": 279,
+      "native_game_state_fields": 14,
+      "actual_manual_passes": 4,
+      "four_live_profile_verified": true,
+      "effect_semantics": "All four real heroes, including nonadjacent seat3, bottom their own arsenal below own deck sentinel and receive one own Ponder14/15/16/17; printed go-again refunds one AP.",
+      "limits": [
+        "One physical arsenal card and one deck sentinel per hero; Ponder consumption and multiple arsenal choices are not covered."
+      ]
+    }
+  ],
+  "limits": [
+    "Sparse first-pass positive representatives only; no completed card, sibling pitch or full-catalog claim.",
+    "Minnow, Tome and Dissolve certify synchronous public before/after effects only. Existing unmanaged internal source-clear/effect order remains unapproved; observers, replacements and asynchronous source lifetime are not covered.",
+    "Reviewer ran only read-only source/evidence/AST checks. Parent executed the two clean targeted native replays and four disposable faults. This proof qualifies these four sparse positive representatives, not the full corpus or complete card branches."
+  ],
+  "supersedes_preserved_proof": {
+    "path": "sparse-b85-actual-saved-independent-review.json",
+    "sha256": "4bf920a8da733b911221edc7c5380c5a75a8cd1b93edeebb3ce87bf3946467a2"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b85-four-live-run1.json",
+      "sha256": "fcde08fb834fd0cdc3fb1207f614b2f5103ef20e62b94f4f0144029e34b6097a",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b85-four-live-run2.json",
+      "sha256": "9878885fb4a3351958fa283c91c145c32ca1e751fe21ec38cee4dd6472ecb83b",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b85-fault-controls.json",
+    "sha256": "363c36279e1f0e5d5e58461abd98b86842443015cf2a0e4e562eba56788c7100",
+    "plan_sha256": "77a1454a32125e2d93ed363a5dbf994c5a5ba046e2d160d3f1fe14a2db679352",
+    "intended_semantic_failures": 4,
+    "total": 4,
+    "first_marker_steps": [
+      0,
+      0,
+      4,
+      0
+    ],
+    "canonical_raw5_preserved": true
+  },
+  "fault_orchestrator_review": {
+    "path": "execute_reviewed_fault_plan.py",
+    "sha256": "2a5cea8d43473ccb3ce74ab5ab9717074c8ff635855c81b32d9cdda167cfb08b",
+    "semantically_approved": true,
+    "checks": [
+      "Exact reviewed plan/proof/helper/runtime guards before operations; canonical raw5 checked against independently approved rows.",
+      "Only UUID clones under the existing FaBSim fixture root are passed to the existing helper. Prefix replay uses those clones.",
+      "Every original oracle at or after prefix is retained with only step subtraction; all original suffix actions remain. No expected card values change.",
+      "First same-line Initial/StepN marker must match the exact intended reason and exit1; scalar fixed-message normalization changes detector text only.",
+      "finally checks resolved direct-parent/name containment before clone removal; original source raw5, full inventory and runtime are compared after operations."
+    ],
+    "execution_scope": "Reviewed source and parent-produced native results only; reviewer did not import or execute orchestration/main, helper or game runtime."
+  },
+  "native_evidence_review_checks": 142,
+  "native_evidence_reviewer_script_sha256": "2a0b192f6b0f301b5f879ea049103c8c532a71c6cf95b6c9644dc331674d6b39"
+}

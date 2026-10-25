@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "status": "QUALIFIED_SPARSE_FIRST_PASS_CHECKPOINT_NOT_CATALOG_COMPLETION",
+  "generated_utc": "2026-10-20T22:38:11.048419+00:00",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "saved_scenarios": 3101,
+  "qualified_scenarios": 3101,
+  "duel_scenarios": 3074,
+  "genuine_four_live_scenarios": 27,
+  "new_representative_groups_qualified": 22,
+  "primary_identities": 261,
+  "finite_baseline_identities": 75,
+  "partial_identities": 186,
+  "identities_without_primary_evidence": 4935,
+  "functional_identity_denominator": 5196,
+  "printing_records": 17188,
+  "represented_groups_all_profiles": 136,
+  "group_denominator": 3324,
+  "groups_without_any_primary_evidence": 3188,
+  "qualified_four_live_groups": 27,
+  "groups_without_qualified_four_live_representative": 3297,
+  "implementation_candidate_group_denominator": 3002,
+  "implementation_candidate_groups_without_qualified_four_live_representative": 2975,
+  "candidate_limit": "Flags select candidates to investigate; they do not prove implemented behavior.",
+  "all_canonical_raw5_sha256": "373f2c3ac4a2642e87c4b1e39d0dc3892dc8545aa7a2865617c2269111083c2f",
+  "raw5_digest_definition": "SHA256 of UTF-8 JSON slug-to-five-file-hash map, sort_keys=True, separators comma/colon.",
+  "original_baseline": {
+    "scenarios": 3079,
+    "files": 15395,
+    "unchanged": true,
+    "workspace_manifest_sha256": "5cafacbb21302f03c1fde4b11f422a6963b1ce6992328aab6c3f1ada69d36029"
+  },
+  "full_replays": [
+    {
+      "path": "card-regression-replay-sparse-3101-89d2-run1.json",
+      "sha256": "a1e3f85b9bc3a3d3bc0f6dd35c16544ce0e57febc3c22fd28a5af33dcf718606",
+      "passed": 3101,
+      "total": 3101
+    },
+    {
+      "path": "card-regression-replay-sparse-3101-89d2-run2.json",
+      "sha256": "3d97026389a38ee85051ef667f005aee7641425c5333e157c64140da44e45500",
+      "passed": 3101,
+      "total": 3101
+    }
+  ],
+  "focused_fault_controls": [
+    {
+      "path": "card-regression-sparse-b82-fault-controls.json",
+      "sha256": "be1f186bf549738ea25269dc2b2b760583fd4ca1ad15ad29fab0f00e7abb5aac",
+      "detected": 4
+    },
+    {
+      "path": "card-regression-sparse-b83-fault-controls.json",
+      "sha256": "62d939e400f153bbaf5c831b2f947374d4229d79273a716e73eb5d4eaefaacc9",
+      "detected": 4
+    },
+    {
+      "path": "card-regression-sparse-b84-fault-controls.json",
+      "sha256": "fbc4fad865cd9737d880c46fd1e4bff6b092357593e4f358394dacea85b7cf23",
+      "detected": 2
+    },
+    {
+      "path": "card-regression-sparse-b85-fault-controls.json",
+      "sha256": "363c36279e1f0e5d5e58461abd98b86842443015cf2a0e4e562eba56788c7100",
+      "detected": 4
+    },
+    {
+      "path": "card-regression-sparse-b86-fault-controls.json",
+      "sha256": "dfebfbd835f6b67ebf3cb0986115810d486367f407d3b66b5a9451ea771ae785",
+      "detected": 4
+    },
+    {
+      "path": "card-regression-sparse-b87-fault-controls.json",
+      "sha256": "4ef09d0d0b26c8364a174cd045810c5a8ca0fbc13ac79496654c54184d6661f1",
+      "detected": 4
+    }
+  ],
+  "coverage_snapshot_sha256": "0e942f7d562bc46875c7f04577cdf14dfb36968a68393a841dff41737e589fe9",
+  "cycle_snapshot_sha256": "bcf6fddc1a3124441e65c62ee502b7c102769a4bee06dc8bf07d999d727e564e",
+  "review_registry_sha256": "a8aa58657b2d13f3f1bd8227184f334e024100d839f079cc062bad21d6b6fce7",
+  "blocked_native_attempts": {
+    "issue": "FAB-REG-035",
+    "cards": [
+      "nip_at_the_heels_blue",
+      "shred_red"
+    ],
+    "saved_passing_fixtures": 0
+  },
+  "scope_limits": [
+    "Each new case qualifies one positive representative; no pitch-sibling or full-card certification.",
+    "Atomic ordinary-spell endpoints do not certify internal source departure/replacement/async ordering.",
+    "Gorganian Tome and wider Lunging Press holds remain open as separately documented."
+  ],
+  "no_gameplay_source_changes": true,
+  "commits_pushes_deployments": false
+}

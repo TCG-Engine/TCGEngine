@@ -1,0 +1,7 @@
+{
+    "name": "Flock of the Feather Walkers / quicken-next-attack-trigger-and-consumption",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:51:14+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Start with AP2 as a valid isolated state after an earlier action-point effect; that effect itself is outside this test. Flock spends1 and has no go again, so AP1 remains. Its newly created Quicken triggers when next Wounding Blow red is played: before trigger resolution the token still exists, two stack layers exist, and the attack has no granted ability. Trigger resolution destroys Quicken and grants GO_AGAIN without refunding an AP yet. Second attack power4+Ira1=5 deals5 and only resolution returns AP1. Third Wounding Blow blue has printed2 with no Ira bonus, no Quicken and no go again; total defender life8, AP0. This pins Quicken trigger timing and one-use consumption, not the earlier AP effect. Before the reveal answer, CR5.1.7 asset payment is already complete: resources1, AP1. The reveal effect-cost is paid afterward under CR5.1.8-9. Sources: FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red https://judge.fabtcg.com/cards/detail/295/ https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

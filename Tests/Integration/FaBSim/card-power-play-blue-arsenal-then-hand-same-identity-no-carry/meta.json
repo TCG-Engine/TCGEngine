@@ -1,0 +1,7 @@
+{
+    "name": "Power Play / arsenal-then-hand-same-identity-no-carry",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:48:41+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Start with2AP as a valid isolated asset fixture; this does not cover how that extra AP was created. First copy from arsenal pays3/1AP and attacks for1+5=6, leaving defender14 andAP1. Second distinct object of the same card ID from hand pays3/1AP and attacks for printed1 only, leaving defender13 andAP0. No intrinsic bonus carries to another object or becomes a global next-attack effect. Neither attack has go again; Oldhim/Bravo adds no second-attack passive. This is object/origin isolation, not an end-turn expiry claim. Sources: FaBSim/GeneratedCode/cardArrayCache.json#power_play_blue https://judge.fabtcg.com/cards/detail/4276/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

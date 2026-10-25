@@ -1,0 +1,149 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:09:19.987710+00:00",
+  "plan_sha256": "154c3d51567380627d57c676760c8bed2c74a5f3e022199c6b868be3faa6156a",
+  "independent_saved_proof_sha256": "ffd70126cbb0531779929a38c0aa956eba8418ee65c7621a4994565c457105b9",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b113-focused-fault-plan.json",
+    "154c3d51567380627d57c676760c8bed2c74a5f3e022199c6b868be3faa6156a",
+    "card-regression-sparse-b113-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b113_agile_windup_red_resolved_effect_result_sensitivity",
+      "fixture": "card-agile-windup-red-four-live-sparse-actual-zero-cost-instant-discards-physical-hand-source-to-create-one-owned-agility",
+      "fixture_sha256": "e60a27f9ccfafd01055f5568460a97f32d07a838ba6de87ef51ac2c227947c92",
+      "source_raw5": {
+        "initial_gamestate.txt": "e888c9923595b10473ceffb53ecd40e464cabf59528ad1b76e9ff4e022c6c78a",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "efdfe4b4fe5ebbd5c571d8e9791db32e5e2fc7c2f5161a0f7a184dc802b83239",
+        "expected_final_gamestate.txt": "6ee9e9dff938309d9548cafa5af15cfacd2b3b015cfdbeaa23c469fcc34d9892",
+        "meta.json": "2caf651cd49b0dcab2503c8f26c0903a1793e1ddd9a280448b3a1a7e0cec8599"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "cardID": "agility",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Agile Windup / four live sparse discard-instant effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual discard5, distinct ability6 and four genuine manual responses have created owned token7, move that token out of Arena to Temp on a disposable copy. First original final Arena1 oracle must detect absent physical effect result. Postresolution result-zone sensitivity only; not a legal in-game token move, upstream callback omission or cancellation/observer branch. Every original suffix oracle retained; prefix executes every original native action and no action suffix remains. Physical discarded source5/publicFaceDown0, all other seats/economy and canonical files stay unchanged.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b113_mighty_windup_red_resolved_effect_result_sensitivity",
+      "fixture": "card-mighty-windup-red-four-live-sparse-actual-zero-cost-instant-discards-physical-hand-source-to-create-one-owned-might",
+      "fixture_sha256": "301a9fde6d148f64a7a17a0b6ec88242087aeb3962ccf93ff162e592fdec97ee",
+      "source_raw5": {
+        "initial_gamestate.txt": "084d7ea6488f49dd56769dce23772bace9a6a32036c63c2b954be827d8c3544c",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "49577bbc1d2781b8831e9af3ca6931409a8ccc1b5a05d0b586750b7079c4a508",
+        "expected_final_gamestate.txt": "125bea68e80a204ec753831a9517f0d7c11f464e3c0dbd0b0d7d832834a791b9",
+        "meta.json": "e28652ab42d59f34322207b8761b3535b18a4876d73f58452fb45bd76c01459f"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "cardID": "might",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Mighty Windup / four live sparse discard-instant effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual discard5, distinct ability6 and four genuine manual responses have created owned token7, move that token out of Arena to Temp on a disposable copy. First original final Arena1 oracle must detect absent physical effect result. Postresolution result-zone sensitivity only; not a legal in-game token move, upstream callback omission or cancellation/observer branch. Every original suffix oracle retained; prefix executes every original native action and no action suffix remains. Physical discarded source5/publicFaceDown0, all other seats/economy and canonical files stay unchanged.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b113_vigorous_windup_red_resolved_effect_result_sensitivity",
+      "fixture": "card-vigorous-windup-red-four-live-sparse-actual-zero-cost-instant-discards-physical-hand-source-to-create-one-owned-vigor",
+      "fixture_sha256": "508202c65f1c67e546e2d0e70f7b1f19f4e3bb614c427024bd8e7be76892f930",
+      "source_raw5": {
+        "initial_gamestate.txt": "28354cc8cc488fa03f618d831ebf976e478df991c008f9469f4321df26bae874",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "2d084b24654750c49ed70f5a9c24b64a8ae6463e2a958ae82c6684a150cb125a",
+        "expected_final_gamestate.txt": "098842a7746cc3d78111799d6ab4591c19362c228340a39ae63c238c858c04a2",
+        "meta.json": "5ad30a4eb2e17be9918fe298c2d4d3180813236153848709e24b9b163494bd55"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "cardID": "vigor",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Vigorous Windup / four live sparse discard-instant effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual discard5, distinct ability6 and four genuine manual responses have created owned token7, move that token out of Arena to Temp on a disposable copy. First original final Arena1 oracle must detect absent physical effect result. Postresolution result-zone sensitivity only; not a legal in-game token move, upstream callback omission or cancellation/observer branch. Every original suffix oracle retained; prefix executes every original native action and no action suffix remains. Physical discarded source5/publicFaceDown0, all other seats/economy and canonical files stay unchanged.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b113_fruits_of_the_forest_red_resolved_effect_result_sensitivity",
+      "fixture": "card-fruits-of-the-forest-red-four-live-sparse-actual-zero-cost-instant-discards-physical-hand-source-to-gain-exact-two-life",
+      "fixture_sha256": "4d41d7efc46e77e06c05d2c3c74c5cdfcddce913332bdf0f32bf8c5fc0f485b2",
+      "source_raw5": {
+        "initial_gamestate.txt": "b638907cf654e77b7c59b81c10539d278e5ade6c535a62277772b3dc40c0be57",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "c07cb6d64beb09fb2798aee9d12a976b91b3e3a253335ea0069bd8953796e252",
+        "expected_final_gamestate.txt": "2f692ae80d8652c909d12bec49b798eb38ca3a2bb782d6c5a460cb56034c5377",
+        "meta.json": "5ee1c3c498d87a616fd939db0a6f7966a7e808cf9017b800cb675dae214b9cad"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 1,
+            "value": 18
+          }
+        ]
+      },
+      "retained_assertions": 110,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Health to equal 20, got 18.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Fruits of the Forest / four live sparse discard-instant effect: Initial assertion failed: Expected p1Health to equal 20, got 18.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual discard5, distinct ability6 and all four manual responses heal caster18to20, restore only casterHealth18 on the disposable copy. First original final Health20 oracle must detect the missing two-life result. Numeric terminal effect sensitivity only, not a native callback/actor/lifecycle mutation. Every original suffix oracle retained; prefix executes every original native action and no action suffix remains. Physical discarded source5/publicFaceDown0, all other seats/economy and canonical files stay unchanged.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-teklo-base-arms-blade-break-defend-alone-three-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 55
+    },
+    {
+        "slug": "card-rotten-old-buckler-blade-break-fully-blocked-no-hit-still-destroys",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 55
+    }
+]

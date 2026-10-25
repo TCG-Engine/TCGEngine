@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:05:04.802735+00:00",
+  "plan_sha256": "16399e9ec8a874b5264cae89cfedb62a3ffd5a944c98113dcdd190c3730ddb90",
+  "independent_saved_proof_sha256": "557f8aa8deea7fdc655d71c81cb42fc353632fcaf7dacfac9885240dbd925508",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b147-focused-fault-plan.json",
+    "16399e9ec8a874b5264cae89cfedb62a3ffd5a944c98113dcdd190c3730ddb90",
+    "card-regression-sparse-b147-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b147_robe_of_rapture_focused_effect_sensitivity",
+      "fixture": "card-robe-of-rapture-four-live-sparse-actual-equipment-action-destruction-gains-three-resources-without-go-again",
+      "fixture_sha256": "5ab19960e67a35afae3363ad633d824287c509c333bef4b16652f40db58cb9b7",
+      "source_raw5": {
+        "initial_gamestate.txt": "6bb3870ac853aa6ef36051ab193666ef06d316b4b78c8c3b482f72b1c3e0eb35",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "a9e3281dcef3b8ebb6a8e0532b6b79cad40a92491ca4cbf49f90342fa4ec4dd5",
+        "expected_final_gamestate.txt": "d57f7605309444198cb38491075f10ca54444c2db53e18a102efc0d10a94ad55",
+        "meta.json": "72941e576121a9fafbf6bb77c9cf29794dd60a1b933e4ca42cfa78a9154f3bff"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "robe_of_rapture",
+            "uid": 5,
+            "from": "Graveyard",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 106,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Robe of Rapture / four live sparse positive effect: Initial assertion failed: Expected p1Graveyard count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact physical Eq5 already destroyed as actual abilitycost and presentpublicGY after fourresponses. OriginalGY1to0 detects physicaldestroy-cost destination only; actualresources3/AP0 remain intact. Existinghelper has no genericresourceoverride; no isolatednative resource-gain sensitivity claimed. Printed+3/noGA and missing/partialgain purefaults plus exact positive nativeoracles remain separatelybound. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b147_bracers_of_belief_focused_effect_sensitivity",
+      "fixture": "card-bracers-of-belief-four-live-sparse-actual-red-top-reveal-grants-two-to-next-real-blue-attack",
+      "fixture_sha256": "cfbff07c19935d3376c275c85433cdad260a5d89509c2bd3a112485ebb17866c",
+      "source_raw5": {
+        "initial_gamestate.txt": "5780e663b9aff369c242888aafeab17fd9ad92efe6893d9064ff2e0581caddd6",
+        "actions.json": "32b9d81764462abd53956d1251473ada46f22bb33662b1b230d63dfe6f874d94",
+        "assertions.json": "450fd08134e7f135c33039d12948163744886b231737a22b88f87002933a171d",
+        "expected_final_gamestate.txt": "88f8fc694fa21ba3cf4578103a02d4ea3e513ec3bfc01eb71cff87e49d31b2ac",
+        "meta.json": "28ca80c571e7b83e3b75a9b4e1e0c4b8ec27fbc947c476b9b21c4cefc922bb25"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:2"
+          }
+        ]
+      },
+      "retained_assertions": 499,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Bracers of Belief / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 4, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove actualBracers pitch-derived+2 from real BlueWB6 after Equipment5 actualdestroy and existing ownDeckRed7pitch1reveal/retention. Computed4to2 detects realnextAAgrant, preservingpublicsource5/Deck7/physicalUID6/target/economy. No revealUI/log/observer, otherpitch/emptyDeck/expiry/hero/supportcredit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

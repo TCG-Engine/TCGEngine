@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch136.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T19:38:48.361629+00:00",
+  "fixtures": [
+    {
+      "slug": "card-slice-and-dice-red-four-live-sparse-actual-first-sword-plus-one",
+      "fixture_sha256": "dada7f5ccf3b9cf31289c0b5836ed18437c7f7321c4c6867ecb8170688a99593",
+      "passed": true,
+      "result": "[PASS] Slice and Dice / four live actual first sword"
+    },
+    {
+      "slug": "card-engaged-swiftblade-red-four-live-sparse-actual-paid-warrior-attack-plus-three",
+      "fixture_sha256": "c7b62ef4ae62e75773c9437eaa797de2cdf73c8fc94989673da1a776fa0414cc",
+      "passed": true,
+      "result": "[PASS] Engaged Swiftblade / four live actual paid Warrior attack"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-slice-and-dice-red-four-live-sparse-actual-first-sword-plus-one",
+      "returncode": 0,
+      "stdout": "[PASS] Slice and Dice / four live actual first sword\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-engaged-swiftblade-red-four-live-sparse-actual-paid-warrior-attack-plus-three",
+      "returncode": 0,
+      "stdout": "[PASS] Engaged Swiftblade / four live actual paid Warrior attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Oath of Oak / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T20:29:47+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActuallyplayprimaryUID5fromHandforprinted0resourceswithnopitch. Afterpaymentresources0,AP0(actionspends1AP). Everyliveplayerrespondsmanually; throughfirst3passes source5remainsStackandnoArena/GYcardappears. Fourthresponsecreates3ownedembodiment_of_earthtokensUID[6, 7, 8],eachOwner1/Controller1/Status2. Sameprimary5endsownpublicGYFaceDown0; finalAP0,resources0,allhealth20,allqueuesempty. Onlypositivecreation. CardhasnoGoagain,soAPremains0. LaterEmbodimentdefensemodifier/destruction, stacking/replacementandTerraendphasetriggerareuntested. All four are living legal young heroes with real supported manual response actors; no passive seats. Exact original source and support UIDs, owners/controllers, resources/AP, health and physical endpoint zones are pinned. No seeded history/effect tags or shared effect-bucket emptiness/index oracles. One positive primary representative only; no sibling/support/hero/full-card/alternate-branch credit. Sources: https://judge.fabtcg.com/cards/detail/4584/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN219.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

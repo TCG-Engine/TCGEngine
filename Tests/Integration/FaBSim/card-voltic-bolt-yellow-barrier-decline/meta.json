@@ -1,0 +1,7 @@
+{
+    "name": "Voltic Bolt / barrier-decline",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:37:48+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Arcane packet4; target seat2 elects to decline prevention. Caster pays cost2; equipment persists. Sources: FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_yellow https://rules.fabtcg.com/en/cr/07-combat/"
+}

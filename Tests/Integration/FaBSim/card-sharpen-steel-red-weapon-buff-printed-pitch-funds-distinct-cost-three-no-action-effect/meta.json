@@ -1,0 +1,7 @@
+{
+    "name": "Sharpen Steel / weapon-buff intrinsic / printed-pitch-funds-distinct-cost-three-no-action-effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:37:02+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Primary sharpen_steel_red pitches for its printed1, does not get played. Initial2+pitch1=3 pays Muscle Mutt yellow printedcost3 exactly. AP1 until pitch then0. Mutt printedpower6, no GA, defense0, hero20->14; no source NAA buff or own go again is created. PrimaryUID4 staysPitch; MuttUID3 closes to owner1GY. No turn-end/pitch return is requested. Corrected oracle: normal nonattack play/pitch/attack bookkeeping is allowed in global turnEffects. Focused cardsPlayedThisTurn records only the real Muscle Mutt or Wounding Blow play; the pitched/normal-defending primary is never played. Existing exact primary physical-zone/Role/TurnEffects, attack proxy power/no-go-again and cost/damage assertions remain. This does not claim a future weapon-followup test against arbitrary incorrectly stored grants. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sharpen_steel_red https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DVR012.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

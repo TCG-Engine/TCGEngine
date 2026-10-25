@@ -1,0 +1,586 @@
+{
+  "status": "INDEPENDENT_SPRINGBOARD21_SPEC_APPROVED_FOR_NATIVE_PILOTS",
+  "reviewer": "/root/wtr_attack_scenarios",
+  "spec_sha256": "baa389810963522cdd9ab47cdf5824f6ed988403a70240bcc46d19eff6e97666",
+  "pilot_sha256": "35e1d59e5744122efb639052d5c3f4ba3b8d45f0dd0ae54b87c8411abd19e507",
+  "checks": 3061,
+  "identities": 1,
+  "scenarios": 21,
+  "pilots": 2,
+  "native_persistable_checks": 2572,
+  "author_only_checks": 67,
+  "rows": [
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-hand-floating-exact-at-zero-ap",
+      "branch": "hand-floating-exact-at-zero-ap",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-hand-floating-exact-at-zero-ap",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-hand-floating-overfunded-preserves-surplus",
+      "branch": "hand-floating-overfunded-preserves-surplus",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-hand-floating-overfunded-preserves-surplus",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-arsenal-face-down-floating-exact",
+      "branch": "arsenal-face-down-floating-exact",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-arsenal-face-down-floating-exact",
+      "printed_numeric_delta_checks": 9
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-arsenal-face-up-floating-exact",
+      "branch": "arsenal-face-up-floating-exact",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-arsenal-face-up-floating-exact",
+      "printed_numeric_delta_checks": 9
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-normal-three-defense-plus-reaction-exactly-full-blocks",
+      "branch": "normal-three-defense-plus-reaction-exactly-full-blocks",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-two-distinct-reactions-sum-defense",
+      "branch": "two-distinct-reactions-sum-defense",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-two-distinct-reactions-sum-defense",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-attacker-razor-above-pending-defense-reaction",
+      "branch": "attacker-razor-above-pending-defense-reaction",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-defender-response-above-pending-razor",
+      "branch": "defender-response-above-pending-razor",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-defender-response-above-pending-razor",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-printed-pitch-funds-distinct-cost-three-attack",
+      "branch": "printed-pitch-funds-distinct-cost-three-attack",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-own-action-hand-rejected",
+      "branch": "own-action-hand-rejected",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-own-action-hand-rejected",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-own-action-arsenal-rejected",
+      "branch": "own-action-arsenal-rejected",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-own-action-arsenal-rejected",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-nonturn-action-priority-hand-rejected",
+      "branch": "nonturn-action-priority-hand-rejected",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-nonturn-action-priority-hand-rejected",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-before-attack-layer-resolves-rejected",
+      "branch": "before-attack-layer-resolves-rejected",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-before-attack-layer-resolves-rejected",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-attack-window-rejected",
+      "branch": "attack-window-rejected",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-attack-window-rejected",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-normal-defend-declaration-hand-click-rejected",
+      "branch": "normal-defend-declaration-hand-click-rejected",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-normal-defend-declaration-hand-click-rejected",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-reaction-wrong-priority-rejected",
+      "branch": "reaction-wrong-priority-rejected",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-reaction-wrong-priority-rejected",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-attacking-hero-cannot-play-defense-reaction",
+      "branch": "attacking-hero-cannot-play-defense-reaction",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-attacking-hero-cannot-play-defense-reaction",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-damage-window-too-late-rejected",
+      "branch": "damage-window-too-late-rejected",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-damage-window-too-late-rejected",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-resolution-window-too-late-rejected",
+      "branch": "resolution-window-too-late-rejected",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-resolution-window-too-late-rejected",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-ally-target-cannot-use-defense-reaction",
+      "branch": "ally-target-cannot-use-defense-reaction",
+      "template_slug": "card-evasive-leap-yellow-flat-dr-ally-target-cannot-use-defense-reaction",
+      "printed_numeric_delta_checks": 0
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-hand-third-reaction-after-partial-resolution-028-required",
+      "branch": "hand-third-reaction-after-partial-resolution-028-required",
+      "template_slug": "compat-flat-defense-reaction-third-response-after-partial-resolution",
+      "printed_numeric_delta_checks": 11
+    }
+  ],
+  "printed_numeric_deltas": [
+    {
+      "branch": "arsenal-face-down-floating-exact",
+      "checkpoint": "reaction_resolved_into_current_defending_chain_card",
+      "before": {
+        "kind": "defense",
+        "value": 2
+      },
+      "after": {
+        "kind": "defense",
+        "value": 4
+      }
+    },
+    {
+      "branch": "arsenal-face-down-floating-exact",
+      "checkpoint": "damage_uses_printed_defense_and_only_explicit_attack_modifier",
+      "before": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 15
+      },
+      "after": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 17
+      }
+    },
+    {
+      "branch": "arsenal-face-down-floating-exact",
+      "checkpoint": "damage_uses_printed_defense_and_only_explicit_attack_modifier",
+      "before": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 2
+      },
+      "after": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 4
+      }
+    },
+    {
+      "branch": "arsenal-face-down-floating-exact",
+      "checkpoint": "damage_uses_printed_defense_and_only_explicit_attack_modifier",
+      "before": {
+        "kind": "state",
+        "key": "damageDealt",
+        "value": 5
+      },
+      "after": {
+        "kind": "state",
+        "key": "damageDealt",
+        "value": 3
+      }
+    },
+    {
+      "branch": "arsenal-face-down-floating-exact",
+      "checkpoint": "resolved_link_defense_and_exact_ap",
+      "before": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 15
+      },
+      "after": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 17
+      }
+    },
+    {
+      "branch": "arsenal-face-down-floating-exact",
+      "checkpoint": "resolved_link_defense_and_exact_ap",
+      "before": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 2
+      },
+      "after": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 4
+      }
+    },
+    {
+      "branch": "arsenal-face-down-floating-exact",
+      "checkpoint": "resolved_link_defense_and_exact_ap",
+      "before": {
+        "kind": "state",
+        "key": "damageDealt",
+        "value": 5
+      },
+      "after": {
+        "kind": "state",
+        "key": "damageDealt",
+        "value": 3
+      }
+    },
+    {
+      "branch": "arsenal-face-down-floating-exact",
+      "checkpoint": "actual_priority_pass_after_resolution_no_stale_work",
+      "before": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 15
+      },
+      "after": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 17
+      }
+    },
+    {
+      "branch": "arsenal-face-down-floating-exact",
+      "checkpoint": "ordinary_close_to_exact_owner_graveyards",
+      "before": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 15
+      },
+      "after": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 17
+      }
+    },
+    {
+      "branch": "arsenal-face-up-floating-exact",
+      "checkpoint": "reaction_resolved_into_current_defending_chain_card",
+      "before": {
+        "kind": "defense",
+        "value": 2
+      },
+      "after": {
+        "kind": "defense",
+        "value": 4
+      }
+    },
+    {
+      "branch": "arsenal-face-up-floating-exact",
+      "checkpoint": "damage_uses_printed_defense_and_only_explicit_attack_modifier",
+      "before": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 15
+      },
+      "after": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 17
+      }
+    },
+    {
+      "branch": "arsenal-face-up-floating-exact",
+      "checkpoint": "damage_uses_printed_defense_and_only_explicit_attack_modifier",
+      "before": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 2
+      },
+      "after": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 4
+      }
+    },
+    {
+      "branch": "arsenal-face-up-floating-exact",
+      "checkpoint": "damage_uses_printed_defense_and_only_explicit_attack_modifier",
+      "before": {
+        "kind": "state",
+        "key": "damageDealt",
+        "value": 5
+      },
+      "after": {
+        "kind": "state",
+        "key": "damageDealt",
+        "value": 3
+      }
+    },
+    {
+      "branch": "arsenal-face-up-floating-exact",
+      "checkpoint": "resolved_link_defense_and_exact_ap",
+      "before": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 15
+      },
+      "after": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 17
+      }
+    },
+    {
+      "branch": "arsenal-face-up-floating-exact",
+      "checkpoint": "resolved_link_defense_and_exact_ap",
+      "before": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 2
+      },
+      "after": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 4
+      }
+    },
+    {
+      "branch": "arsenal-face-up-floating-exact",
+      "checkpoint": "resolved_link_defense_and_exact_ap",
+      "before": {
+        "kind": "state",
+        "key": "damageDealt",
+        "value": 5
+      },
+      "after": {
+        "kind": "state",
+        "key": "damageDealt",
+        "value": 3
+      }
+    },
+    {
+      "branch": "arsenal-face-up-floating-exact",
+      "checkpoint": "actual_priority_pass_after_resolution_no_stale_work",
+      "before": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 15
+      },
+      "after": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 17
+      }
+    },
+    {
+      "branch": "arsenal-face-up-floating-exact",
+      "checkpoint": "ordinary_close_to_exact_owner_graveyards",
+      "before": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 15
+      },
+      "after": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 17
+      }
+    },
+    {
+      "branch": "hand-third-reaction-after-partial-resolution-028-required",
+      "checkpoint": "third_reaction_resolves_first_with_original_still_pending",
+      "before": {
+        "kind": "defense",
+        "value": 3
+      },
+      "after": {
+        "kind": "defense",
+        "value": 2
+      }
+    },
+    {
+      "branch": "hand-third-reaction-after-partial-resolution-028-required",
+      "checkpoint": "original_reaction_resolves_second_for_total_printed_defense_four",
+      "before": {
+        "kind": "defense",
+        "value": 5
+      },
+      "after": {
+        "kind": "defense",
+        "value": 4
+      }
+    },
+    {
+      "branch": "hand-third-reaction-after-partial-resolution-028-required",
+      "checkpoint": "seven_minus_four_damage_three_and_real_razor_trigger_pending",
+      "before": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 18
+      },
+      "after": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 17
+      }
+    },
+    {
+      "branch": "hand-third-reaction-after-partial-resolution-028-required",
+      "checkpoint": "seven_minus_four_damage_three_and_real_razor_trigger_pending",
+      "before": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 5
+      },
+      "after": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 4
+      }
+    },
+    {
+      "branch": "hand-third-reaction-after-partial-resolution-028-required",
+      "checkpoint": "seven_minus_four_damage_three_and_real_razor_trigger_pending",
+      "before": {
+        "kind": "state",
+        "key": "damageDealt",
+        "value": 2
+      },
+      "after": {
+        "kind": "state",
+        "key": "damageDealt",
+        "value": 3
+      }
+    },
+    {
+      "branch": "hand-third-reaction-after-partial-resolution-028-required",
+      "checkpoint": "real_razor_trigger_grants_go_again_before_ap_refund",
+      "before": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 18
+      },
+      "after": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 17
+      }
+    },
+    {
+      "branch": "hand-third-reaction-after-partial-resolution-028-required",
+      "checkpoint": "single_attack_go_again_refunds_exactly_one_ap",
+      "before": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 18
+      },
+      "after": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 17
+      }
+    },
+    {
+      "branch": "hand-third-reaction-after-partial-resolution-028-required",
+      "checkpoint": "single_attack_go_again_refunds_exactly_one_ap",
+      "before": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 5
+      },
+      "after": {
+        "kind": "state",
+        "key": "defenseValue",
+        "value": 4
+      }
+    },
+    {
+      "branch": "hand-third-reaction-after-partial-resolution-028-required",
+      "checkpoint": "single_attack_go_again_refunds_exactly_one_ap",
+      "before": {
+        "kind": "state",
+        "key": "damageDealt",
+        "value": 2
+      },
+      "after": {
+        "kind": "state",
+        "key": "damageDealt",
+        "value": 3
+      }
+    },
+    {
+      "branch": "hand-third-reaction-after-partial-resolution-028-required",
+      "checkpoint": "real_final_priority_pass_confirms_no_stale_resolution",
+      "before": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 18
+      },
+      "after": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 17
+      }
+    },
+    {
+      "branch": "hand-third-reaction-after-partial-resolution-028-required",
+      "checkpoint": "close_preserves_original_uid_owner_and_lifo_defender_order",
+      "before": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 18
+      },
+      "after": {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 17
+      }
+    }
+  ],
+  "review_basis": "Independently viewed printed face cost0/pitch2/defense2/+2 when played from Arsenal. Compared every executable field, supported action, wait, UID/source/owner, funding/AP/priority/GA and all checks to the exact separately reviewed EvasiveYellow20 templates and correct c700 third-response template. Independently derived all29 and only29 numeric changes: two Arsenal paths2->4 defense,7-4=3/HP17; third response changes EvasiveRed3 to Springboard2, total2+2=4,7-4=3/HP17. No author model or native output used to supply expectations.",
+  "printed_face": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\springboard_somersault_yellow.webp",
+    "sha256": "ca2548b8598c82e55f0201e080b63778e26247fd666f9ef02c1d3b86f0853cfd",
+    "observed": {
+      "cost": 0,
+      "pitch": 2,
+      "defense": 2,
+      "text": "If played from arsenal, gains +2 defense."
+    }
+  },
+  "rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.1.3a",
+        "8.1.3b",
+        "8.2.8d"
+      ],
+      "basis": "Only attacked hero controller during Reaction; becomes defending card on resolution; ally target cannot use DR."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "sections": [
+        "7.4",
+        "7.5",
+        "7.7"
+      ],
+      "basis": "Reaction layers resolve LIFO; physical damage uses attack minus defense; original defending cards clear at ordinary Close."
+    }
+  ],
+  "bounds": [
+    "Springboard only. Lunging21 target-domain issue remains held and is not approved by this report.",
+    "This is exact intended-spec approval, not native recording/replay/finite completion. Real per-ID third-response recipe remains required as authored.",
+    "Source capture in original scope predates028: current manual-card gate is explicitly reviewed here; activation/event/autopass and foreign-owner/copy/external effects remain held.",
+    "Arsenal bonus may already apply to the source layer; pre-resolution defense-total0 checks mean it is not yet a defending card, not that its static bonus is absent."
+  ],
+  "source_hashes": {
+    "FaBSim\\Custom\\GameLogic.php": "1163845d1d651b2c0606d64b9b7d403b614bf901fbb0b47ec4e553b723d904dd",
+    "FaBSim\\Custom\\CRUCards.php": "90471718963827e837c4e600b5f8d5d44f332863daff4d0deb6c26f7c6a0d39b",
+    "FaBSim\\Custom\\WTRCards.php": "56a163154630515b73e3e8f40113a3a61aa9c23203c273df45edd963fa4523b8",
+    "FaBSim\\GeneratedCode\\cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "native_writes": 0,
+  "game_actions": 0,
+  "accepted_coverage": 0
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Energy Potion / cannot-interrupt-pitch-payment",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:28+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Announce cost3 Raging Onslaught with a blue available to pitch. Payment is in progress; it is not a priority opportunity, so the potion cannot be activated inside payment. Resume by pitching blue3; the attack deals7, resources0, potion remains. Sources: FaBSim/GeneratedCode/cardArrayCache.json#energy_potion_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

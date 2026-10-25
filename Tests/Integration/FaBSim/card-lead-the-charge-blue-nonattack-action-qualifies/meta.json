@@ -1,0 +1,7 @@
+{
+    "name": "Lead the Charge / nonattack-action-qualifies",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:08:40+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost0, own go again, next played ACTION CARD with cost at least2 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. sloggism_red is a Generic nonattack Action with cost3, meeting threshold. It creates the trigger before its own resolution; the trigger returnsAP1. Its own go again occurs later on its resolution, separately returning anotherAP, leavesAP2. Do not play a later attack that would involve its separate buff. Sources: https://judge.fabtcg.com/cards/detail/550/ https://rules.fabtcg.com/en/cr/06-effects/#663 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_blue"
+}

@@ -1,0 +1,152 @@
+{
+  "status": "B173_ONE_EXACT_HAND_DRAW_SELECTED_BOTTOM_EXCHANGE_REPRESENTATIVE_TWO_CLEAN_TARGETED_REPLAYS_ONE_EXACT_NATIVE_CONTROL_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch173.json",
+  "input_sha256": "f7429891c4df45183c0923e5705e572be3f908efc7135d74df6d72204b6d027f",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:02:00.474644+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ragamuffins-hat-four-live-sparse-actual-exactly-one-hand-instant-draw-then-original-card-bottom-choice",
+      "fixture_sha256": "23d12b732f478d0bf46726a9804ac4c61c1704e3325f15993bb9ad0621254c11",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "133cfa5a8f4c8963fd9bfa7aae3b175b8fab8a9e20ba35b6f94b3d652149f530",
+        "actions.json": "c759814c512902b5192d25f3ab6d14ce4d92fa6893b9f47adedb632129cce1ef",
+        "assertions.json": "d229460acb7c44108e784ed1ecbe2c65d284afdb1275a4814a2760e9c32a722b",
+        "expected_final_gamestate.txt": "67d83e0e634cdb942e94611aba0e159cdc46af2a050b4407b5d2c613420414a3",
+        "meta.json": "fe036211cecac6c718df94fe2d8fa08dcadef2964ca7edc45d68050eea14b344"
+      },
+      "semantically_approved": true,
+      "actions": 7,
+      "native_assertions": 970,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 7,
+  "total_native_assertions": 970,
+  "total_manual_passes": 4,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b173-actual-saved-independent-review.json",
+    "sha256": "5d7fb07c4161944290b36d2ea9b04f20d8475bc63ce6c2659163e73a900c64d2"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b173-independent-spec-review.json",
+    "sha256": "e4ab5205d68edb60d2a2574fa66b30f65ed89a48b142c13c8d591c1712f0826b"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch173-20261022T205847Z-6ada790757de9.json",
+    "sha256": "563c9bd82458e491b36a1ac1a1e14db5b0b2c8602f4c0369fa970e52f6be46dd"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b173-four-live-run1.json",
+      "sha256": "33f09759cc90037a18d934150e49e6fb179238f7dc7ee9af0d0aae14deb243b5",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch173.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b173-four-live-run2.json",
+      "sha256": "f8a468888aa91af01d74dc6b0832e6c3f23b98d32f92062f536e51fcd1e7cfab",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch173.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b173-fault-controls.json",
+    "sha256": "d7dd6f78fa43aca01368f29826f2f58d843bda1c1e848a6192e882199eec8fcf",
+    "total": 1,
+    "intended_semantic_failures": 1,
+    "plan_sha256": "d816c13fe62c9589451464a988c0f3a11500d1f282c85cda1090b4e301fba78a",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b173_ragamuffins_hat_focused_effect_sensitivity",
+      "fixture": "card-ragamuffins-hat-four-live-sparse-actual-exactly-one-hand-instant-draw-then-original-card-bottom-choice",
+      "prefix_actions": 7,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "wounding_blow_yellow",
+            "uid": 8,
+            "from": "Deck",
+            "to": "Deck"
+          }
+        ]
+      },
+      "retained_assertions": 118,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Deck-0.CardID to equal 'wounding_blow_yellow', got 'wounding_blow_blue'.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b173-focused-fault-plan.json",
+    "sha256": "d816c13fe62c9589451464a988c0f3a11500d1f282c85cda1090b4e301fba78a"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1247,
+  "native_evidence_review_checks": 46,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "One Generic Instant Hat positiveexactHand1 case: actualdestroyEq5/publicGYFace0 beforefourmanualresponses preservesAP1/R0. FourthactualdrawRed7DecktoHand, chooseoriginalBlue6 thenBottommode1; beforemodeallcardsstillHand, finalHand7/Deck8,6/Tempempty. No otherHandcountrejection/Top/newdrawreturn/emptyDeck/interposition/UIprivacy/laterdraw/hero/support/full-card credit.",
+    "Only current ONE-case new packet audited; root alone executes native games and writes repo. Only established virtualABILITYrawOwner0/Controller1representation; physicalEq5 remains owned1. No broadownership or legacy review.",
+    "Two new targeted clean replays and one intended native control only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "RagamuffinsHat completeprefix7 re-appends untouchedYellow8 tosameDeck, chosenBottomorder8,6becomes6,8 whilecardset/count/owners/drawnHandRed7/source5publicGY/AP1/R0stayintact. ExactfirstoriginalDeck0CardIDyellowtoblue failure directlypins Bottomordering. PositiveexactHand1condition/realDraw7/chooseoriginal6/nomovebeforeBottommode1andfinalHand7Deck8,6 independentlybound. No negativeHandcondition/Topmode/newlydrawnreturn/emptyDeck/interposition/UIprivacy/laterdraw/hero/support/full-card credit.",
+    "Completeprefix7 retains all original final oracles as Initial and zero suffix actions; exact selected raw5/runtime preserved. Existing helper/executor contract unchanged; no broad-suite claim."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "00a035d9061050e6349fe92d907a0a691ecd8cf80fa8fb0243bd5e787f1e2a37"
+}

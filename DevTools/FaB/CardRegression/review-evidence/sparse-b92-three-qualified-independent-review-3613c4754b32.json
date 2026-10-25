@@ -1,0 +1,341 @@
+{
+  "status": "INDEPENDENT_ACTUAL_B92_THREE_SPARSE_EFFECTS_TWO_CLEAN_REPLAYS_AND_THREE_INTENDED_NATIVE_FAULTS_APPROVED_RISE_UNSAVED",
+  "reviewer": "/root/pilot_review",
+  "independent_of_scenario_author": true,
+  "recorder_process_exit_code": null,
+  "process_result_limit": "Parent lost the process handle after tool refresh. Complete immutable receipt proves all four outcomes; no retry or duplicate action was performed. Exit code unavailable, not asserted.",
+  "completed_utc": "2026-10-20T23:12:53.885052+00:00",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "spec_sha256": "071c8ce336355e3aa6a38b2c79b65e8c715bff3e99ef90032e4417dc2cc8f954",
+  "independent_spec_review_sha256": "cf5f0c3ce5635b52227f000ca05d59f833968d056840e8ba080959bad1d16b65",
+  "reviewer_script_sha256": "2ee8a71a984b6dccfa2c84512461c894a452b5bacdc51dc5f947f09880ec1acf",
+  "checks": 3687,
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch92-20261020T225720Z-6ad7f1d03aa3e.json",
+    "sha256": "2f58188f94bb29220f13fd9a38093d74630477195021dacf4577c07992f5dd85"
+  },
+  "fixtures": [
+    {
+      "slug": "card-blood-harvest-four-live-sparse-real-hand-banish-instant-gains-three-resources",
+      "fixture_sha256": "e9cbd2a01dbe97e72cf2a15270e6e74b15fdcbd81f66bbf696bfbabf38417cd4",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9c990d3d3c11f511b92d397f22644790c48ddefbd1a593b55a2cae3969711a33",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "77865a507d631225b59ac17bcb4ee8f540ab47718de24d01c0f06be36a1c996c",
+        "expected_final_gamestate.txt": "59ca840f5cd84ed92974b0137c403141fa0581c78da06fc60c909324f235b4c5",
+        "meta.json": "3b5b55b00a0cec90f3d3f7f5565ee5a8da943b858a0a895b6ed7ab5a042a3243"
+      },
+      "actions": 5,
+      "native_assertions": 187,
+      "native_game_state_fields": 13,
+      "actual_manual_passes": 4,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Real Hand Instant ability banishes physical Blood Harvest5 as cost before four real player passes; virtual6 controller1 resolves resources0 to3, noAP cost, physical5 remains own Banish, all four heroes20.",
+      "limits": [
+        "Hand Instant one positive only; normal attack cost/power, Blood Debt, resource spending, siblings and external interactions are not covered."
+      ]
+    },
+    {
+      "slug": "card-fallen-herald-yellow-four-live-sparse-real-hand-banish-instant-prevents-next-four-damage",
+      "fixture_sha256": "d528de4ff2927e89175b6ad42098523e2d4ea3f4215d1b859eade36bb099b2de",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "25384ef1d4f5680901e162087efa66bd3332b2cacbc325885a805600990c6710",
+        "actions.json": "2ff3ef07d19c28db33bd2fac5a1d6ca03f5ba155c80e3227952cf8a2a954c383",
+        "assertions.json": "3233071c06bacb9d861a6c10c7faea81ee11c502c92272ccb315f8e6aa17723a",
+        "expected_final_gamestate.txt": "6248ab66628d074e36fe1e2dfa7bb0a25ba54d1119843a35811e1dbd58b8a828",
+        "meta.json": "ee9be602b017cc0e5a03afc0dc89af26748e9a167af3e22595a0463a5fe90ea9"
+      },
+      "actions": 35,
+      "native_assertions": 372,
+      "native_game_state_fields": 48,
+      "actual_manual_passes": 32,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Real incoming Wounding Blow4 targets seat4; Fallen Herald6 banished from actual Hand as Instant cost, virtual7 controller4 resolves next4 prevention; attack power remains4, damage0 and victim20, noAP/resource cost, ownBanish6 and attacker ownGY5 after normal Close.",
+      "limits": [
+        "Yellow Hand Instant against one exactly4 attack only; prevention consumption, larger/smaller packets, Blood Debt, normal attack and siblings are not covered."
+      ]
+    },
+    {
+      "slug": "card-dense-blue-mist-blue-four-live-sparse-real-paid-nochi-instant-reduces-targeting-attack-power",
+      "fixture_sha256": "4a2d66da561a25136105dbd6569bd5d5671ef217917822390c12ede2378380ba",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ff181225b0a2a2128710675f15713b3d4287c132c3e82d860c18ec712bc62d34",
+        "actions.json": "2ff3ef07d19c28db33bd2fac5a1d6ca03f5ba155c80e3227952cf8a2a954c383",
+        "assertions.json": "0da410f7aee5ffa76a39c8f267c9f18f2631d48b37a970451cdf53346b46fb2e",
+        "expected_final_gamestate.txt": "08c12b253d074857bf1228c7e71c88cd5f1c2878eadbe07d61509e9b27ae3795",
+        "meta.json": "83cd2711cc7e1d0cbdd533e7bc908f959894caa316662f7ff5755e429a5fa9ed"
+      },
+      "actions": 35,
+      "native_assertions": 366,
+      "native_game_state_fields": 48,
+      "actual_manual_passes": 32,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual Mystic Zen pays prefunded resource1 for physical Instant Mist6, AP0; held source remains through three manual passes, fourth public resolution reduces attack4 to3 withoutChi; damage3/victim17, physical6 ownGY, normal Close.",
+      "limits": [
+        "Blue no-Chi paid Instant against one targeting attack only; Chi/no-hit trigger clause, additional attacks, expiry and siblings are not covered.",
+        "Synchronous public endpoints only; unmanaged internal source-clear/effect order remains open and unapproved."
+      ]
+    }
+  ],
+  "blocked_cases": [
+    {
+      "slug": "card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense",
+      "semantically_approved": false,
+      "saved": false,
+      "attempted_actions": 19,
+      "error": "Expected p4DecisionQueue-0.Param to equal 'p4Hand-0', got 'p4Hand-1'.",
+      "initial_gamestate_sha256": "2ee575631dc9ab1076937c0686e66158b2f1758a626c3da12a733d0fa1d7c789",
+      "observed_hand_refs": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [
+          "p4Hand-0"
+        ]
+      },
+      "observed_decisions": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [
+          {
+            "Type": "MZCHOOSE",
+            "Param": "p4Hand-1",
+            "Block": 1,
+            "Tooltip": "Pay_alternative_cost",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 4,
+            "mzIndex": 0,
+            "_sourceZone": null
+          },
+          {
+            "Type": "CUSTOM",
+            "Param": "rise_above_red:0:PrepareCard-await|rise_above_red:0:PrepareCard#1|4|chosen",
+            "Block": 1,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 4,
+            "mzIndex": 1,
+            "_sourceZone": null
+          },
+          {
+            "Type": "PASSPARAMETER",
+            "Param": "1",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 4,
+            "mzIndex": 2,
+            "_sourceZone": null
+          },
+          {
+            "Type": "SYSTEM",
+            "Param": "PlayCard_AfterAction",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 4,
+            "mzIndex": 3,
+            "_sourceZone": null
+          }
+        ]
+      },
+      "observed_pending_payment": {
+        "player": 4,
+        "uid": 6,
+        "cost": 2,
+        "fromZone": "Hand",
+        "kind": "DEFENSE_REACTION",
+        "returnWindow": "REACTION",
+        "returnCombatStep": "REACTION"
+      },
+      "source_sha256": {
+        "FaBSim/Custom/GameLogic.php": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+        "FaBSim/Custom/CardChoices.php": "96300f892fc9a0ec6a273d37ba826761712cc70145b26da59fbb6c4033b13521",
+        "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+        "FaBSim/GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988",
+        "FaBSim/Custom/WTRCards.php": "f34346a0061cb7c970293f20016a485470faf6fa3088900ba8aaf012513e32cc",
+        "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355"
+      },
+      "assessment": "Source-supported stale choice across save/reload. DoPlayCard marks source Hand index0 removed, then PrepareCard calls FaBChoiceRefs: tombstone skipped but surviving donor emitted at raw index1. WriteGamestate omits removed objects and ParseGamestate rebuilds survivors indexed0..N-1; existing choice-save hook handles other bounded choices, not Rise PrepareCard. Receipt has liveHand0 only but queuedHand1.",
+      "correct_oracle": "Keep offered p4Hand-0 and do not answer an absent p4Hand-1 or save current output as passing.",
+      "observation_limit": "Receipt captures live Hand references and pending source UID6, but no current raw Hand object/UID dump, Stack object dump or full current gamestate. DonorUID7 follows initial state and recorded actions; it is an inference, not a captured raw current UID.",
+      "blocked_action": "P4 Rise Above PrepareCard alternative-cost donor selection after announcement action19",
+      "blocked_target": "Only live P4 Hand donor; queued MZCHOOSE points at absent index1",
+      "outcome": "Incorrect behavior observed; no action denied or pending and no passing fixture saved. Source repair requires a separately reviewed patch and original unchanged-probe replay."
+    }
+  ],
+  "limits": [
+    "Sparse first-pass positive representatives only; no completed card, sibling pitch or full-catalog claim.",
+    "Mist certifies synchronous public before/after effects only. Existing unmanaged internal source-clear/effect order remains unapproved; observers, replacements and asynchronous source lifetime are not covered.",
+    "Virtual ABILITY Owner0 is a storage representation; physical ownership and virtual controller/source identity are pinned. No logical owner0 claim.",
+    "Reviewer ran only read-only source/evidence/AST checks. Parent executed the two clean targeted native replays and three disposable faults. This proof qualifies these three sparse positive representatives, not the full corpus or complete card branches."
+  ],
+  "supersedes_preserved_proof": {
+    "path": "sparse-b92-three-actual-saved-and-rise-triage-independent-review.json",
+    "sha256": "53b18b1fd4edf5bdeec2380d9e202f469c4bfc96e2c9504eec987f6d9384495e"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b92-safe-three-four-live-run1.json",
+      "sha256": "5ef8e4b64f9e47cb860ca76d9bec17b4c52e80c686b35e916d4dd02c3a602ab6",
+      "passed": 3,
+      "total": 3,
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b92-safe-three-four-live-run2.json",
+      "sha256": "114080749ede4c9af863e9aa68acf408f556997a9c10f0af835f1b51c78b67bf",
+      "passed": 3,
+      "total": 3,
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b92-three-fault-controls.json",
+    "sha256": "9ff8224922d05343a4a67755c2da428ffdca0f4144733aa71705f3ef757cc21a",
+    "plan_sha256": "125f9a9dee0c93f3c336982230fc07816777c8d8a8b918b2d2c12dd646e667a3",
+    "intended_semantic_failures": 3,
+    "total": 3,
+    "first_marker_steps": [
+      4,
+      13,
+      0
+    ],
+    "canonical_raw5_preserved": true
+  },
+  "fault_orchestrator_review": {
+    "path": "execute_reviewed_fault_plan.py",
+    "sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a",
+    "semantically_approved": true,
+    "checks": [
+      "Exact reviewed plan/proof/helper/runtime guards before operations; canonical raw5 checked against independently approved rows.",
+      "Only UUID clones under the existing FaBSim fixture root are passed to the existing helper. Prefix replay uses those clones.",
+      "Every original oracle at or after prefix is retained with only step subtraction; all original suffix actions remain. No expected card values change.",
+      "First same-line Initial/StepN marker must match the exact intended reason and exit1; scalar fixed-message normalization changes detector text only.",
+      "finally checks resolved direct-parent/name containment before clone removal; original source raw5, full inventory and runtime are compared after operations."
+    ],
+    "execution_scope": "Reviewed source and parent-produced native results only; reviewer did not import or execute orchestration/main, helper or game runtime.",
+    "existing_native_helper": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative_control_state.php",
+      "sha256": "021627a41cf4a44bef7cafe48302357e74ffae6ba39b147c3c068388384f2974"
+    }
+  },
+  "focused_fault_plan": {
+    "path": "sparse-b92-three-focused-fault-plan.json",
+    "sha256": "125f9a9dee0c93f3c336982230fc07816777c8d8a8b918b2d2c12dd646e667a3"
+  },
+  "blocked_attempts": [
+    {
+      "slug": "card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense",
+      "semantically_approved": false,
+      "saved": false,
+      "attempted_actions": 19,
+      "error": "Expected p4DecisionQueue-0.Param to equal 'p4Hand-0', got 'p4Hand-1'.",
+      "initial_gamestate_sha256": "2ee575631dc9ab1076937c0686e66158b2f1758a626c3da12a733d0fa1d7c789",
+      "observed_hand_refs": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [
+          "p4Hand-0"
+        ]
+      },
+      "observed_decisions": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [
+          {
+            "Type": "MZCHOOSE",
+            "Param": "p4Hand-1",
+            "Block": 1,
+            "Tooltip": "Pay_alternative_cost",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 4,
+            "mzIndex": 0,
+            "_sourceZone": null
+          },
+          {
+            "Type": "CUSTOM",
+            "Param": "rise_above_red:0:PrepareCard-await|rise_above_red:0:PrepareCard#1|4|chosen",
+            "Block": 1,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 4,
+            "mzIndex": 1,
+            "_sourceZone": null
+          },
+          {
+            "Type": "PASSPARAMETER",
+            "Param": "1",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 4,
+            "mzIndex": 2,
+            "_sourceZone": null
+          },
+          {
+            "Type": "SYSTEM",
+            "Param": "PlayCard_AfterAction",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 4,
+            "mzIndex": 3,
+            "_sourceZone": null
+          }
+        ]
+      },
+      "observed_pending_payment": {
+        "player": 4,
+        "uid": 6,
+        "cost": 2,
+        "fromZone": "Hand",
+        "kind": "DEFENSE_REACTION",
+        "returnWindow": "REACTION",
+        "returnCombatStep": "REACTION"
+      },
+      "source_sha256": {
+        "FaBSim/Custom/GameLogic.php": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+        "FaBSim/Custom/CardChoices.php": "96300f892fc9a0ec6a273d37ba826761712cc70145b26da59fbb6c4033b13521",
+        "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+        "FaBSim/GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988",
+        "FaBSim/Custom/WTRCards.php": "f34346a0061cb7c970293f20016a485470faf6fa3088900ba8aaf012513e32cc",
+        "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355"
+      },
+      "assessment": "Source-supported stale choice across save/reload. DoPlayCard marks source Hand index0 removed, then PrepareCard calls FaBChoiceRefs: tombstone skipped but surviving donor emitted at raw index1. WriteGamestate omits removed objects and ParseGamestate rebuilds survivors indexed0..N-1; existing choice-save hook handles other bounded choices, not Rise PrepareCard. Receipt has liveHand0 only but queuedHand1.",
+      "correct_oracle": "Keep offered p4Hand-0 and do not answer an absent p4Hand-1 or save current output as passing.",
+      "observation_limit": "Receipt captures live Hand references and pending source UID6, but no current raw Hand object/UID dump, Stack object dump or full current gamestate. DonorUID7 follows initial state and recorded actions; it is an inference, not a captured raw current UID.",
+      "blocked_action": "P4 Rise Above PrepareCard alternative-cost donor selection after announcement action19",
+      "blocked_target": "Only live P4 Hand donor; queued MZCHOOSE points at absent index1",
+      "outcome": "Incorrect behavior observed; no action denied or pending and no passing fixture saved. Source repair requires a separately reviewed patch and original unchanged-probe replay.",
+      "fixture_saved": false
+    }
+  ],
+  "blocked_attempt_alias_policy": "Original blocked_cases retained unchanged. blocked_attempts is a semantic-equivalent copy for strict reviewed-subset registration; fixture_saved aliases the original saved:false. No passing review or new historical result is inferred.",
+  "recorder_exit_status": "UNAVAILABLE",
+  "recording_receipt_complete_all_four_outcomes": true,
+  "native_evidence_review_checks": 118,
+  "native_evidence_reviewer_script_sha256": "60b27f33d9128e36622f2dc219c35d95617c73b0dc946385a5480f2bc5310947"
+}

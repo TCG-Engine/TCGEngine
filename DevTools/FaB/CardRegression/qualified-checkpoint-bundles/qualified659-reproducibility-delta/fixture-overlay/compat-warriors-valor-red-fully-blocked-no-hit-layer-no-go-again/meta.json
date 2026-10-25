@@ -1,0 +1,7 @@
+{
+    "name": "Warrior's Valor / red / fully-blocked-no-hit-layer-no-go-again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:07:57+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Dorinthea legally plays 1 Warrior's Valor (red), each cost1 and go again, then activates generic sword Talishar (cost2/base4). Expected weapon power7, resources0. Three distinct generic blocks defend9, so no hit, no hit layer, no keyword and AP0.Opposing hero ends at20 life. Final real pass stays in RESOLUTION; no second attack or new chain link is exercised. Sources: https://judge.fabtcg.com/cards/detail/242/ FaBSim/GeneratedCode/cardArrayCache.json#warriors_valor_red https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

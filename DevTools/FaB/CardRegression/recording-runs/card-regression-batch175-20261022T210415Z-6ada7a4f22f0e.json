@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T21:04:15+00:00",
+    "input_file": "card-regression-batch175.json",
+    "input_sha256": "a68ef15efb3ea22dcd5cd2dc86f8ffe5d8c9c3003674f8ef640b56e29b797f42",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-pouncing-paws-four-live-sparse-actual-instant-destroy-creates-one-banish-tiger-and-exercises-real-play-permission",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 1140
+        }
+    ]
+}

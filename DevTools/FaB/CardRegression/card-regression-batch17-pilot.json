@@ -1,0 +1,1384 @@
+[
+  {
+    "slug": "card-throttle-red-boost-mechanologist-unblocked",
+    "name": "Throttle / boost-mechanologist-unblocked",
+    "cardIDs": [
+      "throttle_red"
+    ],
+    "branches": [
+      "boost-mechanologist-unblocked"
+    ],
+    "heroes": [
+      "dash",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "throttle_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "zero_to_sixty_blue",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PITCH"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "throttle_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "zero_to_sixty_blue",
+              "raging_onslaught_red"
+            ]
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          }
+        ],
+        "checkpoint": "before_boost_choice"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "value": "0",
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PITCH"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "zero_to_sixty_blue",
+              "raging_onslaught_red"
+            ]
+          }
+        ],
+        "checkpoint": "boost_declared_assets_unpaid"
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "throttle_red"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 1
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_red"
+            ]
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Banish",
+            "cardID": "zero_to_sixty_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "PlayableFromBanish",
+            "value": "0"
+          }
+        ],
+        "checkpoint": "costs_complete_before_priority"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "throttle_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 1
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_red"
+            ]
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Banish",
+            "cardID": "zero_to_sixty_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "PlayableFromBanish",
+            "value": "0"
+          }
+        ],
+        "checkpoint": "current_attack"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 14
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 1
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_red"
+            ]
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Banish",
+            "cardID": "zero_to_sixty_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "PlayableFromBanish",
+            "value": "0"
+          }
+        ],
+        "checkpoint": "attack_resolved"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Banish-0",
+            "value": false
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Banish-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Banish",
+            "cardID": "zero_to_sixty_blue"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 14
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Printed Throttle red is a Mechanologist attack action with cost2, power6, and exactly Boost. CR8.3.9 makes banishing the top deck card optional additional cost; banishing a Mechanologist grants this attack go again, while other top cards do not. Empty deck prevents paying Boost but does not prevent ordinary play. Dash young has only an optional start-game item setup ability, and no item is started in these main-phase fixtures. No Hyper Driver, Teklo Pounder, High Octane, equipment or other boost modifiers exist. Deck begins ['zero_to_sixty_blue', 'raging_onslaught_red']; after all costs are paid it must be ['raging_onslaught_red'], with banish count1. Pitch Wounding Blow blue for3 after the Boost decision, paying2, leaving1. Before opponent priority, banish/payment are complete, source is still Stack, AP0/resources1. Printed power6 deals6; no extra hit/on-play abilities are printed. Resulting defender life14; source go again=True; AP after resolution1. Ordinary Boost grants no permission to play its zero-cost banished card; while AP1 and resources suffice, that play must still reject.  Payment-order correction from independent review: the Boost modal declares the optional cost early (CR5.1.3b). With positive resource cost, accepting before pitching leaves original Deck intact/Banish0, AP1/resources0 and priority1. Pay resource/AP asset costs first (CR5.1.7-8), then actually banish the top card as the effect-cost (CR5.1.9), before opponent priority. The two action checkpoints detect eager banishing before pitch, but same-action post-payment outcomes alone do not establish internal AP-before-banish ordering; a paired shared-path witness must cover that internal order.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#throttle_red",
+      "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "proposal_runtime_group": "ARC_PrepareCard"
+  },
+  {
+    "slug": "card-full-tilt-red-boost-nonmechanologist-no-go-again",
+    "name": "Full Tilt / boost-nonmechanologist-no-go-again",
+    "cardIDs": [
+      "full_tilt_red"
+    ],
+    "branches": [
+      "boost-nonmechanologist-no-go-again"
+    ],
+    "heroes": [
+      "dash",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "full_tilt_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PITCH"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "full_tilt_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "wounding_blow_blue",
+              "raging_onslaught_red"
+            ]
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          }
+        ],
+        "checkpoint": "before_boost_choice"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "value": "0",
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PITCH"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "wounding_blow_blue",
+              "raging_onslaught_red"
+            ]
+          }
+        ],
+        "checkpoint": "boost_declared_assets_unpaid"
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "full_tilt_red"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 1
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_red"
+            ]
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Banish",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "PlayableFromBanish",
+            "value": "0"
+          }
+        ],
+        "checkpoint": "costs_complete_before_priority"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "full_tilt_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 1
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_red"
+            ]
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Banish",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "PlayableFromBanish",
+            "value": "0"
+          }
+        ],
+        "checkpoint": "current_attack"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 1
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_red"
+            ]
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Banish",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "PlayableFromBanish",
+            "value": "0"
+          }
+        ],
+        "checkpoint": "attack_resolved"
+      }
+    ],
+    "oracle": "Printed Full Tilt red is a Mechanologist attack action with cost2, power5, and exactly Boost. CR8.3.9 makes banishing the top deck card optional additional cost; banishing a Mechanologist grants this attack go again, while other top cards do not. Empty deck prevents paying Boost but does not prevent ordinary play. Dash young has only an optional start-game item setup ability, and no item is started in these main-phase fixtures. No Hyper Driver, Teklo Pounder, High Octane, equipment or other boost modifiers exist. Deck begins ['wounding_blow_blue', 'raging_onslaught_red']; after all costs are paid it must be ['raging_onslaught_red'], with banish count1. Pitch Wounding Blow blue for3 after the Boost decision, paying2, leaving1. Before opponent priority, banish/payment are complete, source is still Stack, AP0/resources1. Printed power5 deals5; no extra hit/on-play abilities are printed. Resulting defender life15; source go again=False; AP after resolution0.  Payment-order correction from independent review: the Boost modal declares the optional cost early (CR5.1.3b). With positive resource cost, accepting before pitching leaves original Deck intact/Banish0, AP1/resources0 and priority1. Pay resource/AP asset costs first (CR5.1.7-8), then actually banish the top card as the effect-cost (CR5.1.9), before opponent priority. The two action checkpoints detect eager banishing before pitch, but same-action post-payment outcomes alone do not establish internal AP-before-banish ordering; a paired shared-path witness must cover that internal order.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#full_tilt_red",
+      "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "proposal_runtime_group": "EVO_PrepareCard"
+  },
+  {
+    "slug": "card-heart-wrencher-red-boost-mechanologist-unblocked",
+    "name": "Heart Wrencher / boost-mechanologist-unblocked",
+    "cardIDs": [
+      "heart_wrencher_red"
+    ],
+    "branches": [
+      "boost-mechanologist-unblocked"
+    ],
+    "heroes": [
+      "dash",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "heart_wrencher_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "zero_to_sixty_blue",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PITCH"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "heart_wrencher_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "zero_to_sixty_blue",
+              "raging_onslaught_red"
+            ]
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          }
+        ],
+        "checkpoint": "before_boost_choice"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "value": "0",
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "heart_wrencher_red"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 1
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_red"
+            ]
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Banish",
+            "cardID": "zero_to_sixty_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "PlayableFromBanish",
+            "value": "0"
+          }
+        ],
+        "checkpoint": "costs_complete_before_priority"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 3
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "heart_wrencher_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 1
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_red"
+            ]
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Banish",
+            "cardID": "zero_to_sixty_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "PlayableFromBanish",
+            "value": "0"
+          }
+        ],
+        "checkpoint": "current_attack"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 1
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_red"
+            ]
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Banish",
+            "cardID": "zero_to_sixty_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "PlayableFromBanish",
+            "value": "0"
+          }
+        ],
+        "checkpoint": "attack_resolved"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Banish-0",
+            "value": false
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Banish-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Banish",
+            "cardID": "zero_to_sixty_blue"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Printed Heart Wrencher red is a Mechanologist attack action with cost0, power3, and exactly Boost. CR8.3.9 makes banishing the top deck card optional additional cost; banishing a Mechanologist grants this attack go again, while other top cards do not. Empty deck prevents paying Boost but does not prevent ordinary play. Dash young has only an optional start-game item setup ability, and no item is started in these main-phase fixtures. No Hyper Driver, Teklo Pounder, High Octane, equipment or other boost modifiers exist. Deck begins ['zero_to_sixty_blue', 'raging_onslaught_red']; after choice it must be ['raging_onslaught_red'], with banish count1. Before opponent priority, banish/payment are complete, source is still Stack, AP0/resources0. Printed power3 deals3; no extra hit/on-play abilities are printed. Resulting defender life17; source go again=True; AP after resolution1. Ordinary Boost grants no permission to play its zero-cost banished card; while AP1 and resources suffice, that play must still reject. ",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#heart_wrencher_red",
+      "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "proposal_runtime_group": "PEN_missing_PrepareCard_suspected"
+  }
+]

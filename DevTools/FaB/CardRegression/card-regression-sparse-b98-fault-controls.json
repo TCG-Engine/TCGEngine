@@ -1,0 +1,152 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-21T00:15:23.995683+00:00",
+  "plan_sha256": "f7b770c1a61f9f3c83f6ae276e5304f38b07568c3c573691099e10ee69f40b5f",
+  "independent_saved_proof_sha256": "eb198e10379823b90f5223d9f94ac14d08b50c02b18f4501e9e5436317935a44",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b98-focused-fault-plan.json",
+    "f7b770c1a61f9f3c83f6ae276e5304f38b07568c3c573691099e10ee69f40b5f",
+    "card-regression-sparse-b98-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b98_out_muscle_real_defender_equal_power_disables_ga",
+      "fixture": "card-out-muscle-red-four-live-sparse-actual-lower-power-hand-defender-still-grants-go-again",
+      "fixture_sha256": "3eb6e2c905e16110bc73ef7d3af59a0f5e1a0f187697ce946afc37f95aeeb651",
+      "source_raw5": {
+        "initial_gamestate.txt": "b82872637fb2c05af60b0d30fa9f04f0bff4192e19db4fdf82ca103276d378af",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "7121fbfd718e2378637eb6b7744bd1b4bf129d0756f6aaea5e858c9dca068125",
+        "expected_final_gamestate.txt": "b4c1550482a6300f8da7ce61c5e64ead7c68e962d2afe7cd4c37e3b910cf518f",
+        "meta.json": "adf5ca7e596c4d6d603fc5b9a25e9bf1770c6a9afbe39ab8369959e28f44ee01"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "CombatChain",
+            "cardID": "feisty_locals_red",
+            "tag": "WTR_POWER:3",
+            "mode": "add"
+          }
+        ]
+      },
+      "retained_assertions": 214,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Out Muscle / four live sparse positive condition: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Synthetic real-defender power sensitivity: after actual FeistyUID7 declared from P4Hand, add only WTR_POWER:3 to that sole physical defender. Actual MONDefendingPower becomes printed3+3=6, equal to OutMuscle6, so actual GreaterBlock disables conditionalGA. FIRST retained Initial computedGA1 becomes0; attackpower6/defense2/physical damage4/cost3/bluepitch and originalAP1/Close oracles retained. No actual card-played power grant, equality/multiple/modified-defender branch coverage is inferred.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b98_rough_up_remove_real_positive_power_grant",
+      "fixture": "card-rough-up-red-four-live-sparse-actual-six-power-yellow-pitch-grants-one-power",
+      "fixture_sha256": "58d4365938b8f094ecc2850984dc5ee364dfde23a7dd504741de423acb1925c7",
+      "source_raw5": {
+        "initial_gamestate.txt": "153df9e893aea6feba005a2e71e21fa022ef75c57796a3981f734f62717fc7e2",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "e20d2a2586833d43c7965ae204962339efd21a92aed6b330f2e193f2e35651e6",
+        "expected_final_gamestate.txt": "8a18d5f37e792e28abe4ee4479312a240afa8400e889148af45caf2672a601a2",
+        "meta.json": "779a7da4f370703968b1073a8acb4d5117d42367c42387aaa2b58e6031cdd908"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "rough_up_red",
+            "tag": "WTR_POWER:1",
+            "mode": "remove"
+          }
+        ]
+      },
+      "retained_assertions": 226,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Rough Up / four live sparse positive condition: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Synthetic missing positive numeric-grant sensitivity at first actual ATTACK: remove exactly one original WTR_POWER:1 from paid actual RoughUpUID5. Original real RagingOnslaughtYellowUID6 remains physically in Pitch/power6 and paid2/AP0 unchanged. FIRST retained Initial computedPower7 becomes6. Every condition-source/pitch/target/owner/damage/noGA/Close assertion retained. This does not certify the compiled AttackDeclared snapshot implementation under later Pitch changes or suppression/restoration.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b98_soul_butcher_reduce_real_power_by_two",
+      "fixture": "card-soul-butcher-red-four-live-sparse-defending-hero-physical-soul-grants-two-power",
+      "fixture_sha256": "e965683050b4a2bec1f16eb4c32a20d9a79523c9f67a4c0ab68ca1633b7beaef",
+      "source_raw5": {
+        "initial_gamestate.txt": "9f9cb49ee2edc27e697e55e915276a18a69f8bd739cdbd40e66a209b6084e461",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "af75d2397352ef1d4e7232c7049aa32d8bee48c9b233056b34b57e1e2387fa52",
+        "expected_final_gamestate.txt": "78dcee43295266f7f51e4802639b4a128e6f5cc9754b7cb662edd772dd6a38a5",
+        "meta.json": "e7631e1f44118465131d6cbcaf0b1e7d7030c5990bc46e777542ca93d1074927"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "soul_butcher_red",
+            "tag": "WTR_POWER:-2",
+            "mode": "add"
+          }
+        ]
+      },
+      "retained_assertions": 237,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 8, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Soul Butcher / four live sparse positive condition: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 8, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Synthetic actual-attack arithmetic sensitivity: add only WTR_POWER:-2 to actual SoulButcherUID5 at first ATTACK. Target P4Boltyn physical SoulUID7, original actualYellow2 funding and all source/owner/target checks retained. Base6+nativeSoul2-2 gives6, so FIRST retained Initial computedPower8 becomes6; all original damage8/HP12/noGA/Close oracles remain. This does not isolate Soul removal or claim dynamic condition/absence/suppression coverage.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b98_soul_cleaver_explicit_ga_blocker",
+      "fixture": "card-soul-cleaver-red-four-live-sparse-defending-hero-physical-soul-grants-go-again",
+      "fixture_sha256": "8a3bc26d71eaefe4357892ba331440603a477d65d30f3df2d79756cc60a1bae2",
+      "source_raw5": {
+        "initial_gamestate.txt": "1e2841ccf29a988fb087f05cf8117c57d8f89c991e31b5d4d002fd1f416cd686",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "f85709f162406cdebb4c5c4287c6093a43a53059057b56fb8a1236c79313f08e",
+        "expected_final_gamestate.txt": "457f24eb3314b5231cfe0333a1c9ccf4bc2b431a7f2393a35ed5c5d39ded2375",
+        "meta.json": "cb0f3d21b457daa418cb50756f50391708676eee12b95c33328c95a2a8ccffd0"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "soul_cleaver_red",
+            "tag": "PEN_BLANK_ATTACK",
+            "mode": "add"
+          }
+        ]
+      },
+      "retained_assertions": 237,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Soul Cleaver / four live sparse positive condition: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Synthetic explicit go-again prohibition sensitivity: add only existing PEN_BLANK_ATTACK to actual SoulCleaverUID5 at first ATTACK. Actual native FaBAttackHasGoAgain early guard returnsfalse; FIRST retained Initial computedGA1 becomes0. Attackpower6, targetBoltyn physicalSoulUID7, actualYellow2 cost, expected damage6/HP14 and laterAP1/owner Close oracles all retained. This is not a legal suppression/card branch and does not claim generic NO_ABILITIES cancels this native DTD condition; that source-only concern remains held.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

@@ -1,0 +1,142 @@
+{
+  "issue_id": "FAB-REG-038",
+  "status": "CONFIRMED_NATIVE_INCORRECT_UNSAVED_HELD_NO_FIX",
+  "title": "Abyssal Bite does not regain its printed go-again action point when catalog places the keyword inline",
+  "reviewer": "/root/b104_saved_review",
+  "completed_utc": "2026-10-22T19:03:20.169056+00:00",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "card_id": "abyssal_bite_blue",
+  "group_id": "identity:abyssal_bite_blue",
+  "scenario": "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+  "canonical_input": {
+    "path": "DevTools/FaB/CardRegression/card-regression-batch128.json",
+    "sha256": "a315491410dc2f01a03aad6e6ac43d773ea8c6ab2d2e7c2ccf151c6b06e73885"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch128-20261022T190007Z-6ada5d370033e.json",
+    "sha256": "5df4ac29209f3dc027cc23df8a01d610106442ad7e588dca11ccae84c4703f6b"
+  },
+  "printed_evidence": {
+    "official_face_path": "FaBSim/WebpImages/abyssal_bite_blue.webp",
+    "sha256": "79e05d5fb5b77aee6e13c8493dd9c63d2da80da5b9bdf78d902b448edb2edbdf",
+    "official_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/IAR206.webp",
+    "independently_visually_viewed": true,
+    "card_keywords": [
+      "Go again",
+      "Blood Debt"
+    ],
+    "functional_text_plain": "You may play this from your banished zone.\nYour next Shadow attack this turn gets +1{p}. Go again\nBlood Debt",
+    "expected_rule": "Ordinary cost1 Action consumes1AP and its unconditional own go again restores1AP after resolution. Printed face has separate Go again paragraph; no suppression/card/hero ability removes it in this empty four-live fixture."
+  },
+  "source_guards": {
+    "FaBSim/Custom/GameLogic.php": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+    "FaBSim/Custom/CRUCards.php": "098671ee4a352bd7004e80332769991142ec52c38292d18548e4e5d677140ca2",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "FaBSim/Custom/IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+    "FaBSim/Custom/PENCards.php": "f06d0c3e21bcd80350f061cabc296777704ca6ef5fd6129f374bf696cee89557",
+    "FaBSim/Custom/HVYCards.php": "58347c63bfec8f12090883bae6fb092928660c02da19f8b698588a5ebf823a7c",
+    "FaBSim/Custom/WTRCards.php": "79b04e30d9b9f7dca6fb78bd3e32e4e9429f137e1afa9d1d8af2a8faf718d74d",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9"
+  },
+  "source_anchors": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "line": 387,
+      "excerpt": "function FaBPrintedKeywordIsActive(string $cardID, string $keyword): bool {\n    if (!FaBHasKeyword($cardID, $keyword)) return false;\n    $text = trim((string)(function_exists('CardFunctional_text_plain') ? CardFunctional_text_plain($cardID) : ''));\n    $needle = strtolower($keyword);\n    foreach (preg_split('/\\R+/', $text) as $line) {\n        if (strcasecmp(trim($line), $keyword) === 0) return true;\n    }\n    // Keyword-only cards sometimes have no text in older source records.\n    return $text === '' && in_array($needle, ['go again', 'dominate'], true);\n}"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "line": 1371,
+      "excerpt": "function FaBFinishPlainSpellGoAgain(array $pending, object $source): void {\n    $controller = intval($pending['controller']);\n    if (!FaBSeatIsLive($controller)) return;\n    $kind = (string)$pending['kind']; $uid = intval($pending['uid']);\n    $baseGoAgain = !FaBMPGSuppressed($source) && (!FaBROSMeld($source->CardID)||FaBARCCard($uid,'rosMeld')!==1) && FaBPrintedKeywordIsActive($source->CardID, 'Go again') || in_array('GO_AGAIN',(array)($source->TurnEffects??[]),true) ? 1 : 0;\n    $goAgainDelta = function_exists('EvaluateGoAgainModifier') ? intval(EvaluateGoAgainModifier($source->CardID, $controller, $source, $baseGoAgain, $source)) : 0;\n    if (($kind === 'ACTION' || ($kind === 'INSTANT' && (FaBHasType($source,'Action')||in_array('GO_AGAIN',(array)($source->TurnEffects??[]),true)))) && !FaBUPRFog() && FaBWTRMayGoAgain($controller) && $source->CardID!=='construct_nitro_mechanoid_yellow' && max(0, min(1, $baseGoAgain + $goAgainDelta)) === 1) { AddActionPoints($controller, intval(GetActionPoints($controller)) + 1);FaBROSGo($controller,$uid); }\n}"
+    }
+  ],
+  "static_cause": "FaBPrintedKeywordIsActive requires the entire trimmed newline-delimited line to equal Go again. Cache puts unconditional own keyword after nextShadowattack sentence on same line, so detector returns false despite card_keywords containing Go again. Plain-spell resolution uses detector for AP refund. Broad matching could confuse grants to other cards with own keyword; no global parser change or card override applied.",
+  "native_reproducer": {
+    "actors": [
+      1,
+      1,
+      1,
+      2,
+      3,
+      4
+    ],
+    "actions": [
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Hand-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Hand-1!FSM",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 3,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 4,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      }
+    ],
+    "initial_gamestate_sha256": "18fe64f0d3be5cb06f91aaa99a8dd0b90d8f345263139c45b4056cf45a42e456",
+    "initial_profile": "UPF four live young heroes: Chane P1/Dorinthea P2/P3/P4 at20; ownHandBite5/Ghost6/Bluepitch7, R0/AP1, no initialeffect/playhistory; manualpriority allseats.",
+    "expected_after_six_actions": {
+      "window": "ACTION",
+      "source": "own publicGraveyard UID5",
+      "resources": 2,
+      "action_points": 1,
+      "shadow_next_attack_bonus": 1
+    },
+    "actual_error": "Expected p1ActionPoints to equal 1, got 0.",
+    "actual_observed_window": "ACTION",
+    "actual_observed_pending_payment": null,
+    "actual_queue_empty_all_seats": true,
+    "actual_next_shadow_grant_present": true
+  },
+  "no_saved_fixture": true,
+  "saved_folder_absence_checked": true,
+  "retry_attempted": false,
+  "gameplay_changes": false,
+  "passing_credit": false,
+  "limits": [
+    "Only native six-action source resolution observed; no Ghost attack executed for held Bite.",
+    "Do not weaken correct AP1, seed extraAP, save incorrect output or count Bite covered.",
+    "Howl same batch recorded independently; its qualification grants no Bite credit.",
+    "No broader keyword/card corpus audit or native retry. Root preserves native receipt and appends authoritative issue ledger."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0
+}

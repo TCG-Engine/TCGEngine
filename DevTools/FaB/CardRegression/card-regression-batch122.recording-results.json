@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-lead-with-power-red-four-live-sparse-actual-paid-brute-buff-owned-might-and-real-nine-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 1381
+    },
+    {
+        "slug": "card-lead-with-heart-red-four-live-sparse-actual-paid-warrior-buff-owned-vigor-and-real-nine-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 1381
+    },
+    {
+        "slug": "card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 598
+    },
+    {
+        "slug": "card-leech-vitality-red-four-live-sparse-actual-next-attack-buff-and-four-seat-damage-life-trigger",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 1595
+    }
+]

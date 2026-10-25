@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-out-muscle-red-four-live-sparse-actual-lower-power-hand-defender-still-grants-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 429
+    },
+    {
+        "slug": "card-rough-up-red-four-live-sparse-actual-six-power-yellow-pitch-grants-one-power",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 397
+    },
+    {
+        "slug": "card-soul-butcher-red-four-live-sparse-defending-hero-physical-soul-grants-two-power",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 413
+    },
+    {
+        "slug": "card-soul-cleaver-red-four-live-sparse-defending-hero-physical-soul-grants-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 413
+    }
+]

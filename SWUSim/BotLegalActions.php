@@ -236,8 +236,30 @@ function _SWUBotWeaknessEnemyOnly(string $type, string $tooltip, array $actions,
         foreach ($parts as $mz) if (!SWUBotIsEnemyMz($seat, $mz) || !str_contains($mz, 'Arena-')) { $allEnemy = false; break; }
         if ($allEnemy) $enemy[] = $a;
     }
-    if (!empty($enemy)) return $enemy;
+    if (!empty($enemy)) {
+        // LEVER 'nebulashield' (owner 2026-10-19, Custom/levers/controlread_nebulashield.php): vs hard control KNOWN to hold Nebula Ignition,
+        // the friendly hosts worth shielding come back TAGGED. This list is built OUTSIDE a decision (BotController), where the variant is not
+        // set, so the tag is stripped again inside the chooser stack and the lookahead unless the proposal is on (SWUBotStripGatedAnswers).
+        if (function_exists('_SWUBotLvNebulaSeen') && _SWUBotLvNebulaSeen($seat)) {
+            foreach ($actions as $a) {
+                $c = strval($a['cardID'] ?? '');
+                if (str_contains($c, '&') || SWUBotIsEnemyMz($seat, $c) || ($sv = _SWUBotLvNebulaShieldValue($seat, SWUBotViewForMz($seat, $c))) === null || $sv <= 0) continue;
+                $a['gatedBy'] = 'nebulashield';
+                $enemy[] = $a;
+            }
+        }
+        return $enemy;
+    }
     return !empty($decline) ? $decline : $actions;
+}
+
+// Answers tagged 'gatedBy' => <proposal> are legal only while that proposal is on. Called where the variant IS set: the chooser stack
+// (BotHeuristic.php) and the lookahead (BotLookahead.php). Never empties a non-empty list.
+function SWUBotStripGatedAnswers(array $actions): array {
+    // A gate may be a proposal (off unless '@try-') or a SHIPPED feature (on unless '@no-') — 'nebulashield' shipped 2026-10-19 (p56).
+    $on = fn(string $g) => in_array($g, SWUBotFeatureList(), true) ? SWUBotFeatureOn($g) : SWUBotProposalOn($g);
+    $kept = array_values(array_filter($actions, fn($a) => empty($a['gatedBy']) || $on(strval($a['gatedBy']))));
+    return empty($kept) ? $actions : $kept;
 }
 
 // The Exploit picker ("Defeat_up_to_N_units_(Exploit)", continuation EXPLOIT_RESOLVE): keep only the answers that
@@ -280,6 +302,39 @@ function _SWUBotExploitPayableAnswers(array $actions, int $seat): array {
     try { return $check(); } finally { $playerID = $saved; }
 }
 
+// The SEC_122 Droid-pay picker must leave the play PAYABLE. Game 1647080: 1 ready resource + 3 ready Droids, a 4-cost card.
+// The card is offered because SWUTotalPaymentCapacity counts the Droids, but the fallback answered '-', DROID_PAY refused the
+// play ("Not enough ready resources"), the card stayed in hand and the next step played it again, forever. Keeps only the
+// answers whose valid picks cover what the ready resources leave short, re-deriving it exactly as the DROID_PAY handler
+// (CardDQHandlers.php) does: picks must be ready friendly Droids, capped at the offer's cap. No answer pays -> unchanged.
+// Guard: SWUSim/DevTools/tests/bot_droidpay_test.php.
+function _SWUBotDroidPayableAnswers(array $actions, int $seat): array {
+    if (!function_exists('SWUReadyFriendlyDroids')) return $actions;
+    $p = explode('|', _SWUBotNextDecisionParam($seat));
+    if (($p[0] ?? '') !== 'DROID_PAY') return $actions;
+    $cap = intval($p[1] ?? 0); $required = intval($p[2] ?? 0);
+    $check = function () use ($actions, $seat, $cap, $required) {
+        $shortfall = $required - SWUResourceCount($seat, readyOnly: true);
+        if ($shortfall <= 0) return $actions;
+        $ready = array_flip(SWUReadyFriendlyDroids($seat));
+        $max = min(count($ready), max(0, $cap));
+        $out = [];
+        foreach ($actions as $a) {
+            $c = strval($a['cardID'] ?? '');
+            $valid = 0;
+            foreach (($c === '-' || $c === 'PASS') ? [] : array_unique(explode('&', $c)) as $mz) {
+                if ($mz !== '' && isset($ready[$mz]) && $valid < $max) $valid++;
+            }
+            if ($valid >= $shortfall) $out[] = $a;
+        }
+        return empty($out) ? $actions : $out;
+    };
+    if (function_exists('BridgeWithPlayerPerspective')) return BridgeWithPlayerPerspective($seat, $check);
+    global $playerID;
+    $saved = $playerID; $playerID = $seat;
+    try { return $check(); } finally { $playerID = $saved; }
+}
+
 function SWUBotLegalActions($gameName, $seat) {
     $seat = intval($seat);
     $decisionSeat = SWUBotPendingDecisionSeat();
@@ -296,7 +351,7 @@ function SWUBotLegalActions($gameName, $seat) {
         $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
         $actions = _SWUBotCorrectBridgeAnswers(strval($legal['decisionType'] ?? ''), strval($legal['decisionParam'] ?? ''), $actions, $seat);
         if (strval($legal['decisionType'] ?? '') === 'NAMECARD') $actions = _SWUBotNameCardPool($actions, $seat);
-        if (strval($legal['decisionType'] ?? '') === 'MZMULTICHOOSE') $actions = _SWUBotExploitPayableAnswers($actions, $seat);
+        if (strval($legal['decisionType'] ?? '') === 'MZMULTICHOOSE') $actions = _SWUBotDroidPayableAnswers(_SWUBotExploitPayableAnswers($actions, $seat), $seat);
         $actions = _SWUBotWeaknessEnemyOnly(strval($legal['decisionType'] ?? ''), strval($legal['decisionTooltipRaw'] ?? ''), $actions, $seat);
         if (empty($actions)) {
             $front = null;
@@ -358,7 +413,7 @@ function SWUBotLegalActions($gameName, $seat) {
 //    all, so $actionValue is '', which hits the switch's default (no-op) — the action would be
 //    SILENTLY SWALLOWED, never reaching ActionMap. Confirmed against SWUSim's own generated
 //    client dispatch (GeneratedUI_20260903180200.js GetZoneClickActions() returns
-//    [{"Action":"FSM","Parameters":[]}] for every zone, and Core/UILibraries20261001.js'
+//    [{"Action":"FSM","Parameters":[]}] for every zone, and Core/UILibraries20261023.js'
 //    CardClick() builds the cardID as `cardId + "!" + Action + "!" + Parameters.join(",")`) and
 //    against GrandArchiveSim/BotLegalActions.php, the sibling this file mirrors, which already
 //    does exactly this ("myHand-$i!FSM!", "myField-$i!FSM!"). Fixed below.
@@ -637,6 +692,11 @@ function SWUBotFreePlayActions($gameName, $seat) {
         }
         if (GetPlanCounter() === 'AVAILABLE') {
             $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'PlanCounter-0!CustomInput!TakeCounter'];
+        }
+        // House-rule 4th counter (Take Credit / Take Restore). Same termination argument: while it is in the centre
+        // Pass is refused, so a bot that could not take it would have no legal way to end its round.
+        if (function_exists('SWUFourthCounterState') && SWUFourthCounterState() === 'AVAILABLE') {
+            $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'FourthCounter-0!CustomInput!TakeCounter'];
         }
     }
 

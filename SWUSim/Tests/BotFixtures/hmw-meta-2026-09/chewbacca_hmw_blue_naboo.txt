@@ -1,0 +1,43 @@
+# Real-deck self-play fixture — Chewbacca, Relentless Rebel - Great Grass Plains
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #13 of 39 (4-2-0), player shmoogle
+#   https://melee.gg/Decklist/View/38ee359a-e9eb-4686-85d8-b4de017b57f3 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Chewbacca (HMW) Blue (Naboo) archetype in this event — the only list of it.
+#   Base trait (Naboo) is part of the archetype: a card in the deck or sideboard cares about a Naboo base.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): midrange — the classifier read softcontrol (shape, high confidence: shape score 3.10 (avg cost 4.40, 12 cheap, 13 big, 8 removal, 2 wipe, 3 draw))
+# Style: midrange
+
+Leader
+1 HMW_009
+
+Base
+1 HMW_020
+
+Deck
+3 SEC_098
+3 LOF_093
+3 ASH_056
+3 LAW_039
+3 SEC_094
+3 LOF_096
+2 SEC_051
+2 SEC_048
+2 LOF_100
+2 SEC_101
+2 ASH_062
+3 JTL_096
+3 JTL_095
+3 LAW_133
+3 LAW_041
+3 HMW_121
+2 HMW_035
+2 HMW_123
+2 HMW_094
+1 HMW_124
+
+Sideboard
+2 JTL_078
+2 SEC_046
+2 SEC_078
+2 ASH_059
+2 ASH_133

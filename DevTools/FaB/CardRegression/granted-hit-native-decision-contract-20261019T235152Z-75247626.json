@@ -1,0 +1,10 @@
+{
+  "command": "php DevTools/FaB/CardRegression/test_granted_hit_decision_contract.php",
+  "runtime_sha256": "d85229659e75730de2649374a6182852fc19b0a2f5e080c4b1fa7c00bbf02062",
+  "probe_sha256": "4adc467d5865a1b0349b97c489657ea61c37fbbfac9820f79db9aedd2591549a",
+  "evidence_kind": "native_api_contract_not_saved_recording",
+  "completed_utc": "2026-10-19T23:51:52.070952+00:00",
+  "exit_code": 0,
+  "stdout": "{\n    \"status\": \"PASS\",\n    \"evidence_kind\": \"native_api_contract_probe_not_recording_coverage\",\n    \"prefix_actions\": 17,\n    \"rejected_answers\": [\n        {\n            \"answer\": \"PASS\",\n            \"success\": false,\n            \"semantic_state_unchanged\": true\n        },\n        {\n            \"answer\": \"-\",\n            \"success\": false,\n            \"semantic_state_unchanged\": true\n        },\n        {\n            \"answer\": \"p1Hand-0\",\n            \"success\": false,\n            \"semantic_state_unchanged\": true\n        },\n        {\n            \"answer\": \"p2Graveyard-0\",\n            \"success\": false,\n            \"semantic_state_unchanged\": true\n        },\n        {\n            \"answer\": \"p2Hand-99\",\n            \"success\": false,\n            \"semantic_state_unchanged\": true\n        },\n        {\n            \"answer\": \"p2Hand-0@payload\",\n            \"success\": false,\n            \"semantic_state_unchanged\": true\n        },\n        {\n            \"answer\": \"p2Hand-0&p2Hand-1\",\n            \"success\": false,\n            \"semantic_state_unchanged\": true\n        }\n    ],\n    \"valid_answer\": \"p2Hand-1\",\n    \"subsequent_real_pass\": true\n}\n",
+  "stderr": ""
+}

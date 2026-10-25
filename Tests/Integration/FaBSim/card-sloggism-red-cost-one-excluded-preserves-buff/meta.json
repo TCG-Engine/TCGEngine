@@ -1,0 +1,7 @@
+{
+    "name": "Sloggism / cost-one-excluded-preserves-buff",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:07+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact excluded boundary: cost1 Leg Tap red remains4 and preserves Sloggism. Its blue3 payment leaves2, then cost2 Surging Strike red uses those2 and receives5+Ira second-attack1+Sloggism6=12. Health16 then4. Both attacks have printed go again; the buff itself does not grant attack go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sloggism_red https://judge.fabtcg.com/cards/detail/334/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

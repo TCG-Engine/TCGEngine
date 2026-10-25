@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:26:46.657572+00:00",
+  "plan_sha256": "fb43c45d92a892e00da0aceb5905f01a0fde7afd1ae202391f086eb48776262a",
+  "independent_saved_proof_sha256": "028158fb3157df55982914eaa529978425e4e55955cf399bb6e7af4b6ead02f8",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b135-focused-fault-plan.json",
+    "fb43c45d92a892e00da0aceb5905f01a0fde7afd1ae202391f086eb48776262a",
+    "card-regression-sparse-b135-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b135_predatory_streak_red_focused_effect_sensitivity",
+      "fixture": "card-predatory-streak-red-four-live-sparse-recovery-create-own-banished-tigers-then-real-uid-six-play-normalizes-owner-and-zero-damage",
+      "fixture_sha256": "410bee065af4cb7ded6645abd057b6060e2795aaaaaf1987d625238cabee5df8",
+      "source_raw5": {
+        "initial_gamestate.txt": "044188ddc386e38ef9b1b71ef7707a037d4affcbf0a8488ceed88cf29440f62e",
+        "actions.json": "7752d0aef33e84f5d305c5fa407292b0075138be8ac5e797b9c8033311d9c32f",
+        "assertions.json": "880cbb17382453582b658c399f0b72b7b135e4d694ca7b01ac37eceda080d168",
+        "expected_final_gamestate.txt": "0d00f80f4a43c273d37a65cc19975c0999fb34f4807ff5ea6678cb447b6861a9",
+        "meta.json": "7b95f05bcd23b1b0f4d622c34d8fe0868e4ea2e0c219ba3d383d3e277c15cbae"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "crouching_tiger",
+            "uid": 6,
+            "from": "Banish",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 904,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Banish count 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Predatory Streak / four live sparse positive effect: Initial assertion failed: Expected p1Banish count 3, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove exact actual primary-created Tiger6 from ownBanish at realcreation checkpoint, preserving createdTiger7/8/source5/economy. Original Banish3 count detects omission. Actual ownplay normalization and damage/GA are positively pinned and purefault-sensitive, not independently native ownership-mutated. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b135_roar_of_the_tiger_yellow_focused_effect_sensitivity",
+      "fixture": "card-roar-of-the-tiger-yellow-four-live-sparse-recovery-create-own-hand-tiger-then-real-uid-six-play-normalizes-owner-and-plus-one-damage",
+      "fixture_sha256": "17f3765bcd82510c88d0fedf5e9b16f724fd022c1206ededcaaa67114802a88d",
+      "source_raw5": {
+        "initial_gamestate.txt": "bc5c0f153e505e95717d8473ac7ff69e9c2d4cb3154b1169f69e49da98fb7169",
+        "actions.json": "c1471d95ed02a71e4745e1e8b961d8ef8f34f266799d5489f95ae0d898ca1dd0",
+        "assertions.json": "15b7a7eafa2aaad96d4d21bbb51ecd49edb438466f79f7b58e5c2130fe09dd40",
+        "expected_final_gamestate.txt": "bd9f94a721284f6ae63f80724e865d7b3f67ac0c5ab7391a8dcb8367247ef888",
+        "meta.json": "53b8e61214cda0558636541080d6ea61a29e7e83c854b2687fb009cdf8085650"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "crouching_tiger",
+            "mode": "remove",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 387,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Roar of the Tiger / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove actual Roar +1 tag from the same real created Tiger6 after realP1play normalizedOwner/Controller1. Printedbase0 becomescomputed0; physicalsource/playedUID/target/economy/printedGA remain. Creation/ownership are positively pinned and purefault-sensitive, not separately native-mutated. No Ephemeralcleanup/expiry/foreignconsumercredit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

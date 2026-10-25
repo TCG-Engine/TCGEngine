@@ -1,0 +1,12 @@
+{
+  "command": "FAB_FOUR_LIVE_CONTROLS=four_sigil_hold_false,four_dart_source_lost_during_victim4_choice,four_dart_wrong_arcane_actor,four_dart_nonadjacent_offer python DevTools/FaB/CardRegression/card_regression_negative_controls.py",
+  "completed_utc": "2026-10-20T14:57:16.484756+00:00",
+  "exit_code": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card_regression_negative_controls.py\", line 159, in <module>\n    if state.returncode:raise RuntimeError(state.stdout+state.stderr)\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: \nFatal error: Uncaught JsonException: Syntax error in C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative_control_state.php:484\nStack trace:\n#0 C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative_control_state.php(484): json_decode('', true, 512, 4194304)\n#1 C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative_control_state.php(554): NCApplyFourLiveFault('four_sigil_hold...')\n#2 {main}\n  thrown in C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative_control_state.php on line 484\nPHP Fatal error:  Uncaught JsonException: Syntax error in C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative_control_state.php:484\nStack trace:\n#0 C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative_control_state.php(484): json_decode('', true, 512, 4194304)\n#1 C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative_control_state.php(554): NCApplyFourLiveFault('four_sigil_hold...')\n#2 {main}\n  thrown in C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative_control_state.php on line 484\n\n",
+  "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "canonical_raw5_preserved": 3079,
+  "legacy77_report_unchanged": true,
+  "four_live_report": null,
+  "four_live_report_sha256": null
+}

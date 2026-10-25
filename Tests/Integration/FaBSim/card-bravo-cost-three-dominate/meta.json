@@ -1,0 +1,7 @@
+{
+    "name": "Bravo / cost-three-dominate",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:50+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Pay 2 to activate Bravo (blue3 leaves1) and recover action point. crush_confidence_blue costs 3 and must get dominate: second hand block rejected; one block3 permits2 damage. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bravo https://rules.fabtcg.com/en/cr/07-combat/"
+}

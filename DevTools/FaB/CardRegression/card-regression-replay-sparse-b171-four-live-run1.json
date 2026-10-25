@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch171.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T20:53:20.530017+00:00",
+  "fixtures": [
+    {
+      "slug": "card-heart-of-ice-four-live-sparse-actual-ice-action-tax-charges-opposing-printed-zero-instant-with-real-blue-pitch",
+      "fixture_sha256": "2f7c5f46463ed29b9866c280f418a8cb1fc3b683f3f09bdb1e25c7e45b34020e",
+      "passed": true,
+      "result": "[PASS] Heart of Ice / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-heart-of-ice-four-live-sparse-actual-ice-action-tax-charges-opposing-printed-zero-instant-with-real-blue-pitch",
+      "returncode": 0,
+      "stdout": "[PASS] Heart of Ice / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

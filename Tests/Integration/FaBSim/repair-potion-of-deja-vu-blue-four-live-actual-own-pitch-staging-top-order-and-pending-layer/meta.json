@@ -1,0 +1,7 @@
+{
+    "name": "Potion of Deja Vu / four live known Pitch and lifecycle repair",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-24T18:45:03+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Instant0 destroys physicalPotion5 into ownpublicGYFaceDown0; AP1/resources0 retained. Exact owned Pitch6red/7blue is an isolated legal in-turn fixture (previous paid-cost history is not fabricated or credited). Four live seats actually respond; noPitchmovesbeforefourthpass. Corrected explicitPitch stage moves only6/7toTemp, leavingDeck8untouched, with virtualability9stillStack and ARC_ABILITY/source5GY0/ResolveAbility marker pending. ActualTop=Blue7,Red6 answer yields exactDeck7,6,8; allPitch/Tempempty, eachphysicalUIDonce/OwnerController1, onlyPotion5GYpublic0 andnoability9GY, AP1/resources0/all20/normalACTIONaftercomplete. No global frame counter is asserted; raw saved review/components must bind actual owned frame and complete cleanup. No privacyUI/emptyPitch/foreignseat/duplicateID/fullcard claim; separate extracted components cover helper rejection and defaults. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVR185.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

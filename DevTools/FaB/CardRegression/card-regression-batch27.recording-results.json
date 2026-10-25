@@ -1,0 +1,284 @@
+[
+    {
+        "slug": "card-lead-the-charge-red-equal-threshold-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 26
+    },
+    {
+        "slug": "card-lead-the-charge-red-above-threshold-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 26
+    },
+    {
+        "slug": "card-lead-the-charge-red-first-qualifier-only",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 40
+    },
+    {
+        "slug": "card-lead-the-charge-red-fully-blocked-first-still-consumes",
+        "status": "recorded_semantically_checked",
+        "actions": 31,
+        "assertions": 41
+    },
+    {
+        "slug": "card-lead-the-charge-red-weapon-excluded-preserves-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 31,
+        "assertions": 37
+    },
+    {
+        "slug": "card-lead-the-charge-red-instant-excluded-preserves-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 30
+    },
+    {
+        "slug": "card-lead-the-charge-red-arsenal-source",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 27
+    },
+    {
+        "slug": "card-lead-the-charge-red-opponent-response-before-ap-gain",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 32
+    },
+    {
+        "slug": "card-lead-the-charge-red-rejected-action-does-not-consume",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 36
+    },
+    {
+        "slug": "card-lead-the-charge-red-unused-expires-this-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 27
+    },
+    {
+        "slug": "card-lead-the-charge-red-pitched-no-effect-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 17
+    },
+    {
+        "slug": "card-lead-the-charge-red-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    },
+    {
+        "slug": "card-lead-the-charge-red-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    },
+    {
+        "slug": "card-lead-the-charge-red-second-source-qualifies-old-effect-not-itself",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 41
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-equal-threshold-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 26
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-above-threshold-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 26
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-first-qualifier-only",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 40
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-fully-blocked-first-still-consumes",
+        "status": "recorded_semantically_checked",
+        "actions": 31,
+        "assertions": 41
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-below-threshold-action-preserves",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 39
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-qualifying-play-trigger-after-blue-payment",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 31
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-nonattack-action-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 8,
+        "assertions": 21
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-weapon-excluded-preserves-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 31,
+        "assertions": 37
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-instant-excluded-preserves-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 30
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-arsenal-source",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 27
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-opponent-response-before-ap-gain",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 32
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-rejected-action-does-not-consume",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 36
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-unused-expires-this-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 38,
+        "assertions": 30
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-pitched-no-effect-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 17
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    },
+    {
+        "slug": "card-lead-the-charge-yellow-two-sources-two-independent-triggers",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 29
+    },
+    {
+        "slug": "card-lead-the-charge-blue-above-threshold-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 26
+    },
+    {
+        "slug": "card-lead-the-charge-blue-first-qualifier-only",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 40
+    },
+    {
+        "slug": "card-lead-the-charge-blue-fully-blocked-first-still-consumes",
+        "status": "recorded_semantically_checked",
+        "actions": 31,
+        "assertions": 41
+    },
+    {
+        "slug": "card-lead-the-charge-blue-below-threshold-action-preserves",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 39
+    },
+    {
+        "slug": "card-lead-the-charge-blue-qualifying-play-trigger-after-blue-payment",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 31
+    },
+    {
+        "slug": "card-lead-the-charge-blue-nonattack-action-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 8,
+        "assertions": 21
+    },
+    {
+        "slug": "card-lead-the-charge-blue-weapon-excluded-preserves-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 31,
+        "assertions": 37
+    },
+    {
+        "slug": "card-lead-the-charge-blue-instant-excluded-preserves-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 30
+    },
+    {
+        "slug": "card-lead-the-charge-blue-arsenal-source",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 27
+    },
+    {
+        "slug": "card-lead-the-charge-blue-opponent-response-before-ap-gain",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 32
+    },
+    {
+        "slug": "card-lead-the-charge-blue-rejected-action-does-not-consume",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 36
+    },
+    {
+        "slug": "card-lead-the-charge-blue-unused-expires-this-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 38,
+        "assertions": 30
+    },
+    {
+        "slug": "card-lead-the-charge-blue-pitched-no-effect-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 17
+    },
+    {
+        "slug": "card-lead-the-charge-blue-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    },
+    {
+        "slug": "card-lead-the-charge-blue-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    },
+    {
+        "slug": "card-lead-the-charge-blue-two-sources-two-independent-triggers",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 29
+    }
+]

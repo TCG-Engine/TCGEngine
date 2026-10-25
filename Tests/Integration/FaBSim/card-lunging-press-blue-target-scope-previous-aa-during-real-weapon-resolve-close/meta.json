@@ -1,0 +1,7 @@
+{
+    "name": "Lunging Press / target scope / previous AA during real weapon, resolve and Close",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:57:54+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "First real Surging5 damage leaves hero15 and its printed go again funds a real Kodachi link2. LP0 targets the sole older AA UID3/link1, adds exactly one CRU power modifier there; active Kodachi UID6/link2 stays power1/no go again. Its one damage leaves14; no earlier damage is recalculated. LP ownerGY precedes earlier AA at Close; weapon identity5 stays equipped. Exact original B60 first Stack1 gate is retained. Sources: https://judge.fabtcg.com/cards/detail/720/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

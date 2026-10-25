@@ -1,0 +1,47 @@
+# Real-deck self-play fixture — Wicket, Few Greater Battles to Fight - Bright Tree Village
+# Source: melee.gg 463642 (Datacup II - El Abismo de Helm Wargames, 2026-10-18), #45 of 52, match record 1-3-2 (from the set's results), player Zazu3800
+#   https://melee.gg/Decklist/View/f6a66233-0927-4143-b8a9-b4e50115f0e3 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture — UPDATED 2026-10-20 (owner: "update the fixtures with the better performers"): the best match record of the
+#   Wicket (HMW) Green (Endor) archetype across the HMW set's three events. Replaced melee 480819 SHC_louloup (0-0-0).
+#   Base trait (Endor) is part of the archetype: a card in the deck or sideboard cares about a Endor base.
+#   Main 51 (base minimum 50), sideboard 10.
+# Archetype (classifier, NOT yet owner-reviewed): softaggro (shape, medium confidence) — shape score 1.27 — 65% aggro side (28 units ≤3 cost, 2 burn, 18 attack/buff cards); 6 units ≥6 cost, 4 removal events, 0 wipes
+# Style: softaggro
+
+Leader
+1 HMW_014
+
+Base
+1 HMW_023
+
+Deck
+3 SEC_098
+3 HMW_166
+3 HMW_044
+3 SEC_148
+3 SEC_094
+3 ASH_034
+2 HMW_177
+2 SEC_162
+2 HMW_124
+2 SEC_101
+1 ASH_129
+1 LOF_100
+1 SEC_163
+3 JTL_096
+3 ASH_153
+3 JTL_153
+2 JTL_151
+3 SEC_179
+2 HMW_193
+2 SEC_256
+2 ASH_135
+2 JTL_175
+
+Sideboard
+2 LAW_191
+2 HMW_046
+2 SEC_157
+2 JTL_121
+1 SEC_163
+1 ASH_114

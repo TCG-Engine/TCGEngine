@@ -1,0 +1,7 @@
+{
+    "name": "Chorus of Rotwood / empty Graveyard source stays Stack until three Runechants",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-24T18:44:26+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Reuses the independently reviewed B127 exact Chorus inputs/actions and physical Owner1Controller1 Runechant expectations. The Earth primary must remain Stack during ResolveCard; empty starting GY supplies no Decompose inputs, so fourth real response must finish without any Decompose choice. Source goes ownGYFaceDown0 only after exactly three RunechantsUID7/8/9 are created. Printed1 paid by actual blue6 pitch3 leavesR2/AP0/all20. No EarthBanish/Embodiment. This copy does not reinterpret rawOwner0 as a bug or alter any Tiger recipe. Historical B127 failed unsaved; current native result is pending. Sources: https://judge.fabtcg.com/cards/detail/4444/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN213.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

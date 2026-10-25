@@ -1,0 +1,14 @@
+{
+  "status": "SOURCE_APPLIED_NATIVE_AFTER_FIX_GATES_PENDING",
+  "before_runtime": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+  "after_runtime": "7b6270fcded6644480dd6e6706c955e5dd607f4369e592b1c022ac56e124a85c",
+  "changed_files": [
+    "FaBSim/Custom/WTRAbilities.php",
+    "FaBSim/Custom/WTRCards.php",
+    "FaBSim/Custom/GameLogic.php"
+  ],
+  "source_beforeimages": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\source-review-evidence\\cnc029-20261020T032334Z\\proposal\\before",
+  "unchanged_before_probe_input": "card-regression-batch59.json",
+  "new_compatibility_input": "card-regression-batch64.json",
+  "passing_fixtures_added": 0
+}

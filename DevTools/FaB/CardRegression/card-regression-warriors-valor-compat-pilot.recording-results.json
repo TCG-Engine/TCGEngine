@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "compat-warriors-valor-red-hero-hit-layer-timing",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 35
+    },
+    {
+        "slug": "compat-warriors-valor-red-fully-blocked-no-hit-layer-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 31
+    }
+]

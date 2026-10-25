@@ -1,0 +1,7 @@
+{
+    "name": "Teklo Base Arms / Blade Break attacker-cannot-defend-own-attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:02:44+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed defense1 and only Blade Break. CR8.3.3 destroys this when the combat chain closes if it defended. CR7.7.1/7.7.4 gives no priority during Close Step and resolves close triggers automatically before remaining equipment returns (7.7.5). Primary equipment belongs to the active attacker, with a class-matching hero at seat1. Its attempted click during opponent defense declaration cannot make it defend its own attack. Opponent takes4 and the unused equipment remains equipped, including after close. Sources: https://rules.fabtcg.com/en/cr/08-keywords/#833 https://rules.fabtcg.com/en/cr/07-combat/#77 https://rules.fabtcg.com/en/cr/06-effects/#66 FaBSim/GeneratedCode/cardArrayCache.json#teklo_base_arms"
+}

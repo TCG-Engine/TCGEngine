@@ -1,0 +1,32 @@
+[
+    {
+        "slug": "card-lunging-press-blue-rejected-target-answer-wrong-actor",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 286
+    },
+    {
+        "slug": "card-lunging-press-blue-rejected-target-answer-pass-not-legal-target",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 286
+    },
+    {
+        "slug": "card-lunging-press-blue-rejected-target-answer-unlisted-private-source",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 286
+    },
+    {
+        "slug": "card-lunging-press-blue-rejected-target-answer-out-of-range-target",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 286
+    },
+    {
+        "slug": "card-lunging-press-blue-rejected-target-answer-multiple-target-answer",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 286
+    }
+]

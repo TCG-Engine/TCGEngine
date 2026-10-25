@@ -1,0 +1,7 @@
+{
+    "name": "Sic Em Shot / removed-bow-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:20:34+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR8.2.6a: arrow requires arsenal and a controlled bow. This setup does not satisfy both arrow play restrictions; no card movement, stack, cost or AP mutation is allowed. The initial writer removes the requested removed bow before recording. This is an absent-bow duplicate and does not verify in-memory removed-object filtering. Sources: https://rules.fabtcg.com/en/cr/08-keywords/#826a FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+}

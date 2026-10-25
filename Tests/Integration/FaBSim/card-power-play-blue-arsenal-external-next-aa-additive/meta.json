@@ -1,0 +1,7 @@
+{
+    "name": "Power Play / arsenal-external-next-aa-additive",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:48:40+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Resolve Come to Fight red through supported play: pay1, its go again restoresAP1 and grants the next attack action+3 this turn. Then arsenalpower_play_blue pays3/1AP. Printed1+intrinsic arsenal5+external3=9; damage9, defender11. The intrinsic bonus neither replaces nor consumes the separately generated external modifier. Sources: FaBSim/GeneratedCode/cardArrayCache.json#power_play_blue https://judge.fabtcg.com/cards/detail/4276/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf FaBSim/GeneratedCode/cardArrayCache.json#come_to_fight_red https://judge.fabtcg.com/cards/detail/542/"
+}

@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T14:30:20+00:00",
+    "input_file": "card-regression-batch77-four-live-sigil.json",
+    "input_sha256": "6454182ce3fd0c2ecddb2f372ebfe939f12bed4211581c6cd6f86550a2a392ca",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-sigil-of-solace-red-four-live-hold-priority-correct-rule-before-probe",
+            "status": "recorded_semantically_checked",
+            "actions": 8,
+            "assertions": 331
+        }
+    ]
+}

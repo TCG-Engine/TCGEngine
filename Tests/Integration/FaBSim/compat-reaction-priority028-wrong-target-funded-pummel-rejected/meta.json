@@ -1,0 +1,7 @@
+{
+    "name": "Issue028 native compatibility / wrong-target-funded-pummel-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:51:17+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "After actual Razor resolves above Dodge, attacker has priority during the continuing Reaction Step. Pummel has full floating2 available, but cost0 Wounding Blow is an illegal target for its printed attack-action cost2-or-more mode; reject without payment or source movement. Dodge2 leaves5 damage from real Razor power7, hero15. Only the first real Razor grants its hit ability; resolve that ability before the single Resolution AP refund and Close. UID5 and6 distinguish duplicate Razor copies. Sources: https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/07-combat/#742b https://rules.fabtcg.com/en/cr/07-combat/#742c https://rules.fabtcg.com/en/cr/07-combat/#743 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537"
+}

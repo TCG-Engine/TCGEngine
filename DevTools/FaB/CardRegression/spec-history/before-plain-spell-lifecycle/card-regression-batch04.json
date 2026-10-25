@@ -1,0 +1,3917 @@
+[
+  {
+    "slug": "card-scalding-rain-yellow-target-1",
+    "name": "Scalding Rain / target-1",
+    "cardIDs": [
+      "scalding_rain_yellow"
+    ],
+    "branches": [
+      "target-1"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "scalding_rain_yellow"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 3 arcane to chosen own/opposing hero. Printed cost1; 1 blue pitches leaves2. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-yellow-target-2",
+    "name": "Scalding Rain / target-2",
+    "cardIDs": [
+      "scalding_rain_yellow"
+    ],
+    "branches": [
+      "target-2"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "scalding_rain_yellow"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 3 arcane to chosen own/opposing hero. Printed cost1; 1 blue pitches leaves2. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-yellow-barrier-pay",
+    "name": "Scalding Rain / barrier-pay",
+    "cardIDs": [
+      "scalding_rain_yellow"
+    ],
+    "branches": [
+      "barrier-pay"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "1",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet3; target seat2 elects to pay1 to prevent1. Caster pays cost1; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-yellow-barrier-decline",
+    "name": "Scalding Rain / barrier-decline",
+    "cardIDs": [
+      "scalding_rain_yellow"
+    ],
+    "branches": [
+      "barrier-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "0",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet3; target seat2 elects to decline prevention. Caster pays cost1; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-yellow-unaffordable",
+    "name": "Scalding Rain / unaffordable",
+    "cardIDs": [
+      "scalding_rain_yellow"
+    ],
+    "branches": [
+      "unaffordable"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "scalding_rain_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Action spell cost1 cannot be paid with no floating resource or other hand card to pitch.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-yellow-no-action-point",
+    "name": "Scalding Rain / no-action-point",
+    "cardIDs": [
+      "scalding_rain_yellow"
+    ],
+    "branches": [
+      "no-action-point"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "scalding_rain_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Action card requires an AP even with printed resource cost1 available; announcement must be rejected.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      0,
+      0
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-blue-target-1",
+    "name": "Scalding Rain / target-1",
+    "cardIDs": [
+      "scalding_rain_blue"
+    ],
+    "branches": [
+      "target-1"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "scalding_rain_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 2 arcane to chosen own/opposing hero. Printed cost1; 1 blue pitches leaves2. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-blue-target-2",
+    "name": "Scalding Rain / target-2",
+    "cardIDs": [
+      "scalding_rain_blue"
+    ],
+    "branches": [
+      "target-2"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "scalding_rain_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 2 arcane to chosen own/opposing hero. Printed cost1; 1 blue pitches leaves2. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-blue-barrier-pay",
+    "name": "Scalding Rain / barrier-pay",
+    "cardIDs": [
+      "scalding_rain_blue"
+    ],
+    "branches": [
+      "barrier-pay"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "1",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet2; target seat2 elects to pay1 to prevent1. Caster pays cost1; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-blue-barrier-decline",
+    "name": "Scalding Rain / barrier-decline",
+    "cardIDs": [
+      "scalding_rain_blue"
+    ],
+    "branches": [
+      "barrier-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "0",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet2; target seat2 elects to decline prevention. Caster pays cost1; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-blue-unaffordable",
+    "name": "Scalding Rain / unaffordable",
+    "cardIDs": [
+      "scalding_rain_blue"
+    ],
+    "branches": [
+      "unaffordable"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "scalding_rain_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Action spell cost1 cannot be paid with no floating resource or other hand card to pitch.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-blue-no-action-point",
+    "name": "Scalding Rain / no-action-point",
+    "cardIDs": [
+      "scalding_rain_blue"
+    ],
+    "branches": [
+      "no-action-point"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "scalding_rain_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Action card requires an AP even with printed resource cost1 available; announcement must be rejected.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      0,
+      0
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-red-target-1",
+    "name": "Voltic Bolt / target-1",
+    "cardIDs": [
+      "voltic_bolt_red"
+    ],
+    "branches": [
+      "target-1"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "voltic_bolt_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 5 arcane to chosen own/opposing hero. Printed cost2; 1 blue pitches leaves1. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-red-target-2",
+    "name": "Voltic Bolt / target-2",
+    "cardIDs": [
+      "voltic_bolt_red"
+    ],
+    "branches": [
+      "target-2"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "voltic_bolt_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 5 arcane to chosen own/opposing hero. Printed cost2; 1 blue pitches leaves1. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-red-barrier-pay",
+    "name": "Voltic Bolt / barrier-pay",
+    "cardIDs": [
+      "voltic_bolt_red"
+    ],
+    "branches": [
+      "barrier-pay"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "1",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet5; target seat2 elects to pay1 to prevent1. Caster pays cost2; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-red-barrier-decline",
+    "name": "Voltic Bolt / barrier-decline",
+    "cardIDs": [
+      "voltic_bolt_red"
+    ],
+    "branches": [
+      "barrier-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "0",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet5; target seat2 elects to decline prevention. Caster pays cost2; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-red-unaffordable",
+    "name": "Voltic Bolt / unaffordable",
+    "cardIDs": [
+      "voltic_bolt_red"
+    ],
+    "branches": [
+      "unaffordable"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "voltic_bolt_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Action spell cost2 cannot be paid with no floating resource or other hand card to pitch.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-red-no-action-point",
+    "name": "Voltic Bolt / no-action-point",
+    "cardIDs": [
+      "voltic_bolt_red"
+    ],
+    "branches": [
+      "no-action-point"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "voltic_bolt_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Action card requires an AP even with printed resource cost2 available; announcement must be rejected.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      2,
+      0
+    ],
+    "actionPoints": [
+      0,
+      0
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-yellow-target-1",
+    "name": "Voltic Bolt / target-1",
+    "cardIDs": [
+      "voltic_bolt_yellow"
+    ],
+    "branches": [
+      "target-1"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "voltic_bolt_yellow"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 4 arcane to chosen own/opposing hero. Printed cost2; 1 blue pitches leaves1. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-yellow-target-2",
+    "name": "Voltic Bolt / target-2",
+    "cardIDs": [
+      "voltic_bolt_yellow"
+    ],
+    "branches": [
+      "target-2"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "voltic_bolt_yellow"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 4 arcane to chosen own/opposing hero. Printed cost2; 1 blue pitches leaves1. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-yellow-barrier-pay",
+    "name": "Voltic Bolt / barrier-pay",
+    "cardIDs": [
+      "voltic_bolt_yellow"
+    ],
+    "branches": [
+      "barrier-pay"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "1",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet4; target seat2 elects to pay1 to prevent1. Caster pays cost2; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-yellow-barrier-decline",
+    "name": "Voltic Bolt / barrier-decline",
+    "cardIDs": [
+      "voltic_bolt_yellow"
+    ],
+    "branches": [
+      "barrier-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "0",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet4; target seat2 elects to decline prevention. Caster pays cost2; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-yellow-unaffordable",
+    "name": "Voltic Bolt / unaffordable",
+    "cardIDs": [
+      "voltic_bolt_yellow"
+    ],
+    "branches": [
+      "unaffordable"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "voltic_bolt_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Action spell cost2 cannot be paid with no floating resource or other hand card to pitch.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-yellow-no-action-point",
+    "name": "Voltic Bolt / no-action-point",
+    "cardIDs": [
+      "voltic_bolt_yellow"
+    ],
+    "branches": [
+      "no-action-point"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "voltic_bolt_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Action card requires an AP even with printed resource cost2 available; announcement must be rejected.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      2,
+      0
+    ],
+    "actionPoints": [
+      0,
+      0
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-blue-target-1",
+    "name": "Voltic Bolt / target-1",
+    "cardIDs": [
+      "voltic_bolt_blue"
+    ],
+    "branches": [
+      "target-1"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "voltic_bolt_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 3 arcane to chosen own/opposing hero. Printed cost2; 1 blue pitches leaves1. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-blue-target-2",
+    "name": "Voltic Bolt / target-2",
+    "cardIDs": [
+      "voltic_bolt_blue"
+    ],
+    "branches": [
+      "target-2"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "voltic_bolt_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 3 arcane to chosen own/opposing hero. Printed cost2; 1 blue pitches leaves1. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-blue-barrier-pay",
+    "name": "Voltic Bolt / barrier-pay",
+    "cardIDs": [
+      "voltic_bolt_blue"
+    ],
+    "branches": [
+      "barrier-pay"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "1",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet3; target seat2 elects to pay1 to prevent1. Caster pays cost2; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-blue-barrier-decline",
+    "name": "Voltic Bolt / barrier-decline",
+    "cardIDs": [
+      "voltic_bolt_blue"
+    ],
+    "branches": [
+      "barrier-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "0",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet3; target seat2 elects to decline prevention. Caster pays cost2; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-blue-unaffordable",
+    "name": "Voltic Bolt / unaffordable",
+    "cardIDs": [
+      "voltic_bolt_blue"
+    ],
+    "branches": [
+      "unaffordable"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "voltic_bolt_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Action spell cost2 cannot be paid with no floating resource or other hand card to pitch.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-voltic-bolt-blue-no-action-point",
+    "name": "Voltic Bolt / no-action-point",
+    "cardIDs": [
+      "voltic_bolt_blue"
+    ],
+    "branches": [
+      "no-action-point"
+    ],
+    "zones": [
+      {
+        "cardID": "voltic_bolt_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "voltic_bolt_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Action card requires an AP even with printed resource cost2 available; announcement must be rejected.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      2,
+      0
+    ],
+    "actionPoints": [
+      0,
+      0
+    ]
+  },
+  {
+    "slug": "card-zap-red-target-1",
+    "name": "Zap / target-1",
+    "cardIDs": [
+      "zap_red"
+    ],
+    "branches": [
+      "target-1"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "zap_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 3 arcane to chosen own/opposing hero. Printed cost0; 0 blue pitches leaves0. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-zap-red-target-2",
+    "name": "Zap / target-2",
+    "cardIDs": [
+      "zap_red"
+    ],
+    "branches": [
+      "target-2"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "zap_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 3 arcane to chosen own/opposing hero. Printed cost0; 0 blue pitches leaves0. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-zap-red-barrier-pay",
+    "name": "Zap / barrier-pay",
+    "cardIDs": [
+      "zap_red"
+    ],
+    "branches": [
+      "barrier-pay"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "1",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet3; target seat2 elects to pay1 to prevent1. Caster pays cost0; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-zap-red-barrier-decline",
+    "name": "Zap / barrier-decline",
+    "cardIDs": [
+      "zap_red"
+    ],
+    "branches": [
+      "barrier-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "0",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet3; target seat2 elects to decline prevention. Caster pays cost0; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-zap-red-no-action-point",
+    "name": "Zap / no-action-point",
+    "cardIDs": [
+      "zap_red"
+    ],
+    "branches": [
+      "no-action-point"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "zap_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Action card requires an AP even with printed resource cost0 available; announcement must be rejected.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      0,
+      0
+    ]
+  },
+  {
+    "slug": "card-zap-yellow-target-1",
+    "name": "Zap / target-1",
+    "cardIDs": [
+      "zap_yellow"
+    ],
+    "branches": [
+      "target-1"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "zap_yellow"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 2 arcane to chosen own/opposing hero. Printed cost0; 0 blue pitches leaves0. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-zap-yellow-target-2",
+    "name": "Zap / target-2",
+    "cardIDs": [
+      "zap_yellow"
+    ],
+    "branches": [
+      "target-2"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "zap_yellow"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 2 arcane to chosen own/opposing hero. Printed cost0; 0 blue pitches leaves0. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-zap-yellow-barrier-pay",
+    "name": "Zap / barrier-pay",
+    "cardIDs": [
+      "zap_yellow"
+    ],
+    "branches": [
+      "barrier-pay"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "1",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet2; target seat2 elects to pay1 to prevent1. Caster pays cost0; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-zap-yellow-barrier-decline",
+    "name": "Zap / barrier-decline",
+    "cardIDs": [
+      "zap_yellow"
+    ],
+    "branches": [
+      "barrier-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "0",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet2; target seat2 elects to decline prevention. Caster pays cost0; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-zap-yellow-no-action-point",
+    "name": "Zap / no-action-point",
+    "cardIDs": [
+      "zap_yellow"
+    ],
+    "branches": [
+      "no-action-point"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "zap_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Action card requires an AP even with printed resource cost0 available; announcement must be rejected.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      0,
+      0
+    ]
+  },
+  {
+    "slug": "card-zap-blue-target-1",
+    "name": "Zap / target-1",
+    "cardIDs": [
+      "zap_blue"
+    ],
+    "branches": [
+      "target-1"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "zap_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 1 arcane to chosen own/opposing hero. Printed cost0; 0 blue pitches leaves0. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-zap-blue-target-2",
+    "name": "Zap / target-2",
+    "cardIDs": [
+      "zap_blue"
+    ],
+    "branches": [
+      "target-2"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "zap_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact plain spell text: deal 1 arcane to chosen own/opposing hero. Printed cost0; 0 blue pitches leaves0. Action consumes one AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-zap-blue-barrier-pay",
+    "name": "Zap / barrier-pay",
+    "cardIDs": [
+      "zap_blue"
+    ],
+    "branches": [
+      "barrier-pay"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "1",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet1; target seat2 elects to pay1 to prevent1. Caster pays cost0; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-zap-blue-barrier-decline",
+    "name": "Zap / barrier-decline",
+    "cardIDs": [
+      "zap_blue"
+    ],
+    "branches": [
+      "barrier-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "0",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane packet1; target seat2 elects to decline prevention. Caster pays cost0; equipment persists.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ]
+  },
+  {
+    "slug": "card-zap-blue-no-action-point",
+    "name": "Zap / no-action-point",
+    "cardIDs": [
+      "zap_blue"
+    ],
+    "branches": [
+      "no-action-point"
+    ],
+    "zones": [
+      {
+        "cardID": "zap_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "zap_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Action card requires an AP even with printed resource cost0 available; announcement must be rejected.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#zap_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      0,
+      0
+    ]
+  }
+]

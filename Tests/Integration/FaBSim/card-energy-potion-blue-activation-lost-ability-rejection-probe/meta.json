@@ -1,0 +1,7 @@
+{
+    "name": "Energy Potion / lost-ability-rejection-probe",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:55:32+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Start during Guardian Bravo turn under a previously resolved Blinding of the Old Ones active/started duration: all owned cards have no abilities. Energy Potion must remain in Arena and create no layer or resource/AP change. This covers the known suppression interaction, not Blinding generation or expiry. Sources: FaBSim/GeneratedCode/cardArrayCache.json#energy_potion_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/ https://judge.fabtcg.com/cards/detail/3761/"
+}

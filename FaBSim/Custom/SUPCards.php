@@ -76,7 +76,7 @@ function FaBSUPPlayed(int $p,object $o,string $from): void {
     if(!FaBHasType($o,'Attack')&&!FaBWTRIsWeapon($o))return;
     $left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='SUP_NEXT'){if(empty($e['target']))FaBWTRTag($o,'WTR_POWER:'.intval($e['amount']));else FaBWTRTag($o,'SUP_TARGET:'.$e['target'].':'.intval($e['amount']));if($e['tag']!=='')FaBWTRTag($o,$e['tag']);}else $left[]=$e;}FaBWTRSetEffects($p,$left);
     if(FaBWTRIsAttackAction($o)&&FaBSUPCount($p,'CONFIDENCE')){FaBWTRTag($o,'SUP_CONFIDENCE');FaBSUPClear($p,'CONFIDENCE');}
-    if($from==='Arsenal'&&FaBWTRBase($o->CardID)==='power_play')FaBCRUSelfTag($o,'WTR_POWER:5');
+    if($from==='Arsenal'&&FaBWTRBase($o->CardID)==='power_play'&&!HasNoAbilities($o))FaBCRUSelfTag($o,'WTR_POWER:5');
 }
 function FaBSUPDeclared(int $p,object $o): void {FaBSUPAdd($p,'ATTACKS');FaBARCSetCard(intval($o->UniqueID),'supFirst',FaBSUPCount($p,'ATTACKS')===1);}
 function FaBSUPPower(int $p,object $o,int $current): int {

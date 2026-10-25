@@ -23,7 +23,8 @@ if ($adapter instanceof LobbyBotPolicyAdapter && is_object($snapshot)) {
 $lobby = LobbyMutate(strval($_POST['lobbyID'] ?? ''), function ($lobby) use (&$error, $profile, $deck) {
     try {
         LobbyAddBot($lobby, strval($_POST['authKey'] ?? ''), $profile,
-            isset($_POST['seat']) ? intval($_POST['seat']) : null, $deck);
+            isset($_POST['seat']) ? intval($_POST['seat']) : null, $deck,
+            isset($_POST['team']) ? strtolower(trim(strval($_POST['team']))) : null);   // Team Suns: the team the slot is on
         return true;
     } catch (InvalidArgumentException $e) {
         $error = $e->getMessage();

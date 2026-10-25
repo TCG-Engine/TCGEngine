@@ -1,0 +1,7 @@
+{
+    "name": "Frosting / opponent-cannot-use-caster-barrier",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:00:34+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0 and 3 arcane damage to any target. Choose player2's hero. Pay0 from the caster pool and1AP, leaving0. Only caster equipment has Barrier1. It cannot protect the opponent hero; victim resources1 are irrelevant without victim equipment. No prevention chooser. Deal the full3 only on resolution: hero220->17, other hero20. No printed go again, Frostbite or extra layer. Source leaves Stack for its owner's graveyard after resolution. Sources: FaBSim/GeneratedCode/cardArrayCache.json#frosting_red https://judge.fabtcg.com/cards/detail/1630/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

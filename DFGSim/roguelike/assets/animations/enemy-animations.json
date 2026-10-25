@@ -1,0 +1,198 @@
+{
+  "fox": {
+    "still": "roguelike/assets/animations/fox-still.webp?v=1792805803898356500",
+    "idle": {
+      "src": "roguelike/assets/animations/fox-idle.webp?v=1792805803042784300",
+      "durationMs": 3361
+    },
+    "light": {
+      "src": "roguelike/assets/animations/fox-light.webp?v=1792805809674558800",
+      "durationMs": 1217
+    },
+    "medium": {
+      "src": "roguelike/assets/animations/fox-medium.webp?v=1792805815973074400",
+      "durationMs": 1217
+    },
+    "heavy": {
+      "src": "roguelike/assets/animations/fox-heavy.webp?v=1792805821911011600",
+      "durationMs": 1217
+    },
+    "block": {
+      "src": "roguelike/assets/animations/fox-block.webp?v=1792805828042756600",
+      "durationMs": 1217
+    },
+    "knockout": {
+      "src": "roguelike/assets/animations/fox-knockout.webp?v=1792805837098803000",
+      "durationMs": 3361,
+      "finalSrc": "roguelike/assets/animations/fox-knockout-final.webp?v=1792805837771132700"
+    }
+  },
+  "tortoise": {
+    "still": "roguelike/assets/animations/tortoise-still.webp?v=1792805847560920900",
+    "idle": {
+      "src": "roguelike/assets/animations/tortoise-idle.webp?v=1792805846873129000",
+      "durationMs": 3361
+    },
+    "light": {
+      "src": "roguelike/assets/animations/tortoise-light.webp?v=1792805852981937200",
+      "durationMs": 1217
+    },
+    "medium": {
+      "src": "roguelike/assets/animations/tortoise-medium.webp?v=1792805858892131100",
+      "durationMs": 1217
+    },
+    "heavy": {
+      "src": "roguelike/assets/animations/tortoise-heavy.webp?v=1792805865168164300",
+      "durationMs": 1217
+    },
+    "block": {
+      "src": "roguelike/assets/animations/tortoise-block.webp?v=1792805871766080300",
+      "durationMs": 1217
+    },
+    "knockout": {
+      "src": "roguelike/assets/animations/tortoise-knockout.webp?v=1792805881494184900",
+      "durationMs": 3361,
+      "finalSrc": "roguelike/assets/animations/tortoise-knockout-final.webp?v=1792805882239009700"
+    }
+  },
+  "tengu": {
+    "still": "roguelike/assets/animations/tengu-still.webp?v=1792805891829101900",
+    "idle": {
+      "src": "roguelike/assets/animations/tengu-idle.webp?v=1792805891134048800",
+      "durationMs": 3361
+    },
+    "light": {
+      "src": "roguelike/assets/animations/tengu-light.webp?v=1792805897268284600",
+      "durationMs": 1217
+    },
+    "medium": {
+      "src": "roguelike/assets/animations/tengu-medium.webp?v=1792805903037100300",
+      "durationMs": 1217
+    },
+    "heavy": {
+      "src": "roguelike/assets/animations/tengu-heavy.webp?v=1792805909018102100",
+      "durationMs": 1217
+    },
+    "block": {
+      "src": "roguelike/assets/animations/tengu-block.webp?v=1792805914549372000",
+      "durationMs": 1217
+    },
+    "knockout": {
+      "src": "roguelike/assets/animations/tengu-knockout.webp?v=1792805923313977100",
+      "durationMs": 3361,
+      "finalSrc": "roguelike/assets/animations/tengu-knockout-final.webp?v=1792805923975957900"
+    }
+  },
+  "dragon": {
+    "still": "roguelike/assets/animations/dragon-still.webp?v=1792805934352825300",
+    "idle": {
+      "src": "roguelike/assets/animations/dragon-idle.webp?v=1792805933471586500",
+      "durationMs": 3361
+    },
+    "light": {
+      "src": "roguelike/assets/animations/dragon-light.webp?v=1792805942632064400",
+      "durationMs": 1217
+    },
+    "medium": {
+      "src": "roguelike/assets/animations/dragon-medium.webp?v=1792805948642991400",
+      "durationMs": 1217
+    },
+    "heavy": {
+      "src": "roguelike/assets/animations/dragon-heavy.webp?v=1792805955086313000",
+      "durationMs": 1217
+    },
+    "block": {
+      "src": "roguelike/assets/animations/dragon-block.webp?v=1792805961350977300",
+      "durationMs": 1217
+    },
+    "knockout": {
+      "src": "roguelike/assets/animations/dragon-knockout.webp?v=1792805970835208700",
+      "durationMs": 3361,
+      "finalSrc": "roguelike/assets/animations/dragon-knockout-final.webp?v=1792805971611334400"
+    }
+  },
+  "imdugud": {
+    "still": "roguelike/assets/animations/imdugud-still.webp?v=1792860473214309500",
+    "idle": {
+      "src": "roguelike/assets/animations/imdugud-idle.webp?v=1792860472484015300",
+      "durationMs": 3361
+    },
+    "light": {
+      "src": "roguelike/assets/animations/imdugud-light.webp?v=1792860481408439200",
+      "durationMs": 1217
+    },
+    "medium": {
+      "src": "roguelike/assets/animations/imdugud-medium.webp?v=1792860489323588600",
+      "durationMs": 1217
+    },
+    "heavy": {
+      "src": "roguelike/assets/animations/imdugud-heavy.webp?v=1792860497544610400",
+      "durationMs": 1217
+    },
+    "block": {
+      "src": "roguelike/assets/animations/imdugud-block.webp?v=1792860643476523500",
+      "durationMs": 1217
+    },
+    "knockout": {
+      "src": "roguelike/assets/animations/imdugud-knockout.webp?v=1792860654390928000",
+      "durationMs": 3361,
+      "finalSrc": "roguelike/assets/animations/imdugud-knockout-final.webp?v=1792860654724754400"
+    }
+  },
+  "huwawa": {
+    "still": "roguelike/assets/animations/huwawa-still.webp?v=1792860521802044600",
+    "idle": {
+      "src": "roguelike/assets/animations/huwawa-idle.webp?v=1792860521034108500",
+      "durationMs": 3361
+    },
+    "light": {
+      "src": "roguelike/assets/animations/huwawa-light.webp?v=1792860529531154800",
+      "durationMs": 1217
+    },
+    "medium": {
+      "src": "roguelike/assets/animations/huwawa-medium.webp?v=1792860537318593900",
+      "durationMs": 1217
+    },
+    "heavy": {
+      "src": "roguelike/assets/animations/huwawa-heavy.webp?v=1792860545270403000",
+      "durationMs": 1217
+    },
+    "block": {
+      "src": "roguelike/assets/animations/huwawa-block.webp?v=1792860661775167900",
+      "durationMs": 1217
+    },
+    "knockout": {
+      "src": "roguelike/assets/animations/huwawa-knockout.webp?v=1792860672661164600",
+      "durationMs": 3361,
+      "finalSrc": "roguelike/assets/animations/huwawa-knockout-final.webp?v=1792860672988954500"
+    }
+  },
+  "bull-of-heaven": {
+    "still": "roguelike/assets/animations/bull-of-heaven-still.webp?v=1792860568823316900",
+    "idle": {
+      "src": "roguelike/assets/animations/bull-of-heaven-idle.webp?v=1792860568092509500",
+      "durationMs": 3361
+    },
+    "light": {
+      "src": "roguelike/assets/animations/bull-of-heaven-light.webp?v=1792860576379093100",
+      "durationMs": 1217
+    },
+    "medium": {
+      "src": "roguelike/assets/animations/bull-of-heaven-medium.webp?v=1792860583677528700",
+      "durationMs": 1217
+    },
+    "heavy": {
+      "src": "roguelike/assets/animations/bull-of-heaven-heavy.webp?v=1792860591700986500",
+      "durationMs": 1217
+    },
+    "block": {
+      "src": "roguelike/assets/animations/bull-of-heaven-block.webp?v=1792860680415080600",
+      "durationMs": 1217
+    },
+    "knockout": {
+      "src": "roguelike/assets/animations/bull-of-heaven-knockout.webp?v=1792860719165399700",
+      "durationMs": 3361,
+      "finalSrc": "roguelike/assets/animations/bull-of-heaven-knockout-final.webp?v=1792860719463366000"
+    }
+  }
+}

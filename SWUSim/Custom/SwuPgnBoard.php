@@ -122,6 +122,9 @@ function SwuPgnBoardWrite(array $state, array $doc, string $view): array
     $gUniqueIDCounter = $uid;
     SetSWUVar('SWUPGN_VIEWER', '1');
     SetSWUVar('SWUPGN_STATS', json_encode((object)$stats));
+    // InitializeGamestate leaves the '-' placeholder, which the board pops up as a flash message on every
+    // step; a live game clears it before each action, a viewer game runs none.
+    SetFlashMessage('');
     // Placeholder names go to the client in the viewer's meta, never into the gamestate.
     return ['placeholders' => $names];
 }

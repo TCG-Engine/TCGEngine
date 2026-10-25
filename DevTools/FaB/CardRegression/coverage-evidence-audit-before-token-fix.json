@@ -1,0 +1,585 @@
+{
+  "audit_completed_utc": "2026-10-19T22:16:26.867588+00:00",
+  "scope": "Independent read-only data/hash/evidence audit. No PHP, game actions, regression replay, rule edits, or repository mutations executed.",
+  "runtime_before_sha256": "a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34",
+  "runtime_after_sha256": "a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34",
+  "repository_and_fixture_hashes_stable_during_audit": true,
+  "manifest_runtime_matches_snapshot": true,
+  "checkpoint_runtime_matches_snapshot": true,
+  "calculated": {
+    "catalog_identities": 5196,
+    "unique_catalog_ids": 5196,
+    "printing_records": 17188,
+    "canonical_saved_scenarios": 485,
+    "canonical_assertions": 4777,
+    "canonical_actions": 6307,
+    "saved_card_scenario_entries": 488,
+    "all_spec_card_scenario_entries": 651,
+    "identities_with_saved_scenarios": 106,
+    "identities_with_verified_partial_branches": 106,
+    "fully_covered_identities": 0,
+    "identities_without_verified_branch": 5090,
+    "current_runtime_clean_pass_scenarios": 485,
+    "current_runtime_repeat_pass_scenarios": 412,
+    "current_runtime_single_pass_scenarios": 73,
+    "matching_partial_review_scenarios": 485,
+    "matching_review_and_current_pass_scenarios": 485,
+    "negative_controls": 36,
+    "negative_controls_detected": 36,
+    "negative_control_directories_present": []
+  },
+  "manifest_summary": {
+    "identities_inventoried": 5196,
+    "printing_records": 17188,
+    "ability_snapshot_identities": 4806,
+    "compiled_macro_identities": 3816,
+    "implemented_or_shared_hook_candidates": 4810,
+    "identities_with_recorded_branches": 106,
+    "scenarios_recorded": 485,
+    "scenarios_independently_semantically_reviewed": 485,
+    "scenarios_with_clean_replay_pass": 485,
+    "scenarios_with_two_clean_replay_passes": 412,
+    "fully_covered_identities": 0,
+    "negative_controls_detected": 36,
+    "negative_controls_total": 36,
+    "recorded_terminal_state_compatibility_scenarios": 4,
+    "blocked_incorrect_behavior_scenarios": 12,
+    "identities_without_recorded_branches": 5090,
+    "identities_with_semantically_verified_branches": 106,
+    "identities_with_partial_verified_coverage": 106,
+    "identities_without_semantically_verified_branches": 5090,
+    "scenarios_semantically_reviewed_and_current_replay_passed": 485,
+    "card_scenario_branch_entries": 651,
+    "canonical_saved_fixture_folders": 485,
+    "unmapped_canonical_fixture_folders": []
+  },
+  "checkpoint_latest_clean_replay": "card-regression-replay-next-aa-expansion-run1.json",
+  "replay_reports": [
+    {
+      "name": "card-regression-replay-activation-pilots-run1.json",
+      "runtime_sha256": "a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34",
+      "completed_utc": "2026-10-19T21:58:59.577758+00:00",
+      "returncode": 0,
+      "fixture_rows": 380,
+      "pass_rows": 380,
+      "qualified_current_fixture_passes": 380,
+      "stdout_consistent": true
+    },
+    {
+      "name": "card-regression-replay-attack-expansion-run1.json",
+      "runtime_sha256": "aca54bb2393356f79e78368f0e3a58d327dad4025568e8025d5aff06f7a2ee91",
+      "completed_utc": "2026-10-19T21:46:17.774463+00:00",
+      "returncode": 0,
+      "fixture_rows": 372,
+      "pass_rows": 372,
+      "qualified_current_fixture_passes": 0,
+      "stdout_consistent": true
+    },
+    {
+      "name": "card-regression-replay-batch01-run1.json",
+      "runtime_sha256": null,
+      "completed_utc": "2026-10-19T21:04:12.890300+00:00",
+      "returncode": 1,
+      "fixture_rows": 153,
+      "pass_rows": 152,
+      "qualified_current_fixture_passes": 0,
+      "stdout_consistent": true
+    },
+    {
+      "name": "card-regression-replay-batch02-run1.json",
+      "runtime_sha256": null,
+      "completed_utc": "2026-10-19T21:06:50.023928+00:00",
+      "returncode": 0,
+      "fixture_rows": 159,
+      "pass_rows": 159,
+      "qualified_current_fixture_passes": 0,
+      "stdout_consistent": true
+    },
+    {
+      "name": "card-regression-replay-corrected-run1.json",
+      "runtime_sha256": null,
+      "completed_utc": "2026-10-19T21:15:48.904056+00:00",
+      "returncode": 0,
+      "fixture_rows": 185,
+      "pass_rows": 185,
+      "qualified_current_fixture_passes": 0,
+      "stdout_consistent": true
+    },
+    {
+      "name": "card-regression-replay-corrected-run2.json",
+      "runtime_sha256": null,
+      "completed_utc": "2026-10-19T21:16:03.373581+00:00",
+      "returncode": 0,
+      "fixture_rows": 185,
+      "pass_rows": 185,
+      "qualified_current_fixture_passes": 0,
+      "stdout_consistent": true
+    },
+    {
+      "name": "card-regression-replay-equipment-expansion-run1.json",
+      "runtime_sha256": "a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34",
+      "completed_utc": "2026-10-19T22:02:51.218097+00:00",
+      "returncode": 0,
+      "fixture_rows": 412,
+      "pass_rows": 412,
+      "qualified_current_fixture_passes": 412,
+      "stdout_consistent": true
+    },
+    {
+      "name": "card-regression-replay-family-pilots-run1.json",
+      "runtime_sha256": null,
+      "completed_utc": "2026-10-19T21:28:35.289368+00:00",
+      "returncode": 0,
+      "fixture_rows": 256,
+      "pass_rows": 256,
+      "qualified_current_fixture_passes": 0,
+      "stdout_consistent": true
+    },
+    {
+      "name": "card-regression-replay-next-aa-expansion-run1.json",
+      "runtime_sha256": "a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34",
+      "completed_utc": "2026-10-19T22:06:41.061307+00:00",
+      "returncode": 0,
+      "fixture_rows": 485,
+      "pass_rows": 485,
+      "qualified_current_fixture_passes": 485,
+      "stdout_consistent": true
+    },
+    {
+      "name": "card-regression-replay-stable-run1.json",
+      "runtime_sha256": null,
+      "completed_utc": "2026-10-19T21:09:17.623726+00:00",
+      "returncode": 0,
+      "fixture_rows": 158,
+      "pass_rows": 158,
+      "qualified_current_fixture_passes": 0,
+      "stdout_consistent": true
+    },
+    {
+      "name": "card-regression-replay-trigger-fix-run1.json",
+      "runtime_sha256": "aca54bb2393356f79e78368f0e3a58d327dad4025568e8025d5aff06f7a2ee91",
+      "completed_utc": "2026-10-19T21:42:53.721852+00:00",
+      "returncode": 0,
+      "fixture_rows": 336,
+      "pass_rows": 336,
+      "qualified_current_fixture_passes": 0,
+      "stdout_consistent": true
+    }
+  ],
+  "review_basis_distribution": {
+    "not recorded in entry": 185,
+    "all saved fixtures and212nativeassertions independently audited; current hashes matched trigger-fix-run1": 45,
+    "all42 exact semantic specs reviewed;6 actual saved pilots reviewed; supported recorder checks each remaining declared expectation": 42,
+    "all32 saved action/checkpoint sequences compared to reviewed specs": 32,
+    "all42 saved action/checkpoint sequences compared to reviewed specs": 42,
+    "all12 actual setups/assertions/hash replay comparison; removed-bow initial serialization is absent-bow duplicate only": 12,
+    "actual turn-cleanup fixture step7 turn2/p2AP1/p1AP0 and native cleanup-before-refill reviewed": 1,
+    "saved draw,response and GuardianBLIND interaction snapshots/checkpoints reviewed": 3,
+    "all8 life-response cases and3total cross-batch GuardianBLIND interactions independently reviewed": 10,
+    "all33 ordinary semantic specs independently reviewed;5 exact saved pilot hashes matched current380PASS and34controls; GuardianBLIND rejection separately reproduced and fixed; held Battleworn cases excluded": 34,
+    "all4 semantic specs independently reviewed after removing unsupported weaponFaceDown fields; knownBLIND and legalCloaked controls, explicitNO_ABILITIES case is abstractcompatibility only": 4,
+    "all75 exact semantic specs independently recomputed;2 saved pilots inspected and hashes matched current380PASS;2 effect-removal controls detected intended HP failures before73-case expansion": 75
+  },
+  "reviewers": {
+    "/root/pilot_review": 276,
+    "/root/wtr_buff_scenarios": 162,
+    "/root/wtr_attack_scenarios": 12,
+    "/root/wtr_reaction_scenarios": 1,
+    "/root/pilot_review and /root/wtr_reaction_scenarios": 34
+  },
+  "fixture_review_hash_failures": [],
+  "review_source_spec_mismatches": [],
+  "source_oracle_notes_mismatches": [
+    "card-sic-em-shot-red-removed-bow-rejected"
+  ],
+  "source_names_mismatches": [],
+  "unknown_card_ids_in_specs": [],
+  "canonical_without_effective_spec": [],
+  "duplicate_slug_definitions": [
+    {
+      "slug": "card-wounding-blow-red-unblocked",
+      "sources": [
+        "card-regression-scenarios.json",
+        "card-regression-batch01.json"
+      ],
+      "equivalent_cases": false
+    },
+    {
+      "slug": "card-head-jab-red-unblocked",
+      "sources": [
+        "card-regression-scenarios.json",
+        "card-regression-batch01.json"
+      ],
+      "equivalent_cases": false
+    },
+    {
+      "slug": "card-sic-em-shot-red-no-bow-rejected",
+      "sources": [
+        "card-regression-rule-probes.json",
+        "card-regression-batch08.json"
+      ],
+      "equivalent_cases": false
+    }
+  ],
+  "manifest_errors": [],
+  "negative_control_result_invariant_errors": [],
+  "issues": [
+    {
+      "id": "FAB-REG-001",
+      "status": "fixed_verified_partial_scope",
+      "evidence": "blocked-rule-probe-results.json",
+      "evidence_exists": true,
+      "before_failure_rows": [
+        {
+          "slug": "card-sic-em-shot-red-no-bow-rejected",
+          "status": "blocked_or_incorrect",
+          "error": "Expected card sic_em_shot_red to exist in p1Arsenal."
+        }
+      ],
+      "passing_fixtures": [
+        {
+          "path": "Tests/Integration/FaBSim/card-sic-em-shot-red-no-bow-rejected",
+          "exists": true,
+          "current_review_and_pass": true,
+          "current_passes": 3
+        }
+      ]
+    },
+    {
+      "id": "FAB-REG-002",
+      "status": "fixed_verified_partial_scope",
+      "evidence": null,
+      "evidence_exists": false,
+      "before_failure_rows": [],
+      "passing_fixtures": [
+        {
+          "path": "Tests/Integration/FaBSim/card-snatch-red-wtr-hit-unblocked-draw-exactly-one",
+          "exists": true,
+          "current_review_and_pass": true,
+          "current_passes": 3
+        }
+      ]
+    },
+    {
+      "id": "FAB-REG-003",
+      "status": "fixed_verified_partial_scope",
+      "evidence": "ap-cleanup-before-fix-results.json",
+      "evidence_exists": true,
+      "before_failure_rows": [
+        {
+          "slug": "rule-end-turn-clears-unused-action-points",
+          "status": "blocked_or_incorrect",
+          "error": "Expected p1ActionPoints to equal 0, got 1."
+        }
+      ],
+      "passing_fixtures": [
+        {
+          "path": "Tests/Integration/FaBSim/rule-end-turn-clears-unused-action-points",
+          "exists": true,
+          "current_review_and_pass": true,
+          "current_passes": 3
+        }
+      ]
+    },
+    {
+      "id": "FAB-REG-004",
+      "status": "fixed_verified_partial_scope",
+      "evidence": "snatch-trigger-before-fix-results.json",
+      "evidence_exists": true,
+      "before_failure_rows": [
+        {
+          "slug": "card-snatch-red-hit-trigger-response-window",
+          "status": "blocked_or_incorrect",
+          "error": "Expected p1Hand count 0, got 1."
+        }
+      ],
+      "passing_fixtures": [
+        {
+          "path": "Tests/Integration/FaBSim/card-snatch-red-opponent-responds-before-hit-draw",
+          "exists": true,
+          "current_review_and_pass": true,
+          "current_passes": 3
+        }
+      ]
+    },
+    {
+      "id": "FAB-REG-005",
+      "status": "fixed_verified_partial_scope",
+      "evidence": "life-trigger-before-fix-results.json",
+      "evidence_exists": true,
+      "before_failure_rows": [
+        {
+          "slug": "card-scar-for-a-scar-red-lower-own-heal-removes-condition",
+          "status": "blocked_or_incorrect",
+          "error": "Expected Stack count 2, got 1."
+        },
+        {
+          "slug": "card-wounded-bull-red-lower-own-heal-removes-condition",
+          "status": "blocked_or_incorrect",
+          "error": "Expected Stack count 2, got 1."
+        }
+      ],
+      "passing_fixtures": [
+        {
+          "path": "Tests/Integration/FaBSim/card-scar-for-a-scar-red-lower-own-heal-removes-condition",
+          "exists": true,
+          "current_review_and_pass": true,
+          "current_passes": 3
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-wounded-bull-red-lower-own-heal-removes-condition",
+          "exists": true,
+          "current_review_and_pass": true,
+          "current_passes": 3
+        }
+      ]
+    },
+    {
+      "id": "FAB-REG-006",
+      "status": "fixed_verified_partial_scope",
+      "evidence": "activation-and-battleworn-before-fix-results.json",
+      "evidence_exists": true,
+      "before_failure_rows": [
+        {
+          "slug": "card-energy-potion-blue-activation-lost-ability-rejection-probe",
+          "status": "blocked_or_incorrect",
+          "error": "Expected card energy_potion_blue to exist in p1Arena."
+        },
+        {
+          "slug": "card-breaking-scales-activation-battleworn-not-before-chain-close-probe",
+          "status": "blocked_or_incorrect",
+          "error": "Expected p2CombatChain-0.Counters to equal '[]', got '{\"DEFENSE\":1}'."
+        }
+      ],
+      "passing_fixtures": [
+        {
+          "path": "Tests/Integration/FaBSim/card-energy-potion-blue-activation-lost-ability-rejection-probe",
+          "exists": true,
+          "current_review_and_pass": true,
+          "current_passes": 3
+        }
+      ]
+    },
+    {
+      "id": "FAB-REG-007",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "evidence": "activation-and-battleworn-before-fix-results.json",
+      "evidence_exists": true,
+      "before_failure_rows": [
+        {
+          "slug": "card-energy-potion-blue-activation-lost-ability-rejection-probe",
+          "status": "blocked_or_incorrect",
+          "error": "Expected card energy_potion_blue to exist in p1Arena."
+        },
+        {
+          "slug": "card-breaking-scales-activation-battleworn-not-before-chain-close-probe",
+          "status": "blocked_or_incorrect",
+          "error": "Expected p2CombatChain-0.Counters to equal '[]', got '{\"DEFENSE\":1}'."
+        }
+      ],
+      "passing_fixtures": []
+    },
+    {
+      "id": "FAB-REG-008",
+      "status": "incorrect_behavior_reproduced_independently_confirmed_not_saved",
+      "evidence": "card-regression-batch13-pilot.recording-results.json",
+      "evidence_exists": true,
+      "before_failure_rows": [
+        {
+          "slug": "card-pummel-red-ally-hit-does-not-discard-hero-hand",
+          "status": "blocked_or_incorrect",
+          "error": "Expected card pummel_red to exist in p1Graveyard."
+        },
+        {
+          "slug": "card-pummel-red-hand-club-weapon-no-discard",
+          "status": "blocked_or_incorrect",
+          "error": "Expected card pummel_red to exist in p1Graveyard."
+        },
+        {
+          "slug": "card-pummel-red-hand-cost-two-hit-defender-chooses-0",
+          "status": "blocked_or_incorrect",
+          "error": "Expected card pummel_red to exist in p1Graveyard."
+        },
+        {
+          "slug": "card-pummel-red-two-reactions-two-hit-triggers-two-discards",
+          "status": "blocked_or_incorrect",
+          "error": "Expected card pummel_red to exist in p1Graveyard."
+        },
+        {
+          "slug": "card-razor-reflex-red-fully-blocked-no-hit-no-go-again",
+          "status": "blocked_or_incorrect",
+          "error": "Expected card razor_reflex_red to exist in p1Graveyard."
+        },
+        {
+          "slug": "card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
+          "status": "blocked_or_incorrect",
+          "error": "Expected card razor_reflex_red to exist in p1Graveyard."
+        },
+        {
+          "slug": "card-razor-reflex-red-hand-sword-weapon-no-granted-go-again",
+          "status": "blocked_or_incorrect",
+          "error": "Expected card razor_reflex_red to exist in p1Graveyard."
+        }
+      ],
+      "passing_fixtures": []
+    },
+    {
+      "id": "FAB-REG-009",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "evidence": "card-regression-batch16-pilot.recording-results.json",
+      "evidence_exists": true,
+      "before_failure_rows": [
+        {
+          "slug": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+          "status": "blocked_or_incorrect",
+          "error": "Expected p1Resources to equal 0, got 1."
+        },
+        {
+          "slug": "card-quicken-attack-action-trigger-timing",
+          "status": "blocked_or_incorrect",
+          "error": "Expected Stack count 2, got 1."
+        },
+        {
+          "slug": "card-flock-of-the-feather-walkers-red-known-blinding-no-reveal-cost-no-trigger",
+          "status": "blocked_or_incorrect",
+          "error": "can_play  expected true got false"
+        },
+        {
+          "slug": "card-flock-of-the-feather-walkers-red-known-blinding-spare-card-no-chooser-no-trigger",
+          "status": "blocked_or_incorrect",
+          "error": "Expected p1Arena count 0, got 1."
+        }
+      ],
+      "passing_fixtures": []
+    },
+    {
+      "id": "FAB-REG-010",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "evidence": "card-regression-batch16-pilot.recording-results.json",
+      "evidence_exists": true,
+      "before_failure_rows": [
+        {
+          "slug": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+          "status": "blocked_or_incorrect",
+          "error": "Expected p1Resources to equal 0, got 1."
+        },
+        {
+          "slug": "card-quicken-attack-action-trigger-timing",
+          "status": "blocked_or_incorrect",
+          "error": "Expected Stack count 2, got 1."
+        },
+        {
+          "slug": "card-flock-of-the-feather-walkers-red-known-blinding-no-reveal-cost-no-trigger",
+          "status": "blocked_or_incorrect",
+          "error": "can_play  expected true got false"
+        },
+        {
+          "slug": "card-flock-of-the-feather-walkers-red-known-blinding-spare-card-no-chooser-no-trigger",
+          "status": "blocked_or_incorrect",
+          "error": "Expected p1Arena count 0, got 1."
+        }
+      ],
+      "passing_fixtures": []
+    },
+    {
+      "id": "FAB-REG-011",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "evidence": "card-regression-batch16-pilot.recording-results.json",
+      "evidence_exists": true,
+      "before_failure_rows": [
+        {
+          "slug": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+          "status": "blocked_or_incorrect",
+          "error": "Expected p1Resources to equal 0, got 1."
+        },
+        {
+          "slug": "card-quicken-attack-action-trigger-timing",
+          "status": "blocked_or_incorrect",
+          "error": "Expected Stack count 2, got 1."
+        },
+        {
+          "slug": "card-flock-of-the-feather-walkers-red-known-blinding-no-reveal-cost-no-trigger",
+          "status": "blocked_or_incorrect",
+          "error": "can_play  expected true got false"
+        },
+        {
+          "slug": "card-flock-of-the-feather-walkers-red-known-blinding-spare-card-no-chooser-no-trigger",
+          "status": "blocked_or_incorrect",
+          "error": "Expected p1Arena count 0, got 1."
+        }
+      ],
+      "passing_fixtures": []
+    },
+    {
+      "id": "FAB-REG-012",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "evidence": "card-regression-batch16-pilot.recording-results.json",
+      "evidence_exists": true,
+      "before_failure_rows": [
+        {
+          "slug": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+          "status": "blocked_or_incorrect",
+          "error": "Expected p1Resources to equal 0, got 1."
+        },
+        {
+          "slug": "card-quicken-attack-action-trigger-timing",
+          "status": "blocked_or_incorrect",
+          "error": "Expected Stack count 2, got 1."
+        },
+        {
+          "slug": "card-flock-of-the-feather-walkers-red-known-blinding-no-reveal-cost-no-trigger",
+          "status": "blocked_or_incorrect",
+          "error": "can_play  expected true got false"
+        },
+        {
+          "slug": "card-flock-of-the-feather-walkers-red-known-blinding-spare-card-no-chooser-no-trigger",
+          "status": "blocked_or_incorrect",
+          "error": "Expected p1Arena count 0, got 1."
+        }
+      ],
+      "passing_fixtures": []
+    }
+  ],
+  "findings": [],
+  "limits": [
+    "Hash qualification establishes evidence identity and runtime, not independent truth of all card semantics.",
+    "485 independent review entries include family-spec/representative-pilot review; they must not be described as 485 manually inspected saved fixtures.",
+    "185 early review entries lack an explicit review_basis string and none of the entries stores a hash of its source spec; exact fixture review hashes remain available.",
+    "Four terminal_state_compatibility fixtures are intentionally weaker than complete effect coverage.",
+    "Generic membership/count checks do not independently prove ordering or duplicate multiplicity at intermediate steps.",
+    "No gameplay replay was run by this audit."
+  ],
+  "qualifications": [
+    {
+      "kind": "stale_descriptive_metadata",
+      "slug": "card-sic-em-shot-red-removed-bow-rejected",
+      "detail": "Saved meta.notes lacks the newer caveat that initial serialization removes the requested tombstone. Current spec branch, independent review and checkpoint correctly call it an absent-bow compatibility duplicate. Behavior-file hashes and all counts are unaffected."
+    },
+    {
+      "kind": "missing_repository_before_failure_trace",
+      "issue": "FAB-REG-002",
+      "detail": "Runner initial-state loading fix is supported by narrative description, current passing step0 assertion fixture and Azuki validation statement, but the issue has no evidence path to a preserved failing-before trace. Do not describe all six fixed issue groups as having repository-persisted failing-before artifacts."
+    },
+    {
+      "kind": "review_basis_scope",
+      "detail": "485 reviewed fixture hashes qualify, but review methods include exact family specs and representative saved pilots. 185 early entries omit an explicit review_basis field. This is not 485 individually manually inspected saved fixtures."
+    },
+    {
+      "kind": "planned_vs_saved_entries",
+      "detail": "651 card-scenario entries includes unrecorded plans. There are 488 saved card-scenario entries and 485 unique saved scenarios; the extra3 come from multi-card stack coverage."
+    },
+    {
+      "kind": "blocked_later_timing",
+      "issue": "FAB-REG-009",
+      "detail": "The exact Flock pilot stops at earlier resource-payment/reveal ordering. Its ordinary attack-trigger timing is correctly listed in checkpoint.static_only_concerns as blocked, and must not be called dynamically reproduced yet."
+    }
+  ],
+  "compatibility_only_verified_identities": [],
+  "saved_primary_ids_absent_from_fixture_data": [],
+  "printing_checks": {
+    "printing_records": 17188,
+    "unique_set_printing_uniqueid_triplets": 17188,
+    "duplicate_triplets_within_identity": [],
+    "note": "Distinct foil/treatment records remain metadata; no printing is counted as a separate covered functional identity."
+  }
+}

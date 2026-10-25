@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T18:48:22+00:00",
+    "input_file": "card-regression-batch121.json",
+    "input_sha256": "160a836804c9d95fa2e8d4722f196042659593173c6b5ab0818a4121838337c9",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-seeds-of-strength-red-four-live-sparse-actual-earth-blue-pitch-paid-action-creates-four-owned-might-tokens",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 362
+        },
+        {
+            "slug": "card-laden-with-earth-red-four-live-sparse-actual-earth-bond-token-and-next-real-zero-cost-attack-plus-three",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1102
+        }
+    ]
+}

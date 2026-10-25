@@ -1,0 +1,31 @@
+{
+  "status": "FROZEN_SCRATCH_PROPOSALS_PENDING_INDEPENDENT_REVIEW_NO_NEW_VERIFIED_COVERAGE",
+  "files": {
+    "author-static-audit.json": "d981fdd68b84168e41b17248c5fa797f4b2725ce673172e105ec0528cd83378b",
+    "batches/dust_runner_outlaw.json": "f6757524bae88b96320c4c98628fc60a71ca7620492072943b6e16d8fd02ae31",
+    "batches/electrolyze.json": "7dfc9964dd36dabc62c4762c756cb4f28b925816b105bf5e8f9692eb6235c61b",
+    "batches/fry.json": "6d70dc9a900b5e5321d8f7d922d6f390909f313bb305c762bb198718081750b4",
+    "batches/head_jab.json": "8c077a4f6d8848830bc5578d7f1b64b2e6c3f2556402ce9b40297957dbb4c87e",
+    "batches/leg_tap.json": "02201c0f32cc9b1eaaba893395aacadc935232356febfda98f3a0f7d205c1f95",
+    "batches/rebellious_rush.json": "b8fa524709455638a79c197396dee8f4412f4aaaae03a54bf7ddd92dd8896e50",
+    "batches/ronin_renegade.json": "111f338c33af6f8b9dd7b56403a268f250a9bdc27b98ba6aadaddaa03567a1af",
+    "batches/sic_em_shot.json": "27287f80a25c17fa50599e14853b170fa69a0c00b6cc2e372ea37c0195238860",
+    "batches/surging_strike.json": "8bda7d6d0fe0c2d6b717895c1e25f6add2cc2b932499613e6f3fd97bf14b8119",
+    "coverage-matrix.json": "aaa0d2d28adab82e125d2f664ad5092c3f1a14d26dc768467038769de3247515",
+    "existing-fixture-bindings.json": "b5d7b0a704f69edac1b8d44b12ea6b1b20746de05e05c0b5609ccd9efeee11b9",
+    "finite-baseline-definition-proposed.json": "264397975a5a77f6d746e65046e56483f218b242e8743b8d8c31f17112de40fb",
+    "negative-control-plans.json": "3b52255af2c04c79c671471082d127d369d83ddfda7ff45e9f93da12d54c5065",
+    "pilots4-proposed.json": "ecae8647865410394fe59268ee85b32e3bed4bd6c04a09d0f9a4f46bddb4be83",
+    "printed-source-review/asset-bindings.json": "f8ef72bd386d9a20497b07e48836595374ca091ed2bf69325d4d2ee50c6319b5",
+    "printed-source-review/author-observations.json": "ae708e79ce4f5c8a6c1b8cbea4cd7334e63fce3544f60c0c188e3ef3a2a1be8c",
+    "scenarios-proposed.json": "0e0368b5317708da42c0be3cf08e3d0ea26cd4bf46954d81306be9277bbe3a11",
+    "source-and-rules.json": "ddb5751018e928f4b7198854825dbe4b2779ec2829347d42b6106b680a52efcb"
+  },
+  "builder": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\build_innate_go_again_baseline.py",
+    "rawSHA256": "a11fc7a59a6247595b0f8b1c2a7d3c76efcf2f06a7cad31038b6d1b4d18de056"
+  },
+  "nativeWrites": 0,
+  "nativeActions": 0,
+  "newVerifiedCoverage": 0
+}

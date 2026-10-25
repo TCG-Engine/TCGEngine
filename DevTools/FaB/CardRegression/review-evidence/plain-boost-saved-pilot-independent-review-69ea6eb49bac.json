@@ -1,0 +1,59 @@
+{
+  "status": "SAVED_THREE_PILOTS_APPROVED_EXPANSION_BOUNDARIES_PENDING",
+  "reviewer": "/root/wtr_buff_scenarios",
+  "proposalSHA256": "7c06fc5644294f2f7f177d0bb4ef27f227a6ac2381fbe5d7949da2ab1d7e78a4",
+  "allPersistedSemanticAssertionsExactlyMatchReviewedSpecs": true,
+  "assertionCount": 196,
+  "fixtures": [
+    {
+      "slug": "card-throttle-red-boost-mechanologist-unblocked",
+      "fixtureSHA256": "1062e4ac7340503faa4f885ee084af6ef0b3d6f113b448cc3258520e7173f05b",
+      "actions": 15,
+      "assertions": 70,
+      "finalDefenderHealth": 14,
+      "power": 6,
+      "goAgain": true,
+      "finalResources": 1,
+      "finalActionPoints": 1
+    },
+    {
+      "slug": "card-full-tilt-red-boost-nonmechanologist-no-go-again",
+      "fixtureSHA256": "691fadc843dd844140fe68f7bc12e3c9a78bd1c415d04758ed0d5c2a36b3cdef",
+      "actions": 14,
+      "assertions": 64,
+      "finalDefenderHealth": 15,
+      "power": 5,
+      "goAgain": false,
+      "finalResources": 1,
+      "finalActionPoints": 0
+    },
+    {
+      "slug": "card-heart-wrencher-red-boost-mechanologist-unblocked",
+      "fixtureSHA256": "883232c187336e4a9cce40e537d6abe67636e38f53786b6ce139ddc122d4aa90",
+      "actions": 14,
+      "assertions": 62,
+      "finalDefenderHealth": 17,
+      "power": 3,
+      "goAgain": true,
+      "finalResources": 0,
+      "finalActionPoints": 1
+    }
+  ],
+  "initialState": "Fresh turn2 MAIN, Dash versus Ira, active AP1/nonturn AP0/resources0, no equipment/items/arena effects or queued work.",
+  "staging": "Positive-cost accepted declaration preserves original Deck and Banish0/AP1/resources0 until blue3 pitch. Finished payment leaves one banished original top, AP0/resources1, source still Stack before opponent priority. Cost0 Heart retains actual source identity. Final pendingPayment is null and all queues empty.",
+  "banishPermission": "Face-up owned/controlled cost cards gain no permission to play from banish; zero-cost accepted-Mech cases exercise rejection with AP/resources available.",
+  "observedReplayReport": {
+    "path": "DevTools/FaB/CardRegression/card-regression-replay-granted-hit-boost-pilots-run1.json",
+    "runtimeSHA256": "07f079a1137f30043e5019b807cb2ce2534c8f21d136b621f37616bd2f539b75",
+    "returncode": 0,
+    "total": 636,
+    "passed": 636,
+    "failed": 0,
+    "allThreeReportedFixtureHashesMatch": true,
+    "note": "Evidence belongs to this recorded runtime; later source changes require a fresh replay."
+  },
+  "expansion": "Plain213/24IDs remains conditional on independently reviewed supported boundary cases and runtime controls. Eye of Ophidia Opt must resolve as a triggered layer after Boost payment; an eager pre-Boost Opt is a separate timing defect and cannot be a valid current-top witness.",
+  "reviewerNativePHPExecutions": 0,
+  "reviewerGameActions": 0,
+  "reviewerNativeWrites": 0
+}

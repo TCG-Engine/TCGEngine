@@ -1,0 +1,7 @@
+{
+    "name": "Wrecker Romp / one-spare-cannot-both-pitch-and-discard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:18:47+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Brute attack action: cost2, power8, defense3, pitch1. Its only functional text is 'As an additional cost to play this, discard a random card.' Only one spare Hand card exists and there are0floating resources. It cannot both supply resource payment and remain a card to discard; reject without partial payment. Every result is independently required to leave source in its original zone, no Stack/GY/Pitch, unchanged assets/health/priority and no choices. The author-only CanPlay query is diagnostic; saved native assertions after the actual rejected click pin behavior. Sources: FaBSim/GeneratedCode/cardArrayCache.json#wrecker_romp_red https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP037.webp https://judge.fabtcg.com/cards/detail/142/ https://cards.fabtcg.com/card/wrecker-romp-2/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#51 https://rules.fabtcg.com/en/cr/01-game-concepts/#114 https://rules.fabtcg.com/en/cr/07-combat/"
+}

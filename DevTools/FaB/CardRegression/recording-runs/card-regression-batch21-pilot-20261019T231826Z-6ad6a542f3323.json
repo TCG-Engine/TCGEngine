@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-19T23:18:26+00:00",
+    "input_file": "card-regression-batch21-pilot.json",
+    "input_sha256": "74d8252ed27981abe160aebbf4d0fd6dc069e8a4878405ad1d226ad6a9e6d9d6",
+    "filter": "card-",
+    "results": [
+        {
+            "slug": "card-aether-dart-red-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 54
+        },
+        {
+            "slug": "card-ice-bolt-red-opponent-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 67
+        }
+    ]
+}

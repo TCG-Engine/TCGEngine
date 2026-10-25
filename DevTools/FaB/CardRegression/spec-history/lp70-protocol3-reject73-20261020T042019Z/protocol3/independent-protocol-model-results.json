@@ -1,0 +1,792 @@
+{
+  "status": "ALL_31_SOURCE_DERIVED_PROTOCOL_MODELS_PASS",
+  "rows": [
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-hand-zero-ap-exact-plus-one",
+      "oracles": 137,
+      "modeled_actions": 17,
+      "modeled_passes": 15,
+      "finalHP": [
+        20,
+        15
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-arsenal-face-down-zero-ap-exact-plus-one",
+      "oracles": 137,
+      "modeled_actions": 17,
+      "modeled_passes": 15,
+      "finalHP": [
+        20,
+        15
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-arsenal-face-up-zero-ap-exact-plus-one",
+      "oracles": 137,
+      "modeled_actions": 17,
+      "modeled_passes": 15,
+      "finalHP": [
+        20,
+        15
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-zero-cost-retains-two-floating-resources",
+      "oracles": 137,
+      "modeled_actions": 17,
+      "modeled_passes": 15,
+      "finalHP": [
+        20,
+        15
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-zero-cost-keeps-unpitched-spare-blue",
+      "oracles": 143,
+      "modeled_actions": 17,
+      "modeled_passes": 15,
+      "finalHP": [
+        20,
+        15
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-full-block-does-not-create-hit-or-go-again",
+      "oracles": 192,
+      "modeled_actions": 20,
+      "modeled_passes": 15,
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-cost-three-attack-action-still-legal-target",
+      "oracles": 137,
+      "modeled_actions": 17,
+      "modeled_passes": 15,
+      "finalHP": [
+        20,
+        12
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-two-original-copies-resolve-lifo-with-additive-power",
+      "oracles": 201,
+      "modeled_actions": 21,
+      "modeled_passes": 18,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ],
+        [
+          5,
+          3,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-third-reaction-after-partial-resolution-028-required",
+      "oracles": 258,
+      "modeled_actions": 24,
+      "modeled_passes": 20,
+      "finalHP": [
+        20,
+        13
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ],
+        [
+          5,
+          3,
+          1
+        ],
+        [
+          6,
+          3,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-printed-pitch-funds-generic-cost-three",
+      "oracles": 69,
+      "modeled_actions": 15,
+      "modeled_passes": 13,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-printed-defense-exact-partial-damage",
+      "oracles": 72,
+      "modeled_actions": 15,
+      "modeled_passes": 13,
+      "finalHP": [
+        20,
+        18
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-own-action-hand-rejected",
+      "oracles": 38,
+      "modeled_actions": 1,
+      "modeled_passes": 0,
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 1,
+      "declared_target_pairs": [],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-own-action-arsenal-rejected",
+      "oracles": 38,
+      "modeled_actions": 1,
+      "modeled_passes": 0,
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 1,
+      "declared_target_pairs": [],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-before-attack-layer-resolves-rejected",
+      "oracles": 72,
+      "modeled_actions": 15,
+      "modeled_passes": 13,
+      "finalHP": [
+        20,
+        16
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 1,
+      "declared_target_pairs": [],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-attack-window-rejected",
+      "oracles": 64,
+      "modeled_actions": 15,
+      "modeled_passes": 13,
+      "finalHP": [
+        20,
+        16
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 1,
+      "declared_target_pairs": [],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-defend-priority-window-rejected",
+      "oracles": 64,
+      "modeled_actions": 15,
+      "modeled_passes": 13,
+      "finalHP": [
+        20,
+        16
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 1,
+      "declared_target_pairs": [],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-reaction-wrong-priority-rejected",
+      "oracles": 64,
+      "modeled_actions": 15,
+      "modeled_passes": 13,
+      "finalHP": [
+        20,
+        16
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 1,
+      "declared_target_pairs": [],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-damage-window-too-late-rejected",
+      "oracles": 64,
+      "modeled_actions": 15,
+      "modeled_passes": 13,
+      "finalHP": [
+        20,
+        16
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 1,
+      "declared_target_pairs": [],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-resolution-window-too-late-rejected",
+      "oracles": 64,
+      "modeled_actions": 15,
+      "modeled_passes": 13,
+      "finalHP": [
+        20,
+        16
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 1,
+      "declared_target_pairs": [],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-defending-player-cannot-play-attack-reaction",
+      "oracles": 64,
+      "modeled_actions": 15,
+      "modeled_passes": 13,
+      "finalHP": [
+        20,
+        16
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 1,
+      "declared_target_pairs": [],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-actual-weapon-attack-is-ineligible-target",
+      "oracles": 78,
+      "modeled_actions": 15,
+      "modeled_passes": 13,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 1,
+      "declared_target_pairs": [],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-previous-aa-during-real-weapon-resolve-close",
+      "oracles": 193,
+      "modeled_actions": 29,
+      "modeled_passes": 26,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-two-real-aa-links-choose-current",
+      "oracles": 212,
+      "modeled_actions": 30,
+      "modeled_passes": 26,
+      "finalHP": [
+        20,
+        10
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          5,
+          4,
+          2
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-two-real-aa-links-choose-previous",
+      "oracles": 212,
+      "modeled_actions": 30,
+      "modeled_passes": 26,
+      "finalHP": [
+        20,
+        11
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          5,
+          3,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-opponent",
+      "oracles": 192,
+      "modeled_actions": 19,
+      "modeled_passes": 15,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          5,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-attacker",
+      "oracles": 192,
+      "modeled_actions": 19,
+      "modeled_passes": 15,
+      "finalHP": [
+        20,
+        18
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-three-targets-choose-identical-defender-1",
+      "oracles": 195,
+      "modeled_actions": 20,
+      "modeled_passes": 15,
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          5,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-three-targets-choose-identical-defender-2",
+      "oracles": 195,
+      "modeled_actions": 20,
+      "modeled_passes": 15,
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          6,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-weapon-with-sole-opponent-defending-aa-auto",
+      "oracles": 145,
+      "modeled_actions": 18,
+      "modeled_passes": 15,
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          5,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-real-rout-returns-declared-defender-before-lp-fizzles",
+      "oracles": 253,
+      "modeled_actions": 23,
+      "modeled_passes": 18,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          4,
+          6,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-previous-opponent-defender-remains-public-on-next-real-link",
+      "oracles": 187,
+      "modeled_actions": 31,
+      "modeled_passes": 26,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "rejected": 0,
+      "declared_target_pairs": [
+        [
+          5,
+          6,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    }
+  ],
+  "cases": 31,
+  "oracles": 4206,
+  "actions": 558,
+  "passes": 470,
+  "native_actions": 0,
+  "native_writes": 0,
+  "qualification": "Specification/model check only; actual saved review and clean replay remain separate gates."
+}

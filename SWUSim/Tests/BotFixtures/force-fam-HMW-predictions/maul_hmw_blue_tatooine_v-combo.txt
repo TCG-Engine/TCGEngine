@@ -1,0 +1,53 @@
+# Self-play fixture — "STAR WARS DAD Maul Dragon" (Maul, Old Master - Dune Sea)
+# Source: the creator StarWarsDad's predicted HMW-meta list, given by the owner as JSON 2026-10-19. 54 main-deck cards, 10 sideboard.
+#   Replaces his "Maul Blue 3.0" (base JTL_020 Shield Generator Complex, converted 2026-10-01, file maul_hmw_blue.txt). vs 3.0: base
+#   Dune Sea HMW_019; +3 Fennec Shand ASH_192, +2 Jabba the Hutt ASH_042, +2 Rhydonium Detonation LAW_096, +2 Condemn SEC_038,
+#   +1 Ritual Dragon HMW_234; -2 Droid Laser Turret LAW_118, -3 Koska Reeves ASH_079, -1 The Stranger LAW_086, -1 JTL_041,
+#   -2 SEC_078 (both to the sideboard); counts shifted on LAW_237, LAW_133, JTL_033, LOF_057, ASH_053, JTL_043, HMW_202.
+#   Filename: maul_hmw_blue_tatooine (Dune Sea is Tatooine and the list cares) + the VARIANT "_v-combo" — owner 2026-10-19: both
+#   Force Fam Maul lists are now on the Tatooine base; "the one by Star Wars Dad is the combo variant" (Ninin's is
+#   maul_hmw_blue_tatooine_v-discard.txt).
+# Author: Star Wars Dad
+# Variant: Combo
+# Archetype (owner's label, 2026-10-01, for 3.0 — not relabelled for this list): Soft control
+# Style: softcontrol
+# Flavours: tempo
+
+Leader
+1 HMW_016
+
+Base
+1 HMW_019
+
+Deck
+3 LAW_237
+3 LAW_133
+3 JTL_033
+2 LOF_057
+3 JTL_032
+2 ASH_194
+2 ASH_053
+3 LOF_213
+3 LOF_242
+2 LAW_096
+2 HMW_204
+2 JTL_043
+3 ASH_048
+2 HMW_202
+1 HMW_234
+3 LOF_070
+2 HMW_198
+3 HMW_055
+2 SEC_038
+3 ASH_192
+2 ASH_042
+3 ASH_052
+
+Sideboard
+2 SEC_078
+1 ASH_053
+1 JTL_041
+2 ASH_220
+1 HMW_204
+2 SEC_186
+1 HMW_234

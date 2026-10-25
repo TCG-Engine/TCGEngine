@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:36:42.796637+00:00",
+  "plan_sha256": "85851a51be5548f2afc0b52ff8a4c2f44d2ddb22cdb8a603aa43809fdab6b50a",
+  "independent_saved_proof_sha256": "5f81a4041fac8d3ddde89d4a4610f4f8be9044145c4ac25b6a81b13d44d1d51e",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b163-focused-fault-plan.json",
+    "85851a51be5548f2afc0b52ff8a4c2f44d2ddb22cdb8a603aa43809fdab6b50a",
+    "card-regression-sparse-b163-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b163_zephyr_needle_focused_effect_sensitivity",
+      "fixture": "card-zephyr-needle-four-live-sparse-actual-paid-ninja-weapon-attack-damage-go-again-and-physical-weapon-retention",
+      "fixture_sha256": "85bedc138dd3baeb0d2c222b66793cae0bd184dc7d0323e19e1a72c1af843843",
+      "source_raw5": {
+        "initial_gamestate.txt": "13099608e90bf15eb90e8b1a94beb62c94cee7bc17a6322782bcf32049bf682f",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "a785a7dc5f59c46ab984412dccfdd80747394a6db21c31258ab8a58e373c74d6",
+        "expected_final_gamestate.txt": "d57a599fc2bf7031c2728a42882042fbd7bcc5aae10817d97897cccc97020572",
+        "meta.json": "cb615b62a449b337f34428b3c70513cc64283b5b6fdbd77ccb011998cf21f9a3"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "zephyr_needle",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 363,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Zephyr Needle / four live sparse positive weapon attack: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add existing ELE_NO_GO tag only to actual weapon proxy7 CombatChain after real physicalWeapon5 activation/pitch payment and four living-seat source responses. Current GameLogic409 directly suppresses Go again before printed evaluation; original first computedGA1to0 detects GA evaluation sensitivity while printedpower/cost/UID remain intact. All21 suffix actions and every original suffix oracle retained. Synthetic inhibition only, not legal card inhibition or positive Combo branch. Control stops at first GA oracle; positive native refund timing/pure lost-lateGA faults separately pin AP behavior. No high-defense blocking/Zephyrdestruction/repeat/turnreset/hero/support/full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b163_edge_of_autumn_focused_effect_sensitivity",
+      "fixture": "card-edge-of-autumn-four-live-sparse-actual-paid-ninja-weapon-attack-damage-go-again-and-physical-weapon-retention",
+      "fixture_sha256": "c9f0fa86fb8ae7333a835146cf1fd08d8db0422e6552eeffee5bb85388ff68d2",
+      "source_raw5": {
+        "initial_gamestate.txt": "98055e4d796edffd9f48d8153809cbb99dc73acfc83627b21ea3a9fa040258a2",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "3f531a26dde3aa10ac39a9f249bd3c1860fc29c833790a095564a2dfa327689d",
+        "expected_final_gamestate.txt": "8715d09307662c8b57aafda2ecb2d7285390516c0f6b15742643b55c5032aa9a",
+        "meta.json": "817a3632a9d3c9064d01d50e28cd0712df0ac8c12f5e06fa1a9c99c82846cdf9"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "edge_of_autumn",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 363,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Edge of Autumn / four live sparse positive weapon attack: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add existing ELE_NO_GO tag only to actual weapon proxy7 CombatChain after real physicalWeapon5 activation/pitch payment and four living-seat source responses. Current GameLogic409 directly suppresses Go again before printed evaluation; original first computedGA1to0 detects GA evaluation sensitivity while printedpower/cost/UID remain intact. All21 suffix actions and every original suffix oracle retained. Synthetic inhibition only, not legal card inhibition or positive Combo branch. Control stops at first GA oracle; positive native refund timing/pure lost-lateGA faults separately pin AP behavior. No high-defense blocking/Zephyrdestruction/repeat/turnreset/hero/support/full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

@@ -166,7 +166,7 @@ for c in cards:
   code=choice("FaBMONSelect($player, 'Hand', 'SMALL_AA')",'Reveal_small_attack_to_find_Minnowism')+" if (isset($chosen) && $chosen !== 'PASS') { FaBRevealChoices($player, $chosen); $targets = FaBStageSearch($player, ['base'=>'minnowism']); if ($targets !== '') { $card = await $player.MZChoose($targets, \"Find_Minnowism\"); FaBRevealChoices($player, $card); FaBMoveChoice($player, $card, 'Temp', 'Hand'); } FaBFinishSearch($player); }"
   add('PrepareCard',finish_prepare(code))
  if base=='rouse_the_ancients':
-  code="$maximum = count(FaBChoiceRefs($player, 'Hand', ['attackAction'=>true])); "+multi("implode('&', FaBChoiceRefs($player, 'Hand', ['attackAction'=>true]))",0,'$maximum','Reveal_at_least_13_power')+" if (FaBMONRevealPower($chosen) >= 13) { FaBRevealChoices($player, $chosen); FaBCRUSelfTagUID($uid, 'WTR_POWER:7'); FaBTagUID($uid, 'GO_AGAIN'); }"
+  code="$maximum = count(FaBChoiceRefs($player, 'Hand', ['attackAction'=>true])); "+multi("implode('&', FaBChoiceRefs($player, 'Hand', ['attackAction'=>true]))",0,'$maximum','Declare_optional_reveal_thirteen_cost')+" if (!FaBDeclarePreparedEffectCost($player, $uid, 'REVEAL_THIRTEEN', $chosen)) { return; }"
   add('PrepareCard',finish_prepare(code))
  if base in ['deadwood_rumbler','shadow_of_blasmophet','pulping','ravenous_meataxe','tear_limb_from_limb']:
   code="$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID); $six = FaBMONDrawDiscard($player); if ($six) { "

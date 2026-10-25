@@ -1,0 +1,7 @@
+{
+    "name": "Felling Swing / nonmatching-cintari-saber-preserves-buff",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:46:52+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost3, exactly1AP to play, then source's own go again returns exactly1AP on resolution. The next axe attack this turn gets +4 power. It does not grant that attack go again. cintari_saber lacks axe subtype: it attacks for its printed2 and does not consume the effect. The next hatchet_of_body receives the entire+4. Two initialAP pay the two weapon activations; neither attack gets go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#felling_swing_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/06-effects/"
+}

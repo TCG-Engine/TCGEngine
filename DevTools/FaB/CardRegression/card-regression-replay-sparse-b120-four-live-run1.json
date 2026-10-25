@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch120.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T18:41:08.701618+00:00",
+  "fixtures": [
+    {
+      "slug": "card-blessing-of-salvation-red-four-live-sparse-actual-paid-light-action-gains-three-life",
+      "fixture_sha256": "85c810e3e897bbdcc06618784e87813e0b6733a21c204a779af65050e6c4a3e6",
+      "passed": true,
+      "result": "[PASS] Blessing of Salvation / four live sparse positive effect"
+    },
+    {
+      "slug": "card-electryn-joltstep-red-four-live-sparse-actual-paid-next-lightning-buff-and-owned-flow",
+      "fixture_sha256": "acc1edd106da08f40c0c05f9fee10944e2a73a11b81747ddd91efdbbf5679de0",
+      "passed": true,
+      "result": "[PASS] Electryn Joltstep / four live sparse positive effect"
+    },
+    {
+      "slug": "card-fasting-carcass-blue-four-live-sparse-actual-shadow-action-grants-next-real-blue-attack-go-again",
+      "fixture_sha256": "3d65a556467efb0c83cda90484541b2791960571c0257c7a47fa1bdcf399b632",
+      "passed": true,
+      "result": "[PASS] Fasting Carcass / four live sparse positive effect"
+    },
+    {
+      "slug": "card-embrace-sin-yellow-four-live-sparse-actual-paid-shadow-action-next-physical-attack-plus-two",
+      "fixture_sha256": "99bfb6dc889aea651338ecbc9e79c36b0c99df2fb8e8af6cacf3a0bd73aa4902",
+      "passed": true,
+      "result": "[PASS] Embrace Sin / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blessing-of-salvation-red-four-live-sparse-actual-paid-light-action-gains-three-life",
+      "returncode": 0,
+      "stdout": "[PASS] Blessing of Salvation / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-electryn-joltstep-red-four-live-sparse-actual-paid-next-lightning-buff-and-owned-flow",
+      "returncode": 0,
+      "stdout": "[PASS] Electryn Joltstep / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-fasting-carcass-blue-four-live-sparse-actual-shadow-action-grants-next-real-blue-attack-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Fasting Carcass / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-embrace-sin-yellow-four-live-sparse-actual-paid-shadow-action-next-physical-attack-plus-two",
+      "returncode": 0,
+      "stdout": "[PASS] Embrace Sin / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

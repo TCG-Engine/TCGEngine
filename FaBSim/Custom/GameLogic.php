@@ -70,6 +70,11 @@ include_once __DIR__ . '/Bot.php';
 
 $customDQHandlers = [];
 $additionalActivationCosts = [];
+$customDQHandlers['FAB_DISCARD_CHOICE'] = function($player, $parts, $lastDecision) {
+    if (count($parts) === 1 && (string)$parts[0] === (string)intval($player)) {
+        FaBApplyDiscardRequest(intval($player), (string)$lastDecision);
+    }
+};
 $customDQHandlers['FAB_FAI_SETUP']=function($player,$parts,$lastDecision){FaBFaiSetup(intval($player),(string)$lastDecision==='0');};
 
 /*
@@ -91,6 +96,9 @@ function FaBLiveSeats(): array {
     $seats = $raw === '' ? FaBSeatOrder() : array_values(array_unique(array_map('intval', str_split($raw))));
     return array_values(array_intersect(FaBSeatOrder(), $seats));
 }
+
+/** Existing Core DQ hook: inspect every configured seat, even during cleanup. */
+function GetSeatOrderArray(): array { return FaBSeatOrder(); }
 
 function FaBSeatCount(): int { return count(FaBSeatOrder()); }
 function GameMacroListenerSeats(): array { return FaBLiveSeats(); }
@@ -179,9 +187,9 @@ function FaBDefaultDefender(int $attacker): int {
     return $next === $attacker ? 0 : $next;
 }
 
-function FaBRequestIntimidate(int $player, int $amount = 1): void {
+function FaBRequestIntimidate(int $player, int $amount = 1, int $attackSourceUID = 0): void {
     $seats = FaBGetState()['gameMode'] === 'UPF' ? FaBAdjacentOpponents($player) : FaBOpponents($player);
-    if (count($seats) === 1) { FaBIntimidate($player, $seats[0], $amount); return; }
+    if (count($seats) === 1) { if($attackSourceUID>0)FaBWTRQueueAttackIntimidate($player,$seats[0],$amount,$attackSourceUID);else FaBIntimidate($player,$seats[0],$amount); return; }
     $targets = [];
     foreach ($seats as $seat) foreach (GetHero($seat) as $hero) {
         if (!is_object($hero) || !empty($hero->removed)) continue;
@@ -189,7 +197,7 @@ function FaBRequestIntimidate(int $player, int $amount = 1): void {
     }
     if (!$targets) return;
     DecisionQueueController::AddDecision($player, 'MZCHOOSE', implode('&', $targets), 1, 'Choose_a_hero_to_intimidate');
-    DecisionQueueController::AddDecision($player, 'CUSTOM', 'FAB_INTIMIDATE|' . max(1,$amount), 1);
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'FAB_INTIMIDATE|' . max(1,$amount) . ($attackSourceUID>0 ? '|' . $attackSourceUID : ''), 1);
 }
 
 function FaBStateDefaults(): array {
@@ -229,9 +237,10 @@ function FaBResetWindowState(): array {
     $state['passiveSeats'] = $passiveSeats;
     $state['gameMode'] = (string)($previous['gameMode'] ?? '');
     if ($state['gameMode'] === '' && !empty($passiveSeats)) $state['gameMode'] = 'GOLDFISH';
-    foreach (['mpgDurations', 'botProfiles', 'turnEffects', 'nextTurnEffects', 'hitsThisTurn', 'cardsPlayedThisTurn', 'weaponHits', 'attackActionHits', 'arcNames', 'arcaneDealt', 'arcCards', 'arcActions'] as $key) {
+    foreach (['mpgDurations', 'botProfiles', 'turnEffects', 'nextTurnEffects', 'hitsThisTurn', 'cardsPlayedThisTurn', 'intimidated', 'weaponHits', 'attackActionHits', 'arcNames', 'arcaneDealt', 'arcCards', 'arcActions'] as $key) {
         $state[$key] = is_array($previous[$key] ?? null) ? $previous[$key] : [];
     }
+    if(isset($previous['intimidateReturns'])&&is_array($previous['intimidateReturns']))$state['intimidateReturns']=$previous['intimidateReturns'];
     return $state;
 }
 
@@ -247,6 +256,12 @@ function FaBGetState(): array {
         $serialized = $current;
     }
     return $state;
+}
+
+/** Optional pure regression hook. Snapshot only; no setters, actions, or legality queries. */
+function GameRegressionState(string $rootName): ?string {
+    if ($rootName !== 'FaBSim') return null;
+    return json_encode(FaBGetState(), JSON_THROW_ON_ERROR | JSON_PRESERVE_ZERO_FRACTION);
 }
 
 function FaBSetState(array $state): void {
@@ -374,8 +389,16 @@ function FaBPrintedKeywordIsActive(string $cardID, string $keyword): bool {
     if (!FaBHasKeyword($cardID, $keyword)) return false;
     $text = trim((string)(function_exists('CardFunctional_text_plain') ? CardFunctional_text_plain($cardID) : ''));
     $needle = strtolower($keyword);
-    foreach (preg_split('/\R+/', $text) as $line) {
-        if (strcasecmp(trim($line), $keyword) === 0) return true;
+    // A keyword granted inside a quoted ability is not this card's own keyword.
+    // Preserve a quoted sentence's terminal punctuation so a following own
+    // keyword sentence remains separate (for example, Abyssal Rush).
+    $text = preg_replace_callback('/"[^"]*"|\x{201C}[^\x{201D}]*\x{201D}|(?<!\w)\'[^\']*\'(?!\w)|\x{2018}[^\x{2019}]*\x{2019}/u', static function(array $match): string {
+        return '[quoted ability]' . (preg_match('/[.!?][\'"\x{201D}\x{2019}]$/u', $match[0]) === 1 ? '.' : '');
+    }, $text);
+    // A wrapped conditional/grant clause after a comma or colon stays a clause.
+    $text = preg_replace('/([,:])\h*\R\h*/u', '$1 ', $text);
+    foreach (preg_split('/\R+|(?<=[.!?])\h+/u', $text) as $sentence) {
+        if (strcasecmp(rtrim(trim($sentence), '.!?'), $keyword) === 0) return true;
     }
     // Keyword-only cards sometimes have no text in older source records.
     return $text === '' && in_array($needle, ['go again', 'dominate'], true);
@@ -410,8 +433,8 @@ function FaBAttackHasGoAgain(array $state, object $attack): bool {
     return max(0, min(1, $base + $delta)) === 1;
 }
 
-function FaBIntimidate(int $sourcePlayer, int $targetPlayer, int $amount = 1): array {
-    $state = FaBGetState(); $banished = [];
+function FaBIntimidate(int $sourcePlayer, int $targetPlayer, int $amount = 1, int $sourceUID = 0, string $sourceCardID = ''): array {
+    $banished = [];
     for ($n = 0; $n < max(0, $amount); ++$n) {
         $choices = [];
         foreach (GetHand($targetPlayer) as $obj) if (is_object($obj) && empty($obj->removed)) $choices[] = intval($obj->UniqueID ?? 0);
@@ -420,8 +443,12 @@ function FaBIntimidate(int $sourcePlayer, int $targetPlayer, int $amount = 1): a
         $moved = FaBMoveUID($uid, 'Banish', $targetPlayer);
         if ($moved !== null) { $moved->FaceDown = 1; $moved->ReturnAtEndTurn = 1; $banished[] = $uid; }
     }
+    // Moves can update shared counters; capture fresh state after their callbacks.
+    $state = FaBGetState();
     $state['intimidated'] = array_values(array_unique(array_merge($state['intimidated'] ?? [], $banished)));
-    FaBSetState($state); FaBHVYAdd($sourcePlayer,'INTIMIDATED'); return $banished;
+    FaBSetState($state);
+    FaBRememberIntimidateReturn($sourcePlayer, $sourceUID, $sourceCardID, $banished);
+    FaBHVYAdd($sourcePlayer,'INTIMIDATED'); return $banished;
 }
 
 function FaBRandomHandUID(int $player, array $excludedUIDs = []): int {
@@ -452,16 +479,92 @@ function FaBHandCount(int $player): int {
     $count = 0; foreach (GetHand($player) as $obj) if (is_object($obj) && empty($obj->removed)) ++$count; return $count;
 }
 
-function FaBReturnIntimidatedCards(): void {
-    $state = FaBGetState();
-    foreach (($state['intimidated'] ?? []) as $uid) {
-        $found = FaBFindUID(intval($uid));
-        if ($found !== null && $found['zone'] === 'Banish' && intval($found['object']->ReturnAtEndTurn ?? 0) === 1) {
-            FaBMoveUID(intval($uid), 'Hand', intval($found['object']->Owner ?? $found['player']));
-        }
+/** A fresh Intimidate invocation owns its own delayed return (CR 8.5.10c). */
+function FaBRememberIntimidateReturn(int $controller, int $sourceUID, string $sourceCardID, array $uids): void {
+    $state=FaBGetState();
+    $group=intval($state['intimidateReturns']['next']??0)+1;
+    $state['intimidateReturns']['next']=$group;
+    $cards=[];
+    foreach(array_unique(array_map('intval',$uids)) as $uid){
+        $f=FaBFindUID($uid);if(!$f||$f['zone']!=='Banish')continue;
+        $owner=intval($f['object']->Owner??0);if($owner<1)$owner=intval($f['player']);
+        $cards[]=['uid'=>$uid,'owner'=>$owner,'holder'=>intval($f['player'])];
+        $state['arcCards'][(string)$uid]['intimidateReturnGroup']=$group;
     }
-    $state['intimidated'] = []; FaBSetState($state);
+    // Empty-source metadata is an honest legacy caller, never an invented caster/card.
+    $state['intimidateReturns']['pending'][(string)$group]=[
+        'controller'=>$controller,'sourceUID'=>$sourceUID,'cardID'=>$sourceCardID,
+        'cards'=>$cards,'queued'=>false];
+    FaBSetState($state);
 }
+
+/** Queue one independent layer per invocation at the beginning of the end phase. */
+function FaBQueueIntimidateReturns(): void {
+    $groups=(array)(FaBGetState()['intimidateReturns']['pending']??[]);
+    foreach($groups as $group=>$record){
+        if(!empty($record['queued'])||!FaBSeatIsLive(intval($record['controller']??0)))continue;
+        $state=FaBGetState();
+        if(!isset($state['intimidateReturns']['pending'][(string)$group]))continue;
+        $state['intimidateReturns']['pending'][(string)$group]['queued']=true;
+        FaBSetState($state);
+        FaBROSQueue(intval($record['controller']),(string)$record['cardID'],intval($record['sourceUID']),
+            ['rosEvent'=>'wtrIntimidateReturn','intimidateGroup'=>intval($group)]);
+    }
+}
+
+function FaBResolveIntimidateReturn(int $controller, object $trigger): void {
+    $group=intval($trigger->Params['intimidateGroup']??0);$state=FaBGetState();
+    $record=$state['intimidateReturns']['pending'][(string)$group]??null;
+    if(!is_array($record)||empty($record['queued'])||intval($record['controller'])!==$controller
+        ||intval($trigger->SourceUniqueID)!==intval($record['sourceUID'])
+        ||(string)$trigger->CardID!==(string)$record['cardID'])return;
+    // Consume before callbacks; source departure and later ability loss do not cancel it.
+    unset($state['intimidateReturns']['pending'][(string)$group]);FaBSetState($state);
+    $finished=[];
+    foreach((array)$record['cards'] as $card){
+        $uid=intval($card['uid']);
+        $entryGroup=intval(FaBARCCard($uid,'intimidateReturnGroup'));
+        if($entryGroup!==$group){if($entryGroup===0)$finished[]=$uid;continue;}
+        $f=FaBFindUID($uid);
+        if($f&&$f['zone']==='Banish'&&intval($f['object']->ReturnAtEndTurn??0)===1
+            &&intval($f['player'])===intval($card['holder'])
+            &&(intval($f['object']->Owner??0)>0?intval($f['object']->Owner):intval($f['player']))===intval($card['owner']))
+            FaBMoveUID($uid,'Hand',intval($card['owner']));
+        $state=FaBGetState();$now=intval($state['arcCards'][(string)$uid]['intimidateReturnGroup']??0);
+        if($now===$group)unset($state['arcCards'][(string)$uid]['intimidateReturnGroup']);
+        if($now===0||$now===$group)$finished[]=$uid;
+        FaBSetState($state);
+    }
+    $state=FaBGetState();
+    $state['intimidated']=array_values(array_diff((array)$state['intimidated'],$finished));
+    FaBSetState($state);
+}
+
+/** Direct helper compatibility; normal end cleanup touches only unattributed old saves. */
+function FaBReturnIntimidatedCards(bool $legacyOnly = false): void {
+    $state=FaBGetState();$protected=[];$finished=[];
+    $initialGroups=array_map('intval',array_keys((array)($state['intimidateReturns']['pending']??[])));
+    $initialTracked=[];foreach((array)($state['intimidateReturns']['pending']??[]) as $record)foreach((array)$record['cards'] as $card)$initialTracked[]=intval($card['uid']);
+    if($legacyOnly)foreach((array)($state['intimidateReturns']['pending']??[]) as $record)
+        foreach((array)$record['cards'] as $card)$protected[]=intval($card['uid']);
+    foreach((array)$state['intimidated'] as $uid){
+        $uid=intval($uid);$current=FaBGetState();$oldGroup=intval($current['arcCards'][(string)$uid]['intimidateReturnGroup']??0);
+        if($legacyOnly&&(in_array($uid,$protected,true)||($oldGroup>0&&isset($current['intimidateReturns']['pending'][(string)$oldGroup]))))continue;
+        if(!$legacyOnly&&$oldGroup>0&&!in_array($oldGroup,$initialGroups,true))continue;
+        if(!$legacyOnly&&$oldGroup===0&&in_array($uid,$initialTracked,true)){$finished[]=$uid;continue;}
+        $f=FaBFindUID($uid);
+        if($f&&$f['zone']==='Banish'&&intval($f['object']->ReturnAtEndTurn??0)===1)
+            FaBMoveUID($uid,'Hand',intval($f['object']->Owner??$f['player']));
+        $current=FaBGetState();$now=intval($current['arcCards'][(string)$uid]['intimidateReturnGroup']??0);
+        if($now===$oldGroup)unset($current['arcCards'][(string)$uid]['intimidateReturnGroup']);
+        if($now===0||$now===$oldGroup)$finished[]=$uid;
+        FaBSetState($current);
+    }
+    $state=FaBGetState();$state['intimidated']=array_values(array_diff((array)$state['intimidated'],$finished));
+    if(!$legacyOnly)foreach($initialGroups as $group)unset($state['intimidateReturns']['pending'][(string)$group]);
+    FaBSetState($state);
+}
+
 
 function ParseModifierResult($result): array {
     if (is_array($result)) {
@@ -621,19 +724,32 @@ function FaBAddToZone(string $zone, int $player, object $source): ?object {
     if($added!==null){
         if(property_exists($added,'Owner')&&intval($added->Owner)<1)$added->Owner=$player;
         if(property_exists($added,'Controller')&&intval($added->Controller)<1)$added->Controller=$player;
+        if($zone==='Arsenal')FaBARCHeadShotArsenalEntry($added);
     }
     return $added;
 }
 
 function FaBMoveUID(int $uid, string $toZone, ?int $targetPlayer = null, bool $animate = true): ?object {
     $found = FaBFindUID($uid);
-    if ($found === null || $found['zone'] === 'Stack') return null;
-    if ($toZone === 'Graveyard' && function_exists('FaBWTRBase') && FaBWTRBase((string)$found['object']->CardID) === 'drone_of_brutality') $toZone = 'Deck';
+    if ($found === null) return null;
+    if ($found['zone'] === 'Stack') {
+        // Only an attack reaction currently resolving may move its own source.
+        // This preserves the existing rejection for all other stack layers.
+        $pending = FaBGetState()['resolvingReaction'] ?? null;
+        if (!is_array($pending) || intval($pending['uid'] ?? 0) !== $uid
+            || ($found['object']->Kind ?? '') !== 'ATTACK_REACTION') return null;
+        return FaBMoveStackUID($uid, $toZone,
+            $targetPlayer ?? intval($pending['owner']), $animate);
+    }
     $source = $found['object'];
+    // CR 3.0.8: reveal a private card before ordinary graveyard movement/replacements.
+    // Explicit destination effects may make it private again in their after-move hook.
+    if ($toZone === 'Graveyard' && property_exists($source, 'FaceDown')) $source->FaceDown = 0;
+    if ($toZone === 'Graveyard' && function_exists('FaBWTRBase') && FaBWTRBase((string)$source->CardID) === 'drone_of_brutality') $toZone = 'Deck';
     if ($toZone === 'Graveyard' && in_array($source->CardID, ['engulfing_shadows_yellow','embraforged_gauntlet'], true)) $toZone = 'Banish';
     if($toZone==='Graveyard'&&FaBARCCard($uid,'hntTrapReplaceTurn',-1)===intval(GetTurnNumber()))$toZone='Banish';
     if(!in_array($toZone,['Stack','CombatChain'],true)&&!empty(FaBObjectCounters($source)['HNT_ORIGINAL'])){$source->CardID=FaBObjectCounters($source)['HNT_ORIGINAL'];unset($source->Counters['HNT_ORIGINAL']);}
-    if($found['zone']==='Banish'){$permissions=FaBGetState();unset($permissions['outInfiltrate'][$uid]);FaBSetState($permissions);}
+    if($found['zone']==='Banish'){$permissions=FaBGetState();unset($permissions['outInfiltrate'][$uid],$permissions['arcCards'][(string)$uid]['intimidateReturnGroup']);FaBSetState($permissions);}
     if($toZone==='Soul'&&$source->CardID==='spirit_of_eirina_yellow')$toZone='Arena';
     if((in_array($found['zone'],['Arena','Equipment'],true)||($found['zone']==='CombatChain'&&($source->Role??'')!=='ATTACK'))&&!in_array($toZone,['Arena','Equipment','CombatChain'],true))FaBDYNLeaving($found['player'],$source,$toZone);
     if($toZone==='Graveyard'&&(in_array('EVR_BOTTOM',(array)($source->TurnEffects??[]),true)||in_array('SEA_BOTTOM',(array)($source->TurnEffects??[]),true)))$toZone='Deck';
@@ -650,6 +766,9 @@ function FaBMoveUID(int $uid, string $toZone, ?int $targetPlayer = null, bool $a
     if(!in_array($toZone,['Equipment','Weapons','CombatChain'],true)&&!empty(FaBObjectCounters($source)['SUBCARDS'])){foreach(FaBObjectCounters($source)['SUBCARDS'] as $under)if(!FaBHasType($under,'Token'))AddGraveyard($targetPlayer,CardID:$under);unset($source->Counters['SUBCARDS']);}
     if($found['zone']==='Weapons' && $source->CardID==='bank_breaker' && !in_array($toZone,['Weapons','CombatChain'],true))$source->CardID='construct_bank_breaker_yellow';
     $source->removed = true;
+    // CR 8.1.8a / 3.11.5: tokens remain only in the arena or as subcards (Soul).
+    if (FaBHasType($source, 'Token') && !in_array($toZone,
+        ['Arena','Equipment','Weapons','Hero','CombatChain','Soul'], true)) return null;
     if($toZone==='Graveyard' && $source->CardID==='goldfin_harpoon_yellow')return null;
     if(($source->CardID==='hyper_driver'&&!in_array($toZone,['Arena','CombatChain'],true))||($toZone==='Graveyard'&&FaBHasKeyword($source,'Ephemeral')))return null;
     $newObj = FaBAddToZone($toZone, $targetPlayer, $source);
@@ -680,6 +799,9 @@ function FaBMoveStackUID(int $uid, string $toZone, int $targetPlayer, bool $anim
     if(!in_array($toZone,['Equipment','Weapons','CombatChain'],true)&&!empty(FaBObjectCounters($source)['SUBCARDS'])){foreach(FaBObjectCounters($source)['SUBCARDS'] as $under)if(!FaBHasType($under,'Token'))AddGraveyard($targetPlayer,CardID:$under);unset($source->Counters['SUBCARDS']);}
     if($found['zone']==='Weapons' && $source->CardID==='bank_breaker' && !in_array($toZone,['Weapons','CombatChain'],true))$source->CardID='construct_bank_breaker_yellow';
     $source->removed = true;
+    // CR 8.1.8a / 3.11.5: tokens remain only in the arena or as subcards (Soul).
+    if (FaBHasType($source, 'Token') && !in_array($toZone,
+        ['Arena','Equipment','Weapons','Hero','CombatChain','Soul'], true)) return null;
     if($toZone==='Graveyard'&&$source->CardID==='goldfin_harpoon_yellow')return null;
     if(($source->CardID==='hyper_driver'&&!in_array($toZone,['Arena','CombatChain'],true))||($toZone==='Graveyard'&&FaBHasKeyword($source,'Ephemeral')))return null;
     $newObj = FaBAddToZone($toZone, $targetPlayer, $source);
@@ -713,13 +835,14 @@ function FaBCardCost(object $obj, int $player): int {
     return max(0, $base + $delta + FaBIARCost($player,$obj) + FaBOMNCost($player,$obj) + FaBMPGDefense($player,$obj) + FaBPENInflation() + FaBPENBetaCost($player,$obj) + FaBPENHavocCost());
 }
 
-function FaBAvailablePitch(int $player, int $excludedUID = 0): int {
+function FaBAvailablePitch(int $player, int $excludedUID = 0, array $additionalExcludedUIDs = [], bool $recompenseSpent = false): int {
+    $excluded = array_fill_keys(array_map('intval', array_merge([$excludedUID], $additionalExcludedUIDs)), true);
     $total = max(0, intval(GetResources($player)));$recompense=false;
     foreach (GetHand($player) as $obj) {
-        if (!is_object($obj) || !empty($obj->removed) || intval($obj->UniqueID ?? 0) === $excludedUID) continue;
+        if (!is_object($obj) || !empty($obj->removed) || isset($excluded[intval($obj->UniqueID ?? 0)])) continue;
         if(!FaBARCNamedProhibited($obj->CardID)&&!FaBHNTNamed($obj->CardID)&&FaBOUTCanPitch($player,$obj)&&FaBELECanPitch($player,$obj)){$pitch=FaBMONPitchValue($player,$obj->CardID);$total+=$pitch;if($pitch===1)$recompense=true;}
     }
-    return $total+($recompense&&FaBMONArena($player,'talisman_of_recompense')?2:0);
+    return $total+(!$recompenseSpent&&$recompense&&FaBMONArena($player,'talisman_of_recompense')?2:0);
 }
 
 function FaBStackTop(): ?object {
@@ -733,6 +856,7 @@ function FaBStackCount(): int {
 }
 
 function CanPlayCard($player, $mzID): bool {
+    if (FaBReactionResolutionIsPending()) return false;
     if (function_exists('FaBGeneratedCanPlayCard') && !FaBGeneratedCanPlayCard($player, $mzID)) return false;
     $player = intval($player);
     if (!FaBSeatIsLive($player) || intval(GetWinner()) !== 0 || intval(GetPriorityPlayer()) !== $player) return false;
@@ -758,8 +882,8 @@ function CanPlayCard($player, $mzID): bool {
     $actionWindow = GetCurrentPhase() !== 'END' && ($state['window'] === 'ACTION'
         || ($state['window'] === 'RESOLUTION' && $isAttack));
     $timingLegal = ($isAction && $player === intval(GetTurnPlayer()) && $actionWindow && intval(GetActionPoints($player)) > 0)
-        || ($isAttackReaction && $state['window'] === 'REACTION' && $player === intval($state['attacker']))
-        || ($isDefenseReaction && $state['window'] === 'REACTION' && FaBIsDefendingHero($player,$state))
+        || ($isAttackReaction && FaBReactionPriorityForState($state) && $player === intval($state['attacker']))
+        || ($isDefenseReaction && FaBReactionPriorityForState($state) && FaBIsDefendingHero($player,$state))
         || ($isInstant && !in_array($state['window'], ['PITCH', 'DEFEND_DECLARE'], true));
     if (function_exists('FaBWTRCanPlay') && !FaBWTRCanPlay($player, $found, $state)) return false;
     if (!FaBARCCanPlay($player, $found) || !FaBCRUCanPlay($player,$found) || !FaBMONCanPlay($player,$found) || !FaBELECanPlay($player,$found) || !FaBEVRCanPlay($player,$found) || !FaBUPRCanPlay($player,$found) || !FaBDYNCanPlay($player,$found) || !FaBOUTCanPlay($player,$found) || !FaBDTDCanPlay($player,$found) || !FaBEVOCanPlay($player,$found) || !FaBHVYCanPlay($player,$found)||!FaBMSTCanPlay($player,$obj)||!FaBROSCanPlay($player,$obj)||!FaBHNTCanPlay($player,$obj)) return false;
@@ -775,6 +899,13 @@ function DoPlayCard($player, $mzID) {
     if (!CanPlayCard($player, $mzID)) return false;
     $found = FaBIdentityFromMZ((string)$mzID); if ($found === null) return false;
     if(FaBIARChoosePermission($player,$found))return true;
+    $lungingTargetUID = 0; $lungingTargetChainLink = -1;
+    if ($found['object']->CardID === 'lunging_press_blue' && !HasNoAbilities($found['object'])) {
+        $lungingTargetUID = FaBCRULungingClaimOrRequestTarget($player, $found);
+        if ($lungingTargetUID === null) return true;
+        if ($lungingTargetUID === false) return false;
+        $lungingTargetChainLink = intval(FaBFindUID($lungingTargetUID)['object']->ChainLink ?? -1);
+    }
     $isAttack = FaBHasType($found['object'], 'Attack');
     $attackTarget = null;
     if ($isAttack) {
@@ -795,8 +926,13 @@ function DoPlayCard($player, $mzID) {
     $source->removed = true;
     if(FaBMSTStolen($player,$found))FaBARCSetCard($uid,'mstFree',true);
     if(intval($source->Owner??0)<1)$source->Owner=$found['player'];
+    $playParams = $attackTarget === null ? [] : ['attackTarget'=>$attackTarget];
+    if ($lungingTargetUID > 0) {
+        $playParams['cruLungingTargetUID'] = $lungingTargetUID;
+        $playParams['cruLungingTargetChainLink'] = $lungingTargetChainLink;
+    }
     $stackObj = AddStack(CardID:$source->CardID, Controller:$player, Kind:$kind, SourceZone:$fromZone,
-        SourceUniqueID:$uid, Params:$attackTarget === null ? [] : ['attackTarget'=>$attackTarget], sourceObject:$source);
+        SourceUniqueID:$uid, Params:$playParams, sourceObject:$source);
     $stackObj->Controller = $player; $stackObj->Kind = $kind; $stackObj->SourceZone = $fromZone; $stackObj->SourceUniqueID = $uid;
     $state['combatPlaySequence'] = intval($state['combatPlaySequence'] ?? 0) + 1;
     $stackObj->Counters = FaBObjectCounters($stackObj);
@@ -805,9 +941,26 @@ function DoPlayCard($player, $mzID) {
     $state = FaBGetState();
     $state['pendingPayment'] = ['player' => $player, 'uid' => $uid, 'cost' => FaBCardCost($stackObj, $player), 'fromZone' => $fromZone,
         'kind' => $kind, 'returnWindow' => (string)$state['window'], 'returnCombatStep' => (string)$state['combatStep']];
+    if (in_array((string)$stackObj->CardID, ['tome_of_harvests_blue','rouse_the_ancients_blue'], true)) {
+        $preparedVersions = GetVersions($player); $preparedUndo = $preparedVersions[0] ?? null;
+        $state['pendingPayment']['preparedEffectUndoHash'] = is_object($preparedUndo) ? hash('sha256', (string)$preparedUndo->Version) : '';
+        $state['pendingPayment']['preparedEffectCardID'] = (string)$stackObj->CardID;
+    }
     $state['window'] = 'PITCH'; FaBSetState($state);
     SetPriorityPlayer($player); SetConsecutivePasses(0);
+    if (FaBWTRBase((string)$stackObj->CardID) === 'flock_of_the_feather_walkers') {
+        $versions = GetVersions($player); $undo = $versions[0] ?? null;
+        $state = FaBGetState();
+        $state['pendingPayment']['wtrFlockStage'] = 'ASSETS';
+        $state['pendingPayment']['wtrFlockUndoHash'] = is_object($undo) ? hash('sha256', (string)$undo->Version) : '';
+        FaBSetState($state);
+        // Preserve the existing externally granted Boost preparation. Its known
+        // effect-cost ordering issue is separate from Flock's reveal cost.
+        if (FaBMSTPrepareBoost($player, $stackObj)) return true;
+        return FaBTryCompletePayment();
+    }
     if(FaBMSTPrepareBoost($player,$stackObj))return true;
+    if(FaBARCPrepareMissingBoost($player,$stackObj))return true;
     if (FaBRunSourceMacro('PrepareCard', $player, $stackObj->CardID, ['mzID'=>'Stack-'.intval($stackObj->mzIndex)]) > 0) return true;
     return FaBTryCompletePayment();
 }
@@ -826,6 +979,23 @@ function FaBDisplayGoAgain($obj): int {
         && intval($obj->UniqueID) === intval($state['attackUID'])
         && FaBAttackHasGoAgain($state, $obj) ? 1 : 0;
 }
+/** Regression assertion hook for the live active attack only. */
+function ObjectCurrentPower($obj): ?int {
+    if (!is_object($obj) || !empty($obj->removed)) return null;
+    $state = FaBGetState();
+    if (empty($state['combatOpen']) || ($obj->Role ?? '') !== 'ATTACK'
+        || intval($obj->UniqueID ?? 0) !== intval($state['attackUID'] ?? 0)) return null;
+    return FaBAttackPower($state);
+}
+
+/** Optional regression hook: only the current attack has a go-again value. */
+function ObjectCurrentGoAgain($obj): ?int {
+    $state = FaBGetState();
+    if (!empty($obj->removed) || empty($state['combatOpen']) || ($obj->Role ?? '') !== 'ATTACK'
+        || intval($obj->UniqueID ?? 0) !== intval($state['attackUID'])) return null;
+    return FaBDisplayGoAgain($obj);
+}
+
 function FaBDisplayCombatDefense($obj): int {
     return in_array($obj->Role??'',['DEFENSE','DEFENSE_REACTION'],true) ? FaBCurrentDefense($obj,intval($obj->Controller??$obj->Owner??0)) : -1;
 }
@@ -852,12 +1022,15 @@ function CanPitchCard($player, $mzID): bool {
     if (FaBHasPendingDecision()) return false;
     $state = FaBGetState(); $pending = $state['pendingPayment'];
     if (!is_array($pending) || intval($pending['player'] ?? 0) !== intval($player) || $state['window'] !== 'PITCH') return false;
+    if(!empty($pending['arcBoostError'])||!empty($pending['arcBoostAssetsPaid']))return false;
     $source=FaBFindUID(intval($pending['uid']));
     if($source!==null&&FaBWTRNeedsDiscard($source['object']->CardID)&&FaBHandCount(intval($player))<=1)return false;
     $found = FaBIdentityFromMZ((string)$mzID);
     return $found !== null && $found['player'] === intval($player) && $found['zone'] === 'Hand'
         && !FaBARCNamedProhibited($found['object']->CardID) && !FaBHNTNamed($found['object']->CardID) && FaBOUTCanPitch(intval($player),$found['object']) && FaBELECanPitch(intval($player),$found['object'])
-        && FaBMSTCanPitch(intval($player),$found['object'],$pending) && max(0, intval(CardPitch($found['object']->CardID))) > 0;
+        && FaBMSTCanPitch(intval($player),$found['object'],$pending) && max(0, intval(CardPitch($found['object']->CardID))) > 0
+        && FaBWTRFlockPitchPreservesCost(intval($player), $pending, $found['object'])
+        && FaBPreparedEffectCostCanPitch($pending, $found['object']);
 }
 
 function DoPitchCard($player, $mzID) {
@@ -879,12 +1052,46 @@ function DoPitchCard($player, $mzID) {
 }
 
 function FaBTryCompletePayment(): bool {
+    if(intval($GLOBALS['fabBoostCostDepth']??0)>0)return true;
     $state = FaBGetState(); $pending = $state['pendingPayment'];
     if (!is_array($pending)) return false;
+    if (!FaBPreparedEffectCostMayComplete($pending)) return true;
+    if (!empty($pending['preparedEffectError']) || in_array((string)($pending['preparedEffectCost']['stage'] ?? ''), ['PAYING_ASSETS','PAYING_EFFECTS'], true)) return true;
+    if(!empty($pending['arcBoostError'])){FaBARCRollbackBoostPayment($pending,(string)$pending['arcBoostError']);return true;}
     $player = intval($pending['player']); $cost = max(0, intval($pending['cost']));
-    if (FaBMSTChi($player)<FaBMSTPendingChi($pending)||intval(GetResources($player)) < $cost) return true;
-    AddResources($player, intval(GetResources($player)) - $cost);
-    if (in_array((string)$pending['kind'], ['ACTION', 'ATTACK'], true) || !empty($pending['abilityAction'])) AddActionPoints($player, max(0, intval(GetActionPoints($player)) - 1));
+    if (isset($pending['wtrFlockStage'])) {
+        if ($pending['wtrFlockStage'] !== 'COMPLETE') return FaBWTRAdvanceFlockPayment();
+        if (!FaBWTRFlockPaymentIsComplete($pending)) return FaBWTRRollbackFlockPayment($pending, 'cost completion is invalid');
+    } else {
+        if (!empty($pending['preparedEffectCost']['assetsPaid'])) {
+            if (!FaBPreparedEffectCostAssetsArePaid($pending)) { FaBPreparedEffectCostRollback($pending, 'asset cost changed after payment'); return true; }
+        } elseif(!empty($pending['arcBoostAssetsPaid'])){
+            if(intval($pending['arcBoostChargedCost']??-1)!==$cost){FaBARCRollbackBoostPayment($pending,'asset cost changed after payment');return true;}
+        }else{
+            if (FaBMSTChi($player)<FaBMSTPendingChi($pending)||intval(GetResources($player)) < $cost) return true;
+            $paysAction=in_array((string)$pending['kind'], ['ACTION', 'ATTACK'], true)||!empty($pending['abilityAction']);
+            if(intval($pending['arcBoostDeclaredCount']??0)>0&&$paysAction&&intval(GetActionPoints($player))<1){FaBARCRollbackBoostPayment($pending,'action cost cannot be paid');return true;}
+            if (!FaBPreparedEffectCostBeginAssets($pending)) return true;
+            AddResources($player, intval(GetResources($player)) - $cost);
+            if ($paysAction) AddActionPoints($player, max(0, intval(GetActionPoints($player)) - 1));
+            if(intval($pending['arcBoostDeclaredCount']??0)>0){
+                $state=FaBGetState();$state['pendingPayment']['arcBoostAssetsPaid']=true;$state['pendingPayment']['arcBoostChargedCost']=$cost;FaBSetState($state);
+            }
+        }
+    }
+    if (!FaBPreparedEffectCostMarkAssetsPaid($cost)) return true;
+    if(intval($pending['arcBoostDeclaredCount']??0)>0){
+        if(!FaBARCPayDeferredBoostCosts())return true;
+        // Boost callbacks update turnEffects and may grant resources/AP. Never
+        // overwrite them with the state captured before cost payment.
+        $state=FaBGetState();$pending=$state['pendingPayment'];
+        if(!is_array($pending))return true;
+    }
+    if (isset($pending['preparedEffectCost'])) {
+        if (!FaBPayDeclaredPreparedEffectCost()) return true;
+        $state = FaBGetState(); $pending = $state['pendingPayment'] ?? null;
+        if (!is_array($pending)) return true;
+    }
     $weaponUID = intval($pending['weaponUID'] ?? 0);
     if ($weaponUID > 0) {
         $weapon = FaBFindUID($weaponUID);
@@ -924,12 +1131,36 @@ function FaBTryCompletePayment(): bool {
             OnCardPlayed($player, $found['mzID'], $found['object']->CardID, (string)$pending['fromZone']);
         }
     }
-    SetPriorityPlayer(FaBNextSeat($player)); SetConsecutivePasses(0);
+    $priorityPreferences = GetShortcutPreferencesState($player);
+    SetPriorityPlayer(!empty($priorityPreferences['holdPriority']) ? $player : FaBNextSeat($player));
+    SetConsecutivePasses(0);
     FaBAutoPassShortcuts();
     return true;
 }
 
 function FaBReactionWindowForState(array $state): bool { return !empty($state['combatOpen']) && $state['combatStep'] === 'REACTION'; }
+
+/** A reaction may be announced after a higher layer resolves (CR 7.4.2-3).
+ * PRIORITY is the stack-window label; combatStep retains the Reaction Step.
+ * Require the live active attack and completed continuations before exposing it.
+ */
+function FaBReactionPriorityForState(array $state): bool {
+    if (!FaBReactionWindowForState($state) || GetCurrentPhase() !== 'MAIN'
+        || !in_array($state['window'] ?? '', ['REACTION', 'PRIORITY'], true)
+        || ($state['pendingPayment'] ?? null) !== null
+        || ($state['pendingAttackTarget'] ?? null) !== null
+        || FaBReactionResolutionIsPending() || FaBReactionResolutionHasWork()) return false;
+    $attacker = intval($state['attacker'] ?? 0);
+    $uid = intval($state['attackUID'] ?? 0); $link = intval($state['chainLink'] ?? 0);
+    if (!FaBSeatIsLive($attacker) || $uid <= 0 || $link <= 0) return false;
+    $attack = FaBFindUID($uid);
+    if ($attack === null || $attack['zone'] !== 'CombatChain'
+        || !empty($attack['object']->removed) || ($attack['object']->Role ?? '') !== 'ATTACK'
+        || intval($attack['object']->Controller ?? 0) !== $attacker
+        || intval($attack['object']->ChainLink ?? 0) !== $link) return false;
+    // Empty-stack reaction priority uses the existing REACTION window.
+    return $state['window'] === 'REACTION' || FaBStackTop() !== null;
+}
 
 function OnCardPlayed($player, $mzID, $cardID, $fromZone) {
     $omnPlayed = FaBIdentityFromMZ((string)$mzID);
@@ -972,12 +1203,17 @@ function OnHit($player, $mzID, $amount) {
     if($found!==null&&FaBFaiHeroHit())FaBHNTBeforeHit(intval($player),$found['object'],intval(FaBGetState()['defender']));
     if($found!==null)FaBHNTAnyHit(intval($player),$found['object']);
     if($found!==null)FaBOUTSuppressHit($found['object']);
+    $queuedPureTokenHit = $found !== null
+        && FaBWTRPureTokenHitSpec((string)$found['object']->CardID) !== null;
     if ($found !== null && function_exists('FaBWTRHit')) FaBWTRHit(intval($player), $found['object'], intval($amount));
     if($found!==null&&FaBCRUHitSuppressed($found['object'],true))return 0;
     if($found!==null){FaBIARHit(intval($player),$found['object']);FaBOMNHit(intval($player),$found['object']);FaBSUPHit(intval($player),$found['object']);FaBPENHit(intval($player));FaBMPGHit(intval($player),$found['object'],intval($amount));FaBSEAHit(intval($player),$found['object'],intval($amount));FaBCRUHit(intval($player),$found['object'],intval($amount));FaBMONHit(intval($player),$found['object']);FaBELEHit(intval($player),$found['object'],intval($amount));FaBEVRHit(intval($player),$found['object'],intval($amount));FaBDYNHit(intval($player),$found['object'],intval($amount));FaBOUTHit(intval($player),$found['object'],intval($amount));FaBDTDHit(intval($player),$found['object'],intval($amount));FaBEVOHit(intval($player),$found['object'],intval($amount));FaBHVYHit(intval($player),$found['object'],intval($amount));FaBMSTHit(intval($player),$found['object']);FaBROSHit(intval($player),$found['object']);if(FaBFaiHeroHit())FaBHNTHit(intval($player),$found['object'],intval(FaBGetState()['defender']));FaBEVRFractalDispatch(intval($player),$found['object'],'Hit',['mzID'=>$mzID,'amount'=>$amount]);if(intval($amount)>0)FaBBoltynHit(intval($player));}
     // Effects such as Seek Enlightenment can move the attack before its own hit ability.
     if($found!==null){$live=FaBFindUID(intval($found['object']->UniqueID));if($live!==null)$params['mzID']=$live['mzID'];}
-    $count = $found === null || FaBCRUHitSuppressed($found['object']) ? 0 : FaBRunSourceMacro('Hit', intval($player), $found['object']->CardID, $params);
+    // These printed hit abilities are queued by FaBWTRHit; keep generic listeners below.
+    $count = $found === null || FaBCRUHitSuppressed($found['object'])
+        || $found['object']->CardID === 'command_and_conquer_red' || $queuedPureTokenHit ? 0
+        : FaBRunSourceMacro('Hit', intval($player), $found['object']->CardID, $params);
     $count += function_exists('DispatchMacroListeners') ? DispatchMacroListeners('Hit', intval($player), $params) : 0;
     if ($found !== null) FaBARCAfterHit(intval($player), $found['object'], intval($amount));
     if($found!==null&&in_array('WTR_RETURN_HAND',(array)$found['object']->TurnEffects,true)){
@@ -1001,7 +1237,13 @@ function OnCombatChainClosed($player) {
 
 function FaBRunSourceMacro(string $macroName, int $player, string $cardID, array $params): int {
     $sourceRef=FaBIdentityFromMZ((string)($params['mzID']??''));
-    if($sourceRef&&(FaBMPGSuppressed($sourceRef['object'])||FaBSUPSuppressed($sourceRef['object']))){if($macroName==='PrepareCard'){FaBFinishPreparedCard(intval($sourceRef['object']->UniqueID));return 1;}if(!str_ends_with($macroName,'Modifier'))return 1;}
+    $grantedBoost=$sourceRef&&FaBARCGrantedBoostMacro($sourceRef['object'],$macroName,$player,$cardID,$params);
+    if($sourceRef&&!$grantedBoost&&(FaBMPGSuppressed($sourceRef['object'])||FaBSUPSuppressed($sourceRef['object']))){if($macroName==='PrepareCard'){FaBFinishPreparedCard(intval($sourceRef['object']->UniqueID));return 1;}if(!str_ends_with($macroName,'Modifier'))return 1;}
+    // Current generated card code predates these PrepareCard declarations; canonical bodies call the same helper.
+    if ($macroName === 'PrepareCard' && $sourceRef !== null && FaBUsesDeclaredReactionTarget($cardID)) {
+        FaBPrepareDeclaredReaction($player, $sourceRef['object']);
+        return 1;
+    }
     $countFn = 'Card' . $macroName . 'Count';
     $base = lcfirst($macroName);
     $abilities = $GLOBALS[$base . 'Abilities'] ?? [];
@@ -1014,12 +1256,330 @@ function FaBRunSourceMacro(string $macroName, int $player, string $cardID, array
         if (!isset($abilities[$key])) continue;
         if (isset($prereqs[$key]) && !$prereqs[$key](...array_merge([$player], array_values($params)))) continue;
         $previousEffect=$GLOBALS['fabEffectController']??0;$GLOBALS['fabEffectController']=$player;
-        try {$abilities[$key]($player); ++$ran;} finally {$GLOBALS['fabEffectController']=$previousEffect;}
+        try {
+            if ($macroName === 'ResolveCard' && $cardID === 'lunging_press_blue' && $i === 0) {
+                if ($sourceRef !== null) FaBCRUResolveLunging($player, $sourceRef['object']);
+            } elseif ($macroName === 'ResolveCard' && $cardID === 'gorganian_tome' && $i === 0) {
+                if ($sourceRef !== null) FaBCRUResolveGorganian($player, $sourceRef['object']);
+            } elseif ($macroName === 'ResolveCard' && FaBUsesDeclaredReactionTarget($cardID) && $i === 0) {
+                if ($sourceRef !== null) FaBResolveDeclaredReaction($player, $sourceRef['object']);
+            } else $abilities[$key]($player);
+            ++$ran;
+        } finally {$GLOBALS['fabEffectController']=$previousEffect;}
     }
     return $ran;
 }
 
+/** Generated await continuations must receive PASS as a return value. */
+function GameCustomHandlerRunsOnPass(string $handlerName): bool {
+    // Native CUSTOM handlers retain the normal skip-on-PASS behavior. Only the
+    // generator's cardID:index:MacroName-await contract opts into continuation.
+    return preg_match('/^[a-z0-9_]+:[0-9]+:(?:Listener:)?[A-Za-z_][A-Za-z0-9_]*-await$/D', $handlerName) === 1
+        && is_callable($GLOBALS['customDQHandlers'][$handlerName] ?? null);
+}
+
+/**
+ * An attack reaction remains on the stack until all its resolution effects finish.
+ * The marker is serialized; the depth guard prevents re-entry during the initial
+ * callback and the final zone-move hooks in this request.
+ */
+function FaBReactionResolutionIsPending(): bool {
+    return intval($GLOBALS['fabReactionResolutionDepth'] ?? 0) > 0
+        || is_array(FaBGetState()['resolvingReaction'] ?? null);
+}
+
+function FaBReactionResolutionHasWork(): bool {
+    if (intval($GLOBALS['fabReactionResolutionDepth'] ?? 0) > 0) return true;
+    // FaBHasPendingDecision deliberately ignores static rows. Clearing a source
+    // must wait for those rows as well, and for every seat rather than just live seats.
+    foreach (FaBSeatOrder() as $seat) {
+        if (count(GetDecisionQueue($seat)) > 0) return true;
+    }
+    $variables = json_decode((string)GetDecisionQueueVariables(), true);
+    return is_array($variables) && !empty($variables['__awaitFrames']);
+}
+
+/** Read frame ownership without claiming unrelated or legacy await work. */
+function FaBTrackReactionAwaitFrames(): void {
+    $state = FaBGetState();
+    $pending = $state['resolvingReaction'] ?? null;
+    if (!is_array($pending) || !isset($pending['baselineFrameKeys'], $pending['cardID'], $pending['sourceMZ'])) return;
+    $variables = json_decode((string)GetDecisionQueueVariables(), true);
+    $owned = (array)($pending['ownedFrameKeys'] ?? []);
+    $abilityFrame = ($pending['resolutionClass'] ?? '') === 'ARC_ABILITY'
+        && ($pending['kind'] ?? '') === 'ABILITY'
+        && in_array((string)$pending['cardID'], ['opal_amulet_blue','potion_of_deja_vu_blue'], true);
+    $frameMacro = $abilityFrame ? 'ResolveAbility' : 'ResolveCard';
+    $pattern = '/^' . preg_quote((string)$pending['cardID'], '/') . ':[0-9]+:'.$frameMacro.'#[0-9]+$/D';
+    foreach ((array)($variables['__awaitFrames'] ?? []) as $key => $frame) {
+        if (in_array($key, (array)$pending['baselineFrameKeys'], true)) continue;
+        if (preg_match($pattern, (string)$key) !== 1) continue;
+        if (($frame['locals']['mzID'] ?? null) !== $pending['sourceMZ']) continue;
+        if (!in_array($key, $owned, true)) $owned[] = $key;
+    }
+    $state['resolvingReaction']['ownedFrameKeys'] = $owned;
+    FaBSetState($state);
+}
+
+/** Exact canonical CUSTOM continuation -> existing frame reference. */
+function FaBReactionQueuedAwaitFrame(object $row): ?string {
+    if (($row->Type ?? '') !== 'CUSTOM') return null;
+    $parts = explode('|', (string)($row->Param ?? ''));
+    $handler = $parts[0] ?? '';
+    if (preg_match('/^[a-z0-9_]+:[0-9]+:(?:Listener:)?[A-Za-z_][A-Za-z0-9_]*-await$/D', $handler) !== 1
+        || !is_callable($GLOBALS['customDQHandlers'][$handler] ?? null)) return null;
+    $frame = (string)($parts[1] ?? '');
+    $stem = substr($handler, 0, -strlen('-await'));
+    return preg_match('/^' . preg_quote($stem, '/') . '#[0-9]+$/D', $frame) === 1 ? $frame : null;
+}
+
+function FaBReactionEliminationDiagnostic(string $reason, string $frame, int $seat): void {
+    $state = FaBGetState();
+    if (!is_array($state['resolvingReaction'] ?? null)) return;
+    // Stable keys make repeated cleanup checks bounded and visible to reproducers.
+    $key = $reason . '|' . $seat . '|' . $frame;
+    $state['resolvingReaction']['eliminationDiagnostics'][$key] = [
+        'reason'=>$reason, 'frame'=>$frame, 'seat'=>$seat];
+    FaBSetState($state);
+}
+
+/**
+ * Cancel only a removed controller's precisely owned resolution. A surviving
+ * controller's eliminated chooser is explicitly held for a separate rules fix;
+ * no generic PASS resumption or frame purge can safely implement that case.
+ */
+function FaBPrepareReactionEliminationCleanup(): array {
+    FaBTrackReactionAwaitFrames();
+    $pending = FaBGetState()['resolvingReaction'] ?? null;
+    if (!is_array($pending) || intval($GLOBALS['fabReactionResolutionDepth'] ?? 0) > 0) return [];
+    $owned = (array)($pending['ownedFrameKeys'] ?? []);
+    $controllerGone = !FaBSeatIsLive(intval($pending['controller'] ?? 0));
+    foreach (FaBSeatOrder() as $seat) {
+        $queue = &GetDecisionQueue($seat);
+        $remove = [];
+        foreach ($queue as $index => $row) {
+            if (!is_object($row)) continue;
+            $frame = FaBReactionQueuedAwaitFrame($row);
+            if ($frame === null) continue;
+            if (!in_array($frame, $owned, true)) {
+                if (!FaBSeatIsLive($seat)) FaBReactionEliminationDiagnostic('unowned_dead_queue_frame_preserved', $frame, $seat);
+                continue;
+            }
+            if (!$controllerGone) {
+                if (!FaBSeatIsLive($seat)) FaBReactionEliminationDiagnostic('unsupported_live_controller_dead_chooser', $frame, $seat);
+                continue;
+            }
+            $remove[$index] = true;
+            // Current generated awaits enqueue one interactive decision followed
+            // immediately by its CUSTOM continuation at the same block. Remove
+            // that exact canonical pair, never an arbitrary neighboring row.
+            $choice = $queue[$index - 1] ?? null;
+            if (is_object($choice) && intval($row->Block ?? -1) === 1
+                && intval($choice->Block ?? -2) === 1
+                && in_array($choice->Type ?? '', ['MZCHOOSE','MZMAYCHOOSE','MZMULTICHOOSE',
+                    'MZMODAL','MZREARRANGE','NUMBERCHOOSE','MZNUMBERCHOOSE','NAMECARD',
+                    'MZNAMECARD','YESNO','MZSPLITASSIGN'], true)) $remove[$index - 1] = true;
+        }
+        if ($remove) $queue = array_values(array_filter($queue,
+            fn($row, $index) => !isset($remove[$index]), ARRAY_FILTER_USE_BOTH));
+        unset($queue);
+    }
+    return $controllerGone ? $owned : [];
+}
+
+/** Called after the existing eliminated-seat queues/objects have been removed. */
+function FaBFinishReactionEliminationCleanup(array $candidates): void {
+    if (intval($GLOBALS['fabReactionResolutionDepth'] ?? 0) > 0) return;
+    foreach (array_values(array_unique($candidates)) as $frame) {
+        $referenced = false;
+        foreach (FaBLiveSeats() as $seat) {
+            foreach (GetDecisionQueue($seat) as $row) {
+                if (!is_object($row) || ($row->Type ?? '') !== 'CUSTOM') continue;
+                $parts = explode('|', (string)($row->Param ?? ''));
+                // Preserve even an unknown live handler's reference to this key.
+                if (($parts[1] ?? null) === $frame) { $referenced = true; break 2; }
+            }
+        }
+        if ($referenced) {
+            FaBReactionEliminationDiagnostic('live_reference_preserved', $frame, $seat);
+            continue;
+        }
+        if (DecisionQueueController::GetAwaitFrame($frame) !== null) DecisionQueueController::FinishAwaitFrame($frame);
+    }
+}
+
+function FaBFinishReactionResolution(): bool {
+    $state = FaBGetState();
+    $pending = $state['resolvingReaction'] ?? null;
+    if (!is_array($pending) || FaBReactionResolutionHasWork()) return false;
+
+    $depth = intval($GLOBALS['fabReactionResolutionDepth'] ?? 0);
+    $GLOBALS['fabReactionResolutionDepth'] = $depth + 1;
+    try {
+        // Remove the marker before move hooks; the local guard still prevents
+        // actions or automatic passes while those hooks are executing.
+        unset($state['resolvingReaction']);
+        FaBSetState($state);
+        $uid = intval($pending['uid'] ?? 0);
+        $found = FaBFindUID($uid);
+        $virtualClass = in_array((string)($pending['resolutionClass'] ?? ''), ['ARC_ABILITY','RUNECHANT_TRIGGER'], true);
+        if ($virtualClass) FaBFinishManagedVirtualGoAgain($pending);
+        if (($pending['resolutionClass'] ?? '') === 'PLAIN_SPELL') {
+            // These sources have no self-moving effect. Keep initial LKI for an
+            // unexpected source departure; broad self-moving spells stay out of scope.
+            $completionSource = $found !== null && $found['zone'] === 'Stack'
+                ? $found['object'] : (object)($pending['completionSource'] ?? []);
+            FaBFinishPlainSpellGoAgain($pending, $completionSource);
+        }
+        if ($found !== null && $found['zone'] === 'Stack') {
+            // A resolution effect may already have returned/banished the source.
+            // FaBMoveStackUID applies owner routing and destination replacements,
+            // including Ephemeral, after the effect has generated its results.
+            if ($virtualClass) $found['object']->removed = true;
+            else FaBMoveStackUID($uid, 'Graveyard', intval($pending['owner']));
+        }
+
+        // Read current state again: effects and move hooks can update combat.
+        $state = FaBGetState();
+        if (($pending['resolutionClass'] ?? '') === 'ARC_ABILITY') {
+            $state['combatStep'] = (string)($pending['returnCombatStep'] ?? $state['combatStep']);
+        }
+        if (FaBStackTop() !== null) {
+            $state['window'] = 'PRIORITY';
+        } elseif (($pending['resolutionClass'] ?? '') === 'ARC_ABILITY') {
+            $state['window'] = (string)($pending['returnWindow'] ?? 'ACTION');
+        } elseif (!empty($state['combatOpen'])) {
+            $state['window'] = $state['combatStep'] === 'DEFEND'
+                ? 'DEFEND_PRIORITY' : $state['combatStep'];
+        } else {
+            $state['window'] = 'ACTION';
+        }
+        FaBSetState($state);
+        // CR 5.3.7: the turn-player gains priority after resolution.
+        SetPriorityPlayer(intval(GetTurnPlayer()));
+        SetConsecutivePasses(0);
+    } finally {
+        $GLOBALS['fabReactionResolutionDepth'] = $depth;
+    }
+    return true;
+}
+
+
+/** Only previously identified ordinary-spell lifecycle concerns, not all NAA. */
+function FaBKnownPlainSpellLifecycleCard(string $cardID): bool {
+    return in_array($cardID, ['chorus_of_rotwood_red','this_rounds_on_me_blue','rousing_aether_red','rousing_aether_yellow','rousing_aether_blue','aether_quickening_red','aether_quickening_yellow','aether_quickening_blue','battle_prep_red','battle_prep_yellow','battle_prep_blue','laden_with_lightning_red','tome_of_harvests_blue','flying_high_red','flying_high_yellow','flying_high_blue','regain_composure_blue'], true);
+}
+
+function FaBManagedVirtualResolutionClass(object $stack): string {
+    if (($stack->Kind ?? '') === 'ABILITY' && isset($stack->Params['arcSpec'])
+        && empty($stack->Params['rosTrigger'])
+        && in_array((string)$stack->CardID, ['opal_amulet_blue','potion_of_deja_vu_blue'], true)) return 'ARC_ABILITY';
+    if (($stack->Kind ?? '') === 'TRIGGER' && (string)$stack->CardID === 'runechant'
+        && ($stack->Params['arcRunechant'] ?? false) === true
+        && ($stack->SourceZone ?? '') === 'Arena' && intval($stack->SourceUniqueID ?? 0) > 0) return 'RUNECHANT_TRIGGER';
+    return '';
+}
+
+function FaBManagedAbilityResolutionOwns(object $stack): bool {
+    $pending = FaBGetState()['resolvingReaction'] ?? null;
+    return is_array($pending) && ($pending['resolutionClass'] ?? '') === 'ARC_ABILITY'
+        && intval($pending['uid'] ?? 0) === intval($stack->UniqueID)
+        && (string)($pending['cardID'] ?? '') === (string)$stack->CardID
+        && FaBManagedVirtualResolutionClass($stack) === 'ARC_ABILITY';
+}
+
+/** The resolver itself is not serialized: only the established marker is saved. */
+function FaBResolveManagedVirtualLayer(int $controller, object $stack, array $found): bool {
+    $class = FaBManagedVirtualResolutionClass($stack);
+    if ($class === '' || ($found['zone'] ?? '') !== 'Stack'
+        || intval($found['object']->UniqueID ?? 0) !== intval($stack->UniqueID)) return false;
+    $state = FaBGetState();
+    $variables = json_decode((string)GetDecisionQueueVariables(), true);
+    $physical = FaBFindUID(intval($stack->SourceUniqueID ?? 0));
+    $state['resolvingReaction'] = [
+        'uid'=>intval($stack->UniqueID), 'owner'=>$controller, 'controller'=>$controller,
+        'kind'=>(string)$stack->Kind, 'resolutionClass'=>$class,
+        'cardID'=>(string)$stack->CardID,
+        'sourceMZ'=>$class === 'ARC_ABILITY' ? (string)($physical['mzID'] ?? '') : (string)$found['mzID'],
+        'frameMacro'=>$class === 'ARC_ABILITY' ? 'ResolveAbility' : 'ResolveCard',
+        'abilityGoAgain'=>$class === 'ARC_ABILITY' && !empty($stack->Params['arcSpec']['goAgain']),
+        'sourceUniqueID'=>intval($stack->SourceUniqueID ?? 0),
+        'returnWindow'=>(string)($stack->Params['returnWindow'] ?? $state['window']),
+        'returnCombatStep'=>(string)($stack->Params['returnCombatStep'] ?? $state['combatStep']),
+        'baselineFrameKeys'=>array_keys((array)($variables['__awaitFrames'] ?? [])), 'ownedFrameKeys'=>[]];
+    FaBSetState($state);
+    $depth = intval($GLOBALS['fabReactionResolutionDepth'] ?? 0);
+    $GLOBALS['fabReactionResolutionDepth'] = $depth + 1;
+    try {
+        if ($class === 'ARC_ABILITY') FaBWTRResolveAbility($controller, $stack);
+        // Producer and exact target/destroy rules are owned by the Runechant repair.
+        else FaBARCResolveRunechantTrigger($controller, $stack);
+    } finally { $GLOBALS['fabReactionResolutionDepth'] = $depth; }
+    FaBTrackReactionAwaitFrames();
+    FaBFinishReactionResolution();
+    if (!FaBReactionResolutionIsPending()) FaBAutoPassShortcuts();
+    return true;
+}
+
+function FaBFinishManagedVirtualGoAgain(array $pending): void {
+    if (($pending['resolutionClass'] ?? '') !== 'ARC_ABILITY' || empty($pending['abilityGoAgain'])) return;
+    $controller = intval($pending['controller'] ?? 0);
+    if (!FaBSeatIsLive($controller) || !FaBWTRMayGoAgain($controller)) return;
+    AddActionPoints($controller, intval(GetActionPoints($controller)) + 1);
+    FaBROSGo($controller, intval($pending['sourceUniqueID'] ?? 0));
+}
+
+/** First bounded ordinary-spell cohort; other lifecycle routes remain unchanged. */
+function FaBPlainSpellResolutionIsManaged(object $o): bool {
+    if (!in_array((string)($o->Kind ?? ''), ['ACTION','INSTANT'], true)) return false;
+    // Tome's count must precede clearing, including when its owner differs from its controller.
+    if ((string)$o->CardID === 'gorganian_tome') return true;
+    // Other foreign-ownership/elimination and self-moving contracts remain bounded separately.
+    $owner = intval($o->Owner ?? 0); $controller = intval($o->Controller ?? 0);
+    if ($owner > 0 && $owner !== $controller) return false;
+    return FaBKnownPlainSpellLifecycleCard((string)$o->CardID) || in_array((string)$o->CardID, [
+        'aether_dart_blue',
+        'aether_dart_red',
+        'aether_dart_yellow',
+        'aether_hail_blue',
+        'aether_hail_red',
+        'aether_hail_yellow',
+        'flash_bolt_blue',
+        'flash_bolt_red',
+        'flash_bolt_yellow',
+        'frosting_blue',
+        'frosting_red',
+        'frosting_yellow',
+        'ice_bolt_blue',
+        'ice_bolt_red',
+        'ice_bolt_yellow',
+        'scalding_rain_blue',
+        'scalding_rain_red',
+        'scalding_rain_yellow',
+        'voltic_bolt_blue',
+        'voltic_bolt_red',
+        'voltic_bolt_yellow',
+        'zap_blue',
+        'zap_red',
+        'zap_yellow',
+    ], true);
+}
+
+/** Resolution effects finish before go again and source clearing (CR 5.3.4-7). */
+function FaBFinishPlainSpellGoAgain(array $pending, object $source): void {
+    $controller = intval($pending['controller']);
+    if (!FaBSeatIsLive($controller)) return;
+    if (FaBKnownPlainSpellLifecycleCard((string)$source->CardID) && HasNoAbilities($source)) return;
+    // Keep this repair bounded to Tome; do not certify other cohorts' suppression contracts.
+    if ((string)$source->CardID === 'gorganian_tome' && HasNoAbilities($source)) return;
+    $kind = (string)$pending['kind']; $uid = intval($pending['uid']);
+    $baseGoAgain = !FaBMPGSuppressed($source) && (!FaBROSMeld($source->CardID)||FaBARCCard($uid,'rosMeld')!==1) && FaBPrintedKeywordIsActive($source->CardID, 'Go again') || in_array('GO_AGAIN',(array)($source->TurnEffects??[]),true) ? 1 : 0;
+    $goAgainDelta = function_exists('EvaluateGoAgainModifier') ? intval(EvaluateGoAgainModifier($source->CardID, $controller, $source, $baseGoAgain, $source)) : 0;
+    if (($kind === 'ACTION' || ($kind === 'INSTANT' && (FaBHasType($source,'Action')||in_array('GO_AGAIN',(array)($source->TurnEffects??[]),true)))) && !FaBUPRFog() && FaBWTRMayGoAgain($controller) && $source->CardID!=='construct_nitro_mechanoid_yellow' && max(0, min(1, $baseGoAgain + $goAgainDelta)) === 1) { AddActionPoints($controller, intval(GetActionPoints($controller)) + 1);FaBROSGo($controller,$uid); }
+}
+
 function DoResolveCard($player, $mzID) {
+    if (FaBReactionResolutionIsPending()) return false;
     $found = FaBIdentityFromMZ((string)$mzID);
     if ($found === null || $found['zone'] !== 'Stack') return false;
     $obj = $found['object']; $controller = intval($obj->Controller ?? $player); $uid = intval($obj->UniqueID);
@@ -1027,9 +1587,10 @@ function DoResolveCard($player, $mzID) {
     if($kind==='ABILITY'&&!empty($obj->Params['mstEmptyDriver'])){$obj->removed=true;$driver=FaBFindUID(intval($obj->Params['mstEmptyDriver']));if($driver&&$driver['zone']==='Arena'&&FaBSteamCounters($driver['object'])===0)FaBMONDestroy(intval($driver['object']->UniqueID));SetPriorityPlayer(intval(GetTurnPlayer()));SetConsecutivePasses(0);return true;}
     if($kind==='ABILITY'&&!empty($obj->Params['uprPhantasm'])){$obj->removed=true;FaBMONPhantasm($state);SetPriorityPlayer(intval(GetTurnPlayer()));SetConsecutivePasses(0);return true;}
     if (FaBROSMeldFirst($controller,$obj)) return true;
+    if (FaBManagedVirtualResolutionClass($obj) !== '') return FaBResolveManagedVirtualLayer($controller, $obj, $found);
     if ($kind === 'ABILITY') {
         $obj->removed=true;
-        if(!empty($obj->Params['rosTrigger'])) { FaBROSResolveTrigger($controller,$obj);$s=FaBGetState();$s['window']=FaBStackTop()!==null?'PRIORITY':(!empty($s['combatOpen'])?($s['combatStep']==='DEFEND'?'DEFEND_PRIORITY':$s['combatStep']):'ACTION');FaBSetState($s); SetPriorityPlayer(intval(GetTurnPlayer())); SetConsecutivePasses(0); return true; }
+        if(!empty($obj->Params['rosTrigger'])) { FaBROSResolveTrigger($controller,$obj);$s=FaBGetState();$s['window']=FaBStackTop()!==null?'PRIORITY':(($obj->Params['rosEvent']??'')==='wtrIntimidateReturn'?'END_PHASE':(!empty($s['combatOpen'])?($s['combatStep']==='DEFEND'?'DEFEND_PRIORITY':$s['combatStep']):'ACTION'));FaBSetState($s); SetPriorityPlayer(intval(GetTurnPlayer())); SetConsecutivePasses(0); return true; }
         FaBWTRResolveAbility($controller,$obj);
         $state=FaBGetState();
         $state['window']=(string)($obj->Params['returnWindow']??'ACTION');
@@ -1077,8 +1638,27 @@ function DoResolveCard($player, $mzID) {
         OnAttackDeclared($controller, FaBFindUID($uid)['mzID'], $controller, $defender);
         FaBResolveRules($controller, $obj, $chain);
         FaBMONSpectra($attackTarget);
-    } elseif (in_array($kind, ['ATTACK_REACTION', 'DEFENSE_REACTION'], true)) {
-        $owner = $kind === 'DEFENSE_REACTION' ? $controller : intval($state['attacker']);
+    } elseif ($kind === 'ATTACK_REACTION') {
+        $owner = intval($obj->Owner ?? 0);
+        if ($owner < 1) $owner = $controller;
+        $variables = json_decode((string)GetDecisionQueueVariables(), true);
+        $state['resolvingReaction'] = ['uid'=>$uid, 'owner'=>$owner, 'controller'=>$controller,
+            'cardID'=>(string)$obj->CardID, 'sourceMZ'=>(string)$found['mzID'],
+            'baselineFrameKeys'=>array_keys((array)($variables['__awaitFrames'] ?? [])), 'ownedFrameKeys'=>[]];
+        FaBSetState($state);
+        $depth = intval($GLOBALS['fabReactionResolutionDepth'] ?? 0);
+        $GLOBALS['fabReactionResolutionDepth'] = $depth + 1;
+        try {
+            // CR 5.3.4 precedes clearing (5.3.7). Awaiting macros keep a live source.
+            FaBResolveRules($controller, $obj, $obj);
+        } finally {
+            $GLOBALS['fabReactionResolutionDepth'] = $depth;
+        }
+        FaBTrackReactionAwaitFrames();
+        FaBFinishReactionResolution();
+        if (FaBReactionResolutionIsPending()) return true;
+    } elseif ($kind === 'DEFENSE_REACTION') {
+        $owner = $controller;
         if($kind==='DEFENSE_REACTION'&&$obj->SourceZone==='Hand'&&FaBCurrentAttackHasKeyword($state,'Dominate')&&FaBHandDefendingCount($state,$controller)>=1){
             FaBMoveStackUID($uid,'Graveyard',$owner);SetPriorityPlayer(intval($state['attacker']));SetConsecutivePasses(0);return true;
         }
@@ -1090,18 +1670,36 @@ function DoResolveCard($player, $mzID) {
         SetPriorityPlayer(intval($state['attacker'])); SetConsecutivePasses(0);
     } else {
         $persistent = FaBHasType($obj, 'Figment') || FaBHasType($obj, 'Ash') || FaBHasType($obj,'Construct') || FaBHasType($obj, 'Aura') || FaBHasType($obj, 'Item') || FaBHasType($obj, 'Ally') || FaBHasType($obj,'Landmark') || FaBHasType($obj,'Invocation') || FaBHasType($obj,'Affliction');
-        $resolved = FaBMoveStackUID($uid, $persistent ? 'Arena' : 'Graveyard', $persistent ? $controller : intval($obj->Owner ?? $controller));
-        FaBResolveRules($controller, $obj, $resolved);
-        $baseGoAgain = !FaBMPGSuppressed($obj) && (!FaBROSMeld($obj->CardID)||FaBARCCard($uid,'rosMeld')!==1) && FaBPrintedKeywordIsActive($obj->CardID, 'Go again') || in_array('GO_AGAIN',(array)($obj->TurnEffects??[]),true) ? 1 : 0;
-        $goAgainDelta = function_exists('EvaluateGoAgainModifier') ? intval(EvaluateGoAgainModifier($obj->CardID, $controller, $obj, $baseGoAgain, $obj)) : 0;
-        if (($kind === 'ACTION' || ($kind === 'INSTANT' && (FaBHasType($obj,'Action')||in_array('GO_AGAIN',(array)($obj->TurnEffects??[]),true)))) && !FaBUPRFog() && FaBWTRMayGoAgain($controller) && $obj->CardID!=='construct_nitro_mechanoid_yellow' && max(0, min(1, $baseGoAgain + $goAgainDelta)) === 1) { AddActionPoints($controller, intval(GetActionPoints($controller)) + 1);FaBROSGo($controller,$uid); }
-        $state = FaBGetState();
-        if (!empty($state['combatOpen']) && in_array($state['combatStep'], ['ATTACK', 'DEFEND', 'REACTION', 'DAMAGE', 'RESOLUTION'], true)) {
-            $state['window'] = $state['combatStep'] === 'DEFEND' ? 'DEFEND_PRIORITY' : $state['combatStep'];
+        if (!$persistent && FaBPlainSpellResolutionIsManaged($obj)) {
+            $owner = intval($obj->Owner ?? 0); if ($owner < 1) $owner = $controller;
+            $variables = json_decode((string)GetDecisionQueueVariables(), true);
+            // Reuse the existing serialized lifecycle, guards, queue wait and ownership cleanup.
+            $state['resolvingReaction'] = ['uid'=>$uid, 'owner'=>$owner, 'controller'=>$controller,
+                'kind'=>$kind, 'resolutionClass'=>'PLAIN_SPELL', 'completionSource'=>(array)$obj,
+                'cardID'=>(string)$obj->CardID, 'sourceMZ'=>(string)$found['mzID'],
+                'baselineFrameKeys'=>array_keys((array)($variables['__awaitFrames'] ?? [])), 'ownedFrameKeys'=>[]];
+            FaBSetState($state);
+            $depth = intval($GLOBALS['fabReactionResolutionDepth'] ?? 0);
+            $GLOBALS['fabReactionResolutionDepth'] = $depth + 1;
+            try { FaBResolveRules($controller, $obj, $obj); }
+            finally { $GLOBALS['fabReactionResolutionDepth'] = $depth; }
+            FaBTrackReactionAwaitFrames();
+            FaBFinishReactionResolution();
+            if (FaBReactionResolutionIsPending()) return true;
         } else {
-            $state['window'] = 'ACTION';
+            $resolved = FaBMoveStackUID($uid, $persistent ? 'Arena' : 'Graveyard', $persistent ? $controller : intval($obj->Owner ?? $controller));
+            FaBResolveRules($controller, $obj, $resolved);
+            $baseGoAgain = !FaBMPGSuppressed($obj) && (!FaBROSMeld($obj->CardID)||FaBARCCard($uid,'rosMeld')!==1) && FaBPrintedKeywordIsActive($obj->CardID, 'Go again') || in_array('GO_AGAIN',(array)($obj->TurnEffects??[]),true) ? 1 : 0;
+            $goAgainDelta = function_exists('EvaluateGoAgainModifier') ? intval(EvaluateGoAgainModifier($obj->CardID, $controller, $obj, $baseGoAgain, $obj)) : 0;
+            if (($kind === 'ACTION' || ($kind === 'INSTANT' && (FaBHasType($obj,'Action')||in_array('GO_AGAIN',(array)($obj->TurnEffects??[]),true)))) && !FaBUPRFog() && FaBWTRMayGoAgain($controller) && $obj->CardID!=='construct_nitro_mechanoid_yellow' && max(0, min(1, $baseGoAgain + $goAgainDelta)) === 1) { AddActionPoints($controller, intval(GetActionPoints($controller)) + 1);FaBROSGo($controller,$uid); }
+            $state = FaBGetState();
+            if (!empty($state['combatOpen']) && in_array($state['combatStep'], ['ATTACK', 'DEFEND', 'REACTION', 'DAMAGE', 'RESOLUTION'], true)) {
+                $state['window'] = $state['combatStep'] === 'DEFEND' ? 'DEFEND_PRIORITY' : $state['combatStep'];
+            } else {
+                $state['window'] = 'ACTION';
+            }
+            FaBSetState($state); SetPriorityPlayer(intval(GetTurnPlayer())); SetConsecutivePasses(0);
         }
-        FaBSetState($state); SetPriorityPlayer(intval(GetTurnPlayer())); SetConsecutivePasses(0);
     }
     if(FaBStackTop()!==null){$s=FaBGetState();$s['window']='PRIORITY';FaBSetState($s);}
     else {$s=FaBGetState();if($s['window']==='PRIORITY'&&!empty($s['combatOpen'])){$s['window']=$s['combatStep']==='DEFEND'?'DEFEND_PRIORITY':$s['combatStep'];FaBSetState($s);}}
@@ -1179,6 +1777,8 @@ function FaBAttackPower(array $state): int {
     $attack = FaBFindUID(intval($state['attackUID']));
     if ($attack === null) return 0;
     $base = max(0, intval(CardPower($attack['object']->CardID)));
+    // Its property-static ability defines '*' before subsequent power modifiers.
+    if($attack['object']->CardID==='blasmophets_boon_blue')$base=FaBMONBasePower(intval($state['attacker']),$attack['object']);
     if(!empty(FaBObjectCounters($attack['object'])['MON_ARENA_ATTACK']))$base=FaBMSTAuraBase(intval($state['attacker']),$attack['object'])??intval(FaBObjectCounters($attack['object'])['MON_ARENA_POWER']??0);
     if($attack['object']->CardID==='fractal_replication_red')$base=FaBEVRFractalValue($attack['object'],'POWER');
     if(in_array('EVR_HALF_BASE',(array)$attack['object']->TurnEffects,true))$base=intval(ceil($base/2));
@@ -1271,7 +1871,7 @@ function FaBEliminateSeat(int $seat, int $sourcePlayer = 0): void {
 /** Finish elimination after the current effect has finished using its source. */
 function GameAfterEngineAction($action, $result): void {
     $GLOBALS['fabEffectController']=0;
-    if(!FaBHasPendingDecision())FaBDTDMirage();
+    $reactionFramesToCancel = FaBPrepareReactionEliminationCleanup();
     foreach (FaBSeatOrder() as $seat) {
         if (FaBSeatIsLive($seat)) continue;
         $queue = &GetDecisionQueue($seat); $queue = [];
@@ -1281,6 +1881,9 @@ function GameAfterEngineAction($action, $result): void {
         }
         foreach (GetStack() as $obj) if (is_object($obj) && intval($obj->Controller ?? 0) === $seat) $obj->removed = true;
     }
+    FaBFinishReactionEliminationCleanup($reactionFramesToCancel);
+    FaBFinishReactionResolution();
+    if(!FaBReactionResolutionIsPending()&&!FaBHasPendingDecision())FaBDTDMirage();
     if (intval(GetWinner()) !== 0) return;
     $state = FaBGetState();
     if(!empty($state['endingTurn'])&&!FaBHasPendingDecision()&&FaBStackTop()===null){
@@ -1351,6 +1954,37 @@ function FaBBeginResolutionStep(): void {
     FaBAutoPassShortcuts();
 }
 
+/**
+ * Timing-only compatibility correction: defer the existing per-link decision.
+ * Dynamic Nerves/ability eligibility at the actual close event is separate work.
+ */
+function FaBDeferBattlewornCounter(object $source): void {
+    $uid=intval($source->UniqueID??0);$link=intval($source->ChainLink??0);
+    if($uid<1||$link<1)return;
+    $state=FaBGetState();
+    $state['battlewornClosePending'][(string)$link][(string)$uid]=true;
+    FaBSetState($state);
+}
+
+/** Preserve existing relative close-hook order and never recreate a departed card. */
+function FaBApplyDeferredBattlewornCounters(): void {
+    $state=FaBGetState();$pending=$state['battlewornClosePending']??[];
+    unset($state['battlewornClosePending']);FaBSetState($state);
+    if(empty($state['combatOpen'])||!is_array($pending))return;
+    foreach($pending as$link=>$uids){
+        if(!is_array($uids))continue;
+        foreach($uids as$uid=>$eligible){
+            if($eligible!==true)continue;
+            $found=FaBFindUID(intval($uid));
+            if($found===null||$found['zone']!=='CombatChain')continue;
+            $source=$found['object'];
+            if(($source->Role??'')!=='DEFENSE'||intval($source->ChainLink??0)!==intval($link)
+                ||!in_array($source->FromZone??'',['Equipment','Hero','Weapons'],true))continue;
+            FaBSetObjectCounter($source,'DEFENSE',intval(FaBObjectCounters($source)['DEFENSE']??0)+1);
+        }
+    }
+}
+
 function FaBCleanupResolvedLink(array $state): void {
     FaBPENLinkResolved($state);
     foreach (FaBSeatOrder() as $seat) foreach (GetCombatChain($seat) as $obj) {
@@ -1362,12 +1996,13 @@ function FaBCleanupResolvedLink(array $state): void {
         if (FaBHasKeyword($obj, 'Blade Break')) {
             $obj->TurnEffects = array_values(array_unique(array_merge(is_array($obj->TurnEffects) ? $obj->TurnEffects : [], ['DESTROY_ON_CHAIN_CLOSE'])));
         } elseif (FaBHasKeyword($obj, 'Battleworn')&&!(FaBMONArena($seat,'nerves_of_steel')&&FaBAttackPower($state)<=2)) {
-            FaBSetObjectCounter($obj, 'DEFENSE', intval(FaBObjectCounters($obj)['DEFENSE'] ?? 0) + 1);
+            FaBDeferBattlewornCounter($obj);
         }
     }
 }
 
 function FaBCloseCombatChain(): void {
+    FaBApplyDeferredBattlewornCounters();
     FaBIARClose();FaBMSTBeforeClose();FaBDTDClose();FaBHNTClose();
     FaBCRUClose();
     FaBELEClose();
@@ -1404,6 +2039,7 @@ function FaBCloseCombatChain(): void {
 }
 
 function FaBPassPriority(int $player, bool $automatic = false): bool {
+    if (FaBReactionResolutionIsPending()) return false;
     if (intval(GetWinner()) !== 0 || intval(GetPriorityPlayer()) !== $player) return false;
     if (!FaBSeatIsLive($player)) return false;
     foreach (FaBLiveSeats() as $seat) if (count(GetDecisionQueue($seat)) > 0) return false;
@@ -1433,7 +2069,8 @@ function FaBPassPriority(int $player, bool $automatic = false): bool {
     if ($state['window'] === 'RESOLUTION') { FaBCloseCombatChain(); return true; }
     if ($state['window'] === 'ACTION') {
         $turnPlayer = intval(GetTurnPlayer());
-        $state['window'] = 'END_PHASE'; FaBSetState($state); SetPriorityPlayer($turnPlayer); return true;
+        $state['window'] = 'END_PHASE'; FaBSetState($state); SetPriorityPlayer($turnPlayer);
+        FaBQueueIntimidateReturns(); return true;
     }
     if ($state['window'] === 'END_PHASE') { FaBEndTurn(intval(GetTurnPlayer())); return true; }
     SetPriorityPlayer(intval(GetTurnPlayer())); return true;
@@ -1500,12 +2137,14 @@ function FaBShortcutWindow(int $player, array $state): string {
 }
 
 function FaBAutoPassShortcuts(): void {
+    if (FaBReactionResolutionIsPending()) return;
     static $running = false;
     if ($running) return;
     $running = true;
     try {
         // Four-seat combat can require more than sixteen consecutive passes.
         for ($guard = 0; $guard < 256 && intval(GetWinner()) === 0; ++$guard) {
+            if (FaBReactionResolutionIsPending()) return;
             foreach (FaBLiveSeats() as $seat) if (count(GetDecisionQueue($seat)) > 0) return;
             $player = intval(GetPriorityPlayer()); $state = FaBGetState();
             if (!FaBIsPassiveSeat($player)) {
@@ -1573,6 +2212,18 @@ $customDQHandlers['FAB_CONTEXT_ACTION'] = function($player, $parts, $lastDecisio
     FaBExecuteContextAction(intval($player), $mzID, $allowed[$index]);
 };
 
+$customDQHandlers['FAB_DECLARE_REACTION_TARGET'] = function($player, $parts, $lastDecision) {
+    FaBContinueDeclaredReaction(intval($player), (array)$parts, (string)$lastDecision);
+};
+
+$customDQHandlers['FAB_LUNGING_TARGET'] = function($player, $parts, $lastDecision) {
+    FaBCRULungingContinue(intval($player), (array)$parts, (string)$lastDecision);
+};
+
+$customDQHandlers['FAB_LUNGING_PLAY'] = function($player, $parts, $lastDecision) {
+    FaBCRULungingPlaySelected(intval($player), (array)$parts);
+};
+
 $customDQHandlers['FAB_ATTACK_TARGET'] = function($player, $parts, $lastDecision) {
     $player = intval($player); $sourceUID = intval($parts[0] ?? 0); $sourceKind = rawurldecode((string)($parts[1] ?? ''));
     if ($sourceUID <= 0 || !in_array($sourceKind, ['PLAY', 'ACTIVATE'], true)) return;
@@ -1594,7 +2245,9 @@ $customDQHandlers['FAB_INTIMIDATE'] = function($player, $parts, $lastDecision) {
     $target = FaBIdentityFromMZ((string)$lastDecision);
     $seats = FaBGetState()['gameMode'] === 'UPF' ? FaBAdjacentOpponents(intval($player)) : FaBOpponents(intval($player));
     if ($target === null || $target['zone'] !== 'Hero' || !in_array($target['player'], $seats, true)) return;
-    FaBIntimidate(intval($player), $target['player'], max(1, intval($parts[0] ?? 1)));
+    $sourceUID=max(0,intval($parts[1]??0));
+    if($sourceUID>0)FaBWTRQueueAttackIntimidate(intval($player),intval($target['player']),max(1,intval($parts[0]??1)),$sourceUID);
+    else FaBIntimidate(intval($player), $target['player'], max(1, intval($parts[0] ?? 1)));
 };
 
 function FaBCanArsenal(int $player, string $mzID): bool {
@@ -1636,9 +2289,15 @@ function DoDrawCard($player, $amount) {
     return true;
 }
 
+/** AddActionPoints assigns an absolute balance; veto only prohibited increases. */
+function FaBBeforeActionPoints($player, $value, $source = null): bool {
+    if ($value <= GetActionPoints(intval($player))) return true;
+    return intval($player) === intval(GetTurnPlayer()) && GetCurrentPhase() === 'MAIN';
+}
+
 function StartOfTurnPhase() {
-    $player = intval(GetTurnPlayer()); AddResources($player, 0); AddActionPoints($player, 1);
-    SetCurrentPhase('MAIN');
+    $player = intval(GetTurnPlayer()); AddResources($player, 0);
+    SetCurrentPhase('MAIN'); AddActionPoints($player, 1);
     foreach (['Hero', 'Weapons', 'Equipment', 'Arena'] as $zoneName) foreach (FaBZoneGet($zoneName, $player) as $obj) if (is_object($obj) && empty($obj->removed) && FaBSEACanUntap($obj) && FaBSUPReadyAtStart($obj)) $obj->Status = 2;
     $state = FaBResetWindowState();
     $state['dtdStarting']=true;
@@ -1682,7 +2341,8 @@ function FaBEndTurn(int $player): bool {
     if(!empty(FaBGetState()['endingTurn']))return true;
     SetCurrentPhase('END');
     FaBCloseCombatChain();
-    FaBReturnIntimidatedCards();
+    // Only flat-only pre-repair saves use the historical compatibility cleanup.
+    FaBReturnIntimidatedCards(true);
     if (function_exists('FaBWTREndTurn')) FaBWTREndTurn($player);
     FaBARCEndTurn($player);
     FaBCRUEnd($player);
@@ -1733,6 +2393,8 @@ function FaBFinishEndTurn(int $player): bool {
     $hero = GetHero($player); $intellect = !empty($hero) ? max(0, intval(CardIntelligence($hero[0]->CardID))) : 4;
     if (function_exists('FaBWTRIntellectModifier')) $intellect += FaBWTRIntellectModifier($player);
     $hand = GetHand($player); $count = 0; foreach ($hand as $obj) if (is_object($obj) && empty($obj->removed)) ++$count;
+    // CR 4.4.3e-f: clear every player's action points before end-turn refill.
+    foreach (FaBSeatOrder() as $seat) AddActionPoints($seat, 0);
     $s=FaBGetState();$s['uprRefill']=true;FaBSetState($s);
     if ($count < $intellect) DoDrawCard($player, $intellect - $count);
     if (intval(GetTurnNumber()) === 1) {

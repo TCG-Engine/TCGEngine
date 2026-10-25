@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:02:35.022555+00:00",
+  "plan_sha256": "715c7bce3620d55ca363c33938b115bd8aa1c8185420eb0aeb8881172aef9d0e",
+  "independent_saved_proof_sha256": "9a09ee6ffd095ae4ee8ab53eab0f272013cc833b88397840397bc2c64ea190f5",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b128-focused-fault-plan.json",
+    "715c7bce3620d55ca363c33938b115bd8aa1c8185420eb0aeb8881172aef9d0e",
+    "card-regression-sparse-b128-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b128_howl_from_beyond_red_exact_source_effect_sensitivity",
+      "fixture": "card-howl-from-beyond-red-four-live-sparse-actual-paid-shadow-action-next-paid-attack-action-plus-three",
+      "fixture_sha256": "e78315764c0d41b38ca522d875b2ff58845c295116c83a8f0252de983e5cb5b7",
+      "source_raw5": {
+        "initial_gamestate.txt": "8e46b22443ade68dd30c7c235c89137d8a9df3bca3b577f44bf9aa424063b8f1",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "d7c479de6bcba862c090d2303a3fac84bd21a594b1b1f192e85df00232127abb",
+        "expected_final_gamestate.txt": "9e579e34cfa91b84dc5f2d6dfef32b7e5e648be29185b459e64207bcb1931c91",
+        "meta.json": "b7ae1c290161276e625e992c4705457c2d41c54165c009bb3384ec28cb5dd2cc"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "ghostly_visit_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 559,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Howl from Beyond / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual +3 grant on realGhost6 after source5 actualHandplay/Blue7pitch, allfourresponses and separately paid printedGhostcost1. Physicalpaid sources,history,remainingR and target preserved. Exact effect sensitivity, no alternate eligibility or legalbranch claim. Synthetic exact effect omission only; every original suffix action/oracle retained with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

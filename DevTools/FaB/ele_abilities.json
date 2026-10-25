@@ -2491,8 +2491,9 @@
     "abilities": [
       {
         "macroName": "PrepareCard",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$chosen = 'PASS';\n $targets = implode('&', FaBChoiceRefs($player, 'Arsenal'));\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Bottom_arsenal_as_cost\");\n \n}\n FaBMoveChoice($player, $chosen, 'Arsenal', 'Deck');\n FaBFinishPreparedCard($uid);\n",
-        "isImplemented": true
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$chosen = 'PASS';\n $targets = implode('&', FaBChoiceRefs($player, 'Arsenal'));\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Bottom_arsenal_as_cost\");\n \n}\n if (!FaBDeclarePreparedEffectCost($player, $uid, 'ARSENAL_BOTTOM', $chosen)) {\n return;\n \n}\n FaBFinishPreparedCard($uid);\n",
+        "isImplemented": true,
+        "previousCodeHash": "622e99a025ec41f1f5d0170627374afc534cb6908196f6fee93c1c7d3fd4b9dd"
       },
       {
         "macroName": "ResolveCard",

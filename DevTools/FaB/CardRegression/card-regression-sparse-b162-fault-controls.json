@@ -1,0 +1,79 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:34:56.180584+00:00",
+  "plan_sha256": "5c007aff272105d200377fbd8e83fed770686fa3adac7edcedb1c61e0e15c62e",
+  "independent_saved_proof_sha256": "a862611a218d18b521aa7c52fdc9bd66f990a13958e2569a8d238ccb7e3b0de2",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b162-focused-fault-plan.json",
+    "5c007aff272105d200377fbd8e83fed770686fa3adac7edcedb1c61e0e15c62e",
+    "card-regression-sparse-b162-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b162_ball_lightning_red_focused_effect_sensitivity",
+      "fixture": "card-ball-lightning-red-four-live-sparse-actual-self-lightning-damage-replacement-go-again",
+      "fixture_sha256": "6b738bf4583e1a7449c5505823b94fbd9d27268b12020c578650846cb2a74640",
+      "source_raw5": {
+        "initial_gamestate.txt": "138187397b4a7ffdffdc6b9f3aad2de9882e678a1646603275c25f259fa4cb41",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "bd58cd4a5b4c564a3feb247bd03963633ff77ff71cdd8c7408d4885a453533e7",
+        "expected_final_gamestate.txt": "602f14fb37cf2cbc0d6faf6e59425107f741938dc03021f88a96123a96b6e30f",
+        "meta.json": "e57ef1a4bd37651c82680a0643ff3f7b8407ea8857ba57bac0a330a2cbb91eaa"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "remove_effect": "ELE_BALL"
+      },
+      "retained_assertions": 244,
+      "expected_failure_step": 13,
+      "expected_failure": "Expected p4Health to equal 16, got 17.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Ball Lightning / four live actual self-damage replacement: Step 13 assertion failed: Expected p4Health to equal 16, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real Ball5 play/cost0/four manual source responses, remove only the one actual source-created ELE_BALL damage replacement effect. Physical attack5 remains basepower3/printedGA; all original suffix combat actions and assertions retained. Intended actual damage3 rather than4 makes physical P4HP17 rather than16. No cached damageDealt or other Lightning source/prevention/expiry credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b162_grow_claws_red_focused_effect_sensitivity",
+      "fixture": "card-grow-claws-red-four-live-sparse-actual-first-attack-no-prior-draconic-go-again",
+      "fixture_sha256": "c9f456c7750825499ee91ded5d56d814ce5382f0ace28997b4fd524d67305e97",
+      "source_raw5": {
+        "initial_gamestate.txt": "a30e370734a83f977c5c415abb50e156562d59e71ba16784f6ff963a2692f722",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "465c18a833e4955a060995af2076821ecd919f3a4d4bd2ffddcf0632d6bb8458",
+        "expected_final_gamestate.txt": "6f66ab3deb31fe583dda325d8ebd620312a954dd58bb86c0a1bf91478562ee45",
+        "meta.json": "29775199ed4749637d3352e384f458915d5bfcd1fb745c6dfa0840941e1f9c54"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "grow_claws_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 255,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Grow Claws / four live actual first Ninja attack: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real Grow5 play/target/Blue6 pitch pays1/four source responses, add only existing ELE_NO_GO tag to actual primary5. First computed printedGA1-to0 sensitivity; power4/physicalcosts/priorDraconic absence retained. No legal inhibition or positive previous-Draconic branch credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

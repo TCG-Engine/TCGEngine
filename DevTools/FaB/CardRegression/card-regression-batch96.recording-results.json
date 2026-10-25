@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-penetration-script-yellow-four-live-sparse-actual-mechanologist-attack-gets-one-from-controlled-script",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 903
+    },
+    {
+        "slug": "card-security-script-blue-four-live-sparse-actual-mechanologist-hand-defender-three-plus-one-exact-four",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 1152
+    },
+    {
+        "slug": "card-dissolution-sphere-yellow-four-live-sparse-actual-exactly-one-physical-damage-prevented-no-hit",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 938
+    }
+]

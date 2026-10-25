@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-21T00:47:13+00:00",
+    "input_file": "card-regression-batch101-flex-two-oracles-corrected.json",
+    "input_sha256": "0e5c7378f7bc607491423afa7d288a56461e73e905150e9a72041aba4b6d7bef",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-flex-speed-red-four-live-sparse-real-come-to-fight-buff-crosses-six-and-grants-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 505
+        },
+        {
+            "slug": "card-flex-strength-red-four-live-sparse-real-come-to-fight-crosses-six-and-enables-own-three-power",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 505
+        }
+    ]
+}

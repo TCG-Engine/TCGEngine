@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch107.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T17:42:04.760775+00:00",
+  "fixtures": [
+    {
+      "slug": "card-high-striker-red-four-live-sparse-real-next-hit-creates-six-owned-copper",
+      "fixture_sha256": "28b33a9867c6cccb0eacaccbcbe8e37ae21bce69d6dff8f24471b04c4c7de8a9",
+      "passed": true,
+      "result": "[PASS] High Striker / four live sparse next-hit positive"
+    },
+    {
+      "slug": "card-plunder-run-red-four-live-sparse-real-arsenal-play-buffs-next-attack-and-hit-draws-physical-top-card",
+      "fixture_sha256": "e7b9923532692376f4d1b79f2ddcc2472b7e44e43095552e1c78c664835b6baa",
+      "passed": true,
+      "result": "[PASS] Plunder Run / four live sparse next-hit positive"
+    },
+    {
+      "slug": "card-premeditate-red-four-live-sparse-real-next-arsenal-attack-plus-three-and-hit-creates-owned-ponder",
+      "fixture_sha256": "72cece6c40ab32def45cdd6ce6ffe5eaff0fe25dbdfad0744b1dd1bcbfcc1c40",
+      "passed": true,
+      "result": "[PASS] Premeditate / four live sparse next-hit positive"
+    },
+    {
+      "slug": "card-exorcism-red-four-live-sparse-real-next-attack-plus-three-hit-turns-two-physical-banish-cards-face-down",
+      "fixture_sha256": "b838ba435f70a12e39511f18ffc2f4106d7c2d18faa50e48d91685085ec376c7",
+      "passed": true,
+      "result": "[PASS] Exorcism / four live sparse next-hit positive"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-high-striker-red-four-live-sparse-real-next-hit-creates-six-owned-copper",
+      "returncode": 0,
+      "stdout": "[PASS] High Striker / four live sparse next-hit positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-plunder-run-red-four-live-sparse-real-arsenal-play-buffs-next-attack-and-hit-draws-physical-top-card",
+      "returncode": 0,
+      "stdout": "[PASS] Plunder Run / four live sparse next-hit positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-premeditate-red-four-live-sparse-real-next-arsenal-attack-plus-three-and-hit-creates-owned-ponder",
+      "returncode": 0,
+      "stdout": "[PASS] Premeditate / four live sparse next-hit positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-exorcism-red-four-live-sparse-real-next-attack-plus-three-hit-turns-two-physical-banish-cards-face-down",
+      "returncode": 0,
+      "stdout": "[PASS] Exorcism / four live sparse next-hit positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

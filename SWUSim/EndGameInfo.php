@@ -96,8 +96,22 @@ if (is_file($sidePtr)) {
     }
 }
 
+// Twin Suns (3-4 seats): the table-wide Quick Rematch / Rematch vote. ADDITIVE — absent for 2-seat matches. Each poll
+// is the seat's end-screen heartbeat, and fires the rematch if a leave or a quiet seat has just completed the vote.
+$tableRematch = null;
+if ($seatCount > 2) {
+    require_once __DIR__ . '/TableRematch.php';
+    if (!$isSpectator) SWUTableRematchStampSeen(strval($ref['matchId']), $seat, time());
+    if ($seriesOver) {
+        SWUTableRematchFireIfDue(strval($ref['matchId']), $gameName);
+        $m = SWUReadMatch($ref['matchId']);
+    }
+    $tableRematch = TableRematchView($m, SWUTableRematchSeen(strval($ref['matchId'])), time(), $isSpectator ? 0 : $seat);
+}
+
 echo json_encode([
     'isMatch'     => true,
+    'tableRematch' => $tableRematch,
     'matchId'     => $navMatchId, // for the "Go to Next Game" → Sideboard.php nav (rematch: the NEW match)
     'sideboardPending' => $sideboardPending,
     'didWin'      => $isSpectator ? null : in_array($seat, $gameWinners, true),

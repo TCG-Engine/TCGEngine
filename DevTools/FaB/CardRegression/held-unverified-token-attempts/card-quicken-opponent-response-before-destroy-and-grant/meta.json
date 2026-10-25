@@ -1,0 +1,7 @@
+{
+    "name": "Quicken / opponent-response-before-destroy-and-grant",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:24:18+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "An existing Quicken triggers when Wounding Blow red is played. Before the trigger resolves, the opponent may play Sigil of Solace blue: Stack3 and Quicken remains; attack has no grant. Sigil resolves first and heals20 to21, while token and grant remain unchanged. Only Quicken trigger resolution destroys token and grants go again; attack deals4, opponent17 and AP1 after resolution. This proves an actual response window rather than eager destruction/grant. Sources: FaBSim/GeneratedCode/cardArrayCache.json#quicken FaBSim/GeneratedCode/cardArrayCache.json#wounding_blow_red https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

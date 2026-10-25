@@ -1,0 +1,7 @@
+{
+    "name": "Lead the Charge / second-source-qualifies-old-effect-not-itself",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:08:31+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost0, own go again, next played ACTION CARD with cost at least0 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. For red threshold0, playing second Lead is itself the next qualifying action: it spendsAP1 and triggers old effect before its own resolution, leavingAP1 after trigger. Second source then installs fresh effect and own go again returns anotherAP (AP2); its new effect cannot retroactively trigger on itself. A later attack triggers only that new effect, returningAP2 after spending1. Sources: https://judge.fabtcg.com/cards/detail/548/ https://rules.fabtcg.com/en/cr/06-effects/#663 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_red"
+}

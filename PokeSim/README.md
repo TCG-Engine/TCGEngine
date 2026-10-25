@@ -904,3 +904,65 @@ Card source: `CardCode/RelicanthColressAbilities.php`, included by setup. Regres
 ### Relicanth v7 - Lana's Aid
 
 `Decks/relicanth-v7-lanas-aid.txt` contains the supplied 60-card list with four Relicanth, nine Energy including Legacy Energy, and 47 Trainers. The existing Colress bot policy now recovers missing attackers/basic Energy with Lana's Aid and uses Special Red Card when legal and useful. Lana's Aid allows up to three non-Rule-Box Pokemon and Basic Energy from discard; fossil Items and Special Energy are excluded. Its authored macro lives in `CardCode/RelicanthColressAbilities.php` and is included by setup. Regression: `php DevTools/PokeSim/relicanth-lanas-tests.php`.
+
+### Fan Rotom / Mega Lopunny opening experiments
+
+`fan-rotom-lopunny` is available in the play and simulation selectors with deck preview/export. `Decks/fan-rotom-lopunny.txt` is the balanced candidate: **17 Pokemon, 35 Trainers, 8 Psychic Energy**, with four Fan Rotom, four PRE Dunsparce, four Boss's Orders and four Wally's Compassion. Relative to the supplied list, add one Dunsparce, Boss, Wally, Psychic Energy and Nighttime Mine; remove one Poffin, Switch and Night Stretcher, and both Jamming Towers. Keep 3/3 Lopunny, two Dudunsparce, four Ultra Ball and four Poke Pad. This is a playable candidate, not a demonstrated overall upgrade.
+
+`Decks/fan-rotom-lopunny-opening.txt` is an opening-focused alternate with nine Energy, two Ultra Ball and the original six Stadiums. Paste its export into a custom game; it uses the same dedicated policy. The default preserves evolution access and keeps Air Balloon effective.
+
+The original and requested starting lists are frozen in `DevTools/PokeSim/fixtures/fan-rotom-baseline.txt` and `fan-rotom-requested.txt`. Experiments read these fixtures rather than the mutable registered deck. Original: 16/37/7; requested core: 17/36/7. Both candidates retain four Lillie, Colress, Boss and Wally: 16 Supporters, split between eight opening draw/search cards and eight targeting/healing cards.
+
+Method: actual engine games with shuffled decks, mulligans, six Prizes, legal actions, attachment/Supporter limits, evolution timing, retreat and opposing bot actions. Against Brisbane Lopunny, measure Fan Rotom Assault Landing with a Stadium on the first legally attackable own turn (turn 1 going second, turn 2 going first). Separately measure moved-to-Active Gale Thrust on the immediately following own turn. Opposing knockouts and early game endings remain failures in the denominator. An opponent's Stadium qualifies. These are opening metrics, not win rates or proof of optimal play.
+
+The dedicated policy uses public board state, its own hand and legal search choices. It prioritizes Rotom access, Energy and Stadium, then the existing Lopunny pivot/heal plan, recognizing equivalent printings. Rates depend on this bot and opponent. The `fanWithBuneary` diagnostic only counts an unevolved Buneary and undercounts established lines going first; do not interpret it as Lopunny readiness.
+
+Screen: 14 lists, 150 games per starting order, seeds 1001-1150 (4,200 opening games). Exact decks and results: `../DevTools/PokeSim/fixtures/fan-rotom-screen.json`. Screened Energy 7/8/9, Stadium 5/6/7, Ultra Ball/Poke Pad/Poffin counts, two/four Pokegear, three Dudunsparce, two Mega Lopunny and removal of Jamming Tower. Additional Energy/Pokegear looked promising for Rotom but often reduced immediate Lopunny follow-up.
+
+Fresh-seed validation: 500 games per order per list, seeds 20001-20500 (3,000 games):
+
+| List | Rotom + Stadium, first | Second | Pooled | Next-turn boosted Gale Thrust, pooled | Rotom then boosted Gale Thrust, pooled |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Original | 73.0% | 65.4% | 69.2% | 23.9% | 16.9% |
+| Balanced/default | 74.0% | 65.6% | 69.8% | 24.1% | 17.8% |
+| Nine-Energy alternate | 76.0% | 66.6% | 71.3% | 22.3% | 17.1% |
+
+Final hypothesis: replace both Poffin with Energy Search in the balanced candidate, keeping four Ultra Ball. Seeds 40001-40500, 500 games per order per list (2,000 games): original 70.1% Rotom / 21.5% next-turn boosted Lopunny; Energy Search 68.7% / 24.2%. It failed to improve the primary opening metric and was not selected. Its additional Energy Search policy branch does not affect prior lists without that card. Raw validation files: `fan-rotom-validation-*.json` in the fixture directory, with policy fingerprints and exact counts.
+
+The measured differences are not statistically decisive. At 1,000 trials, a pooled rate near 70% has roughly a +/-3 percentage point 95% binomial interval. Equal seeds make results reproducible, but changed counts alter deals and mulligans. Do not extrapolate to human play or a broad metagame. Going second permits the immediate Rotom attack; going first gives more setup but exposes Rotom to an opposing attack before your first legal attack turn.
+
+Full-match sanity: seeds 60001-60025, both orders, against Brisbane Lopunny and Dhelmise v2 (100 matches per list). Original completed 100/100 and won 29; balanced completed 100/100 and won 24. A separate Energy Search batch completed 100/100 and won 29; its original control repeated the same original seeds and won 29. Files: `fan-rotom-full-no-jamming.json` and `fan-rotom-full-games.json`. The default's observed win rate was lower in this small batch; there is no evidence here that it is stronger overall. These runs check that the opening policy continues through complete games.
+
+Card interactions: PRE Dunsparce has free retreat. Poffin cannot find 80-HP Fan Rotom. Poke Pad can find non-Rule-Box Pokemon including Dudunsparce, but cannot find Mega Lopunny ex. Jamming Tower disables your own Air Balloon; the default removes this conflict. Wally returns Energy when healing, so heal before using the attachment. Five Stadiums plus four Colress remain in the default; a seventh Stadium showed no decisive benefit.
+
+Missing printings are authored in `CardCode/FanRotomAbilities.php`, included by `setup.php`, which saves to the card repository and regenerates macros. Jamming suppresses attached Tool retreat, damage and draw modifiers. Gravity Mountain changes current Stage 2 HP and knockout thresholds. PRE Dunsparce's Dig protection expires after the following opponent turn and clears on switching/evolving. PRE Dudunsparce reuses Run Away Draw. Missing art was downloaded through the existing TCGdex adapter. No generated files were edited manually.
+
+Reproduce:
+
+```sh
+php DevTools/PokeSim/fan-rotom-experiment.php --screen --games=150 --seed=1001 --output=screen.json
+php DevTools/PokeSim/fan-rotom-experiment.php --variant=no-jamming --games=500 --seed=20001 --output=balanced.json
+php DevTools/PokeSim/fan-rotom-experiment.php --variant=energy9 --games=500 --seed=20001 --output=opening.json
+php DevTools/PokeSim/fan-rotom-match-report.php no-jamming
+php DevTools/PokeSim/fan-rotom-tests.php
+```
+
+Checks passed: 30 focused Fan Rotom checks, 73 Lopunny checks, 48 opening-stat checks, 82 existing bot checks and 28 simulation checks; updated JavaScript syntax and the 60-card preview/export were also verified.
+
+
+#### Resource audit after questioning the low Energy count
+
+`php DevTools/PokeSim/fan-rotom-resource-audit.php` independently replayed all 1,000 balanced-list validation openings (seeds 20001-20500). It reproduced 370/500 first and 328/500 second. Every counted success had Energy physically attached to the Active Fan Rotom, paid its live attack cost, had a Stadium in play, passed the engine action gate and resolved according to the opening diagnostics. No multiple attachments or Supporters in an own turn were permitted.
+
+Of 328 going-second successes, Colress had been played in 125 and Lillie in 78 (overlapping groups); 140 used an opponent-controlled Stadium. This last count does not mean only the remaining successes could be achieved without opponent Stadiums, because the bot would search/play its own Stadium if none were supplied. The explicit ablation `php DevTools/PokeSim/fan-rotom-resource-audit.php --no-opponent-stadium` prevents the opposing bot from choosing Stadium plays, keeping the same decks and 500 seeds. Going-second success became **304/500 = 60.8%**, versus 65.6% normally. The opponent still takes other legal actions. Raw counts and example resource snapshots: `fan-rotom-resource-audit.json` and `fan-rotom-resource-audit-no-opponent-stadium.json` in the fixture directory.
+
+The earlier pooled 69.8% combines an immediate own-turn-1 attack going second with an own-turn-2 attack going first. It should not be read as a universal turn-one probability. Eight Energy has a simple unconditioned 70.6% chance of at least one Energy in eight cards, or only 34.4% of at least two in nine cards, before mulligan conditioning, bonus draws, search or draw effects. Colress supplies an Energy and Stadium, and the attacks each cost one Colorless; this explains why the measured opener is plausible despite the low Energy count. It does not establish that eight Energy is adequate for reliable consecutive attacks or the best deck configuration.
+
+
+#### Nighttime Mine toolbox update (October 12, 2026)
+
+The registered Fan Rotom / Mega Lopunny list now contains three Battle Cage, one Nighttime Mine ASC 197, and one Gravity Mountain. The 60-card total remains 17 Pokemon / 35 Trainers / 8 Energy. The opening-focused alternate and historical experiment fixtures retain their original lists. Previously reported rates describe those historical lists, not this updated toolbox.
+
+Nighttime Mine is authored in `CardCode/FanRotomAbilities.php` and uses the schema AttackCostModifier hook to add one Colorless cost to Tera Pokemon attacks on either side. It does not tax Rotom or Mega Lopunny, and its tax ends when the Stadium leaves play. Bot Stadium and Colress choices prefer Mine against a visible opposing Tera attacker.
+
+TCGdex omits the Tera classification in this import. `Custom/TeraCards.json` supplements 150 imported printings from a pinned PokemonTCG/pokemon-tcg-data revision, matched by name, HP, types and attack names/costs to distinguish Tera designs from non-Tera cards of the same name. Refresh this snapshot with `python DevTools/PokeSim/import-tera-metadata.py` after importing new printings. The runtime includes Tera in EffectiveCardSubtypes and simulation fingerprints include the metadata snapshot.

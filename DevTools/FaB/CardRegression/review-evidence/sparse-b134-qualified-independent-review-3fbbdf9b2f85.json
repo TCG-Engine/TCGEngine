@@ -1,0 +1,222 @@
+{
+  "reused_weapon_proxy_source_review": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse-b132-qualified-independent-review-129fbcc21c25.json",
+    "sha256": "129fbcc21c25fefa5f9e3929ebf712e76f8b9bd5630853dac217799950532527"
+  },
+  "status": "B134_TWO_SPARSE_WEAPON_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch134.json",
+  "input_sha256": "a324e73dc0fc4fc0fb7fff34e6702a4f4a24a462cb528dec86d6a9cce0304260",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:34:36.902983+00:00",
+  "fixtures": [
+    {
+      "slug": "card-driving-blade-red-four-live-sparse-actual-paid-weapon-plus-three-and-granted-go-again",
+      "fixture_sha256": "f8f98eb0b41caae7feeb318fbb6450aa45e3c595c1792407b242c4d53d6b3f96",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ae96ac0ad6ac540072b11bbb6a64a6ec7f70f6b440f629eecc1d14e83c07105a",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "db96a311fd40b596bab04e7058b361d418959c62298e24e884f1d85c37f61417",
+        "expected_final_gamestate.txt": "91da5ec5908014d32663adf2be5b7dc6764bff610e660840b5c19be38d8f181e",
+        "meta.json": "7c34bdfeef84249ded36d584259b6af4120f9ac754f10b45863238e77f5359f7"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 1425,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "physical_weapon_uid": 7,
+      "distinct_virtual_weapon_attack_uid": 8,
+      "actual_defending_equipment_uid": null,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-precision-press-red-four-live-sparse-actual-sword-go-again-and-piercing-against-real-equipment-block",
+      "fixture_sha256": "a4d020f6a15927a00ca82ac2c44ccd8d152ac6f1f31ffec90bc72e3826ca0230",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7ef66a2d08c35b6313bec4c565d030ec1814a8b953af982533403e7e04dcc66d",
+        "actions.json": "14e0061e5c67d27070cddc77da29c9c95285bc54378947ac2eb646287e78e9fb",
+        "assertions.json": "e1c4e66f3a69e21d879452025699cd0c0222c00a15ffe0b3841613ef4c618826",
+        "expected_final_gamestate.txt": "690d5c6f4d33b3807c5dd59e1fad1e357bd165f33391e1f7255ea00fb25958db",
+        "meta.json": "3f2a42f54149bae052f40b62e6a085c74071a4528dd3bcddbf84b08a1df731af"
+      },
+      "semantically_approved": true,
+      "actions": 34,
+      "native_assertions": 1677,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "physical_weapon_uid": 7,
+      "distinct_virtual_weapon_attack_uid": 9,
+      "actual_defending_equipment_uid": 8,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 67,
+  "total_native_assertions": 3102,
+  "total_manual_passes": 58,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b134-actual-saved-independent-review.json",
+    "sha256": "683459a98e22be864195bf78a7e1eb176ea3b274fe829896f4783d1135811baa"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b134-independent-spec-review.json",
+    "sha256": "c3ab525eb5a0f30d9d98c81d12f649f938e3923eef5225a210b546a46d7a0cad"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch134-20261022T193205Z-6ada64b5d7faf.json",
+    "sha256": "11b04896334a4a5a0bbb6ee89f498518f0a84c1472e6bfdcd4caab7f02d6e596"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b134-four-live-run1.json",
+      "sha256": "134b9d5b6216304e562e9d247790561b1e7ce7d5176c45f04eb320c2e28e81cb",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch134.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b134-four-live-run2.json",
+      "sha256": "ed9655c04346b9cd54d67637e9806871929e65f54155a65a66606f10a269b4fc",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch134.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b134-fault-controls.json",
+    "sha256": "ee5743389aee1b87bf81dceaf955ff69a5218d4b8ce3d4b26926c29264dfed2d",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "344c6c6f9984159d38eefa5940ed28477d4f42daac15739c3a8b4b94f03a2a1a",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b134_driving_blade_red_exact_weapon_source_effect_sensitivity",
+      "fixture": "card-driving-blade-red-four-live-sparse-actual-paid-weapon-plus-three-and-granted-go-again",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dawnblade",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 686,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b134_precision_press_red_exact_weapon_source_effect_sensitivity",
+      "fixture": "card-precision-press-red-four-live-sparse-actual-sword-go-again-and-piercing-against-real-equipment-block",
+      "prefix_actions": 17,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dawnblade",
+            "mode": "remove",
+            "tag": "DYN_PIERCING:3"
+          }
+        ]
+      },
+      "retained_assertions": 713,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b134-focused-fault-plan.json",
+    "sha256": "344c6c6f9984159d38eefa5940ed28477d4f42daac15739c3a8b4b94f03a2a1a"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 3623,
+  "native_evidence_review_checks": 62,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Two primaryweaponpositiveendpoints only; no daggers/otherweapon, secondhit/expiry, prevention/multipleequipment, support/hero/siblings. PhysicalWeapon7 remainsowned; proxy0Stackto1Chain is existingrepresentation, no actualcardownertransfer/globalownersemantics credit.",
+    "Only current new two are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Driving removes actual+3grant on distinctDawnbladeproxy8; Precision removes actualpiercing3 on proxy9 after physicalIronrot8declaresdefense. Intendedpower6to3failures; physicalWeapon7 remainsownedWeapons and actualdefender/economy/GA retained. Nativecontrolsdo not separatelyomitGA; savedcomputedGA/AP1 directlypin it. No legalalternative/globalowner/lifecycle credit."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "b5ae917a04e4cc8dcceffb4b9a1127926fca7b76f527b989fb0ec275c5f681cf",
+  "current_independent_delta_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b134_independent.py",
+    "sha256": "d0d7e5a95a165cd73a4c72b1f871ec6687047ab1e30fb03af882e7f22f808fe7"
+  }
+}

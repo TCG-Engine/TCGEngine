@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:33:54.581485+00:00",
+  "plan_sha256": "344c6c6f9984159d38eefa5940ed28477d4f42daac15739c3a8b4b94f03a2a1a",
+  "independent_saved_proof_sha256": "683459a98e22be864195bf78a7e1eb176ea3b274fe829896f4783d1135811baa",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b134-focused-fault-plan.json",
+    "344c6c6f9984159d38eefa5940ed28477d4f42daac15739c3a8b4b94f03a2a1a",
+    "card-regression-sparse-b134-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b134_driving_blade_red_exact_weapon_source_effect_sensitivity",
+      "fixture": "card-driving-blade-red-four-live-sparse-actual-paid-weapon-plus-three-and-granted-go-again",
+      "fixture_sha256": "f8f98eb0b41caae7feeb318fbb6450aa45e3c595c1792407b242c4d53d6b3f96",
+      "source_raw5": {
+        "initial_gamestate.txt": "ae96ac0ad6ac540072b11bbb6a64a6ec7f70f6b440f629eecc1d14e83c07105a",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "db96a311fd40b596bab04e7058b361d418959c62298e24e884f1d85c37f61417",
+        "expected_final_gamestate.txt": "91da5ec5908014d32663adf2be5b7dc6764bff610e660840b5c19be38d8f181e",
+        "meta.json": "7c34bdfeef84249ded36d584259b6af4120f9ac754f10b45863238e77f5359f7"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dawnblade",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 686,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Driving Blade / four live actual sword attack: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual WTR_POWER:3 grant on distinct realweaponattackproxy8 after primary5actualplay/realBlue6pitch and separatelypaid physicalWeapon7cost1. RetainphysicalWeapon7ownedWeaponsStatus1, actualproxySourceUID7 and grantedGO_AGAIN. Synthetic exact effect omission only; every original suffixaction/oracle retained with step offsets. PositivegrantedGA directlypinnedbycomputedGAandAP1atRESOLUTION; nativefaultdoesnotseparatelyomitGA.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b134_precision_press_red_exact_weapon_source_effect_sensitivity",
+      "fixture": "card-precision-press-red-four-live-sparse-actual-sword-go-again-and-piercing-against-real-equipment-block",
+      "fixture_sha256": "a4d020f6a15927a00ca82ac2c44ccd8d152ac6f1f31ffec90bc72e3826ca0230",
+      "source_raw5": {
+        "initial_gamestate.txt": "7ef66a2d08c35b6313bec4c565d030ec1814a8b953af982533403e7e04dcc66d",
+        "actions.json": "14e0061e5c67d27070cddc77da29c9c95285bc54378947ac2eb646287e78e9fb",
+        "assertions.json": "e1c4e66f3a69e21d879452025699cd0c0222c00a15ffe0b3841613ef4c618826",
+        "expected_final_gamestate.txt": "690d5c6f4d33b3807c5dd59e1fad1e357bd165f33391e1f7255ea00fb25958db",
+        "meta.json": "3f2a42f54149bae052f40b62e6a085c74071a4528dd3bcddbf84b08a1df731af"
+      },
+      "prefix_actions": 17,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dawnblade",
+            "mode": "remove",
+            "tag": "DYN_PIERCING:3"
+          }
+        ]
+      },
+      "retained_assertions": 713,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Precision Press / four live actual sword attack: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual DYN_PIERCING:3 grant on distinct realweaponattackproxy9 after primary5actualplay/realBlue6pitch and separatelypaid physicalWeapon7cost1. RetainphysicalWeapon7ownedWeaponsStatus1, actualproxySourceUID7 and grantedGO_AGAIN. ActualP4Ironrot8 remainsownCombatChainDEFENSEfromEquipment with printeddefense1; equipment-backed piercing6 becomesbase3. No cached defenseValue mutation/oracle. Synthetic exact effect omission only; every original suffixaction/oracle retained with step offsets. PositivegrantedGA directlypinnedbycomputedGAandAP1atRESOLUTION; nativefaultdoesnotseparatelyomitGA.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

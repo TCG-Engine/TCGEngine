@@ -1,0 +1,154 @@
+{
+  "status": "INDEPENDENT_ACTUAL_B93_FOUR_SPARSE_EFFECTS_TWO_CLEAN_REPLAYS_AND_FOUR_INTENDED_NATIVE_FAULTS_APPROVED",
+  "reviewer": "/root/pilot_review",
+  "independent_of_scenario_author": true,
+  "recorder_exit0_confirmed_by_parent": true,
+  "completed_utc": "2026-10-20T23:35:31.992562+00:00",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "spec_sha256": "73119130b1802f6b8615501f2471bf8a9ea62e6b609630e2f135d3ce400e3d20",
+  "independent_spec_review_sha256": "665c2b2ab7723bf8230218a3c02905cb1dd91b3ff3e138957d6841379b578358",
+  "reviewer_script_sha256": "11f15a874e8b46c9b88c85680e913698ab7c2088af6c13a5bf7f6c2fcdea6241",
+  "checks": 3830,
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch93-20261020T232407Z-6ad7f81792f8f.json",
+    "sha256": "86c79d26d5b2b1afcf67692040f2de7f42c95a31b25737796b49b78f5f9f6328"
+  },
+  "fixtures": [
+    {
+      "slug": "card-healing-potion-blue-four-live-sparse-actual-destroy-action-heals-two-and-go-again",
+      "fixture_sha256": "f6cb3ee7f0b687a921ac48b3b816e48be23397901b79722e35ad1694b4b037af",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "995290c1b87ac046cc9a62ff782befbfe212c3b5774cbdf650994aef9c92fa4b",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "2d1f09c7af8430345ced4518ed5badc14705e64301c2d8336158097b84553038",
+        "expected_final_gamestate.txt": "ebad10e332339bd0856790a0b5d8b9ddb252a3c6282ccafd685c6dca71e8a980",
+        "meta.json": "8ca6c226d05764a94775c63f9b4942fc3283de45dcfaaa2b33973796aede817e"
+      },
+      "actions": 5,
+      "native_assertions": 180,
+      "native_game_state_fields": 16,
+      "actual_manual_passes": 4,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Real Action activation spendsAP1 and destroys physical PotionUID5 as cost before four manual response passes; abilityUID6 resolves heal20to22 and exactlyone printedGArefundAP1, originalsource5 remains ownGY.",
+      "limits": [
+        "One actual item activation only; deployment, repeatuse, healingreplacement and external ownership/controller interactions remain uncovered."
+      ]
+    },
+    {
+      "slug": "card-medkit-blue-four-live-sparse-actual-action-bottom-cost-heals-two-without-go-again",
+      "fixture_sha256": "45da7ef9127e0e082c0b9db146f4d399f346f59ce5e2106cfe9c06ea45241aa0",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94247d256a113a00a736e6dd379d6e73837cff07853506900be6839708db44ac",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "0b0fb697fc93d0372b9d13420d0bb6b2c526863906b10b1b074882d87db76c1e",
+        "expected_final_gamestate.txt": "d6e6631e86eb63ab004016f410df2298b4bd8ab8c072b3038ee7c4e5d68a82c1",
+        "meta.json": "95c5daa1e7bf55ee5498bdddb6abdafa49abf36f06d6669ca520a3c971c50670"
+      },
+      "actions": 5,
+      "native_assertions": 194,
+      "native_game_state_fields": 16,
+      "actual_manual_passes": 4,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Real Action activation spendsAP1, bottoms original owned MedkitUID5 behind sentinelUID6 as cost before priority; abilityUID7 resolves heal20to22 with noGA/AP0, exactDeck[6,5] unchanged.",
+      "limits": [
+        "One same-owner/controller bottom-cost/heal activation only; deployment/Dashstartgame procedure, deckreplacements, repeatuse and foreignownership remain uncovered."
+      ]
+    },
+    {
+      "slug": "card-fuel-injector-blue-four-live-sparse-actual-instant-bottom-cost-gains-one-resource",
+      "fixture_sha256": "4b8765697c129501ade0b896efc2f8dff7a55de029ed655d92d863648a18f2b4",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4c4f4c43fff42af4e6db6eb823c33fc6fd30967460a6ed2fb605931a831f2a40",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "ed7a1b7dbea4ad9920e756bfbccfdd2ebd8312eddf9c54eeebf039d3133cfaa8",
+        "expected_final_gamestate.txt": "81a4d19d78191f9807ea73f78f756de4350f9b5d01422e9e6634f1b15c370a94",
+        "meta.json": "758be7e0b80abe6b389a17127049f07be230f8a5e5fc81f78e5bfe23988d5204"
+      },
+      "actions": 5,
+      "native_assertions": 194,
+      "native_game_state_fields": 16,
+      "actual_manual_passes": 4,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Real Instant activation spends noAP and bottoms original owned InjectorUID5 behind sentinelUID6 as cost; abilityUID7 resolves resource0to1 after four real passes, AP1 remains, exactDeck[6,5] unchanged.",
+      "limits": [
+        "One same-owner/controller Instant bottom-cost/resource activation only; laterresourceuse, deployment/Dashstartgame procedure, deckreplacements, repeatuse and foreignownership remain uncovered."
+      ]
+    },
+    {
+      "slug": "card-deep-blue-sea-blue-four-live-sparse-two-real-blue-pitches-pay-four-and-give-two-power",
+      "fixture_sha256": "9384c48f3ca941e0abd3b5b6d8b15a629cc9391e5b094d24b80b88db0ffd95ea",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "395b057c01bbaa1185b05989f3c816a02d21dac767a2b05c953e668f20820fe1",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "3717d76b40ec2fd4cfd3aeaa798cabcb2a952519cae6b859a6d5eeb22a2290fb",
+        "expected_final_gamestate.txt": "44ba01506f841359fc63c0c2deb8d7573ab2addeb0437e5773e31acd3a13ac6c",
+        "meta.json": "91d7118f40ed59819891cc3d5ca083f1bbd9eae85986f2e5d0ab0dcc72ababf5"
+      },
+      "actions": 29,
+      "native_assertions": 345,
+      "native_game_state_fields": 44,
+      "actual_manual_passes": 25,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual Mystic attackUID5 costs4 funded by two distinct actual blue3 donorsUID6/7; first3 insufficient/AP1, second6 pays4/res2/AP0. Printedbase5+twoactualbluepitches=7, noGA, real damage7/P4HP13 and normalClose, ownGY5/Pitch[6,7].",
+      "limits": [
+        "One actualtwo-blue-pitch positive only; othercolors/history, no-pitch, defense, additionalattacks and Chi/Zen/otherhero interactions remain uncovered."
+      ]
+    }
+  ],
+  "limits": [
+    "Sparse first-pass positive representatives only; no completed card, sibling pitch or full-catalog claim.",
+    "Item source moves are printed activation costs. This proof does not claim deployment/startgame history, foreignownership or replacement interactions. No ordinary-spell eagerclear or asynchronous resolution pause is blessed.",
+    "Reviewer ran read-only source/evidence checks only. Parent executed both targeted clean4/4 replays and four disposable intended native semantic faults. These qualify the four sparse positive representatives only, not complete cards or full corpus."
+  ],
+  "supersedes_preserved_proof": {
+    "path": "sparse-b93-actual-saved-independent-review.json",
+    "sha256": "735d4db17bf2d598204bde3207618fa6bfacfffeb50a13518620876e7e4e413d"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b93-four-live-run1.json",
+      "sha256": "07e94c36af5cb24ca87772127917a6708f2dbe5c39fae84679e8151a67fb99c4",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b93-four-live-run2.json",
+      "sha256": "b9444a5e09ddca457db9d5ff3ba487398500df8c15843a64793d49380fad2aee",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b93-fault-controls.json",
+    "sha256": "48f6ed5235e2a1c604aaa2528c9335fd8566a24dd9942cda0bf71c5ede4e51a2",
+    "plan_sha256": "7169128b7799bd0ba28045a27fe794761e2c3f629068dea04096e92d70023da8",
+    "intended_semantic_failures": 4,
+    "total": 4,
+    "first_marker_steps": [
+      4,
+      4,
+      4,
+      0
+    ],
+    "canonical_raw5_preserved": true
+  },
+  "focused_fault_plan": {
+    "path": "sparse-b93-focused-fault-plan.json",
+    "sha256": "7169128b7799bd0ba28045a27fe794761e2c3f629068dea04096e92d70023da8"
+  },
+  "stable_tool_review_reused": {
+    "path": "sparse-b88-actual-saved-qualified-independent-review.json",
+    "sha256": "d454ade1e876a654b33137ed6aa041935258ec3bfd602ebbc4880e5436c2f286",
+    "executor_sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a",
+    "existing_native_helper_sha256": "021627a41cf4a44bef7cafe48302357e74ffae6ba39b147c3c068388384f2974",
+    "scope": "Same reviewed unchanged tools; actual current first-failure outputs, source bindings and cleanup audited here, no repeat broad tool validation or execution by reviewer."
+  },
+  "native_evidence_review_checks": 92,
+  "native_evidence_reviewer_script_sha256": "7d09877cbc80730a888ad04bdabcd225d1608df50c6a42b32de317316ff9a7e4"
+}

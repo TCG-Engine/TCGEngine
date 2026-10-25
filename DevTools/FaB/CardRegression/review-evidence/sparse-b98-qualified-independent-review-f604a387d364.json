@@ -1,0 +1,171 @@
+{
+  "status": "INDEPENDENT_ACTUAL_B98_FOUR_SPARSE_EFFECTS_TWO_CLEAN_REPLAYS_AND_FOUR_INTENDED_NATIVE_FAULTS_APPROVED",
+  "reviewer": "/root/pilot_review",
+  "independent_of_scenario_author": true,
+  "completed_utc": "2026-10-21T00:15:46.883470+00:00",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "spec_sha256": "dfa110f85e6c9ede4d7f36d92080d4c376e4528998af1958ea9f4920eef1c94f",
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b98-independent-review\\independent-spec-review.json",
+    "sha256": "26824cf1630247f1c90627a05a2a4f990086984e0647f00b241ccfd1fdc836aa"
+  },
+  "source_context": {
+    "runtime": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+    "WTRCards_sha256": "79b04e30d9b9f7dca6fb78bd3e32e4e9429f137e1afa9d1d8af2a8faf718d74d"
+  },
+  "reviewer_script_sha256": "7277db460f6ce16e18f6a7390d5e0752ef4ec68e46870907f2f4ad93de320e78",
+  "checks": 8288,
+  "recorder_exit0_confirmed_by_parent": true,
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch98-20261021T001210Z-6ad8035a08cfe.json",
+    "sha256": "af1f4ac38c3f99d6658ecf409c04d78bc58b10462ef266cb58d993ac6db13a8c"
+  },
+  "fixtures": [
+    {
+      "slug": "card-out-muscle-red-four-live-sparse-actual-lower-power-hand-defender-still-grants-go-again",
+      "fixture_sha256": "3eb6e2c905e16110bc73ef7d3af59a0f5e1a0f187697ce946afc37f95aeeb651",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b82872637fb2c05af60b0d30fa9f04f0bff4192e19db4fdf82ca103276d378af",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "7121fbfd718e2378637eb6b7744bd1b4bf129d0756f6aaea5e858c9dca068125",
+        "expected_final_gamestate.txt": "b4c1550482a6300f8da7ce61c5e64ead7c68e962d2afe7cd4c37e3b910cf518f",
+        "meta.json": "adf5ca7e596c4d6d603fc5b9a25e9bf1770c6a9afbe39ab8369959e28f44ee01"
+      },
+      "actions": 29,
+      "native_assertions": 429,
+      "native_game_state_fields": 56,
+      "actual_manual_passes": 25,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual OutMuscle5 printedcost3 is funded by real Blue6 pitch3/AP0. Actual P4 Feisty7 DEF2/power3 is declared without play cost; attack6 deals4/HP16 and condition grantsGA/AP1 at Resolution, then normal owner Close.",
+      "limits": [
+        "One sparse positive representative only; no siblings/support completion, dynamic condition change/suppression, alternative defenders, banished play, BloodDebt or endphase claims.",
+        "Physical Soul schema carries CardID/UniqueID only; ownership is through the P4Soul container, no fabricated owner/controller fields. Other physical sources preserve exact owner/controller.",
+        "Actual target/printed cost/real pitch precede four genuine priority responses. Ordinary attack/defender source movement and normal Close only; no asynchronous source-clear shortcut."
+      ]
+    },
+    {
+      "slug": "card-rough-up-red-four-live-sparse-actual-six-power-yellow-pitch-grants-one-power",
+      "fixture_sha256": "58d4365938b8f094ecc2850984dc5ee364dfde23a7dd504741de423acb1925c7",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "153df9e893aea6feba005a2e71e21fa022ef75c57796a3981f734f62717fc7e2",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "e20d2a2586833d43c7965ae204962339efd21a92aed6b330f2e193f2e35651e6",
+        "expected_final_gamestate.txt": "8a18d5f37e792e28abe4ee4479312a240afa8400e889148af45caf2672a601a2",
+        "meta.json": "779a7da4f370703968b1073a8acb4d5117d42367c42387aaa2b58e6031cdd908"
+      },
+      "actions": 28,
+      "native_assertions": 397,
+      "native_game_state_fields": 51,
+      "actual_manual_passes": 25,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual RoughUp5 printedcost2 is funded by actual Yellow6 RagingOnslaught pitch2/power6, remains physically in Pitch. Stable positive printed condition givesbase6+1=7, actual damage7/HP13, noGA/AP0, normal Close. Dynamic condition restoration and suppression remain held.",
+      "limits": [
+        "One sparse positive representative only; no siblings/support completion, dynamic condition change/suppression, alternative defenders, banished play, BloodDebt or endphase claims.",
+        "Physical Soul schema carries CardID/UniqueID only; ownership is through the P4Soul container, no fabricated owner/controller fields. Other physical sources preserve exact owner/controller.",
+        "Actual target/printed cost/real pitch precede four genuine priority responses. Ordinary attack/defender source movement and normal Close only; no asynchronous source-clear shortcut."
+      ]
+    },
+    {
+      "slug": "card-soul-butcher-red-four-live-sparse-defending-hero-physical-soul-grants-two-power",
+      "fixture_sha256": "e965683050b4a2bec1f16eb4c32a20d9a79523c9f67a4c0ab68ca1633b7beaef",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9f9cb49ee2edc27e697e55e915276a18a69f8bd739cdbd40e66a209b6084e461",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "af75d2397352ef1d4e7232c7049aa32d8bee48c9b233056b34b57e1e2387fa52",
+        "expected_final_gamestate.txt": "78dcee43295266f7f51e4802639b4a128e6f5cc9754b7cb662edd772dd6a38a5",
+        "meta.json": "e7631e1f44118465131d6cbcaf0b1e7d7030c5990bc46e777542ca93d1074927"
+      },
+      "actions": 28,
+      "native_assertions": 413,
+      "native_game_state_fields": 51,
+      "actual_manual_passes": 25,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual Levia SoulButcher5 cost2 is paid by real Yellow6 pitch2. Actual targeted P4 Boltyn physicalSoul7 persists; base6+2=8 deals8/HP12, noGA/AP0 and normal Close. No charged history, BloodDebt endphase or source-departure claim.",
+      "limits": [
+        "One sparse positive representative only; no siblings/support completion, dynamic condition change/suppression, alternative defenders, banished play, BloodDebt or endphase claims.",
+        "Physical Soul schema carries CardID/UniqueID only; ownership is through the P4Soul container, no fabricated owner/controller fields. Other physical sources preserve exact owner/controller.",
+        "Actual target/printed cost/real pitch precede four genuine priority responses. Ordinary attack/defender source movement and normal Close only; no asynchronous source-clear shortcut."
+      ]
+    },
+    {
+      "slug": "card-soul-cleaver-red-four-live-sparse-defending-hero-physical-soul-grants-go-again",
+      "fixture_sha256": "8a3bc26d71eaefe4357892ba331440603a477d65d30f3df2d79756cc60a1bae2",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1e2841ccf29a988fb087f05cf8117c57d8f89c991e31b5d4d002fd1f416cd686",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "f85709f162406cdebb4c5c4287c6093a43a53059057b56fb8a1236c79313f08e",
+        "expected_final_gamestate.txt": "457f24eb3314b5231cfe0333a1c9ccf4bc2b431a7f2393a35ed5c5d39ded2375",
+        "meta.json": "cb0f3d21b457daa418cb50756f50391708676eee12b95c33328c95a2a8ccffd0"
+      },
+      "actions": 28,
+      "native_assertions": 413,
+      "native_game_state_fields": 51,
+      "actual_manual_passes": 25,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual Levia SoulCleaver5 cost2 is paid by real Yellow6 pitch2. Actual targeted P4 Boltyn physicalSoul7 persists; base6 deals6/HP14 with conditionalGA/AP1 only at Resolution, normal owner Close. No BloodDebt endphase or dynamicSoul branch claim.",
+      "limits": [
+        "One sparse positive representative only; no siblings/support completion, dynamic condition change/suppression, alternative defenders, banished play, BloodDebt or endphase claims.",
+        "Physical Soul schema carries CardID/UniqueID only; ownership is through the P4Soul container, no fabricated owner/controller fields. Other physical sources preserve exact owner/controller.",
+        "Actual target/printed cost/real pitch precede four genuine priority responses. Ordinary attack/defender source movement and normal Close only; no asynchronous source-clear shortcut."
+      ]
+    }
+  ],
+  "limits": [
+    "Sparse bounded conditional attack positives only, no completed singleton/cycle/catalog claim.",
+    "Parent owns fresh targeted replays and actual native faults. Captured prior3125 full replay remains explicitly scoped; no new global full replay required for unchanged runtime/new fixtures.",
+    "Reviewer ran read-only source/evidence checks only. Parent executed both targeted clean4/4 replays and four disposable intended native semantic faults. These qualify the four sparse positive representatives only, not complete cards or full corpus."
+  ],
+  "supersedes_preserved_proof": {
+    "path": "sparse-b98-actual-saved-independent-review.json",
+    "sha256": "eb198e10379823b90f5223d9f94ac14d08b50c02b18f4501e9e5436317935a44"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b98-four-live-run1.json",
+      "sha256": "4c0983bacf888a2787a2915139114973f0aa9276fbbba9df5fc017b917af85d8",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b98-four-live-run2.json",
+      "sha256": "b89427007585d454bafd3d75b6b7adc824cd85c001198c8b60c9f995b0b9df3c",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b98-fault-controls.json",
+    "sha256": "58f7f7a675c728ac3835d8f76e7c46dbe8a32c773c41794cc796dee6874045d0",
+    "plan_sha256": "f7b770c1a61f9f3c83f6ae276e5304f38b07568c3c573691099e10ee69f40b5f",
+    "intended_semantic_failures": 4,
+    "total": 4,
+    "first_marker_steps": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "canonical_raw5_preserved": true
+  },
+  "focused_fault_plan": {
+    "path": "sparse-b98-focused-fault-plan.json",
+    "sha256": "f7b770c1a61f9f3c83f6ae276e5304f38b07568c3c573691099e10ee69f40b5f"
+  },
+  "stable_tool_review_reused": {
+    "path": "sparse-b88-actual-saved-qualified-independent-review.json",
+    "sha256": "d454ade1e876a654b33137ed6aa041935258ec3bfd602ebbc4880e5436c2f286",
+    "executor_sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a",
+    "existing_native_helper_sha256": "021627a41cf4a44bef7cafe48302357e74ffae6ba39b147c3c068388384f2974",
+    "scope": "Same reviewed unchanged tools; actual current first-failure outputs, source bindings and cleanup audited here, no repeat broad tool validation or execution by reviewer."
+  },
+  "native_evidence_review_checks": 92,
+  "native_evidence_reviewer_script_sha256": "15accada8cadea2f0682b869d4194549696885a2311e1e7c693d48d659151189",
+  "captured_targeted_inventory_count": 3144,
+  "prior_shared_full_scope": "Previous e947 shared-change3125 full replay remains explicitly captured; these two reports are four-fixture targeted only. No additional whole-corpus replay or repeat unaffected fault suite requested."
+}

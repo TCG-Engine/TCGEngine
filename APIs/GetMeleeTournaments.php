@@ -57,12 +57,14 @@ if ($tournamentID !== null) {
     $sql .= " AND tournamentID = $tournamentID";
 }
 
+// date_from / date_to used to go into the query verbatim — SQL injection (2026-10-22): date_from=2099-01-01' OR '1'='1
+// returned every tournament. Escaped, a real date builds exactly the same query as before.
 if ($dateFrom !== null) {
-    $sql .= " AND tournamentDate >= '$dateFrom'";
+    $sql .= " AND tournamentDate >= '" . mysqli_real_escape_string($conn, (string)$dateFrom) . "'";
 }
 
 if ($dateTo !== null) {
-    $sql .= " AND tournamentDate <= '$dateTo'";
+    $sql .= " AND tournamentDate <= '" . mysqli_real_escape_string($conn, (string)$dateTo) . "'";
 }
 
 // Add sorting

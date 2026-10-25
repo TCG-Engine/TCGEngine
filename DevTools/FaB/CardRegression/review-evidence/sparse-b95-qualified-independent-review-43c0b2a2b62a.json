@@ -1,0 +1,175 @@
+{
+  "status": "INDEPENDENT_ACTUAL_B95_FOUR_SPARSE_EFFECTS_TWO_CLEAN_REPLAYS_AND_FOUR_INTENDED_NATIVE_FAULTS_APPROVED",
+  "reviewer": "/root/pilot_review",
+  "independent_of_scenario_author": true,
+  "completed_utc": "2026-10-21T00:02:05.930274+00:00",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "spec_sha256": "71b3088dde8857da92b6360263592f562b4267912b191c9cee999745908bc42b",
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b95-independent-review\\independent-spec-review.json",
+    "sha256": "6f328e507a36b3f718ebc87e3c6245c4dd6e63fb7a1472bc0317edc1535d30c4"
+  },
+  "staging_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b95-current-e947-staging\\independent-staging-approval.json",
+    "sha256": "717db87b06c95e210ba2cc4d61fe464f1cb7faeb83de7b5272cb50429ca5fc1a"
+  },
+  "source_epoch_bridge": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\b94-b95-rise-epoch-bridge\\independent-epoch-bridge.json",
+    "sha256": "ba50448bdbec701c09038c7a091df299686c682bb1912a6e0bfaef0d5fe17636"
+  },
+  "reviewer_script_sha256": "b9d91bdba2c3370da6793dea6db45c66cd0b7a511b41de1a461f1d8b5ffe1ee5",
+  "checks": 5872,
+  "recorder_exit0_confirmed_by_parent": true,
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch95-20261020T235321Z-6ad7fef1bdcb5.json",
+    "sha256": "d70c6ab468683a4b23d4482458548d03576eaf5a89d9768e49709f37cd66200b"
+  },
+  "fixtures": [
+    {
+      "slug": "card-gold-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+      "fixture_sha256": "f272a6fcc30db30dc9b0be7a97bb2f377682142a35732d3f6fc9127e0c94f5d7",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bb924c4417dd6ea96d3515df9834fb9f68863278b7c30f11ce8f3d9882fe484e",
+        "actions.json": "3776cc8bdae860a3336ae28d46f0c8b5c699b5efd1ccac706a8a1f7f376a54b7",
+        "assertions.json": "538437f3104cdb3cebb885fd4527561addfcc3b8e5e7f3fbc7d7032a2091d09a",
+        "expected_final_gamestate.txt": "7082da7d8370f487fe0eb32cf8c03a65678223485411f8c045a2555dbb598f58",
+        "meta.json": "3ea1cd8366ed9c7b6dc792269c2fd52a0d14254da3d059fe745fba65cf4de02e"
+      },
+      "actions": 6,
+      "native_assertions": 230,
+      "native_game_state_fields": 17,
+      "actual_manual_passes": 4,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual Gold5 Action cost2 funded by actual Blue7 pitch3 leaves1; destroys token5/ceases before four manual response passes, independently resolving ability8 draws physical Deck6 into Hand and refunds exactly one AP.",
+      "limits": [
+        "One sparse positive representative only; creation/deployment history, foreign ownership/control, replacements, cancellation, repeated activation and unexercised exclusions/expiry remain unclaimed.",
+        "Virtual ability raw Owner slot is unpopulated storage; physical source Owner/Controller plus virtual Controller/SourceUniqueID are pinned, not logical owner0.",
+        "Physical destruction is printed activation cost; no asynchronous ordinary source-clear lifecycle approval."
+      ]
+    },
+    {
+      "slug": "card-silver-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+      "fixture_sha256": "f93015b256796f8d8821f38ab35fa4d2e66cfdeaa701d8e4c1320d05d8196185",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d25466b34b9debd8c331758fba99019fa03dc46fce68f31cca07f525fa33a07d",
+        "actions.json": "3776cc8bdae860a3336ae28d46f0c8b5c699b5efd1ccac706a8a1f7f376a54b7",
+        "assertions.json": "51f0b878ab99bf7c0b3bf8670ba5df225b744b1a6f354568169ba08efa89c783",
+        "expected_final_gamestate.txt": "96efd0cf4fdd2665fbcf2fcf707ad2e7eea04d8eea0f7544986b118158ac9a08",
+        "meta.json": "08f3aff4c66648e342589978e73753bca3cb5efe03a9e3a93d4b14b91659897b"
+      },
+      "actions": 6,
+      "native_assertions": 230,
+      "native_game_state_fields": 17,
+      "actual_manual_passes": 4,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual Silver5 Action cost3 funded by actual Blue7 pitch3 leaves0; destroys token5/ceases before four manual response passes, independently resolving ability8 draws physical Deck6 into Hand and refunds exactly one AP.",
+      "limits": [
+        "One sparse positive representative only; creation/deployment history, foreign ownership/control, replacements, cancellation, repeated activation and unexercised exclusions/expiry remain unclaimed.",
+        "Virtual ability raw Owner slot is unpopulated storage; physical source Owner/Controller plus virtual Controller/SourceUniqueID are pinned, not logical owner0.",
+        "Physical destruction is printed activation cost; no asynchronous ordinary source-clear lifecycle approval."
+      ]
+    },
+    {
+      "slug": "card-copper-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+      "fixture_sha256": "5dd651c61f90ccc6166e02b49e437cd4d0191a3a0272d59b28f6626e932990a3",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "654d783f2e3add1cfeb47d925f0bf1c045d8aa1f1cb46d507fa4134653831aa6",
+        "actions.json": "ba035f7108adaf8878b573cbf12fded2c9356475d6e1be65787bd18f086fcc43",
+        "assertions.json": "15e258ca3705c86914e331c78144821d8697d1810fec50e858988daff2e99193",
+        "expected_final_gamestate.txt": "5eafefc86767db890b7ebffd097da3ebd5884b4fa3a44dcc59dc50a529666c3d",
+        "meta.json": "19afae8b31f9973ec483367c09c24ab4b8068ff6139ee196aec24d10b4dd7bb0"
+      },
+      "actions": 7,
+      "native_assertions": 275,
+      "native_game_state_fields": 18,
+      "actual_manual_passes": 4,
+      "four_live_profile_verified": true,
+      "effect_semantics": "Actual Copper5 Action cost4: first real Blue7 pitch3 remains insufficient/token5 and AP intact; second distinct Blue8 pitch3 pays4 leaving2/destroys5. Four manual passes resolve ability9, draw Deck6 and refund exactly one AP.",
+      "limits": [
+        "One sparse positive representative only; creation/deployment history, foreign ownership/control, replacements, cancellation, repeated activation and unexercised exclusions/expiry remain unclaimed.",
+        "Virtual ability raw Owner slot is unpopulated storage; physical source Owner/Controller plus virtual Controller/SourceUniqueID are pinned, not logical owner0.",
+        "Physical destruction is printed activation cost; no asynchronous ordinary source-clear lifecycle approval."
+      ]
+    },
+    {
+      "slug": "card-potion-of-ironhide-blue-four-live-sparse-actual-instant-destroy-and-owned-aa-defense-two-to-three",
+      "fixture_sha256": "126de4b8f30bb92636febde2d59bd461f04d6938215a03658e71be51447856fc",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d2ac1ae451e22ea2844dbaf08c3c1a4a74b93d56b4609aecf6136d503d1236d7",
+        "actions.json": "fc4df13fd85ae1e9b9bda10082a2c9b80e696f30b8e032da3cfc20105114fbd5",
+        "assertions.json": "f3670a575968806a451d1aa61c761853c46ce915c8a79f34620319941b2b509c",
+        "expected_final_gamestate.txt": "e10ec8bf1e405e044af52d6a6f9654d0c291dd035badae6aa99bc4e6a3954b49",
+        "meta.json": "3d7237b88980fe953827a361a28a9b2c7c6af6ed3dc8894401c41bda4880d229"
+      },
+      "actions": 36,
+      "native_assertions": 406,
+      "native_game_state_fields": 52,
+      "actual_manual_passes": 32,
+      "four_live_profile_verified": true,
+      "effect_semantics": "P4 actual Instant destroys owned Potion6 into ownGY at cost; ability8 resolves after four manual passes. Actual owned Feisty7 printed defense2 gains1, declares without play/AP/resource cost, blocks3 of WB4; real damage1/HP19, noGA and normal Close with original owners/UIDs.",
+      "limits": [
+        "One sparse positive representative only; creation/deployment history, foreign ownership/control, replacements, cancellation, repeated activation and unexercised exclusions/expiry remain unclaimed.",
+        "Virtual ability raw Owner slot is unpopulated storage; physical source Owner/Controller plus virtual Controller/SourceUniqueID are pinned, not logical owner0.",
+        "Physical destruction is printed activation cost; no asynchronous ordinary source-clear lifecycle approval."
+      ]
+    }
+  ],
+  "limits": [
+    "Sparse bounded activation positives only, no completed singleton/cycle/catalog claim.",
+    "Parent owns fresh targeted replays and actual native faults. Captured prior3125 full replay remains explicitly scoped; no new global full replay required for unchanged runtime/new fixtures.",
+    "Reviewer ran read-only source/evidence checks only. Parent executed both targeted clean4/4 replays and four disposable intended native semantic faults. These qualify the four sparse positive representatives only, not complete cards or full corpus."
+  ],
+  "supersedes_preserved_proof": {
+    "path": "sparse-b95-actual-saved-independent-review.json",
+    "sha256": "65b764640238e294e4253934a599f5069375151a6cb2b0d63baaff4f9e7aea60"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b95-four-live-run1.json",
+      "sha256": "395116db4b639e8c051ca8bb36900c828ace02d7d6098c09e80105320dd90f5d",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b95-four-live-run2.json",
+      "sha256": "2760f6f8350fbd6fa68c5fe79ec061219e8854fd10a5909d2aa595c9d31ceaca",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b95-fault-controls.json",
+    "sha256": "dc4b05d689c3bdfb09f3b700ec2b10bb8ef41174420f8705cd18fff4427f1229",
+    "plan_sha256": "0a8273c9d8c78b2bf49d6e73e915f9e3f7c14393451a2ab6eec6391973d1d367",
+    "intended_semantic_failures": 4,
+    "total": 4,
+    "first_marker_steps": [
+      4,
+      4,
+      4,
+      14
+    ],
+    "canonical_raw5_preserved": true
+  },
+  "focused_fault_plan": {
+    "path": "sparse-b95-focused-fault-plan.json",
+    "sha256": "0a8273c9d8c78b2bf49d6e73e915f9e3f7c14393451a2ab6eec6391973d1d367"
+  },
+  "stable_tool_review_reused": {
+    "path": "sparse-b88-actual-saved-qualified-independent-review.json",
+    "sha256": "d454ade1e876a654b33137ed6aa041935258ec3bfd602ebbc4880e5436c2f286",
+    "executor_sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a",
+    "existing_native_helper_sha256": "021627a41cf4a44bef7cafe48302357e74ffae6ba39b147c3c068388384f2974",
+    "scope": "Same reviewed unchanged tools; actual current first-failure outputs, source bindings and cleanup audited here, no repeat broad tool validation or execution by reviewer."
+  },
+  "native_evidence_review_checks": 92,
+  "native_evidence_reviewer_script_sha256": "2e64d4f869a54db19c455ca4118bb5f3a693f00a1333997d4211167f1de82ae0",
+  "captured_targeted_inventory_count": 3133,
+  "prior_shared_full_scope": "Previous e947 shared-change3125 full replay remains explicitly captured; these two reports are four-fixture targeted only. No additional whole-corpus replay or repeat unaffected fault suite requested."
+}

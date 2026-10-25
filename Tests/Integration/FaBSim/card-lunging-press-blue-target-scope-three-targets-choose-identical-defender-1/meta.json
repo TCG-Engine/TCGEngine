@@ -1,0 +1,7 @@
+{
+    "name": "Lunging Press / target scope / three legal UIDs / choose identical defender 1",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T15:51:10+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actual Red Wounding4 defended by two Blue Wounding cards, each defense3. LP chooser offers attacker3 and identical defenders5/6. Selected defender5 alone gets power modifier+1; active attack remains4, total defense6 and damage0. No hit/go again/AP refund occurs. Native identity tags disambiguate otherwise identical cards; Close routes source/attack/blockers once. Sources: https://judge.fabtcg.com/cards/detail/720/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

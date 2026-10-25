@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T20:58:47+00:00",
+    "input_file": "card-regression-batch173.json",
+    "input_sha256": "f7429891c4df45183c0923e5705e572be3f908efc7135d74df6d72204b6d027f",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-ragamuffins-hat-four-live-sparse-actual-exactly-one-hand-instant-draw-then-original-card-bottom-choice",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 970
+        }
+    ]
+}

@@ -1,0 +1,282 @@
+{
+  "status": "INDEPENDENT_ACTUAL_B87_FOUR_SPARSE_ACTIVATIONS_TWO_CLEAN_REPLAYS_AND_FOUR_INTENDED_NATIVE_FAULTS_APPROVED",
+  "reviewer": "/root/resume_contract_review",
+  "independent_of_scenario_author": true,
+  "completed_utc": "2026-10-20T22:32:06.198956+00:00",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "input_sha256": "440ac631d8700a1d36f20ef292e0fff51880d08f10cc5d8f9cc90ee4afc4f56b",
+  "fixtures": [
+    {
+      "slug": "card-stubby-hammerers-four-live-sparse-real-arms-destroy-and-low-base-attacking-buff",
+      "fixture_sha256": "8c54eefce8aa79ad9d0e15bdb29d4e5f82ef86e3c26a17d1ac586b3d61f2af8e",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c8347f114c966eabfe0eb9d4209feeed7c6e8bfe157fff13850264851075a502",
+        "actions.json": "32b9d81764462abd53956d1251473ada46f22bb33662b1b230d63dfe6f874d94",
+        "assertions.json": "c53e0ce4d3f4f9ed7ae472098c46b83b110ed6578ed41b894b5391e76ba63398",
+        "expected_final_gamestate.txt": "d08113c8c92e4d769cbf57e0a4086a3ebd1d11085c4f9470e0d4f4bd864cbb13",
+        "meta.json": "3b3c8c1708d620491b4c70703731704c7e3210364e07b69d508af7fbfffe1e67"
+      },
+      "actions": 32,
+      "native_assertions": 408,
+      "actual_manual_passes": 29,
+      "actual_ability_and_watery_uid_order": [
+        7
+      ],
+      "physical_source_uid": 5,
+      "physical_source_owner_controller": 1,
+      "final_source_facedown": 0,
+      "followup_source_uid": 6,
+      "source_destroy_cost_actual": true,
+      "watery_trigger_first_actual": false,
+      "all_four_live_manual_profile_verified": true,
+      "limitations": [
+        "One positive activation representative only; no primary fullcard/group, supportcard, expiry/targetloss/alternativebranch completion.",
+        "Initial fixture contains an already equipped/itemsource; playing/entering that item is outside coverage.",
+        "Internal unobservable callback/layer-clear order is not certified; request boundaries and physical cost/Watery/public effects are verified."
+      ],
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-diamond-amulet-blue-four-live-sparse-instant-destroy-watery-then-real-action-point-use",
+      "fixture_sha256": "0f8f4e85c8a8a79956dbfedbba80247e4b1ce178a0c05664d967e2441ec01837",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "97227ffa6f86e909e1621b9d46bd52f3bc0c607faaa015a370b311cb8c74ab52",
+        "actions.json": "ac1d4f83568cb9d3b295dbb06d364a9a69d4f7e6dca16fb0f0135afb511ebf8a",
+        "assertions.json": "a52dd9d2ac9499dbad68f28e1fe3fa644d3ebf50e6543851958a7a431ee384ce",
+        "expected_final_gamestate.txt": "c2f0e9151be85b57326ccf6db6b5902eadb3ee607c2f5dd5c894ace19596f4de",
+        "meta.json": "3ab9a1a9a1d500ef54ef84acb155cc9fbd26f5e5d0a73c058811f9eae7eb3bad"
+      },
+      "actions": 36,
+      "native_assertions": 483,
+      "actual_manual_passes": 33,
+      "actual_ability_and_watery_uid_order": [
+        7,
+        8
+      ],
+      "physical_source_uid": 5,
+      "physical_source_owner_controller": 1,
+      "final_source_facedown": 1,
+      "followup_source_uid": 6,
+      "source_destroy_cost_actual": true,
+      "watery_trigger_first_actual": true,
+      "all_four_live_manual_profile_verified": true,
+      "limitations": [
+        "One positive activation representative only; no primary fullcard/group, supportcard, expiry/targetloss/alternativebranch completion.",
+        "Initial fixture contains an already equipped/itemsource; playing/entering that item is outside coverage.",
+        "Internal unobservable callback/layer-clear order is not certified; request boundaries and physical cost/Watery/public effects are verified."
+      ],
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-pounamu-amulet-blue-four-live-sparse-action-destroy-watery-then-heal-and-go-again",
+      "fixture_sha256": "26a9c0d9a326cb0126df7d2f7e765eb0b7807316f83f88e8f22d0a7e65b24c83",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "81cc6b3eb4cd68e9fcd498fda69cca30495e684c9e2405d59ff37ac966c4957c",
+        "actions.json": "4bf2661ebc4867f904a2a9fe3ae51f233789b0ad0e83bc2e0770d7e9ebbeb0f7",
+        "assertions.json": "77338b22808426bac4e59c61b4dc7d88756d277c605d408e2ea20e8a751e88be",
+        "expected_final_gamestate.txt": "d8945c68fbe9626e172325b8497faafec04ede8427e2a49404e9061402dd6963",
+        "meta.json": "80d07c36a1a838268776192a24542a2699b3b095a42ed6107265dbb607d7cec6"
+      },
+      "actions": 9,
+      "native_assertions": 252,
+      "actual_manual_passes": 8,
+      "actual_ability_and_watery_uid_order": [
+        6,
+        7
+      ],
+      "physical_source_uid": 5,
+      "physical_source_owner_controller": 1,
+      "final_source_facedown": 1,
+      "followup_source_uid": null,
+      "source_destroy_cost_actual": true,
+      "watery_trigger_first_actual": true,
+      "all_four_live_manual_profile_verified": true,
+      "limitations": [
+        "One positive activation representative only; no primary fullcard/group, supportcard, expiry/targetloss/alternativebranch completion.",
+        "Initial fixture contains an already equipped/itemsource; playing/entering that item is outside coverage.",
+        "Internal unobservable callback/layer-clear order is not certified; request boundaries and physical cost/Watery/public effects are verified."
+      ],
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-amethyst-amulet-blue-four-live-sparse-instant-destroy-watery-then-next-attack-plus-two",
+      "fixture_sha256": "f6dbe594550625ce8548f99f05487878d05835d33b442d533ed999894cab8080",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "efa93eecdbc39954b84e5b0703375eae9a56e4669fbcca6ddcb59c9490b1f58c",
+        "actions.json": "ac1d4f83568cb9d3b295dbb06d364a9a69d4f7e6dca16fb0f0135afb511ebf8a",
+        "assertions.json": "3aeb0c5b888089dff4b76869b2cdcc5b8857f867e78b01fe6c7c6b1263ff92e6",
+        "expected_final_gamestate.txt": "96bd641be104467919e0657b86aaa933098640168dd9b895cfab64390a2b1b27",
+        "meta.json": "5f0660b1ec98a02be0cfeacd7520f5b8c62fcc496d6c9089052b176162c475da"
+      },
+      "actions": 36,
+      "native_assertions": 483,
+      "actual_manual_passes": 33,
+      "actual_ability_and_watery_uid_order": [
+        7,
+        8
+      ],
+      "physical_source_uid": 5,
+      "physical_source_owner_controller": 1,
+      "final_source_facedown": 1,
+      "followup_source_uid": 6,
+      "source_destroy_cost_actual": true,
+      "watery_trigger_first_actual": true,
+      "all_four_live_manual_profile_verified": true,
+      "limitations": [
+        "One positive activation representative only; no primary fullcard/group, supportcard, expiry/targetloss/alternativebranch completion.",
+        "Initial fixture contains an already equipped/itemsource; playing/entering that item is outside coverage.",
+        "Internal unobservable callback/layer-clear order is not certified; request boundaries and physical cost/Watery/public effects are verified."
+      ],
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 113,
+  "total_native_assertions": 1626,
+  "original_semantic_audit_checks": 2148,
+  "native_evidence_review_checks": 144,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b87-actual-saved-independent-review.json",
+    "sha256": "bcef45c05ef311c01e2dfe9c56a8d1a66c67ea1857f88a0cb468f8928dc38a06"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch87-20261020T222309Z-6ad7e9cd54f92.json",
+    "sha256": "23b7cd4de9be67657d99dffd86537001ee03cc4d978daf707e2f596428ef8cbb"
+  },
+  "spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b87-independent-spec-review.json",
+    "sha256": "db705431491bec41560f7d61bba0b8e56440875a031d94aeb11382edc4a8835b"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b87-four-live-run1.json",
+      "sha256": "da48d99eb628b4e273fcd3c6d9c99f040ac548624c170cf73f018f7c2eb5f460",
+      "total": 4,
+      "passed": 4,
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b87-four-live-run2.json",
+      "sha256": "1b36ca445a758e6c649c19c12a17eec35ca722afb20a2f26d22bf9a6e1f65b66",
+      "total": 4,
+      "passed": 4,
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b87-fault-controls.json",
+    "sha256": "4ef09d0d0b26c8364a174cd045810c5a8ca0fbc13ac79496654c54184d6661f1",
+    "total": 4,
+    "intended_semantic_failures": 4,
+    "plan_sha256": "7767a2391c99308cc2f130d92121b10a03507aeb302ea80d4a7b190222a86f81",
+    "canonical_raw5_preserved": true,
+    "full_fixture_inventory_preserved": true
+  },
+  "focused_native_controls": [
+    {
+      "id": "b87_stubby_remove_continuous_low_base_attack_grant",
+      "fixture": "card-stubby-hammerers-four-live-sparse-real-arms-destroy-and-low-base-attacking-buff",
+      "prefix_actions": 11,
+      "mutation": {
+        "remove_effect": "STUBBY"
+      },
+      "retained_assertions": 229,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 2.",
+      "returncode": 1,
+      "detected": true,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b87_diamond_remove_original_ability_dispatch",
+      "fixture": "card-diamond-amulet-blue-four-live-sparse-instant-destroy-watery-then-real-action-point-use",
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 362,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1ActionPoints to equal 1, got 0.",
+      "returncode": 1,
+      "detected": true,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b87_pounamu_remove_only_watery_event_annotation",
+      "fixture": "card-pounamu-amulet-blue-four-live-sparse-action-destroy-watery-then-heal-and-go-again",
+      "prefix_actions": 1,
+      "mutation": {
+        "remove_stack_param": "rosEvent"
+      },
+      "retained_assertions": 201,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Graveyard-0.FaceDown to equal '1', got '0'.",
+      "returncode": 1,
+      "detected": true,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b87_amethyst_remove_actual_next_attack_plus_two_tag",
+      "fixture": "card-amethyst-amulet-blue-four-live-sparse-instant-destroy-watery-then-next-attack-plus-two",
+      "prefix_actions": 15,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:2"
+          }
+        ]
+      },
+      "retained_assertions": 230,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 2.",
+      "returncode": 1,
+      "detected": true,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b87-focused-fault-plan-v2-watery-event.json",
+    "sha256": "7767a2391c99308cc2f130d92121b10a03507aeb302ea80d4a7b190222a86f81"
+  },
+  "reviewed_fault_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a",
+    "independent_alias_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b87-executor-alias-independent-review.json",
+      "sha256": "26a0edc222015e039a7f6aad51f2484d0a67ddb1c5d3bc3df885bd22ddd7d7d3"
+    }
+  },
+  "pounamu_dispatch_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\b87-watery-event-fault-component\\results.json",
+    "sha256": "e8cbfa72ea6d6412e586d2622fd98409a1fdaa89721f81f233b4f34beae1594f"
+  },
+  "unexecuted_v1_plan_preserved": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b87-focused-fault-plan.json",
+    "sha256": "51d0e241a932b8b6cc21eecdde57f8a0a6671b82096e1961f52f8be45782ccf1"
+  },
+  "limitations": [
+    "One positive activation representative per primary equipment/item identity; no complete card, pitch-cycle siblings, alternate branch or support-card coverage claim.",
+    "Physical source destruction as the cost, Watery before original ability, all-seat public priority and follow-up physical effect are verified. Internal unobservable callback/virtual-layer clearing order is not certified.",
+    "Controls are synthetic sensitivity faults on owned disposable copies, not legal game actions. Pounamu event-routing loss also heals prematurely; its unchanged FaceDown assertion is the exact first failure.",
+    "Root performed recording, clean replays and native faults. This reviewer performed read-only evidence/source checks and workspace-only models; full-corpus replay results are separate evidence."
+  ],
+  "reviewer_script_sha256": "fb6c7203b97a6f3c9a4f09f078ba5e425002b3f328fc983dad0ad2e904a3a2c2",
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_runtime_imports": 0
+}

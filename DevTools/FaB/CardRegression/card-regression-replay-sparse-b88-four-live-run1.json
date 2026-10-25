@@ -1,0 +1,62 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch88.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T22:39:50.186514+00:00",
+  "fixtures": [
+    {
+      "slug": "card-force-sight-red-four-live-sparse-hand-origin-next-attack-plus-three",
+      "fixture_sha256": "6c2489a87a18b788c881b1dd492e3a6d03394a2e84728217e5c4036be5ecbbed",
+      "passed": true,
+      "result": "[PASS] Force Sight / four live sparse next effect"
+    },
+    {
+      "slug": "card-first-tenet-of-chi-tide-blue-four-live-sparse-next-blue-attack-plus-two",
+      "fixture_sha256": "d635b984183ccd0b5f1f36b59023ce484eda2a8e23bfe9862754e675bf1acc64",
+      "passed": true,
+      "result": "[PASS] First Tenet of Chi: Tide / four live sparse next effect"
+    },
+    {
+      "slug": "card-first-tenet-of-chi-wind-blue-four-live-sparse-next-real-blue-action-granted-go-again",
+      "fixture_sha256": "a0176a06836e7666797e6b87df918169c2b605f2f9e25062ed74a4f68f578aee",
+      "passed": true,
+      "result": "[PASS] First Tenet of Chi: Wind / four live sparse next effect"
+    },
+    {
+      "slug": "card-battle-clearing-bellow-blue-four-live-sparse-real-paid-next-six-base-attack-plus-six",
+      "fixture_sha256": "163d603f9ebe7f1b4d3525263423d943da5f68b15187f50aaffb45300ea7c0bd",
+      "passed": true,
+      "result": "[PASS] Battle Clearing Bellow / four live sparse next effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-force-sight-red-four-live-sparse-hand-origin-next-attack-plus-three",
+      "returncode": 0,
+      "stdout": "[PASS] Force Sight / four live sparse next effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-first-tenet-of-chi-tide-blue-four-live-sparse-next-blue-attack-plus-two",
+      "returncode": 0,
+      "stdout": "[PASS] First Tenet of Chi: Tide / four live sparse next effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-first-tenet-of-chi-wind-blue-four-live-sparse-next-real-blue-action-granted-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] First Tenet of Chi: Wind / four live sparse next effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-battle-clearing-bellow-blue-four-live-sparse-real-paid-next-six-base-attack-plus-six",
+      "returncode": 0,
+      "stdout": "[PASS] Battle Clearing Bellow / four live sparse next effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3105,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

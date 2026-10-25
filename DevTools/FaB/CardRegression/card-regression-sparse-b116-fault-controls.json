@@ -1,0 +1,147 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:32:28.284619+00:00",
+  "plan_sha256": "9882cbe4fabe4567bc3e1b40ab93626a33ec68142afce7ad4e8a61344d9097e4",
+  "independent_saved_proof_sha256": "18add76f3b55a3464be78ae6df15241806594f502822480e41f8a0db55a6b0f9",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b116-focused-fault-plan.json",
+    "9882cbe4fabe4567bc3e1b40ab93626a33ec68142afce7ad4e8a61344d9097e4",
+    "card-regression-sparse-b116-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b116_electrostatic_discharge_red_exact_source_effect_sensitivity",
+      "fixture": "card-electrostatic-discharge-red-four-live-sparse-actual-zero-cost-instant-plus-three-on-real-next-low-cost-attack",
+      "fixture_sha256": "7ccea2140f4db74019e790dd25ec5a295598e6f4d6f10725a028290d952537dd",
+      "source_raw5": {
+        "initial_gamestate.txt": "dd5d6a2b5da823866f2ad5656962e7ed6f95215089ce88976f3d4c40a417bb96",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "f32212ec3296d4afc7dce350fa9ff1f2d31aebb4924f011efeba3966c9388ccf",
+        "expected_final_gamestate.txt": "6a5333a9c7f1a97535c764930d1655d46297dadfd1795f1745b0c45cfa5ae995",
+        "meta.json": "6f8d0678d3ab04ecbc9285e830f01a1ee37bcb20df3f08c170a7fc39bb43b555"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 267,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Electrostatic Discharge / four live sparse actual instant power effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove actual +3 stored next-lowcost-attack tag on real WBred6 after resolvedDischarge5; power7 becomes4. Synthetic exact effect omission only; all original suffix actions/assertions preserved with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b116_tooth_of_the_dragon_red_exact_source_effect_sensitivity",
+      "fixture": "card-tooth-of-the-dragon-red-four-live-sparse-actual-instant-buffs-real-draconic-blaze-after-earlier-red-play",
+      "fixture_sha256": "02df4813fdbe4f01d58f248d3231881b78c4121b1c7634f1543a67cdecae8873",
+      "source_raw5": {
+        "initial_gamestate.txt": "dfb19332b94135ce5f15ae5299fa7c11768d1d5ff63dc4bde444809394c0a2d6",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "bc6fe20c2910cb7b5b4a162122ee153c4713c1fb09ee679123b8e287fd3d151f",
+        "expected_final_gamestate.txt": "62716315e891c70b3ba894eba2e3b866bd8c564517feacb240440e4104bf16cc",
+        "meta.json": "de95bf07bee8bf0e6596c69b385f289199ec3dbc0d192a43146be3ee25f755a6"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "blaze_headlong_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 267,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Tooth of the Dragon / four live sparse actual instant power effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove actual +3 nextDraconic tag on real Blaze6 after resolvedTooth5; retain actual prior-red enabled GO_AGAIN, power7 becomes4. Synthetic exact effect omission only; all original suffix actions/assertions preserved with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b116_whispering_mist_blue_exact_source_effect_sensitivity",
+      "fixture": "card-whispering-mist-blue-four-live-sparse-actual-mystic-instant-increases-own-real-blue-attack-by-one",
+      "fixture_sha256": "1a30419ae6c79c2178a917e3bc1da319bf12ce5b17df2454581df640250c0bf8",
+      "source_raw5": {
+        "initial_gamestate.txt": "fe4ff77e8a6c718ef3566ad9549067b2b5ec2ec434063cb7b711d80d37770683",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "dde7149ea1a9c9b216d130cac0e162be1b4779e5e8f4cf815bc70b26606d3682",
+        "expected_final_gamestate.txt": "aff2ca7003d009f3b1e301c87182d8acab0c3c691039579ff6eefd44162d8abb",
+        "meta.json": "c8d106947ae2ec74cfff33e81f1a9f475f578ec5117afbc7453bc58892ecf1fe"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "remove_effect": "PEN_WHISPER"
+      },
+      "retained_assertions": 267,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Whispering Mist / four live sparse actual instant power effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 3, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove single actual PEN_WHISPER caster effect after resolvedprimary5 and realBlue6 declaration; ownblue power3 becomes2. No global/opponent/ephemeral certification. Synthetic exact effect omission only; all original suffix actions/assertions preserved with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b116_snag_blue_exact_source_effect_sensitivity",
+      "fixture": "card-snag-blue-four-live-sparse-actual-instant-prevents-real-less-life-attack-own-three-power-gain",
+      "fixture_sha256": "69064ba32824ed0cfdffad690d8ac0a48394ba17b1ae36ac0483670e5f6f98de",
+      "source_raw5": {
+        "initial_gamestate.txt": "122560c8b97c45623420d2abbc4c2df2ac68fbcf6a746da89ed603ba4a235cbf",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "7721562327aba58ca21837715f78c656d656003a9bd61f9cfec92dadb6c36bde",
+        "expected_final_gamestate.txt": "17216c12ea08021592a0d5cc3d013ace7932363640f12ad3afa4517d221a0dae",
+        "meta.json": "156fbb60b2a27b0b8644d119a89097f6f85c3cc67eac1647264554028e432dd5"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "adrenaline_rush_red",
+            "mode": "remove",
+            "tag": "CRU_SUPPRESS_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 271,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 7.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Snag / four live sparse actual instant power effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 4, got 7.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove actual source selfgain suppression tag CRU_SUPPRESS_POWER:3 on real Adrenaline6; retain actual WTR_POWER:3 and allfourCRU_SNAG effects. Genuinelymet lesser-life selfgain becomes visible, power4 becomes7. Synthetic exact effect omission only; all original suffix actions/assertions preserved with step offsets.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Potion of Strength / unused-expires-at-end-turn",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:11+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Activate and destroy Potion, resolve its go again, then pass without attacking. Player2 plays Wounding Blow blue for2 and spends their AP; pass back normally. On the controller next turn, Arsenal Wounding Blow red must attack for printed4, not6. No draw or pitch-order choices occur. The modifier says this turn and expires unused at the first end phase. Sources: FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue https://judge.fabtcg.com/cards/detail/284/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

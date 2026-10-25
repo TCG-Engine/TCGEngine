@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-20T22:21:10+00:00",
+    "input_file": "card-regression-batch86.json",
+    "input_sha256": "61644e53d51e7bd3912caabcfd6cbe53f0fd7e21b1c5f3d0df089c03a9369cde",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-sun-kiss-red-four-live-sparse-ordinary-heal-no-moon-wish",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 419
+        },
+        {
+            "slug": "card-rejuvenate-red-four-live-sparse-ordinary-unfused-action-heal",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 500
+        },
+        {
+            "slug": "card-tome-of-divinity-yellow-four-live-sparse-ordinary-draw-two-no-soul-history",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 653
+        },
+        {
+            "slug": "card-drop-of-dragon-blood-red-four-live-sparse-zero-draconic-links-resource-and-one-draw",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 528
+        }
+    ]
+}

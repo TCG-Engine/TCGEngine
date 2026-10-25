@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:14:22.343473+00:00",
+  "plan_sha256": "ad06f33c1dd0a40bc33931535efa3c828faa2faee3dae0f3db4d95d86e414787",
+  "independent_saved_proof_sha256": "710ff2be679eebda2e7b36a68ccaf39d317d6945027deda214ca0981fded71bf",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b130-focused-fault-plan.json",
+    "ad06f33c1dd0a40bc33931535efa3c828faa2faee3dae0f3db4d95d86e414787",
+    "card-regression-sparse-b130-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b130_beat_the_same_drum_blue_focused_effect_sensitivity",
+      "fixture": "card-beat-the-same-drum-blue-four-live-sparse-real-goblet-history-repeats-agility-and-vigor",
+      "fixture_sha256": "7b39a633ebea3a3e920b0d1990cec56c8ea1b328f9cacd049a102c5e2f256919",
+      "source_raw5": {
+        "initial_gamestate.txt": "9a4c0204cb07838cc76f733e2615ba84a76567003f308f0ea67518e238e92bc7",
+        "actions.json": "4e77e2368de6a39a387b48f8143fbb03a5c1857caed1dda4fe6546a2a3a944e4",
+        "assertions.json": "fd1bd8182b86f64f1baea947b3e8bea4d1d36e1957795b85bd5c651e33cf0b90",
+        "expected_final_gamestate.txt": "6c98c3039c8e1a56269587178c27ac16d773e6a7c7c97227ab2172d6d5fdd44e",
+        "meta.json": "64aa89fb772c462370ec973cb20c114958cdf8ce014de23df2cb899281eb4117"
+      },
+      "prefix_actions": 10,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "agility",
+            "uid": 9
+          }
+        ]
+      },
+      "retained_assertions": 135,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 4, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Beat the Same Drum / four live actual controlled-token conditions: Initial assertion failed: Expected p1Arena count 4, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Relocate only newly repeated Agility9 among two identical Agility tokens after actual Goblet-created controlled-this-turn history and primary resolution, retaining original GobletAgility7/Vigor8 and repeated Vigor10. Exact Arena4 to3 endpoint sensitivity. No missing dispatch, alternate legal action, other Drum positive types or future token lifecycle credit. TigerForm excluded/unattempted/uncredited. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

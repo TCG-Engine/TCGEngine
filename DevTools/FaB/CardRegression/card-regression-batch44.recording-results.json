@@ -1,0 +1,116 @@
+[
+    {
+        "slug": "card-aetherstorm-wellingtons-intrinsic-static-no-manual-activation-own-main",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 43
+    },
+    {
+        "slug": "card-arcane-lantern-intrinsic-two-sources-second-listed-first",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 130
+    },
+    {
+        "slug": "card-enclosed-firemind-intrinsic-static-no-manual-activation-own-main",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 43
+    },
+    {
+        "slug": "card-enclosed-firemind-intrinsic-two-sources-second-listed-first",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 130
+    },
+    {
+        "slug": "card-enclosed-firemind-intrinsic-barrier-while-defending-real-kano-instant",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 344
+    },
+    {
+        "slug": "card-nullrune-boots-intrinsic-static-no-manual-activation-own-main",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 43
+    },
+    {
+        "slug": "card-nullrune-boots-intrinsic-two-sources-second-listed-first",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 130
+    },
+    {
+        "slug": "card-nullrune-boots-intrinsic-barrier-while-defending-real-kano-instant",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 344
+    },
+    {
+        "slug": "card-nullrune-gloves-intrinsic-static-no-manual-activation-own-main",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 43
+    },
+    {
+        "slug": "card-nullrune-gloves-intrinsic-two-sources-second-listed-first",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 130
+    },
+    {
+        "slug": "card-nullrune-hood-intrinsic-static-no-manual-activation-own-main",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 43
+    },
+    {
+        "slug": "card-nullrune-hood-intrinsic-two-sources-second-listed-first",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 130
+    },
+    {
+        "slug": "card-nullrune-hood-intrinsic-barrier-while-defending-real-kano-instant",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 344
+    },
+    {
+        "slug": "card-nullrune-robe-intrinsic-static-no-manual-activation-own-main",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 43
+    },
+    {
+        "slug": "card-nullrune-robe-intrinsic-two-sources-second-listed-first",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 130
+    },
+    {
+        "slug": "card-nullrune-robe-intrinsic-barrier-while-defending-real-kano-instant",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 344
+    },
+    {
+        "slug": "card-shamanic-shinbones-intrinsic-static-no-manual-activation-own-main",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 43
+    },
+    {
+        "slug": "card-shamanic-shinbones-intrinsic-two-sources-second-listed-first",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 130
+    },
+    {
+        "slug": "card-shamanic-shinbones-intrinsic-barrier-while-defending-real-kano-instant",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 344
+    }
+]

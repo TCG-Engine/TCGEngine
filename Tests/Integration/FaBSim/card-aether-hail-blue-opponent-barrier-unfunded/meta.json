@@ -1,0 +1,7 @@
+{
+    "name": "Aether Hail / opponent-barrier-unfunded",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:00:22+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost1 and 2 arcane damage to any target. Choose player2's hero. Pay1 from the caster pool and1AP, leaving2. Victim2 has Barrier1 but resources0 and no pitchable hand; other player's floating resources cannot fund it. No affordable prevention chooser. Deal the full2 only on resolution: hero220->18, other hero20. No printed go again, Frostbite or extra layer. Source leaves Stack for its owner's graveyard after resolution. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_hail_blue https://judge.fabtcg.com/cards/detail/1629/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

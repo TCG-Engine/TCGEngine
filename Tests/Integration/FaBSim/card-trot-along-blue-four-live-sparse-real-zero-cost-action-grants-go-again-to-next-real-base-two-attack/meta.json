@@ -1,0 +1,7 @@
+{
+    "name": "Trot Along / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:56:21+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActualprimaryUID5cost0spendsAP1;fourmanualresponsesresolveittoownGYandprintedgoagainrestoresAP1. ActuallyplayBlueWoundingBlowUID6base2cost0; printednextattackbase3orlessconditionissatisfiedandgrantsgoagain. Unblockedprinted2damageP4to18,AP0duringDAMAGEthenAP1onRESOLUTIONentry. Primary5GY0,support6GY1. Onlyqualifyingbase2positivegrant; threshold3/over3, laterconsumption/expiry, weaponsandothermodifiersremainuntested. All four are living legal young heroes with real supported manual response actors; no passive seats. Exact original source and support UIDs, owners/controllers, resources/AP, health and physical endpoint zones are pinned. No seeded history/effect tags or shared effect-bucket emptiness/index oracles. One positive primary representative only; no sibling/support/hero/full-card/alternate-branch credit. Sources: https://judge.fabtcg.com/cards/detail/3718/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DDD016.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

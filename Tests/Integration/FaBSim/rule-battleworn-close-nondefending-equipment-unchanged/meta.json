@@ -1,0 +1,7 @@
+{
+    "name": "Battleworn close / nondefending-equipment-unchanged",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:09:14+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Helm was never declared defending. Unblocked first Wounding Blow red4 deals4, leaving16. Closing that chain leaves Helm equipped with empty Counters; no Battleworn condition was met. Sources: FaBSim/GeneratedCode/cardArrayCache.json#helm_of_isens_peak https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/ https://judge.fabtcg.com/cards/detail/1299/ https://fabtcg.com/rules-and-policy-center/release-notes/everfest/"
+}

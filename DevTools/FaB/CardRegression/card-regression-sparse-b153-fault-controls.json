@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:13:28.564645+00:00",
+  "plan_sha256": "035c424e1fde705bbe5f95c5ff69301ace1840587eb82751de74ed660b2c13f9",
+  "independent_saved_proof_sha256": "b4ef6d1177371bf27c7ffae8b2abc6452e1cf19a375d4a7476523dcccd06e119",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b153-focused-fault-plan.json",
+    "035c424e1fde705bbe5f95c5ff69301ace1840587eb82751de74ed660b2c13f9",
+    "card-regression-sparse-b153-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b153_cracker_jax_focused_effect_sensitivity",
+      "fixture": "card-cracker-jax-four-live-sparse-actual-equipment-destruction-grants-one-to-next-real-blue-attack",
+      "fixture_sha256": "a530f5b01b8d1bbc9ec9947a83126d6eb8d9088d9be0228734ac373ed91343af",
+      "source_raw5": {
+        "initial_gamestate.txt": "ce62abdcf734769976f51c5a1f108e615fd360e7367786001bb29ae90db1e9a3",
+        "actions.json": "32b9d81764462abd53956d1251473ada46f22bb33662b1b230d63dfe6f874d94",
+        "assertions.json": "a606f2cc4a5b00240a2cea50fe766719ff17a47a2faa5272e9a3948429666f1f",
+        "expected_final_gamestate.txt": "b288fbd17f487ea52db7b43a26915773103b4a00ecefbe54e8ef7a14e80308e7",
+        "meta.json": "7f5b97ef65ccb8280e033d5526a8944659e6f3204fc2bc09b6f8618302f9913a"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 411,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Cracker Jax / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 3, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove actualCrackerJax+1 from realBlueWB6 after physicalEquipment5destroycost andfourmanualresponses/abilityGA. Originalcomputed3to2 detects nextAAgrant; physicalsource5/AA6/target/economy preserved. No Deck/reveal/token path or nonAA/expiry/hero/supportcredit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b153_coat_of_allegiance_focused_effect_sensitivity",
+      "fixture": "card-coat-of-allegiance-four-live-sparse-actual-draconic-equipment-destruction-gains-one-resource-and-go-again",
+      "fixture_sha256": "82cd4f8aebdebb90d629ae6930d874b5c487f9073b78198fc21bf24b9af67e6d",
+      "source_raw5": {
+        "initial_gamestate.txt": "b16a16d0bc83d276b979f3f81919070dce28abb04728e37fc9beafb9636794e8",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "2e5568ae10cdd5bc2331848097a634d8c8678c5b31b62fe9fb2dec5c24dba1e7",
+        "expected_final_gamestate.txt": "f1efc53cfbc28c3326677377a62ef84e33247a77dbd736959b884408474ac199",
+        "meta.json": "dc1de7a96a5acebfeb9632dce96253ea782621f237b4d6ab522df50ad1e60673"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "coat_of_allegiance",
+            "uid": 5,
+            "from": "Graveyard",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 106,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Coat of Allegiance / four live sparse positive effect: Initial assertion failed: Expected p1Graveyard count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact actuallydestroyedphysicalCoat5 from publicGY after completeactualabilityresolution. OriginalGY1to0 detects physicaldestroy-cost destination only; actualresource1/abilityGAAP1remain intact. No genericresourcehelperoverride: no isolatednative resourcegain mutation claim. Printed+1, exactpositive nativeoracles and puremissing/extra/earlygain faults separate. No laterDraconiconlypermission/expiry/spending/hero/fullcardcredit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

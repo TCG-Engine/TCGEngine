@@ -1,0 +1,50 @@
+[
+    {
+        "slug": "compat-reaction-rout-red-reprise-return-defender",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 37
+    },
+    {
+        "slug": "compat-reaction-rout-red-reprise-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 36
+    },
+    {
+        "slug": "compat-reaction-stroke-of-foresight-red-reprise-draw-put-top",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 58
+    },
+    {
+        "slug": "compat-reaction-stroke-of-foresight-red-reprise-draw-put-bottom",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 58
+    },
+    {
+        "slug": "compat-reaction-roaring-beam-yellow-empty-soul-return-and-charge-other",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 32
+    },
+    {
+        "slug": "compat-reaction-roaring-beam-yellow-empty-soul-charge-self",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 32
+    },
+    {
+        "slug": "compat-reaction-roaring-beam-yellow-nonempty-soul-no-return-no-charge",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 21
+    },
+    {
+        "slug": "compat-reaction-razor-reflex-blue-nuu-foreign-owner-clear",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 27
+    }
+]

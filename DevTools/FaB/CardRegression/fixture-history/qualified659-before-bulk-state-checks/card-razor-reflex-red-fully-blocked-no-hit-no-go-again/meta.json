@@ -1,0 +1,7 @@
+{
+    "name": "Razor Reflex / fully-blocked-no-hit-no-go-again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:03:25+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Three distinct Generic hand blockers defend9 against power7. No hit occurs, so no Razor trigger is created and the attack must not gain go again. Life20 and AP0 persist this failure branch. Sources: FaBSim/GeneratedCode/cardArrayCache.json#razor_reflex_red https://judge.fabtcg.com/cards/detail/322/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

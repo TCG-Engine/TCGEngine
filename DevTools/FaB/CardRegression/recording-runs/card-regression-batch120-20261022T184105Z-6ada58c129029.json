@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-22T18:41:05+00:00",
+    "input_file": "card-regression-batch120.json",
+    "input_sha256": "7374f17413301733c24c03e7a9a504636924c997c50046384256419eecec487a",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-blessing-of-salvation-red-four-live-sparse-actual-paid-light-action-gains-three-life",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 566
+        },
+        {
+            "slug": "card-electryn-joltstep-red-four-live-sparse-actual-paid-next-lightning-buff-and-owned-flow",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1379
+        },
+        {
+            "slug": "card-fasting-carcass-blue-four-live-sparse-actual-shadow-action-grants-next-real-blue-attack-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 1060
+        },
+        {
+            "slug": "card-embrace-sin-yellow-four-live-sparse-actual-paid-shadow-action-next-physical-attack-plus-two",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1267
+        }
+    ]
+}

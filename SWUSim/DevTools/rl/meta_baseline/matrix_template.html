@@ -1,0 +1,151 @@
+<title>__TITLE__</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a briefing header over one dense, sortable matchup table; the bot-minus-real gap carries the colour. */
+:root {
+  --bg: #f3f5f8; --panel: #ffffff; --fg: #18202b; --muted: #5b6676; --line: #d9dee6;
+  --accent: #b9770e; --over: #c2410c; --over-bg: #fde9df; --under: #1d5fa8; --under-bg: #e0ecf9; --chip: #eef1f5;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f141b; --panel: #161d27; --fg: #e4e9f0; --muted: #93a0b2; --line: #2a3442;
+  --accent: #e3a43b; --over: #f08a5d; --over-bg: #3a2218; --under: #6aa7ee; --under-bg: #172a40; --chip: #1f2835; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0f141b; --panel: #161d27; --fg: #e4e9f0; --muted: #93a0b2; --line: #2a3442;
+  --accent: #e3a43b; --over: #f08a5d; --over-bg: #3a2218; --under: #6aa7ee; --under-bg: #172a40; --chip: #1f2835; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 14px/1.5 var(--body); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 48px; display: grid; gap: 18px; }
+header { display: grid; gap: 6px; }
+.eyebrow { font: 600 12px/1 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 700 clamp(30px, 5vw, 44px)/1.05 var(--display); letter-spacing: .01em; margin: 0; text-wrap: balance; }
+.lede { color: var(--muted); max-width: 70ch; margin: 0; }
+.lede b { color: var(--fg); font-weight: 600; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: end; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+.field { display: grid; gap: 4px; min-width: 0; }
+.field label { font: 600 11px/1 var(--body); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.field input, .field select { font: 14px var(--body); color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 7px 9px; min-width: 0; }
+.field input { width: min(280px, 72vw); }
+.field input:focus-visible, .field select:focus-visible, th button:focus-visible, .toggle input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.toggle { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); padding-bottom: 7px; }
+.count { margin-left: auto; font: 500 13px var(--mono); color: var(--muted); padding-bottom: 7px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.table-box { overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; min-width: 860px; font-variant-numeric: tabular-nums; }
+th { position: sticky; top: 0; background: var(--panel); border-bottom: 1px solid var(--line); text-align: left; padding: 0; z-index: 1; }
+th button { all: unset; cursor: pointer; display: block; width: 100%; box-sizing: border-box; padding: 10px 12px; font: 600 11px/1.2 var(--body); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+th button:hover { color: var(--fg); }
+th.num button, td.num { text-align: right; }
+th button[aria-sort="ascending"]::after { content: " ▲"; color: var(--accent); }
+th button[aria-sort="descending"]::after { content: " ▼"; color: var(--accent); }
+td { padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tr:last-child td { border-bottom: 0; }
+td.deck { min-width: 0; }
+.name { display: block; font-weight: 500; }
+.style { display: inline-block; margin-top: 2px; font: 500 11px/1.4 var(--mono); color: var(--muted); background: var(--chip); border-radius: 4px; padding: 0 5px; }
+td.num { font-family: var(--mono); }
+.pct { font-weight: 500; }
+.ci { display: block; font-size: 11px; color: var(--muted); }
+.gap { display: inline-block; min-width: 62px; text-align: right; font: 500 13px var(--mono); padding: 2px 7px; border-radius: 4px; }
+.gap.over { color: var(--over); background: var(--over-bg); }
+.gap.under { color: var(--under); background: var(--under-bg); }
+.gap.even { color: var(--muted); }
+.thin td { opacity: .78; }
+.empty { padding: 28px 12px; text-align: center; color: var(--muted); }
+footer { color: var(--muted); font-size: 12.5px; max-width: 80ch; display: grid; gap: 6px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="eyebrow"></div>
+    <h1>__TITLE__</h1>
+    <p class="lede">Every real match from <b id="nev"></b> (<span id="dates"></span>) replayed by the bots with both players' actual decklists, sideboards folded in, once from each seat: <b id="nmatch"></b> matches, <b id="ngames"></b> bot games<span id="sub"></span>. Win % is <b>game</b> win % for the deck on the left. Real % comes from the recorded game scores of those same matches.</p>
+  </header>
+  <div class="controls" role="search">
+    <div class="field"><label for="q">Deck or opponent</label><input id="q" type="search" placeholder="e.g. Krennic, Vader, Data Vault" autocomplete="off"></div>
+    <div class="field"><label for="min">Min. real matches</label>
+      <select id="min"><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="5">5+</option><option value="10" selected>10+</option><option value="20">20+</option><option value="30">30+</option><option value="50">50+</option></select></div>
+    <div class="field"><label for="style">Deck style</label>
+      <select id="style"><option value="">Any</option><option>hyperaggro</option><option>softaggro</option><option>midrange</option><option>softcontrol</option><option>hardcontrol</option></select></div>
+    <label class="toggle" for="deckonly"><input id="deckonly" type="checkbox"> Match the deck column only</label>
+    <div class="count" id="count" aria-live="polite"></div>
+  </div>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--over-bg);outline:1px solid var(--over)"></i>Bot wins more than real players did</span>
+    <span><i class="sw" style="background:var(--under-bg);outline:1px solid var(--under)"></i>Bot wins less</span>
+    <span>Gaps within ±5 points stay neutral · faded rows have fewer than 10 real matches (on a small event every row is thin)</span>
+  </div>
+  <div class="table-box">
+    <table>
+      <thead><tr>
+        <th><button data-k="0" type="button">Deck</button></th>
+        <th><button data-k="1" type="button">Opponent</button></th>
+        <th class="num"><button data-k="2" type="button">Bot win %</button></th>
+        <th class="num basecol"><button data-k="9" type="button">Baseline bot %</button></th>
+        <th class="num"><button data-k="3" type="button">Real win %</button></th>
+        <th class="num"><button data-k="g" type="button">Gap (pts)</button></th>
+        <th class="num"><button data-k="4" type="button" aria-sort="descending">Real matches</button></th>
+        <th class="num"><button data-k="6" type="button">Bot games</button></th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <footer>
+    <div>Each real match is played twice by the bots (deck A first, then deck B first), so a pair's bot games are about twice its real matches. Real game counts come from Best-of-3 scores, so they are larger. The range under Real win % is a 95% Wilson interval on those real games: where it is wide, the real number is uncertain too.</div>
+    <div>Archetype = leader + base bucket (30HP / Force / Splash, rare bases by name). Deck style is the bot's piloting profile: the curated fixture's label where one exists, otherwise the automatic classifier.</div>
+  </footer>
+</div>
+<script>
+const DATA = __DATA__;
+const rows = DATA.rows;
+const COMPARE = !!DATA.meta.compare;
+if (!COMPARE) document.querySelectorAll('.basecol').forEach(e => e.remove());   // [deck, opp, bot%, real%, matches, realGames, botGames, deckStyle, oppStyle]
+document.getElementById('dates').textContent = DATA.meta.dates.replace(' to ', ' – ');
+document.getElementById('nev').textContent = DATA.meta.events + ' events';
+document.getElementById('eyebrow').textContent = DATA.meta.eyebrow || 'SWUSim meta baseline';
+document.getElementById('sub').textContent = DATA.meta.subtitle ? ' · ' + DATA.meta.subtitle : '';
+document.getElementById('nmatch').textContent = DATA.meta.matches.toLocaleString();
+document.getElementById('ngames').textContent = DATA.meta.games.toLocaleString();
+const $ = id => document.getElementById(id);
+let sortKey = '4', sortDir = -1;
+function wilson(p, n) {
+  if (!n) return [0, 100];
+  const z = 1.96, ph = p / 100, d = 1 + z * z / n, c = ph + z * z / (2 * n), r = z * Math.sqrt(ph * (1 - ph) / n + z * z / (4 * n * n));
+  return [Math.max(0, (c - r) / d * 100), Math.min(100, (c + r) / d * 100)];
+}
+const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function val(r, k) { return k === 'g' ? r[2] - r[3] : (k === '9' ? (r[9] ?? -1) : r[+k]); }
+function render() {
+  const q = $('q').value.trim().toLowerCase(), min = +$('min').value, st = $('style').value, deckOnly = $('deckonly').checked;
+  let out = rows.filter(r => r[4] >= min && (!st || r[7] === st) &&
+    (!q || r[0].toLowerCase().includes(q) || (!deckOnly && r[1].toLowerCase().includes(q))));
+  out.sort((a, b) => { const x = val(a, sortKey), y = val(b, sortKey); return (typeof x === 'string' ? x.localeCompare(y) : x - y) * sortDir; });
+  $('count').textContent = out.length.toLocaleString() + ' matchup' + (out.length === 1 ? '' : 's');
+  if (!out.length) { $('rows').innerHTML = `<tr><td class="empty" colspan="${COMPARE ? 8 : 7}">No matchups fit these filters. Lower the minimum matches or clear the search.</td></tr>`; return; }
+  $('rows').innerHTML = out.map(r => {
+    const g = r[2] - r[3], cls = g > 5 ? 'over' : (g < -5 ? 'under' : 'even'), [lo, hi] = wilson(r[3], r[5]);
+    return `<tr class="${r[4] < 10 ? 'thin' : ''}">
+      <td class="deck"><span class="name">${esc(r[0])}</span><span class="style">${r[7]}</span></td>
+      <td class="deck"><span class="name">${esc(r[1])}</span><span class="style">${r[8]}</span></td>
+      <td class="num"><span class="pct">${r[2].toFixed(1)}</span></td>
+      ${COMPARE ? `<td class="num basecol">${r[9] === null ? '–' : `<span class="pct">${r[9].toFixed(1)}</span><span class="ci">${(r[2] - r[9] > 0 ? '+' : '') + (r[2] - r[9]).toFixed(1)} now</span>`}</td>` : ''}<td class="num"><span class="pct">${r[3].toFixed(1)}</span><span class="ci">${lo.toFixed(0)}–${hi.toFixed(0)}</span></td>
+      <td class="num"><span class="gap ${cls}">${g > 0 ? '+' : ''}${g.toFixed(1)}</span></td>
+      <td class="num">${r[4]}</td>
+      <td class="num">${r[6]}</td></tr>`;
+  }).join('');
+}
+document.querySelectorAll('th button').forEach(b => b.addEventListener('click', () => {
+  const k = b.dataset.k;
+  if (k === sortKey) sortDir = -sortDir; else { sortKey = k; sortDir = (k === '0' || k === '1') ? 1 : -1; }
+  document.querySelectorAll('th button').forEach(x => x.removeAttribute('aria-sort'));
+  b.setAttribute('aria-sort', sortDir === 1 ? 'ascending' : 'descending');
+  render();
+}));
+if (DATA.meta.defaultMin) $('min').value = String(DATA.meta.defaultMin);
+['q', 'min', 'style', 'deckonly'].forEach(id => $(id).addEventListener('input', render));
+render();
+</script>

@@ -1,0 +1,7 @@
+{
+    "name": "Electrolyze / innate go again / blue / printed-defense-exact-partial-damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T04:01:08+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "electrolyze_blue: printed cost1, pitch3, power2, defense0; exact printed text Go again. Opponent-turn actual Hand declaration uses printeddefense0; no play cost, pitch orAP is paid. GenericWoundingBlowRed power4 deals exactly4, pinning both defense bounds. Numeric0 remains a legal defending card. Subject goagain never applies as defender; actual attack has none, APboth0. Arrow may defend fromHand withoutBow. Sources: FaBSim/GeneratedCode/cardArrayCache.json#electrolyze_blue https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OMN165.webp https://rules.fabtcg.com/en/cr/08-keywords/#835 https://rules.fabtcg.com/en/cr/08-keywords/#826 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#517 https://rules.fabtcg.com/en/cr/07-combat/#762 FaBSim/Custom/GameLogic.php::CanPlayCard/FaBTryCompletePayment/FaBDeclareBlock/FaBBeginDamageStep/FaBBeginResolutionStep/FaBCleanupResolvedLink/FaBCloseCombatChain"
+}

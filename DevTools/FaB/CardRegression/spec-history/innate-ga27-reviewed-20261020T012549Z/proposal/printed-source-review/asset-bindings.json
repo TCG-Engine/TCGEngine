@@ -1,0 +1,140 @@
+{
+  "status": "LOCAL_PRINTED_FACE_INSPECTION_ASSETS_NOT_GAME_OUTPUT",
+  "assets": [
+    {
+      "cardID": "dust_runner_outlaw_red",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\dust_runner_outlaw_red.webp",
+      "rawSHA256": "ed22f7a33ed457649ced477393be7b028448a7da7835e5edabdfee98a9a7898d"
+    },
+    {
+      "cardID": "electrolyze_red",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\electrolyze_red.webp",
+      "rawSHA256": "5fafbc3f52e201ae76400eb9fcb3e178a8c3ed6708c0837cb4184713eee17dd6"
+    },
+    {
+      "cardID": "fry_red",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\fry_red.webp",
+      "rawSHA256": "0fed30ef2d530d9c6d91822ff201b982f7549de534e935bdce9d34030db74d27"
+    },
+    {
+      "cardID": "head_jab_red",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\head_jab_red.webp",
+      "rawSHA256": "f473fe6e3254642be83f73b362bc25b1dc12de91762ff876fe0d6bee24599442"
+    },
+    {
+      "cardID": "leg_tap_red",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\leg_tap_red.webp",
+      "rawSHA256": "e655fa725e43e0842322aac1a517ee6790b05cee3f4c9775b2ef11eef453f9f6"
+    },
+    {
+      "cardID": "rebellious_rush_red",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\rebellious_rush_red.webp",
+      "rawSHA256": "a7216f01f46fda7bb94a161fbf5524a431c31d3c9f56fd5d1d232731c590559b"
+    },
+    {
+      "cardID": "ronin_renegade_red",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\ronin_renegade_red.webp",
+      "rawSHA256": "0a0f097e65d65e506e7921d35e7fafe0dd7f2373969d51cdb88354a593fbe5e8"
+    },
+    {
+      "cardID": "sic_em_shot_red",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\sic_em_shot_red.webp",
+      "rawSHA256": "83161b1fda5b061a95e54b8af8adceded0be9de8f25d50306eb7004f1c31d42a"
+    },
+    {
+      "cardID": "surging_strike_red",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\surging_strike_red.webp",
+      "rawSHA256": "b4064cff5d0916e682964b1d7361709e81b7bc1aa2d687907d85bcdf0b823ed8"
+    },
+    {
+      "cardID": "dust_runner_outlaw_yellow",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\dust_runner_outlaw_yellow.webp",
+      "rawSHA256": "a99b770caae3312c21ab4f1a1633f04911590ef18ac0db82908f6fa9801c4c49"
+    },
+    {
+      "cardID": "electrolyze_yellow",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\electrolyze_yellow.webp",
+      "rawSHA256": "f0d3ba5c1ec16159324e252c5019cf0dd10e8f86214e35648582bd5893a845be"
+    },
+    {
+      "cardID": "fry_yellow",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\fry_yellow.webp",
+      "rawSHA256": "2cc2183b7befd29052b48190dff8779c5d49b9bbd2ca72294876394f90a1ad21"
+    },
+    {
+      "cardID": "head_jab_yellow",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\head_jab_yellow.webp",
+      "rawSHA256": "9e7bc163f39f719ba9d5e9572237a904672d3f31083360355307a616cf75e9eb"
+    },
+    {
+      "cardID": "leg_tap_yellow",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\leg_tap_yellow.webp",
+      "rawSHA256": "69ba826efc5abcdffe08cf189dbd4a0db525bf160a5bc4eb4a4cb0ed10bd59d3"
+    },
+    {
+      "cardID": "rebellious_rush_yellow",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\rebellious_rush_yellow.webp",
+      "rawSHA256": "d935f70720e8302a34dddfe1ae497470aba695b521de782a3dc4dd4d539b6189"
+    },
+    {
+      "cardID": "ronin_renegade_yellow",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\ronin_renegade_yellow.webp",
+      "rawSHA256": "ffde37e48273e3ea4dc0f5658cb6dafe66b98dd7b7dfae1e5e48835c5e057028"
+    },
+    {
+      "cardID": "sic_em_shot_yellow",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\sic_em_shot_yellow.webp",
+      "rawSHA256": "c4abda5d0895939f5b11216e56659c640e6205a7ae1d1b8a626303bf5044dffc"
+    },
+    {
+      "cardID": "surging_strike_yellow",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\surging_strike_yellow.webp",
+      "rawSHA256": "1e53466fff905c688dbe0010041121b4f41228df669d36267663bbb8e023888d"
+    },
+    {
+      "cardID": "dust_runner_outlaw_blue",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\dust_runner_outlaw_blue.webp",
+      "rawSHA256": "9122af031b95c46d433f1e7a73986367500d88aae9c035d133a2152e4d17e804"
+    },
+    {
+      "cardID": "electrolyze_blue",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\electrolyze_blue.webp",
+      "rawSHA256": "88c7347842dee077160bf3fbaaa43317506534e244990f4a1cba1e4ffde1cb4a"
+    },
+    {
+      "cardID": "fry_blue",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\fry_blue.webp",
+      "rawSHA256": "276e6378e4a1d4e9702e08fce9a9e852846f4ac82464e0d1a40be683f64571e6"
+    },
+    {
+      "cardID": "head_jab_blue",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\head_jab_blue.webp",
+      "rawSHA256": "fd4329d2348dc70bfc53ba314f2bdd3766819afd349544ca11579d8135c2b953"
+    },
+    {
+      "cardID": "leg_tap_blue",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\leg_tap_blue.webp",
+      "rawSHA256": "85288baceddcff70e8306f0f25c5f8173b6ea392c61e0b64a0ec08f5ff25cf87"
+    },
+    {
+      "cardID": "rebellious_rush_blue",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\rebellious_rush_blue.webp",
+      "rawSHA256": "3ae1d6ba11eb1b49b429429fb50f6b5b030c6e7a136616357fc671cb4243e703"
+    },
+    {
+      "cardID": "ronin_renegade_blue",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\ronin_renegade_blue.webp",
+      "rawSHA256": "eaf82b07d8975bd21377ca63ae117b3b29b97d2d0a5540ed7ff90695a9f7285a"
+    },
+    {
+      "cardID": "sic_em_shot_blue",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\sic_em_shot_blue.webp",
+      "rawSHA256": "72c613ceea8d934c456906f23186c8d9dc127f7f0281b71d192a95f9fa314931"
+    },
+    {
+      "cardID": "surging_strike_blue",
+      "localImage": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\surging_strike_blue.webp",
+      "rawSHA256": "63cd67b649039e3c2c7f065cba636d24c2121373ea1a590aabf762bb804e1699"
+    }
+  ]
+}

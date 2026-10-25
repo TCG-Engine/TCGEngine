@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-21T00:02:44+00:00",
+    "input_file": "card-regression-batch96.json",
+    "input_sha256": "386bdfce5041580cc291e16e1ad618d96266a2de0c11b7953a2f6fcddec7dd16",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-penetration-script-yellow-four-live-sparse-actual-mechanologist-attack-gets-one-from-controlled-script",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 903
+        },
+        {
+            "slug": "card-security-script-blue-four-live-sparse-actual-mechanologist-hand-defender-three-plus-one-exact-four",
+            "status": "recorded_semantically_checked",
+            "actions": 29,
+            "assertions": 1152
+        },
+        {
+            "slug": "card-dissolution-sphere-yellow-four-live-sparse-actual-exactly-one-physical-damage-prevented-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 938
+        }
+    ]
+}

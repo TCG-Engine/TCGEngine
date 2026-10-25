@@ -1,0 +1,184 @@
+{
+  "width": 1536,
+  "height": 1024,
+  "grid": {
+    "columns": 24,
+    "rows": 16,
+    "tile": 64
+  },
+  "notes": [
+    "Suggested geometry matched visually to sumerian-overworld-v1.png; parent owns authoritative collision/gameplay tuning.",
+    "Foot anchors, not sprite centers. Ground sprites at these points.",
+    "Keep bridge (675,700)-(770,860) clear. Court entrance opening x1175-1290 y620-695 must remain clear.",
+    "Draw kneeling character heights about 75–80% of standing height, aligned at the same foot baseline; generated images individually fill their canvases."
+  ],
+  "anchors": {
+    "spawn": [
+      360,
+      900
+    ],
+    "mailboxApproach": [
+      300,
+      875
+    ],
+    "mailboxArt": [
+      246,
+      835
+    ],
+    "sanctuaryDoor": [
+      185,
+      830
+    ],
+    "scribe": [
+      500,
+      570
+    ],
+    "gardener": [
+      640,
+      650
+    ],
+    "repairSluice": [
+      660,
+      700
+    ],
+    "huwawa": [
+      290,
+      250
+    ],
+    "imdugud": [
+      750,
+      305
+    ],
+    "bull": [
+      1220,
+      550
+    ],
+    "templeAttendant": [
+      1100,
+      570
+    ],
+    "travelGate": [
+      1190,
+      800
+    ]
+  },
+  "blockedRectangles": [
+    {
+      "id": "sanctuary",
+      "rect": [
+        10,
+        635,
+        320,
+        225
+      ]
+    },
+    {
+      "id": "market",
+      "rect": [
+        0,
+        350,
+        480,
+        200
+      ]
+    },
+    {
+      "id": "training-terrace",
+      "rect": [
+        585,
+        40,
+        325,
+        225
+      ]
+    },
+    {
+      "id": "temple-building",
+      "rect": [
+        1025,
+        0,
+        510,
+        455
+      ]
+    },
+    {
+      "id": "temple-left-wall",
+      "rect": [
+        870,
+        290,
+        160,
+        270
+      ]
+    },
+    {
+      "id": "court-front-wall-west",
+      "rect": [
+        900,
+        620,
+        275,
+        75
+      ]
+    },
+    {
+      "id": "court-front-wall-east",
+      "rect": [
+        1290,
+        620,
+        246,
+        75
+      ]
+    },
+    {
+      "id": "canal-west",
+      "rect": [
+        435,
+        735,
+        230,
+        125
+      ]
+    },
+    {
+      "id": "canal-east",
+      "rect": [
+        780,
+        735,
+        270,
+        125
+      ]
+    },
+    {
+      "id": "canal-south",
+      "rect": [
+        995,
+        805,
+        100,
+        219
+      ]
+    },
+    {
+      "id": "crops-west",
+      "rect": [
+        425,
+        875,
+        235,
+        149
+      ]
+    },
+    {
+      "id": "crops-middle",
+      "rect": [
+        790,
+        870,
+        220,
+        154
+      ]
+    },
+    {
+      "id": "grove-upper",
+      "rect": [
+        0,
+        0,
+        540,
+        185
+      ]
+    }
+  ]
+}

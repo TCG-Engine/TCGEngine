@@ -1,0 +1,7 @@
+{
+    "name": "Breaking Scales / active-combo-adds-only-one",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:33+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Leg Tap red is first attack4 with go again. Second Rising Knee Thrust red receives printed3+Combo2+Ira1=6 and go again. Breaking Scales adds only1 to7; total damage11 leaves9, with one AP and two resources from blue pitch. Sources: FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

@@ -1,0 +1,153 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:00:19.773120+00:00",
+  "plan_sha256": "5f489081945dc1c0414d9f39d0de838c0faf633c38327073f1f738f3ac87aeeb",
+  "independent_saved_proof_sha256": "ebbcc1693e33dbbc721df8302d28f5d2cf714f1eaefa28f023dbd11c2d0c3fca",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b111-focused-fault-plan.json",
+    "5f489081945dc1c0414d9f39d0de838c0faf633c38327073f1f738f3ac87aeeb",
+    "card-regression-sparse-b111-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b111_torrent_of_tempo_red_focused_effect_sensitivity",
+      "fixture": "card-torrent-of-tempo-red-four-live-sparse-actual-paid-five-damage-hit-grants-go-again-before-resolution-ap",
+      "fixture_sha256": "89e78143e2cf124a19dbbef2c25f8d7b6a760f5dd83af8b50c0e224b0931d2ee",
+      "source_raw5": {
+        "initial_gamestate.txt": "7fe589121060d0097d309fb4e6261823873d683c4970102f30c54294e0777538",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "2466e33e1138fcf5b422b9c42f9b6a7250886ec94384ddd225182de321dc40c1",
+        "expected_final_gamestate.txt": "a0923189282b4f6e140f2f89ff0e34732042dbf834fd54595f237893ae23084b",
+        "meta.json": "094302aa9dc025bffa88f40d0c8c366a44466aeb356d6307471bf25d01bbf82a"
+      },
+      "prefix_actions": 20,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "torrent_of_tempo_red",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 157,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Torrent of Tempo / four live sparse simple printed effect: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove the real same-source on-hit go-again grant after actual hit while retaining physical source/damage/payment and every original suffix oracle. Native grant/AP sensitivity only, no defended or no-hit branch credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b111_sweeping_blow_red_focused_effect_sensitivity",
+      "fixture": "card-sweeping-blow-red-four-live-sparse-actual-attack-creates-owned-ash-and-printed-go-again",
+      "fixture_sha256": "18a7e6a0b4f0b16f212b7a632a8beb4c78dac909a7728dde886b33da7b1a221a",
+      "source_raw5": {
+        "initial_gamestate.txt": "20c0658e6aa2ea1aac135907e22e7892d18a2a5eb00d00b7f9340bc71dd3c1c9",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "6ccffa44002656b11e5067d9b51e85aba88c370b9dceea479fc9322764620eea",
+        "expected_final_gamestate.txt": "ac251d81ace70cd2e83e110fdce89d80f1d79a9eb46c61812f910b169c532363",
+        "meta.json": "8f6657fdb736ba185546782b40b183edf0732477465a0563a2deaa424439ab77"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "ash"
+          }
+        ]
+      },
+      "retained_assertions": 278,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Sweeping Blow / four live sparse simple printed effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Relocate the sole real on-attack token out of Arena after its actual creation, retain all original suffix oracles. Physical token-presence sensitivity only; no alternate token lifecycle or later ability activation credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b111_hocus_pocus_red_focused_effect_sensitivity",
+      "fixture": "card-hocus-pocus-red-four-live-sparse-actual-zero-cost-attack-creates-one-owned-runechant",
+      "fixture_sha256": "7256a548bbe4c0fb20da4d25aa4dda519ac333e7eb08dc570bacb2d38e084a16",
+      "source_raw5": {
+        "initial_gamestate.txt": "f929c5ab09a23d2f3026a5cb005a0f3d0a8c36689cccfd62d1958f82e22c507c",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "a25235d24205f5e06881897558bf6c1ec00b60926f5f4d3a2b55fa99d9ddb8cf",
+        "expected_final_gamestate.txt": "7340ccb0bd2ece6ace8472d5cf81a50ebd846a277a43fd1887f60c6b161ff14d",
+        "meta.json": "aadb74ca05ef1c7bd228e23c82b56eb02c5db06696744c5c89bd600a7113ffdd"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "runechant"
+          }
+        ]
+      },
+      "retained_assertions": 269,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Hocus Pocus / four live sparse simple printed effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Relocate the sole real on-attack token out of Arena after its actual creation, retain all original suffix oracles. Physical token-presence sensitivity only; no alternate token lifecycle or later ability activation credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b111_soulbead_strike_red_focused_effect_sensitivity",
+      "fixture": "card-soulbead-strike-red-four-live-sparse-actual-four-damage-hit-grants-go-again-before-resolution-ap",
+      "fixture_sha256": "79749dc35b041502d2fda7f89f201b0c6ab97cd20fca4a6ac64cebd4bfd1d2be",
+      "source_raw5": {
+        "initial_gamestate.txt": "2cfba4d844ad4c2ff5eda88e3c3963c9f11b0f755c988f03ed7d7c922cf3bb52",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "c96788eef3164c8884e241ca790ea70655f88a5886701952de057e8e88a86b1d",
+        "expected_final_gamestate.txt": "08be25e11ccc42ea7964659636c8a2d5aed7bea7c108c0e9e3e44580449afb86",
+        "meta.json": "f16d0956f8fcc46238b41b9cad0bccf1806f6204f3bae682eb07c63315b9d05d"
+      },
+      "prefix_actions": 19,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "soulbead_strike_red",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 153,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Soulbead Strike / four live sparse simple printed effect: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove the real same-source on-hit go-again grant after actual hit while retaining physical source/damage/payment and every original suffix oracle. Native grant/AP sensitivity only, no defended or no-hit branch credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

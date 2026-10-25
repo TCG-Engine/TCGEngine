@@ -1,0 +1,6153 @@
+[
+  {
+    "slug": "card-energy-potion-blue-activation-deploy-then-instant-at-zero-ap",
+    "name": "Energy Potion / deploy-then-instant-at-zero-ap",
+    "cardIDs": [
+      "energy_potion_blue"
+    ],
+    "branches": [
+      "deploy-then-instant-at-zero-ap"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "energy_potion_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "energy_potion_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "energy_potion_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "energy_potion_blue"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Graveyard-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "energy_potion_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay zero to play the item, using the single AP with no go again. Then activate its instant at AP0. Destruction is paid before the ability resolves: Arena empty, potion in graveyard, stack1, still zero resources. Resolution grants exactly2 resources without AP; graveyard activation cannot repeat.",
+    "printedCard": {
+      "id": "energy_potion_blue",
+      "name": "Energy Potion",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "pitch": "3",
+      "cost": "0",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Instant - Destroy this: Gain {r}{r}",
+      "wtrPrintings": [
+        "WTR170"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#energy_potion_blue",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ],
+    "pilot": true,
+    "proposedNegativeControl": {
+      "method": "disposable-fixture-isolated-post-resolution-state-perturbation",
+      "mutation": "After resolving the potion, set only its controller resource pool from2 to0 in a disposable fixture prefix state, preserve destruction and AP, replay retained final assertions.",
+      "expectedSemanticFailure": "p1Resources to equal 2, got 0",
+      "needsHelperSupport": true,
+      "productionRulesMutation": false
+    }
+  },
+  {
+    "slug": "card-energy-potion-blue-activation-gain-adds-to-existing-pool",
+    "name": "Energy Potion / gain-adds-to-existing-pool",
+    "cardIDs": [
+      "energy_potion_blue"
+    ],
+    "branches": [
+      "gain-adds-to-existing-pool"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      0,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "energy_potion_blue",
+        "player": 1,
+        "zone": "Arena",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "energy_potion_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 3
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "energy_potion_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Gain2 adds to the existing1 resource; no AP is required or granted. Destruction is paid while resources are still1.",
+    "printedCard": {
+      "id": "energy_potion_blue",
+      "name": "Energy Potion",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "pitch": "3",
+      "cost": "0",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Instant - Destroy this: Gain {r}{r}",
+      "wtrPrintings": [
+        "WTR170"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#energy_potion_blue",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-energy-potion-blue-activation-opponent-turn-instant",
+    "name": "Energy Potion / opponent-turn-instant",
+    "cardIDs": [
+      "energy_potion_blue"
+    ],
+    "branches": [
+      "opponent-turn-instant"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "energy_potion_blue",
+        "player": 2,
+        "zone": "Arena",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Arena-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Graveyard",
+            "cardID": "energy_potion_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Graveyard",
+            "cardID": "energy_potion_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Defender activates its instant during the opponent turn before blocks, starting at AP0. Gain2 resources without AP; destruction precedes resolution. Taking4 physical damage afterward does not spend the resources.",
+    "printedCard": {
+      "id": "energy_potion_blue",
+      "name": "Energy Potion",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "pitch": "3",
+      "cost": "0",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Instant - Destroy this: Gain {r}{r}",
+      "wtrPrintings": [
+        "WTR170"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#energy_potion_blue",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-energy-potion-blue-activation-graveyard-cannot-activate",
+    "name": "Energy Potion / graveyard-cannot-activate",
+    "cardIDs": [
+      "energy_potion_blue"
+    ],
+    "branches": [
+      "graveyard-cannot-activate"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "energy_potion_blue",
+        "player": 1,
+        "zone": "Graveyard",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Graveyard-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "energy_potion_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "No ability permits activation from graveyard. Source, resources, AP and stack stay unchanged.",
+    "printedCard": {
+      "id": "energy_potion_blue",
+      "name": "Energy Potion",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "pitch": "3",
+      "cost": "0",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Instant - Destroy this: Gain {r}{r}",
+      "wtrPrintings": [
+        "WTR170"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#energy_potion_blue",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-energy-potion-blue-activation-wrong-priority-cannot-activate",
+    "name": "Energy Potion / wrong-priority-cannot-activate",
+    "cardIDs": [
+      "energy_potion_blue"
+    ],
+    "branches": [
+      "wrong-priority-cannot-activate"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "energy_potion_blue",
+        "player": 2,
+        "zone": "Arena",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p2Arena-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p2Arena",
+            "cardID": "energy_potion_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "P1 has priority; P2 cannot activate its instant until it receives priority. Source remains and no resource/AP/stack mutation occurs.",
+    "printedCard": {
+      "id": "energy_potion_blue",
+      "name": "Energy Potion",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "pitch": "3",
+      "cost": "0",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Instant - Destroy this: Gain {r}{r}",
+      "wtrPrintings": [
+        "WTR170"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#energy_potion_blue",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-energy-potion-blue-activation-cannot-interrupt-pitch-payment",
+    "name": "Energy Potion / cannot-interrupt-pitch-payment",
+    "cardIDs": [
+      "energy_potion_blue"
+    ],
+    "branches": [
+      "cannot-interrupt-pitch-payment"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "energy_potion_blue",
+        "player": 1,
+        "zone": "Arena",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "energy_potion_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "energy_potion_blue"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "wounding_blow_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Announce cost3 Raging Onslaught with a blue available to pitch. Payment is in progress; it is not a priority opportunity, so the potion cannot be activated inside payment. Resume by pitching blue3; the attack deals7, resources0, potion remains.",
+    "printedCard": {
+      "id": "energy_potion_blue",
+      "name": "Energy Potion",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "pitch": "3",
+      "cost": "0",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Instant - Destroy this: Gain {r}{r}",
+      "wtrPrintings": [
+        "WTR170"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#energy_potion_blue",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-energy-potion-blue-activation-lost-ability-rejection-probe",
+    "name": "Energy Potion / lost-ability-rejection-probe",
+    "cardIDs": [
+      "energy_potion_blue"
+    ],
+    "branches": [
+      "lost-ability-rejection-probe"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "rule_probe",
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "energy_potion_blue",
+        "player": 1,
+        "zone": "Arena",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hero",
+            "cardID": "bravo"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "energy_potion_blue"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "energy_potion_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Start during Guardian Bravo turn under a previously resolved Blinding of the Old Ones active/started duration: all owned cards have no abilities. Energy Potion must remain in Arena and create no layer or resource/AP change. This covers the known suppression interaction, not Blinding generation or expiry.",
+    "printedCard": {
+      "id": "energy_potion_blue",
+      "name": "Energy Potion",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "pitch": "3",
+      "cost": "0",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Instant - Destroy this: Gain {r}{r}",
+      "wtrPrintings": [
+        "WTR170"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#energy_potion_blue",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "https://judge.fabtcg.com/cards/detail/3761/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ],
+    "suspectedBug": {
+      "status": "static_code_suspected_not_exercised",
+      "location": "FaBSim/Custom/WTRCards.php::FaBWTRCanActivate; FaBSim/Custom/WTRAbilities.php::FaBWTRAbilityLegal",
+      "reason": "Fixed WTR fallback specs appear to omit HasNoAbilities source check, unlike ARC ability path. Do not save or count this as passing unless actual behavior meets rejection."
+    },
+    "recordingDisposition": "Run only as an isolated rule probe after review; retain failure evidence and do not save current incorrect behavior as a passing regression.",
+    "state": {
+      "mpgDurations": [
+        {
+          "player": 1,
+          "kind": "BLIND",
+          "active": true,
+          "started": true
+        }
+      ]
+    }
+  },
+  {
+    "slug": "card-timesnap-potion-blue-activation-pay-one-gain-two-two-attacks",
+    "name": "Timesnap Potion / pay-one-gain-two-two-attacks",
+    "cardIDs": [
+      "timesnap_potion_blue"
+    ],
+    "branches": [
+      "pay-one-gain-two-two-attacks"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "timesnap_potion_blue",
+        "player": 1,
+        "zone": "Arena",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "timesnap_potion_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "timesnap_potion_blue"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Graveyard-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "timesnap_potion_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Action activation spends initial AP1 and destroys the item immediately, with no resource cost. Resolve gain2 AP (net +1, no separate go again). Attempting graveyard reuse does nothing. Two ordinary no-go-again attacks can now be played: first4, second printed3+Ira1=4, leaving defender12 and AP0.",
+    "printedCard": {
+      "id": "timesnap_potion_blue",
+      "name": "Timesnap Potion",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "pitch": "3",
+      "cost": "0",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Action - Destroy this: Gain 2 action points.",
+      "wtrPrintings": [
+        "WTR172"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#timesnap_potion_blue",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ],
+    "pilot": true,
+    "proposedNegativeControl": {
+      "method": "disposable-fixture-isolated-post-resolution-state-perturbation",
+      "mutation": "After paying activation/destruction and resolving the ability, set only controller AP from2 to0 in a disposable prefix state; retain native AP checkpoint.",
+      "expectedSemanticFailure": "p1ActionPoints to equal 2, got 0",
+      "needsHelperSupport": true,
+      "productionRulesMutation": false
+    }
+  },
+  {
+    "slug": "card-timesnap-potion-blue-activation-zero-action-points-rejected",
+    "name": "Timesnap Potion / zero-action-points-rejected",
+    "cardIDs": [
+      "timesnap_potion_blue"
+    ],
+    "branches": [
+      "zero-action-points-rejected"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      0,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "timesnap_potion_blue",
+        "player": 1,
+        "zone": "Arena",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "timesnap_potion_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Action activation requires paying one AP. At AP0 it must not bootstrap its own AP gain; item remains, stack0, resources0, AP0.",
+    "printedCard": {
+      "id": "timesnap_potion_blue",
+      "name": "Timesnap Potion",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "pitch": "3",
+      "cost": "0",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Action - Destroy this: Gain 2 action points.",
+      "wtrPrintings": [
+        "WTR172"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#timesnap_potion_blue",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-timesnap-potion-blue-activation-deploy-spends-last-ap-no-immediate-activation",
+    "name": "Timesnap Potion / deploy-spends-last-ap-no-immediate-activation",
+    "cardIDs": [
+      "timesnap_potion_blue"
+    ],
+    "branches": [
+      "deploy-spends-last-ap-no-immediate-activation"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "deployment_and_card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "timesnap_potion_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "timesnap_potion_blue"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "timesnap_potion_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Playing this cost0 Action Item spends the last AP and has no go again. The deployed item cannot activate its Action ability at AP0.",
+    "printedCard": {
+      "id": "timesnap_potion_blue",
+      "name": "Timesnap Potion",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "pitch": "3",
+      "cost": "0",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Action - Destroy this: Gain 2 action points.",
+      "wtrPrintings": [
+        "WTR172"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#timesnap_potion_blue",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-timesnap-potion-blue-activation-attack-window-rejected-with-spare-ap",
+    "name": "Timesnap Potion / attack-window-rejected-with-spare-ap",
+    "cardIDs": [
+      "timesnap_potion_blue"
+    ],
+    "branches": [
+      "attack-window-rejected-with-spare-ap"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      2,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "timesnap_potion_blue",
+        "player": 1,
+        "zone": "Arena",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "timesnap_potion_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "timesnap_potion_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "A legal mid-turn fixture starts with AP2. After playing the first attack, AP1 remains, but the Attack Step is not a legal Action-ability window. Item stays; no AP gain. The attack deals4.",
+    "printedCard": {
+      "id": "timesnap_potion_blue",
+      "name": "Timesnap Potion",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "pitch": "3",
+      "cost": "0",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Action - Destroy this: Gain 2 action points.",
+      "wtrPrintings": [
+        "WTR172"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#timesnap_potion_blue",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-timesnap-potion-blue-activation-graveyard-cannot-activate",
+    "name": "Timesnap Potion / graveyard-cannot-activate",
+    "cardIDs": [
+      "timesnap_potion_blue"
+    ],
+    "branches": [
+      "graveyard-cannot-activate"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "timesnap_potion_blue",
+        "player": 1,
+        "zone": "Graveyard",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Graveyard-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "timesnap_potion_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Destruction does not confer permission to activate again from graveyard.",
+    "printedCard": {
+      "id": "timesnap_potion_blue",
+      "name": "Timesnap Potion",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "pitch": "3",
+      "cost": "0",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Action - Destroy this: Gain 2 action points.",
+      "wtrPrintings": [
+        "WTR172"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#timesnap_potion_blue",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-heartened-cross-strap-activation-cost-three-discount-two",
+    "name": "Heartened Cross Strap / cost-three-discount-two",
+    "cardIDs": [
+      "heartened_cross_strap"
+    ],
+    "branches": [
+      "cost-three-discount-two"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "heartened_cross_strap",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "kind": "power",
+            "value": 7
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "oracle": "Activation destroys chest as cost and spends one AP; its go again restores AP1 on resolution. Next Raging Onslaught printed cost3 requires only1; pitch blue3 leaves2. Power remains7, no attack go again.",
+    "printedCard": {
+      "id": "heartened_cross_strap",
+      "name": "Heartened Cross Strap",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Chest"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Action - Destroy this: The next attack action card you play this turn costs {r}{r} less to play. Go again",
+      "wtrPrintings": [
+        "WTR152"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ],
+    "pilot": true,
+    "proposedNegativeControl": {
+      "method": "disposable-fixture-remove-effect-after-activation",
+      "prefix": "After activation resolves and before announcing attack",
+      "remove_effect": "NEXT_COST",
+      "trimReplayedPrefixAndRenumber": true,
+      "expectedSemanticFailure": "p1Resources to equal 2, got 0",
+      "why": "Without the discount, identical blue pitch pays printed3 and leaves0; native resource assertion detects loss independent of snapshot.",
+      "productionRulesMutation": false
+    }
+  },
+  {
+    "slug": "card-heartened-cross-strap-activation-cost-two-free-next-only",
+    "name": "Heartened Cross Strap / cost-two-free-next-only",
+    "cardIDs": [
+      "heartened_cross_strap"
+    ],
+    "branches": [
+      "cost-two-free-next-only"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "heartened_cross_strap",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "kind": "power",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 11
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "First printed-cost2 Surging Strike red is free and deals5 with go again. Discount is consumed exactly once. Second Surging Strike blue pays full2 using blue3, leaves1, and deals printed3+Ira1=4. Both have printed go again.",
+    "printedCard": {
+      "id": "heartened_cross_strap",
+      "name": "Heartened Cross Strap",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Chest"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Action - Destroy this: The next attack action card you play this turn costs {r}{r} less to play. Go again",
+      "wtrPrintings": [
+        "WTR152"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-heartened-cross-strap-activation-cost-one-floors-at-zero",
+    "name": "Heartened Cross Strap / cost-one-floors-at-zero",
+    "cardIDs": [
+      "heartened_cross_strap"
+    ],
+    "branches": [
+      "cost-one-floors-at-zero"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "heartened_cross_strap",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "blackout_kick_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Printed-cost1 Blackout Kick is the first attack and has no active combo bonus. Reduction2 floors payable resource cost at0; it does not create a resource. Attack deals4 with no go again.",
+    "printedCard": {
+      "id": "heartened_cross_strap",
+      "name": "Heartened Cross Strap",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Chest"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Action - Destroy this: The next attack action card you play this turn costs {r}{r} less to play. Go again",
+      "wtrPrintings": [
+        "WTR152"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-heartened-cross-strap-activation-cost-zero-consumes-discount",
+    "name": "Heartened Cross Strap / cost-zero-consumes-discount",
+    "cardIDs": [
+      "heartened_cross_strap"
+    ],
+    "branches": [
+      "cost-zero-consumes-discount"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "heartened_cross_strap",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 11
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Head Jab costs0 but is still the next attack action card, so it consumes the discount and deals3 with go again. Next Surging red pays full2 (blue3 leaves1) and deals printed5+Ira1=6; no saved discount remains.",
+    "printedCard": {
+      "id": "heartened_cross_strap",
+      "name": "Heartened Cross Strap",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Chest"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Action - Destroy this: The next attack action card you play this turn costs {r}{r} less to play. Go again",
+      "wtrPrintings": [
+        "WTR152"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-heartened-cross-strap-activation-nonattack-does-not-consume",
+    "name": "Heartened Cross Strap / nonattack-does-not-consume",
+    "cardIDs": [
+      "heartened_cross_strap"
+    ],
+    "branches": [
+      "nonattack-does-not-consume"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "heartened_cross_strap",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "nimblism_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "kind": "power",
+            "value": 7
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Nimblism is a non-attack Action with go again, so it does not consume Cross Strap. Raging Onslaught is the first attack: printed cost3 reduced to1, blue3 leaves2. Nimblism applies only to an attack card with cost1 or less, so it does not change Raging printed power7.",
+    "printedCard": {
+      "id": "heartened_cross_strap",
+      "name": "Heartened Cross Strap",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Chest"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Action - Destroy this: The next attack action card you play this turn costs {r}{r} less to play. Go again",
+      "wtrPrintings": [
+        "WTR152"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-heartened-cross-strap-activation-weapon-excluded-preserves-discount",
+    "name": "Heartened Cross Strap / weapon-excluded-preserves-discount",
+    "cardIDs": [
+      "heartened_cross_strap"
+    ],
+    "branches": [
+      "weapon-excluded-preserves-discount"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "heartened_cross_strap",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "zephyr_needle",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Weapons",
+            "cardID": "zephyr_needle"
+          }
+        ]
+      }
+    ],
+    "oracle": "Zephyr Needle is a weapon activation, not an attack action card: pay full1 using blue3, keep2, attack for2 with go again. Discount remains for next Surging Strike red, which costs0, keeps2 resources and deals printed5+Ira1=6.",
+    "printedCard": {
+      "id": "heartened_cross_strap",
+      "name": "Heartened Cross Strap",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Chest"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Action - Destroy this: The next attack action card you play this turn costs {r}{r} less to play. Go again",
+      "wtrPrintings": [
+        "WTR152"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-heartened-cross-strap-activation-zero-action-points-rejected",
+    "name": "Heartened Cross Strap / zero-action-points-rejected",
+    "cardIDs": [
+      "heartened_cross_strap"
+    ],
+    "branches": [
+      "zero-action-points-rejected"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      0,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "heartened_cross_strap",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Equipment",
+            "cardID": "heartened_cross_strap"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Action activation still requires one AP despite printed go again. At AP0 chest remains and no ability layer is created.",
+    "printedCard": {
+      "id": "heartened_cross_strap",
+      "name": "Heartened Cross Strap",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Chest"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Action - Destroy this: The next attack action card you play this turn costs {r}{r} less to play. Go again",
+      "wtrPrintings": [
+        "WTR152"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-heartened-cross-strap-activation-unused-discount-expires-at-turn-end",
+    "name": "Heartened Cross Strap / unused-discount-expires-at-turn-end",
+    "cardIDs": [
+      "heartened_cross_strap"
+    ],
+    "branches": [
+      "unused-discount-expires-at-turn-end"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "heartened_cross_strap",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "raging_onslaught_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "END_PHASE"
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "turn_player_is",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "END_PHASE"
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "turn_player_is",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Resolve Cross Strap, then pass through both turns without using its effect. Filled P1 arsenal avoids an end-phase placement prompt. On P1 next turn the this-turn discount is expired: printed3 Raging requires all blue3, leaving0. First attack of new turn deals7.",
+    "printedCard": {
+      "id": "heartened_cross_strap",
+      "name": "Heartened Cross Strap",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Chest"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Action - Destroy this: The next attack action card you play this turn costs {r}{r} less to play. Go again",
+      "wtrPrintings": [
+        "WTR152"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-snapdragon-scalers-activation-cost-zero-grants-go-again",
+    "name": "Snapdragon Scalers / cost-zero-grants-go-again",
+    "cardIDs": [
+      "snapdragon_scalers"
+    ],
+    "branches": [
+      "cost-zero-grants-go-again"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "snapdragon_scalers",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "snapdragon_scalers"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "go_again",
+            "value": true
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "snapdragon_scalers"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Attack reaction activation is legal on own wounding_blow_red, printed cost0. Destroy legs immediately, then grant go again on ability resolution. Attack deals4; resolution returns exactly1 AP, including when target already has go again.",
+    "printedCard": {
+      "id": "snapdragon_scalers",
+      "name": "Snapdragon Scalers",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Legs"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with cost 1 or less gets go again.",
+      "wtrPrintings": [
+        "WTR154"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#snapdragon_scalers",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ],
+    "pilot": false,
+    "proposedNegativeControl": {
+      "method": "disposable-fixture-skip-activation-block",
+      "mutation": "Remove only equipment activation and its ability-resolution passes; drop immediate destruction/ability-stack assertions while retaining attack damage/action-point assertions. Renumber retained steps.",
+      "expectedSemanticFailure": "p1ActionPoints to equal 1, got 0",
+      "why": "Omitting the granted effect must fail a persisted gameplay checkpoint before snapshot comparison.",
+      "productionRulesMutation": false
+    }
+  },
+  {
+    "slug": "card-snapdragon-scalers-activation-cost-one-boundary-grants-go-again",
+    "name": "Snapdragon Scalers / cost-one-boundary-grants-go-again",
+    "cardIDs": [
+      "snapdragon_scalers"
+    ],
+    "branches": [
+      "cost-one-boundary-grants-go-again"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "snapdragon_scalers",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "blackout_kick_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "snapdragon_scalers"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "TurnEffects",
+            "value": "[\"GO_AGAIN\"]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "snapdragon_scalers"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Attack reaction activation is legal on own blackout_kick_red, printed cost1. Destroy legs immediately, then grant go again on ability resolution. Attack deals4; resolution returns exactly1 AP, including when target already has go again.",
+    "printedCard": {
+      "id": "snapdragon_scalers",
+      "name": "Snapdragon Scalers",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Legs"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with cost 1 or less gets go again.",
+      "wtrPrintings": [
+        "WTR154"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#snapdragon_scalers",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ],
+    "pilot": true,
+    "proposedNegativeControl": {
+      "method": "disposable-fixture-skip-activation-block",
+      "mutation": "Remove only equipment activation and its ability-resolution passes; drop immediate destruction/ability-stack assertions while retaining attack damage/action-point assertions. Renumber retained steps.",
+      "expectedSemanticFailure": "p1ActionPoints to equal 1, got 0",
+      "why": "Omitting the granted effect must fail a persisted gameplay checkpoint before snapshot comparison.",
+      "productionRulesMutation": false
+    }
+  },
+  {
+    "slug": "card-snapdragon-scalers-activation-already-go-again-does-not-stack",
+    "name": "Snapdragon Scalers / already-go-again-does-not-stack",
+    "cardIDs": [
+      "snapdragon_scalers"
+    ],
+    "branches": [
+      "already-go-again-does-not-stack"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "snapdragon_scalers",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "snapdragon_scalers"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "go_again",
+            "value": true
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "snapdragon_scalers"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Attack reaction activation is legal on own head_jab_red, printed cost0. Destroy legs immediately, then grant go again on ability resolution. Attack deals3; resolution returns exactly1 AP, including when target already has go again.",
+    "printedCard": {
+      "id": "snapdragon_scalers",
+      "name": "Snapdragon Scalers",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Legs"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with cost 1 or less gets go again.",
+      "wtrPrintings": [
+        "WTR154"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#snapdragon_scalers",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ],
+    "pilot": false
+  },
+  {
+    "slug": "card-snapdragon-scalers-activation-cost-two-target-rejected",
+    "name": "Snapdragon Scalers / cost-two-target-rejected",
+    "cardIDs": [
+      "snapdragon_scalers"
+    ],
+    "branches": [
+      "cost-two-target-rejected"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "snapdragon_scalers",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Equipment",
+            "cardID": "snapdragon_scalers"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Equipment",
+            "cardID": "snapdragon_scalers"
+          }
+        ]
+      }
+    ],
+    "oracle": "Cost2 attack action is above the printed1 target boundary. Activation must fail without paying destruction; attack remains without go again.",
+    "printedCard": {
+      "id": "snapdragon_scalers",
+      "name": "Snapdragon Scalers",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Legs"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with cost 1 or less gets go again.",
+      "wtrPrintings": [
+        "WTR154"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#snapdragon_scalers",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-snapdragon-scalers-activation-weapon-target-rejected",
+    "name": "Snapdragon Scalers / weapon-target-rejected",
+    "cardIDs": [
+      "snapdragon_scalers"
+    ],
+    "branches": [
+      "weapon-target-rejected"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "snapdragon_scalers",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "harmonized_kodachi",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Equipment",
+            "cardID": "snapdragon_scalers"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Equipment",
+            "cardID": "snapdragon_scalers"
+          }
+        ]
+      }
+    ],
+    "oracle": "Weapon attack is not an attack action card, even though activation costs1. Blue pitch has cost3, so Kodachi has no go again. Activation must fail without paying destruction; attack remains without go again.",
+    "printedCard": {
+      "id": "snapdragon_scalers",
+      "name": "Snapdragon Scalers",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Legs"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with cost 1 or less gets go again.",
+      "wtrPrintings": [
+        "WTR154"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#snapdragon_scalers",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-snapdragon-scalers-activation-outside-reaction-rejected",
+    "name": "Snapdragon Scalers / outside-reaction-rejected",
+    "cardIDs": [
+      "snapdragon_scalers"
+    ],
+    "branches": [
+      "outside-reaction-rejected"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "snapdragon_scalers",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Equipment",
+            "cardID": "snapdragon_scalers"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Attack-reaction ability has no legal timing/target in ACTION; equipment remains.",
+    "printedCard": {
+      "id": "snapdragon_scalers",
+      "name": "Snapdragon Scalers",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Legs"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with cost 1 or less gets go again.",
+      "wtrPrintings": [
+        "WTR154"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#snapdragon_scalers",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-snapdragon-scalers-activation-defending-player-cannot-activate",
+    "name": "Snapdragon Scalers / defending-player-cannot-activate",
+    "cardIDs": [
+      "snapdragon_scalers"
+    ],
+    "branches": [
+      "defending-player-cannot-activate"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "snapdragon_scalers",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Equipment-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "snapdragon_scalers"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "snapdragon_scalers"
+          }
+        ]
+      }
+    ],
+    "oracle": "Defender has priority but does not control the attack. Its Attack Reaction ability cannot target the opposing attack; no destruction or go again is granted.",
+    "printedCard": {
+      "id": "snapdragon_scalers",
+      "name": "Snapdragon Scalers",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Legs"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with cost 1 or less gets go again.",
+      "wtrPrintings": [
+        "WTR154"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#snapdragon_scalers",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-snapdragon-scalers-activation-discount-does-not-change-target-cost",
+    "name": "Snapdragon Scalers / discount-does-not-change-target-cost",
+    "cardIDs": [
+      "snapdragon_scalers"
+    ],
+    "branches": [
+      "discount-does-not-change-target-cost"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "snapdragon_scalers",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "heartened_cross_strap",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Equipment",
+            "cardID": "snapdragon_scalers"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Equipment",
+            "cardID": "snapdragon_scalers"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "heartened_cross_strap"
+          }
+        ]
+      }
+    ],
+    "oracle": "Cross Strap reduces the payment for printed-cost2 Brutal Assault to0. It does not change the attack card cost property: Snapdragon still has no legal target, so legs remain and attack has no go again.",
+    "printedCard": {
+      "id": "snapdragon_scalers",
+      "name": "Snapdragon Scalers",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Legs"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "0",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with cost 1 or less gets go again.",
+      "wtrPrintings": [
+        "WTR154"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#snapdragon_scalers",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-breaking-scales-activation-combo-label-without-active-condition",
+    "name": "Breaking Scales / combo-label-without-active-condition",
+    "cardIDs": [
+      "breaking_scales"
+    ],
+    "branches": [
+      "combo-label-without-active-condition"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "breaking_scales",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "rising_knee_thrust_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 3
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "TurnEffects",
+            "value": "[\"WTR_POWER:1\"]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Rising Knee Thrust has Combo even when Leg Tap was not the previous attack. It is a legal target: destroy arms as cost, then add exactly1 power (3 to4), without granting go again. Native defender health16 detects that increase.",
+    "printedCard": {
+      "id": "breaking_scales",
+      "name": "Breaking Scales",
+      "types": [
+        "Ninja",
+        "Equipment",
+        "Arms"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "1",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with combo gets +1{p}.\nBattleworn",
+      "wtrPrintings": [
+        "WTR080"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ],
+    "pilot": true,
+    "proposedNegativeControl": {
+      "method": "disposable-fixture-skip-activation-block",
+      "mutation": "Remove only equipment activation and its ability-resolution passes; drop immediate destruction/ability-stack assertions while retaining attack damage/action-point assertions. Renumber retained steps.",
+      "expectedSemanticFailure": "p2Health to equal 16, got 17",
+      "why": "Omitting the granted effect must fail a persisted gameplay checkpoint before snapshot comparison.",
+      "productionRulesMutation": false
+    }
+  },
+  {
+    "slug": "card-breaking-scales-activation-active-combo-adds-only-one",
+    "name": "Breaking Scales / active-combo-adds-only-one",
+    "cardIDs": [
+      "breaking_scales"
+    ],
+    "branches": [
+      "active-combo-adds-only-one"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_ability",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "breaking_scales",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "rising_knee_thrust_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 7
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 9
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "breaking_scales"
+          }
+        ]
+      }
+    ],
+    "oracle": "Leg Tap red is first attack4 with go again. Second Rising Knee Thrust red receives printed3+Combo2+Ira1=6 and go again. Breaking Scales adds only1 to7; total damage11 leaves9, with one AP and two resources from blue pitch.",
+    "printedCard": {
+      "id": "breaking_scales",
+      "name": "Breaking Scales",
+      "types": [
+        "Ninja",
+        "Equipment",
+        "Arms"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "1",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with combo gets +1{p}.\nBattleworn",
+      "wtrPrintings": [
+        "WTR080"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-breaking-scales-activation-non-combo-attack-rejected",
+    "name": "Breaking Scales / non-combo-attack-rejected",
+    "cardIDs": [
+      "breaking_scales"
+    ],
+    "branches": [
+      "non-combo-attack-rejected"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "breaking_scales",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Equipment",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Equipment",
+            "cardID": "breaking_scales"
+          }
+        ]
+      }
+    ],
+    "oracle": "Only an attack action card with Combo is a legal target. Wounding Blow has no Combo label. Rejection must preserve arms, leave ability stack empty, and leave attack damage unmodified.",
+    "printedCard": {
+      "id": "breaking_scales",
+      "name": "Breaking Scales",
+      "types": [
+        "Ninja",
+        "Equipment",
+        "Arms"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "1",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with combo gets +1{p}.\nBattleworn",
+      "wtrPrintings": [
+        "WTR080"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-breaking-scales-activation-weapon-target-rejected",
+    "name": "Breaking Scales / weapon-target-rejected",
+    "cardIDs": [
+      "breaking_scales"
+    ],
+    "branches": [
+      "weapon-target-rejected"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "breaking_scales",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "harmonized_kodachi",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Equipment",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Equipment",
+            "cardID": "breaking_scales"
+          }
+        ]
+      }
+    ],
+    "oracle": "Only an attack action card with Combo is a legal target. Weapon attacks are excluded. Rejection must preserve arms, leave ability stack empty, and leave attack damage unmodified.",
+    "printedCard": {
+      "id": "breaking_scales",
+      "name": "Breaking Scales",
+      "types": [
+        "Ninja",
+        "Equipment",
+        "Arms"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "1",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with combo gets +1{p}.\nBattleworn",
+      "wtrPrintings": [
+        "WTR080"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-breaking-scales-activation-outside-reaction-rejected",
+    "name": "Breaking Scales / outside-reaction-rejected",
+    "cardIDs": [
+      "breaking_scales"
+    ],
+    "branches": [
+      "outside-reaction-rejected"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "breaking_scales",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Equipment",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Attack-reaction activation cannot occur in ACTION without a current own attack.",
+    "printedCard": {
+      "id": "breaking_scales",
+      "name": "Breaking Scales",
+      "types": [
+        "Ninja",
+        "Equipment",
+        "Arms"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "1",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with combo gets +1{p}.\nBattleworn",
+      "wtrPrintings": [
+        "WTR080"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-breaking-scales-activation-defending-player-cannot-activate",
+    "name": "Breaking Scales / defending-player-cannot-activate",
+    "cardIDs": [
+      "breaking_scales"
+    ],
+    "branches": [
+      "defending-player-cannot-activate"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_legality",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "breaking_scales",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "rising_knee_thrust_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Equipment-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "breaking_scales"
+          }
+        ]
+      }
+    ],
+    "oracle": "Opposing attack has Combo, but defender does not control it. Defender cannot activate its Attack Reaction ability; source remains and incoming damage stays3.",
+    "printedCard": {
+      "id": "breaking_scales",
+      "name": "Breaking Scales",
+      "types": [
+        "Ninja",
+        "Equipment",
+        "Arms"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "1",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with combo gets +1{p}.\nBattleworn",
+      "wtrPrintings": [
+        "WTR080"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-breaking-scales-activation-battleworn-return-and-zero-defense",
+    "name": "Breaking Scales / battleworn-return-and-zero-defense",
+    "cardIDs": [
+      "breaking_scales"
+    ],
+    "branches": [
+      "battleworn-return-and-zero-defense"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "card_passive",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      2,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "breaking_scales",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE"
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Equipment-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "breaking_scales"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE"
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Equipment-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 14
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "First Wounding Blow red4 is blocked by Breaking Scales1: take3. After chain closes, Battleworn adds a -1 defense counter and equipment returns, rather than being destroyed at zero defense. Second attack Wounding Blow blue2+Ira1=3 can be blocked by the zero-defense arms; take3, finish14. This outcome alone does not prove the exact counter timing before close.",
+    "printedCard": {
+      "id": "breaking_scales",
+      "name": "Breaking Scales",
+      "types": [
+        "Ninja",
+        "Equipment",
+        "Arms"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "1",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with combo gets +1{p}.\nBattleworn",
+      "wtrPrintings": [
+        "WTR080"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ]
+  },
+  {
+    "slug": "card-breaking-scales-activation-battleworn-not-before-chain-close-probe",
+    "name": "Breaking Scales / battleworn-not-before-chain-close-probe",
+    "cardIDs": [
+      "breaking_scales"
+    ],
+    "branches": [
+      "battleworn-not-before-chain-close-probe"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "rule_probe",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "breaking_scales",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Counters",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE"
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Equipment-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2CombatChain-0",
+            "property": "Counters",
+            "value": "[]"
+          }
+        ]
+      }
+    ],
+    "oracle": "Battleworn triggers when the combat chain closes (CR8.3.2). Source begins with no counters, blocks for1, and remains on the open chain in RESOLUTION. Before closing, its Counters must still be empty; do not save an early-applied counter as expected.",
+    "printedCard": {
+      "id": "breaking_scales",
+      "name": "Breaking Scales",
+      "types": [
+        "Ninja",
+        "Equipment",
+        "Arms"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "1",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with combo gets +1{p}.\nBattleworn",
+      "wtrPrintings": [
+        "WTR080"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Record one representative of each effect family only after independent semantic review; inspect native saved assertions and demonstrate an effect-specific negative control before scaling.",
+    "authoringNotes": [
+      "Workspace proposal only. No authoring run, saved fixture, independent semantic verification, or replay was performed by this author.",
+      "Non-turn player starts at AP0. All IDs are assigned by normal engine helpers; no UniqueID overrides.",
+      "Derived checks diagnose author-time state only. Saved native scalar/count/membership/property assertions must carry the claimed coverage."
+    ],
+    "remainingBranches": [
+      "UPF controller/target combinations",
+      "complex replacement, prevention, tax and permission interactions"
+    ],
+    "suspectedBug": {
+      "status": "static_code_suspected_not_exercised",
+      "location": "FaBSim/Custom/GameLogic.php::FaBCleanupResolvedLink",
+      "reason": "Function appears to add DEFENSE at chain-link resolution, before close. Probe must be reproduced and semantics checked; do not bless current early timing."
+    },
+    "recordingDisposition": "Run only as an isolated rule probe after review; retain failure evidence and do not save current incorrect behavior as a passing regression."
+  }
+]

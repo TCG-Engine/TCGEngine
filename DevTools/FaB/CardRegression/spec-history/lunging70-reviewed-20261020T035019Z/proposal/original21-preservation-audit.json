@@ -1,0 +1,155 @@
+{
+  "status": "AUTHOR_STATIC_PRESERVATION_ONLY_NOT_INDEPENDENT_APPROVAL",
+  "originalSHA256": "7a85b4b0b1f8eddd57a9db7085c9f95db876e2c07cf1fc2b8626296c04be8d2e",
+  "original21UnchangedOnDisk": true,
+  "revised21": [
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-hand-zero-ap-exact-plus-one",
+      "oldSteps": 17,
+      "newSteps": 17,
+      "addedStackParamsChecks": 1,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-arsenal-face-down-zero-ap-exact-plus-one",
+      "oldSteps": 17,
+      "newSteps": 17,
+      "addedStackParamsChecks": 1,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-arsenal-face-up-zero-ap-exact-plus-one",
+      "oldSteps": 17,
+      "newSteps": 17,
+      "addedStackParamsChecks": 1,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-zero-cost-retains-two-floating-resources",
+      "oldSteps": 17,
+      "newSteps": 17,
+      "addedStackParamsChecks": 1,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-zero-cost-keeps-unpitched-spare-blue",
+      "oldSteps": 17,
+      "newSteps": 17,
+      "addedStackParamsChecks": 1,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-full-block-does-not-create-hit-or-go-again",
+      "oldSteps": 20,
+      "newSteps": 22,
+      "addedStackParamsChecks": 1,
+      "onlyNewAction": "MZCHOOSE current AA declaration"
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-cost-three-attack-action-still-legal-target",
+      "oldSteps": 17,
+      "newSteps": 17,
+      "addedStackParamsChecks": 1,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-two-original-copies-resolve-lifo-with-additive-power",
+      "oldSteps": 23,
+      "newSteps": 23,
+      "addedStackParamsChecks": 4,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-third-reaction-after-partial-resolution-028-required",
+      "oldSteps": 28,
+      "newSteps": 28,
+      "addedStackParamsChecks": 6,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-printed-pitch-funds-generic-cost-three",
+      "oldSteps": 12,
+      "newSteps": 12,
+      "addedStackParamsChecks": 0,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-printed-defense-exact-partial-damage",
+      "oldSteps": 10,
+      "newSteps": 10,
+      "addedStackParamsChecks": 0,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-own-action-hand-rejected",
+      "oldSteps": 3,
+      "newSteps": 3,
+      "addedStackParamsChecks": 0,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-own-action-arsenal-rejected",
+      "oldSteps": 3,
+      "newSteps": 3,
+      "addedStackParamsChecks": 0,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-before-attack-layer-resolves-rejected",
+      "oldSteps": 7,
+      "newSteps": 7,
+      "addedStackParamsChecks": 0,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-attack-window-rejected",
+      "oldSteps": 7,
+      "newSteps": 7,
+      "addedStackParamsChecks": 0,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-defend-priority-window-rejected",
+      "oldSteps": 7,
+      "newSteps": 7,
+      "addedStackParamsChecks": 0,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-reaction-wrong-priority-rejected",
+      "oldSteps": 7,
+      "newSteps": 7,
+      "addedStackParamsChecks": 0,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-damage-window-too-late-rejected",
+      "oldSteps": 7,
+      "newSteps": 7,
+      "addedStackParamsChecks": 0,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-resolution-window-too-late-rejected",
+      "oldSteps": 7,
+      "newSteps": 7,
+      "addedStackParamsChecks": 0,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-defending-player-cannot-play-attack-reaction",
+      "oldSteps": 7,
+      "newSteps": 7,
+      "addedStackParamsChecks": 0,
+      "onlyNewAction": null
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-actual-weapon-attack-is-ineligible-target",
+      "oldSteps": 7,
+      "newSteps": 7,
+      "addedStackParamsChecks": 0,
+      "onlyNewAction": null
+    }
+  ],
+  "intent": "Retain every old oracle and original action. Insert explicit full-block chooser, append exact bound Params; no blanket current-target assumption."
+}

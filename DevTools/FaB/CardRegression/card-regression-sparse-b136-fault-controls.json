@@ -1,0 +1,71 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:39:44.377096+00:00",
+  "plan_sha256": "ea676c0950eef9ec28aaa608e6c08ec97505222fa0771853f3f96f3d833b0b35",
+  "independent_saved_proof_sha256": "97ed243ef3fe539a98933b67b4bbde3984393ea754498c2ce0015c5f12e40300",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b136-focused-fault-plan.json",
+    "ea676c0950eef9ec28aaa608e6c08ec97505222fa0771853f3f96f3d833b0b35",
+    "card-regression-sparse-b136-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b136_slice_and_dice_red_focused_effect_sensitivity",
+      "fixture": "card-slice-and-dice-red-four-live-sparse-actual-first-sword-plus-one",
+      "fixture_sha256": "dada7f5ccf3b9cf31289c0b5836ed18437c7f7321c4c6867ecb8170688a99593",
+      "source_raw5": {
+        "initial_gamestate.txt": "967fa08423eccbe2d46839d307e5cccedeab3ca3d346e17d017921b44ca0a860",
+        "actions.json": "aa8c19cdf184a32215f004b4a9656beac99c105d01aeac5e9686ede0cf6f2874",
+        "assertions.json": "ebc7e374772a6d2873748c4aa1323f70a82db9e5f17428d03a9a7aa10f2104ff",
+        "expected_final_gamestate.txt": "6698e554c332d4c2f08495533aaf37602798db569ed1ac7872e279aff39cee46",
+        "meta.json": "c854d2846d330be0f981888e970ba581c2a6605720efc14336bb423aabaab658"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "EVR_SLICE"
+      },
+      "retained_assertions": 944,
+      "expected_failure_step": 7,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Slice and Dice / four live actual first sword: Step 7 assertion failed: Expected p1CombatChain-0 computed power to equal 4, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual resolved Slice grant before the actual first physical Dawnblade activation; real first-sword history/count and physical7/proxy8, Blue6 pitch and weapon1 payment remain. First power4 becomes3; second attack and other weapon branches receive no credit. Missing buff semantic sensitivity only; every original suffix action/oracle retained, no legal alternate branch or positive conditionalGA claim. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b136_engaged_swiftblade_red_focused_effect_sensitivity",
+      "fixture": "card-engaged-swiftblade-red-four-live-sparse-actual-paid-warrior-attack-plus-three",
+      "fixture_sha256": "c7b62ef4ae62e75773c9437eaa797de2cdf73c8fc94989673da1a776fa0414cc",
+      "source_raw5": {
+        "initial_gamestate.txt": "c45ed6f488512f9078a07cfdc6785aacdbd686eb6d23582ede4e41a10d8cbbc0",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "a7339f248de16a1b66bb8f90a968b886c75a08fd49d551163f54cc908e631374",
+        "expected_final_gamestate.txt": "e14a1224a90836e2ca0596aa340de71661d424fd5908913072ddf8d2af05e7ce",
+        "meta.json": "082e79bc6e8a66cd3d4caf1ab97d99aeb8ea46980a046eb37e42356c97817087"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "remove_effect": "HVY_NEXT_ATTACK"
+      },
+      "retained_assertions": 793,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 9, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Engaged Swiftblade / four live actual paid Warrior attack: Step 6 assertion failed: Expected p1CombatChain-0 computed power to equal 9, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual resolved next-Warrior grant before actual class-matching ClashVigorRed6, retaining realBlue7 pitch/source1 and same remaining2-resource attack payment. First power9 becomes6, empty defenders still mean noGA, and no token/hero effect is introduced. Missing buff semantic sensitivity only; every original suffix action/oracle retained, no legal alternate branch or positive conditionalGA claim. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

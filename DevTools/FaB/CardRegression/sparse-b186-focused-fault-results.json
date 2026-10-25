@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:29:16.317985+00:00",
+  "plan_sha256": "bdef62480bf08ee9be4fb0dba0efa000d2c162a24ecee8149b01325f32b1d34a",
+  "independent_saved_proof_sha256": "3f56b7845efd30661c53f1d8f4140b85022491ff14569545c17eb63701001652",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b186-focused-fault-plan.json",
+    "bdef62480bf08ee9be4fb0dba0efa000d2c162a24ecee8149b01325f32b1d34a",
+    "sparse-b186-focused-fault-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b186_fog_down_yellow_opposing_static_go_again_suppression_sensitivity",
+      "fixture": "card-fog-down-yellow-four-live-sparse-opposing-live-seat-static-aura-removes-printed-go-again-from-real-nonattack",
+      "fixture_sha256": "bff580cda9ec1bb8a08ba0a0ed9e731a1a85b5d02d247a6c68cc8d2de31f8ed6",
+      "source_raw5": {
+        "initial_gamestate.txt": "94664bae39fe5a9b01d820221e69ba6db33db1a6bc4a073645c0300baf4dd491",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "93f439929ca88e0ac3e71bafb0b827f5e26a424f3c84afb9a0bce25ca638d23a",
+        "expected_final_gamestate.txt": "499f93f59a687b7834e597f1f1268cfa1e702522a3f6b672b2809f3b58d4c95b",
+        "meta.json": "0403e0caab2ac482fe5da6312b69d0256b44a93d2e35ef8e787a241173dee213"
+      },
+      "prefix_actions": 1,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "Arena",
+            "cardID": "fog_down_yellow",
+            "mode": "add",
+            "tag": "NO_ABILITIES"
+          }
+        ]
+      },
+      "retained_assertions": 209,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1ActionPoints to equal 0, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Fog Down / four live opposing Aura suppresses actual nonattack go again: Step 4 assertion failed: Expected p1ActionPoints to equal 0, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual P1 Nimblism6 Action0/sourceannouncement spendsAP1-to0, add only existing NO_ABILITIES to actual retained opposing P4Fog5 Arena. HasNoAbilities makes MONArena/UPRFog ignore only that static source; physicalAura/UID/owner/controller/status remain unchanged, avoiding original presence-oracle masking. Retain allfour original live manual responses and every prefix/suffix oracle. Nimblism printedGA returnsAP1 without Fog suppression, intended original Step4 finalAP0-to1 is first failure. Synthetic exact source-ability omission only, not legal blanking, primaryplay/cost/expiry/latercantgain or otherbranch/fullcard credit.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

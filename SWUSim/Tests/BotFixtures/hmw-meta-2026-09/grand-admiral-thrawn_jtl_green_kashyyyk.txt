@@ -1,0 +1,46 @@
+# Real-deck self-play fixture — Grand Admiral Thrawn, ...How Unfortunate - Origin Tree
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #30 of 39 (2-4-0), player MNK_Naife
+#   https://melee.gg/Decklist/View/6c6d8755-fdf6-42fb-b60a-b4de01663f1c — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Grand Admiral Thrawn (JTL) Green (Kashyyyk) archetype in this event — the only list of it.
+#   Base trait (Kashyyyk) is part of the archetype: a card in the deck or sideboard cares about a Kashyyyk base.
+#   Main 53 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): hardcontrol — the classifier read hardcontrol (shape, low confidence: shape score 3.58 (avg cost 4.51, 13 cheap, 11 big, 13 removal, 7 wipe, 8 draw); nearest labelled list grand-admiral-thrawn_jtl_data-vault is only 65%)
+# Style: hardcontrol
+
+Leader
+1 JTL_002
+
+Base
+1 HMW_024
+
+Deck
+3 ASH_116
+3 LAW_097
+3 ASH_097
+3 LOF_059
+3 ASH_053
+2 ASH_048
+2 ASH_050
+1 ASH_133
+3 ASH_052
+2 LAW_140
+2 JTL_063
+2 JTL_033
+3 ASH_103
+3 LAW_133
+3 JTL_043
+3 LAW_044
+2 SEC_179
+2 LAW_043
+2 LAW_132
+1 SEC_078
+3 HMW_151
+2 HMW_059
+
+Sideboard
+2 SEC_078
+2 ASH_077
+2 HMW_113
+2 HMW_107
+1 HMW_110
+1 LAW_132

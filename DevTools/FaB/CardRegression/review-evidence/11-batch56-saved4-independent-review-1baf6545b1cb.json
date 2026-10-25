@@ -1,0 +1,310 @@
+{
+  "status": "EXACT_APPROVED_ROW_SUBSET_CURRENT_BYTES_ONLY_NOT_RUNTIME_QUALIFIED",
+  "reviewer": "/root/wtr_buff_scenarios",
+  "review_basis": "Exact approved saved-fixture rows inherited without altered row fields; source independent review preserved verbatim. Runtime qualification is separate.",
+  "original_review": {
+    "path": "batch56-saved4-independent-review.json",
+    "sha256": "b827c9066bf79bc2b0e8d5fb79b5717c767087e34d7c85f9bd73d4fd4e910b15"
+  },
+  "fixtures": [
+    {
+      "slug": "compat-flat-defense-reaction-dodge-blue-third-response-after-partial-resolution",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2986f486de95116e47470b8f87393e351fa4f3218026a16bd88a37cbbbcc481c",
+        "actions.json": "be4dde4cf29254b2086c9e37f961df6cb2d77f35444703ad883ffb5f3d66f8ec",
+        "assertions.json": "d642b2d1e2385da9142dea7ac493cb8b4d3294b1f3e18d68f9199e05b92fdc05",
+        "expected_final_gamestate.txt": "e2df0f7b292d20d680e12720039b861d403da741ae2dbbfd4da335c0282fda26",
+        "meta.json": "23e7b2d9389062af1133617c5ca65f967705d4ed013d8b7681455266cb6f681b"
+      },
+      "fixture_sha256": "6671a876c04ab9235d551da1c0053a6f1e6265ce1b539175737c3ab4de04fd29",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 27,
+      "native_assertions": 332,
+      "independent_model_checks": 340,
+      "actual_priority_passes": 23,
+      "recording_archive_sha256": "0213bf42bdc3cc23195bde4b2f493bb0668ef3953ecb66292be0636c6cc90d22",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          6,
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "compat-flat-defense-reaction-evasive-leap-yellow-third-response-after-partial-resolution",
+      "card_ids": [
+        "dodge_blue",
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "f5f53ba1ec8dbb6756aec2243b5edcc29d661bb7ae3de8589ce11d50e60eb0f7",
+        "actions.json": "be4dde4cf29254b2086c9e37f961df6cb2d77f35444703ad883ffb5f3d66f8ec",
+        "assertions.json": "2fa2d19c1e89a9c739132ef9ab5f4dafa8429b6544438287fb7d4c02faf24a1d",
+        "expected_final_gamestate.txt": "422b99d3d2a557ede5f81905bbd844405bfaeadff6c85ae517765c86b4bcc250",
+        "meta.json": "121ac978530744d0497d4e4d8b7f097c133ad68462af41f16ac5e007a92d3d87"
+      },
+      "fixture_sha256": "fd96c1ba0b4818a3148c2b2cf1fd23c4159bd993423a9d34bf96b26e9a00341b",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 27,
+      "native_assertions": 332,
+      "independent_model_checks": 340,
+      "actual_priority_passes": 23,
+      "recording_archive_sha256": "0213bf42bdc3cc23195bde4b2f493bb0668ef3953ecb66292be0636c6cc90d22",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          6,
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "compat-flat-defense-reaction-evasive-leap-blue-third-response-after-partial-resolution",
+      "card_ids": [
+        "dodge_blue",
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "dfe84435e01e9eb60452498caf13e19398618c2c7bd0851ec33ddaf65a651b9f",
+        "actions.json": "be4dde4cf29254b2086c9e37f961df6cb2d77f35444703ad883ffb5f3d66f8ec",
+        "assertions.json": "7a4e35c5e050fa5a8db28485a64212d960aa3e1cfe17c8f4bdbe108430b9c356",
+        "expected_final_gamestate.txt": "13f06ae45bea64582e5ddef82f6dc807d2cf622f0b912418ffe7c9e686ea06e4",
+        "meta.json": "b7ad36e9f6296f92c200b3f35a811ccf981efcad490578d8907dca7266874d63"
+      },
+      "fixture_sha256": "28e35063559131a40c2b2dc040742f12d17370758b13b0cb517f9d3ae44a26be",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 27,
+      "native_assertions": 332,
+      "independent_model_checks": 340,
+      "actual_priority_passes": 23,
+      "recording_archive_sha256": "0213bf42bdc3cc23195bde4b2f493bb0668ef3953ecb66292be0636c6cc90d22",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          6,
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "compat-flat-defense-reaction-toughen-up-blue-third-response-after-partial-resolution",
+      "card_ids": [
+        "dodge_blue",
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "551bbe858a209eccef01a989b00b29637ebd10d14adb84dbca67e82ef3ae38de",
+        "actions.json": "be4dde4cf29254b2086c9e37f961df6cb2d77f35444703ad883ffb5f3d66f8ec",
+        "assertions.json": "540825efac046d649bdd0409f41390b59a48c52c2434a850422d7712a4e075f3",
+        "expected_final_gamestate.txt": "3d4e121be30e25589cf48b027791197baace6044dcdc895e9035b2ce478e2d5b",
+        "meta.json": "a50c905901baecbd619b123f45639c80a7817db93f83cdd41ac63380514a626c"
+      },
+      "fixture_sha256": "8f624712f054111d7a0cac2ea4d5346789eabb7db9242d1c4c0f93286ed9b04f",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 27,
+      "native_assertions": 332,
+      "independent_model_checks": 340,
+      "actual_priority_passes": 23,
+      "recording_archive_sha256": "0213bf42bdc3cc23195bde4b2f493bb0668ef3953ecb66292be0636c6cc90d22",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          6,
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    }
+  ]
+}

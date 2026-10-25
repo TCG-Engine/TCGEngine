@@ -1,0 +1,18 @@
+{
+  "status": "EXACT_8_SOURCE_OVERLAY_AND_659_FIXTURE_HISTORICAL_BYTES_RECONSTRUCTED",
+  "captured_utc": "2026-10-20T00:39:44.394439+00:00",
+  "base_current_runtime_sha256": "8ef84003d127806df61aa7bb0eb577df5783846f088fcb063d3fcec5b9a83f87",
+  "historical_runtime_sha256": "d85229659e75730de2649374a6182852fc19b0a2f5e080c4b1fa7c00bbf02062",
+  "source_overlay_files": 8,
+  "new_runner_historical_raw_sha256": "d339d93ea4f3f5d2dc41315de98aa6fe6e9cc675b0c9274b00d2b861a977a522",
+  "new_current_runner_raw_sha256": "f0194817194cc5983c0bc9f716a9057f365fbb898e73ce6164d093f643672ddd",
+  "historical_fixture_behaviors_matched": 659,
+  "fixture_overlay_folders": 14,
+  "base_fixture_behaviors_reused": 645,
+  "source_inventory_files": 123,
+  "original7_overlay_bundle_unchanged": true,
+  "native_writes": 0,
+  "games_or_php_executions": 0,
+  "user_game_or_save_data_copied": false,
+  "qualification": "Hash/byte reconstruction only. Existing original two659 clean reports supply historical execution evidence; no current source or expanded corpus passing claim. The old7 overlays already replace changed AB WTRCards, and this supplement adds historical Runner as eighth override. Matching base manifests remain required."
+}

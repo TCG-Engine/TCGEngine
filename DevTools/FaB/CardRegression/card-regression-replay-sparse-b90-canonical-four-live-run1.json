@@ -1,0 +1,62 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch90.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T22:52:11.084664+00:00",
+  "fixtures": [
+    {
+      "slug": "card-mage-master-boots-four-live-sparse-real-paid-legs-destroy-and-next-nonattack-go-again",
+      "fixture_sha256": "3dc433742fd0fb2f13a73291a6a0f8c4972a387ada69f8a5ee0dc703070d9310",
+      "passed": true,
+      "result": "[PASS] Mage Master Boots / four live sparse effect"
+    },
+    {
+      "slug": "card-take-aim-red-four-live-sparse-occupied-arsenal-bow-and-actual-arrow-buff",
+      "fixture_sha256": "b956fd015d351d85070c7d73dc2778342290ee0b0fe68fe0b0440fc3b46e5409",
+      "passed": true,
+      "result": "[PASS] Take Aim / four live sparse effect"
+    },
+    {
+      "slug": "card-over-flex-red-four-live-sparse-occupied-arsenal-bow-and-actual-arrow-buff",
+      "fixture_sha256": "86ef4cce47a9e8c3e2c5d445ca6d384fb6949a13451719344a94b66b317fda18",
+      "passed": true,
+      "result": "[PASS] Over Flex / four live sparse effect"
+    },
+    {
+      "slug": "card-reduce-to-runechant-red-four-live-sparse-actual-owned-runechant-discount-and-dr-creation",
+      "fixture_sha256": "dbe44c1ef76bfca9f05f98fb28dc9bf67f906bf3447e7112f6da59c40d7f201c",
+      "passed": true,
+      "result": "[PASS] Reduce to Runechant / four live sparse effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-mage-master-boots-four-live-sparse-real-paid-legs-destroy-and-next-nonattack-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Mage Master Boots / four live sparse effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-take-aim-red-four-live-sparse-occupied-arsenal-bow-and-actual-arrow-buff",
+      "returncode": 0,
+      "stdout": "[PASS] Take Aim / four live sparse effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-over-flex-red-four-live-sparse-occupied-arsenal-bow-and-actual-arrow-buff",
+      "returncode": 0,
+      "stdout": "[PASS] Over Flex / four live sparse effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-reduce-to-runechant-red-four-live-sparse-actual-owned-runechant-discount-and-dr-creation",
+      "returncode": 0,
+      "stdout": "[PASS] Reduce to Runechant / four live sparse effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3113,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

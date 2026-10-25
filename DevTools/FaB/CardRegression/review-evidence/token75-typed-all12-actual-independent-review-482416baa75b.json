@@ -1,0 +1,2349 @@
+{
+  "status": "INDEPENDENT_ACTUAL_SAVED_TOKEN75_TYPED_ALL12_APPROVED",
+  "reviewer": "/root/resume_actual_audit",
+  "captured_utc": "2026-10-20T13:53:13.827948+00:00",
+  "runtime_start": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+  "runtime_end": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+  "scenarios": [
+    {
+      "slug": "card-destructive-deliberation-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "375657b61a760b344eab034136c999d788d141fef3bb3a9ba23ec3fc80c6538c",
+        "actions.json": "1e6e55bd70b5a666e12eb61676dec1347c97b1e13ee32989a4cbdeb4ed538c74",
+        "assertions.json": "297f1d2a5ecd63eb000362f2bfcf4fe94e6a558761c521bb4a785435e87076e4",
+        "expected_final_gamestate.txt": "a8c457ab6f0ca942d9cd67cf883627c58a6485d69f06b54f481e73b627716c2e",
+        "meta.json": "863ea118fd4d8b817aa9e8761650bc0931070d4084f36d9b45b363b5fafd3d0c"
+      },
+      "fixture_sha256": "cdc599df867272127af72189a2c235f959efbe94fdb659ec230b381f575f6384",
+      "actions": 24,
+      "native_assertions": 624,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "step": 0,
+          "native_assertions": 41,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "step": 1,
+          "native_assertions": 44,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "step": 3,
+          "native_assertions": 46,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "actual_hit_pending_original_token_absent",
+          "step": 10,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_opponent_priority_over_hit_layer",
+          "step": 11,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_discard_activation_paid_above_original_hit",
+          "step": 12,
+          "native_assertions": 63,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "ripple_replacement_resolved_hit_layer_still_pending",
+          "step": 14,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_instant_above_hit_after_ripple_no_early_token",
+          "step": 16,
+          "native_assertions": 60,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "instant_gained_three_hit_layer_still_action_sourced",
+          "step": 18,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "canonical_action_token_replacement_zero_after_layer_resolution",
+          "step": 20,
+          "native_assertions": 50,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "chain_link_resolved_ap_from_current_attack_only",
+          "step": 22,
+          "native_assertions": 50,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_close_preserves_exact_owner_cards_and_token_outcome",
+          "step": 24,
+          "native_assertions": 42,
+          "computed_active_ref": null
+        }
+      ],
+      "author_only_checks": [],
+      "independent_model": {
+        "slug": "card-destructive-deliberation-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+        "spec_semantically_approved": true,
+        "native_planned_oracles": 624,
+        "modeled_supported_actions": 24,
+        "modeled_individual_passes": 21,
+        "checkpoints": [
+          {
+            "checkpoint": "initial_printed_legal_assets",
+            "paper_action_step": 0,
+            "oracles": 41
+          },
+          {
+            "checkpoint": "assets_paid_no_token_or_hit_layer",
+            "paper_action_step": 1,
+            "oracles": 44
+          },
+          {
+            "checkpoint": "printed_power_no_retroactive_go_again",
+            "paper_action_step": 3,
+            "oracles": 46
+          },
+          {
+            "checkpoint": "actual_hit_pending_original_token_absent",
+            "paper_action_step": 10,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "real_opponent_priority_over_hit_layer",
+            "paper_action_step": 11,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "real_discard_activation_paid_above_original_hit",
+            "paper_action_step": 12,
+            "oracles": 63
+          },
+          {
+            "checkpoint": "ripple_replacement_resolved_hit_layer_still_pending",
+            "paper_action_step": 14,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "real_instant_above_hit_after_ripple_no_early_token",
+            "paper_action_step": 16,
+            "oracles": 60
+          },
+          {
+            "checkpoint": "instant_gained_three_hit_layer_still_action_sourced",
+            "paper_action_step": 18,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "canonical_action_token_replacement_zero_after_layer_resolution",
+            "paper_action_step": 20,
+            "oracles": 50
+          },
+          {
+            "checkpoint": "chain_link_resolved_ap_from_current_attack_only",
+            "paper_action_step": 22,
+            "oracles": 50
+          },
+          {
+            "checkpoint": "real_close_preserves_exact_owner_cards_and_token_outcome",
+            "paper_action_step": 24,
+            "oracles": 42
+          }
+        ],
+        "final_hp": [
+          20,
+          18
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_ap": [
+          0,
+          0
+        ],
+        "final_turn_player": 1
+      },
+      "physical_terminal_validated": true,
+      "prior6_unchanged": true
+    },
+    {
+      "slug": "card-strike-gold-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "844078fc77bf54e92e431a7e375a256354f16c45016c2cad50e0c1e0efb646bc",
+        "actions.json": "1e6e55bd70b5a666e12eb61676dec1347c97b1e13ee32989a4cbdeb4ed538c74",
+        "assertions.json": "1a08757a58e526f635fde2dc39502ee540c51d8bb7cc957baa9e9db98e1f2d3a",
+        "expected_final_gamestate.txt": "9d0254923e76474ce68591972dfa66e95a7a4a81c03bc132e88a2b043a5b9b88",
+        "meta.json": "0f599bfa6b4b6b46e3fe7341c55541738f5bc5fe15be8b2d8ad69101423e7178"
+      },
+      "fixture_sha256": "3f78780a19206548dedc3511b2aeb62ac5e98865ffd1bc10cbb767cbda0bbeb9",
+      "actions": 24,
+      "native_assertions": 624,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "step": 0,
+          "native_assertions": 41,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "step": 1,
+          "native_assertions": 44,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "step": 3,
+          "native_assertions": 46,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "actual_hit_pending_original_token_absent",
+          "step": 10,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_opponent_priority_over_hit_layer",
+          "step": 11,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_discard_activation_paid_above_original_hit",
+          "step": 12,
+          "native_assertions": 63,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "ripple_replacement_resolved_hit_layer_still_pending",
+          "step": 14,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_instant_above_hit_after_ripple_no_early_token",
+          "step": 16,
+          "native_assertions": 60,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "instant_gained_three_hit_layer_still_action_sourced",
+          "step": 18,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "canonical_action_token_replacement_zero_after_layer_resolution",
+          "step": 20,
+          "native_assertions": 50,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "chain_link_resolved_ap_from_current_attack_only",
+          "step": 22,
+          "native_assertions": 50,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_close_preserves_exact_owner_cards_and_token_outcome",
+          "step": 24,
+          "native_assertions": 42,
+          "computed_active_ref": null
+        }
+      ],
+      "author_only_checks": [],
+      "independent_model": {
+        "slug": "card-strike-gold-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+        "spec_semantically_approved": true,
+        "native_planned_oracles": 624,
+        "modeled_supported_actions": 24,
+        "modeled_individual_passes": 21,
+        "checkpoints": [
+          {
+            "checkpoint": "initial_printed_legal_assets",
+            "paper_action_step": 0,
+            "oracles": 41
+          },
+          {
+            "checkpoint": "assets_paid_no_token_or_hit_layer",
+            "paper_action_step": 1,
+            "oracles": 44
+          },
+          {
+            "checkpoint": "printed_power_no_retroactive_go_again",
+            "paper_action_step": 3,
+            "oracles": 46
+          },
+          {
+            "checkpoint": "actual_hit_pending_original_token_absent",
+            "paper_action_step": 10,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "real_opponent_priority_over_hit_layer",
+            "paper_action_step": 11,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "real_discard_activation_paid_above_original_hit",
+            "paper_action_step": 12,
+            "oracles": 63
+          },
+          {
+            "checkpoint": "ripple_replacement_resolved_hit_layer_still_pending",
+            "paper_action_step": 14,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "real_instant_above_hit_after_ripple_no_early_token",
+            "paper_action_step": 16,
+            "oracles": 60
+          },
+          {
+            "checkpoint": "instant_gained_three_hit_layer_still_action_sourced",
+            "paper_action_step": 18,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "canonical_action_token_replacement_zero_after_layer_resolution",
+            "paper_action_step": 20,
+            "oracles": 50
+          },
+          {
+            "checkpoint": "chain_link_resolved_ap_from_current_attack_only",
+            "paper_action_step": 22,
+            "oracles": 50
+          },
+          {
+            "checkpoint": "real_close_preserves_exact_owner_cards_and_token_outcome",
+            "paper_action_step": 24,
+            "oracles": 42
+          }
+        ],
+        "final_hp": [
+          20,
+          19
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_ap": [
+          0,
+          0
+        ],
+        "final_turn_player": 1
+      },
+      "physical_terminal_validated": true,
+      "prior6_unchanged": true
+    },
+    {
+      "slug": "card-earth-form-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "61f6c0deb963768056d20dd599fbe349532ea1478dcd3e5c895d74270ff1c9db",
+        "actions.json": "1e6e55bd70b5a666e12eb61676dec1347c97b1e13ee32989a4cbdeb4ed538c74",
+        "assertions.json": "9bae4c63c10d705258650b53d3bdc17fd50ac1a7f312eb95a8ee13e292a538e9",
+        "expected_final_gamestate.txt": "d9954c6a2c4f5c943dfc486a7f7fb934e7ee2eecc2cc845436344a8a37a9322b",
+        "meta.json": "4bdd776b4a89e30a41d397b4c8b140841f63e2f70212af9ac9f62c1b29f388bb"
+      },
+      "fixture_sha256": "68d49cdac8c66d4205955bff2fe2828eb9a23f65129502874b4c7c1e143bec6a",
+      "actions": 24,
+      "native_assertions": 624,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "step": 0,
+          "native_assertions": 41,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "step": 1,
+          "native_assertions": 44,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "step": 3,
+          "native_assertions": 46,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "actual_hit_pending_original_token_absent",
+          "step": 10,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_opponent_priority_over_hit_layer",
+          "step": 11,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_discard_activation_paid_above_original_hit",
+          "step": 12,
+          "native_assertions": 63,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "ripple_replacement_resolved_hit_layer_still_pending",
+          "step": 14,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_instant_above_hit_after_ripple_no_early_token",
+          "step": 16,
+          "native_assertions": 60,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "instant_gained_three_hit_layer_still_action_sourced",
+          "step": 18,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "canonical_action_token_replacement_zero_after_layer_resolution",
+          "step": 20,
+          "native_assertions": 50,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "chain_link_resolved_ap_from_current_attack_only",
+          "step": 22,
+          "native_assertions": 50,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_close_preserves_exact_owner_cards_and_token_outcome",
+          "step": 24,
+          "native_assertions": 42,
+          "computed_active_ref": null
+        }
+      ],
+      "author_only_checks": [],
+      "independent_model": {
+        "slug": "card-earth-form-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+        "spec_semantically_approved": true,
+        "native_planned_oracles": 624,
+        "modeled_supported_actions": 24,
+        "modeled_individual_passes": 21,
+        "checkpoints": [
+          {
+            "checkpoint": "initial_printed_legal_assets",
+            "paper_action_step": 0,
+            "oracles": 41
+          },
+          {
+            "checkpoint": "assets_paid_no_token_or_hit_layer",
+            "paper_action_step": 1,
+            "oracles": 44
+          },
+          {
+            "checkpoint": "printed_power_no_retroactive_go_again",
+            "paper_action_step": 3,
+            "oracles": 46
+          },
+          {
+            "checkpoint": "actual_hit_pending_original_token_absent",
+            "paper_action_step": 10,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "real_opponent_priority_over_hit_layer",
+            "paper_action_step": 11,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "real_discard_activation_paid_above_original_hit",
+            "paper_action_step": 12,
+            "oracles": 63
+          },
+          {
+            "checkpoint": "ripple_replacement_resolved_hit_layer_still_pending",
+            "paper_action_step": 14,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "real_instant_above_hit_after_ripple_no_early_token",
+            "paper_action_step": 16,
+            "oracles": 60
+          },
+          {
+            "checkpoint": "instant_gained_three_hit_layer_still_action_sourced",
+            "paper_action_step": 18,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "canonical_action_token_replacement_zero_after_layer_resolution",
+            "paper_action_step": 20,
+            "oracles": 50
+          },
+          {
+            "checkpoint": "chain_link_resolved_ap_from_current_attack_only",
+            "paper_action_step": 22,
+            "oracles": 50
+          },
+          {
+            "checkpoint": "real_close_preserves_exact_owner_cards_and_token_outcome",
+            "paper_action_step": 24,
+            "oracles": 42
+          }
+        ],
+        "final_hp": [
+          20,
+          16
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_ap": [
+          0,
+          0
+        ],
+        "final_turn_player": 1
+      },
+      "physical_terminal_validated": true,
+      "prior6_unchanged": true
+    },
+    {
+      "slug": "card-lightning-form-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "826dee797cad093a61c39b696a6d0bd94ac9af71a008f76b942f7ed2e9b2e0d8",
+        "actions.json": "1e6e55bd70b5a666e12eb61676dec1347c97b1e13ee32989a4cbdeb4ed538c74",
+        "assertions.json": "b3fba99effd77e93de3cb2c6cfb6edc73c7d3dc19e5face4868322bac037d9c5",
+        "expected_final_gamestate.txt": "6bc7de224eac4f31f3efa64ced78364b6fed1fdf3ede542cf2b99f482c1ee958",
+        "meta.json": "4b9517a82cd9341cd88ba2c0f0844fb36db2ccc4e3363394a9dc779b1d1e47bb"
+      },
+      "fixture_sha256": "994f03def21ced3d644fa3c2e4b45dfb450b0d63d50a72ac5ea1c51e8075fe2a",
+      "actions": 24,
+      "native_assertions": 624,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "step": 0,
+          "native_assertions": 41,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "step": 1,
+          "native_assertions": 44,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "step": 3,
+          "native_assertions": 46,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "actual_hit_pending_original_token_absent",
+          "step": 10,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_opponent_priority_over_hit_layer",
+          "step": 11,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_discard_activation_paid_above_original_hit",
+          "step": 12,
+          "native_assertions": 63,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "ripple_replacement_resolved_hit_layer_still_pending",
+          "step": 14,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_instant_above_hit_after_ripple_no_early_token",
+          "step": 16,
+          "native_assertions": 60,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "instant_gained_three_hit_layer_still_action_sourced",
+          "step": 18,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "canonical_action_token_replacement_zero_after_layer_resolution",
+          "step": 20,
+          "native_assertions": 50,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "chain_link_resolved_ap_from_current_attack_only",
+          "step": 22,
+          "native_assertions": 50,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_close_preserves_exact_owner_cards_and_token_outcome",
+          "step": 24,
+          "native_assertions": 42,
+          "computed_active_ref": null
+        }
+      ],
+      "author_only_checks": [],
+      "independent_model": {
+        "slug": "card-lightning-form-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+        "spec_semantically_approved": true,
+        "native_planned_oracles": 624,
+        "modeled_supported_actions": 24,
+        "modeled_individual_passes": 21,
+        "checkpoints": [
+          {
+            "checkpoint": "initial_printed_legal_assets",
+            "paper_action_step": 0,
+            "oracles": 41
+          },
+          {
+            "checkpoint": "assets_paid_no_token_or_hit_layer",
+            "paper_action_step": 1,
+            "oracles": 44
+          },
+          {
+            "checkpoint": "printed_power_no_retroactive_go_again",
+            "paper_action_step": 3,
+            "oracles": 46
+          },
+          {
+            "checkpoint": "actual_hit_pending_original_token_absent",
+            "paper_action_step": 10,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "real_opponent_priority_over_hit_layer",
+            "paper_action_step": 11,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "real_discard_activation_paid_above_original_hit",
+            "paper_action_step": 12,
+            "oracles": 63
+          },
+          {
+            "checkpoint": "ripple_replacement_resolved_hit_layer_still_pending",
+            "paper_action_step": 14,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "real_instant_above_hit_after_ripple_no_early_token",
+            "paper_action_step": 16,
+            "oracles": 60
+          },
+          {
+            "checkpoint": "instant_gained_three_hit_layer_still_action_sourced",
+            "paper_action_step": 18,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "canonical_action_token_replacement_zero_after_layer_resolution",
+            "paper_action_step": 20,
+            "oracles": 50
+          },
+          {
+            "checkpoint": "chain_link_resolved_ap_from_current_attack_only",
+            "paper_action_step": 22,
+            "oracles": 50
+          },
+          {
+            "checkpoint": "real_close_preserves_exact_owner_cards_and_token_outcome",
+            "paper_action_step": 24,
+            "oracles": 42
+          }
+        ],
+        "final_hp": [
+          20,
+          18
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_ap": [
+          0,
+          0
+        ],
+        "final_turn_player": 1
+      },
+      "physical_terminal_validated": true,
+      "prior6_unchanged": true
+    },
+    {
+      "slug": "card-strike-gold-red-token75-created-gold-real-action-two-destroy-draw-go-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b5304746a933041da892bdfd70633602edc2cf0e033e8c5f8996e42af6448c01",
+        "actions.json": "fda17ee6908e41f4e4230435120a29506f28ee62d57835736a2197573bdffe06",
+        "assertions.json": "db81b7dbc7f250936e38351da524b7a9caab978420aa66c28fff26518659be9c",
+        "expected_final_gamestate.txt": "2b71c60742c8210b43dfecb79af62ac081e9970cedcb2233baca6a82623a6be6",
+        "meta.json": "ff455664d40cc464921753e64298c2b4501955fc1d0f9a208d58d8214a16d225"
+      },
+      "fixture_sha256": "e79042a8cb49358e3ef48af411caed9686b8040a9666811ffc679a649821b38f",
+      "actions": 19,
+      "native_assertions": 450,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "step": 0,
+          "native_assertions": 37,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "step": 1,
+          "native_assertions": 40,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "step": 3,
+          "native_assertions": 42,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "step": 10,
+          "native_assertions": 53,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "step": 11,
+          "native_assertions": 53,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "step": 12,
+          "native_assertions": 51,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "step": 14,
+          "native_assertions": 51,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "step": 16,
+          "native_assertions": 43,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "created_gold_activation_pays_two_and_destroy_before_draw",
+          "step": 17,
+          "native_assertions": 43,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "gold_draws_exact_original_deck_card_own_go_again_refunds_once",
+          "step": 19,
+          "native_assertions": 37,
+          "computed_active_ref": null
+        }
+      ],
+      "author_only_checks": [],
+      "independent_model": {
+        "slug": "card-strike-gold-red-token75-created-gold-real-action-two-destroy-draw-go-again",
+        "spec_semantically_approved": true,
+        "native_planned_oracles": 450,
+        "modeled_supported_actions": 19,
+        "modeled_individual_passes": 17,
+        "checkpoints": [
+          {
+            "checkpoint": "initial_printed_legal_assets",
+            "paper_action_step": 0,
+            "oracles": 37
+          },
+          {
+            "checkpoint": "assets_paid_no_token_or_hit_layer",
+            "paper_action_step": 1,
+            "oracles": 40
+          },
+          {
+            "checkpoint": "printed_power_no_retroactive_go_again",
+            "paper_action_step": 3,
+            "oracles": 42
+          },
+          {
+            "checkpoint": "real_damage_trigger_layer_token_absent",
+            "paper_action_step": 10,
+            "oracles": 53
+          },
+          {
+            "checkpoint": "opponent_priority_token_still_absent",
+            "paper_action_step": 11,
+            "oracles": 53
+          },
+          {
+            "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+            "paper_action_step": 12,
+            "oracles": 51
+          },
+          {
+            "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+            "paper_action_step": 14,
+            "oracles": 51
+          },
+          {
+            "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+            "paper_action_step": 16,
+            "oracles": 43
+          },
+          {
+            "checkpoint": "created_gold_activation_pays_two_and_destroy_before_draw",
+            "paper_action_step": 17,
+            "oracles": 43
+          },
+          {
+            "checkpoint": "gold_draws_exact_original_deck_card_own_go_again_refunds_once",
+            "paper_action_step": 19,
+            "oracles": 37
+          }
+        ],
+        "final_hp": [
+          20,
+          16
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_ap": [
+          1,
+          0
+        ],
+        "final_turn_player": 1
+      },
+      "physical_terminal_validated": true,
+      "prior6_unchanged": true
+    },
+    {
+      "slug": "card-strike-gold-yellow-token75-created-gold-real-action-two-destroy-draw-go-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "8d966c5357e549d19dacaf0737e12629cf4ce11431a313d01c01ce8ac75e1368",
+        "actions.json": "fda17ee6908e41f4e4230435120a29506f28ee62d57835736a2197573bdffe06",
+        "assertions.json": "3d6156a54583faf9919f82fb2d7e75adb3b0a689df89479b1dd8aec543551813",
+        "expected_final_gamestate.txt": "9fecda66e515c3abb3cc8cc0c022ba9a1db6037419a63b66b6bd744cb746c4a8",
+        "meta.json": "10b6885f315c6c8f7212990c223afe14aa3f24d120658444be344ed066e3ffc5"
+      },
+      "fixture_sha256": "e36b7d92e6dbae0cd93e8aaf3d5dfa487a2f8fdc5893e35b6643668275c45904",
+      "actions": 19,
+      "native_assertions": 450,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "step": 0,
+          "native_assertions": 37,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "step": 1,
+          "native_assertions": 40,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "step": 3,
+          "native_assertions": 42,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "step": 10,
+          "native_assertions": 53,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "step": 11,
+          "native_assertions": 53,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "step": 12,
+          "native_assertions": 51,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "step": 14,
+          "native_assertions": 51,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "step": 16,
+          "native_assertions": 43,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "created_gold_activation_pays_two_and_destroy_before_draw",
+          "step": 17,
+          "native_assertions": 43,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "gold_draws_exact_original_deck_card_own_go_again_refunds_once",
+          "step": 19,
+          "native_assertions": 37,
+          "computed_active_ref": null
+        }
+      ],
+      "author_only_checks": [],
+      "independent_model": {
+        "slug": "card-strike-gold-yellow-token75-created-gold-real-action-two-destroy-draw-go-again",
+        "spec_semantically_approved": true,
+        "native_planned_oracles": 450,
+        "modeled_supported_actions": 19,
+        "modeled_individual_passes": 17,
+        "checkpoints": [
+          {
+            "checkpoint": "initial_printed_legal_assets",
+            "paper_action_step": 0,
+            "oracles": 37
+          },
+          {
+            "checkpoint": "assets_paid_no_token_or_hit_layer",
+            "paper_action_step": 1,
+            "oracles": 40
+          },
+          {
+            "checkpoint": "printed_power_no_retroactive_go_again",
+            "paper_action_step": 3,
+            "oracles": 42
+          },
+          {
+            "checkpoint": "real_damage_trigger_layer_token_absent",
+            "paper_action_step": 10,
+            "oracles": 53
+          },
+          {
+            "checkpoint": "opponent_priority_token_still_absent",
+            "paper_action_step": 11,
+            "oracles": 53
+          },
+          {
+            "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+            "paper_action_step": 12,
+            "oracles": 51
+          },
+          {
+            "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+            "paper_action_step": 14,
+            "oracles": 51
+          },
+          {
+            "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+            "paper_action_step": 16,
+            "oracles": 43
+          },
+          {
+            "checkpoint": "created_gold_activation_pays_two_and_destroy_before_draw",
+            "paper_action_step": 17,
+            "oracles": 43
+          },
+          {
+            "checkpoint": "gold_draws_exact_original_deck_card_own_go_again_refunds_once",
+            "paper_action_step": 19,
+            "oracles": 37
+          }
+        ],
+        "final_hp": [
+          20,
+          17
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_ap": [
+          1,
+          0
+        ],
+        "final_turn_player": 1
+      },
+      "physical_terminal_validated": true,
+      "prior6_unchanged": false
+    },
+    {
+      "slug": "card-strike-gold-blue-token75-created-gold-real-action-two-destroy-draw-go-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e8e0c6d55fe59e8c2e07b430b3e6b2735ddfacb5c73b73ef638bce3c5a757bb9",
+        "actions.json": "fda17ee6908e41f4e4230435120a29506f28ee62d57835736a2197573bdffe06",
+        "assertions.json": "9829097e699a55ba060805295fe5ba91820c03fab07c1e7bdfb6812512abae40",
+        "expected_final_gamestate.txt": "cc28f0b0832032efaf01e498744ce3b465d28d0c4332db9cfed588ed4443b1f8",
+        "meta.json": "ed0cfdd7040804abd85118ba81f336214751d1459c40eca11fd33bb5b813a854"
+      },
+      "fixture_sha256": "ca14ff3196d29952e95550a53c19d09e78c9854b91addfc04578166eac6f0245",
+      "actions": 19,
+      "native_assertions": 450,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "step": 0,
+          "native_assertions": 37,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "step": 1,
+          "native_assertions": 40,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "step": 3,
+          "native_assertions": 42,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "step": 10,
+          "native_assertions": 53,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "step": 11,
+          "native_assertions": 53,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "step": 12,
+          "native_assertions": 51,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "step": 14,
+          "native_assertions": 51,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "step": 16,
+          "native_assertions": 43,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "created_gold_activation_pays_two_and_destroy_before_draw",
+          "step": 17,
+          "native_assertions": 43,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "gold_draws_exact_original_deck_card_own_go_again_refunds_once",
+          "step": 19,
+          "native_assertions": 37,
+          "computed_active_ref": null
+        }
+      ],
+      "author_only_checks": [],
+      "independent_model": {
+        "slug": "card-strike-gold-blue-token75-created-gold-real-action-two-destroy-draw-go-again",
+        "spec_semantically_approved": true,
+        "native_planned_oracles": 450,
+        "modeled_supported_actions": 19,
+        "modeled_individual_passes": 17,
+        "checkpoints": [
+          {
+            "checkpoint": "initial_printed_legal_assets",
+            "paper_action_step": 0,
+            "oracles": 37
+          },
+          {
+            "checkpoint": "assets_paid_no_token_or_hit_layer",
+            "paper_action_step": 1,
+            "oracles": 40
+          },
+          {
+            "checkpoint": "printed_power_no_retroactive_go_again",
+            "paper_action_step": 3,
+            "oracles": 42
+          },
+          {
+            "checkpoint": "real_damage_trigger_layer_token_absent",
+            "paper_action_step": 10,
+            "oracles": 53
+          },
+          {
+            "checkpoint": "opponent_priority_token_still_absent",
+            "paper_action_step": 11,
+            "oracles": 53
+          },
+          {
+            "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+            "paper_action_step": 12,
+            "oracles": 51
+          },
+          {
+            "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+            "paper_action_step": 14,
+            "oracles": 51
+          },
+          {
+            "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+            "paper_action_step": 16,
+            "oracles": 43
+          },
+          {
+            "checkpoint": "created_gold_activation_pays_two_and_destroy_before_draw",
+            "paper_action_step": 17,
+            "oracles": 43
+          },
+          {
+            "checkpoint": "gold_draws_exact_original_deck_card_own_go_again_refunds_once",
+            "paper_action_step": 19,
+            "oracles": 37
+          }
+        ],
+        "final_hp": [
+          20,
+          18
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_ap": [
+          1,
+          0
+        ],
+        "final_turn_player": 1
+      },
+      "physical_terminal_validated": true,
+      "prior6_unchanged": false
+    },
+    {
+      "slug": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-plus-one",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "567bcb0503a46bb6fec8e91807271135379fec542bd79b7194d3470af0757e25",
+        "actions.json": "6f54fc188461681b0d5a04f2ea974508d272eb93bd47a2005d3f00d9f9b586b2",
+        "assertions.json": "a5b36df0c4000895baaab6809b8d6481742ac448cc93588efd917b41700027e3",
+        "expected_final_gamestate.txt": "f8d064b27f7dc2fd6d8f1030730068d1fc9efcc0c39d871f29acc94f6593da99",
+        "meta.json": "04bd31beb077dcb459b0e32bad1036c5b921fbc2b6d15687bab470b6c8b2dfeb"
+      },
+      "fixture_sha256": "e1b27acfb454a059d25e8178dac369e8c11e69ee14c71d685dcdc02aa2bd21dd",
+      "actions": 35,
+      "native_assertions": 752,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "step": 0,
+          "native_assertions": 41,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "step": 1,
+          "native_assertions": 44,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "step": 3,
+          "native_assertions": 46,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "step": 10,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "step": 11,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "step": 12,
+          "native_assertions": 55,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "step": 14,
+          "native_assertions": 55,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "step": 16,
+          "native_assertions": 47,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "created_earth_persists_through_own_end_priority",
+          "step": 18,
+          "native_assertions": 46,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+          "step": 20,
+          "native_assertions": 48,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "opponent_paid_ordinary_attack",
+          "step": 21,
+          "native_assertions": 49,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "real_defense_declaration_with_created_earth",
+          "step": 25,
+          "native_assertions": 49,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+          "step": 26,
+          "native_assertions": 53,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+          "step": 33,
+          "native_assertions": 58,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+          "step": 35,
+          "native_assertions": 47,
+          "computed_active_ref": null
+        }
+      ],
+      "author_only_checks": [],
+      "independent_model": {
+        "slug": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-plus-one",
+        "spec_semantically_approved": true,
+        "native_planned_oracles": 752,
+        "modeled_supported_actions": 35,
+        "modeled_individual_passes": 32,
+        "checkpoints": [
+          {
+            "checkpoint": "initial_printed_legal_assets",
+            "paper_action_step": 0,
+            "oracles": 41
+          },
+          {
+            "checkpoint": "assets_paid_no_token_or_hit_layer",
+            "paper_action_step": 1,
+            "oracles": 44
+          },
+          {
+            "checkpoint": "printed_power_no_retroactive_go_again",
+            "paper_action_step": 3,
+            "oracles": 46
+          },
+          {
+            "checkpoint": "real_damage_trigger_layer_token_absent",
+            "paper_action_step": 10,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "opponent_priority_token_still_absent",
+            "paper_action_step": 11,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+            "paper_action_step": 12,
+            "oracles": 55
+          },
+          {
+            "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+            "paper_action_step": 14,
+            "oracles": 55
+          },
+          {
+            "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+            "paper_action_step": 16,
+            "oracles": 47
+          },
+          {
+            "checkpoint": "created_earth_persists_through_own_end_priority",
+            "paper_action_step": 18,
+            "oracles": 46
+          },
+          {
+            "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+            "paper_action_step": 20,
+            "oracles": 48
+          },
+          {
+            "checkpoint": "opponent_paid_ordinary_attack",
+            "paper_action_step": 21,
+            "oracles": 49
+          },
+          {
+            "checkpoint": "real_defense_declaration_with_created_earth",
+            "paper_action_step": 25,
+            "oracles": 49
+          },
+          {
+            "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+            "paper_action_step": 26,
+            "oracles": 53
+          },
+          {
+            "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+            "paper_action_step": 33,
+            "oracles": 58
+          },
+          {
+            "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+            "paper_action_step": 35,
+            "oracles": 47
+          }
+        ],
+        "final_hp": [
+          20,
+          13
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_ap": [
+          0,
+          0
+        ],
+        "final_turn_player": 2
+      },
+      "physical_terminal_validated": true,
+      "prior6_unchanged": true
+    },
+    {
+      "slug": "card-earth-form-yellow-token75-created-earth-real-next-turn-naa-defense-plus-one",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "cdcf5266a0d15881dec9bafe5a33c6bd92b9d650a3cd098064f7325d8b95a571",
+        "actions.json": "6f54fc188461681b0d5a04f2ea974508d272eb93bd47a2005d3f00d9f9b586b2",
+        "assertions.json": "88f844e85d4b54048d30a8796b5f6bcad46086c0ed8e6e0c0dfa612c45e4d26d",
+        "expected_final_gamestate.txt": "2b048d17f00cad8fd22c9687b6ec9da9d7cd395842f57d41e1b0d47a8413a750",
+        "meta.json": "3477c90eb93a6aba268f92982e41832e42e4cec320158a3f660ae3a9c1667eb2"
+      },
+      "fixture_sha256": "23f4d23fe4ad274041b0a251da947eb63e3a644f3820e2a86c91faea0f36fcd0",
+      "actions": 35,
+      "native_assertions": 752,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "step": 0,
+          "native_assertions": 41,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "step": 1,
+          "native_assertions": 44,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "step": 3,
+          "native_assertions": 46,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "step": 10,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "step": 11,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "step": 12,
+          "native_assertions": 55,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "step": 14,
+          "native_assertions": 55,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "step": 16,
+          "native_assertions": 47,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "created_earth_persists_through_own_end_priority",
+          "step": 18,
+          "native_assertions": 46,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+          "step": 20,
+          "native_assertions": 48,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "opponent_paid_ordinary_attack",
+          "step": 21,
+          "native_assertions": 49,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "real_defense_declaration_with_created_earth",
+          "step": 25,
+          "native_assertions": 49,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+          "step": 26,
+          "native_assertions": 53,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+          "step": 33,
+          "native_assertions": 58,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+          "step": 35,
+          "native_assertions": 47,
+          "computed_active_ref": null
+        }
+      ],
+      "author_only_checks": [],
+      "independent_model": {
+        "slug": "card-earth-form-yellow-token75-created-earth-real-next-turn-naa-defense-plus-one",
+        "spec_semantically_approved": true,
+        "native_planned_oracles": 752,
+        "modeled_supported_actions": 35,
+        "modeled_individual_passes": 32,
+        "checkpoints": [
+          {
+            "checkpoint": "initial_printed_legal_assets",
+            "paper_action_step": 0,
+            "oracles": 41
+          },
+          {
+            "checkpoint": "assets_paid_no_token_or_hit_layer",
+            "paper_action_step": 1,
+            "oracles": 44
+          },
+          {
+            "checkpoint": "printed_power_no_retroactive_go_again",
+            "paper_action_step": 3,
+            "oracles": 46
+          },
+          {
+            "checkpoint": "real_damage_trigger_layer_token_absent",
+            "paper_action_step": 10,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "opponent_priority_token_still_absent",
+            "paper_action_step": 11,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+            "paper_action_step": 12,
+            "oracles": 55
+          },
+          {
+            "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+            "paper_action_step": 14,
+            "oracles": 55
+          },
+          {
+            "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+            "paper_action_step": 16,
+            "oracles": 47
+          },
+          {
+            "checkpoint": "created_earth_persists_through_own_end_priority",
+            "paper_action_step": 18,
+            "oracles": 46
+          },
+          {
+            "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+            "paper_action_step": 20,
+            "oracles": 48
+          },
+          {
+            "checkpoint": "opponent_paid_ordinary_attack",
+            "paper_action_step": 21,
+            "oracles": 49
+          },
+          {
+            "checkpoint": "real_defense_declaration_with_created_earth",
+            "paper_action_step": 25,
+            "oracles": 49
+          },
+          {
+            "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+            "paper_action_step": 26,
+            "oracles": 53
+          },
+          {
+            "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+            "paper_action_step": 33,
+            "oracles": 58
+          },
+          {
+            "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+            "paper_action_step": 35,
+            "oracles": 47
+          }
+        ],
+        "final_hp": [
+          20,
+          14
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_ap": [
+          0,
+          0
+        ],
+        "final_turn_player": 2
+      },
+      "physical_terminal_validated": true,
+      "prior6_unchanged": false
+    },
+    {
+      "slug": "card-earth-form-blue-token75-created-earth-real-next-turn-naa-defense-plus-one",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "8e6ff7115c3bb165c61ddf5bfa02c2b394b03a5479914c38efe757ba73336424",
+        "actions.json": "6f54fc188461681b0d5a04f2ea974508d272eb93bd47a2005d3f00d9f9b586b2",
+        "assertions.json": "c5035baee6d969762ed2ada62c9f6225584817b025b080ecc123bd003bd362ab",
+        "expected_final_gamestate.txt": "3c9c1ed48ae2a0e8fee4623052826d2d8b46c9bec992dd86e3e390a9fd702ec3",
+        "meta.json": "baa487a3bb6176d55b111158608e93c51dd34419aa006e3bf76307d63923ec87"
+      },
+      "fixture_sha256": "b60f42eee3057d230ea53f35fc9d6e774d7c8524c10c0dce96854a7dfd2ffaa1",
+      "actions": 35,
+      "native_assertions": 752,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "step": 0,
+          "native_assertions": 41,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "step": 1,
+          "native_assertions": 44,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "step": 3,
+          "native_assertions": 46,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "step": 10,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "step": 11,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "step": 12,
+          "native_assertions": 55,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "step": 14,
+          "native_assertions": 55,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "step": 16,
+          "native_assertions": 47,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "created_earth_persists_through_own_end_priority",
+          "step": 18,
+          "native_assertions": 46,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+          "step": 20,
+          "native_assertions": 48,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "opponent_paid_ordinary_attack",
+          "step": 21,
+          "native_assertions": 49,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "real_defense_declaration_with_created_earth",
+          "step": 25,
+          "native_assertions": 49,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+          "step": 26,
+          "native_assertions": 53,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+          "step": 33,
+          "native_assertions": 58,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+          "step": 35,
+          "native_assertions": 47,
+          "computed_active_ref": null
+        }
+      ],
+      "author_only_checks": [],
+      "independent_model": {
+        "slug": "card-earth-form-blue-token75-created-earth-real-next-turn-naa-defense-plus-one",
+        "spec_semantically_approved": true,
+        "native_planned_oracles": 752,
+        "modeled_supported_actions": 35,
+        "modeled_individual_passes": 32,
+        "checkpoints": [
+          {
+            "checkpoint": "initial_printed_legal_assets",
+            "paper_action_step": 0,
+            "oracles": 41
+          },
+          {
+            "checkpoint": "assets_paid_no_token_or_hit_layer",
+            "paper_action_step": 1,
+            "oracles": 44
+          },
+          {
+            "checkpoint": "printed_power_no_retroactive_go_again",
+            "paper_action_step": 3,
+            "oracles": 46
+          },
+          {
+            "checkpoint": "real_damage_trigger_layer_token_absent",
+            "paper_action_step": 10,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "opponent_priority_token_still_absent",
+            "paper_action_step": 11,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+            "paper_action_step": 12,
+            "oracles": 55
+          },
+          {
+            "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+            "paper_action_step": 14,
+            "oracles": 55
+          },
+          {
+            "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+            "paper_action_step": 16,
+            "oracles": 47
+          },
+          {
+            "checkpoint": "created_earth_persists_through_own_end_priority",
+            "paper_action_step": 18,
+            "oracles": 46
+          },
+          {
+            "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+            "paper_action_step": 20,
+            "oracles": 48
+          },
+          {
+            "checkpoint": "opponent_paid_ordinary_attack",
+            "paper_action_step": 21,
+            "oracles": 49
+          },
+          {
+            "checkpoint": "real_defense_declaration_with_created_earth",
+            "paper_action_step": 25,
+            "oracles": 49
+          },
+          {
+            "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+            "paper_action_step": 26,
+            "oracles": 53
+          },
+          {
+            "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+            "paper_action_step": 33,
+            "oracles": 58
+          },
+          {
+            "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+            "paper_action_step": 35,
+            "oracles": 47
+          }
+        ],
+        "final_hp": [
+          20,
+          15
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_ap": [
+          0,
+          0
+        ],
+        "final_turn_player": 2
+      },
+      "physical_terminal_validated": true,
+      "prior6_unchanged": false
+    },
+    {
+      "slug": "card-earth-form-red-token75-created-earth-real-next-turn-aa-excluded",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1de660ee9d473d2221a65edc0e50bb99e47ab9f30056507860d88789af123555",
+        "actions.json": "6f54fc188461681b0d5a04f2ea974508d272eb93bd47a2005d3f00d9f9b586b2",
+        "assertions.json": "6296345cd46f6c48fefa712d8e7ef9e1ea0377b8037fa69b51a3fdeb79ba3ed4",
+        "expected_final_gamestate.txt": "dcdf435eeb78017ebc915b61b0e7a4bf6d807145882925e154017a6d49eae451",
+        "meta.json": "ca50e07af72932de701539665ce8c539a2f7e6865fd7302e707149b5f1ae5383"
+      },
+      "fixture_sha256": "d048e17bc78f40409fdd37f80ef5068a25fe76820cf68a40e003d619238dcdfb",
+      "actions": 35,
+      "native_assertions": 752,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "step": 0,
+          "native_assertions": 41,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "step": 1,
+          "native_assertions": 44,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "step": 3,
+          "native_assertions": 46,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "step": 10,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "step": 11,
+          "native_assertions": 57,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "step": 12,
+          "native_assertions": 55,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "step": 14,
+          "native_assertions": 55,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "step": 16,
+          "native_assertions": 47,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "created_earth_persists_through_own_end_priority",
+          "step": 18,
+          "native_assertions": 46,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+          "step": 20,
+          "native_assertions": 48,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "opponent_paid_ordinary_attack",
+          "step": 21,
+          "native_assertions": 49,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "real_defense_declaration_with_created_earth",
+          "step": 25,
+          "native_assertions": 49,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+          "step": 26,
+          "native_assertions": 53,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+          "step": 33,
+          "native_assertions": 58,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+          "step": 35,
+          "native_assertions": 47,
+          "computed_active_ref": null
+        }
+      ],
+      "author_only_checks": [],
+      "independent_model": {
+        "slug": "card-earth-form-red-token75-created-earth-real-next-turn-aa-excluded",
+        "spec_semantically_approved": true,
+        "native_planned_oracles": 752,
+        "modeled_supported_actions": 35,
+        "modeled_individual_passes": 32,
+        "checkpoints": [
+          {
+            "checkpoint": "initial_printed_legal_assets",
+            "paper_action_step": 0,
+            "oracles": 41
+          },
+          {
+            "checkpoint": "assets_paid_no_token_or_hit_layer",
+            "paper_action_step": 1,
+            "oracles": 44
+          },
+          {
+            "checkpoint": "printed_power_no_retroactive_go_again",
+            "paper_action_step": 3,
+            "oracles": 46
+          },
+          {
+            "checkpoint": "real_damage_trigger_layer_token_absent",
+            "paper_action_step": 10,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "opponent_priority_token_still_absent",
+            "paper_action_step": 11,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+            "paper_action_step": 12,
+            "oracles": 55
+          },
+          {
+            "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+            "paper_action_step": 14,
+            "oracles": 55
+          },
+          {
+            "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+            "paper_action_step": 16,
+            "oracles": 47
+          },
+          {
+            "checkpoint": "created_earth_persists_through_own_end_priority",
+            "paper_action_step": 18,
+            "oracles": 46
+          },
+          {
+            "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+            "paper_action_step": 20,
+            "oracles": 48
+          },
+          {
+            "checkpoint": "opponent_paid_ordinary_attack",
+            "paper_action_step": 21,
+            "oracles": 49
+          },
+          {
+            "checkpoint": "real_defense_declaration_with_created_earth",
+            "paper_action_step": 25,
+            "oracles": 49
+          },
+          {
+            "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+            "paper_action_step": 26,
+            "oracles": 53
+          },
+          {
+            "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+            "paper_action_step": 33,
+            "oracles": 58
+          },
+          {
+            "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+            "paper_action_step": 35,
+            "oracles": 47
+          }
+        ],
+        "final_hp": [
+          18,
+          13
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_ap": [
+          0,
+          0
+        ],
+        "final_turn_player": 2
+      },
+      "physical_terminal_validated": true,
+      "prior6_unchanged": false
+    },
+    {
+      "slug": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-stacking",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "da5d508b281a04f49a27210041704c0b2a1a14eab5fb6021ce05e5e3811dfab5",
+        "actions.json": "595d5c8ade73fd1cf4509b0110856eaccc15b1b6e0ef12a29a1b435fb15f0429",
+        "assertions.json": "0a6272681aeafb9c1aa617091c025da591511b23f159323330f6c4ef30a98884",
+        "expected_final_gamestate.txt": "1e7676f6916b0be133ca4997190b2dd99b299f7c84f66a02a86d8e03a8c12a8e",
+        "meta.json": "165fc4e703b11459fb49149c6bc50ae0e60cfbb899ad718602095b15b9e8bd0f"
+      },
+      "fixture_sha256": "7ea0ab3cba9b81ebebef056c728f6428a98f6ac4ed063712a88fa6a206ca12ee",
+      "actions": 51,
+      "native_assertions": 1321,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "step": 0,
+          "native_assertions": 45,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "step": 1,
+          "native_assertions": 48,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "step": 3,
+          "native_assertions": 50,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "step": 10,
+          "native_assertions": 61,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "step": 11,
+          "native_assertions": 61,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "step": 12,
+          "native_assertions": 59,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "step": 14,
+          "native_assertions": 59,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "step": 16,
+          "native_assertions": 51,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "step": 16,
+          "native_assertions": 50,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "step": 17,
+          "native_assertions": 53,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "step": 19,
+          "native_assertions": 55,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "step": 26,
+          "native_assertions": 66,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "step": 27,
+          "native_assertions": 66,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "step": 28,
+          "native_assertions": 64,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "step": 30,
+          "native_assertions": 64,
+          "computed_active_ref": "p1CombatChain-0"
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "step": 32,
+          "native_assertions": 56,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "created_earth_persists_through_own_end_priority",
+          "step": 34,
+          "native_assertions": 55,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+          "step": 36,
+          "native_assertions": 57,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "opponent_paid_ordinary_attack",
+          "step": 37,
+          "native_assertions": 58,
+          "computed_active_ref": null
+        },
+        {
+          "checkpoint": "real_defense_declaration_with_created_earth",
+          "step": 41,
+          "native_assertions": 58,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+          "step": 42,
+          "native_assertions": 62,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+          "step": 49,
+          "native_assertions": 67,
+          "computed_active_ref": "p2CombatChain-0"
+        },
+        {
+          "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+          "step": 51,
+          "native_assertions": 56,
+          "computed_active_ref": null
+        }
+      ],
+      "author_only_checks": [],
+      "independent_model": {
+        "slug": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-stacking",
+        "spec_semantically_approved": true,
+        "native_planned_oracles": 1321,
+        "modeled_supported_actions": 51,
+        "modeled_individual_passes": 47,
+        "checkpoints": [
+          {
+            "checkpoint": "initial_printed_legal_assets",
+            "paper_action_step": 0,
+            "oracles": 45
+          },
+          {
+            "checkpoint": "assets_paid_no_token_or_hit_layer",
+            "paper_action_step": 1,
+            "oracles": 48
+          },
+          {
+            "checkpoint": "printed_power_no_retroactive_go_again",
+            "paper_action_step": 3,
+            "oracles": 50
+          },
+          {
+            "checkpoint": "real_damage_trigger_layer_token_absent",
+            "paper_action_step": 10,
+            "oracles": 61
+          },
+          {
+            "checkpoint": "opponent_priority_token_still_absent",
+            "paper_action_step": 11,
+            "oracles": 61
+          },
+          {
+            "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+            "paper_action_step": 12,
+            "oracles": 59
+          },
+          {
+            "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+            "paper_action_step": 14,
+            "oracles": 59
+          },
+          {
+            "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+            "paper_action_step": 16,
+            "oracles": 51
+          },
+          {
+            "checkpoint": "initial_printed_legal_assets",
+            "paper_action_step": 16,
+            "oracles": 50
+          },
+          {
+            "checkpoint": "assets_paid_no_token_or_hit_layer",
+            "paper_action_step": 17,
+            "oracles": 53
+          },
+          {
+            "checkpoint": "printed_power_no_retroactive_go_again",
+            "paper_action_step": 19,
+            "oracles": 55
+          },
+          {
+            "checkpoint": "real_damage_trigger_layer_token_absent",
+            "paper_action_step": 26,
+            "oracles": 66
+          },
+          {
+            "checkpoint": "opponent_priority_token_still_absent",
+            "paper_action_step": 27,
+            "oracles": 66
+          },
+          {
+            "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+            "paper_action_step": 28,
+            "oracles": 64
+          },
+          {
+            "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+            "paper_action_step": 30,
+            "oracles": 64
+          },
+          {
+            "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+            "paper_action_step": 32,
+            "oracles": 56
+          },
+          {
+            "checkpoint": "created_earth_persists_through_own_end_priority",
+            "paper_action_step": 34,
+            "oracles": 55
+          },
+          {
+            "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+            "paper_action_step": 36,
+            "oracles": 57
+          },
+          {
+            "checkpoint": "opponent_paid_ordinary_attack",
+            "paper_action_step": 37,
+            "oracles": 58
+          },
+          {
+            "checkpoint": "real_defense_declaration_with_created_earth",
+            "paper_action_step": 41,
+            "oracles": 58
+          },
+          {
+            "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+            "paper_action_step": 42,
+            "oracles": 62
+          },
+          {
+            "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+            "paper_action_step": 49,
+            "oracles": 67
+          },
+          {
+            "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+            "paper_action_step": 51,
+            "oracles": 56
+          }
+        ],
+        "final_hp": [
+          20,
+          6
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_ap": [
+          0,
+          0
+        ],
+        "final_turn_player": 2
+      },
+      "physical_terminal_validated": true,
+      "prior6_unchanged": false
+    }
+  ],
+  "aggregate": {
+    "cases": 12,
+    "actions": 344,
+    "native_assertions": 8175,
+    "raw_files": 60,
+    "checks": 25936
+  },
+  "inputs": {
+    "full12_sha256": "b340a5d0feb9af914856e53ce083e92a89cba93a5b39f04e117731a88ed7286b",
+    "intended_spec_gate_sha256": "a28207f5549ee795c455e6d11025356065051b88e8e3cdb51cf9233385497bc0",
+    "independent_model_source_sha256": "0650b9c2454041200686c2b5c754b3e7a2c15b4c4ac15d6b368736f5fd0c45ff",
+    "prior_actual6_gate_sha256": "15e71ce9420af4d84556104b3befd0ac10c2c04f293c7b91208133b7f98662b0"
+  },
+  "native_recording_reports": [
+    {
+      "file": "card-regression-batch75-dependencies-20261020T134857Z-6ad77149b28a8.json",
+      "sha256": "2ed41317261bef83e673a7b18aaedbb01e3e28f2a416329a0fcf284804b93444",
+      "input_sha256": "b340a5d0feb9af914856e53ce083e92a89cba93a5b39f04e117731a88ed7286b",
+      "results": [
+        {
+          "slug": "card-strike-gold-yellow-token75-created-gold-real-action-two-destroy-draw-go-again",
+          "status": "recorded_semantically_checked",
+          "actions": 19,
+          "assertions": 450
+        },
+        {
+          "slug": "card-strike-gold-blue-token75-created-gold-real-action-two-destroy-draw-go-again",
+          "status": "recorded_semantically_checked",
+          "actions": 19,
+          "assertions": 450
+        },
+        {
+          "slug": "card-earth-form-yellow-token75-created-earth-real-next-turn-naa-defense-plus-one",
+          "status": "recorded_semantically_checked",
+          "actions": 35,
+          "assertions": 752
+        },
+        {
+          "slug": "card-earth-form-blue-token75-created-earth-real-next-turn-naa-defense-plus-one",
+          "status": "recorded_semantically_checked",
+          "actions": 35,
+          "assertions": 752
+        },
+        {
+          "slug": "card-earth-form-red-token75-created-earth-real-next-turn-aa-excluded",
+          "status": "recorded_semantically_checked",
+          "actions": 35,
+          "assertions": 752
+        },
+        {
+          "slug": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-stacking",
+          "status": "recorded_semantically_checked",
+          "actions": 51,
+          "assertions": 1321
+        }
+      ]
+    },
+    {
+      "file": "card-regression-batch75-dependencies-pilot-20261020T133947Z-6ad76f23a8cdd.json",
+      "sha256": "0de41fe0bffba32446ffe5230bc05aa0bd999d66c38429346b53ac84ef87770a",
+      "input_sha256": "019d3a1237671a5b61248e52baf3934ea7bfb470d07cf72fd9974a44f821ea3a",
+      "results": [
+        {
+          "slug": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-plus-one",
+          "status": "recorded_semantically_checked",
+          "actions": 35,
+          "assertions": 752
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "No game actions, PHP/runtime imports, native writes or fixture writes.",
+    "Original first5 complete raw5 were saved before disconnect without a completion manifest. That absence is retained; no manifest is fabricated.",
+    "All12 named typed token dependency scenarios were recorded before the later LP-only runtime repair; present source hash is review context, not a current replay qualification.",
+    "Independent intended-spec model and every actual action/native oracle/physical final state are matched; family completion and current2x full replay/controls/suites remain parent gates."
+  ]
+}

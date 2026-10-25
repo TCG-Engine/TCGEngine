@@ -1,0 +1,118 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-21T00:09:46.113104+00:00",
+  "plan_sha256": "9037051b1ab822d2a327713cb406921f2dd796655096cee75dc5d12725241606",
+  "independent_saved_proof_sha256": "01668adbec9b4901ff3ccd2a0a101777168fe5ce07151adc57917a1d96fd6d09",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b96-focused-fault-plan.json",
+    "9037051b1ab822d2a327713cb406921f2dd796655096cee75dc5d12725241606",
+    "card-regression-sparse-b96-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b96_penetration_disable_retained_primary_static_power",
+      "fixture": "card-penetration-script-yellow-four-live-sparse-actual-mechanologist-attack-gets-one-from-controlled-script",
+      "fixture_sha256": "fc881a9c44dab17bb29429c9c3a41b4bb4e07063137ef8c03deb11e341952acd",
+      "source_raw5": {
+        "initial_gamestate.txt": "d2cb09235c5e3ab2e4c236553cf59ca3bb2d657d369ed092b8fb83eaac19b169",
+        "actions.json": "f2cec605d7f19cd447e781df38a6ac25ca2b84e3629ca0f6f6eb518384110919",
+        "assertions.json": "4983f77b920cf2c66d0672ea8443ded3f2de323406b0dbe307c2d871251783f4",
+        "expected_final_gamestate.txt": "1b0b65405b72e8e891b1de3b2905441eb263aba362f5e8c22ae1cfaf65cee2c2",
+        "meta.json": "9e8f56b1c28c78f20dad9c9f682a606cbb4f8b0ba910e6225ca1fa524f7ba9b9"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "Arena",
+            "cardID": "penetration_script_yellow",
+            "tag": "NO_ABILITIES",
+            "mode": "add"
+          }
+        ]
+      },
+      "retained_assertions": 622,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Penetration Script / four live sparse passive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Synthetic primary-source ability-enumeration fault at first actual ATTACK: add only NO_ABILITIES to retained Penetration ScriptUID7 in P1Arena. Actual MONArena/EVOPower excludes blanked source so original PayloadUID5 power7 becomes6; FIRST retained native Initial computedPower catches this. Physical item7/steam1, actual cost2/Blue3/res1, targets and every original suffix oracle stay unchanged. This is not a legal suppression procedure or absent-item branch claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b96_security_disable_retained_primary_before_real_block",
+      "fixture": "card-security-script-blue-four-live-sparse-actual-mechanologist-hand-defender-three-plus-one-exact-four",
+      "fixture_sha256": "15c060e52a72c66e2f2f2d3809c902db015393329b2d6193500f30602c0eb593",
+      "source_raw5": {
+        "initial_gamestate.txt": "02cff8d00a5790c9204636b81d684273b69799bcb320e55a343e54e27456a4ac",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "a8a334b39656a97b975e494bc0264cceada634aeaa2e6b83563260e6ad90893b",
+        "expected_final_gamestate.txt": "ad6abe80d8d80d94af7aba260b37abad7b0c752bd3d7b7956074493d0dd7ce94",
+        "meta.json": "8c59ffb5d5fcf0536046b08b86e5d98ba1cf975f0c4221e6c045cadb1a6b8388"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "Arena",
+            "cardID": "security_script_blue",
+            "tag": "NO_ABILITIES",
+            "mode": "add"
+          }
+        ]
+      },
+      "retained_assertions": 716,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected FaBSim state [\"defenseValue\"] to equal JSON 4, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Security Script / four live sparse passive effect: Step 1 assertion failed: Expected FaBSim state [\"defenseValue\"] to equal JSON 4, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Synthetic primary-source ability-enumeration fault BEFORE actual block declaration: add only NO_ABILITIES to retained Security ScriptUID8 in P4Arena at action11. Actual next supported P4Hand PayloadUID7 declaration uses printedDEF3 without source+1, so FIRST native Step1 defenseValue4 becomes3 at originalaction12. This avoids cached post-declaration defense ambiguity. Actual attack6/cost2/blue3/res1/sourceSteam1/physical ownership and every later damage/priority oracle retained; no legal suppression/absence branch claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b96_sphere_disable_retained_primary_exact_one_prevention",
+      "fixture": "card-dissolution-sphere-yellow-four-live-sparse-actual-exactly-one-physical-damage-prevented-no-hit",
+      "fixture_sha256": "480b2ea7f740bc3af925415fb7ff0bbabc313d049c9e32d53d9d564980ac7b9c",
+      "source_raw5": {
+        "initial_gamestate.txt": "dab135efb60f1400b70f7e5d4f560d932f3a9504a55e239585a0073b5ca452ff",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "92e134995a57ea41fc2671772d8d0cc3e0b9e46e117829d73d26e540405ad6a2",
+        "expected_final_gamestate.txt": "82a071a980af367c00e20fe4a85ad4e18d7dd235e1e0232937483ec0d7782247",
+        "meta.json": "75a0ee781d34bdc8bcd8a6002e88badaabfdb27fee0c85c7e166839cff937e50"
+      },
+      "prefix_actions": 15,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "Arena",
+            "cardID": "dissolution_sphere_yellow",
+            "tag": "NO_ABILITIES",
+            "mode": "add"
+          }
+        ]
+      },
+      "retained_assertions": 453,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected FaBSim state [\"attackHit\"] to equal JSON false, got true.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Dissolution Sphere / four live sparse passive effect: Step 4 assertion failed: Expected FaBSim state [\"attackHit\"] to equal JSON false, got true.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Synthetic primary-source ability-enumeration fault before actual Reaction passes: add only NO_ABILITIES to retained SphereUID6 in P4Arena at action15. Actual HasNoAbilities/MONArena makes EVRPrevent leave HeadJab exact1 damage unprevented, without changing printedpower1/GA or any physical source/counter. FIRST native Step4 attackHitfalse becomestrue at actualDamage19, before original damageDealt/health oracles. All original assertions and sourceUID/steam1 remain; no legal suppression procedure, source departure, other prevention order or additional branch claim.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

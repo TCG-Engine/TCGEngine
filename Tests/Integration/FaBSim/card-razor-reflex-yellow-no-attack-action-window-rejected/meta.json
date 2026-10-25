@@ -1,0 +1,7 @@
+{
+    "name": "Razor Reflex / no attack action window",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:56:05+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "No attack exists and window is ACTION. Attack reactions cannot be played despite enough potential pitch; card, resources, pitch and AP stay unchanged. Sources: FaBSim/GeneratedCode/cardArrayCache.json#razor_reflex_yellow https://rules.fabtcg.com/en/cr/07-combat/#742a"
+}

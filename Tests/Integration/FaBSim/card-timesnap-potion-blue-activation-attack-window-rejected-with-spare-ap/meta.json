@@ -1,0 +1,7 @@
+{
+    "name": "Timesnap Potion / attack-window-rejected-with-spare-ap",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:28+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "A legal mid-turn fixture starts with AP2. After playing the first attack, AP1 remains, but the Attack Step is not a legal Action-ability window. Item stays; no AP gain. The attack deals4. Sources: FaBSim/GeneratedCode/cardArrayCache.json#timesnap_potion_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

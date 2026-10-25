@@ -1,0 +1,7 @@
+{
+    "name": "Goliath Gauntlet / destroy-buff",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:28+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Destroy equipment as cost; activation has go again. Next cost-3 Raging Onslaught gets +2 power (7 to 9); blue pitch pays cost 3. Sources: FaBSim/GeneratedCode/cardArrayCache.json#goliath_gauntlet https://rules.fabtcg.com/en/cr/07-combat/"
+}

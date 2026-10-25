@@ -1,0 +1,21 @@
+{
+  "utc": "2026-10-24T17:15:30.368416+00:00",
+  "status": "VERIFIED_BACKUP_AND_QUARANTINE_CANONICAL_COPY_REMOVED",
+  "original_slug": "card-smash-instinct-red-four-live-repair-declared-other-hero-intimidate-after-responses",
+  "source_spec": "card-regression-batch193.json",
+  "case_index": 17,
+  "raw5_sha256": {
+    "initial_gamestate.txt": "687b2649d8c229efcd8b72a58162ec6fd49aca2d9f8b503f07e0b04f4c49e274",
+    "actions.json": "29e648b6a52737e01838ff3923c767b822694e4a5fae2ed0a2531ff671eee345",
+    "assertions.json": "e2e9b92338482c321722742263972a849e5398bb05ebf6ec202d0dff8eb7a64d",
+    "expected_final_gamestate.txt": "37c3506faf9d9fee65327d1b2030244f6dc7173424b122b141c13402c4e07f67",
+    "meta.json": "56f2db89ffad0cae518fcfad01bebb87b351ce3c3724d3ef1b4e4b8310a4b0a1"
+  },
+  "fixture_sha256": "003830daf5099b9b045debe6539e0be70223c91f52453600afd325a4b5f2ad2d",
+  "external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repair-source-backups-20261024\\stale-unregistered-smash193",
+  "held_path": "held-incorrect-gameplay/b193-smash-return-state-stale",
+  "reason": "Unregistered fresh recording predates the Intimidate marker-preservation repair; expected final state has erased return identity. It receives no current passing coverage. Correct beginning-end-phase follow-through successor is pending.",
+  "original3341_fixtures_touched": false,
+  "independent_saved_review_sha256": "6eb4405289504a4f43e1fd6b487e2a8837b9f3ce6060f7a40f8a01af15ad0ac6",
+  "source_proof_scope": "Original banish/damage endpoints only; no mandatory return qualification."
+}

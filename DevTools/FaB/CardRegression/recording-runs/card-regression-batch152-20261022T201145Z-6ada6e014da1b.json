@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:11:45+00:00",
+    "input_file": "card-regression-batch152.json",
+    "input_sha256": "3dc235362f591cd586f5feb3a37ce17c59e3e5f21447df15e9a881f3643d394a",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-time-skippers-four-live-sparse-actual-blue-pitch-three-destroy-gain-two-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 395
+        },
+        {
+            "slug": "card-skullhorn-four-live-sparse-actual-destroy-draw-sole-card-random-discard",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 361
+        }
+    ]
+}

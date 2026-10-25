@@ -1,0 +1,7 @@
+{
+    "name": "Pledge Fealty / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T20:35:19+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActuallyplayprimaryUID5fromHandforprinted0resourceswithnopitch. PaidAP1(instantretainsAP),resources0. Fourlivingplayersrespondmanually; throughfirst3responses source5remainsStackandnoArena/GYcardappears. FourthresponsecreatesoneowncontrolledfealtyUID6Status2. Sameprimary5endsownpublicGYFaceDown0; finalAP1(instantneverconsumedAP),resources0,allhealth20,allqueuesempty. OnlypositiveprintedFealtycreation. Fealtylatertrigger/consumptionandherosPhoenixFlameabilityremainuntested. All four are living legal young heroes with real supported manual response actors; no passive seats. Exact original source and support UIDs, owners/controllers, resources/AP, health and physical endpoint zones are pinned. No seeded history/effect tags or shared effect-bucket emptiness/index oracles. One positive primary representative only; no sibling/support/hero/full-card/alternate-branch credit. Sources: https://judge.fabtcg.com/cards/detail/3625/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FNG020.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

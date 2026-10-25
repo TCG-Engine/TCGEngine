@@ -1,0 +1,931 @@
+[
+  {
+    "slug": "card-aether-dart-red-opponent-hero-floating",
+    "name": "Aether Dart / opponent-hero-floating",
+    "cardIDs": [
+      "aether_dart_red"
+    ],
+    "branches": [
+      "opponent-hero-floating"
+    ],
+    "status": "proposed_unrecorded",
+    "heroes": [
+      "iyslander",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "aether_dart_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ],
+        "checkpoint": "initial"
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Param",
+            "value": "p1Hero-0&p2Hero-0"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": 2
+          }
+        ],
+        "checkpoint": "target_declared_before_payment_and_damage"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p2Hero-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ],
+        "checkpoint": "spell_paid_before_resolution"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ],
+        "checkpoint": "resolved_damage_assets_and_source_destination"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "arcaneDealt",
+            "value": {
+              "1": {
+                "2": 3
+              }
+            }
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "oracle": "Printed cost0 and 3 arcane damage to any target. Choose player2's hero. Pay0 from the caster pool and1AP, leaving0. Deal the full3 only on resolution: hero220->17, other hero20. No printed go again, Frostbite or extra layer. Source leaves Stack for its owner's graveyard after resolution.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#aether_dart_red",
+      "https://judge.fabtcg.com/cards/detail/1672/",
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ],
+    "printedCard": {
+      "id": "aether_dart_red",
+      "name": "Aether Dart",
+      "types": [
+        "Wizard",
+        "Action"
+      ],
+      "pitch": "1",
+      "cost": "0",
+      "defense": "3",
+      "functional_text_plain": "Deal 3 arcane damage to any target."
+    },
+    "fixtureConstraints": {
+      "actor_hero": "iyslander",
+      "hero_reason": "Wizard plus Essence of Ice permits all twelve printed spells.",
+      "health_reason": "Young Iyslander starts at18life. This known isolated state has already healed to20, which is legal; creating that healing event is outside these scenarios. All damage oracles start from the explicit current20life.",
+      "timing": "Player1's own turn, MAIN/ACTION, current turn number2; player2 starts with0AP. Iyslander's opponent-turn blue-arsenal permission and Ice-play Frostbite trigger are inapplicable.",
+      "format": "Known isolated duel fixture; one Arsenal card at most. Legal card class/talent and equipment slots; not a full tournament deck/ban-list fixture."
+    },
+    "authoringNotes": [
+      "Scratch-only proposal: no PHP, recording, replay or game actions executed by this author.",
+      "Use existing recorder supported clicks, decisions and priority passes. Never set UniqueID or manufacture a recording.",
+      "Every number is derived from printed cost/damage and CR arcane-barrier payment. No damage is applied before target, payment and prevention finish.",
+      "Target preparation uses MZCHOOSE; UPR barrier uses MZMAYCHOOSE with an equipment reference or PASS, and effect pitching uses MZCHOOSE. Legacy Scalding numeric prevention answers do not apply.",
+      "CR5.3.4 effects precede5.3.6 leaving Stack/5.3.7 clearing: while a prevention chooser or its pitch chooser is pending, the ordinary spell is live on Stack and absent from Graveyard. Retain this intended oracle if the current runtime fails it."
+    ],
+    "reviewGate": "Independently review exact family and two pilot objects; record only correct results, then clean replay and semantic negative controls before expanding accepted branches.",
+    "anticipatedRuntimeRisk": "Source-only at authoring: DoResolveCard ordinary ACTION/INSTANT else moves a nonpersistent source to Graveyard before asynchronous ResolveCard. Pending-prevention live-Stack assertions deliberately expose that potential violation; do not replace them with eager-Graveyard expectations.",
+    "remainingBranches": [
+      "Iyslander offturn instant permission and Frostbite creation; full turn/format/deck-construction legality.",
+      "Own ally target, equipment-zone ally, UPF/adjacency, target leave/reenter or elimination, redirection and target replacement.",
+      "Spellvoid, Quell, Ward, Alluvion, prevention/damage modifiers, unpreventable damage, ability suppression and restoration.",
+      "Invalid raw answers are outside these canonical supported-choice scenarios; generic candidate validation requires separate audit. Candidate-set assertions test supported legal target and barrier scope.",
+      "Other players responding after target changes, source-owner/controller changes, nested resolution, special graveyard replacements and copied spells.",
+      "Every identity remains partial even if every bounded case passes."
+    ]
+  },
+  {
+    "slug": "card-ice-bolt-red-opponent-barrier-pay-floating",
+    "name": "Ice Bolt / opponent-barrier-pay-floating",
+    "cardIDs": [
+      "ice_bolt_red"
+    ],
+    "branches": [
+      "opponent-barrier-pay-floating"
+    ],
+    "status": "proposed_unrecorded",
+    "heroes": [
+      "iyslander",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      4,
+      1
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "ice_bolt_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "zone": "Equipment",
+        "player": 2,
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "ice_bolt_red"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 4
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ],
+        "checkpoint": "initial"
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "ice_bolt_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 4
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Param",
+            "value": "p1Hero-0&p2Hero-0"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": 2
+          }
+        ],
+        "checkpoint": "target_declared_before_payment_and_damage"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p2Hero-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "ice_bolt_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ],
+        "checkpoint": "spell_paid_before_resolution"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "ice_bolt_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Type",
+            "value": "MZMAYCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Param",
+            "value": "p2Equipment-0"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": 1
+          }
+        ],
+        "checkpoint": "prevention_before_damage_live_source"
+      },
+      {
+        "kind": "answer",
+        "player": 2,
+        "type": "MZMAYCHOOSE",
+        "value": "p2Equipment-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "ice_bolt_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ],
+        "checkpoint": "resolved_damage_assets_and_source_destination"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "arcaneDealt",
+            "value": {
+              "1": {
+                "2": 4
+              }
+            }
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "oracle": "Cast for printed cost2 and1AP, then resolve printed5 arcane toward hero2. Before prevention completes, both HP20, source on Stack and caster Graveyard0. Victim2 pays1floating resource for Barrier1, equipment persists. Prevent1; damage=max(0,5-1)=4, victim life16, other hero20. Final resources[2, 0]; no go again. Source goes to its owner's graveyard after effects finish.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#ice_bolt_red",
+      "https://judge.fabtcg.com/cards/detail/1633/",
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ],
+    "printedCard": {
+      "id": "ice_bolt_red",
+      "name": "Ice Bolt",
+      "types": [
+        "Ice",
+        "Wizard",
+        "Action"
+      ],
+      "pitch": "1",
+      "cost": "2",
+      "defense": "3",
+      "functional_text_plain": "Deal 5 arcane damage to any target."
+    },
+    "fixtureConstraints": {
+      "actor_hero": "iyslander",
+      "hero_reason": "Wizard plus Essence of Ice permits all twelve printed spells.",
+      "health_reason": "Young Iyslander starts at18life. This known isolated state has already healed to20, which is legal; creating that healing event is outside these scenarios. All damage oracles start from the explicit current20life.",
+      "timing": "Player1's own turn, MAIN/ACTION, current turn number2; player2 starts with0AP. Iyslander's opponent-turn blue-arsenal permission and Ice-play Frostbite trigger are inapplicable.",
+      "format": "Known isolated duel fixture; one Arsenal card at most. Legal card class/talent and equipment slots; not a full tournament deck/ban-list fixture."
+    },
+    "authoringNotes": [
+      "Scratch-only proposal: no PHP, recording, replay or game actions executed by this author.",
+      "Use existing recorder supported clicks, decisions and priority passes. Never set UniqueID or manufacture a recording.",
+      "Every number is derived from printed cost/damage and CR arcane-barrier payment. No damage is applied before target, payment and prevention finish.",
+      "Target preparation uses MZCHOOSE; UPR barrier uses MZMAYCHOOSE with an equipment reference or PASS, and effect pitching uses MZCHOOSE. Legacy Scalding numeric prevention answers do not apply.",
+      "CR5.3.4 effects precede5.3.6 leaving Stack/5.3.7 clearing: while a prevention chooser or its pitch chooser is pending, the ordinary spell is live on Stack and absent from Graveyard. Retain this intended oracle if the current runtime fails it."
+    ],
+    "reviewGate": "Independently review exact family and two pilot objects; record only correct results, then clean replay and semantic negative controls before expanding accepted branches.",
+    "anticipatedRuntimeRisk": "Source-only at authoring: DoResolveCard ordinary ACTION/INSTANT else moves a nonpersistent source to Graveyard before asynchronous ResolveCard. Pending-prevention live-Stack assertions deliberately expose that potential violation; do not replace them with eager-Graveyard expectations.",
+    "remainingBranches": [
+      "Iyslander offturn instant permission and Frostbite creation; full turn/format/deck-construction legality.",
+      "Own ally target, equipment-zone ally, UPF/adjacency, target leave/reenter or elimination, redirection and target replacement.",
+      "Spellvoid, Quell, Ward, Alluvion, prevention/damage modifiers, unpreventable damage, ability suppression and restoration.",
+      "Invalid raw answers are outside these canonical supported-choice scenarios; generic candidate validation requires separate audit. Candidate-set assertions test supported legal target and barrier scope.",
+      "Other players responding after target changes, source-owner/controller changes, nested resolution, special graveyard replacements and copied spells.",
+      "Every identity remains partial even if every bounded case passes."
+    ]
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "completed_utc": "2026-10-19T21:45:33.204738+00:00",
+  "runs": [
+    {
+      "command": "php DevTools/FaB/wtr_test.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "FAIL: Attack Step was not observable.\nFAIL: Defend declaration was not observable.\nFAIL: Empty defend declaration could not be committed.\nFAIL: Defend Step priority was not observable.\nFAIL: Reaction Step was not observable.\nFAIL: Reaction Step priority did not complete.\nFAIL: Damage Step or its combat calculation was not observable.\nFAIL: Damage Step priority did not complete.\nFAIL: Resolution Step was not observable.\nFAIL: Resolution Step priority did not complete.\nFAIL: Close Step did not return to the Action Phase.\nFAIL: Close Step did not clear the resolved attack.\nFAIL: Generated Wounded Bull macro did not see a higher-life opposing hero.\n"
+    },
+    {
+      "command": "php DevTools/FaB/arc_test.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "FAIL: Attack Step was not observable.\nFAIL: Defend declaration was not observable.\nFAIL: Empty defend declaration could not be committed.\nFAIL: Defend Step priority was not observable.\nFAIL: Reaction Step was not observable.\nFAIL: Reaction Step priority did not complete.\nFAIL: Damage Step or its combat calculation was not observable.\nFAIL: Damage Step priority did not complete.\nFAIL: Resolution Step was not observable.\nFAIL: Resolution Step priority did not complete.\nFAIL: Close Step did not return to the Action Phase.\nFAIL: Close Step did not clear the resolved attack.\nFAIL: Generated Wounded Bull macro did not see a higher-life opposing hero.\n"
+    }
+  ]
+}

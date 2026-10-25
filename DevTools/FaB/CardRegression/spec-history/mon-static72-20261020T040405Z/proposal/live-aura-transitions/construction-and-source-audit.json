@@ -1,0 +1,73 @@
+{
+  "status": "SOURCE_AND_PRINTED_RULE_CONSTRUCTION_NOT_RUNTIME_OR_COVERAGE",
+  "original_frozen_artifacts": {
+    "catalog9-source-and-rules-audit.json": "634542e421c0b295cbac6443da7fd5ad091f96ffdf5075948df041b61e6da86b",
+    "ordinary-requirements-matrix-proposed.json": "95fcf0bbdf1d5bad37dc2b6da119dc715b92d1cc5eb3ee28e395a089609367d0",
+    "pilots4-proposed.json": "aa169be595ed6811c4ce14d06a7b7b47e84e8c3b8ceaa1bcea4098f6e5adf235",
+    "pilot4-author-rule-model-validation.json": "d7e80762a5d1f7479961bc0584d06f06d674f3f05dab8b9b9c876ca90a6e29af"
+  },
+  "source_basis": {
+    "generated_macro": {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "sha256": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9"
+    },
+    "native_files": {
+      "FaBSim/Custom/GameLogic.php": "753cb6804def31c927999239c316d6fa282be9d8b67c28cb087cdfde1bf0b257",
+      "FaBSim/Custom/MONCards.php": "0f35f2849029510ce277fc5c016894047e94d5422f9b86ec5d4e631ecfd260b0",
+      "FaBSim/Custom/ARCCards.php": "c3b8c93aeea5bb8915e879b45c0065ac9d18ed78111691e13813868327543636",
+      "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a"
+    },
+    "kano_actual_await": {
+      "body": "function __RunAwait_e3d107d0ec6b273effc4($player, $lastDecision = null, $_awaitPc = 0, $_awaitFrameKey = \"\") {\n  $_awaitFrame = DecisionQueueController::GetAwaitFrame($_awaitFrameKey);\n  $_awaitLocals = is_array($_awaitFrame) && isset($_awaitFrame['locals']) && is_array($_awaitFrame['locals']) ? $_awaitFrame['locals'] : [];\n  if(array_key_exists(\"mzID\", $_awaitLocals)) $mzID = $_awaitLocals[\"mzID\"];\n  if(array_key_exists(\"lookUIDs\", $_awaitLocals)) $lookUIDs = $_awaitLocals[\"lookUIDs\"];\n  if(array_key_exists(\"targets\", $_awaitLocals)) $targets = $_awaitLocals[\"targets\"];\n  if(array_key_exists(\"chosen\", $_awaitLocals)) $chosen = $_awaitLocals[\"chosen\"];\n  while(true) {\n    switch(intval($_awaitPc)) {\n      case 0:\n        DecisionQueueController::FinishAwaitFrame($_awaitFrameKey);\n        return;\n      case 1:\n        FaBARCFinishOrder($player, $lookUIDs, '');\n        $_awaitPc = 0;\n        continue 2;\n      case 2:\n         FaBARCBanishInstant($player, $chosen, 'Temp');\n        $_awaitPc = 1;\n        continue 2;\n      case 3:\n        DecisionQueueController::UpdateAwaitFrame($_awaitFrameKey, [\"mzID\" => $mzID ?? null, \"lookUIDs\" => $lookUIDs ?? null, \"targets\" => $targets ?? null, \"chosen\" => $chosen ?? null]);\n        DecisionQueueController::AddDecision($player, \"MZMAYCHOOSE\", $targets, 1, \"Banish_to_play_as_an_instant\");\n        DecisionQueueController::AddDecision($player, \"CUSTOM\", \"kano:0:ResolveAbility-await|\" . $_awaitFrameKey . \"|2|chosen\", 1);\n        return;\n      case 4:\n        if($targets !== '') { $_awaitPc = 3; } else { $_awaitPc = 1; }\n        continue 2;\n      case 5:\n        $lookUIDs = FaBARCStageTop($player, 1);\n        $targets = FaBARCSelect($player, 'Temp', '', 'NAA');\n        $_awaitPc = 4;\n        continue 2;\n      default:\n        DecisionQueueController::FinishAwaitFrame($_awaitFrameKey);\n        return;\n    }\n  }\n}\n\n$customDQHandlers[\"kano:0:ResolveAbility-await\"] = function($player, $parts, $lastDecision) { //kano\n  $_awaitFrameKey = $parts[0] ?? \"\";\n  $_awaitPc = intval($parts[1] ?? 0);\n  $_awaitReturnVar = $parts[2] ?? \"\";\n  if($_awaitReturnVar !== \"\") {\n    DecisionQueueController::StoreVariable($_awaitReturnVar, $lastDecision);\n    DecisionQueueController::SetAwaitFrameLocal($_awaitFrameKey, $_awaitReturnVar, $lastDecision);\n  }\n  __RunAwait_e3d107d0ec6b273effc4($player, $lastDecision, $_awaitPc, $_awaitFrameKey);\n};\n",
+      "body_sha256": "79ef2b19dd0f6cfe8e71d34c2dc9f2051abc40b31b63b343ad0d5c21b4faf03b"
+    },
+    "peace_actual_resolve": {
+      "body": "$resolveCardAbilities[\"peace_of_mind_red:0\"] = function($player) { //peace_of_mind_red\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  FaBOUTAdd($player, 'PEACE', 4, ['persistentUntilUsed'=>true]);\n   FaBOUTToken($player, 'ponder');\n};",
+      "body_sha256": "47e41f61466c7781fb189e252253ab6d4ee37f9b89d7ba6b4127e51c3674d3b5"
+    },
+    "merciful_actual_resolve_ability": {
+      "body": "$resolveAbilityAbilities[\"merciful_retribution_yellow:0\"] = function($player) { //merciful_retribution_yellow\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $_awaitFrameKey = DecisionQueueController::BeginAwaitFrame(\"merciful_retribution_yellow:0:ResolveAbility\", [\"mzID\" => $mzID ?? null]);\n  __RunAwait_27f6005d090f7c5a8d08($player, null, 36, $_awaitFrameKey);\n};",
+      "body_sha256": "3be933c347eb5d3d286cb33d10937a9883e4aeb6a39ee3b893ef7fe14209837f"
+    }
+  },
+  "source_equivalence": "All3 Yinti colors have equal0cost/2defense and exact same boolean continuous Aura predicates; attack printedpower differs3/2/1. Twelve recipes retain independent numeric endpoints.",
+  "matrix_construction_supplement": {
+    "unchanged_matrix_sha256": "95fcf0bbdf1d5bad37dc2b6da119dc715b92d1cc5eb3ee28e395a089609367d0",
+    "branch": "aura-enters-during-reaction-defense",
+    "alternative_legal_support": "The frozen matrix suggests PeaceOfMind. These exact recipes instead play MercifulRetribution under Prism to create the Aura directly without adding physical prevention. The primary obligation remains noAuraDEF2 to ownAuraDEF3 before damage, and all existing matrix/pilot bytes remain preserved."
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1020/",
+      "derivation": "While attacking/defending and controlling any Aura applies a static+1 to the applicable printed stat, regardless of how recently the Aura entered. Rechecked official red text; original audit binds all3 faces."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/742/",
+      "derivation": "LightIllusionist InstantAura cost4 can enter during Reaction under Prism. Its destruction trigger is irrelevant to ordinary non-destruction cleanup; no attack is retargeted to it."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.2.3a",
+        "6.2.3b",
+        "6.2.3d"
+      ],
+      "derivation": "Static-continuous effects update with current state; conditional generation ceases as soon as the condition ceases."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "derivation": "Fresh current attack power and summed defense determine physical damage."
+    }
+  ],
+  "protocol_guards": [
+    "Heroes/legal class and talent: Generic primary legal under Dorinthea/Prism/Kano; Merciful only under Prism; Dart only under Kano. Known-stateShield legal IllusionistAura; no fabricated future permissions.",
+    "Kano uses actual3resource Instant ability and actual known topDeck card, Temp choice, Banish grant for turn2, target declaration before assets, mandatory Ward answer.",
+    "Mandatory Ward keeps BlueDart source StackUID/controller and managedPLAIN_SPELL marker live until effect finishes.",
+    "No invented suppression/copy/state/history/CC or permissions are inserted. Only legal initial Hand/Arena/Deck, resources/AP are configured.",
+    "Static condition asserted with active attack computedpower and final fresh defenseValue/damage, not unsupported Hand power or computedDefense assertion."
+  ],
+  "cases": 12,
+  "pilot_subset": 4,
+  "native_writes": 0,
+  "game_actions": 0
+}

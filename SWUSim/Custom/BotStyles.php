@@ -88,10 +88,25 @@ function SWUBotAllowedTargets(array $ctx, array $att): array {
     // not its unit preferences, and widening further would change aggro and midrange unmeasured.
     // SWUBotAttackTargets above has already removed whatever the RULES forbid (Sentinel without Saboteur).
     $keep = [];
+    $archetype = SWUBotStyleRank(strval($ctx['style']));
     foreach ($all as [$k, $u]) {
         if ($k === 'base') { $keep[] = [$k, $u]; continue; }
+        // FEATURE 'leaderkill' (p44) (owner 2026-10-12): a midrange / control deck that is RACING still kills an enemy LEADER unit — the aggro
+        // filter below dropped it (Grievous Blue: Boba R4, Bossk R5). Aggro decks are unchanged: they go face.
+        if (SWUBotFeatureOn('leaderkill') && $archetype >= 2 && !empty($u['isLeader'])
+            && in_array(SWUBotCombatOutcome($att, $u), ['kill-survive', 'trade'], true)) { $keep[] = [$k, $u]; continue; }
+        // FEATURE 'spenttrade' (p44) (owner 2026-10-12): midrange's spent cheap body may trade EVEN, not only up (BotFallback.php).
+        if (SWUBotFeatureOn('spenttrade') && $mode === 'normal-trade' && $archetype === 2 && _SWUBotSpentCheap($att)
+            && in_array(SWUBotCombatOutcome($att, $u), ['kill-survive', 'trade'], true)) { $keep[] = [$k, $u]; continue; }
+        // FEATURE 'tssentinelchip' (p63, owner 2026-10-22): Twin Suns — every style may chip the Sentinel walling the leader's base (BotFallback.php).
+        if (function_exists('_SWUBotTSSentinelChipValue') && _SWUBotTSFreeForAll() && !empty($u['sentinel'])
+            && _SWUBotTSSentinelChipValue(intval($ctx['seat']), $att, $u, SWUBotWeights(strval($ctx['style']), intval($ctx['seat']))) > 0) { $keep[] = [$k, $u]; continue; }
         if ($mode === 'aggro') {
-            if (!SWUBotOverwhelmKills($att, $u)) continue;          // aggro takes a unit only when Overwhelm carries
+            // Feature 'sentinelclear' (p48): …or when a Saboteur breaking the lone Sentinel lets the round clear it (BotFallback.php).
+            $break = SWUBotFeatureOn('sentinelclear') && function_exists('_SWUBotSaboteurSentinelGain') && !empty($att['saboteur'])
+                     && ($sg = _SWUBotSaboteurSentinelGain(intval($ctx['seat']), $att, SWUBotWeights(strval($ctx['style']), intval($ctx['seat'])))) !== null
+                     && $sg['gain'] > 0 && $sg['def']['uid'] === $u['uid'];
+            if (!$break && !SWUBotOverwhelmKills($att, $u)) continue;   // aggro takes a unit only when Overwhelm carries
         } elseif ($mode === 'normal-trade') {
             $o = SWUBotCombatOutcome($att, $u);                      // midrange: kill-and-survive, or trade up
             if ($o !== 'kill-survive' && !($o === 'trade' && $u['cost'] > $att['cost'])) continue;

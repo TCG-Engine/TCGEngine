@@ -1,0 +1,7 @@
+{
+    "name": "Surging Strike / unblocked",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:46+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed attack 4, cost 2, go again True; pay using 1 blue pitch card(s). Defender has 0 defense; expected damage 4. Hero ira_crimson_haze has no modifying effect in this first-attack state. Sources: FaBSim/GeneratedCode/cardArrayCache.json#surging_strike_yellow https://rules.fabtcg.com/en/cr/07-combat/"
+}

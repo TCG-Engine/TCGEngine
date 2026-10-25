@@ -1,0 +1,50 @@
+# Self-play fixture — "Lando LC" (Lando Calrissian, Full Sabacc - Lake Country), updated for HMW
+# Source: given by the owner as JSON, 2026-10-20 ("Lando LC updated for HMW"). No author in the export.
+#   55 main-deck cards (Lake Country allows 55), 10 sideboard. Premier-legal (SWUCheckFormat, 2026-10-20).
+# Archetype (owner): TEMPO — "Lando Blue is not really tempo. Lando Lake Country however is" (2026-10-20); the earlier
+#   Lake Country list was the owner's tempo testbed (exhaust / bounce / Ambush / capture). The deck-style classifier reads
+#   it midrange (high confidence: 13 units ≥6 cost, 2 wipes); the tempo-flavour estimate scores it ~58% (bounce, exhaust
+#   and debuffs on its big units and events).
+# Credits (owner, 2026-10-20): spend Credits freely up to the flip turn; go into the flip with 5R + 3C = 8 to play the
+#   8-cost bombs (The Mandalorian SEC_209, Liberty LAW_224). (Lando Blue's target is 6R + 3C = 9 for Bo-Katan / Chimaera.)
+# Style: midrange
+# Flavours: credit-ramp, tempo
+
+Leader
+1 LAW_018
+
+Base
+1 JTL_031
+
+Deck
+3 LOF_200
+2 SEC_207
+3 SEC_209
+3 LAW_223
+2 LAW_224
+3 LAW_221
+3 ASH_201
+3 HMW_208
+3 LOF_199
+3 SEC_211
+2 LAW_246
+2 SEC_233
+3 SEC_213
+3 LAW_228
+2 IBH_052
+2 SEC_179
+3 HMW_218
+2 LAW_241
+3 JTL_221
+2 LAW_096
+3 JTL_203
+
+Sideboard
+1 SEC_233
+1 SEC_207
+1 IBH_031
+3 JTL_198
+1 SEC_179
+1 IBH_052
+1 LAW_224
+1 LAW_096

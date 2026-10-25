@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-21T00:12:10+00:00",
+    "input_file": "card-regression-batch98.json",
+    "input_sha256": "dfa110f85e6c9ede4d7f36d92080d4c376e4528998af1958ea9f4920eef1c94f",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-out-muscle-red-four-live-sparse-actual-lower-power-hand-defender-still-grants-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 29,
+            "assertions": 429
+        },
+        {
+            "slug": "card-rough-up-red-four-live-sparse-actual-six-power-yellow-pitch-grants-one-power",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 397
+        },
+        {
+            "slug": "card-soul-butcher-red-four-live-sparse-defending-hero-physical-soul-grants-two-power",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 413
+        },
+        {
+            "slug": "card-soul-cleaver-red-four-live-sparse-defending-hero-physical-soul-grants-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 413
+        }
+    ]
+}

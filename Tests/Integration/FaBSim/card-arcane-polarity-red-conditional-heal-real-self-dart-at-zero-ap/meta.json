@@ -1,0 +1,7 @@
+{
+    "name": "Arcane Polarity / conditional heal / real-self-dart-at-zero-ap",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:07:16+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Aether Dart red legally targets its own Kano hero: pay1AP, deal3 arcane (10->7), and finish its own resolution. Arcane Polarity is a cost0 Instant, so at0AP it preserves all assets and heals only on its resolution. Prior positive arcane damage changes the printed gain to4; HP7->11, not8 or12. Both physical sources keep UIDs4 and3 and clear to their owner graveyard in that order. Sources: https://judge.fabtcg.com/cards/detail/3297/ FaBSim/GeneratedCode/cardArrayCache.json#arcane_polarity_red https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

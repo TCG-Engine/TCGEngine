@@ -1,0 +1,1278 @@
+{
+  "status": "INDEPENDENT_DEPENDENCY12_SPEC_SEMANTICS_APPROVED_FOR_PILOT6_THEN_BOUNDED_NATIVE_GATES",
+  "reviewer": "/root/pilot_review",
+  "native_actions": 0,
+  "native_imports": 0,
+  "native_writes": 0,
+  "inputs": {
+    "typed-record-ready-proposed.json": "b340a5d0feb9af914856e53ce083e92a89cba93a5b39f04e117731a88ed7286b",
+    "typed-pilot6-proposed.json": "019d3a1237671a5b61248e52baf3934ea7bfb470d07cf72fd9974a44f821ea3a",
+    "typed-correct-rule-held-proposed.json": "d89d85e6a2661d7330fd16d8f9ff43c77086d3242ece19e3415d6962cd8b7bc0"
+  },
+  "model_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pure-hit-token-attacks\\batch75-dependencies\\independent-spec-model-results.json",
+    "sha256": "33eaf135fedc5a796606ef613e0b9d90cf29a46b30e0ab173f38aa366f21a9c0",
+    "checks": 20074,
+    "cases": 12,
+    "pilot": 6,
+    "planned_oracles": 8175,
+    "modeled_actions": 344,
+    "modeled_passes": 310
+  },
+  "independent_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_token75_dependencies.py",
+    "sha256": "0650b9c2454041200686c2b5c754b3e7a2c15b4c4ac15d6b368736f5fd0c45ff",
+    "scope": "Standalone printed-behavior and individual-priority-pass interpreter. Does not import author World/builder, engine or game state. All8175 exact numeric/zone/property/state/power/GA oracles checked;9 intentional model faults detect retained oracles, not native execution."
+  },
+  "reviewed_source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "70a6ad592e0b05ab80824e4defcf3fb5ee39e818036ee88a32504fed305350ae",
+    "FaBSim/Custom/WTRAbilities.php": "5babe8457b3ae98d249a70c9c2094c18ca734a850fd7818aad4f13983e2ae59f",
+    "FaBSim/Custom/ARCAbilities.php": "3d93e7520aeeadcfd14bb9c5664b95d7b7b17aa3d3b768fdf431c0e32167c54b",
+    "FaBSim/Custom/HVYCards.php": "58347c63bfec8f12090883bae6fb092928660c02da19f8b698588a5ebf823a7c",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/DYNRuntime.php": "c4b2a4ba39df5a89a8b766f04b5f087de0bc01440c9a195f7fe8951434ff4f2a",
+    "FaBSim/Custom/ELECards.php": "af45a8b56294e3b64832b83d1a4c1db55daeb4ed7c3406e5d5e1eda33843b2ec",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "86a8e4224a83233fe8c5d3a1fd092963bc6ebc485d21c22ea1a561b36710bf20"
+  },
+  "viewed_original_faces": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\gold.webp",
+      "sha256": "d870a5a7356eab9c8bbbd4112080c5e999bf321c30d101f98bdd324e3dc7f8c0"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\embodiment_of_earth.webp",
+      "sha256": "bee9372511b6086c1493f98c58fb36da2c3da715e1f847458d18102da30d0d06"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\ripple_away_blue.webp",
+      "sha256": "9bde81e811ef98ef0de232ae2d1b6bad72d1c1a594801b9aec85f29823f3b083"
+    }
+  ],
+  "official_rules_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2898/",
+      "supports": "Ripple Away Instant discard activation, action-card-effect token replacement for this turn; printed card play cost2 is not activation cost."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.4.1",
+        "6.4.2",
+        "6.4.3",
+        "6.6.1d",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "supports": "Replacement is active before original pending token effect generates its creation event; changing most recent resolved source does not change original effect provenance."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "sections": [
+        "4.3.1",
+        "4.3.2",
+        "4.3.4",
+        "4.4.1",
+        "4.4.3e",
+        "4.4.3f",
+        "4.4.4"
+      ],
+      "supports": "Turn-player refill at end of turn2, all AP/resources clear, next player starts turn3/AP1; Earth belonging to nonturn-player persists until that controller next action phase. End phase provides no rules priority."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "sections": [
+        "7.3",
+        "7.5.2",
+        "7.5.3",
+        "7.6.2",
+        "7.7"
+      ],
+      "supports": "Free ordinary defense and total defense, positive-hit layer timing, no innate current attack GA, normal Close destinations."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.3.5",
+        "8.5.4",
+        "8.5.6",
+        "8.6.11",
+        "8.6.16"
+      ],
+      "supports": "Official definitions independently confirm Earth NAA-defense static bonus/controller-next-action-phase trigger and Gold Action cost2/destroy/draw/goagain. Local original Gold/Earth token faces also independently viewed."
+    }
+  ],
+  "findings": [
+    "All twelve exact recipes have supported real click/pass actions, no seeded token, modifier, persistent history, permission, choice or fake trigger state. Initial physical sources are Hand/Deck only; initial floating resources/AP are known fixture balances, not claimed histories of how those balances were gained.",
+    "The four Ripple recipes activate the real HandUID4 while only Instant-timing activation is legal. Actual discard is cost, resources/AP unchanged; physical owner2 remains pinned in GY. The activation virtual layer correctly pins Controller2/SourceZoneHand/SourceUID4 and does NOT invent a raw Owner1/2 contract.",
+    "Ripple resolves while original token-hit layer remains pending; then real HandUID5 Sigil Instant resolves for exactly3HP above the same hit layer. Subsequent original Action-AA token effect must create ZERO tokens. This is observable dependence on original effective Action attribution rather than whichever Instant/mzID most recently resolved. Earlier approved unmodified four red positive pilots create one token without Ripple, so zero-token result is not a standalone all-token-suppressed oracle.",
+    "All original AA costs are paid and source printed power/noGA pinned before hitting; real opponent priority is reached before each upper action. HP outcomes for red sources are independently20-power+3; no ability, Sigil or token effect adds AP or resources.",
+    "The three Gold cases cover source RGB4/3/2 damage and actual created Gold activation. Source has no GA; initialAP2 minus one AA leavesAP1 to activate Gold legally after real Close. Cost2resources/AP1 and destroy/cannot leave tokenGY occur before draw. Known DeckUID4 reaches Hand only on activation-layer resolution, then own Gold goagain refunds exactlyoneAP. No virtual ability Owner field is assumed.",
+    "The five Earth cases generate tokens from actual source hits before a real own end-turn transition. Known Deck defender is drawn during player1 end-turn refill; player2 becomes turn3 active player withAP1/resources0. CreatedEarth remains under player1 control during player2 turn; support WBredUID5/6 then attacks for4.",
+    "ComeToFightBlue is Generic NAA defense3, receives+1 per controlled Earth while defending: one token gives total4, two independent actually-created tokens give total5; WB4 deals0. MuscleMuttYellow is an AA defense2 and receives no bonus, so WB4 deals2 and player1 endsHP18. Multiple sources consume their own paid costs/AP and damage opponent7+7=14, leavingHP6, so no player elimination invalidates the stacking fixture.",
+    "Source/UID progression matches real physical-card movement and ordinary ABILITY proxies. No virtual trigger token is treated as the physical created token. Activated-layer Owner omitted deliberately; all physical source/token Owners and Controllers remain checked.",
+    "Recorder kind=power/go_again dynamically finds the actual current attackUID and persists its absolute mzID. Earth opponent-turn checks therefore must be reviewed later against p2CombatChain-0, not a hardcoded p1 attack reference; no recorder/source change is required.",
+    "Earth recipes use native END_PHASE window only as an internal end-procedure/arsenal checkpoint with supported passes. They play/activate nothing there and make no claim of legal rules priority during End Phase. Ponder begin-end-phase timing remains in the separate unapproved held file.",
+    "No prevention/Ward decision or frame is part of these twelve dependency cases. All decision_queue_empty assertions are appropriate for their noninteractive supported sequences, and no invented global history/await-frame-empty state is asserted."
+  ],
+  "source_protocol_basis": [
+    "FaBARCAbilityActions/Activate: actual owner-priority and ability timing; virtual ABILITY Controller set, Owner omitted in constructor. FaBARCPayAbility\u2192FaBHVYPaid discards Ripple source; spec destroy invokes actual MONDestroy for Gold before resolution.",
+    "Generated Ripple ResolveAbility calls FaBHVYAdd(player,RIPPLE); FaBHVYToken applies RIPPLE only if passed captured effective Action=true. New hit resolver explicitly passes original controller/action even after Sigil overwrote prior macro context.",
+    "Generated Gold ResolveAbility draws one. FaBARCResolveAbility then applies own spec goAgain with live turn-player legality. Generic ability resolution returns to saved ACTION or existing DAMAGE stack/priority correctly.",
+    "FaBELEDefense counts controlled ArenaEarth only for Action&&!Attack; all one/two-copy/exclusion printed numbers independently checked. FaBFinishEndTurn draws only current player on turn2 and clears assets, then StartOfTurnPhase initializes next player2AP1 and calls Earth start hook only for new controller2, preserving player1Earth.",
+    "All exact source files/schema/compiled callbacks/cache and recorder hashes bound in model evidence; no source edit/generation/save is proposed by this review."
+  ],
+  "model_faults": [
+    {
+      "fault": "ripple-no-replacement",
+      "slug": "card-destructive-deliberation-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "detected": true,
+      "first_failure": "card-destructive-deliberation-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution canonical_action_token_replacement_zero_after_layer_resolution {'type': 'zone_count', 'zone': 'p1Arena', 'value': 0} expected independent 1"
+    },
+    {
+      "fault": "lost-captured-action",
+      "slug": "card-strike-gold-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "detected": true,
+      "first_failure": "card-strike-gold-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution canonical_action_token_replacement_zero_after_layer_resolution {'type': 'zone_count', 'zone': 'p1Arena', 'value': 0} expected independent 1"
+    },
+    {
+      "fault": "gold-no-cost",
+      "slug": "card-strike-gold-red-token75-created-gold-real-action-two-destroy-draw-go-again",
+      "detected": true,
+      "first_failure": "card-strike-gold-red-token75-created-gold-real-action-two-destroy-draw-go-again created_gold_activation_pays_two_and_destroy_before_draw {'type': 'scalar_zone_equals', 'zone': 'p1Resources', 'value': 0} expected independent 2"
+    },
+    {
+      "fault": "gold-early-draw",
+      "slug": "card-strike-gold-red-token75-created-gold-real-action-two-destroy-draw-go-again",
+      "detected": true,
+      "first_failure": "card-strike-gold-red-token75-created-gold-real-action-two-destroy-draw-go-again created_gold_activation_pays_two_and_destroy_before_draw {'type': 'zone_count', 'zone': 'p1Hand', 'value': 0} expected independent 1"
+    },
+    {
+      "fault": "gold-no-ga",
+      "slug": "card-strike-gold-red-token75-created-gold-real-action-two-destroy-draw-go-again",
+      "detected": true,
+      "first_failure": "card-strike-gold-red-token75-created-gold-real-action-two-destroy-draw-go-again gold_draws_exact_original_deck_card_own_go_again_refunds_once {'type': 'scalar_zone_equals', 'zone': 'p1ActionPoints', 'value': 1} expected independent 0"
+    },
+    {
+      "fault": "earth-ignore-naa",
+      "slug": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-plus-one",
+      "detected": true,
+      "first_failure": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-plus-one printed_defense_plus_only_eligible_created_earth {'kind': 'state', 'key': 'defenseValue', 'value': 4} expected independent 3"
+    },
+    {
+      "fault": "earth-aa-also",
+      "slug": "card-earth-form-red-token75-created-earth-real-next-turn-aa-excluded",
+      "detected": true,
+      "first_failure": "card-earth-form-red-token75-created-earth-real-next-turn-aa-excluded printed_defense_plus_only_eligible_created_earth {'kind': 'state', 'key': 'defenseValue', 'value': 2} expected independent 3"
+    },
+    {
+      "fault": "earth-only-one",
+      "slug": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-stacking",
+      "detected": true,
+      "first_failure": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-stacking printed_defense_plus_only_eligible_created_earth {'kind': 'state', 'key': 'defenseValue', 'value': 5} expected independent 4"
+    },
+    {
+      "fault": "earth-expire-too-soon",
+      "slug": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-plus-one",
+      "detected": true,
+      "first_failure": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-plus-one real_next_turn_draw_retains_live_created_earth {'type': 'zone_count', 'zone': 'p1Arena', 'value': 1} expected independent 0"
+    }
+  ],
+  "pilot_slugs": [
+    "card-destructive-deliberation-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+    "card-strike-gold-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+    "card-earth-form-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+    "card-lightning-form-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+    "card-strike-gold-red-token75-created-gold-real-action-two-destroy-draw-go-again",
+    "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-plus-one"
+  ],
+  "cases": [
+    {
+      "slug": "card-destructive-deliberation-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "spec_semantically_approved": true,
+      "native_planned_oracles": 624,
+      "modeled_supported_actions": 24,
+      "modeled_individual_passes": 21,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "paper_action_step": 0,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "paper_action_step": 1,
+          "oracles": 44
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "paper_action_step": 3,
+          "oracles": 46
+        },
+        {
+          "checkpoint": "actual_hit_pending_original_token_absent",
+          "paper_action_step": 10,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "real_opponent_priority_over_hit_layer",
+          "paper_action_step": 11,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "real_discard_activation_paid_above_original_hit",
+          "paper_action_step": 12,
+          "oracles": 63
+        },
+        {
+          "checkpoint": "ripple_replacement_resolved_hit_layer_still_pending",
+          "paper_action_step": 14,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "real_instant_above_hit_after_ripple_no_early_token",
+          "paper_action_step": 16,
+          "oracles": 60
+        },
+        {
+          "checkpoint": "instant_gained_three_hit_layer_still_action_sourced",
+          "paper_action_step": 18,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "canonical_action_token_replacement_zero_after_layer_resolution",
+          "paper_action_step": 20,
+          "oracles": 50
+        },
+        {
+          "checkpoint": "chain_link_resolved_ap_from_current_attack_only",
+          "paper_action_step": 22,
+          "oracles": 50
+        },
+        {
+          "checkpoint": "real_close_preserves_exact_owner_cards_and_token_outcome",
+          "paper_action_step": 24,
+          "oracles": 42
+        }
+      ],
+      "final_hp": [
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "final_turn_player": 1
+    },
+    {
+      "slug": "card-strike-gold-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "spec_semantically_approved": true,
+      "native_planned_oracles": 624,
+      "modeled_supported_actions": 24,
+      "modeled_individual_passes": 21,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "paper_action_step": 0,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "paper_action_step": 1,
+          "oracles": 44
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "paper_action_step": 3,
+          "oracles": 46
+        },
+        {
+          "checkpoint": "actual_hit_pending_original_token_absent",
+          "paper_action_step": 10,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "real_opponent_priority_over_hit_layer",
+          "paper_action_step": 11,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "real_discard_activation_paid_above_original_hit",
+          "paper_action_step": 12,
+          "oracles": 63
+        },
+        {
+          "checkpoint": "ripple_replacement_resolved_hit_layer_still_pending",
+          "paper_action_step": 14,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "real_instant_above_hit_after_ripple_no_early_token",
+          "paper_action_step": 16,
+          "oracles": 60
+        },
+        {
+          "checkpoint": "instant_gained_three_hit_layer_still_action_sourced",
+          "paper_action_step": 18,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "canonical_action_token_replacement_zero_after_layer_resolution",
+          "paper_action_step": 20,
+          "oracles": 50
+        },
+        {
+          "checkpoint": "chain_link_resolved_ap_from_current_attack_only",
+          "paper_action_step": 22,
+          "oracles": 50
+        },
+        {
+          "checkpoint": "real_close_preserves_exact_owner_cards_and_token_outcome",
+          "paper_action_step": 24,
+          "oracles": 42
+        }
+      ],
+      "final_hp": [
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "final_turn_player": 1
+    },
+    {
+      "slug": "card-earth-form-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "spec_semantically_approved": true,
+      "native_planned_oracles": 624,
+      "modeled_supported_actions": 24,
+      "modeled_individual_passes": 21,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "paper_action_step": 0,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "paper_action_step": 1,
+          "oracles": 44
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "paper_action_step": 3,
+          "oracles": 46
+        },
+        {
+          "checkpoint": "actual_hit_pending_original_token_absent",
+          "paper_action_step": 10,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "real_opponent_priority_over_hit_layer",
+          "paper_action_step": 11,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "real_discard_activation_paid_above_original_hit",
+          "paper_action_step": 12,
+          "oracles": 63
+        },
+        {
+          "checkpoint": "ripple_replacement_resolved_hit_layer_still_pending",
+          "paper_action_step": 14,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "real_instant_above_hit_after_ripple_no_early_token",
+          "paper_action_step": 16,
+          "oracles": 60
+        },
+        {
+          "checkpoint": "instant_gained_three_hit_layer_still_action_sourced",
+          "paper_action_step": 18,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "canonical_action_token_replacement_zero_after_layer_resolution",
+          "paper_action_step": 20,
+          "oracles": 50
+        },
+        {
+          "checkpoint": "chain_link_resolved_ap_from_current_attack_only",
+          "paper_action_step": 22,
+          "oracles": 50
+        },
+        {
+          "checkpoint": "real_close_preserves_exact_owner_cards_and_token_outcome",
+          "paper_action_step": 24,
+          "oracles": 42
+        }
+      ],
+      "final_hp": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "final_turn_player": 1
+    },
+    {
+      "slug": "card-lightning-form-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "spec_semantically_approved": true,
+      "native_planned_oracles": 624,
+      "modeled_supported_actions": 24,
+      "modeled_individual_passes": 21,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "paper_action_step": 0,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "paper_action_step": 1,
+          "oracles": 44
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "paper_action_step": 3,
+          "oracles": 46
+        },
+        {
+          "checkpoint": "actual_hit_pending_original_token_absent",
+          "paper_action_step": 10,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "real_opponent_priority_over_hit_layer",
+          "paper_action_step": 11,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "real_discard_activation_paid_above_original_hit",
+          "paper_action_step": 12,
+          "oracles": 63
+        },
+        {
+          "checkpoint": "ripple_replacement_resolved_hit_layer_still_pending",
+          "paper_action_step": 14,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "real_instant_above_hit_after_ripple_no_early_token",
+          "paper_action_step": 16,
+          "oracles": 60
+        },
+        {
+          "checkpoint": "instant_gained_three_hit_layer_still_action_sourced",
+          "paper_action_step": 18,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "canonical_action_token_replacement_zero_after_layer_resolution",
+          "paper_action_step": 20,
+          "oracles": 50
+        },
+        {
+          "checkpoint": "chain_link_resolved_ap_from_current_attack_only",
+          "paper_action_step": 22,
+          "oracles": 50
+        },
+        {
+          "checkpoint": "real_close_preserves_exact_owner_cards_and_token_outcome",
+          "paper_action_step": 24,
+          "oracles": 42
+        }
+      ],
+      "final_hp": [
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "final_turn_player": 1
+    },
+    {
+      "slug": "card-strike-gold-red-token75-created-gold-real-action-two-destroy-draw-go-again",
+      "spec_semantically_approved": true,
+      "native_planned_oracles": 450,
+      "modeled_supported_actions": 19,
+      "modeled_individual_passes": 17,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "paper_action_step": 0,
+          "oracles": 37
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "paper_action_step": 1,
+          "oracles": 40
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "paper_action_step": 3,
+          "oracles": 42
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "paper_action_step": 10,
+          "oracles": 53
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "paper_action_step": 11,
+          "oracles": 53
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "paper_action_step": 12,
+          "oracles": 51
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "paper_action_step": 14,
+          "oracles": 51
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "paper_action_step": 16,
+          "oracles": 43
+        },
+        {
+          "checkpoint": "created_gold_activation_pays_two_and_destroy_before_draw",
+          "paper_action_step": 17,
+          "oracles": 43
+        },
+        {
+          "checkpoint": "gold_draws_exact_original_deck_card_own_go_again_refunds_once",
+          "paper_action_step": 19,
+          "oracles": 37
+        }
+      ],
+      "final_hp": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        1,
+        0
+      ],
+      "final_turn_player": 1
+    },
+    {
+      "slug": "card-strike-gold-yellow-token75-created-gold-real-action-two-destroy-draw-go-again",
+      "spec_semantically_approved": true,
+      "native_planned_oracles": 450,
+      "modeled_supported_actions": 19,
+      "modeled_individual_passes": 17,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "paper_action_step": 0,
+          "oracles": 37
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "paper_action_step": 1,
+          "oracles": 40
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "paper_action_step": 3,
+          "oracles": 42
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "paper_action_step": 10,
+          "oracles": 53
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "paper_action_step": 11,
+          "oracles": 53
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "paper_action_step": 12,
+          "oracles": 51
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "paper_action_step": 14,
+          "oracles": 51
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "paper_action_step": 16,
+          "oracles": 43
+        },
+        {
+          "checkpoint": "created_gold_activation_pays_two_and_destroy_before_draw",
+          "paper_action_step": 17,
+          "oracles": 43
+        },
+        {
+          "checkpoint": "gold_draws_exact_original_deck_card_own_go_again_refunds_once",
+          "paper_action_step": 19,
+          "oracles": 37
+        }
+      ],
+      "final_hp": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        1,
+        0
+      ],
+      "final_turn_player": 1
+    },
+    {
+      "slug": "card-strike-gold-blue-token75-created-gold-real-action-two-destroy-draw-go-again",
+      "spec_semantically_approved": true,
+      "native_planned_oracles": 450,
+      "modeled_supported_actions": 19,
+      "modeled_individual_passes": 17,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "paper_action_step": 0,
+          "oracles": 37
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "paper_action_step": 1,
+          "oracles": 40
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "paper_action_step": 3,
+          "oracles": 42
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "paper_action_step": 10,
+          "oracles": 53
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "paper_action_step": 11,
+          "oracles": 53
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "paper_action_step": 12,
+          "oracles": 51
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "paper_action_step": 14,
+          "oracles": 51
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "paper_action_step": 16,
+          "oracles": 43
+        },
+        {
+          "checkpoint": "created_gold_activation_pays_two_and_destroy_before_draw",
+          "paper_action_step": 17,
+          "oracles": 43
+        },
+        {
+          "checkpoint": "gold_draws_exact_original_deck_card_own_go_again_refunds_once",
+          "paper_action_step": 19,
+          "oracles": 37
+        }
+      ],
+      "final_hp": [
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        1,
+        0
+      ],
+      "final_turn_player": 1
+    },
+    {
+      "slug": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-plus-one",
+      "spec_semantically_approved": true,
+      "native_planned_oracles": 752,
+      "modeled_supported_actions": 35,
+      "modeled_individual_passes": 32,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "paper_action_step": 0,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "paper_action_step": 1,
+          "oracles": 44
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "paper_action_step": 3,
+          "oracles": 46
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "paper_action_step": 10,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "paper_action_step": 11,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "paper_action_step": 12,
+          "oracles": 55
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "paper_action_step": 14,
+          "oracles": 55
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "paper_action_step": 16,
+          "oracles": 47
+        },
+        {
+          "checkpoint": "created_earth_persists_through_own_end_priority",
+          "paper_action_step": 18,
+          "oracles": 46
+        },
+        {
+          "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+          "paper_action_step": 20,
+          "oracles": 48
+        },
+        {
+          "checkpoint": "opponent_paid_ordinary_attack",
+          "paper_action_step": 21,
+          "oracles": 49
+        },
+        {
+          "checkpoint": "real_defense_declaration_with_created_earth",
+          "paper_action_step": 25,
+          "oracles": 49
+        },
+        {
+          "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+          "paper_action_step": 26,
+          "oracles": 53
+        },
+        {
+          "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+          "paper_action_step": 33,
+          "oracles": 58
+        },
+        {
+          "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+          "paper_action_step": 35,
+          "oracles": 47
+        }
+      ],
+      "final_hp": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "final_turn_player": 2
+    },
+    {
+      "slug": "card-earth-form-yellow-token75-created-earth-real-next-turn-naa-defense-plus-one",
+      "spec_semantically_approved": true,
+      "native_planned_oracles": 752,
+      "modeled_supported_actions": 35,
+      "modeled_individual_passes": 32,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "paper_action_step": 0,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "paper_action_step": 1,
+          "oracles": 44
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "paper_action_step": 3,
+          "oracles": 46
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "paper_action_step": 10,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "paper_action_step": 11,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "paper_action_step": 12,
+          "oracles": 55
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "paper_action_step": 14,
+          "oracles": 55
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "paper_action_step": 16,
+          "oracles": 47
+        },
+        {
+          "checkpoint": "created_earth_persists_through_own_end_priority",
+          "paper_action_step": 18,
+          "oracles": 46
+        },
+        {
+          "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+          "paper_action_step": 20,
+          "oracles": 48
+        },
+        {
+          "checkpoint": "opponent_paid_ordinary_attack",
+          "paper_action_step": 21,
+          "oracles": 49
+        },
+        {
+          "checkpoint": "real_defense_declaration_with_created_earth",
+          "paper_action_step": 25,
+          "oracles": 49
+        },
+        {
+          "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+          "paper_action_step": 26,
+          "oracles": 53
+        },
+        {
+          "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+          "paper_action_step": 33,
+          "oracles": 58
+        },
+        {
+          "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+          "paper_action_step": 35,
+          "oracles": 47
+        }
+      ],
+      "final_hp": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "final_turn_player": 2
+    },
+    {
+      "slug": "card-earth-form-blue-token75-created-earth-real-next-turn-naa-defense-plus-one",
+      "spec_semantically_approved": true,
+      "native_planned_oracles": 752,
+      "modeled_supported_actions": 35,
+      "modeled_individual_passes": 32,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "paper_action_step": 0,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "paper_action_step": 1,
+          "oracles": 44
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "paper_action_step": 3,
+          "oracles": 46
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "paper_action_step": 10,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "paper_action_step": 11,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "paper_action_step": 12,
+          "oracles": 55
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "paper_action_step": 14,
+          "oracles": 55
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "paper_action_step": 16,
+          "oracles": 47
+        },
+        {
+          "checkpoint": "created_earth_persists_through_own_end_priority",
+          "paper_action_step": 18,
+          "oracles": 46
+        },
+        {
+          "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+          "paper_action_step": 20,
+          "oracles": 48
+        },
+        {
+          "checkpoint": "opponent_paid_ordinary_attack",
+          "paper_action_step": 21,
+          "oracles": 49
+        },
+        {
+          "checkpoint": "real_defense_declaration_with_created_earth",
+          "paper_action_step": 25,
+          "oracles": 49
+        },
+        {
+          "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+          "paper_action_step": 26,
+          "oracles": 53
+        },
+        {
+          "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+          "paper_action_step": 33,
+          "oracles": 58
+        },
+        {
+          "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+          "paper_action_step": 35,
+          "oracles": 47
+        }
+      ],
+      "final_hp": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "final_turn_player": 2
+    },
+    {
+      "slug": "card-earth-form-red-token75-created-earth-real-next-turn-aa-excluded",
+      "spec_semantically_approved": true,
+      "native_planned_oracles": 752,
+      "modeled_supported_actions": 35,
+      "modeled_individual_passes": 32,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "paper_action_step": 0,
+          "oracles": 41
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "paper_action_step": 1,
+          "oracles": 44
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "paper_action_step": 3,
+          "oracles": 46
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "paper_action_step": 10,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "paper_action_step": 11,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "paper_action_step": 12,
+          "oracles": 55
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "paper_action_step": 14,
+          "oracles": 55
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "paper_action_step": 16,
+          "oracles": 47
+        },
+        {
+          "checkpoint": "created_earth_persists_through_own_end_priority",
+          "paper_action_step": 18,
+          "oracles": 46
+        },
+        {
+          "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+          "paper_action_step": 20,
+          "oracles": 48
+        },
+        {
+          "checkpoint": "opponent_paid_ordinary_attack",
+          "paper_action_step": 21,
+          "oracles": 49
+        },
+        {
+          "checkpoint": "real_defense_declaration_with_created_earth",
+          "paper_action_step": 25,
+          "oracles": 49
+        },
+        {
+          "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+          "paper_action_step": 26,
+          "oracles": 53
+        },
+        {
+          "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+          "paper_action_step": 33,
+          "oracles": 58
+        },
+        {
+          "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+          "paper_action_step": 35,
+          "oracles": 47
+        }
+      ],
+      "final_hp": [
+        18,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "final_turn_player": 2
+    },
+    {
+      "slug": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-stacking",
+      "spec_semantically_approved": true,
+      "native_planned_oracles": 1321,
+      "modeled_supported_actions": 51,
+      "modeled_individual_passes": 47,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "paper_action_step": 0,
+          "oracles": 45
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "paper_action_step": 1,
+          "oracles": 48
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "paper_action_step": 3,
+          "oracles": 50
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "paper_action_step": 10,
+          "oracles": 61
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "paper_action_step": 11,
+          "oracles": 61
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "paper_action_step": 12,
+          "oracles": 59
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "paper_action_step": 14,
+          "oracles": 59
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "paper_action_step": 16,
+          "oracles": 51
+        },
+        {
+          "checkpoint": "initial_printed_legal_assets",
+          "paper_action_step": 16,
+          "oracles": 50
+        },
+        {
+          "checkpoint": "assets_paid_no_token_or_hit_layer",
+          "paper_action_step": 17,
+          "oracles": 53
+        },
+        {
+          "checkpoint": "printed_power_no_retroactive_go_again",
+          "paper_action_step": 19,
+          "oracles": 55
+        },
+        {
+          "checkpoint": "real_damage_trigger_layer_token_absent",
+          "paper_action_step": 26,
+          "oracles": 66
+        },
+        {
+          "checkpoint": "opponent_priority_token_still_absent",
+          "paper_action_step": 27,
+          "oracles": 66
+        },
+        {
+          "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+          "paper_action_step": 28,
+          "oracles": 64
+        },
+        {
+          "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+          "paper_action_step": 30,
+          "oracles": 64
+        },
+        {
+          "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+          "paper_action_step": 32,
+          "oracles": 56
+        },
+        {
+          "checkpoint": "created_earth_persists_through_own_end_priority",
+          "paper_action_step": 34,
+          "oracles": 55
+        },
+        {
+          "checkpoint": "real_next_turn_draw_retains_live_created_earth",
+          "paper_action_step": 36,
+          "oracles": 57
+        },
+        {
+          "checkpoint": "opponent_paid_ordinary_attack",
+          "paper_action_step": 37,
+          "oracles": 58
+        },
+        {
+          "checkpoint": "real_defense_declaration_with_created_earth",
+          "paper_action_step": 41,
+          "oracles": 58
+        },
+        {
+          "checkpoint": "printed_defense_plus_only_eligible_created_earth",
+          "paper_action_step": 42,
+          "oracles": 62
+        },
+        {
+          "checkpoint": "earth_eligible_naa_or_aa_exclusion_exact_numeric_damage",
+          "paper_action_step": 49,
+          "oracles": 67
+        },
+        {
+          "checkpoint": "actual_close_keeps_earth_until_controller_next_action_phase",
+          "paper_action_step": 51,
+          "oracles": 56
+        }
+      ],
+      "final_hp": [
+        20,
+        6
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_ap": [
+        0,
+        0
+      ],
+      "final_turn_player": 2
+    }
+  ],
+  "required_native_gates": [
+    "Parent serially record the exact six representative pilots. Any setup/protocol/semantic failure remains unsaved and requires classification; do not change numeric/printed expectations to force passing.",
+    "Independently inspect all saved pilot raw5/behavior/action/assertion checkpoints and native generated source/proxy UIDs. In particular Ripple upper-source exact costs/Hand compaction/physical GY and zero-token point after original layer, Gold no early draw and once ownGA, Earth nextturn actual computed reference must match.",
+    "Use native disposable semantic controls for capturedAction false/missing Ripple, Gold cost/draw/GA, and Earth NAA inclusion/AA exclusion/stacking as appropriate before relying on those new effect-family branches.",
+    "Only after pilot verification and relevant controls expand bounded twelve cases, then inspect actual saved family. Current whole-corpus replays twice, suites and exact controls remain required before qualification."
+  ],
+  "explicit_holds": [
+    "The separate9 correct-rule held consumer recipes d89d85e6\u2026 are NOT approved by this report. Lightning repeated/distinct next-AA consumer and Ponder end-phase trigger timing require separate rules/source/protocol before-probe gate; current eager behavior is not accepted.",
+    "No finite completion claim. Earth other-controller exclusion and its controller next-action-phase destruction, Lightning NAA/weapon/Instant exclusions and multiple consumer layers, Ponder lifecycle remain authorable gaps identified by author.",
+    "No claim for copies/foreign controlled sources, prevention/replacement combinations beyond the one actual Ripple effect, multiple simultaneous trigger ordering, arbitrary callback/observer interaction, elimination or UPF.",
+    "Known initialAP2 supports legal Gold/stacking fixture action budget, but generating that extra AP is not covered by these cases. Ripple replacement sources are created by actual card activation and no replacement history is seeded.",
+    "Exact typed-spec approval and paper faults are not native passing coverage; later native results and independent saved review are necessary."
+  ],
+  "required_changes": [],
+  "card_completion_claim": false,
+  "native_verified_cases": 0
+}

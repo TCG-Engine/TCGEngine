@@ -1,11 +1,44 @@
 <?php
 
-include './zzImageConverter.php';
+// Selective CLI targets exit before broad schema/UI writes.
+$zoneAccessorsOnlyCLI = false;
+$macroCodeOnlyCLI = false;
+$generatorOnlyTarget = null;
+$generatorExpectedCountSHA = null;
+$generatorMacroOutputHandles = [];
+$generatorScalarAdder = null;
+$generatorExpectedSHA = null;
+if (PHP_SAPI === 'cli') foreach (($argv ?? []) as $generatorArg) {
+  if (str_starts_with($generatorArg, 'only=')) {
+    $generatorTarget = substr($generatorArg, 5);
+    if (!in_array($generatorTarget, ['ZoneAccessors', 'MacroCode'], true)
+        || ($generatorOnlyTarget !== null && $generatorOnlyTarget !== $generatorTarget)) {
+      fwrite(STDERR, "Unsupported/conflicting only= target; expected ZoneAccessors or MacroCode.\n"); exit(2);
+    }
+    $generatorOnlyTarget = $generatorTarget;
+    $zoneAccessorsOnlyCLI = $generatorTarget === 'ZoneAccessors';
+    $macroCodeOnlyCLI = $generatorTarget === 'MacroCode';
+  }
+  if (str_starts_with($generatorArg, 'scalarAdder=')) $generatorScalarAdder = substr($generatorArg, 12);
+  if (str_starts_with($generatorArg, 'expectedSHA=')) $generatorExpectedSHA = substr($generatorArg, 12);
+  if (str_starts_with($generatorArg, 'expectedCountSHA=')) $generatorExpectedCountSHA = substr($generatorArg, 17);
+}
+if (PHP_SAPI === 'cli' && ($generatorOnlyTarget !== null || $generatorScalarAdder !== null || $generatorExpectedSHA !== null || $generatorExpectedCountSHA !== null)) {
+  $generatorValidTarget = $zoneAccessorsOnlyCLI
+    ? preg_match('/^[A-Za-z][A-Za-z0-9_]*$/D', (string)$generatorScalarAdder) && $generatorExpectedCountSHA === null
+    : $macroCodeOnlyCLI && $generatorScalarAdder === null && preg_match('/^[0-9a-f]{64}$/D', (string)$generatorExpectedCountSHA);
+  if (!$generatorValidTarget || !preg_match('/^[0-9a-f]{64}$/D', (string)$generatorExpectedSHA)) {
+    fwrite(STDERR, "Selective regeneration requires only=ZoneAccessors scalarAdder=NAME expectedSHA=SHA256 or only=MacroCode expectedSHA=SHA256 expectedCountSHA=SHA256.\n"); exit(2);
+  }
+}
+if (!$zoneAccessorsOnlyCLI && !$macroCodeOnlyCLI) include './zzImageConverter.php';
 include './Core/Trie.php';
 include "./Core/HTTPLibraries.php";
-include_once "./AccountFiles/AccountSessionAPI.php";
-include_once "./Database/ConnectionManager.php";
-include_once "./CardEditor/Database/CardAbilityRepository.php";
+if (!$zoneAccessorsOnlyCLI) {
+  if (!$macroCodeOnlyCLI) include_once "./AccountFiles/AccountSessionAPI.php";
+  include_once "./Database/ConnectionManager.php";
+  include_once "./CardEditor/Database/CardAbilityRepository.php";
+}
 
 // Support CLI invocation: parse arguments if not running under HTTP
 $isHTTPRequest = php_sapi_name() !== 'cli' && !empty($_SERVER['REQUEST_METHOD']);
@@ -31,6 +64,45 @@ if ($isHTTPRequest) {
 }
 
 $rootName = TryGET("rootName", "");
+if ($macroCodeOnlyCLI) {
+  $generatorExitCode = 0;
+  set_error_handler(function($severity, $message, $file, $line) {
+    if (!(error_reporting() & $severity)) return false;
+    throw new ErrorException($message, 0, $severity, $file, $line);
+  });
+  try {
+    if (!preg_match('/^[A-Za-z][A-Za-z0-9_]*$/D', (string)$rootName)
+        || realpath('.') !== realpath(__DIR__)) throw new RuntimeException('Macro-only generation requires a root name and the repository working directory.');
+    $generatorRoot = realpath('./' . $rootName);
+    $generatorSchemaRoot = realpath('./Schemas/' . $rootName);
+    $generatorOutputRoot = realpath('./' . $rootName . '/GeneratedCode');
+    if ($generatorRoot === false || dirname($generatorRoot) !== realpath('.')
+        || $generatorSchemaRoot === false || dirname($generatorSchemaRoot) !== realpath('./Schemas')
+        || $generatorOutputRoot === false || dirname($generatorOutputRoot) !== $generatorRoot) throw new RuntimeException('Macro-only generation requires existing in-repository root, schema and output directories.');
+    $generatorSchema = file('./Schemas/' . $rootName . '/GameSchema.txt', FILE_IGNORE_NEW_LINES);
+    if (!$generatorSchema || trim($generatorSchema[0]) !== $rootName) throw new RuntimeException('Schema root does not match requested root.');
+    $generatorExpectedOutputs = [
+      './' . $rootName . '/GeneratedCode/GeneratedMacroCode.php' => $generatorExpectedSHA,
+      './' . $rootName . '/GeneratedCode/GeneratedMacroCount.js' => $generatorExpectedCountSHA,
+    ];
+    // Lock and check both existing outputs before a backend read or any truncation.
+    foreach ($generatorExpectedOutputs as $generatorPath => $generatorHash) {
+      if (!is_file($generatorPath) || dirname(realpath($generatorPath)) !== $generatorOutputRoot) throw new RuntimeException('Macro-only generation requires existing in-root output files.');
+      $generatorHandle = fopen($generatorPath, 'r+');
+      $generatorMacroOutputHandles[$generatorPath] = $generatorHandle;
+      if (!flock($generatorHandle, LOCK_EX | LOCK_NB)) throw new RuntimeException('Macro output is locked by another generator.');
+      if (!hash_equals($generatorHash, hash('sha256', stream_get_contents($generatorHandle)))) throw new RuntimeException('Macro output base hash changed; preserve current files.');
+    }
+    GenerateMacroCode();
+  } catch (Throwable $e) {
+    fwrite(STDERR, 'Macro-only generation failed: ' . $e->getMessage() . "\n");
+    $generatorExitCode = 1;
+  } finally {
+    foreach ($generatorMacroOutputHandles as $generatorHandle) if (is_resource($generatorHandle)) fclose($generatorHandle);
+    restore_error_handler();
+  }
+  exit($generatorExitCode);
+}
 $schemaFile = "./Schemas/" . $rootName . "/GameSchema.txt";
 
 $handler = fopen($schemaFile, "r");
@@ -44,6 +116,36 @@ $maxSeats = in_array($rootName, ['SWUSim', 'FaBSim'], true) ? 4 : 2;
 // Emits the by-reference "return the seat's global" body shared by Get<Zone>($player) and
 // <Zone>Value($player). For $maxSeats<=2 it emits the original if/else (byte-identical output);
 // for >2 a switch over the seats. (Function declarations are hoisted, so definition order is fine.)
+/** Locate one real named function using tokens, ignoring braces in strings/comments. */
+function GeneratorScalarAdderSpan(string $code, string $name): array {
+  $tokens = token_get_all($code); $offsets = []; $offset = 0;
+  foreach ($tokens as $i => $token) {
+    $offsets[$i] = $offset; $offset += strlen(is_array($token) ? $token[1] : $token);
+  }
+  $matches = [];
+  foreach ($tokens as $i => $token) {
+    if (!is_array($token) || $token[0] !== T_FUNCTION) continue;
+    $j = $i + 1;
+    while (isset($tokens[$j]) && is_array($tokens[$j]) && in_array($tokens[$j][0], [T_WHITESPACE,T_COMMENT,T_DOC_COMMENT], true)) ++$j;
+    if (!isset($tokens[$j]) || !is_array($tokens[$j]) || $tokens[$j][0] !== T_STRING || $tokens[$j][1] !== $name) continue;
+    while (isset($tokens[$j]) && $tokens[$j] !== '{' && $tokens[$j] !== ';') ++$j;
+    if (!isset($tokens[$j]) || $tokens[$j] !== '{') throw new RuntimeException('Expected concrete scalar adder body.');
+    $brace = $j; $depth = 1;
+    while (++$j < count($tokens) && $depth > 0) {
+      if ($tokens[$j] === '{' || (is_array($tokens[$j]) && in_array($tokens[$j][0], [T_CURLY_OPEN,T_DOLLAR_OPEN_CURLY_BRACES], true))) ++$depth;
+      elseif ($tokens[$j] === '}') --$depth;
+    }
+    if ($depth !== 0) throw new RuntimeException('Unbalanced scalar adder body.');
+    $end = $offsets[$j - 1] + 1;
+    $signature = substr($code, $offsets[$i], $offsets[$brace] - $offsets[$i]);
+    $matches[] = ['start'=>$offsets[$i], 'length'=>$end-$offsets[$i],
+      'signature'=>preg_replace('/\s+/', '', $signature),
+      'code'=>substr($code, $offsets[$i], $end-$offsets[$i])];
+  }
+  if (count($matches) !== 1) throw new RuntimeException('Expected exactly one selected scalar adder.');
+  return $matches[0];
+}
+
 function EmitSeatReturnBody($handler, $zoneName) {
   global $maxSeats;
   $globs = [];
@@ -594,11 +696,24 @@ for($i=0; $i<count($zones); ++$i) {
 }
 
 $rootPath = "./" . $rootName;
+if ($zoneAccessorsOnlyCLI) {
+  $selectedZones = array_values(array_filter($zones, fn($z) => $z->Name === $generatorScalarAdder));
+  if (count($selectedZones) !== 1) throw new RuntimeException('Selected scalar zone is absent or duplicated.');
+  $selectedZone = $selectedZones[0];
+  if ($selectedZone->DisplayMode !== 'Value'
+      || count($selectedZone->Properties) !== 1 || $selectedZone->Properties[0]->Name !== 'Value'
+      || $selectedZone->Properties[0]->Type !== 'number') throw new RuntimeException('Selection must be an existing numeric Value-mode scalar zone.');
+  $generatorExistingPath = $rootPath . "/ZoneAccessors.php";
+  if (!is_file($generatorExistingPath)) throw new RuntimeException('Selective generation requires an existing accessor file.');
+  $generatorOriginalAccessors = file_get_contents($generatorExistingPath);
+  if (hash('sha256', $generatorOriginalAccessors) !== $generatorExpectedSHA) throw new RuntimeException('Accessor base hash changed; preserve current file.');
+  $generatorOriginalAdder = GeneratorScalarAdderSpan($generatorOriginalAccessors, 'Add' . $generatorScalarAdder);
+}
 if(!is_dir($rootPath)) mkdir($rootPath, 0755, true);
 
-//Write the zone accessors file
+//Write the zone accessors file; selective mode renders the same emitter to memory.
 $filename = $rootPath . "/ZoneAccessors.php";
-$handler = fopen($filename, "w");
+$handler = fopen($zoneAccessorsOnlyCLI ? 'php://memory' : $filename, $zoneAccessorsOnlyCLI ? 'w+' : 'w');
 $mzGetObject = "function &GetZoneObject(\$mzID) {\r\n";
 $mzGetObject .= "  global \$playerID;\r\n";
 $mzGetObject .= "  \$mzArr = explode(\"-\",\$mzID);\r\n";
@@ -1410,6 +1525,29 @@ if($hasAnyIndexedProperties) {
 }
 
 fwrite($handler, "?>");
+if ($zoneAccessorsOnlyCLI) {
+  rewind($handler); $generatorRendered = stream_get_contents($handler); fclose($handler);
+  $generatorNewAdder = GeneratorScalarAdderSpan($generatorRendered, 'Add' . $generatorScalarAdder);
+  if ($generatorNewAdder['signature'] !== $generatorOriginalAdder['signature']) throw new RuntimeException('Selected scalar adder signature changed; preserve current file.');
+  $generatorMerged = substr_replace($generatorOriginalAccessors, $generatorNewAdder['code'],
+    $generatorOriginalAdder['start'], $generatorOriginalAdder['length']);
+  $generatorTarget = fopen($filename, 'r+b');
+  if ($generatorTarget === false || !flock($generatorTarget, LOCK_EX)) throw new RuntimeException('Cannot lock selected accessor file.');
+  try {
+    $generatorCurrent = stream_get_contents($generatorTarget);
+    if (hash('sha256', $generatorCurrent) !== $generatorExpectedSHA) throw new RuntimeException('Accessor changed while generating; preserve current file.');
+    if ($generatorMerged !== $generatorCurrent) {
+      rewind($generatorTarget);
+      if (fwrite($generatorTarget, $generatorMerged) !== strlen($generatorMerged)) throw new RuntimeException('Incomplete selected accessor write.');
+      if (!ftruncate($generatorTarget, strlen($generatorMerged)) || !fflush($generatorTarget)) throw new RuntimeException('Cannot finish selected accessor write.');
+    }
+  } finally { flock($generatorTarget, LOCK_UN); fclose($generatorTarget); }
+  echo json_encode(['path'=>$filename, 'scalarAdder'=>$generatorScalarAdder,
+    'emittedFunctionSHA'=>hash('sha256', $generatorNewAdder['code']),
+    'beforeSHA'=>$generatorExpectedSHA, 'afterSHA'=>hash('sha256', $generatorMerged),
+    'nonselectedBytesPreserved'=>true]) . "\n";
+  exit(0);
+}
 fclose($handler);
 //Write the class file
 $filename = $rootPath . "/ZoneClasses.php";
@@ -4867,6 +5005,16 @@ function WriteMacroListenerCode($handler, $listenerAbilitiesByMacro, $macrosByNa
   fwrite($handler, "}\r\n\r\n");
 }
 
+/** Reuse the existing emitters; guarded CLI mode supplies already-locked outputs. */
+function GeneratorOpenMacroOutput(string $filename) {
+  global $macroCodeOnlyCLI, $generatorMacroOutputHandles;
+  if (!$macroCodeOnlyCLI) return fopen($filename, 'w');
+  $output = $generatorMacroOutputHandles[$filename] ?? null;
+  if (!is_resource($output)) throw new RuntimeException('Missing guarded macro output handle.');
+  if (!ftruncate($output, 0) || !rewind($output)) throw new RuntimeException('Could not reset guarded macro output.');
+  return $output;
+}
+
 function GenerateMacroCode() {
   global $rootName;
 
@@ -4881,7 +5029,7 @@ function GenerateMacroCode() {
     }
 
     $filename = $directory . "/GeneratedMacroCode.php";
-    $handler = fopen($filename, "w");
+    $handler = GeneratorOpenMacroOutput($filename);
 
     fwrite($handler, "<?php\r\n");
     fwrite($handler, "// AUTO-GENERATED FILE: Macro implementations from CardEditor database\r\n");
@@ -5273,6 +5421,7 @@ function GenerateMacroCode() {
     echo("Generated macro code file: $filename<BR>");
 
   } catch (Exception $e) {
+    if ($GLOBALS['macroCodeOnlyCLI'] ?? false) throw $e;
     echo("Note: Could not generate macro code file: " . $e->getMessage() . "<BR>");
   }
 }
@@ -5291,7 +5440,7 @@ function GenerateMacroCountJS($rootName, $abilitiesByMacro) {
     }
 
     $filename = $directory . "/GeneratedMacroCount.js";
-    $handler = fopen($filename, "w");
+    $handler = GeneratorOpenMacroOutput($filename);
 
     fwrite($handler, "// AUTO-GENERATED FILE: Macro count functions\r\n");
     fwrite($handler, "// DO NOT EDIT MANUALLY - changes will be overwritten when generator runs\r\n");
@@ -5377,6 +5526,7 @@ function GenerateMacroCountJS($rootName, $abilitiesByMacro) {
     echo("Generated JavaScript macro count file: $filename<BR>");
 
   } catch (Exception $e) {
+    if ($GLOBALS['macroCodeOnlyCLI'] ?? false) throw $e;
     echo("Note: Could not generate JavaScript macro count file: " . $e->getMessage() . "<BR>");
   }
 }

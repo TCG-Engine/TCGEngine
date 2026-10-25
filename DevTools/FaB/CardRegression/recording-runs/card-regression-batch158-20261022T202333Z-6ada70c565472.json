@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T20:23:33+00:00",
+    "input_file": "card-regression-batch158.json",
+    "input_sha256": "9d68c3d70e37edc6e41df09c97ae631545364e910b4131e259faa293a8c8dd0b",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-quartermasters-boots-four-live-sparse-actual-paid-equipment-real-nonattack-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 11,
+            "assertions": 1074
+        }
+    ]
+}

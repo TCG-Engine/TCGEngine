@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch122.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T18:50:15.758392+00:00",
+  "fixtures": [
+    {
+      "slug": "card-lead-with-power-red-four-live-sparse-actual-paid-brute-buff-owned-might-and-real-nine-damage",
+      "fixture_sha256": "d0d6e54077a5d30e4d5c026412d159e487733e8f7add0264e10e57a418e4c38c",
+      "passed": true,
+      "result": "[PASS] Lead with Power / four live sparse positive effect"
+    },
+    {
+      "slug": "card-lead-with-heart-red-four-live-sparse-actual-paid-warrior-buff-owned-vigor-and-real-nine-damage",
+      "fixture_sha256": "df3b81d2848ef27605f6ca4744709cf07a37f33c54061152fe27c1377e25d723",
+      "passed": true,
+      "result": "[PASS] Lead with Heart / four live sparse positive effect"
+    },
+    {
+      "slug": "card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token",
+      "fixture_sha256": "d077239e65ecaa9d3e7d48d5725b3a16efefb044f120f52bc13d44bb4b56a685",
+      "passed": true,
+      "result": "[PASS] Laden with Lightning / four live sparse positive effect"
+    },
+    {
+      "slug": "card-leech-vitality-red-four-live-sparse-actual-next-attack-buff-and-four-seat-damage-life-trigger",
+      "fixture_sha256": "fb1aaf34c8365f128e891e5ca7a6731336c1aa70034e48bf89c1b2b1b6914d61",
+      "passed": true,
+      "result": "[PASS] Leech Vitality / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-lead-with-power-red-four-live-sparse-actual-paid-brute-buff-owned-might-and-real-nine-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Lead with Power / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-lead-with-heart-red-four-live-sparse-actual-paid-warrior-buff-owned-vigor-and-real-nine-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Lead with Heart / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token",
+      "returncode": 0,
+      "stdout": "[PASS] Laden with Lightning / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-leech-vitality-red-four-live-sparse-actual-next-attack-buff-and-four-seat-damage-life-trigger",
+      "returncode": 0,
+      "stdout": "[PASS] Leech Vitality / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

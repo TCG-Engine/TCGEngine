@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T13:49:47+00:00",
+    "input_file": "card-regression-batch70-pilot.json",
+    "input_sha256": "672b3c7de8e7afc9f4932de37e15231af4ba9e46ab671fb89f71a34a9eeec618",
+    "filter": "current-and-opponent-defender-choose-opponent",
+    "results": [
+        {
+            "slug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 192
+        }
+    ]
+}

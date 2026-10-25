@@ -1,0 +1,7 @@
+{
+    "name": "Lunging Press / target scope / real Rout target departure / lower LP fizzles",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:57:58+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Uncharged Boltyn is a legal Warrior: initial3 resources pay real Dawnblade1, then Rout2; LP0/AP0. Opponent actually blocks Dawnblade3 with Blue Wounding6/defense3. LP auto-binds that sole AA UID6/link1. One real opponent pass gives priority back while LP remains. Play real Rout above it; it gives current weapon+3 and its current-Oracle reprise return lets that actual defender go to owner Hand. Rout source clears first, LP stays original/bound. LP then resolves with declared target outside CC and fizzles: returned card retains its owner/UID in Hand, weapon keeps only Rout+3/power6, no accidental+1. Damage6 leaves14, no GA/AP, both AR originals ownerGY and weapon remains after Close. Current official Rout text overrides old printed target wording. Sources: https://judge.fabtcg.com/cards/detail/720/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/ https://judge.fabtcg.com/cards/detail/233/"
+}

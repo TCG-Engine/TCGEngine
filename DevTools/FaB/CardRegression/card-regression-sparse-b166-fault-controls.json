@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:43:48.381877+00:00",
+  "plan_sha256": "9603d2cc08eadf0c8c423ca7043cee289d97bfb60878a8e44083a0e973f8b908",
+  "independent_saved_proof_sha256": "ed670c5a1574c95597f662a582d76b37ee7c759d9c6f17bab017dd189fa0e0dc",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b166-focused-fault-plan.json",
+    "9603d2cc08eadf0c8c423ca7043cee289d97bfb60878a8e44083a0e973f8b908",
+    "card-regression-sparse-b166-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b166_amulet_of_ignition_yellow_actual_discounted_weapon_outcome_sensitivity",
+      "fixture": "card-amulet-of-ignition-yellow-four-live-sparse-first-action-instant-destruction-makes-real-printed-one-resource-ability-free",
+      "fixture_sha256": "4812b7304769c597a332085475a56ca90b05af841619af33930752fefd5746b9",
+      "source_raw5": {
+        "initial_gamestate.txt": "2089ef0d5ed2d81342bbe9b0d321b4cd4891a01d49da5fc1981ef24e86e941c7",
+        "actions.json": "dbb2caa396f08fd0d21d2a3bd7868ae7e240ad101ad33cb35031e2f227713662",
+        "assertions.json": "5fbd0bcf98979625de89cc59af4ffa192bd69cf18b0a7ac1eccbf9a509627e0f",
+        "expected_final_gamestate.txt": "a6cad96eb8aa3e8d55e7e3552ea9713af4d88444207dc2abf98b60ab2b06f03f",
+        "meta.json": "81c3b9524520c1fcb20552fbb604311eaa87d0dcef2fd9e1916278d53f6d26b8"
+      },
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dawnblade",
+            "mode": "add",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 534,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Amulet of Ignition / four live first-action ability discount: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 3, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real Amulet5 Instant destruction and four responses, real physical Dawnblade6 printedcost1 is actually activated at0 with zero Hand/Pitch/resources and target chosen. Add only WTR_POWER1 to actual attackproxy8 after attackentry. Numeric attackoutcome3-to4 sensitivity; original discount/freepayment/AP0/source5publicGY/weapon6 retained. This is NOT isolated native discount-removal or action-denial detection; direct realfreeactivation plus printed/purelosingdiscount model pins the selected discount endpoint. All suffix actions/oracles retained; no legal buff/secondability/filter/expiry/tax/ordinaryItem/hero/fullcard branch credit.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

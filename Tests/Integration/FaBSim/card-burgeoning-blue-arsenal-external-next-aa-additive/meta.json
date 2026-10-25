@@ -1,0 +1,7 @@
+{
+    "name": "Burgeoning / arsenal-external-next-aa-additive",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:48:19+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Resolve Come to Fight red through supported play: pay1, its go again restoresAP1 and grants the next attack action+3 this turn. Then arsenalburgeoning_blue pays2/1AP. Printed4+intrinsic arsenal1+external3=8; damage8, defender12. The intrinsic bonus neither replaces nor consumes the separately generated external modifier. Sources: FaBSim/GeneratedCode/cardArrayCache.json#burgeoning_blue https://judge.fabtcg.com/cards/detail/1176/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf FaBSim/GeneratedCode/cardArrayCache.json#come_to_fight_red https://judge.fabtcg.com/cards/detail/542/"
+}

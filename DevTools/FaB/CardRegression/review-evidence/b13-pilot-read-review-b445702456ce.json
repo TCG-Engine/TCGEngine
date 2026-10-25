@@ -1,0 +1,234 @@
+{
+  "status": "read_only_saved_fixture_review_and_scratch_refinement",
+  "native_writes": 0,
+  "game_actions": 0,
+  "accepted_new_coverage": 0,
+  "scope": "Seven refined current B13 fixtures: semantic checkpoints, native real final pass, and final snapshot cleanup inspected; replay result remains parent evidence.",
+  "original_full_sha256": "412ce956d199283d6227b322f1e21f8b9e01bc575054ec8d9cd0da43e6436627",
+  "original_pilot_sha256": "d51238be14ddb5b01780c48d7ab96332cb7712b4cb6dfcfeb54afdb3a47105e0",
+  "refined_full_count": 135,
+  "refined_pilot_count": 7,
+  "refined_full_sha256": "1af1309c6098db521d124738089c37a9656330588db0d6828ccde35657eff020",
+  "refined_pilot_sha256": "ccbfd0cac2cc1341b02923a9d6c2c814a180efdc472eb3ce2a64580007c6e9a6",
+  "inspected_fixture_aggregate_sha256": "30b11783a06ae31ca824ec68ef74a17b932f69c51e15e2cee43e86d381bc296d",
+  "total_actions": 141,
+  "total_native_assertions": 257,
+  "fixtures": [
+    {
+      "slug": "card-pummel-red-ally-hit-does-not-discard-hero-hand",
+      "actions": 19,
+      "native_assertions": 31,
+      "initial_hand2": [
+        "wounding_blow_red",
+        "wounding_blow_yellow"
+      ],
+      "final_hand2": [
+        "wounding_blow_red",
+        "wounding_blow_yellow"
+      ],
+      "final_graveyard2": [],
+      "final_health2": 20,
+      "final_ap1": 0,
+      "final_resources1": 2,
+      "pending_marker": null,
+      "await_frame_count": 0,
+      "queues_empty": true,
+      "stack_empty": true,
+      "final_priority": 2,
+      "final_consecutive_passes": 1,
+      "native_real_final_pass_verified": true,
+      "native_discard_pair_and_postanswer_drain_boundaries": 0,
+      "file_sha256": {
+        "actions.json": "b87928dbcd530dfa80808d4764a9ea3d7533cb7782f86b9ac86a3b5f9e042b1d",
+        "assertions.json": "1f746ab68740d8c6cc656a7d8e5845b2197c37a2235627734049cd08b2d3c8d1",
+        "expected_final_gamestate.txt": "6b4fe259b714a5588a16e4908243e297e5386c4ebda589ac68a531fcba78eed6",
+        "initial_gamestate.txt": "46e340643e405e974fdcd885491f63d929492feb807ba99d66885c554e52455d",
+        "meta.json": "fc971f0c618f8f3e58cdfb711ce65ea8e5a78130355176abf64582c704eb5022"
+      }
+    },
+    {
+      "slug": "card-pummel-red-hand-club-weapon-no-discard",
+      "actions": 18,
+      "native_assertions": 29,
+      "initial_hand2": [
+        "wounding_blow_red",
+        "wounding_blow_yellow"
+      ],
+      "final_hand2": [
+        "wounding_blow_red",
+        "wounding_blow_yellow"
+      ],
+      "final_graveyard2": [],
+      "final_health2": 12,
+      "final_ap1": 0,
+      "final_resources1": 2,
+      "pending_marker": null,
+      "await_frame_count": 0,
+      "queues_empty": true,
+      "stack_empty": true,
+      "final_priority": 2,
+      "final_consecutive_passes": 1,
+      "native_real_final_pass_verified": true,
+      "native_discard_pair_and_postanswer_drain_boundaries": 0,
+      "file_sha256": {
+        "actions.json": "70413bbf0398b219253aa6f884661088529133cdbf13a9633908c30c3ec0654f",
+        "assertions.json": "6ed15e0193efea32868e28b94f114a4b6400d53187c3318836b2024acd3fb4f9",
+        "expected_final_gamestate.txt": "d40429e3d91ada93d0e62db4609f70ead0dcd9674e02290093e6973dad8fb7b4",
+        "initial_gamestate.txt": "965a375645d56d420b4a91d9664ee0b662d20df748aca5144e701e8c193ae0fa",
+        "meta.json": "3706c4226e028b0d6da4e2a6d4d7dc0d2138408f33e43acb38fe1d6b65c9985e"
+      }
+    },
+    {
+      "slug": "card-pummel-red-hand-cost-two-hit-defender-chooses-0",
+      "actions": 21,
+      "native_assertions": 46,
+      "initial_hand2": [
+        "wounding_blow_red",
+        "wounding_blow_yellow"
+      ],
+      "final_hand2": [
+        "wounding_blow_yellow"
+      ],
+      "final_graveyard2": [
+        "wounding_blow_red"
+      ],
+      "final_health2": 12,
+      "final_ap1": 0,
+      "final_resources1": 2,
+      "pending_marker": null,
+      "await_frame_count": 0,
+      "queues_empty": true,
+      "stack_empty": true,
+      "final_priority": 2,
+      "final_consecutive_passes": 1,
+      "native_real_final_pass_verified": true,
+      "native_discard_pair_and_postanswer_drain_boundaries": 1,
+      "file_sha256": {
+        "actions.json": "abfc42861faa5fdbb64aa764e83139262face05b304386c3424de4439684143f",
+        "assertions.json": "63a9bd1b7443fb6f52d676547364c476fceb27840649ededc41aeab9b2fa4c4b",
+        "expected_final_gamestate.txt": "c23e8ef3c8aa5e73b06c4078eaf8211d0edd836f711755404f733b5a8b5ab9e8",
+        "initial_gamestate.txt": "f45a32d22a1c37c6d8f04552d2843eac07006e6d31800aae8e35e4ffd7c000ed",
+        "meta.json": "ba6849a7d1ca257baa533df8c68a986dd729abcf721f3525e9c57c5356c72cf9"
+      }
+    },
+    {
+      "slug": "card-pummel-red-two-reactions-two-hit-triggers-two-discards",
+      "actions": 27,
+      "native_assertions": 68,
+      "initial_hand2": [
+        "wounding_blow_red",
+        "wounding_blow_yellow",
+        "raging_onslaught_yellow"
+      ],
+      "final_hand2": [
+        "wounding_blow_yellow"
+      ],
+      "final_graveyard2": [
+        "wounding_blow_red",
+        "raging_onslaught_yellow"
+      ],
+      "final_health2": 8,
+      "final_ap1": 0,
+      "final_resources1": 0,
+      "pending_marker": null,
+      "await_frame_count": 0,
+      "queues_empty": true,
+      "stack_empty": true,
+      "final_priority": 2,
+      "final_consecutive_passes": 1,
+      "native_real_final_pass_verified": true,
+      "native_discard_pair_and_postanswer_drain_boundaries": 2,
+      "file_sha256": {
+        "actions.json": "df33433df00b610d9c33546022f38ce3329ff88fc625d345be0d47bf4a7e2be1",
+        "assertions.json": "0c3a03553e974f5abee3aa444079d41bef230a21c5eb6a26d1da3f6bd55343ec",
+        "expected_final_gamestate.txt": "b2f9c0f4ad5f63aea58487ed5d1c0ef73e785dcf772d770a1d364a5b62cbb9ab",
+        "initial_gamestate.txt": "4277a06e57963899205f32542c918138ebbb95e031bee3be30d5b6396a91cdd0",
+        "meta.json": "40c25ee1bd1aac19e2deed378a36d217b35253c034637a7ff31a8fa5ecb7e4b3"
+      }
+    },
+    {
+      "slug": "card-razor-reflex-red-fully-blocked-no-hit-no-go-again",
+      "actions": 20,
+      "native_assertions": 27,
+      "initial_hand2": [
+        "wounding_blow_red",
+        "wounding_blow_yellow",
+        "wounding_blow_blue"
+      ],
+      "final_hand2": [],
+      "final_graveyard2": [],
+      "final_health2": 20,
+      "final_ap1": 0,
+      "final_resources1": 2,
+      "pending_marker": null,
+      "await_frame_count": 0,
+      "queues_empty": true,
+      "stack_empty": true,
+      "final_priority": 2,
+      "final_consecutive_passes": 1,
+      "native_real_final_pass_verified": true,
+      "native_discard_pair_and_postanswer_drain_boundaries": 0,
+      "file_sha256": {
+        "actions.json": "7a6338230faf36aa069ca442d67e964f7ae1465777d63d5b9cdd877da6779c1e",
+        "assertions.json": "6b47363991496741eb1dd7e67f7eea8c5b9404081a2d74a95adb9ffefdff77b8",
+        "expected_final_gamestate.txt": "9ff0a18a58a4d4ee3d823d3b4ffcd92dfd857abf718ba0e0b6e6083f0b2f0d4e",
+        "initial_gamestate.txt": "95f2631fcd38609f803e3c86a9dbb2c47aff8a6840c1ebd106de30957ef5e3eb",
+        "meta.json": "9902fa5c931be2bfa464555401b2f14ea118609f30d591bc52e69e1aa0813fa3"
+      }
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
+      "actions": 19,
+      "native_assertions": 30,
+      "initial_hand2": [],
+      "final_hand2": [],
+      "final_graveyard2": [],
+      "final_health2": 13,
+      "final_ap1": 1,
+      "final_resources1": 2,
+      "pending_marker": null,
+      "await_frame_count": 0,
+      "queues_empty": true,
+      "stack_empty": true,
+      "final_priority": 2,
+      "final_consecutive_passes": 1,
+      "native_real_final_pass_verified": true,
+      "native_discard_pair_and_postanswer_drain_boundaries": 0,
+      "file_sha256": {
+        "actions.json": "bc6a7f57ac085f403938ae4cfc864237d1684c5fa9f2622e73aeb2029c61b968",
+        "assertions.json": "d1d7eaf16e7b44ba661abec841ba315e156d15fb574ab3e22b69bb7d2833566a",
+        "expected_final_gamestate.txt": "a453e2981c30dcfc5acf9ad1fa938577b3cc73ebf8e09d8ab72ba8a2561d7012",
+        "initial_gamestate.txt": "f0bbc2c1faab4177ec65d8200e30950c6d0839afb6f0538d65059f4e1f5e6347",
+        "meta.json": "d2481eb04d3884fbe5bf219d54b1cc46d1d627fe6a0e1d99b207834c7ddec01b"
+      }
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-sword-weapon-no-granted-go-again",
+      "actions": 17,
+      "native_assertions": 26,
+      "initial_hand2": [],
+      "final_hand2": [],
+      "final_graveyard2": [],
+      "final_health2": 13,
+      "final_ap1": 0,
+      "final_resources1": 0,
+      "pending_marker": null,
+      "await_frame_count": 0,
+      "queues_empty": true,
+      "stack_empty": true,
+      "final_priority": 2,
+      "final_consecutive_passes": 1,
+      "native_real_final_pass_verified": true,
+      "native_discard_pair_and_postanswer_drain_boundaries": 0,
+      "file_sha256": {
+        "actions.json": "f36299fde3a9aa35a8ac9f45728bfac51d2262ba717d8d13317e8a4c1180dbec",
+        "assertions.json": "55459e91915443e094f440b064a1ce27dfe0f16f858ad45bf101f1e5d3a7962e",
+        "expected_final_gamestate.txt": "b96d8cc2e60bd52bbfe8b05f6d1abc5837c0d93738cec91e6ce5eea1e54ebfc8",
+        "initial_gamestate.txt": "0ce5c06fe6121042970adfeb4973d809579216ab2fefa7e8861194b6854f8dac",
+        "meta.json": "04a4a1d9ad81bf8715a930d0151258a8fc2e8503170f8260eb9a779e95bfe611"
+      }
+    }
+  ],
+  "remaining_gate": "Refined seven pilots are now saved with verified native boundaries. Parent clean replay, granted-hit semantic controls and WTR/ARC tests under current runtime remain required before full135 scale.",
+  "limit": "No JSON-path assertions exist in the current native framework. Marker/frame absence is independently checked in exact final snapshots; the real native pass gates are persisted in all seven refined fixtures."
+}

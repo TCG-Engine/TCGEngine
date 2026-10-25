@@ -1,0 +1,136 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:51:18.277765+00:00",
+  "plan_sha256": "e7715a2c2453db99d977bb0a308218848c18006acf6a27a52cb1cd9eba22e0f3",
+  "independent_saved_proof_sha256": "cecf23218da95532810fa26049a20a892feda9c558452f24732ac380f8b96b17",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b122-focused-fault-plan.json",
+    "e7715a2c2453db99d977bb0a308218848c18006acf6a27a52cb1cd9eba22e0f3",
+    "card-regression-sparse-b122-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b122_lead_with_power_red_focused_effect_sensitivity",
+      "fixture": "card-lead-with-power-red-four-live-sparse-actual-paid-brute-buff-owned-might-and-real-nine-damage",
+      "fixture_sha256": "d0d6e54077a5d30e4d5c026412d159e487733e8f7add0264e10e57a418e4c38c",
+      "source_raw5": {
+        "initial_gamestate.txt": "f93a145a106fb2ff3ddcc60f6c62c0af777a42f3d554832efd1297698569d79e",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "4a5ada1b9c86959189ace10b8dfa094bf1fb89bfda0d9fb8479c06e61e07d9f9",
+        "expected_final_gamestate.txt": "6801fc86703b7f26b479999242275b7bc42c84a85a352c3dae844627c92fd0f7",
+        "meta.json": "e0b132d0b7eb7a8456f61ebbcacf1cdf6c77ee4f3eb817360d8abdfdb3f181a5"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "remove_effect": "HVY_NEXT_ATTACK"
+      },
+      "retained_assertions": 905,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 9, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Lead with Power / four live sparse positive effect: Step 6 assertion failed: Expected p1CombatChain-0 computed power to equal 9, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove sole actual resolved class-qualified next-attack grant; retain owned Might/Vigor8, played history, physical Blue7 pitch and real remaining2resources. Actual supported class-matching cost2 attack6 loses only +3 power, while every suffix action/oracle remains intact. Missing grant sensitivity, not alternate legal branch coverage. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b122_lead_with_heart_red_focused_effect_sensitivity",
+      "fixture": "card-lead-with-heart-red-four-live-sparse-actual-paid-warrior-buff-owned-vigor-and-real-nine-damage",
+      "fixture_sha256": "df3b81d2848ef27605f6ca4744709cf07a37f33c54061152fe27c1377e25d723",
+      "source_raw5": {
+        "initial_gamestate.txt": "f1d1f3b643930ee5dd2a183580b331e5144dca0afc1d68e7e5b59b8083c5cdb0",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "50599e16129fac7e873e2c9a8b2b4170915f848dd5070465b363d298ecd87430",
+        "expected_final_gamestate.txt": "faa72901fdb6bd25321a2383c4515a4b95d5f62aac9b0388957c828934dbb848",
+        "meta.json": "f1c79cb3bb715bb7ef5109b72c6b054d5698d80c1fc7384b8b9ec32174f4c9bf"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "remove_effect": "HVY_NEXT_ATTACK"
+      },
+      "retained_assertions": 905,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 9, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Lead with Heart / four live sparse positive effect: Step 6 assertion failed: Expected p1CombatChain-0 computed power to equal 9, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove sole actual resolved class-qualified next-attack grant; retain owned Might/Vigor8, played history, physical Blue7 pitch and real remaining2resources. Actual supported class-matching cost2 attack6 loses only +3 power, while every suffix action/oracle remains intact. Missing grant sensitivity, not alternate legal branch coverage. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b122_laden_with_lightning_red_focused_effect_sensitivity",
+      "fixture": "card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token",
+      "fixture_sha256": "d077239e65ecaa9d3e7d48d5725b3a16efefb044f120f52bc13d44bb4b56a685",
+      "source_raw5": {
+        "initial_gamestate.txt": "a7d49f985c250a804d01797ed178d53ed2daa63f5ed6a433819a9ed20eb38286",
+        "actions.json": "7cf179fdcacde46a1c7aa457b42b0d35f16587dc757f685870dc6891428fd508",
+        "assertions.json": "5d5647638aae1c802437a549d555b3a76f8a05cf853304ac3ee53687225a9d2e",
+        "expected_final_gamestate.txt": "da1e42dc2640e12c8136d8ca879fbaf9e92b29da7e827ab11ddc02cae3fd743d",
+        "meta.json": "f54956f2f55cfe6c49182181c26ab74903aed4b458a95543623dc71e2927f7af"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "embodiment_of_lightning",
+            "uid": 8
+          }
+        ]
+      },
+      "retained_assertions": 122,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Laden with Lightning / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Relocate only real owned Embodiment8 after true Lightning Bond source resolution. Actual LightningSurgeBlue7 remainsPitch and unused WBred6 remainsHand. Arena1 to0 endpoint sensitivity; no future attack buff or on-play token trigger timing/GA lifecycle credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b122_leech_vitality_red_focused_effect_sensitivity",
+      "fixture": "card-leech-vitality-red-four-live-sparse-actual-next-attack-buff-and-four-seat-damage-life-trigger",
+      "fixture_sha256": "fb1aaf34c8365f128e891e5ca7a6731336c1aa70034e48bf89c1b2b1b6914d61",
+      "source_raw5": {
+        "initial_gamestate.txt": "f01091022354b071b8e63c0454cf1c5907cbaf4a0dc9bd429a98f0efce5f0308",
+        "actions.json": "2cc5220e4d7dd523382dfb0e5e4304c4536700ce5cebb4c713eaf3f63f75bd78",
+        "assertions.json": "f5d7092b1438a15cf87bfb87dba4219c0cda44cb38433451507a289f8616da1a",
+        "expected_final_gamestate.txt": "68be80475ad5b96656e5f3ca6bfec1d79197251b33924ddeef1f69175162becc",
+        "meta.json": "09b7bde97be4684eb5bfed3087060dabde8dcc81594c79f8fde53536dd82b1c5"
+      },
+      "prefix_actions": 29,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 1,
+            "value": 19
+          }
+        ]
+      },
+      "retained_assertions": 328,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Health to equal 20, got 19.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Leech Vitality / four live sparse positive effect: Initial assertion failed: Expected p1Health to equal 20, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Revert only actual P1 life20 to19 after the real seven-damage event and all four separate healing-trigger response passes. Every original suffix oracle/action retained. Exact positive heal endpoint sensitivity only; this synthetic reset does not independently isolate missing dispatch or count/timing of the trigger. Actual queued layer/controller/sourceUID and HP19 through firstthree responses are independently model and saved-action/oracle checked. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

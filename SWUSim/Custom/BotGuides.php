@@ -132,6 +132,20 @@ function SWUBotAggroMaxUnitsPick(array $ctx): ?array {
     // half: the bonus is non-zero only when an ELIGIBLE payoff is in hand and still affordable afterwards.
     if (SWUBotFeatureOn('enablerfirst')) {
         $W = SWUBotWeights(strval($ctx['style'] ?? ''), $seat);
+        // The ON ATTACK half (Bug Report game 1647080 — "bot did not attack with Neel before playing Tarpals"): a unit in
+        // play whose attack arms the grant for a payoff IN the subset swings first. The swing spends nothing, so the
+        // subset stays affordable; only an attack that survives (SWUBotFreeAttacks) is promoted.
+        $inSubset = [];
+        for ($i = 0; $i < $n; $i++) {
+            if ($bestMask & (1 << $i)) $inSubset[intval(substr(SWUBotActionMz($plays[$i][0]), strlen('myHand-')))] = true;
+        }
+        $swing = null; $swingGain = 0.0;
+        foreach (SWUBotFreeAttacks($ctx) as $a) {
+            $att = SWUBotViewForMz($seat, SWUBotActionMz($a));
+            $gain = $att === null ? 0.0 : _SWUBotAttackEnablerBonus($seat, strval($att['cardID'] ?? ''), $W, fn($j) => isset($inSubset[$j]));
+            if ($gain > $swingGain) { $swing = $a; $swingGain = $gain; }
+        }
+        if ($swing !== null) return $swing;
         $enabler = null; $enablerGain = 0.0;
         for ($i = 0; $i < $n; $i++) {
             if (!($bestMask & (1 << $i))) continue;

@@ -1,0 +1,7 @@
+{
+    "name": "Heart Wrencher / empty deck no Boost choice",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:13:37+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Heart Wrencher red costs0 resources and one AP and has printed power3. Empty Deck makes its optional banish cost unavailable; do not offer a Boost chooser or silently pretend Boost was paid. The legal ordinary attack proceeds with AP0/resources0, no banished card and no go again. Unblocked damage3 leaves opponent17 and AP0. This checks the missing-Prepare fallback with the actual Heart Wrencher source rather than a substituted Zero to Sixty card. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heart_wrencher_red FaBSim/Custom/ARCAbilities.php::FaBARCPrepareMissingBoost (actual Heart Wrencher UID; canonical zero_to_sixty_red declaration only) FaBSim/Custom/ARCAbilities.php::FaBARCPayDeferredBoostCosts https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ (5.1.3b, 5.1.7-5.1.10) https://rules.fabtcg.com/en/cr/08-keywords/ (Boost)"
+}

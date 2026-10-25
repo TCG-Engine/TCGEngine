@@ -1,0 +1,638 @@
+[
+    {
+        "slug": "card-dodge-blue-flat-dr-hand-floating-exact-at-zero-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-hand-floating-overfunded-preserves-surplus",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-arsenal-face-down-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-arsenal-face-up-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 170
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-two-distinct-reactions-sum-defense",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 208
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 222
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-defender-response-above-pending-razor",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 221
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 67
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-own-action-hand-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-own-action-arsenal-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-nonturn-action-priority-hand-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-before-attack-layer-resolves-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-attack-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-normal-defend-declaration-hand-click-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-reaction-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-attacking-hero-cannot-play-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-damage-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-resolution-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-dodge-blue-flat-dr-ally-target-cannot-use-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 78
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-hand-floating-overfunded-preserves-surplus",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-arsenal-face-down-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-arsenal-face-up-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 170
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-two-distinct-reactions-sum-defense",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 208
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-attacker-razor-above-pending-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 222
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-defender-response-above-pending-razor",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 221
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 67
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-own-action-hand-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-own-action-arsenal-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-nonturn-action-priority-hand-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-before-attack-layer-resolves-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-attack-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-normal-defend-declaration-hand-click-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-reaction-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-attacking-hero-cannot-play-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-damage-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-resolution-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-red-flat-dr-ally-target-cannot-use-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 78
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-hand-floating-exact-at-zero-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-hand-floating-overfunded-preserves-surplus",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-arsenal-face-down-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-arsenal-face-up-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 170
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-two-distinct-reactions-sum-defense",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 208
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-attacker-razor-above-pending-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 222
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-defender-response-above-pending-razor",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 221
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 67
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-own-action-hand-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-own-action-arsenal-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-nonturn-action-priority-hand-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-before-attack-layer-resolves-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-attack-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-normal-defend-declaration-hand-click-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-reaction-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-attacking-hero-cannot-play-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-damage-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-resolution-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-yellow-flat-dr-ally-target-cannot-use-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 78
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-hand-floating-exact-at-zero-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-hand-floating-overfunded-preserves-surplus",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-arsenal-face-down-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-arsenal-face-up-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 170
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-two-distinct-reactions-sum-defense",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 208
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 222
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-defender-response-above-pending-razor",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 221
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 67
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-own-action-hand-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-own-action-arsenal-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-nonturn-action-priority-hand-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-before-attack-layer-resolves-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-attack-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-normal-defend-declaration-hand-click-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-reaction-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-attacking-hero-cannot-play-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-damage-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-resolution-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-evasive-leap-blue-flat-dr-ally-target-cannot-use-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 78
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-hand-floating-exact-at-zero-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-hand-floating-overfunded-preserves-surplus",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-arsenal-face-down-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-arsenal-face-up-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 170
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-two-distinct-reactions-sum-defense",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 208
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 222
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-defender-response-above-pending-razor",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 221
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 67
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-own-action-hand-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-own-action-arsenal-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-nonturn-action-priority-hand-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-before-attack-layer-resolves-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-attack-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-normal-defend-declaration-hand-click-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-reaction-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-attacking-hero-cannot-play-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-damage-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-resolution-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-ally-target-cannot-use-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 78
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-hand-yellow-pitch-pays-exactly-two",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 178
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-hand-two-red-pitches-use-current-hand-zero",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 199
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-one-floating-plus-red-pays-exactly-two",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 178
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-arsenal-face-down-blue-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 178
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-arsenal-face-up-two-red-pitches",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 199
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-hand-insufficient-one-resource-source-cannot-fund-itself",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-arsenal-insufficient-one-resource",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    }
+]

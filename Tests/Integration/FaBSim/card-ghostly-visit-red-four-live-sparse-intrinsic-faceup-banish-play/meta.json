@@ -1,0 +1,7 @@
+{
+    "name": "Ghostly Visit / four live sparse representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T23:51:03+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The card itself permits play from Banish, independently of generic PlayableFromBanish permission. Its printed cost1 and one AP are paid. Printed4 damage reaches P4; no Chane activation granted go again. The same source UID5 travels Banish -> Stack -> P1 CombatChain -> P1 Graveyard with Owner/Controller1. Banish is empty. The scenario stops in ACTION after combat close, before any end phase. All four actual young20 heroes hold priority; all shortcut windows false. AdjacentP4 is selected through the real chooser. Every priority pass is bounded and recorded. Scope is one positive effect demonstration for pitch-cycle:ghostly_visit; no sibling or secondary-card promotion. Blood Debt is not exercised or claimed: no end phase is entered. No face-down, suppression, foreign ownership or separately granted banish permission branch is claimed. Sources: https://judge.fabtcg.com/cards/detail/933/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/CHN021.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

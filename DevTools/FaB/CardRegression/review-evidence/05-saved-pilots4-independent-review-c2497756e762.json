@@ -1,0 +1,278 @@
+{
+  "status": "EXACT_APPROVED_ROW_SUBSET_CURRENT_BYTES_ONLY_NOT_RUNTIME_QUALIFIED",
+  "reviewer": "/root/pilot_review",
+  "review_basis": "Exact approved saved-fixture rows inherited without altered row fields; source independent review preserved verbatim. Runtime qualification is separate.",
+  "original_review": {
+    "path": "innate-go-again-review/saved-pilots4-independent-review.json",
+    "sha256": "8c9dc9aed0875fad2d0e8eb03a69eec298483b2dd6809d21bd3520f0eba4d9aa"
+  },
+  "fixtures": [
+    {
+      "slug": "card-fry-blue-innate-ga-zero-cost-keeps-spare-blue",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5f5559ea6594a3b660916f85d6899d848d5567f6aab0a6fd080107e4ae97edbc",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "2182c94db0d6b633fa1afe8b59fbc2c6b9bf9d668e895be15f9abeb1ad38d915",
+        "expected_final_gamestate.txt": "c2e3c6c1c9aac3f4d253096b3e482415487827dc3a29435c0eb9ff78d35c1650",
+        "meta.json": "00916604ada19cdc6fa04965a5d23abc44e521056f7a263fd8bbfec4dbe0d39d"
+      },
+      "fixture_sha256": "e9342a1ff90a64f871bd846b4a1ff3a4e7b5aa9f2ce7a772d3ebdf1ee3440db0",
+      "actions": 14,
+      "native_assertions": 118,
+      "native_game_state_fields": 18,
+      "checkpoints": [
+        {
+          "checkpoint": "legal_source_before_actual_play",
+          "step": 0,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "printed_assets_paid_once_before_priority",
+          "step": 1,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "printed_attack_on_chain_without_early_ap",
+          "step": 3,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "reaction_window_has_no_early_go_again_ap",
+          "step": 8,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolution_grants_one_ap_after_damage_even_without_hit",
+          "step": 12,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "normal_close_preserves_refunded_ap_and_clears_original_source",
+          "step": 14,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "legal_bow_and_unused_hand_cards_retained",
+          "step": 14,
+          "native_assertions": 5
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "legal_source_before_actual_play",
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": true
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_card_id": "fry_blue",
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3,
+        "tested_role": "primary_attack_zero_cost_spare_blue",
+        "expected_damage": 1,
+        "expected_final_resources": 0,
+        "expected_final_ap": 1
+      }
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e1f7745d98c038d437bab9429a3f84dbe1d86ee2803f763a06a773ed7ca997d1",
+        "actions.json": "5385c5c70590cdbc8ae6f3f005eced3087d19391873c04dbc78cb43f3246cde9",
+        "assertions.json": "e419ac3cb75ea60029e6b5997b191c4e7bccf1c3448e5f0e8df1b1e42250da99",
+        "expected_final_gamestate.txt": "10270cfd3af007ca4141205fb82d26a404f6568cf0994d2e098a8291d0398852",
+        "meta.json": "1a26bbd087eef825637db86a2108379b14cee5dea02a28b7c9736045a5112d62"
+      },
+      "fixture_sha256": "bd26d91584747a23984a9fbc706cc1ff64aff46a187f48ecf1b3f8e4fa473371",
+      "actions": 19,
+      "native_assertions": 166,
+      "native_game_state_fields": 21,
+      "checkpoints": [
+        {
+          "checkpoint": "printed_assets_paid_once_before_priority",
+          "step": 1,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "printed_attack_on_chain_without_early_ap",
+          "step": 3,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "two_actual_hand_blocks_total_six",
+          "step": 7,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "reaction_window_has_no_early_go_again_ap",
+          "step": 10,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolution_grants_one_ap_after_damage_even_without_hit",
+          "step": 14,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "normal_close_preserves_refunded_ap_and_clears_original_source",
+          "step": 16,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "real_followup_action_spends_the_single_refunded_ap",
+          "step": 17,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "followup_potion_resolves_without_another_ap_refund",
+          "step": 19,
+          "native_assertions": 23
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_card_id": "surging_strike_red",
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1,
+        "tested_role": "primary_fully_blocked_then_real_action_followup",
+        "expected_damage": 0,
+        "expected_final_resources": 0,
+        "expected_final_ap": 0
+      }
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "07dec1ad75027b208b4008f8a0f47cdd5da59e142ffbd4572afe86b18baf42e2",
+        "actions.json": "a5527b44e1419ef78f27212f020666139abf2833f6221775456d91bea3ed7eae",
+        "assertions.json": "797672f2910f070f5fdabde8ad0d7a19d313f7c0223bf95160020a01887435f5",
+        "expected_final_gamestate.txt": "ba88207244f9dc2af0e3c7e756da76c98486bce326cf3482ba845e7564499c08",
+        "meta.json": "b1a2a6527198b58e4d965e6613e9ae30f8a13e14d34253b9859a3668710723c5"
+      },
+      "fixture_sha256": "f210da44886c9dd744e8a0bf93599200fef2edd88e431944d968493172c57ba3",
+      "actions": 15,
+      "native_assertions": 69,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "generic_cost_three_awaits_subject_pitch",
+          "step": 1,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "subject_pitch_pays_exact_resource_gap_without_go_again",
+          "step": 2,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "pitched_subject_is_not_the_attack",
+          "step": 4,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": "no_early_or_pitched_card_ap_gain",
+          "step": 9,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": "subject_go_again_does_not_apply_when_only_pitched",
+          "step": 13,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "pitch_and_actual_attack_keep_distinct_destinations",
+          "step": 15,
+          "native_assertions": 21
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_card_id": "dust_runner_outlaw_yellow",
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2,
+        "tested_role": "subject_only_pitched_for_distinct_generic_attack",
+        "expected_damage": 6,
+        "expected_final_resources": 0,
+        "expected_final_ap": 0
+      }
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-blue-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "56d17f7e663a2ead3773f902a13ff70e4168029b2a281ff40f9fa3093560c5d2",
+        "actions.json": "d98747c78d75e3d8301c51bf8eb791de324a04ce4feb64b6bc1439fa315cca80",
+        "assertions.json": "1ccc217d0433c6a4d1797863c0cfdde1692639ffd6b7a3b3da5d535e9f14783e",
+        "expected_final_gamestate.txt": "9a6e50ffea3078df5f59977365e509bda9457944d18e3c01059da6e496e6cccc",
+        "meta.json": "11d4e24bf40eaec3dfa54c07a87b188e3b0271357e134e352dc402eee46ea61e"
+      },
+      "fixture_sha256": "5fe01a6c4c3ab57c3cf7780d71b15110d2abb5ceb5085a78b3fd0af13bf0c2ee",
+      "actions": 15,
+      "native_assertions": 124,
+      "native_game_state_fields": 17,
+      "checkpoints": [
+        {
+          "checkpoint": "await_assets_without_ap_charge",
+          "step": 1,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "printed_assets_paid_once_before_priority",
+          "step": 2,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "printed_attack_on_chain_without_early_ap",
+          "step": 4,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "reaction_window_has_no_early_go_again_ap",
+          "step": 9,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolution_grants_one_ap_after_damage_even_without_hit",
+          "step": 13,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "normal_close_preserves_refunded_ap_and_clears_original_source",
+          "step": 15,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "bow_retained_after_funding",
+          "step": 15,
+          "native_assertions": 5
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_card_id": "sic_em_shot_red",
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1,
+        "tested_role": "primary_arsenal_arrow_blue_pitch",
+        "expected_damage": 4,
+        "expected_final_resources": 2,
+        "expected_final_ap": 1
+      }
+    }
+  ]
+}

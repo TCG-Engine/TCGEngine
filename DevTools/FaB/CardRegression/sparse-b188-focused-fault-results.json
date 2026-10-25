@@ -1,0 +1,45 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:34:31.001230+00:00",
+  "plan_sha256": "4a2e0666810c32a15ab77588b7f6c45f802b7d1c1f6ba45aaff5e94d28521102",
+  "independent_saved_proof_sha256": "e5beec9a4ca66dba58795484de8e25bdf0775845c8c54ce5d3d5e22b43589f81",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b188-focused-fault-plan.json",
+    "4a2e0666810c32a15ab77588b7f6c45f802b7d1c1f6ba45aaff5e94d28521102",
+    "sparse-b188-focused-fault-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b188_clearwater_elixir_red_focused_effect_sensitivity",
+      "fixture": "card-clearwater-elixir-red-four-live-sparse-actual-one-cost-no-bloodrot-next-real-attack-gains-three-power",
+      "fixture_sha256": "d33d9f289898681b3cdbdaf14dded507c2c1ac79c30f1b95d05338771a088a1d",
+      "source_raw5": {
+        "initial_gamestate.txt": "b7ace5772eccc901113a8f8549f6ff7a8ccf84f6892527c8411ebd7f412850f3",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "6a6c4ccdbe825e8e3d20e95bbfa3095026ffcec650c16e0b322be93d49327de9",
+        "expected_final_gamestate.txt": "0f5fc441b163c4e7cb15244dc2f40a28e7c137394914bd8d2050f14c9b359c6c",
+        "meta.json": "6eadf8aa0bcd750e659407c4065d18fb2e693a8fa43af02bb2c5d8f724a3daa0"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "remove_effect": "NEXT_ATTACK"
+      },
+      "retained_assertions": 789,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Clearwater Elixir red / four live actual next-attack power without Bloodrot: Step 6 assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actualNEXT_ATTACK3 after realClearwater5/Blue7pitch3/payment1/R2/sourceGA andfourresponses. ActualWBRed6cost0 andoriginalbase4 remain; firstcomputedpower7 becomes4. Alloriginalsuffixactions/oracles retained. Syntheticbuffsensitivity only; no optionalBloodrot/heal/destruction/otherrecipient/filter/expiry/NAAdeparturetiming/hero/support/fullcard credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

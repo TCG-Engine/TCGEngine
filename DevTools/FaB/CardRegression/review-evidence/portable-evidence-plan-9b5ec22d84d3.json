@@ -1,0 +1,794 @@
+{
+  "archive_operations": [
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\000-ab24-actual-saved-independent-review-abc9519e5fc1.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/000-ab24-actual-saved-independent-review-abc9519e5fc1.json",
+      "sha256": "abc9519e5fc11cb1256b0339904c3575dfc90c6ad60bbfd2b79bb8e78b901c1c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\001-additive24-proposed-0013868b7a9a.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/001-additive24-proposed-0013868b7a9a.json",
+      "sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\002-all111-saved-review-approved-rows-a99e0041f1b6.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/002-all111-saved-review-approved-rows-a99e0041f1b6.json",
+      "sha256": "a99e0041f1b6d39fa8ef390e86b4a4124adc5d6e9b45b8fd0db898b1b86c37cb"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\003-closure-contract-42b9a1216460.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/003-closure-contract-42b9a1216460.json",
+      "sha256": "42b9a12164602a6661193773354d75ca4002b85ee1fdf81e9d6477ca12730536"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\004-finite-baseline-evidence-index-03098ac61fc7.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/004-finite-baseline-evidence-index-03098ac61fc7.json",
+      "sha256": "03098ac61fc7b62c8e535e3ad575924a848666ecbab02c0a8c99b2ee302a40a0"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\005-finite-scope-override-proposed-155ea3e70f06.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/005-finite-scope-override-proposed-155ea3e70f06.json",
+      "sha256": "155ea3e70f06d779aa0818bef41b39ceddfd192ed76e4e443071436427233343"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\006-independent-finite-adapter-review-295773f1167d.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/006-independent-finite-adapter-review-295773f1167d.json",
+      "sha256": "295773f1167d5a20c1f175867c6e15d5dec3bd23db85fb2fa4f3e82ff16086b5"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\007-independent-finite-scope-review-257bcb0f7ca3.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/007-independent-finite-scope-review-257bcb0f7ca3.json",
+      "sha256": "257bcb0f7ca32a6ab6c347e998f3897ea38964f6cc4490f53dcac0d0b16ae581"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\008-ab86-saved-review-approved-rows-28f0892bfa18.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/008-ab86-saved-review-approved-rows-28f0892bfa18.json",
+      "sha256": "28f0892bfa183b5b7f67616b449a14b119f79cd6cc263bb1626667da9eb1407c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\009-ab87th-saved-review-approved-rows-227c08b088ee.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/009-ab87th-saved-review-approved-rows-227c08b088ee.json",
+      "sha256": "227c08b088ee38ae76730667aa3d77a52d585cf638a69c2d8c3d5d9f9201d85e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\010-scenarios-proposed-02baa29a6559.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/010-scenarios-proposed-02baa29a6559.json",
+      "sha256": "02baa29a655918220b9a80c235e41143bb6ab41d3d7cbdcd9e77741934527880"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\011-b21-saved226-independent-review-5ca8c71557dc.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/011-b21-saved226-independent-review-5ca8c71557dc.json",
+      "sha256": "5ca8c71557dc2f8057f690d4740f6a181390402aa78ef41df8fea4306aee64f8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\012-b43-saved2-approved-rows-6341cd02ee0c.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/012-b43-saved2-approved-rows-6341cd02ee0c.json",
+      "sha256": "6341cd02ee0cb0710828abe31d476bd18c9890c79c0b1d231060cbc662b12bc3"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\013-batch31-saved111-independent-review-3bd9272c7d05.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/013-batch31-saved111-independent-review-3bd9272c7d05.json",
+      "sha256": "3bd9272c7d05eede0b7098769bd9d8bfc094dbda405e7890ccd18ee1e2945b30"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\014-batch33-saved198-independent-review-00a474959124.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/014-batch33-saved198-independent-review-00a474959124.json",
+      "sha256": "00a474959124e09f576a5bb743b59ff48896591265e2b7c6f2be29cb0c74d4bb"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\015-batch43-saved108-independent-review-bdd5f0582ae9.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/015-batch43-saved108-independent-review-bdd5f0582ae9.json",
+      "sha256": "bdd5f0582ae9350d311ebabc08715cde6de5a7163cc3521819dfc4cadee7292f"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\016-batch45-saved-third-reaction-independent-review-43a05d038fb3.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/016-batch45-saved-third-reaction-independent-review-43a05d038fb3.json",
+      "sha256": "43a05d038fb3a9a2ae74b6e0b31ca586dcd722dea011a544851049f7b02019e8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\017-batch56-saved4-independent-review-b827c9066bf7.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/017-batch56-saved4-independent-review-b827c9066bf7.json",
+      "sha256": "b827c9066bf79bc2b0e8d5fb79b5717c767087e34d7c85f9bd73d4fd4e910b15"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\018-finite-scope-override-independent-review-17a894e6a0f1.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/018-finite-scope-override-independent-review-17a894e6a0f1.json",
+      "sha256": "17a894e6a0f11b7b05d48475cfa671c5f993c299eed2dcebc9319da727fd01da"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\019-finite-scope-override-proposed-10b1a8d35bfa.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/019-finite-scope-override-proposed-10b1a8d35bfa.json",
+      "sha256": "10b1a8d35bfac8e4a438c6b44407196da2841a36d6692aa29055edfa01411914"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\020-saved-full66-independent-review-e65d1b4417f3.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/020-saved-full66-independent-review-e65d1b4417f3.json",
+      "sha256": "e65d1b4417f3eadf7bf09100a853d312c3912e53ca8e3b8149050a9ce4dae3a2"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\021-issue027-after-ordinary21-evidence-7da57ce0501f.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/021-issue027-after-ordinary21-evidence-7da57ce0501f.json",
+      "sha256": "7da57ce0501f200386851b515b3d20296451a2ddefbec7dbf6df3eaa76663e1c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\022-issue027-hero-label-correction-supplement-87b6884bbb86.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/022-issue027-hero-label-correction-supplement-87b6884bbb86.json",
+      "sha256": "87b6884bbb863172d580c2ac6cf8b712f220a2721fdd346690bebb90b0281db6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\023-issue027-normalized-addition-ad0abe2b91d3.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/023-issue027-normalized-addition-ad0abe2b91d3.json",
+      "sha256": "ad0abe2b91d3b7d93311283483f22d1a42d224d9266623f410b2bb95c78de914"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\024-issue027-numeric-beforeproof-e7970cca71d2.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/024-issue027-numeric-beforeproof-e7970cca71d2.json",
+      "sha256": "e7970cca71d2446ed24d06f100411b6dbe1c35224be4143024901e30d4e1df12"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\025-saved-after-independent-review-91c152d0c7d0.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/025-saved-after-independent-review-91c152d0c7d0.json",
+      "sha256": "91c152d0c7d04298b967e01aa59c1010aca6d4e4761b4e37fda09b9a55818db6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\026-finite-baseline-completion-contract-fd6ed8bd8e1b.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/026-finite-baseline-completion-contract-fd6ed8bd8e1b.json",
+      "sha256": "fd6ed8bd8e1b5fb4afa2995305ba1cf44f4fbc0c15b15aff805d8873f37796b4"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\027-evidence-index-3728486a69b2.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/027-evidence-index-3728486a69b2.json",
+      "sha256": "3728486a69b2ee46ff611b6e5e3aff86be73ba2d2d61e101dfb116e753abbbdd"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\028-independent-scope-review-843685728205.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/028-independent-scope-review-843685728205.json",
+      "sha256": "843685728205025d56ea66d105c0aa48d7e3d4f956ab88bae910e61051b545b7"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\029-override-corrected-proposed-3f9e9d6b867f.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/029-override-corrected-proposed-3f9e9d6b867f.json",
+      "sha256": "3f9e9d6b867f1b2a88daa162974c04154837e74c462021c737ae5782830dd519"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\030-adapter-independent-review-00a06d4b8197.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/030-adapter-independent-review-00a06d4b8197.json",
+      "sha256": "00a06d4b81978caf530c9a89fca427150a55b9c446143c124e96dac67aac6316"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\031-definition-v2-independent-review-8735cc9b9d29.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/031-definition-v2-independent-review-8735cc9b9d29.json",
+      "sha256": "8735cc9b9d2931c6ce353610c0a250d60738cf785977330b017e8bb3ff84bf39"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\032-definition-v2-proposed-f29cf1fe40aa.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/032-definition-v2-proposed-f29cf1fe40aa.json",
+      "sha256": "f29cf1fe40aa4e7ed4ba87c9f8ae7f48ea942ab2a1d2391896c03c4eb0644e58"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\033-finite-baseline-evidence-index-0fd3b516b63f.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/033-finite-baseline-evidence-index-0fd3b516b63f.json",
+      "sha256": "0fd3b516b63f54b1a30517688c026be686fa89a9f9a21341660404ce13540fe7"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\034-finite-scope-override-proposed-bd962cccbe81.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/034-finite-scope-override-proposed-bd962cccbe81.json",
+      "sha256": "bd962cccbe810ef0873416bf663f994dc47de2f226cf68731bad113d9f22526f"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\035-existing-fixture-bindings-b5d7b0a704f6.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/035-existing-fixture-bindings-b5d7b0a704f6.json",
+      "sha256": "b5d7b0a704f69edac1b8d44b12ea6b1b20746de05e05c0b5609ccd9efeee11b9"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\036-scenarios-proposed-0e0368b53177.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/036-scenarios-proposed-0e0368b53177.json",
+      "sha256": "0e0368b5317708da42c0be3cf08e3d0ea26cd4bf46954d81306be9277bbe3a11"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\037-saved-full399-independent-review-22a228463515.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/037-saved-full399-independent-review-22a228463515.json",
+      "sha256": "22a228463515c311734650a546aa30464cc09574b6c8dda880b70c1162398b09"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\038-saved-pilots4-independent-review-8c9dc9aed087.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/038-saved-pilots4-independent-review-8c9dc9aed087.json",
+      "sha256": "8c9dc9aed0875fad2d0e8eb03a69eec298483b2dd6809d21bd3520f0eba4d9aa"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\039-issue028-saved3-and-proxy-owner-independent-review-0e69852073cb.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/039-issue028-saved3-and-proxy-owner-independent-review-0e69852073cb.json",
+      "sha256": "0e69852073cbe4c4ab6331f820c8e24dd125595bd4beda896bcd21cad581ec5e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\040-issue028-saved4-independent-review-fe060e201dde.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/040-issue028-saved4-independent-review-fe060e201dde.json",
+      "sha256": "fe060e201dde402bc26fffb9770fd7ca5123709467e6005ca3893a8a3e8e3b23"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\041-completion-scopes-override-independent-review-3761679e94f8.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/041-completion-scopes-override-independent-review-3761679e94f8.json",
+      "sha256": "3761679e94f8b85b4cc56d535d6d54ab712ddc6010b3310abd694e50dcb387ea"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\042-completion-scopes-override-proposed-b50c1ff24a5d.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/042-completion-scopes-override-proposed-b50c1ff24a5d.json",
+      "sha256": "b50c1ff24a5dfc5db079724a82477c39a6f2c8b5e486bd33e8bef7f80fead179"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\043-finite-scope-override-independent-review-e8dcb41ff91e.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/043-finite-scope-override-independent-review-e8dcb41ff91e.json",
+      "sha256": "e8dcb41ff91e422774ac15a072eed828d7d8abef6f6b413549709b18db2bfd38"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\044-finite-scope-override-proposed-4a4b21e88d27.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/044-finite-scope-override-proposed-4a4b21e88d27.json",
+      "sha256": "4a4b21e88d272f8ab3b290bcdb7ed1a466e2780bcaf6195cb174a770bb35615b"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\045-saved-full378-independent-review-f655cf986cce.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/045-saved-full378-independent-review-f655cf986cce.json",
+      "sha256": "f655cf986cce85193457794d44eb203a243219c7b9b1ec7474511f72f239e4fb"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\046-card-regression-batch43-07893dee7d19.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/046-card-regression-batch43-07893dee7d19.json",
+      "sha256": "07893dee7d19ce795eb7d905a3643000680a18004ec37600bc3b2f4b69430554"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\047-card-regression-batch45-c70005bbb9b4.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/047-card-regression-batch45-c70005bbb9b4.json",
+      "sha256": "c70005bbb9b417c037912272cecc2ce1f8c66fae8bd06da5bb4bcf438f3f503f"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\048-card-regression-batch56-5b9fc382ee59.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/048-card-regression-batch56-5b9fc382ee59.json",
+      "sha256": "5b9fc382ee59f4c12198679818ecfc9a765b7d01e536c973622803d501d2a3fe"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\049-card-regression-completion-scopes-8ad2f07a9ec1.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/049-card-regression-completion-scopes-8ad2f07a9ec1.json",
+      "sha256": "8ad2f07a9ec1eccd7deb2cab613cf3f75229427d56a39f52c57e7144a03094a4"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\050-20261020T013225Z-bbef61ff-after-034985103f04.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/050-20261020T013225Z-bbef61ff-after-034985103f04.json",
+      "sha256": "034985103f04557ae2d330de1d3c2c6d423f78193a6fdfb3504572fa6c3547f4"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\051-20261020T015429Z-3a29eb31-after-01137efddaba.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/051-20261020T015429Z-3a29eb31-after-01137efddaba.json",
+      "sha256": "01137efddaba0a7bf0a4ca51f3de15f3279b55b0d481ae9ba5b0ea6bb359bd66"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence\\052-b26-saved-independent-review-bb022d1268aa-bb022d1268aa.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence/052-b26-saved-independent-review-bb022d1268aa-bb022d1268aa.json",
+      "sha256": "bb022d1268aa9d95437ecaff72d52958a403e2dc6980017f5216726b7bffc423"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\evidence-resolution-index.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/evidence-resolution-index.json",
+      "sha256": "8eae860303c163a39fb72bc08b1d356a13086e9a4d65e67d9bcd28adfe22f8af"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\merge-index.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/merge-index.json",
+      "sha256": "4f199c46d6a08965ac9f02888ba8f974c8ce7064ed07f25930095cf8d88bb8ff"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\completion-scopes-additions74.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/completion-scopes-additions74.json",
+      "sha256": "a79db264d21bdbd8517d4c2c59aab73b514276ad0fb45d05a17d1c7c0818b79d"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\completion-scopes-merged75-preview.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/completion-scopes-merged75-preview.json",
+      "sha256": "5629d560df93a9090432f755ee9928ae6e2c462fdab3890e835e7b6961e2a986"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future75-evidence-merge-v3-proposed\\issue027-additions-interface-proposed.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future75-evidence-merge-v3-proposed/issue027-additions-interface-proposed.json",
+      "sha256": "eaa3fae28ee500b87c4f60bcba9c9a449f0bb722ac5855997c58450bdf59abcf"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\000-batch33-saved198-independent-review-00a474959124.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/000-batch33-saved198-independent-review-00a474959124.json",
+      "sha256": "00a474959124e09f576a5bb743b59ff48896591265e2b7c6f2be29cb0c74d4bb"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\001-batch45-saved-third-reaction-independent-review-43a05d038fb3.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/001-batch45-saved-third-reaction-independent-review-43a05d038fb3.json",
+      "sha256": "43a05d038fb3a9a2ae74b6e0b31ca586dcd722dea011a544851049f7b02019e8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\002-anchor-replacements-lf-correction-191db6561d5e.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/002-anchor-replacements-lf-correction-191db6561d5e.json",
+      "sha256": "191db6561d5e702a36502d879fff8f6c6e5305f607bf42685ce31fe286d900cd"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\003-anchor-replacements-69c0afbfae43.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/003-anchor-replacements-69c0afbfae43.json",
+      "sha256": "69c0afbfae43f7d64235cbfc91a25366f9c97886d0aab67a8f008c46753186df"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\004-candidate-WTRCards-lf-f31e69d203e8.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/004-candidate-WTRCards-lf-f31e69d203e8.php",
+      "sha256": "f31e69d203e85fc98d389be95b9216d56397c2c016fea318f80026d9bf7fef9d"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\005-candidate-WTRCards-d733abdea7e7.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/005-candidate-WTRCards-d733abdea7e7.php",
+      "sha256": "d733abdea7e7f229fbcd1a1fe51d64d8e6ad98e32dc0710b6e4b47d370e0a0a4"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\006-check_resolver_after-47d0d310228f.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/006-check_resolver_after-47d0d310228f.php",
+      "sha256": "47d0d310228fa30faf72b84df25fb4eccacdaabf739286c5984cb6c586f0244f"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\007-check_resolver_before-063073182a71.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/007-check_resolver_before-063073182a71.php",
+      "sha256": "063073182a7178d4494372098613572e16844fe50b986661aa49842771f71062"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\008-component-results-837aa61178b6.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/008-component-results-837aa61178b6.json",
+      "sha256": "837aa61178b6cac5988f73133e61cce1c0c671c5defa786adb57112ce8230326"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\009-component-source-manifest-517f7898668d.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/009-component-source-manifest-517f7898668d.json",
+      "sha256": "517f7898668d8329a82ba9bd126891d68f1dcb4a4612ac6be5dd9d4dcfea875b"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\010-independent_source_review-bd04b3e1d517.py",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/010-independent_source_review-bd04b3e1d517.py",
+      "sha256": "bd04b3e1d5172fa381adb7660a08c4d6b8eb4bcdb88361bfd66525376d4d0c05"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\011-issue027-after-ordinary21-evidence-7da57ce0501f.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/011-issue027-after-ordinary21-evidence-7da57ce0501f.json",
+      "sha256": "7da57ce0501f200386851b515b3d20296451a2ddefbec7dbf6df3eaa76663e1c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\012-issue027-beforeproof-101a6642e504.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/012-issue027-beforeproof-101a6642e504.json",
+      "sha256": "101a6642e5048bc3c0e86fc79ca6269def8fce189596187eb66157ebac9924c2"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\013-issue027-normalized-addition-ad0abe2b91d3.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/013-issue027-normalized-addition-ad0abe2b91d3.json",
+      "sha256": "ad0abe2b91d3b7d93311283483f22d1a42d224d9266623f410b2bb95c78de914"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\014-issue027-numeric-beforeproof-e7970cca71d2.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/014-issue027-numeric-beforeproof-e7970cca71d2.json",
+      "sha256": "e7970cca71d2446ed24d06f100411b6dbe1c35224be4143024901e30d4e1df12"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\015-manifest-42bed4a3905d.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/015-manifest-42bed4a3905d.json",
+      "sha256": "42bed4a3905d9f3df8292e5fc4c4f74a771dfef810cb07f17bc66e57ad10debc"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\016-newline-correction-independent-review-97271254b305.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/016-newline-correction-independent-review-97271254b305.json",
+      "sha256": "97271254b30588a76cea7e819b09357fb6fffe1ad537f9a608bab1fc827805e0"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\017-newline-correction-supplement-4d83e57b9db8.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/017-newline-correction-supplement-4d83e57b9db8.json",
+      "sha256": "4d83e57b9db829ec4146fe5f7d7cfbbe10b4d7573c840a2bad6e4942526829df"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\018-numeric-native-before-input-2248e54664b6.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/018-numeric-native-before-input-2248e54664b6.json",
+      "sha256": "2248e54664b6d9f6bd98aff01e6b60a68a4c2643c6e1da737af860d1ce7b6bef"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\019-numeric-native-before-run-c8d9d153cec7.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/019-numeric-native-before-run-c8d9d153cec7.json",
+      "sha256": "c8d9d153cec7833b9cc67e23ab052bb4609be46de14356185677996f26cebe15"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\020-numeric-probe-delta-70f08ad4d352.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/020-numeric-probe-delta-70f08ad4d352.json",
+      "sha256": "70f08ad4d352ef1e39a97aa06bc8bafd1e1bee3f0b08da788c9f2f1bf6d2fe5c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\021-numeric-probe-independent-review-e68c72618e4d.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/021-numeric-probe-independent-review-e68c72618e4d.json",
+      "sha256": "e68c72618e4d2f66b14990f5fe453ed9e55d94cd621486e48e8160fc76597c02"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\022-numeric-probe-proposed-2248e54664b6.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/022-numeric-probe-proposed-2248e54664b6.json",
+      "sha256": "2248e54664b6d9f6bd98aff01e6b60a68a4c2643c6e1da737af860d1ce7b6bef"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\023-original-batch33-pilot-725c9c40551d.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/023-original-batch33-pilot-725c9c40551d.json",
+      "sha256": "725c9c40551d2127c65b65369eb8514786c4f7b8238f6f3de34d763d2aca7680"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\024-original-four-pilot-run-72431e9e46da.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/024-original-four-pilot-run-72431e9e46da.json",
+      "sha256": "72431e9e46dade4e14b623184203c758c524ce7e7f6f9a8f9a32a811f6ca80e6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\025-original-WTRCards-8474a62a6f0c.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/025-original-WTRCards-8474a62a6f0c.php",
+      "sha256": "8474a62a6f0c6cadae4df3907529e355b8e0afe4c7dbc120aab9f345cbcd266b"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\026-proposed-0571a046af49.patch",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/026-proposed-0571a046af49.patch",
+      "sha256": "0571a046af491fd59140166a5523e14fa118a63de389c187f7314f3179a996be"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\027-review_numeric_probe-8169dbc259bc.py",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/027-review_numeric_probe-8169dbc259bc.py",
+      "sha256": "8169dbc259bc57d9906a36dc555d09ff3caa1408c9a1ca251f4354dbab3eeb79"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\028-review_saved_after-4d6b685ccf1e.py",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/028-review_saved_after-4d6b685ccf1e.py",
+      "sha256": "4d6b685ccf1ef5d3365285432b68a8bdf04984ab44688103a5197213572940fa"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\029-saved-after-independent-review-91c152d0c7d0.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/029-saved-after-independent-review-91c152d0c7d0.json",
+      "sha256": "91c152d0c7d04298b967e01aa59c1010aca6d4e4761b4e37fda09b9a55818db6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\030-source-independent-review-ba83f170dc3e.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/030-source-independent-review-ba83f170dc3e.json",
+      "sha256": "ba83f170dc3e9f46b0279d1c5e3c9ea168a2aa13e28d1c13a392a473f2be0341"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\031-source-review-package-8c53c5c89bb4.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/031-source-review-package-8c53c5c89bb4.json",
+      "sha256": "8c53c5c89bb46f2237c25cece1091d2867518e87560f8cd272ab53042996ef08"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\032-post-partial-resolution-third-reaction-probe-c70005bbb9b4.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/032-post-partial-resolution-third-reaction-probe-c70005bbb9b4.json",
+      "sha256": "c70005bbb9b417c037912272cecc2ce1f8c66fae8bd06da5bb4bcf438f3f503f"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\033-EVORuntime-3b574e2b6ed7.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/033-EVORuntime-3b574e2b6ed7.php",
+      "sha256": "3b574e2b6ed7acce35861267b5a3945064b48c4526dced889dd46ea9d5ab631a"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\034-GameLogic-2ce3dfd5ad8e.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/034-GameLogic-2ce3dfd5ad8e.php",
+      "sha256": "2ce3dfd5ad8ebcca693f7b3b983246dc02ecaf0a42fe7b87b4570e4f1f225b56"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\035-WTRCards-f31e69d203e8.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/035-WTRCards-f31e69d203e8.php",
+      "sha256": "f31e69d203e85fc98d389be95b9216d56397c2c016fea318f80026d9bf7fef9d"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\036-build_evidence-504d83c2da3e.py",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/036-build_evidence-504d83c2da3e.py",
+      "sha256": "504d83c2da3ebbbc18bc93570eede8f0c2fbb6c3137343aaea50f4d86cb40763"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\037-caller-window-audit-9334a79ebf83.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/037-caller-window-audit-9334a79ebf83.json",
+      "sha256": "9334a79ebf830268f9252c67dcd41861ffad8a9d001638118b5cce91e14d558a"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\038-EVORuntime-e38af5f56cd9.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/038-EVORuntime-e38af5f56cd9.php",
+      "sha256": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\039-GameLogic-1163845d1d65.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/039-GameLogic-1163845d1d65.php",
+      "sha256": "1163845d1d651b2c0606d64b9b7d403b614bf901fbb0b47ec4e553b723d904dd"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\040-WTRCards-56a163154630.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/040-WTRCards-56a163154630.php",
+      "sha256": "56a163154630515b73e3e8f40113a3a61aa9c23203c273df45edd963fa4523b8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\041-check_components-1f1f71146023.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/041-check_components-1f1f71146023.php",
+      "sha256": "1f1f7114602379d4eaaa537490c048fa376b5a0add1e2efbeed8f8f8ac1df873"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\042-check_native_compatibility_specs-f6c22470536a.py",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/042-check_native_compatibility_specs-f6c22470536a.py",
+      "sha256": "f6c22470536aefee7330a750c19c1351b6567abc5da294a760eb58cd537b00a6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\043-check_source-13cd31dbcd80.py",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/043-check_source-13cd31dbcd80.py",
+      "sha256": "13cd31dbcd8032a94b11be8b8acbfd1d67347fcd16a010ce17629d4a855f8bd5"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\044-freeze_review-2e25302090fa.py",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/044-freeze_review-2e25302090fa.py",
+      "sha256": "2e25302090fa572fd3a341b4db16969cff6076127a5eb57e3114f5903c460740"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\045-independent_compatibility_review-8d7dd8ff5ab7.py",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/045-independent_compatibility_review-8d7dd8ff5ab7.py",
+      "sha256": "8d7dd8ff5ab72074f79b77ff04593e1bc986c1d48b10322815e58670f433e4e4"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\046-issue028-before-proof-41c3921fcf2a.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/046-issue028-before-proof-41c3921fcf2a.json",
+      "sha256": "41c3921fcf2a09b2a09499cde9911480d01ec59f41022d024481570fff99187a"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\047-issue028.proposed-2bf779a19a84.patch",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/047-issue028.proposed-2bf779a19a84.patch",
+      "sha256": "2bf779a19a84a16b6a0f98899c44ee4280025a093018135bebf8905b8aa6c364"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\048-manifest-ed414ddcb1c2.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/048-manifest-ed414ddcb1c2.json",
+      "sha256": "ed414ddcb1c24ea0185941527463f9334e83113d0e1120fb2c87953ba2338f21"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\049-native-compatibility-active3-proposed-e2d41bbeec3e.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/049-native-compatibility-active3-proposed-e2d41bbeec3e.json",
+      "sha256": "e2d41bbeec3e035bc31a7a7bc03bde91976c59c792fbed7c2a144d8c0d5f32e8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\050-native-compatibility-author-validation-4f657e6eff15.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/050-native-compatibility-author-validation-4f657e6eff15.json",
+      "sha256": "4f657e6eff15782ea2be826b011631054675eae0b21956307855e6f0775c7b38"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\051-native-compatibility-cnc-oracle-correction-delta-7de6f2895af5.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/051-native-compatibility-cnc-oracle-correction-delta-7de6f2895af5.json",
+      "sha256": "7de6f2895af5e1a34362ed25ab4aabf1eff9f0ed4fdf1ecf0e29523465e15562"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\052-native-compatibility-cnc-representation-delta-f8d78082bbf3.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/052-native-compatibility-cnc-representation-delta-f8d78082bbf3.json",
+      "sha256": "f8d78082bbf3c9ed9a180a306f267bcf3b37959ef564745e1ace252f715c7377"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\053-native-compatibility-cnc-representation-proposed-80e569f1472c.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/053-native-compatibility-cnc-representation-proposed-80e569f1472c.json",
+      "sha256": "80e569f1472ce4cea545e027713af651a0c8203569fb1bb0bbe96bca2ac1eb99"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\054-native-compatibility-independent-review-2b6712abbe34.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/054-native-compatibility-independent-review-2b6712abbe34.json",
+      "sha256": "2b6712abbe34f794531d8ca5549c0cf0b6d99deceda14757605754dc797aa080"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\055-native-compatibility-manifest-41007b756746.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/055-native-compatibility-manifest-41007b756746.json",
+      "sha256": "41007b7567461afc48872effa138f4a534d006aef4b8472e41a8ad0a70deda97"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\056-native-compatibility-owner-oracle-rejection-reason-6f05295e684c.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/056-native-compatibility-owner-oracle-rejection-reason-6f05295e684c.json",
+      "sha256": "6f05295e684cb869489245b993339bee98816556089777a0136942e8ce5c4340"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\057-native-compatibility-proposed-ede1583bfe34.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/057-native-compatibility-proposed-ede1583bfe34.json",
+      "sha256": "ede1583bfe34dd673d3bfbf47b6073d2ae34289e38a4210797d8b78555007d91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\058-native-compatibility-staging-plan-6a8f8935ea59.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/058-native-compatibility-staging-plan-6a8f8935ea59.json",
+      "sha256": "6a8f8935ea59ce15af0591945150b596846f4f833f395c9a0f2568955893d966"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\059-prepare_candidate-6d3be2dd9e0a.py",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/059-prepare_candidate-6d3be2dd9e0a.py",
+      "sha256": "6d3be2dd9e0ac611ef5ee19785adbfc03ec09cdd3069d98589e5f065c317d0eb"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\060-prepare_cnc_representation_candidate-8c0cd5ea753a.py",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/060-prepare_cnc_representation_candidate-8c0cd5ea753a.py",
+      "sha256": "8c0cd5ea753a24ac6e9b6bed85e5b06e7618e9163b6be6b81380b6cc34d9da0e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\061-prepare_compatibility_staging_plan-ff05a6b2ce42.py",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/061-prepare_compatibility_staging_plan-ff05a6b2ce42.py",
+      "sha256": "ff05a6b2ce42f4cc1af4e471953464d290c25b09dd5aba322c35ab798a0c1a18"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\062-README-1e4001119fa1.md",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/062-README-1e4001119fa1.md",
+      "sha256": "1e4001119fa18b4bc14db82f55b754f9ca5213237566009558e188f3ad119161"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\063-build_issue028_native_compatibility-3961666742c0.py",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/063-build_issue028_native_compatibility-3961666742c0.py",
+      "sha256": "3961666742c0fad4e2709ce7766e0c027de88cf5358d465e69b92ea7161968ed"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\064-native-compatibility-manifest-0bf081873ca4.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/064-native-compatibility-manifest-0bf081873ca4.json",
+      "sha256": "0bf081873ca4a544cf3a885b33f09129fe16ba608fb0cb44e97752a9d15234d2"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\065-native-compatibility-proposed-9d2fae4545c7.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/065-native-compatibility-proposed-9d2fae4545c7.json",
+      "sha256": "9d2fae4545c7a0462664ef171b2d57b49d7f0db366b2c8c759c923009b4300c5"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\066-review-56198c507321.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/066-review-56198c507321.json",
+      "sha256": "56198c50732180539c35e993c67c039a103c7587568f9c68364477b3f7bd3a0f"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\067-validation-results-0cba4d625c60.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/067-validation-results-0cba4d625c60.json",
+      "sha256": "0cba4d625c60b2b59ec8230f07a59d6b227cff3e54907fb339c228f742b5d701"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence\\068-issue028-saved3-and-proxy-owner-independent-review-0e69852073cb.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence/068-issue028-saved3-and-proxy-owner-independent-review-0e69852073cb.json",
+      "sha256": "0e69852073cbe4c4ab6331f820c8e24dd125595bd4beda896bcd21cad581ec5e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\issue-additions027-028-pending.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/issue-additions027-028-pending.json",
+      "sha256": "8eb795af085767f5f6e2c3c65c4dc37682e812d1d0084fd55a2d20ab7cc7e9e5"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\qualified-decision-templates027-028-NOT-READY.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/qualified-decision-templates027-028-NOT-READY.json",
+      "sha256": "a540ac2f5e41601c869934522e298453d3397ea5fa3bec7bedb5597a60a18da4"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\evidence-resolution-index.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/evidence-resolution-index.json",
+      "sha256": "ff30f6b37f24bad1c471778ccf717110ab5e8914ee0d953844d2fa5fe5ab1bb3"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues027-028-pending-proposed\\proposal-proof.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues027-028-pending/proposal-proof.json",
+      "sha256": "04bacfb05cb6c8ef3bd653a0362d68200bb76e9a51564e6c7de947910927b4f8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues029-030-before-audit-proposed\\00-card-regression-batch59-20261020T020704Z-6ad6ccc8d4c34.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues029-030-before/00-card-regression-batch59-20261020T020704Z-6ad6ccc8d4c34.json",
+      "sha256": "15dfa094d1daca0de9ab5f1ae7b078c490f4de4c03a48fa32361ea3528e0f059"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues029-030-before-audit-proposed\\01-card-regression-batch60-20261020T020859Z-6ad6cd3b3eee5.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues029-030-before/01-card-regression-batch60-20261020T020859Z-6ad6cd3b3eee5.json",
+      "sha256": "c644d52514ce716b88f31ac38bd392df9cec584cb1282015df5a4b5090a79e64"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues029-030-before-audit-proposed\\02-card-regression-batch59.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues029-030-before/02-card-regression-batch59.json",
+      "sha256": "0821527f4056adfb5475090a87e261554c712d88f5aa39aebb967f8b99ca5e71"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues029-030-before-audit-proposed\\03-card-regression-batch60.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues029-030-before/03-card-regression-batch60.json",
+      "sha256": "4e6a4a7171910dea5f0c80ee3c3d049c9c47b54eb555a1c6c5b1c6565ba5dd39"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues029-030-before-audit-proposed\\04-cnc-hit-trigger-independent-spec-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues029-030-before/04-cnc-hit-trigger-independent-spec-review.json",
+      "sha256": "c3465037581e50403c1ed9fdad2c410fb5de6a839d9b48905f8c1a79915f8f60"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues029-030-before-audit-proposed\\05-lunging-target-scope-independent-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues029-030-before/05-lunging-target-scope-independent-review.json",
+      "sha256": "e2b1a72513a1409cbfbb7ce43a2221debde6e97b34e955f85b33add955982ea3"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues029-030-before-audit-proposed\\06-target-scope-and-source-audit.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues029-030-before/06-target-scope-and-source-audit.json",
+      "sha256": "4059f64094d4617ff38843bc021d33c938413abcef9f452d05eeeaf1e3c75170"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues029-030-before-audit-proposed\\issue-additions029-030-open.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues029-030-before/issue-additions029-030-open.json",
+      "sha256": "810e973fc5798607ef5a90ab51d2701eaed818958f5702baaaecde7acd1ed0d2"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues029-030-before-audit-proposed\\independent-native-before-audit.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues029-030-before/independent-native-before-audit.json",
+      "sha256": "c0088bf2fdb05577aab75bd0c32bf9378220f7f4d05b14a813fa23eb5df71f45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future2743-metadata-inputs-v3-proposed\\supplements\\issue027-hero-label-correction-supplement.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future2743-inputs-v3/supplements/issue027-hero-label-correction-supplement.json",
+      "sha256": "87b6884bbb863172d580c2ac6cf8b712f220a2721fdd346690bebb90b0281db6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future2743-metadata-inputs-v3-proposed\\supplements\\issue028-saved4-independent-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future2743-inputs-v3/supplements/issue028-saved4-independent-review.json",
+      "sha256": "fe060e201dde402bc26fffb9770fd7ca5123709467e6005ca3893a8a3e8e3b23"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future2743-metadata-inputs-v3-proposed\\supplements\\actual399-initial-isolation-supplement.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future2743-inputs-v3/supplements/actual399-initial-isolation-supplement.json",
+      "sha256": "7646602cdf2ff8d4e45b522d9e17b3298b89cd6caee3e364e8a912f5b8133d30"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future2743-metadata-inputs-v3-proposed\\supplements\\future43-evidence-merge-v2-independent-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future2743-inputs-v3/supplements/future43-evidence-merge-v2-independent-review.json",
+      "sha256": "401bdc87cabd39e895fc674eb6f2745d1711b32dd1588bd6d77244a5436db042"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future2743-metadata-inputs-v3-proposed\\supplements\\unsafe-pitch-logical-consumer-independent-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future2743-inputs-v3/supplements/unsafe-pitch-logical-consumer-independent-review.json",
+      "sha256": "4522d635f0a245f350ecd834f624841aab78d0a406d2d8be464a5bc94cc78286"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future2743-metadata-inputs-v3-proposed\\issue-additions027-030-pending-open.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future2743-inputs-v3/issue-additions027-030-pending-open.json",
+      "sha256": "06463a2bf1f3464594e8c46ffe9b27b7f571a1d14c43a66f11cb7f9951316f36"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future2743-metadata-inputs-v3-proposed\\qualified-decision-templates027-028-NOT-READY.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future2743-inputs-v3/qualified-decision-templates027-028-NOT-READY.json",
+      "sha256": "b87b68a07e9ca6eaafbde6e990da89a1d09fff73dd56ac38568ebed5e7444f23"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future2743-metadata-inputs-v3-proposed\\future-require-ready-command.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future2743-inputs-v3/future-require-ready-command.json",
+      "sha256": "517e1241a84d1702f7527f98f0250a695a8cfc5a2c5feab71409cfd2051243bb"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future2743-metadata-inputs-v3-proposed\\combined-input-proof.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future2743-inputs-v3/combined-input-proof.json",
+      "sha256": "24dbab4f72d4aad698f06c9bcca853462de70823d12115e99299dad986b9ec6e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\future2743-metadata-inputs-v3-proposed\\supplement-resolution-index.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/future2743-inputs-v3/supplement-resolution-index.json",
+      "sha256": "825916b639f849fc398a70682110c11fa4a165188179c9f6fb9e71699c722b33"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\qualified2743-final-decision-evidence-proposed\\evidence\\card-regression-replay-full2743-8ec-run1.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/checkpoint2743-final-gates/card-regression-replay-full2743-8ec-run1.json",
+      "sha256": "52e8988950d3d8f2c0e7c15759d883c2ce0749c34a9340d7cc1695f43df34380"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\qualified2743-final-decision-evidence-proposed\\evidence\\card-regression-replay-full2743-8ec-run2.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/checkpoint2743-final-gates/card-regression-replay-full2743-8ec-run2.json",
+      "sha256": "1960292de60881da015fde9294ca44a9cd6986b1af138051fe9ce3a0cc80a485"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\qualified2743-final-decision-evidence-proposed\\evidence\\card-regression-negative-control-results.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/checkpoint2743-final-gates/card-regression-negative-control-results.json",
+      "sha256": "e71bf98a62195c3135e0617602cb5634b96505dbebcbaf9056b1f0d7ecdfa62f"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\qualified2743-final-decision-evidence-proposed\\evidence\\card-regression-native-suite-checkpoint2743-8ec-final-results.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/checkpoint2743-final-gates/card-regression-native-suite-checkpoint2743-8ec-final-results.json",
+      "sha256": "06955be5c0f2ec2859cbbce2ecd6cf177e9b992e006ea0fca68798ccda72acf7"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\qualified2743-final-decision-evidence-proposed\\bounded027-028-current-resolution-proof.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/checkpoint2743-final-gates/bounded027-028-current-resolution-proof.json",
+      "sha256": "ae82b2a0835a1c212b80fbe02210dbf5b4ec26f5050a30155e7de0e10586bd7b"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\qualified2743-final-decision-evidence-proposed\\issue-decisions027-028-proposed.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/checkpoint2743-final-gates/issue-decisions027-028-proposed.json",
+      "sha256": "7edf5f6312b6c50da8c09126ba6cc4a5dc2d55c60f6cd74d7a868d75fd52c922"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\qualified2743-final-decision-evidence-v2-proposed\\bounded023-current-resolution-proof.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/checkpoint2743-final-gates-v2/bounded023-current-resolution-proof.json",
+      "sha256": "743431770b563b666012c8307bf51019a50b80e1e3aa05d61b1946fb10cd84f3"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\qualified2743-final-decision-evidence-v2-proposed\\issue-decisions023-027-028-proposed.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/checkpoint2743-final-gates-v2/issue-decisions023-027-028-proposed.json",
+      "sha256": "63573c00a38985f5ad3d6c368078af1ddbd794b75a900df444321a1c5d796c40"
+    }
+  ]
+}

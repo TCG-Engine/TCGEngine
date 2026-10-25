@@ -1,0 +1,158 @@
+[
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-arsenal-face-down-zero-ap-exact-plus-one",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 137
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-arsenal-face-up-zero-ap-exact-plus-one",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 137
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-zero-cost-retains-two-floating-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 137
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-zero-cost-keeps-unpitched-spare-blue",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 143
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-full-block-does-not-create-hit-or-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 192
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-cost-three-attack-action-still-legal-target",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 137
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-two-original-copies-resolve-lifo-with-additive-power",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 201
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-third-reaction-after-partial-resolution-028-required",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 257
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-printed-pitch-funds-generic-cost-three",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 69
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-printed-defense-exact-partial-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 72
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-own-action-hand-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 36
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-own-action-arsenal-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 36
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-before-attack-layer-resolves-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 70
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-attack-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-defend-priority-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-reaction-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-damage-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-resolution-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-defending-player-cannot-play-attack-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-lunging-press-blue-ordinary-reaction-actual-weapon-attack-is-ineligible-target",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 77
+    },
+    {
+        "slug": "card-lunging-press-blue-target-scope-two-real-aa-links-choose-current",
+        "status": "recorded_semantically_checked",
+        "actions": 30,
+        "assertions": 212
+    },
+    {
+        "slug": "card-lunging-press-blue-target-scope-two-real-aa-links-choose-previous",
+        "status": "recorded_semantically_checked",
+        "actions": 30,
+        "assertions": 212
+    },
+    {
+        "slug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-attacker",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 192
+    },
+    {
+        "slug": "card-lunging-press-blue-target-scope-three-targets-choose-identical-defender-1",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 195
+    },
+    {
+        "slug": "card-lunging-press-blue-target-scope-three-targets-choose-identical-defender-2",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 195
+    },
+    {
+        "slug": "card-lunging-press-blue-target-scope-previous-opponent-defender-remains-public-on-next-real-link",
+        "status": "recorded_semantically_checked",
+        "actions": 31,
+        "assertions": 187
+    }
+]

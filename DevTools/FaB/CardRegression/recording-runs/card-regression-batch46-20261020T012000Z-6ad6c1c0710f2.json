@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T01:20:00+00:00",
+    "input_file": "card-regression-batch46.json",
+    "input_sha256": "2248e54664b6d9f6bd98aff01e6b60a68a4c2643c6e1da737af860d1ce7b6bef",
+    "filter": "",
+    "results": [
+        {
+            "slug": "diagnostic-en-garde-red-hand-floating-printed-power",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 76
+        }
+    ]
+}

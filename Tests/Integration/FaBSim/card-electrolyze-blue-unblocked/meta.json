@@ -1,0 +1,7 @@
+{
+    "name": "Electrolyze / unblocked",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:34+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed attack 2, cost 1, go again True; pay using 1 blue pitch card(s). Defender has 0 defense; expected damage 2. Hero lexi has no modifying effect in this first-attack state. Sources: FaBSim/GeneratedCode/cardArrayCache.json#electrolyze_blue https://rules.fabtcg.com/en/cr/07-combat/"
+}

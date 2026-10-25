@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-gold-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 230
+    },
+    {
+        "slug": "card-silver-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 230
+    },
+    {
+        "slug": "card-copper-four-live-sparse-real-paid-token-destroy-draw-and-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 7,
+        "assertions": 275
+    },
+    {
+        "slug": "card-potion-of-ironhide-blue-four-live-sparse-actual-instant-destroy-and-owned-aa-defense-two-to-three",
+        "status": "recorded_semantically_checked",
+        "actions": 36,
+        "assertions": 406
+    }
+]

@@ -1,0 +1,7 @@
+{
+    "name": "Pummel / cost-one-boundary-attack-action-excluded",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:37+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "blackout_kick_red costs1, below Pummel minimum2. No Club/Hammer weapon mode applies to an attack action card. The reaction has enough potential resources but must be rejected without mutation. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pummel_yellow https://judge.fabtcg.com/cards/detail/320/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

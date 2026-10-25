@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-20T00:07:17+00:00",
+    "input_file": "card-regression-batch28-pilot.json",
+    "input_sha256": "3070260772f9e5a23d37116e5ccc02dacf4799a4e70d2c257f580a84ca178f5d",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-teklo-base-arms-blade-break-defend-alone-three-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 55
+        },
+        {
+            "slug": "card-rotten-old-buckler-blade-break-fully-blocked-no-hit-still-destroys",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        }
+    ]
+}

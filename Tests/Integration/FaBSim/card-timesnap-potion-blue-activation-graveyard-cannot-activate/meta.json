@@ -1,0 +1,7 @@
+{
+    "name": "Timesnap Potion / graveyard-cannot-activate",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:28+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Destruction does not confer permission to activate again from graveyard. Sources: FaBSim/GeneratedCode/cardArrayCache.json#timesnap_potion_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

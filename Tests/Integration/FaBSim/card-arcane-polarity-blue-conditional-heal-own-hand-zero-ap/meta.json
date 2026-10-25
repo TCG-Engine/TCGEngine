@@ -1,0 +1,7 @@
+{
+    "name": "Arcane Polarity / conditional heal / own-hand-zero-ap",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:39:39+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed arcane_polarity_blue cost0, pitch3, no defense property, no action-point cost or gain as an Instant. Branch own-hand-zero-ap. Independent printed-rule model requires terminal health[11, 20], resources[0, 0], AP[0, 0].  Sources: https://judge.fabtcg.com/cards/detail/3299/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

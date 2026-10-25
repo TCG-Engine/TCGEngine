@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T14:37:12+00:00",
+    "input_file": "card-regression-batch78-four-live-gold-v2.json",
+    "input_sha256": "51dee34259f23459a6775f7a83bea4d28290955fa59a826b7bc35e55b1e2412f",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-strike-gold-red-upf-four-live-adjacent-four-all-seat-sigil-responses",
+            "status": "recorded_semantically_checked",
+            "actions": 49,
+            "assertions": 1565
+        }
+    ]
+}

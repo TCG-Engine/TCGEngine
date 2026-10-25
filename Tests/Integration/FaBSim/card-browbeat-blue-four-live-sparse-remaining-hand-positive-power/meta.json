@@ -1,0 +1,7 @@
+{
+    "name": "Browbeat / four live sparse representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T23:50:55+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The played source is no longer in Hand. Its base power1 plus two remaining cards is3. No other attack/power effect is set. The two support cards are retained throughout combat. Source UID5 travels Hand -> Stack -> P1 CombatChain -> P1 Graveyard with Owner/Controller1. Hand now contains UID6 and UID7 in that order and neither support card has moved. All four actual young20 heroes hold priority; all shortcut windows false. AdjacentP4 is selected through the real chooser. Every priority pass is bounded and recorded. Scope is one positive effect demonstration for identity:browbeat_blue; no sibling or secondary-card promotion. No changed-hand-size or suppression branch is claimed. Sources: https://judge.fabtcg.com/cards/detail/4848/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OMN213.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

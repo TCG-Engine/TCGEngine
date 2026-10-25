@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T21:33:05+00:00",
+    "input_file": "card-regression-batch188.json",
+    "input_sha256": "27b62692674edd8073ecf4c1ddee644825c2c55023eebf035a9d89d902dff19c",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-clearwater-elixir-red-four-live-sparse-actual-one-cost-no-bloodrot-next-real-attack-gains-three-power",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1265
+        }
+    ]
+}

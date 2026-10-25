@@ -1,0 +1,7 @@
+{
+    "name": "Dissolution Sphere / four live sparse passive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T02:02:44+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1 Zen actually plays Head Jab Blue1 at adjacent P4 Dash. Existing Dissolution Sphere prevents the exactly1 physical packet. Actual damage is0/no hit, so all heroes stay20. Head Jab printed go again gains one AP only at link resolution. Sphere and steam1 persist. One positive sparse witness of existing controlled permanent effect; no primary item-entry, Crank/upkeep, pitch matrix, full-card or group-completion claim. All four genuine live young20 heroes manually pass and no history/permission/effect tag is seeded. Only the exactly1 physical prevention branch is exercised. No item play/upkeep, zero/two-damage comparisons, arcane packets, other prevention or counter removal. No guessed queued destruction or awaiting source lifecycle is used. Sources: https://judge.fabtcg.com/cards/detail/1344/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVR069.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

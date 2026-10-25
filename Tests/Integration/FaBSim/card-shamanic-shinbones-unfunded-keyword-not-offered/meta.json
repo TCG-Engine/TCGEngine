@@ -1,0 +1,7 @@
+{
+    "name": "Shamanic Shinbones / unfunded-keyword-not-offered",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:11:21+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Only0 floating resources and no pitchable Hand cannot pay the fixed1 cost. No barrier chooser can interrupt pass_until; take all3 arcane, resources remain0, equipment retained. AB1 cannot be paid partially. No resource/AP gain or caster-credit change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shamanic_shinbones https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN005.webp DevTools/FaB/upr_abilities.json#aether_dart_red/PrepareCard,ResolveCard FaBSim/Custom/UPRCards.php::FaBUPRBarrierValue/FaBUPRBarrierChoices/FaBUPRDeal FaBSim/Custom/ARCCards.php::FaBARCPitchChoices/FaBARCPitchForEffect FaBSim/Custom/GameLogic.php::FaBFinishReactionResolution https://rules.fabtcg.com/en/cr/08-keywords/#838 https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/#8210"
+}

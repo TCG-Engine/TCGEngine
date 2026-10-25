@@ -5,7 +5,12 @@ SWU-specific data and schema migrations, applied in numeric order **within this 
 This file doubles as the **runbook for the `SET_NNN` identity cutover**. Design:
 `docs/superpowers/specs/2026-08-03-swudeck-setnnn-identity-migration-design.md`.
 
-> **Status: tooling complete, not yet rehearsed on prod.** Every command below is real and has been
+> **Status: DONE — the cutover has run on prod** (owner, confirmed 2026-10-13). The rest of this note is the original
+> pre-run status, kept for history. `DevTools/tdd-regression/test_swu_card_art_corpus.php` (a one-time regeneration gate)
+> was deleted 2026-10-13, so `6-verify.sh`'s reference to it is historical; `test_swu_maintenance_guards.php` stays in the
+> regression run as a guard on new stats writers.
+>
+> ~~**Status: tooling complete, not yet rehearsed on prod.**~~ Every command below is real and has been
 > exercised against the local prod-clone — the DB migration on a seeded scratch database, the
 > deck-file rewrite on a copy of the deck tree. **None of it has run on prod**, so every step still
 > has to be rehearsed against the clone during the dry run before it is trusted there.

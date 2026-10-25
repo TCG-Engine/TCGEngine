@@ -1,0 +1,7 @@
+{
+    "name": "Pummel / cost-three-qualifies-hit-discard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:37+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Raging Onslaught blue costs3 and has power5, above the minimum cost2. Pummel adds3; hero life12, exact one-card discard, AP0. Attack3 uses blue3, Pummel2 uses another blue3 leaving1. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pummel_yellow https://judge.fabtcg.com/cards/detail/320/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

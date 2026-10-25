@@ -924,7 +924,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$seaPlayer = $player;\nFaBSEANext($seaPlayer, 'any', 0, 'GO_AGAIN');\nFaBSEANext($seaPlayer, 'any', 0, 'SEA_RED_POWER');\n",
+        "abilityCode": "$seaPlayer = $player;\nFaBSEANext($seaPlayer, 'any', 0, 'GO_AGAIN');\nFaBSEANext($seaPlayer, 'any', 0, 'SEA_YELLOW_POWER');\n",
         "isImplemented": true
       }
     ]
@@ -934,7 +934,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$seaPlayer = $player;\nFaBSEANext($seaPlayer, 'any', 0, 'GO_AGAIN');\nFaBSEANext($seaPlayer, 'any', 0, 'SEA_RED_POWER');\n",
+        "abilityCode": "$seaPlayer = $player;\nFaBSEANext($seaPlayer, 'any', 0, 'GO_AGAIN');\nFaBSEANext($seaPlayer, 'any', 0, 'SEA_BLUE_POWER');\n",
         "isImplemented": true
       }
     ]

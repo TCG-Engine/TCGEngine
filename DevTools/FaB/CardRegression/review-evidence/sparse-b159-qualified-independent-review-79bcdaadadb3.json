@@ -1,0 +1,213 @@
+{
+  "status": "B159_TWO_PAID_HAND_ATTACK_PRINTED_GO_AGAIN_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_DIRECT_GA_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch159.json",
+  "input_sha256": "43d455ff78e70ff5849cb546851d72b8ef165bc42f6588c2fadce376de3eb56c",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:30:04.078300+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rift-skitter-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+      "fixture_sha256": "b9dc02abcc2bf1abc7213c1ce7113876cc94c7b68a8a2f24e14883a0be470964",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a8e25a896c0f82f9e076ee63be1edfa52682f6394b94198b3d81c7cb5d736455",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "26fc1910efade0f0f8e8045dfe3cde3c0f5fa93fd0a4b72e2c5c7d6dd49ed93d",
+        "expected_final_gamestate.txt": "5855caa1fd3dc79bdf68f4294d217d9237f51da979d312a0fc5531fef7273ffb",
+        "meta.json": "2c0ade7bb283b9a0127d33c51af2ee155f5499a631e7a2a00c75f5ab196fe6d0"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 414,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-rune-flash-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+      "fixture_sha256": "951abafd130bae08ab1cfa20aaacb723fa0b65687d3c1b248225865142253e40",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e18d5edafd76b1c2ce62b83649107184f913733d0093ec1c80bb76aa14838339",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "c4ab0ded6030a4add7afa365f5b692dc6f9d977c841709361abf00890fabb5ce",
+        "expected_final_gamestate.txt": "f8d5ebbf16b407bb5d48d699c8e8b67b2a323396aff5fc5687f859c8a4b0b8ef",
+        "meta.json": "29d18fc17c7156f2b2d8a0349f2c85850e5107626bf81c0bbb455655ef9870d6"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 414,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 56,
+  "total_native_assertions": 828,
+  "total_manual_passes": 50,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b159-actual-saved-independent-review.json",
+    "sha256": "6611f04f0151dbaca0cfdf903d6f75dcda463abfd23c7a4bc76efa93a8e3392b"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b159-independent-spec-review.json",
+    "sha256": "1f93de35479c3de8712e8186b9d4e25e282832e65326524d476f1ac3bd99e841"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch159-20261022T202719Z-6ada71a700c31.json",
+    "sha256": "240d10a4633baa9b1efc97a3b13022f5b54e3c7c8141739fce97ed1290203580"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b159-four-live-run1.json",
+      "sha256": "591b9ef1434095b05d6006f89307f8566ac860ccf4c759d7ad12aadab0929c6e",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch159.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b159-four-live-run2.json",
+      "sha256": "9ea761682cd3c5e761586f03d91ebb29ad1f0a2a68178292587f84c9f5648095",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch159.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b159-fault-controls.json",
+    "sha256": "b30b9a4cceb31049cd4cb8ad4150baadf51eb02b3afa2ba02df9ee12faf9f772",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "28c131f989e8f92964f411f0f34ca8ba1bf43c3e96f4d36e5dfc91d1435ed5c0",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b159_rift_skitter_red_focused_effect_sensitivity",
+      "fixture": "card-rift-skitter-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "rift_skitter_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 237,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b159_rune_flash_red_focused_effect_sensitivity",
+      "fixture": "card-rune-flash-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "rune_flash_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 237,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b159-focused-fault-plan-v2-direct-go-again.json",
+    "sha256": "28c131f989e8f92964f411f0f34ca8ba1bf43c3e96f4d36e5dfc91d1435ed5c0"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1321,
+  "native_evidence_review_checks": 65,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Two red cycle representatives: RiftSkitter/Chane20 and RuneFlash/Aurora20 actual paidHand5/full3 from realBlue6, unblocked4 damage/P4HP16, computed ownGAtrue/AP1 beginning fourthDAMAGE response, finalR0. Primary5 publicGYFaceDown0 and physicalBlue6 ownPitch. Deliberately shallow paid attack/printedGA only; no RuneGate/Banish/BloodDebt/positive-discount/Runechant/sibling/full-card credit.",
+    "Only current TWO-case new packet audited; root alone executes native games and writes repo. Ordinary physical primary5 and pitched6 remain owned/controller1; no virtual proxy. No broadownership or legacy review.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Executed only V2 direct-Go-again plan; original numeric-power plan remains unexecuted historical evidence. GameLogic409 explicit ELE_NO_GO inhibition means unchanged helper can suppress computed printedGA: this corrects and supersedes the earlier overly restrictive helper limitation in immutable spec/actual proofs. Each prefix7 adds absent ELE_NO_GO to actual primary5 while power4/UID/full3 payment remain intact; first original computedGA1to0 is exact native failure. Direct GA evaluation sensitivity, not a legal inhibition branch. Positive native AP refund at fourthDAMAGE and pure lost/lateGA model faults are separate evidence; control stops at first GA assertion and does not independently observe later noGA refund. RuneGate/Banish/BloodDebt/positiveRuneFlashdiscount/Runechant/hero/support/sibling/full-card branches remain untested.",
+    "Both prefix7 controls preserve all21 remaining real actions and every original suffix oracle; same selected raw5/runtime. No positive replay repeated, no helper/executor changes, full suite left to user."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "cf4ad40fa7e8236bda27955cb4fe90d9ac1eef9f9b2977f976698c8989100169"
+}

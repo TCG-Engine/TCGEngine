@@ -1,0 +1,268 @@
+{
+    "status": "PASS_EXPECTED_LOADED_VS_PERSISTED_BOUNDARY_PROVED",
+    "classification": "NATIVE_RUNNER_BOUNDARY_DIAGNOSTIC_NOT_NEW_CARD_COVERAGE",
+    "sourceFixture": "C:/xampp/htdocs/TCGEngine/Tests/Integration/FaBSim/card-aetherstorm-wellingtons-pay-red-pitch-twice",
+    "fixtureRawSHA256": {
+        "initial_gamestate.txt": "ef0ac5810136b5c545034753c159ebc58189ed5cf5edbcc405ce780e5b899560",
+        "actions.json": "78b0c43c887bc819ef8140d1703eb3b1b86855fb7bb3b3cc78b096c5d7f39ed4",
+        "assertions.json": "990d5da619a0df87e89c086e5acbc096af43d9ec0af4a145b188b98d54468f89",
+        "expected_final_gamestate.txt": "0e0f96b59dac2ef117a42b66c64f1a9365d1ddddab4c599ce043d1b560d4d1b3",
+        "meta.json": "660acee294e5a86b9b248926afe8eea64c63ad9c03ae53394694b30664ea5812"
+    },
+    "sourceRawSHA256": {
+        "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+        "Core/RegressionTestFramework.php": "d8213ee44f566a45d9475e5e52a1ab7ed3e6560984356e4a7521f5ffc6372c8d",
+        "FaBSim/GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988",
+        "FaBSim/Custom/WTRCards.php": "8474a62a6f0c6cadae4df3907529e355b8e0afe4c7dbc120aab9f345cbcd266b",
+        "FaBSim/Custom/GameLogic.php": "2ce3dfd5ad8ebcca693f7b3b983246dc02ecaf0a42fe7b87b4570e4f1f225b56",
+        "FaBSim/Custom/UPRCards.php": "e50d9638393ee59c60362d612d3765d95a03a15877e00045c342ff2c60b1b682",
+        "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+        "DevTools/RunIntegrationTests.php": "d339d93ea4f3f5d2dc41315de98aa6fe6e9cc675b0c9274b00d2b861a977a522"
+    },
+    "immediateRunnerFailure": "Expected p2DecisionQueue-0.Param to equal 'p2Hand-0', got 'p2Hand-1'.",
+    "beforeParse": {
+        "head": {
+            "Type": "MZCHOOSE",
+            "Param": "p2Hand-1",
+            "Tooltip": "Pitch_for_arcane_barrier"
+        },
+        "liveHand": [
+            {
+                "ref": "p2Hand-1",
+                "cardID": "wounding_blow_red",
+                "uid": 6
+            }
+        ],
+        "victimResources": 1,
+        "victimHP": 20,
+        "AP": [
+            0,
+            0
+        ],
+        "resolvingReaction": {
+            "uid": 3,
+            "owner": 1,
+            "controller": 1,
+            "kind": "ACTION",
+            "resolutionClass": "PLAIN_SPELL",
+            "completionSource": {
+                "CardID": "aether_dart_red",
+                "Owner": 1,
+                "Controller": 1,
+                "Kind": "ACTION",
+                "SourceZone": "Hand",
+                "SourceUniqueID": 3,
+                "Params": [],
+                "UniqueID": 3,
+                "TurnEffects": [],
+                "Counters": {
+                    "FAB_PLAY_ORDER": 1
+                },
+                "removed": null,
+                "Location": "Stack",
+                "PlayerID": 0,
+                "mzIndex": 0,
+                "_sourceZone": null
+            },
+            "cardID": "aether_dart_red",
+            "sourceMZ": "Stack-0",
+            "baselineFrameKeys": [],
+            "ownedFrameKeys": [
+                "aether_dart_red:0:ResolveCard#1"
+            ]
+        },
+        "pendingPayment": null,
+        "decisionQueueVariables": {
+            "mzID": "p2Pitch-0",
+            "mzIDCardID": "aether_dart_red",
+            "chosen": "p2Hero-0",
+            "cardID": "aether_dart_red",
+            "fromZone": "Hand",
+            "fabSourceZone": "Hand",
+            "evoEvent": "",
+            "__awaitFrames": {
+                "aether_dart_red:0:ResolveCard#1": {
+                    "locals": {
+                        "mzID": "Stack-0",
+                        "uid": 3,
+                        "targetUID": 2,
+                        "f": {
+                            "player": 2,
+                            "zone": "Hero",
+                            "index": 0,
+                            "mzID": "p2Hero-0"
+                        },
+                        "target": 2,
+                        "heroTarget": true,
+                        "fused": false,
+                        "damage": 3,
+                        "packet": 3,
+                        "packetTarget": 2,
+                        "packetSource": 3,
+                        "dealt": 0,
+                        "victim": 2,
+                        "isHero": true,
+                        "used": [],
+                        "barriers": "p2Equipment-0",
+                        "barrier": "p2Equipment-0",
+                        "barrierUID": 4,
+                        "cost": 2,
+                        "omnBarrierSeat": null,
+                        "omnBarrierMax": null,
+                        "omnBarrierX": null,
+                        "pitchRefs": "p2Hand-1",
+                        "pitched": "p2Hand-0",
+                        "prevented": null,
+                        "mode": null,
+                        "voidRefs": null,
+                        "void": null,
+                        "usedQuell": null,
+                        "quell": null,
+                        "item": null,
+                        "dtdSource": null,
+                        "dtdVictim": null,
+                        "dtdPacket": null,
+                        "dtdType": null,
+                        "dtdActor": null,
+                        "dtdLeft": null,
+                        "dtdUsed": null,
+                        "dtdUnpreventable": null,
+                        "dtdChoices": null,
+                        "dtdMandatory": null,
+                        "dtdChosen": null,
+                        "dtdReduction": null
+                    }
+                }
+            },
+            "__awaitNextID": 2,
+            "barrier": "p2Equipment-0",
+            "pitched": "p2Hand-0"
+        }
+    },
+    "persistedGamestateSHA256": "1d196da285c13d7cc8e5a1d62599e8011e0998228d8ce5bd81175e5811cce271",
+    "afterParse": {
+        "head": {
+            "Type": "MZCHOOSE",
+            "Param": "p2Hand-0",
+            "Tooltip": "Pitch_for_arcane_barrier"
+        },
+        "liveHand": [
+            {
+                "ref": "p2Hand-0",
+                "cardID": "wounding_blow_red",
+                "uid": 6
+            }
+        ],
+        "victimResources": 1,
+        "victimHP": 20,
+        "AP": [
+            0,
+            0
+        ],
+        "resolvingReaction": {
+            "uid": 3,
+            "owner": 1,
+            "controller": 1,
+            "kind": "ACTION",
+            "resolutionClass": "PLAIN_SPELL",
+            "completionSource": {
+                "CardID": "aether_dart_red",
+                "Owner": 1,
+                "Controller": 1,
+                "Kind": "ACTION",
+                "SourceZone": "Hand",
+                "SourceUniqueID": 3,
+                "Params": [],
+                "UniqueID": 3,
+                "TurnEffects": [],
+                "Counters": {
+                    "FAB_PLAY_ORDER": 1
+                },
+                "removed": null,
+                "Location": "Stack",
+                "PlayerID": 0,
+                "mzIndex": 0,
+                "_sourceZone": null
+            },
+            "cardID": "aether_dart_red",
+            "sourceMZ": "Stack-0",
+            "baselineFrameKeys": [],
+            "ownedFrameKeys": [
+                "aether_dart_red:0:ResolveCard#1"
+            ]
+        },
+        "pendingPayment": null,
+        "decisionQueueVariables": {
+            "mzID": "p2Pitch-0",
+            "mzIDCardID": "aether_dart_red",
+            "chosen": "p2Hero-0",
+            "cardID": "aether_dart_red",
+            "fromZone": "Hand",
+            "fabSourceZone": "Hand",
+            "evoEvent": "",
+            "__awaitFrames": {
+                "aether_dart_red:0:ResolveCard#1": {
+                    "locals": {
+                        "mzID": "Stack-0",
+                        "uid": 3,
+                        "targetUID": 2,
+                        "f": {
+                            "player": 2,
+                            "zone": "Hero",
+                            "index": 0,
+                            "mzID": "p2Hero-0"
+                        },
+                        "target": 2,
+                        "heroTarget": true,
+                        "fused": false,
+                        "damage": 3,
+                        "packet": 3,
+                        "packetTarget": 2,
+                        "packetSource": 3,
+                        "dealt": 0,
+                        "victim": 2,
+                        "isHero": true,
+                        "used": [],
+                        "barriers": "p2Equipment-0",
+                        "barrier": "p2Equipment-0",
+                        "barrierUID": 4,
+                        "cost": 2,
+                        "omnBarrierSeat": null,
+                        "omnBarrierMax": null,
+                        "omnBarrierX": null,
+                        "pitchRefs": "p2Hand-1",
+                        "pitched": "p2Hand-0",
+                        "prevented": null,
+                        "mode": null,
+                        "voidRefs": null,
+                        "void": null,
+                        "usedQuell": null,
+                        "quell": null,
+                        "item": null,
+                        "dtdSource": null,
+                        "dtdVictim": null,
+                        "dtdPacket": null,
+                        "dtdType": null,
+                        "dtdActor": null,
+                        "dtdLeft": null,
+                        "dtdUsed": null,
+                        "dtdUnpreventable": null,
+                        "dtdChoices": null,
+                        "dtdMandatory": null,
+                        "dtdChosen": null,
+                        "dtdReduction": null
+                    }
+                }
+            },
+            "__awaitNextID": 2,
+            "barrier": "p2Equipment-0",
+            "pitched": "p2Hand-0"
+        }
+    },
+    "actions": 7,
+    "nativeAssertions": 156,
+    "finalSnapshotMatches": true,
+    "ownedGameCleaned": true,
+    "checks": 68,
+    "sourceFixtureUnchanged": true
+}

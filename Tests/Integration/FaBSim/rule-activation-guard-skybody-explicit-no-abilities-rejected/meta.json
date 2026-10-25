@@ -1,0 +1,7 @@
+{
+    "name": "Activation guard / face-down Skybody Keikoi explicit suppression rejects",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:43+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Abstract rule-state compatibility case: Enigma owns legitimately equipped face-down Mystic Skybody Keikoi, with explicit NO_ABILITIES suppression injected. This does not claim a legal card sequence generating that tag. Its hidden activation exception cannot bypass explicit loss of abilities: at defender priority during ATTACK, clicking preserves FaceDown1/source and creates no layer/prevention; unblocked first Wounding Blow blue2 deals2, leaving18. Sources: FaBSim/GeneratedCode/cardArrayCache.json#skybody_keikoi https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/Custom/WTRCards.php::FaBWTRCanActivate FaBSim/Custom/ARCAbilities.php::FaBARCAbilityLegal FaBSim/Custom/MSTCards.php::FaBMSTCloakAbility FaBSim/Custom/MSTRuntime.php::FaBMSTAbilityLegal https://rules.fabtcg.com/en/cr/08-keywords/"
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "compat-flat-defense-reaction-dodge-blue-third-response-after-partial-resolution",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 332
+    },
+    {
+        "slug": "compat-flat-defense-reaction-evasive-leap-yellow-third-response-after-partial-resolution",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 332
+    },
+    {
+        "slug": "compat-flat-defense-reaction-evasive-leap-blue-third-response-after-partial-resolution",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 332
+    },
+    {
+        "slug": "compat-flat-defense-reaction-toughen-up-blue-third-response-after-partial-resolution",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 332
+    }
+]

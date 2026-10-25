@@ -1,0 +1,27 @@
+{
+  "status": "INDEPENDENT_BOUNDED_CNC_LIVE_DEFENSE_ORACLE_CORRECTION_APPROVED",
+  "reviewer": "/root",
+  "source_sha256": "70a6ad592e0b05ab80824e4defcf3fb5ee39e818036ee88a32504fed305350ae",
+  "proposal_manifest_sha256": "0152131f6822c01cb581900917088d5af66901b5794eff8c659477a96b07a881",
+  "card_face_independently_viewed": true,
+  "printed_cost": 0,
+  "printed_defense": 2,
+  "own_scope": "Exact one-check replacement only. Cached total is not refreshed by reaction resolution; current physical link is summed live, then damage refreshes its cache. Printed2, seven physical-card oracles and final4-2=2/health18 retained.",
+  "existing_qualified_witness_raw5_verified": {
+    "slug": "card-dodge-blue-flat-dr-arsenal-face-down-floating-exact",
+    "raw5_sha256": {
+      "initial_gamestate.txt": "ba920f69932944ccab780be115f0776791e8dafaa1c08a5ec1a21c5dea89fa07",
+      "actions.json": "216763cd66263c24aaa3b6eff0b73030b589971dbdce7caab4b79fbe7fb2c84b",
+      "assertions.json": "9fff5f7ddeba11ed271d0e379d1020d9962dcd7f2d8a8b505086658623e91307",
+      "expected_final_gamestate.txt": "2cdae0c11dc91dfc7dbf0018873265deaa4cb94997b6ecd07101793b99aacb0d",
+      "meta.json": "5337bdbab35cf8edbefe3714bc45aa36e5583d0f726bf2596781031e1275123e"
+    },
+    "physical_Dodge_step": 12,
+    "fresh_damage_cache_step": 14,
+    "damage": 5,
+    "cached_defense": 2
+  },
+  "native_games": 0,
+  "gameplay_source_changes": 0,
+  "passing_coverage_added": 0
+}

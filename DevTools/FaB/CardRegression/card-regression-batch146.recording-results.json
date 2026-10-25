@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-quick-succession-red-four-live-sparse-first-real-lightning-attack-plus-one-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 815
+    },
+    {
+        "slug": "card-kindle-red-four-live-sparse-actual-empty-hand-instant-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 691
+    }
+]

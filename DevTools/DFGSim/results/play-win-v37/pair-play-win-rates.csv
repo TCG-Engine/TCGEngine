@@ -1,0 +1,202 @@
+main,bonus,mainName,bonusName,events,completedPlayerGames,wins,losses,draws,capped,winRate,tokenSpendEvents
+5,2,"Combination Strike",Rushdown,308,308,175,84,49,0,0.56818181818182,247
+10,9,"Grip Break","Driving Tackle",76,76,42,25,9,0,0.55263157894737,0
+34,31,"Iron Guard",Haymaker,189,189,104,54,31,0,0.55026455026455,0
+36,33,"Heavy Feint","Crushing Blow",94,94,50,33,11,0,0.53191489361702,0
+33,31,"Crushing Blow",Haymaker,583,583,309,163,111,0,0.53001715265866,0
+8,7,"Body Lock","Clinch Throw",285,285,149,92,44,0,0.52280701754386,0
+36,31,"Heavy Feint",Haymaker,179,179,93,60,26,0,0.5195530726257,0
+28,26,"Find the Gap","Catch the Opening",326,326,169,102,55,0,0.51840490797546,0
+27,26,"Watchful Guard","Catch the Opening",170,170,87,56,27,0,0.51176470588235,0
+5,1,"Combination Strike","Quick Jab",129,129,66,47,16,0,0.51162790697674,88
+18,15,"Driving Kick","Bait and Slip",239,239,122,78,39,0,0.51046025104603,11
+21,19,"Firm Counter","Rooted Guard",77,77,39,27,11,0,0.50649350649351,0
+24,23,"Measured Advance","Driving Palm",199,199,100,69,30,0,0.50251256281407,0
+20,21,"Shield Bash","Firm Counter",190,190,95,70,25,0,0.5,15
+21,20,"Firm Counter","Shield Bash",173,173,85,65,23,0,0.49132947976879,0
+25,29,"Read the Strike","Mirror Step",163,163,80,55,28,0,0.49079754601227,0
+26,28,"Catch the Opening","Find the Gap",159,159,78,66,15,0,0.49056603773585,0
+25,26,"Read the Strike","Catch the Opening",139,139,68,46,25,0,0.48920863309353,0
+27,30,"Watchful Guard",Counterpunch,114,114,55,43,16,0,0.48245614035088,0
+29,25,"Mirror Step","Read the Strike",125,125,60,47,18,0,0.48,3
+14,17,"Darting Strike","Glancing Step",209,209,100,78,31,0,0.47846889952153,34
+25,28,"Read the Strike","Find the Gap",103,103,49,32,22,0,0.47572815533981,0
+14,16,"Darting Strike","Outside Step",326,326,155,102,69,0,0.47546012269939,38
+21,24,"Firm Counter","Measured Advance",127,127,60,50,17,0,0.47244094488189,0
+10,11,"Grip Break","Off-Balance Sweep",102,102,48,40,14,0,0.47058823529412,0
+15,18,"Bait and Slip","Driving Kick",107,107,50,40,17,0,0.46728971962617,0
+20,,"Shield Bash","no bonus",1063,858,399,314,145,0,0.46503496503497,99
+5,6,"Combination Strike","Covering Step",114,114,53,37,24,0,0.46491228070175,78
+13,18,Sidestep,"Driving Kick",170,170,79,67,24,0,0.46470588235294,0
+33,35,"Crushing Blow","Trade Blows",564,564,262,174,128,0,0.4645390070922,0
+36,35,"Heavy Feint","Trade Blows",136,136,63,48,25,0,0.46323529411765,0
+27,28,"Watchful Guard","Find the Gap",173,173,80,60,33,0,0.46242774566474,0
+5,4,"Combination Strike",Feint,171,171,79,53,39,0,0.46198830409357,114
+8,9,"Body Lock","Driving Tackle",299,299,138,107,54,0,0.46153846153846,0
+35,31,"Trade Blows",Haymaker,768,768,354,247,167,0,0.4609375,0
+28,25,"Find the Gap","Read the Strike",115,115,53,45,17,0,0.46086956521739,0
+13,15,Sidestep,"Bait and Slip",89,89,41,38,10,0,0.46067415730337,0
+8,11,"Body Lock","Off-Balance Sweep",241,241,111,89,41,0,0.46058091286307,0
+36,32,"Heavy Feint","Charged Fist",126,126,58,47,21,0,0.46031746031746,0
+12,7,"Counter Throw","Clinch Throw",259,259,119,96,44,0,0.45945945945946,0
+33,32,"Crushing Blow","Charged Fist",253,253,116,72,65,0,0.45849802371542,0
+20,24,"Shield Bash","Measured Advance",307,307,140,104,63,0,0.45602605863192,40
+30,25,Counterpunch,"Read the Strike",97,97,44,41,12,0,0.45360824742268,9
+21,,"Firm Counter","no bonus",665,547,248,214,85,0,0.45338208409506,0
+10,7,"Grip Break","Clinch Throw",100,100,45,46,9,0,0.45,0
+28,,"Find the Gap","no bonus",969,739,332,282,125,0,0.44925575101488,0
+30,28,Counterpunch,"Find the Gap",96,96,43,37,16,0,0.44791666666667,5
+28,30,"Find the Gap",Counterpunch,273,273,122,94,57,0,0.44688644688645,0
+12,9,"Counter Throw","Driving Tackle",376,376,168,137,71,0,0.4468085106383,0
+14,18,"Darting Strike","Driving Kick",413,413,184,153,76,0,0.4455205811138,63
+29,28,"Mirror Step","Find the Gap",155,155,69,60,26,0,0.44516129032258,5
+28,27,"Find the Gap","Watchful Guard",173,173,77,75,21,0,0.44508670520231,0
+21,23,"Firm Counter","Driving Palm",162,162,72,66,24,0,0.44444444444444,0
+6,2,"Covering Step",Rushdown,482,482,214,175,93,0,0.44398340248963,0
+20,23,"Shield Bash","Driving Palm",489,489,217,171,101,0,0.44376278118609,59
+23,20,"Driving Palm","Shield Bash",825,825,366,301,158,0,0.44363636363636,0
+23,24,"Driving Palm","Measured Advance",458,458,203,168,87,0,0.44323144104803,0
+33,36,"Crushing Blow","Heavy Feint",273,273,121,101,51,0,0.44322344322344,0
+35,32,"Trade Blows","Charged Fist",503,503,221,175,107,0,0.43936381709742,0
+22,,Brace,"no bonus",1111,865,380,350,135,0,0.4393063583815,90
+26,25,"Catch the Opening","Read the Strike",123,123,54,55,14,0,0.4390243902439,0
+8,,"Body Lock","no bonus",962,773,339,309,125,0,0.4385510996119,0
+18,13,"Driving Kick",Sidestep,349,349,153,132,64,0,0.43839541547278,25
+29,26,"Mirror Step","Catch the Opening",226,226,99,82,45,0,0.43805309734513,14
+19,23,"Rooted Guard","Driving Palm",165,165,72,60,33,0,0.43636363636364,0
+27,,"Watchful Guard","no bonus",968,754,328,300,126,0,0.43501326259947,0
+6,1,"Covering Step","Quick Jab",207,207,90,87,30,0,0.43478260869565,0
+23,21,"Driving Palm","Firm Counter",293,293,127,115,51,0,0.43344709897611,0
+24,20,"Measured Advance","Shield Bash",180,180,78,70,32,0,0.43333333333333,0
+15,14,"Bait and Slip","Darting Strike",104,104,45,44,15,0,0.43269230769231,0
+13,,Sidestep,"no bonus",944,733,317,300,116,0,0.4324693042292,0
+17,18,"Glancing Step","Driving Kick",206,206,89,77,40,0,0.43203883495146,0
+20,19,"Shield Bash","Rooted Guard",176,176,76,77,23,0,0.43181818181818,11
+13,16,Sidestep,"Outside Step",151,151,65,69,17,0,0.43046357615894,0
+18,16,"Driving Kick","Outside Step",383,383,164,141,78,0,0.42819843342037,27
+23,,"Driving Palm","no bonus",1320,967,414,375,178,0,0.42812823164426,0
+34,,"Iron Guard","no bonus",800,633,271,259,103,0,0.42812006319115,0
+7,8,"Clinch Throw","Body Lock",500,500,213,179,108,0,0.426,36
+15,16,"Bait and Slip","Outside Step",99,99,42,48,9,0,0.42424242424242,0
+22,23,Brace,"Driving Palm",213,213,90,94,29,0,0.42253521126761,11
+29,,"Mirror Step","no bonus",984,719,303,303,113,0,0.42141863699583,56
+18,14,"Driving Kick","Darting Strike",406,406,171,154,81,0,0.42118226600985,27
+9,12,"Driving Tackle","Counter Throw",266,266,112,102,52,0,0.42105263157895,54
+35,36,"Trade Blows","Heavy Feint",556,556,234,204,118,0,0.42086330935252,0
+22,24,Brace,"Measured Advance",221,221,93,95,33,0,0.42081447963801,11
+24,,"Measured Advance","no bonus",1443,1165,489,449,227,0,0.41974248927039,0
+32,33,"Charged Fist","Crushing Blow",93,93,39,37,17,0,0.41935483870968,2
+28,29,"Find the Gap","Mirror Step",272,272,114,102,56,0,0.41911764705882,0
+34,35,"Iron Guard","Trade Blows",129,129,54,60,15,0,0.41860465116279,0
+16,,"Outside Step","no bonus",881,713,298,287,128,0,0.4179523141655,0
+22,20,Brace,"Shield Bash",201,201,84,87,30,0,0.41791044776119,18
+18,17,"Driving Kick","Glancing Step",307,307,128,129,50,0,0.41693811074919,27
+29,30,"Mirror Step",Counterpunch,149,149,62,61,26,0,0.41610738255034,5
+27,29,"Watchful Guard","Mirror Step",224,224,93,89,42,0,0.41517857142857,0
+13,14,Sidestep,"Darting Strike",162,162,67,70,25,0,0.41358024691358,0
+11,9,"Off-Balance Sweep","Driving Tackle",424,424,175,176,73,0,0.4127358490566,0
+17,,"Glancing Step","no bonus",1011,769,317,332,120,0,0.41222366710013,0
+11,7,"Off-Balance Sweep","Clinch Throw",406,406,167,169,70,0,0.41133004926108,0
+16,15,"Outside Step","Bait and Slip",146,146,60,67,19,0,0.41095890410959,0
+35,33,"Trade Blows","Crushing Blow",258,258,106,100,52,0,0.41085271317829,0
+9,8,"Driving Tackle","Body Lock",358,358,147,136,75,0,0.41061452513966,99
+12,,"Counter Throw","no bonus",1240,1024,420,417,187,0,0.41015625,0
+26,,"Catch the Opening","no bonus",866,661,271,278,112,0,0.40998487140696,0
+19,24,"Rooted Guard","Measured Advance",149,149,61,57,31,0,0.40939597315436,0
+2,4,Rushdown,Feint,462,462,189,190,83,0,0.40909090909091,22
+16,14,"Outside Step","Darting Strike",245,245,100,106,39,0,0.40816326530612,0
+25,27,"Read the Strike","Watchful Guard",147,147,60,61,26,0,0.40816326530612,0
+30,27,Counterpunch,"Watchful Guard",98,98,40,48,10,0,0.40816326530612,11
+12,8,"Counter Throw","Body Lock",348,348,142,135,71,0,0.40804597701149,0
+19,20,"Rooted Guard","Shield Bash",201,201,82,84,35,0,0.40796019900498,0
+19,,"Rooted Guard","no bonus",759,662,270,264,128,0,0.40785498489426,0
+16,18,"Outside Step","Driving Kick",206,206,84,79,43,0,0.40776699029126,0
+31,32,Haymaker,"Charged Fist",216,216,88,90,38,0,0.40740740740741,0
+17,15,"Glancing Step","Bait and Slip",150,150,61,69,20,0,0.40666666666667,0
+25,30,"Read the Strike",Counterpunch,96,96,39,42,15,0,0.40625,0
+11,,"Off-Balance Sweep","no bonus",1102,837,340,352,145,0,0.40621266427718,0
+25,,"Read the Strike","no bonus",728,577,234,245,98,0,0.40554592720971,0
+36,34,"Heavy Feint","Iron Guard",116,116,47,54,15,0,0.4051724137931,0
+36,,"Heavy Feint","no bonus",578,482,195,201,86,0,0.4045643153527,0
+32,31,"Charged Fist",Haymaker,141,141,57,60,24,0,0.40425531914894,3
+7,9,"Clinch Throw","Driving Tackle",600,600,242,228,130,0,0.40333333333333,33
+31,35,Haymaker,"Trade Blows",288,288,116,105,67,0,0.40277777777778,0
+4,2,Feint,Rushdown,500,500,201,198,101,0,0.402,0
+34,33,"Iron Guard","Crushing Blow",137,137,55,61,21,0,0.4014598540146,0
+9,7,"Driving Tackle","Clinch Throw",282,282,113,102,67,0,0.40070921985816,50
+33,34,"Crushing Blow","Iron Guard",307,307,123,130,54,0,0.40065146579805,0
+18,,"Driving Kick","no bonus",1141,871,348,384,139,0,0.39954075774971,111
+22,19,Brace,"Rooted Guard",143,143,57,67,19,0,0.3986013986014,5
+1,4,"Quick Jab",Feint,118,118,47,49,22,0,0.39830508474576,0
+27,25,"Watchful Guard","Read the Strike",156,156,62,65,29,0,0.3974358974359,0
+6,,"Covering Step","no bonus",1011,808,321,357,130,0,0.39727722772277,0
+15,,"Bait and Slip","no bonus",607,481,191,208,82,0,0.3970893970894,0
+6,4,"Covering Step",Feint,257,257,102,113,42,0,0.39688715953307,0
+23,19,"Driving Palm","Rooted Guard",361,361,143,133,85,0,0.39612188365651,0
+12,11,"Counter Throw","Off-Balance Sweep",437,437,173,184,80,0,0.39588100686499,0
+10,,"Grip Break","no bonus",448,384,152,160,72,0,0.39583333333333,0
+26,30,"Catch the Opening",Counterpunch,185,185,73,70,42,0,0.39459459459459,0
+17,14,"Glancing Step","Darting Strike",201,201,79,82,40,0,0.39303482587065,0
+22,21,Brace,"Firm Counter",202,202,79,101,22,0,0.39108910891089,15
+33,,"Crushing Blow","no bonus",894,737,288,304,145,0,0.39077340569878,0
+8,12,"Body Lock","Counter Throw",215,215,84,102,29,0,0.3906976744186,0
+26,27,"Catch the Opening","Watchful Guard",164,164,64,70,30,0,0.39024390243902,0
+3,1,"Guarded Strike","Quick Jab",59,59,23,27,9,0,0.38983050847458,0
+15,13,"Bait and Slip",Sidestep,108,108,42,43,23,0,0.38888888888889,0
+35,,"Trade Blows","no bonus",821,682,265,300,117,0,0.38856304985337,0
+7,11,"Clinch Throw","Off-Balance Sweep",314,314,122,131,61,0,0.38853503184713,23
+2,5,Rushdown,"Combination Strike",965,965,374,386,205,0,0.38756476683938,37
+24,21,"Measured Advance","Firm Counter",160,160,62,65,33,0,0.3875,0
+3,,"Guarded Strike","no bonus",803,660,255,277,128,0,0.38636363636364,0
+7,,"Clinch Throw","no bonus",1097,884,341,385,158,0,0.38574660633484,80
+30,,Counterpunch,"no bonus",478,374,144,159,71,0,0.38502673796791,17
+5,,"Combination Strike","no bonus",843,691,265,288,138,0,0.383502170767,317
+4,5,Feint,"Combination Strike",369,369,141,164,64,0,0.38211382113821,0
+31,34,Haymaker,"Iron Guard",246,246,94,105,47,0,0.38211382113821,0
+3,6,"Guarded Strike","Covering Step",500,500,191,210,99,0,0.382,0
+32,36,"Charged Fist","Heavy Feint",118,118,45,51,22,0,0.38135593220339,6
+31,36,Haymaker,"Heavy Feint",210,210,80,83,47,0,0.38095238095238,0
+2,,Rushdown,"no bonus",1473,1022,389,452,181,0,0.38062622309198,67
+1,,"Quick Jab","no bonus",1450,1138,432,477,229,0,0.37961335676626,0
+35,34,"Trade Blows","Iron Guard",340,340,129,134,77,0,0.37941176470588,0
+10,8,"Grip Break","Body Lock",103,103,39,46,18,0,0.37864077669903,0
+32,,"Charged Fist","no bonus",645,518,196,230,92,0,0.37837837837838,28
+14,13,"Darting Strike",Sidestep,247,247,93,103,51,0,0.37651821862348,27
+19,21,"Rooted Guard","Firm Counter",141,141,53,68,20,0,0.3758865248227,0
+31,,Haymaker,"no bonus",928,764,287,337,140,0,0.37565445026178,0
+26,29,"Catch the Opening","Mirror Step",168,168,63,75,30,0,0.375,0
+14,15,"Darting Strike","Bait and Slip",139,139,52,62,25,0,0.37410071942446,21
+30,29,Counterpunch,"Mirror Step",107,107,40,44,23,0,0.37383177570093,7
+34,32,"Iron Guard","Charged Fist",102,102,38,44,20,0,0.37254901960784,0
+2,6,Rushdown,"Covering Step",368,368,137,165,66,0,0.37228260869565,23
+9,11,"Driving Tackle","Off-Balance Sweep",277,277,103,113,61,0,0.37184115523466,58
+32,35,"Charged Fist","Trade Blows",113,113,42,49,22,0,0.3716814159292,3
+11,8,"Off-Balance Sweep","Body Lock",420,420,156,188,76,0,0.37142857142857,0
+3,4,"Guarded Strike",Feint,54,54,20,26,8,0,0.37037037037037,0
+24,19,"Measured Advance","Rooted Guard",100,100,37,47,16,0,0.37,0
+4,1,Feint,"Quick Jab",247,247,91,113,43,0,0.36842105263158,0
+4,,Feint,"no bonus",1146,919,337,420,162,0,0.36670293797606,0
+14,,"Darting Strike","no bonus",1144,860,315,402,143,0,0.36627906976744,123
+29,27,"Mirror Step","Watchful Guard",197,197,72,97,28,0,0.36548223350254,6
+30,26,Counterpunch,"Catch the Opening",189,189,69,87,33,0,0.36507936507937,12
+13,17,Sidestep,"Glancing Step",129,129,47,65,17,0,0.36434108527132,0
+6,5,"Covering Step","Combination Strike",352,352,128,147,77,0,0.36363636363636,0
+17,16,"Glancing Step","Outside Step",177,177,64,73,40,0,0.36158192090395,0
+32,34,"Charged Fist","Iron Guard",109,109,39,56,14,0,0.35779816513761,3
+10,12,"Grip Break","Counter Throw",76,76,27,36,13,0,0.35526315789474,0
+9,,"Driving Tackle","no bonus",1031,852,298,385,169,0,0.34976525821596,136
+34,36,"Iron Guard","Heavy Feint",118,118,41,56,21,0,0.34745762711864,0
+16,17,"Outside Step","Glancing Step",168,168,58,66,44,0,0.3452380952381,0
+2,1,Rushdown,"Quick Jab",396,396,134,173,89,0,0.33838383838384,28
+1,5,"Quick Jab","Combination Strike",163,163,55,73,35,0,0.33742331288344,0
+31,33,Haymaker,"Crushing Blow",225,225,75,100,50,0,0.33333333333333,0
+16,13,"Outside Step",Sidestep,208,208,69,93,46,0,0.33173076923077,0
+1,2,"Quick Jab",Rushdown,210,210,68,96,46,0,0.32380952380952,0
+7,12,"Clinch Throw","Counter Throw",350,350,113,161,76,0,0.32285714285714,34
+3,2,"Guarded Strike",Rushdown,28,28,9,14,5,0,0.32142857142857,0
+11,12,"Off-Balance Sweep","Counter Throw",203,203,64,102,37,0,0.31527093596059,0
+4,6,Feint,"Covering Step",276,276,87,144,45,0,0.31521739130435,0
+17,13,"Glancing Step",Sidestep,187,187,54,102,31,0,0.28877005347594,0
+3,5,"Guarded Strike","Combination Strike",87,87,25,48,14,0,0.28735632183908,0
+15,17,"Bait and Slip","Glancing Step",83,83,23,41,19,0,0.27710843373494,0
+1,6,"Quick Jab","Covering Step",112,112,26,63,23,0,0.23214285714286,0

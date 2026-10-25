@@ -1,0 +1,144 @@
+{
+  "status": "B171_ONE_ICE_EQUIPMENT_ACTUAL_OPPOSING_CARD_TAX_PAYMENT_REPRESENTATIVE_TWO_CLEAN_TARGETED_REPLAYS_ONE_EXACT_NATIVE_CONTROL_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch171.json",
+  "input_sha256": "d49b86927a0c6c52bffbfc701f09d7c7e3c59480151b82d5f0133c22bbee6d65",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:57:30.495556+00:00",
+  "fixtures": [
+    {
+      "slug": "card-heart-of-ice-four-live-sparse-actual-ice-action-tax-charges-opposing-printed-zero-instant-with-real-blue-pitch",
+      "fixture_sha256": "2f7c5f46463ed29b9866c280f418a8cb1fc3b683f3f09bdb1e25c7e45b34020e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "573716dc543b229e837dd5e7a5b2d0fa65eeb90eccab01d0331f09ce920e5119",
+        "actions.json": "81cdb2038d40eed8f53baa465c7f8dc69a536e63488db494a1e28ced4ffc62be",
+        "assertions.json": "708f44185be1cd2b9488032786b4e65f655c28cb2223f3995371362e27effa05",
+        "expected_final_gamestate.txt": "e28569f3eed17ad6097869ee790a28e70f983a8e3072f716d6d2287bcdf6d5ce",
+        "meta.json": "95c936bec5a232b635f2cda07c27161a1eee95f326943c9764d25a73b3109cfe"
+      },
+      "semantically_approved": true,
+      "actions": 13,
+      "native_assertions": 1713,
+      "actual_manual_passes": 9,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        2,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 13,
+  "total_native_assertions": 1713,
+  "total_manual_passes": 9,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b171-actual-saved-independent-review.json",
+    "sha256": "21f3f38b892b639337ec72ef85cc90ee6b0590cb61cb72e0b0f6c457f9f99086"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b171-independent-spec-review.json",
+    "sha256": "dd1c766f0924a41cb9bc2dcf8c708d15a272541135183a1f04e921cba456e9ab"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch171-20261022T205319Z-6ada77bf635c6.json",
+    "sha256": "2d3d9766af29975640ca338517bda05b9bebda260183c52af0f8ddaa33a51660"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b171-four-live-run1.json",
+      "sha256": "29b2729429042e3d22e51b9a4febe9cbb53c43e619edd560c63179a8aca1676f",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch171.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b171-four-live-run2.json",
+      "sha256": "ca221e70c7b70ff3483036ec25ba45e3b8f34cb552c1d8d63667e2444dd4faef",
+      "passed": 1,
+      "total": 1,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch171.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 1
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b171-fault-controls.json",
+    "sha256": "f18753027efa3dda85ffbe4e1cbf614b188d7f5cecb5d9259529954a4441c502",
+    "total": 1,
+    "intended_semantic_failures": 1,
+    "plan_sha256": "4bdd243d0af1703eecb46f2f498d203b420fa09e090d295134f5bea7231c0f22",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b171_heart_of_ice_focused_effect_sensitivity",
+      "fixture": "card-heart-of-ice-four-live-sparse-actual-ice-action-tax-charges-opposing-printed-zero-instant-with-real-blue-pitch",
+      "prefix_actions": 7,
+      "mutation": {
+        "remove_effect": "ELE_TAX"
+      },
+      "retained_assertions": 846,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PITCH\", got \"PRIORITY\".",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b171-focused-fault-plan.json",
+    "sha256": "4bdd243d0af1703eecb46f2f498d203b420fa09e090d295134f5bea7231c0f22"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1960,
+  "native_evidence_review_checks": 46,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "One Ice equipment opponent-card tax representative: legalyoungLexi20EssenceIce actualprimaryBlue6pays1/R2/AP0\u2192fourresponsesGAAP1/P1yieldP2priority. RealP2Sigil7printed0+tax1pendingactualBlue8pitch3\u2192R2/AP0; allseatresponses2,3,4,1 thenhealP2from17to20/ownpublicGY7Face0. Heart5retainedStatus2/P1R2AP1/finalpriority1. No otheropponentsactualpayments/abilitytax/expiry/defense/hero/support/full-card credit.",
+    "Only current ONE-case new packet audited; root alone executes native games and writes repo. Only established virtualABILITYrawOwner0/Controller1representation; physicalEq5 remains owned1. No broadownership or legacy review.",
+    "Two new targeted clean replays and one intended native control only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "HeartOfIce prefix7 removes exactlyone actualELE_TAX before realP2Sigil7play. Printed0 then auto-completes payment, causing exact originalrelativeStep1 windowPITCHtoPRIORITY failure beforependingcost1 checks; direct realcardtax sensitivity ratherthanstoredtagonly. Actualpositive pendingcost1, Blue8pitch3/R2/AP0 andall-seat2,3,4,1responses thenP2heal17to20/source7ownpublicGYFace0 separatelybound. PhysicalHeart5retained/P1Blue6pitchcost1/R2/AP1/youngLexi20EssenceIcelegal. All6originalremainingactions/suffixoracles retained, nativefaultstopsfirstexactwindowfailure. No P3/P4actualpayments/activatedabilitytax/stacking/expiry/AB/BladeBreak/once-rejection/hero/support/full-card credit.",
+    "Prefix7 retains6remainingrealactions and everyoriginalsuffixoracle with onlyoffsetschanged; selectedraw5/runtime preserved. No helper/executorchanges/broadtests/positivereplayrepeats."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "71d32e04d7e351ede9ebb5499634f6db6fb39c380c968af2347e24c8bb1f7858"
+}

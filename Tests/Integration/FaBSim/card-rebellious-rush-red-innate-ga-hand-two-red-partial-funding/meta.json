@@ -1,0 +1,7 @@
+{
+    "name": "Rebellious Rush / innate go again / red / hand-two-red-partial-funding",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T04:02:52+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "rebellious_rush_red: printed cost2, pitch1, power5, defense2; exact printed text Go again. Actual supported pitch input supplies2 toward printedcost2. AP remains1 while underfunded; each current Hand0 pitch preserves its original UID. Once fully paid AP0, residualresources0; then printed5damage and unconditional ResolutionAP1. Original funding cards stay Pitch through close. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rebellious_rush_red https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FAI017.webp https://rules.fabtcg.com/en/cr/08-keywords/#835 https://rules.fabtcg.com/en/cr/08-keywords/#826 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#517 https://rules.fabtcg.com/en/cr/07-combat/#762 FaBSim/Custom/GameLogic.php::CanPlayCard/FaBTryCompletePayment/FaBDeclareBlock/FaBBeginDamageStep/FaBBeginResolutionStep/FaBCleanupResolvedLink/FaBCloseCombatChain"
+}

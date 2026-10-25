@@ -1,0 +1,133 @@
+{
+  "status": "INDEPENDENT_SPELLVOID_PILOT4_SPECS_APPROVED_FOR_SERIAL_NATIVE_RECORDING_GATES",
+  "reviewer": "/root/resume_lp_repair",
+  "native_games": 0,
+  "native_writes": 0,
+  "input_sha256": {
+    "pilots4-proposed.json": "fed42faadc42876415b02ba5fcd18098ad2dc7b9300cdbfb3459450931c83f3a",
+    "manifest.json": "6684af84390af61d25ac36bf7e8f5e8813bc09f26ee9e0912e206db0947f520d"
+  },
+  "independent_model": {
+    "script": "review_spellvoid76_pilot4.py",
+    "sha256": "15da9f297552922ef82cc3180bd35fb40dd0c34bd340796118b93cdd44c125ed",
+    "results": "spellvoid-six/pilot4/independent-model-results.json",
+    "results_sha256": "30d0babfe6917095ddcde3e609666ba46a0e03b261da4978cf151cc8c7c7bdf9",
+    "checks": 10272,
+    "exact_oracles": 794,
+    "modeled_actions": 50,
+    "individual_passes": 31,
+    "semantic_faults_detected": 12,
+    "scope": "Standalone physical-object/action/priority/pass interpreter written independently. No author module, engine/runtime import or observed output derives expectations. Counterfactual PASS checks validate model semantics only; actual decline/other110 requirements remain uncovered."
+  },
+  "reviewed_native_sources": {
+    "FaBSim/Custom/MONCards.php": "0f35f2849029510ce277fc5c016894047e94d5422f9b86ec5d4e631ecfd260b0",
+    "FaBSim/Custom/GameLogic.php": "bc927b75baddd47ad39c1df6d87d912cac7dd25cc353f8df6bd17776fccf3743",
+    "FaBSim/Custom/ARCAbilities.php": "3d93e7520aeeadcfd14bb9c5664b95d7b7b17aa3d3b768fdf431c0e32167c54b",
+    "FaBSim/Custom/ELEAbilities.php": "bf8c0531d2ff8817cf2c9b9a778d235675280fab1517c1fcf6956a6a4940ef55",
+    "FaBSim/Custom/UPRCards.php": "e50d9638393ee59c60362d612d3765d95a03a15877e00045c342ff2c60b1b682",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "DevTools/FaB/arc_abilities.json": "ca670664228ddd31ad2a9475434ecb2bc95b83721503772f091c75239e1aa909",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "FaBSim/Custom/ARCCards.php": "c3b8c93aeea5bb8915e879b45c0065ac9d18ed78111691e13813868327543636",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "86a8e4224a83233fe8c5d3a1fd092963bc6ebc485d21c22ea1a561b36710bf20",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "runtime_at_final_read": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+  "source_bridge": {
+    "author_reference_runtime": "2b2544474195f4c626892dcf1df5bfcddf91681a3f9a9a5168efee30de1d8114",
+    "GameLogic_author_reference_sha256": "70a6ad592e0b05ab80824e4defcf3fb5ee39e818036ee88a32504fed305350ae",
+    "GameLogic_current_sha256": "bc927b75baddd47ad39c1df6d87d912cac7dd25cc353f8df6bd17776fccf3743",
+    "proof": "Whole current GameLogic text equals exact 2b beforeimage plus only FAB_LUNGING_PLAY handler registration. All Spellvoid/damage/cost/priority/move/cleanup functions and the other seven author-pinned native files are unchanged. Independent model does not depend on LP targeting helpers."
+  },
+  "official_rules_verified": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.3.15",
+        "8.3.15a",
+        "8.6.18",
+        "8.1.8a",
+        "8.3.5a",
+        "8.1.1c",
+        "8.1.1d"
+      ],
+      "supports": "Optional destroy-for-prevention, all Aegis N1, token ceases outside arena; actual item action-point and go-again timing; Kano-granted play as instant incurs no action point."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.4.1a",
+        "6.4.2a",
+        "6.6"
+      ],
+      "supports": "Destruction is part of prevention before damage; source choices and prevention apply to the pending packet."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "sections": [
+        "7.3.2a",
+        "7.3.2b",
+        "7.5.2"
+      ],
+      "supports": "Public controlled numeric-zero equipment may defend. After destruction it is absent from the fresh physical defense total."
+    }
+  ],
+  "viewed_faces": [
+    {
+      "path": "FaBSim/WebpImages/spell_fray_cloak.webp",
+      "sha256": "3c8f10346ad0916271549d562773551e2ce5eaf463205d2241c2d94f2ccfd125"
+    },
+    {
+      "path": "FaBSim/WebpImages/spellbane_aegis.webp",
+      "sha256": "9bac8fec4b93721f7b3f50e414e357092e0fdc72e77067e272a53014f6489ae2"
+    },
+    {
+      "path": "FaBSim/WebpImages/talisman_of_dousing_yellow.webp",
+      "sha256": "ceca31bb6347b8c8d9f9048b873fa0ceabf4113a9a6e0125693b29f0c9f9c591"
+    },
+    {
+      "path": "FaBSim/WebpImages/spell_fray_tiara.webp",
+      "sha256": "78cd404342534d9c7a4f3e453887869fc09f7a2eeedbc54cfecaff75360db22b"
+    }
+  ],
+  "catalog_scope": {
+    "identities": [
+      "spell_fray_cloak",
+      "spell_fray_gloves",
+      "spell_fray_leggings",
+      "spell_fray_tiara",
+      "spellbane_aegis",
+      "talisman_of_dousing_yellow"
+    ],
+    "printings": 28,
+    "all_printed_spellvoid_values": 1,
+    "pilots_primary_ids": [
+      "spell_fray_cloak",
+      "spellbane_aegis",
+      "talisman_of_dousing_yellow",
+      "spell_fray_tiara"
+    ],
+    "not_tested_primary_ids": [
+      "spell_fray_gloves",
+      "spell_fray_leggings"
+    ],
+    "all_six_complete": false
+  },
+  "findings": [
+    "No recipe corrections required. All794 numeric/state/physical-object/UID/owner/controller/target/protocol assertions pass the standalone model.",
+    "Native FaBMONSpellvoidRefs enumerates live own Equipment/Arena and equipment-origin CombatChain sources. Optional MZMAYCHOOSE and fresh revalidation/destruction happen within the canonical Dart packet before FaBUPRDeal.",
+    "Real Kano activation pays3 and creates a virtual Owner0/Controller2 layer without a physical source-object Owner copy. Temp/banish/grant path is supported. Recipes do not pin the known generic Kano look-await layer lifetime.",
+    "Aegis consumes its own token and fully prevents Blue Dart1; no token is expected in Graveyard. The exact zero arcane ledger entry is an unconditional caster/target credit representation in FaBELEDealArcane, not evidence positive damage occurred.",
+    "Talisman is played normally at cost0/AP1, enters Arena and returnsAP1 from printed go again; later Spellvoid destruction never retroactively removes that prior action point.",
+    "Tiara begins as physical equipment, is declared at numeric0, gets moved to the real chain, is destroyed during a self-targeted Kano-granted Dart, and cannot return on Close. Arcane HP20\u219218 then fresh physical4 givesHP14."
+  ],
+  "fixture_safety": "All initial extra properties are empty. Heroes/cards/zone/slot ownership are legal isolated midgame states; HP20 may reflect prior healing. No synthetic UID/history/queue/Stack/permission data or production game state is used. Complete decks/healing/token-generation provenance are excluded from these isolated effect fixtures.",
+  "remaining_gates": [
+    "Root native pilot4 recording through existing framework.",
+    "Independent actual raw5/actions/allnative-oracle review before qualification.",
+    "Two clean replay passes with exact source/runtime/inventory hashes; meaningful native fault controls and existing suites.",
+    "Decline exists only as four model counterfactuals. Actual decline, reuse/multiple/compaction/suppression/cannot-destroy/controller cases and the rest of the110-requirement matrix remain unrecorded; no complete identity claim."
+  ]
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-nimblism-red-cost-two-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 16
+    },
+    {
+        "slug": "card-sloggism-red-cost-two-boundary-next-only",
+        "status": "recorded_semantically_checked",
+        "actions": 30,
+        "assertions": 16
+    },
+    {
+        "slug": "card-potion-of-strength-blue-weapon-included-next-only",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 21
+    }
+]

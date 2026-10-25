@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:19:29+00:00",
+    "input_file": "card-regression-batch156.json",
+    "input_sha256": "6090c3bafb74680f7b58d9a6d7a511002c43b9896943c0952a0365576e026300",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-peg-leg-four-live-sparse-actual-paid-equipment-next-real-attack-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1031
+        },
+        {
+            "slug": "card-fish-fingers-four-live-sparse-actual-paid-equipment-next-real-attack-plus-one",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1031
+        }
+    ]
+}

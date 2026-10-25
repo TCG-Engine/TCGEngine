@@ -1,0 +1,509 @@
+{
+  "status": "INDEPENDENT_EXACT_TWO_ANCHOR_CUSTOM_PRIORITY_AND_CONFIGURED_DQ_HOOK_SOURCE_APPROVED_FOR_GUARDED_APPLY_AND_EXACT_SIGIL_RETRY",
+  "reviewer": "/root/resume_actual_audit",
+  "captured_utc": "2026-10-20T14:29:29.411195+00:00",
+  "manifest_sha256": "af6a304178c1fec992b7aa7115953455231d6c9e882b3cc309a6210f48bb495e",
+  "patch_sha256": "b7bcd19741601aa6263ab972528c43bc2890fe02e161b43340524d5a2cef0b09",
+  "candidate_sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4",
+  "runtime_before": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+  "runtime_after_predicted": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "source_guards": 625,
+  "components": [
+    {
+      "name": "priority-mixed-order",
+      "path": "held-priority-seat-hook-independent-components\\priority-mixed-order.php",
+      "sha256": "8f9672436355f650e02b3d6061789338951483e77012e263ed160bfbb9ec7cf1",
+      "returncode": 0,
+      "stdout_results": [
+        {
+          "status": "PASS",
+          "checks": 6528,
+          "native_games": 0,
+          "native_writes": 0,
+          "scope": "exact native payment plus native preferences, seats and shortcut autopass; external accessors/card callbacks and auto-pass dispatch isolated"
+        },
+        {
+          "status": "INDEPENDENT_EXTRA_PASS",
+          "checks": 29568,
+          "extra_checks": 23040,
+          "mixed_preference_order_cases": 4608,
+          "native_games": 0,
+          "native_writes": 0
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "name": "dq-configured-subsets",
+      "path": "held-priority-seat-hook-independent-components\\dq-configured-subsets.php",
+      "sha256": "a446fbf390e2f0243a997210aa3151e72b86d42b450f3553a848ab555058ce6b",
+      "returncode": 0,
+      "stdout_results": [
+        {
+          "status": "PASS_WITH_EXISTING_CORE_HOOK",
+          "checks": 48,
+          "rows": [
+            {
+              "case": "real native seat3 interactive object blocks all queues",
+              "configured": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "real native seat4 interactive object blocks all queues",
+              "configured": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "all four queues empty",
+              "configured": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "expected_empty": true,
+              "actual_empty": true
+            },
+            {
+              "case": "each configured seat independently pending 1",
+              "configured": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "each configured seat independently pending 2",
+              "configured": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "each configured seat independently pending 3",
+              "configured": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "each configured seat independently pending 4",
+              "configured": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "both later actors pending",
+              "configured": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "draining3 cannot hide still-pending4",
+              "configured": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "all four actual queues drained",
+              "configured": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "expected_empty": true,
+              "actual_empty": true
+            },
+            {
+              "case": "configured eliminated seat2 still has cleanup work",
+              "configured": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                3,
+                4
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "lower live gap does not hide seat4",
+              "configured": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                3,
+                4
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "configured sparse IDs are not converted to 1..count",
+              "configured": [
+                1,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                3,
+                4
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "configured noncontiguous two survivors still checked",
+              "configured": [
+                3,
+                4
+              ],
+              "live": [
+                3,
+                4
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "configured rotation retained",
+              "configured": [
+                3,
+                4,
+                1,
+                2
+              ],
+              "live": [
+                3,
+                4,
+                1,
+                2
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "static continuation is also pending work",
+              "configured": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "live": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "legacy12 pending ",
+              "configured": [
+                1,
+                2
+              ],
+              "live": [
+                1,
+                2
+              ],
+              "expected_empty": true,
+              "actual_empty": true
+            },
+            {
+              "case": "legacy12 pending 1",
+              "configured": [
+                1,
+                2
+              ],
+              "live": [
+                1,
+                2
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "legacy12 pending 2",
+              "configured": [
+                1,
+                2
+              ],
+              "live": [
+                1,
+                2
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "legacy12 pending 1,2",
+              "configured": [
+                1,
+                2
+              ],
+              "live": [
+                1,
+                2
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "legacy12 pending 3",
+              "configured": [
+                1,
+                2
+              ],
+              "live": [
+                1,
+                2
+              ],
+              "expected_empty": true,
+              "actual_empty": true
+            },
+            {
+              "case": "legacy12 pending 4",
+              "configured": [
+                1,
+                2
+              ],
+              "live": [
+                1,
+                2
+              ],
+              "expected_empty": true,
+              "actual_empty": true
+            },
+            {
+              "case": "legacy12 pending 1,4",
+              "configured": [
+                1,
+                2
+              ],
+              "live": [
+                1,
+                2
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            },
+            {
+              "case": "legacy12 pending 2,3",
+              "configured": [
+                1,
+                2
+              ],
+              "live": [
+                1,
+                2
+              ],
+              "expected_empty": false,
+              "actual_empty": false
+            }
+          ],
+          "native_games": 0,
+          "native_writes": 0,
+          "scope": "exact extracted Core SeatIDs/AllQueuesEmpty/AnyQueuePending with native DecisionQueue objects and exact FaB seat parsers; accessors are local stubs, no runtime/game imports"
+        },
+        {
+          "status": "INDEPENDENT_DQ_EXTRA_PASS",
+          "checks": 816,
+          "extra_checks": 768,
+          "queue_subset_cases": 384,
+          "native_games": 0,
+          "native_writes": 0
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "semantic_faults": [
+    {
+      "file": "dq-fault-count-instead-of-ids.php",
+      "sha256": "7a951023f34425f3078f7fe684c3f7b8c8c4998673ee0e9c6ffd4abc7978989f",
+      "detected": true,
+      "returncode": 255,
+      "first_error": "\nFatal error: Uncaught RuntimeException: configured sparse IDs are not converted to 1..count expected=false actual=true in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\dq-fault-count-instead-of-ids.php:5\nStack trace:\n#0 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\dq-fault-count-instead-of-ids.php(10): eq(true, false, 'configured spar...')\n#1 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\dq-fault-count-instead-of-ids.php(638): observe('configured spar...', false)\n#2 {main}\n  thrown in C:\\Users\\maxim\\Documents\\Codex\\2"
+    },
+    {
+      "file": "dq-fault-hardcoded-two.php",
+      "sha256": "7bf0ef08a33ca9805341c5bd1b04ce6a6d18f9ebe9ff3f191cd3266d11a17c8d",
+      "detected": true,
+      "returncode": 255,
+      "first_error": "\nFatal error: Uncaught RuntimeException: real native seat3 interactive object blocks all queues expected=false actual=true in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\dq-fault-hardcoded-two.php:5\nStack trace:\n#0 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\dq-fault-hardcoded-two.php(10): eq(true, false, 'real native sea...')\n#1 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\dq-fault-hardcoded-two.php(630): observe('real native sea...', false)\n#2 {main}\n  thrown in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab"
+    },
+    {
+      "file": "dq-fault-live-only.php",
+      "sha256": "a415bf4a80142bce58b158e7e68b45d5d04f023d2c0226d74f3eccdc2b0b9616",
+      "detected": true,
+      "returncode": 255,
+      "first_error": "\nFatal error: Uncaught RuntimeException: configured eliminated seat2 still has cleanup work expected=false actual=true in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\dq-fault-live-only.php:5\nStack trace:\n#0 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\dq-fault-live-only.php(10): eq(true, false, 'configured elim...')\n#1 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\dq-fault-live-only.php(636): observe('configured elim...', false)\n#2 {main}\n  thrown in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-a"
+    },
+    {
+      "file": "priority-fault-four-only-hold.php",
+      "sha256": "2eee02fd85ac04eecb9f61fc4030bf76132c0c89386dc59223237d92a6de29cb",
+      "detected": true,
+      "returncode": 255,
+      "first_error": "\nFatal error: Uncaught RuntimeException: instant actor-specific setting determines priority expected=1 actual=2 in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-four-only-hold.php:6\nStack trace:\n#0 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-four-only-hold.php(381): eq(2, 1, 'instant actor-s...')\n#1 {main}\n  thrown in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-four-only-hold.php on line 6\n"
+    },
+    {
+      "file": "priority-fault-missing-pass-reset.php",
+      "sha256": "a69f88435d64c2e43267337fb89f2cef76b333beae0b57c17faa07f7a5dd3456",
+      "detected": true,
+      "returncode": 255,
+      "first_error": "\nFatal error: Uncaught RuntimeException: announcement resets prior three passes expected=0 actual=3 in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-missing-pass-reset.php:6\nStack trace:\n#0 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-missing-pass-reset.php(376): eq(3, 0, 'announcement re...')\n#1 {main}\n  thrown in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-missing-pass-reset.php on line 6\n"
+    },
+    {
+      "file": "priority-fault-unconditional-actor.php",
+      "sha256": "4d1fc435241d9ecbbb3c7284dae65ed49e10d7cc771d8353ddfb3fb8babb7f6a",
+      "detected": true,
+      "returncode": 255,
+      "first_error": "\nFatal error: Uncaught RuntimeException: instant actor-specific setting determines priority expected=2 actual=1 in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-unconditional-actor.php:6\nStack trace:\n#0 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-unconditional-actor.php(381): eq(1, 2, 'instant actor-s...')\n#1 {main}\n  thrown in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-unconditional-actor.php on line 6\n"
+    },
+    {
+      "file": "priority-fault-unconditional-next.php",
+      "sha256": "59395bf6f154e50971d6f743efd041be80021628bfb6cd63bdb9b6412fd1774a",
+      "detected": true,
+      "returncode": 255,
+      "first_error": "\nFatal error: Uncaught RuntimeException: held P4 retains priority after payment expected=4 actual=1 in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-unconditional-next.php:6\nStack trace:\n#0 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-unconditional-next.php(375): eq(1, 4, 'held P4 retains...')\n#1 {main}\n  thrown in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-unconditional-next.php on line 6\n"
+    },
+    {
+      "file": "priority-fault-wrong-seat-preferences.php",
+      "sha256": "8a0f355350ab23fefea4af540e478763f6dfb7789d1516f3dee147a404c422f6",
+      "detected": true,
+      "returncode": 255,
+      "first_error": "\nFatal error: Uncaught RuntimeException: held P4 retains priority after payment expected=4 actual=1 in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-wrong-seat-preferences.php:6\nStack trace:\n#0 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-wrong-seat-preferences.php(377): eq(1, 4, 'held P4 retains...')\n#1 {main}\n  thrown in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-held-priority-and-seat-hook-proposal\\priority-fault-wrong-seat-preferences.php on line 6\n"
+    }
+  ],
+  "source_scope": [
+    "Only two anchors in FaBSim/Custom/GameLogic.php; all other existing named functions exact.",
+    "Successful completed announcement honors normalized actual caster holdPriority. False/default/malformed retains legacy yield. Costs, callbacks, layer resolution unchanged.",
+    "GetSeatOrderArray uses configured FaBSeatOrder IDs for existing Core DQ guard, including pending cleanup seats. Core/generated/schema/recorder unchanged."
+  ],
+  "actual_before_binding": {
+    "path": "four-live-sigil-before-actual-independent-review.json",
+    "sha256": "a21f2ac20f043e5e0bfaf7afbac5c88fded47803864aa7f5f0604f616b7ccff2"
+  },
+  "limits": [
+    "Exact source components isolate external card callbacks/accessors and automatic pass dispatch; actual card actions/serialization/replay not proved.",
+    "DQ exact Core/native queue object proof; native chooser before/after remains pending.",
+    "Root must guarded-apply exact source, retry exact unchanged Sigil645, inspect actual initial/final/actions and run clean replays/controls/existing suite.",
+    "All3074 raw5 preserved by preceding actual-before audit. This gate runs scratch-only components.",
+    "Legacy decision_queue_empty all remains two-seat; four explicit player assertions required."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_imports": 0,
+  "accepted_coverage": 0
+}

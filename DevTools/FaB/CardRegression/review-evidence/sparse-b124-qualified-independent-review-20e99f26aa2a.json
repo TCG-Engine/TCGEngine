@@ -1,0 +1,328 @@
+{
+  "status": "B124_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch124.json",
+  "input_sha256": "89c365ec468cfafcf7083ee6ab4744547d8c2051bad1d8667d8c390e73f7adff",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:54:39.830140+00:00",
+  "fixtures": [
+    {
+      "slug": "card-homage-to-ancestors-blue-four-live-sparse-actual-first-blue-instant-gains-one-without-transcend",
+      "fixture_sha256": "78dd17fd6330cbb34c609fa88a85a63a8adc287568209c3eb7125cd933a4171f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "93dce0cb6baf674845e8d299bce61eec05bde85d7af4cc81a1f44e7b9d86e67a",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "932afe9f784252cbc5d53e42773b9a357e2201a849b12a23155d26f79dd1d72d",
+        "expected_final_gamestate.txt": "81a9289cd34a1c06dea77dc947ac4c852437ae21abfac40e626ebc4dccfb8b72",
+        "meta.json": "a6091e9df3723a39530ad6bbd1480f3a6253788db894a977b4c7951587e115fa"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 667,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-tome-of-torment-red-four-live-sparse-actual-hand-action-draws-one-physical-deck-card",
+      "fixture_sha256": "17050baaefa47783decb57265de57ee5efbc63d65122aa5043ffe7aac9011145",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "750604a52f5b82773bbfc11cc176c1353bc4763c65844425319196fe2df6c27f",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "fe2fbbcee5f4ac456fa2334e2d57c27bc5b9bcd2737a304e12413da4309ca6af",
+        "expected_final_gamestate.txt": "d1bc1439347c1104b4532bb044514dd660cd019957b9a1d04b72ca6b91b64980",
+        "meta.json": "74f22a433fe5746591dff4c0a67a6521f6727f05f530e360a0063ba8f30d2894"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 691,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-three-of-a-kind-red-four-live-sparse-actual-paid-ranger-action-draws-three-ordered-physical-cards",
+      "fixture_sha256": "893afcb2615b7e4b2a5a015828fd86544a924344c7ecc68f3015d45846b4e65b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6778bb5ef1e4f4aaa781f72f08fd2def39afd72b86f6390a35a98f9fba6175ef",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "eac5f4637d17e3e5ce55583175f1dd049945a1d973e9a7f4193edd027af584af",
+        "expected_final_gamestate.txt": "c7af7d9634df57f5e4e07133ace6f1725e762b244a0595ae791069279696899c",
+        "meta.json": "51df58d66dbc4e845d9a2bc2127acee1099c8b5a804a7b73747310cee56f5d05"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 895,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-grim-feast-red-four-live-sparse-actual-full-hand-cost-shadow-action-gains-three",
+      "fixture_sha256": "814db10100a4ac3e71815f23f1639daf60c98930f2c7dcb6ab02c29d2c001393",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4e7b226ccc265ca453b4420969afc4b72d491ac06eb064414f1984cd47379160",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "362d8f1266f22ef0869bd687c56f85cc23b1591361130decd230c0bc245f4e58",
+        "expected_final_gamestate.txt": "0a943fb41bb9d80553ecde051d1d977d12a2f35a3d5563f4e5af7f855b2389f8",
+        "meta.json": "e3472a8b9625560642cabdb8e1d9d1706fdd4f2ade2668c3c7ca28f65f37ef37"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 811,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 22,
+  "total_native_assertions": 3064,
+  "total_manual_passes": 16,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b124-actual-saved-independent-review.json",
+    "sha256": "23e58d5b4d92cfb61f3e944c0d99a772007b86885852dbee554d193b849ab12f"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b124-independent-spec-review.json",
+    "sha256": "57e6fad5fac08f8a0fd0ffb366d199cf2699d4a2f13f3a05bfe8e75cd52ab7cb"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch124-20261022T185307Z-6ada5b9396396.json",
+    "sha256": "f8504ce5488871c83febb73bc530c12ab296ce26ce28c06489c314b8739e921f"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b124-four-live-run1.json",
+      "sha256": "11922496a2bcebacf571b8ced51a93bb4019a7e7392a352d3b5ffde506f92146",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch124.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b124-four-live-run2.json",
+      "sha256": "7125409ca35e5cf3ebe19bb5f6599c2ad9886cf6bf5e9cdcc96208bf2aee1a74",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch124.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b124-fault-controls.json",
+    "sha256": "16591eb7a784c32826061063e840c11010ebf56dfb436a12246eb816a563f1f2",
+    "total": 4,
+    "intended_semantic_failures": 4,
+    "plan_sha256": "11ad2be5992a0111ee040e4c9b8d6c1578994e12b67a532c6b1a437dab8493f3",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b124_homage_to_ancestors_blue_resolved_effect_result_sensitivity",
+      "fixture": "card-homage-to-ancestors-blue-four-live-sparse-actual-first-blue-instant-gains-one-without-transcend",
+      "prefix_actions": 5,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 1,
+            "value": 19
+          }
+        ]
+      },
+      "retained_assertions": 110,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Health to equal 20, got 19.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b124_tome_of_torment_red_resolved_effect_result_sensitivity",
+      "fixture": "card-tome-of-torment-red-four-live-sparse-actual-hand-action-draws-one-physical-deck-card",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Hand",
+            "cardID": "wounding_blow_blue",
+            "uid": 6,
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b124_three_of_a_kind_red_resolved_effect_result_sensitivity",
+      "fixture": "card-three-of-a-kind-red-four-live-sparse-actual-paid-ranger-action-draws-three-ordered-physical-cards",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Hand",
+            "cardID": "wounding_blow_blue",
+            "uid": 9,
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 126,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b124_grim_feast_red_resolved_effect_result_sensitivity",
+      "fixture": "card-grim-feast-red-four-live-sparse-actual-full-hand-cost-shadow-action-gains-three",
+      "prefix_actions": 6,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 1,
+            "value": 17
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Health to equal 20, got 17.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b124-focused-fault-plan.json",
+    "sha256": "11ad2be5992a0111ee040e4c9b8d6c1578994e12b67a532c6b1a437dab8493f3"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 4137,
+  "native_evidence_review_checks": 100,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "No HomagepositiveTranscend, Tome/GrimBanishpermission/discount/BloodDebt, ThreeKindArsenalrestriction/futureplay/expiry, hero/support, ordinary source-departure or asynchronous-lifecycle credit. Native faults are terminal result sensitivity, not upstream callback omission.",
+    "Only current new four are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and four individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "All four native controls are terminal resolved-result sensitivity: Homage/Grim restore only originalcasterhealth; Tome/ThreeKind move only exact actualdrawnBlueuid6/9 fromHandtoTemp. Originalnativeactions all executed, finaloracles all retained. No upstreamcallback omission, legal alternate branch/movement, Transcendpositive, Banish or Arsenalrestriction certification."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "d60d9387f90bee7a5192edbe76d2df7f0342851666d9ab3f2592bfc43ec9250c",
+  "current_independent_delta_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b124_independent.py",
+    "sha256": "2d4ba17a38ea710900e19346398e13a45dbe9d7df8af3b3729ba0ee7fb8baae3"
+  }
+}

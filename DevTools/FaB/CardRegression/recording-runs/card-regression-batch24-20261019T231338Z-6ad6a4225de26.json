@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-19T23:13:38+00:00",
+    "input_file": "card-regression-batch24.json",
+    "input_sha256": "b9b6d9fc8b999cf95378e7f7a3ba626decb042e967e30a61c33c9b7afeaa6b79",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-throttle-red-decline-boost-pays-assets-only",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 49
+        },
+        {
+            "slug": "card-heart-wrencher-red-empty-deck-no-boost-choice",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 25
+        },
+        {
+            "slug": "card-throttle-red-boost-last-deck-card-after-assets",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 44
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-known-speedslip-boost-cost-seam",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 68
+        }
+    ]
+}

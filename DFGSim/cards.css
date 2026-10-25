@@ -1,0 +1,91 @@
+/* Fight-poster cards. Color denotes printed hand and destinations only. */
+.technique-card{--poster-font:Impact,Haettenschweiler,'Arial Narrow Bold','Arial Narrow',sans-serif;display:flex;flex-direction:column;min-width:0;min-height:100%;background:#faf6ed;color:#141513;overflow:hidden}
+.technique-card .card-top,.card-preview .technique-card .card-top,#cardDetail .technique-card .card-top{padding:12px 15px;background:#faf6ed;color:#151613;flex-shrink:0}
+.technique-card .card-top small{display:flex;align-items:center;gap:7px;font-family:var(--poster-font);font-size:13px;font-weight:400;letter-spacing:1px}
+.technique-card .card-top small:after{content:'';height:1px;flex:1;background:var(--hand);margin-left:4px}
+.technique-card .card-top small>span{color:var(--hand)}
+.technique-art{position:relative;display:block;flex-shrink:0;overflow:hidden;width:100%;aspect-ratio:1.5;background-color:#14232a}
+/* Individual landscape art fills the window; no sheet offsets or distorted figures. */
+.technique-art:before{content:'';position:absolute;inset:0;width:100%;height:100%;background-image:var(--art-image);background-size:cover;background-position:center;background-repeat:no-repeat}
+.technique-card>.technique-art{width:100%;margin:0}
+.technique-card .card-heading{display:flex;align-items:center;gap:10px;margin:0 14px;padding:13px 0;border-bottom:1px solid #34372f}
+.technique-card .card-heading h3,.gallery-grid .technique-card .card-heading h3,.card-preview .technique-card .card-heading h3{flex:1;min-width:0;margin:0;font-family:var(--poster-font);font-size:30px;font-weight:400;letter-spacing:-.4px;line-height:1.05;text-transform:uppercase;overflow-wrap:break-word}
+.technique-card .card-stats,.card-preview .technique-card .card-stats{display:grid;grid-template-columns:1fr 1fr;gap:0;flex:0 0 104px;margin:0;padding:0;border:0;color:#141513}
+.technique-card .card-stats>div{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 8px;border-left:1px solid #a9a69d}
+.technique-card .card-stats span{font-family:var(--poster-font);font-size:9px;font-weight:400;letter-spacing:.5px;color:#141513}
+.technique-card .card-stats strong,.card-preview .technique-card .card-stats strong{font-family:var(--poster-font);font-weight:400;font-size:38px;line-height:1;color:#141513}
+.technique-card .card-text,.card-preview .technique-card .card-text{display:flex;flex-direction:column;gap:14px;padding:14px 14px 0;flex:1;color:#20221f}
+.technique-card .main-ability{font-size:12px;line-height:1.55;overflow-wrap:break-word}
+.technique-card .card-burns{display:flex;flex-direction:column;gap:5px;margin-top:auto}
+.technique-card .card-text .burn-ability,.gallery-grid .technique-card .card-text .burn-ability,.card-preview .technique-card .card-text .burn-ability{display:grid;grid-template-columns:80px minmax(0,1fr);gap:10px;align-items:start;margin:0;padding:9px;background:#eae7e1;border:0;border-radius:2px;font-size:11px;line-height:1.45;overflow-wrap:break-word}
+.technique-card .burn-ability b,.gallery-grid .technique-card .burn-ability b{display:block;margin:0;padding-right:8px;border-right:1px solid #b8b5ad;font-family:var(--poster-font);font-size:11px;font-weight:400;letter-spacing:.3px;color:#141513;line-height:1.45}
+.technique-card .empty-ability{font-size:12px;font-style:italic;color:#77766e}
+.technique-card .card-switches,.card-preview .technique-card .card-switches{display:flex;flex-direction:column;gap:10px;padding:13px 14px 14px;background:transparent;border:0;font-size:10px;margin-top:0;color:#20221f}
+.switch-divider{display:flex;align-items:center;gap:9px;width:100%}.switch-divider:before,.switch-divider:after{content:'';height:1px;background:#34372f;flex:1}.switch-divider svg{width:20px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter;flex-shrink:0}
+.card-destinations{display:flex;justify-content:center;flex-wrap:wrap;gap:15px}
+.technique-card .color-chip,.card-preview .technique-card .color-chip{display:inline-flex;align-items:center;gap:5px;padding:0;background:transparent;color:#242820;font-size:10px;font-weight:500;letter-spacing:0}
+.technique-card .color-chip i{width:11px;height:11px;border-radius:50%;background:var(--hand);box-shadow:inset 0 0 0 1px #0002}
+.gallery-grid .card{border:1px solid #2d302c;border-radius:6px;box-shadow:0 6px 18px #0003}.gallery-grid .technique-card{flex:1}.gallery-grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.card-preview{border-radius:6px;border:1px solid #2d302c;background:#faf6ed}.preview-help{background:#faf6ed}
+/* Compact faces keep artwork and their caption in separate layout rows. */
+.tile-face,.fight-screen .card-grid .tile-face,.fight-screen .combat-slots .main-slot>.tile-face,.fight-screen .combat-slots .played-burns .tile-face,.opponent-popup-cards .tile-face{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-rows:minmax(0,1fr) auto;grid-template-columns:minmax(0,1fr);align-content:stretch;justify-content:stretch;gap:0;padding:0;background:#faf6ed;color:#141513}
+.tile-face>.technique-art-compact{position:relative;z-index:auto;inset:auto;width:100%;height:100%;min-height:0;aspect-ratio:auto}
+.tile-face .tile-caption{display:flex;flex-direction:column;gap:5px;min-width:0;padding:7px 8px 6px;background:#faf6ed}
+.tile-face .tile-heading{display:flex;align-items:center;gap:7px;min-width:0}
+.tile-face .tile-caption .tile-heading .tile-name{display:block;flex:1;min-width:0;margin:0;padding:0;background:transparent;color:#141513;font-family:Impact,Haettenschweiler,'Arial Narrow',sans-serif;font-weight:400;text-transform:uppercase;text-shadow:none;font-size:12px;line-height:1.12;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile-face .tile-caption .tile-stats{display:flex;align-items:center;justify-content:flex-end;flex:0 0 auto;gap:5px;margin:0;background:transparent}
+.tile-face .tile-caption .tile-heading .tile-stats>span{display:inline-flex;align-items:center;gap:2px;font-family:Impact,Haettenschweiler,'Arial Narrow',sans-serif;font-size:17px;line-height:1;font-weight:400;color:#141513}
+.tile-face .tile-caption svg{width:11px;height:11px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tile-face .tile-caption .tile-switches{display:flex;align-items:center;justify-content:flex-end;gap:5px;padding:0;background:transparent;color:#55594f}
+.tile-face .tile-switches svg{width:14px;height:12px;margin-right:2px}
+.tile-face .tile-caption .tile-switches i{display:block;height:7px;width:7px;border-radius:50%;background:var(--hand);box-shadow:inset 0 0 0 1px #0002}
+.tile-face .tile-badge,.fight-screen .card-grid .tile-badge{position:absolute;top:5px;left:5px;z-index:1;max-width:calc(100% - 10px);margin:0;padding:3px 4px;background:#faf6edef;color:#20221f;font-size:7px;border-radius:2px;line-height:1.2;white-space:normal}
+/* Burns reserve a full title row instead of squeezing it beside the stats. */
+.fight-screen .combat-slots .played-burns .tile-face .tile-caption{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;padding:4px 3px;gap:3px 2px}
+.fight-screen .combat-slots .played-burns .tile-face .tile-heading{display:contents}
+.fight-screen .combat-slots .played-burns .tile-face .tile-heading .tile-name{grid-column:1/-1;min-height:2.24em;font-size:9px;line-height:1.12;white-space:normal;text-overflow:clip;overflow:visible;overflow-wrap:anywhere}
+.fight-screen .combat-slots .played-burns .tile-face .tile-heading .tile-stats{justify-content:flex-start;gap:2px}
+.fight-screen .combat-slots .played-burns .tile-face .tile-heading .tile-stats>span{font-size:11px;gap:1px}
+.fight-screen .combat-slots .played-burns .tile-face .tile-caption .tile-stats svg{width:7px;height:7px}
+.fight-screen .combat-slots .played-burns .tile-face .tile-caption .tile-switches{gap:2px}
+.fight-screen .combat-slots .played-burns .tile-face .tile-caption .tile-switches i{width:4px;height:4px}
+.fight-screen .combat-slots .played-burns .tile-face .tile-caption .tile-switches svg{width:9px;height:8px;margin-right:0}
+.fight-screen .combat-slots .played-burns .tile-face .tile-badge{top:3px;left:3px;max-width:calc(100% - 6px);padding:2px;font-size:6px;letter-spacing:0}
+.fight-screen .combat-slots .bonus-slot>.tile-face{height:max(100px,calc(var(--bonus-width)*1.34))}
+/* Reaction slots are narrower, so their switch row sits under the stats. */
+.fight-screen .combat-slots .reaction-cards>.tile-face{height:max(90px,calc(var(--reaction-width)*1.375))}
+.fight-screen .combat-slots .reaction-cards .tile-face .tile-caption{grid-template-columns:minmax(0,1fr);gap:2px}
+.fight-screen .combat-slots .reaction-cards .tile-face .tile-heading .tile-name{font-size:8px}
+.fight-screen .combat-slots .reaction-cards .tile-face .tile-caption .tile-switches{justify-content:flex-start}
+@media(max-width:760px){
+  .fight-screen .combat-slots .bonus-slot .tile-face .tile-caption{grid-template-columns:minmax(0,1fr)}
+  .fight-screen .combat-slots .bonus-slot .tile-face .tile-caption .tile-switches{justify-content:flex-start}
+}
+@media(max-width:560px){.gallery-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Played mains have a narrower portrait window than the cards in hand. */
+.fight-screen .combat-slots .main-slot .tile-caption{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:5px 4px;padding:7px 7px 6px}
+.fight-screen .combat-slots .main-slot .tile-heading{display:contents}
+.fight-screen .combat-slots .main-slot .tile-heading .tile-name{grid-column:1/-1;min-height:2.24em;font-size:12px;line-height:1.12;white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:normal}
+.fight-screen .combat-slots .main-slot .tile-heading .tile-stats{justify-content:flex-start;gap:3px}
+.fight-screen .combat-slots .main-slot .tile-heading .tile-stats>span{font-size:16px}
+.fight-screen .combat-slots .main-slot .tile-stats svg{width:9px;height:9px}
+.fight-screen .combat-slots .main-slot .tile-switches{gap:2px}
+.fight-screen .combat-slots .main-slot .tile-switches svg{margin-right:0;width:10px}
+.fight-screen .combat-slots .main-slot .tile-switches i{width:5px;height:5px}
+
+@media(max-width:760px){
+  .fight-screen .card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fight-screen .combat-slots .main-slot .tile-caption{padding:6px 4px;gap:4px}
+  .fight-screen .combat-slots .main-slot .tile-heading .tile-name{font-size:11px}
+  .fight-screen .combat-slots .main-slot .tile-heading .tile-stats{gap:3px}
+  .fight-screen .combat-slots .main-slot .tile-heading .tile-stats>span{font-size:16px}
+  .fight-screen .combat-slots .main-slot .tile-stats svg{width:9px;height:9px}
+}
+
+/* Hover expansion adds readable rules while the source tile keeps art and stats. */
+.card-preview .technique-card.rules-preview{min-height:0;border-top:3px solid var(--hand)}
+.card-preview .technique-card.rules-preview .card-text{padding:16px 16px 0;gap:14px}
+.card-preview .technique-card.rules-preview .main-ability{font-size:14px;line-height:1.6}
+.card-preview .technique-card.rules-preview .burn-ability{font-size:13px;line-height:1.5}
+.card-preview .technique-card.rules-preview .card-switches{padding:14px 16px 16px}

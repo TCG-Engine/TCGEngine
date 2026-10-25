@@ -1,0 +1,10 @@
+{
+  "status": "EXACT_PRE_RUNNER_FIX_NATIVE_ARCHIVED_BYTES_CAPTURED",
+  "captured_utc": "2026-10-20T00:39:41.881277+00:00",
+  "source": "DevTools/FaB/CardRegression/source-review-evidence/runner-persisted-boundary-20261020T003906Z/before-RunIntegrationTests.php",
+  "raw_sha256": "d339d93ea4f3f5d2dc41315de98aa6fe6e9cc675b0c9274b00d2b861a977a522",
+  "matches_historical659_runtime_inventory": true,
+  "native_writes": 0,
+  "games_or_php": 0,
+  "qualification": "Exact native archived raw beforeimage; no source application or execution."
+}

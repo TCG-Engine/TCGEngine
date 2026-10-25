@@ -1,0 +1,7 @@
+{
+    "name": "Tome of Fyendal / four live sparse effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T00:12:15+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Start with empty Hand and exactly known DeckUID6/7. Play the real face-down Arsenal Tome for printed1resource and1AP. Draw exactly those two physical cards first; then the Arsenal-origin condition heals for the resulting Handcount2. P1 goes20->22HP, others remain20; resources0/AP0 and no go again. SourceUID5 finishes its own Graveyard and Arsenal is empty. One unobstructed draw-two and resulting-hand Arsenal healing endpoint only. No Hand-origin, preexisting-Hand, short deck or draw/heal replacement branch. CR2.5.3d permits life above printed health. Synchronous ordinary-spell internal source clearing is not certified. All four real players hold priority/all11 shortcut windows false. Each manual clockwise pass is followed by its own checkpoint. Source physicalUID/ownership and all four final health/economy/queues/zones are checked. No whole diagnostic container or cached defense oracle. One representative only; no group/sibling/support-token completion claim. Sources: https://judge.fabtcg.com/cards/detail/273/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP365.webp https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/02-object-properties/ https://rules.fabtcg.com/en/cr/01-game-concepts/"
+}

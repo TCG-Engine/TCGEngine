@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:24:54.107381+00:00",
+  "plan_sha256": "6a63e3bc41f0c17e20865569169027b08861f9324399c543227c3f32349a6a4d",
+  "independent_saved_proof_sha256": "a6c2a3a08e0117003e8ebb70fc5353b3b98a1b69132fe495d1df3f9dd5a3210d",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b183-focused-fault-plan.json",
+    "6a63e3bc41f0c17e20865569169027b08861f9324399c543227c3f32349a6a4d",
+    "sparse-b183-focused-fault-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b183_rip_off_the_top_yellow_focused_effect_sensitivity",
+      "fixture": "card-rip-off-the-top-yellow-four-live-sparse-actual-draw-sole-random-pitch-six-power-condition-and-next-attack-plus-three",
+      "fixture_sha256": "d33ca1028d271fa06c29a69488bc6d4a903481d31c41b2173a349dfc421abcdc",
+      "source_raw5": {
+        "initial_gamestate.txt": "5262f95c3233bb552373733711fe20bf4602bfab3bfd28a2484cd937fd040561",
+        "actions.json": "9bb2d35026add310bf66342afa99f03bc44475b01cc258122982e0e567186b7e",
+        "assertions.json": "38edc085334391676ff6ce1612108590648ae85d89999df966bd1c5a05ad345f",
+        "expected_final_gamestate.txt": "fd26c4fc7bcaee272ba9578ceda390353f6517acba647fde371921c5c69f6eef",
+        "meta.json": "a25cdb4c2de94a9be4b1b643aa1f258f2196e9d26063688a9499217f668cf3b0"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 435,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Rip Off the Top / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual earned RipOff nextattack WTR_POWER3 from real Arsenal WoundingRed8 after primarycost1 paidBlue6 and actualsole randompitchRed7 (power7/pitch1). Preserve exactUID8/target/OwnerController1/publicsourceGY5/Pitch6,7/resources3/AP0/noGA. Originalcomputed7to4 detects actual earned grant. No low-power or multi-candidate RNG/control or transientHand/draw-replacement scheduling claim. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

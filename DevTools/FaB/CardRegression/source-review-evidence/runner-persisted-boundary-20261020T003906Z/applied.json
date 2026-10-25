@@ -1,0 +1,10 @@
+{
+  "status": "APPLIED_SCOPED_PERSISTED_ASSERTION_BOUNDARY",
+  "before_sha256": "d339d93ea4f3f5d2dc41315de98aa6fe6e9cc675b0c9274b00d2b861a977a522",
+  "after_sha256": "f0194817194cc5983c0bc9f716a9057f365fbb898e73ce6164d093f643672ddd",
+  "runtime_sha256": "8ef84003d127806df61aa7bb0eb577df5783846f088fcb063d3fcec5b9a83f87",
+  "review_sha256": "fc22598b510d4c19d90d55642fb3b96643470b91e2b325e158b3e4b53acda5c3",
+  "diagnostic_sha256": "beeb35460585f4ffba049802b6451e84e544c39724053442c1bc6edfd769df01",
+  "lint": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\DevTools\\RunIntegrationTests.php\n",
+  "source_fixture_unchanged": true
+}

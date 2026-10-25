@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T21:26:25+00:00",
+    "input_file": "card-regression-batch185.json",
+    "input_sha256": "dcb50458de362a5ab4325666a5f27b6ed79dcee54eaab36e2ba0a00a658c438a",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-bear-hug-red-four-live-sparse-actual-six-power-pitch-earns-legal-play-then-paid-bear-hug-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1565
+        }
+    ]
+}

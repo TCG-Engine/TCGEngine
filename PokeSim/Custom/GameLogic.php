@@ -210,7 +210,7 @@ function PokeRetreatCost($pokemon): int {
     if (PokeIsFossil($pokemon->CardID)) return 99;
     $base=(int)CardRetreat($pokemon->CardID);
     $modifier=EvaluateRetreatCostModifier($pokemon->CardID,$pokemon->Controller,$pokemon,$base,$pokemon);
-    if ($pokemon->Tool !== '-') $modifier+=EvaluateRetreatCostModifier($pokemon->Tool,$pokemon->Controller,$pokemon,$base,$pokemon);
+    if ($pokemon->Tool !== '-' && PokeToolsEnabled()) $modifier+=EvaluateRetreatCostModifier($pokemon->Tool,$pokemon->Controller,$pokemon,$base,$pokemon);
     return max(0,$base+$modifier);
 }
 function PokeCombinations(array $values, int $size): array {
@@ -417,7 +417,7 @@ function PokeObservation(int $viewer = 1): array {
             if (GetCurrentPhase() === 'SETUP' && $seat !== $viewer && in_array($zone, ['Active','Bench'], true)) continue;
             foreach (PokeObjects($seat, $zone) as $i => $obj) {
                 $row[$zone][] = ['ref'=>PokeRef($seat,$zone,$i),'id'=>$obj->CardID,'name'=>CardName($obj->CardID),
-                    'damage'=>$obj->Damage ?? 0,'hp'=>CardHp($obj->CardID),'energy'=>$obj->Energy ?? [],'conditions'=>$obj->Conditions ?? [], 'evolutions'=>$obj->Evolutions ?? [],'tool'=>$obj->Tool??'-','toolName'=>isset($obj->Tool)&&$obj->Tool!=='-'?CardName($obj->Tool):null,'counters'=>$obj->Counters??[], 'turnEffects'=>$obj->TurnEffects??[],
+                    'damage'=>$obj->Damage ?? 0,'hp'=>PokeCurrentHP($obj),'energy'=>$obj->Energy ?? [],'conditions'=>$obj->Conditions ?? [], 'evolutions'=>$obj->Evolutions ?? [],'tool'=>$obj->Tool??'-','toolName'=>isset($obj->Tool)&&$obj->Tool!=='-'?CardName($obj->Tool):null,'counters'=>$obj->Counters??[], 'turnEffects'=>$obj->TurnEffects??[],
                     'attachedEnergy'=>array_map(fn($id)=>['id'=>$id,'name'=>CardName($id)??$id],$obj->Energy??[]),
                     'attacks'=>CardAttacks($obj->CardID) ?? [],'abilities'=>CardAbilities($obj->CardID) ?? [],'effect'=>CardEffect($obj->CardID) ?? ''];
             }

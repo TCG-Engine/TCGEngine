@@ -1,0 +1,7 @@
+{
+    "name": "Pummel / ally-hit-does-not-discard-hero-hand",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:03:22+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Explicitly attack Dromai Aether Ashwing, not the hero. Brutal Assault blue has printed base4 and is a valid cost2 Pummel target. The enhanced attack8 hits and destroys the 1-life ally; hero life stays20. The granted ability says hits a hero, so it must create no discard trigger/chooser and must preserve both hero hand cards. This differs from Razor, whose hit condition has no hero qualifier. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pummel_red https://judge.fabtcg.com/cards/detail/319/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

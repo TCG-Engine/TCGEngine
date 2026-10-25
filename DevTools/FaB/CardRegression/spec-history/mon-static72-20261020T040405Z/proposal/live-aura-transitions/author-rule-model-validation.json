@@ -1,0 +1,110 @@
+{
+  "status": "AUTHOR_ACTION_DRIVEN_PRINTED_RULE_MODEL_PASS_NOT_INDEPENDENT_REVIEW",
+  "scenarios_sha256": "c37e689e8c6e2649f13628ee9ed2d59bc4a4f0ad22140de1d7d01d2b2eb44562",
+  "pilot_subset_sha256": "7579e2179497b11c93b70be2ef75e604661bb0605444f451e1dda324fd12b21f",
+  "native_intended_values_modeled": 8892,
+  "supported_action_descriptors_modeled": 156,
+  "semantic_faults_rejected": 42,
+  "faults": [
+    "Frozen Aura condition at initial state",
+    "Never apply conditional bonus",
+    "Unconditionally apply bonus",
+    "Ward token not really destroyed (six cases)"
+  ],
+  "results": [
+    {
+      "slug": "card-yinti-yanti-red-mon-live-enters-attack",
+      "intended_native_oracles": 488,
+      "supported_action_descriptors": 8,
+      "terminal_hp": 16,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-red-mon-live-enters-defense",
+      "intended_native_oracles": 592,
+      "supported_action_descriptors": 10,
+      "terminal_hp": 19,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-red-mon-live-destroyed-attack",
+      "intended_native_oracles": 853,
+      "supported_action_descriptors": 16,
+      "terminal_hp": 17,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-red-mon-live-destroyed-defense",
+      "intended_native_oracles": 1031,
+      "supported_action_descriptors": 18,
+      "terminal_hp": 18,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-yellow-mon-live-enters-attack",
+      "intended_native_oracles": 488,
+      "supported_action_descriptors": 8,
+      "terminal_hp": 17,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-yellow-mon-live-enters-defense",
+      "intended_native_oracles": 592,
+      "supported_action_descriptors": 10,
+      "terminal_hp": 19,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-yellow-mon-live-destroyed-attack",
+      "intended_native_oracles": 853,
+      "supported_action_descriptors": 16,
+      "terminal_hp": 18,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-yellow-mon-live-destroyed-defense",
+      "intended_native_oracles": 1031,
+      "supported_action_descriptors": 18,
+      "terminal_hp": 18,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-blue-mon-live-enters-attack",
+      "intended_native_oracles": 488,
+      "supported_action_descriptors": 8,
+      "terminal_hp": 18,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-blue-mon-live-enters-defense",
+      "intended_native_oracles": 592,
+      "supported_action_descriptors": 10,
+      "terminal_hp": 19,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-blue-mon-live-destroyed-attack",
+      "intended_native_oracles": 853,
+      "supported_action_descriptors": 16,
+      "terminal_hp": 19,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-blue-mon-live-destroyed-defense",
+      "intended_native_oracles": 1031,
+      "supported_action_descriptors": 18,
+      "terminal_hp": 18,
+      "native_recorded": false
+    }
+  ],
+  "model_bounds": [
+    "Independent of author builder and checkpoint names: only supported action descriptors drive transitions. No engine output/runtime is loaded.",
+    "Printed fixed stats and static Aura predicate set primary expectations. Known support card costs, source ownership and effect resolution set support protocol.",
+    "GenericKano look-await source lifecycle is not certified; managedDart source lifetime and mandatoryWard are explicit assertions.",
+    "This remains author-only proof. Independent exact spec review, serial native execution, actual saved semantics and current replay/control gates are pending."
+  ],
+  "native_runtime_imports": 0,
+  "native_actions": 0,
+  "native_writes": 0,
+  "script_sha256": "30c1c312e8f1b4f5b4364738b81754b629f094ed79a218b6bc318ccc055c5174"
+}

@@ -1,0 +1,201 @@
+{
+  "status": "B160_TWO_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b105_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch160.json",
+  "input_sha256": "4e992e93d64616e7ae6fc8fbb130873ad9f1f9a1ff97c0dcfbec92c6c39bd967",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:28:29.828023+00:00",
+  "fixtures": [
+    {
+      "slug": "card-spears-of-surreality-red-four-live-sparse-actual-paid-unblocked-five-damage-and-printed-go-again",
+      "fixture_sha256": "d5eb1bfc08f3e939cea11676a347d63136276b946360322c3c05f1a7e0f4e867",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fa57e812d8472aafee2804b0e126222f31d5fd24c7e44cd1f44a3df15d0ff962",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "549a5b98a544362e36ad0a819102c60312b42c2c43d7c6c2c414f5be3f462088",
+        "expected_final_gamestate.txt": "a37ea02a753fb775f22c55ad54fdddf60e1daadc63e575e31888cd3a24c97213",
+        "meta.json": "7a9d2145892b077a493ef43eb8212279358575db254ecdd11c9f57a164280f55"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 447,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-dunebreaker-cenipai-red-four-live-sparse-actual-paid-unblocked-five-damage-and-printed-go-again",
+      "fixture_sha256": "758bcf3c8337e48bc9e21cc353c612f04b09cb7f329b4aff86a83c590c6c4398",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9bd25ddc85e656b9b61fcf8f36b31fac678de1c7fe6c994415345b66f3539a76",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "8770cf62876c58b49c1355cc448dd3bcb6f1e5e3dcae84b2f6b44fe87cad34b1",
+        "expected_final_gamestate.txt": "fd9da98debf4be10d7811c9495a06cbd8630245db8152c341a6be424571f62db",
+        "meta.json": "699229738b75691d71e72dc6046a7a92f7aa714344d8d6a5a05142c3409772e2"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 447,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 56,
+  "total_native_assertions": 894,
+  "total_manual_passes": 50,
+  "checks": 59,
+  "actual_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b160-actual-saved-independent-review.json",
+    "sha256": "a7088a81a0fe858154380bad727b586e867fbfab9ae7492ca326376cd7d93d20"
+  },
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b160-independent-spec-review.json",
+    "sha256": "0eacd06ae5d9f05ee2735d5b1b05f5f9165fe1e674cd346252e299f916f8edc5"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch160-20261022T202637Z-6ada717d37111.json",
+    "sha256": "79592f8c5939c2f76876d4ab1c2563af9c1a7c9195da9b571ce660fcbfc320fb"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b160-four-live-run1.json",
+      "sha256": "c130fec1826382fb06daa4928e24bd1b27d3df5f874a93034c43b2e83b8cc290",
+      "passed": 2,
+      "total": 2,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b160-four-live-run2.json",
+      "sha256": "3ea5144d188332dd585d0c8997f63a79da68dafd70864e01a013d782e809730c",
+      "passed": 2,
+      "total": 2,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b160-fault-controls.json",
+    "sha256": "ae7735502b6367db4206f06e28e6dd247ae4b9e173968cb77f6dee8e94829938"
+  },
+  "focused_native_controls": [
+    {
+      "id": "b160_spears_of_surreality_red_focused_effect_sensitivity",
+      "fixture": "card-spears-of-surreality-red-four-live-sparse-actual-paid-unblocked-five-damage-and-printed-go-again",
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "spears_of_surreality_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 255,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Add the existing ELE_NO_GO attack tag only to physical primary5 after real payment and attack entry; computed power5/payment/UID preserved, first computed printedGA1 becomes0. All original suffix actions and oracles retained. Synthetic grant sensitivity only, not a legal inhibition/Phantasm/destruction/Ash branch. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b160_dunebreaker_cenipai_red_focused_effect_sensitivity",
+      "fixture": "card-dunebreaker-cenipai-red-four-live-sparse-actual-paid-unblocked-five-damage-and-printed-go-again",
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dunebreaker_cenipai_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 255,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Add the existing ELE_NO_GO attack tag only to physical primary5 after real payment and attack entry; computed power5/payment/UID preserved, first computed printedGA1 becomes0. All original suffix actions and oracles retained. Synthetic grant sensitivity only, not a legal inhibition/Phantasm/destruction/Ash branch. Every original suffix action and oracle retained; only step offsets change."
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b160-focused-fault-plan.json",
+    "sha256": "2ebd2fc47f98dd5a586f2aa7069bace1f24a85491b64d571ff6eb48ee26d0f57"
+  },
+  "targeted_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "limitations": [
+    "Four living seats manually pass priority; no active response card is played.",
+    "One positive primary representative per cycle; no sibling pitch, alternate branch, full-card, hero/support or callback lifecycle credit.",
+    "Each control adds existing ELE_NO_GO only to physical primary5 after real cost1/Blue6pitch payment and attack entry; printedcomputedGA1 becomes0 whilepower5/resources2/physicalUID preserved. Every original suffix action/oracle retained. Synthetic sensitivity only, no legal inhibition/Phantasm/destruction/Ash branch, later AP use, sibling/support/hero/full-card credit.",
+    "Only these two new fixtures are rehashed/replayed. Unrelated fixture bytes are not freshly checked; no full suite or legacy audit is performed.",
+    "Every original suffix assertion retained; synthetic faults are sensitivity probes, not legal alternate-action branch coverage."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "0683a7d334078141cf448e000deb8018712f0dac8fa67d92a06fd76ce8093c02",
+  "reused_stable_helper_and_orchestration_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b114-qualified-independent-review.json",
+    "sha256": "34f4ed518b19c89242bafc46b95e1e16e2fb0bf55583e8348b81dea4c76f7287",
+    "qualification": "Exact unchanged UID helper and prior18/18 component/orchestration evidence reused without new helper contract execution or broad audit."
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Bravo / cost-zero-no-dominate",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:50+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Pay 2 to activate Bravo (blue3 leaves1) and recover action point. wounding_blow_red costs 0 and must not get dominate: both hand blocks legal and prevent all4 damage. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bravo https://rules.fabtcg.com/en/cr/07-combat/"
+}

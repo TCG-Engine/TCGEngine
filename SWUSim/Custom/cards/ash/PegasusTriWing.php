@@ -10,16 +10,11 @@ $whenPlayedAbilities["ASH_171:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $self    = GetZoneObject($mzID);
     $selfUID = SWUObjUID($self, 0);
-    $hosts = [];
-    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && count(GetUpgradesOnUnit($o)) > 0) $hosts[] = $mz;
-        }
-    }
+    $hosts = SWUFriendlyUpgradeHosts(intval($player));   // CR: friendly = I control it (tokens: I control its host)
     if (empty($hosts)) return;
     DecisionQueueController::StoreVariable("DefeatUpgParams", "1|1|");
     DecisionQueueController::StoreVariable("DefeatUpgThen", "ASH_171#0");
+    SWUFriendlyUpgradeOnlyOnHost(intval($player));
     DecisionQueueController::StoreVariable("ASH171SelfUID", strval($selfUID));
     DecisionQueueController::AddDecision(intval($player), "MZMAYCHOOSE", implode("&", $hosts), 1, tooltip: "Defeat_a_friendly_upgrade_to_ready_this_unit?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "DEFEAT_UPGRADE", 1);

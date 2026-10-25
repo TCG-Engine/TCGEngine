@@ -1,0 +1,7 @@
+{
+    "name": "Pummel / two-reactions-two-hit-triggers-two-discards",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:25+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two copies each add2 to attack4, for power8. Each grants a separate mandatory hero-hit ability; Stack2 must precede choices. Resolve first trigger discarding original index0, then second discarding original index2 (now index1). Exactly two cards go to graveyard and original Wounding Blow yellow alone remains. Attack2 plus Pummel2+2 is paid by two blue3 cards, leaving0. Final hero life12, AP0. Do not collapse duplicate hit abilities into a single boolean tag check. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pummel_blue https://judge.fabtcg.com/cards/detail/321/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

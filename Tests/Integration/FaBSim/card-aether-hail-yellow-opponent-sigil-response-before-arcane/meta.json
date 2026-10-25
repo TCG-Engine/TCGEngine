@@ -1,0 +1,7 @@
+{
+    "name": "Aether Hail / opponent-sigil-response-before-arcane",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:00:14+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Pay spell cost1 and1AP, declare opponent hero target. Opponent Sigil blue is an instant: it costs0 and noAP, resolves above the spell and heals20->21; underlying spell remains on Stack. Then printed3 arcane resolves, opponent21->18. Both cards go to their owners' graveyards, no go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_hail_yellow https://judge.fabtcg.com/cards/detail/1628/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch128.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T19:01:58.865479+00:00",
+  "fixtures": [
+    {
+      "slug": "card-howl-from-beyond-red-four-live-sparse-actual-paid-shadow-action-next-paid-attack-action-plus-three",
+      "fixture_sha256": "e78315764c0d41b38ca522d875b2ff58845c295116c83a8f0252de983e5cb5b7",
+      "passed": true,
+      "result": "[PASS] Howl from Beyond / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-howl-from-beyond-red-four-live-sparse-actual-paid-shadow-action-next-paid-attack-action-plus-three",
+      "returncode": 0,
+      "stdout": "[PASS] Howl from Beyond / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

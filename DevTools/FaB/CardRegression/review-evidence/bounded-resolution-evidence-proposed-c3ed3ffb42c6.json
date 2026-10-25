@@ -1,0 +1,82 @@
+{
+  "status": "EXACT_BOUNDED_RESOLUTION_EVIDENCE_COMPILED_FOR_ROOT_REVIEW",
+  "captured_utc": "2026-10-20T00:47:30.832459+00:00",
+  "runtime_sha256": "8ef84003d127806df61aa7bb0eb577df5783846f088fcb063d3fcec5b9a83f87",
+  "qualified_runtime_gates": {
+    "two_full_clean_reports": [
+      {
+        "path": "card-regression-replay-expanded1452-persisted-run1.json",
+        "sha256": "6bed193ca7cc9db4569b5fa80c9886626a0453ada2d7e2940022f75b733ddf56",
+        "runtime_sha256": "8ef84003d127806df61aa7bb0eb577df5783846f088fcb063d3fcec5b9a83f87",
+        "fixtures": 1452,
+        "passed": 1452
+      },
+      {
+        "path": "card-regression-replay-expanded1452-persisted-run2.json",
+        "sha256": "628541f10fcc8876e539e7f5fc581d295d48fd0d00056f2695f68f3b048a2e91",
+        "runtime_sha256": "8ef84003d127806df61aa7bb0eb577df5783846f088fcb063d3fcec5b9a83f87",
+        "fixtures": 1452,
+        "passed": 1452
+      }
+    ],
+    "report_fixture_arrays_exactly_equal": true,
+    "semantic_controls": {
+      "path": "source-review-evidence/issues023-026-resolution-60e6f94a7401/card-regression-negative-control-results.json",
+      "sha256": "017e82907557befd41ce50b8aafd85bfc97f8172978157ddc1b1475827c5192d",
+      "count": 57,
+      "detected": 57
+    },
+    "native_suites": {
+      "path": "card-regression-native-suite-expanded1452-persisted-results.json",
+      "sha256": "9246b954596c84ff878269dec5b8519c3885a1996c32bda692e0fb6f88859c3c",
+      "WTR_exit": 0,
+      "ARC_exit": 0
+    }
+  },
+  "023": {
+    "superseded_prior_source_approval": {
+      "path": "source-review-evidence/checkpoint-20261020T004017Z-c5ce7206/lead-delayed-trigger-independent-review-supersession.json",
+      "sha256": "69de688c5aca302ffc7ceda6c1bac40e287e9de2c3683ea2242ca80ad8e727ca"
+    },
+    "renewed_own_action_phase_source_gate": {
+      "path": "source-review-evidence/checkpoint-20261020T004017Z-c5ce7206/lead-action-phase-ap-guard-independent-review.json",
+      "sha256": "624cb5964b7e704150a42627393ec356d56d2a79e2ef96d73d59baa5f810cb40"
+    },
+    "all49_exact_saved_independent_review": {
+      "path": "source-review-evidence/issues023-026-resolution-60e6f94a7401/b27-saved49-independent-review.json",
+      "sha256": "e919b7a6115115af140ae9f65cba0f3ae4510566f768da84ad7bc4d3c87e6f80"
+    },
+    "actual_nonturn_Kano20actions328assertions_review": {
+      "path": "source-review-evidence/checkpoint-20261020T004017Z-c5ce7206/lead-nonturn-kano-ap-witness-actual-saved-independent-review.json",
+      "sha256": "0b66da19ed23dda8fcb6a95fca14c15baae2764aef98b1a8f1d0bd257d9f9914"
+    },
+    "review_basis": "Independent printed/source/component review plus all49 exact saved action/oracle/snapshot model verification and separate actual real nonturn Kano witness. No claim every intermediate frame was manually inspected.",
+    "remaining_holds": [
+      "Generic awaited ABILITY source lifetime or destination beyond the named Lead layers",
+      "SourceZone provenance/legacy UID0 saves, source departure or reentry, elimination/UPF/dead chooser",
+      "Unrelated cost/ability-loss/copy/expiry/trigger interactions outside the49 matrix and actual Kano witness"
+    ]
+  },
+  "024_025_026": {
+    "portable_issue_proposals": "source-review-evidence/issues024-026-62d6c259ae94/normalized-issue-proposals.json",
+    "proposal_sha256": "6e43d715ef42f8e18f7c35d6a47437a1b8eb1d5a34ec4d4ac0eee870d6aef092",
+    "portable_evidence_archive_prefix": "source-review-evidence/issues024-026-62d6c259ae94/",
+    "qualification": "Original native before/after and independently reviewed source/actual-saved/runner diagnostic artifacts retain their own exact hashes and scope. Focused1/1 stdout remains parent-reported only; the two actual full clean reports above supply exact execution evidence."
+  },
+  "finite_scope_supplement": {
+    "independent_Mutt_scope_review": {
+      "path": "source-review-evidence/issues023-026-resolution-60e6f94a7401/completion-scopes-override-independent-review.json",
+      "sha256": "3761679e94f8b85b4cc56d535d6d54ab712ddc6010b3310abd694e50dcb387ea"
+    },
+    "qualification": "Only ordinary printed-stat/no-text16 baseline, exact fixture/native oracles and named +/-1 controls. Separate interactions remain excluded."
+  },
+  "native_writes": 0,
+  "games_or_php": 0,
+  "qualification": "Proposed bounded metadata resolutions for root review after all gates. These files do not apply a status or change historical source/fixture evidence.",
+  "026_reviewed_runner_scope": {
+    "writing_action_boundary": "Only FaBSim: after a successful writing action, reload its just-persisted state before the step assertions, matching the recorder save/load boundary.",
+    "condition_is_not_game_state_accessor_pair": true,
+    "optional_Flash_preservation": "Optional Flash getter/setter preservation is mock/component evidence; actual FaBSim pair is absent. It does not gate the new persisted-boundary reload.",
+    "limits": "No engine/gameplay rule, source/frame semantic or fixture mutation; no all-game/global/callback preservation claim."
+  }
+}

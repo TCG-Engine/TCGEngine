@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T22:51:27+00:00",
+    "input_file": "card-regression-batch89-push-focused-protocol-corrected.json",
+    "input_sha256": "7a4a7c8e2e2d9360e22bf8ed964197959614c96e7a0a56b279399affb8c18264",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-push-the-point-red-four-live-sparse-real-head-jab-hit-same-open-chain-plus-two",
+            "status": "recorded_semantically_checked",
+            "actions": 50,
+            "assertions": 1910
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Garland of Spring / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T22:17:42+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legal young Dorinthea20 and three living legal Dorinthea20 opponents. Generic GarlandOfSpring5 is the only owned equipment/card. Actually activate Action0 and destroy physicalEquipment5 as its cost, spending1AP. Source5 is already own publicGYFaceDown0 before responses. Virtualability6 KindABILITY/SourceZoneEquipment/SourceUniqueID5/Controller1/rawOwner0 constructor representation. First three actual manual live-seat responses preserve ability/AP0/resources0. Fourth response adds exactly1 resource and printed abilityGoAgain restores exactlyAP1. Finalresources1/AP1/allhealth20/queues andStack empty; physical5 stays own publicGYFaceDown0. Only this positive activation/resource/AP/cost endpoint is credited; spending gained resource, hero/support/full-card behavior remain untested. No seeded history/effects or engine imports. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/LGS415-CF.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Unmovable / arsenal-insufficient-two-pitch",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:36:39+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "A lone yellow pitch card produces only2 against cost3. The reaction cannot be announced; the attempted click preserves its source, hand, arsenal, pitch, stack, life and zero action points. No damage step is requested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#unmovable_yellow https://rules.fabtcg.com/en/cr/07-combat/#7.4 https://rules.fabtcg.com/en/cr/07-combat/#7.5"
+}

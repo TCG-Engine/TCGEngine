@@ -1,0 +1,18 @@
+{
+  "runtime_sha256": "7b6270fcded6644480dd6e6706c955e5dd607f4369e592b1c022ac56e124a85c",
+  "completed_utc": "2026-10-20T03:29:07.058699+00:00",
+  "runs": [
+    {
+      "command": "php DevTools/FaB/wtr_test.php",
+      "exit_code": 0,
+      "stdout": "FaB smoke checks passed.\nUPF checks passed.\nWTR continuation and card-family checks passed.\nWTR timing and property checks passed.\n",
+      "stderr": ""
+    },
+    {
+      "command": "php DevTools/FaB/arc_test.php",
+      "exit_code": 0,
+      "stdout": "FaB smoke checks passed.\nUPF checks passed.\nWTR continuation and card-family checks passed.\nWTR timing and property checks passed.\nARC mechanics passed; 218 authored continuations exercised from seat four.\n",
+      "stderr": ""
+    }
+  ]
+}

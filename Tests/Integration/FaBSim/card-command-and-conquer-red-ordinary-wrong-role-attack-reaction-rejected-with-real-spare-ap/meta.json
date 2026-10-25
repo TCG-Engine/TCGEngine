@@ -1,0 +1,7 @@
+{
+    "name": "Command and Conquer / ordinary / wrong-role-attack-reaction-rejected-with-real-spare-ap",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T06:07:14+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Use actual Action Timesnap destroy to gain2AP without resource cost. WoundingRed spends1AP and costs0; with1AP and2resources still available, CnC is an action card and cannot be announced as an attack reaction. Actual click leaves it in Hand; supporting4 damage/no trigger/normalClose. Sources: https://judge.fabtcg.com/cards/detail/498/ https://rules.fabtcg.com/en/cr/03-zones/#334 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

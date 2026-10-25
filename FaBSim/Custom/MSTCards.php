@@ -156,10 +156,16 @@ function FaBMSTWardRefs(int $p): array {return array_values(array_filter(array_m
 function FaBMSTBeforeClose(): void {foreach(FaBLiveSeats() as $p)foreach(FaBChoiceRefs($p,'CombatChain',['base'=>'eloquent_eulogy']) as $r){$o=FaBIdentityFromMZ($r)['object'];if(($o->Role??'')==='ATTACK'&&!HasNoAbilities($o))FaBRunSourceMacro('CombatChainClosed',$p,$o->CardID,[]);}}
 function FaBMSTPrepareBoost(int $p,object $o): bool {
  if(!FaBWTRIsAttackAction($o))return false;$found=false;$left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='MST_NEXT'&&($e['tag']??'')==='MST_BOOST')$found=true;else $left[]=$e;}if(!$found)return false;FaBWTRSetEffects($p,$left);
- $already=FaBHasKeyword($o,'Boost');FaBWTRTag($o,'MST_BOOST');if($already||!FaBChoiceRefs($p,'Deck'))return false;
+ $already=FaBHasKeyword($o,'Boost');FaBWTRTag($o,'MST_BOOST');if($already||FaBSUPSuppressed($o)||!FaBChoiceRefs($p,'Deck'))return false;
  FaBRunSourceMacro('ResolveAbility',$p,'evo_speedslip_blue',['mzID'=>FaBDTDSource(intval($o->UniqueID)),'mstEvent'=>'boost']);return true;
 }
-function FaBMSTContinuePrepare(int $p,int $uid): void {$f=FaBFindUID($uid);if(!$f)return;if(!FaBRunSourceMacro('PrepareCard',$p,$f['object']->CardID,['mzID'=>$f['mzID']]))FaBFinishPreparedCard($uid);}
+function FaBMSTContinuePrepare(int $p,int $uid): void {
+ $pending=FaBGetState()['pendingPayment'];
+ if(is_array($pending)&&isset($pending['wtrFlockStage'])&&intval($pending['uid']??0)===$uid&&intval($pending['player']??0)===$p){FaBTryCompletePayment();return;}
+ $f=FaBFindUID($uid);if(!$f)return;
+ if(HasNoAbilities($f['object'])&&FaBHasKeyword((string)$f['object']->CardID,'Boost')){FaBFinishPreparedCard($uid);return;}
+ if(!FaBRunSourceMacro('PrepareCard',$p,$f['object']->CardID,['mzID'=>$f['mzID']]))FaBFinishPreparedCard($uid);
+}
 function FaBMSTCanPlay(int $p,object $o): bool {
  $b=FaBWTRBase($o->CardID);if(in_array($b,['a_drop_in_the_ocean','path_well_traveled','the_grain_that_tips_the_scale'],true)&&FaBMSTAttackRefs($p,'',false)==='')return false;if($b==='astral_etchings'&&FaBMSTAuras($p,true)==='')return false;
  $kind=match($b){'fang_strike','slither'=>'aa','hiss','venomous_bite','tide_chakra','intimate_inducement'=>'hybrid','wide_blue_yonder'=>'',default=>null};

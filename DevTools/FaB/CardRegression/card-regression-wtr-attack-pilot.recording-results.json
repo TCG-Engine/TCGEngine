@@ -1,0 +1,38 @@
+[
+    {
+        "slug": "card-snatch-red-wtr-hit-unblocked-draw-exactly-one",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 18
+    },
+    {
+        "slug": "card-snatch-red-wtr-fully-blocked-no-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 18
+    },
+    {
+        "slug": "card-scar-for-a-scar-red-wtr-life-one-lower",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 11
+    },
+    {
+        "slug": "card-scar-for-a-scar-red-wtr-life-equal-boundary",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 11
+    },
+    {
+        "slug": "card-wounded-bull-red-wtr-life-one-lower",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 13
+    },
+    {
+        "slug": "card-wounded-bull-red-wtr-life-equal-boundary",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 13
+    }
+]

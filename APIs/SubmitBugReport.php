@@ -5,7 +5,9 @@ ini_set('display_errors', 1);
 
 header('Content-Type: application/json');
 
-include_once __DIR__ . '/../APIKeys/APIKeys.php';
+// is_file: a box with no remote intake (petranaki.net) has no use for this file, and a missing-include warning
+// would land in the JSON (display_errors is on above).
+if (is_file(__DIR__ . '/../APIKeys/APIKeys.php')) include_once __DIR__ . '/../APIKeys/APIKeys.php';
 include_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../Core/GameAuth.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
@@ -30,8 +32,87 @@ function SubmitBugReportIsFolderPathValid(string $folderPath): bool
   return preg_match('/^[A-Za-z0-9_\/\-]+$/', $folderPath) === 1;
 }
 
+// SWUSim reports are stored on this box (LocalBugReportLib.php), never forwarded
+// (docs/superpowers/specs/2026-10-22-petranaki-local-bug-reports-design.md). Players said reports they sent never
+// arrived, so a report whose game or seat key can't be confirmed is still SAVED, as "unverified" and without a
+// snapshot (an unchecked request must not pull a game's hidden state). Only an empty description (400) or a rate
+// limit (429) is turned away; a retry carrying an already-saved clientToken gets the same P-<n> back.
+function SubmitBugReportLocal(array $body): void
+{
+  require_once __DIR__ . '/../Database/ConnectionManager.php';
+  require_once __DIR__ . '/../LocalBugReportLib.php';
+
+  // mb_strcut: 4000 BYTES, but never inside a character (a half "é" or emoji made the report unreadable).
+  $description = mb_strcut(trim(strval($body['description'] ?? '')), 0, 4000, 'UTF-8');
+  if ($description === '') SubmitBugReportRespond(400, ['error' => 'Description is required.']);
+
+  $clientToken = SubmitBugReportTrim($body['clientToken'] ?? '', 64);
+  if (preg_match('/^[A-Za-z0-9-]{8,64}$/', $clientToken) !== 1) $clientToken = bin2hex(random_bytes(16));
+
+  $known = LocalBugReportFindByToken($clientToken);
+  if ($known !== null) {
+    $saved = json_decode((string)@file_get_contents(LocalBugReportStorageDir() . "/P-$known/report.json"), true);
+    SubmitBugReportRespond(200, ['success' => true, 'report_number' => "P-$known", 'verified' => !empty($saved['verified']),
+      'duplicate' => true, 'message' => "Bug report P-$known saved."]);
+  }
+
+  $gameName = SubmitBugReportTrim($body['gameName'] ?? '', 32);
+  $authKey = SubmitBugReportTrim($body['authKey'] ?? '', 128);
+  $viewerInfo = NormalizeViewerIdentity(SubmitBugReportTrim($body['playerID'] ?? '', 8), SimGameMaxSeats('SWUSim'));
+  $reporter = SubmitBugReportTrim($body['reporter'] ?? $body['discordID'] ?? $body['discordId'] ?? $body['discord_user_id'] ?? '', 64);
+  if ($reporter !== '' && preg_match('/^[A-Za-z0-9_\.-]{2,64}$/', $reporter) !== 1) $reporter = '';
+  if ($reporter === '') {
+    CheckSession();
+    if (isset($_SESSION['discordID'])) $reporter = SubmitBugReportTrim(strval($_SESSION['discordID']), 64);
+  }
+
+  // Any REAL seat may fall back to the cookie, not just seats 1-2 (a spectator has no seat auth).
+  if (!$viewerInfo['isSpectator'] && $viewerInfo['viewerSeat'] !== null && $authKey === '' && isset($_COOKIE['lastAuthKey'])) {
+    $authKey = SubmitBugReportTrim($_COOKIE['lastAuthKey'], 128);
+  }
+  $check = LocalBugReportVerifySeat($gameName, $viewerInfo, $authKey);
+  $verified = $check['verified'];
+  $reason = $check['reason'];
+  $gamestateText = $check['gamestateText'];
+
+  $conn = null;
+  try { $conn = GetLocalMySQLConnection() ?: null; } catch (Throwable $e) { $conn = null; }
+  $now = time();
+  $clientIp = strval($_SERVER['REMOTE_ADDR'] ?? '');
+  $wait = LocalBugReportRateLimit($conn, $verified, $gameName, strval($viewerInfo['viewerID']), $clientIp, $now);
+  if ($wait !== null) {
+    SubmitBugReportRespond(429, ['error' => "Please wait $wait seconds before sending another report.", 'retry_after' => $wait]);
+  }
+
+  $loggedIn = function_exists('IsUserLoggedIn') && IsUserLoggedIn();
+  $save = LocalBugReportSave([
+    'gameName' => $gameName,
+    'playerID' => strval($viewerInfo['viewerID']),
+    'verified' => $verified,
+    'unverifiedReason' => $reason,
+    'reporter' => $reporter,
+    'accountId' => $loggedIn ? intval(LoggedInUser()) : null,
+    'accountName' => $loggedIn ? strval(LoggedInUserName()) : null,
+    'description' => $description,
+    'gamestateHash' => $verified ? RegressionCurrentGamestateHash('SWUSim', $gameName) : '',
+    'clientIp' => $clientIp,
+    'createdAt' => $now,
+  ], $verified ? $gamestateText : null, $clientToken, $conn);
+  if (!$save['ok']) SubmitBugReportRespond(500, ['error' => 'The report could not be saved: ' . $save['error']]);
+
+  $n = $save['reportNumber'];
+  SubmitBugReportRespond(200, ['success' => true, 'report_number' => "P-$n", 'verified' => $verified,
+    'duplicate' => $save['duplicate'], 'message' => "Bug report P-$n saved."]);
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   SubmitBugReportRespond(405, ['error' => 'Method not allowed. Use POST.']);
+}
+
+// Peek at the root before the remote-intake checks below, so every other root keeps its exact old behaviour.
+$peekBody = json_decode(file_get_contents('php://input'), true);
+if (is_array($peekBody) && ($peekBody['folderPath'] ?? null) === 'SWUSim') {
+  SubmitBugReportLocal($peekBody);
 }
 
 $isDevEnv = getenv('DEVENV') === 'true';

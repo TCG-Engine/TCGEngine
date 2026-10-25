@@ -1,0 +1,43 @@
+# Real-deck self-play fixture — Chewbacca, Hero of Kessel - Alliance Outpost
+# Source: melee.gg 463642 (Datacup II - El Abismo de Helm Wargames, 2026-10-18), #26 of 52, match record 3-3-0 (from the set's results), player b1zarr0
+#   https://melee.gg/Decklist/View/5d366b75-6f15-41a6-9c1c-b4e6003053db — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture — UPDATED 2026-10-20 (owner: "update the fixtures with the better performers"): the best match record of the
+#   Chewbacca (LAW) Alliance Outpost archetype across the HMW set's three events. Replaced melee 480819 BN_ADrinkwater (1-2-1).
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype (classifier, NOT yet owner-reviewed): hyperaggro (shape, low confidence) — shape score 0.49 — 87% aggro side (30 units ≤3 cost, 3 burn, 0 attack/buff cards); 0 units ≥6 cost, 3 removal events, 0 wipes; nearest labelled list chewbacca_law_alliance-outpost is only 50%
+# Style: hyperaggro
+# Flavours: hyper, credit
+
+Leader
+1 LAW_013
+
+Base
+1 LAW_019
+
+Deck
+3 LAW_191
+3 LAW_049
+3 ASH_031
+3 ASH_168
+3 LOF_061
+2 JTL_164
+2 LAW_050
+2 JTL_245
+2 ASH_077
+2 LAW_113
+3 JTL_147
+3 LAW_183
+3 JTL_151
+3 JTL_149
+3 JTL_076
+3 JTL_155
+2 LAW_129
+2 SEC_069
+3 JTL_175
+
+Sideboard
+3 ASH_056
+2 ASH_180
+2 JTL_176
+2 LAW_132
+1 ASH_186

@@ -1,0 +1,634 @@
+{
+  "status": "BLOCKED_HANDOFF_NOT_COMMIT_READY_NOT_POST_REPAIR_FULL_QUALIFICATION",
+  "generated_utc": "2026-10-22T23:06:19.729834+00:00",
+  "runtime_sha256": "589c9bb88e982eaaf8991b3e723f84eb15fc0d37d50a28d3ac5e65b2075f6e1b",
+  "historical_issue_rows": [
+    {
+      "id": "FAB-REG-001",
+      "mechanism": "Arrow play requires Arsenal and controlled Bow",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-002",
+      "mechanism": "Runner loads fresh runtime/state before initial assertions",
+      "category": "runner_harness_fixed",
+      "reconciled_status": "Fixed runner defect, not gameplay",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-003",
+      "mechanism": "End-turn clears all seats action points",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-004",
+      "mechanism": "Snatch draw-on-hit is responseable",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-005",
+      "mechanism": "Life-conditional play triggers evaluate on resolution",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-006",
+      "mechanism": "Lost abilities prohibit native fallback activation",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-007",
+      "mechanism": "Battleworn waits for Close Step",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-008",
+      "mechanism": "Attack-reaction source stays live through resolution then clears",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-009",
+      "mechanism": "Flock assets before reveal and responseable attack trigger",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-010",
+      "mechanism": "Quicken token trigger is separate and responseable",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-011",
+      "mechanism": "Blinding removes Flock reveal cost/legality prerequisite",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-012",
+      "mechanism": "Blinding removes Flock attack-trigger token",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-013",
+      "mechanism": "Consumed Tokens cease at off-Arena boundary",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-014",
+      "mechanism": "Pummel hero-hit ability excludes ally hits",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-015",
+      "mechanism": "Pummel discard waits for responseable hit layer",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-016",
+      "mechanism": "Multiple Pummels produce independent hit layers",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-017",
+      "mechanism": "Razor granted go-again waits for its hit layer",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-018",
+      "mechanism": "Boost banishment waits until asset payment",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-019",
+      "mechanism": "Heart Wrencher exposes its printed Boost preparation",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-020",
+      "mechanism": "Burgeoning/Power Play initial intrinsic bonus suppressed under known BLIND",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Initial known-BLIND fix qualified; dynamic changes unverified",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-021",
+      "mechanism": "Managed plain arcane source survives prevention decisions",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-022",
+      "mechanism": "Generated arcane continuation retains caster attribution",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-023",
+      "mechanism": "Lead the Charge delayed AP gain uses responseable layer",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-024",
+      "mechanism": "Action-point gains restricted to recipients own Action Phase",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-025",
+      "mechanism": "Arcane Barrier second pitch chooser survives save compaction",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-026",
+      "mechanism": "Runner observes persisted request coordinates after actions",
+      "category": "runner_harness_fixed",
+      "reconciled_status": "Fixed runner defect, not gameplay",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-027",
+      "mechanism": "En Garde implements printed next-weapon +3",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-028",
+      "mechanism": "Reaction cards may be announced after partial stack resolution",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-029",
+      "mechanism": "Command and Conquer mandatory hero-hit Arsenal trigger",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-030",
+      "mechanism": "Lunging Press accepts public prior attack-action targets and continuation",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation. FAB-REG-030 original bounded Lunging fix remains in HEAD; extensions are unverified."
+    },
+    {
+      "id": "FAB-REG-031",
+      "mechanism": "Whitelisted token-hit abilities use captured-controller layers",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-032",
+      "mechanism": "FaB announcements honor acting player holdPriority",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-033",
+      "mechanism": "FaB exposes configured seats to existing Core decision queue",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Fixed within named scope; historical evidence reused",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-034",
+      "mechanism": "Gorganian missing +1 and premature source departure",
+      "category": "source_component_open",
+      "reconciled_status": "Two source/component defects; no native passing Tome",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": "gorganian",
+      "current_validation_note": "See linked repair group; historical statuses do not describe post-repair qualification."
+    },
+    {
+      "id": "FAB-REG-035",
+      "mechanism": "Nip at Heels/Shred defer target binding until resolution",
+      "category": "gameplay_open_native_reproduced",
+      "reconciled_status": "Confirmed native failure; root-assigned repair pending",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": "declared_reactions",
+      "current_validation_note": "See linked repair group; historical statuses do not describe post-repair qualification."
+    },
+    {
+      "id": "FAB-REG-036",
+      "mechanism": "Rise Above alternative-cost choice survives save/load",
+      "category": "gameplay_fixed_bounded_existing_evidence",
+      "reconciled_status": "Red native fix qualified; RGB source/components only",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": null,
+      "current_validation_note": "Historical bounded evidence reused without new validation."
+    },
+    {
+      "id": "FAB-REG-037",
+      "mechanism": "Warfare discarded physical cards remain incorrectly face-down",
+      "category": "gameplay_open_native_reproduced",
+      "reconciled_status": "Confirmed native failure; root-assigned repair pending",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": "warfare_visibility_trigger",
+      "current_validation_note": "See linked repair group; historical statuses do not describe post-repair qualification."
+    },
+    {
+      "id": "FAB-REG-038",
+      "mechanism": "Abyssal Bite own go-again hidden by granted-keyword parser",
+      "category": "gameplay_open_native_reproduced",
+      "reconciled_status": "Confirmed native failure; root-assigned repair pending",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": "printed_keyword",
+      "current_validation_note": "See linked repair group; historical statuses do not describe post-repair qualification."
+    },
+    {
+      "id": "FAB-REG-039",
+      "mechanism": "Tome/Rouse effect-cost mutation precedes asset payment; wrong saved oracle",
+      "category": "oracle_rejected_shared_preparation_concern",
+      "reconciled_status": "Incorrect timing oracle quarantined; source-supported concern, no separate outcome defect claimed",
+      "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "current_repair_group": "prepared_effect_costs",
+      "current_validation_note": "See linked repair group; historical statuses do not describe post-repair qualification."
+    }
+  ],
+  "historical_counts": {
+    "ledger_entries": 39,
+    "categories": {
+      "gameplay_fixed_bounded_existing_evidence": 32,
+      "runner_harness_fixed": 2,
+      "source_component_open": 1,
+      "gameplay_open_native_reproduced": 3,
+      "oracle_rejected_shared_preparation_concern": 1
+    },
+    "historical_grouped_applied_gameplay_mechanisms": 26,
+    "additional_qualified_Rise_036": 1,
+    "applied_gameplay_mechanisms_with_existing_bounded_evidence": 27,
+    "group_count_qualification": "26 is the retained final3079 grouping, not independently regrouped39rows;036 adds one. Historical runtimes/evidence are not retagged as fresh current full qualification.",
+    "native_open_gameplay_groups_already_assigned": 3,
+    "source_component_Gorganian_defects_already_assigned": 2,
+    "additional_unassigned_confirmed_native_gameplay_groups": 0,
+    "source_only_or_unverified_hold_entries": 23
+  },
+  "applied_repair_groups": [
+    {
+      "key": "printed_keyword",
+      "existing_issue_id": "FAB-REG-038",
+      "mechanism": "Own inline go again parser",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "focused_evidence": "32/32 parser contracts; native Bite post-fix pending",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING"
+    },
+    {
+      "key": "warfare_visibility_trigger",
+      "existing_issue_id": "FAB-REG-037",
+      "mechanism": "Public Graveyard visibility and responseable Warfare trigger",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/EVRCards.php",
+        "FaBSim/Custom/ROSCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "focused_evidence": "EVR family check PASS; correct four-live recording pending",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING"
+    },
+    {
+      "key": "gorganian",
+      "existing_issue_id": "FAB-REG-034",
+      "mechanism": "Gorganian printed addend and source/GA lifetime",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/CRUCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "focused_evidence": "36 component profiles/541 assertions PASS; both count and lifecycle checked; native pending",
+      "new_native_qualified_scenarios": 0,
+      "status": "CUSTOM_COMPATIBILITY_ACTIVE_CANONICAL_REFRESH_PENDING_NATIVE_QUALIFICATION_PENDING",
+      "canonical_regeneration_pending": true,
+      "active_via_custom_compatibility": true
+    },
+    {
+      "key": "declared_reactions",
+      "existing_issue_id": "FAB-REG-035",
+      "mechanism": "Nip/Shred announcement-time physical target binding",
+      "source_paths": [
+        "FaBSim/Custom/CardChoices.php",
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/WTRCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "focused_evidence": "30 component profiles/150 assertions PASS; four controls with Gorganian detected; DYN/IAR family PASS; native save/replay pending",
+      "new_native_qualified_scenarios": 0,
+      "status": "CUSTOM_COMPATIBILITY_ACTIVE_CANONICAL_REFRESH_PENDING_NATIVE_QUALIFICATION_PENDING",
+      "canonical_regeneration_pending": true,
+      "active_via_custom_compatibility": true
+    },
+    {
+      "key": "boon_base",
+      "existing_issue_id": null,
+      "mechanism": "Boon combat base uses controlled Blasmophet",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "focused_evidence": "Native pre-fix expected6 got0; IAR component family now PASS; native positive pending",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING"
+    },
+    {
+      "key": "flying_high",
+      "existing_issue_id": null,
+      "mechanism": "Flying High pitch-specific next-attack bonus",
+      "source_paths": [
+        "FaBSim/Custom/SEARuntime.php",
+        "FaBSim/Custom/CodeGeneration.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": true,
+      "focused_evidence": "Native Blue pre-fix expected3 got2; generated color callbacks inactive pending regeneration",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING_GENERATED_ACTIVATION_BLOCKED"
+    },
+    {
+      "key": "head_shot",
+      "existing_issue_id": null,
+      "mechanism": "Head Shot public-load trigger and captured entry",
+      "source_paths": [
+        "FaBSim/Custom/ARCCards.php",
+        "FaBSim/Custom/ROSCards.php",
+        "FaBSim/Custom/GameLogic.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "focused_evidence": "Native pre-fix missing priority layer; ARC component checks PASS; native positive pending",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING"
+    },
+    {
+      "key": "icy_encounter",
+      "existing_issue_id": null,
+      "mechanism": "Icy hit trigger and creator-owned Frostbite across replacement await",
+      "source_paths": [
+        "FaBSim/Custom/WTRAbilities.php",
+        "FaBSim/Custom/HVYCards.php",
+        "FaBSim/Custom/PENCards.php",
+        "FaBSim/Custom/WTRCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": true,
+      "focused_evidence": "Native pre-fix missing trigger; current ELE leaves one stale-generated Smoldering owner failure; native positive pending",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING_GENERATED_ACTIVATION_BLOCKED",
+      "active_scope": "Custom hit trigger and explicit creator factory active; generated Smoldering replacement await still stale."
+    },
+    {
+      "key": "prepared_effect_costs",
+      "existing_issue_id": "FAB-REG-039",
+      "mechanism": "Tome/Rouse and Bodice asset-before-effect costs",
+      "source_paths": [
+        "FaBSim/Custom/CardChoices.php",
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/ARCAbilities.php",
+        "FaBSim/Custom/CodeGeneration.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": true,
+      "focused_evidence": "19 actual-source payment contracts/116 assertions PASS; canonical/local generation bridges applied, restored old Prepare callbacks remain incompatible/unqualified",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING_GENERATED_ACTIVATION_BLOCKED"
+    },
+    {
+      "key": "named_plain_lifecycle",
+      "existing_issue_id": null,
+      "mechanism": "Bounded 17-ID ordinary spell source/AP lifetime",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/DYNCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "focused_evidence": "Chorus native pre-fix source departed before Decompose; per-card native positives still pending; no blanket ordinary-spell claim",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING"
+    },
+    {
+      "key": "managed_virtual_lifetime",
+      "existing_issue_id": null,
+      "mechanism": "Opal/Deja ability and marked Runechant proxy lifetime",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/ARCAbilities.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "focused_evidence": "Opal/Deja native pre-fix premature ACTION/END_PHASE; normal prevention/await source review complete; native positives pending",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING"
+    },
+    {
+      "key": "runechant_consumption",
+      "existing_issue_id": null,
+      "mechanism": "Runechant source survives until its queued trigger resolves",
+      "source_paths": [
+        "FaBSim/Custom/ARCCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "focused_evidence": "Native pre-fix source consumed before responses; ARC component checks PASS; native positive pending",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING"
+    },
+    {
+      "key": "deja_pitch_staging",
+      "existing_issue_id": null,
+      "mechanism": "Deja Vu stages declared physical Pitch cards",
+      "source_paths": [
+        "FaBSim/Custom/ARCCards.php",
+        "FaBSim/Custom/CodeGeneration.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": true,
+      "focused_evidence": "Source/canonical bridge reviewed; generated Pitch staging callback inactive; native branch not yet reached",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING_GENERATED_ACTIVATION_BLOCKED"
+    },
+    {
+      "key": "regain_trigger",
+      "existing_issue_id": null,
+      "mechanism": "Regain hero untap is a captured hit trigger",
+      "source_paths": [
+        "FaBSim/Custom/SEARuntime.php",
+        "FaBSim/Custom/ROSCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "focused_evidence": "Native pre-fix missing layer; source reviewed; native positive pending",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING"
+    },
+    {
+      "key": "intimidate_trigger",
+      "existing_issue_id": null,
+      "mechanism": "Named attack Intimidate uses a responseable captured-target trigger",
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php",
+        "FaBSim/Custom/WTRCards.php",
+        "FaBSim/Custom/ROSCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "focused_evidence": "Native Smash pre-fix missing layer; exact Smash/Pack/Alpha scope; native positive pending",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING"
+    },
+    {
+      "key": "embodiment_trigger",
+      "existing_issue_id": null,
+      "mechanism": "Embodiment/Laden token grant resolves on a separate layer",
+      "source_paths": [
+        "FaBSim/Custom/ELECards.php",
+        "FaBSim/Custom/ROSCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "focused_evidence": "Native pre-fix expectedStack2 got1; focused live-seat/token/epoch assertions now PASS inside ELE; native recording/replays pending",
+      "new_native_qualified_scenarios": 0,
+      "status": "APPLIED_SOURCE_NATIVE_QUALIFICATION_PENDING"
+    }
+  ],
+  "counting_note": "16 bounded gameplay repair work groups, not16 newly qualified independent bugs; several extend earlier managed-lifetime mechanisms. Do not sum them with the historical27 grouped mechanisms. Zero new repair scenarios are natively qualified.",
+  "proposed_unapplied": [
+    {
+      "key": "quickening_arcane_classifier",
+      "status": "SOURCE_ONLY_PROPOSAL_UNAPPLIED_NATIVE_DAMAGE_UNCONFIRMED",
+      "patch_sha256": "2dfd1b87ac7574a2afaf6df13958f520163b4ae3b127e3c5e36ec69a335ef758",
+      "reason": "Two native prefixes stopped on incorrect bookkeeping oracles before physical HP. Latest candidate omits PEN_WEAPON_ACTIVATED. No damage observation or passing fixture."
+    }
+  ],
+  "remaining_holds": [
+    "Canonical Card Code snapshot HTTP521; successful guarded regeneration and exact emitted-body review required before generated-dependent fixes can run.",
+    "All22 repair candidate recordings, independent saved-file review, two targeted clean replays and intended fault gates remain incomplete. Quickening candidate additionally has a known incorrect metadata oracle.",
+    "Skyzyk red, Visit the Blacksmith blue and Peaceful Sanctuary red lack a located distinctive implemented effect in the bounded source lookup; implementation gaps, not demonstrated native defects.",
+    "Potion of Luck multi-card shuffle determinism remains unproved; Slog recorder cannot express the required10002 rejection; neither is counted as a gameplay bug.",
+    "Wider Lunging/Nip/Shred target universes, dynamic ability restoration, Head Shot same-entry hide/reveal, copies/foreign permissions and broader ordinary-spell lifetimes remain untested extensions.",
+    "Historical590-entry family-review limitation is preserved; no fresh audit was requested or performed."
+  ],
+  "quarantined_incorrect_fixtures": [
+    "held-incorrect-gameplay/FAB-REG-037",
+    "held-incorrect-gameplay/b179-tome-of-harvests-cost-order"
+  ],
+  "coverage_credit_for_holds": false
+}

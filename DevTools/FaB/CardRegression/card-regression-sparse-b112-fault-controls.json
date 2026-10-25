@@ -1,0 +1,152 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:10:06.906479+00:00",
+  "plan_sha256": "d866788d052c2925431eb7d0369e111acfaf82a41fc52907d5a0de2ab0e4875a",
+  "independent_saved_proof_sha256": "2262bcaa04302f17cb25a809f3e2e89f2dc7afd84c00b4bfc02b8db1348403b9",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b112-focused-fault-plan.json",
+    "d866788d052c2925431eb7d0369e111acfaf82a41fc52907d5a0de2ab0e4875a",
+    "card-regression-sparse-b112-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b112_seismic_stir_red_focused_effect_sensitivity",
+      "fixture": "card-seismic-stir-red-four-live-sparse-actual-blue-pitch-paid-action-creates-three-owned-seismic-surges",
+      "fixture_sha256": "b73de9564346ba8c78704a8475fb2d7e1a63c1d665798e9c30e5fb88dd9594c6",
+      "source_raw5": {
+        "initial_gamestate.txt": "2039edefca89e2417dd7d26441ff7a6a2a90ee4b852b31929522a2aeaf83ce73",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "22aa666a011d642e26b4f4b848f7d7efa9672baf15647ffe4a14da48c3364d6b",
+        "expected_final_gamestate.txt": "457a3f16bef4fc965a180cdeb8484b5308889924bc1cce5a1a5d0ce4f398fcf2",
+        "meta.json": "6c77c1e7c780f8930932437fda05c459064f91257d2a2769cccabcf4fa79181e"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "seismic_stir_red",
+            "from": "Graveyard",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 125,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Seismic Stir / four live sparse positive effect: Initial assertion failed: Expected p1Graveyard count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit unique physical primary source from own Graveyard after actual paid token resolution, preserving actual created-token objects/economy. Source-conservation endpoint sensitivity; three equal-ID tokens cannot be individually moved by the strict existing helper. No separate native token-count mutation claim. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b112_sky_fire_lanterns_red_focused_effect_sensitivity",
+      "fixture": "card-sky-fire-lanterns-red-four-live-sparse-real-reveal-of-red-physical-deck-top-creates-one-owned-runechant",
+      "fixture_sha256": "8cafdd5266f4017a8bbcf899734a562a9274d7bb73b985406f90b29488f6ab38",
+      "source_raw5": {
+        "initial_gamestate.txt": "572bd86a3d2753ce2a3054929b2c96b178a12d935e5c716150fdde8b2cf5bbbe",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "dde6be018687fd4fe261729457044a4e6154e466c4f7383b17c261bc4e07a080",
+        "expected_final_gamestate.txt": "438461fe99676cae6cce743d8ba76cea5cea32b6ac76c9aa9db8915e1f8188a7",
+        "meta.json": "198451c0a34dd484c85d3888c5f651bb8ba2b5d3f2ebf6f7995c4f58c6395313"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "runechant",
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Sky Fire Lanterns / four live sparse positive effect: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit unique actual created Runechant after red-top reveal/resolution; real top Deck6 and primary GY5 stay unchanged. Token-outcome sensitivity only; no alternate top color or later activation credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b112_cruel_ambition_red_focused_effect_sensitivity",
+      "fixture": "card-cruel-ambition-red-four-live-sparse-actual-zero-cost-reviled-action-creates-three-owned-might-tokens",
+      "fixture_sha256": "298694423052e65c8c146246d15aec9fcea248cd1128fe7b848d37dd02d84dd6",
+      "source_raw5": {
+        "initial_gamestate.txt": "91abe887df30876a02bb782077d67eb952d84e411637a5096ac4c67ad079e6dc",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "d76e728f4d0b77739b05fab248c09467d615d4ec804d29277593790e2ea601a0",
+        "expected_final_gamestate.txt": "7aa66490d8c168bbf6293e431e944dc0861117353c99df324bc182a70fd4f8b2",
+        "meta.json": "f35a25af31dc8d7b59e72cedd9d5f66ea786f5bec8d32fa40534fe7f960f15f6"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "cruel_ambition_red",
+            "from": "Graveyard",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 121,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Cruel Ambition / four live sparse positive effect: Initial assertion failed: Expected p1Graveyard count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit unique physical primary source from own Graveyard after actual paid token resolution, preserving actual created-token objects/economy. Source-conservation endpoint sensitivity; three equal-ID tokens cannot be individually moved by the strict existing helper. No separate native token-count mutation claim. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b112_runic_reckoning_red_focused_effect_sensitivity",
+      "fixture": "card-runic-reckoning-red-four-live-sparse-real-paid-action-buffs-next-real-two-cost-runeblade-attack-by-three",
+      "fixture_sha256": "89bf13f967d6f0857d031be05ce3bc59106a3297e96772d2bcb07cd3c0580de6",
+      "source_raw5": {
+        "initial_gamestate.txt": "81b77107f2ac87737c2e11b4c237febe4dcbe14f84de3aae8fb260deeb588d3d",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "5079815dad6d7657116718f63908e104101b9fbd292ea46205b64e2e0372e642",
+        "expected_final_gamestate.txt": "d3ab85caf4dbdbc337970e5b40bd0c2dc77e3a79462b96fe2d5c6854df95da81",
+        "meta.json": "9b15f73e819dfce735e42e51b790fbad3159063b3a59c6d17a5268056165196d"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "shrill_of_skullform_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 284,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Runic Reckoning / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove exact applied primary +3 tag from actual next Runeblade attack6 after real primary/attack payments. Own primary5 stays faceup in Graveyard; no Aura history or Runechant discount is seeded or mutated. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

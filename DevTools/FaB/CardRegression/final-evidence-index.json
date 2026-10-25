@@ -1,0 +1,142 @@
+{
+  "status": "FINAL_BOUNDED_HANDOFF",
+  "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "coverage": {
+    "saved_scenarios": 3079,
+    "qualified_scenarios": 3079,
+    "duel": 3074,
+    "four_live": 5,
+    "primary_subject_identities": 239,
+    "catalog_identities": 5196,
+    "bounded_baselines": 75,
+    "partial": 164,
+    "uncovered_identities": 4957,
+    "represented_groups": 114,
+    "catalog_groups": 3324,
+    "uncovered_groups": 3210,
+    "printing_records": 17188,
+    "candidate_identities": 4811,
+    "candidate_groups": 3002,
+    "candidate_uncovered_identities": 4575,
+    "candidate_uncovered_groups": 2891
+  },
+  "tests": {
+    "full_clean_replays": 2,
+    "passed_each": 3079,
+    "default_controls_detected": 77,
+    "four_live_controls_detected": 4,
+    "native_suites": [
+      "wtr",
+      "arc",
+      "upf",
+      "shortcuts"
+    ],
+    "expected_rejection_contract_paths": 30,
+    "contract_checks": 2376,
+    "strict_postcleanup_report": "final-validation.json"
+  },
+  "cleanup": {
+    "removed_review_files": 1597,
+    "removed_review_bytes": 167690037,
+    "retained_source_files": 18,
+    "retained_source_bytes": 62255,
+    "regression_files_removed": 0,
+    "archive_index": "archived-review-artifacts.json"
+  },
+  "bug_groups": {
+    "bounded_gameplay_fixes": 26,
+    "applied_gameplay_groups_pending_qualification": 0,
+    "unapplied_Gorganian_source_component_defects": 2,
+    "historical_runner_defects_separate": 2,
+    "control_representation_guard_defects_separate": 2,
+    "additional_maintenance": [
+      "UTF8 replay capture",
+      "Legacy raw-hash review proof to modern proof-schema alignment"
+    ],
+    "oracle_fixes": "Authoring expectation/setup corrections are separate from gameplay bug counts."
+  },
+  "authoritative_files": [
+    "card-regression-coverage.json",
+    "card-regression-checkpoint.json",
+    "card-regression-issues.json",
+    "card-regression-completion-scopes.json",
+    "COVERAGE_GUIDE.md",
+    "cycle-coverage-assessment.json",
+    "cycle-group-map.compact.json"
+  ],
+  "preserved_limits": [
+    "Early181 legacy review entries retain inspection limits",
+    "No untested variant inheritance",
+    "Gorganian has no native passing fixture",
+    "Five four-live pilots do not establish UPF completeness",
+    "Legacy standalone builder suffix-input/suite-filename gap remains documented",
+    "No fixture relocation"
+  ],
+  "native_metadata_sha256": {
+    "card-regression-review.json": "d7b4d82f25df37ee22302c15f8ad1075dff41619dc3fe48d99795003cd5de0ab",
+    "card-regression-coverage.json": "f6f1a25e0340a90bcc819eadb5ab1379d106c669ca43366a50833003ac9254f8",
+    "card-regression-checkpoint.json": "2fec61658a719a957f478843def2d6111899f14065dc8f40590c8396391a8efb",
+    "card-regression-issues.json": "9e2dbd4bb2e5a7a1a7f31530fe6f98003687078a381e2cae6b8595b79a6d7c2c",
+    "card-regression-completion-scopes.json": "e802b8e7cf3394e352f85601350b0252490cf17dfdd7588b93917b50bb6cf1d1"
+  },
+  "final_git_snapshot": {
+    "captured_utc": "2026-10-20T16:08:35.690663+00:00",
+    "untracked_files": 16722,
+    "untracked_bytes": 415617880,
+    "modified_tracked_files": 25,
+    "modified_tracked_paths": [
+      ".github/copilot-instructions.md",
+      "Core/RegressionTestFramework.php",
+      "DevTools/FaB/build_cru_abilities.py",
+      "DevTools/FaB/cru_abilities.json",
+      "DevTools/FaB/smoke.php",
+      "DevTools/RunIntegrationTests.php",
+      "FaBSim/Custom/ARCAbilities.php",
+      "FaBSim/Custom/ARCCards.php",
+      "FaBSim/Custom/CRUCards.php",
+      "FaBSim/Custom/CardChoices.php",
+      "FaBSim/Custom/DTDCards.php",
+      "FaBSim/Custom/ELECards.php",
+      "FaBSim/Custom/EVORuntime.php",
+      "FaBSim/Custom/GameLogic.php",
+      "FaBSim/Custom/MONCards.php",
+      "FaBSim/Custom/MSTCards.php",
+      "FaBSim/Custom/OUTRuntime.php",
+      "FaBSim/Custom/ROSRuntime.php",
+      "FaBSim/Custom/SUPCards.php",
+      "FaBSim/Custom/UPRCards.php",
+      "FaBSim/Custom/WTRAbilities.php",
+      "FaBSim/Custom/WTRCards.php",
+      "Schemas/FaBSim/GameSchema.txt",
+      "debug.log",
+      "zzGameCodeGenerator.php"
+    ],
+    "staged_files": 0,
+    "uncommitted": true,
+    "categories": {
+      "other_regression_tools_metadata_inputs_results_and_docs": {
+        "files": 1309,
+        "bytes": 335462779
+      },
+      "retained_meaningful_source_proofs": {
+        "files": 18,
+        "bytes": 62255
+      },
+      "canonical_regression_fixtures": {
+        "files": 15395,
+        "bytes": 80092846
+      }
+    }
+  },
+  "assessment": "FINAL_ASSESSMENT.md",
+  "cleanup_report": "REPOSITORY_HYGIENE.md",
+  "proof_note": "Independent model/source/saved-fixture reviews, immutable replay reports and current controls are separate evidence. Data-only archive labels do not change qualification predicates.",
+  "independent_final_review": {
+    "file": "final-validation.json",
+    "sha256": "e8797b970cf6bff41a8356e2e1c39f90d512a95b39012f6846d3bbb10742aaa8",
+    "status": "FINAL_POSTPUBLICATION_UNCHANGED_STRICT_NATIVE_QUALIFICATION_AND_REFERENCE_RESOLUTION_PASS",
+    "reviewer": "/root/resume_actual_audit",
+    "qualification": "Unmodified strict native qualifier and exact proof graph, after the final archive-reference annotations."
+  },
+  "git_working_tree_scope": "All changes are uncommitted. No commit/push/deploy; pre-existing debug.log edit preserved. No test relocation."
+}

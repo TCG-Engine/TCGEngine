@@ -1,0 +1,7 @@
+{
+    "name": "Wrecker Romp / defense-three-is-free-not-play",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:19:18+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Brute attack action: cost2, power6, defense3, pitch3. Its only functional text is 'As an additional cost to play this, discard a random card.' The primary defends fromHand in player2 own legalBrute card-pool. Declaring defense is not playing it, costs no resource/AP, and does not discard anotherHand card. Printed defense3 against WoundingBlowRed4 causes exactly1damage/HP19. SourceUID4 later enters its owner2Graveyard; no extra discard or RNG call occurs. Sources: FaBSim/GeneratedCode/cardArrayCache.json#wrecker_romp_blue https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP039.webp https://judge.fabtcg.com/cards/detail/144/ https://cards.fabtcg.com/card/wrecker-romp-2/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#51 https://rules.fabtcg.com/en/cr/01-game-concepts/#114 https://rules.fabtcg.com/en/cr/07-combat/"
+}

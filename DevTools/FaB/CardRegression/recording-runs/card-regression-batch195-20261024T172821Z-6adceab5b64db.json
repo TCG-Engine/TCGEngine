@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-24T17:28:21+00:00",
+    "input_file": "card-regression-batch195.json",
+    "input_sha256": "63db53e4fe477bd2148f2c33f36392e3e167ec631c94e67fbac627c8c1481632",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-smash-instinct-red-four-live-repair-declared-other-hero-intimidate-after-responses-end-turn-return",
+            "status": "recorded_semantically_checked",
+            "actions": 45,
+            "assertions": 1781
+        }
+    ]
+}

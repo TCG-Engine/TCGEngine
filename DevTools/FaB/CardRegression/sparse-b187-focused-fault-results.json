@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:33:51.921317+00:00",
+  "plan_sha256": "5a71091475afc24d67cc4572e555f19c9317930b5d7aa5f5ed7c68c8a44c9aee",
+  "independent_saved_proof_sha256": "32f8239b7d8085100bc67eede80062cb421a51e335fb06f8cd4fdb4daa20d591",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b187-focused-fault-plan.json",
+    "5a71091475afc24d67cc4572e555f19c9317930b5d7aa5f5ed7c68c8a44c9aee",
+    "sparse-b187-focused-fault-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b187_kano_focused_effect_sensitivity",
+      "fixture": "card-kano-four-live-sparse-actual-instant-hero-cost-look-banish-and-real-zap-play-preserves-ap",
+      "fixture_sha256": "4c6ca10699641f4579dc33048dd3fe7d0586f1dd77c19e6e5d998c390b541cae",
+      "source_raw5": {
+        "initial_gamestate.txt": "46bdd29f52d2d963e2ba03ee0e897fe7e815f82e60a9fb99b6da7702b37e8dca",
+        "actions.json": "e5dc908332a6f940322d38d13c57520dc9b8f2ed0736d193fbb993cf17bcbd28",
+        "assertions.json": "48088b0931a6a93bd533ea3167e8239548d18f6b4f40ec6150b99f7a7e2e790d",
+        "expected_final_gamestate.txt": "bcc08f8f68793c0fd93e773072da95010be2c8cb745b89c0630f7b5675fbeda9",
+        "meta.json": "4b5b07292da5100a324f152e9994ee3f4bd1608107c2fe2e3b023033cf5ced92"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "zap_red",
+            "uid": 6,
+            "from": "Banish",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 792,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Banish count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Kano / four live sparse positive effect: Initial assertion failed: Expected p1Banish count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit only actual Kano-banish output Zap6 before its real play; exact original Banish1to0 first failure tests physical same-card banish output, preserving retainedyoungKano1/15HP/Status2/ABI7alreadyresolved/Blue5Pitch/AP1/resources0. Actual same6laterINSTANTplay with prepaymentdeclaredP4target/AP1 and arcane3 separately pinned. No isolatedpermission-loss/AP-scalar/expiry sensitivity, foreign/offturn/decline/ineligible/prevention/UIprivacy credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

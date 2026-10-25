@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T21:16:57+00:00",
+    "input_file": "card-regression-batch182.json",
+    "input_sha256": "e66b612d61dab18aae89e8073a4a16c483ae3a2af00dff0875d1ce9cdfebdf4c",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-braveforge-bracers-four-live-sparse-actual-first-sword-hit-earns-paid-equipment-buff-to-second-one-handed-sword",
+            "status": "recorded_semantically_checked",
+            "actions": 65,
+            "assertions": 3073
+        }
+    ]
+}

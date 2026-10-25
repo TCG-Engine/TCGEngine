@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch167.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T20:44:58.622918+00:00",
+  "fixtures": [
+    {
+      "slug": "card-deep-blue-four-live-sparse-actual-bottom-hand-additional-cost-and-destroy-gains-three-resources",
+      "fixture_sha256": "a2c763b80581b433c3a67394eb66aa14e91aaced477fab897af917d569e9e76d",
+      "passed": true,
+      "result": "[PASS] Deep Blue / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-deep-blue-four-live-sparse-actual-bottom-hand-additional-cost-and-destroy-gains-three-resources",
+      "returncode": 0,
+      "stdout": "[PASS] Deep Blue / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

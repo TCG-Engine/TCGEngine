@@ -637,7 +637,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$n = 0;\n\n$cruSeq1 = FaBLiveSeats();\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $seat = $cruSeq1[$cruIdx1];\n $n += count(FaBChoiceRefs($seat, 'Graveyard', ['base'=>'gorganian_tome']));\n \n}\n\nDoDrawCard($player, $n);\n",
+        "abilityCode": "$source = FaBIdentityFromMZ($mzID);\nif ($source !== null) {\n FaBCRUResolveGorganian($player, $source['object']);\n}\n",
         "isImplemented": true
       }
     ]
@@ -820,7 +820,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBTagUID(intval(FaBGetState()['attackUID']), 'CRU_REACTION_POWER:1');\n",
+        "abilityCode": "$targetSource = FaBIdentityFromMZ($mzID);\n\nif ($targetSource !== null) {\n FaBCRUResolveLunging($player, $targetSource['object']);\n \n}\n",
         "isImplemented": true
       }
     ]

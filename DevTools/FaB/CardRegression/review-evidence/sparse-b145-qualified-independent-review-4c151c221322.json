@@ -1,0 +1,213 @@
+{
+  "status": "B145_TWO_EQUIPMENT_RUNECHANT_ABILITY_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch145.json",
+  "input_sha256": "70623d77abf356b99a1c611ea72c33d41f4cde5c9621cfb8e11fc3d64680971a",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:59:02.962254+00:00",
+  "fixtures": [
+    {
+      "slug": "card-vexing-quillhand-four-live-sparse-actual-destroy-equipment-action-creates-two-owned-runechants-and-go-again",
+      "fixture_sha256": "ca8fbb902d448f8cf8303f074033bd03b8e30ff12e64b07bf500364f8dbc897d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1d39dfd3a73fff3d7da479f66a45a304452900094912b1bcf0b30389a5099610",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "ab6e125f7e2e117aab95bc381309212fe929e8c932526b73177d067edfc12e33",
+        "expected_final_gamestate.txt": "6ad6834b3a6cbe4c3870f4f57e6064fc97483a3cdf288bd29cfe812b29bc0a7e",
+        "meta.json": "14a1e3aad83fe77b6533c1280e5ccbf8ba8f8f9b8f674a0686576d579c45f6d5"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 342,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-grasp-of-the-arknight-four-live-sparse-actual-blue-pitch-pays-two-resource-equipment-action-for-one-owned-runechant",
+      "fixture_sha256": "5e768ef19455f48a3fa0748442912a4717d338849679b377cd1b8efc2aa73813",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50308981891bb6744dbda730e937433d9a44bde932bf0276cd0ca30361be2151",
+        "actions.json": "02e014fcbc767be35abb52b1fba8950f602a853b060793ec33880f9f114fa6e5",
+        "assertions.json": "1a50bddca05c86cda64849a02a97fe78face900c11dfa34386f82ca90ffc1b2f",
+        "expected_final_gamestate.txt": "c32f701797a6aabd35d2d42db1eb0a96ba99100c76711005969fbedd52879f51",
+        "meta.json": "524d599f720acdc7eae9b914f2dd79a29a6f410756662db4ff76188a84be6526"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 395,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 11,
+  "total_native_assertions": 737,
+  "total_manual_passes": 8,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b145-actual-saved-independent-review.json",
+    "sha256": "439c4b2a16f03f2cd68c27b34e7cdadd23c7c203a8dabaf24c65a83a28cae7b5"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b145-independent-spec-review.json",
+    "sha256": "b3075f82de1d4ef7bd4e050e3a2ab0bc4fc2b9593909647a90f05d88d15a81bb"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch145-20261022T195750Z-6ada6abed762e.json",
+    "sha256": "5cf841e283624217af5343bb066a022a921485ef2311521f6660ff3addba5c33"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b145-four-live-run1.json",
+      "sha256": "6c486a0470bf23acb0828307df42740d60a3e2134ce48e9b55780ec8cea491fb",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch145.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b145-four-live-run2.json",
+      "sha256": "a8c6dc9873d27b2a89206080f5f74120122580c4368bf6ff2c87d162ce541a2b",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch145.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b145-fault-controls.json",
+    "sha256": "75ade27a6295ba8a33cc7aedfa52923b93a73d55b1eb05063b8c52a0f2ca7154",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "6265b58ebb25540fdf98dbaa2b305d0f65123f7fd50275de53dca603f404df67",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b145_vexing_quillhand_focused_effect_sensitivity",
+      "fixture": "card-vexing-quillhand-four-live-sparse-actual-destroy-equipment-action-creates-two-owned-runechants-and-go-again",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "runechant",
+            "uid": 7,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 116,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b145_grasp_of_the_arknight_focused_effect_sensitivity",
+      "fixture": "card-grasp-of-the-arknight-four-live-sparse-actual-blue-pitch-pays-two-resource-equipment-action-for-one-owned-runechant",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "runechant",
+            "uid": 8,
+            "from": "Arena",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b145-focused-fault-plan.json",
+    "sha256": "6265b58ebb25540fdf98dbaa2b305d0f65123f7fd50275de53dca603f404df67"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1319,
+  "native_evidence_review_checks": 65,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Two standaloneequipment positiveactivations: Vexing actualdestroycost/publicEq5GY0 and2ownRunechants7/8; Grasp actualBlue6pays2/R1/retainedEq5 and1ownRunechant8. PrintedabilityGA/AP1both. No defensiveabilities/surcharge/once/repeat/Runechantuseorlife/hero/support/fullcard credit.",
+    "Only current TWO-case new packet audited; root alone executes native games and writes repo. Only established virtualABILITYrawOwner0/Controller1representation; physicalEq5 remains owned1. No broadownership or legacy review.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Both controls omit exact created Runechant viaapprovedphysicalUIDselector after actualequipmentactivationandfourmanualresponses: VexUID7 Arena2to1, GraspUID8 Arena1to0. PhysicalVexEq5publicGYFace0 and GraspretainedEq5/BluePitch6, actualcost/economy/abilityGA preserved. Createdoutput sensitivity only; no defensiveabilities/Graspsurchargeoroncerepeat/tokenuseorlifecycle/hero/support/fullcardcredit.",
+    "Both controls use complete prefixes5and6 and retain every original finaloracle asInitial with zero suffixactions. StablevirtualABILITYrawOwner0Controller1 isseparatefromphysicalEq5owned1; no new ownership defectclaim."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "25a3c1c8ecd59d078cbbe865f6e3c5d9d0026606e326bbdeb73136799fdb84af"
+}

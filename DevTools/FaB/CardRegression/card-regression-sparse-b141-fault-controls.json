@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:43:13.836125+00:00",
+  "plan_sha256": "dd7f6da2ba75cf697a5bc263559013acd7e4dcf6626a72b73a318f7f7881b9d8",
+  "independent_saved_proof_sha256": "57a5c4ec995ef24b66f4bdf2b4a1e83c0e482303b5e283d3af95f9accc7edaf6",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b141-focused-fault-plan.json",
+    "dd7f6da2ba75cf697a5bc263559013acd7e4dcf6626a72b73a318f7f7881b9d8",
+    "card-regression-sparse-b141-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b141_gigawatt_red_focused_effect_sensitivity",
+      "fixture": "card-gigawatt-red-four-live-sparse-actual-paid-plus-four-grant-and-two-real-blue-pitches-produce-seven-attack-damage",
+      "fixture_sha256": "79021dba0d7a349d73b1df5d4ba4ef70e83ea5bb396fe56aabbe679d70a10c40",
+      "source_raw5": {
+        "initial_gamestate.txt": "938102a545a4f12b39e795aaa44269d76d22e4065ae7f0d26391871ee16dc49d",
+        "actions.json": "66614d0e7ea65f7f074dcede3207fe36c3a117526537b1d368db241ff7daf539",
+        "assertions.json": "9bc88e7d2d6254adf118a48380d17d8dd03f63e56ed4a0c6d9254c7ea791380d",
+        "expected_final_gamestate.txt": "4f7475029bc19854bcca07898e0249f064c0edc8fc03e60886813fb3b81b987f",
+        "meta.json": "d78a28ac5a0f4cbf60278d5a90a6dd82c9765013e1f134ed1b7632034e4cc90a"
+      },
+      "prefix_actions": 13,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "mechanical_strength_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:4"
+          }
+        ]
+      },
+      "retained_assertions": 650,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Gigawatt / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual primary +4 from real zeroEvo MechanicalStrengthBlue6 after source5 cost1/actualBlue7 and realMechcost3/actualBlue8, preserving target/physicalsource/Pitch7and8/R2/AP0. Originalcomputed7to3 detects nextMechgrant. No optionalCoguntap/positiveEvoUpgrade/expiry/classfailure/sibling/support/hero credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b141_tighten_the_screws_red_focused_effect_sensitivity",
+      "fixture": "card-tighten-the-screws-red-four-live-sparse-actual-paid-plus-four-grant-and-two-real-blue-pitches-produce-seven-attack-damage",
+      "fixture_sha256": "ad73297c3c32646e5c6ac67c5372ef31eb93b44637093b66ee123fcd5a123ef2",
+      "source_raw5": {
+        "initial_gamestate.txt": "781ede8a63decf864338a64c472c4c9ad34aa600b424eef764a904083a41ec0d",
+        "actions.json": "66614d0e7ea65f7f074dcede3207fe36c3a117526537b1d368db241ff7daf539",
+        "assertions.json": "848d6f218e8232e96eec3849c76122659d3918bda0f936346ce4202b5f6178c8",
+        "expected_final_gamestate.txt": "4a6481ebc7115621928e78876e3dfed7b815f6b535d4f269bfa7a40251c2c000",
+        "meta.json": "d02abab60abf781910dc1011b15158fa1816f63f0418b84c75cc8c585028f764"
+      },
+      "prefix_actions": 13,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "mechanical_strength_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:4"
+          }
+        ]
+      },
+      "retained_assertions": 650,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Tighten the Screws / four live sparse positive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only actual primary +4 from real zeroEvo MechanicalStrengthBlue6 after source5 cost1/actualBlue7 and realMechcost3/actualBlue8, preserving target/physicalsource/Pitch7and8/R2/AP0. Originalcomputed7to3 detects nextMechgrant. No optionalCoguntap/positiveEvoUpgrade/expiry/classfailure/sibling/support/hero credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

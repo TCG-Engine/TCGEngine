@@ -1,0 +1,7 @@
+{
+    "name": "Head Shot / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-24T18:43:54+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine live legal young Lexi20 plus Dorinthea20x3. Initial HandHeadShot5/Blue6, DeathDealer7 equipped Bow2H, DeckRed8, emptyArsenal/AP1/R0. Actual BowAction1 paidBlue6 for3 leavesR2/AP0 before responses. Four live responses, then actual optional HandHead5 face-up load draws exactRed8. Pending load selection asserts physical inputs only, not eager lifecycle. Completing Bow ability restoresAP1; HeadShot WHEN-load is a distinct queued source5 ability10 with four live priority passes, no duplicateAP. Same Head5 remains face-up Arsenal and only after its trigger resolves gets+2. Then actual Head5 Arrow fromArsenal with controlled Bow7, adjacent P4 target before ordinary printed1 payment fromR2 leavesR1/AP0. Printedbase4+earned2=power6/damage6/P4HP14/noGA. Complete four-seat combat, finalACTION/AP0/R1, Head5 ownpublicGYFaceDown0, Blue6Pitch, actualdrawRed8stillHand, retainedBow7, allStack/queues/Arsenal/Deckempty. No source-only immediate bonus, no negative/sibling/Bow/hero/fullcard credit. Sources: https://judge.fabtcg.com/cards/detail/396/ https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

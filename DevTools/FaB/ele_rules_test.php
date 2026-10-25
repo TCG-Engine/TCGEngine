@@ -73,4 +73,96 @@ foreach([2,4] as $seats){$p=$seats;
 
  $eleReset($seats);$k=FaBWTRCreateArena($p,'korshem_crossroad_of_elements');$uid=intval($k->UniqueID);AddHand(1,CardID:'pulse_of_isenloft_blue');FaBRevealChoices(1,'p1Hand-0');$check((GetDecisionQueue(1)[0]->Tooltip??'')==='Korshem_reveal_bonus','Korshem asked the wrong hero.');$answer(1,'0');$check(intval(GetResources(1))===1,'Korshem failed resource mode.');FaBELEEnd($p);$check(FaBFindUID($uid)['zone']==='Arena','Active Korshem was destroyed.');SetTurnNumber(11);FaBELEEnd($p);$check(FaBFindUID($uid)['zone']==='Graveyard','Inactive Korshem survived.');
 }
+
+// Icy Encounter: one queued hit effect, explicit creator ownership, and serialized replacement fallback.
+$eleReset(4);SetTurnPlayer(1);SetPriorityPlayer(1);
+$icy=AddCombatChain(1,CardID:'icy_encounter_red',Owner:1,Controller:1,Role:'ATTACK',ChainLink:1);
+$s=FaBGetState();$s['attacker']=1;$s['defender']=4;$s['attackUID']=intval($icy->UniqueID);$s['chainLink']=1;$s['combatOpen']=true;$s['combatStep']='DAMAGE';$s['window']='DAMAGE';
+$s['attackTarget']=['type'=>'HERO','player'=>4,'uid'=>intval(GetHero(4)[0]->UniqueID),'zone'=>'Hero'];FaBSetState($s);
+FaBWTRQueuePureTokenHit(1,$icy,6);
+$check(FaBStackTop()!==null&&!FaBMONArena(4,'frostbite'),'Icy Encounter did not queue its token before creation.');
+foreach([1,2,3] as $seat){$check(FaBPassPriority($seat),'Icy trigger response failed.');$check(!FaBMONArena(4,'frostbite'),'Icy token was created before four live responses.');}
+$check(FaBPassPriority(4),'Icy fourth response failed.');$frost=FaBIdentityFromMZ(FaBMONArena(4,'frostbite')[0]??'');
+$check($frost&&intval($frost['object']->Owner)===1&&intval($frost['object']->Controller)===4,'Icy token lost creator owner or hit-hero controller.');
+
+foreach([false,true] as $replace){
+ $eleReset(4);$eq=AddEquipment(4,CardID:'smoldering_scales',Owner:4,Controller:4);$eqUID=intval($eq->UniqueID);
+ $token=FaBHVYToken(4,'frostbite',1,1,true,false,1);
+ $check($token===null&&(GetDecisionQueue(4)[0]->Type??'')==='MZMULTICHOOSE','Smoldering did not defer the explicit-owner Frostbite.');
+ $answer(4,$replace?FaBFindUID($eqUID)['mzID']:'-');
+ $refs=FaBMONArena(4,'frostbite');
+ if($replace)$check(!$refs&&FaBFindUID($eqUID)['zone']==='Graveyard','Accepted Smoldering replacement still created Frostbite.');
+ else{$f=FaBIdentityFromMZ($refs[0]??'');$check($f&&intval($f['object']->Owner)===1&&intval($f['object']->Controller)===4,'Declined Smoldering lost explicit creator ownership across await.');}
+}
+$eleReset(4);AddEquipment(4,CardID:'smoldering_scales',Owner:4,Controller:4);
+FaBHVYToken(4,'frostbite',1,4,true);$answer(4,'-');$f=FaBIdentityFromMZ(FaBMONArena(4,'frostbite')[0]??'');
+$check($f&&intval($f['object']->Owner)===4&&intval($f['object']->Controller)===4,'Legacy owner-unspecified self-creation defaults changed.');
+
+// The local transform must work on old remote code and leave unrelated cards alone.
+require_once __DIR__.'/../../FaBSim/Custom/CodeGeneration.php';
+$snapshot=json_decode(file_get_contents(__DIR__.'/pen_abilities.json'),true);
+foreach($snapshot as $entry)if(in_array($entry['cardId'],['smoldering_scales','smoldering_steel_red'],true))foreach($entry['abilities'] as $a){
+ if($a['macroName']!=='ResolveAbility'||!str_contains($a['abilityCode'],'penFrostOwner'))continue;
+ $new=$a['abilityCode'];$legacy=str_replace('$owner = DecisionQueueController::GetVariable("penFrostOwner"); $owner = is_numeric($owner) ? intval($owner) : null;','',$new);
+ $legacy=str_replace('FaBPENFinishFrost($player, $chosen, $number, $creator, $action, $wager, $owner);','FaBPENFinishFrost($player, $chosen, $number, $creator, $action, $wager);',$legacy);
+ $activated=FaBPrepareHeroCreationCode($legacy,$entry['cardId']);
+ $check(str_contains($activated,'penFrostOwner')&&str_contains($activated,'$wager, $owner);'),'Local Smoldering owner activation was incomplete.');
+ $check(FaBPrepareHeroCreationCode($activated,$entry['cardId'])===$activated,'Smoldering owner activation was not idempotent.');
+ $check(FaBPrepareHeroCreationCode($legacy,'wounding_blow_red')===$legacy,'Smoldering owner activation altered an unrelated card.');
+}
+
+// Known Laden/Embodiment hold: queued on-play token trigger, not an eager grant.
+$embodimentFixture=function()use($eleReset,$answer,$check){
+ $eleReset(4);SetTurnPlayer(1);SetPriorityPlayer(1);AddActionPoints(1,1);
+ // Actual announcement otherwise gives the next seat priority; this fixture explicitly holds it.
+ $preferences=GetShortcutPreferencesState(1);$preferences['holdPriority']=true;SetShortcutPreferencesState(1,$preferences);
+ $token=FaBWTRCreateArena(1,'embodiment_of_lightning');$tokenUID=intval($token->UniqueID);
+ $card=AddHand(1,CardID:'wounding_blow_red',Owner:1,Controller:1);$attackUID=intval($card->UniqueID);
+ $check(DoPlayCard(1,FaBFindUID($attackUID)['mzID']),'Embodiment fixture attack rejected.');$answer(1,'p4Hero-0');
+ $check(intval(GetPriorityPlayer())===1&&intval(GetConsecutivePasses())===0,'Embodiment held-priority fixture did not start before four responses.');
+ return [$tokenUID,$attackUID,FaBStackTop()];
+};
+[$tokenUID,$attackUID,$trigger]=$embodimentFixture();
+$check($trigger&&$trigger->CardID==='embodiment_of_lightning'&&intval($trigger->SourceUniqueID)===$tokenUID
+ &&intval($trigger->Params['eleAttackUID']??0)===$attackUID,'Embodiment did not capture physical token/played attack.');
+$check(FaBFindUID($tokenUID)!==null&&!in_array('GO_AGAIN',FaBFindUID($attackUID)['object']->TurnEffects,true),'Embodiment paid or granted before responses.');
+foreach([1,2,3] as $seat){$check(FaBPassPriority($seat),'Embodiment response rejected.');
+ $check((FaBFindUID($tokenUID)['zone']??'')==='Arena'&&!in_array('GO_AGAIN',FaBFindUID($attackUID)['object']->TurnEffects,true),'Embodiment resolved before fourth response.');}
+$check(FaBPassPriority(4)&&FaBFindUID($tokenUID)===null
+ &&(FaBFindUID($attackUID)['zone']??'')==='Stack'&&in_array('GO_AGAIN',FaBFindUID($attackUID)['object']->TurnEffects,true),'Fourth response failed to consume token/grant captured attack.');
+foreach([1,2,3,4] as $seat)$check(FaBPassPriority($seat),'Captured attack response rejected.');
+$resolvedAttack=FaBFindUID($attackUID);
+$check($resolvedAttack!==null&&$resolvedAttack['zone']==='CombatChain'
+ &&intval($resolvedAttack['object']->UniqueID)===$attackUID
+ &&intval(FaBGetState()['attackUID'])===$attackUID
+ &&FaBAttackHasGoAgain(FaBGetState(),$resolvedAttack['object']),'Resolved Embodiment did not give actual attack go again.');
+
+// A token that was already blank cannot trigger; blanking after creation does not cancel it.
+$eleReset(4);SetTurnPlayer(1);SetPriorityPlayer(1);AddActionPoints(1,1);
+$token=FaBWTRCreateArena(1,'embodiment_of_lightning');FaBWTRTag($token,'NO_ABILITIES');$tokenUID=intval($token->UniqueID);
+$a=AddHand(1,CardID:'wounding_blow_red',Owner:1,Controller:1);$attackUID=intval($a->UniqueID);
+$check(DoPlayCard(1,FaBFindUID($attackUID)['mzID']),'Blank-source fixture attack rejected.');$answer(1,'p4Hero-0');
+$check(FaBStackTop()->CardID==='wounding_blow_red'&&(FaBFindUID($tokenUID)['zone']??'')==='Arena','Blank Embodiment triggered or left.');
+[$tokenUID,$attackUID,$trigger]=$embodimentFixture();FaBWTRTag(FaBFindUID($tokenUID)['object'],'NO_ABILITIES');
+foreach([1,2,3,4] as $seat)$check(FaBPassPriority($seat),'Post-trigger blank response rejected.');
+$check(FaBFindUID($tokenUID)===null&&in_array('GO_AGAIN',FaBFindUID($attackUID)['object']->TurnEffects,true),'Post-trigger source blanking cancelled independent effect.');
+
+// Tokens cease off-arena: a newly created token is a different UID, not the old source.
+[$tokenUID,$attackUID,$trigger]=$embodimentFixture();FaBMONDestroy($tokenUID);$replacement=FaBWTRCreateArena(1,'embodiment_of_lightning');$newUID=intval($replacement->UniqueID);
+foreach([1,2,3,4] as $seat)$check(FaBPassPriority($seat),'Detached trigger response rejected.');
+$check($newUID!==$tokenUID&&(FaBFindUID($newUID)['zone']??'')==='Arena'
+ &&in_array('GO_AGAIN',FaBFindUID($attackUID)['object']->TurnEffects,true),'Old trigger destroyed new token or required self-destruction to grant.');
+
+// Component identity boundary: same physical UID played anew cannot inherit an old trigger.
+[$tokenUID,$attackUID,$trigger]=$embodimentFixture();$oldEpoch=intval($trigger->Params['eleAttackEpoch']);
+FaBMONDestroy($tokenUID);$returned=FaBMoveStackUID($attackUID,'Hand',1);
+$returned->removed=true; // Component new announcement must leave its previous zone.
+$newAttack=AddStack(CardID:$returned->CardID,Owner:1,Controller:1,Kind:'ATTACK',SourceZone:'Hand',SourceUniqueID:$attackUID,sourceObject:$returned);
+FaBELEPlayed(1,$newAttack,'Hand');FaBROSResolveTrigger(1,$trigger);
+$check(intval(FaBARCCard($attackUID,'eleEmbodimentPlayEpoch'))>$oldEpoch&&!in_array('GO_AGAIN',$newAttack->TurnEffects,true),'Old trigger reattached to a new play of the same UID.');
+
+// Removing the attack does not turn source destruction into an optional cost.
+[$tokenUID,$attackUID,$trigger]=$embodimentFixture();FaBMoveStackUID($attackUID,'Hand',1);FaBROSResolveTrigger(1,$trigger);
+$check(FaBFindUID($tokenUID)===null&&(FaBFindUID($attackUID)['zone']??'')==='Hand','Source destruction depended on an available attack.');
+
 if($failures){fwrite(STDERR,implode(PHP_EOL,$failures).PHP_EOL);exit(1);}echo "ELE outcome checks passed in duels and UPF.\n";

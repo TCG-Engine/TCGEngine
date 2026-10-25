@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:06:29.572613+00:00",
+  "plan_sha256": "d93aca68ee408c25d1d6ffb4f803923745606426babb8d3b4582f52a3afe3a0d",
+  "independent_saved_proof_sha256": "47fe9101e2b0f888d4abb910ac393f433fb5386a287ff710087de882fec8454e",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b175-focused-fault-plan.json",
+    "d93aca68ee408c25d1d6ffb4f803923745606426babb8d3b4582f52a3afe3a0d",
+    "card-regression-sparse-b175-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b175_pouncing_paws_focused_effect_sensitivity",
+      "fixture": "card-pouncing-paws-four-live-sparse-actual-instant-destroy-creates-one-banish-tiger-and-exercises-real-play-permission",
+      "fixture_sha256": "28b24c214a80c3a5558ebbc756576c1c30c55d23734dc558fd6513b3a528e600",
+      "source_raw5": {
+        "initial_gamestate.txt": "c9eacc4a080ead24b64b619ba179d00670b242d76348f9e787969dc771bc143e",
+        "actions.json": "f52ae597cd22575f8f7247f607802c1c2c31ffe7379d2d0d7167c30c328da2ef",
+        "assertions.json": "5106fcd0d465a6d43a7abb95ef7902c9381501ee2a21ab62ff9238c8a83ce30c",
+        "expected_final_gamestate.txt": "227a0bf95f3b62d2f26e9984478130ac53534198b25a4a2281e30c796ca36736",
+        "meta.json": "bd35513eb2715e6c2ffcd32f1d8ffd827e85ad82b400090a3269ac9db9843346"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "crouching_tiger",
+            "uid": 7,
+            "from": "Banish",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 582,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Banish count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Pouncing Paws / four live sparse positive effect: Initial assertion failed: Expected p1Banish count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact sole actualPaws-created Tiger7 from ownBanish afterrealInstantdestroy5/fourlivingresponses, preserving physicalsource5publicGY/AP1/R0. FirstoriginalBanish1to0 directlydetectscreatedoutput; all23remainingactualactions/everyoriginalsuffixoracle retained. ActualsameTiger7P1play/normalizedownercontroller1/usablepermission/printedGA positivelypinned andpurefault-sensitive, NO isolatednativepermission-removal claim. No extraTiger/Ephemeralcleanup/expiry/Battleworn/foreignownership/interposition/hero/full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

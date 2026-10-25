@@ -1,0 +1,53 @@
+{
+  "status": "BOUNDED_INITIAL_PLAY_SOURCE_APPROVED_RUNTIME_PENDING",
+  "reviewer": "/root/wtr_buff_scenarios",
+  "manifest": "arsenal-initial-play-guard-manifest.json",
+  "manifestSHA256": "01010629a45cd9c7e50952eb3145750dc7c1d21bcfea654cc1c9fd205a253b70",
+  "patchSHA256": "1ee89948e67e47e0c10ec7aa55572686ba967d9a798b13870498cd601a821962",
+  "verifiedAnchors": 2,
+  "scope": "Add HasNoAbilities checks only to the initial Burgeoning and Power Play intrinsic Arsenal bonus tag applications.",
+  "preserved": [
+    "Normal initial Arsenal bonuses and all pitch variants.",
+    "Existing WTR_POWER/CRU_SUPPRESS_POWER tags, replacement transforms and Korshem gain-history path.",
+    "All existing power getter/cap order and independent external-effect applications.",
+    "All unrelated card branches, user edits and legacy saved state."
+  ],
+  "expectedInitialBlindPower": {
+    "burgeoning_red": 6,
+    "burgeoning_yellow": 5,
+    "burgeoning_blue": 4,
+    "power_play_red": 3,
+    "power_play_yellow": 2,
+    "power_play_blue": 1
+  },
+  "held": [
+    "Later ability loss/restoration on the same attack and associated static-effect application/replacement events.",
+    "Copying into or away from these identities after play.",
+    "Broader dynamic-query/event-observer proposals are research and remain unapproved."
+  ],
+  "actualSavedFixtureReview": {
+    "allSixSemanticallyApproved": true,
+    "all162PersistedAssertionsMatchUnchangedReviewedSpecs": true,
+    "actionsEach": 12,
+    "assertionsEach": 27,
+    "hashAlgorithm": "SHA256 over ordered filename bytes plus file bytes for initial_gamestate.txt, actions.json, assertions.json, expected_final_gamestate.txt",
+    "fixtureHashes": {
+      "card-burgeoning-red-arsenal-known-blinding-no-intrinsic-bonus": "b593884ade9b2caf2d041c98835ab741f9359cf12432395644f8577d687d90cb",
+      "card-burgeoning-yellow-arsenal-known-blinding-no-intrinsic-bonus": "7559b5f21c63943bb4eee3826ed669be48ed49ec4f7ec508c0b63295d2851309",
+      "card-burgeoning-blue-arsenal-known-blinding-no-intrinsic-bonus": "996591750db9534a4ef051ca16154d8a2f7d2a9ed565f70e8bbc6813795d9863",
+      "card-power-play-red-arsenal-known-blinding-no-intrinsic-bonus": "980a710cc471557a0481facd80ae09983f8ece16e9ccb545520b0d325e90faf2",
+      "card-power-play-yellow-arsenal-known-blinding-no-intrinsic-bonus": "8d8eb04c1d826c267d0606a436d6cf0d1510c29a013f65f63794b90266b757b3",
+      "card-power-play-blue-arsenal-known-blinding-no-intrinsic-bonus": "07dbe01fc6f2d9f9e21e6b8026b4c6450987443e61e465d08c3bae941d432fa9"
+    },
+    "setup": "Known persisted active/started BLIND, legal Oldhim Earth/Bravo Guardian, face-down Arsenal, active AP1/nonturn AP0, exact floating cost2/3.",
+    "final": "Printed-only power, no intrinsic/go-again tag, resources0/AP0, pendingPayment null and all decision queues empty.",
+    "korshemLimit": "Synthetic initial resource setup already seeds eleKorshemActiveTurn=2. These fixtures contain no landmark and do not independently validate gain history; marker remains2 both initially and finally."
+  },
+  "runtimeRequired": "Six new saved cases match their original printed-only oracles; replay them and the affected normal baseline before marking this issue branch verified.",
+  "authorReportedIsolatedStubChecks": 114,
+  "reviewerNativePHPExecutions": 0,
+  "reviewerGameActions": 0,
+  "reviewerNativeWrites": 0,
+  "verifiedCardCoverageAddedByReview": 0,
+  "deniedOrUncertainAction": null
+}

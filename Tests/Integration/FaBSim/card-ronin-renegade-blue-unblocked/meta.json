@@ -1,0 +1,7 @@
+{
+    "name": "Ronin Renegade / unblocked",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:42+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed attack 1, cost 0, go again True; pay using 0 blue pitch card(s). Defender has 0 defense; expected damage 1. Hero fai has no modifying effect in this first-attack state. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ronin_renegade_blue https://rules.fabtcg.com/en/cr/07-combat/"
+}

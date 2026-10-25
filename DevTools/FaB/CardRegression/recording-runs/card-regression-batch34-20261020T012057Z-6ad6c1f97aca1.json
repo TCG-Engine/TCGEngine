@@ -1,0 +1,290 @@
+{
+    "completed_at_utc": "2026-10-20T01:20:57+00:00",
+    "input_file": "card-regression-batch34.json",
+    "input_sha256": "685ca86bcf01e408379c8733f1c26940c6a97b86e9dd57d1de8c12ab319f5aec",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-autumns-touch-blue-baseline-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-hand-floating-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-arsenal-faceup-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 83
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-hand-red-then-yellow-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 95
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-single-three-defense-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 85
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-fully-blocked-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 87
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-defends-for-3-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-defends-exactly-3-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-pitched-for-exact-3",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 78
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-hand-insufficient-2-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-arsenal-insufficient-2-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-blue-baseline-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-hand-floating-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 83
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-hand-red-then-yellow-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 95
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-single-three-defense-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 85
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-fully-blocked-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 89
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-defends-for-3-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-defends-exactly-3-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-pitched-for-exact-1",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 78
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-hand-insufficient-2-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-arsenal-insufficient-2-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-hand-floating-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-arsenal-faceup-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 83
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-hand-red-then-yellow-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 95
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-single-three-defense-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 85
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-fully-blocked-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 87
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-defends-for-3-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-defends-exactly-3-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-pitched-for-exact-2",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 78
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-hand-insufficient-2-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-arsenal-insufficient-2-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-autumns-touch-yellow-baseline-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Billowing Mist / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T20:37:50+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actually play physical BillowingMistBlue5 for printed0 and one action point; its printed go again returns one AP only after all four real responses. Then actually play physical WoundingBlowBlue6 for printed0 and oneAP, targeting adjacent P4Hero4. The next actual attack has printedbase2 plus Billowing1 =3, deals3 unblocked damage and leaves P4HP17; finalAP0 resources0. Young Zen supplies Mystic legality; no hero ability is activated. All four legal live young heroes manually respond at each source/combat window; actual target selection and physical damage are used for attacks, with no damage before the fourth REACTION pass. All final queues/zones/physical identities/economy/health are pinned. Only the next-attack +1 positive endpoint. The separate next-ephemeral-creation replacement, consumption/skips, further attacks, suppression, expiry and Zen abilities remain untested; support attack is not new primary coverage. No sibling/support/hero/full-card coverage or ordinaryAction internal source-departure ordering claim. Sources: https://judge.fabtcg.com/cards/detail/4424/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN272.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

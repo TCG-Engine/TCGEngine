@@ -1,0 +1,44 @@
+{
+    "completed_at_utc": "2026-10-20T00:04:13+00:00",
+    "input_file": "card-regression-batch22.json",
+    "input_sha256": "2beee0b213d6128768eea846ad505e593f66b9e8dd93bff4385080986e0b45bb",
+    "filter": "compat-",
+    "results": [
+        {
+            "slug": "compat-warriors-valor-red-hero-hit-layer-timing",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 45
+        },
+        {
+            "slug": "compat-warriors-valor-yellow-hero-hit-layer-timing",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 45
+        },
+        {
+            "slug": "compat-warriors-valor-blue-hero-hit-layer-timing",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 45
+        },
+        {
+            "slug": "compat-warriors-valor-red-fully-blocked-no-hit-layer-no-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 20,
+            "assertions": 39
+        },
+        {
+            "slug": "compat-warriors-valor-red-ally-hit-layer-timing",
+            "status": "recorded_semantically_checked",
+            "actions": 20,
+            "assertions": 47
+        },
+        {
+            "slug": "compat-warriors-valor-red-two-grants-two-triggers-one-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 25,
+            "assertions": 58
+        }
+    ]
+}

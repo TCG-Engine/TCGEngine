@@ -1,0 +1,7 @@
+{
+    "name": "Sigil of Solace / opponent-turn-instant",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:13:26+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Non-turn player plays the instant before blocks. Gain exactly 1 with zero action points, then take 4 from Wounding Blow. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_solace_blue https://rules.fabtcg.com/en/cr/07-combat/"
+}

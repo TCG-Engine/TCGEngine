@@ -1,0 +1,7 @@
+{
+    "name": "Ice Bolt / arsenal-face-up-opponent",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:01:15+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost2 and 3 arcane damage to any target. Choose player2's hero. Pay2 from the caster pool and1AP, leaving0. Deal the full3 only on resolution: hero220->17, other hero20. No printed go again, Frostbite or extra layer. Source leaves Stack for its owner's graveyard after resolution. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ice_bolt_blue https://judge.fabtcg.com/cards/detail/1635/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

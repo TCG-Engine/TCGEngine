@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+    "status": "blocked_or_incorrect",
+    "error": "Expected p1Resources to equal 0, got 1.",
+    "evidence_provenance": "Read-only independent audit captured the original failing result before the authoring helper refreshed its latest-result file on the successful Quicken retry. Full original attempted-action/state rows were not retained. This is an audited summary, not a recreated recording.",
+    "audit_source": "coverage-evidence-audit-before-token-fix.json",
+    "audited_runtime_sha256": "a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34"
+  },
+  {
+    "slug": "card-quicken-attack-action-trigger-timing",
+    "status": "blocked_or_incorrect",
+    "error": "Expected Stack count 2, got 1.",
+    "evidence_provenance": "Read-only independent audit captured the original failing result before the authoring helper refreshed its latest-result file on the successful Quicken retry. Full original attempted-action/state rows were not retained. This is an audited summary, not a recreated recording.",
+    "audit_source": "coverage-evidence-audit-before-token-fix.json",
+    "audited_runtime_sha256": "a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-known-blinding-no-reveal-cost-no-trigger",
+    "status": "blocked_or_incorrect",
+    "error": "can_play  expected true got false",
+    "evidence_provenance": "Read-only independent audit captured the original failing result before the authoring helper refreshed its latest-result file on the successful Quicken retry. Full original attempted-action/state rows were not retained. This is an audited summary, not a recreated recording.",
+    "audit_source": "coverage-evidence-audit-before-token-fix.json",
+    "audited_runtime_sha256": "a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-known-blinding-spare-card-no-chooser-no-trigger",
+    "status": "blocked_or_incorrect",
+    "error": "Expected p1Arena count 0, got 1.",
+    "evidence_provenance": "Read-only independent audit captured the original failing result before the authoring helper refreshed its latest-result file on the successful Quicken retry. Full original attempted-action/state rows were not retained. This is an audited summary, not a recreated recording.",
+    "audit_source": "coverage-evidence-audit-before-token-fix.json",
+    "audited_runtime_sha256": "a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34"
+  }
+]

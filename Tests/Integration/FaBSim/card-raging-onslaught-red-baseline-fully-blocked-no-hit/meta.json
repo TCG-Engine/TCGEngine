@@ -1,0 +1,7 @@
+{
+    "name": "Raging Onslaught / ordinary baseline / fully-blocked-no-hit",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:27:36+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost3, power7, pitch1, defense3, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Actual play from Hand spends one AP and exactly3 resources; initial3 plus pitches[] leaves0. Printed attack7 against defense9 causes0 damage; no go again. Source stays on chain through resolution, then clears at Close. Sources: FaBSim/GeneratedCode/cardArrayCache.json#raging_onslaught_red https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

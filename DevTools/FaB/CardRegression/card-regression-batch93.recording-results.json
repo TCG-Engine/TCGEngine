@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-healing-potion-blue-four-live-sparse-actual-destroy-action-heals-two-and-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 180
+    },
+    {
+        "slug": "card-medkit-blue-four-live-sparse-actual-action-bottom-cost-heals-two-without-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 194
+    },
+    {
+        "slug": "card-fuel-injector-blue-four-live-sparse-actual-instant-bottom-cost-gains-one-resource",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 194
+    },
+    {
+        "slug": "card-deep-blue-sea-blue-four-live-sparse-two-real-blue-pitches-pay-four-and-give-two-power",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 345
+    }
+]

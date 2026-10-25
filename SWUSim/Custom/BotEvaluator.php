@@ -28,15 +28,37 @@ function SWUBotOpponents(int $seat): array {
 // with the MOST remaining base HP — the one the attack policy focuses, and the one standing between this seat and
 // the win (CR 12.7: highest base HP wins). Ties go to the lowest seat, so the choice is deterministic. Never a dead
 // seat: a dead seat's base reads 0, which kept SWUBotLethalNow() permanently true (Deep research B).
+// Team Suns (owner 2026-10-12): the WEAKEST enemy base instead — there is no HP scoring, and finishing one seat leaves
+// the other team a single player, one kill from the team wipe that ends the game.
 function SWUBotOpponent(int $seat): int {
     $opps = SWUBotOpponents($seat);
     if (count($opps) === 1) return $opps[0];
-    $best = $opps[0]; $bestHp = -1;
+    $best = $opps[0]; $bestHp = null;
     foreach ($opps as $o) {
-        $hp = SWUBaseRemainingHp($o);
-        if ($hp > $bestHp) { $best = $o; $bestHp = $hp; }
+        $hp = SWUBotFocusHp($o);
+        if ($bestHp === null || $hp > $bestHp) { $best = $o; $bestHp = $hp; }
     }
     return $best;
+}
+
+// How much the focus wants $seat's base, as a tie-break magnitude: its remaining HP in free-for-all (the healthiest base),
+// minus it in Team Suns (the weakest). Every "which enemy base" tie-break reads this, so the two never disagree.
+function SWUBotFocusHp(int $seat): int {
+    $hp = SWUBaseRemainingHp($seat);
+    return (function_exists('SWUIsTeamGame') && SWUIsTeamGame()) ? -$hp : $hp;
+}
+
+// Team Suns: is $mz (in $seat's frame) a TEAMMATE's? Never harmed — not a target, not fodder, not a cost (owner
+// 2026-10-12). False outside a team game, and for my own zones.
+function SWUBotIsTeammateMz(int $seat, string $mz): bool {
+    if (!preg_match('/^p(\d+)/', $mz, $m) || !function_exists('SWUIsTeamGame') || !SWUIsTeamGame()) return false;
+    $owner = intval($m[1]);
+    return $owner !== $seat && !SWUIsEnemySeat($seat, $owner);
+}
+
+// $seat and its live teammates — "our" side. [$seat] outside Team Suns.
+function SWUBotFriendlySeats(int $seat): array {
+    return array_merge([$seat], function_exists('SWUTeammatesOf') ? array_map('intval', SWUTeammatesOf($seat)) : []);
 }
 
 // Is $mz (in $seat's frame) an ENEMY's? "their…" is the 2-seat frame. Above 2 seats ZoneSearch names every other
@@ -59,6 +81,24 @@ function SWUBotMostDangerousOpponent(int $seat): int {
         if ($c < $bestClock) { $best = $o; $bestClock = $c; }
     }
     return $best;
+}
+
+// ── Per-decision memo (perf, 2026-10-13) ─────────────────────────────────────────────────────────────────────────
+// Inside one SWUBotHeuristicChoose() the board only changes in the lookahead (its dispatch, and the restore after it),
+// and the feature set / viewer seat are fixed — so a pure read of the board (a unit view list, the weights, the race
+// clock) gives the same answer every time it is asked. The heuristic asked SWUBotUnits ~45x per decision and rebuilt
+// every unit's power/HP/keywords each time (62% of bot time in the 2026-10-13 profile). SWUBotMemo() caches a read for
+// the current board: SWUBotMemoBegin/End bracket a decision, SWUBotLookahead() suspends it while its action runs and
+// resets it on both sides of the action and after the restore. Outside a decision (tests, engine code) it computes fresh.
+function SWUBotMemoBegin(): void { $GLOBALS['SWUBotMemoDepth'] = intval($GLOBALS['SWUBotMemoDepth'] ?? 0) + 1; $GLOBALS['SWUBotMemo'] = []; }
+function SWUBotMemoEnd(): void { $GLOBALS['SWUBotMemoDepth'] = max(0, intval($GLOBALS['SWUBotMemoDepth'] ?? 0) - 1); $GLOBALS['SWUBotMemo'] = []; }
+function SWUBotMemoReset(): void { $GLOBALS['SWUBotMemo'] = []; }
+function SWUBotMemoSuspend(): void { $GLOBALS['SWUBotMemoSuspended'] = intval($GLOBALS['SWUBotMemoSuspended'] ?? 0) + 1; $GLOBALS['SWUBotMemo'] = []; }
+function SWUBotMemoResume(): void { $GLOBALS['SWUBotMemoSuspended'] = max(0, intval($GLOBALS['SWUBotMemoSuspended'] ?? 0) - 1); $GLOBALS['SWUBotMemo'] = []; }
+function SWUBotMemo(string $key, callable $compute) {
+    if (intval($GLOBALS['SWUBotMemoDepth'] ?? 0) <= 0 || intval($GLOBALS['SWUBotMemoSuspended'] ?? 0) > 0) return $compute();
+    if (isset($GLOBALS['SWUBotMemo'][$key]) || array_key_exists($key, $GLOBALS['SWUBotMemo'] ?? [])) return $GLOBALS['SWUBotMemo'][$key];
+    return $GLOBALS['SWUBotMemo'][$key] = $compute();
 }
 
 // Every live enemy's units, in seat order. 2 seats: SWUBotUnits(the opponent), unchanged.
@@ -136,11 +176,13 @@ function _SWUBotCondemnExpected($obj): int {
 }
 
 function SWUBotUnits(int $seat): array {
-    $out = [];
-    foreach (['Ground', 'Space'] as $arena) {
-        foreach (GetUnitsInArena($seat, $arena) as $u) $out[] = SWUBotUnitView($u, $arena);
-    }
-    return $out;
+    return SWUBotMemo("units|$seat", function () use ($seat) {
+        $out = [];
+        foreach (['Ground', 'Space'] as $arena) {
+            foreach (GetUnitsInArena($seat, $arena) as $u) $out[] = SWUBotUnitView($u, $arena);
+        }
+        return $out;
+    });
 }
 
 // An mzID in $seat's frame ("myGroundArena-0", "theirSpaceArena-1") → its view, or null if it is gone.
@@ -266,12 +308,49 @@ function _SWUBotAuraGrantedPower(array $v): int {
     return $n * $others;
 }
 
+// 2026-10-10 human-game screen, proposal 'fatiguewin' (+ fatiguehorizon3/8). Deck-out damage a player will take at upcoming
+// regroups: CR §6.1 deals 3 damage per card they cannot draw, and a regroup draws 2. Projected over horizon/2 regroups — the window
+// IS the horizon: a deck larger than the horizon cannot run dry inside it, so it contributes 0 with no separate gate (a mutation
+// check proved an explicit "deck > horizon" early return was dead code).
+function SWUBotFatigueDamageSoon(int $defSeat): int {
+    $h = SWUBotFatigueHorizon();
+    $live = count(array_filter(GetDeck($defSeat), fn($o) => $o !== null && empty($o->removed)));
+    $regroups = max(1, intdiv($h + 1, 2));   // horizon is in cards, 2 drawn per regroup: 3->2, 5->3, 8->4 regroups projected
+    $dmg = 0; $deck = $live;
+    for ($r = 0; $r < $regroups; $r++) { $dmg += 3 * max(0, 2 - $deck); $deck = max(0, $deck - 2); }
+    return $dmg;
+}
+
+// 2026-10-10 human-game screen, proposal 'healrace'. A seat's recurring base-heal (Restore N: "When this unit attacks, heal N
+// damage from your base") makes its base effectively tankier in a race — the owner out-races aggro with Chimaera/Owen Lars
+// heal, and the bot "cannot close against a healing deck". Summed over the seat's units.
+function _SWUBotRecurringBaseHeal(int $seat): int {
+    static $parsed = [];
+    $total = 0;
+    foreach (SWUBotUnits($seat) as $v) {
+        $cid = strval($v['cardID']);
+        if (!array_key_exists($cid, $parsed)) $parsed[$cid] = preg_match('/\bRestore (\d+)\b/i', strval(CardText($cid)), $m) ? intval($m[1]) : 0;
+        $total += $parsed[$cid];
+    }
+    return $total;
+}
+
+// $defSeat's base HP as the race/lethal math should see it: their printed remaining HP, less the deck-out damage they are
+// about to take (proposal 'fatiguewin'), plus the base they will heal back over a short race (proposal 'healrace', ~2 race
+// rounds of Restore). Never drops below 1 from fatigue alone — deck-out is a separate loss the engine applies.
+function SWUBotEffectiveBaseHp(int $defSeat): int {
+    $hp = SWUBaseRemainingHp($defSeat);
+    if (function_exists('SWUBotFatigueOn') && SWUBotFatigueOn()) $hp = max(1, $hp - SWUBotFatigueDamageSoon($defSeat));
+    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('healrace')) $hp += 2 * _SWUBotRecurringBaseHeal($defSeat);
+    return $hp;
+}
+
 // Rounds for $seat's board to reduce $defSeat's base to 0. Counts exhausted units: everything readies at
 // the regroup (CR 5.5.1d).
 function SWUBotClock(int $seat, int $defSeat): int {
     $pot = SWUBotBasePotential($seat, $defSeat, false);
     if ($pot <= 0) return SWU_BOT_NO_CLOCK;
-    return max(1, intdiv(SWUBaseRemainingHp($defSeat) + $pot - 1, $pot));
+    return max(1, intdiv(SWUBotEffectiveBaseHp($defSeat) + $pot - 1, $pot));
 }
 
 // THE DAMAGE BUDGET (proposal 'dmgbudget', BotFeatures.php). Owner ruling 2026-09-18: "control wants to minimize
@@ -286,7 +365,7 @@ const SWU_BOT_DMG_BUDGET_CAP = 0.55;
 function SWUBotBaseDamageFraction(int $seat): float {
     $b = GetBase($seat);
     if (empty($b) || !empty($b[0]->removed)) return 0.0;
-    $hp = intval(CardHp($b[0]->CardID));
+    $hp = SWUBaseMaxHp($b[0]->CardID);
     return $hp > 0 ? min(1.0, intval($b[0]->Damage ?? 0) / $hp) : 0.0;
 }
 
@@ -320,13 +399,16 @@ function SWUBotLethalRaceSafe(int $seat, int $defSeat): bool {
 }
 
 function SWUBotLethalNextRound(int $seat, int $defSeat): bool {
-    return SWUBotBasePotential($seat, $defSeat, false) >= SWUBaseRemainingHp($defSeat);
+    return SWUBotBasePotential($seat, $defSeat, false) >= SWUBotEffectiveBaseHp($defSeat);
 }
 
 // Normal's clock test (spec Section 2): race when my clock is 3 or less AND faster than theirs; on a tie
 // the initiative holder swings first, so they win the race. The counter reads "P{n}_UNCLAIMED" or
 // "P{n}_CLAIMED" (SWUTakeInitiative); either way P{n} holds it.
 function SWUBotIsRacing(int $seat, int $defSeat): bool {
+    return SWUBotMemo("racing|$seat|$defSeat", fn() => _SWUBotIsRacingNow($seat, $defSeat));   // per-decision memo
+}
+function _SWUBotIsRacingNow(int $seat, int $defSeat): bool {
     // Feature 'actionclock' (p37): inside the race window, who wins is decided in ACTIONS (see _SWUBotActionRaceWins). The unit views
     // are built ONCE: the round clock is the sum of the same attack lists (as SWUBotClock / SWUBotBasePotential count them), so the
     // simulation costs no extra views — computing both separately made every game ~21% slower (measured 2026-10-05). The

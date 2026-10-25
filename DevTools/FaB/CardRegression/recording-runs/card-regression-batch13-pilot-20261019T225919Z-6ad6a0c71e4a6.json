@@ -1,0 +1,50 @@
+{
+    "completed_at_utc": "2026-10-19T22:59:19+00:00",
+    "input_file": "card-regression-batch13-pilot.json",
+    "input_sha256": "d51238be14ddb5b01780c48d7ab96332cb7712b4cb6dfcfeb54afdb3a47105e0",
+    "filter": "card-",
+    "results": [
+        {
+            "slug": "card-pummel-red-ally-hit-does-not-discard-hero-hand",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 23
+        },
+        {
+            "slug": "card-pummel-red-hand-club-weapon-no-discard",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 21
+        },
+        {
+            "slug": "card-pummel-red-hand-cost-two-hit-defender-chooses-0",
+            "status": "recorded_semantically_checked",
+            "actions": 20,
+            "assertions": 29
+        },
+        {
+            "slug": "card-pummel-red-two-reactions-two-hit-triggers-two-discards",
+            "status": "recorded_semantically_checked",
+            "actions": 26,
+            "assertions": 42
+        },
+        {
+            "slug": "card-razor-reflex-red-fully-blocked-no-hit-no-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 19
+        },
+        {
+            "slug": "card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 22
+        },
+        {
+            "slug": "card-razor-reflex-red-hand-sword-weapon-no-granted-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 18
+        }
+    ]
+}

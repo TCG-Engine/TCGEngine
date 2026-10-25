@@ -1,0 +1,62 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch98.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-21T00:12:29.734170+00:00",
+  "fixtures": [
+    {
+      "slug": "card-out-muscle-red-four-live-sparse-actual-lower-power-hand-defender-still-grants-go-again",
+      "fixture_sha256": "3eb6e2c905e16110bc73ef7d3af59a0f5e1a0f187697ce946afc37f95aeeb651",
+      "passed": true,
+      "result": "[PASS] Out Muscle / four live sparse positive condition"
+    },
+    {
+      "slug": "card-rough-up-red-four-live-sparse-actual-six-power-yellow-pitch-grants-one-power",
+      "fixture_sha256": "58d4365938b8f094ecc2850984dc5ee364dfde23a7dd504741de423acb1925c7",
+      "passed": true,
+      "result": "[PASS] Rough Up / four live sparse positive condition"
+    },
+    {
+      "slug": "card-soul-butcher-red-four-live-sparse-defending-hero-physical-soul-grants-two-power",
+      "fixture_sha256": "e965683050b4a2bec1f16eb4c32a20d9a79523c9f67a4c0ab68ca1633b7beaef",
+      "passed": true,
+      "result": "[PASS] Soul Butcher / four live sparse positive condition"
+    },
+    {
+      "slug": "card-soul-cleaver-red-four-live-sparse-defending-hero-physical-soul-grants-go-again",
+      "fixture_sha256": "8a3bc26d71eaefe4357892ba331440603a477d65d30f3df2d79756cc60a1bae2",
+      "passed": true,
+      "result": "[PASS] Soul Cleaver / four live sparse positive condition"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-out-muscle-red-four-live-sparse-actual-lower-power-hand-defender-still-grants-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Out Muscle / four live sparse positive condition\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rough-up-red-four-live-sparse-actual-six-power-yellow-pitch-grants-one-power",
+      "returncode": 0,
+      "stdout": "[PASS] Rough Up / four live sparse positive condition\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-soul-butcher-red-four-live-sparse-defending-hero-physical-soul-grants-two-power",
+      "returncode": 0,
+      "stdout": "[PASS] Soul Butcher / four live sparse positive condition\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-soul-cleaver-red-four-live-sparse-defending-hero-physical-soul-grants-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Soul Cleaver / four live sparse positive condition\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3144,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

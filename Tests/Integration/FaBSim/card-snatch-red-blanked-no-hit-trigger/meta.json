@@ -1,0 +1,7 @@
+{
+    "name": "Snatch / blanked no hit trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:41:19+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Start during Bravo turn under previously resolved Blinding of the Old Ones: all owned cards have no abilities. Snatch has no hit ability: damage4, hand0/deck2, no triggered layer. This covers the known effect interaction, not generation or expiry of Blinding. Sources: https://rules.fabtcg.com/en/cr/01-game-concepts/#162c https://judge.fabtcg.com/cards/detail/3761/"
+}

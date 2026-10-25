@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:25:10.245371+00:00",
+  "plan_sha256": "7ab39e840064615be309a9fab2b7f688a5d1baf7e3a924a225eaa4ea978321a2",
+  "independent_saved_proof_sha256": "c9c6c963393ada790635e4880c4fe7dbabc22b4df69a4775ed11782c51113936",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b157-focused-fault-plan.json",
+    "7ab39e840064615be309a9fab2b7f688a5d1baf7e3a924a225eaa4ea978321a2",
+    "card-regression-sparse-b157-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b157_monstrous_veil_focused_effect_sensitivity",
+      "fixture": "card-monstrous-veil-four-live-sparse-actual-rhinar-specialization-destruction-draws-then-discards-sole-low-power-card",
+      "fixture_sha256": "c516aa5a0cdd34a766a7cf84e9f9fa2b4847d498465d7d852d7a869427f37cde",
+      "source_raw5": {
+        "initial_gamestate.txt": "c3151ea723fbba4c4cc8be733632bbd32da2fae91b9c19ced3d5f9a12762272c",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "c1df96fca6834795834d3c128734b202bf6a47eb6bc1a2b045b4f422cd9d48c7",
+        "expected_final_gamestate.txt": "aa3c4fc29f759f0516ebed7a57e9c1f002e85a1bd82215f36c603e291a4181b5",
+        "meta.json": "43fb9f32baa7e767a2577826860f11d67d957bc064f618eb01dda1e223260660"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "wounding_blow_blue",
+            "uid": 6,
+            "from": "Graveyard",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Monstrous Veil / four live sparse positive effect: Initial assertion failed: Expected p1Graveyard count 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact actually drawn-and-discarded BlueWoundingBlow6 from own public Graveyard after Eq5 destroy cost and four living manual responses. Source5 publicGY0, finalAP1/R0 remain intact. OriginalGY2to1 detects physical draw/discard output only, not isolated draw notification or random distribution. Sole eligible Hand card and printedpower2 deterministically exclude six-power Rhinar trigger. No Battleworn/hero/support/lifecycle credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

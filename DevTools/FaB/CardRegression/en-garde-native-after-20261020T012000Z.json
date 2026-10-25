@@ -1,0 +1,20 @@
+{
+  "runtime_sha256": "5e12e58ae987f75a33f9e6c3c96c4baa0237368c20a7e5df4b137ab69e1da4ae",
+  "rows": [
+    {
+      "input": "card-regression-batch33-pilot.json",
+      "input_sha256": "725c9c40551d2127c65b65369eb8514786c4f7b8238f6f3de34d763d2aca7680",
+      "returncode": 0,
+      "stdout": "[RECORDED] card-en-garde-red-hand-floating actions=15\n",
+      "stderr": ""
+    },
+    {
+      "input": "card-regression-batch46.json",
+      "input_sha256": "2248e54664b6d9f6bd98aff01e6b60a68a4c2643c6e1da737af860d1ce7b6bef",
+      "returncode": 0,
+      "stdout": "[RECORDED] diagnostic-en-garde-red-hand-floating-printed-power actions=15\n",
+      "stderr": ""
+    }
+  ],
+  "scope": "Native original unchanged golden and separate numerical diagnostic; independent saved review/replay remain."
+}

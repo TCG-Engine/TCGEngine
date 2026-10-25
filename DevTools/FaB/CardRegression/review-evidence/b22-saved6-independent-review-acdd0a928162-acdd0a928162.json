@@ -1,0 +1,475 @@
+{
+  "status": "independently_semantically_approved_actual_saved_B22_6",
+  "reviewer": "/root/wtr_attack_scenarios",
+  "review_basis": "Read-only complete saved action/assertion/snapshot audit and independent printed-effect stage model; not replay.",
+  "source_spec_sha256": "2beee0b213d6128768eea846ad505e593f66b9e8dd93bff4385080986e0b45bb",
+  "archived_author_run": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch22-20261020T000413Z-6ad6affd63d77.json",
+  "archived_author_run_sha256": "f4d0bd27766ad99f23e3a7fb3a79dd8b8301bf66fa6fb8ac942bf02ff0e19bc5",
+  "checks": 1263,
+  "native_writes": 0,
+  "game_actions": 0,
+  "totals": {
+    "fixtures": 6,
+    "actions": 122,
+    "native_assertions": 279,
+    "assertion_types": {
+      "scalar_zone_equals": 92,
+      "zone_count": 59,
+      "card_exists": 7,
+      "decision_queue_empty": 37,
+      "game_state_field": 60,
+      "computed_power_equals": 6,
+      "computed_go_again_equals": 18
+    }
+  },
+  "fixtures": [
+    {
+      "slug": "compat-warriors-valor-red-hero-hit-layer-timing",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "a3b12c62ad53b6f7c97eaf14889e8f2dcf64b4df85cf2c4b1c661859599e415b",
+        "actions.json": "ad07bf0d28e3e5e1160f044434f37976af5ffdd57aeb7e379e2297a7ee4ec097",
+        "assertions.json": "71a15e552f9fae86a28ffd11a646d2a8c8d88f523f7feda830bb80dc6000a018",
+        "expected_final_gamestate.txt": "66528e805ae33e73f160c991ce1c9b5bacc92f10c4e8e76653d33f5a0a39468b",
+        "meta.json": "b75a5f54ceae73c599a2e1a6567dc2c41776c767bda555870038488c746700fe"
+      },
+      "fixture_sha256": "bf5f292d116804d7ebe70c7a80fb78a52b0b893ed5f98a45b84ff6d1cb446156",
+      "actions": 19,
+      "native_assertions": 45,
+      "native_game_state_fields": 10,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 4,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 12,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 14,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 16,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": null,
+          "step": 18,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": null,
+          "step": 19,
+          "native_assertions": 6
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Exact approved six native action/assertion sequences; every specified checkpoint independently modeled from printed Valor+Talishar costs, blue pitch, power, blocking, hit triggers and idempotent go again. Full initial/final physical sources and proxy/tag/counter/priority/cleanup inspected. No engine replay performed.",
+      "derived_effect": {
+        "printed_bonus": 3,
+        "independent_grants": 1,
+        "weapon_power": 7,
+        "defense": 0,
+        "physical_damage": 7,
+        "target": "HERO",
+        "health": [
+          20,
+          13
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "granted_hit_layers": 1,
+        "attack_go_again": true,
+        "refunds": 1
+      }
+    },
+    {
+      "slug": "compat-warriors-valor-yellow-hero-hit-layer-timing",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3c058f3fde18f870bfa98c2e7d23c190b7f15eb7ac25d536d7e983da299f4d62",
+        "actions.json": "ad07bf0d28e3e5e1160f044434f37976af5ffdd57aeb7e379e2297a7ee4ec097",
+        "assertions.json": "4ebb0197d1b3dce69088c01a4c1293d3351baaeb6e78e80cc976af1b97a49421",
+        "expected_final_gamestate.txt": "e0fcf3b8531fe26e95b207361a4133aed1b59667547603e41c962b94c508143a",
+        "meta.json": "014edbe27765c52bbb67b3f88a355a3aab38e7a63f65a687bde69d3c38ecd071"
+      },
+      "fixture_sha256": "9ac7e6674bd2e5801ce31038f1d291e89f03505ab8be91da8c487639c82dd2e6",
+      "actions": 19,
+      "native_assertions": 45,
+      "native_game_state_fields": 10,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 4,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 12,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 14,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 16,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": null,
+          "step": 18,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": null,
+          "step": 19,
+          "native_assertions": 6
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Exact approved six native action/assertion sequences; every specified checkpoint independently modeled from printed Valor+Talishar costs, blue pitch, power, blocking, hit triggers and idempotent go again. Full initial/final physical sources and proxy/tag/counter/priority/cleanup inspected. No engine replay performed.",
+      "derived_effect": {
+        "printed_bonus": 2,
+        "independent_grants": 1,
+        "weapon_power": 6,
+        "defense": 0,
+        "physical_damage": 6,
+        "target": "HERO",
+        "health": [
+          20,
+          14
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "granted_hit_layers": 1,
+        "attack_go_again": true,
+        "refunds": 1
+      }
+    },
+    {
+      "slug": "compat-warriors-valor-blue-hero-hit-layer-timing",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "bdafa34e8d9a0ca54cc00f75071429c082bdca4d700d57b3694f0104e2e26f81",
+        "actions.json": "ad07bf0d28e3e5e1160f044434f37976af5ffdd57aeb7e379e2297a7ee4ec097",
+        "assertions.json": "9558cb538d4e67c4a11836f77f399d98c2ff4dd9e8c4b89b672e62755976c8ac",
+        "expected_final_gamestate.txt": "1614ff717e9f61f17ea2a7e5af59ffcdacb0aff6f33ef2f9c9d6f72211ca9027",
+        "meta.json": "348a3d206db8c7db7482214a658b14cbbaa51aaa118960c6cf6c71385d2c1568"
+      },
+      "fixture_sha256": "79ed07fbe035249d972f4718da1e7a22d6c93d2651f3a69c1cbfc82567b0d6c9",
+      "actions": 19,
+      "native_assertions": 45,
+      "native_game_state_fields": 10,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 4,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 12,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 14,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 16,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": null,
+          "step": 18,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": null,
+          "step": 19,
+          "native_assertions": 6
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Exact approved six native action/assertion sequences; every specified checkpoint independently modeled from printed Valor+Talishar costs, blue pitch, power, blocking, hit triggers and idempotent go again. Full initial/final physical sources and proxy/tag/counter/priority/cleanup inspected. No engine replay performed.",
+      "derived_effect": {
+        "printed_bonus": 1,
+        "independent_grants": 1,
+        "weapon_power": 5,
+        "defense": 0,
+        "physical_damage": 5,
+        "target": "HERO",
+        "health": [
+          20,
+          15
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "granted_hit_layers": 1,
+        "attack_go_again": true,
+        "refunds": 1
+      }
+    },
+    {
+      "slug": "compat-warriors-valor-red-fully-blocked-no-hit-layer-no-go-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d7c4d52a65392adce8567c7eb5594ee2051582418453b6655a405c9006221c4a",
+        "actions.json": "ec421ef13a5e8fc517a346424d156278ec1f3ec7bfb9f51d068db3b9d4882129",
+        "assertions.json": "c9bd9eb212d1c9f13ee532726599dc8f1443a77d3bcba9a280f8342347d86668",
+        "expected_final_gamestate.txt": "1dfed461d99ad28268668a6cc42aa5dcb642b66b94981301da99c520e2ffa8ab",
+        "meta.json": "a210b4b8b44b8cc1a93c04db1d780064c64a5760f0fee25b60ba5770a7864129"
+      },
+      "fixture_sha256": "5dfbc9ce7f51aad09770b1a410cdeecee7f933c3a5b6ae4456b29c15dcf789b6",
+      "actions": 20,
+      "native_assertions": 39,
+      "native_game_state_fields": 8,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 4,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 15,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 17,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 19,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": null,
+          "step": 20,
+          "native_assertions": 6
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Exact approved six native action/assertion sequences; every specified checkpoint independently modeled from printed Valor+Talishar costs, blue pitch, power, blocking, hit triggers and idempotent go again. Full initial/final physical sources and proxy/tag/counter/priority/cleanup inspected. No engine replay performed.",
+      "derived_effect": {
+        "printed_bonus": 3,
+        "independent_grants": 1,
+        "weapon_power": 7,
+        "defense": 9,
+        "physical_damage": 0,
+        "target": "HERO",
+        "health": [
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "granted_hit_layers": 0,
+        "attack_go_again": false,
+        "refunds": 0
+      }
+    },
+    {
+      "slug": "compat-warriors-valor-red-ally-hit-layer-timing",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1202a5563d0d207a85a02b10786ad7e197c4b7a890020c511a2eaeb3e0654043",
+        "actions.json": "4da4e74a9a4009f321e95caaa9166d8a438c65a9ba99f5e53bd096ced2be8591",
+        "assertions.json": "e20da0ce44a7e3bd647a5837af287f3530003cdb3ac3959ab3ea5d7e43d9fd20",
+        "expected_final_gamestate.txt": "3bd717f358cc75eee7863a5e5c86f9eecd0b0ef604eb121b5883969ec320f39a",
+        "meta.json": "11073c75bb8c5fad892cbce76fb741e0658b882940ff12892fc3a5e7522c3dad"
+      },
+      "fixture_sha256": "2771523a43cf744247eda2e95083d5c486fa79562f39677c2e27123bf09ea4b3",
+      "actions": 20,
+      "native_assertions": 47,
+      "native_game_state_fields": 10,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 4,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 13,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 15,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 15,
+          "native_assertions": 2
+        },
+        {
+          "checkpoint": null,
+          "step": 17,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": null,
+          "step": 19,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": null,
+          "step": 20,
+          "native_assertions": 6
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Exact approved six native action/assertion sequences; every specified checkpoint independently modeled from printed Valor+Talishar costs, blue pitch, power, blocking, hit triggers and idempotent go again. Full initial/final physical sources and proxy/tag/counter/priority/cleanup inspected. No engine replay performed.",
+      "derived_effect": {
+        "printed_bonus": 3,
+        "independent_grants": 1,
+        "weapon_power": 7,
+        "defense": 0,
+        "physical_damage": 7,
+        "target": "ALLY",
+        "health": [
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "granted_hit_layers": 1,
+        "attack_go_again": true,
+        "refunds": 1
+      }
+    },
+    {
+      "slug": "compat-warriors-valor-red-two-grants-two-triggers-one-ap",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "56ab4ed568ab2be634664a5235487fcf284c13906241e50ad1493dffea21eeca",
+        "actions.json": "40147ed19be2b7b6e1f45ab9ab9a6a58e3c4ec41b3c9052a8d05d4f676eadca6",
+        "assertions.json": "d91ae79a65382aab4aae58e449df75e9b00bd5b2998025689a460a118e9501e1",
+        "expected_final_gamestate.txt": "dedacc12fbb7111b623f0a5af1d0ead3e24d5d729136402fab0ce83996da69b0",
+        "meta.json": "a6b98ec1c3eb14cd76aadac9fe9d79e3bfaa03704e2f2186025dc06153641323"
+      },
+      "fixture_sha256": "6a3f3ff11c49833ab623e50cfbe035084cdff79484336f22336e4e10132add91",
+      "actions": 25,
+      "native_assertions": 58,
+      "native_game_state_fields": 12,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 4,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 7,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 16,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": null,
+          "step": 20,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 22,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": null,
+          "step": 24,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": null,
+          "step": 25,
+          "native_assertions": 6
+        }
+      ],
+      "author_only_checks": [],
+      "review_basis": "Exact approved six native action/assertion sequences; every specified checkpoint independently modeled from printed Valor+Talishar costs, blue pitch, power, blocking, hit triggers and idempotent go again. Full initial/final physical sources and proxy/tag/counter/priority/cleanup inspected. No engine replay performed.",
+      "derived_effect": {
+        "printed_bonus": 3,
+        "independent_grants": 2,
+        "weapon_power": 10,
+        "defense": 0,
+        "physical_damage": 10,
+        "target": "HERO",
+        "health": [
+          20,
+          10
+        ],
+        "resources": [
+          2,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "granted_hit_layers": 2,
+        "attack_go_again": true,
+        "refunds": 1
+      }
+    }
+  ],
+  "bounds": [
+    "Three pitch variants hero hit, red fully blocked/no hit, red ally hit, red two grants/two layers/one AP only.",
+    "Native intermediate Stack counts and false-to-true computed go again pin timing; exact intermediate ability Params/sourceKind are not added by these original recipes.",
+    "All terminate at link RESOLUTION with one real priority pass, not chain Close. No next-only/expiry/subtype/suppression/general Warrior coverage claimed.",
+    "Parent frozen-runtime clean replay and semantic controls remain separate qualification gates."
+  ]
+}

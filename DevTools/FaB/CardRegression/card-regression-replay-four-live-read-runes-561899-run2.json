@@ -1,0 +1,25 @@
+{
+  "command": "Existing RunIntegrationTests.php --root=FaBSim --test=<each listed slug>",
+  "scope": "TARGETED_SUBSET_ONLY_NOT_A_FULL_CORPUS_RUN",
+  "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T14:56:27.365178+00:00",
+  "canonical_inventory_at_capture": 3079,
+  "fixtures": [
+    {
+      "slug": "card-read-the-runes-red-upf-four-live-one-representative-three-owned-runechants",
+      "fixture_sha256": "ae901a411e697763cf84a3cd0868b7c0a2458fab7f5615f03e31cc7facd22e48",
+      "passed": true,
+      "result": "[PASS] Read the Runes red / four live players, first nonattack, exactly three owned Runechants"
+    }
+  ],
+  "per_fixture_native_commands": [
+    {
+      "slug": "card-read-the-runes-red-upf-four-live-one-representative-three-owned-runechants",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-read-the-runes-red-upf-four-live-one-representative-three-owned-runechants",
+      "returncode": 0,
+      "stdout": "[PASS] Read the Runes red / four live players, first nonattack, exactly three owned Runechants\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ]
+}

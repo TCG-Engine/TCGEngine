@@ -1,0 +1,20 @@
+{
+    "rulesVersion": 37,
+    "catalogHash": "55c72aa35c1ac5d34242dfebb2d23ec7d4fe46e806290326ce899ad5bd83d538",
+    "cases": 1206,
+    "resolutions": 6231,
+    "botCancels": 818,
+    "botImprovesDamageEdge": 814,
+    "meanKeptDamageEdge": -0.685737976782753,
+    "meanBotDamageEdge": 1.4684908789386402,
+    "meanBotDamageEdgeGain": 2.154228855721393,
+    "meanBestDamageEdgeGain": 2.5091210613598673,
+    "chosenMains": {
+        "13": 75,
+        "14": 388,
+        "15": 118,
+        "16": 231,
+        "17": 130,
+        "18": 264
+    }
+}

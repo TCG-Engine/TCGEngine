@@ -1,0 +1,7 @@
+{
+    "name": "Healing Balm / hand-low-life",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:14:03+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0. Gain 1{h}. Pay exactly1AP when played; no printed go again. Health increases by printed amount only when the card resolves, with no starting-life cap.  Sources: FaBSim/GeneratedCode/cardArrayCache.json#healing_balm_blue https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

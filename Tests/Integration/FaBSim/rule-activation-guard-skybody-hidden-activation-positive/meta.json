@@ -1,0 +1,7 @@
+{
+    "name": "Activation guard / face-down Skybody Keikoi still activates",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:43+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Enigma legally equips Mystic Skybody Keikoi face-down via Cloaked. Its printed instant can be activated while face-down under CR1.7.4b/5.2.4. At non-turn AP0 during ATTACK, destruction is paid before the layer resolves; no resources/AP are paid. The resolved effect prevents the next1 damage this turn, so unblocked first Wounding Blow blue2 deals1, leaving19. This preserves the ARC hidden-ability exception despite HasNoAbilities treating hidden equipment specially. Sources: FaBSim/GeneratedCode/cardArrayCache.json#skybody_keikoi https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/Custom/WTRCards.php::FaBWTRCanActivate FaBSim/Custom/ARCAbilities.php::FaBARCAbilityLegal FaBSim/Custom/MSTCards.php::FaBMSTCloakAbility FaBSim/Custom/MSTRuntime.php::FaBMSTAbilityLegal https://rules.fabtcg.com/en/cr/08-keywords/"
+}

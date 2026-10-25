@@ -1,0 +1,1599 @@
+{
+  "status": "APPROVED_INDEPENDENT_RULES_BOUND_COMPLETE_SNAPSHOT_DELTA_REVIEWS",
+  "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+  "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+  "created_utc": "2026-10-25T14:45:21.653240+00:00",
+  "independent_approvals": [
+    {
+      "path": "review-evidence/public-graveyard-20261025-twelve-actual-snapshot-approval.json",
+      "sha256": "70c473e96d439ab68053ed6377fb90d7fc40976b4306b9178684669dfe76451a"
+    },
+    {
+      "path": "review-evidence/fab-three-timing-snapshot-candidates-independent-review-106.json",
+      "sha256": "30f811fd6a34d828a9ba4dbc0d011757b93b1bab5633e5b95301e96719272337"
+    }
+  ],
+  "capture_receipt_sha256": "38976d3b1e219e093ee817d089a711d20ccd972a5d4d29214d53f5055b6784af",
+  "fixtures": [
+    {
+      "slug": "card-command-and-conquer-red-hit-trigger-sigil-hand-response",
+      "name": "Command and Conquer / real Sigil Hand response before hit destruction",
+      "semantically_approved": true,
+      "source_spec": "card-regression-batch64.json",
+      "source_index": 0,
+      "fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-command-and-conquer-red-hit-trigger-sigil-hand-response",
+      "expected_candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-hit-trigger-sigil-hand-response\\actual_final_gamestate.txt",
+      "fixture_sha256": "2101ab948143dd34d07b53430e7107e9bf61dd5c4967c8df594c8321a903261f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1129cf7655f720d712d25e3e495e8f7f6e54aa2b8487cccbb8e9adb44a826f52",
+        "actions.json": "092e7422b03aaa42976ef80417893fa172878213c664ae5b8cf280e3e3f19071",
+        "assertions.json": "64ce9a35ce856bb6f78d330eda183cb1b625e2c5b10e9bdca8a1ae8d9915faaf",
+        "expected_final_gamestate.txt": "e13d93cde6efc22db9e4bdb795df9594581a319b6bbd3d30ede0114afa162680",
+        "meta.json": "5013cf2e737a56ddcb89dc16adc31fdbd3c620d9940ade3e6ba991de8b4130ae"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1129cf7655f720d712d25e3e495e8f7f6e54aa2b8487cccbb8e9adb44a826f52",
+        "actions.json": "092e7422b03aaa42976ef80417893fa172878213c664ae5b8cf280e3e3f19071",
+        "assertions.json": "64ce9a35ce856bb6f78d330eda183cb1b625e2c5b10e9bdca8a1ae8d9915faaf",
+        "expected_final_gamestate.txt": "e13d93cde6efc22db9e4bdb795df9594581a319b6bbd3d30ede0114afa162680",
+        "meta.json": "5013cf2e737a56ddcb89dc16adc31fdbd3c620d9940ade3e6ba991de8b4130ae"
+      },
+      "prior_raw5_sha256": {
+        "initial_gamestate.txt": "1129cf7655f720d712d25e3e495e8f7f6e54aa2b8487cccbb8e9adb44a826f52",
+        "actions.json": "092e7422b03aaa42976ef80417893fa172878213c664ae5b8cf280e3e3f19071",
+        "assertions.json": "64ce9a35ce856bb6f78d330eda183cb1b625e2c5b10e9bdca8a1ae8d9915faaf",
+        "expected_final_gamestate.txt": "1080660a82dbac3ac8d5d9b260edbcc90fd1c22c8ead376a32b720d82af15edf",
+        "meta.json": "5013cf2e737a56ddcb89dc16adc31fdbd3c620d9940ade3e6ba991de8b4130ae"
+      },
+      "prior_fixture_sha256": "1c24592726ae072b72eaa2d60cb4f44525c69d4990790969065fd9e86143deda",
+      "native_actions": 20,
+      "native_assertions": 399,
+      "exact_changed_bytes": 3,
+      "byte_offsets": [
+        246,
+        4476,
+        9218
+      ],
+      "changed_lines": [
+        41,
+        96,
+        98
+      ],
+      "terminal_field_delta": {
+        "path": [
+          "p2Graveyard",
+          1,
+          "FaceDown"
+        ],
+        "before": "1",
+        "after": "0",
+        "UID": "4",
+        "CardID": "wounding_blow_blue",
+        "Owner": "2",
+        "Controller": "2"
+      },
+      "mirrored_version_deltas": [
+        {
+          "path": [
+            "p1Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        },
+        {
+          "path": [
+            "p2Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        }
+      ],
+      "no_collateral_bytes_or_parsed_fields_changed": true,
+      "prior_provenance_preserved_basis": "Same source specification, initial, actions, assertions, meta and rules-derived semantics; only the incorrectly private Graveyard value and its two history mirrors corrected. Historical native/replay receipts remain historical, not retagged.",
+      "qualification_scope": "Candidate expected snapshot semantically approved; canonical copy/registry promotion and subsequent affected replay performed by root only."
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-floating-overfunded",
+      "name": "Command and Conquer / ordinary / hand-floating-overfunded",
+      "semantically_approved": true,
+      "source_spec": "card-regression-batch74.json",
+      "source_index": 0,
+      "fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-command-and-conquer-red-ordinary-hand-floating-overfunded",
+      "expected_candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-hand-floating-overfunded\\actual_final_gamestate.txt",
+      "fixture_sha256": "60a1addd5da97d895fc670a074bcbf6111e355b1f1c266a83258ae14bb9f8750",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a53cda1e1751d669bba1708b67d231d1452950e87fdf291f436e7bd2d59842a0",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "346674d423ce9cff5164ec17fb15f01f105c69363a4e28ca8766b60f0072f023",
+        "expected_final_gamestate.txt": "29fc98aeacd2559a7b9cec593197ac6779c25a05888828f1c18b6c40b690501a",
+        "meta.json": "89b58d6e50ffb3059f3909c0bca440b4d10b78bab545bd772b4e95b72a8cc10b"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a53cda1e1751d669bba1708b67d231d1452950e87fdf291f436e7bd2d59842a0",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "346674d423ce9cff5164ec17fb15f01f105c69363a4e28ca8766b60f0072f023",
+        "expected_final_gamestate.txt": "29fc98aeacd2559a7b9cec593197ac6779c25a05888828f1c18b6c40b690501a",
+        "meta.json": "89b58d6e50ffb3059f3909c0bca440b4d10b78bab545bd772b4e95b72a8cc10b"
+      },
+      "prior_raw5_sha256": {
+        "initial_gamestate.txt": "a53cda1e1751d669bba1708b67d231d1452950e87fdf291f436e7bd2d59842a0",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "346674d423ce9cff5164ec17fb15f01f105c69363a4e28ca8766b60f0072f023",
+        "expected_final_gamestate.txt": "dcae512600930a0564e486c069bc37613478190427d33cad0a2cd54c5eff0709",
+        "meta.json": "89b58d6e50ffb3059f3909c0bca440b4d10b78bab545bd772b4e95b72a8cc10b"
+      },
+      "prior_fixture_sha256": "f83250958ebf0c1942c0dde9c67ce04d0450bfac431a77045634c73792e398f6",
+      "native_actions": 16,
+      "native_assertions": 269,
+      "exact_changed_bytes": 3,
+      "byte_offsets": [
+        217,
+        3972,
+        8084
+      ],
+      "changed_lines": [
+        40,
+        95,
+        97
+      ],
+      "terminal_field_delta": {
+        "path": [
+          "p2Graveyard",
+          0,
+          "FaceDown"
+        ],
+        "before": "1",
+        "after": "0",
+        "UID": "4",
+        "CardID": "wounding_blow_blue",
+        "Owner": "2",
+        "Controller": "2"
+      },
+      "mirrored_version_deltas": [
+        {
+          "path": [
+            "p1Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        },
+        {
+          "path": [
+            "p2Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        }
+      ],
+      "no_collateral_bytes_or_parsed_fields_changed": true,
+      "prior_provenance_preserved_basis": "Same source specification, initial, actions, assertions, meta and rules-derived semantics; only the incorrectly private Graveyard value and its two history mirrors corrected. Historical native/replay receipts remain historical, not retagged.",
+      "qualification_scope": "Candidate expected snapshot semantically approved; canonical copy/registry promotion and subsequent affected replay performed by root only."
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact",
+      "name": "Command and Conquer / ordinary / hand-yellow-pitch-exact",
+      "semantically_approved": true,
+      "source_spec": "card-regression-batch74.json",
+      "source_index": 1,
+      "fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact",
+      "expected_candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact\\actual_final_gamestate.txt",
+      "fixture_sha256": "268f41aa04c2c36829d5b17445e47e8caaee9413859cb548a4667cb4ac496ab1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7fc11e230ad69bb207adbb99b23c420628ec5995adeda83868b76d882f0f8ec3",
+        "actions.json": "7d376041284d5a129aa1cb3607b7480d36e1c7d97aab738eb6882a071d87e771",
+        "assertions.json": "4c564c80a9fea77549e370d82dd71239388a369d75937708ddda5890b3f52517",
+        "expected_final_gamestate.txt": "b1ebd3ee2d2a51c9815a77378d899ebf47723166d888fc03df177bf37096dbb7",
+        "meta.json": "b5c120f94dd1f728af00f2dc8224158ff35c9c447164db66b8237a53cb75b4f0"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7fc11e230ad69bb207adbb99b23c420628ec5995adeda83868b76d882f0f8ec3",
+        "actions.json": "7d376041284d5a129aa1cb3607b7480d36e1c7d97aab738eb6882a071d87e771",
+        "assertions.json": "4c564c80a9fea77549e370d82dd71239388a369d75937708ddda5890b3f52517",
+        "expected_final_gamestate.txt": "b1ebd3ee2d2a51c9815a77378d899ebf47723166d888fc03df177bf37096dbb7",
+        "meta.json": "b5c120f94dd1f728af00f2dc8224158ff35c9c447164db66b8237a53cb75b4f0"
+      },
+      "prior_raw5_sha256": {
+        "initial_gamestate.txt": "7fc11e230ad69bb207adbb99b23c420628ec5995adeda83868b76d882f0f8ec3",
+        "actions.json": "7d376041284d5a129aa1cb3607b7480d36e1c7d97aab738eb6882a071d87e771",
+        "assertions.json": "4c564c80a9fea77549e370d82dd71239388a369d75937708ddda5890b3f52517",
+        "expected_final_gamestate.txt": "e86957d8acce38ad7b100153d64bcf551453891792b922d8c96eac149126b8bf",
+        "meta.json": "b5c120f94dd1f728af00f2dc8224158ff35c9c447164db66b8237a53cb75b4f0"
+      },
+      "prior_fixture_sha256": "22387c06a95a2f761c1b5e2aa91c18ee7511df8ea89ed83f62fe01c5c91a2946",
+      "native_actions": 17,
+      "native_assertions": 312,
+      "exact_changed_bytes": 3,
+      "byte_offsets": [
+        217,
+        4124,
+        8472
+      ],
+      "changed_lines": [
+        40,
+        96,
+        98
+      ],
+      "terminal_field_delta": {
+        "path": [
+          "p2Graveyard",
+          0,
+          "FaceDown"
+        ],
+        "before": "1",
+        "after": "0",
+        "UID": "4",
+        "CardID": "wounding_blow_blue",
+        "Owner": "2",
+        "Controller": "2"
+      },
+      "mirrored_version_deltas": [
+        {
+          "path": [
+            "p1Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        },
+        {
+          "path": [
+            "p2Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        }
+      ],
+      "no_collateral_bytes_or_parsed_fields_changed": true,
+      "prior_provenance_preserved_basis": "Same source specification, initial, actions, assertions, meta and rules-derived semantics; only the incorrectly private Graveyard value and its two history mirrors corrected. Historical native/replay receipts remain historical, not retagged.",
+      "qualification_scope": "Candidate expected snapshot semantically approved; canonical copy/registry promotion and subsequent affected replay performed by root only."
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus",
+      "name": "Command and Conquer / ordinary / hand-blue-pitch-one-surplus",
+      "semantically_approved": true,
+      "source_spec": "card-regression-batch74.json",
+      "source_index": 2,
+      "fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus",
+      "expected_candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus\\actual_final_gamestate.txt",
+      "fixture_sha256": "7a7ee0272e514f8784708442e597bede353c8a3ecd6fdaaa9431dbf156991b81",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "836f9fa354bc5d259debd982c221ab9e57f0a99343862daa66dce3464220b6ea",
+        "actions.json": "7d376041284d5a129aa1cb3607b7480d36e1c7d97aab738eb6882a071d87e771",
+        "assertions.json": "732b243fc9b522c1d3d7df0e0b58f98bc5381ca34d517e4f6b922e1bca1c422e",
+        "expected_final_gamestate.txt": "cf4981c78c082f688bc45d1c4456b106bb7fcf7b74d937f5154ce11c0395212c",
+        "meta.json": "09f0eb4df3c8f37ab4759a3d526a9689c7de020f4aaa2db3db83f18d14ffb80c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "836f9fa354bc5d259debd982c221ab9e57f0a99343862daa66dce3464220b6ea",
+        "actions.json": "7d376041284d5a129aa1cb3607b7480d36e1c7d97aab738eb6882a071d87e771",
+        "assertions.json": "732b243fc9b522c1d3d7df0e0b58f98bc5381ca34d517e4f6b922e1bca1c422e",
+        "expected_final_gamestate.txt": "cf4981c78c082f688bc45d1c4456b106bb7fcf7b74d937f5154ce11c0395212c",
+        "meta.json": "09f0eb4df3c8f37ab4759a3d526a9689c7de020f4aaa2db3db83f18d14ffb80c"
+      },
+      "prior_raw5_sha256": {
+        "initial_gamestate.txt": "836f9fa354bc5d259debd982c221ab9e57f0a99343862daa66dce3464220b6ea",
+        "actions.json": "7d376041284d5a129aa1cb3607b7480d36e1c7d97aab738eb6882a071d87e771",
+        "assertions.json": "732b243fc9b522c1d3d7df0e0b58f98bc5381ca34d517e4f6b922e1bca1c422e",
+        "expected_final_gamestate.txt": "edd3408ad274e15f8bf367e561554c2f090d9c16c63a08654c37fd96d6c77267",
+        "meta.json": "09f0eb4df3c8f37ab4759a3d526a9689c7de020f4aaa2db3db83f18d14ffb80c"
+      },
+      "prior_fixture_sha256": "60e89040188c5372a4bd8cdf0da361936232e5f58477ae76e635f0a72cd3741f",
+      "native_actions": 17,
+      "native_assertions": 312,
+      "exact_changed_bytes": 3,
+      "byte_offsets": [
+        217,
+        4168,
+        8556
+      ],
+      "changed_lines": [
+        40,
+        96,
+        98
+      ],
+      "terminal_field_delta": {
+        "path": [
+          "p2Graveyard",
+          0,
+          "FaceDown"
+        ],
+        "before": "1",
+        "after": "0",
+        "UID": "4",
+        "CardID": "wounding_blow_blue",
+        "Owner": "2",
+        "Controller": "2"
+      },
+      "mirrored_version_deltas": [
+        {
+          "path": [
+            "p1Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        },
+        {
+          "path": [
+            "p2Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        }
+      ],
+      "no_collateral_bytes_or_parsed_fields_changed": true,
+      "prior_provenance_preserved_basis": "Same source specification, initial, actions, assertions, meta and rules-derived semantics; only the incorrectly private Graveyard value and its two history mirrors corrected. Historical native/replay receipts remain historical, not retagged.",
+      "qualification_scope": "Candidate expected snapshot semantically approved; canonical copy/registry promotion and subsequent affected replay performed by root only."
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact",
+      "name": "Command and Conquer / ordinary / hand-two-red-pitches-exact",
+      "semantically_approved": true,
+      "source_spec": "card-regression-batch74.json",
+      "source_index": 3,
+      "fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact",
+      "expected_candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact\\actual_final_gamestate.txt",
+      "fixture_sha256": "dd86ffe3b046152428ccdc1a67dd8b03495c76afeca55c7ca593a484e8669572",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "03816e6a1914da6027e35b7d2c08b32790d768f614d0e9a6da5d69d5425a3e35",
+        "actions.json": "7221d7e3176699873cc4833c0e98ce732e0830116afa2860cdc91392dbd04e2f",
+        "assertions.json": "18f04db6c1fb0fbbd314d10d02ac7e295fc7c0ea8830c10ed8187f6e0359fea3",
+        "expected_final_gamestate.txt": "e1afc230e0cee8ae87a04f4d1c271f1f06ad18b32dae83530428162b07bb1a9e",
+        "meta.json": "ea5f7b9883ef25282a6d2d235343ce5b03cdb2416552d5deaebe250a590e7f4e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "03816e6a1914da6027e35b7d2c08b32790d768f614d0e9a6da5d69d5425a3e35",
+        "actions.json": "7221d7e3176699873cc4833c0e98ce732e0830116afa2860cdc91392dbd04e2f",
+        "assertions.json": "18f04db6c1fb0fbbd314d10d02ac7e295fc7c0ea8830c10ed8187f6e0359fea3",
+        "expected_final_gamestate.txt": "e1afc230e0cee8ae87a04f4d1c271f1f06ad18b32dae83530428162b07bb1a9e",
+        "meta.json": "ea5f7b9883ef25282a6d2d235343ce5b03cdb2416552d5deaebe250a590e7f4e"
+      },
+      "prior_raw5_sha256": {
+        "initial_gamestate.txt": "03816e6a1914da6027e35b7d2c08b32790d768f614d0e9a6da5d69d5425a3e35",
+        "actions.json": "7221d7e3176699873cc4833c0e98ce732e0830116afa2860cdc91392dbd04e2f",
+        "assertions.json": "18f04db6c1fb0fbbd314d10d02ac7e295fc7c0ea8830c10ed8187f6e0359fea3",
+        "expected_final_gamestate.txt": "004ad4fbe434a401e88a4e16450bbb2f941c6016983fd95f30181777ef248ca9",
+        "meta.json": "ea5f7b9883ef25282a6d2d235343ce5b03cdb2416552d5deaebe250a590e7f4e"
+      },
+      "prior_fixture_sha256": "ae786484f1c642606d8dec8194d0a78b5965979ff1782e7ad102f82ea455f1d5",
+      "native_actions": 18,
+      "native_assertions": 359,
+      "exact_changed_bytes": 3,
+      "byte_offsets": [
+        217,
+        4208,
+        8657
+      ],
+      "changed_lines": [
+        40,
+        97,
+        99
+      ],
+      "terminal_field_delta": {
+        "path": [
+          "p2Graveyard",
+          0,
+          "FaceDown"
+        ],
+        "before": "1",
+        "after": "0",
+        "UID": "4",
+        "CardID": "wounding_blow_blue",
+        "Owner": "2",
+        "Controller": "2"
+      },
+      "mirrored_version_deltas": [
+        {
+          "path": [
+            "p1Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        },
+        {
+          "path": [
+            "p2Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        }
+      ],
+      "no_collateral_bytes_or_parsed_fields_changed": true,
+      "prior_provenance_preserved_basis": "Same source specification, initial, actions, assertions, meta and rules-derived semantics; only the incorrectly private Graveyard value and its two history mirrors corrected. Historical native/replay receipts remain historical, not retagged.",
+      "qualification_scope": "Candidate expected snapshot semantically approved; canonical copy/registry promotion and subsequent affected replay performed by root only."
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact",
+      "name": "Command and Conquer / ordinary / hand-one-floating-plus-red-exact",
+      "semantically_approved": true,
+      "source_spec": "card-regression-batch74.json",
+      "source_index": 4,
+      "fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact",
+      "expected_candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact\\actual_final_gamestate.txt",
+      "fixture_sha256": "1480282460f790effdf1becbe52275f00706320d5d8761ec3dbd18ea871960dc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e2a3ac8e9af4fddf8b9fa41c0f546c19a3c4035d2eadd82d56376197c2ed1abd",
+        "actions.json": "7d376041284d5a129aa1cb3607b7480d36e1c7d97aab738eb6882a071d87e771",
+        "assertions.json": "bd32302ad9b17796fe35e6f29264fd47ce361bfb0fb040821eff28c26a74ef7e",
+        "expected_final_gamestate.txt": "36fbc2686d7bd3adc3cce013df5842559a16d74fcc1487d8ae2582898600ad6d",
+        "meta.json": "6874589be2c719c2e534fb1c493092cead77e65f6c86aaec9f82b36b1098194e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e2a3ac8e9af4fddf8b9fa41c0f546c19a3c4035d2eadd82d56376197c2ed1abd",
+        "actions.json": "7d376041284d5a129aa1cb3607b7480d36e1c7d97aab738eb6882a071d87e771",
+        "assertions.json": "bd32302ad9b17796fe35e6f29264fd47ce361bfb0fb040821eff28c26a74ef7e",
+        "expected_final_gamestate.txt": "36fbc2686d7bd3adc3cce013df5842559a16d74fcc1487d8ae2582898600ad6d",
+        "meta.json": "6874589be2c719c2e534fb1c493092cead77e65f6c86aaec9f82b36b1098194e"
+      },
+      "prior_raw5_sha256": {
+        "initial_gamestate.txt": "e2a3ac8e9af4fddf8b9fa41c0f546c19a3c4035d2eadd82d56376197c2ed1abd",
+        "actions.json": "7d376041284d5a129aa1cb3607b7480d36e1c7d97aab738eb6882a071d87e771",
+        "assertions.json": "bd32302ad9b17796fe35e6f29264fd47ce361bfb0fb040821eff28c26a74ef7e",
+        "expected_final_gamestate.txt": "dec8a4e13dcef14322a4168a7aa11fa04ed62a1b5eb70c7d298503839590f413",
+        "meta.json": "6874589be2c719c2e534fb1c493092cead77e65f6c86aaec9f82b36b1098194e"
+      },
+      "prior_fixture_sha256": "d601c4e886f541bb6ae455456813caa3497b68fe029bf2c90c037e40817171a0",
+      "native_actions": 17,
+      "native_assertions": 312,
+      "exact_changed_bytes": 3,
+      "byte_offsets": [
+        217,
+        4118,
+        8479
+      ],
+      "changed_lines": [
+        40,
+        96,
+        98
+      ],
+      "terminal_field_delta": {
+        "path": [
+          "p2Graveyard",
+          0,
+          "FaceDown"
+        ],
+        "before": "1",
+        "after": "0",
+        "UID": "4",
+        "CardID": "wounding_blow_blue",
+        "Owner": "2",
+        "Controller": "2"
+      },
+      "mirrored_version_deltas": [
+        {
+          "path": [
+            "p1Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        },
+        {
+          "path": [
+            "p2Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        }
+      ],
+      "no_collateral_bytes_or_parsed_fields_changed": true,
+      "prior_provenance_preserved_basis": "Same source specification, initial, actions, assertions, meta and rules-derived semantics; only the incorrectly private Graveyard value and its two history mirrors corrected. Historical native/replay receipts remain historical, not retagged.",
+      "qualification_scope": "Candidate expected snapshot semantically approved; canonical copy/registry promotion and subsequent affected replay performed by root only."
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact",
+      "name": "Command and Conquer / ordinary / arsenal-facedown-floating-exact",
+      "semantically_approved": true,
+      "source_spec": "card-regression-batch74.json",
+      "source_index": 5,
+      "fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact",
+      "expected_candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact\\actual_final_gamestate.txt",
+      "fixture_sha256": "a695d836d6db9e40dc51029aa1f35fb165eeaa6c3aa72b5c3b80bb13fda59890",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "668b38dae0253a54659832fd7885dc87d9aaae637c31149ee68fd9e654d66548",
+        "actions.json": "f95659702c1190e53110db668672e86350812e597610561a57ff808e4228b168",
+        "assertions.json": "a3518e5d922e3359f078e252fe8c13df4e54e44ce8eba42c12ce0f51f989468f",
+        "expected_final_gamestate.txt": "4bd62e655de5317303da0e0c7a97866d049dbd4a237c26009e42ea0b327c07b8",
+        "meta.json": "2e32e82e090ad9b7876e405b71beb0d42a4d6659cbeaef88bfcc88bfe267b095"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "668b38dae0253a54659832fd7885dc87d9aaae637c31149ee68fd9e654d66548",
+        "actions.json": "f95659702c1190e53110db668672e86350812e597610561a57ff808e4228b168",
+        "assertions.json": "a3518e5d922e3359f078e252fe8c13df4e54e44ce8eba42c12ce0f51f989468f",
+        "expected_final_gamestate.txt": "4bd62e655de5317303da0e0c7a97866d049dbd4a237c26009e42ea0b327c07b8",
+        "meta.json": "2e32e82e090ad9b7876e405b71beb0d42a4d6659cbeaef88bfcc88bfe267b095"
+      },
+      "prior_raw5_sha256": {
+        "initial_gamestate.txt": "668b38dae0253a54659832fd7885dc87d9aaae637c31149ee68fd9e654d66548",
+        "actions.json": "f95659702c1190e53110db668672e86350812e597610561a57ff808e4228b168",
+        "assertions.json": "a3518e5d922e3359f078e252fe8c13df4e54e44ce8eba42c12ce0f51f989468f",
+        "expected_final_gamestate.txt": "c6d4e5d72be7d0fc8cc36836f78fd4495472f9295457bd33c4779fe350c2780e",
+        "meta.json": "2e32e82e090ad9b7876e405b71beb0d42a4d6659cbeaef88bfcc88bfe267b095"
+      },
+      "prior_fixture_sha256": "f603f514b0aee17336feb8957848678cb24786e05184467215e49b5b7fdb5c3d",
+      "native_actions": 16,
+      "native_assertions": 269,
+      "exact_changed_bytes": 3,
+      "byte_offsets": [
+        217,
+        3993,
+        8132
+      ],
+      "changed_lines": [
+        40,
+        95,
+        97
+      ],
+      "terminal_field_delta": {
+        "path": [
+          "p2Graveyard",
+          0,
+          "FaceDown"
+        ],
+        "before": "1",
+        "after": "0",
+        "UID": "4",
+        "CardID": "wounding_blow_blue",
+        "Owner": "2",
+        "Controller": "2"
+      },
+      "mirrored_version_deltas": [
+        {
+          "path": [
+            "p1Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        },
+        {
+          "path": [
+            "p2Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        }
+      ],
+      "no_collateral_bytes_or_parsed_fields_changed": true,
+      "prior_provenance_preserved_basis": "Same source specification, initial, actions, assertions, meta and rules-derived semantics; only the incorrectly private Graveyard value and its two history mirrors corrected. Historical native/replay receipts remain historical, not retagged.",
+      "qualification_scope": "Candidate expected snapshot semantically approved; canonical copy/registry promotion and subsequent affected replay performed by root only."
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact",
+      "name": "Command and Conquer / ordinary / arsenal-faceup-floating-exact",
+      "semantically_approved": true,
+      "source_spec": "card-regression-batch74.json",
+      "source_index": 6,
+      "fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact",
+      "expected_candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact\\actual_final_gamestate.txt",
+      "fixture_sha256": "7402a4c8d9c573e1ac30403b4f38a7f905ba61423f1b45a33af90cc62d66e450",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "48b35beffd44c8f88e01912acd77739077e16601c2b6ef8a479dc84ece3d7f27",
+        "actions.json": "f95659702c1190e53110db668672e86350812e597610561a57ff808e4228b168",
+        "assertions.json": "a3518e5d922e3359f078e252fe8c13df4e54e44ce8eba42c12ce0f51f989468f",
+        "expected_final_gamestate.txt": "4e805b56f4e43212943ec179f290427951585749a061e64578a4fe12d91f1fe4",
+        "meta.json": "c0936e4090d53e33fd0bd850c54359fbf648cc52a07ac66dca643eafa378508b"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "48b35beffd44c8f88e01912acd77739077e16601c2b6ef8a479dc84ece3d7f27",
+        "actions.json": "f95659702c1190e53110db668672e86350812e597610561a57ff808e4228b168",
+        "assertions.json": "a3518e5d922e3359f078e252fe8c13df4e54e44ce8eba42c12ce0f51f989468f",
+        "expected_final_gamestate.txt": "4e805b56f4e43212943ec179f290427951585749a061e64578a4fe12d91f1fe4",
+        "meta.json": "c0936e4090d53e33fd0bd850c54359fbf648cc52a07ac66dca643eafa378508b"
+      },
+      "prior_raw5_sha256": {
+        "initial_gamestate.txt": "48b35beffd44c8f88e01912acd77739077e16601c2b6ef8a479dc84ece3d7f27",
+        "actions.json": "f95659702c1190e53110db668672e86350812e597610561a57ff808e4228b168",
+        "assertions.json": "a3518e5d922e3359f078e252fe8c13df4e54e44ce8eba42c12ce0f51f989468f",
+        "expected_final_gamestate.txt": "ef01c1a45adb1bcb469d9bc1688578882efb17839ba085965d34eb55f1cdd49b",
+        "meta.json": "c0936e4090d53e33fd0bd850c54359fbf648cc52a07ac66dca643eafa378508b"
+      },
+      "prior_fixture_sha256": "7ce6b7ae51207db0b3c6ec5c772e5ec463a97f4e023f27451c48cfbd196445cc",
+      "native_actions": 16,
+      "native_assertions": 269,
+      "exact_changed_bytes": 3,
+      "byte_offsets": [
+        217,
+        3992,
+        8130
+      ],
+      "changed_lines": [
+        40,
+        95,
+        97
+      ],
+      "terminal_field_delta": {
+        "path": [
+          "p2Graveyard",
+          0,
+          "FaceDown"
+        ],
+        "before": "1",
+        "after": "0",
+        "UID": "4",
+        "CardID": "wounding_blow_blue",
+        "Owner": "2",
+        "Controller": "2"
+      },
+      "mirrored_version_deltas": [
+        {
+          "path": [
+            "p1Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        },
+        {
+          "path": [
+            "p2Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        }
+      ],
+      "no_collateral_bytes_or_parsed_fields_changed": true,
+      "prior_provenance_preserved_basis": "Same source specification, initial, actions, assertions, meta and rules-derived semantics; only the incorrectly private Graveyard value and its two history mirrors corrected. Historical native/replay receipts remain historical, not retagged.",
+      "qualification_scope": "Candidate expected snapshot semantically approved; canonical copy/registry promotion and subsequent affected replay performed by root only."
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal",
+      "name": "Command and Conquer / ordinary / partial-three-damage-still-destroys-arsenal",
+      "semantically_approved": true,
+      "source_spec": "card-regression-batch74.json",
+      "source_index": 7,
+      "fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal",
+      "expected_candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal\\actual_final_gamestate.txt",
+      "fixture_sha256": "815a1aae5190fc3b4b9788286380e89b4240a38d95d792057495a0e6a7b0873a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "df324fd135ee4e08abb68109de8bf5962d9a766267b787cf8d4c314d240d21bb",
+        "actions.json": "b1863b2004e8da99cfc687184fb6902d0df934d66840362f2a15f5e794d10ae4",
+        "assertions.json": "8f04c000ee613f52b4d8a791b74b619d7499dbd8f11bce87dd82bdd1acb5de0b",
+        "expected_final_gamestate.txt": "f3a5eed6cd467247b8a514dd0ee84ddf1c3705de07234518097f6fa873c73f5c",
+        "meta.json": "a569adef2265cc88af7bb1c1d0446a45deefd55d5d5b4e37a1fce82d1b334067"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "df324fd135ee4e08abb68109de8bf5962d9a766267b787cf8d4c314d240d21bb",
+        "actions.json": "b1863b2004e8da99cfc687184fb6902d0df934d66840362f2a15f5e794d10ae4",
+        "assertions.json": "8f04c000ee613f52b4d8a791b74b619d7499dbd8f11bce87dd82bdd1acb5de0b",
+        "expected_final_gamestate.txt": "f3a5eed6cd467247b8a514dd0ee84ddf1c3705de07234518097f6fa873c73f5c",
+        "meta.json": "a569adef2265cc88af7bb1c1d0446a45deefd55d5d5b4e37a1fce82d1b334067"
+      },
+      "prior_raw5_sha256": {
+        "initial_gamestate.txt": "df324fd135ee4e08abb68109de8bf5962d9a766267b787cf8d4c314d240d21bb",
+        "actions.json": "b1863b2004e8da99cfc687184fb6902d0df934d66840362f2a15f5e794d10ae4",
+        "assertions.json": "8f04c000ee613f52b4d8a791b74b619d7499dbd8f11bce87dd82bdd1acb5de0b",
+        "expected_final_gamestate.txt": "0db304527f8b0114b9a9026cd4a2d5caf4f25766ae3a28713aa3d2c9dd1ccde1",
+        "meta.json": "a569adef2265cc88af7bb1c1d0446a45deefd55d5d5b4e37a1fce82d1b334067"
+      },
+      "prior_fixture_sha256": "2f5924cd8b408dc5e4b65686cb50b947667d31f09546f782cd734f3b0e4972bb",
+      "native_actions": 17,
+      "native_assertions": 344,
+      "exact_changed_bytes": 3,
+      "byte_offsets": [
+        217,
+        4377,
+        8686
+      ],
+      "changed_lines": [
+        40,
+        96,
+        98
+      ],
+      "terminal_field_delta": {
+        "path": [
+          "p2Graveyard",
+          0,
+          "FaceDown"
+        ],
+        "before": "1",
+        "after": "0",
+        "UID": "4",
+        "CardID": "wounding_blow_blue",
+        "Owner": "2",
+        "Controller": "2"
+      },
+      "mirrored_version_deltas": [
+        {
+          "path": [
+            "p1Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        },
+        {
+          "path": [
+            "p2Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        }
+      ],
+      "no_collateral_bytes_or_parsed_fields_changed": true,
+      "prior_provenance_preserved_basis": "Same source specification, initial, actions, assertions, meta and rules-derived semantics; only the incorrectly private Graveyard value and its two history mirrors corrected. Historical native/replay receipts remain historical, not retagged.",
+      "qualification_scope": "Candidate expected snapshot semantically approved; canonical copy/registry promotion and subsequent affected replay performed by root only."
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals",
+      "name": "Command and Conquer / ordinary / hero-hit-destroys-both-legal-new-horizon-arsenals",
+      "semantically_approved": true,
+      "source_spec": "card-regression-batch74.json",
+      "source_index": 8,
+      "fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals",
+      "expected_candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals\\actual_final_gamestate.txt",
+      "fixture_sha256": "50a1fdafa7d3b9dec5ea3ac9610bc9caa7c2b1ba4c188c29efe19a5d347ab580",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2d5a6b8582899a0b6665da48f6baa4c7a61d8c486cddaae22f7a69e81a14d0ab",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "b9469b96e16cd5764cbcd121afc9a7dde7d9dfbb06cb84a1c386594f1a336f11",
+        "expected_final_gamestate.txt": "24fc33de71cdab6b42b68557a6c3ec887e0fbe00ca7356cf72e013eb7f13d4da",
+        "meta.json": "9e394961ec903ad4ef3d8650396ca062c7fab65e8c62c8660deac43237a15502"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "2d5a6b8582899a0b6665da48f6baa4c7a61d8c486cddaae22f7a69e81a14d0ab",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "b9469b96e16cd5764cbcd121afc9a7dde7d9dfbb06cb84a1c386594f1a336f11",
+        "expected_final_gamestate.txt": "24fc33de71cdab6b42b68557a6c3ec887e0fbe00ca7356cf72e013eb7f13d4da",
+        "meta.json": "9e394961ec903ad4ef3d8650396ca062c7fab65e8c62c8660deac43237a15502"
+      },
+      "prior_raw5_sha256": {
+        "initial_gamestate.txt": "2d5a6b8582899a0b6665da48f6baa4c7a61d8c486cddaae22f7a69e81a14d0ab",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "b9469b96e16cd5764cbcd121afc9a7dde7d9dfbb06cb84a1c386594f1a336f11",
+        "expected_final_gamestate.txt": "e5de78ba1db3a37736c22bdf33a788aee3c1abf5e98a0277ce9db040f58af02e",
+        "meta.json": "9e394961ec903ad4ef3d8650396ca062c7fab65e8c62c8660deac43237a15502"
+      },
+      "prior_fixture_sha256": "55dbfbb60ec2a0aba5718c11a59a278037b8e500498d35406c3b0cca5bd6f319",
+      "native_actions": 16,
+      "native_assertions": 345,
+      "exact_changed_bytes": 3,
+      "byte_offsets": [
+        243,
+        4191,
+        8510
+      ],
+      "changed_lines": [
+        41,
+        97,
+        99
+      ],
+      "terminal_field_delta": {
+        "path": [
+          "p2Graveyard",
+          0,
+          "FaceDown"
+        ],
+        "before": "1",
+        "after": "0",
+        "UID": "4",
+        "CardID": "wounding_blow_blue",
+        "Owner": "2",
+        "Controller": "2"
+      },
+      "mirrored_version_deltas": [
+        {
+          "path": [
+            "p1Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        },
+        {
+          "path": [
+            "p2Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        }
+      ],
+      "no_collateral_bytes_or_parsed_fields_changed": true,
+      "prior_provenance_preserved_basis": "Same source specification, initial, actions, assertions, meta and rules-derived semantics; only the incorrectly private Graveyard value and its two history mirrors corrected. Historical native/replay receipts remain historical, not retagged.",
+      "qualification_scope": "Candidate expected snapshot semantically approved; canonical copy/registry promotion and subsequent affected replay performed by root only."
+    },
+    {
+      "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+      "name": "Command and Conquer / mandatory when-hit trigger / arsenal-present",
+      "semantically_approved": true,
+      "source_spec": "card-regression-batch59.json",
+      "source_index": 0,
+      "fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+      "expected_candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\case-f4083b4081b0b5\\actual_final_gamestate.txt",
+      "fixture_sha256": "239ccd673eb8b8e327e234da72df73709d5f5b8ba637cc6b45cc30ebd8d704c7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5fb449c3126d84949347052689f5c43486e60b491879701463158d446945ad94",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "24e76b848deb92d9931d0370790ec5af6adbbabfdcafe4d214c41b443d494d93",
+        "expected_final_gamestate.txt": "9cb87e8ac5ca309d7ecba4ba6dc4ea250cda82a6f08b0401a779205874349554",
+        "meta.json": "1257eab23687176445922d0bd4e2957394f8b05a6aaa12e04161f7ce84ea6657"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "5fb449c3126d84949347052689f5c43486e60b491879701463158d446945ad94",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "24e76b848deb92d9931d0370790ec5af6adbbabfdcafe4d214c41b443d494d93",
+        "expected_final_gamestate.txt": "9cb87e8ac5ca309d7ecba4ba6dc4ea250cda82a6f08b0401a779205874349554",
+        "meta.json": "1257eab23687176445922d0bd4e2957394f8b05a6aaa12e04161f7ce84ea6657"
+      },
+      "prior_raw5_sha256": {
+        "initial_gamestate.txt": "5fb449c3126d84949347052689f5c43486e60b491879701463158d446945ad94",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "24e76b848deb92d9931d0370790ec5af6adbbabfdcafe4d214c41b443d494d93",
+        "expected_final_gamestate.txt": "bdb9dfecadb5bab6ad4fa58d711e382204aebde0d187e39e992bc711b33377af",
+        "meta.json": "1257eab23687176445922d0bd4e2957394f8b05a6aaa12e04161f7ce84ea6657"
+      },
+      "prior_fixture_sha256": "bed06a4057ac2db1b7c3a10ebe62f5002d753fe6d85213e6f3fa7ea8dc4fa7a2",
+      "native_actions": 16,
+      "native_assertions": 231,
+      "exact_changed_bytes": 3,
+      "byte_offsets": [
+        217,
+        3972,
+        8084
+      ],
+      "changed_lines": [
+        40,
+        95,
+        97
+      ],
+      "terminal_field_delta": {
+        "path": [
+          "p2Graveyard",
+          0,
+          "FaceDown"
+        ],
+        "before": "1",
+        "after": "0",
+        "UID": "4",
+        "CardID": "wounding_blow_blue",
+        "Owner": "2",
+        "Controller": "2"
+      },
+      "mirrored_version_deltas": [
+        {
+          "path": [
+            "p1Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        },
+        {
+          "path": [
+            "p2Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "wounding_blow_blue<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        }
+      ],
+      "no_collateral_bytes_or_parsed_fields_changed": true,
+      "prior_provenance_preserved_basis": "Same source specification, initial, actions, assertions, meta and rules-derived semantics; only the incorrectly private Graveyard value and its two history mirrors corrected. Historical native/replay receipts remain historical, not retagged.",
+      "qualification_scope": "Candidate expected snapshot semantically approved; canonical copy/registry promotion and subsequent affected replay performed by root only."
+    },
+    {
+      "slug": "rule-activation-guard-skybody-hidden-activation-positive",
+      "name": "Activation guard / face-down Skybody Keikoi still activates",
+      "semantically_approved": true,
+      "source_spec": "card-regression-batch14.json",
+      "source_index": 2,
+      "fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\rule-activation-guard-skybody-hidden-activation-positive",
+      "expected_candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\case-7098da1369399f\\actual_final_gamestate.txt",
+      "fixture_sha256": "e22abdd66fb5f5be5e5e291ef84e2a41957ede8a7eac4023858559c78cd15cb1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a034647241ad808d3cc21873d1e2aa2944a9f6b0d18c6ea86753d2bab398c436",
+        "actions.json": "61268b39e61b52c1c951a5ec66807724d9cd7cd0956f9616e658975e800c3fb6",
+        "assertions.json": "cc6766b082e70660a800a6933c8f808ad222d064130b5cb645def4419220cb6a",
+        "expected_final_gamestate.txt": "49cd90eec58df5e835e6aaa1ad3edbb5788bcf02dac9dffba3a3cebc88dee1b2",
+        "meta.json": "f011b4ebe1294031241bab180fd1b3410ddfab8b3870bc799bd969d548e14421"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a034647241ad808d3cc21873d1e2aa2944a9f6b0d18c6ea86753d2bab398c436",
+        "actions.json": "61268b39e61b52c1c951a5ec66807724d9cd7cd0956f9616e658975e800c3fb6",
+        "assertions.json": "cc6766b082e70660a800a6933c8f808ad222d064130b5cb645def4419220cb6a",
+        "expected_final_gamestate.txt": "49cd90eec58df5e835e6aaa1ad3edbb5788bcf02dac9dffba3a3cebc88dee1b2",
+        "meta.json": "f011b4ebe1294031241bab180fd1b3410ddfab8b3870bc799bd969d548e14421"
+      },
+      "prior_raw5_sha256": {
+        "initial_gamestate.txt": "a034647241ad808d3cc21873d1e2aa2944a9f6b0d18c6ea86753d2bab398c436",
+        "actions.json": "61268b39e61b52c1c951a5ec66807724d9cd7cd0956f9616e658975e800c3fb6",
+        "assertions.json": "cc6766b082e70660a800a6933c8f808ad222d064130b5cb645def4419220cb6a",
+        "expected_final_gamestate.txt": "ef594d821736fa7c5873f13057f141150e5311dc40b33b5a15018edf51fdd2f3",
+        "meta.json": "f011b4ebe1294031241bab180fd1b3410ddfab8b3870bc799bd969d548e14421"
+      },
+      "prior_fixture_sha256": "105cd25279827ea7f7ba4493ec674b48c5754b115eddbda85137d1b846ccfa69",
+      "native_actions": 16,
+      "native_assertions": 23,
+      "exact_changed_bytes": 3,
+      "byte_offsets": [
+        259,
+        4316,
+        8785
+      ],
+      "changed_lines": [
+        40,
+        95,
+        97
+      ],
+      "terminal_field_delta": {
+        "path": [
+          "p2Graveyard",
+          0,
+          "FaceDown"
+        ],
+        "before": "1",
+        "after": "0",
+        "UID": "4",
+        "CardID": "skybody_keikoi",
+        "Owner": "2",
+        "Controller": "2"
+      },
+      "mirrored_version_deltas": [
+        {
+          "path": [
+            "p1Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "skybody_keikoi<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "skybody_keikoi<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        },
+        {
+          "path": [
+            "p2Versions",
+            0,
+            "Version"
+          ],
+          "inner_v0_segment_index": 34,
+          "before_tuple": "skybody_keikoi<v2>4<v2>2<v2>2<v2>1",
+          "after_tuple": "skybody_keikoi<v2>4<v2>2<v2>2<v2>0",
+          "all_other_serialized_content_identical": true
+        }
+      ],
+      "no_collateral_bytes_or_parsed_fields_changed": true,
+      "prior_provenance_preserved_basis": "Same source specification, initial, actions, assertions, meta and rules-derived semantics; only the incorrectly private Graveyard value and its two history mirrors corrected. Historical native/replay receipts remain historical, not retagged.",
+      "qualification_scope": "Candidate expected snapshot semantically approved; canonical copy/registry promotion and subsequent affected replay performed by root only."
+    },
+    {
+      "slug": "card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token",
+      "name": "Laden with Lightning / four live sparse positive effect",
+      "semantically_approved": true,
+      "verdict": "APPROVED_EXPECTED_FINAL_ONLY_CANDIDATE_REPLACEMENT_PENDING_NATIVE_VALIDATION",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+      "fixture_sha256": "d9ae0d72c5e703562fcd6a19c16e3388761771610bc86904d524f1db38e92e14",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a7d49f985c250a804d01797ed178d53ed2daa63f5ed6a433819a9ed20eb38286",
+        "actions.json": "7cf179fdcacde46a1c7aa457b42b0d35f16587dc757f685870dc6891428fd508",
+        "assertions.json": "5d5647638aae1c802437a549d555b3a76f8a05cf853304ac3ee53687225a9d2e",
+        "expected_final_gamestate.txt": "c0684dd07ce27b8b4010fa2718001b50c41ca2b94f9277b4bef4daf90cf8ed90",
+        "meta.json": "f54956f2f55cfe6c49182181c26ab74903aed4b458a95543623dc71e2927f7af"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a7d49f985c250a804d01797ed178d53ed2daa63f5ed6a433819a9ed20eb38286",
+        "actions.json": "7cf179fdcacde46a1c7aa457b42b0d35f16587dc757f685870dc6891428fd508",
+        "assertions.json": "5d5647638aae1c802437a549d555b3a76f8a05cf853304ac3ee53687225a9d2e",
+        "expected_final_gamestate.txt": "c0684dd07ce27b8b4010fa2718001b50c41ca2b94f9277b4bef4daf90cf8ed90",
+        "meta.json": "f54956f2f55cfe6c49182181c26ab74903aed4b458a95543623dc71e2927f7af"
+      },
+      "canonical_before_raw5_sha256": {
+        "initial_gamestate.txt": "a7d49f985c250a804d01797ed178d53ed2daa63f5ed6a433819a9ed20eb38286",
+        "actions.json": "7cf179fdcacde46a1c7aa457b42b0d35f16587dc757f685870dc6891428fd508",
+        "assertions.json": "5d5647638aae1c802437a549d555b3a76f8a05cf853304ac3ee53687225a9d2e",
+        "expected_final_gamestate.txt": "da1e42dc2640e12c8136d8ca879fbaf9e92b29da7e827ab11ddc02cae3fd743d",
+        "meta.json": "f54956f2f55cfe6c49182181c26ab74903aed4b458a95543623dc71e2927f7af"
+      },
+      "prior_fixture_sha256": "d077239e65ecaa9d3e7d48d5725b3a16efefb044f120f52bc13d44bb4b56a685",
+      "candidate_expected_final_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token\\actual_final_gamestate.txt",
+      "candidate_expected_final_sha256": "c0684dd07ce27b8b4010fa2718001b50c41ca2b94f9277b4bef4daf90cf8ed90",
+      "canonical_not_yet_replaced": true,
+      "unchanged_files": [
+        "initial_gamestate.txt",
+        "actions.json",
+        "assertions.json",
+        "meta.json"
+      ],
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch122.json",
+      "source_spec_sha256": "c8fdbe58dcc21602d288b059ffd508270d574abf14414afaa09e7db36d146368",
+      "reused_semantic_review": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse-b122-qualified-independent-review-f60789c81e43.json",
+        "sha256": "f60789c81e4362eac44f79714ab4135dadaa0722bae41f725f17e784a2ed984c"
+      },
+      "actions": 6,
+      "native_assertions": 598,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_four_live_legal_heroes_and_unmodified_physical_inputs",
+          "step": 0,
+          "native_assertions": 117
+        },
+        {
+          "checkpoint": "actual_printed_action_cost_requires_real_blue_pitch",
+          "step": 1,
+          "native_assertions": 75
+        },
+        {
+          "checkpoint": "actual_action_paid_spends_ap_no_early_life_token_or_cleanup",
+          "step": 2,
+          "native_assertions": 71
+        },
+        {
+          "checkpoint": "actual_primary_action_pass_1_of_four_no_early_resolution",
+          "step": 3,
+          "native_assertions": 71
+        },
+        {
+          "checkpoint": "actual_primary_action_pass_2_of_four_no_early_resolution",
+          "step": 4,
+          "native_assertions": 71
+        },
+        {
+          "checkpoint": "actual_primary_action_pass_3_of_four_no_early_resolution",
+          "step": 5,
+          "native_assertions": 71
+        },
+        {
+          "checkpoint": "fourth_primary_response_effect_exact_life_token_ap_and_public_source",
+          "step": 6,
+          "native_assertions": 122
+        }
+      ],
+      "changed_raw_lines": [
+        90,
+        110
+      ],
+      "changed_parsed_fields": [
+        "GameState",
+        "DecisionQueueVariables"
+      ],
+      "game_state_changed_fields": [
+        "turnEffects"
+      ],
+      "exact_effect_multisets_retained_all_seats": true,
+      "usable_effect_relative_order_retained": true,
+      "effect_type_order": {
+        "1": {
+          "before": [
+            "MST_BLUE_PITCHED",
+            "SUP_COST_ONE",
+            "EVR_PLAYED",
+            "EVR_GRAVEYARD",
+            "NEXT_ATTACK",
+            "EVR_AURAS",
+            "ROS_AURA",
+            "PEN_AURAS",
+            "PEN_CREATED"
+          ],
+          "after": [
+            "MST_BLUE_PITCHED",
+            "SUP_COST_ONE",
+            "EVR_PLAYED",
+            "NEXT_ATTACK",
+            "EVR_AURAS",
+            "ROS_AURA",
+            "PEN_AURAS",
+            "PEN_CREATED",
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "2": {
+          "before": [
+            "EVR_GRAVEYARD"
+          ],
+          "after": [
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "3": {
+          "before": [
+            "EVR_GRAVEYARD"
+          ],
+          "after": [
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "4": {
+          "before": [
+            "EVR_GRAVEYARD"
+          ],
+          "after": [
+            "EVR_GRAVEYARD"
+          ]
+        }
+      },
+      "decision_queue_variables_delta": {
+        "mzID": {
+          "before": "p1Graveyard-0",
+          "after": "Stack-0"
+        }
+      },
+      "decision_context_assessment": "The stored last macro mzID now identifies its actual Stack source during managed resolution. This is residual macro context after queues/frames drain, not a claim that a live Stack source remains in the final state.",
+      "semantic_assessment": "Actual Lightning pitch pays cost 1; the fourth live response creates owned Embodiment of Lightning UID8 and printed go again restores AP1. NEXT_ATTACK and creation histories now precede source graveyard history. Next attack/token lifecycle remains outside this old representative.",
+      "limits": [
+        "No new card/cycle/branch coverage awarded.",
+        "No engine fix or new gameplay-defect count.",
+        "No general effect sorting, snapshot normalization or assertion change approved.",
+        "Native replays after guarded replacement remain root scope."
+      ]
+    },
+    {
+      "slug": "card-talisman-of-tithes-blue-four-live-sparse-actual-four-hero-draw-first-opponent-reduced-to-zero-and-item-consumed-unordered-graveyard-membership",
+      "name": "Talisman of Tithes / four live first-opponent draw replacement / unordered graveyard membership",
+      "semantically_approved": true,
+      "verdict": "APPROVED_EXPECTED_FINAL_ONLY_CANDIDATE_REPLACEMENT_PENDING_NATIVE_VALIDATION",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+      "fixture_sha256": "15a908a1121d34685dcbd4753725e5423511d39633895319a4b23d19ca6f3a70",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1cafd9864069de141fc9e0d6548af788bf011158831c11d8f2368e9ac9502ee3",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "457b2a4668057db352124c5d19a767ac20925fffe4ad217adc2948b91f5bd7aa",
+        "expected_final_gamestate.txt": "19647acfa8937c2780df94fa3b6676303355d35912ad7596f34033b019c240dc",
+        "meta.json": "a7d0ec82356523adc94f0e02afc8cb07e2e56e7510ca5536668d3ddc43c2f1f7"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1cafd9864069de141fc9e0d6548af788bf011158831c11d8f2368e9ac9502ee3",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "457b2a4668057db352124c5d19a767ac20925fffe4ad217adc2948b91f5bd7aa",
+        "expected_final_gamestate.txt": "19647acfa8937c2780df94fa3b6676303355d35912ad7596f34033b019c240dc",
+        "meta.json": "a7d0ec82356523adc94f0e02afc8cb07e2e56e7510ca5536668d3ddc43c2f1f7"
+      },
+      "canonical_before_raw5_sha256": {
+        "initial_gamestate.txt": "1cafd9864069de141fc9e0d6548af788bf011158831c11d8f2368e9ac9502ee3",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "457b2a4668057db352124c5d19a767ac20925fffe4ad217adc2948b91f5bd7aa",
+        "expected_final_gamestate.txt": "0d9bfd550adb936220987b0e6c47995f14ed0644cdce89b3d12ec8061c4e072f",
+        "meta.json": "a7d0ec82356523adc94f0e02afc8cb07e2e56e7510ca5536668d3ddc43c2f1f7"
+      },
+      "prior_fixture_sha256": "f9c57e25b876670c8b888da4a68c6cefdaf530793de9d284892c391416c87b98",
+      "candidate_expected_final_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\case-3decf810760fa0\\actual_final_gamestate.txt",
+      "candidate_expected_final_sha256": "19647acfa8937c2780df94fa3b6676303355d35912ad7596f34033b019c240dc",
+      "canonical_not_yet_replaced": true,
+      "unchanged_files": [
+        "initial_gamestate.txt",
+        "actions.json",
+        "assertions.json",
+        "meta.json"
+      ],
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch168-unordered-graveyard-successor.json",
+      "source_spec_sha256": "d2f967ac6ed0178f36314296aab0eb6180e6d5d18d0593ad9892055b2e5d7a9d",
+      "reused_semantic_review": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse-b168-unordered-qualified-independent-review-07bedadee619.json",
+        "sha256": "07bedadee619008c24528d4678e17df0de7d27505b74d4e0a93ca40bd21d8386"
+      },
+      "actions": 6,
+      "native_assertions": 448,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "four_live_owned_tithes_and_actual_four_hero_draw_inputs",
+          "step": 0,
+          "native_assertions": 130
+        },
+        {
+          "checkpoint": "real_action_printed_cost_requires_actual_blue_pitch",
+          "step": 1,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "actual_blue_pitch_pays_one_leaves_two_waits_before_any_draw",
+          "step": 2,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "source_5_real_pass_1_of_four_holds_physical_pending_source",
+          "step": 3,
+          "native_assertions": 44
+        },
+        {
+          "checkpoint": "source_5_real_pass_2_of_four_holds_physical_pending_source",
+          "step": 4,
+          "native_assertions": 44
+        },
+        {
+          "checkpoint": "source_5_real_pass_3_of_four_holds_physical_pending_source",
+          "step": 5,
+          "native_assertions": 44
+        },
+        {
+          "checkpoint": "fourth_live_response_first_opponent_draw_replaced_and_later_seats_draw_actual_cards",
+          "step": 6,
+          "native_assertions": 129
+        }
+      ],
+      "changed_raw_lines": [
+        44,
+        45,
+        93,
+        113
+      ],
+      "changed_parsed_fields": [
+        "p1Graveyard",
+        "GameState",
+        "DecisionQueueVariables"
+      ],
+      "game_state_changed_fields": [
+        "turnEffects"
+      ],
+      "exact_effect_multisets_retained_all_seats": true,
+      "usable_effect_relative_order_retained": true,
+      "effect_type_order": {
+        "1": {
+          "before": [
+            "MST_BLUE_PITCHED",
+            "SUP_COST_ONE",
+            "MST_BLUE_PLAYED",
+            "EVR_PLAYED",
+            "EVR_GRAVEYARD",
+            "SEA_BLUE_GRAVE",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_GRAVEYARD",
+            "SEA_BLUE_GRAVE",
+            "EVO_ITEM_DESTROYED",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "MST_BLUE_PITCHED",
+            "SUP_COST_ONE",
+            "MST_BLUE_PLAYED",
+            "EVR_PLAYED",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_GRAVEYARD",
+            "SEA_BLUE_GRAVE",
+            "EVO_ITEM_DESTROYED",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD",
+            "SEA_BLUE_GRAVE"
+          ]
+        },
+        "2": {
+          "before": [
+            "EVR_GRAVEYARD",
+            "EVR_GRAVEYARD",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "EVR_GRAVEYARD",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "3": {
+          "before": [
+            "EVR_GRAVEYARD",
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "4": {
+          "before": [
+            "EVR_GRAVEYARD",
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD"
+          ]
+        }
+      },
+      "decision_queue_variables_delta": {
+        "mzID": {
+          "before": "p1Graveyard-0",
+          "after": "Stack-0"
+        }
+      },
+      "decision_context_assessment": "The stored last macro mzID now identifies its actual Stack source during managed resolution. This is residual macro context after queues/frames drain, not a claim that a live Stack source remains in the final state.",
+      "semantic_assessment": "P1 draws UID8; P2 draw1 is replaced by draw0 and physical Talisman UID5 is destroyed while This Round UID6 is still resolving on Stack; P3/P4 subsequently draw UID10/11. Thus exact final public graveyard UID5 then UID6 is correct. All existing unordered-membership/public-ownership assertions are retained.",
+      "limits": [
+        "No new card/cycle/branch coverage awarded.",
+        "No engine fix or new gameplay-defect count.",
+        "No general effect sorting, snapshot normalization or assertion change approved.",
+        "Native replays after guarded replacement remain root scope."
+      ]
+    },
+    {
+      "slug": "card-this-rounds-on-me-blue-four-live-sparse-actual-blue-pitch-play-draws-one-owned-card-for-each-live-hero",
+      "name": "This Round's on Me / four live sparse positive effect",
+      "semantically_approved": true,
+      "verdict": "APPROVED_EXPECTED_FINAL_ONLY_CANDIDATE_REPLACEMENT_PENDING_NATIVE_VALIDATION",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+      "fixture_sha256": "fca2f47029598d248dce2c71143040b449d027aa8f68666d30ed078dfc9e2a97",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3f904fef161e4fc90998a852517e66fe181641f38e542784c43951e28232544a",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "1253843e6b41f92bd3b5d914fe8f021d780e3695814222c85563386e4e0e1de2",
+        "expected_final_gamestate.txt": "44d8c709f36f1123613f1503a6eb97ec35ef7e28faf962ac402c370738dfc056",
+        "meta.json": "2fa749fffc744098237fe50c95775eee8c62e37ec89a44bf6042c5b36a0a78cb"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3f904fef161e4fc90998a852517e66fe181641f38e542784c43951e28232544a",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "1253843e6b41f92bd3b5d914fe8f021d780e3695814222c85563386e4e0e1de2",
+        "expected_final_gamestate.txt": "44d8c709f36f1123613f1503a6eb97ec35ef7e28faf962ac402c370738dfc056",
+        "meta.json": "2fa749fffc744098237fe50c95775eee8c62e37ec89a44bf6042c5b36a0a78cb"
+      },
+      "canonical_before_raw5_sha256": {
+        "initial_gamestate.txt": "3f904fef161e4fc90998a852517e66fe181641f38e542784c43951e28232544a",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "1253843e6b41f92bd3b5d914fe8f021d780e3695814222c85563386e4e0e1de2",
+        "expected_final_gamestate.txt": "314e0fe80a5aa2bc8e603b37962d3aaded3876994b72f27159b7338f3bb3daec",
+        "meta.json": "2fa749fffc744098237fe50c95775eee8c62e37ec89a44bf6042c5b36a0a78cb"
+      },
+      "prior_fixture_sha256": "89880b9ee0870e73d12ef813ba47ce797595b7f7580577cad9e85d5f211e3e8b",
+      "candidate_expected_final_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\case-a0ae27eccf3cf9\\actual_final_gamestate.txt",
+      "candidate_expected_final_sha256": "44d8c709f36f1123613f1503a6eb97ec35ef7e28faf962ac402c370738dfc056",
+      "canonical_not_yet_replaced": true,
+      "unchanged_files": [
+        "initial_gamestate.txt",
+        "actions.json",
+        "assertions.json",
+        "meta.json"
+      ],
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch108.json",
+      "source_spec_sha256": "04d96e3a96ce23c17c15ed01254a63a3745ccd71cb2edfed6271d7496fb527c7",
+      "reused_semantic_review": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse-b108-qualified-independent-review-4bc98c4074cb.json",
+        "sha256": "4bc98c4074cbacd858c70a44e59d2c71b9968869be18735dbbd79ba157d255d7"
+      },
+      "actions": 6,
+      "native_assertions": 409,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "all_four_live_initial_inputs_one_physical_deck_card_per_hero",
+          "step": 0,
+          "native_assertions": 125
+        },
+        {
+          "checkpoint": "real_action_printed_cost_requires_actual_blue_pitch",
+          "step": 1,
+          "native_assertions": 24
+        },
+        {
+          "checkpoint": "actual_blue_pitch_pays_one_leaves_two_waits_before_any_draw",
+          "step": 2,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "source_5_real_pass_1_of_four_holds_physical_pending_source",
+          "step": 3,
+          "native_assertions": 38
+        },
+        {
+          "checkpoint": "source_5_real_pass_2_of_four_holds_physical_pending_source",
+          "step": 4,
+          "native_assertions": 38
+        },
+        {
+          "checkpoint": "source_5_real_pass_3_of_four_holds_physical_pending_source",
+          "step": 5,
+          "native_assertions": 38
+        },
+        {
+          "checkpoint": "fourth_real_pass_draws_exact_one_physical_owned_card_for_every_hero",
+          "step": 6,
+          "native_assertions": 125
+        }
+      ],
+      "changed_raw_lines": [
+        92,
+        112
+      ],
+      "changed_parsed_fields": [
+        "GameState",
+        "DecisionQueueVariables"
+      ],
+      "game_state_changed_fields": [
+        "turnEffects"
+      ],
+      "exact_effect_multisets_retained_all_seats": true,
+      "usable_effect_relative_order_retained": true,
+      "effect_type_order": {
+        "1": {
+          "before": [
+            "MST_BLUE_PITCHED",
+            "SUP_COST_ONE",
+            "MST_BLUE_PLAYED",
+            "EVR_PLAYED",
+            "EVR_GRAVEYARD",
+            "SEA_BLUE_GRAVE",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "MST_BLUE_PITCHED",
+            "SUP_COST_ONE",
+            "MST_BLUE_PLAYED",
+            "EVR_PLAYED",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD",
+            "SEA_BLUE_GRAVE"
+          ]
+        },
+        "2": {
+          "before": [
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "3": {
+          "before": [
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD"
+          ]
+        },
+        "4": {
+          "before": [
+            "EVR_GRAVEYARD",
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND"
+          ],
+          "after": [
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "EVR_ROUND",
+            "EVR_GRAVEYARD"
+          ]
+        }
+      },
+      "decision_queue_variables_delta": {
+        "mzID": {
+          "before": "p1Graveyard-0",
+          "after": "Stack-0"
+        }
+      },
+      "decision_context_assessment": "The stored last macro mzID now identifies its actual Stack source during managed resolution. This is residual macro context after queues/frames drain, not a claim that a live Stack source remains in the final state.",
+      "semantic_assessment": "Each of four live heroes draws its exact owned card; EVR_ROUND is established before source UID5 leaves Stack. Printed go again restores AP1; source enters public graveyard only after its effects. Later attack reduction is not newly credited.",
+      "limits": [
+        "No new card/cycle/branch coverage awarded.",
+        "No engine fix or new gameplay-defect count.",
+        "No general effect sorting, snapshot normalization or assertion change approved.",
+        "Native replays after guarded replacement remain root scope."
+      ]
+    }
+  ],
+  "qualification": "Only fifteen stale expected-final snapshots corrected after unchanged native actions/assertions passed in disposable captures. No source/runtime, initial state, action, assertion, metadata, pitch sibling, new card or new branch changes. Clean focused and final full replays remain separately required."
+}

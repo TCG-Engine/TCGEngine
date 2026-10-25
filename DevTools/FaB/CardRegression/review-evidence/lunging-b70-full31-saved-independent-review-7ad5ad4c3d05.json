@@ -1,0 +1,2947 @@
+{
+  "status": "ALL31_ACTUAL_SAVED_FIXTURES_INDEPENDENTLY_APPROVED_BOUNDED",
+  "reviewer": "/root/resume_contract_review",
+  "spec_sha256": "cf01263c10f0636a62067ca190d9bc5518500b4259975b1993e12343eb1dcd12",
+  "prior_independent_spec_review_sha256": "42b1bbaf985a0d01fb3f24266ba033cf0001d07491354471495f73b4954b110a",
+  "model_source_sha256": "ebe756b53ef0dcd51888df185ad8a433996eab59c74ca35c9f95ed23a9a74444",
+  "pure_match_tools_sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8",
+  "runtime_sha256_at_review": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+  "runtime_source_sha256": {
+    "Core/AssetPlaybookService.php": "5f11d14f5e9445fd04c38a47161c10ce1eb971a474892223c6a7d297ba7e59d3",
+    "Core/AssetVersioning.php": "455a52196acee82c9f208f4249543e12f907d780d50d9dc2cf5ea607f96b8b55",
+    "Core/BotController.php": "96b2efdf5bcefe73baf20e4cf04108c260d06586502e589132c0627517fc163a",
+    "Core/CardBaseMap.php": "09606972d08aa44589ecee69257eaf05d4dfeaa174e5c0ae40fb0ee47397c63f",
+    "Core/CardImageLoader.php": "bc4f7495f0e3f40157fe91229854a1c1d902c2e34988c85de7aa87516e339e83",
+    "Core/ChatConversation.php": "dd3db0fd9d819348629edb1c3aa7c1079317cdf328db556c0cac87fb192bf4e8",
+    "Core/ChatPolicy.php": "8b15ce15e0d28b28d8cdc48cd9f0f35487594e7039c33ad5cc24968b1bbe1f9a",
+    "Core/ChatScopeAuth.php": "b3245bf457cb254678a5f1e1f6397b45808d76eaf61b56e95fedefa8cb3432c2",
+    "Core/ChatWhisper.php": "49a624458012232949d54460c05d2098fcc0b4e52a494596cc9c1c3fc3a0e016",
+    "Core/Constants.php": "a36933f97b92783d1b3f159b004c80cc4b48bfdc4c5d6ae6a9133a122496fdf7",
+    "Core/CoreZoneModifiers.php": "7dc73c322ccfed1a87e8f2eb6cdcdc847a458f76841b7d609e400c7682e4c1ef",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "Core/GameAuth.php": "bbd2c60cc547dccef6e8ba7e781d2cc6aef043605591cce34e29c9ca3bcfa878",
+    "Core/GamePresence.php": "849e92a92a8810e2707711780f01f95bd07d8d78f6afe6acae9ef4f89fa88446",
+    "Core/GameWriteLock.php": "09fd58787068b5afeca9a257d951b144db7ca071022b36430cf1659bf450b1b8",
+    "Core/HTTPLibraries.php": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e",
+    "Core/KickVoteThreshold.php": "7cb7336fe0a14806048b0352802c6189e7646f880a7d4855d0230e9f178d9f53",
+    "Core/LLMAPI.php": "99015a4c35ea54ef67d09c87898cdc061f5f33ba3ea26c9df7386afe042ea49c",
+    "Core/Match/Hooks.php": "9200bafcc570f03f62a6398cb788c5e9a966c956ef6d66ce4ac5b6fc4cca9430",
+    "Core/Match/Match.php": "7c07e836a894331f7cb9d69d3a3e629fb5c1cc21ef9c35507b54042c1eb6a73d",
+    "Core/Match/MatchFlow.php": "8c964c0ef5e0771d3289b1ab37db383251c86b5d01d3b8f3723ae81300f6c28e",
+    "Core/Match/QueueTypes.php": "076af29eadbe4305e585615c49365357a170c5fde5a5c337280f7fbf92529f42",
+    "Core/Match/Sideboard.default.php": "fd4e05ec8877fb7c83463b541af8d7d967b94cda22627c2f79e4d291cb956400",
+    "Core/MatchHistory.php": "96436f5e522335da1d555728e7e68956c465c288c6a308940c83e66a3150cc1d",
+    "Core/MatchReplay.php": "fb3d37d9aafb650c38891b52aae3192066050d9678b6a05c43f9a8202885cc64",
+    "Core/NetworkingLibraries.php": "8f119b10f5a7d27897f496591876900e441798744ab4449957ea534d016ef695",
+    "Core/PopupZoneVisibility.php": "8aba1da4ede71831571eb9ffbb2a1b5885d86293e389bcf21e6733ea5d3981cc",
+    "Core/RegressionTestFramework.php": "269a1c52d9442f7ffa1d4a73f27eae6f0d17862cc7134f5e7093fec235dd9c99",
+    "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+    "Core/SimHistory.php": "a4e690c5c3a44b9e39f12a48eb6a0cbc4e946b9c2305fdea47e74499b9929254",
+    "Core/StatsBaseRegistry.php": "f6e91285da2963bdfcfa518f2d5857b70bfb40db422980dc71d3b9fa92d56937",
+    "Core/StatsHelpers.php": "11a0693861b9d0d7c78bc02e53f9252ecb85495aadd4f9dd138bbc6b7eb603a9",
+    "Core/Trie.php": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6",
+    "Core/UILibraries.php": "a18256048edbad590727d0ff2c79732cb18333a8ea1a439b04cc5481584a6657",
+    "Core/Versioning/AssetVersioningCapability.php": "26b75f75f7727577e9d44e40b01ec2386be78b5b82cfddd2add97fe3e97950f1",
+    "Core/Versioning/AssetVersioningEndpoint.php": "e91bb67310e95f09522b74978607da839273f397c5c45d2fa4037b39f333e84f",
+    "Core/Versioning/AssetVersioningLayout.php": "88dfcf1ba63f509b16f17c42838d7ebbd3916a1bb9f76ed5f1bc87318118ab1c",
+    "Core/Versioning/AssetVersioningService.php": "eb6374dea48b57f5f84e3e84ca54e7c4b7129474cd9ab3bb07a009c09fad55c3",
+    "Core/ViewerIdentity.php": "7f72cd772e68dd471dc3a147938524b9b9a36d49e8cf235f4db1d87902c63ff1",
+    "DevTools/RunIntegrationTests.php": "f0194817194cc5983c0bc9f716a9057f365fbb898e73ce6164d093f643672ddd",
+    "FaBSim/BotDeck.php": "f5b49a5dcf40eb00a942a8b983cebf0d9a03e888aa6f6243ca1209acd2cde328",
+    "FaBSim/CreateGame.php": "5598ccc5b984caa915e6d7bae2e2b95d6e64a328b5d8f5bf2eba6b0535e72481",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "FaBSim/Custom/ArakniBot.php": "53ff42bc33ff02283910b6aacb0a9bdce78fcc2b7981ac21a7f8189ac0d8bda2",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/ARCAbilities.php": "3d93e7520aeeadcfd14bb9c5664b95d7b7b17aa3d3b768fdf431c0e32167c54b",
+    "FaBSim/Custom/ARCCards.php": "c3b8c93aeea5bb8915e879b45c0065ac9d18ed78111691e13813868327543636",
+    "FaBSim/Custom/BoltynBot.php": "495faa3c1927c366f96cce31f0455f156e0e361741a62fc6ddaa8d4a9f68ed7b",
+    "FaBSim/Custom/BoltynCards.php": "8c2b3c11db2405e6b1890b3a008a0a9ea041ca3541b3b3d60bc502835153606c",
+    "FaBSim/Custom/Bot.php": "e73ac7f5e33e3e4c9ff88c5ab7c9c7c289a12e69288b41546dfbd4e9bc30d748",
+    "FaBSim/Custom/CardChoices.php": "96300f892fc9a0ec6a273d37ba826761712cc70145b26da59fbb6c4033b13521",
+    "FaBSim/Custom/CodeGeneration.php": "ccaf402c4c31fabf972e28be91fcfe2a8ed14ceb1d3e71250d461d5cabcdd967",
+    "FaBSim/Custom/CombatPanel.php": "63a9d43bb870fa7fc9f52d38f75850f2519f3eb818e914bb8352782a3c5afbe4",
+    "FaBSim/Custom/CombatProgress.php": "0cb96bf8065fdc72eae5c4ec7c3ea79edce0a5c876e921f7e0fc9dc99f5ceb24",
+    "FaBSim/Custom/CRUCards.php": "098671ee4a352bd7004e80332769991142ec52c38292d18548e4e5d677140ca2",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "FaBSim/Custom/DeckImport.php": "4dca611703690fd10e932e18ad7b3301cfd346c32ace44437a81f253be98865e",
+    "FaBSim/Custom/DromaiBot.php": "35983bfc9e5de2f3b207dde1046a89e248a3578cff493ed0e3947c8d1d867ed1",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/DTDRuntime.php": "8812bc94760701fd363d88891fa03a50158b3c1dc16c399aaa2e2a598f27983e",
+    "FaBSim/Custom/DYNCards.php": "ab41f2da836cf8283ccf1b14886110684845b7e9eeb953b34b249e3040f6cad1",
+    "FaBSim/Custom/DYNRuntime.php": "c4b2a4ba39df5a89a8b766f04b5f087de0bc01440c9a195f7fe8951434ff4f2a",
+    "FaBSim/Custom/ELEAbilities.php": "bf8c0531d2ff8817cf2c9b9a778d235675280fab1517c1fcf6956a6a4940ef55",
+    "FaBSim/Custom/ELECards.php": "af45a8b56294e3b64832b83d1a4c1db55daeb4ed7c3406e5d5e1eda33843b2ec",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "FaBSim/Custom/EVRAbilities.php": "135344a07ca10a5a7bd86672209d27eebadb408817908075c2596194ec574334",
+    "FaBSim/Custom/EVRCards.php": "1074ad8eb4531e73345cf11d5af049eb96ce4acccfff493c902679036031adcc",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/GameLayout.php": "991fde2c67b2752b2f81000edd324bbb9bdcd86affad1b6d73202865f44acf30",
+    "FaBSim/Custom/GameLogic.php": "bc927b75baddd47ad39c1df6d87d912cac7dd25cc353f8df6bd17776fccf3743",
+    "FaBSim/Custom/GameOver.php": "24980eb8ba4d1c942b91e3dedf5240e3cae0e6a0e03616a5a9896586b405ce30",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/HVYCards.php": "58347c63bfec8f12090883bae6fb092928660c02da19f8b698588a5ebf823a7c",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+    "FaBSim/Custom/IARRuntime.php": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+    "FaBSim/Custom/IraBot.php": "5850b50bc64d8a83521c3a6acebda3d1669f6972e4a4aa19b4eace62f258623d",
+    "FaBSim/Custom/IraCards.php": "2720531915e357bc143fceb7598ccd3360c6f50d22d2b5c00526cac8d4351364",
+    "FaBSim/Custom/LeviaBot.php": "c5c4b283c8beba30a3755ac8f133b997cbee850003d34c269aafc80e0bbdbc94",
+    "FaBSim/Custom/LeviaCards.php": "733d1d8d843105257d31ad3f8a9a2dd1996ba53cdd9fd82b40af04ed000e01e5",
+    "FaBSim/Custom/LexiBot.php": "ea59c6b2a2c2ac4c550c75e08a4b1fb6bc4684b9f2eb612687905cfb092ecf84",
+    "FaBSim/Custom/MaxxBot.php": "830f48c1f8a87757812aea31da027b5fd965280063ae89d8dbf25c9799d64240",
+    "FaBSim/Custom/MONAbilities.php": "7bdf576dc2c58372b2600ec5a81a04cb3f01bd0a9c299a4100d923cf8047e8b7",
+    "FaBSim/Custom/MONCards.php": "0f35f2849029510ce277fc5c016894047e94d5422f9b86ec5d4e631ecfd260b0",
+    "FaBSim/Custom/MPGCards.php": "bb27e6ec9f5b1f9c48ae7bfdacc0c33f51f6d56d4dece9fb1fc457440ce3afff",
+    "FaBSim/Custom/MSTCards.php": "d8abcf502b260e220956b9b9edac336293792180afd9a8bff18f7020af2d48d1",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/MultiplayerLayout.php": "5445a47407ed657c4a6cfb3366779f3fbbf4ed8418b6b5ac666c47cc2d233728",
+    "FaBSim/Custom/MultiTargetCombat.php": "19604e6f04575fa5eb4e50a95697a8f5780c3adeaa1498de3404c32553230791",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "FaBSim/Custom/PENCards.php": "f06d0c3e21bcd80350f061cabc296777704ca6ef5fd6129f374bf696cee89557",
+    "FaBSim/Custom/PrismBot.php": "998607119ce29b6fd14491fc6a01e899bab928046a2114d807faa3d835db9304",
+    "FaBSim/Custom/PrismCards.php": "bc530a5e0c1b4afd10e78f1714b161f22681d025ec990885a11b5b3d06eb1c27",
+    "FaBSim/Custom/ProfessorBot.php": "4d57f87beb88c78e6a31bca15a1e2cb7da9dd46f64faed202c9449588a8e7815",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/ROSCards.php": "2f6b96bb9d25cc8a40dfb043147367f09a807330badc51d3ddae391e4fc7c339",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "414ae0f1b8d3e5ea2f2aec306f7a7e469ede9dd489d3a3971361442e11ddfab4",
+    "FaBSim/Custom/SUPCards.php": "a1ec1c7ca72ead8a8ec28ba1125e6a5a683b24df243d4a3a103c824b50bc14a3",
+    "FaBSim/Custom/UPRAbilities.php": "81618156fdde241865d9fcc854feeaa5dd4fe439bd56699d9d7ce623a03544ad",
+    "FaBSim/Custom/UPRCards.php": "e50d9638393ee59c60362d612d3765d95a03a15877e00045c342ff2c60b1b682",
+    "FaBSim/Custom/UzuriBot.php": "4ef6be1cf6f98da118fd52aee721631a41627cef2b07505575d617958616ed14",
+    "FaBSim/Custom/WTRAbilities.php": "5babe8457b3ae98d249a70c9c2094c18ca734a850fd7818aad4f13983e2ae59f",
+    "FaBSim/Custom/WTRCards.php": "f34346a0061cb7c970293f20016a485470faf6fa3088900ba8aaf012513e32cc",
+    "FaBSim/GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+    "FaBSim/GetNextTurn.php": "1ba6ba2d2a3f3898d2bd9a9f4756887734f9ccad487ade26fdca33c0c4dcc0f6",
+    "FaBSim/InitialLayout.php": "7e0682cd067df8128f14c8972f92098db9b98ca461a43dddf70d1f1b2bd57bcd",
+    "FaBSim/LobbyAdapter.php": "c3ebb100712ef3fcb47ed3b61762a9a1939af6d57e5fad1e411b4eafb2d859fb",
+    "FaBSim/NextTurnRender.php": "90fa4d1c7d0126123f79dbd110f798770ea682dd42d88ec1b8ff6c54cde8115f",
+    "FaBSim/TurnController.php": "d79b53d9ad3498bce851c0c2b708b85374facc2418d6e49feaf7ee9bbd3abfd8",
+    "FaBSim/TurnStates.php": "0388558dff2672dbdc35f9407c8ed2e7a6779d75b4f421fd2d8edcb2269bf3ea",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+  },
+  "read_only_checks": 9666,
+  "totals": {
+    "fixtures": 31,
+    "actions": 558,
+    "native_assertions": 4186,
+    "native_game_state_fields": 658
+  },
+  "fixtures": [
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-hand-zero-ap-exact-plus-one",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "99825b029343eeaa83294fec43b23f9e75cb5b1593b2da519f0e417ad0c1ae64",
+        "actions.json": "dfad249ae4aa129206681d5f7ea66cc1062aad8f7a039e1ebb7c4cb5d9603f12",
+        "assertions.json": "83933ea49da4093fefc3c82612747916ab427982dcae722a645d3818612d1914",
+        "expected_final_gamestate.txt": "d719272ab8addf58a07618b419d139f4f2fc26df399cbaf370848aa30c6f187a",
+        "meta.json": "f4b3df5d335c2533d92231c6ea059ff8b6e73bcb7fb624cc4109b42569ab1840"
+      },
+      "fixture_sha256": "e3c00f49e1745fb47948a325618f14d4d46c8db5076d7c36895bd9206834855e",
+      "actions": 17,
+      "native_assertions": 137,
+      "native_game_state_fields": 23,
+      "checkpoints": [
+        {
+          "checkpoint": "real_attack_reaction_window_before_any_modifier",
+          "step": 8,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_4",
+          "step": 9,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "every_reaction_resolved_and_cleared_once_before_damage",
+          "step": 11,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_pass_after_reaction_not_stale_resolution",
+          "step": 12,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "physical_damage_uses_only_resolved_plus_one_per_copy",
+          "step": 13,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "no_go_again_or_action_point_refund",
+          "step": 15,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "real_resolution_pass_does_not_repeat_effect",
+          "step": 16,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "ordinary_close_keeps_exact_reaction_before_attack_graveyard_order",
+          "step": 17,
+          "native_assertions": 25
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "c3fd7d2278f722e6ae7a814d26439591d009da4a7eceb6c8b92b60cbe947276f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-pilot-20261020T035758Z-6ad6e6c66b8ce.json",
+        "sha256": "e0117b2a3cfcd782e05f2285ce9866b51390045b87d1e6d5280cf777f8825aa8"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          15
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-arsenal-face-down-zero-ap-exact-plus-one",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "06292bee97a249e281d04b9ab73484d448d93500d73db062d669a7d6f3f5939c",
+        "actions.json": "0c485e4a13f6d9cef80a13e1e747d7b74ed3782fe12d9c21a2a97e7dfeccca8d",
+        "assertions.json": "d00587e0d454e8985ae10ad5db5a1da1726bd823266af6ac09e629a0b787978d",
+        "expected_final_gamestate.txt": "80c5eb882bad80e6b18d9498dc75579b77199630bf827f84abeec5a94b32eff9",
+        "meta.json": "d4a41a270ea2318dbd90fa4c7e4f0cc820fcf62db67532f31074ba24e081db08"
+      },
+      "fixture_sha256": "7fd818dbb5b193fc7980a969a93ba72514121b9a743fd9cffb810f94ea46387e",
+      "actions": 17,
+      "native_assertions": 137,
+      "native_game_state_fields": 23,
+      "checkpoints": [
+        {
+          "checkpoint": "real_attack_reaction_window_before_any_modifier",
+          "step": 8,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_4",
+          "step": 9,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "every_reaction_resolved_and_cleared_once_before_damage",
+          "step": 11,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_pass_after_reaction_not_stale_resolution",
+          "step": 12,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "physical_damage_uses_only_resolved_plus_one_per_copy",
+          "step": 13,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "no_go_again_or_action_point_refund",
+          "step": 15,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "real_resolution_pass_does_not_repeat_effect",
+          "step": 16,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "ordinary_close_keeps_exact_reaction_before_attack_graveyard_order",
+          "step": 17,
+          "native_assertions": 25
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          15
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-arsenal-face-up-zero-ap-exact-plus-one",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5f3742e612f29e18da29ff2b62f2546432a75306ec56b6efc2bfa27ce6c20e26",
+        "actions.json": "0c485e4a13f6d9cef80a13e1e747d7b74ed3782fe12d9c21a2a97e7dfeccca8d",
+        "assertions.json": "d00587e0d454e8985ae10ad5db5a1da1726bd823266af6ac09e629a0b787978d",
+        "expected_final_gamestate.txt": "6e5bc02256d5edf8076c32f0c23ac4d9320ae4fd4a40493e051adf3ccdb70172",
+        "meta.json": "46de306ae3e6eae47785cc197d6bdaf9ecd04ad8e63bd0bdaf4c6ba10e532341"
+      },
+      "fixture_sha256": "5f67aeb9b57557e37d3b4179b019c9a62fed5f9800c477740aa1533ee7772efa",
+      "actions": 17,
+      "native_assertions": 137,
+      "native_game_state_fields": 23,
+      "checkpoints": [
+        {
+          "checkpoint": "real_attack_reaction_window_before_any_modifier",
+          "step": 8,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_4",
+          "step": 9,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "every_reaction_resolved_and_cleared_once_before_damage",
+          "step": 11,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_pass_after_reaction_not_stale_resolution",
+          "step": 12,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "physical_damage_uses_only_resolved_plus_one_per_copy",
+          "step": 13,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "no_go_again_or_action_point_refund",
+          "step": 15,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "real_resolution_pass_does_not_repeat_effect",
+          "step": 16,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "ordinary_close_keeps_exact_reaction_before_attack_graveyard_order",
+          "step": 17,
+          "native_assertions": 25
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          15
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-zero-cost-retains-two-floating-resources",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "02cd01c74482ea63a0e0e17eb7f12967265af8bd86a972647a5ce458f1059c13",
+        "actions.json": "dfad249ae4aa129206681d5f7ea66cc1062aad8f7a039e1ebb7c4cb5d9603f12",
+        "assertions.json": "bd4cb620a4bcf273d8b7ce1397a024f60c272d4eba6751690985aff8f0498d87",
+        "expected_final_gamestate.txt": "888b4267bac4a1ccccef0706a223ae66ccee13762c32f48ae9e96d635ac1795d",
+        "meta.json": "55246e29c823da87ca1c2053b489e9d76faa8540b6aa81bba5f8291e423f0231"
+      },
+      "fixture_sha256": "373aba42c5e0f9236466ea1c2eab174c121df79ebe6ead81bee77b79d8e3db6b",
+      "actions": 17,
+      "native_assertions": 137,
+      "native_game_state_fields": 23,
+      "checkpoints": [
+        {
+          "checkpoint": "real_attack_reaction_window_before_any_modifier",
+          "step": 8,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_4",
+          "step": 9,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "every_reaction_resolved_and_cleared_once_before_damage",
+          "step": 11,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_pass_after_reaction_not_stale_resolution",
+          "step": 12,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "physical_damage_uses_only_resolved_plus_one_per_copy",
+          "step": 13,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "no_go_again_or_action_point_refund",
+          "step": 15,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "real_resolution_pass_does_not_repeat_effect",
+          "step": 16,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "ordinary_close_keeps_exact_reaction_before_attack_graveyard_order",
+          "step": 17,
+          "native_assertions": 25
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          15
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          2,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-zero-cost-keeps-unpitched-spare-blue",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "7ad3f1a1d0efd00b231937c729545d3dea7fcd3be4d6f570a984a495eb3f89da",
+        "actions.json": "dfad249ae4aa129206681d5f7ea66cc1062aad8f7a039e1ebb7c4cb5d9603f12",
+        "assertions.json": "fb19850a4186e966e1274adea86e790810407da4edc074da1a64af1ccc55c376",
+        "expected_final_gamestate.txt": "cf7a28fb7d93861a0faa2c414e57123af66b7dd4aea26523143e32fac07a46cd",
+        "meta.json": "2cda36c4eb8faa5ca56ec75b0aac6772186eaf0dd9c06124e81f571cb6940031"
+      },
+      "fixture_sha256": "10017e539c2381fd64d8ac7cf10dd744867adb36567877e837703e0964f89919",
+      "actions": 17,
+      "native_assertions": 143,
+      "native_game_state_fields": 23,
+      "checkpoints": [
+        {
+          "checkpoint": "real_attack_reaction_window_before_any_modifier",
+          "step": 8,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_4",
+          "step": 9,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "every_reaction_resolved_and_cleared_once_before_damage",
+          "step": 11,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_pass_after_reaction_not_stale_resolution",
+          "step": 12,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "physical_damage_uses_only_resolved_plus_one_per_copy",
+          "step": 13,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "no_go_again_or_action_point_refund",
+          "step": 15,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "real_resolution_pass_does_not_repeat_effect",
+          "step": 16,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "ordinary_close_keeps_exact_reaction_before_attack_graveyard_order",
+          "step": 17,
+          "native_assertions": 31
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          15
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-full-block-does-not-create-hit-or-go-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1d09057047ea0ffb6d1b8179f701bd4001ff642c5d500e61ff61f72881175219",
+        "actions.json": "5790b318d2d651b865fa865ad33d10d5ee533fc9b31b0540eef0eed37f18c834",
+        "assertions.json": "f036a3dd7148050ea95359f494c9eef91b5594d3fd92562094611754cde0a458",
+        "expected_final_gamestate.txt": "a6b2e1c96b37864b2f507da50d09a2127f55d4001818cc7ce3c798c49abd2181",
+        "meta.json": "e8a49fdb6d94696c972d86350618eda07d57e1143f7502e8412d686f789dd88f"
+      },
+      "fixture_sha256": "9a9ac5141400d752a14ef20224c9d570c7f73ca1c9544fcc7944f2c1bbdf744b",
+      "actions": 20,
+      "native_assertions": 192,
+      "native_game_state_fields": 36,
+      "checkpoints": [
+        {
+          "checkpoint": "real_attack_reaction_window_before_any_modifier",
+          "step": 10,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "printed_target_declared_from_all_three_eligible_physical_cards_before_play",
+          "step": 11,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_4",
+          "step": 12,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "every_reaction_resolved_and_cleared_once_before_damage",
+          "step": 14,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_pass_after_reaction_not_stale_resolution",
+          "step": 15,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "physical_damage_uses_only_resolved_plus_one_per_copy",
+          "step": 16,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "no_go_again_or_action_point_refund",
+          "step": 18,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "real_resolution_pass_does_not_repeat_effect",
+          "step": 19,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "ordinary_close_keeps_exact_reaction_before_attack_graveyard_order",
+          "step": 20,
+          "native_assertions": 33
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          20
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [],
+        "weapon_hits": {},
+        "attack_action_hits": 0
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-cost-three-attack-action-still-legal-target",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3ef81b97268f914550ed08cb332515a1aca1715326c0c0f5447b5930ce1619d8",
+        "actions.json": "dfad249ae4aa129206681d5f7ea66cc1062aad8f7a039e1ebb7c4cb5d9603f12",
+        "assertions.json": "8bd8433e8945e53e584c53eeb8758d703468c7114a61a7af9dc61a3c494737fe",
+        "expected_final_gamestate.txt": "4fd1c65a872f37a0ad50c49a7a0ebb030b9038528bd0955b0d89a6a150a16674",
+        "meta.json": "50eea8be0afa7c605c6a54aab918712ff4a609694d532cbf65805f15e50c98b0"
+      },
+      "fixture_sha256": "db27e06b504528350360500e0fe71a553ac8873d3728e1bcb8880ded01b4b08c",
+      "actions": 17,
+      "native_assertions": 137,
+      "native_game_state_fields": 23,
+      "checkpoints": [
+        {
+          "checkpoint": "real_attack_reaction_window_before_any_modifier",
+          "step": 8,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_4",
+          "step": 9,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "every_reaction_resolved_and_cleared_once_before_damage",
+          "step": 11,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_pass_after_reaction_not_stale_resolution",
+          "step": 12,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "physical_damage_uses_only_resolved_plus_one_per_copy",
+          "step": 13,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "no_go_again_or_action_point_refund",
+          "step": 15,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "real_resolution_pass_does_not_repeat_effect",
+          "step": 16,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "ordinary_close_keeps_exact_reaction_before_attack_graveyard_order",
+          "step": 17,
+          "native_assertions": 25
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          12
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-two-original-copies-resolve-lifo-with-additive-power",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "448ecc32cf2123423daeee92233f23264a695ed73907becd50e3403ca965b451",
+        "actions.json": "fe34b59f051a1f51d88b80a888c61dff95c40122bb46f7f767cfaa881213e5d5",
+        "assertions.json": "5215c2d2bf71dd59b45e0d6c6aaa553c50adbc6703811272c26864cfc3b97347",
+        "expected_final_gamestate.txt": "af3b77a48083f04fd6331c3d9f5e3bd4d0d5e102999bc0f1c015972f4e30677b",
+        "meta.json": "8687ec1167ac4c84d3513cb64902844c3768b13e2430f40d47839495e1d3c3e9"
+      },
+      "fixture_sha256": "01c953d9903c2e6541c0e19acd9975f4a546337a170d2dc7471168a4ce7f2c7e",
+      "actions": 21,
+      "native_assertions": 201,
+      "native_game_state_fields": 28,
+      "checkpoints": [
+        {
+          "checkpoint": "real_attack_reaction_window_before_any_modifier",
+          "step": 8,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_4",
+          "step": 9,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "one_real_defender_pass_retains_first_pending_layer",
+          "step": 10,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_5",
+          "step": 11,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "second_copy_resolves_before_original_lower_layer",
+          "step": 13,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "every_reaction_resolved_and_cleared_once_before_damage",
+          "step": 15,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "actual_pass_after_reaction_not_stale_resolution",
+          "step": 16,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "physical_damage_uses_only_resolved_plus_one_per_copy",
+          "step": 17,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "no_go_again_or_action_point_refund",
+          "step": 19,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "real_resolution_pass_does_not_repeat_effect",
+          "step": 20,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "ordinary_close_keeps_exact_reaction_before_attack_graveyard_order",
+          "step": 21,
+          "native_assertions": 29
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ],
+        [
+          5,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          14
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-third-reaction-after-partial-resolution-028-required",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "72760e47fc49c6c746ac33cfa98172afb33b411f392836d77abcd45c9de3df1c",
+        "actions.json": "384e5313a622ba7d7beeb52dce021ce385bc1cbc3042e863041b219b061e246c",
+        "assertions.json": "ebf87f3175dea41f1addd9d549024acfc4fb9e4bb53bb7c4ba6570f2f4685d98",
+        "expected_final_gamestate.txt": "515a835749693978e24a236b8f79448f1e820604c0d2999e419c321c1ec56a8e",
+        "meta.json": "1824a033d35ce5deb2f9ca031365625db2bcb044d80989e502590715a986b22c"
+      },
+      "fixture_sha256": "5fdd81c454cd49cc2037a1ea5a45fe0a65d9f93da4a257a6dd7199549ae3fd46",
+      "actions": 24,
+      "native_assertions": 257,
+      "native_game_state_fields": 33,
+      "checkpoints": [
+        {
+          "checkpoint": "real_attack_reaction_window_before_any_modifier",
+          "step": 8,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_4",
+          "step": 9,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "one_real_defender_pass_retains_first_pending_layer",
+          "step": 10,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_5",
+          "step": 11,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "second_copy_resolves_before_original_lower_layer",
+          "step": 13,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "028_correct_additional_reaction_eligibility_while_lower_layer_remains",
+          "step": 13,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_6",
+          "step": 14,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "third_copy_resolves_during_same_reaction_step",
+          "step": 16,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "every_reaction_resolved_and_cleared_once_before_damage",
+          "step": 18,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "actual_pass_after_reaction_not_stale_resolution",
+          "step": 19,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "physical_damage_uses_only_resolved_plus_one_per_copy",
+          "step": 20,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "no_go_again_or_action_point_refund",
+          "step": 22,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "real_resolution_pass_does_not_repeat_effect",
+          "step": 23,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "ordinary_close_keeps_exact_reaction_before_attack_graveyard_order",
+          "step": 24,
+          "native_assertions": 33
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "028_correct_additional_reaction_eligibility_while_lower_layer_remains",
+          "step": 13,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": true
+          }
+        }
+      ],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ],
+        [
+          5,
+          3,
+          1
+        ],
+        [
+          6,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          13
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-printed-pitch-funds-generic-cost-three",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "62f6f5a37169626c6068728bd7be0da0f511c6e1bd71acc81423b4fbe68ed0ce",
+        "actions.json": "a5527b44e1419ef78f27212f020666139abf2833f6221775456d91bea3ed7eae",
+        "assertions.json": "bc64dd854c4e778b7a99e7d99be1c701fbd33c56700a9cf36437e20db8acdcb6",
+        "expected_final_gamestate.txt": "44fb6990aea2d402cc33b6c6d37936007c0d7c0be8880eb28cdf32c5ac4d26fc",
+        "meta.json": "4ac2825e750c9dc492ab7312ba7808964988818ff8d5294a62a95090e7d4cd44"
+      },
+      "fixture_sha256": "dbb2222a77309f4953315f4ad443ee79b2c7d2bde87cf6c06254dba0baed6708",
+      "actions": 15,
+      "native_assertions": 69,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "generic_cost_three_awaits_subject_pitch",
+          "step": 1,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "subject_pitch_pays_exact_resource_gap_without_go_again",
+          "step": 2,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "pitched_subject_is_not_the_attack",
+          "step": 4,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": "no_early_or_pitched_card_ap_gain",
+          "step": 9,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": "subject_go_again_does_not_apply_when_only_pitched",
+          "step": 13,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "pitch_and_actual_attack_keep_distinct_destinations",
+          "step": 15,
+          "native_assertions": 21
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [],
+      "independent_final": {
+        "HP": [
+          20,
+          14
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-printed-defense-exact-partial-damage",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d49420d7f7d3924dce41b11f9675c5d7e6f83d7510157450b151e6ad5e643a8b",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "ee128ab402c00096801794d9502d1f27d71018cdca60dd9081c7d5418fa9ec27",
+        "expected_final_gamestate.txt": "414c95226d1c3f9c02a73e5a0121fd1089ddddbee5f2150e2f82fe0f7c75eedf",
+        "meta.json": "fe78594618400596ce4c025b8e8f305c41b29e4ab210ae426056519f94900a77"
+      },
+      "fixture_sha256": "9350d8f5bab1f851a95f9820166b750d3a80147b983078f8e511f5e4ebaa5d45",
+      "actions": 15,
+      "native_assertions": 72,
+      "native_game_state_fields": 12,
+      "checkpoints": [
+        {
+          "checkpoint": "actual_subject_hand_defense_uses_printed_value_without_cost",
+          "step": 6,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "defending_subject_cannot_refund_any_ap",
+          "step": 9,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": "partial_damage_pins_exact_defense_not_only_a_lower_bound",
+          "step": 13,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "ordinary_attack_and_defender_clear_to_each_owner",
+          "step": 15,
+          "native_assertions": 22
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [],
+      "independent_final": {
+        "HP": [
+          20,
+          18
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-own-action-hand-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "55151dcc4a2240e965e2d503ab746b03baf79c91be13427fb149fc9a68dcae33",
+        "actions.json": "552f566dbb3f92cd5ba073367ebc69489d64068f7398d09f17f8cf93f0e2025d",
+        "assertions.json": "d35ae9717bef406d96769e1e807d6edee6dd457e4252e219a9b3cee3f1cc2b93",
+        "expected_final_gamestate.txt": "744a76baba57408efa35536c4e7f189173cedf39b9055421d9adbff6e2d8bf49",
+        "meta.json": "bc08b22becccb601f1fd682136d419acbd7143f9046694e6a35a257614fad993"
+      },
+      "fixture_sha256": "885f3c845b6b7e3b12bec57c1bfebdb1a911ffbadf119c5a3b4c57d8b1991bcf",
+      "actions": 1,
+      "native_assertions": 36,
+      "native_game_state_fields": 8,
+      "checkpoints": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 0,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 1,
+          "native_assertions": 18
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 1,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        }
+      ],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [],
+      "independent_final": {
+        "HP": [
+          20,
+          20
+        ],
+        "AP": [
+          1,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [],
+        "weapon_hits": {},
+        "attack_action_hits": 0
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-own-action-arsenal-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c94e33f3a70cfec9a76f7b1c48335e27bf7edc3aa3b36ab5d3ef82b4e0985759",
+        "actions.json": "2e026749e693d5022c4f6e88007acffd99666f09dbec6db454522331fdd0d2ce",
+        "assertions.json": "8f58543f04ed756d9c7d7e42709151aeaaa50910c55edd091a16b1b46f4afdf4",
+        "expected_final_gamestate.txt": "9435e0e96812066a3f9cef5a4ae4e884b5d1d13cf0c475c54bebe87410f25be3",
+        "meta.json": "7c8a581e1d2bb088af375e33a32dffec42bf382ff9701427ed9706231881183a"
+      },
+      "fixture_sha256": "136887234e9684f7c3938afba29bde1c1a7366f0618c99adc020db2310cdcd80",
+      "actions": 1,
+      "native_assertions": 36,
+      "native_game_state_fields": 8,
+      "checkpoints": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 0,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 1,
+          "native_assertions": 18
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Arsenal-0",
+            "value": false
+          }
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 1,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Arsenal-0",
+            "value": false
+          }
+        }
+      ],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [],
+      "independent_final": {
+        "HP": [
+          20,
+          20
+        ],
+        "AP": [
+          1,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [],
+        "weapon_hits": {},
+        "attack_action_hits": 0
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-before-attack-layer-resolves-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "99825b029343eeaa83294fec43b23f9e75cb5b1593b2da519f0e417ad0c1ae64",
+        "actions.json": "0e32b22b5775b62e95782869930a81b41fcd60819f501d3e2f465bd313155309",
+        "assertions.json": "bfe4bd6072c72f2a54c502a462e577b8fae16244f0dd7864acab5dffa1cd082b",
+        "expected_final_gamestate.txt": "22f31b320fb0fb6e867c63cc6582cfb2ad0c8094c08e4021d32e1afa27dfb611",
+        "meta.json": "c1b3f3ecc7a8a612936a87ab189927f922367febec4d17cd9f2e97d3bf61fe0b"
+      },
+      "fixture_sha256": "0c11f7dffe8aabaac1636a5e3e03f489b6e01a7fea362d3bc88a474bdaf0d4bf",
+      "actions": 15,
+      "native_assertions": 70,
+      "native_game_state_fields": 10,
+      "checkpoints": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 2,
+          "native_assertions": 24
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 3,
+          "native_assertions": 24
+        },
+        {
+          "checkpoint": "rejected_reaction_has_no_late_modifier_or_destination_change",
+          "step": 15,
+          "native_assertions": 22
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 2,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 3,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        }
+      ],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [],
+      "independent_final": {
+        "HP": [
+          20,
+          16
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-attack-window-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "99825b029343eeaa83294fec43b23f9e75cb5b1593b2da519f0e417ad0c1ae64",
+        "actions.json": "d5bd380385b6c11572e2aab63e007d21f2980629aca37bc488c3f4a04d6b80a3",
+        "assertions.json": "c46de3292779e79b512a99a401d0bc0163dc39180be70f57d3dbde80bb60d334",
+        "expected_final_gamestate.txt": "22f31b320fb0fb6e867c63cc6582cfb2ad0c8094c08e4021d32e1afa27dfb611",
+        "meta.json": "3a8f6367f43d8e6dcdf2c49e42350e22576ac2afdea202eaacf8281a850722bb"
+      },
+      "fixture_sha256": "bf6328886be4b137f286e90217cfb5b59944ec10317151f60db709103ee0646c",
+      "actions": 15,
+      "native_assertions": 62,
+      "native_game_state_fields": 10,
+      "checkpoints": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 3,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 4,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "rejected_reaction_has_no_late_modifier_or_destination_change",
+          "step": 15,
+          "native_assertions": 22
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 3,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 4,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        }
+      ],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [],
+      "independent_final": {
+        "HP": [
+          20,
+          16
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-defend-priority-window-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "99825b029343eeaa83294fec43b23f9e75cb5b1593b2da519f0e417ad0c1ae64",
+        "actions.json": "bc4a5fb9757eaee489baea28a58483f625025c273f509cb8cd991754508d6838",
+        "assertions.json": "6a4eade7428a90835ac0c27650562e58c9d33a301f9b0428a37b97e1a9707e00",
+        "expected_final_gamestate.txt": "22f31b320fb0fb6e867c63cc6582cfb2ad0c8094c08e4021d32e1afa27dfb611",
+        "meta.json": "e074005dbd1795a2bdfc8f143dfc29ff51d2f4125790d220d99111bd7b6e78de"
+      },
+      "fixture_sha256": "514421aaf1fe6740ccd2346bed255fc670fb353c1d3f9b3b9edc209d8bbd6872",
+      "actions": 15,
+      "native_assertions": 62,
+      "native_game_state_fields": 10,
+      "checkpoints": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 6,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 7,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "rejected_reaction_has_no_late_modifier_or_destination_change",
+          "step": 15,
+          "native_assertions": 22
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 6,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 7,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        }
+      ],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [],
+      "independent_final": {
+        "HP": [
+          20,
+          16
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-reaction-wrong-priority-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "99825b029343eeaa83294fec43b23f9e75cb5b1593b2da519f0e417ad0c1ae64",
+        "actions.json": "e2c0d6d6e6312fad8f357f7f149df71ffe02b397f35305c7fd996bc4b8b43b6f",
+        "assertions.json": "3a9f7cc2a65c016ac7d45c16ff5ae40fc78b88dc9e075a01a13521481c3d6695",
+        "expected_final_gamestate.txt": "22f31b320fb0fb6e867c63cc6582cfb2ad0c8094c08e4021d32e1afa27dfb611",
+        "meta.json": "b7f26e4ab3f90e03494e0346de0f7367576a22c4ff76c4754d292b1f712816be"
+      },
+      "fixture_sha256": "d7d0a728f2a9e512064d573413ecd82703ae3f7e464f1dc668554ee58da2124c",
+      "actions": 15,
+      "native_assertions": 62,
+      "native_game_state_fields": 10,
+      "checkpoints": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 9,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 10,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "rejected_reaction_has_no_late_modifier_or_destination_change",
+          "step": 15,
+          "native_assertions": 22
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 9,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 10,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        }
+      ],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [],
+      "independent_final": {
+        "HP": [
+          20,
+          16
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-damage-window-too-late-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "99825b029343eeaa83294fec43b23f9e75cb5b1593b2da519f0e417ad0c1ae64",
+        "actions.json": "4d15552b702a0874f7228224e7c987bc50a36d60fc612a194bb24f5071bed80d",
+        "assertions.json": "813ff3c3c9889d25eaa33509c6891a8d50a4ea37dfaef33255520814b0ef29e8",
+        "expected_final_gamestate.txt": "22f31b320fb0fb6e867c63cc6582cfb2ad0c8094c08e4021d32e1afa27dfb611",
+        "meta.json": "d8d0df4f17a3792869e6f02c29d1474a496b7a5422076ee7d4027919f706ba0d"
+      },
+      "fixture_sha256": "f6a41cb2521aa6634c31972c4f29125005a365104ab5ea25f1d6a152764fee68",
+      "actions": 15,
+      "native_assertions": 62,
+      "native_game_state_fields": 10,
+      "checkpoints": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 10,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 11,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "rejected_reaction_has_no_late_modifier_or_destination_change",
+          "step": 15,
+          "native_assertions": 22
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 10,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 11,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        }
+      ],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [],
+      "independent_final": {
+        "HP": [
+          20,
+          16
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-resolution-window-too-late-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "99825b029343eeaa83294fec43b23f9e75cb5b1593b2da519f0e417ad0c1ae64",
+        "actions.json": "de2c2398ed40f6dbc661725a2cb5225c2d5e6cf6b9a03ccfbc85d3619f15b5f0",
+        "assertions.json": "26a858cc5758f3fb257ddd748d23c578f028608e761cf0faa9104800d65899bc",
+        "expected_final_gamestate.txt": "22f31b320fb0fb6e867c63cc6582cfb2ad0c8094c08e4021d32e1afa27dfb611",
+        "meta.json": "4d991034da9a3ffc359757ffe04de4b7378f7c79fd8e07509e68bd88240e9dcb"
+      },
+      "fixture_sha256": "50120821fe3ce1d15b62642e348f2f82c38d482e8071c7b8240ccca00c9f707f",
+      "actions": 15,
+      "native_assertions": 62,
+      "native_game_state_fields": 10,
+      "checkpoints": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 12,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 13,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "rejected_reaction_has_no_late_modifier_or_destination_change",
+          "step": 15,
+          "native_assertions": 22
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 12,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 13,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        }
+      ],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [],
+      "independent_final": {
+        "HP": [
+          20,
+          16
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-defending-player-cannot-play-attack-reaction",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d49420d7f7d3924dce41b11f9675c5d7e6f83d7510157450b151e6ad5e643a8b",
+        "actions.json": "d232411c6937f1330e4ec89f178eba869de44286fc20e47722d0466b7d66b698",
+        "assertions.json": "3d71bc3cb0250f2e79929ffee68bea31f2d37bbfab5536a7289edfb2ccd02f59",
+        "expected_final_gamestate.txt": "4f4e5e5bc98f2d7faf59c3bfc469266f74f835aef1466b424ef035cdec7f4651",
+        "meta.json": "61e1a8574f3148f2181be0eb504d38c962ea1f300ca7c1d569bfbe3d6ff1aa53"
+      },
+      "fixture_sha256": "6b0554a4959f28920718df0f775eeb51bc2d63eaabf5b8ce49d990f4f8f303d7",
+      "actions": 15,
+      "native_assertions": 62,
+      "native_game_state_fields": 10,
+      "checkpoints": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 9,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 10,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "rejected_reaction_has_no_late_modifier_or_destination_change",
+          "step": 15,
+          "native_assertions": 22
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "rejection_preconditions_and_source",
+          "step": 9,
+          "check": {
+            "kind": "can_play",
+            "player": 2,
+            "mzID": "p2Hand-0",
+            "value": false
+          }
+        },
+        {
+          "checkpoint": "actual_illegal_click_preserves_source_assets_and_effect",
+          "step": 10,
+          "check": {
+            "kind": "can_play",
+            "player": 2,
+            "mzID": "p2Hand-0",
+            "value": false
+          }
+        }
+      ],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [],
+      "independent_final": {
+        "HP": [
+          20,
+          16
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-actual-weapon-attack-is-ineligible-target",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3f5c398d6207551bf631ceade7afc639f0189eaedbed0308efee63f15dea369b",
+        "actions.json": "b857ff24f10523d55e28b06897adcfff5aed3a0dd094fc1b371d215350412cd7",
+        "assertions.json": "f444d6a186129a84cf21dda0adbb92bd7e6283db5039e83ea2997631c7d02641",
+        "expected_final_gamestate.txt": "9efcc948c6a01fae43f919b04daf0bb03144a678ad0e0d7767ae03a8d0ca2eec",
+        "meta.json": "7917e44826ebab39ac3e236857b430a0392bb73abab61933b6c3b25e342c0d12"
+      },
+      "fixture_sha256": "151fbffa46232ae428794a53a4cd564e7220b07cc14016d2e05400eb99242cf1",
+      "actions": 15,
+      "native_assertions": 77,
+      "native_game_state_fields": 10,
+      "checkpoints": [
+        {
+          "checkpoint": "actual_kodachi_weapon_attack_is_not_an_attack_action_card",
+          "step": 8,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "actual_rejected_weapon_target_preserves_every_observed_value",
+          "step": 9,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "unmodified_weapon_attack_closes_and_original_weapon_stays_equipped",
+          "step": 15,
+          "native_assertions": 21
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "actual_kodachi_weapon_attack_is_not_an_attack_action_card",
+          "step": 8,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": false
+          }
+        }
+      ],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [],
+      "independent_final": {
+        "HP": [
+          20,
+          19
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          5
+        ],
+        "weapon_hits": {
+          "3": 1
+        },
+        "attack_action_hits": 0
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-previous-aa-during-real-weapon-resolve-close",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "66ab68ad3427bb3aa12b5b25ceebccc77e71c13f4f0a6b9f981b0a01b536a7aa",
+        "actions.json": "014d678638a3df70b5abe44433f526356a3229ac9ce4b68180a9ea493df18a78",
+        "assertions.json": "9ed8f25ae98cf289def784cd50b9f0f38cda591416815d43598262c2fa54807d",
+        "expected_final_gamestate.txt": "f1d0846affd79ffe8afe7a0782caac95fefe36970e443fce4d61d81012312dc5",
+        "meta.json": "c95704e36077ec48ca63efc61b6be0c91e0907f134ffdb25637d26a92e85a6f1"
+      },
+      "fixture_sha256": "e409f8d27a84232d1a79be44af902f0f1f0a4140130543de8a0c5934b9efc477",
+      "actions": 29,
+      "native_assertions": 193,
+      "native_game_state_fields": 29,
+      "checkpoints": [
+        {
+          "checkpoint": "first_link_really_resolved_and_funded_actual_followup",
+          "step": 12,
+          "native_assertions": 33
+        },
+        {
+          "checkpoint": "actual_second_weapon_and_live_earlier_aa_no_seeded_targets",
+          "step": 20,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "legal_prior_link_target_must_not_reject_original_reaction",
+          "step": 21,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "old_aa_only_gets_printed_modifier_current_weapon_keeps_one",
+          "step": 23,
+          "native_assertions": 33
+        },
+        {
+          "checkpoint": "exact_current_attack_damage_ignores_nonselected_or_departed_target",
+          "step": 25,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "reaction_never_grants_an_action_point",
+          "step": 27,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "one_real_resolution_pass_preserves_source_effects",
+          "step": 28,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "close_routes_each_physical_source_and_target_once",
+          "step": 29,
+          "native_assertions": 28
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "c3fd7d2278f722e6ae7a814d26439591d009da4a7eceb6c8b92b60cbe947276f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-pilot-20261020T035758Z-6ad6e6c66b8ce.json",
+        "sha256": "e0117b2a3cfcd782e05f2285ce9866b51390045b87d1e6d5280cf777f8825aa8"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          14
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3,
+          6
+        ],
+        "weapon_hits": {
+          "5": 1
+        },
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-two-real-aa-links-choose-current",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "fce97663bd3001936667df2882afc4f85ea44ba2dafe8867f79a14b13521cb2b",
+        "actions.json": "68fef002f400eb58f21d109d85c3b6f231c7f63c5e6a857e2340aadc49ed159b",
+        "assertions.json": "b40d2e952316f64fbd00b83eed0fcc2a5ad262368b2308dd584c5183d7d1d1f4",
+        "expected_final_gamestate.txt": "08f1aeebc09ed960638ca92ace19bed18026c60e5c5d7a9370a3b4a13d537bec",
+        "meta.json": "f2e4223cbd98f75ca0e61f64875c941cb2a20c2f9374bb6ab121afb351cb65e2"
+      },
+      "fixture_sha256": "fff79d20c874b01d52a7ab8ae4032597622be3079a165833ad5fe8572cc80bfb",
+      "actions": 30,
+      "native_assertions": 212,
+      "native_game_state_fields": 33,
+      "checkpoints": [
+        {
+          "checkpoint": "printed_surging_hit_and_ga_create_next_legal_action",
+          "step": 12,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "current_and_previous_attack_action_cards_are_both_public",
+          "step": 20,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "choose_declared_attack_action_uid_and_its_own_link",
+          "step": 21,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "reaction_source_bound_before_effect_and_cost_zero",
+          "step": 22,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "only_selected_original_target_changes_power",
+          "step": 24,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "exact_current_attack_damage_ignores_nonselected_or_departed_target",
+          "step": 26,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "reaction_never_grants_an_action_point",
+          "step": 28,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "one_real_resolution_pass_preserves_source_effects",
+          "step": 29,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "close_routes_each_physical_source_and_target_once",
+          "step": 30,
+          "native_assertions": 28
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          5,
+          4,
+          2
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          10
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3,
+          4
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 2
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-two-real-aa-links-choose-previous",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "fce97663bd3001936667df2882afc4f85ea44ba2dafe8867f79a14b13521cb2b",
+        "actions.json": "5a448b88c76218a826c649ece2eac4e4c86e774f00054b95d42d324bf71a914a",
+        "assertions.json": "4b085828f5c82bb5c1289a651b8d41d406d8c0c1d69a2333af1d745e9651ee08",
+        "expected_final_gamestate.txt": "8802ed02181d2ad465b9f82b8b43614e51b54f7263411c9a47a193e771f6b43e",
+        "meta.json": "c8914d29c281663b05f089ff5cfaf6e09aab2a7b77f2715da1daeccf8e088bda"
+      },
+      "fixture_sha256": "0d01c790d27162a74adf768998b5b59afc4b826494a640bf9b008edd0b0fba67",
+      "actions": 30,
+      "native_assertions": 212,
+      "native_game_state_fields": 33,
+      "checkpoints": [
+        {
+          "checkpoint": "printed_surging_hit_and_ga_create_next_legal_action",
+          "step": 12,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "current_and_previous_attack_action_cards_are_both_public",
+          "step": 20,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "choose_declared_attack_action_uid_and_its_own_link",
+          "step": 21,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "reaction_source_bound_before_effect_and_cost_zero",
+          "step": 22,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "only_selected_original_target_changes_power",
+          "step": 24,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "exact_current_attack_damage_ignores_nonselected_or_departed_target",
+          "step": 26,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "reaction_never_grants_an_action_point",
+          "step": 28,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "one_real_resolution_pass_preserves_source_effects",
+          "step": 29,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "close_routes_each_physical_source_and_target_once",
+          "step": 30,
+          "native_assertions": 28
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          5,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          11
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3,
+          4
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 2
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-opponent",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "96a444bfcaab044fe506751a5df2649120a33621156706373c8098ba35f02713",
+        "actions.json": "35aac18d3eb2e621afb0d1a3872a5158c6e7cb83485e12bfddcc1d7a32486f06",
+        "assertions.json": "61ff64cfed0850327d69df00f23f653429b4962905d89a4f207a099ac8475b8f",
+        "expected_final_gamestate.txt": "9966a54ad384e32a3a2940af24002f18719b5ddd1910c86818a512fa3f3c2866",
+        "meta.json": "39ecfe832e8cf01eb56b173f0d753a0c87535ab55865cea57970bad3e3fedb02"
+      },
+      "fixture_sha256": "77b093e08245ceefab208ecbe19f83a4c08f852353228119df8e481fe387ae8c",
+      "actions": 19,
+      "native_assertions": 192,
+      "native_game_state_fields": 32,
+      "checkpoints": [
+        {
+          "checkpoint": "both_current_attack_and_actual_opponent_defender_are_eligible",
+          "step": 9,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "target_choice_preserves_source_hand_assets_and_original_uids",
+          "step": 10,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "selected_original_target_bound_on_source",
+          "step": 11,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "defender_power_modifier_never_changes_printed_three_defense",
+          "step": 13,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "exact_current_attack_damage_ignores_nonselected_or_departed_target",
+          "step": 15,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "reaction_never_grants_an_action_point",
+          "step": 17,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "one_real_resolution_pass_preserves_source_effects",
+          "step": 18,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "close_routes_each_physical_source_and_target_once",
+          "step": 19,
+          "native_assertions": 28
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-pilot-20261020T134947Z-6ad7717b51569.json",
+        "sha256": "53102ffc09576cfbc8a1a24b972d0418629f037922f5c65e11c598f21899f445"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          5,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          19
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-attacker",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "96a444bfcaab044fe506751a5df2649120a33621156706373c8098ba35f02713",
+        "actions.json": "ee00c9c51224ef4f70de37c196c354cd8870d300ff2c2fcbb35f1c5dd21ade14",
+        "assertions.json": "bfd884e6caa44ddac82fac30cdb99659efb16db7c250ab8443da569f88974b4d",
+        "expected_final_gamestate.txt": "e10555eedbbdf3100cb7d36284f413e125b8cc8871dd94ec6da1d29512865d07",
+        "meta.json": "60e73cbac38d07801cf512f2b0eeeb32dd307b4234dabc211cd111697286aea8"
+      },
+      "fixture_sha256": "73eb9063750cb4a519aadb712753020c04f584711c6a627b9460c949236db903",
+      "actions": 19,
+      "native_assertions": 192,
+      "native_game_state_fields": 32,
+      "checkpoints": [
+        {
+          "checkpoint": "both_current_attack_and_actual_opponent_defender_are_eligible",
+          "step": 9,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "target_choice_preserves_source_hand_assets_and_original_uids",
+          "step": 10,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "selected_original_target_bound_on_source",
+          "step": 11,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "defender_power_modifier_never_changes_printed_three_defense",
+          "step": 13,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "exact_current_attack_damage_ignores_nonselected_or_departed_target",
+          "step": 15,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "reaction_never_grants_an_action_point",
+          "step": 17,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "one_real_resolution_pass_preserves_source_effects",
+          "step": 18,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "close_routes_each_physical_source_and_target_once",
+          "step": 19,
+          "native_assertions": 28
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          18
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-three-targets-choose-identical-defender-1",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1d09057047ea0ffb6d1b8179f701bd4001ff642c5d500e61ff61f72881175219",
+        "actions.json": "009b702b0e7530d6e5adfd894c3ab6e0723ff261eeede5ce8b1fbec6161f2ef1",
+        "assertions.json": "e8d9aefaa081f496d114ea03f5e2ecdd547b36f36fd3750c14254926928117e7",
+        "expected_final_gamestate.txt": "f8d418ca7926dc41e91f48d211b0db27569e0704f13296239061c293b3e81b3b",
+        "meta.json": "22b5d7cea9d5026b399a7630c1adc5a1a34f2942907bd643e799c919b2e7e519"
+      },
+      "fixture_sha256": "888e03b5696946cfa81e980750fa172210f7c381c5d1119f55288ec9e9fec387",
+      "actions": 20,
+      "native_assertions": 195,
+      "native_game_state_fields": 36,
+      "checkpoints": [
+        {
+          "checkpoint": "real_attack_reaction_window_before_any_modifier",
+          "step": 10,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "printed_target_declared_from_all_three_eligible_physical_cards_before_play",
+          "step": 11,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_4",
+          "step": 12,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "every_reaction_resolved_and_cleared_once_before_damage",
+          "step": 14,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "actual_pass_after_reaction_not_stale_resolution",
+          "step": 15,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "physical_damage_uses_only_resolved_plus_one_per_copy",
+          "step": 16,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "no_go_again_or_action_point_refund",
+          "step": 18,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "real_resolution_pass_does_not_repeat_effect",
+          "step": 19,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "ordinary_close_keeps_exact_reaction_before_attack_graveyard_order",
+          "step": 20,
+          "native_assertions": 33
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          5,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          20
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [],
+        "weapon_hits": {},
+        "attack_action_hits": 0
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-three-targets-choose-identical-defender-2",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1d09057047ea0ffb6d1b8179f701bd4001ff642c5d500e61ff61f72881175219",
+        "actions.json": "8a9db35ac17eb5cf180549ba41302936b6c1ce41abdf1769b6af76236e0703dd",
+        "assertions.json": "052f8d0c2b55bd33ff5dbabaa1042c5987698e7c9049b59f856b69d44c13861b",
+        "expected_final_gamestate.txt": "474d1dda5cf87d0b2cfc552499da6b72f96413161730d40ee53c4532b8712ec1",
+        "meta.json": "83164365f0332fe8192ae081d75caca5e3233975648ac792d7b8f639e005edfb"
+      },
+      "fixture_sha256": "ba5d4dc27365f65491a393075e3f333241365d865341efeb2ad23015ca2e2a70",
+      "actions": 20,
+      "native_assertions": 195,
+      "native_game_state_fields": 36,
+      "checkpoints": [
+        {
+          "checkpoint": "real_attack_reaction_window_before_any_modifier",
+          "step": 10,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "printed_target_declared_from_all_three_eligible_physical_cards_before_play",
+          "step": 11,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_4",
+          "step": 12,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "every_reaction_resolved_and_cleared_once_before_damage",
+          "step": 14,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "actual_pass_after_reaction_not_stale_resolution",
+          "step": 15,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "physical_damage_uses_only_resolved_plus_one_per_copy",
+          "step": 16,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "no_go_again_or_action_point_refund",
+          "step": 18,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "real_resolution_pass_does_not_repeat_effect",
+          "step": 19,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "ordinary_close_keeps_exact_reaction_before_attack_graveyard_order",
+          "step": 20,
+          "native_assertions": 33
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          6,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          20
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [],
+        "weapon_hits": {},
+        "attack_action_hits": 0
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-weapon-with-sole-opponent-defending-aa-auto",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e60fdd69b87dddf9efe6c44d3cce8825dc5d3a337d06683074eba623b546f233",
+        "actions.json": "c3ef0fd18c487754f9e2ea1e161c4bc5e40bbad2aed5b1eb9c542c3bfa094c03",
+        "assertions.json": "1a931301fd7947eb876e7cabc3924a99e31e86957389079af01eefcf58356376",
+        "expected_final_gamestate.txt": "a45a987b30a8d87530e741208ecce571d867d6074cf000e0fc5c94d1a59a1ffb",
+        "meta.json": "0c11ba7dcb91d60a3fdc5c76ded0d0ebc5f724973d7fbb4a829487bd6e32f365"
+      },
+      "fixture_sha256": "93384370d31290be3a66d2c42020d206fd62acacb8eb869d893bb07f9164e6a4",
+      "actions": 18,
+      "native_assertions": 145,
+      "native_game_state_fields": 19,
+      "checkpoints": [
+        {
+          "checkpoint": "actual_weapon_and_opposing_aa_defender_not_a_seed",
+          "step": 9,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "sole_opponent_aa_auto_selected_without_weapon_mistarget",
+          "step": 10,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "opposing_aa_only_has_power_tag_and_still_defends_three",
+          "step": 12,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "exact_current_attack_damage_ignores_nonselected_or_departed_target",
+          "step": 14,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "reaction_never_grants_an_action_point",
+          "step": 16,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "one_real_resolution_pass_preserves_source_effects",
+          "step": 17,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "close_routes_each_physical_source_and_target_once",
+          "step": 18,
+          "native_assertions": 28
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "c3fd7d2278f722e6ae7a814d26439591d009da4a7eceb6c8b92b60cbe947276f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-pilot-20261020T035758Z-6ad6e6c66b8ce.json",
+        "sha256": "e0117b2a3cfcd782e05f2285ce9866b51390045b87d1e6d5280cf777f8825aa8"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          5,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          20
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [],
+        "weapon_hits": {},
+        "attack_action_hits": 0
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-real-rout-returns-declared-defender-before-lp-fizzles",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3cb61e655e8a0ce4204109200e601f36965d4957068afcadaabd78fb114bf02c",
+        "actions.json": "17e0dca8d829495c927033fb1f384528c5fd947235b51d4d182a9acc903f6a52",
+        "assertions.json": "f32d307d2b571f655ea5452c8572ab5bee4df74028b53a3545ece9682ab1d751",
+        "expected_final_gamestate.txt": "05ba83e400fd0a850583fd102b616964654d158fa00736c015e55bd36aae6f96",
+        "meta.json": "f18272790448258850d8641d762e700f7a52630cc4f6394a9ca6e968af449a79"
+      },
+      "fixture_sha256": "eb747e81782326139182caf94df814de79e70bf945e456fcc2a31957c945ac6b",
+      "actions": 23,
+      "native_assertions": 253,
+      "native_game_state_fields": 27,
+      "checkpoints": [
+        {
+          "checkpoint": "real_hand_block_meets_rout_reprise_and_defender_is_sole_lp_target",
+          "step": 9,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "lower_lp_targets_defending_original_uid_before_rout",
+          "step": 10,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "actual_opponent_pass_keeps_lp_pending_and_restores_attacker_choice",
+          "step": 11,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "rout_cost_two_paid_above_lp_without_early_plus_three",
+          "step": 12,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "rout_real_resolution_pending_with_original_source_and_return_choice",
+          "step": 14,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "real_rout_return_removes_declared_target_while_lp_stays_pending",
+          "step": 15,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "lp_fizzles_declared_target_departed_without_weapon_redirect",
+          "step": 17,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "exact_current_attack_damage_ignores_nonselected_or_departed_target",
+          "step": 19,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "reaction_never_grants_an_action_point",
+          "step": 21,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "one_real_resolution_pass_preserves_source_effects",
+          "step": 22,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "close_routes_each_physical_source_and_target_once",
+          "step": 23,
+          "native_assertions": 32
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "c3fd7d2278f722e6ae7a814d26439591d009da4a7eceb6c8b92b60cbe947276f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-pilot-20261020T035758Z-6ad6e6c66b8ce.json",
+        "sha256": "e0117b2a3cfcd782e05f2285ce9866b51390045b87d1e6d5280cf777f8825aa8"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          6,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          14
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          7
+        ],
+        "weapon_hits": {
+          "3": 1
+        },
+        "attack_action_hits": 0
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-previous-opponent-defender-remains-public-on-next-real-link",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "01b75002b61217a9abcfc5c1f5868b8cf090f29ed33451ecd7f4a473aa4dfb9e",
+        "actions.json": "a05c6689e750a94a11060511a089fe2d984942301030f0dd57b7d86d79537f0d",
+        "assertions.json": "3114d77ead8850685a99e3e96da5db7d77e9b4d2fb18ed38ffaea56d83f623c6",
+        "expected_final_gamestate.txt": "e63fa7fd37905f33f5bf64a851f0e187ffa89e3205208a3698d6c8f07e6c78c5",
+        "meta.json": "1d66cf33f802690439493b217c552721a2329302cafc21fb95f706467652a6e7"
+      },
+      "fixture_sha256": "e7dd9fd0921d22cbce8d9694c15bed9a1ef5e9663b9e7f76cb6a678621af1478",
+      "actions": 31,
+      "native_assertions": 187,
+      "native_game_state_fields": 32,
+      "checkpoints": [
+        {
+          "checkpoint": "first_actual_defense_remains_public_after_completed_damage_two",
+          "step": 13,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "all_current_and_prior_public_aa_cards_offered_including_old_defender",
+          "step": 22,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "source_binds_opponent_previous_link_not_global_active_link",
+          "step": 23,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "old_defender_only_modified_current_attack_and_completed_damage_fixed",
+          "step": 25,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "exact_current_attack_damage_ignores_nonselected_or_departed_target",
+          "step": 27,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "reaction_never_grants_an_action_point",
+          "step": 29,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "one_real_resolution_pass_preserves_source_effects",
+          "step": 30,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "close_routes_each_physical_source_and_target_once",
+          "step": 31,
+          "native_assertions": 32
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-20261020T135114Z-6ad771d238ff7.json",
+        "sha256": "31cdfd198580b26460bbb9190c66cd996262f66b5917a8b023c4e2c17b54b4e5"
+      },
+      "declared_target_pairs": [
+        [
+          5,
+          6,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          14
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3,
+          4
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 2
+      },
+      "current_runtime_replay_inferred": false
+    }
+  ],
+  "not_accepted": [],
+  "limits": [
+    "31 exact branch scenarios only; this is independent saved-artifact/model review, not current-runtime replay or finite catalog completion.",
+    "Prior old4 raw5 preserved; old2 compatibility hashes checked in supplemental proof.",
+    "No generic source-departure/ability suppression/copy/multiplayer/Undo-lifetime claim."
+  ],
+  "native_writes": 0,
+  "engine_or_game_executions": 0,
+  "review_script_sha256": "24cff92601fb197e7fe655aa5e720c6ba4267ebc89d3b269bcf6ac96b021d3cc",
+  "prior_saved_review_script_sha256": "a8b81da24803abd2ecd74a8c803eb3f72ca6be096b8cc2b0d0b71d3dfb8e6fad"
+}

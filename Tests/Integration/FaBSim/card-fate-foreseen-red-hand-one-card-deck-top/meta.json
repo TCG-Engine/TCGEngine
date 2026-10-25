@@ -1,0 +1,7 @@
+{
+    "name": "Fate Foreseen / hand-one-card-deck-top",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:36:46+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Opt1 on a one-card deck looks at its sole wounding_blow_yellow. Returning it to top must preserve exactly one deck card and leave Temp empty. Neither choice draws or loses the sole card. Printed red defense4 prevents incoming4 completely. Only red is proposed for this family boundary; yellow/blue one-card boundary variants remain unproposed. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fate_foreseen_red https://rules.fabtcg.com/en/cr/07-combat/#7.4 https://rules.fabtcg.com/en/cr/07-combat/#7.5 https://rules.fabtcg.com/en/cr/08-keywords/#8.5.22"
+}

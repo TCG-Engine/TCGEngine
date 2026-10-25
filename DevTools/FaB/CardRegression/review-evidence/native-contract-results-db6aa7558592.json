@@ -1,0 +1,32 @@
+{
+    "status": "PASS",
+    "scope": "TWO_DISPOSABLE_NATIVE_CONTRACTS_NOT_CARD_COVERAGE",
+    "sourceGuards": "raw byte hashes checked before runtime load",
+    "cardFixturesWritten": 0,
+    "recordings": 0,
+    "uniqueGamesOnly": true,
+    "checks": 182,
+    "results": [
+        {
+            "id": "boost-accepted-current-deck-empty-whole-play-rollback",
+            "classification": "FAULT_CONTROL_NOT_CARD_COVERAGE",
+            "status": "PASS",
+            "pinnedUndoSHA256": "947816f25e29a3be41fa0d5019728c54304e48b9626691aff323b6abf337147c",
+            "sourceUID": 3,
+            "restoredGameplaySHA256": "947816f25e29a3be41fa0d5019728c54304e48b9626691aff323b6abf337147c",
+            "expectedOriginalOracleFailure": "Expected Stack count 1, got 0.",
+            "checks": 62,
+            "ownedGameCleaned": true
+        },
+        {
+            "id": "boost-accepted-current-top-not-cached-at-declaration",
+            "classification": "FAULT_CONTROL_NOT_CARD_COVERAGE",
+            "status": "PASS",
+            "pinnedUndoSHA256": "947816f25e29a3be41fa0d5019728c54304e48b9626691aff323b6abf337147c",
+            "sourceUID": 3,
+            "expectedOriginalOracleFailure": "Expected card zero_to_sixty_blue to exist in p1Banish.",
+            "checks": 120,
+            "ownedGameCleaned": true
+        }
+    ]
+}

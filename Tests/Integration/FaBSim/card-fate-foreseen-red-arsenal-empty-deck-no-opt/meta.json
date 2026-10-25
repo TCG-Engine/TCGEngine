@@ -1,0 +1,7 @@
+{
+    "name": "Fate Foreseen / arsenal-empty-deck-no-opt",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:36:42+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR8.5.22b: Opt fails on an empty deck; no rearrange decision, temp card or draw is produced. The defense reaction itself still resolves with printed defense 4 against incoming4, for life 20. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fate_foreseen_red https://rules.fabtcg.com/en/cr/07-combat/#7.4 https://rules.fabtcg.com/en/cr/07-combat/#7.5 https://rules.fabtcg.com/en/cr/08-keywords/#8.5.22"
+}

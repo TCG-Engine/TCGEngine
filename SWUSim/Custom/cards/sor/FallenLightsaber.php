@@ -20,7 +20,16 @@ $onAttackAbilities["SOR_137:0"] = function($player, $mzID) {
     // Premier is byte-identical. (Reported 2026-08-25; same defect as ASH_183 Whistling Birds.)
     global $playerID; $playerID = intval($player);
     $defSeat = SWUCurrentDefendingSeat(intval($player));
+    // UID SNAPSHOT, then re-find each unit: a unit the 1 damage defeats compacts the arena mid-loop, so walking the
+    // slot list skipped the unit right behind it (same defect as LOF_235 HK-87, 2026-10-19).
+    $uids = [];
     foreach (ZoneSearch(SWUSeatZone(intval($player), $defSeat, 'GroundArena'), AnyUnitFilter) as $tMz) {
-        SWUDealDamageToUnit($tMz, 1, $player);
+        $o = GetZoneObject($tMz);
+        if (!SWUObjGone($o)) $uids[] = intval($o->UniqueID ?? 0);
+    }
+    foreach ($uids as $uid) {
+        $playerID = intval($player);
+        $tMz = SWUFindMzByUID($uid);
+        if ($tMz !== null) SWUDealDamageToUnit($tMz, 1, $player);
     }
 };

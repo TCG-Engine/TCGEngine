@@ -1,0 +1,540 @@
+{
+  "status": "FOUR_ACTUAL_SAVED_FIXTURES_INDEPENDENTLY_APPROVED_BOUNDED",
+  "reviewer": "/root/coverage_evidence_audit",
+  "spec_sha256": "f3b66d1fae1aa6d3e85287dec718f5fcd809a1fe4299c75065c33d4b9ff59898",
+  "prior_independent_spec_review_sha256": "4e9ddc9cc653c0d160a862456cc07e9e37edd71e2a76bd8ab5abf2694d1bcd64",
+  "model_source_sha256": "ebe756b53ef0dcd51888df185ad8a433996eab59c74ca35c9f95ed23a9a74444",
+  "pure_match_tools_sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8",
+  "runtime_sha256_at_review": "f1f1c070c936c2e3c9da5bdcb53032416d42f37da8832cd2929c618411996826",
+  "runtime_source_sha256": {
+    "Core/AssetPlaybookService.php": "5f11d14f5e9445fd04c38a47161c10ce1eb971a474892223c6a7d297ba7e59d3",
+    "Core/AssetVersioning.php": "455a52196acee82c9f208f4249543e12f907d780d50d9dc2cf5ea607f96b8b55",
+    "Core/BotController.php": "96b2efdf5bcefe73baf20e4cf04108c260d06586502e589132c0627517fc163a",
+    "Core/CardBaseMap.php": "09606972d08aa44589ecee69257eaf05d4dfeaa174e5c0ae40fb0ee47397c63f",
+    "Core/CardImageLoader.php": "bc4f7495f0e3f40157fe91229854a1c1d902c2e34988c85de7aa87516e339e83",
+    "Core/ChatConversation.php": "dd3db0fd9d819348629edb1c3aa7c1079317cdf328db556c0cac87fb192bf4e8",
+    "Core/ChatPolicy.php": "8b15ce15e0d28b28d8cdc48cd9f0f35487594e7039c33ad5cc24968b1bbe1f9a",
+    "Core/ChatScopeAuth.php": "b3245bf457cb254678a5f1e1f6397b45808d76eaf61b56e95fedefa8cb3432c2",
+    "Core/ChatWhisper.php": "49a624458012232949d54460c05d2098fcc0b4e52a494596cc9c1c3fc3a0e016",
+    "Core/Constants.php": "a36933f97b92783d1b3f159b004c80cc4b48bfdc4c5d6ae6a9133a122496fdf7",
+    "Core/CoreZoneModifiers.php": "7dc73c322ccfed1a87e8f2eb6cdcdc847a458f76841b7d609e400c7682e4c1ef",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "Core/GameAuth.php": "bbd2c60cc547dccef6e8ba7e781d2cc6aef043605591cce34e29c9ca3bcfa878",
+    "Core/GamePresence.php": "849e92a92a8810e2707711780f01f95bd07d8d78f6afe6acae9ef4f89fa88446",
+    "Core/GameWriteLock.php": "09fd58787068b5afeca9a257d951b144db7ca071022b36430cf1659bf450b1b8",
+    "Core/HTTPLibraries.php": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e",
+    "Core/KickVoteThreshold.php": "7cb7336fe0a14806048b0352802c6189e7646f880a7d4855d0230e9f178d9f53",
+    "Core/LLMAPI.php": "99015a4c35ea54ef67d09c87898cdc061f5f33ba3ea26c9df7386afe042ea49c",
+    "Core/Match/Hooks.php": "9200bafcc570f03f62a6398cb788c5e9a966c956ef6d66ce4ac5b6fc4cca9430",
+    "Core/Match/Match.php": "7c07e836a894331f7cb9d69d3a3e629fb5c1cc21ef9c35507b54042c1eb6a73d",
+    "Core/Match/MatchFlow.php": "8c964c0ef5e0771d3289b1ab37db383251c86b5d01d3b8f3723ae81300f6c28e",
+    "Core/Match/QueueTypes.php": "076af29eadbe4305e585615c49365357a170c5fde5a5c337280f7fbf92529f42",
+    "Core/Match/Sideboard.default.php": "fd4e05ec8877fb7c83463b541af8d7d967b94cda22627c2f79e4d291cb956400",
+    "Core/MatchHistory.php": "96436f5e522335da1d555728e7e68956c465c288c6a308940c83e66a3150cc1d",
+    "Core/MatchReplay.php": "fb3d37d9aafb650c38891b52aae3192066050d9678b6a05c43f9a8202885cc64",
+    "Core/NetworkingLibraries.php": "8f119b10f5a7d27897f496591876900e441798744ab4449957ea534d016ef695",
+    "Core/PopupZoneVisibility.php": "8aba1da4ede71831571eb9ffbb2a1b5885d86293e389bcf21e6733ea5d3981cc",
+    "Core/RegressionTestFramework.php": "269a1c52d9442f7ffa1d4a73f27eae6f0d17862cc7134f5e7093fec235dd9c99",
+    "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+    "Core/SimHistory.php": "a4e690c5c3a44b9e39f12a48eb6a0cbc4e946b9c2305fdea47e74499b9929254",
+    "Core/StatsBaseRegistry.php": "f6e91285da2963bdfcfa518f2d5857b70bfb40db422980dc71d3b9fa92d56937",
+    "Core/StatsHelpers.php": "11a0693861b9d0d7c78bc02e53f9252ecb85495aadd4f9dd138bbc6b7eb603a9",
+    "Core/Trie.php": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6",
+    "Core/UILibraries.php": "a18256048edbad590727d0ff2c79732cb18333a8ea1a439b04cc5481584a6657",
+    "Core/Versioning/AssetVersioningCapability.php": "26b75f75f7727577e9d44e40b01ec2386be78b5b82cfddd2add97fe3e97950f1",
+    "Core/Versioning/AssetVersioningEndpoint.php": "e91bb67310e95f09522b74978607da839273f397c5c45d2fa4037b39f333e84f",
+    "Core/Versioning/AssetVersioningLayout.php": "88dfcf1ba63f509b16f17c42838d7ebbd3916a1bb9f76ed5f1bc87318118ab1c",
+    "Core/Versioning/AssetVersioningService.php": "eb6374dea48b57f5f84e3e84ca54e7c4b7129474cd9ab3bb07a009c09fad55c3",
+    "Core/ViewerIdentity.php": "7f72cd772e68dd471dc3a147938524b9b9a36d49e8cf235f4db1d87902c63ff1",
+    "DevTools/RunIntegrationTests.php": "f0194817194cc5983c0bc9f716a9057f365fbb898e73ce6164d093f643672ddd",
+    "FaBSim/BotDeck.php": "f5b49a5dcf40eb00a942a8b983cebf0d9a03e888aa6f6243ca1209acd2cde328",
+    "FaBSim/CreateGame.php": "5598ccc5b984caa915e6d7bae2e2b95d6e64a328b5d8f5bf2eba6b0535e72481",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "FaBSim/Custom/ArakniBot.php": "53ff42bc33ff02283910b6aacb0a9bdce78fcc2b7981ac21a7f8189ac0d8bda2",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/ARCAbilities.php": "3d93e7520aeeadcfd14bb9c5664b95d7b7b17aa3d3b768fdf431c0e32167c54b",
+    "FaBSim/Custom/ARCCards.php": "c3b8c93aeea5bb8915e879b45c0065ac9d18ed78111691e13813868327543636",
+    "FaBSim/Custom/BoltynBot.php": "495faa3c1927c366f96cce31f0455f156e0e361741a62fc6ddaa8d4a9f68ed7b",
+    "FaBSim/Custom/BoltynCards.php": "8c2b3c11db2405e6b1890b3a008a0a9ea041ca3541b3b3d60bc502835153606c",
+    "FaBSim/Custom/Bot.php": "e73ac7f5e33e3e4c9ff88c5ab7c9c7c289a12e69288b41546dfbd4e9bc30d748",
+    "FaBSim/Custom/CardChoices.php": "96300f892fc9a0ec6a273d37ba826761712cc70145b26da59fbb6c4033b13521",
+    "FaBSim/Custom/CodeGeneration.php": "ccaf402c4c31fabf972e28be91fcfe2a8ed14ceb1d3e71250d461d5cabcdd967",
+    "FaBSim/Custom/CombatPanel.php": "63a9d43bb870fa7fc9f52d38f75850f2519f3eb818e914bb8352782a3c5afbe4",
+    "FaBSim/Custom/CombatProgress.php": "0cb96bf8065fdc72eae5c4ec7c3ea79edce0a5c876e921f7e0fc9dc99f5ceb24",
+    "FaBSim/Custom/CRUCards.php": "db40ec4cf603f8336933ae389a8dd2ffd097fa9ebc817be9df8bb28cb23dff03",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "FaBSim/Custom/DeckImport.php": "4dca611703690fd10e932e18ad7b3301cfd346c32ace44437a81f253be98865e",
+    "FaBSim/Custom/DromaiBot.php": "35983bfc9e5de2f3b207dde1046a89e248a3578cff493ed0e3947c8d1d867ed1",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/DTDRuntime.php": "8812bc94760701fd363d88891fa03a50158b3c1dc16c399aaa2e2a598f27983e",
+    "FaBSim/Custom/DYNCards.php": "ab41f2da836cf8283ccf1b14886110684845b7e9eeb953b34b249e3040f6cad1",
+    "FaBSim/Custom/DYNRuntime.php": "c4b2a4ba39df5a89a8b766f04b5f087de0bc01440c9a195f7fe8951434ff4f2a",
+    "FaBSim/Custom/ELEAbilities.php": "bf8c0531d2ff8817cf2c9b9a778d235675280fab1517c1fcf6956a6a4940ef55",
+    "FaBSim/Custom/ELECards.php": "af45a8b56294e3b64832b83d1a4c1db55daeb4ed7c3406e5d5e1eda33843b2ec",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "FaBSim/Custom/EVRAbilities.php": "135344a07ca10a5a7bd86672209d27eebadb408817908075c2596194ec574334",
+    "FaBSim/Custom/EVRCards.php": "1074ad8eb4531e73345cf11d5af049eb96ce4acccfff493c902679036031adcc",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/GameLayout.php": "991fde2c67b2752b2f81000edd324bbb9bdcd86affad1b6d73202865f44acf30",
+    "FaBSim/Custom/GameLogic.php": "753cb6804def31c927999239c316d6fa282be9d8b67c28cb087cdfde1bf0b257",
+    "FaBSim/Custom/GameOver.php": "24980eb8ba4d1c942b91e3dedf5240e3cae0e6a0e03616a5a9896586b405ce30",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/HVYCards.php": "58347c63bfec8f12090883bae6fb092928660c02da19f8b698588a5ebf823a7c",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+    "FaBSim/Custom/IARRuntime.php": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+    "FaBSim/Custom/IraBot.php": "5850b50bc64d8a83521c3a6acebda3d1669f6972e4a4aa19b4eace62f258623d",
+    "FaBSim/Custom/IraCards.php": "2720531915e357bc143fceb7598ccd3360c6f50d22d2b5c00526cac8d4351364",
+    "FaBSim/Custom/LeviaBot.php": "c5c4b283c8beba30a3755ac8f133b997cbee850003d34c269aafc80e0bbdbc94",
+    "FaBSim/Custom/LeviaCards.php": "733d1d8d843105257d31ad3f8a9a2dd1996ba53cdd9fd82b40af04ed000e01e5",
+    "FaBSim/Custom/LexiBot.php": "ea59c6b2a2c2ac4c550c75e08a4b1fb6bc4684b9f2eb612687905cfb092ecf84",
+    "FaBSim/Custom/MaxxBot.php": "830f48c1f8a87757812aea31da027b5fd965280063ae89d8dbf25c9799d64240",
+    "FaBSim/Custom/MONAbilities.php": "7bdf576dc2c58372b2600ec5a81a04cb3f01bd0a9c299a4100d923cf8047e8b7",
+    "FaBSim/Custom/MONCards.php": "0f35f2849029510ce277fc5c016894047e94d5422f9b86ec5d4e631ecfd260b0",
+    "FaBSim/Custom/MPGCards.php": "bb27e6ec9f5b1f9c48ae7bfdacc0c33f51f6d56d4dece9fb1fc457440ce3afff",
+    "FaBSim/Custom/MSTCards.php": "d8abcf502b260e220956b9b9edac336293792180afd9a8bff18f7020af2d48d1",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/MultiplayerLayout.php": "5445a47407ed657c4a6cfb3366779f3fbbf4ed8418b6b5ac666c47cc2d233728",
+    "FaBSim/Custom/MultiTargetCombat.php": "19604e6f04575fa5eb4e50a95697a8f5780c3adeaa1498de3404c32553230791",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "328acd2b4fa25c65e1f1691f75573456004057002415f9601f5d861064000564",
+    "FaBSim/Custom/PENCards.php": "f06d0c3e21bcd80350f061cabc296777704ca6ef5fd6129f374bf696cee89557",
+    "FaBSim/Custom/PrismBot.php": "998607119ce29b6fd14491fc6a01e899bab928046a2114d807faa3d835db9304",
+    "FaBSim/Custom/PrismCards.php": "bc530a5e0c1b4afd10e78f1714b161f22681d025ec990885a11b5b3d06eb1c27",
+    "FaBSim/Custom/ProfessorBot.php": "4d57f87beb88c78e6a31bca15a1e2cb7da9dd46f64faed202c9449588a8e7815",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/ROSCards.php": "2f6b96bb9d25cc8a40dfb043147367f09a807330badc51d3ddae391e4fc7c339",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "414ae0f1b8d3e5ea2f2aec306f7a7e469ede9dd489d3a3971361442e11ddfab4",
+    "FaBSim/Custom/SUPCards.php": "a1ec1c7ca72ead8a8ec28ba1125e6a5a683b24df243d4a3a103c824b50bc14a3",
+    "FaBSim/Custom/UPRAbilities.php": "81618156fdde241865d9fcc854feeaa5dd4fe439bd56699d9d7ce623a03544ad",
+    "FaBSim/Custom/UPRCards.php": "e50d9638393ee59c60362d612d3765d95a03a15877e00045c342ff2c60b1b682",
+    "FaBSim/Custom/UzuriBot.php": "4ef6be1cf6f98da118fd52aee721631a41627cef2b07505575d617958616ed14",
+    "FaBSim/Custom/WTRAbilities.php": "00b0ef1df18a5288a68dcce12178c9b72ef8d9e8dbb92caecbd51ee5bd77c63d",
+    "FaBSim/Custom/WTRCards.php": "dc1abf1c8e97641a2a873901ce701bf4028c2e72abefadf262b02c0af4b87518",
+    "FaBSim/GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+    "FaBSim/GetNextTurn.php": "1ba6ba2d2a3f3898d2bd9a9f4756887734f9ccad487ade26fdca33c0c4dcc0f6",
+    "FaBSim/InitialLayout.php": "7e0682cd067df8128f14c8972f92098db9b98ca461a43dddf70d1f1b2bd57bcd",
+    "FaBSim/LobbyAdapter.php": "c3ebb100712ef3fcb47ed3b61762a9a1939af6d57e5fad1e411b4eafb2d859fb",
+    "FaBSim/NextTurnRender.php": "90fa4d1c7d0126123f79dbd110f798770ea682dd42d88ec1b8ff6c54cde8115f",
+    "FaBSim/TurnController.php": "d79b53d9ad3498bce851c0c2b708b85374facc2418d6e49feaf7ee9bbd3abfd8",
+    "FaBSim/TurnStates.php": "0388558dff2672dbdc35f9407c8ed2e7a6779d75b4f421fd2d8edcb2269bf3ea",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+  },
+  "read_only_checks": 1463,
+  "totals": {
+    "fixtures": 4,
+    "actions": 87,
+    "native_assertions": 728,
+    "native_game_state_fields": 98
+  },
+  "fixtures": [
+    {
+      "slug": "card-lunging-press-blue-ordinary-reaction-hand-zero-ap-exact-plus-one",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "99825b029343eeaa83294fec43b23f9e75cb5b1593b2da519f0e417ad0c1ae64",
+        "actions.json": "dfad249ae4aa129206681d5f7ea66cc1062aad8f7a039e1ebb7c4cb5d9603f12",
+        "assertions.json": "83933ea49da4093fefc3c82612747916ab427982dcae722a645d3818612d1914",
+        "expected_final_gamestate.txt": "d719272ab8addf58a07618b419d139f4f2fc26df399cbaf370848aa30c6f187a",
+        "meta.json": "f4b3df5d335c2533d92231c6ea059ff8b6e73bcb7fb624cc4109b42569ab1840"
+      },
+      "fixture_sha256": "e3c00f49e1745fb47948a325618f14d4d46c8db5076d7c36895bd9206834855e",
+      "actions": 17,
+      "native_assertions": 137,
+      "native_game_state_fields": 23,
+      "checkpoints": [
+        {
+          "checkpoint": "real_attack_reaction_window_before_any_modifier",
+          "step": 8,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "actual_reaction_waits_without_early_power_4",
+          "step": 9,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "every_reaction_resolved_and_cleared_once_before_damage",
+          "step": 11,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_pass_after_reaction_not_stale_resolution",
+          "step": 12,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "physical_damage_uses_only_resolved_plus_one_per_copy",
+          "step": 13,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "no_go_again_or_action_point_refund",
+          "step": 15,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "real_resolution_pass_does_not_repeat_effect",
+          "step": 16,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "ordinary_close_keeps_exact_reaction_before_attack_graveyard_order",
+          "step": 17,
+          "native_assertions": 25
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "c3fd7d2278f722e6ae7a814d26439591d009da4a7eceb6c8b92b60cbe947276f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-pilot-20261020T035758Z-6ad6e6c66b8ce.json",
+        "sha256": "e0117b2a3cfcd782e05f2285ce9866b51390045b87d1e6d5280cf777f8825aa8"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          15
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3
+        ],
+        "weapon_hits": {},
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-previous-aa-during-real-weapon-resolve-close",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "66ab68ad3427bb3aa12b5b25ceebccc77e71c13f4f0a6b9f981b0a01b536a7aa",
+        "actions.json": "014d678638a3df70b5abe44433f526356a3229ac9ce4b68180a9ea493df18a78",
+        "assertions.json": "9ed8f25ae98cf289def784cd50b9f0f38cda591416815d43598262c2fa54807d",
+        "expected_final_gamestate.txt": "f1d0846affd79ffe8afe7a0782caac95fefe36970e443fce4d61d81012312dc5",
+        "meta.json": "c95704e36077ec48ca63efc61b6be0c91e0907f134ffdb25637d26a92e85a6f1"
+      },
+      "fixture_sha256": "e409f8d27a84232d1a79be44af902f0f1f0a4140130543de8a0c5934b9efc477",
+      "actions": 29,
+      "native_assertions": 193,
+      "native_game_state_fields": 29,
+      "checkpoints": [
+        {
+          "checkpoint": "first_link_really_resolved_and_funded_actual_followup",
+          "step": 12,
+          "native_assertions": 33
+        },
+        {
+          "checkpoint": "actual_second_weapon_and_live_earlier_aa_no_seeded_targets",
+          "step": 20,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "legal_prior_link_target_must_not_reject_original_reaction",
+          "step": 21,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "old_aa_only_gets_printed_modifier_current_weapon_keeps_one",
+          "step": 23,
+          "native_assertions": 33
+        },
+        {
+          "checkpoint": "exact_current_attack_damage_ignores_nonselected_or_departed_target",
+          "step": 25,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "reaction_never_grants_an_action_point",
+          "step": 27,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "one_real_resolution_pass_preserves_source_effects",
+          "step": 28,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "close_routes_each_physical_source_and_target_once",
+          "step": 29,
+          "native_assertions": 28
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "c3fd7d2278f722e6ae7a814d26439591d009da4a7eceb6c8b92b60cbe947276f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-pilot-20261020T035758Z-6ad6e6c66b8ce.json",
+        "sha256": "e0117b2a3cfcd782e05f2285ce9866b51390045b87d1e6d5280cf777f8825aa8"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          3,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          14
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          3,
+          6
+        ],
+        "weapon_hits": {
+          "5": 1
+        },
+        "attack_action_hits": 1
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-weapon-with-sole-opponent-defending-aa-auto",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e60fdd69b87dddf9efe6c44d3cce8825dc5d3a337d06683074eba623b546f233",
+        "actions.json": "c3ef0fd18c487754f9e2ea1e161c4bc5e40bbad2aed5b1eb9c542c3bfa094c03",
+        "assertions.json": "1a931301fd7947eb876e7cabc3924a99e31e86957389079af01eefcf58356376",
+        "expected_final_gamestate.txt": "a45a987b30a8d87530e741208ecce571d867d6074cf000e0fc5c94d1a59a1ffb",
+        "meta.json": "0c11ba7dcb91d60a3fdc5c76ded0d0ebc5f724973d7fbb4a829487bd6e32f365"
+      },
+      "fixture_sha256": "93384370d31290be3a66d2c42020d206fd62acacb8eb869d893bb07f9164e6a4",
+      "actions": 18,
+      "native_assertions": 145,
+      "native_game_state_fields": 19,
+      "checkpoints": [
+        {
+          "checkpoint": "actual_weapon_and_opposing_aa_defender_not_a_seed",
+          "step": 9,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "sole_opponent_aa_auto_selected_without_weapon_mistarget",
+          "step": 10,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "opposing_aa_only_has_power_tag_and_still_defends_three",
+          "step": 12,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "exact_current_attack_damage_ignores_nonselected_or_departed_target",
+          "step": 14,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "reaction_never_grants_an_action_point",
+          "step": 16,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "one_real_resolution_pass_preserves_source_effects",
+          "step": 17,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "close_routes_each_physical_source_and_target_once",
+          "step": 18,
+          "native_assertions": 28
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "c3fd7d2278f722e6ae7a814d26439591d009da4a7eceb6c8b92b60cbe947276f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-pilot-20261020T035758Z-6ad6e6c66b8ce.json",
+        "sha256": "e0117b2a3cfcd782e05f2285ce9866b51390045b87d1e6d5280cf777f8825aa8"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          5,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          20
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [],
+        "weapon_hits": {},
+        "attack_action_hits": 0
+      },
+      "current_runtime_replay_inferred": false
+    },
+    {
+      "slug": "card-lunging-press-blue-target-scope-real-rout-returns-declared-defender-before-lp-fizzles",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3cb61e655e8a0ce4204109200e601f36965d4957068afcadaabd78fb114bf02c",
+        "actions.json": "17e0dca8d829495c927033fb1f384528c5fd947235b51d4d182a9acc903f6a52",
+        "assertions.json": "f32d307d2b571f655ea5452c8572ab5bee4df74028b53a3545ece9682ab1d751",
+        "expected_final_gamestate.txt": "05ba83e400fd0a850583fd102b616964654d158fa00736c015e55bd36aae6f96",
+        "meta.json": "f18272790448258850d8641d762e700f7a52630cc4f6394a9ca6e968af449a79"
+      },
+      "fixture_sha256": "eb747e81782326139182caf94df814de79e70bf945e456fcc2a31957c945ac6b",
+      "actions": 23,
+      "native_assertions": 253,
+      "native_game_state_fields": 27,
+      "checkpoints": [
+        {
+          "checkpoint": "real_hand_block_meets_rout_reprise_and_defender_is_sole_lp_target",
+          "step": 9,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "lower_lp_targets_defending_original_uid_before_rout",
+          "step": 10,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "actual_opponent_pass_keeps_lp_pending_and_restores_attacker_choice",
+          "step": 11,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "rout_cost_two_paid_above_lp_without_early_plus_three",
+          "step": 12,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "rout_real_resolution_pending_with_original_source_and_return_choice",
+          "step": 14,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "real_rout_return_removes_declared_target_while_lp_stays_pending",
+          "step": 15,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "lp_fizzles_declared_target_departed_without_weapon_redirect",
+          "step": 17,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "exact_current_attack_damage_ignores_nonselected_or_departed_target",
+          "step": 19,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "reaction_never_grants_an_action_point",
+          "step": 21,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "one_real_resolution_pass_preserves_source_effects",
+          "step": 22,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "close_routes_each_physical_source_and_target_once",
+          "step": 23,
+          "native_assertions": 32
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "Exact full native supported actions and individual passes plus every persisted assertion matched to the prior independent printed-cost/target/UID/link/effect model. All initial and complete terminal schema snapshots parsed; every physical card UID/order/owner/controller, weapon activation counters, printed damage/AP/resources, hit provenance, source routing and Close cleanup independently checked. This is a model and snapshot review, not manual review of each intermediate frame.",
+      "recorded_runtime_sha256": "c3fd7d2278f722e6ae7a814d26439591d009da4a7eceb6c8b92b60cbe947276f",
+      "actual_native_provenance": {
+        "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-pilot-20261020T035758Z-6ad6e6c66b8ce.json",
+        "sha256": "e0117b2a3cfcd782e05f2285ce9866b51390045b87d1e6d5280cf777f8825aa8"
+      },
+      "declared_target_pairs": [
+        [
+          4,
+          6,
+          1
+        ]
+      ],
+      "independent_final": {
+        "HP": [
+          20,
+          14
+        ],
+        "AP": [
+          0,
+          0
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "hit_UIDs": [
+          7
+        ],
+        "weapon_hits": {
+          "3": 1
+        },
+        "attack_action_hits": 0
+      },
+      "current_runtime_replay_inferred": false
+    }
+  ],
+  "not_accepted": [
+    {
+      "slug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-opponent",
+      "classification": "UNSAVED_OLD_SPEC_OMITS_STANDARD_PLAYCARD_BLOCK99_TAILS",
+      "error": "Expected p1DecisionQueue count 2, got 4.",
+      "note": "Separate corrected protocol v3 requires source/spec review and fresh fifth recording; this is not a passing fixture or a new rule defect."
+    }
+  ],
+  "limits": [
+    "Four actual saved branches only; full31 and current-runtime replay/control/native-suite qualification remain separate.",
+    "Original four have no LP multi-target pending choice; Rout generated target choice is separately exercised and source-departure fizzles remain pinned.",
+    "No generic target-departure/ability suppression/copy/multiplayer/Undo-lifetime claim."
+  ],
+  "native_writes": 0,
+  "engine_or_game_executions": 0,
+  "review_script_sha256": "a8b81da24803abd2ecd74a8c803eb3f72ca6be096b8cc2b0d0b71d3dfb8e6fad"
+}

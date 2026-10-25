@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T03:56:10+00:00",
+    "input_file": "card-regression-batch60.json",
+    "input_sha256": "4e6a4a7171910dea5f0c80ee3c3d049c9c47b54eb555a1c6c5b1c6565ba5dd39",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-lunging-press-blue-rule-probe-previous-aa-remains-legal-during-real-kodachi",
+            "status": "recorded_semantically_checked",
+            "actions": 21,
+            "assertions": 89
+        }
+    ]
+}

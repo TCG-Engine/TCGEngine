@@ -1,0 +1,7 @@
+{
+    "name": "Lead the Charge / pitched-no-effect-no-go-again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:08:37+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost0, own go again, next played ACTION CARD with cost at least1 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. Pitch source for printed2, starting1resources; exact3 pays Raging Onslaught. Pitching is not playing Lead, so no delayed effect or own go again occurs, no trigger above attack, no AP returned. Sources: https://judge.fabtcg.com/cards/detail/549/ https://rules.fabtcg.com/en/cr/06-effects/#663 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_yellow"
+}

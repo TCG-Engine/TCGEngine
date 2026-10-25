@@ -1,0 +1,47 @@
+{
+  "status": "AUTHOR_ACTION_DRIVEN_PRINTED_RULE_MODEL_PASS_NOT_INDEPENDENT_APPROVAL",
+  "pilot_sha256": "aa169be595ed6811c4ce14d06a7b7b47e84e8c3b8ceaa1bcea4098f6e5adf235",
+  "native_expected_values_modeled": 1400,
+  "supported_step_descriptors_modeled": 27,
+  "semantic_stat_faults_rejected": 8,
+  "results": [
+    {
+      "slug": "card-surging-militia-red-mon-continuous-one-normal-hand-card",
+      "modeled_native_oracles": 334,
+      "terminal_hp": 17,
+      "p1_ap": 0,
+      "p2_ap": 0,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-stony-woottonhog-red-mon-continuous-two-normal-hand-cards",
+      "modeled_native_oracles": 430,
+      "terminal_hp": 20,
+      "p1_ap": 0,
+      "p2_ap": 0,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-red-mon-continuous-attack-own-aura-present",
+      "modeled_native_oracles": 274,
+      "terminal_hp": 16,
+      "p1_ap": 0,
+      "p2_ap": 0,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-blue-mon-continuous-defend-own-aura-present",
+      "modeled_native_oracles": 362,
+      "terminal_hp": 19,
+      "p1_ap": 0,
+      "p2_ap": 0,
+      "native_recorded": false
+    }
+  ],
+  "source_of_expected_values": "Printed fixed stats and current stat predicates; action-driven source play, real Hand declaration, physical damage and normal close model. No checkpoint-label-driven transitions and no native state sampled.",
+  "qualification": "Author proof only. Independent exact spec gate and serial native recorder/saved-semantic/replay/control gates remain required. Live Aura response recipes have not yet been authored; full228 requirements remain planned.",
+  "native_runtime_imports": 0,
+  "native_actions": 0,
+  "native_writes": 0,
+  "script_sha256": "7a2028e0bf8d5ab5eeebf559dc80633717272aac4dd28232b4c276f57e34001e"
+}

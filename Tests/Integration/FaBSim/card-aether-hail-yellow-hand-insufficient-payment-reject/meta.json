@@ -1,0 +1,7 @@
+{
+    "name": "Aether Hail / hand-insufficient-payment-reject",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:00:16+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cost1 exceeds available0, with no other hand cards. The spell itself cannot pitch to pay its own cost. Supported click fromHand is rejected before target preparation: preserve source, HP, resources andAP; no Stack, pitch or chooser. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_hail_yellow https://judge.fabtcg.com/cards/detail/1628/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Razor Reflex / ally-hit-still-grants-go-again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:45+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Explicitly choose opponent Dromai Aether Ashwing ally using theirArena-0. Wounding Blow4 has no phantasm concern, and the ally is a legal living attack target. Razor increases power to5; the hit destroys the 1-life ally while hero life remains20. Razor says When this hits with no hero restriction, so a triggered layer must grant go again and final AP1. Sources: FaBSim/GeneratedCode/cardArrayCache.json#razor_reflex_blue https://judge.fabtcg.com/cards/detail/324/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

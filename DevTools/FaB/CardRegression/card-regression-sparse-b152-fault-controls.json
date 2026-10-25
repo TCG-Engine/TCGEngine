@@ -1,0 +1,79 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:12:59.458710+00:00",
+  "plan_sha256": "2e422e3507b442b44f9cc26aa4836a04b835f505e7649b7d769cbad2602afabd",
+  "independent_saved_proof_sha256": "4c9ee5d11a18ede6bcae317861d366e3b6489db982fcea46c020a16675e29e4c",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b152-focused-fault-plan.json",
+    "2e422e3507b442b44f9cc26aa4836a04b835f505e7649b7d769cbad2602afabd",
+    "card-regression-sparse-b152-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b152_time_skippers_focused_effect_sensitivity",
+      "fixture": "card-time-skippers-four-live-sparse-actual-blue-pitch-three-destroy-gain-two-ap",
+      "fixture_sha256": "8762faae527de7d913c1a42e7614f17c66bf461113d799f3dcc48ee84b913bd9",
+      "source_raw5": {
+        "initial_gamestate.txt": "a63bac51374c93f650995e0dd3df6bf0158319b2c44dbbcb3dcf4f8b63575e0a",
+        "actions.json": "02e014fcbc767be35abb52b1fba8950f602a853b060793ec33880f9f114fa6e5",
+        "assertions.json": "0f78f19217200d44001ada77256de582ec42ca8a218d6c5d75c3654ab4331446",
+        "expected_final_gamestate.txt": "e0bb79929b22a55bd883e673da39ee733b0d6f4d8507c72a2b56d77c7563cd0c",
+        "meta.json": "c40032659ccdd216e56a3903d11842208de5a94b9b4b91efb7071e8f1168d994"
+      },
+      "prefix_actions": 2,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 250,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1ActionPoints to equal 2, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Time Skippers / four live actual paid two-AP ability: Step 4 assertion failed: Expected p1ActionPoints to equal 2, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Blue6pitch3 paid3 and physicalEquipment5 destroy cost/AP0, remove only sole virtualABI7 arcSpec dispatch. Old WTRAbilitySpec has no TimeSkippers entry, so four original manual responses resolve inert body withAP0 instead of printed2. SourceGY0/Pitch6/R0 preserved. Missing printed AP-gain body sensitivity; not an isolated +1-vs+2 parameter mutation or legal alternative action. Every original suffix action/oracle retained; exact FIRST intended semantic assertion required, no incidental snapshot credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b152_skullhorn_focused_effect_sensitivity",
+      "fixture": "card-skullhorn-four-live-sparse-actual-destroy-draw-sole-card-random-discard",
+      "fixture_sha256": "536e8668cdf50523f25471bf7ab70ff610783bf5c1eb9d2d5caf09f890c14965",
+      "source_raw5": {
+        "initial_gamestate.txt": "ac232edae8d4bc5359752c34b09301bda16705aada7e23dcb947044694bb00ef",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "e2a7c20403b68241f37d25108efdffaaefeb1353826c1fa7b8a35e5148bab7eb",
+        "expected_final_gamestate.txt": "076a405256fd1ab4586567b7939d021380d703e0d3f9b5b3cce0998043a5fd71",
+        "meta.json": "4719bbc2d2157789ad64577fb9bb5275845ed03d2aa2187767eb301b70b20fa7"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Graveyard",
+            "to": "Temp",
+            "cardID": "wounding_blow_blue",
+            "uid": 6
+          }
+        ]
+      },
+      "retained_assertions": 111,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Skullhorn / four live actual sole-card random discard: Initial assertion failed: Expected p1Graveyard count 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Relocate only actual sole eligible drawn-then-discarded Blue6 from publicownGY1 after real Skullhorn cost and four responses. Source5 remains publicGY0, Deckempty/AP1/R0 unchanged; first Graveyard2 becomes1. Exact physical discarded-card endpoint sensitivity only; no observed atomic intermediateHand, missing dispatch, multi-card random distribution, Rhinar>=6 or ArcaneBarrier credit. Every original suffix action/oracle retained; exact FIRST intended semantic assertion required, no incidental snapshot credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

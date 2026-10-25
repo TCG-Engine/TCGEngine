@@ -1,0 +1,7 @@
+{
+    "name": "Dust Runner Outlaw / unblocked",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:33+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed attack 3, cost 1, go again True; pay using 1 blue pitch card(s). Defender has 0 defense; expected damage 3. Hero fai has no modifying effect in this first-attack state. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dust_runner_outlaw_yellow https://rules.fabtcg.com/en/cr/07-combat/"
+}

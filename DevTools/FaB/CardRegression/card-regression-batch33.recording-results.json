@@ -1,0 +1,1166 @@
+[
+    {
+        "slug": "card-sharpen-steel-red-hand-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-red-arsenal-face-down-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-red-arsenal-face-up-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-red-blue-pitch-payments",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 87
+    },
+    {
+        "slug": "card-sharpen-steel-red-axe-also-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-red-dagger-also-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-red-fully-blocked-still-increases-power",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-red-ally-target-still-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 79
+    },
+    {
+        "slug": "card-sharpen-steel-red-next-matching-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-sharpen-steel-red-two-buffs-additive-single-next-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 90
+    },
+    {
+        "slug": "card-sharpen-steel-red-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 89
+    },
+    {
+        "slug": "card-sharpen-steel-red-attack-action-excluded-and-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 97
+    },
+    {
+        "slug": "card-sharpen-steel-red-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-red-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-red-opponent-turn-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-red-opponent-turn-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-red-hand-without-priority-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-red-unused-effect-expires-this-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 38,
+        "assertions": 114
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-hand-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-arsenal-face-down-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-arsenal-face-up-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-blue-pitch-payments",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 87
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-axe-also-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-dagger-also-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-fully-blocked-still-increases-power",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-ally-target-still-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 79
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-next-matching-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-two-buffs-additive-single-next-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 90
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 89
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-attack-action-excluded-and-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 97
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-opponent-response-before-buff-resolves",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 94
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-opponent-turn-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-opponent-turn-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-hand-without-priority-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-unused-effect-expires-this-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 38,
+        "assertions": 114
+    },
+    {
+        "slug": "card-sharpen-steel-blue-hand-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-blue-arsenal-face-down-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-blue-arsenal-face-up-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-blue-blue-pitch-payments",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 87
+    },
+    {
+        "slug": "card-sharpen-steel-blue-axe-also-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-blue-dagger-also-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-blue-fully-blocked-still-increases-power",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 78
+    },
+    {
+        "slug": "card-sharpen-steel-blue-ally-target-still-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 79
+    },
+    {
+        "slug": "card-sharpen-steel-blue-next-matching-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-sharpen-steel-blue-two-buffs-additive-single-next-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 90
+    },
+    {
+        "slug": "card-sharpen-steel-blue-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 89
+    },
+    {
+        "slug": "card-sharpen-steel-blue-attack-action-excluded-and-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 97
+    },
+    {
+        "slug": "card-sharpen-steel-blue-opponent-response-before-buff-resolves",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 94
+    },
+    {
+        "slug": "card-sharpen-steel-blue-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-blue-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-blue-opponent-turn-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-blue-opponent-turn-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-blue-hand-without-priority-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-sharpen-steel-blue-unused-effect-expires-this-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 38,
+        "assertions": 114
+    },
+    {
+        "slug": "card-cut-deep-red-hand-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-cut-deep-red-arsenal-face-down-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-cut-deep-red-arsenal-face-up-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-cut-deep-red-blue-pitch-payments",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 87
+    },
+    {
+        "slug": "card-cut-deep-red-nonmatching-cintari-saber-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-cut-deep-red-nonmatching-hatchet-of-body-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-cut-deep-red-fully-blocked-still-increases-power",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 78
+    },
+    {
+        "slug": "card-cut-deep-red-ally-target-still-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 79
+    },
+    {
+        "slug": "card-cut-deep-red-next-matching-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-cut-deep-red-two-buffs-additive-single-next-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 90
+    },
+    {
+        "slug": "card-cut-deep-red-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 89
+    },
+    {
+        "slug": "card-cut-deep-red-opponent-response-before-buff-resolves",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 94
+    },
+    {
+        "slug": "card-cut-deep-red-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-red-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-red-opponent-turn-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-red-opponent-turn-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-red-hand-without-priority-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-red-unused-effect-expires-this-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 38,
+        "assertions": 114
+    },
+    {
+        "slug": "card-cut-deep-yellow-hand-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-cut-deep-yellow-arsenal-face-down-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-cut-deep-yellow-arsenal-face-up-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-cut-deep-yellow-blue-pitch-payments",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 87
+    },
+    {
+        "slug": "card-cut-deep-yellow-nonmatching-cintari-saber-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-cut-deep-yellow-nonmatching-hatchet-of-body-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-cut-deep-yellow-fully-blocked-still-increases-power",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 78
+    },
+    {
+        "slug": "card-cut-deep-yellow-ally-target-still-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 79
+    },
+    {
+        "slug": "card-cut-deep-yellow-next-matching-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-cut-deep-yellow-two-buffs-additive-single-next-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 90
+    },
+    {
+        "slug": "card-cut-deep-yellow-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 89
+    },
+    {
+        "slug": "card-cut-deep-yellow-attack-action-excluded-and-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 97
+    },
+    {
+        "slug": "card-cut-deep-yellow-opponent-response-before-buff-resolves",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 94
+    },
+    {
+        "slug": "card-cut-deep-yellow-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-yellow-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-yellow-opponent-turn-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-yellow-opponent-turn-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-yellow-hand-without-priority-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-yellow-unused-effect-expires-this-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 38,
+        "assertions": 114
+    },
+    {
+        "slug": "card-cut-deep-blue-hand-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-cut-deep-blue-arsenal-face-down-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-cut-deep-blue-arsenal-face-up-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-cut-deep-blue-blue-pitch-payments",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 87
+    },
+    {
+        "slug": "card-cut-deep-blue-nonmatching-cintari-saber-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-cut-deep-blue-nonmatching-hatchet-of-body-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-cut-deep-blue-fully-blocked-still-increases-power",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 78
+    },
+    {
+        "slug": "card-cut-deep-blue-ally-target-still-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 79
+    },
+    {
+        "slug": "card-cut-deep-blue-next-matching-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-cut-deep-blue-two-buffs-additive-single-next-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 90
+    },
+    {
+        "slug": "card-cut-deep-blue-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 89
+    },
+    {
+        "slug": "card-cut-deep-blue-attack-action-excluded-and-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 97
+    },
+    {
+        "slug": "card-cut-deep-blue-opponent-response-before-buff-resolves",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 94
+    },
+    {
+        "slug": "card-cut-deep-blue-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-blue-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-blue-opponent-turn-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-blue-opponent-turn-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-blue-hand-without-priority-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-cut-deep-blue-unused-effect-expires-this-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 38,
+        "assertions": 114
+    },
+    {
+        "slug": "card-felling-swing-red-hand-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-felling-swing-red-arsenal-face-down-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-felling-swing-red-arsenal-face-up-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-felling-swing-red-nonmatching-cintari-saber-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-felling-swing-red-nonmatching-quicksilver-dagger-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-felling-swing-red-fully-blocked-still-increases-power",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 78
+    },
+    {
+        "slug": "card-felling-swing-red-ally-target-still-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 79
+    },
+    {
+        "slug": "card-felling-swing-red-next-matching-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-felling-swing-red-two-buffs-additive-single-next-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 90
+    },
+    {
+        "slug": "card-felling-swing-red-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 89
+    },
+    {
+        "slug": "card-felling-swing-red-attack-action-excluded-and-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 97
+    },
+    {
+        "slug": "card-felling-swing-red-opponent-response-before-buff-resolves",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 94
+    },
+    {
+        "slug": "card-felling-swing-red-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-red-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-red-opponent-turn-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-red-opponent-turn-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-red-hand-without-priority-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-red-hand-insufficient-assets-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-red-arsenal-insufficient-assets-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-red-unused-effect-expires-this-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 38,
+        "assertions": 114
+    },
+    {
+        "slug": "card-felling-swing-yellow-hand-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-felling-swing-yellow-arsenal-face-down-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-felling-swing-yellow-arsenal-face-up-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-felling-swing-yellow-blue-pitch-payments",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 99
+    },
+    {
+        "slug": "card-felling-swing-yellow-nonmatching-cintari-saber-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-felling-swing-yellow-nonmatching-quicksilver-dagger-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-felling-swing-yellow-fully-blocked-still-increases-power",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 78
+    },
+    {
+        "slug": "card-felling-swing-yellow-ally-target-still-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 79
+    },
+    {
+        "slug": "card-felling-swing-yellow-next-matching-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-felling-swing-yellow-two-buffs-additive-single-next-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 90
+    },
+    {
+        "slug": "card-felling-swing-yellow-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 89
+    },
+    {
+        "slug": "card-felling-swing-yellow-attack-action-excluded-and-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 97
+    },
+    {
+        "slug": "card-felling-swing-yellow-opponent-response-before-buff-resolves",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 94
+    },
+    {
+        "slug": "card-felling-swing-yellow-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-yellow-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-yellow-opponent-turn-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-yellow-opponent-turn-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-yellow-hand-without-priority-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-yellow-hand-insufficient-assets-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-yellow-arsenal-insufficient-assets-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-yellow-unused-effect-expires-this-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 38,
+        "assertions": 114
+    },
+    {
+        "slug": "card-felling-swing-blue-hand-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-felling-swing-blue-arsenal-face-down-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-felling-swing-blue-arsenal-face-up-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-felling-swing-blue-blue-pitch-payments",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 99
+    },
+    {
+        "slug": "card-felling-swing-blue-nonmatching-cintari-saber-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-felling-swing-blue-nonmatching-quicksilver-dagger-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-felling-swing-blue-fully-blocked-still-increases-power",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 78
+    },
+    {
+        "slug": "card-felling-swing-blue-ally-target-still-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 79
+    },
+    {
+        "slug": "card-felling-swing-blue-next-matching-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-felling-swing-blue-two-buffs-additive-single-next-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 90
+    },
+    {
+        "slug": "card-felling-swing-blue-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 89
+    },
+    {
+        "slug": "card-felling-swing-blue-attack-action-excluded-and-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 97
+    },
+    {
+        "slug": "card-felling-swing-blue-opponent-response-before-buff-resolves",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 94
+    },
+    {
+        "slug": "card-felling-swing-blue-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-blue-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-blue-opponent-turn-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-blue-opponent-turn-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-blue-hand-without-priority-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-blue-hand-insufficient-assets-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-blue-arsenal-insufficient-assets-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-felling-swing-blue-unused-effect-expires-this-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 38,
+        "assertions": 114
+    },
+    {
+        "slug": "card-en-garde-red-arsenal-face-down-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-en-garde-red-arsenal-face-up-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-en-garde-red-blue-pitch-payments",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 90
+    },
+    {
+        "slug": "card-en-garde-red-axe-also-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-en-garde-red-dagger-also-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-en-garde-red-fully-blocked-still-increases-power",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 78
+    },
+    {
+        "slug": "card-en-garde-red-ally-target-still-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 79
+    },
+    {
+        "slug": "card-en-garde-red-next-matching-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 114
+    },
+    {
+        "slug": "card-en-garde-red-two-buffs-additive-single-next-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 90
+    },
+    {
+        "slug": "card-en-garde-red-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 89
+    },
+    {
+        "slug": "card-en-garde-red-attack-action-excluded-and-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 97
+    },
+    {
+        "slug": "card-en-garde-red-opponent-response-before-buff-resolves",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 94
+    },
+    {
+        "slug": "card-en-garde-red-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-en-garde-red-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-en-garde-red-opponent-turn-hand-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-en-garde-red-opponent-turn-arsenal-zero-ap-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-en-garde-red-hand-without-priority-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-en-garde-red-hand-insufficient-assets-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-en-garde-red-arsenal-insufficient-assets-reject",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 26
+    },
+    {
+        "slug": "card-en-garde-red-unused-effect-expires-this-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 38,
+        "assertions": 114
+    }
+]

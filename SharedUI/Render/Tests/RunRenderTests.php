@@ -661,6 +661,9 @@ checkContains('a voter who already voted sees a disabled control', $wrHtml, "(hv
 // without it in the signature, the button would only ever appear on a render some OTHER field's
 // change happened to trigger.
 checkContains('r.hostVote participates in the re-render signature', $wrHtml, 'myPlayerID, !!r.removed, r.hostVote]');
+// Twin Suns house rules: a vote, a light or a host value change has no roster footprint either — without
+// r.houseRules in the signature the panel would only redraw when something ELSE changed.
+checkContains('r.houseRules participates in the re-render signature', $wrHtml, 'r.botProfiles, r.houseRules, r.state');
 
 // ⚠ THE REGRESSION GUARD THAT MATTERS. The seat key used to expire on a fixed 15-minute clock from
 // the moment of joining; after that the page polled with no authKey, could not be stamped, and the

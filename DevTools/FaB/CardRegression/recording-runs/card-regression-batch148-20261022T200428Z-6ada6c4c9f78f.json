@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:04:28+00:00",
+    "input_file": "card-regression-batch148.json",
+    "input_sha256": "eb4b751ace10ea928367ef917f418d29e9d4536fe3bc061bd3e99e45b7e9148c",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-runehold-release-four-live-sparse-actual-destroy-equipment-action-creates-one-owned-runechant-and-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 337
+        },
+        {
+            "slug": "card-vigor-girth-four-live-sparse-actual-destroy-equipment-action-creates-one-owned-vigor-and-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 337
+        }
+    ]
+}

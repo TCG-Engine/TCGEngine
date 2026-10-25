@@ -1,0 +1,7 @@
+{
+    "name": "Aether Hail / arsenal-face-up-opponent",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:59:59+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost1 and 4 arcane damage to any target. Choose player2's hero. Pay1 from the caster pool and1AP, leaving0. Deal the full4 only on resolution: hero220->16, other hero20. No printed go again, Frostbite or extra layer. Source leaves Stack for its owner's graveyard after resolution. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_hail_red https://judge.fabtcg.com/cards/detail/1627/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

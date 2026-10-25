@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-24T18:17:01+00:00",
+    "input_file": "card-regression-batch193.json",
+    "input_sha256": "c1157e59f7d35d72bb96d45956253213b6846b8f597c372e3d43cfa21b0175ed",
+    "filter": "card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+    "results": [
+        {
+            "slug": "card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 110
+        }
+    ]
+}

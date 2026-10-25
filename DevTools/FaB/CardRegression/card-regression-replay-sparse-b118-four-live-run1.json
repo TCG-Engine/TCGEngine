@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch118.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T18:38:05.072585+00:00",
+  "fixtures": [
+    {
+      "slug": "card-uprising-red-four-live-sparse-actual-action-first-draconic-attack-plus-one",
+      "fixture_sha256": "4fe392a81f221c14b2a999cf0a1bc2567a0c7a492c4e13a25331cb5d156f9780",
+      "passed": true,
+      "result": "[PASS] Uprising / four live sparse positive effect"
+    },
+    {
+      "slug": "card-billowing-mist-blue-four-live-sparse-actual-mystic-action-next-physical-attack-plus-one",
+      "fixture_sha256": "7278948f0e8f5d4939ecd60a7b98714503301277b682f0fb62aa5f8858ae2861",
+      "passed": true,
+      "result": "[PASS] Billowing Mist / four live sparse positive effect"
+    },
+    {
+      "slug": "card-vigorous-roar-red-four-live-sparse-actual-brute-action-next-physical-attack-plus-three",
+      "fixture_sha256": "c4f5f5432a7f2162bf2fb6b89a4d6c1d2fbeadb9034ed2c97f31fec8a033c0d6",
+      "passed": true,
+      "result": "[PASS] Vigorous Roar / four live sparse positive effect"
+    },
+    {
+      "slug": "card-water-glow-lanterns-red-four-live-sparse-actual-reveal-matching-red-decktop-creates-owned-shield",
+      "fixture_sha256": "68ccd364995daab3cb3779b8881e806a950914bd36b624dc6e3f2b7a5c623551",
+      "passed": true,
+      "result": "[PASS] Water Glow Lanterns / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-uprising-red-four-live-sparse-actual-action-first-draconic-attack-plus-one",
+      "returncode": 0,
+      "stdout": "[PASS] Uprising / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-billowing-mist-blue-four-live-sparse-actual-mystic-action-next-physical-attack-plus-one",
+      "returncode": 0,
+      "stdout": "[PASS] Billowing Mist / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-vigorous-roar-red-four-live-sparse-actual-brute-action-next-physical-attack-plus-three",
+      "returncode": 0,
+      "stdout": "[PASS] Vigorous Roar / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-water-glow-lanterns-red-four-live-sparse-actual-reveal-matching-red-decktop-creates-owned-shield",
+      "returncode": 0,
+      "stdout": "[PASS] Water Glow Lanterns / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

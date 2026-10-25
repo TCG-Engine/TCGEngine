@@ -1,0 +1,32 @@
+{
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "canonical_fixtures_raw5_unchanged": 3079,
+  "completed_utc": "2026-10-20T21:38:55.866289+00:00",
+  "runs": [
+    {
+      "command": "php DevTools/FaB/wtr_test.php",
+      "exit_code": 0,
+      "stdout": "FaB smoke checks passed.\nUPF checks passed.\nWTR continuation and card-family checks passed.\nWTR timing and property checks passed.\n",
+      "stderr": ""
+    },
+    {
+      "command": "php DevTools/FaB/arc_test.php",
+      "exit_code": 0,
+      "stdout": "FaB smoke checks passed.\nUPF checks passed.\nWTR continuation and card-family checks passed.\nWTR timing and property checks passed.\nARC mechanics passed; 218 authored continuations exercised from seat four.\n",
+      "stderr": ""
+    },
+    {
+      "command": "php DevTools/FaB/upf_test.php",
+      "exit_code": 0,
+      "stdout": "FaB smoke checks passed.\nUPF checks passed.\n",
+      "stderr": ""
+    },
+    {
+      "command": "php DevTools/FaB/shortcuts_test.php",
+      "exit_code": 0,
+      "stdout": "FaB smoke checks passed.\nFaB shortcut checks passed.\n",
+      "stderr": ""
+    }
+  ],
+  "scope": "EXISTING_NATIVE_TEST_SUITES_NOT_RECORDER_OR_CANONICAL_FIXTURE_AUTHORING"
+}

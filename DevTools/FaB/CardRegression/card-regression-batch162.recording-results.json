@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-ball-lightning-red-four-live-sparse-actual-self-lightning-damage-replacement-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 404
+    },
+    {
+        "slug": "card-grow-claws-red-four-live-sparse-actual-first-attack-no-prior-draconic-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 447
+    }
+]

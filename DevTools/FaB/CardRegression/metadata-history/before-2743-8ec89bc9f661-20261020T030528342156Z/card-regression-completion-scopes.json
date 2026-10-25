@@ -1,0 +1,2323 @@
+{
+  "schema_version": 1,
+  "completion_meaning": "Complete only within an independently reviewed finite card baseline; separate cross-card interaction holds remain explicit.",
+  "cards": {
+    "muscle_mutt_yellow": {
+      "scope_id": "vanilla-printed-baseline/v1",
+      "metadata_sha256": "26c7eeec606c4f94449e4d1423b72116ab73219925ddb6499f0ea569f9e02a2c",
+      "scope_review": {
+        "verdict": "approved_complete_finite_baseline",
+        "reviewer": "/root/pilot_review",
+        "evidence_file": "review-evidence/b26-saved-independent-review-bb022d1268aa.json",
+        "evidence_sha256": "bb022d1268aa9d95437ecaff72d52958a403e2dc6980017f5216726b7bffc423",
+        "qualification": "Independent actual16 ordinary printed-stat/no-text baseline approval. Verified completion remains conditional on the explicit native controls, exact two current full replays and suites; external interactions remain excluded."
+      },
+      "completion_meaning": "Ordinary printed-stat/no-text Muscle Mutt yellow behavior in a two-hero game; versioned baseline16 matrix, not arbitrary effects/format legality.",
+      "requirements": [
+        {
+          "id": "hand-floating-exact",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. Play from Hand. Spend3 of3 resources and one AP; float0. Deal exactly6, return no AP, keep source on chain through resolution, and put it in owner Graveyard when chain closes.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-hand-floating-exact"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "Stack",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "SourceZone",
+              "value": "Hand"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Owner",
+              "value": "1"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Controller",
+              "value": "1"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Hand",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "p1CombatChain-0",
+              "property": "FromZone",
+              "value": "Hand"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 14
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1CombatChain",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Graveyard",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 14
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-hand-floating-exact": "94fe5d1a62a8db97fe53c6c8428b698025df612c63de0ebbd1152b322ea267ec"
+          }
+        },
+        {
+          "id": "hand-floating-overfunded",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. Play from Hand. Spend3 of4 resources and one AP; float1. Deal exactly6, return no AP, keep source on chain through resolution, and put it in owner Graveyard when chain closes.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-hand-floating-overfunded"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "Stack",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "SourceZone",
+              "value": "Hand"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Owner",
+              "value": "1"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Controller",
+              "value": "1"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Hand",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "p1CombatChain-0",
+              "property": "FromZone",
+              "value": "Hand"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 14
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1CombatChain",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Graveyard",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 14
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-hand-floating-overfunded": "8fafe94ff2fe565374e904f78b64b35da0184dadd2aa3b228833d8987640c484"
+          }
+        },
+        {
+          "id": "arsenal-facedown-floating",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. Play from Arsenal with FaceDown=1. Spend3 of3 resources and one AP; float0. Deal exactly6, return no AP, keep source on chain through resolution, and put it in owner Graveyard when chain closes.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-arsenal-facedown-floating"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "Stack",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "SourceZone",
+              "value": "Arsenal"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Owner",
+              "value": "1"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Controller",
+              "value": "1"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Arsenal",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "p1CombatChain-0",
+              "property": "FromZone",
+              "value": "Arsenal"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 14
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1CombatChain",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Graveyard",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 14
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-arsenal-facedown-floating": "832712cf85151fa644bc9eed4f84fd738281687c0a1ee3055bc3cc2107aa98e4"
+          }
+        },
+        {
+          "id": "arsenal-faceup-floating",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. Play from Arsenal with FaceDown=0. Spend3 of3 resources and one AP; float0. Deal exactly6, return no AP, keep source on chain through resolution, and put it in owner Graveyard when chain closes.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-arsenal-faceup-floating"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "Stack",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "SourceZone",
+              "value": "Arsenal"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Owner",
+              "value": "1"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Controller",
+              "value": "1"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Arsenal",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "p1CombatChain-0",
+              "property": "FromZone",
+              "value": "Arsenal"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 14
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1CombatChain",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Graveyard",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 14
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-arsenal-faceup-floating": "d8a7593a689dac754c9d5dca455f8c0c9abb83c8d30d68d3067db393e7aadfc6"
+          }
+        },
+        {
+          "id": "hand-blue-pitch",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. Pitch one blue3 to pay cost3 exactly. AP remains1 while requesting assets and becomes0 only when costs finish. Pitched card remains in Pitch after chain close; the turn has not ended.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-hand-blue-pitch"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "Stack",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Hand",
+              "value": 1
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 1
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "Stack",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "SourceZone",
+              "value": "Hand"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Owner",
+              "value": "1"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Controller",
+              "value": "1"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "p1CombatChain-0",
+              "property": "FromZone",
+              "value": "Hand"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 14
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1CombatChain",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Graveyard",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 14
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 1
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-hand-blue-pitch": "6fe5fda052210cbf27c9cd22e8daffcd42e0c2ea43e6ffff5a15c32030cfeafd"
+          }
+        },
+        {
+          "id": "hand-red-then-yellow-pitch",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. Red pitch contributes1, so the attack still awaits2 more resources without spending AP; yellow then contributes2. Both cards move to Pitch, total3 pays exactly, and the ordinary attack deals6.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-hand-red-then-yellow-pitch"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 1
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 1
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Pitch",
+              "cardID": "wounding_blow_red"
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Hand",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "Stack",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "SourceZone",
+              "value": "Hand"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Owner",
+              "value": "1"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Controller",
+              "value": "1"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 2
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Pitch",
+              "cardID": "critical_strike_yellow"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 2
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "p1CombatChain-0",
+              "property": "FromZone",
+              "value": "Hand"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 14
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 2
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1CombatChain",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Graveyard",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 14
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 2
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-hand-red-then-yellow-pitch": "a125e49096f3e2aead54a4c5c1b31825af0b5fee7e17979a4667cbff5cb85b66"
+          }
+        },
+        {
+          "id": "single-block-three-damage",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. One3-defense card leaves exactly3 physical damage. No go again exists, including on the no-hit branch. Ordinary blockers and attack all move to owner Graveyards when chain closes.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-single-block-three-damage"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "Stack",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "SourceZone",
+              "value": "Hand"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Owner",
+              "value": "1"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Controller",
+              "value": "1"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "p1CombatChain-0",
+              "property": "FromZone",
+              "value": "Hand"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2CombatChain",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2Hand",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 17
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1CombatChain",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Graveyard",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 17
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2CombatChain",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2Graveyard",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "p2Graveyard",
+              "cardID": "wounding_blow_blue"
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-single-block-three-damage": "7a9f7db9342334cb55ad5982996f1aa8ca129e48eb635b8e9266f6c5e0a83f0d"
+          }
+        },
+        {
+          "id": "fully-blocked-no-hit",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. Two legal3-defense Generic hand cards total6, fully prevent the attack without a hit. No go again exists, including on the no-hit branch. Ordinary blockers and attack all move to owner Graveyards when chain closes.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-fully-blocked-no-hit"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "Stack",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "SourceZone",
+              "value": "Hand"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Owner",
+              "value": "1"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "Stack-0",
+              "property": "Controller",
+              "value": "1"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "p1CombatChain-0",
+              "property": "FromZone",
+              "value": "Hand"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2CombatChain",
+              "value": 2
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2Hand",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1CombatChain",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Graveyard",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2CombatChain",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2Graveyard",
+              "value": 2
+            },
+            {
+              "type": "card_exists",
+              "zone": "p2Graveyard",
+              "cardID": "wounding_blow_blue"
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-fully-blocked-no-hit": "1b60c9afa0e1f6083c229d84a78f99708f4d511e4b8d782feb7b9d4ceae87549"
+          }
+        },
+        {
+          "id": "defends-for-two-no-hit",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. Opponent-turn Muscle Mutt defends from Hand without paying its play cost or spending an action point. Its printed defense is2, exactly preventing Wounding Blow blue2; owner/controller remain seat2.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-defends-for-two-no-hit"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "card_property_equals",
+              "mzId": "p2CombatChain-0",
+              "property": "Role",
+              "value": "DEFENSE"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "p2CombatChain-0",
+              "property": "FromZone",
+              "value": "Hand"
+            },
+            {
+              "type": "card_exists",
+              "zone": "p2CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2Hand",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Resources",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p2CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "card_exists",
+              "zone": "p2Graveyard",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2Graveyard",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2CombatChain",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Graveyard",
+              "cardID": "wounding_blow_blue"
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-defends-for-two-no-hit": "d5a42c1d279e571f394027cffeab438560e893abaccb19af599f0f1008290f2b"
+          }
+        },
+        {
+          "id": "pitched-yellow-for-two",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. Start with1 floating resource; play Generic Raging Onslaught red costing3, and pitch Muscle Mutt yellow for exactly2. Resource total3 pays cost3; if Muscle Mutt pitched1 the source would remain unpaid, and if it pitched3 one resource would remain. The primary is pitched, not played.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-pitched-yellow-for-two"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 1
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 1
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Pitch",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 1
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "Stack",
+              "cardID": "raging_onslaught_red"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 13
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Pitch",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 1
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Graveyard",
+              "cardID": "raging_onslaught_red"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 1
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-pitched-yellow-for-two": "72e867c32cd70ad625179653c40d6accdf41e166af54899d54341a5f6c7d1dae"
+          }
+        },
+        {
+          "id": "hand-insufficient-two-resources",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. Only2 resources exist, one below cost3; no other Hand card can be pitched. Announcement must be rejected before resource/AP payment or any zone movement.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-hand-insufficient-two-resources"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "card_exists",
+              "zone": "p1Hand",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Hand",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 2
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 1
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-hand-insufficient-two-resources": "02ed83bbc68c361bc8f5443549c8fb37604eb1f03bd82eba5a650fd7c678a319"
+          }
+        },
+        {
+          "id": "arsenal-insufficient-two-resources",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. Only2 resources exist, one below cost3; no other Hand card can be pitched. Announcement must be rejected before resource/AP payment or any zone movement.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-arsenal-insufficient-two-resources"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "card_exists",
+              "zone": "p1Arsenal",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Arsenal",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Pitch",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 2
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 1
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-arsenal-insufficient-two-resources": "1492cd5954bafd4660c3e951a4cafa44630e91cb5ba3bd2784144ca04cfc9496"
+          }
+        },
+        {
+          "id": "zero-action-points-rejected",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. The printed cost is fully funded but actor has0 action points. Clicking preserves source, all resources/action points, health and empty Stack/Graveyard.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-zero-action-points-rejected"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "card_exists",
+              "zone": "p1Hand",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Hand",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 3
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 20
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-zero-action-points-rejected": "1ff9cb52adcde68a7b0d13d866cf56b822f87ac0965eec47cfe20c98b6c96f6d"
+          }
+        },
+        {
+          "id": "nonturn-action-rejected",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. The printed cost is fully funded but actor2 has priority on player1 turn and the normal nonturn AP0. Clicking preserves source, all resources/action points, health and empty Stack/Graveyard.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-nonturn-action-rejected"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "card_exists",
+              "zone": "p2Hand",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2Hand",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2Graveyard",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Resources",
+              "value": 3
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 1
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "PriorityPlayer",
+              "value": 2
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-nonturn-action-rejected": "b225fe2fc415403eb9984826aed5584b4b21731676fab1bfcb3593d1dd69ba55"
+          }
+        },
+        {
+          "id": "wrong-priority-rejected",
+          "description": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. The printed cost is fully funded but turn player1 lacks priority, which belongs to seat2. Clicking preserves source, all resources/action points, health and empty Stack/Graveyard.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-wrong-priority-rejected"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "card_exists",
+              "zone": "p1Hand",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Hand",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "p1Graveyard",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 3
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 1
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "PriorityPlayer",
+              "value": 2
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-wrong-priority-rejected": "7edb73cf135df40d14e61a96ebe1e8aee4268c25b4f937b4c64ed752aa01ffbd"
+          }
+        },
+        {
+          "id": "printed-defense-two-persisted-by-exact-damage",
+          "description": "Muscle Mutt yellow has printed defense2, cost3, power6, pitch2 and no rules text/keywords. Young Dorintheas legally use these Generic cards; their weapon ability does not apply. Wounding Blow red is a cost0 printed-power4 attack with no text. Muscle Mutt defends from Hand for free at seat2 AP0/resources0. Persisted current attack power4 and final defending hero HP18 independently force exact defense2: defense1 or3 would leave HP17 or19. Muscle Mutt remains on CombatChain through link RESOLUTION, then goes to its owner Graveyard when the combat chain closes. Both resources/AP stay0; Stack and pending payment/resolution queues remain empty at checkpoints.",
+          "scenario_ids": [
+            "card-muscle-mutt-yellow-defends-exactly-two-partial-damage"
+          ],
+          "required_native_oracles": [
+            {
+              "type": "card_property_equals",
+              "mzId": "p2CombatChain-0",
+              "property": "Role",
+              "value": "DEFENSE"
+            },
+            {
+              "type": "card_property_equals",
+              "mzId": "p2CombatChain-0",
+              "property": "FromZone",
+              "value": "Hand"
+            },
+            {
+              "type": "card_exists",
+              "zone": "p2CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2Hand",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Resources",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 18
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p2CombatChain",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p2Graveyard",
+              "cardID": "muscle_mutt_yellow"
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2Graveyard",
+              "value": 1
+            },
+            {
+              "type": "zone_count",
+              "zone": "p2CombatChain",
+              "value": 0
+            },
+            {
+              "type": "card_exists",
+              "zone": "p1Graveyard",
+              "cardID": "wounding_blow_red"
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Resources",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Resources",
+              "value": 0
+            },
+            {
+              "type": "zone_count",
+              "zone": "Stack",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2Health",
+              "value": 18
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1Health",
+              "value": 20
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p1ActionPoints",
+              "value": 0
+            },
+            {
+              "type": "scalar_zone_equals",
+              "zone": "p2ActionPoints",
+              "value": 0
+            }
+          ],
+          "required_fixture_sha256": {
+            "card-muscle-mutt-yellow-defends-exactly-two-partial-damage": "0262458bfb3bb5b22c924cda19ba5fc018a550f5ea9b5666ff955c9ab793344a"
+          }
+        }
+      ],
+      "remaining_baseline_obligations": [],
+      "separate_interaction_holds": [
+        "Every external cost/power/defense modifier, replacement, prohibition, damage observer, targeting ally/UPF, ownership/source departure, turn-end pitch ordering or other card interactions.",
+        "Any individual internal CanPlay/CanActivate interface regression guarantee; exhaustive private-zone/deck/UI legality."
+      ],
+      "minimum_clean_passes": 2,
+      "required_semantic_controls": [
+        {
+          "control_id": "muscle_defense_plus_one",
+          "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+          "detected": true,
+          "returncode": 1,
+          "expected_failure": "p2Health to equal 18, got 19",
+          "prefix_actions": 6,
+          "expected_failure_step": 7,
+          "evidence_kind": "disposable_fixture_semantic_assertion",
+          "output_contains": "p2Health to equal 18, got 19"
+        },
+        {
+          "control_id": "muscle_defense_minus_one",
+          "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+          "detected": true,
+          "returncode": 1,
+          "expected_failure": "p2Health to equal 18, got 17",
+          "prefix_actions": 6,
+          "expected_failure_step": 7,
+          "evidence_kind": "disposable_fixture_semantic_assertion",
+          "output_contains": "p2Health to equal 18, got 17"
+        }
+      ]
+    }
+  }
+}

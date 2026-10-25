@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-onyx-amulet-blue-four-live-sparse-actual-action-and-watery-trigger-tap-all-four-live-heroes",
+        "status": "recorded_semantically_checked",
+        "actions": 9,
+        "assertions": 475
+    },
+    {
+        "slug": "card-imperial-ledger-red-four-live-sparse-actual-singleton-shuffle-self-cost-creates-owned-copper-for-nonroyal",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 306
+    },
+    {
+        "slug": "card-talisman-of-recompense-yellow-four-live-sparse-actual-red-one-pitch-replacement-pays-real-cost-three-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 453
+    },
+    {
+        "slug": "card-talisman-of-warfare-yellow-four-live-sparse-actual-exact-two-damage-destroys-talisman-and-four-owned-arsenals",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 592
+    }
+]

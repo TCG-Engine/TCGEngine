@@ -1,0 +1,7 @@
+{
+    "name": "Teklo Base Arms / Blade Break defend-alone-three-damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:07:16+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed defense1 and only Blade Break. CR8.3.3 destroys this when the combat chain closes if it defended. CR7.7.1/7.7.4 gives no priority during Close Step and resolves close triggers automatically before remaining equipment returns (7.7.5). The sole defending equipment contributes exactly1 to plain Wounding Blow red4, so hero takes exactly3 (HP17). Defender has AP0/resources0 and pays nothing to declare equipment. Equipment remains live on CombatChain through link RESOLUTION/GY0; close automatically destroys it to owner Graveyard/GY1. Sources: https://rules.fabtcg.com/en/cr/08-keywords/#833 https://rules.fabtcg.com/en/cr/07-combat/#77 https://rules.fabtcg.com/en/cr/06-effects/#66 FaBSim/GeneratedCode/cardArrayCache.json#teklo_base_arms"
+}

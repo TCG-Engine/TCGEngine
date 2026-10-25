@@ -1,0 +1,7 @@
+{
+    "name": "Plunder Run / four live sparse next-hit positive",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:41:26+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actually play physical Plunder Run5 from Arsenal for0/AP1, allow all four manual responses, and regainAP1 from its printed go again. The Arsenal source grants+3to the next attack action played. Actually play Wounding Blow Red6 from Hand for0/AP1: printed4+3=7, P4HP13. On that actual hit, draw the original single top-Deck Wounding Blow Blue7 into Hand; it is not drawn before the hit. Source5 and attack6 end in ownGraveyard; no random ordering or empty-deck draw is involved. All four genuine live young heroes20 own their hero UIDs1..4 and manually pass every source/combat window. No damage or granted on-hit effect occurs before fourth REACTION pass. All four final queues/health/economy/physical zones are pinned. One Arsenal positive buff plus on-hit draw; no Hand-play branch, second attack, no-hit retention, multiple effects, turn expiry or draw prevention/replacement. No primary credit to sibling pitches, support cards/tokens/heroes, alternate branches or full-card completeness. Ordinary synchronous spell internal departure-order is not certified. Sources: https://judge.fabtcg.com/cards/detail/509/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP378.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

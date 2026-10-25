@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-mage-master-boots-four-live-sparse-real-paid-legs-destroy-and-next-nonattack-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 271
+    },
+    {
+        "slug": "card-take-aim-red-four-live-sparse-occupied-arsenal-bow-and-actual-arrow-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 411
+    },
+    {
+        "slug": "card-over-flex-red-four-live-sparse-occupied-arsenal-bow-and-actual-arrow-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 411
+    },
+    {
+        "slug": "card-reduce-to-runechant-red-four-live-sparse-actual-owned-runechant-discount-and-DR-creation",
+        "status": "recorded_semantically_checked",
+        "actions": 35,
+        "assertions": 440
+    }
+]

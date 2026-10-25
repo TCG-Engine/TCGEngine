@@ -1,0 +1,3488 @@
+{
+  "status": "INDEPENDENT_ALL111_SPEC_AND_PRINTED_ACTION_MODEL_PASS_NOT_NATIVE_REPLAY",
+  "semantically_approved": true,
+  "spec_sha256": "f530f97086d90c34da961ce9477e5172146b29ab16d3987f9b3cac9170bd826b",
+  "pilot_sha256": "dba6218595f2c070ef23712e20c597c0ad3ff7c20dac940c963bc9a56f494ad1",
+  "scenario_count": 111,
+  "identity_count": 6,
+  "pilot_count": 3,
+  "independently_model_checked_assertions": 8610,
+  "identical_candidate_alternative_uid_runs": 6,
+  "native_persisted_assertion_count": 8574,
+  "printed_numbers": {
+    "savage_swing_red": {
+      "cost": 1,
+      "pitch": 1,
+      "power": 7,
+      "defense": 3
+    },
+    "savage_swing_yellow": {
+      "cost": 1,
+      "pitch": 2,
+      "power": 6,
+      "defense": 3
+    },
+    "savage_swing_blue": {
+      "cost": 1,
+      "pitch": 3,
+      "power": 5,
+      "defense": 3
+    },
+    "wrecker_romp_red": {
+      "cost": 2,
+      "pitch": 1,
+      "power": 8,
+      "defense": 3
+    },
+    "wrecker_romp_yellow": {
+      "cost": 2,
+      "pitch": 2,
+      "power": 7,
+      "defense": 3
+    },
+    "wrecker_romp_blue": {
+      "cost": 2,
+      "pitch": 3,
+      "power": 6,
+      "defense": 3
+    }
+  },
+  "rows": [
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-hand-exact-float-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "37c6fe790262af9a36abe558244b1276c6540331b0037e3308a049b930250269",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_red",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-hand-overfloat-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "6ac9642cafef8fd4164ee24eff1fda757417617fbc7e0fdffab523d16902e68c",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_red",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-hand-blue-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "8ae9311391e9a15aa8754b684faa2665cac9ba7d8c94a70ffa554875dfa6f9e9",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "savage_swing_red",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-hand-exact-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "f40a07c1c0871afb53a9351cea5e2733a894202243387d59b385d21ea47aa415",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "savage_swing_red",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-arsenal-facedown-funded-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "e6ee6addb8e36ee7592aa8f9dbcba88a4ec3967e806553ace505498d1b8715bf",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_red",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-arsenal-faceup-blue-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "0ce33a7999bb7fd7c2b39eb50f7a608c5cae4094813831ffeaf7733c75496fc0",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "savage_swing_red",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-instant-card-is-valid-random-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "84d2f687167bd046440f3604d7b5f7344c8114f09169b8b3ec11c73d66004689",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_red",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "sigil_of_solace_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-nonattack-action-is-valid-random-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "7415caff89e6d7c169a88adeefc8c943cb295c30576ff363fc38d02be4c02290",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_red",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "energy_potion_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-two-identical-random-candidates-one-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "380e3d4892e01d7538c5eaf32c830161e1259b87e6b39b6cc41963eafe7acf0b",
+      "checks": 104,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_red",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 1,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-fully-blocked-still-pays-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "713978490c7744118e6e789d8c7d0353aa56a3611e881081ccf761fb02163178",
+      "checks": 130,
+      "supportedActions": 7,
+      "payments": [
+        {
+          "cardID": "savage_swing_red",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-hand-no-spare-despite-funded-assets",
+      "semantically_approved": true,
+      "proposal_sha256": "79ac470c6acc3b17357c287ec0574d501c17e0f9f10b3a3ad583c2b078a86216",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-one-spare-cannot-both-pitch-and-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "ab76c306108fffe18ca28702e60095c982764c0c8d7b1d8d99a34e371f5dcf3a",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-arsenal-no-hand-card-to-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "89297737bfdf377f8af130c41799421bb62a6d73b1ea8e66a325ad6bbfb5a7af",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-zero-action-points",
+      "semantically_approved": true,
+      "proposal_sha256": "7755e0274ddeaf27786023a7aee1420316b5253736693d82131879ff88ca3473",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-nonturn-zero-ap",
+      "semantically_approved": true,
+      "proposal_sha256": "8e7cf20e2e31276591161a1ed0f35feeec488db7e6bdd6d4f2d0dcc45499a560",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        1
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-wrong-priority",
+      "semantically_approved": true,
+      "proposal_sha256": "074a58e28d599fe7933d589f9d24534a23e6cecb571232ee4f29a63f9f8945a3",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-pitched-for-printed-value-no-discard-cost",
+      "semantically_approved": true,
+      "proposal_sha256": "f85724f80742de69d7cc89f45d0a439b6c5245fbe63c8c447e9dac678e8417ff",
+      "checks": 67,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "raging_onslaught_blue",
+          "cost": 3,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "savage_swing_red",
+          "value": 1
+        }
+      ],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-defense-three-is-free-not-play",
+      "semantically_approved": true,
+      "proposal_sha256": "7edbd91e14d88e595d1cc3ac433eafb294e532a728d977f384332f09a0e69616",
+      "checks": 51,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "cost": 0,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        19
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-hand-exact-float-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "2330f116b3bf22b269d9fe91e5b1f8273c8f3ad1df0f0bd3565fd053f9565747",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_yellow",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-hand-overfloat-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "e9b92f8af0957ee0697220841faa6da8b873892c2f34710b95a8a8125ffa51cf",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_yellow",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-hand-blue-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "414621fe44a4f7532b5bcc8baa75ecd506e46b9cf04504bd4345c33ec8371df5",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "savage_swing_yellow",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-hand-exact-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "09d867eabeb80feb6da5252b77da95d9d632b209a61b141f2461b6c7268c0a0a",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "savage_swing_yellow",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-arsenal-facedown-funded-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "bcebccd62eb01d268372876b0ace4bc69e4741d2f651a25384c423a23dd929a4",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_yellow",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-arsenal-faceup-blue-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "1328b443b7f13fb223ee9fb77fda063b1d5a57c6989dffbf0e532f020c0333b6",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "savage_swing_yellow",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-instant-card-is-valid-random-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "e196352125c01a31437d0799bc27d41d82b00dfa20e5ef2faa0bca96c4f812b7",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_yellow",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "sigil_of_solace_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-nonattack-action-is-valid-random-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "b3edceff81e4a8d03ebae172d8bd0d6eb74c48583265b070da0861ed557ab2e9",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_yellow",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "energy_potion_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-two-identical-random-candidates-one-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "5c259f6698dd5d3feff7bfd3e570a24e981828a3df8699a04a72ae87b45a71f5",
+      "checks": 104,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_yellow",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 1,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-fully-blocked-still-pays-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "8ab4cd0ce82129ff136e2bf94fd01f363f2ad3384a341ac63739cc8296da6b3e",
+      "checks": 130,
+      "supportedActions": 7,
+      "payments": [
+        {
+          "cardID": "savage_swing_yellow",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-hand-no-spare-despite-funded-assets",
+      "semantically_approved": true,
+      "proposal_sha256": "0280f9ff4245fb0b4fda1a6f1ce54034eb68eaaf073bf4baeeff2ca82f7c74f3",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-one-spare-cannot-both-pitch-and-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "4f23c0a2b29a91513b11a00a12fc50c3856f6518dd117d54f2d8ca2d9939957b",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-arsenal-no-hand-card-to-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "c864f2fdec6c4332e3d0a46a967df0438fbbd2740b9df25f25c6b2b804e050fe",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-zero-action-points",
+      "semantically_approved": true,
+      "proposal_sha256": "40ec6f2b547d3ceae9676406ff422439945730de60c546b6ee06fa1627f6dfda",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-nonturn-zero-ap",
+      "semantically_approved": true,
+      "proposal_sha256": "4c19f524364106e4744c2e6889871c675183e2b8ff8c02525fff7e729d422d0f",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        1
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-wrong-priority",
+      "semantically_approved": true,
+      "proposal_sha256": "de94a29e45a7e27c0ca77e2ecf1087be52736387187ebea694015032ef2b2403",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-pitched-for-printed-value-no-discard-cost",
+      "semantically_approved": true,
+      "proposal_sha256": "d938f7d0ce561d30863229e79c000055c454014e162f212cff0bf85bc6f467ed",
+      "checks": 67,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "raging_onslaught_blue",
+          "cost": 3,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "savage_swing_yellow",
+          "value": 2
+        }
+      ],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-yellow-mandatory-discard-defense-three-is-free-not-play",
+      "semantically_approved": true,
+      "proposal_sha256": "3031325e84601fa701b3ae99c54e8d02d77c591eafbd64de0206cf100e225466",
+      "checks": 51,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "cost": 0,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        19
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-hand-exact-float-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "d99f0a7f4750da2cf13c69714613e49f6dd560367ee9b4d9ed2a38fa99aba533",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_blue",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-hand-overfloat-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "cbd18600c09c407d499c43d9961fdfc548bc4c1498e7198f65bbe5b9bdaf8761",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_blue",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-hand-blue-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "cd387f985a93457d08627440c96a559eb71b5868a7809b770bc1d2c9cfb5acc6",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "savage_swing_blue",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-hand-exact-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "26d2d79ff1404a4671e9f3f8d4ab3ccefbdef4061eca802a43b987a11607b1ed",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "savage_swing_blue",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-arsenal-facedown-funded-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "4b23465f8130f608df696a6fcbc783178f197ab14e0b90f257b7c0d8932229c6",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_blue",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-arsenal-faceup-blue-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "ed8c05753fc0491f5d20a1d37a2fd3ac46226c881da5493e6ef20dddcd088b0f",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "savage_swing_blue",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-instant-card-is-valid-random-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "1ee05ad5879da09ae7db1025916f5b4d49d3a647841d9fd9824ee9959a7dc6e5",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_blue",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "sigil_of_solace_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-nonattack-action-is-valid-random-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "718b9ad02fbc90e309a5837dbadbc7b38552121bd75bff3618fdbcf588a91db3",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_blue",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "energy_potion_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-two-identical-random-candidates-one-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "afca9bbb31d3add1c7430500b3d4ea5104eae64e84ff202df36445d139bec19d",
+      "checks": 104,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "savage_swing_blue",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 1,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-fully-blocked-still-pays-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "38130f473db85310e4d21e8a8afdb6a0f22304260e710402f4477f7df7a58efd",
+      "checks": 130,
+      "supportedActions": 7,
+      "payments": [
+        {
+          "cardID": "savage_swing_blue",
+          "cost": 1,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-hand-no-spare-despite-funded-assets",
+      "semantically_approved": true,
+      "proposal_sha256": "094e3d45ddb08fbdff202170479594cbb37e3c9419a2f42a2f88189d74382c74",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-one-spare-cannot-both-pitch-and-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "62fc6efef66522aa838182b0bae98c13d3636790fdae0630370ecf96988bc0db",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-arsenal-no-hand-card-to-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "017f4b22c24a146b0ca044798ea27b817bdc6f7a52681380b1ddb4305d015b78",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-zero-action-points",
+      "semantically_approved": true,
+      "proposal_sha256": "29022f591866b7877334a644206713703aac955a66ebe3a8023173330762a9c3",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-nonturn-zero-ap",
+      "semantically_approved": true,
+      "proposal_sha256": "6042bc60266b8a7041012f90f7b7556662357c0d87a0390fa054766bfc58c74d",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        1
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-wrong-priority",
+      "semantically_approved": true,
+      "proposal_sha256": "a9530a4eb3e567a8baccea589eecf024e5b568ed366ce5f43d222df44ab9ab20",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-pitched-for-printed-value-no-discard-cost",
+      "semantically_approved": true,
+      "proposal_sha256": "87591c8d04c89fc30a05d3d338da7a8b07b8d551c5c26f69cce59745e7b14ab9",
+      "checks": 67,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "raging_onslaught_blue",
+          "cost": 3,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "savage_swing_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-savage-swing-blue-mandatory-discard-defense-three-is-free-not-play",
+      "semantically_approved": true,
+      "proposal_sha256": "f9e4f1333f72e4f0977c86832cec670b1de1b201077c32380c8cfb23d96103cc",
+      "checks": 51,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "cost": 0,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        19
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-hand-exact-float-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "00cda26e62e00347182b413913b33b7c943cff065dc98f645618fb4ed46598ab",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_red",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        12
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-hand-overfloat-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "3d42e8e0e801c6878859cd7d900b1fc1be1877d5aa4a1d5638ed256d131c290a",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_red",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        12
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-hand-blue-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "3a201893cd8fcfa7875cee21091d17e812387dd682befc5d1fbc02dac4624596",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_red",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        12
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-hand-exact-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "5f92f44caeab3db832975d34651042ba3edd8f345b0f9030f4f33329ed60c379",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_red",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_yellow",
+          "value": 2
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        12
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-arsenal-facedown-funded-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "aff99ec7aa9ad4c5781de91061b361afab94cdad5d525b9866878c7c228e5e29",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_red",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        12
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-arsenal-faceup-blue-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "7a6217e4b8f72938eee73f008a481e31c3c96dc90207f22eb862b09923382de2",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_red",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        12
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-instant-card-is-valid-random-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "523f6680eda449676ca6ff20a6f63e4a61c068c93cf3f11ceb3fd838f76038f9",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_red",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "sigil_of_solace_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        12
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-nonattack-action-is-valid-random-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "2c9aa1daae566f7f93b20464951c963ac37b2332a21623910a425a61a6d5bf73",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_red",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "energy_potion_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        12
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-two-identical-random-candidates-one-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "f47ca92720dac3bdfeff7e31d19553b7d10a4eb902f9a4fee0918732102e7bde",
+      "checks": 104,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_red",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 1,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        12
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-fully-blocked-still-pays-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "f0e61c8d576e48959390dc3975deeb1997f41b9b23a67fcf6ce68b1a25e3329e",
+      "checks": 130,
+      "supportedActions": 7,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_red",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-hand-no-spare-despite-funded-assets",
+      "semantically_approved": true,
+      "proposal_sha256": "02c4fa2c9f9f3fcd76f012bfa472795b07c0207216988e4e42ed5d67e84b81bd",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-one-spare-cannot-both-pitch-and-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "84c33b51bb9d450928a95813767e883ea39c45fb25ccee26bda73bddf5fe1f2e",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-arsenal-no-hand-card-to-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "1315426d42b6a49d787d7265506f697de1909424479de51141b7086247c059ee",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-zero-action-points",
+      "semantically_approved": true,
+      "proposal_sha256": "61276221594850f108b1edd5a9a89227ac4244332b82c15a5a6f6329831f0da5",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-nonturn-zero-ap",
+      "semantically_approved": true,
+      "proposal_sha256": "8a5886685df73adaa787fbbcb9f59cd5f462b8e2266f2a03f0ce7ec0f36edabd",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        2
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-wrong-priority",
+      "semantically_approved": true,
+      "proposal_sha256": "0bf16c799e1805bb7dfbfdc36d693bc04319cbdb2beb028ede084f2db947a015",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-pitched-for-printed-value-no-discard-cost",
+      "semantically_approved": true,
+      "proposal_sha256": "9fe0c121dbee56ce7189c08da5b60f280737bbd1e8a4e2b116c56fddb483f73b",
+      "checks": 67,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "raging_onslaught_blue",
+          "cost": 3,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wrecker_romp_red",
+          "value": 1
+        }
+      ],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-defense-three-is-free-not-play",
+      "semantically_approved": true,
+      "proposal_sha256": "f91029f141909a98ce46a6726f12dec042f9654acc6e53977b492410017a2e78",
+      "checks": 51,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "cost": 0,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        19
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-two-red-pitches-before-singleton-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "af05087afa7768ad5f24e500cee6c1a2ecc42b958db771bcec57598a66d54e65",
+      "checks": 146,
+      "supportedActions": 6,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_red",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        12
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-hand-exact-float-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "743509852bcf1cfe34e5150c274de507dc100d48b2a10e86426739bb74722113",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_yellow",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-hand-overfloat-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "0f62b9e4c7baf7924d113e1329ef3883a1508ea1523c277234e0b6679bf77b27",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_yellow",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-hand-blue-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "79ce97a70c155eafabad1393208a58624ea745b25ee1bcd853a7db304a79a5e4",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_yellow",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-hand-exact-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "6d9939b554b4937e50464891c254ddd27b056bad85c98e4fc0114ca621ae8a5f",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_yellow",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_yellow",
+          "value": 2
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-arsenal-facedown-funded-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "d5f73e270d65264178038eb58f7300fa0809a1ed9e730761ead72395e464475e",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_yellow",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-arsenal-faceup-blue-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "93a8c2fc982302de670500e5ef3c62169806c3fa4fa4d101bd7c0060c037bf2f",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_yellow",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-instant-card-is-valid-random-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "9bed62078f3f7846e91c01a68ebdd7f4175b1c048671e22ba5f32a9cd727746e",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_yellow",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "sigil_of_solace_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-nonattack-action-is-valid-random-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "70ed03aa300f56c7409dc500136f8b8e93e9ebb8d950338b2b1e9dbd7ea28f2e",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_yellow",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "energy_potion_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-two-identical-random-candidates-one-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "a45b35986d57a3fde24f4e770748cb3381aea4a9d743f23d14e455a217ad7bc6",
+      "checks": 104,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_yellow",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 1,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-fully-blocked-still-pays-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "f732cfc7013c6a1fd5311c7533880b248efa612d9024102cbd4585df694c046d",
+      "checks": 130,
+      "supportedActions": 7,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_yellow",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-hand-no-spare-despite-funded-assets",
+      "semantically_approved": true,
+      "proposal_sha256": "66637b7402e084b7d930321ab1695f6e4066211318929bed29bce71f53152236",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-one-spare-cannot-both-pitch-and-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "adf11baece300b7bd2aa648e40d30e0a7879533c28972b82774644d0b9a2ee42",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-arsenal-no-hand-card-to-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "81d694b55a58a16360addcce93298f4762ea4f2f46050a2f3cb71a766f957388",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-zero-action-points",
+      "semantically_approved": true,
+      "proposal_sha256": "f36e4fa7ddc4f555bdfac29473f622c3c56ea20e98975e60ab128de61350baee",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-nonturn-zero-ap",
+      "semantically_approved": true,
+      "proposal_sha256": "0eb920f0a2ddf72022bca07ced2e73845bca27cb408fdf38cf365b0ed17d684b",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        2
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-wrong-priority",
+      "semantically_approved": true,
+      "proposal_sha256": "bd56196f430eb2e86ca4ae88a7e3d161c0085cd895f0bd7c6a49ade69dfc1e19",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-pitched-for-printed-value-no-discard-cost",
+      "semantically_approved": true,
+      "proposal_sha256": "afbbb3b2896e20e9166127f0c9fb3b0094b96dba4afb3443c40cfb45f48d20ec",
+      "checks": 67,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "raging_onslaught_blue",
+          "cost": 3,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wrecker_romp_yellow",
+          "value": 2
+        }
+      ],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-defense-three-is-free-not-play",
+      "semantically_approved": true,
+      "proposal_sha256": "25a30be006540e570af043c44346171401309e20db36d498315bd214da5041f7",
+      "checks": 51,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "cost": 0,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        19
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-yellow-mandatory-discard-two-red-pitches-before-singleton-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "9ad3e8b40d282b064c21acfaa27fa58fb7e6a26226f403c0d3cb0574aee9fd35",
+      "checks": 146,
+      "supportedActions": 6,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_yellow",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        13
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-hand-exact-float-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "97afb9112df2939ab1ac9ca580686699e5a4d74bca89537907cebf710fd9cf57",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_blue",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-hand-overfloat-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "ab9e553029b00a036097cd8fe5f203156f9d48e6270b07e85d010cb03f6d7dae",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_blue",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-hand-blue-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "bb820f2a1c21f63b79c4e144bda8ae13013fefbf2ff31771ce73b7f46cda0c19",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_blue",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-hand-exact-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "bf8ba1c2141c5563dcf0775bbd35d9334158459c615162c52ba804df4a9c42d3",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_blue",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_yellow",
+          "value": 2
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-arsenal-facedown-funded-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "9de9f8bb37be7646f741cb532217c58d75e8c58398d6a0809f9f089a3e1472b5",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_blue",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-arsenal-faceup-blue-pitch-singleton",
+      "semantically_approved": true,
+      "proposal_sha256": "de288ce6aa540ac88e55c72063c2c172ab620c273c3e65721755bcbc4c3a77e7",
+      "checks": 125,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_blue",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        1,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-instant-card-is-valid-random-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "46647be04f2d7aa1d3f232ce7d4bbfe287fbb70255dbef853cb840ab50e706b3",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_blue",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "sigil_of_solace_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-nonattack-action-is-valid-random-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "b4435a539c6732c2aff77f0589fb4d8e217039a3190cf540ab99269901258e20",
+      "checks": 103,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_blue",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "energy_potion_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-two-identical-random-candidates-one-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "66044cc586bbc110eec77fb029c3e2b1e0c5c89332c35ba10a27156ae90689bf",
+      "checks": 104,
+      "supportedActions": 4,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_blue",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 1,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-fully-blocked-still-pays-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "f447104f342d43e87a1bdd77fec1a611cc2a1fb8fb46784227b3acd867201710",
+      "checks": 130,
+      "supportedActions": 7,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_blue",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-hand-no-spare-despite-funded-assets",
+      "semantically_approved": true,
+      "proposal_sha256": "50c2eaab7b1da1788b5ca56dcae2694983652930e91ec3d62b12363491572229",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-one-spare-cannot-both-pitch-and-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "f845cc89b9188a30895f0fd10f16b4e5769132df8caf4903bd7fae061356c3a0",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-arsenal-no-hand-card-to-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "696b114eabafb87fb954ec65e918e777fbe361209ee84b08ba2667cf110dfe32",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-zero-action-points",
+      "semantically_approved": true,
+      "proposal_sha256": "68e80630429959278fdb4f31f1b7c47d9cd9daae2932b1d9ab63c31a2e1cab59",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-nonturn-zero-ap",
+      "semantically_approved": true,
+      "proposal_sha256": "44e43a1b3497f61278f26e28c0d899633b58da78f561b1b11daff8eaff115893",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        0,
+        2
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-wrong-priority",
+      "semantically_approved": true,
+      "proposal_sha256": "16b58135a548431d6904d041e404b5f883267d55d1b03ba7a181e4b18b098d3d",
+      "checks": 20,
+      "supportedActions": 1,
+      "payments": [],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 1,
+      "terminalHealth": [
+        20,
+        20
+      ],
+      "terminalResources": [
+        2,
+        0
+      ],
+      "terminalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-pitched-for-printed-value-no-discard-cost",
+      "semantically_approved": true,
+      "proposal_sha256": "8ab1e4357d5a2e0f6966e23246c399fea39200f70d7a4235650491f3bf83ed47",
+      "checks": 67,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "raging_onslaught_blue",
+          "cost": 3,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wrecker_romp_blue",
+          "value": 3
+        }
+      ],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        15
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-defense-three-is-free-not-play",
+      "semantically_approved": true,
+      "proposal_sha256": "dccb2f50759d6a15ff8f5e0b8922c0a49df921e3dea192301615004b572708e6",
+      "checks": 51,
+      "supportedActions": 5,
+      "payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "cost": 0,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [],
+      "discardedCardIDs": [],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        19
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-two-red-pitches-before-singleton-discard",
+      "semantically_approved": true,
+      "proposal_sha256": "894ea11cd95cdaf442aa5b2b2d9197f9740e26f1f8ab8d710c22ce7f25536dac",
+      "checks": 146,
+      "supportedActions": 6,
+      "payments": [
+        {
+          "cardID": "wrecker_romp_blue",
+          "cost": 2,
+          "actionPoint": 1
+        }
+      ],
+      "pitches": [
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1
+        }
+      ],
+      "discardedCardIDs": [
+        "wounding_blow_blue"
+      ],
+      "randomCounter": 0,
+      "rejectedClicks": 0,
+      "terminalHealth": [
+        20,
+        14
+      ],
+      "terminalResources": [
+        0,
+        0
+      ],
+      "terminalActionPoints": [
+        0,
+        0
+      ]
+    }
+  ],
+  "native_source_sha256": {
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/Custom/WTRCards.php": "8474a62a6f0c6cadae4df3907529e355b8e0afe4c7dbc120aab9f345cbcd266b",
+    "FaBSim/Custom/GameLogic.php": "2ce3dfd5ad8ebcca693f7b3b983246dc02ecaf0a42fe7b87b4570e4f1f225b56",
+    "FaBSim/Custom/DYNRuntime.php": "c4b2a4ba39df5a89a8b766f04b5f087de0bc01440c9a195f7fe8951434ff4f2a",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "8006846e96e707a9b6fec304251d99a1d7c0d32ae8cd4492e06e0deb02a8e0f5"
+  },
+  "supporting_files_sha256": {
+    "author-static-audit.json": "b81d2c0614ad1f6be0dcd04a63fd837a769f0bf1ac9302342354a9831c6af2a6",
+    "branch-matrix.json": "91d4eee7ba6fd0d07cc6e951b41691c11760b4fb71e01f3667fc4dd92a9a3ca6",
+    "manifest.json": "785e213e44b71ac8194ae3823910603493341c502ed3a25d83b8a6eafb1ee188",
+    "negative-control-plans.json": "f0961983ff304448721dbfac122fa3d532247410d6764bb8a8a362974e6ac58c",
+    "pilots-proposed.json": "dba6218595f2c070ef23712e20c597c0ad3ff7c20dac940c963bc9a56f494ad1",
+    "scenarios-proposed.json": "f530f97086d90c34da961ce9477e5172146b29ab16d3987f9b3cac9170bd826b",
+    "source-and-rule-audit.json": "a59dd3efd19eb949351f421a36a6208e68dade03646c0ff6e0d279924a2cd9c0",
+    "static-checks.json": "14c25cce50a439f3f28099a6649f2bafa1c533c4036ca3c26d2b82079aa15f30"
+  },
+  "source_review": [
+    "CanPlay: available disjoint pitch plus reserved discard; source cannot discard itself. CanPitch: at least one remaining candidate preserved. All authored pitch orders complete funding while retaining exactly the intended candidate set.",
+    "TryComplete subtracts printed resources and1AP before additional-cost dispatch. DiscardRandom chooses live Hand UID and moves to owner Graveyard before CardPlayed; no chooser is exposed.",
+    "No specific compiled source macro for either family. Both native additional-cost lists contain both bases. Rhinar threshold and SEA/DYN discard listeners are inert for the selected candidates; no equipment/listeners installed.",
+    "RNG singleton is counter-neutral. Range2 consumes exactly one deterministic draw; either identical physical UID satisfies every proposed check. No distribution or distinct-ID result is inferred.",
+    "Native recorder persists all declared scalar, zone, card property, state, power and go-again checks. Only36 CanPlay diagnostics are author-only, paired with actual rejected clicks and durable no-change assertions."
+  ],
+  "primary_sources": [
+    "https://judge.fabtcg.com/cards/detail/133/",
+    "https://judge.fabtcg.com/cards/detail/134/",
+    "https://judge.fabtcg.com/cards/detail/135/",
+    "https://judge.fabtcg.com/cards/detail/142/",
+    "https://judge.fabtcg.com/cards/detail/143/",
+    "https://judge.fabtcg.com/cards/detail/144/",
+    "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+  ],
+  "primary_verification": "Independently opened JudgeHub133/135/142/143/144 and CR5.1. Savage yellow134 direct open was inaccessible, then official-domain search returned its full indexed text confirming cost1/power6/defense3/Brute Action Attack and the same mandatory discard text. All6 variant numbers match local catalog. No card-image inspection claimed.",
+  "remaining_holds": [
+    "Distinct-power random candidates/high-power Rhinar discard trigger and triggered-layer timing require independent scenarios; no eager native intimidate is blessed.",
+    "Alternative cost, cost modifiers, source ability loss/copy and discard replacement/prevention are not covered. FaBWTRNeedsDiscard static lists do not independently prove suppression semantics.",
+    "Wrong pitch order can strand an otherwise fundable Wrecker play with only one reservedHand card. Correct rollback/invalid pitch prevention CR5.1.7a remains a separate unsafe-choice hold; no such state is saved as passing.",
+    "Random selection distribution and exact distinct-candidate UID outcomes are held. Identical physical copies test quantity/eligible set/RNG consumption without inventing the correct random choice.",
+    "Source/payment micro-order inside one native action cannot be concluded from final assertions alone; paired precompletion and postcompletion checkpoints plus source audit provide bounded evidence.",
+    "No full-card or full-family coverage claim until reviewed native saved recordings, replay and semantic controls; these are scratch proposals only."
+  ],
+  "approval_scope": "These111 exact scratch proposals, including3 pilots, are approved for parent serial native attempts. Approval does not assert successful native behavior, saved-fixture correctness, deterministic replay, controls, or complete identity coverage.",
+  "native_games": 0,
+  "native_writes": 0,
+  "review_script_sha256": "e685b791ba0a6aea0ce39ea38624c0432c97c9751f3ffed810354877611173c2"
+}

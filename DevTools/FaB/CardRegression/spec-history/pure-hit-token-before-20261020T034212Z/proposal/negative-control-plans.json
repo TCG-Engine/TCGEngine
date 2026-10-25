@@ -1,0 +1,21 @@
+{
+  "status": "DISPOSABLE_PROPOSED_NOT_EXECUTED",
+  "plans": [
+    {
+      "name": "premature-token-creation",
+      "method": "Disposable cloned scenario state before normal hit trigger resolves: add correct token early then retain native p1Arena0 pending-trigger assertion. Actual source fault injection only after a proper queued path exists. This must fail at precreation state, not merely final wrong count."
+    },
+    {
+      "name": "wrong-token-or-controller",
+      "method": "Disposable approved ability dispatch/component: change output token or recipient without modifying expected oracles; exact CardID/Owner/Controller/native Arena count must reject."
+    },
+    {
+      "name": "hero-only-qualifier",
+      "method": "Disposable DestructiveDeliberation ally-hit contract: remove HeroHit guard only in isolated component/source clone. Correct native token0 must fail if source gives Ponder on ally hit."
+    },
+    {
+      "name": "printed-damage-boundary",
+      "method": "Disposable known-state defense modifier changes one point while original source power and HP expectations remain; exact damage boundary catches semantic error."
+    }
+  ]
+}

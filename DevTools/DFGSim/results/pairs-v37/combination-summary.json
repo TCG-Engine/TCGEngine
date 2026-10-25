@@ -1,0 +1,35 @@
+{
+    "rulesVersion": 37,
+    "catalogHash": "55c72aa35c1ac5d34242dfebb2d23ec7d4fe46e806290326ce899ad5bd83d538",
+    "variants": 22,
+    "resolutions": 22110,
+    "modes": [
+        {
+            "tokens": 0,
+            "resolutions": 1005,
+            "meanDamageEdge": -2.430845771144279,
+            "meanLifeEdge": -2.445771144278607,
+            "meanOutgoing": 1.3850746268656717,
+            "meanIncoming": 3.81592039800995,
+            "hitRate": 0.5691542288557214
+        },
+        {
+            "tokens": 1,
+            "resolutions": 6030,
+            "meanDamageEdge": -1.6925373134328359,
+            "meanLifeEdge": -1.7114427860696517,
+            "meanOutgoing": 2.1074626865671644,
+            "meanIncoming": 3.8,
+            "hitRate": 0.7223880597014926
+        },
+        {
+            "tokens": 2,
+            "resolutions": 15075,
+            "meanDamageEdge": 4.525373134328358,
+            "meanLifeEdge": 4.503482587064677,
+            "meanOutgoing": 6.621890547263682,
+            "meanIncoming": 2.0965174129353232,
+            "hitRate": 1
+        }
+    ]
+}

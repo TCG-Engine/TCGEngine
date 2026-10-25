@@ -124,7 +124,10 @@ AddHero(2, CardID:'ira_crimson_haze', Owner:2, Controller:2, Status:2);
 $stepAttack = AddHand(1, CardID:'wounded_bull_red'); $stepPitch = AddHand(1, CardID:'wounded_bull_blue');
 $stepAttackUID = intval($stepAttack->UniqueID); $stepPitchUID = intval($stepPitch->UniqueID);
 $check(DoPlayCard(1, 'p1Hand-0') && DoPitchCard(1, FaBFindUID($stepPitchUID)['mzID']), 'Step-by-step attack announcement failed.');
-$check(FaBPassPriority(2) && FaBPassPriority(1), 'Attack layer did not resolve after successive passes.');
+$check(FaBStackCount() === 2 && !in_array('WTR_WOUNDED_BULL', (array)FaBFindUID($stepAttackUID)['object']->TurnEffects, true), 'Play trigger was not queued separately before granting its effect.');
+$check(FaBPassPriority(2) && FaBPassPriority(1), 'Play trigger did not resolve after successive passes.');
+$check(FaBStackCount() === 1 && FaBGetState()['window'] === 'PRIORITY', 'Play trigger resolved the attack prematurely.');
+$check(FaBPassPriority(1) && FaBPassPriority(2), 'Attack layer did not resolve after successive passes.');
 $check(FaBGetState()['window'] === 'ATTACK' && FaBGetState()['combatStep'] === 'ATTACK', 'Attack Step was not observable.');
 $check(FaBPassPriority(1) && FaBPassPriority(2), 'Attack Step priority did not complete.');
 $check(FaBGetState()['window'] === 'DEFEND_DECLARE', 'Defend declaration was not observable.');
@@ -169,12 +172,20 @@ InitializeGamestate();
 $playerID = 3;
 SetSeatOrder('1234');
 SetLiveSeats('1234');
+foreach ([1,2,3,4] as $seat) SetShortcutPreferencesState($seat, ['windows'=>array_fill_keys(array_keys(GetShortcutWindowRegistry()), false)]);
 $seat3Card = AddHand(3, CardID:'scar_for_a_scar_red');
 $seat4Card = AddHand(4, CardID:'sink_below_red');
-$woundedBull = AddStack(CardID:'wounded_bull_blue',Controller:3,Kind:'ATTACK',SourceZone:'Hand');
+$woundedBull = AddStack(CardID:'wounded_bull_blue',Owner:3,Controller:3,Kind:'ATTACK',SourceZone:'Hand');
 AddResources(3, 2);
 AddHealth(3, 10);
 FaBWTRCardPlayed(3,'Stack-'.intval($woundedBull->mzIndex),'wounded_bull_blue','Hand');
+$check(EvaluateAttackPowerModifier('wounded_bull_blue', 3, $woundedBull, 5, $woundedBull) === 0 && FaBStackCount() === 2,
+    'Wounded Bull granted its conditional bonus before its trigger resolved.');
+$woundedTrigger = FaBStackTop();
+$check($woundedTrigger !== null && $woundedTrigger->Kind === 'ABILITY' && ($woundedTrigger->Params['wtrLifeTriggerTag'] ?? '') === 'WTR_WOUNDED_BULL',
+    'Wounded Bull play trigger was not the top ability layer.');
+if ($woundedTrigger !== null) DoResolveCard(3, 'Stack-' . intval($woundedTrigger->mzIndex));
+$check(FaBStackCount() === 1, 'Resolving the play trigger also resolved its source attack.');
 $check(EvaluateAttackPowerModifier('wounded_bull_blue', 3, $woundedBull, 5, $woundedBull) === 1,
     'Generated Wounded Bull macro did not see a higher-life opposing hero.');
 $check(FaBSeatCount() === 4, 'Four-seat game state was not recognized.');

@@ -1,0 +1,7 @@
+{
+    "name": "Sink Below / decline",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:27+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Sink Below defends for 4. Optional exchange decline: only accepting bottoms the chosen card and draws original deck top. Wounding Blow 4 is fully defended. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sink_below_red https://rules.fabtcg.com/en/cr/07-combat/"
+}

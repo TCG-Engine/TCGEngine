@@ -1,0 +1,170 @@
+[
+    {
+        "slug": "card-energy-potion-blue-activation-gain-adds-to-existing-pool",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 8
+    },
+    {
+        "slug": "card-energy-potion-blue-activation-opponent-turn-instant",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 11
+    },
+    {
+        "slug": "card-energy-potion-blue-activation-graveyard-cannot-activate",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 4
+    },
+    {
+        "slug": "card-energy-potion-blue-activation-wrong-priority-cannot-activate",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 4
+    },
+    {
+        "slug": "card-energy-potion-blue-activation-cannot-interrupt-pitch-payment",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 9
+    },
+    {
+        "slug": "card-timesnap-potion-blue-activation-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 4
+    },
+    {
+        "slug": "card-timesnap-potion-blue-activation-deploy-spends-last-ap-no-immediate-activation",
+        "status": "recorded_semantically_checked",
+        "actions": 4,
+        "assertions": 6
+    },
+    {
+        "slug": "card-timesnap-potion-blue-activation-attack-window-rejected-with-spare-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 7
+    },
+    {
+        "slug": "card-timesnap-potion-blue-activation-graveyard-cannot-activate",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 4
+    },
+    {
+        "slug": "card-heartened-cross-strap-activation-cost-two-free-next-only",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 16
+    },
+    {
+        "slug": "card-heartened-cross-strap-activation-cost-one-floors-at-zero",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 11
+    },
+    {
+        "slug": "card-heartened-cross-strap-activation-cost-zero-consumes-discount",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 15
+    },
+    {
+        "slug": "card-heartened-cross-strap-activation-nonattack-does-not-consume",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 12
+    },
+    {
+        "slug": "card-heartened-cross-strap-activation-weapon-excluded-preserves-discount",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 16
+    },
+    {
+        "slug": "card-heartened-cross-strap-activation-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 4
+    },
+    {
+        "slug": "card-heartened-cross-strap-activation-unused-discount-expires-at-turn-end",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 16
+    },
+    {
+        "slug": "card-snapdragon-scalers-activation-cost-zero-grants-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 13
+    },
+    {
+        "slug": "card-snapdragon-scalers-activation-already-go-again-does-not-stack",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 13
+    },
+    {
+        "slug": "card-snapdragon-scalers-activation-cost-two-target-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 7
+    },
+    {
+        "slug": "card-snapdragon-scalers-activation-weapon-target-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 7
+    },
+    {
+        "slug": "card-snapdragon-scalers-activation-outside-reaction-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 4
+    },
+    {
+        "slug": "card-snapdragon-scalers-activation-defending-player-cannot-activate",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 7
+    },
+    {
+        "slug": "card-snapdragon-scalers-activation-discount-does-not-change-target-cost",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 8
+    },
+    {
+        "slug": "card-breaking-scales-activation-active-combo-adds-only-one",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 12
+    },
+    {
+        "slug": "card-breaking-scales-activation-non-combo-attack-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 7
+    },
+    {
+        "slug": "card-breaking-scales-activation-weapon-target-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 7
+    },
+    {
+        "slug": "card-breaking-scales-activation-outside-reaction-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 4
+    },
+    {
+        "slug": "card-breaking-scales-activation-defending-player-cannot-activate",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 7
+    }
+]

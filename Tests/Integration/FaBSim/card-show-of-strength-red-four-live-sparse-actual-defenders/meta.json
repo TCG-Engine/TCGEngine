@@ -1,0 +1,7 @@
+{
+    "name": "Show of Strength red / four live sparse actual defense",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T23:43:38+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "One primary group identity:show_of_strength_red, one representative only. Source8 gets-1 per qualifying defender: after both, power6 versus physical DEF6, fresh damage0, allHP20/AP0. No Rhinar discard trigger or preseeded history. All four actual young heroes hold priority/all shortcut windows false. Actual adjacentP4 target and every manual pass are recorded. Physical sourceUID5 and defenderUID6/7 retain ownership. Fresh attack power and real final damage, not cached defenseValue, form the effect oracle. No turn end, seeded triggers/history or secondary-card completion claim. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/SUP128.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/01-game-concepts/"
+}

@@ -23,14 +23,21 @@ $head = file_get_contents($root . '/SharedUI/Render/Head.php');
 check(strpos($head, 'AssetVersion.php') !== false && preg_match('/^function _VersionAsset/m', $head) !== 1,
       'Head.php requires the seam rather than defining its own copy');
 
-$skip = ['/Games/', '/node_modules/', '/.git/', '/Tests/', '/DevTools/'];
+// PRUNE while walking — never descend into these. Filtering AFTER the walk still visited every file under them:
+// SWUSim/Games alone held 42,657 game folders, and the scan took 346s (2026-10-13). '.claude' is agent scratch
+// (whole-repo control copies live there), never a served page. traces/BotData/Matches/docs are data and docs (0 PHP files;
+// SWUSim/DevTools/traces alone is ~200k bot-run files).
+$walk = function (string $root, array $pruneDirs) {
+    return new RecursiveIteratorIterator(new RecursiveCallbackFilterIterator(
+        new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS),
+        fn($f) => !($f->isDir() && in_array($f->getFilename(), $pruneDirs, true))));
+};
 $offenders = [];
 $scanned = 0;
-$rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root));
+$rii = $walk($root, ['Games', 'node_modules', '.git', 'Tests', 'DevTools', '.claude', 'traces', 'BotData', 'Matches', 'docs']);
 foreach ($rii as $f) {
     $p = $f->getPathname();
     if ($f->isDir() || substr($p, -4) !== '.php') continue;
-    foreach ($skip as $s) if (strpos($p, $s) !== false) continue 2;
     $scanned++;
     foreach (file($p) as $ln => $line) {
         if (preg_match('~^\s*(//|\*|#)~', $line)) continue;                        // commented-out line
@@ -55,11 +62,10 @@ check(empty($offenders),
 // Every path handed to the helper must actually exist: _VersionAsset is fail-safe and returns the bare
 // path for a file it cannot stat, so a typo'd path loses its versioning SILENTLY rather than 404ing.
 $bad = 0; $n = 0;
-$rii2 = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root));
+$rii2 = $walk($root, ['Games', 'node_modules', '.git', '.claude', 'traces', 'BotData', 'Matches', 'docs']);
 foreach ($rii2 as $f) {
     $p = $f->getPathname();
     if ($f->isDir() || substr($p, -4) !== '.php') continue;
-    if (strpos($p, '/Games/') !== false) continue;
     $src = file_get_contents($p);
     if (!preg_match_all('~_VersionAsset\(\s*\'([^\']+)\'~', $src, $m)) continue;
     foreach ($m[1] as $web) {

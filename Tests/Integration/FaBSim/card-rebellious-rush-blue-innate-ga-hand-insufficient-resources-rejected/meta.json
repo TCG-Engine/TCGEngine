@@ -1,0 +1,7 @@
+{
+    "name": "Rebellious Rush / innate go again / blue / hand-insufficient-resources-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T04:03:19+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "rebellious_rush_blue: printed cost2, pitch3, power3, defense2; exact printed text Go again. Actual FSM click cannot play for reason insufficient-resources; all other ordinary setup is legal. Correct unchanged sourceUID3/owner/controller/location/effects/counters, all resources/AP, HP, priority/consecutive-passes, emptyStack/Pitch/GY/CC and queues are native assertions. Wrong-priority and nonturn setups use an actual supported P1pass to yield priority2; no priority override is seeded. Nonturn actor2 keeps legalAP0, rather than seeding an impossible positive budget. CanPlay is only author diagnostic; no transport-failure flag is fabricated. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rebellious_rush_blue https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/UPR074.webp https://rules.fabtcg.com/en/cr/08-keywords/#835 https://rules.fabtcg.com/en/cr/08-keywords/#826 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#517 https://rules.fabtcg.com/en/cr/07-combat/#762 FaBSim/Custom/GameLogic.php::CanPlayCard/FaBTryCompletePayment/FaBDeclareBlock/FaBBeginDamageStep/FaBBeginResolutionStep/FaBCleanupResolvedLink/FaBCloseCombatChain"
+}

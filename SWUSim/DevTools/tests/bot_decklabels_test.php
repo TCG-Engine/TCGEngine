@@ -19,10 +19,21 @@ $reg = json_decode((string)@file_get_contents($path), true);
 $check(is_array($reg) && isset($reg['decks']), 'the registry parses');
 $decks = $reg['decks'] ?? [];
 $groups = $reg['groups'] ?? [];
-$check(array_column($groups, 'id') === ['ash-meta-2026-09', 'force-fam-HMW-predictions'],
-    'the picker groups, in order', json_encode(array_column($groups, 'id')));
-$check(array_column($groups, 'label') === ['ASH Meta September 2026', 'Force Fam HMW Predictions'],
-    'the picker group labels (owner 2026-10-01)', json_encode(array_column($groups, 'label')));
+// Owner 2026-10-11: the HMW meta set leads the Arenabot menu, before Force Fam; the ASH meta set is RETIRED from the menu but kept in
+// the registry ('menu' => false) — it is still the classifier's reviewed label set and the ASH meta baseline's curated styles.
+$check(array_column($groups, 'id') === ['hmw-meta-2026-09', 'force-fam-HMW-predictions', 'ash-meta-2026-09'],
+    'the registry groups, in order', json_encode(array_column($groups, 'id')));
+$check(array_column($groups, 'label') === ['HMW Meta September 2026', 'Force Fam HMW Predictions', 'ASH Meta September 2026'],
+    'the group labels (owner 2026-10-01 / 2026-10-11)', json_encode(array_column($groups, 'label')));
+$byId = array_column($groups, null, 'id');
+$check(($byId['ash-meta-2026-09']['menu'] ?? true) === false && !empty($byId['ash-meta-2026-09']['classify']),
+    'ash-meta-2026-09 is hidden from the menu but still the classifier set');
+$check(($byId['hmw-meta-2026-09']['menu'] ?? true) !== false && ($byId['force-fam-HMW-predictions']['menu'] ?? true) !== false,
+    'the HMW meta and Force Fam groups are shown');
+if (!function_exists('SWUSetupBotPreConGroups')) include_once './SWUSim/Custom/SetupPanels.php';
+$check(array_column(SWUSetupBotPreConGroups(), 'id') === ['hmw-meta-2026-09', 'force-fam-HMW-predictions'],
+    'the Arenabot picker offers HMW Meta, then Force Fam — not the retired ASH group',
+    json_encode(array_column(SWUSetupBotPreConGroups(), 'id')));
 $classifyIds = array_column(array_filter($groups, fn($g) => !empty($g['classify'])), 'id');
 $check($classifyIds === ['ash-meta-2026-09'], 'only the reviewed tournament set feeds the classifier', json_encode($classifyIds));
 

@@ -1,0 +1,359 @@
+{
+  "status": "INDEPENDENT_B101_SAFE_TWO_BOUNDED_SAVED_BRANCHES_TWO_CURRENT_REPLAYS_AND_FOCUSED_CONTROLS_APPROVED",
+  "reviewer": "/root/resume_actual_audit",
+  "independent_of_scenario_author": true,
+  "captured_utc": "2026-10-21T00:39:51.401048+00:00",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "input_sha256": "900ba71e1f3d995122a13422d8ff84fcad897c59f8e4310e14b37046af326446",
+  "recording_report": {
+    "path": "recording-runs/card-regression-batch101-20261021T002834Z-6ad807322ecd3.json",
+    "sha256": "a93bebdc4dcee22bbd3adc9827fff2ac6de2321444640e274b018710f9ab5c33"
+  },
+  "recording_outcome": "Original four-case process exit1 confirmed by parent: two actual saved28actions406oracles each; bothFlex stopped and remain uncredited. No fullbatch exit0 claim.",
+  "prior_spec_review": {
+    "path": "sparse-b101-independent-review/independent-spec-review.json",
+    "sha256": "8f8a3a05fcf1780baae855e52df4c713ab1270d9af7e761642a98e6168131b96",
+    "limitation": "Original positional effect-bucket diagnostics in Flex were incorrect and their old approval is superseded only for those drafts. These two safe source/printed/physical models contain no such diagnostic and were freshly rerun."
+  },
+  "reviewer_script_sha256": "d96231b6ea47f4a804dde2114a09df9c2a43882b20be33d16c736767b899ec3f",
+  "checks_passed": 1297,
+  "physical_checks_passed": 448,
+  "model_checks_passed": 2264,
+  "fixtures": [
+    {
+      "slug": "card-zealous-belting-red-four-live-sparse-real-greater-power-yellow-pitch-grants-go-again",
+      "cardIDs": [
+        "zealous_belting_red"
+      ],
+      "source_spec": "card-regression-batch101.json",
+      "semantically_approved": true,
+      "fixture_sha256": "4c11bfb48f47d908adb210690a916a62af2b133d693025b1dd390419bafe1e17",
+      "file_sha256": {
+        "initial_gamestate.txt": "33e8b20883db803d238e56d4174e6d99cf5e66320687241f81272e439ee9409c",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "c74c9c1c8ea628fb8261906a55ba11643f4b34166f8a412c2f2fbd968d042200",
+        "expected_final_gamestate.txt": "6890df5c8b45e09278202751f8f4d2896743d6bd05ac7e734b939568ffd0c525",
+        "meta.json": "1bd23d1aed2beaf91487af9f51bde4f70382c2d07b1228b7b0eb3deeced6a26a"
+      },
+      "effect_branches": [
+        "real-greater-power-yellow-pitch-grants-go-again"
+      ],
+      "actions": 28,
+      "native_assertions": 406,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "review_basis": "Independently printed-rule/physicalUID/realcost model matched every actual action and406 ordered original oracles plus full physical endpoints. Intermediate snapshot bytes are not saved by framework; current actual clean native replay supplies their execution evidence. Sparse positive primary group only. Original four-case recorder exit1 has two recorded safe cases and two uncredited Flex oracle drafts; no whole-batch success claimed. Internal ordinary source/callback lifecycle excluded."
+    },
+    {
+      "slug": "card-hulk-up-red-four-live-sparse-actual-lower-life-than-all-three-heroes-reduces-four-cost-to-three",
+      "cardIDs": [
+        "hulk_up_red"
+      ],
+      "source_spec": "card-regression-batch101.json",
+      "semantically_approved": true,
+      "fixture_sha256": "3ab00bfe2aa6d13effa7e50b11388046eb13e3683853cca977ec49d17ea78559",
+      "file_sha256": {
+        "initial_gamestate.txt": "1ae20fc8aa457e0262b9e88c68617f86574859033a5cd48a581891b5ddea015b",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "0a769c753ec84e8fc9be7401247fb4589e4d158a5261a8b0c6c471ead2e10e05",
+        "expected_final_gamestate.txt": "53971f85d2a1c58856ebafc301ea613a4e42063308a890e2de0bb685cb6d0a16",
+        "meta.json": "0e2b4a57da3cfb8a9b1feb1465b04e2a6ae251d4f29cd5565c0a946f365e7f29"
+      },
+      "effect_branches": [
+        "actual-lower-life-than-all-three-heroes-reduces-four-cost-to-three"
+      ],
+      "actions": 28,
+      "native_assertions": 406,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_health": [
+        19,
+        20,
+        20,
+        12
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "review_basis": "Independently printed-rule/physicalUID/realcost model matched every actual action and406 ordered original oracles plus full physical endpoints. Intermediate snapshot bytes are not saved by framework; current actual clean native replay supplies their execution evidence. Sparse positive primary group only. Original four-case recorder exit1 has two recorded safe cases and two uncredited Flex oracle drafts; no whole-batch success claimed. Internal ordinary source/callback lifecycle excluded."
+    }
+  ],
+  "qualification": "Exactly two saved B101 positive primary branches have two actual current clean targeted runs and two selected existing-helper first failures. Original four-case recorder EXIT1 is preserved: Zealous/Hulk saved; both Flex drafts stopped unsaved and excluded here. All original fixture rows/raw5/actions/oracles exact. Only Zealous detected row is selected from preserved old all_detected:false report; failed old Hulk cost prediction receives no credit. Source-proven single-Hulk successor retains same healthfault/prefix/actions/oracles, correctly predicting cost4 exceeds onlyBlue3 and target-continuation affordability rejects before sourceStack creation; rerun alone. Positive Hulk separately pins actualcost3/Blue3/damage8. No old report retagged, no duplicate Zealous or positive replay. Sparse positive coverage only, no all-condition/card/sibling/support completion, currentfullcorpus qualification or callback-lifecycle certification/enginebug. Historical run counts apply to their own times, unrelated later additions allowed.",
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "qualified_utc": "2026-10-21T00:44:52.133402+00:00",
+  "original_saved_review": {
+    "path": "sparse-b101-safe-two-actual-saved-independent-review.json",
+    "sha256": "6389d9dc2be9219465eab32e2c11590dd5c7712ef233d524e695fb4da6f31db5"
+  },
+  "native_qualification": {
+    "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+    "checks_passed": 59,
+    "targeted_replay_reports": [
+      {
+        "path": "card-regression-replay-sparse-b101-safe-two-four-live-run1.json",
+        "sha256": "250f1a37210f78ed3adf5c07672e84b2d6ea84b92606f7e87ece238b7cb5db0d",
+        "passed": 2,
+        "failed": 0,
+        "completed_utc": "2026-10-21T00:30:41.878929+00:00",
+        "historical_raw5_preservation_count": 3154
+      },
+      {
+        "path": "card-regression-replay-sparse-b101-safe-two-four-live-run2.json",
+        "sha256": "6f2c73933126eee5dd48c8f5b489e4e86bfe452bd8ca7e3464672273ebf3ab68",
+        "passed": 2,
+        "failed": 0,
+        "completed_utc": "2026-10-21T00:31:25.066901+00:00",
+        "historical_raw5_preservation_count": 3154
+      }
+    ],
+    "two_native_controls": {
+      "reports": [
+        {
+          "path": "card-regression-sparse-b101-safe-two-fault-controls.json",
+          "sha256": "44d9ac2e4d9eb0b38eb1b37b39931610c59ef5df6c2afa2a7ec3018beebf3478",
+          "all_detected": false,
+          "selected_control_ids": [
+            "b101_zealous_belting_red_positive_condition_sensitivity"
+          ],
+          "whole_report_qualified": false
+        },
+        {
+          "path": "card-regression-sparse-b101-hulk-only-fault-control-v2.json",
+          "sha256": "cdce6cbbf57ca2e244e76069e6623f0511706f9064a881d85fced3e3e1ea6497",
+          "all_detected": true,
+          "selected_control_ids": [
+            "b101_hulk_up_red_unaffordable_without_life_discount_sensitivity"
+          ],
+          "whole_report_qualified": true
+        }
+      ],
+      "corrected_single_hulk_command_exit0_confirmed_by_root": true,
+      "all_selected_controls_detected": true,
+      "controls": [
+        {
+          "id": "b101_zealous_belting_red_positive_condition_sensitivity",
+          "fixture": "card-zealous-belting-red-four-live-sparse-real-greater-power-yellow-pitch-grants-go-again",
+          "prefix_actions": 6,
+          "relative_step": 1,
+          "first_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+          "retained_original_assertions": 236,
+          "detected": true,
+          "scope": "Add existing explicit ELE_NO_GO tag to unique paid source5 before fourth response pass. Actual Yellow6 remains pitched, sourcepower5/cost/target/assets unchanged. Pins GA-suppression sensitivity through first original true\u2192false computedGA oracle and retained laterAP1. Does not claim an ability-loss implementation or negative qualifier branch.",
+          "actual_report": {
+            "path": "card-regression-sparse-b101-safe-two-fault-controls.json",
+            "sha256": "44d9ac2e4d9eb0b38eb1b37b39931610c59ef5df6c2afa2a7ec3018beebf3478"
+          },
+          "actual_report_all_detected": false
+        },
+        {
+          "id": "b101_hulk_up_red_unaffordable_without_life_discount_sensitivity",
+          "fixture": "card-hulk-up-red-four-live-sparse-actual-lower-life-than-all-three-heroes-reduces-four-cost-to-three",
+          "prefix_actions": 1,
+          "relative_step": 1,
+          "first_failure": "Expected Stack-0.CardID to equal 'hulk_up_red', got ''.",
+          "retained_original_assertions": 297,
+          "detected": true,
+          "scope": "Change only actual P1Health19\u219220 at original captured target-preflight; allthreeotherheroes20/primary5/onlyBlue6 remain. Correct source-derived consequence: cost4 exceeds availableBlue3, so target continuation revalidates CanPlayCard and returns before source removal/AddStack. First unchanged original Stack-0.CardID=hulk_up_red assertion fails empty. This pins discount-dependent affordability through physical play refusal; positive fixture separately pins paidcost3/Blue3/damage8. All original suffix actions/oracles retained. No assertion changes, engine defect, new helper, or numerical pendingcost4 claim.",
+          "actual_report": {
+            "path": "card-regression-sparse-b101-hulk-only-fault-control-v2.json",
+            "sha256": "cdce6cbbf57ca2e244e76069e6623f0511706f9064a881d85fced3e3e1ea6497"
+          },
+          "actual_report_all_detected": true
+        }
+      ],
+      "original_false_whole_report_not_qualified": true
+    },
+    "reviewed_fault_plans": [
+      {
+        "path": "sparse-b101-safe-two-focused-fault-plan.json",
+        "sha256": "89c1e719ee7b4bb7835b17f535de854800d02275a7a309728994bafd5b39f333"
+      },
+      {
+        "path": "sparse-b101-hulk-only-focused-fault-plan-v2.json",
+        "sha256": "3af7d6955e3a7d23e479daf4b6cea5550ae7e8a682b56aad43f6adbf3c819d4f"
+      }
+    ],
+    "control_successor_independent_review": {
+      "path": "sparse-b101-hulk-control-successor-independent-review.json",
+      "sha256": "937ac5b1a77bf18b0c7cda2ce311dd84092930125a19d6aa5b06346cc12b46a8"
+    },
+    "wrapper_alias_review": {
+      "path": "sparse-b86-independent-review/executor-alias-independent-review.json",
+      "sha256": "11b00a3a02c0f257c8db5902948070207371cb2c79d3582d31eb57b735647fd9",
+      "executor_sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a"
+    },
+    "existing_native_helper_sha256": "021627a41cf4a44bef7cafe48302357e74ffae6ba39b147c3c068388384f2974",
+    "exact_first_failures_verified": true,
+    "unchanged_original_suffix_expectations_verified": true,
+    "canonical_target_raw5_preserved": true,
+    "cleanup_verified": true,
+    "original_fixture_rows_preserved": true,
+    "new_finite_card_baselines": 0,
+    "qualified_positive_four_live_representatives": 2
+  },
+  "blocked_attempts": [
+    {
+      "slug": "card-flex-speed-red-four-live-sparse-real-come-to-fight-buff-crosses-six-and-grants-go-again",
+      "cardIDs": [
+        "flex_speed_red"
+      ],
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "as_of_utc": "2026-10-21T00:46:22.913484+00:00",
+      "attempted_source_spec": "card-regression-batch101.json",
+      "attempted_source_sha256": "900ba71e1f3d995122a13422d8ff84fcad897c59f8e4310e14b37046af326446",
+      "recording_receipt": {
+        "path": "recording-runs/card-regression-batch101-20261021T002834Z-6ad807322ecd3.json",
+        "sha256": "a93bebdc4dcee22bbd3adc9827fff2ac6de2321444640e274b018710f9ab5c33",
+        "completed_at_utc": "2026-10-21T00:28:34+00:00",
+        "result_status": "blocked_or_incorrect",
+        "attempted_supported_actions": 2,
+        "error": "Expected FaBSim state [\"turnEffects\",\"1\",0] to be missing or null."
+      },
+      "reason": "Original900b draft incorrectly asserted positional turnEffects[1][0] absence after real support payment. Source-derived generic Blue-pitch/cost/played bookkeeping legitimately occupies that slot; original attempted recording stopped without a fixture. Draft-oracle/reviewer-model error, no gameplay defect. This rejected attempt is excluded from positive coverage. Separate corrected source-derived proposal is independently approved; native corrected recording/replay/control qualification still pending at this as-of timestamp.",
+      "corrected_proposal": {
+        "input_path": "sparse-b101-flex-two-oracle-correction-proposed/b101-flex-two-cases-proposed.json",
+        "input_sha256": "0e5c7378f7bc607491423afa7d288a56461e73e905150e9a72041aba4b6d7bef",
+        "manifest_sha256": "761b809ba937489e1a60d5d82a703b8d239e60dab122fed398765104fa5579da",
+        "independent_gate_sha256": "cec777f160bc18c234c42908c1beef222d7b75d36649b971fcd2a36a38e70e16",
+        "source_review_approved": true,
+        "native_recording_pending": true,
+        "qualified_saved_fixture": false
+      }
+    },
+    {
+      "slug": "card-flex-strength-red-four-live-sparse-real-come-to-fight-crosses-six-and-enables-own-three-power",
+      "cardIDs": [
+        "flex_strength_red"
+      ],
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "as_of_utc": "2026-10-21T00:46:22.913484+00:00",
+      "attempted_source_spec": "card-regression-batch101.json",
+      "attempted_source_sha256": "900ba71e1f3d995122a13422d8ff84fcad897c59f8e4310e14b37046af326446",
+      "recording_receipt": {
+        "path": "recording-runs/card-regression-batch101-20261021T002834Z-6ad807322ecd3.json",
+        "sha256": "a93bebdc4dcee22bbd3adc9827fff2ac6de2321444640e274b018710f9ab5c33",
+        "completed_at_utc": "2026-10-21T00:28:34+00:00",
+        "result_status": "blocked_or_incorrect",
+        "attempted_supported_actions": 2,
+        "error": "Expected FaBSim state [\"turnEffects\",\"1\",0] to be missing or null."
+      },
+      "reason": "Original900b draft incorrectly asserted positional turnEffects[1][0] absence after real support payment. Source-derived generic Blue-pitch/cost/played bookkeeping legitimately occupies that slot; original attempted recording stopped without a fixture. Draft-oracle/reviewer-model error, no gameplay defect. This rejected attempt is excluded from positive coverage. Separate corrected source-derived proposal is independently approved; native corrected recording/replay/control qualification still pending at this as-of timestamp.",
+      "corrected_proposal": {
+        "input_path": "sparse-b101-flex-two-oracle-correction-proposed/b101-flex-two-cases-proposed.json",
+        "input_sha256": "0e5c7378f7bc607491423afa7d288a56461e73e905150e9a72041aba4b6d7bef",
+        "manifest_sha256": "761b809ba937489e1a60d5d82a703b8d239e60dab122fed398765104fa5579da",
+        "independent_gate_sha256": "cec777f160bc18c234c42908c1beef222d7b75d36649b971fcd2a36a38e70e16",
+        "source_review_approved": true,
+        "native_recording_pending": true,
+        "qualified_saved_fixture": false
+      }
+    }
+  ],
+  "proof_schema_completion": {
+    "captured_utc": "2026-10-21T00:46:22.913484+00:00",
+    "original_qualified_proof": {
+      "path": "sparse-b101-safe-two-qualified-independent-review.json",
+      "sha256": "5635c57aa4a1f90d8db6e907831d865d6aea53b68b07bffecd04238bef0581ea"
+    },
+    "purpose": "Supply explicit excluded attempts required by existing --reviewed-subset registration; no new semantic review, game execution or replay.",
+    "positive_fixture_rows_unchanged": true,
+    "all_original_qualification_evidence_unchanged": true,
+    "original_fourcase_failure_preserved": true,
+    "registration_failure_before_any_native_write_confirmed_by_parent": true,
+    "source_attempt_fact_scope": "Original900b recording receipt and actual absence checked before corrected Flex recording. Later corrected success does not rewrite historical rejected attempts.",
+    "added_top_level_keys": [
+      "blocked_attempts",
+      "proof_schema_completion"
+    ],
+    "native_actions": 0,
+    "native_writes": 0,
+    "native_engine_imports": 0
+  }
+}

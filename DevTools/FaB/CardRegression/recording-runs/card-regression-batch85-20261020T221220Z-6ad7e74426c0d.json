@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-20T22:12:20+00:00",
+    "input_file": "card-regression-batch85.json",
+    "input_sha256": "9eb16fe2319c8a9cf5c370238e954e24ccdb5783630312d20f010f2d17f04e1b",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-minnowism-red-four-live-sparse-next-small-base-real-attack-buff",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 385
+        },
+        {
+            "slug": "card-tome-of-fyendal-yellow-four-live-sparse-arsenal-draw-two-then-heal-current-hand",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 197
+        },
+        {
+            "slug": "card-ruby-amulet-blue-four-live-sparse-instant-destroy-watery-trigger-then-two-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 9,
+            "assertions": 240
+        },
+        {
+            "slug": "card-dissolve-reality-yellow-four-live-sparse-all-four-arsenals-bottom-decks-and-own-ponder",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 279
+        }
+    ]
+}

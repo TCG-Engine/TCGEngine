@@ -1,0 +1,7 @@
+{
+    "name": "Lightning Form / real-ripple-then-instant-response-preserves-action-token-attribution",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T06:29:55+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Original source is a real Action AA. After its real hit, opponent actually activates Ripple Away from Hand at Instant timing, discarding UID4 as cost with no AP/resources. Its ability resolves above original hit layer. Opponent then really plays Sigil red and gains3HP above that same layer. When original hit-layer finally resolves, Ripple reduces its one action-sourced token to0 even though the most recent resolving card was an Instant. No seeded counter/effect/ability tag; no empty-global-history oracle. Existing activation-layer physical Owner encoding is not assumed; physical discarded source owner2 and layer Controller2/SourceUID4 are pinned. Sources: https://judge.fabtcg.com/cards/detail/3083/ https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

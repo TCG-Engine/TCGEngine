@@ -1,0 +1,7 @@
+{
+    "name": "Goliath Gauntlet / filter-and-consumption",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:13:30+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cost0 Head Jab does not consume buff. Second attack Surging red costs2 and gets printed5+Goliath2+Ira1=8. Third Surging blue3 receives neither consumed Goliath nor second-attack Ira bonus. Sources: FaBSim/GeneratedCode/cardArrayCache.json#goliath_gauntlet https://rules.fabtcg.com/en/cr/07-combat/"
+}

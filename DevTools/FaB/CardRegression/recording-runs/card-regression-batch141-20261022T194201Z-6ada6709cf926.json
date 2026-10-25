@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T19:42:01+00:00",
+    "input_file": "card-regression-batch141.json",
+    "input_sha256": "ed1dca7fbe5ac0116e191dd0cd2aaf64b4ce9deec9281bf3ea658f90a43ee935",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-gigawatt-red-four-live-sparse-actual-paid-plus-four-grant-and-two-real-blue-pitches-produce-seven-attack-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 34,
+            "assertions": 1217
+        },
+        {
+            "slug": "card-tighten-the-screws-red-four-live-sparse-actual-paid-plus-four-grant-and-two-real-blue-pitches-produce-seven-attack-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 34,
+            "assertions": 1217
+        }
+    ]
+}

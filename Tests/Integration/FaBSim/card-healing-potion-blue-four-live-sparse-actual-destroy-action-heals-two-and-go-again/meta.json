@@ -1,0 +1,7 @@
+{
+    "name": "Healing Potion / compact four live positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T01:24:00+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "YoungDorinthea20 controls physicalHealingPotionUID5 inArena. Actually activate its printedAction: spend1AP and destroy the samePotion as the cost, leavingresources0 and ownGY5 while virtualAbilityUID6 waits. Allfour manually pass once, then gain exactly2life20->22 and exactly1AP from printedgoagain. FinalAP1/resources0/GYsame5/Arenaempty; otherheroes20/AP0/resources0. Noinjurysetup is needed; life may exceedprintedhealth. One actualactivation only. Itemplay, alternatecontroller/owner, healingprevention, repeatuse and expiry remainuncovered. Physicaldestroy is the required cost; no premature ordinary-spell source-clear workaround. All four genuine live seats have manual holds/all11 shortcut windows disabled by existing recorder profile. Full initial/final physical/economy/profile checks; intermediate checks only changing priority/window/counter/layer and relevant unresolved effect endpoints. One representative per exact group; no full-card/variant/support coverage transfer. Sources: https://judge.fabtcg.com/cards/detail/1455/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVR183.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/02-object-properties/"
+}

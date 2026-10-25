@@ -1,0 +1,7 @@
+{
+    "name": "Heartened Cross Strap / cost-zero-consumes-discount",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:30+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Head Jab costs0 but is still the next attack action card, so it consumes the discount and deals3 with go again. Next Surging red pays full2 (blue3 leaves1) and deals printed5+Ira1=6; no saved discount remains. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

@@ -1,0 +1,149 @@
+{
+  "reason": "Preserve exact owned historical fixtures before fresh supported-action recording after effects-before-clear repair; no direct snapshot blessing.",
+  "fixtures": [
+    {
+      "slug": "card-scalding-rain-blue-barrier-decline",
+      "fixture_sha256": "64e4d63946b685c2797bb95878745c88abb20181db9bb7f90ffb66f0bda70ead"
+    },
+    {
+      "slug": "card-scalding-rain-blue-barrier-pay",
+      "fixture_sha256": "c3c3faeab31d82b1ca0e60e7df69099644a33eca6b5b0fb90015cd688207dd82"
+    },
+    {
+      "slug": "card-scalding-rain-blue-target-1",
+      "fixture_sha256": "7c97bb3252e57ae62b0adfcf9ccfd202b753362d4941e689207f1473622d57a8"
+    },
+    {
+      "slug": "card-scalding-rain-blue-target-2",
+      "fixture_sha256": "c8cdffcadabe7060e3a8b287b8e697922c380ccd7ce96122ba0663c9b6ab6919"
+    },
+    {
+      "slug": "card-scalding-rain-red-barrier-decline",
+      "fixture_sha256": "8bad8e0790eb746e8732db1fff5facd7f952264fca95b04186a79478ff54d27a"
+    },
+    {
+      "slug": "card-scalding-rain-red-barrier-pay",
+      "fixture_sha256": "f03d850f7148d73ea275f41b40ce6c632aac0b27ae3aa8114164c65c8fdbe6d3"
+    },
+    {
+      "slug": "card-scalding-rain-red-target-1",
+      "fixture_sha256": "63f6ebc8613fa41c947dc5d7a25052c98d4fd6789ecd08a8a8b698533413604c"
+    },
+    {
+      "slug": "card-scalding-rain-red-target-2",
+      "fixture_sha256": "744b26a92ce54bd2b34e04ff47c35a889b35d701c9f61ff049b9c95d065eb602"
+    },
+    {
+      "slug": "card-scalding-rain-yellow-barrier-decline",
+      "fixture_sha256": "3860b5933173a8823c3de77771ddbdef8cca28783706ceb992116319b50919a6"
+    },
+    {
+      "slug": "card-scalding-rain-yellow-barrier-pay",
+      "fixture_sha256": "39c1dd6691a2b4fde8dcada6190b427a5d129d3ffa3efafdbbfb6737fc6afb04"
+    },
+    {
+      "slug": "card-scalding-rain-yellow-target-1",
+      "fixture_sha256": "19cd20f83916d4c3205308236ea6fbba0bc1c549738289f50d8a00dc3304085b"
+    },
+    {
+      "slug": "card-scalding-rain-yellow-target-2",
+      "fixture_sha256": "f5a212914605ac3fa421293fcc88512d82af7041f9fff8867d5b1c0584b64026"
+    },
+    {
+      "slug": "card-voltic-bolt-blue-barrier-decline",
+      "fixture_sha256": "b9fec7fb63762fca6e120ecb63b83bda62cd8179c429b0b898d12eb6a9b5e343"
+    },
+    {
+      "slug": "card-voltic-bolt-blue-barrier-pay",
+      "fixture_sha256": "c577c956ce9b439d356be3ac5534b5e4698476eb8c272c331b5c95a14d299a24"
+    },
+    {
+      "slug": "card-voltic-bolt-blue-target-1",
+      "fixture_sha256": "d2bfb29024b3af91185139ca6bc4d0b2547a9df9ea2e07c3045345936ec10e33"
+    },
+    {
+      "slug": "card-voltic-bolt-blue-target-2",
+      "fixture_sha256": "4e4822d338a1d83a8b0d007fa5ec08612a871911203d676c5168d14b7fc3709c"
+    },
+    {
+      "slug": "card-voltic-bolt-red-barrier-decline",
+      "fixture_sha256": "0734e3c838ac19cb1ee416aba708da8dc2ed709fda2bd8fcc8dbbc65535083f8"
+    },
+    {
+      "slug": "card-voltic-bolt-red-barrier-pay",
+      "fixture_sha256": "179efb971ec64acf76ec91a52ad910211be696094a1f23b5fd182def804510a6"
+    },
+    {
+      "slug": "card-voltic-bolt-red-target-1",
+      "fixture_sha256": "ecc92bfa6c95276457751205e77ae65d896e16e5f0f4f1187c9bfb5a32812fb3"
+    },
+    {
+      "slug": "card-voltic-bolt-red-target-2",
+      "fixture_sha256": "d000a481fb7763514b8d240cdf686dfd735642d0c734f398f1883494c15aabef"
+    },
+    {
+      "slug": "card-voltic-bolt-yellow-barrier-decline",
+      "fixture_sha256": "b663f67a18787b91979e19651577eaabc6dd5a41849894a3914a91d0dbb0befd"
+    },
+    {
+      "slug": "card-voltic-bolt-yellow-barrier-pay",
+      "fixture_sha256": "725c719a99c1052a7c3eaea846ac712ba95f46e0cba23c6601c0d283ef6efd0a"
+    },
+    {
+      "slug": "card-voltic-bolt-yellow-target-1",
+      "fixture_sha256": "cc5fccbad56c25ff5ae6e4ccd817def0f97868f2e095a4f959e124baf2a96774"
+    },
+    {
+      "slug": "card-voltic-bolt-yellow-target-2",
+      "fixture_sha256": "e4bd48efcaed0e68840c5aa92e0687a1e5ddd7a2cf9dc5ce752b2fdbc85caa66"
+    },
+    {
+      "slug": "card-zap-blue-barrier-decline",
+      "fixture_sha256": "88b7f0d123d8c603a381b21046aa88d68832f65f59b33c359cffdc92521696c7"
+    },
+    {
+      "slug": "card-zap-blue-barrier-pay",
+      "fixture_sha256": "3f771dc3ef8c53f668d24a10db12a77b1a971960e9b51a4b7210fd86e418afac"
+    },
+    {
+      "slug": "card-zap-blue-target-1",
+      "fixture_sha256": "c55c05f15443e4773ea9f9fd1012ca71a1caef50090b76144a3f5769be6a93a4"
+    },
+    {
+      "slug": "card-zap-blue-target-2",
+      "fixture_sha256": "e62ecf8f97c3b7955a897a28dd249e417317d62bb420ca40e2c1b5af6c92d976"
+    },
+    {
+      "slug": "card-zap-red-barrier-decline",
+      "fixture_sha256": "5f3379d56e487f812cd5c67d17f863680b660e6849ba68a428710c55593e6142"
+    },
+    {
+      "slug": "card-zap-red-barrier-pay",
+      "fixture_sha256": "9ba0bc3a03e12d625f10f39d95b5e29644c075b0e4a397fa409bab7fedd0f2e5"
+    },
+    {
+      "slug": "card-zap-red-target-1",
+      "fixture_sha256": "6af4995a37c4bf8fad14973c8332e7733e4d5323eb4e20d514a97bd29a3abea6"
+    },
+    {
+      "slug": "card-zap-red-target-2",
+      "fixture_sha256": "62b9f19f4c8a15e68d0afe2b0328074905cad8f0e41b656f557e1d1da14732f5"
+    },
+    {
+      "slug": "card-zap-yellow-barrier-decline",
+      "fixture_sha256": "24ab14ece5987640ac4159cf8fddc44c68a2f64534ef8ce8da984bd81d6749cb"
+    },
+    {
+      "slug": "card-zap-yellow-barrier-pay",
+      "fixture_sha256": "189f2c9ff3037ddd1c9a228e88a6a233023f24187b498f9c066b90582b787ed2"
+    },
+    {
+      "slug": "card-zap-yellow-target-1",
+      "fixture_sha256": "8790d70591db8edc006d47b40987c0ad13b3e51b8d038af1a395beee5ffd8c52"
+    },
+    {
+      "slug": "card-zap-yellow-target-2",
+      "fixture_sha256": "3f132f0708626ac08942126e3681167e90f8275151596707ee0e587ce9ce1bf2"
+    }
+  ]
+}

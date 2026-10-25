@@ -38,7 +38,12 @@ $writeRe = '/(INSERT\s+(INTO|IGNORE)|REPLACE\s+INTO|UPDATE|DELETE\s+FROM|TRUNCAT
 // Walk the tree, skipping anything that cannot be hit by a browser.
 $skipDir = '#/(DevTools|Tests|node_modules|vendor|SWUSim|SoulMasters|Azuki|GrandArchive|Gudnak|Hellbreak|Lorcana|RBDeck|MatchFlowTestSim|MatchTestSim)(/|$)#i';
 $writers = [];
-$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS));
+// PRUNE those directories (plus the gamestate folders and agent scratch) while walking: filtering after the walk still
+// visited every file in SWUSim/Games — 42,657 game folders, 322s (2026-10-13).
+$pruneRe = '#^(DevTools|Tests|node_modules|vendor|SWUSim|SoulMasters|Azuki|GrandArchive|Gudnak|Hellbreak|Lorcana|RBDeck|MatchFlowTestSim|MatchTestSim|Games|\.git|\.claude|traces|BotData|Matches|docs)$#i';
+$it = new RecursiveIteratorIterator(new RecursiveCallbackFilterIterator(
+    new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS),
+    fn($f) => !($f->isDir() && preg_match($pruneRe, $f->getFilename()))));
 foreach ($it as $file) {
     if ($file->getExtension() !== 'php') continue;
     $abs = $file->getPathname();
@@ -71,7 +76,9 @@ $checks['every web-reachable writer is gated'] = count($ungated) === 0;
 // character before the name, and `\s*\(` requires it to be an actual call.
 $fileWriteRe = '/((?<![A-Za-z0-9_])WriteGamestate\s*\(|file_put_contents\s*\([^;]*Games\/)/i';
 $fileWriters = [];
-$it2 = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS));
+$it2 = new RecursiveIteratorIterator(new RecursiveCallbackFilterIterator(   // same prune as the walk above
+    new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS),
+    fn($f) => !($f->isDir() && preg_match($pruneRe, $f->getFilename()))));
 foreach ($it2 as $file) {
     if ($file->getExtension() !== 'php') continue;
     $abs = $file->getPathname();

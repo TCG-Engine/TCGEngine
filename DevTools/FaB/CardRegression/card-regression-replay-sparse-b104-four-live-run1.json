@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch104.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T17:26:50.933234+00:00",
+  "fixtures": [
+    {
+      "slug": "card-strength-of-four-seasons-red-four-live-sparse-four-physical-face-up-earth-banish-cards-enable-four-power",
+      "fixture_sha256": "a0739e6d0dae605aaa30631a1540ec9ef04986a00cb300d3841b143b19c778d2",
+      "passed": true,
+      "result": "[PASS] Strength of Four Seasons / four live sparse positive condition"
+    },
+    {
+      "slug": "card-runerager-swarm-red-four-live-sparse-real-prior-sigil-aura-play-grants-go-again",
+      "fixture_sha256": "709faacc374abcb501b43abe5e50f9556a38f5d9a76cad8ba2ac4564595745fe",
+      "passed": true,
+      "result": "[PASS] Runerager Swarm / four live sparse positive condition"
+    },
+    {
+      "slug": "card-hit-the-high-notes-red-four-live-sparse-real-prior-sigil-aura-play-enables-two-power",
+      "fixture_sha256": "44b20d2231bfffa55d4fd21c7517da0ebfaceb74d4703dbb79c3eed0e83d18ba",
+      "passed": true,
+      "result": "[PASS] Hit the High Notes / four live sparse positive condition"
+    },
+    {
+      "slug": "card-shrill-of-skullform-red-four-live-sparse-real-prior-sigil-aura-play-enables-three-power",
+      "fixture_sha256": "ba8518473388ac89318341d35d47b4996061866ce7ce341b2ea68ec7a2ec7a18",
+      "passed": true,
+      "result": "[PASS] Shrill of Skullform / four live sparse positive condition"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-strength-of-four-seasons-red-four-live-sparse-four-physical-face-up-earth-banish-cards-enable-four-power",
+      "returncode": 0,
+      "stdout": "[PASS] Strength of Four Seasons / four live sparse positive condition\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-runerager-swarm-red-four-live-sparse-real-prior-sigil-aura-play-grants-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Runerager Swarm / four live sparse positive condition\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-hit-the-high-notes-red-four-live-sparse-real-prior-sigil-aura-play-enables-two-power",
+      "returncode": 0,
+      "stdout": "[PASS] Hit the High Notes / four live sparse positive condition\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-shrill-of-skullform-red-four-live-sparse-real-prior-sigil-aura-play-enables-three-power",
+      "returncode": 0,
+      "stdout": "[PASS] Shrill of Skullform / four live sparse positive condition\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

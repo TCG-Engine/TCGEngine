@@ -1,0 +1,7 @@
+{
+    "name": "Bravo / cost-two-no-dominate",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:13:30+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact negative boundary: Brutal Assault blue costs2, below Bravo threshold3, so both hand blockers must be legal. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bravo https://rules.fabtcg.com/en/cr/07-combat/"
+}

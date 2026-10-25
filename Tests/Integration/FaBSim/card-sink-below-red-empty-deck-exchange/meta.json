@@ -1,0 +1,7 @@
+{
+    "name": "Sink Below / empty-deck-exchange",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:13:27+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Bottoming into an empty deck makes the chosen card the sole deck card; the following draw returns that card. Printed defense4 still applies. Terminal-state compatibility only: membership alone does not distinguish an omitted exchange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sink_below_red https://rules.fabtcg.com/en/cr/07-combat/"
+}

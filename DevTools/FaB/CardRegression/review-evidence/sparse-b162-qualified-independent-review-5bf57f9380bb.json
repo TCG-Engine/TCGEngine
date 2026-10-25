@@ -1,0 +1,204 @@
+{
+  "status": "B162_TWO_SPARSE_ATTACK_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch162.json",
+  "input_sha256": "ac420bd3c4a2b2f99c893a9e6f571d67aa91d3f73cb91f95125ee88d8faa1232",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:35:19.319668+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ball-lightning-red-four-live-sparse-actual-self-lightning-damage-replacement-go-again",
+      "fixture_sha256": "6b738bf4583e1a7449c5505823b94fbd9d27268b12020c578650846cb2a74640",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "138187397b4a7ffdffdc6b9f3aad2de9882e678a1646603275c25f259fa4cb41",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "bd58cd4a5b4c564a3feb247bd03963633ff77ff71cdd8c7408d4885a453533e7",
+        "expected_final_gamestate.txt": "602f14fb37cf2cbc0d6faf6e59425107f741938dc03021f88a96123a96b6e30f",
+        "meta.json": "e57ef1a4bd37651c82680a0643ff3f7b8407ea8857ba57bac0a330a2cbb91eaa"
+      },
+      "semantically_approved": true,
+      "actions": 27,
+      "native_assertions": 404,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-grow-claws-red-four-live-sparse-actual-first-attack-no-prior-draconic-go-again",
+      "fixture_sha256": "c9f456c7750825499ee91ded5d56d814ce5382f0ace28997b4fd524d67305e97",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a30e370734a83f977c5c415abb50e156562d59e71ba16784f6ff963a2692f722",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "465c18a833e4955a060995af2076821ecd919f3a4d4bd2ffddcf0632d6bb8458",
+        "expected_final_gamestate.txt": "6f66ab3deb31fe583dda325d8ebd620312a954dd58bb86c0a1bf91478562ee45",
+        "meta.json": "29775199ed4749637d3352e384f458915d5bfcd1fb745c6dfa0840941e1f9c54"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 447,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 55,
+  "total_native_assertions": 851,
+  "total_manual_passes": 50,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b162-actual-saved-independent-review.json",
+    "sha256": "a862611a218d18b521aa7c52fdc9bd66f990a13958e2569a8d238ccb7e3b0de2"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b162-independent-spec-review-v2.json",
+    "sha256": "27780555c99e296c9356b74dfcf489bd3f14b6b59d079ec7326cdd0568d7c945"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch162-20261022T203342Z-6ada732637b73.json",
+    "sha256": "366efc09b0d2e3f7910fc9f6c803778e60cc42770a535040174b44a6bdfd96dd"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b162-four-live-run1.json",
+      "sha256": "9fc40a3d27944dd11c42121b4e9b3460c4557bb4617f77edcb1042316d6aea3d",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch162.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b162-four-live-run2.json",
+      "sha256": "cc218bffcbc092bc8ae0c5489852a55e2598bddca780d661126b5dfa38116e7a",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch162.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b162-fault-controls.json",
+    "sha256": "0716dff303b8f0ac7f8e814103d47ad73ac49171e462e8c081d31df9aaf8949b",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "5c007aff272105d200377fbd8e83fed770686fa3adac7edcedb1c61e0e15c62e",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b162_ball_lightning_red_focused_effect_sensitivity",
+      "fixture": "card-ball-lightning-red-four-live-sparse-actual-self-lightning-damage-replacement-go-again",
+      "prefix_actions": 6,
+      "mutation": {
+        "remove_effect": "ELE_BALL"
+      },
+      "retained_assertions": 244,
+      "expected_failure_step": 13,
+      "expected_failure": "Expected p4Health to equal 16, got 17.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b162_grow_claws_red_focused_effect_sensitivity",
+      "fixture": "card-grow-claws-red-four-live-sparse-actual-first-attack-no-prior-draconic-go-again",
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "grow_claws_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 255,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b162-focused-fault-plan.json",
+    "sha256": "5c007aff272105d200377fbd8e83fed770686fa3adac7edcedb1c61e0e15c62e"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1340,
+  "native_evidence_review_checks": 62,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Ball printedpower3 and actualselfreplaceddamage4 are distinct: physical P4HP16 pins damage, cached damageDealt uncredited. Grow actualcost1/Blue6pitch3 leaves2, firstattack conditionalfalse power4/damage4. Both printedGA/AP1 atRESOLUTION/publicGY5FaceDown0; no otherdamage sources/prevention/positivepreviousDraconic/furtherAP/siblings/fullcard credit.",
+    "Only current new two are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Ball control removes only actual ELE_BALL after source attack entry: power3/GA remain, actual physical damage changes4-to3 and original Step13 P4HP16-to17 detects it; no cached damageDealt credit. Grow adds ELE_NO_GO to actual attack5 and original Initial computedGA1-to0 detects it; numeric base4/firstattack-condition-false is independently positive/asserted and paperfault-sensitive, not a new positive-Draconic branch. All original suffix actions/oracles preserved; no legal alternate/prevention/global/lifecycle/full-card credit."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "8b5c8227cfbb365a3ab8fef1c0e06f2cad4068d0937f8364872fd308ab415159",
+  "current_independent_delta_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b162_independent.py",
+    "sha256": "5670af8b7412a0f95c181ea0e2a0594e727f2017a8ed3a17d230b5aa2d934ec4"
+  }
+}

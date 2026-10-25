@@ -50,6 +50,7 @@ SwuPgnTestCheck(in_array('SWU_HAS_FORCE', array_map(fn($g) => $g->CardID, GetGlo
 SwuPgnTestEq(count(GetHand(2)), $final['players'][2]['handSize'], 'hand count = handSize');
 SwuPgnTestEq(count(array_filter(GetHand(2), fn($h) => $h->CardID === 'CardBack')), 0, "view 'both': both hands face up");
 SwuPgnTestEq(GetSWUVar('SWUPGN_VIEWER'), '1', 'the viewer flag is set');
+SwuPgnTestEq(GetFlashMessage(), '', 'no flash message (InitializeGamestate leaves the "-" placeholder, which the board pops up on every step)');
 $stats = json_decode(GetSWUVar('SWUPGN_STATS'), true);
 SwuPgnTestEq($stats[$wing->UniqueID]['p'] ?? null, 4, 'stated power is recorded per UniqueID');
 SwuPgnTestEq(GetSWUVar('SWUPGN_NAMES', 'unset'), 'unset', 'placeholder names stay OUT of the gamestate (the poll payload is split on <~>; the client gets names from meta)');

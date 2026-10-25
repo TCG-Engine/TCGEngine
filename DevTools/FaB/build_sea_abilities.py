@@ -148,7 +148,7 @@ for c in json.loads((HERE/'sea_catalog.json').read_text()):
  if b=='cogwerx_blunderbuss':add('ResolveAbility',UID+"FaBSEANext($player, 'gun', 0, 'GO_AGAIN', $uid);")
  if b=='not_so_fast':add('ResolveCard',"FaBSEAAdd($player, 'NOT_SO_FAST');")
  if b=='regain_composure':add('ResolveCard',next_attack('any',1,'SEA_UNTAP_HERO'))
- if b=='flying_high':add('ResolveCard',next_attack('any',0,'GO_AGAIN')+next_attack('any',0,'SEA_RED_POWER'))
+ if b=='flying_high':add('ResolveCard',next_attack('any',0,'GO_AGAIN')+next_attack('any',0,{1:'SEA_RED_POWER',2:'SEA_YELLOW_POWER',3:'SEA_BLUE_POWER'}[pitch]))
  if b=='undercover_acquisition':add('Hit',hit(choose("FaBSEARefs($victim, 'item')",'Steal_item',False)+"FaBSEASteal($player, $chosen);"))
  if b=='midas_touch':add('ResolveCard',choose("FaBSEARefs($player, 'ally', 'Arena', true)",'Destroy_ally',False)+"FaBSEAMidas($chosen);")
  if b=='walk_the_plank':add('Hit',hit("if (FaBHasType(GetHero($victim)[0], 'Pirate')) { "+choose("FaBSEAPermanents($victim, 'heroAlly', false)",'Tap_hero_or_ally',False)+'FaBSEATap($chosen); }'))

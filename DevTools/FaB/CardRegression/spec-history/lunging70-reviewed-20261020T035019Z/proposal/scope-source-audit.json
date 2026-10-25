@@ -1,0 +1,186 @@
+{
+  "status": "AUTHOR_PRINTED_RULE_AND_NATIVE_SCHEMA_AUDIT_NOT_COVERAGE",
+  "nativeGameActions": 0,
+  "nativeWrites": 0,
+  "printedCards": {
+    "lunging_press_blue": {
+      "id": "lunging_press_blue",
+      "types": [
+        "Generic",
+        "Attack Reaction"
+      ],
+      "cost": "0",
+      "pitch": "3",
+      "defense": "2",
+      "power": "",
+      "health": "",
+      "functional_text_plain": "Target attack action card gets +1{p}.",
+      "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/BEN026.webp"
+    },
+    "rout_red": {
+      "id": "rout_red",
+      "types": [
+        "Warrior",
+        "Attack Reaction"
+      ],
+      "cost": "2",
+      "pitch": "1",
+      "defense": "3",
+      "power": "",
+      "health": "",
+      "functional_text_plain": "Target weapon attack gets +3{p}.\nReprise - If the defending hero has defended with a card from their hand this chain link, you may return a non-equipment defending card to its owners hand.",
+      "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP148.webp"
+    },
+    "dawnblade": {
+      "id": "dawnblade",
+      "types": [
+        "Warrior",
+        "Weapon",
+        "Sword",
+        "2H"
+      ],
+      "cost": "",
+      "pitch": "",
+      "defense": "",
+      "power": "3",
+      "health": "",
+      "functional_text_plain": "Once per Turn Action - {r}: Attack\nThe second time this hits each turn, put a +1{p} counter on it.\nAt the beginning of your end phase, if this hasn't hit this turn, remove all +1{p} counters from it.",
+      "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP143.webp"
+    },
+    "boltyn": {
+      "id": "boltyn",
+      "types": [
+        "Light",
+        "Warrior",
+        "Hero",
+        "Young"
+      ],
+      "cost": "",
+      "pitch": "",
+      "defense": "",
+      "power": "",
+      "health": "20",
+      "functional_text_plain": "If you've charged this turn, your attacks get +1{p} while defended by an attack action card.\nAttack Reaction - Banish a card from your soul: Target attack with {p} greater than its base gets go again.",
+      "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/BOL001-RF.webp"
+    },
+    "wounding_blow_red": {
+      "id": "wounding_blow_red",
+      "types": [
+        "Generic",
+        "Action",
+        "Attack"
+      ],
+      "cost": "0",
+      "pitch": "1",
+      "defense": "3",
+      "power": "4",
+      "health": "",
+      "functional_text_plain": "",
+      "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DRO022.webp"
+    },
+    "wounding_blow_blue": {
+      "id": "wounding_blow_blue",
+      "types": [
+        "Generic",
+        "Action",
+        "Attack"
+      ],
+      "cost": "0",
+      "pitch": "3",
+      "defense": "3",
+      "power": "2",
+      "health": "",
+      "functional_text_plain": "",
+      "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FAI027.webp"
+    },
+    "surging_strike_red": {
+      "id": "surging_strike_red",
+      "types": [
+        "Ninja",
+        "Action",
+        "Attack"
+      ],
+      "cost": "2",
+      "pitch": "1",
+      "defense": "2",
+      "power": "5",
+      "health": "",
+      "functional_text_plain": "Go again",
+      "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP125.webp"
+    },
+    "harmonized_kodachi": {
+      "id": "harmonized_kodachi",
+      "types": [
+        "Ninja",
+        "Weapon",
+        "Dagger",
+        "1H"
+      ],
+      "cost": "",
+      "pitch": "",
+      "defense": "",
+      "power": "1",
+      "health": "",
+      "functional_text_plain": "Once per Turn Action - {r}: Attack\nIf you have a card in your pitch zone with cost 0, this card's attacks get go again.",
+      "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP091.webp"
+    }
+  },
+  "printedFaceSHA256_raw": {
+    "lunging_press_blue": "84d527fb8f8df397e702566f861fd579a3ec267a17f425867e9c49db8236fbf2",
+    "rout_red": "dd1336e4c2c5d6c3e8dbc1e5b5e7fcdd68a884acf00a55d1169031215dddbaa3",
+    "dawnblade": "4c7f196c8585fe92fc3b7d1a7ab3e87a11028094332a117e5315579a5b4a8107",
+    "boltyn": "31953dccf30b8a36910a15da1d8f56792bdbe417d3940afb4cdea3c9bc8763b5"
+  },
+  "officialOracleSources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/720/",
+      "meaning": "LP exactly one AA card +1 power, no active-link/controller restriction."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/233/",
+      "meaning": "Current Rout cost2/weapon+3; reprise may return a non-equipment defending card, not targeted return. Old local WTR120 printed face says target and is superseded for this wording."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "meaning": "Declare targets before costs; preserve original declared object; recheck target on resolution."
+    }
+  ],
+  "nativeFunctions": [
+    "DoPlayCard",
+    "FaBCRULungingClaimOrRequestTarget (reviewed proposed v2)",
+    "FaBCRULungingAnswerIsValid (reviewed proposed v2)",
+    "FaBCRUResolveLunging (reviewed proposed v2)",
+    "FaBTryCompletePayment",
+    "FaBDefendingChoices",
+    "__RunAwait_150d4a5b00dabaa1ae15 (rout_red actual canonical compiled await)"
+  ],
+  "sourceSHA256_raw": {
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "de2813a1f1d56801361c0b8b393c92bbf97866d1efd48d87182280b184acf268",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "Core/RegressionTestFramework.php": "d8213ee44f566a45d9475e5e52a1ab7ed3e6560984356e4a7521f5ffc6372c8d",
+    "FaBSim/Custom/GameLogic.php": "6dad79ced6fcf485226e887c4ac4cf709982fb1b8086c0cd5ea4e8817bb91af1",
+    "FaBSim/Custom/CardChoices.php": "96300f892fc9a0ec6a273d37ba826761712cc70145b26da59fbb6c4033b13521",
+    "FaBSim/Custom/WTRCards.php": "427c3a85b6ea1eb11cce2f561adc6b733d5af3b5b963d72cf5821ef5395ec240",
+    "FaBSim/Custom/WTRAbilities.php": "00b0ef1df18a5288a68dcce12178c9b72ef8d9e8dbb92caecbd51ee5bd77c63d",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "reviewedSourcePatch": {
+    "path": "lunging-target-fix-v2-proposal/proposed.patch",
+    "sha256": "9dceebc12d2232595a9adc59370edbe0fe021bbaaa25a26bc1a72b3f5f632067",
+    "review": "lunging030-v2-independent-source-review.json",
+    "reviewSHA256": "da422018affe19f5ac696b705e30983417ed037bb939ab8d0fed29ea62703826"
+  },
+  "firstGate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\lunging-target-scope-audit\\previous-aa-current-weapon-before-probe.json",
+    "sha256": "4e6a4a7171910dea5f0c80ee3c3d049c9c47b54eb555a1c6c5b1c6565ba5dd39",
+    "nativeBeforeProofSHA256": "c644d52514ce716b88f31ac38bd392df9cec584cb1282015df5a4b5090a79e64",
+    "policy": "Run original unchanged B60 first. The new prior-weapon full-resolution recipe is a separate extension, never replacement of the before/after proof."
+  },
+  "held": [
+    "Same-link target reentry and general elimination lifetime need other architecture; v2 original-link guard only prevents later-link return.",
+    "General AA target objects on public Arena/Stack outside CC need legal reachable fixtures.",
+    "Wrongactor/invalidanswer native contracts require actual saved chooser pilot + reviewed raw/behavior/runtime bindings; absent now, not passing fixture coverage.",
+    "Nonactive target computed-power hook remains absent; exact physical tags plus reviewed native CRU per-object modifier and unchanged active damage are the current independent oracle."
+  ]
+}

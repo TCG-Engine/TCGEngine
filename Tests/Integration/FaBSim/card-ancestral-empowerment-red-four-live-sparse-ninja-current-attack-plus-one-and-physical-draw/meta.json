@@ -1,0 +1,7 @@
+{
+    "name": "Ancestral Empowerment / four live sparse reaction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T00:06:27+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The sole own current Head Jab Red is a Ninja attack action with printed power3 and go again. Resolving cost0 Ancestral gives that attack+1 and draws exactly the known Generic Deck UID7. Fresh damage4 reaches P4. The reaction itself gains no AP; Head Jab returns exactly1AP only at chain-link resolution. One sole current Ninja attack target and unobstructed single-card draw only. No other Ninja target, draw replacement or failed draw claim. This first attack avoids Ira second-attack bonus. Four actual young20 heroes hold priority/all11 shortcut windows false. Every real pass is recorded, target4 includes zoneHero. Physical weaponUIDs remain owned/controller1; their newly allocated attack layers have different UIDs and StackOwner0, then normalized CombatChainOwner1 by FaBAddToZone. No full card/cycle or support-card completion claim. This bounded unchanged-sole-current-target endpoint does not certify accepted-target UID binding, target loss or replacement handling. Sources: https://judge.fabtcg.com/cards/detail/195/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP103.webp https://rules.fabtcg.com/en/cr/05-layers-cards-and-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/01-game-concepts/"
+}

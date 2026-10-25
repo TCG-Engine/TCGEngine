@@ -6,6 +6,9 @@ function PokeOpeningProfile(string $deck): array {
     if($deck==='dhelmise-v2')$deck='sinistcha';
     if(in_array($deck,['relicanth-v2-draw','relicanth-v3-meta-tune','relicanth-v4-colress','relicanth-v5-bastiodon','relicanth-v6-explorers-guidance','relicanth-v7-lanas-aid'],true))$deck='relicanth-fossils';
     $profiles = [
+        'fan-rotom-lopunny' => ['name'=>'Assault Landing with Stadium', 'targets'=>['sv07-118'=>[0]],
+            'ready'=>static fn(int $player, $obj): bool => PokeStadium() !== null,
+            'milestones'=>static fn(int $player): array => ['stadiumInPlay'=>PokeStadium() !== null]],
         'galarian-meowth' => ['name'=>'Treasure Rush (70+)', 'targets'=>['30th-101'=>[1]],
             'ready'=>static fn(int $player, $obj): bool => PokeCount($player, 'Hand') >= 7,
             'milestones'=>static fn(int $player): array => ['sevenCardsInHand'=>PokeCount($player, 'Hand') >= 7]],

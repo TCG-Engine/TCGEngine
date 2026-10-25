@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-yinti-yanti-red-mon-live-enters-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 488
+    },
+    {
+        "slug": "card-yinti-yanti-blue-mon-live-enters-defense",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 592
+    },
+    {
+        "slug": "card-yinti-yanti-red-mon-live-destroyed-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 25,
+        "assertions": 853
+    },
+    {
+        "slug": "card-yinti-yanti-blue-mon-live-destroyed-defense",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 1031
+    }
+]

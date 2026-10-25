@@ -1,0 +1,38 @@
+[
+    {
+        "slug": "card-burgeoning-red-arsenal-known-blinding-no-intrinsic-bonus",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 27
+    },
+    {
+        "slug": "card-burgeoning-yellow-arsenal-known-blinding-no-intrinsic-bonus",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 27
+    },
+    {
+        "slug": "card-burgeoning-blue-arsenal-known-blinding-no-intrinsic-bonus",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 27
+    },
+    {
+        "slug": "card-power-play-red-arsenal-known-blinding-no-intrinsic-bonus",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 27
+    },
+    {
+        "slug": "card-power-play-yellow-arsenal-known-blinding-no-intrinsic-bonus",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 27
+    },
+    {
+        "slug": "card-power-play-blue-arsenal-known-blinding-no-intrinsic-bonus",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 27
+    }
+]

@@ -1,0 +1,7 @@
+{
+    "name": "Wounded Bull / life-one-higher",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:43:41+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR6.6.1c-d: on play, queue a separate layer; life is checked on that layer resolution. No response changes life in this case before that layer resolves. Printed Wounded Bull yellow: cost 3, base power 6; strictly lower life when its play trigger resolves adds exactly 1 power. At 20 versus 19, attack power is 6. Pitch one blue for exactly three resources; no floating resource and no go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#wounded_bull_yellow https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

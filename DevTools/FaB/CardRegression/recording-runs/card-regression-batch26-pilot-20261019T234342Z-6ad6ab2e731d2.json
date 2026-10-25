@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-19T23:43:42+00:00",
+    "input_file": "card-regression-batch26-pilot.json",
+    "input_sha256": "1f4a5825a1edec299de0dae78959199e78e1992fcfc8524a65b46a4e0f372362",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-muscle-mutt-yellow-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 46
+        },
+        {
+            "slug": "card-muscle-mutt-yellow-defends-for-two-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 16
+        }
+    ]
+}

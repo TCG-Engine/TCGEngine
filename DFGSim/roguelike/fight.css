@@ -1,0 +1,12 @@
+/* Only run-specific additions; the polished fight layout comes from the shared styles. */
+.roguelike-fight .rogue-bar-break{position:absolute;z-index:5;top:-3px;bottom:-3px;width:3px;background:#f7ce6f;box-shadow:0 0 0 1px #4c341c}
+.roguelike-fight .rogue-bar-burst{position:absolute;z-index:5;top:0;bottom:0;border:2px solid #f7ce6f;background:repeating-linear-gradient(135deg,#f7ce6f55 0 3px,transparent 3px 6px)}
+.roguelike-fight .rogue-bar-break.inactive,.roguelike-fight .rogue-bar-burst.inactive{opacity:.25}
+.roguelike-fight .rogue-equipment-status{font-size:10px;color:#f3cf85}
+.roguelike-fight .rogue-creature{animation:rogue-idle 3.8s ease-in-out infinite}
+@keyframes rogue-idle{0%,100%{translate:0 0}50%{translate:0 -4px}}
+@media(prefers-reduced-motion:reduce){.roguelike-fight .rogue-creature{animation:none}}
+@media(max-width:760px){.roguelike-fight #fighters .fighter:last-child .fighter-identity{padding-right:30px}}
+
+.roguelike-fight .arena-fighter-opponent.rogue-generated{width:58%;right:-11.5%}
+@media(max-width:760px){.roguelike-fight .arena-fighter-opponent.rogue-generated{width:84%;right:-18%}}

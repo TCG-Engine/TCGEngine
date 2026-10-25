@@ -1,0 +1,394 @@
+{
+  "status": "INDEPENDENT_ALL5_PER_CARD_CONTINUATION_SPECS_APPROVED_FOR_PARENT_NATIVE_ATTEMPTS_NO_PASS_CLAIM",
+  "reviewer": "/root/wtr_buff_scenarios",
+  "full_sha256": "e463820e2fc60ed4b927380dacac2a7150eb64e8ce84fda34121ea9bb320037a",
+  "additional4_sha256": "5b9fc382ee59f4c12198679818ecfc9a765b7d01e536c973622803d501d2a3fe",
+  "original_representative_sha256": "c70005bbb9b417c037912272cecc2ce1f8c66fae8bd06da5bb4bcf438f3f503f",
+  "unchanged_original_object": true,
+  "fixtures": [
+    {
+      "slug": "compat-flat-defense-reaction-dodge-blue-third-response-after-partial-resolution",
+      "semantically_approved": true,
+      "subject": "dodge_blue",
+      "printed_cost": 0,
+      "printed_pitch": 3,
+      "printed_defense": 2,
+      "total_defense": 4,
+      "damage": 3,
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "native_oracles": 332,
+      "independent_result": {
+        "slug": "compat-flat-defense-reaction-dodge-blue-third-response-after-partial-resolution",
+        "semantically_approved": true,
+        "checks": 340,
+        "actual_pass_model_actions": 27,
+        "priority_passes": 23,
+        "numeric_oracle_failures": [],
+        "printed_cost_payments": [
+          {
+            "cardID": "wounding_blow_red",
+            "resources": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "dodge_blue",
+            "resources": 0,
+            "actionPoints": 0
+          },
+          {
+            "cardID": "razor_reflex_red",
+            "resources": 1,
+            "actionPoints": 0
+          },
+          {
+            "cardID": "dodge_blue",
+            "resources": 0,
+            "actionPoints": 0
+          }
+        ],
+        "printed_pitch_payments": [],
+        "reaction_resolution_order": [
+          "RAZOR",
+          "DEFENSE_REACTION",
+          "DEFENSE_REACTION",
+          "HIT_GO_AGAIN"
+        ],
+        "final_health": [
+          20,
+          17
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_AP": [
+          1,
+          0
+        ],
+        "rejected_clicks": 0
+      }
+    },
+    {
+      "slug": "compat-flat-defense-reaction-third-response-after-partial-resolution",
+      "semantically_approved": true,
+      "subject": "evasive_leap_red",
+      "printed_cost": 0,
+      "printed_pitch": 1,
+      "printed_defense": 3,
+      "total_defense": 5,
+      "damage": 2,
+      "final_HP": [
+        20,
+        18
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "native_oracles": 332,
+      "independent_result": {
+        "slug": "compat-flat-defense-reaction-third-response-after-partial-resolution",
+        "semantically_approved": true,
+        "checks": 340,
+        "actual_pass_model_actions": 27,
+        "priority_passes": 23,
+        "numeric_oracle_failures": [],
+        "printed_cost_payments": [
+          {
+            "cardID": "wounding_blow_red",
+            "resources": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "dodge_blue",
+            "resources": 0,
+            "actionPoints": 0
+          },
+          {
+            "cardID": "razor_reflex_red",
+            "resources": 1,
+            "actionPoints": 0
+          },
+          {
+            "cardID": "evasive_leap_red",
+            "resources": 0,
+            "actionPoints": 0
+          }
+        ],
+        "printed_pitch_payments": [],
+        "reaction_resolution_order": [
+          "RAZOR",
+          "DEFENSE_REACTION",
+          "DEFENSE_REACTION",
+          "HIT_GO_AGAIN"
+        ],
+        "final_health": [
+          20,
+          18
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_AP": [
+          1,
+          0
+        ],
+        "rejected_clicks": 0
+      }
+    },
+    {
+      "slug": "compat-flat-defense-reaction-evasive-leap-yellow-third-response-after-partial-resolution",
+      "semantically_approved": true,
+      "subject": "evasive_leap_yellow",
+      "printed_cost": 0,
+      "printed_pitch": 2,
+      "printed_defense": 2,
+      "total_defense": 4,
+      "damage": 3,
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "native_oracles": 332,
+      "independent_result": {
+        "slug": "compat-flat-defense-reaction-evasive-leap-yellow-third-response-after-partial-resolution",
+        "semantically_approved": true,
+        "checks": 340,
+        "actual_pass_model_actions": 27,
+        "priority_passes": 23,
+        "numeric_oracle_failures": [],
+        "printed_cost_payments": [
+          {
+            "cardID": "wounding_blow_red",
+            "resources": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "dodge_blue",
+            "resources": 0,
+            "actionPoints": 0
+          },
+          {
+            "cardID": "razor_reflex_red",
+            "resources": 1,
+            "actionPoints": 0
+          },
+          {
+            "cardID": "evasive_leap_yellow",
+            "resources": 0,
+            "actionPoints": 0
+          }
+        ],
+        "printed_pitch_payments": [],
+        "reaction_resolution_order": [
+          "RAZOR",
+          "DEFENSE_REACTION",
+          "DEFENSE_REACTION",
+          "HIT_GO_AGAIN"
+        ],
+        "final_health": [
+          20,
+          17
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_AP": [
+          1,
+          0
+        ],
+        "rejected_clicks": 0
+      }
+    },
+    {
+      "slug": "compat-flat-defense-reaction-evasive-leap-blue-third-response-after-partial-resolution",
+      "semantically_approved": true,
+      "subject": "evasive_leap_blue",
+      "printed_cost": 0,
+      "printed_pitch": 3,
+      "printed_defense": 1,
+      "total_defense": 3,
+      "damage": 4,
+      "final_HP": [
+        20,
+        16
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "native_oracles": 332,
+      "independent_result": {
+        "slug": "compat-flat-defense-reaction-evasive-leap-blue-third-response-after-partial-resolution",
+        "semantically_approved": true,
+        "checks": 340,
+        "actual_pass_model_actions": 27,
+        "priority_passes": 23,
+        "numeric_oracle_failures": [],
+        "printed_cost_payments": [
+          {
+            "cardID": "wounding_blow_red",
+            "resources": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "dodge_blue",
+            "resources": 0,
+            "actionPoints": 0
+          },
+          {
+            "cardID": "razor_reflex_red",
+            "resources": 1,
+            "actionPoints": 0
+          },
+          {
+            "cardID": "evasive_leap_blue",
+            "resources": 0,
+            "actionPoints": 0
+          }
+        ],
+        "printed_pitch_payments": [],
+        "reaction_resolution_order": [
+          "RAZOR",
+          "DEFENSE_REACTION",
+          "DEFENSE_REACTION",
+          "HIT_GO_AGAIN"
+        ],
+        "final_health": [
+          20,
+          16
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_AP": [
+          1,
+          0
+        ],
+        "rejected_clicks": 0
+      }
+    },
+    {
+      "slug": "compat-flat-defense-reaction-toughen-up-blue-third-response-after-partial-resolution",
+      "semantically_approved": true,
+      "subject": "toughen_up_blue",
+      "printed_cost": 2,
+      "printed_pitch": 3,
+      "printed_defense": 4,
+      "total_defense": 6,
+      "damage": 1,
+      "final_HP": [
+        20,
+        19
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "native_oracles": 332,
+      "independent_result": {
+        "slug": "compat-flat-defense-reaction-toughen-up-blue-third-response-after-partial-resolution",
+        "semantically_approved": true,
+        "checks": 340,
+        "actual_pass_model_actions": 27,
+        "priority_passes": 23,
+        "numeric_oracle_failures": [],
+        "printed_cost_payments": [
+          {
+            "cardID": "wounding_blow_red",
+            "resources": 0,
+            "actionPoints": 1
+          },
+          {
+            "cardID": "dodge_blue",
+            "resources": 0,
+            "actionPoints": 0
+          },
+          {
+            "cardID": "razor_reflex_red",
+            "resources": 1,
+            "actionPoints": 0
+          },
+          {
+            "cardID": "toughen_up_blue",
+            "resources": 2,
+            "actionPoints": 0
+          }
+        ],
+        "printed_pitch_payments": [],
+        "reaction_resolution_order": [
+          "RAZOR",
+          "DEFENSE_REACTION",
+          "DEFENSE_REACTION",
+          "HIT_GO_AGAIN"
+        ],
+        "final_health": [
+          20,
+          19
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_AP": [
+          1,
+          0
+        ],
+        "rejected_clicks": 0
+      }
+    }
+  ],
+  "totals": {
+    "cases": 5,
+    "native_actions": 135,
+    "native_persisted_oracles": 1660,
+    "independent_model_checks": 1700
+  },
+  "method": "AST-extracted independent individual-real-pass model plus the previously reviewed virtual hit-source metadata adapter evaluates every oracle. All five exact printed cost/defense/pitch/text/class values verified against local catalog, source actions/waits unchanged from independently reviewed original c700. No authored setup/property/permission mutation, no CanPlay precheck, first actual third-click native check remainsStack2.",
+  "bounded_rules": "Continuing ReactionStep after top Razor resolves leaves lower Dodge pending; one real turn-player pass gives attacked hero priority. Third DR pays printed resource cost with0AP. LIFO subjectUID6 then lowerDodgeUID4 gives totaldefense2+subject. Attack4+Razor3 deals7-defense. Separate real hit trigger grantsGA once; AP1 onlyatResolution; all original owners/UIDcleanup retained.",
+  "limits": [
+    "Spec approval only, no native execution/saved/replay claim.",
+    "Source028 card-play repair does not qualify reaction activated abilities, Arakni/Featherfoot listeners or autopass preference consumers.",
+    "Finite per-ID timing obligation requires each actual saved case, native oracles and clean deterministic replay; ordinary108 baseline alone is insufficient."
+  ],
+  "source_model_sha256": "d5a7d3e54a91a9e00202173223632d9dde97ae9080cca798a4a129c64e031139",
+  "metadata_adapter_sha256": "0ba321feaeb6697b2e92082f5fbdcaf85dba1f4717e9d1d0cfe80d439c516060",
+  "review_script_sha256": "99324dd01f27e53d02a2728ecfc1b20cdc33d02afc75ac40ed72419c25dc757d",
+  "native_games": 0,
+  "native_writes": 0,
+  "passing_coverage_added": 0
+}

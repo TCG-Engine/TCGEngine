@@ -52,5 +52,7 @@ run_one() {
 }
 export -f run_one
 xargs -P "$WORKERS" -L 1 bash -c 'run_one "$@"' _ < "$OUT/jobs.txt"
-cat "$OUT"/games/*.tsv > "$OUT/results.tsv"
+# `find | xargs`, not `cat games/*.tsv`: past ~15k games the glob exceeds ARG_MAX ("Argument list too long") and results.tsv came out
+# EMPTY (2026-10-11 tournament baseline, 19,656 games). Sorted so the file order matches what the glob produced.
+find "$OUT/games" -maxdepth 1 -name '*.tsv' -print0 | sort -z | xargs -0 cat > "$OUT/results.tsv"
 echo "[strength] done — $(wc -l < "$OUT/results.tsv") results — $(date -u +%H:%M:%S)"

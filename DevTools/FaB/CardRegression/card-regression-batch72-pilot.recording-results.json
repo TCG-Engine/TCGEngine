@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-surging-militia-red-mon-continuous-one-normal-hand-card",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 334
+    },
+    {
+        "slug": "card-stony-woottonhog-red-mon-continuous-two-normal-hand-cards",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 430
+    },
+    {
+        "slug": "card-yinti-yanti-red-mon-continuous-attack-own-aura-present",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 274
+    },
+    {
+        "slug": "card-yinti-yanti-blue-mon-continuous-defend-own-aura-present",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 362
+    }
+]

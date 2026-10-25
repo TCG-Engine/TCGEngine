@@ -1,0 +1,7 @@
+{
+    "name": "Cut a Long Story Short / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T01:49:45+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actually resolve Minnowism Red. The next attack has base3, so it gains3. Since current power6 is greater than base3, Cut gets its own additional1: total7. Unblocked damage7 leaves P2 at13/AP0. Tower13 is not reached, so no hand-discard trigger is expected. Exactly one bounded positive first-pass representative; no pitch matrix or full-card/group completion. Source candidates are independently checked, not accepted merely because metadata exists. The Tower discard branch is explicitly untested and its direct-Hit source timing is not approved. No multiple buffs, suppression, threshold change or base-equality negative branch. Support synchronous source-clear/callback internal order remains outside the atomic endpoint witness and is not asserted correct. No known pending user-choice lifecycle is omitted. Sources: https://judge.fabtcg.com/cards/detail/4164/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/SUP172.webp https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

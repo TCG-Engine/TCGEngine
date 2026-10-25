@@ -1,0 +1,7 @@
+{
+    "name": "Flock of the Feather Walkers / cannot-reveal-played-card-itself",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:47:23+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "No other hand card exists. The Flock being announced moves to the stack and cannot reveal itself from hand as its additional cost. With one floating resource, the printed cost is affordable; failure is specifically the mandatory reveal. Reject without announcing, paying, creating a token, or consuming AP. Sources: FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_yellow https://judge.fabtcg.com/cards/detail/296/ https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects"
+}

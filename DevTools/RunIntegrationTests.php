@@ -88,12 +88,33 @@ function RunnerPrepareTempGame($rootName, $slug, $initialFixtureDir, $meta) {
     $gameDir . DIRECTORY_SEPARATOR . 'Gamestate.txt',
     RegressionNormalizeGamestateTextForRoot($rootName, $initialGamestate)
   );
+  // Initial assertions must observe this fresh fixture, including on the first test.
+  // Loading before evaluation also prevents a prior fixture's globals from leaking in.
+  EngineLoadRootRuntime($rootName);
+  $GLOBALS['gameName'] = $gameName;
+  ParseGamestate('./' . $rootName . '/');
   return [$gameName, $gameDir];
 }
 
 // The saved game state (what the next action will load), normalized the way the final-snapshot comparison does.
 function RunnerAuditSnapshot($rootName, $gameName) {
   return RegressionNormalizeNewlines(RegressionNormalizeGamestateTextForComparison($rootName, RegressionCurrentGamestateText($rootName, $gameName)));
+}
+
+function RunnerReloadPersistedStateForAssertions($rootName, $gameName, $result) {
+  // FaBSim serializes compacted zone coordinates without changing live arrays.
+  // Match the next request/recorded assertion boundary after a successful write.
+  // Rejections and non-writing actions retain their existing loaded diagnostics.
+  if ($rootName !== 'FaBSim' || empty($result['success']) || empty($result['writeGamestate'])) return;
+  $hasFlash = function_exists('GetFlashMessage') && function_exists('SetFlashMessage');
+  $flash = $hasFlash ? GetFlashMessage() : null;
+  $GLOBALS['gameName'] = strval($gameName);
+  try {
+    ParseGamestate('./' . $rootName . '/');
+  } finally {
+    // Flash can be request-local rather than a serialized gameplay field.
+    if ($hasFlash) SetFlashMessage($flash);
+  }
 }
 
 function RunnerCompareFinalSnapshot($fixtureDir, $rootName, $gameName, $updateSnapshots) {
@@ -248,6 +269,14 @@ foreach ($fixtures as $slug) {
     if ($args['auditNoops'] && $beforeText !== null && empty($action['expectFailure'])) {
       if (RunnerAuditSnapshot($args['root'], $gameName) === $beforeText) $noopSteps[] = $stepNumber . ':' . ($action['cardID'] ?? '');
       $beforeText = null;
+    }
+
+    try {
+      RunnerReloadPersistedStateForAssertions($args['root'], $gameName, $result);
+    } catch (Throwable $error) {
+      $failed = true;
+      $failureMessage = "Step {$stepNumber} persisted-state reload failed: " . $error->getMessage();
+      break;
     }
 
     [$assertionsPassed, $assertionMessage] = RegressionEvaluateAssertionsForStep($assertions, $stepNumber);

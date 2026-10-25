@@ -1,0 +1,7 @@
+{
+    "name": "Cosmic Flare / arsenal-face-up-opponent-phase-zero-ap",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:19:20+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0. Gain {r}{r}{r}. Instant: pay no AP; resources increase by3 only on resolution.  Sources: FaBSim/GeneratedCode/cardArrayCache.json#cosmic_flare_red https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

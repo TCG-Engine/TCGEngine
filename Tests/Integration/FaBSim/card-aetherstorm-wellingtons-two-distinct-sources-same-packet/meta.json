@@ -1,0 +1,7 @@
+{
+    "name": "Aetherstorm Wellingtons / two-distinct-sources-same-packet",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:10:21+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Own source AB2 plus distinct legal-slot nullrune_hood AB1, resources3. First displayed chooser includes both live refs. Apply declared family source first for2: same sourceUID4 is excluded from next chooser, and only other sourceUID5 remains. Pay1 from other source. Total prevented3, take0, no equipment destroyed/exhausted/AP consumed. Lantern and Hood are both in native Equipment, backed by distinct logical Off-Hand/head slots. Not a repeat payment from one source. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aetherstorm_wellingtons https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN110.webp https://judge.fabtcg.com/cards/detail/4401/ DevTools/FaB/upr_abilities.json#aether_dart_red/PrepareCard,ResolveCard FaBSim/Custom/UPRCards.php::FaBUPRBarrierValue/FaBUPRBarrierChoices/FaBUPRDeal FaBSim/Custom/ARCCards.php::FaBARCPitchChoices/FaBARCPitchForEffect FaBSim/Custom/GameLogic.php::FaBFinishReactionResolution https://rules.fabtcg.com/en/cr/08-keywords/#838 https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/#8210"
+}

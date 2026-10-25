@@ -1,0 +1,150 @@
+{
+  "status": "EXACT_SEMANTIC_EVIDENCE_INDEX_CONDITIONAL_FINITE_DEFINITION_NOT_CURRENT_COMPLETION",
+  "reviewer": "/root/catalog_effect_map",
+  "original87_plus_additive24": 111,
+  "native_assertions": 12988,
+  "native_actions": 897,
+  "proofs": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\ab86-saved-review-approved-rows.json",
+      "sha256": "28f0892bfa183b5b7f67616b449a14b119f79cd6cc263bb1626667da9eb1407c"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\ab87th-saved-review-approved-rows.json",
+      "sha256": "227c08b088ee38ae76730667aa3d77a52d585cf638a69c2d8c3d5d9f9201d85e"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\ab24-actual-saved-independent-review.json",
+      "sha256": "abc9519e5fc11cb1256b0339904c3575dfc90c6ad60bbfd2b79bb8e78b901c1c"
+    }
+  ],
+  "sourceRecipes": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\arcane-barrier-only-equipment\\scenarios-proposed.json",
+      "sha256": "02baa29a655918220b9a80c235e41143bb6ab41d3d7cbdcd9e77741934527880"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\ab8-intrinsic-closure\\additive24-proposed.json",
+      "sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302"
+    }
+  ],
+  "priorFiniteDefinition": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\ab8-intrinsic-closure\\independent-finite-scope-review.json",
+    "sha256": "257bcb0f7ca32a6ab6c347e998f3897ea38964f6cc4490f53dcac0d0b16ae581",
+    "contractPath": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\ab8-intrinsic-closure\\closure-contract.json",
+    "contractSHA256": "42b9a12164602a6661193773354d75ca4002b85ee1fdf81e9d6477ca12730536"
+  },
+  "sharedProtectedTargetContracts": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\b21-saved226-independent-review.json",
+    "sha256": "5ca8c71557dc2f8057f690d4740f6a181390402aa78ef41df8fea4306aee64f8",
+    "slugs": [
+      "card-aether-dart-red-own-barrier-pay-floating",
+      "card-aether-dart-red-opponent-cannot-use-caster-barrier",
+      "card-aether-dart-red-opponent-ally-target-no-hero-barrier"
+    ]
+  },
+  "nativeNamedABControls": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative-control-runs\\20261020T013225Z-bbef61ff-after.json",
+    "sha256": "034985103f04557ae2d330de1d3c2c6d423f78193a6fdfb3504572fa6c3547f4",
+    "runtime_sha256": "5e12e58ae987f75a33f9e6c3c96c4baa0237368c20a7e5df4b137ab69e1da4ae",
+    "controls": [
+      {
+        "control_id": "ab_fixed_two_decline",
+        "fixture": "card-aetherstorm-wellingtons-pay-floating-exact",
+        "detected": true,
+        "returncode": 1,
+        "expected_failure": "state [\"arcaneDealt\"] to equal JSON {\"1\":{\"2\":1}}, got {\"1\":{\"2\":3}}",
+        "prefix_actions": 0,
+        "expected_failure_step": 5,
+        "expected_failure_assertion": {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "arcaneDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "{\"1\":{\"2\":1}}"
+        },
+        "fault_semantics": "supported_choice_or_pitch_value_perturbation",
+        "fault_target_binding": {
+          "index": 4,
+          "old": {
+            "playerID": 2,
+            "mode": 100,
+            "buttonInput": "",
+            "cardID": "p2Equipment-0",
+            "chkInput": [],
+            "inputText": ""
+          },
+          "new": {
+            "playerID": 2,
+            "mode": 100,
+            "buttonInput": "",
+            "cardID": "PASS",
+            "chkInput": [],
+            "inputText": ""
+          }
+        },
+        "original_initial_sha256": "cf946f095debd7da97f2dd4d138fcde6d6a597239d88f27239449c8015c92397",
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "Step 5 assertion failed: Expected FaBSim state [\"arcaneDealt\"] to equal JSON {\"1\":{\"2\":1}}, got {\"1\":{\"2\":3}}."
+      },
+      {
+        "control_id": "ab_blue_pitch_funding",
+        "fixture": "card-aetherstorm-wellingtons-pay-blue-pitch",
+        "detected": true,
+        "returncode": 1,
+        "expected_failure": "p2Resources to equal 1, got 0",
+        "prefix_actions": 0,
+        "expected_failure_step": 6,
+        "expected_failure_assertion": {
+          "type": "scalar_zone_equals",
+          "zone": "p2Resources",
+          "value": 1
+        },
+        "fault_semantics": "supported_choice_or_pitch_value_perturbation",
+        "fault_target_binding": {
+          "zone": "p2Hand",
+          "index": 0,
+          "sourceUID": 5,
+          "old": "wounding_blow_blue",
+          "new": "wounding_blow_yellow",
+          "rewritten_memberships": 1
+        },
+        "original_initial_sha256": "a58266e3f4b439dc354317b4052b3c4207f3d41ebfedc62282e6f39c7ecbad0b",
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "Step 6 assertion failed: Expected p2Resources to equal 1, got 0."
+      },
+      {
+        "control_id": "ab_defending_source_eligibility",
+        "fixture": "card-aetherstorm-wellingtons-intrinsic-barrier-while-defending-real-kano-instant",
+        "detected": true,
+        "returncode": 1,
+        "expected_failure": "p2DecisionQueue-0.Param to equal 'p2CombatChain-0', got ''",
+        "prefix_actions": 17,
+        "expected_failure_step": 0,
+        "expected_failure_assertion": {
+          "type": "card_property_equals",
+          "mzId": "p2DecisionQueue-0",
+          "property": "Param",
+          "value": "p2CombatChain-0"
+        },
+        "fault_semantics": "component_backed_eligibility_enumeration_injection_not_dynamic_revalidation",
+        "fault_target_binding": {
+          "sourceUID": 4,
+          "spellUID": 5,
+          "attackUID": 3,
+          "victim": 2,
+          "sourceRef": "p2CombatChain-0"
+        },
+        "original_initial_sha256": "1b6a2db26e71036940b31e5cd488530a79226e2ddd8c891a45f3a5fcc1b1249d",
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "Initial assertion failed: Expected p2DecisionQueue-0.Param to equal 'p2CombatChain-0', got ''."
+      }
+    ]
+  },
+  "qualification": "All111 exact saved semantic evidence and3sharedB21 contracts bound. Native66 contains exact3 intended modern AB detections. This index is not final full-corpus current-runtime replay/suite qualification or independent approval of the adapter.",
+  "native_writes": 0,
+  "game_actions": 0,
+  "current_complete_claim": false
+}

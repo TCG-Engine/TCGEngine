@@ -1,0 +1,7 @@
+{
+    "name": "Quicken / attack-action-trigger-timing",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:32:51+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Start with one existing Quicken token and Wounding Blow red in hand. The first attack receives no Ira second-attack bonus. Pay its zero resources and one AP to play the attack. Quicken triggers and is a separate layer: Stack2/Arena1, and the attacking Stack-0 has no granted TurnEffects yet. Resolving the trigger destroys Quicken and grants GO_AGAIN to the still-pending attack: Stack1/Arena0, AP remains0. The attack then resolves to the combat chain with power4 and go again. After unblocked damage4, opponent life16 and AP1. This isolates Quicken timing independently of Flock creation or payment. Token boundary CR8.1.8a: destroyed Quicken is removed from the game, so it never remains in Graveyard; explicit graveyard counts verify this. Sources: FaBSim/GeneratedCode/cardArrayCache.json#quicken FaBSim/GeneratedCode/cardArrayCache.json#wounding_blow_red https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

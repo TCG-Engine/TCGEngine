@@ -1,0 +1,7 @@
+{
+    "name": "Evasive Leap / evasive_leap_blue / third response after partial resolution",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:49:18+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "During the continuing Reaction Step, top Razor resolves above pending Dodge. One actual turn-player pass gives attacked hero priority; their actual Hand click announces evasive_leap_blue above the pending Dodge with Stack2, without a CanPlay precheck. Its printed cost0 is paid from floating resources; both players remain AP0. No defense or damage is added before the layer resolves. It resolves first for defense1; original Dodge resolves second for total defense3. Printed Wounding Blow4 plus real Razor3 gives power7, damage4 and heroHP16. The real Razor hit layer grants go again before the single Resolution AP refund. Actual final pass then Close pins exact UID/owner/LIFO Graveyard order. Sources: https://rules.fabtcg.com/en/cr/07-combat/#742b https://rules.fabtcg.com/en/cr/07-combat/#743 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537 FaBSim/GeneratedCode/cardArrayCache.json#dodge_blue FaBSim/GeneratedCode/cardArrayCache.json#evasive_leap_blue FaBSim/GeneratedCode/cardArrayCache.json#razor_reflex_red"
+}

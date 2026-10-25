@@ -1,0 +1,21 @@
+{
+  "status": "PLANS_NOT_EXECUTED",
+  "controls": [
+    {
+      "name": "non-equipment-count",
+      "method": "Disposable isolated cloned supported defender changes classification/card identity or native count component; retain exact pre/post dynamic power and damage oracle. Catch countingEquipment or priorlink."
+    },
+    {
+      "name": "stony-threshold",
+      "method": "Disposable query component changes fewer-than2 to <=2, retaining correct two-card power6/nohit oracle."
+    },
+    {
+      "name": "aura-boolean-owner",
+      "method": "Disposable cloned Aura ownership/cardtype mutation leaves source stats/damage oracles intact; correct ownAura+1 versus opposite/notAura fails if wrongly applied."
+    },
+    {
+      "name": "yinti-defense",
+      "method": "Disposable cloned defendingYinti WTR_DEFENSE:+1/-1 tag with original power4, cacheddefense3/HP19 expectations; meaningful native damage fault expected. No native rules/fixtures modified in author lane."
+    }
+  ]
+}

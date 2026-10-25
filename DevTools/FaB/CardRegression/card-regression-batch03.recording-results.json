@@ -1,0 +1,176 @@
+[
+    {
+        "slug": "card-sigil-of-solace-red-opponent-turn-instant",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 4
+    },
+    {
+        "slug": "card-sigil-of-solace-yellow-opponent-turn-instant",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 4
+    },
+    {
+        "slug": "card-sigil-of-solace-blue-opponent-turn-instant",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 4
+    },
+    {
+        "slug": "card-sink-below-red-hand-exchange",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sink-below-red-hand-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sink-below-red-arsenal-exchange",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sink-below-red-arsenal-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sink-below-red-empty-hand",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 4
+    },
+    {
+        "slug": "card-sink-below-red-empty-deck-exchange",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 4
+    },
+    {
+        "slug": "card-sink-below-yellow-hand-exchange",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sink-below-yellow-hand-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sink-below-yellow-arsenal-exchange",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sink-below-yellow-arsenal-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sink-below-yellow-empty-hand",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 4
+    },
+    {
+        "slug": "card-sink-below-yellow-empty-deck-exchange",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 4
+    },
+    {
+        "slug": "card-sink-below-blue-hand-exchange",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sink-below-blue-hand-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sink-below-blue-arsenal-exchange",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sink-below-blue-arsenal-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sink-below-blue-empty-hand",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 4
+    },
+    {
+        "slug": "card-sink-below-blue-empty-deck-exchange",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 4
+    },
+    {
+        "slug": "card-bravo-cost-two-no-dominate",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 5
+    },
+    {
+        "slug": "card-goliath-gauntlet-cost-two-boundary",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 2
+    },
+    {
+        "slug": "card-goliath-gauntlet-cost-one-exclusion",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 2
+    },
+    {
+        "slug": "card-goliath-gauntlet-filter-and-consumption",
+        "status": "recorded_semantically_checked",
+        "actions": 41,
+        "assertions": 6
+    },
+    {
+        "slug": "card-scalding-rain-red-target-1",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 5
+    },
+    {
+        "slug": "card-scalding-rain-red-target-2",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 5
+    },
+    {
+        "slug": "card-scalding-rain-red-barrier-pay",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 5
+    },
+    {
+        "slug": "card-scalding-rain-red-barrier-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 5
+    }
+]

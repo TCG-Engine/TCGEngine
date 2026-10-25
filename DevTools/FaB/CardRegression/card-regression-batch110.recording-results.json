@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-ravenous-rabble-red-four-live-sparse-real-attack-reveals-physical-yellow-top-card-and-loses-two-power",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 534
+    },
+    {
+        "slug": "card-prime-the-crowd-red-four-live-sparse-real-two-cost-action-buffs-next-real-blue-attack-by-four",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 673
+    },
+    {
+        "slug": "card-prismatic-leyline-yellow-four-live-sparse-real-zero-cost-action-buffs-next-real-blue-attack-by-three",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 617
+    },
+    {
+        "slug": "card-trot-along-blue-four-live-sparse-real-zero-cost-action-grants-go-again-to-next-real-base-two-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 32,
+        "assertions": 617
+    }
+]

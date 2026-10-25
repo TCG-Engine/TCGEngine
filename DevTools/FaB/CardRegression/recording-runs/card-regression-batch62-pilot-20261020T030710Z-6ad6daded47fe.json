@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-20T03:07:10+00:00",
+    "input_file": "card-regression-batch62-pilot.json",
+    "input_sha256": "35e1d59e5744122efb639052d5c3f4ba3b8d45f0dd0ae54b87c8411abd19e507",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-springboard-somersault-yellow-ordinary-reaction-hand-floating-exact-at-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 157
+        },
+        {
+            "slug": "card-springboard-somersault-yellow-ordinary-reaction-arsenal-face-down-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 157
+        }
+    ]
+}

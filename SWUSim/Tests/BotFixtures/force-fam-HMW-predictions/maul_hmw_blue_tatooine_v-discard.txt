@@ -1,0 +1,56 @@
+# Self-play fixture — "Maul Blue" (Maul, Old Master - Dune Sea)
+# Source: Force Fam member Ninin (NininTCG)'s Maul Blue v3, given by the owner as JSON 2026-10-13. 54 main-deck cards, 10 sideboard.
+#   v3 replaces v2 (base JTL_020, 18 SWU Forge games on 2026-10-12, 12-6 — owner: "those 18 games are how i think this deck should
+#   play"; logs in docs/superpowers/swuforge-research/, memory `swuforge-three-deck-analysis-2026-10-12`). v3 vs v2: base Dune Sea
+#   HMW_019; +2 Ritual Dragon HMW_234, +2 Sandstorm HMW_240; Pre Vizsla 3 -> 2; sideboard reworked (no ASH_219; +ASH_053, HMW_240).
+#   Filename: maul_hmw_blue_tatooine (Dune Sea is Tatooine and the list cares) + the VARIANT "_v-discard" — owner 2026-10-19: Star
+#   Wars Dad's list moved to the same base (maul_hmw_blue_tatooine_v-combo.txt); "the one by Ninin is the discard variant". The
+#   variant tells the two apart, so the "_by-ninin" author suffix was dropped. (Was maul_hmw_blue_tatooine_by-ninin.txt; v2's file
+#   was maul_hmw_blue_by-ninin.txt.)
+# Author: Ninin
+# Variant: Discard
+# Archetype (owner's label, 2026-10-12): Soft control — "value trades. hand hate. soft control tempo deck." Hand hate: 3 Remnant
+#   Lookouts ASH_220, 3 Intelligence Agency HMW_205, 2 Garindan SEC_186, 2 Beguile SEC_233.
+# Style: softcontrol
+# Flavours: tempo
+
+Leader
+1 HMW_016
+
+Base
+1 HMW_019
+
+Deck
+3 ASH_192
+2 ASH_194
+3 ASH_220
+2 ASH_048
+2 ASH_052
+2 ASH_053
+2 HMW_198
+3 HMW_202
+2 HMW_204
+3 HMW_205
+2 HMW_234
+2 HMW_240
+3 JTL_032
+3 JTL_033
+2 JTL_043
+3 LAW_133
+2 LAW_237
+3 LOF_213
+2 LOF_242
+3 LOF_070
+2 SEC_186
+2 SEC_233
+1 SEC_078
+
+Sideboard
+1 ASH_052
+1 ASH_053
+1 HMW_204
+1 HMW_240
+2 JTL_041
+1 JTL_043
+1 LAW_096
+2 SEC_078

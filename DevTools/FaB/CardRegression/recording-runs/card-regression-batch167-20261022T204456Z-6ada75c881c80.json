@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T20:44:56+00:00",
+    "input_file": "card-regression-batch167.json",
+    "input_sha256": "ab7ab5c7fdbeb19c9a1892f735f460b2015b8d47e807df0a7f0ba32867042d58",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-deep-blue-four-live-sparse-actual-bottom-hand-additional-cost-and-destroy-gains-three-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 838
+        }
+    ]
+}

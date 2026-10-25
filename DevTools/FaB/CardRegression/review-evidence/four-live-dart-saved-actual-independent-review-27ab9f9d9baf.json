@@ -1,0 +1,187 @@
+{
+  "status": "INDEPENDENT_ACTUAL_FOUR_LIVE_DART_SAVED14_ACTIONS_ALL1006_ORACLES_APPROVED_QUALIFICATION_PENDING",
+  "reviewer": "/root/resume_cnc_triage",
+  "completed_utc": "2026-10-20T14:43:45.988694+00:00",
+  "slug": "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
+  "checks": 746,
+  "actions": 14,
+  "native_assertions": 1006,
+  "spec_sha256": "f82a8406c67677c78d4c5a23221854475da5f5703e4397105f24ea0bede6287b",
+  "independent_spec_review_sha256": "a09f2dae461f019d6542b7fe3f8ed2b68361c2d6b47eb04aca39e2e8566ab4a6",
+  "runtime_sha256_observed_at_review": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "runtime_binding_limit": "The immutable recorder archive binds exact input and actualsave results, without intrinsic runtimeSHA. The source fingerprint above is independently observed during this read-only saved audit; parent same-runtime clean replays remain required.",
+  "raw5": {
+    "initial_gamestate.txt": "ac60286980012708a041bd926fa6ab7622c74309eb8a40bd14c7fb8b2b910a02",
+    "actions.json": "f3af111339ea2cc984793321dd7b91d5f03c81cad31164befdb24cda346a5701",
+    "assertions.json": "4631353746996bbab3c6c436b25ecbac4520a8329cc6bdff713085892cf6d6e2",
+    "expected_final_gamestate.txt": "459bcd968f16853b210f97f15a7bd4f87dfe0ec644657053178e262e782a0c27",
+    "meta.json": "21c5f2f578cb90efc80d264721a695b7767f600d84fc378ae6d9025caf2626c9"
+  },
+  "fixture_sha256": "386216b561abdcb09dd3918d16a49ddf5a1f317205e5ee5affca5512c9cd1607",
+  "archive": {
+    "path": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch79-four-live-dart-20261020T144034Z-6ad77d620462a.json",
+    "sha256": "13da1c3519f37d4b05643aefc3628d5f72514d52fb8b050863f6407169c2e717",
+    "completed_utc": "2026-10-20T14:40:34+00:00"
+  },
+  "checkpoints": [
+    {
+      "checkpoint": "four_live_young_heroes_printed_start_life_and_real_zone_objects",
+      "action_step": 0,
+      "oracles": 69
+    },
+    {
+      "checkpoint": "native_any_target_choice_only_adjacent_players_before_action_cost",
+      "action_step": 1,
+      "oracles": 65
+    },
+    {
+      "checkpoint": "real_dart_committed_from_hand_costs_one_ap_and_actor_retains_priority",
+      "action_step": 2,
+      "oracles": 67
+    },
+    {
+      "checkpoint": "clockwise_single_pass_before_response_reaches_player2",
+      "action_step": 3,
+      "oracles": 64
+    },
+    {
+      "checkpoint": "clockwise_single_pass_before_response_reaches_player3",
+      "action_step": 4,
+      "oracles": 64
+    },
+    {
+      "checkpoint": "real_player3_sigil_response_above_dart_retains_player3_priority",
+      "action_step": 5,
+      "oracles": 68
+    },
+    {
+      "checkpoint": "four_player_response_window_single_pass_reaches_player4",
+      "action_step": 6,
+      "oracles": 66
+    },
+    {
+      "checkpoint": "four_player_response_window_single_pass_reaches_player1",
+      "action_step": 7,
+      "oracles": 66
+    },
+    {
+      "checkpoint": "four_player_response_window_single_pass_reaches_player2",
+      "action_step": 8,
+      "oracles": 66
+    },
+    {
+      "checkpoint": "fourth_response_window_pass_resolves_only_top_sigil_player3_gains_three",
+      "action_step": 9,
+      "oracles": 68
+    },
+    {
+      "checkpoint": "four_player_dart_window_single_pass_reaches_player2",
+      "action_step": 10,
+      "oracles": 65
+    },
+    {
+      "checkpoint": "four_player_dart_window_single_pass_reaches_player3",
+      "action_step": 11,
+      "oracles": 65
+    },
+    {
+      "checkpoint": "four_player_dart_window_single_pass_reaches_player4",
+      "action_step": 12,
+      "oracles": 65
+    },
+    {
+      "checkpoint": "fourth_dart_pass_waits_for_player4_spellvoid_without_damage_or_source_cleanup",
+      "action_step": 13,
+      "oracles": 70
+    },
+    {
+      "checkpoint": "player4_destroys_own_cloak_prevents_one_then_takes_two_original_caster_credit",
+      "action_step": 14,
+      "oracles": 78
+    }
+  ],
+  "actual_initial": {
+    "live_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "kano",
+      "ira_crimson_haze",
+      "dorinthea",
+      "katsu"
+    ],
+    "life": [
+      15,
+      20,
+      20,
+      20
+    ],
+    "hold_priority": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "windows_false_for_all_four": true,
+    "seeded_history_or_permissions": false
+  },
+  "actual_final": {
+    "life": [
+      15,
+      20,
+      23,
+      18
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "action_points": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "arcane_dealt": {
+      "1": {
+        "4": 2
+      }
+    },
+    "all_four_queues_empty": true,
+    "awaitframes_empty": true,
+    "source_own_graveyard_UIDs": [
+      5,
+      7,
+      6
+    ]
+  },
+  "directly_pinned": [
+    "Actual P1 Hand play and targetprepare offers only adjacentP2/P4, realP1 selectsP4; oneAP/zeroresources.",
+    "Actual P3 costzero Sigil response onStack2 retainsP3priority/resetpasses; real4passround resolvesonlySigil+3HP thenreturnsP1priority.",
+    "Action13 saved native checkpoint pins P4 actualoptionalSpellvoid MZMAYCHOOSE front, allother queuesempty, liveDartUID5 owner/controller1 onStack and P4HP20/cloakUID6intact; action14 is actualP4 owncloakanswer.",
+    "Full actual terminal snapshot pins physicalcloak6 destroyed toowner4GY, exact2arcanecreditcaster1/victim4, HP15/20/23/18, originalDart5owner1GY andSigil7owner3GY, allfourqueues/Stack/awaitframesclear."
+  ],
+  "core_queue_integration": {
+    "source_review_sha256": "b4544341dbdee603091396995859318c05deacc25507579b3e3b3c1b7f6cab3e",
+    "before": "Exact source-component evidence: existing Core seat fallback1/2 wrongly reported empty for actual nativeclass pendingseat3/4 queue. No pre-fix full Dart game is claimed.",
+    "after": "This saved actual four-live game successfully reaches P4 privatechoice with DartUID5 live, then consumes realP4 answer and finishes. Combined with exact before/after Core component/sourcebinding, this is the previously pending nativechooser integration witness.",
+    "native_recording_report_has_full_intermediate_snapshots": false,
+    "intermediate_evidence": "All1006 exact native assertions persisted and recorder reports recorded_semantically_checked; the archive does not contain separate postaction full snapshots. Parent independent clean replays will reexecute those oracles."
+  },
+  "pending": [
+    "Two clean samefixture/sameruntime target replays",
+    "Meaningful native fault controls",
+    "Appropriate existing suite checks",
+    "Parent explicit qualification; no coverage/default activation credit from this audit"
+  ],
+  "native_imports": 0,
+  "native_actions": 0,
+  "native_writes": 0,
+  "new_qualified_coverage": 0,
+  "reviewer_script_sha256": "cb146c3b66972e1b8ffa9e82cf84ba00a021bd05c2d9bef01ec3a3403792a782"
+}

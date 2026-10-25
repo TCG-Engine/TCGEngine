@@ -1,0 +1,196 @@
+{
+  "status": "B179_APPROVAL_REVOKED_SAVED_TIMING_HOLD_AND_B181_UNATTEMPTED_HOLD",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "completed_utc": "2026-10-22T21:18:54.006757+00:00",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "ids": [
+        "5.1.1",
+        "5.1.3b",
+        "5.1.7",
+        "5.1.9"
+      ],
+      "conclusion": "Declaring an optional additional cost happens earlier; actually paying its effect occurs after all asset-costs."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "ids": [
+        "1.14.2a",
+        "1.14.2d",
+        "1.14.4"
+      ],
+      "conclusion": "Resources, including required pitch, and action points are asset-costs. Arsenal-bottom and reveal are effect-costs, not declaration alone."
+    }
+  ],
+  "current_printed_authorities": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1158/",
+      "card": "Tome of Harvests",
+      "conclusion": "Printed cost3; Arsenal-bottom additional cost; Draw3 and go again. Independently retrieved current official text."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/977/",
+      "card": "Rouse the Ancients",
+      "conclusion": "Printed cost3; optional reveal13 additional cost; paid-cost conditional +7 and go again. Current official text supersedes old local image wording."
+    }
+  ],
+  "findings": [
+    {
+      "batch": 179,
+      "chain": [
+        "FaBSim/GeneratedCode/GeneratedMacroCode.php:148419 actual FaBMoveChoice before148420 FinishPreparedCard",
+        "FaBSim/Custom/CardChoices.php:25-28 delegates directly to FaBMoveUID;98-114 only afterward attempts payment",
+        "FaBSim/Custom/GameLogic.php:675 removes original object;681 appends canonical destination;686-689 calls after-move hooks",
+        "FaBSim/Custom/GameLogic.php:971-972 later subtracts resources and AP"
+      ],
+      "conclusion": "This chain mutates canonical zones and invokes movement hooks before real assets are paid. No shadow zone or deferred commit in this bounded chain. Saved179 explicitly requires this intermediate state; hold it even though final Draw3 and deterministic replay pass."
+    },
+    {
+      "batch": 181,
+      "chain": [
+        "FaBSim/GeneratedCode/GeneratedMacroCode.php:141730 calls FaBRevealChoices;141731-732 applies paid-cost bonus/GA before141726 FinishPreparedCard",
+        "FaBSim/Custom/CardChoices.php:78 emits actual RevealCard event;87 invokes Korshem reveal helper",
+        "FaBSim/Custom/GameLogic.php:971-972 asset payment occurs later"
+      ],
+      "conclusion": "Selecting reveal cards early could be declaration; emitting public reveal and cost-granted modifiers before payment is actual execution. Proposed intermediate oracles and source path are held before native execution."
+    }
+  ],
+  "cases": [
+    {
+      "batch": 179,
+      "source": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b179-one-earth-action-actual-arsenal-bottom-cost-and-three-draws-proposed\\b179-one-case-proposed.json",
+        "sha256": "f31efd07a8a328388b5081d767cffcf38c38b49ed7f319a378c2fb9876de2ba7"
+      },
+      "manifest": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b179-one-earth-action-actual-arsenal-bottom-cost-and-three-draws-proposed\\manifest.json",
+        "sha256": "928ae5a6675ec0a164b168675bb51901aa60ffdd2fc837f727d934bdf82c80a4"
+      },
+      "slug": "card-tome-of-harvests-blue-four-live-sparse-actual-arsenal-bottom-additional-cost-and-three-resource-payment-draws-original-top-three",
+      "primary_group": "identity:tome_of_harvests_blue",
+      "qualified": false,
+      "coverage_credit": 0,
+      "status": "SAVED_BUT_SEMANTICALLY_HELD_PENDING_ROOT_QUARANTINE",
+      "original_saved_directory": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-tome-of-harvests-blue-four-live-sparse-actual-arsenal-bottom-additional-cost-and-three-resource-payment-draws-original-top-three",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ce959f9b1543c45ba4e40d4437597c3261cad45aebb63628e9ced5f637426072",
+        "actions.json": "305d4ec6d80be6bec8178bbfa826301880130376cf81357506752d507e791060",
+        "assertions.json": "c1db694c551fa6c0e9843e8e32190651d68c6a390467008fb76ad886e586fe8b",
+        "expected_final_gamestate.txt": "051ba76a26c95709b073c116639a75874e690f75d81818e2019957779c82ab65",
+        "meta.json": "b738c72b29cd0a0f6da171d488326dd42f0d11cf9742e5d66b1465caf85c517e"
+      },
+      "fixture_sha256": "83ac32629d9f0c52a227c1dff910235211f2e2580e1d0a3c2e84c413b84d9f76",
+      "actions": 7,
+      "assertions": 1028,
+      "recording_receipt": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch179-20261022T211414Z-6ada7ca6384f3.json",
+        "sha256": "0d1373097f842c396a1e3d39d2dfb6a13c9c4e30ffd957f0b8e9e6fbaabd5fb0"
+      },
+      "positive_replays": [
+        {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b179-four-live-run1.json",
+          "sha256": "29fbb4c37a81d92ce0045cdaa770a7f9b77bcef7070926bce6e5a51d576c9438"
+        },
+        {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b179-four-live-run2.json",
+          "sha256": "36de4433adc8a040e0346fd0577177a48f2604a12d24d61ffff177aaa98f5e6c"
+        }
+      ],
+      "replay_interpretation": "These passes reproduce the rejected timing oracle; they are not qualification.",
+      "revoked_prior_spec_approval": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b179-independent-spec-review.json",
+        "sha256": "20c8f93d80b6929d9011300f6c66a5f4178f4dc06625a55c05112bedbfe98fb8"
+      },
+      "contradicted_native_step": 2,
+      "contradicted_native_oracles": [
+        {
+          "step": 2,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p1ActionPoints",
+          "value": 1
+        },
+        {
+          "step": 2,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p1Resources",
+          "value": 0
+        },
+        {
+          "step": 2,
+          "type": "zone_count",
+          "viewerPlayerID": 1,
+          "zone": "p1Arsenal",
+          "value": 0
+        },
+        {
+          "step": 2,
+          "type": "zone_count",
+          "viewerPlayerID": 1,
+          "zone": "p1Deck",
+          "value": 4
+        },
+        {
+          "step": 2,
+          "type": "zone_count",
+          "viewerPlayerID": 1,
+          "zone": "p1Hand",
+          "value": 1
+        },
+        {
+          "step": 2,
+          "type": "zone_count",
+          "viewerPlayerID": 1,
+          "zone": "p1Pitch",
+          "value": 0
+        },
+        {
+          "step": 2,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "pendingPayment",
+            "cost"
+          ],
+          "comparison": "equals",
+          "valueJson": "3"
+        }
+      ]
+    },
+    {
+      "batch": 181,
+      "source": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b181-one-actual-thirteen-power-reveal-cost-attack-proposed\\b181-one-case-proposed.json",
+        "sha256": "fded2b2b9a5f2787cf98413fc2f07ea2c517c716833dbd2b6df63f355657cf6b"
+      },
+      "manifest": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b181-one-actual-thirteen-power-reveal-cost-attack-proposed\\manifest.json",
+        "sha256": "72b007913ff20f1fbaf790c2db87d9fe33f824963fa903071acf4c26b5f64a4c"
+      },
+      "slug": "card-rouse-the-ancients-blue-four-live-sparse-actual-thirteen-power-additional-reveal-cost-and-paid-plus-seven-attack-go-again",
+      "primary_group": "identity:rouse_the_ancients_blue",
+      "qualified": false,
+      "coverage_credit": 0,
+      "status": "UNATTEMPTED_SOURCE_ONLY_HOLD",
+      "installed": false,
+      "saved": false,
+      "native_actions": 0
+    }
+  ],
+  "disposition": "Root alone quarantines saved179 raw5 outside runner discovery, binds move receipt, and updates authoritative holds/coverage; reviewer makes no repository changes. Original inputs/receipts/immutable proofs remain for reproduction. No fault control or qualification requested for either draft.",
+  "limits": [
+    "The independently found problem is the newly saved179 timing oracle and bounded source order, not proof of a wrong final outcome or separately demonstrated triggered gameplay defect. No new gameplay-defect count is awarded.",
+    "No legacy fixtures reviewed, no broad source audit, no engine/helper/executor changes, no full suite. Existing qualified cases are outside this review.",
+    "No safety or permission denial occurred.179 is a semantic hold,181 is unattempted, and original179 approval is expressly revoked rather than silently edited."
+  ],
+  "review_checks": 33,
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "274d082263b4002cfc8435bec159968bb66989303bbae9a3b60468b7beb6d93b"
+}

@@ -1,0 +1,11 @@
+RUN .claude/tmp/hmw-meta-runs/baseline-v2: 196/196 real matches replayed, 390 games (0 failed), median 6.0 rounds, seat-1 win 49.5%
+0 matches on an Intro Battle: Hoth base ignored (20 HP in the sims, 30 HP in real play)
+
+######## THIS RUN vs REAL
+ARCHETYPES (30+ matches): 1   Pearson +nan   Spearman +nan   MAE 0.019 (constant 50%: 0.119)   spread SD real 0.0pp / bot 0.0pp
+STYLE BIAS (bot − real game WR, match-weighted): hyperaggro -1.9pp
+most under-performing:
+   Boba Fett (JTL) Lake Country                   hyperaggro  real 62%  bot 60%  gap  -1.9  (n=30)
+most over-performing:
+   Boba Fett (JTL) Lake Country                   hyperaggro  real 62%  bot 60%  gap  -1.9  (n=30)
+MATCHUP CELLS (ordered, 10+ matches): 0   Pearson +nan   MAE nan (constant 50%: nan)   favourite right 0%

@@ -1,0 +1,7 @@
+{
+    "name": "Leg Tap / insufficient-resources",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:38+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost 1 cannot be paid with zero floating resources and no pitchable hand card; clicking must leave card, stack, action points and resources unchanged. Sources: FaBSim/GeneratedCode/cardArrayCache.json#leg_tap_yellow https://rules.fabtcg.com/en/cr/07-combat/"
+}

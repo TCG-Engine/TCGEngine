@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-throttle-red-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 70
+    },
+    {
+        "slug": "card-full-tilt-red-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 64
+    },
+    {
+        "slug": "card-heart-wrencher-red-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 62
+    }
+]

@@ -1,0 +1,7 @@
+{
+    "name": "Blue Sea Tricorn / four live actual paid equipment draw",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T22:08:11+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed BlueSeaTricorn PirateEquipmentAction3resources+destroythis drawsoneandhasgoagain. LegalyoungPirateScurvStowaway20 actuallyactivatesphysicalEquipment5, withphysicalBlueWoundingBlow6Hand andknownRedWoundingBlow7Deck. Rawabilityproxy8 SourceEquipmentUID5 iscreated; beforepayment AP1/resources0 andequipment5stillownedEquipment/Hand6/Deck7unchanged. ActuallypitchBlue6for3 andpay3:resources0/AP0, Blue6Pitch andphysicalEquipment5destroyedascost intoownpublicGYFaceDown0 BEFORE draw. Allfourlivingplayersmanuallyrespond; source5GY, Handempty, exactDeck7retained andAP0/resources0 throughfirstthreepasses. Fourthresponse drawsphysicalRed7intoownHand0/Deckempty, ownabilityGArestoresAP1; proxy8removed, source5publicGYFaceDown0/Pitch6retained/resources0/allfourhealth20. NoGoldkissRumorheroabilityactivated; noMarlynntrigger. No inventedfloatresources orselector. Only ordinaryactual3resourcepitchpayment/destroycost, exactknownphysicaldraw andabilityGA. BladeBreakdefense, noDeckfailure, otherheroes/turns/reactions/laterdrawuse remainunverified; no support/full-card credit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/LGS392-CF.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

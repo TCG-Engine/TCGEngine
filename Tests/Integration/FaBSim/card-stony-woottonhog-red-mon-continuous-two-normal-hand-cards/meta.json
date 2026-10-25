@@ -1,0 +1,7 @@
+{
+    "name": "Stony Woottonhog / two-normal-hand-cards",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T06:04:17+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed stony_woottonhog_red: cost2, power6, defense2, pitch1. This is a continuous stat ability, not a triggered effect. Supported moves from Hand to current CombatChain yield attack powers[7, 7, 6]; defending sum6; physicaldamage0, targetHP20; no goagain, finalAP0/resources0. Ponder is a legal known-state Aura and persists because no phase change crosses its end trigger. All source/blocker UIDs/owners/origins/queues and live post-declaration computedpower are pinned; cacheddefense is asserted only where nativeblock/damage refreshes it. Sources: https://judge.fabtcg.com/cards/detail/1014/ https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

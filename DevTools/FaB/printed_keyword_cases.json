@@ -1,0 +1,235 @@
+{
+  "status": "PROPOSED_EXPECTATIONS_NOT_EXECUTED_IN_PHP",
+  "target": "FaBPrintedKeywordIsActive",
+  "cases": [
+    {
+      "name": "actual_catalog_abyssal_bite_blue",
+      "card_id": "abyssal_bite_blue",
+      "text": "You may play this from your banished zone.\nYour next Shadow attack this turn gets +1{p}. Go again\nBlood Debt",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "actual_catalog_howl_from_beyond_red",
+      "card_id": "howl_from_beyond_red",
+      "text": "You may play this from your banished zone.\nThe next attack action card you play this turn gets +3{p}.\nGo again\nBlood Debt",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "actual_catalog_rift_skitter_red",
+      "card_id": "rift_skitter_red",
+      "text": "Rune Gate\nGo again\nBlood Debt",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "actual_catalog_fry_blue",
+      "card_id": "fry_blue",
+      "text": "Go again",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "actual_catalog_surging_strike_red",
+      "card_id": "surging_strike_red",
+      "text": "Go again",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "standalone_line",
+      "text": "Draw a card.\nGo again",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "inline_own_sentence",
+      "text": "Your next Shadow attack this turn gets +1{p}. Go again",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "inline_own_sentence_with_period",
+      "text": "Your next attack gets +1{p}. Go again.",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "own_sentence_first",
+      "text": "Go again. Draw a card.",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "case_insensitive_sentence",
+      "text": "Draw a card. gO aGaIn",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "granted_keyword_only",
+      "text": "Your next attack this turn gets go again.",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "conditional_keyword_only",
+      "text": "If you have played an attack action card this turn, this gets go again.",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "wrapped_conditional_comma",
+      "text": "If you have played an attack action card this turn,\nGo again",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "wrapped_conditional_colon",
+      "text": "If this is charged:\nGo again",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "wrapped_grant_colon",
+      "text": "Your next attack gets:\nGo again",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "quoted_straight",
+      "text": "Your next attack gets \"Go again\".",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "quoted_straight_multiline",
+      "text": "Your next attack gets \"\nGo again\n\".",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "quoted_inner_sentence",
+      "text": "Your next attack gets \"Draw a card. Go again.\"",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "quoted_curly",
+      "text": "Your next attack gets \u201cDraw a card. Go again.\u201d",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "quoted_single",
+      "text": "Your next attack gets 'Draw a card. Go again.'",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "quoted_curly_single",
+      "text": "Your next attack gets \u2018Draw a card. Go again.\u2019",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "quoted_grant_then_real_own_sentence",
+      "text": "Your next attack gets \"When this hits, it gets go again.\" Go again",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "quoted_grant_then_own_sentence_after_period",
+      "text": "Your next attack gets \"Go again\". Go again",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "keyword_prefix_is_not_exact",
+      "text": "Go again later",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "incidental_keyword_mention",
+      "text": "This effect checks whether a card has go again.",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "metadata_gate_must_remain",
+      "text": "Go again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "standalone_other_keyword",
+      "text": "Draw a card. Dominate",
+      "keyword": "Dominate",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "conditional_other_keyword",
+      "text": "If this is charged, it has dominate.",
+      "keyword": "Dominate",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "legacy_empty_go_again",
+      "text": "",
+      "keyword": "Go again",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "legacy_empty_dominate",
+      "text": "",
+      "keyword": "Dominate",
+      "has_keyword": true,
+      "expected": true
+    },
+    {
+      "name": "legacy_empty_other_keyword",
+      "text": "",
+      "keyword": "Boost",
+      "has_keyword": true,
+      "expected": false
+    },
+    {
+      "name": "legacy_empty_metadata_absent",
+      "text": "",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    }
+  ]
+}

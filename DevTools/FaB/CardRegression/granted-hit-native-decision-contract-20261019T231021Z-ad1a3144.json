@@ -1,0 +1,10 @@
+{
+  "command": "php DevTools/FaB/CardRegression/test_granted_hit_decision_contract.php",
+  "runtime_sha256": "8e5cd9ef9250343c5f0bc180531522a7fd9c9f32326c891465af7420f789460c",
+  "probe_sha256": "562e43099bdd71be9f096c260dbb5b80e929a0cf542afbbe53dfe174d28f9048",
+  "evidence_kind": "native_api_contract_not_saved_recording",
+  "completed_utc": "2026-10-19T23:10:21.035638+00:00",
+  "exit_code": 255,
+  "stdout": "\nFatal error: Uncaught RuntimeException: Invalid answer changed semantic state: PASS in C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\test_granted_hit_decision_contract.php:10\nStack trace:\n#0 C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\test_granted_hit_decision_contract.php(41): GHRequire(false, 'Invalid answer ...')\n#1 {main}\n  thrown in C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\test_granted_hit_decision_contract.php on line 10\n",
+  "stderr": "PHP Fatal error:  Uncaught RuntimeException: Invalid answer changed semantic state: PASS in C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\test_granted_hit_decision_contract.php:10\nStack trace:\n#0 C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\test_granted_hit_decision_contract.php(41): GHRequire(false, 'Invalid answer ...')\n#1 {main}\n  thrown in C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\test_granted_hit_decision_contract.php on line 10\n"
+}

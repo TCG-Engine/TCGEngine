@@ -62,7 +62,15 @@ function SWUBotRuleInitiativeForLethal(array $ctx): ?array {
     if ($init === null) return null;
     $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
     if (SWUBotLethalNow($seat, $opp) || !SWUBotLethalNextRound($seat, $opp)) return null;
-    return SWUBotOpponentCanGetSentinel($opp) ? null : $init;
+    if (SWUBotOpponentCanGetSentinel($opp)) return null;
+    // Feature 'chipfirst' (p64): the claim passes away every attack I have left this round. While a ready unit can still hit their
+    // base, attack first — it readies for next round anyway and their base only gets lower; claim once the attacks are spent.
+    if (SWUBotFeatureOn('chipfirst') && _SWUBotFind($ctx, function ($a) use ($seat) {
+        if (SWUBotActionKind($a) !== 'attack') return false;
+        $att = SWUBotViewForMz($seat, SWUBotActionMz($a));
+        return $att !== null && SWUBotAttackTargets($seat, $att)['base'];
+    }) !== null) { _SWUBotFired('chipfirst', $seat); return null; }
+    return $init;
 }
 
 // Shared by rules 4 and 5. Tries every candidate except pass and taking the initiative (they never move the
@@ -155,17 +163,21 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
     $byValue = SWUBotFeatureOn('wipegate');
     $uids = fn(int $p) => array_map(fn($v) => $v['uid'], SWUBotUnits($p));
     $valueOf = fn(int $p) => array_sum(array_map(fn($v) => SWUBotUnitValue($v), SWUBotUnits($p)));
-    $mineBefore = $uids($seat); $theirsBefore = $uids($opp);
+    // Team Suns: "mine" is OUR side, so a wipe that clears the teammate's board pays for it. [$seat] elsewhere.
+    $ours = SWUBotFriendlySeats($seat);
+    $ourUids = function () use ($ours, $uids) { $o = []; foreach ($ours as $f) $o = array_merge($o, $uids($f)); return $o; };
+    $ourValue = function () use ($ours, $valueOf) { $v = 0.0; foreach ($ours as $f) $v += $valueOf($f); return $v; };
+    $mineBefore = $ourUids(); $theirsBefore = $uids($opp);
     if (!$byValue && empty($mineBefore)) return null;
-    $vMine = $valueOf($seat); $vTheirs = $valueOf($opp);
+    $vMine = $ourValue(); $vTheirs = $valueOf($opp);
     $clockBefore = SWUBotClock($opp, $seat);
     // Base damage each side's board threatens per round, before the wipe (for proposal 'wipethreat' below).
     $oppPotBefore = SWUBotBasePotential($opp, $seat, false);
     $myPotBefore = SWUBotBasePotential($seat, $opp, false);
-    $read = function () use ($seat, $opp, $uids, $valueOf, $mineBefore, $theirsBefore, $vMine, $vTheirs) {
-        $own = count(array_diff($mineBefore, $uids($seat)));
+    $read = function () use ($seat, $opp, $uids, $valueOf, $ourUids, $ourValue, $mineBefore, $theirsBefore, $vMine, $vTheirs) {
+        $own = count(array_diff($mineBefore, $ourUids()));
         return ['ownLost' => $own, 'defeated' => $own + count(array_diff($theirsBefore, $uids($opp))),
-                'net' => ($vTheirs - $valueOf($opp)) - ($vMine - $valueOf($seat)), 'oppClock' => SWUBotClock($opp, $seat),
+                'net' => ($vTheirs - $valueOf($opp)) - ($vMine - $ourValue()), 'oppClock' => SWUBotClock($opp, $seat),
                 'oppPot' => SWUBotBasePotential($opp, $seat, false), 'myPot' => SWUBotBasePotential($seat, $opp, false)];
     };
     $countGate = $byValue
@@ -181,7 +193,13 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
         ? fn(array $r) => ($oppPotBefore - $r['oppPot']) >= SWU_BOT_WIPE_THREAT_WORTH
                           && ($oppPotBefore - $r['oppPot']) > ($myPotBefore - $r['myPot'])
         : fn(array $r) => false;
-    $qualifies = fn(array $r) => $countGate($r) || $threatGate($r);
+    // LEVER 'widewipe' (Custom/levers/controlread_widewipe.php; owner 2026-10-19 "when you see the opponent going wide, it is a good time to
+    // wipe"): most wipe decisions are this rule's, so the lever's play-scorer bonus alone fired once in 132 smoke games. With the proposal on,
+    // a wipe also qualifies when it defeats 3+ of their units, at least 2 more of theirs than mine, and more of their value than mine.
+    $wideGate = SWUBotFeatureOn('widewipe')   // SHIPPED 2026-10-19 (p56)
+        ? fn(array $r) => ($r['defeated'] - $r['ownLost']) >= 3 && ($r['defeated'] - 2 * $r['ownLost']) >= 2 && $r['net'] > 0
+        : fn(array $r) => false;
+    $qualifies = fn(array $r) => $countGate($r) || $threatGate($r) || $wideGate($r);
     $score = fn(array $r) => $qualifies($r) ? 1000.0 + $r['oppClock'] * 10 + ($byValue ? $r['net'] : -$r['ownLost']) : -1.0;
     // Feature 'wipeaware' (p30): a wipe that leaves me in a SHOWN per-unit wipe's lethal range — Pre Vizsla's tokens — is
     // not this rule's to play (owner's game 1483356 R19); the fallback holds it the same way.
@@ -189,7 +207,13 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
     $isWipe = function (array $a) use ($seat, $per) {
         if (SWUBotActionKind($a) !== 'play') return false;
         $o = _SWUBotHandObject($seat, $a);
-        if ($o === null || !in_array('wipe', SWUBotCardTags(strval($o->CardID)), true)) return false;
+        if ($o === null) return false;
+        $tags = SWUBotCardTags(strval($o->CardID));
+        // FEATURE 'gloom' (p44) (owner 2026-10-12): "Give each enemy unit -N/-N" (Lawbringer, Bo-Katan SEC_051, Disruptive Burst) is a gloom, not a
+        // wipe — "they might wipe, but it's not guaranteed unless the opponent has 2 or 3 hp units". It is a candidate here, and the lookahead's
+        // gates below (2+ defeated, stabilises) decide whether THIS board makes it one. Krennic Splash: Lawbringer by R6 vs aggro 6-0.
+        $gloom = SWUBotFeatureOn('gloom') && in_array('debuff-all-enemy-units', $tags, true);
+        if (!in_array('wipe', $tags, true) && !$gloom) return false;
         return !($per > 0 && _SWUBotPlayEntersWipeRange($seat, $a, $per));
     };
     // Diagnostics (read-only; land in SWUBOT_METRICS coverage). 'wipe:castable' = this rule saw at least one wipe it
@@ -203,12 +227,16 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
     // switch. `docker exec -e SWUBOT_WIPE_DIAG=1 …` to read them.
     $diag = (bool)getenv('SWUBOT_WIPE_DIAG');
     if ($diag && !empty(array_filter($ctx['actions'], $isWipe))) SWUBotRecordCoverage($seat, 'wipe:castable');
-    $ok = function (array $r) use ($countGate, $threatGate, $seat, $diag) {
+    $ok = function (array $r) use ($countGate, $threatGate, $wideGate, $seat, $diag) {
         $c = $countGate($r); $t = $threatGate($r);
         if ($diag && $t && !$c) SWUBotRecordCoverage($seat, 'wipe:threat-only');
-        return $c || $t;
+        $w = $wideGate($r);
+        if ($w && !$c && !$t) _SWUBotFired('widewipe', $seat);
+        return $c || $t || $w;
     };
     $line = _SWUBotBestLine($ctx, $read, $score, $ok, $isWipe);
+    if ($line !== null && SWUBotFeatureOn('gloom') && ($go = _SWUBotHandObject($seat, $line)) !== null
+        && !in_array('wipe', SWUBotCardTags(strval($go->CardID)), true)) _SWUBotFired('gloom', $seat);
     if ($line !== null || !SWUBotFeatureOn('epicwipe')) return $line;
     // Feature 'epicwipe' (p37): no castable wipe qualifies — one castable only THROUGH the base's aspect-waiver Epic may (Krennic Splash:
     // Single Reactor Ignition 10 -> 8 with the Daimyo's Palace waiver; owner "the 5R turn + 3 credits or 6R + 2C"). Judged on the board
@@ -244,12 +272,24 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
 //     out of that sum — attackFirst's flat 6.00 is a SEQUENCING bonus, not a value.
 // Placed ahead of rule 8 on purpose: scenario (b) leaves only attack / pass / initiative, which rule 8 answers
 // with the free attack before the fallback ever sees the initiative.
+// 2026-10-11 Krennic workshop, proposal 'claimbomb' — the owner's version of this rule (Q2): "in a control deck i sometimes claim early if i
+// have removal in hand and they just played a bomb and i know they won't play anything else or attack with anything else." The proposal
+// above lost three times; it never asked whether the opponent was DONE, so its claim gave up a round the opponent kept using. Under
+// 'claimbomb' (and not 'initiative'): only while the opponent is spent (_SWUBotOpponentSpent), only for a bomb (printed cost >= 5), and
+// whichever seat holds the still-unclaimed initiative — a spent opponent can still take it, which is why the owner claims early.
+const SWU_BOT_CLAIM_BOMB_COST = 5;
 function SWUBotRuleInitiativeForAnswer(array $ctx): ?array {
-    if (!SWUBotProposalOn('initiative') || !_SWUBotIsFreePlay($ctx)) return null;
+    $bombOnly = SWUBotProposalOn('claimbomb') && !SWUBotProposalOn('initiative');
+    if ((!SWUBotProposalOn('initiative') && !$bombOnly) || !_SWUBotIsFreePlay($ctx)) return null;
     $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
     if (SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3) return null;
     $init = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'initiative');
-    if ($init === null || strval(GetInitiativeCounter() ?? '') !== 'P' . $opp . '_UNCLAIMED') return null;
+    if ($init === null) return null;
+    $counter = strval(GetInitiativeCounter() ?? '');
+    // (An already-CLAIMED initiative needs no check: the engine stops offering the action, so $init is null above.)
+    if ($bombOnly) {
+        if (!_SWUBotOpponentSpent($seat)) return null;
+    } elseif ($counter !== 'P' . $opp . '_UNCLAIMED') return null;
     $W = SWUBotWeights(strval($ctx['style']), $seat);
     $capNow = SWUTotalPaymentCapacity($seat);
     $capNext = SWUResourceCount($seat) + 1 + count(SWUUsableCreditTokenMzIDs($seat));
@@ -259,6 +299,7 @@ function SWUBotRuleInitiativeForAnswer(array $ctx): ?array {
         $cost = intval(SWUComputePlayCost($seat, $o));
         if ($cost <= $capNow || $cost > $capNext) continue;
         foreach (SWUBotUnits($opp) as $u) {
+            if ($bombOnly && intval($u['cost']) < SWU_BOT_CLAIM_BOMB_COST) continue;   // 'claimbomb': their bomb, not any threat
             if (SWUBotHandCardKills(strval($o->CardID), $u)) $threat = max($threat, SWUBotUnitBaseThreat($seat, $u));
         }
     }
@@ -404,6 +445,148 @@ function SWUBotRuleKillFirst(array $ctx): ?array {
     return $best;
 }
 
+// Feature 'neelcombo' (p47) — the Neel combo. Owner, Ahsoka Yellow w Neel (2026-10-13): "this list should now try to get the 'Neel
+// combo' on Turn 1. the absolute best opener is Neel plus Captain Tarpals. play Neel first, then Tarpals, and buff Tarpals for a free 4
+// damage to base." ASH_248 Neel (When Played/On Attack: the next unit you play this phase with 1 or less power enters play ready) →
+// HMW_254 Captain Tarpals (0 power, Raid 2) enters ready → ASH_009 Ahsoka's Action (+2/+0 to a unit with less power than a friendly
+// unit) → 4 at the base.
+// 'enablerfirst' (p10) only PRICES the order, and the go-wide guide outweighs it: baseline 2026-10-13 (1,610 round-1 games, 104 distinct
+// hands holding both) — the combo landed in ~56; 21 played BD-1 as the payoff (3 damage), ~20 played a payoff BEFORE Neel (0), 4 had
+// resourced a piece. So this is a hard order, like 'wall-first'. The payoff is the unit worth the most attack (power + Raid — Tarpals 2
+// beats BD-1 1); a unit that enters ready on its own (HMW_208 Luke in round 1) gains nothing and is no payoff.
+//   ROUND 1: Neel from hand, then the payoff. The buff and the swing are the fallback's (it already picks both).
+//   LATER, a ready Neel in play (owner, same day): "attack with Neel first, and then play a <=1 printed Power unit … so that it comes in
+//   ready. if there are no immediate threats, then Neel is also a good candidate to buff … so if the bot knows Neel can survive, it
+//   should go for buff Neel, swing with Neel, play a 1-power unit to ready and attack with it. another line … if Neel won't survive the
+//   buff is to just swing with Neel, and then play the weak unit. and then buff that ready unit."
+//     Line A (Neel SAFE): Ahsoka's Action on Neel → Neel swings → the payoff (ready) → it swings.
+//     Line B: Neel swings → the payoff (ready) → the fallback's buff + swing.
+//   Both add the same +2; the line decides which unit sits buffed through the opponent's next action. "Safe" (my reading) = no READY
+//   enemy unit in Neel's arena could defeat him with its attack (a Shield always saves him). An enemy SENTINEL in Neel's arena is the other
+//   "immediate threat": his swing has to go into it, so the line stands down and the fallback plays the turn — unless he has SABOTEUR
+//   (BD-1's grant; Bug Report game 1647080). A payoff that must attack into a Sentinel still enters ready, at a token value.
+// Only under a leader whose Action finishes the line.
+const SWU_BOT_NEEL_COMBO_LEADERS = ['ASH_009'];
+function _SWUBotNeelGate(int $seat): bool {
+    if (!SWUBotFeatureOn('neelcombo')) return false;
+    $leader = GetLeader($seat)[0] ?? null;
+    return $leader !== null && in_array(strval($leader->CardID ?? ''), SWU_BOT_NEEL_COMBO_LEADERS, true);
+}
+// The best payoff in hand for a "with $maxPower or less power enters play ready" grant, affordable out of $left: a hand index or null.
+// Worth its attack (power + Raid), +2 when Ahsoka's buff can then reach it — less power than $friendMax, the strongest friendly unit
+// that will be in play (seed s163: an A-Wing, 1 + Raid 1, tied Tarpals' 0 + Raid 2, was picked first, and could not take the buff
+// under a 1-power Neel — 2 damage, not 4).
+// A unit whose ready attack would have to go into an enemy Sentinel (no Saboteur of its own) reaches no base, but entering ready never
+// costs anything, so it stays a payoff at a token 0.5 — any base-reaching payoff outranks it. Bug Report game 1647080: "since Neel has
+// saboteur from BD-1, it should have attacked first before playing Luke" — a Moff Gideon Sentinel held the ground, and the old veto
+// dropped Luke as a payoff, which switched the whole Neel line off.
+function _SWUBotNeelPayoff(int $seat, int $maxPower, int $left, ?int $exclude = null, int $friendMax = -1): ?int {
+    $payoff = null; $bestSwing = 0.0;
+    foreach (GetHand($seat) as $j => $o) {
+        if ($j === $exclude || $o === null || !empty($o->removed)) continue;
+        $pid = strval($o->CardID ?? ''); $text = strval(CardText($pid));
+        // A unit that enters ready ON ITS OWN gains nothing — but only while its condition holds: HMW_208 Luke Skywalker enters ready "while
+        // it's the first round of the game", so from round 2 he is a payoff like any other (game 1647080).
+        $selfReady = stripos($text, 'enters play ready') !== false
+                     && !(preg_match('/first round of the game/i', $text) && intval(GetTurnNumber()) !== 1);
+        if (!str_contains(strval(CardType($pid)), 'Unit') || intval(CardPower($pid)) > $maxPower || $selfReady) continue;
+        if (intval(SWUComputePlayCost($seat, $o)) > $left) continue;
+        // + an Experience token it gives itself On Attack (LAW_037 Han Solo, 1/1 Shielded: owner 2026-10-13, Ahsoka Blue — "the free 2
+        // damage to base plus shielded 2/2"); it lands before damage.
+        $swing = intval(CardPower($pid)) + (preg_match('/\bRaid (\d+)/i', $text, $r) ? intval($r[1]) : 0)
+               + (preg_match('/On Attack:[^.]*Give an Experience token to this unit/i', $text) ? 1 : 0)
+               + (intval(CardPower($pid)) < $friendMax ? 2 : 0);
+        if (_SWUBotNeelSentinelIn($seat, _SWUBotPlayArena($pid)) && !preg_match('/\bSaboteur\b/', $text)) $swing = 0.5;
+        if ($swing > $bestSwing) { $bestSwing = $swing; $payoff = $j; }
+    }
+    return $payoff;
+}
+// An enemy Sentinel in $arena (exhausted or not — Sentinel binds attacks either way): a unit there without Saboteur cannot reach the base.
+// Smoke run 2026-10-13: Neel swung into an exhausted Captain Typho Sentinel and died (s02) — so NEEL'S swing stands down behind one
+// unless he has Saboteur (LOF_191 BD-1 grants it; game 1647080).
+function _SWUBotNeelSentinelIn(int $seat, string $arena): bool {
+    foreach (SWUBotEnemyUnits($seat) as $e) if (!empty($e['sentinel']) && $e['arena'] === $arena) return true;
+    return false;
+}
+function _SWUBotNeelFriendMax(int $seat): int {
+    $max = -1;
+    foreach (SWUBotUnits($seat) as $v) $max = max($max, intval($v['power']));
+    return $max;
+}
+// The hand half, as hand indices: ['enabler' => i|null, 'payoff' => j], or null. 'enabler' is null once the grant is ARMED this phase
+// (Neel played or swung — any round), and then only the payoff must fit. Unarmed, it is round 1 only: Neel and the payoff from hand.
+// $capacity defaults to what can be paid now; the opening resourcer passes the 2 resources it is about to make.
+function _SWUBotNeelComboPlan(int $seat, ?int $capacity = null): ?array {
+    if (!_SWUBotNeelGate($seat)) return null;
+    $capacity ??= SWUTotalPaymentCapacity($seat);
+    if (GlobalEffectCount($seat, 'SWU_ASH248_READY') > 0) {   // the engine's armed flag is ASH_248's own: 1 or less power
+        $p = _SWUBotNeelPayoff($seat, 1, $capacity, null, _SWUBotNeelFriendMax($seat));
+        return $p === null ? null : ['enabler' => null, 'payoff' => $p];
+    }
+    if (intval(GetTurnNumber()) !== 1) return null;
+    $enabler = null; $maxPower = -1;
+    foreach (GetHand($seat) as $i => $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        if (!preg_match('/When Played[^.]*next unit you play this phase with (\d+) or less power enters play ready/i', strval(CardText(strval($o->CardID ?? ''))), $m)) continue;
+        if ($enabler === null || intval(SWUComputePlayCost($seat, $o)) < intval(SWUComputePlayCost($seat, GetHand($seat)[$enabler]))) { $enabler = $i; $maxPower = intval($m[1]); }
+    }
+    if ($enabler === null) return null;
+    $p = _SWUBotNeelPayoff($seat, $maxPower, $capacity - intval(SWUComputePlayCost($seat, GetHand($seat)[$enabler])), $enabler,
+                           max(_SWUBotNeelFriendMax($seat), intval(CardPower(strval(GetHand($seat)[$enabler]->CardID ?? '')))));
+    return $p === null ? null : ['enabler' => $enabler, 'payoff' => $p];
+}
+// The board half: a READY friendly unit whose ON ATTACK arms the grant, with an affordable payoff in hand to spend it on (the swing costs
+// nothing, so the whole capacity is left). ['neel' => view, 'safe' => bool, 'buffable' => bool] or null. 'buffable' = Ahsoka's Action can
+// target him (a friendly unit with more power).
+function _SWUBotNeelSwingLine(int $seat): ?array {
+    if (!_SWUBotNeelGate($seat) || GlobalEffectCount($seat, 'SWU_ASH248_READY') > 0) return null;
+    $units = SWUBotUnits($seat);
+    foreach ($units as $v) {
+        if (!$v['ready'] || !preg_match('/On Attack[^.]*next unit you play this phase with (\d+) or less power enters play ready/i', strval(CardText($v['cardID'])), $m)) continue;
+        if (empty($v['saboteur']) && _SWUBotNeelSentinelIn($seat, $v['arena'])) continue;
+        if (_SWUBotNeelPayoff($seat, intval($m[1]), SWUTotalPaymentCapacity($seat), null, _SWUBotNeelFriendMax($seat)) === null) continue;
+        $safe = intval($v['shields']) > 0;
+        if (!$safe) {
+            $safe = true;
+            foreach (SWUBotEnemyUnits($seat) as $e) if ($e['ready'] && $e['arena'] === $v['arena'] && intval($e['attackPower']) >= intval($v['remaining'])) { $safe = false; break; }
+        }
+        $buffable = false;
+        foreach ($units as $f) if ($f['uid'] !== $v['uid'] && intval($f['power']) > intval($v['power'])) { $buffable = true; break; }
+        return ['neel' => $v, 'safe' => $safe, 'buffable' => $buffable];
+    }
+    return null;
+}
+// Ahsoka's buff target in Line A: Neel himself (the decision branch, BotFallback.php, gives this unit the pick). Null outside Line A.
+function SWUBotNeelBuffTargetUid(int $seat): ?int {
+    $line = _SWUBotNeelSwingLine($seat);
+    return ($line !== null && $line['safe'] && $line['buffable']) ? intval($line['neel']['uid']) : null;
+}
+function SWUBotRuleNeelCombo(array $ctx): ?array {
+    if (!_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    $seat = intval($ctx['seat']);
+    $plan = _SWUBotNeelComboPlan($seat);
+    if ($plan !== null) {
+        $want = 'myHand-' . ($plan['enabler'] ?? $plan['payoff']);
+        foreach ($ctx['actions'] as $a) {
+            if (SWUBotActionKind($a) === 'play' && SWUBotActionMz($a) === $want) { _SWUBotFired('neelcombo', $seat); return $a; }
+        }
+        return null;
+    }
+    $line = _SWUBotNeelSwingLine($seat);
+    if ($line === null) return null;
+    if ($line['safe'] && $line['buffable']) {
+        foreach ($ctx['actions'] as $a) {
+            if (SWUBotActionKind($a) === 'leader-ability') { _SWUBotFired('neelbuff', $seat); return $a; }
+        }
+    }
+    foreach ($ctx['actions'] as $a) {
+        if (SWUBotActionKind($a) !== 'attack') continue;
+        $v = SWUBotViewForMz($seat, SWUBotActionMz($a));
+        if ($v !== null && $v['uid'] === $line['neel']['uid']) { _SWUBotFired($line['safe'] ? 'neelswing' : 'neelswingfirst', $seat); return $a; }
+    }
+    return null;
+}
+
 // Feature 'wallfirst' (p39) — control vs an aggro leader puts its Sentinel down FIRST in the early rounds. Owner, Krennic (LAW) Blue
 // 2026-10-06: vs aggro the deck stabilises with "Sentinel wall + trades", and the opener is "hold for R2 Sentinel" (R2 Moff Gideon from
 // 3 resources). Traced: with Gideon/Commando in hand going into R2, one was played on R2 in 16 of 38 aggro games — Latts Razzi went first.
@@ -411,14 +594,15 @@ function SWUBotRuleKillFirst(array $ctx): ?array {
 const SWU_BOT_WALL_FIRST_ROUNDS = 4;
 function SWUBotRuleWallFirst(array $ctx): ?array {
     if (!SWUBotFeatureOn('wallfirst') || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
-    if (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3 || intval(GetTurnNumber()) > SWU_BOT_WALL_FIRST_ROUNDS) return null;
+    // PROPOSAL 'rewall' (2026-10-14): through round 6 — Ahsoka's base damage spiked in R4-R5, 81% of it with no Krennic Sentinel up.
+    if (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3 || intval(GetTurnNumber()) > (SWUBotProposalOn('rewall') ? 6 : SWU_BOT_WALL_FIRST_ROUNDS)) return null;
     $seat = intval($ctx['seat']);
     if (!SWUBotOpponentIsAggroLeader($seat)) return null;
     $guarded = [];
     foreach (SWUBotUnits($seat) as $u) if (!empty($u['sentinel'])) $guarded[$u['arena']] = true;
-    // '@try-wallarena' (2026-10-07 gap screen): against a SPACE-flavoured deck, a wall stands only in an arena the opponent is in — a
+    // Feature 'wallarena' (p43; 2026-10-07 gap screen): against a SPACE-flavoured deck, a wall stands only in an arena the opponent is in — a
     // ground Commando played into four Vader ships blocks nothing (Aurra s012 R4; diagnosis .claude/tmp/diag_vader).
-    if (SWUBotProposalOn('wallarena') && in_array('space', SWUBotDeckFlavours(intval($ctx['opp'])), true)) {
+    if (SWUBotFeatureOn('wallarena') && in_array('space', SWUBotDeckFlavours(intval($ctx['opp'])), true)) {
         $occupied = [];
         foreach (SWUBotUnits(intval($ctx['opp'])) as $u) $occupied[$u['arena']] = true;
         foreach (['Ground', 'Space'] as $ar) if (empty($occupied[$ar])) $guarded[$ar] = true;   // nothing to wall off there
@@ -456,6 +640,9 @@ function SWUBotRuleBlockerFirst(array $ctx): ?array {
     if (!(SWUBotProposalOn('blockerfirst') || SWUBotFeatureOn('blockerfirst')) || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
     $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
     if (count(SWUBotUnits($seat)) >= count(SWUBotUnits($opp))) return null;
+    // FEATURE 'removalfirst' (p53, 2026-10-17, G1-07): the removal 'shrink-first' would cast on a READY 3+ power enemy goes before the body — this
+    // rule was promoted ahead of it, so Mando Colossus put down ground bodies three rounds running while a 7-power ship hit the base.
+    if (SWUBotFeatureOn('removalfirst') && ($sf = SWUBotRuleShrinkFirst($ctx)) !== null) { _SWUBotFired('removalfirst', $seat); return $sf; }
     $hasAttack = false;
     foreach ($ctx['actions'] as $a) { if (SWUBotActionKind($a) === 'attack') { $hasAttack = true; break; } }
     if (!$hasAttack) return null;
@@ -474,6 +661,9 @@ function SWUBotRuleBlockerFirst(array $ctx): ?array {
         $sc = SWUBotScoreAction($sub, $a, $j);
         if ($sc > $bestScore) { $best = $a; $bestScore = $sc; }
     }
+    // Feature 'playdefeatwd' (p45): Maul's "play it, then defeat it" on a unit whose When Defeated kills their bodies now beats a body of
+    // mine (game 1647080: Snub Fighter Squadron over The Legacy Run's 6 divided onto Disposable B1 + Supreme Council Aide) — the fallback picks.
+    if ($best !== null && SWUBotFeatureOn('playdefeatwd') && _SWUBotPlayDefeatKillBeats($ctx, $bestScore)) return null;
     return $best;
 }
 
@@ -509,6 +699,49 @@ function SWUBotRuleKrennicRamp(array $ctx): ?array {
     // nothing to sacrifice, so readiness is read from the leader itself rather than from the action list.
     $ready = !isset($leader->Ready) || (strval($leader->Ready) !== 'false' && $leader->Ready !== false && strval($leader->Ready) !== '0');
     return $ready ? $best : null;
+}
+
+// PROPOSALS 'mercramp' + 'krennicmerc' (2026-10-14, helpers in BotCreditEngine.php) — the owner's two Expendable Mercenary lines, while the
+// Credit leader is on its front side, ready, and resources are few (SWU_BOT_FODDER_KEEP_UNTIL_RES):
+//   1. a Mercenary in play is cashed in now — the Action takes it (its sacrifice price is the lowest: it comes back as a resource);
+//   2. a castable Mercenary is played (Credits pay the shortfall — rule 'bank-credits');
+//   3. round 1 with a Mercenary in hand sets up round 2: 'krennicmerc' plays the discount engine (JTL_032, Mercenary then costs 3 from 3
+//      resources); 'mercramp' plays a weenie and sacrifices it (round 2 then has 3 resources + 1 Credit).
+function SWUBotRuleMercLine(array $ctx): ?array {
+    $ramp = SWUBotProposalOn('mercramp'); $kmerc = SWUBotProposalOn('krennicmerc');
+    if (!($ramp || $kmerc) || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    $seat = intval($ctx['seat']);
+    $l = SWUBotCreditSacLeaderFront($seat);
+    if ($l === null || !_SWUBotLeaderReady($l) || SWUResourceCount($seat) >= SWU_BOT_FODDER_KEEP_UNTIL_RES) return null;
+    $name = $kmerc ? 'krennicmerc' : 'mercramp';
+    $ability = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'leader-ability');
+    $units = array_filter(SWUBotUnits($seat), fn($v) => empty($v['isLeader']));
+    if ($ability !== null && array_filter($units, fn($v) => SWUBotIsResourceLoopUnit($v['cardID']))) { _SWUBotFired("$name-sac", $seat); return $ability; }
+    $playOf = function (callable $want) use ($ctx, $seat): ?array {
+        $best = null; $bestCost = PHP_INT_MAX;
+        foreach ($ctx['actions'] as $a) {
+            if (SWUBotActionKind($a) !== 'play') continue;
+            $o = _SWUBotHandObject($seat, $a);
+            $cid = $o === null ? '' : strval($o->CardID ?? '');
+            if ($cid === '' || !$want($cid)) continue;
+            $c = intval(CardCost($cid)) - (SWUBotIsCreditFodder($cid) ? 1 : 0);   // fodder first among equals
+            if ($c < $bestCost) { $bestCost = $c; $best = $a; }
+        }
+        return $best;
+    };
+    if (($p = $playOf('SWUBotIsResourceLoopUnit')) !== null) { _SWUBotFired("$name-play", $seat); return $p; }
+    if (intval(GetTurnNumber()) !== 1) return null;
+    $mercInHand = false;
+    foreach (GetHand($seat) as $o) if ($o !== null && empty($o->removed) && SWUBotIsResourceLoopUnit(strval($o->CardID ?? ''))) { $mercInHand = true; break; }
+    if (!$mercInHand) return null;
+    if ($kmerc) {
+        if (array_filter($units, fn($v) => SWUBotIsDiscountEngine($v['cardID']))) return null;
+        if (($p = $playOf('SWUBotIsDiscountEngine')) !== null) { _SWUBotFired('krennicmerc-engine', $seat); return $p; }
+        return null;
+    }
+    if ($ability !== null && array_filter($units, fn($v) => SWUBotIsWeenie($v['cardID']))) { _SWUBotFired('mercramp-r1sac', $seat); return $ability; }
+    if (($p = $playOf('SWUBotIsWeenie')) !== null) { _SWUBotFired('mercramp-weenie', $seat); return $p; }
+    return null;
 }
 
 // PROPOSAL 'krennicplan' (default OFF) — owner rulings K1-K3, 2026-09-22 (bot-sweeps/2026-09-22_krennic_rulings.md),
@@ -822,6 +1055,11 @@ function SWUBotRulePlannedAnswer(array $ctx): ?array {
     }
     // Feature 'plantruncate' (p42): a step that left answers untried has not seen them — the fallback chooses among ALL of them.
     if (SWUBotFeatureOn('plantruncate') && !empty($step['truncated'])) $pick = SWUBotFallbackChoose($ctx) ?? $pick;
+    // Team Suns: the lookahead reads clocks, and a teammate's board is on neither — so hitting (or stealing from) the teammate ties with
+    // or beats hitting my own unit (self-play 2026-10-12: Traitorous took the teammate's unit). An answer naming a teammate's card goes
+    // to the fallback, which prices the teammate (SWU_BOT_TEAMMATE_HARM). Inert outside a team game.
+    if (preg_match_all('/\bp\d+[A-Za-z]+-\d+/', strval($step['answer'] ?? ''), $mm)
+        && !empty(array_filter($mm[0], fn($m) => SWUBotIsTeammateMz($seat, $m)))) $pick = SWUBotFallbackChoose($ctx) ?? $pick;
     $GLOBALS['SWUBotPlan'][$seat] = $plan;
     return $pick;
 }
@@ -942,7 +1180,7 @@ function _SWUBotWipeNextRound(int $seat): ?array {
         if ($cost <= $capNow || $cost > $capNext) continue;
         [$mine, $theirs] = _SWUBotWipeLosses($seat, $cid);
         if ($theirs <= $mine) continue;
-        $arenas = _SWUBotWipeArenas($cid); $threat = _SWUBotWipeThreat($seat, $arenas);
+        $arenas = _SWUBotWipeArenas($cid); $threat = _SWUBotWipeThreatOf($seat, $cid);
         if ($best === null || $threat > $best['threat']) $best = ['cid' => $cid, 'arenas' => $arenas, 'threat' => $threat];
     }
     return $best;
@@ -962,7 +1200,7 @@ function _SWUBotWipeDrawChance(int $seat): ?array {
         [$mine, $theirs] = _SWUBotWipeLosses($seat, $cid);
         if ($theirs <= $mine) continue;
         $p = $d >= 2 ? 1.0 - $choose2($d - $k) / $choose2($d) : 1.0;
-        $threat = _SWUBotWipeThreat($seat, _SWUBotWipeArenas($cid));
+        $threat = _SWUBotWipeThreatOf($seat, $cid);
         if ($best === null || $p * $threat > $best['p'] * $best['threat']) $best = ['cid' => $cid, 'p' => $p, 'threat' => $threat];
     }
     return $best;
@@ -1114,13 +1352,15 @@ function SWUBotRulesAfterFilter(): array {
     return [
         'initiative-for-lethal'    => 'SWUBotRuleInitiativeForLethal',
         'break-lethal'             => 'SWUBotRuleBreakLethal',
-        'krennic-script'           => 'SWUBotRuleKrennicScript',         // proposal 'krennicscript' — the owner's written curve
+        'neel-combo'               => 'SWUBotRuleNeelCombo',             // feature 'neelcombo' (p47) — round 1 Neel → Tarpals
+        'krennic-script'          => 'SWUBotRuleKrennicScript',         // proposal 'krennicscript' — the owner's written curve
         'krennic-plan'             => 'SWUBotRuleKrennicPlan',           // proposal 'krennicplan' — inert unless "@try-krennicplan"
         'control-wipe'             => 'SWUBotRuleControlWipe',
         'initiative-for-answer'    => 'SWUBotRuleInitiativeForAnswer',   // proposal 'initiative' — inert unless "@try-initiative"
         'initiative-for-wipe'      => 'SWUBotRuleInitiativeForWipe',     // features 'wipeinit' + 'wipedraw' (p36)
         'kill-first'               => 'SWUBotRuleKillFirst',             // proposal 'killfirst'
         'krennic-ramp'             => 'SWUBotRuleKrennicRamp',           // proposal 'krennicramp'
+        'merc-line'                => 'SWUBotRuleMercLine',              // proposals 'mercramp' + 'krennicmerc'
         'wall-first'               => 'SWUBotRuleWallFirst',             // feature 'wallfirst' (p39)
         'blocker-first'            => 'SWUBotRuleBlockerFirst',          // proposal 'blockerfirst'
         'mg-sentinel'              => 'SWUBotRuleMgSentinel',            // proposal 'mgsentinel' — blockerfirst, corrected

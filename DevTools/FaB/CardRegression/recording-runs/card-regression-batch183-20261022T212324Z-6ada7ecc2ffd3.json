@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T21:23:24+00:00",
+    "input_file": "card-regression-batch183.json",
+    "input_sha256": "bd5d387dc3fbdf20da4b6ae59a502cb9156f3d5a484d9a66c8dd1116de805930",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-rip-off-the-top-yellow-four-live-sparse-actual-draw-sole-random-pitch-six-power-condition-and-next-attack-plus-three",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1565
+        }
+    ]
+}

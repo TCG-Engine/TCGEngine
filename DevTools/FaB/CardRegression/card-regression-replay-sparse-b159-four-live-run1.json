@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch159.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T20:27:21.450322+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rift-skitter-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+      "fixture_sha256": "b9dc02abcc2bf1abc7213c1ce7113876cc94c7b68a8a2f24e14883a0be470964",
+      "passed": true,
+      "result": "[PASS] Rift Skitter / four live sparse paid Hand attack and go again"
+    },
+    {
+      "slug": "card-rune-flash-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+      "fixture_sha256": "951abafd130bae08ab1cfa20aaacb723fa0b65687d3c1b248225865142253e40",
+      "passed": true,
+      "result": "[PASS] Rune Flash / four live sparse paid Hand attack and go again"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rift-skitter-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+      "returncode": 0,
+      "stdout": "[PASS] Rift Skitter / four live sparse paid Hand attack and go again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rune-flash-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+      "returncode": 0,
+      "stdout": "[PASS] Rune Flash / four live sparse paid Hand attack and go again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

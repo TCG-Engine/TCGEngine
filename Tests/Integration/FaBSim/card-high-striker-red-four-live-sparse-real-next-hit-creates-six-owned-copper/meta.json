@@ -1,0 +1,7 @@
+{
+    "name": "High Striker / four live sparse next-hit positive",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:41:19+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Play printed0cost High Striker5, spendAP1, and let all four live players pass. Its printed go again restoresAP1. Actually play physical Wounding Blow Red6 for0, choose adjacentP4, and spendAP1. Its printed4power deals4unblocked damage, leavingP4HP16. That actual hit creates exactly six distinct Copper tokens owned/controlled byP1: UIDs7..12. No token exists before the hit; all six remain at cleanup. All four genuine live young heroes20 own their hero UIDs1..4 and manually pass every source/combat window. No damage or granted on-hit effect occurs before fourth REACTION pass. All four final queues/health/economy/physical zones are pinned. One positive next-hit Copper creation. No non-hit, extra hit, trigger expiry, token replacement/multiplication, Copper activation or later payment coverage. No primary credit to sibling pitches, support cards/tokens/heroes, alternate branches or full-card completeness. Ordinary synchronous spell internal departure-order is not certified. Sources: https://judge.fabtcg.com/cards/detail/1436/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVR164.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

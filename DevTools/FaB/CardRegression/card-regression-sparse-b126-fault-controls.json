@@ -1,0 +1,121 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:58:00.674928+00:00",
+  "plan_sha256": "6d15b506d3acbbaca12ce5f8fc7e3eafdb92e328d0a9d3bb5ec27cea8677798d",
+  "independent_saved_proof_sha256": "992a8af445324fd454f1755047711d812569eebe1eee758aa3653aba2f9f1493",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b126-focused-fault-plan.json",
+    "6d15b506d3acbbaca12ce5f8fc7e3eafdb92e328d0a9d3bb5ec27cea8677798d",
+    "card-regression-sparse-b126-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b126_draw_swords_red_focused_effect_sensitivity",
+      "fixture": "card-draw-swords-red-four-live-sparse-actual-three-cost-warrior-action-draws-one",
+      "fixture_sha256": "12fe817f200e629f56a1db7f56bbb17a6c0ffc5c7a7ee5c16d1bf9fc66dd1348",
+      "source_raw5": {
+        "initial_gamestate.txt": "6c63935efaaf4e4461e75a70bc5cc2dcf538fb108c5f24dfd8f1fba636aceaff",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "d0a737d651d4194ecaaddcff2f12e758bbb41ed4e6183bf3744eb226e32d5b84",
+        "expected_final_gamestate.txt": "20f2d4bf615b1a2942fa9c91afe57bbd28a5e7647e7d076feb0c7de3e066b29e",
+        "meta.json": "880730bb9c81e86d6b8e2dc786d5e1c80a90ad1d920b9b602b19e7915222bd44"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Hand",
+            "to": "Temp",
+            "cardID": "wounding_blow_red",
+            "uid": 7
+          }
+        ]
+      },
+      "retained_assertions": 118,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Draw Swords / four live sparse ordinary effect: Initial assertion failed: Expected p1Hand count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Relocate exactly one actual drawn physical card by UID from own Hand after the fourth real response, preserving original pitch donors, source public cleanup, life and economy. Exact resolved draw multiplicity/physical-Hand endpoint sensitivity; no missing dispatch, legal alternative action, draw-replacement, future buff/boost or alternate metal-cost credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b126_high_octane_red_focused_effect_sensitivity",
+      "fixture": "card-high-octane-red-four-live-sparse-actual-paid-mechanologist-action-draws-one",
+      "fixture_sha256": "02f55e0ad06a76d481d8a379367a5fd67e6dc74a119b2a04a42386280fe9ca01",
+      "source_raw5": {
+        "initial_gamestate.txt": "ecc5d5f5a3a9224189efd675597265d8bcd5b0376c5b94643e1d9bb66730aaad",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "d613a94a171a4699a11142e7fd2353d64b3905f556cd0cfaf5b94c6364a30451",
+        "expected_final_gamestate.txt": "59f81f0edbdb81f149cebb8ebd97093f1f49bbfe4a9a301f6f7b637c1a83796d",
+        "meta.json": "d055b720241f28e9ba05424820d60b8787e86fceed4f11dc11f8d928e35b401e"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Hand",
+            "to": "Temp",
+            "cardID": "wounding_blow_red",
+            "uid": 7
+          }
+        ]
+      },
+      "retained_assertions": 118,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] High Octane / four live sparse ordinary effect: Initial assertion failed: Expected p1Hand count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Relocate exactly one actual drawn physical card by UID from own Hand after the fourth real response, preserving original pitch donors, source public cleanup, life and economy. Exact resolved draw multiplicity/physical-Hand endpoint sensitivity; no missing dispatch, legal alternative action, draw-replacement, future buff/boost or alternate metal-cost credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b126_cash_in_yellow_focused_effect_sensitivity",
+      "fixture": "card-cash-in-yellow-four-live-sparse-actual-four-resource-two-card-pitch-draws-two",
+      "fixture_sha256": "6e9d235fcd5d99f7a4e269070a1be383ee4d9f2240eff89bb757d67056664e6f",
+      "source_raw5": {
+        "initial_gamestate.txt": "b76f8b861d5d5acb236c4015113785b9748171408e9756a5b5700149844aa744",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "86ffc065cdec29358341b02bf5fee5f2c2ea6772e6fc13aeea0b0a1fc88eaa0c",
+        "expected_final_gamestate.txt": "668df88fb6e68d38c3ed1a5446c425d5db3b36a0282fd6d4e91312eef915857f",
+        "meta.json": "0f98b7b8dbfc7c8e37e75a8d52a17ae8501054c200f6dc7151cb05eb7161b9ee"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Hand",
+            "to": "Temp",
+            "cardID": "wounding_blow_yellow",
+            "uid": 8
+          }
+        ]
+      },
+      "retained_assertions": 126,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Cash In / four live sparse ordinary effect: Initial assertion failed: Expected p1Hand count 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Relocate exactly one actual drawn physical card by UID from own Hand after the fourth real response, preserving original pitch donors, source public cleanup, life and economy. Exact resolved draw multiplicity/physical-Hand endpoint sensitivity; no missing dispatch, legal alternative action, draw-replacement, future buff/boost or alternate metal-cost credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 3
+}

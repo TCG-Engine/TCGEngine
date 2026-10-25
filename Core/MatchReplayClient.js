@@ -223,7 +223,7 @@
     if (config().nextTurnBaseUrl) {
       var url = new URL(config().nextTurnBaseUrl, window.location.href);
       url.searchParams.set('gameName', String(payload.gameName || ''));
-      url.searchParams.set('playerID', '1');
+      url.searchParams.set('playerID', String(payload.playerID || 1));   // a sealed replay plays from its saver's seat
       url.searchParams.set('folderPath', String(payload.rootName || replay.rootName || replayRootName()));
       if (payload.authKey) url.searchParams.set('authKey', String(payload.authKey));
       url.searchParams.set('replay', '1');
@@ -231,7 +231,7 @@
     }
     if (payload.nextTurnUrl) return new URL(payload.nextTurnUrl, window.location.href).toString();
     return './NextTurn.php?gameName=' + encodeURIComponent(payload.gameName || '')
-      + '&playerID=1&folderPath=' + encodeURIComponent(payload.rootName || replay.rootName || replayRootName())
+      + '&playerID=' + encodeURIComponent(String(payload.playerID || 1)) + '&folderPath=' + encodeURIComponent(payload.rootName || replay.rootName || replayRootName())
       + (payload.authKey ? '&authKey=' + encodeURIComponent(payload.authKey) : '')
       + '&replay=1';
   }
@@ -452,13 +452,16 @@
     actions.appendChild(all);
 
     // Play from Here — pause the replay at this position and take control (mode 11104). One click, no
-    // confirm; Reset is the undo. Disabled once already interrupted.
-    var branch = document.createElement('button');
-    branch.type = 'button';
-    branch.textContent = 'Play from Here';
-    branch.disabled = busy || interrupted;
-    branch.addEventListener('click', function() { submitReplayMode(11104); });
-    actions.appendChild(branch);
+    // confirm; Reset is the undo. Disabled once already interrupted. Not offered for a SEALED replay (a PvP
+    // game's, bound to its saver's seat): the server refuses 11104 there (Core/MatchReplay.php).
+    if (!state.sealed) {
+      var branch = document.createElement('button');
+      branch.type = 'button';
+      branch.textContent = 'Play from Here';
+      branch.disabled = busy || interrupted;
+      branch.addEventListener('click', function() { submitReplayMode(11104); });
+      actions.appendChild(branch);
+    }
 
     container.appendChild(actions);
 

@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:17:22.515619+00:00",
+  "plan_sha256": "0e700f2f3c7c58a6df84d501f2efe3c15f7fffe86534c58527c8332b15c60905",
+  "independent_saved_proof_sha256": "92f17e36de92d2da9dad49540974c9d0a185716c7d51a1dbcb5e5055900e0d31",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b154-focused-fault-plan.json",
+    "0e700f2f3c7c58a6df84d501f2efe3c15f7fffe86534c58527c8332b15c60905",
+    "card-regression-sparse-b154-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b154_calming_gesture_created_shield_presence_sensitivity",
+      "fixture": "card-calming-gesture-four-live-sparse-actual-blue-pitch-paid-instant-owned-shield",
+      "fixture_sha256": "fdf875479513e84322bf5c463481dd08d94891e49c48bc2079923d3badc601c8",
+      "source_raw5": {
+        "initial_gamestate.txt": "fd611a1dbaae7366fe0554c00be81ca01d67590bdbf1b5ff3bda5186b0e2e22f",
+        "actions.json": "02e014fcbc767be35abb52b1fba8950f602a853b060793ec33880f9f114fa6e5",
+        "assertions.json": "4cc1c43008f92a4c97e225909c175fd392ae1d29daa1287c957588da65cc6d2f",
+        "expected_final_gamestate.txt": "2957a38c3e806a101dabf44eda57992f7eb2ef7acdeff2157324c242606b6744",
+        "meta.json": "0a673519c58009760829aef5e8ccffe9969df2385cfab69c34b45f7422215842"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "cardID": "spectral_shield",
+            "uid": 8,
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 115,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Calming Gesture / four live actual paid Instant Shield ability: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Blue6 pitch pays Instant1, physicalEquipment5 destroyed into own publicGY, and four real responses create owned Shield8, move only actual created Shield8 Arena to Temp on disposable. Terminal created-result sensitivity only; not legal movement, upstream callback omission, Ward/prevention or lifecycle credit. Prefix executes all original actions; every original final oracle retained, no action suffix remains.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

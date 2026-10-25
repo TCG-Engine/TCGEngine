@@ -1,0 +1,7 @@
+{
+    "name": "Battleworn close / exact first and second counter timing",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:09:13+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "First red Wounding Blow4 minus Breaking Scales defense1 deals3: health17. Counter stays empty in first RESOLUTION; after close equipment returns with exactly DEFENSE1. Second blue Wounding Blow2+Ira second-attack1 deals3 through now-zero defense: health14. During second RESOLUTION the old counter remains exactly1; second close makes exactly2. Battleworn never destroys zero-defense equipment and gives no extra AP or player response window. Sources: FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

@@ -1,0 +1,386 @@
+{
+    "completed_at_utc": "2026-10-20T01:03:01+00:00",
+    "input_file": "card-regression-batch28.json",
+    "input_sha256": "0ec1b73c4f8159d634b2ce931115bd7127f0c0da52b8c4907e53df293ed33886",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-ironrot-gauntlet-blade-break-defend-alone-three-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 55
+        },
+        {
+            "slug": "card-ironrot-gauntlet-blade-break-hand-first-equipment-second-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-ironrot-gauntlet-blade-break-not-defending-survives-close",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 32
+        },
+        {
+            "slug": "card-ironrot-gauntlet-blade-break-attacker-cannot-defend-own-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 32
+        },
+        {
+            "slug": "card-ironrot-gauntlet-blade-break-prior-link-equipment-cannot-defend-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 70
+        },
+        {
+            "slug": "card-ironrot-gauntlet-blade-break-destroyed-equipment-unavailable-next-chain",
+            "status": "recorded_semantically_checked",
+            "actions": 30,
+            "assertions": 77
+        },
+        {
+            "slug": "card-ironrot-helm-blade-break-defend-alone-three-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 55
+        },
+        {
+            "slug": "card-ironrot-helm-blade-break-fully-blocked-no-hit-still-destroys",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-ironrot-helm-blade-break-hand-first-equipment-second-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-ironrot-helm-blade-break-not-defending-survives-close",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 32
+        },
+        {
+            "slug": "card-ironrot-helm-blade-break-attacker-cannot-defend-own-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 32
+        },
+        {
+            "slug": "card-ironrot-helm-blade-break-prior-link-equipment-cannot-defend-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 70
+        },
+        {
+            "slug": "card-ironrot-helm-blade-break-destroyed-equipment-unavailable-next-chain",
+            "status": "recorded_semantically_checked",
+            "actions": 30,
+            "assertions": 77
+        },
+        {
+            "slug": "card-ironrot-legs-blade-break-defend-alone-three-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 55
+        },
+        {
+            "slug": "card-ironrot-legs-blade-break-fully-blocked-no-hit-still-destroys",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-ironrot-legs-blade-break-hand-first-equipment-second-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-ironrot-legs-blade-break-not-defending-survives-close",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 32
+        },
+        {
+            "slug": "card-ironrot-legs-blade-break-attacker-cannot-defend-own-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 32
+        },
+        {
+            "slug": "card-ironrot-legs-blade-break-prior-link-equipment-cannot-defend-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 70
+        },
+        {
+            "slug": "card-ironrot-legs-blade-break-destroyed-equipment-unavailable-next-chain",
+            "status": "recorded_semantically_checked",
+            "actions": 30,
+            "assertions": 77
+        },
+        {
+            "slug": "card-ironrot-plate-blade-break-defend-alone-three-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 55
+        },
+        {
+            "slug": "card-ironrot-plate-blade-break-fully-blocked-no-hit-still-destroys",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-ironrot-plate-blade-break-hand-first-equipment-second-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-ironrot-plate-blade-break-not-defending-survives-close",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 32
+        },
+        {
+            "slug": "card-ironrot-plate-blade-break-attacker-cannot-defend-own-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 32
+        },
+        {
+            "slug": "card-ironrot-plate-blade-break-prior-link-equipment-cannot-defend-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 70
+        },
+        {
+            "slug": "card-ironrot-plate-blade-break-destroyed-equipment-unavailable-next-chain",
+            "status": "recorded_semantically_checked",
+            "actions": 30,
+            "assertions": 77
+        },
+        {
+            "slug": "card-rotten-old-buckler-blade-break-defend-alone-three-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 55
+        },
+        {
+            "slug": "card-rotten-old-buckler-blade-break-hand-first-equipment-second-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-rotten-old-buckler-blade-break-not-defending-survives-close",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 32
+        },
+        {
+            "slug": "card-rotten-old-buckler-blade-break-attacker-cannot-defend-own-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 32
+        },
+        {
+            "slug": "card-rotten-old-buckler-blade-break-prior-link-equipment-cannot-defend-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 70
+        },
+        {
+            "slug": "card-rotten-old-buckler-blade-break-destroyed-equipment-unavailable-next-chain",
+            "status": "recorded_semantically_checked",
+            "actions": 30,
+            "assertions": 77
+        },
+        {
+            "slug": "card-teklo-base-arms-blade-break-fully-blocked-no-hit-still-destroys",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-teklo-base-arms-blade-break-hand-first-equipment-second-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-teklo-base-arms-blade-break-not-defending-survives-close",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 32
+        },
+        {
+            "slug": "card-teklo-base-arms-blade-break-attacker-cannot-defend-own-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 32
+        },
+        {
+            "slug": "card-teklo-base-arms-blade-break-prior-link-equipment-cannot-defend-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 70
+        },
+        {
+            "slug": "card-teklo-base-arms-blade-break-destroyed-equipment-unavailable-next-chain",
+            "status": "recorded_semantically_checked",
+            "actions": 30,
+            "assertions": 77
+        },
+        {
+            "slug": "card-teklo-base-chest-blade-break-defend-alone-three-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 55
+        },
+        {
+            "slug": "card-teklo-base-chest-blade-break-fully-blocked-no-hit-still-destroys",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-teklo-base-chest-blade-break-hand-first-equipment-second-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-teklo-base-chest-blade-break-not-defending-survives-close",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 32
+        },
+        {
+            "slug": "card-teklo-base-chest-blade-break-attacker-cannot-defend-own-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 32
+        },
+        {
+            "slug": "card-teklo-base-chest-blade-break-prior-link-equipment-cannot-defend-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 70
+        },
+        {
+            "slug": "card-teklo-base-chest-blade-break-destroyed-equipment-unavailable-next-chain",
+            "status": "recorded_semantically_checked",
+            "actions": 30,
+            "assertions": 77
+        },
+        {
+            "slug": "card-teklo-base-head-blade-break-defend-alone-three-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 55
+        },
+        {
+            "slug": "card-teklo-base-head-blade-break-fully-blocked-no-hit-still-destroys",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-teklo-base-head-blade-break-hand-first-equipment-second-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-teklo-base-head-blade-break-not-defending-survives-close",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 32
+        },
+        {
+            "slug": "card-teklo-base-head-blade-break-attacker-cannot-defend-own-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 32
+        },
+        {
+            "slug": "card-teklo-base-head-blade-break-prior-link-equipment-cannot-defend-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 70
+        },
+        {
+            "slug": "card-teklo-base-head-blade-break-destroyed-equipment-unavailable-next-chain",
+            "status": "recorded_semantically_checked",
+            "actions": 30,
+            "assertions": 77
+        },
+        {
+            "slug": "card-teklo-base-legs-blade-break-defend-alone-three-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 55
+        },
+        {
+            "slug": "card-teklo-base-legs-blade-break-fully-blocked-no-hit-still-destroys",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-teklo-base-legs-blade-break-hand-first-equipment-second-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        },
+        {
+            "slug": "card-teklo-base-legs-blade-break-not-defending-survives-close",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 32
+        },
+        {
+            "slug": "card-teklo-base-legs-blade-break-attacker-cannot-defend-own-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 32
+        },
+        {
+            "slug": "card-teklo-base-legs-blade-break-prior-link-equipment-cannot-defend-again",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 70
+        },
+        {
+            "slug": "card-teklo-base-legs-blade-break-destroyed-equipment-unavailable-next-chain",
+            "status": "recorded_semantically_checked",
+            "actions": 30,
+            "assertions": 77
+        },
+        {
+            "slug": "card-ironrot-helm-blade-break-multiple-distinct-slots-each-destroys",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 43
+        },
+        {
+            "slug": "card-teklo-base-head-blade-break-multiple-distinct-slots-each-destroys",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 43
+        },
+        {
+            "slug": "card-rotten-old-buckler-blade-break-multiple-distinct-slots-each-destroys",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 37
+        }
+    ]
+}

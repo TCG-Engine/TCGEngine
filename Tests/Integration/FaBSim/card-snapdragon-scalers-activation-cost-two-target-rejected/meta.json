@@ -1,0 +1,7 @@
+{
+    "name": "Snapdragon Scalers / cost-two-target-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:32+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cost2 attack action is above the printed1 target boundary. Activation must fail without paying destruction; attack remains without go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#snapdragon_scalers https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

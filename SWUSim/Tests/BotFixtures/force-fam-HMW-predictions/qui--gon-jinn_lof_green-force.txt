@@ -4,6 +4,7 @@
 # Author: wazzer
 # Archetype (owner's label, 2026-10-07): Midrange
 # Style: midrange
+# Flavours: tempo
 
 Leader
 1 LOF_016

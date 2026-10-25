@@ -1,0 +1,7 @@
+{
+    "name": "Grim Feast / four live sparse ordinary effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T20:53:07+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1 is legal young Shadow Chane, printed20/current17. Actually play physical GrimFeastRed5 from Hand at its full printed3 cost, pitching physical BlueWoundingBlow6 for3 so resources0 and AP0. It is ordinary Hand play, not Banish play, so the Banish cost discount does not apply. Every live seat manually responds and life stays17 through the first three responses. The fourth response gains printed3 to20 and moves source5 to own publicGraveyard FaceDown0, with pitch6 retained. No printed go again, so finalAP0/resources0. Chanes optional ability is unused. Full live-seat/health/priority/physical identity/owner/controller/zone counts and clear queues are pinned at each action. No primary or support card is inserted after recording starts. Only ordinary Hand play at full printed cost and positive three-life gain. Banish permission/discount, Blood Debt, life-gain prevention, other pitch siblings and Chane ability remain untested. No whole-card, sibling/support/hero coverage or ordinary source-departure ordering claim. Sources: https://judge.fabtcg.com/cards/detail/2275/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DTD175.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

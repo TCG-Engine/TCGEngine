@@ -1,0 +1,7 @@
+{
+    "name": "Command and Conquer / ordinary / nonturn-action-rejected-after-real-priority-pass",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T15:40:27+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actual unsupported role/timing/funding/origin click leaves exact source UID and all assets/Stack/priority invariant. No author-only CanPlay diagnostic counts as coverage. Sources: https://judge.fabtcg.com/cards/detail/498/ https://rules.fabtcg.com/en/cr/03-zones/#334 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

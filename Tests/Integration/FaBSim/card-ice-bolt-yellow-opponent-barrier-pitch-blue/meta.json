@@ -1,0 +1,7 @@
+{
+    "name": "Ice Bolt / opponent-barrier-pitch-blue",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:01:07+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cast for printed cost2 and1AP, then resolve printed4 arcane toward hero2. Before prevention completes, both HP20, source on Stack and caster Graveyard0. Victim2 has0floating resources and one blue pitchable card. Elect Barrier1, then explicitly choose blue to pitch3 and pay1, leaving2. HP remains20 and source remains on Stack during this pitch choice. Prevent1; damage=max(0,4-1)=3, victim life17, other hero20. Final resources[1, 2]; no go again. Source goes to its owner's graveyard after effects finish. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ice_bolt_yellow https://judge.fabtcg.com/cards/detail/1634/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

@@ -1,0 +1,5342 @@
+<?php
+
+include './zzImageConverter.php';
+include './Core/Trie.php';
+include "./Core/HTTPLibraries.php";
+include_once "./AccountFiles/AccountSessionAPI.php";
+include_once "./Database/ConnectionManager.php";
+include_once "./CardEditor/Database/CardAbilityRepository.php";
+
+// Support CLI invocation: parse arguments if not running under HTTP
+$isHTTPRequest = php_sapi_name() !== 'cli' && !empty($_SERVER['REQUEST_METHOD']);
+$isCLI = !$isHTTPRequest;
+if ($isCLI) {
+  // Parse command-line arguments: php zzGameCodeGenerator.php rootName=VALUE
+  foreach ($argv as $arg) {
+    if (strpos($arg, '=') !== false) {
+      list($key, $value) = explode('=', $arg, 2);
+      $_GET[$key] = $value;
+    }
+  }
+}
+
+$response = new stdClass();
+if ($isHTTPRequest) {
+  $error = CheckLoggedInUserMod();
+  if($error !== "") {
+    $response->error = $error;
+    echo json_encode($response);
+    exit();
+  }
+}
+
+$rootName = TryGET("rootName", "");
+$schemaFile = "./Schemas/" . $rootName . "/GameSchema.txt";
+
+$handler = fopen($schemaFile, "r");
+$rootName = trim(fgets($handler));
+$reloadStyle = trim(fgets($handler));
+$readAuth = trim(fgets($handler));
+$editAuth = trim(fgets($handler));
+// Twin Suns and FaB multiplayer support up to 4 player seats; every other sim stays at 2 so their
+// generated output is byte-identical. Every per-seat emission loops 1..$maxSeats.
+$maxSeats = in_array($rootName, ['SWUSim', 'FaBSim'], true) ? 4 : 2;
+// Emits the by-reference "return the seat's global" body shared by Get<Zone>($player) and
+// <Zone>Value($player). For $maxSeats<=2 it emits the original if/else (byte-identical output);
+// for >2 a switch over the seats. (Function declarations are hoisted, so definition order is fine.)
+function EmitSeatReturnBody($handler, $zoneName) {
+  global $maxSeats;
+  $globs = [];
+  for ($s = 1; $s <= $maxSeats; ++$s) $globs[] = "\$p" . $s . $zoneName;
+  fwrite($handler, "  global " . implode(", ", $globs) . ";\r\n");
+  if ($maxSeats <= 2) {
+    fwrite($handler, "  if (\$player == 1) return \$p1" . $zoneName . ";\r\n");
+    fwrite($handler, "  else return \$p2" . $zoneName . ";\r\n");
+  } else {
+    fwrite($handler, "  switch (\$player) {\r\n");
+    for ($s = 1; $s <= $maxSeats; ++$s) {
+      fwrite($handler, "    case " . $s . ": return \$p" . $s . $zoneName . ";\r\n");
+    }
+    fwrite($handler, "    default: return \$p1" . $zoneName . ";\r\n");
+    fwrite($handler, "  }\r\n");
+  }
+}
+$zones = [];
+$headerElements = [];
+$initializeScript = "";
+$clientIncludes = [];
+$serverIncludes = [];
+$assetReflection = null;
+$pageBackground = "";
+$numRows = 0;
+$hasDecisionQueue = false;
+$modules = [];
+$macros = [];
+$hasFlashMessage = false;
+$hasAnyIndexedProperties = false;
+$customLayoutFile = null;
+$gamestateStorageMode = "file";
+
+$zoneObj = null;
+while(!feof($handler)) {
+  $line = fgets($handler);
+  if($line !== false) {
+    $line = trim($line);
+    if($line == "" || $line[0] == '#') continue;
+    $lineArr = explode(":", $line);
+    $lineType = $lineArr[0];
+    $lineValue = count($lineArr) > 1 ? implode(":", array_slice($lineArr, 1)) : "";
+    switch($lineType) {
+      case "Overlay":
+        // Overlay: Status=1:exhausted
+        // Overlay: TurnEffects=STEALTH:stealth(Image=Assets/Overlays/smoke-overlay.webp,DrawOrder=10)
+        if (!isset($zoneObj->Overlays)) $zoneObj->Overlays = [];
+        $overlayParts = explode(":", $lineValue);
+        if (count($overlayParts) == 2) {
+          $cond = trim($overlayParts[0]); // e.g. Status=1
+          $overlaySpec = trim($overlayParts[1]); // e.g. exhausted(Image=...,DrawOrder=...)
+          $overlayName = $overlaySpec;
+          $overlayImage = null;
+          $overlayDrawOrder = 0;
+          $overlayExtraParams = [];
+
+          // Parse optional overlay params: Name(Key=Value,...)
+          if (preg_match('/^([^(]+)\((.*)\)$/', $overlaySpec, $overlayMatches)) {
+            $overlayName = trim($overlayMatches[1]);
+            $overlayParamString = trim($overlayMatches[2]);
+            $overlayParamParts = $overlayParamString === '' ? [] : explode(',', $overlayParamString);
+            for ($op = 0; $op < count($overlayParamParts); ++$op) {
+              $param = trim($overlayParamParts[$op]);
+              if ($param === '') continue;
+              $kv = explode('=', $param, 2);
+              if (count($kv) != 2) continue;
+              $paramName = strtolower(trim($kv[0]));
+              $paramNameRaw = trim($kv[0]);
+              $paramValue = trim($kv[1]);
+              if ($paramName === 'image') $overlayImage = $paramValue;
+              else if ($paramName === 'draworder') $overlayDrawOrder = intval($paramValue);
+              else $overlayExtraParams[$paramNameRaw] = $paramValue;
+            }
+          }
+
+          $condParts = explode("=", $cond);
+          if (count($condParts) == 2) {
+            $field = trim($condParts[0]);
+            $value = trim($condParts[1]);
+            $overlayRule = ["field" => $field, "value" => $value, "overlay" => $overlayName];
+            if ($overlayImage !== null) $overlayRule["image"] = $overlayImage;
+            $overlayRule["drawOrder"] = $overlayDrawOrder;
+            foreach ($overlayExtraParams as $extraKey => $extraValue) {
+              $overlayRule[$extraKey] = $extraValue;
+            }
+            $zoneObj->Overlays[] = $overlayRule;
+          }
+        }
+        break;
+      case "Rotation":
+        // Rotation: Status=1:30
+        if (!isset($zoneObj->Rotations)) $zoneObj->Rotations = [];
+        $rotationParts = explode(":", $lineValue);
+        if (count($rotationParts) == 2) {
+          $cond = trim($rotationParts[0]); // e.g. Status=1
+          $degrees = trim($rotationParts[1]); // e.g. 30
+          $condParts = explode("=", $cond);
+          if (count($condParts) == 2) {
+            $field = trim($condParts[0]);
+            $value = trim($condParts[1]);
+            $zoneObj->Rotations[] = ["field" => $field, "value" => $value, "degrees" => (int)$degrees];
+          }
+        }
+        break;
+      case "Counters":
+        // Counters: Damage=Badge(Color=red,Position=TopRight,ShowZero=false)
+        if (!isset($zoneObj->Counters)) $zoneObj->Counters = [];
+        $parts = explode("=", $lineValue, 2);
+        if (count($parts) == 2) {
+          $field = trim($parts[0]);
+          $spec = trim($parts[1]);
+          $counterType = $spec;
+          $params = [];
+          // If spec has parentheses, parse type and params
+          $pos = strpos($spec, '(');
+          if ($pos !== false) {
+            $counterType = trim(substr($spec, 0, $pos));
+            $paramString = trim(substr($spec, $pos + 1));
+            // Remove trailing ) if present
+            if (substr($paramString, -1) == ')') $paramString = substr($paramString, 0, -1);
+            // Split on commas for simple key=value pairs
+            $paramParts = $paramString === '' ? [] : explode(',', $paramString);
+            for ($i = 0; $i < count($paramParts); ++$i) {
+              $p = trim($paramParts[$i]);
+              if ($p == '') continue;
+              $kv = explode('=', $p, 2);
+              if (count($kv) == 2) {
+                $params[trim($kv[0])] = trim($kv[1]);
+              } else {
+                // positional param (e.g. IconName)
+                $params[] = $kv[0];
+              }
+            }
+          }
+          if (strcasecmp($counterType, "Image") == 0) {
+            if (!isset($params["Path"]) && isset($params["Image"])) $params["Path"] = $params["Image"];
+            if (!isset($params["Path"]) && isset($params[0])) $params["Path"] = $params[0];
+            if (isset($params["Path"])) {
+              $params["Path"] = str_replace("\\", "/", trim($params["Path"]));
+            }
+          }
+          $zoneObj->Counters[] = ["field" => $field, "type" => $counterType, "params" => $params];
+        }
+        break;
+      case "Initialization":
+        $initializeScript = trim($lineValue);
+        break;
+      case "ClientInclude":
+        array_push($clientIncludes, trim($lineValue));
+        break;
+      case "ServerInclude":
+        array_push($serverIncludes, trim($lineValue));
+        break;
+      case "AssetReflection":
+        $assetReflection = trim($lineValue);
+        break;
+      case "Layout":
+        $customLayoutFile = trim($lineValue);
+        break;
+      case "Header":
+        $headerElement = new StdClass();
+        $headerElement->Title = "";
+        $headerElement->Icon = "";
+        $headerElement->Link = "";
+        $headerElement->Module = "";
+        $headerElement->Target = "";
+        $headerElement->Access = "";
+        $elementArr = explode(",", $lineValue);
+        for($i=0; $i<count($elementArr); ++$i) {
+          $elementArr[$i] = trim($elementArr[$i]);
+          $parameterArr = explode("=", $elementArr[$i]);
+          $varName = ucwords($parameterArr[0]);
+          $headerElement->$varName = $parameterArr[1];
+          if($varName == "Module" && $parameterArr[1] == "AssetVisibility")
+          {
+            $headerElement->AssetType = 1;
+          }
+          if($varName == "Link") $headerElement->Link = str_replace(">", "=", $headerElement->Link);
+        }
+        array_push($headerElements, $headerElement);
+        break;
+      case "Module":
+        $module = new StdClass();
+        $module->Name = "";
+        $module->Parameters = "";
+        $moduleArr = explode("=", $lineValue, 2);
+        $module->Name = trim($moduleArr[0]);
+        $module->Parameters = isset($moduleArr[1]) ? trim($moduleArr[1]) : "";
+        array_push($modules, $module);
+        break;
+      case "Macro":
+        $macro = new StdClass();
+        $macroArr = explode(";", $lineValue);
+        for($i=0; $i<count($macroArr); ++$i) {
+          $macroArr[$i] = trim($macroArr[$i]);
+          if($macroArr[$i] == "") continue;
+          $parameterArr = explode("=", $macroArr[$i], 2);
+          $varName = ucwords($parameterArr[0]);
+          $macro->$varName = $parameterArr[1];
+          if ($varName == 'Name') {
+            if (preg_match('/^(\w+)\((.*)\)$/', $parameterArr[1], $matches)) {
+              $macro->FunctionName = $matches[1];
+              $macro->Parameters = $matches[2] ? array_map('trim', explode(',', $matches[2])) : [];
+            } else {
+              $macro->FunctionName = $parameterArr[1];
+              $macro->Parameters = [];
+            }
+          }
+        }
+        array_push($macros, $macro);
+        break;
+      case "PageBackground":
+        $pageBackground = trim($lineValue);
+        break;
+      case "GamestateStorage":
+        $parsedStorageMode = strtolower(trim($lineValue));
+        if($parsedStorageMode == "memory") $parsedStorageMode = "apcu";
+        if($parsedStorageMode == "file" || $parsedStorageMode == "apcu") {
+          $gamestateStorageMode = $parsedStorageMode;
+        }
+        break;
+      case "Display":
+        $displayArr = explode(",", $lineValue);
+        for($i=0; $i<count($displayArr); ++$i) {
+          $displayArr[$i] = trim($displayArr[$i]);
+          $propertyArr = explode("=", $displayArr[$i]);
+          switch($propertyArr[0]) {
+            case "Visibility":
+              $zoneObj->Visibility = $propertyArr[1];
+              break;
+            case "Mode":
+              $thisPropArr = explode("(",$propertyArr[1]);
+              $zoneObj->DisplayMode = $thisPropArr[0];
+              $params = count($thisPropArr) < 2 || $thisPropArr[1] == "" ? "" : substr($thisPropArr[1], 0, strlen($thisPropArr[1])-1);//Remove ending parenthesis
+              $zoneObj->DisplayParameters = $params == "" ? [] : explode(",", $params);
+              break;
+            case "Scope":
+              // Scope can be Global or Player (default)
+              $zoneObj->Scope = $propertyArr[1];
+              break;
+            case "Display":
+              $zoneObj->Display = $propertyArr[1];
+              break;
+            case "Split":
+              $zoneObj->Split = $propertyArr[1];
+              break;
+            case "Row":
+              $zoneObj->Row = $propertyArr[1];
+              if($zoneObj->Row > $numRows) $numRows = $zoneObj->Row;
+              break;
+            case "Left":
+              $zoneObj->Left = $propertyArr[1];
+              break;
+            case "Right":
+              $zoneObj->Right = $propertyArr[1];
+              break;
+            case "Top":
+              $zoneObj->Top = $propertyArr[1];
+              break;
+            case "Bottom":
+              $zoneObj->Bottom = $propertyArr[1];
+              break;
+            case "Width":
+              $zoneObj->Width = $propertyArr[1];
+              break;
+            case "BindTo":
+              $zoneObj->BindTo = $propertyArr[1];
+              break;
+            case "CollapseBy":
+              $zoneObj->CollapseBy = $propertyArr[1];
+              break;
+            case "CollapseGroupBy":
+              $zoneObj->CollapseGroupBy = $propertyArr[1];
+              break;
+          }
+        }
+        break;
+      case "DragMode":
+        $zoneObj->DragMode = trim($lineValue);
+        break;
+      case "Filter":
+        array_push($zoneObj->Filters, trim($lineValue));
+        break;
+      case "Heatmap":
+        $heatmap = new StdClass();
+        $heatmapArr = explode(", ", $lineValue);
+        for($i=0; $i<count($heatmapArr); ++$i) {
+          $heatmapArr[$i] = trim($heatmapArr[$i]);
+          $propertyArr = explode("=", $heatmapArr[$i]);
+          switch($propertyArr[0]) {
+            case "Property":
+              $heatmap->Property = $propertyArr[1];
+              break;
+            case "FunctionMap":
+              $heatmap->FunctionMap = $propertyArr[1];
+              break;
+            default: break;
+          }
+        }
+        array_push($zoneObj->Heatmaps, $heatmap);
+        break;
+      case "Sort":
+        $zoneObj->Sort = new StdClass();
+        $sortArr = explode(", ", $lineValue);
+        for($i=0; $i<count($sortArr); ++$i) {
+          $sortArr[$i] = trim($sortArr[$i]);
+          $propertyArr = explode("=", $sortArr[$i]);
+          switch($propertyArr[0]) {
+            case "Property":
+              $zoneObj->Sort->Property = $propertyArr[1];
+              break;
+            case "Reverse":
+              $zoneObj->Sort->Reverse = strtolower($propertyArr[1]) === "true";
+              break;
+            default: break;
+          }
+        }
+        break;
+      case "AddValidation":
+        $zoneObj->AddValidation = trim($lineValue);
+        break;
+      case "Click":
+        $clickArr = explode(",", $lineValue);
+        for($i=0; $i<count($clickArr); ++$i) {
+          $clickArr[$i] = trim($clickArr[$i]);
+          if($clickArr[$i] == "None") continue;
+          $clickObj = new StdClass();
+          list($functionName, $paramString) = explode('(', $clickArr[$i], 2);
+          $clickObj->Action = $functionName;
+          $params = rtrim($paramString, ')');
+          $clickObj->Parameters = $params ? explode(',', $params) : [];
+          array_push($zoneObj->ClickActions, $clickObj);
+        }
+        break;
+      case "Macros":
+        $macrosArr = explode(",", $lineValue);
+        for($i=0; $i<count($macrosArr); ++$i) {
+          $macrosArr[$i] = trim($macrosArr[$i]);
+          if($macrosArr[$i] == "None") continue;
+          $macroObj = new StdClass();
+          $macroObj->Name = $macrosArr[$i];
+          array_push($zoneObj->Macros, $macroObj);
+        }
+        break;
+      case "Widgets":
+        // Split by comma, but respect parentheses (don't split on commas inside parens)
+        $widgetsArr = [];
+        $current = "";
+        $parenDepth = 0;
+        for ($c = 0; $c < strlen($lineValue); $c++) {
+          $char = $lineValue[$c];
+          if ($char === '(') {
+            $parenDepth++;
+            $current .= $char;
+          } else if ($char === ')') {
+            $parenDepth--;
+            $current .= $char;
+          } else if ($char === ',' && $parenDepth === 0) {
+            if ($current !== "") {
+              $widgetsArr[] = trim($current);
+            }
+            $current = "";
+          } else {
+            $current .= $char;
+          }
+        }
+        if ($current !== "") {
+          $widgetsArr[] = trim($current);
+        }
+
+        for($i=0; $i<count($widgetsArr); ++$i) {
+          if($widgetsArr[$i] == "None") continue;
+          $widgetArr = explode("=", $widgetsArr[$i], 2);
+          $widgetObj = new StdClass();
+          $widgetObj->LinkedProperty = $widgetArr[0];
+          $widgetObj->Position = "Center"; // Default position
+          $widgetObj->Condition = null; // No condition by default
+
+          $fullActionSpec = $widgetArr[1];
+          // Parse parameters: Position:BottomLeft, Condition:Status=2, etc.
+          if (preg_match('/\(([^)]+)\)/', $fullActionSpec, $matches)) {
+            $paramString = $matches[1];
+            $params = explode(',', $paramString);
+            foreach($params as $param) {
+              $param = trim($param);
+              $paramParts = explode(':', $param, 2);
+              if (count($paramParts) == 2) {
+                $paramName = trim($paramParts[0]);
+                $paramValue = trim($paramParts[1]);
+                if ($paramName === 'Position') {
+                  $widgetObj->Position = $paramValue;
+                } else if ($paramName === 'Condition') {
+                  $widgetObj->Condition = $paramValue;
+                }
+              }
+            }
+            $fullActionSpec = preg_replace('/\([^)]*\)/', '', $fullActionSpec); // Remove params from spec
+          }
+
+          $actionArr = explode("&", $fullActionSpec);
+          $widgetObj->Actions = [];
+          for($j=0; $j<count($actionArr); ++$j) {
+            $actionArr[$j] = trim($actionArr[$j]);
+            if($actionArr[$j] == "None") continue;
+            $actionObj = new StdClass();
+            $actionObj->Action = $actionArr[$j];
+            array_push($widgetObj->Actions, $actionObj);
+          }
+          array_push($zoneObj->Widgets, $widgetObj);
+        }
+        break;
+      case "AddReplacement":
+        $zoneObj->AddReplacement = trim($lineValue);
+        break;
+      case "BeforeAdd":
+        $zoneObj->BeforeAdd = trim($lineValue);
+        break;
+      case "AfterAdd":
+        $zoneObj->AfterAdd = trim($lineValue);
+        break;
+      case "Virtual":
+        // Parse virtual properties: PropertyName=FunctionName()
+        $virtualArr = explode(",", $lineValue);
+        for($i=0; $i<count($virtualArr); ++$i) {
+          $virtualArr[$i] = trim($virtualArr[$i]);
+          $virtualParts = explode("=", $virtualArr[$i]);
+          if(count($virtualParts) == 2) {
+            $virtualObj = new StdClass();
+            $virtualObj->Name = trim($virtualParts[0]);
+            $virtualObj->Function = trim($virtualParts[1]);
+            array_push($zoneObj->VirtualProperties, $virtualObj);
+          }
+        }
+        break;
+      case "Highlight":
+        // Parse highlight property: PropertyName (should be a virtual property)
+        // e.g., Highlight: SelectionMetadata
+        $zoneObj->HighlightProperty = trim($lineValue);
+        break;
+      case "Index":
+        // Parse indexed properties: Index: PropertyName1, PropertyName2
+        // These properties will be tracked in $objectDataIndices global
+        $indexArr = explode(",", $lineValue);
+        for($i=0; $i<count($indexArr); ++$i) {
+          $propName = trim($indexArr[$i]);
+          if($propName != "") {
+            array_push($zoneObj->IndexedProperties, $propName);
+          }
+        }
+        break;
+      case "Subcards":
+        // Subcards: Flow=Below  — direction attached subcards render relative to the host
+        // unit. Flow=Above (default) stacks lineage cards above (GrandArchive); Flow=Below
+        // peeks upgrades/captives/pilots from below as slivers (SWU). Read by createCardHTML.
+        $subcardArr = explode(",", $lineValue);
+        for($i=0; $i<count($subcardArr); ++$i) {
+          $propertyArr = explode("=", trim($subcardArr[$i]));
+          if(trim($propertyArr[0]) === "Flow" && count($propertyArr) > 1) {
+            $zoneObj->SubcardFlow = trim($propertyArr[1]);
+          }
+        }
+        break;
+      default://This is a new zone
+        if($zoneObj != null) array_push($zones, $zoneObj);
+        $zone = str_replace(' ', '', $line);
+        $zoneArr = explode("-", $zone, 2);
+        $zoneName = $zoneArr[0];
+        if ($zoneName === 'DecisionQueue') {
+          $hasDecisionQueue = true;
+        }
+        if ($zoneName === 'FlashMessage') {
+          $hasFlashMessage = true;
+        }
+        $zoneObj = new StdClass();
+        $zoneObj->Name = $zoneName;
+        $zoneObj->Properties = [];
+        $propertyArr = explode(",", $zoneArr[1]);
+        for($i=0; $i<count($propertyArr); ++$i) {
+          $thisProperty = explode(":", $propertyArr[$i]);
+          $propertyObj = new StdClass();
+          $propertyObj->Name = trim($thisProperty[0]);
+          $thisProperty = explode("=", $thisProperty[1]);
+          $rawType = trim($thisProperty[0]);
+          // Check for array type: array[innerType]
+          if(preg_match('/^array\[(\w+)\]$/', $rawType, $matches)) {
+            $propertyObj->Type = "array";
+            $propertyObj->InnerType = $matches[1];
+          } else {
+            $propertyObj->Type = $rawType;
+            $propertyObj->InnerType = null;
+          }
+          $propertyObj->DefaultValue = count($thisProperty)>1 ? trim($thisProperty[1]) : "\"-\"";
+          array_push($zoneObj->Properties, $propertyObj);
+        }
+        //Assign default value for all zoneObj display properties
+        $zoneObj->Visibility = "Public";
+        $zoneObj->DisplayMode = "Single";
+        $zoneObj->Display = "Normal";
+        $zoneObj->Split = "Auto";
+        $zoneObj->Row = -1;
+        $zoneObj->Left = -1;
+        $zoneObj->Right = -1;
+        $zoneObj->Top = -1;
+        $zoneObj->Bottom = -1;
+        $zoneObj->Width = -1;
+        $zoneObj->BindTo = null;
+        $zoneObj->CollapseBy = null;
+        $zoneObj->CollapseGroupBy = "CardID";
+        $zoneObj->Macros = [];
+        $zoneObj->Widgets = [];
+        $zoneObj->ClickActions = [];
+        $zoneObj->DragMode = "Normal";
+        $zoneObj->Filters = [];
+        $zoneObj->Heatmaps = [];
+        $zoneObj->Sort = null;
+        $zoneObj->AddValidation = "";
+        $zoneObj->Scope = "Player";
+        $zoneObj->AddReplacement = null;
+        $zoneObj->BeforeAdd = null;
+        $zoneObj->AfterAdd = null;
+        $zoneObj->VirtualProperties = [];
+        $zoneObj->IndexedProperties = [];
+        $zoneObj->HighlightProperty = null;
+        // Direction attached subcards render relative to their host card. "Above" (default)
+        // = lineage cards stack above the unit (GrandArchive style); "Below" = upgrades/
+        // captives/pilots peek from below as slivers (SWU style). Consumed by createCardHTML
+        // in Core/UILibraries. Overridden per-zone via the `Subcards: Flow=...` directive.
+        $zoneObj->SubcardFlow = "Above";
+        break;
+    }
+  }
+}
+
+if($zoneObj != null) array_push($zones, $zoneObj);//The previous ones are added when a new one is found, need to add the last one
+
+fclose($handler);
+
+// Check if any zone has indexed properties
+for($i=0; $i<count($zones); ++$i) {
+  if(count($zones[$i]->IndexedProperties) > 0) {
+    $hasAnyIndexedProperties = true;
+    break;
+  }
+}
+
+$rootPath = "./" . $rootName;
+if(!is_dir($rootPath)) mkdir($rootPath, 0755, true);
+
+//Write the zone accessors file
+$filename = $rootPath . "/ZoneAccessors.php";
+$handler = fopen($filename, "w");
+$mzGetObject = "function &GetZoneObject(\$mzID) {\r\n";
+$mzGetObject .= "  global \$playerID;\r\n";
+$mzGetObject .= "  \$mzArr = explode(\"-\",\$mzID);\r\n";
+$mzGetObject .= "  switch(\$mzArr[0]) {\r\n";
+$mzGetZone = "function &GetZone(\$mzID) {\r\n";
+$mzGetZone .= "  global \$playerID;\r\n";
+$mzGetZone .= "  \$mzArr = explode(\"-\",\$mzID);\r\n";
+$mzGetZone .= "  switch(\$mzArr[0]) {\r\n";
+fwrite($handler, "<?php\r\n");
+$moduleDataMap = [];
+for($i=0; $i<count($modules); ++$i) {
+  $moduleDataMap[$modules[$i]->Name] = $modules[$i]->Parameters;
+}
+fwrite($handler, "\$generatedModuleData = " . var_export($moduleDataMap, true) . ";\r\n");
+fwrite($handler, "function GetModuleConfig(\$name) {\r\n");
+fwrite($handler, "  global \$generatedModuleData;\r\n");
+fwrite($handler, "  return isset(\$generatedModuleData[\$name]) ? \$generatedModuleData[\$name] : null;\r\n");
+fwrite($handler, "}\r\n\r\n");
+fwrite($handler, "function GetAllModuleConfigs() {\r\n");
+fwrite($handler, "  global \$generatedModuleData;\r\n");
+fwrite($handler, "  return \$generatedModuleData;\r\n");
+fwrite($handler, "}\r\n\r\n");
+for($i=0; $i<count($zones); ++$i) {
+  $zone = $zones[$i];
+  $zoneName = $zone->Name;
+  //Getter
+  $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+  $isValueType = ($zone->DisplayMode == 'Value' || $zone->DisplayMode == 'Radio' || $zone->DisplayMode == 'Dropdown');
+  $isValueOnly = ($zone->DisplayMode == 'Value');
+  if (strtolower($scope) == 'global') {
+    // Global-scoped zones don't take a player parameter
+    if ($isValueOnly) {
+      fwrite($handler, "function &Get" . $zoneName . "() {\r\n");
+      fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
+      fwrite($handler, "  return \$g" . $zoneName . ";\r\n");
+      fwrite($handler, "}\r\n\r\n");
+      fwrite($handler, "function Set" . $zoneName . "(\$value) {\r\n");
+      fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
+      fwrite($handler, "  \$g" . $zoneName . " = \$value;\r\n");
+      fwrite($handler, "}\r\n\r\n");
+    } else {
+      fwrite($handler, "function &Get" . $zoneName . "() {\r\n");
+      fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
+      fwrite($handler, "  return \$g" . $zoneName . ";\r\n");
+      fwrite($handler, "}\r\n\r\n");
+      if ($isValueType) {
+        fwrite($handler, "function &" . $zoneName . "Value() {\r\n");
+        fwrite($handler, "  \$arr = &Get" . $zoneName . "();\r\n");
+        fwrite($handler, "  return \$arr[0]->Value;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+      }
+    }
+  } else {
+    if ($isValueOnly) {
+      fwrite($handler, "function &Get" . $zoneName . "(\$player) {\r\n");
+      EmitSeatReturnBody($handler, $zoneName);
+      fwrite($handler, "}\r\n\r\n");
+      fwrite($handler, "function &" . $zoneName . "Value(\$player) {\r\n");
+      EmitSeatReturnBody($handler, $zoneName);
+      fwrite($handler, "}\r\n\r\n");
+    } else {
+      fwrite($handler, "function &Get" . $zoneName . "(\$player) {\r\n");
+      EmitSeatReturnBody($handler, $zoneName);
+      fwrite($handler, "}\r\n\r\n");
+      if ($isValueType) {
+        fwrite($handler, "function &" . $zoneName . "Value(\$player) {\r\n");
+        fwrite($handler, "  \$arr = &Get" . $zoneName . "(\$player);\r\n");
+        fwrite($handler, "  return \$arr[0]->Value;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+      }
+    }
+  }
+  //Setter
+  $parameters = "";
+  $parametersNoDefaults = "";
+  for($j=0; $j<count($zone->Properties); ++$j) {
+    $property = $zone->Properties[$j];
+    if(IsUniqueIDManagedProperty($zoneName, $property->Name)) continue;
+    $defaultValue = GetPropertyDefaultLiteral($property);
+    $parameters .= ", \$" . $property->Name . "=" . $defaultValue;
+    $parametersNoDefaults .= ", \$" . $property->Name;
+  }
+  // For global zones, don't include $player parameter
+  if (strtolower($scope) == 'global') {
+    // Remove leading comma from parameters if present
+    $cleanParams = ltrim($parameters, ',');
+    fwrite($handler, "function Add" . $zoneName . "(" . $cleanParams);
+    if ($cleanParams != "") fwrite($handler, ", ");
+    fwrite($handler, "\$sourceObject=null");
+  } else {
+    fwrite($handler, "function Add" . $zoneName . "(\$player" . $parameters . ", \$sourceObject=null");
+  }
+  fwrite($handler, ") {\r\n");
+  if($zone->AddValidation != "") {
+    fwrite($handler, "  if(!" . $zone->AddValidation . "(\$CardID)) return;\r\n");
+  }
+  if ($zone->AddReplacement != null) {
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "  \$replaceResult = " . $zone->AddReplacement . "(" . ltrim($parametersNoDefaults, ',') . ", \$sourceObject);\r\n");
+    } else {
+      fwrite($handler, "  \$replaceResult = " . $zone->AddReplacement . "(\$player" . $parametersNoDefaults . ", \$sourceObject);\r\n");
+    }
+    fwrite($handler, "  if(\$replaceResult) return \$replaceResult;\r\n");
+  }
+  if ($zone->BeforeAdd != null) {
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "  if(!" . $zone->BeforeAdd . "(" . ltrim($parametersNoDefaults, ',') . ", \$sourceObject)) return null;\r\n");
+    } else {
+      fwrite($handler, "  if(!" . $zone->BeforeAdd . "(\$player" . $parametersNoDefaults . ", \$sourceObject)) return null;\r\n");
+    }
+  }
+  if ($isValueOnly) {
+    // For Value zones, set the global variable directly
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
+      fwrite($handler, "  \$g" . $zoneName . " = \$Value;\r\n");
+      fwrite($handler, "  return null;\r\n");
+    } else {
+      fwrite($handler, "  \$zoneValue = &Get" . $zoneName . "(\$player);\r\n");
+      fwrite($handler, "  \$zoneValue = \$Value;\r\n");
+      fwrite($handler, "  return null;\r\n");
+    }
+  } else {
+    fwrite($handler, "  \$zoneObj = new " . $zoneName . "(");
+    for($j=0; $j<count($zone->Properties); ++$j) {
+      $property = $zone->Properties[$j];
+      $propertyExpr = IsUniqueIDManagedProperty($zoneName, $property->Name)
+        ? GetPropertyDefaultLiteral($property)
+        : "\$" . $property->Name;
+      if($property->Type == "json") {
+        // JSON fields need to be base64-encoded for the space-delimited constructor line
+        if(IsUniqueIDManagedProperty($zoneName, $property->Name)) {
+          fwrite($handler, $propertyExpr);
+        } else {
+          fwrite($handler, "(is_array(\$" . $property->Name . ") ? base64_encode(json_encode(\$" . $property->Name . ")) : \$" . $property->Name . ")");
+        }
+      } else if($property->Type == "array") {
+        // Array fields (e.g. TurnEffects:array[string]) must be joined with the SAME "~" delimiter the
+        // zone class serializes/parses them with, or the constructor line receives PHP's "Array" string
+        // and every element is silently destroyed. A caller may pass either a real array (e.g.
+        // SWUMoveUnitBetweenArenas carrying a unit's TurnEffects to its new arena) or the already-
+        // serialized string default, so guard on is_array exactly like the json branch above.
+        if(IsUniqueIDManagedProperty($zoneName, $property->Name)) {
+          fwrite($handler, $propertyExpr);
+        } else {
+          fwrite($handler, "(is_array(\$" . $property->Name . ") ? (count(\$" . $property->Name . ") > 0 ? implode('~', \$" . $property->Name . ") : '-') : \$" . $property->Name . ")");
+        }
+      } else {
+        fwrite($handler, $propertyExpr);
+      }
+      if($j < count($zone->Properties) - 1) fwrite($handler, " . ' ' . ");
+    }
+    // Add location and playerID to constructor for Player or Global scopes
+    fwrite($handler, ", ");
+    fwrite($handler, "'" . $zoneName . "', " . (strtolower($scope) == 'global' ? "0" : "\$player"));
+    fwrite($handler, ");\r\n");
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "  \$zone = &Get" . $zoneName . "();\r\n");
+      fwrite($handler, "  \$zoneObj->mzIndex = count(\$zone);\r\n");
+      fwrite($handler, "  array_push(\$zone, \$zoneObj);\r\n");
+    } else {
+      fwrite($handler, "  \$zone = &Get" . $zoneName . "(\$player);\r\n");
+      fwrite($handler, "  \$zoneObj->mzIndex = count(\$zone);\r\n");
+      fwrite($handler, "  array_push(\$zone, \$zoneObj);\r\n");
+    }
+  }
+  // Copy properties from sourceObject before calling AfterAdd
+  if (!$isValueOnly) {
+    fwrite($handler, "  // Deep copy properties from sourceObject if provided\r\n");
+    fwrite($handler, "  if(\$sourceObject !== null) {\r\n");
+    fwrite($handler, "    \$properties = get_object_vars(\$sourceObject);\r\n");
+    fwrite($handler, "    foreach(\$properties as \$prop => \$value) {\r\n");
+    fwrite($handler, "      if(\$prop !== 'removed' && \$prop !== 'Location' && \$prop !== 'mzIndex') {\r\n");
+    fwrite($handler, "        \$zoneObj->\$prop = \$value;\r\n");
+    fwrite($handler, "      }\r\n");
+    fwrite($handler, "    }\r\n");
+    fwrite($handler, "  }\r\n");
+    $uniqueIDConfig = GetUniqueIDModuleConfigForZone($zoneName);
+    if($uniqueIDConfig != null && ZoneHasProperty($zone, $uniqueIDConfig->Field)) {
+      fwrite($handler, "  global \$g" . $uniqueIDConfig->Counter . ";\r\n");
+      fwrite($handler, "  // A zone move keeps the physical card's identity; only newly created objects get a new ID.\r\n");
+      fwrite($handler, "  if(\$sourceObject === null || intval(\$zoneObj->" . $uniqueIDConfig->Field . " ?? 0) <= 0) {\r\n");
+      fwrite($handler, "    \$g" . $uniqueIDConfig->Counter . "++;\r\n");
+      fwrite($handler, "    \$zoneObj->" . $uniqueIDConfig->Field . " = \$g" . $uniqueIDConfig->Counter . ";\r\n");
+      fwrite($handler, "  }\r\n");
+    }
+    // Build index for zones with indexed properties
+    $hasIndexedProperties = count($zone->IndexedProperties) > 0;
+    if($hasIndexedProperties) {
+      fwrite($handler, "  \$zoneObj->BuildIndex();\r\n");
+    }
+  }
+  if ($zone->AfterAdd != null) {
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "  " . $zone->AfterAdd . "(" . ltrim($parametersNoDefaults, ',') . ");\r\n");
+    } else {
+      fwrite($handler, "  " . $zone->AfterAdd . "(\$player" . $parametersNoDefaults . ");\r\n");
+    }
+  }
+  if (!$isValueOnly) {
+    fwrite($handler, "  return \$zoneObj;\r\n");
+  }
+  fwrite($handler, "}\r\n\r\n");
+
+  //Add to the master zone object getter
+  $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+  if (strtolower($scope) == 'global') {
+    if ($zone->DisplayMode == 'Value') {
+      $mzGetObject .= "    case \"" . $zoneName . "\": return Get" . $zoneName . "();\r\n";
+      $mzGetZone .= "    case \"" . $zoneName . "\": return Get" . $zoneName . "();\r\n";
+    } else {
+      $mzGetObject .= "    case \"" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(); break;\r\n";
+      $mzGetZone .= "    case \"" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(); return \$zoneArr;\r\n";
+    }
+  } else {
+    // ⚠⚠ "their<Zone>" IS A TWO-PLAYER IDIOM AND IS NOT SEAT-NEUTRAL. It resolves to `$playerID == 1 ? 2 : 1`,
+    // i.e. above two seats it silently means SEAT 2 (or seat 1 for any far-seat viewer) no matter whose
+    // zone was intended. It is deliberately NOT made "smart" here: with three opponents "their" names
+    // nobody, and guessing in the hottest resolver in the engine would turn a visible wrong answer into
+    // an invisible one (it would also allocate GetLiveSeatsArray() on every single resolution).
+    //
+    // The N-player contract is the p{n}<Zone> cases emitted just below: ANY caller that knows the owning
+    // seat must build its mzID through SWUForeignMzID() (GameLogic.php), which emits "their<Zone>-N" at
+    // ≤2 seats and "p{n}<Zone>-N" above. ⚠ Note ZoneSearch DOES fan `their*` out across all opponents in
+    // Twin Suns, so COLLECTION and RESOLUTION disagree by design — a literal "their<Zone>-N" handed to
+    // GetZoneObject after a seat-aware search is the bug shape to look for. It is not a blank row: a play
+    // located on seat 3's discard once activated SEAT 2's entry at the same index, putting a completely
+    // different card into play (fixed 2026-08-23; see the Twin Suns sweep plan, Pass 0).
+    if ($zone->DisplayMode == 'Value') {
+      $mzGetObject .= "    case \"my" . $zoneName . "\": return Get" . $zoneName . "(\$playerID);\r\n";
+      $mzGetObject .= "    case \"their" . $zoneName . "\": return Get" . $zoneName . "(\$playerID == 1 ? 2 : 1);\r\n";
+      $mzGetZone .= "    case \"my" . $zoneName . "\": return Get" . $zoneName . "(\$playerID);\r\n";
+      $mzGetZone .= "    case \"their" . $zoneName . "\": return Get" . $zoneName . "(\$playerID == 1 ? 2 : 1);\r\n";
+      for ($s = 1; $s <= $maxSeats; ++$s) {
+        // Twin Suns: seat-specific p{n} mzIDs must resolve in BOTH accessors (GetZoneObject was a Phase-1
+        // gap — union attack targets are p{n} unit mzIDs and GetZoneObject fetches the defender object).
+        $mzGetObject .= "    case \"p" . $s . $zoneName . "\": return Get" . $zoneName . "(" . $s . ");\r\n";
+        $mzGetZone .= "    case \"p" . $s . $zoneName . "\": return Get" . $zoneName . "(" . $s . ");\r\n";
+      }
+    } else {
+      $mzGetObject .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); break;\r\n";
+      $mzGetObject .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); break;\r\n";
+      $mzGetZone .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); return \$zoneArr;\r\n";
+      $mzGetZone .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); return \$zoneArr;\r\n";
+      for ($s = 1; $s <= $maxSeats; ++$s) {
+        // Twin Suns: p{n} in both accessors (see Value-branch note above).
+        $mzGetObject .= "    case \"p" . $s . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(" . $s . "); break;\r\n";
+        $mzGetZone .= "    case \"p" . $s . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(" . $s . "); return \$zoneArr;\r\n";
+      }
+    }
+  }
+}
+$mzGetObject .= "    default: \$_null = null; return \$_null;\r\n";
+$mzGetObject .= "  }\r\n";
+$mzGetObject .= "  // Guard: returning a missing index from a by-ref function would auto-vivify a null entry in the zone\r\n";
+$mzGetObject .= "  if(!isset(\$mzArr[1]) || !is_numeric(\$mzArr[1]) || !isset(\$zoneArr[intval(\$mzArr[1])])) { \$_null = null; return \$_null; }\r\n";
+$mzGetObject .= "  return \$zoneArr[\$mzArr[1]];\r\n";
+$mzGetObject .= "}\r\n\r\n";
+$mzGetZone .= "    default: \$_null = null; return \$_null;\r\n";
+$mzGetZone .= "  }\r\n";
+$mzGetZone .= "}\r\n\r\n";
+fwrite($handler, $mzGetObject);
+fwrite($handler, $mzGetZone);
+
+// Generate GetAllZones helper for CleanupRemovedCards
+fwrite($handler, "// Get all zone names for iteration (used by CleanupRemovedCards)\r\n");
+fwrite($handler, "function GetAllZones() {\r\n");
+fwrite($handler, "  return [\r\n");
+for($i=0; $i<count($zones); ++$i) {
+  $zone = $zones[$i];
+  $zoneName = $zone->Name;
+  $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+  // Skip Value display mode zones (they're not arrays)
+  if ($zone->DisplayMode == 'Value') continue;
+  if (strtolower($scope) == 'global') {
+    fwrite($handler, "    \"" . $zoneName . "\",\r\n");
+  } else {
+    fwrite($handler, "    \"my" . $zoneName . "\", \"their" . $zoneName . "\",\r\n");
+  }
+}
+fwrite($handler, "  ];\r\n");
+fwrite($handler, "}\r\n\r\n");
+
+// Multi-seat apps only: the zone list CleanupRemovedCards compacts. "my"/"their" name only TWO seats
+// ($playerID and its 1<->2 partner), so a card marked removed in any OTHER seat's zone was never spliced
+// out mid-request and its stale entry kept being offered as a target (SWUSim bug #1102: a bounced seat-3
+// Vermillion offered back to seat 3 by Rhydonium Detonation, bricking the game).
+// ⚠ A SEPARATE function, not a change to GetAllZones: GetAllZones is also the deterministic-RNG hash
+// material (Core/DeterministicRNG.php EngineSnapshotState), so renaming its entries would move every
+// game's shuffle stream. 2-seat apps emit nothing here and keep compacting via GetAllZones.
+if ($maxSeats > 2) {
+  fwrite($handler, "// Every seat's zones, for CleanupRemovedCards (see zzGameCodeGenerator.php).\r\n");
+  fwrite($handler, "function GetAllCompactableZones() {\r\n");
+  fwrite($handler, "  return [\r\n");
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $zoneName = $zone->Name;
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if ($zone->DisplayMode == 'Value') continue;
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "    \"" . $zoneName . "\",\r\n");
+    } else {
+      $seatZones = [];
+      for ($s = 1; $s <= $maxSeats; ++$s) $seatZones[] = "\"p" . $s . $zoneName . "\"";
+      fwrite($handler, "    " . implode(", ", $seatZones) . ",\r\n");
+    }
+  }
+  fwrite($handler, "  ];\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
+
+fwrite($handler, "function MZMove(\$player, \$mzIndex, \$toZone) {\r\n");
+fwrite($handler, "  global \$playerID;\r\n");
+fwrite($handler, "  if(\$player != \$playerID) {\r\n");
+fwrite($handler, "    \$mzIndex = FlipZonePerspective(\$mzIndex);\r\n");
+fwrite($handler, "    \$toZone = FlipZonePerspective(\$toZone);\r\n");
+fwrite($handler, "  }\r\n");
+fwrite($handler, "  \$removed = GetZoneObject(\$mzIndex);\r\n");
+fwrite($handler, "  if(\$removed === null) return null;\r\n");
+fwrite($handler, "  if(property_exists(\$removed, 'removed') && \$removed->removed === true) return null;\r\n");
+fwrite($handler, "  \$removed->_sourceZone = strtok(\$mzIndex, '-');\r\n");
+fwrite($handler, "  \$removed->Remove();\r\n");
+fwrite($handler, "  // The zone names above are normalized to the request viewer's perspective.\r\n");
+fwrite($handler, "  // Use that same player for the destination so cross-player moves keep their owner.\r\n");
+fwrite($handler, "  \$destinationPlayer = intval(\$playerID) > 0 ? intval(\$playerID) : intval(\$player);\r\n");
+fwrite($handler, "  // Pass the removed object to MZAddZone so properties are copied before AfterAdd hooks fire\r\n");
+fwrite($handler, "  \$newObj = MZAddZone(\$destinationPlayer, \$toZone, \$removed->CardID, \$removed);\r\n");
+fwrite($handler, "  return \$newObj;\r\n");
+fwrite($handler, "}\r\n\r\n");
+
+fwrite($handler, "function MZZoneCount(\$zoneName) {\r\n");
+fwrite($handler, "  \$zone = GetZone(\$zoneName);\r\n");
+fwrite($handler, "  for(\$i=0, \$count=0; \$i<count(\$zone); ++\$i) {\r\n");
+fwrite($handler, "    if(\$zone[\$i] === null || (isset(\$zone[\$i]->removed) && \$zone[\$i]->removed)) continue;\r\n");
+fwrite($handler, "    ++\$count;\r\n");
+fwrite($handler, "  }\r\n");
+fwrite($handler, "  return \$count;\r\n");
+fwrite($handler, "}\r\n\r\n");
+
+//MZAddZone
+fwrite($handler, "function MZAddZone(\$player, \$zoneName, \$cardID, \$sourceObject=null) {\r\n");
+fwrite($handler, "  switch(\$zoneName) {\r\n");
+for($i=0; $i<count($zones); ++$i) {
+  $zone = $zones[$i];
+  $zoneName = $zone->Name;
+  $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+  if (strtolower($scope) == 'global') {
+    fwrite($handler, "    case \"" . $zoneName . "\": return Add" . $zoneName . "(CardID:\$cardID, sourceObject:\$sourceObject);\r\n");
+  } else {
+    fwrite($handler, "    case \"my" . $zoneName . "\": return Add" . $zoneName . "(\$player, CardID:\$cardID, sourceObject:\$sourceObject);\r\n");
+    fwrite($handler, "    case \"their" . $zoneName . "\": return Add" . $zoneName . "(\$player == 1 ? 2 : 1, CardID:\$cardID, sourceObject:\$sourceObject);\r\n");
+  }
+}
+fwrite($handler, "    default: return null;\r\n");
+fwrite($handler, "  }\r\n");
+fwrite($handler, "}\r\n\r\n");
+
+//MZClearZone
+fwrite($handler, "function MZClearZone(\$player, \$zoneName) {\r\n");
+fwrite($handler, "  switch(\$zoneName) {\r\n");
+for($i=0; $i<count($zones); ++$i) {
+  $zone = $zones[$i];
+  $zoneName = $zone->Name;
+  $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if (strtolower($scope) == 'global') {
+      if ($zone->DisplayMode == 'Value') {
+        fwrite($handler, "    case \"" . $zoneName . "\": \$g" . $zoneName . " = " . GetValueZoneDefaultLiteral($zone) . "; break;\r\n");
+      } else {
+        fwrite($handler, "    case \"" . $zoneName . "\": \$zone = &Get" . $zoneName . "(); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
+      }
+    } else {
+      if ($zone->DisplayMode == 'Value') {
+      // Emit code like: case "myZone": ${'p' . $player . 'Zone'} = <default>; break;
+      fwrite($handler, "    case \"my" . $zoneName . "\": \${'p' . \$player . '" . $zoneName . "'} = " . GetValueZoneDefaultLiteral($zone) . "; break;\r\n");
+      // Emit code like: case "theirZone": ${'p' . ($player == 1 ? 2 : 1) . 'Zone'} = <default>; break;
+      fwrite($handler, "    case \"their" . $zoneName . "\": \${'p' . (\$player == 1 ? 2 : 1) . '" . $zoneName . "'} = " . GetValueZoneDefaultLiteral($zone) . "; break;\r\n");
+      } else {
+        fwrite($handler, "    case \"my" . $zoneName . "\": \$zone = &Get" . $zoneName . "(\$player); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
+        fwrite($handler, "    case \"their" . $zoneName . "\": \$zone = &Get" . $zoneName . "(\$player == 1 ? 2 : 1); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
+    }
+  }
+}
+fwrite($handler, "    default: break;\r\n");
+fwrite($handler, "  }\r\n");
+fwrite($handler, "}\r\n\r\n");
+
+fwrite($handler, "\$systemDQHandlers = [];\r\n");
+//Generate macro functions
+global $macros;
+for($i=0; $i<count($macros); ++$i) {
+  $macro = $macros[$i];
+  if(isset($macro->MacroType) && $macro->MacroType === "ValueModifier") continue;
+  // Generate handlers
+  // ChoiceFunction is deterministic and will be called directly from the wrapper; no queued handler is emitted here.
+  // Choice handler (if Choice is set)
+  if(isset($macro->Choice) && substr($macro->Choice, 0, 1) == '{') {
+    $choiceSpec = substr($macro->Choice, 1, -1);
+    $parts = explode(':', $choiceSpec);
+    $type = $parts[0];
+    $param = $parts[1];
+    if($type == 'MZCHOOSE') {
+      $paramParts = explode('|', $param);
+      $source = $paramParts[0];
+      $tooltip = isset($paramParts[1]) ? $paramParts[1] : "Choose a card";
+
+      fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Choice\"] = function(\$player, \$param, \$lastResult) {\r\n");
+
+      // If macro has parameters, parse them from $param which is pipe-delimited
+      if (!empty($macro->Parameters)) {
+        //fwrite($handler, "  \$params = explode('|', \$param);\r\n");
+        for ($pIdx = 0; $pIdx < count($macro->Parameters); $pIdx++) {
+          fwrite($handler, "  \$" . $macro->Parameters[$pIdx] . " = \$param[" . $pIdx . "] ?? '';\r\n");
+        }
+        // Now $source and $tooltip might reference parameter names, so we need to evaluate them
+        // If the source/tooltip exactly match a parameter name, use the variable directly
+        if (in_array($source, $macro->Parameters)) {
+          fwrite($handler, "  \$source = \$" . $source . ";\r\n");
+        } else {
+          fwrite($handler, "  \$source = \"" . $source . "\";\r\n");
+        }
+        if (in_array($tooltip, $macro->Parameters)) {
+          fwrite($handler, "  \$tooltip = \$" . $tooltip . ";\r\n");
+        } else {
+          fwrite($handler, "  \$tooltip = \"" . $tooltip . "\";\r\n");
+        }
+      } else {
+        fwrite($handler, "  \$source = \"" . $source . "\";\r\n");
+        fwrite($handler, "  \$tooltip = \"" . $tooltip . "\";\r\n");
+      }
+
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"MZCHOOSE\", \$source, 1, \$tooltip);\r\n");
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterChoice\", 99);\r\n");
+      fwrite($handler, "};\r\n\r\n");
+    }
+  }
+  // For ChoiceFunction macros: generate Action handler that executes directly without decision queue
+  // For Choice-based macros: keep AfterChoice and traditional Action handlers
+  if(isset($macro->ChoiceFunction)) {
+    // ChoiceFunction variant: Action handler calls MZMove directly
+    if(isset($macro->Action) && substr($macro->Action, 0, 1) == '{') {
+      $actionSpec = substr($macro->Action, 1, -1);
+      $parts = explode(':', $actionSpec);
+      $type = $parts[0];
+      if($type == 'MZMOVE') {
+        $param = $parts[1];
+        fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"] = function(\$player, \$result, \$lastDecision) {\r\n");
+        // Resolve {<-} placeholder with the result from ChoiceFunction
+        fwrite($handler, "  \$resolvedParam = str_replace(\"{<-}\", \$result, \"" . $param . "\");\r\n");
+        fwrite($handler, "  \$parts = explode(\"->\", \$resolvedParam);\r\n");
+        fwrite($handler, "  \$source = \$parts[0];\r\n");
+        fwrite($handler, "  \$destination = explode(\"-\", \$parts[1])[0];\r\n");
+        fwrite($handler, "  MZMove(\$player, \$source, \$destination);\r\n");
+        fwrite($handler, "};\r\n\r\n");
+      } else {
+        fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"] = function(\$player, \$result, \$lastDecision) {\r\n");
+        fwrite($handler, "};\r\n\r\n");
+      }
+    }
+    // AfterAction handler for ChoiceFunction
+    fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_AfterAction\"] = function(\$player, \$param, \$lastResult) {\r\n");
+    if(isset($macro->AfterAction)) {
+      fwrite($handler, "  " . $macro->AfterAction . "(\$player, \$lastResult);\r\n");
+    }
+    fwrite($handler, "};\r\n\r\n");
+  } else {
+    // Choice-based variant: traditional handlers
+    // AfterChoice handler
+    fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_AfterChoice\"] = function(\$player, \$param, \$lastResult) {\r\n");
+    if(isset($macro->AfterChoice)) {
+      if($macro->FunctionName === "ReserveCard" && $macro->AfterChoice === "OnCardReserved") {
+        fwrite($handler, "  " . $macro->AfterChoice . "(\$player, \$lastResult, \"PAYMENT\");\r\n");
+      } else {
+        fwrite($handler, "  " . $macro->AfterChoice . "(\$player, \$lastResult);\r\n");
+      }
+    }
+    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Action\", 99);\r\n");
+    fwrite($handler, "};\r\n\r\n");
+    // Action handler
+    if(isset($macro->Action) && substr($macro->Action, 0, 1) == '{') {
+      $actionSpec = substr($macro->Action, 1, -1);
+      $parts = explode(':', $actionSpec);
+      $type = $parts[0];
+      if($type == 'MZMOVE') {
+        $param = $parts[1];
+        fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"] = function(\$player, \$param, \$lastResult) {\r\n");
+        fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"MZMOVE\", \"" . $param . "\", 1);\r\n");
+        fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterAction\", 99);\r\n");
+        fwrite($handler, "};\r\n\r\n");
+      } else {
+        fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"] = function(\$player, \$param, \$lastResult) {\r\n");
+        fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterAction\", 99);\r\n");
+        fwrite($handler, "};\r\n\r\n");
+      }
+    }
+    // AfterAction handler
+    fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_AfterAction\"] = function(\$player, \$param, \$lastResult) {\r\n");
+    if(isset($macro->AfterAction)) {
+      fwrite($handler, "  " . $macro->AfterAction . "(\$player, \$lastResult);\r\n");
+    }
+    fwrite($handler, "};\r\n\r\n");
+  }
+  // Main macro function
+  $paramList = '$player';
+  if (!empty($macro->Parameters)) {
+    $paramList .= ', $' . implode(', $', $macro->Parameters);
+  }
+  fwrite($handler, "function " . $macro->FunctionName . "($paramList) {\r\n");
+  // Unconditionally track total call count per player in both turn and game indexes
+  fwrite($handler, "  // Track total macro call count per player\r\n");
+  fwrite($handler, "  { \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+  fwrite($handler, "    if (!isset(\$_ti[\"" . $macro->FunctionName . "Calls\"]) || !is_array(\$_ti[\"" . $macro->FunctionName . "Calls\"])) \$_ti[\"" . $macro->FunctionName . "Calls\"] = [];\r\n");
+  fwrite($handler, "    \$_ti[\"" . $macro->FunctionName . "Calls\"][\$player] = (\$_ti[\"" . $macro->FunctionName . "Calls\"][\$player] ?? 0) + 1;\r\n");
+  fwrite($handler, "    SetMacroTurnIndex(json_encode(\$_ti)); }\r\n");
+  fwrite($handler, "  { \$_gi = GetMacroGameIndexArray();\r\n");
+  fwrite($handler, "    if (!isset(\$_gi[\"" . $macro->FunctionName . "Calls\"]) || !is_array(\$_gi[\"" . $macro->FunctionName . "Calls\"])) \$_gi[\"" . $macro->FunctionName . "Calls\"] = [];\r\n");
+  fwrite($handler, "    \$_gi[\"" . $macro->FunctionName . "Calls\"][\$player] = (\$_gi[\"" . $macro->FunctionName . "Calls\"][\$player] ?? 0) + 1;\r\n");
+  fwrite($handler, "    SetMacroGameIndex(json_encode(\$_gi)); }\r\n");
+  if(isset($macro->ChoiceFunction)) {
+    $choiceParts = explode('|', $macro->ChoiceFunction);
+    $cfName = $choiceParts[0];
+    if (!empty($macro->Parameters)) {
+      $cfArgs = '$player, ' . implode(', ', array_map(fn($p) => '$' . $p, $macro->Parameters));
+      // Store macro parameters in DecisionQueueVariables before calling ChoiceFunction
+      fwrite($handler, "  // Store macro parameters for access in generated ability code\r\n");
+      foreach ($macro->Parameters as $param) {
+        fwrite($handler, "  DecisionQueueController::StoreVariable(\"" . $param . "\", \$" . $param . ");\r\n");
+      }
+      if(isset($macro->SourceParam) && in_array($macro->SourceParam, $macro->Parameters)) {
+        fwrite($handler, "  // Store the source card ID when a prerequisite helper needs card-scoped lookup\r\n");
+        fwrite($handler, "  \$_sourceObj = GetZoneObject(\$" . $macro->SourceParam . ");\r\n");
+        fwrite($handler, "  if (\$_sourceObj !== null && isset(\$_sourceObj->CardID)) {\r\n");
+        fwrite($handler, "    DecisionQueueController::StoreVariable(\"" . $macro->SourceParam . "CardID\", \$_sourceObj->CardID);\r\n");
+        fwrite($handler, "  }\r\n");
+      }
+      $cardIndexParam = null;
+      if(
+        isset($macro->Toast) && strtolower($macro->Toast) === "card" &&
+        isset($macro->ToastCardParam) && in_array($macro->ToastCardParam, $macro->Parameters)
+      ) {
+        $cardIndexParam = $macro->ToastCardParam;
+      } else if (in_array('mzID', $macro->Parameters)) {
+        $cardIndexParam = 'mzID';
+      }
+      // If a card-bearing MZ parameter is available, look up the card ID and increment the turn/game indexes.
+      if ($cardIndexParam !== null) {
+        fwrite($handler, "  // Track this macro invocation in the persistent turn index (keyed by card ID)\r\n");
+        fwrite($handler, "  \$_mzObj = GetZoneObject(\$" . $cardIndexParam . ");\r\n");
+        fwrite($handler, "  \$_mzCardID = \$_mzObj !== null ? (\$_mzObj->CardID ?? null) : null;\r\n");
+        fwrite($handler, "  if (\$_mzCardID !== null) {\r\n");
+        fwrite($handler, "    \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+        fwrite($handler, "    if (!isset(\$_ti[\"" . $macro->FunctionName . "\"]) || !is_array(\$_ti[\"" . $macro->FunctionName . "\"])) \$_ti[\"" . $macro->FunctionName . "\"] = [];\r\n");
+        fwrite($handler, "    if (!isset(\$_ti[\"" . $macro->FunctionName . "\"][\$player]) || !is_array(\$_ti[\"" . $macro->FunctionName . "\"][\$player])) \$_ti[\"" . $macro->FunctionName . "\"][\$player] = [];\r\n");
+        fwrite($handler, "    \$_ti[\"" . $macro->FunctionName . "\"][\$player][\$_mzCardID] = (\$_ti[\"" . $macro->FunctionName . "\"][\$player][\$_mzCardID] ?? 0) + 1;\r\n");
+        fwrite($handler, "    SetMacroTurnIndex(json_encode(\$_ti));\r\n");
+        fwrite($handler, "    \$_gi = GetMacroGameIndexArray();\r\n");
+        fwrite($handler, "    if (!isset(\$_gi[\"" . $macro->FunctionName . "\"]) || !is_array(\$_gi[\"" . $macro->FunctionName . "\"])) \$_gi[\"" . $macro->FunctionName . "\"] = [];\r\n");
+        fwrite($handler, "    if (!isset(\$_gi[\"" . $macro->FunctionName . "\"][\$player]) || !is_array(\$_gi[\"" . $macro->FunctionName . "\"][\$player])) \$_gi[\"" . $macro->FunctionName . "\"][\$player] = [];\r\n");
+        fwrite($handler, "    \$_gi[\"" . $macro->FunctionName . "\"][\$player][\$_mzCardID] = (\$_gi[\"" . $macro->FunctionName . "\"][\$player][\$_mzCardID] ?? 0) + 1;\r\n");
+        fwrite($handler, "    SetMacroGameIndex(json_encode(\$_gi));\r\n");
+        fwrite($handler, "  }\r\n");
+      }
+    } else {
+      $cfArgs = '$player';
+    }
+    if(isset($macro->PrereqFunction)) {
+      $prereqArgs = '$player';
+      if (!empty($macro->Parameters)) {
+        $prereqArgs .= ', ' . implode(', ', array_map(fn($p) => '$' . $p, $macro->Parameters));
+      }
+      fwrite($handler, "  if(function_exists(\"" . $macro->PrereqFunction . "\") && !" . $macro->PrereqFunction . "(" . $prereqArgs . ")) return null;\r\n");
+    }
+    fwrite($handler, "  \$result = " . $cfName . "(" . $cfArgs . ");\r\n");
+    fwrite($handler, "  global \$systemDQHandlers;\r\n");
+    fwrite($handler, "  \$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"](\$player, \$result, null);\r\n");
+    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"PASSPARAMETER\", \"\$result\", 99);\r\n");
+    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterAction\", 99);\r\n");
+    fwrite($handler, "  \$dqController = new DecisionQueueController();\r\n");
+    fwrite($handler, "  \$dqController->ExecuteStaticMethods(\$player, \"-\");\r\n");
+  } else {
+    // If macro has parameters and uses Choice (not ChoiceFunction), pass them to the Choice handler
+    if (!empty($macro->Parameters)) {
+      $paramString = implode(" . '|' . ", array_map(fn($p) => '$' . $p, $macro->Parameters));
+      fwrite($handler, "  \$paramString = str_replace(' ', '_', " . $paramString . ");\r\n");
+      // Block 100 ensures the full chain completes before the next multi-call fires
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice|\$paramString\", 100);\r\n");
+    } else {
+      // Block 100 (higher than the inner chain blocks 1/99) ensures the full
+      // Choice→MZCHOOSE→AfterChoice chain completes before the next call fires
+      // when the same macro is invoked multiple times in sequence.
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice\", 100);\r\n");
+    }
+  }
+  fwrite($handler, "}\r\n\r\n");
+}
+
+// Generate macro turn-index helpers for macros with an mzID parameter
+$helperComment = "// Shared MacroGameIndex helpers for hooks that learn the specific card later.\r\n";
+$helperComment .= "function GetMacroGameIndexArray() {\r\n";
+$helperComment .= "  \$raw = GetMacroGameIndex();\r\n";
+$helperComment .= "  if (!is_string(\$raw) || \$raw === '' || \$raw === '-') return [];\r\n";
+$helperComment .= "  \$decoded = json_decode(\$raw, true);\r\n";
+$helperComment .= "  return is_array(\$decoded) ? \$decoded : [];\r\n";
+$helperComment .= "}\r\n\r\n";
+$helperComment .= "function IncrementMacroGameIndexCount(\$bucketName, \$player, \$amount = 1) {\r\n";
+$helperComment .= "  if(\$bucketName === '') return;\r\n";
+$helperComment .= "  \$_gi = GetMacroGameIndexArray();\r\n";
+$helperComment .= "  if (!isset(\$_gi[\$bucketName]) || !is_array(\$_gi[\$bucketName])) \$_gi[\$bucketName] = [];\r\n";
+$helperComment .= "  \$_gi[\$bucketName][\$player] = (\$_gi[\$bucketName][\$player] ?? 0) + max(1, intval(\$amount));\r\n";
+$helperComment .= "  SetMacroGameIndex(json_encode(\$_gi));\r\n";
+$helperComment .= "}\r\n\r\n";
+$helperComment .= "function IncrementMacroGameIndexBucket(\$bucketName, \$player, \$entryKey, \$amount = 1) {\r\n";
+$helperComment .= "  if(\$bucketName === '' || \$entryKey === '') return;\r\n";
+$helperComment .= "  \$_gi = GetMacroGameIndexArray();\r\n";
+$helperComment .= "  if (!isset(\$_gi[\$bucketName]) || !is_array(\$_gi[\$bucketName])) \$_gi[\$bucketName] = [];\r\n";
+$helperComment .= "  if (!isset(\$_gi[\$bucketName][\$player]) || !is_array(\$_gi[\$bucketName][\$player])) \$_gi[\$bucketName][\$player] = [];\r\n";
+$helperComment .= "  \$_gi[\$bucketName][\$player][\$entryKey] = (\$_gi[\$bucketName][\$player][\$entryKey] ?? 0) + max(1, intval(\$amount));\r\n";
+$helperComment .= "  SetMacroGameIndex(json_encode(\$_gi));\r\n";
+$helperComment .= "}\r\n\r\n";
+$helperComment .= "function IncrementMacroGameIndexTimeline(\$bucketName, \$player, \$turnNumber, \$amount = 1) {\r\n";
+$helperComment .= "  \$turnKey = strval(max(1, intval(\$turnNumber)));\r\n";
+$helperComment .= "  IncrementMacroGameIndexBucket(\$bucketName, \$player, \$turnKey, \$amount);\r\n";
+$helperComment .= "}\r\n\r\n";
+$helperComment .= "function IncrementMacroGameIndexCard(\$macroName, \$player, \$cardID, \$amount = 1) {\r\n";
+$helperComment .= "  IncrementMacroGameIndexBucket(\$macroName, \$player, \$cardID, \$amount);\r\n";
+$helperComment .= "}\r\n\r\n";
+fwrite($handler, $helperComment);
+
+// Generate macro turn-index helpers for macros with an mzID parameter
+$mzIDMacros = [];
+foreach ($macros as $macro) {
+  if (!empty($macro->Parameters) && in_array('mzID', $macro->Parameters)) {
+    $mzIDMacros[] = $macro;
+  }
+}
+if (!empty($mzIDMacros)) {
+  fwrite($handler, "// Macro turn-index helpers\r\n");
+  fwrite($handler, "// For each macro that has an mzID parameter, three functions are generated:\r\n");
+  fwrite($handler, "//   MacroNameTurnCount(\$player, \$cardID)  - how many times the macro fired for that card this turn\r\n");
+  fwrite($handler, "//   MacroNameTurnCards(\$player)           - array of [cardID => count] for all cards this turn\r\n");
+  fwrite($handler, "//   ClearMacroNameTurnIndex()             - reset the index (call at end-of-turn)\r\n");
+  fwrite($handler, "//   MacroNameCallCount(\$player)           - total times the macro was called for that player this turn\r\n");
+  fwrite($handler, "//   ClearMacroNameCallIndex()             - reset the total call counter\r\n\r\n");
+  foreach ($mzIDMacros as $macro) {
+    $fn = $macro->FunctionName;
+    fwrite($handler, "function " . $fn . "TurnCount(\$player, \$cardID) {\r\n");
+    fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+    fwrite($handler, "  return \$_ti[\"" . $fn . "\"][\$player][\$cardID] ?? 0;\r\n");
+    fwrite($handler, "}\r\n\r\n");
+    fwrite($handler, "function " . $fn . "TurnCards(\$player) {\r\n");
+    fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+    fwrite($handler, "  return \$_ti[\"" . $fn . "\"][\$player] ?? [];\r\n");
+    fwrite($handler, "}\r\n\r\n");
+    fwrite($handler, "function Clear" . $fn . "TurnIndex() {\r\n");
+    fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+    fwrite($handler, "  unset(\$_ti[\"" . $fn . "\"]);\r\n");
+    fwrite($handler, "  SetMacroTurnIndex(json_encode(\$_ti));\r\n");
+    fwrite($handler, "}\r\n\r\n");
+  }
+}
+
+// Generate macro game-index helpers for macros with an mzID parameter
+if (!empty($mzIDMacros)) {
+  fwrite($handler, "// Macro game-index helpers\r\n");
+  fwrite($handler, "// For each macro that has an mzID parameter, three functions are generated:\r\n");
+  fwrite($handler, "//   MacroNameGameCount(\$player, \$cardID)  - how many times the macro fired for that card this game\r\n");
+  fwrite($handler, "//   MacroNameGameCards(\$player)           - array of [cardID => count] for all cards this game\r\n");
+  fwrite($handler, "//   MacroNameGameCallCount(\$player)       - total times the macro was called for that player this game\r\n\r\n");
+  foreach ($mzIDMacros as $macro) {
+    $fn = $macro->FunctionName;
+    fwrite($handler, "function " . $fn . "GameCount(\$player, \$cardID) {\r\n");
+    fwrite($handler, "  \$_gi = GetMacroGameIndexArray();\r\n");
+    fwrite($handler, "  return \$_gi[\"" . $fn . "\"][\$player][\$cardID] ?? 0;\r\n");
+    fwrite($handler, "}\r\n\r\n");
+    fwrite($handler, "function " . $fn . "GameCards(\$player) {\r\n");
+    fwrite($handler, "  \$_gi = GetMacroGameIndexArray();\r\n");
+    fwrite($handler, "  return \$_gi[\"" . $fn . "\"][\$player] ?? [];\r\n");
+    fwrite($handler, "}\r\n\r\n");
+  }
+}
+
+// Generate per-player total call-count helpers for ALL macros.
+// Incremented once per macro function call regardless of card identity.
+fwrite($handler, "// Per-player total call-count helpers for all macros.\r\n");
+fwrite($handler, "// CallCount increments every time the macro function is entered, regardless of card.\r\n\r\n");
+foreach ($macros as $_cm) {
+  $_cfn = $_cm->FunctionName;
+  fwrite($handler, "function " . $_cfn . "CallCount(\$player) {\r\n");
+  fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+  fwrite($handler, "  return \$_ti[\"" . $_cfn . "Calls\"][\$player] ?? 0;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+  fwrite($handler, "function Clear" . $_cfn . "CallIndex() {\r\n");
+  fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+  fwrite($handler, "  unset(\$_ti[\"" . $_cfn . "Calls\"]);\r\n");
+  fwrite($handler, "  SetMacroTurnIndex(json_encode(\$_ti));\r\n");
+  fwrite($handler, "}\r\n\r\n");
+  fwrite($handler, "function " . $_cfn . "GameCallCount(\$player) {\r\n");
+  fwrite($handler, "  \$_gi = GetMacroGameIndexArray();\r\n");
+  fwrite($handler, "  return \$_gi[\"" . $_cfn . "Calls\"][\$player] ?? 0;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
+
+// Generate per-player turn-count helpers for macros with an 'amount' parameter but no mzID.
+// These macros use DoDrawCard (or similar) which manually increments the counter per actual unit.
+// Helpers generated: MacroNameTurnCount($player), ClearMacroNameTurnIndex().
+$amountOnlyMacros = array_filter($macros, fn($m) =>
+  !empty($m->Parameters) &&
+  in_array('amount', $m->Parameters) &&
+  !in_array('mzID', $m->Parameters)
+);
+if (!empty($amountOnlyMacros)) {
+  fwrite($handler, "// Per-player turn-count helpers for amount-based macros (no mzID).\r\n");
+  fwrite($handler, "// The counter is incremented inside the ChoiceFunction (e.g. DoDrawCard) per\r\n");
+  fwrite($handler, "// actual unit processed, not per macro call.\r\n\r\n");
+  foreach ($amountOnlyMacros as $macro) {
+    $fn = $macro->FunctionName;
+    fwrite($handler, "function " . $fn . "TurnCount(\$player) {\r\n");
+    fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+    fwrite($handler, "  return \$_ti[\"" . $fn . "\"][\$player] ?? 0;\r\n");
+    fwrite($handler, "}\r\n\r\n");
+    fwrite($handler, "function Clear" . $fn . "TurnIndex() {\r\n");
+    fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+    fwrite($handler, "  unset(\$_ti[\"" . $fn . "\"]);\r\n");
+    fwrite($handler, "  SetMacroTurnIndex(json_encode(\$_ti));\r\n");
+    fwrite($handler, "}\r\n\r\n");
+  }
+}
+
+// Generate ComputeVirtualProperties function for zones with virtual properties
+fwrite($handler, "// Compute virtual properties for objects before sending to client\r\n");
+fwrite($handler, "function ComputeVirtualProperties(\$obj) {\r\n");
+fwrite($handler, "  if(!isset(\$obj->Location)) return;\r\n");
+fwrite($handler, "  switch(\$obj->Location) {\r\n");
+for($i=0; $i<count($zones); ++$i) {
+  $zone = $zones[$i];
+  if(count($zone->VirtualProperties) > 0) {
+    $zoneName = $zone->Name;
+    fwrite($handler, "    case \"" . $zoneName . "\":\r\n");
+    for($j=0; $j<count($zone->VirtualProperties); ++$j) {
+      $virtual = $zone->VirtualProperties[$j];
+      $functionName = rtrim($virtual->Function, '()');
+      fwrite($handler, "      \$obj->" . $virtual->Name . " = " . $functionName . "(\$obj);\r\n");
+    }
+    fwrite($handler, "      break;\r\n");
+  }
+}
+fwrite($handler, "    default: break;\r\n");
+fwrite($handler, "  }\r\n");
+fwrite($handler, "}\r\n\r\n");
+
+// Generate global index helper functions if any zone has indexed properties
+if($hasAnyIndexedProperties) {
+  // HasIndexedValue - check if an mzID has a specific value in a specific property
+  fwrite($handler, "// Check if an object has a specific value in an indexed property\r\n");
+  fwrite($handler, "function HasIndexedValue(\$mzID, \$propertyName, \$value) {\r\n");
+  fwrite($handler, "  global \$objectDataIndices;\r\n");
+  fwrite($handler, "  return isset(\$objectDataIndices[\$mzID][\$propertyName][\$value]) && \$objectDataIndices[\$mzID][\$propertyName][\$value] > 0;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  // GetIndexedValueCount - get the count of a specific value in a property for an mzID
+  fwrite($handler, "// Get the count of a specific value in an indexed property\r\n");
+  fwrite($handler, "function GetIndexedValueCount(\$mzID, \$propertyName, \$value) {\r\n");
+  fwrite($handler, "  global \$objectDataIndices;\r\n");
+  fwrite($handler, "  return isset(\$objectDataIndices[\$mzID][\$propertyName][\$value]) ? \$objectDataIndices[\$mzID][\$propertyName][\$value] : 0;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  // GetAllIndexedValues - get all unique values for a property of an mzID
+  fwrite($handler, "// Get all unique values in an indexed property for an object\r\n");
+  fwrite($handler, "function GetAllIndexedValues(\$mzID, \$propertyName) {\r\n");
+  fwrite($handler, "  global \$objectDataIndices;\r\n");
+  fwrite($handler, "  if(!isset(\$objectDataIndices[\$mzID][\$propertyName])) return [];\r\n");
+  fwrite($handler, "  return array_keys(\$objectDataIndices[\$mzID][\$propertyName]);\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  // FindObjectsWithIndexedValue - find all mzIDs that have a specific value in a property
+  fwrite($handler, "// Find all objects that have a specific value in an indexed property\r\n");
+  fwrite($handler, "function FindObjectsWithIndexedValue(\$propertyName, \$value) {\r\n");
+  fwrite($handler, "  global \$objectDataIndices;\r\n");
+  fwrite($handler, "  \$results = [];\r\n");
+  fwrite($handler, "  foreach(\$objectDataIndices as \$mzID => \$properties) {\r\n");
+  fwrite($handler, "    if(isset(\$properties[\$propertyName][\$value]) && \$properties[\$propertyName][\$value] > 0) {\r\n");
+  fwrite($handler, "      \$results[] = \$mzID;\r\n");
+  fwrite($handler, "    }\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  return \$results;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
+
+fwrite($handler, "?>");
+fclose($handler);
+//Write the class file
+$filename = $rootPath . "/ZoneClasses.php";
+$handler = fopen($filename, "w");
+fwrite($handler, "<?php\r\n");
+for($i=0; $i<count($zones); ++$i) {
+  $zone = $zones[$i];
+  $zoneName = $zone->Name;
+  $hasIndexedProperties = count($zone->IndexedProperties) > 0;
+  // AllowDynamicProperties: ZoneAccessors assigns computed props (e.g. Material::$MaterialSelectionMetadata,
+  // GroundArena::$DynamicAbilities) that aren't declared here — undeclared-property writes are deprecated
+  // in PHP 8.2+. The attribute permits them (the code already relies on these dynamic props).
+  fwrite($handler, "#[\\AllowDynamicProperties]\r\nclass " . $zoneName . " {\r\n");
+  for($j=0; $j<count($zone->Properties); ++$j) {
+    $property = $zone->Properties[$j];
+    fwrite($handler, "  public \$" . $property->Name . ";\r\n");
+  }
+  fwrite($handler, "  public \$removed;\r\n");
+  $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+  fwrite($handler, "  public \$Location;\r\n");
+  fwrite($handler, "  public \$PlayerID;\r\n");
+  fwrite($handler, "  public \$mzIndex;\r\n"); // Add mzIndex property for all classes
+  fwrite($handler, "  public \$_sourceZone = null;\r\n"); // Tracks source zone during MZMove without dynamic properties
+  if($zoneName == "Versions") {
+    fwrite($handler, "  public \$DisplayNumber;\r\n");
+    fwrite($handler, "  public \$VersionName;\r\n");
+  }
+  if($zoneName != "Versions") {
+    fwrite($handler, "  function __construct(\$line, \$location = \"\", \$playerID = 0, \$mzIndex = -1) {\r\n");
+    fwrite($handler, "    \$arr = explode(\" \", \$line);\r\n");
+  for($j=0; $j<count($zone->Properties); ++$j) {
+    $property = $zone->Properties[$j];
+    $propertyName = $property->Name;
+    $propertyType = $property->Type;
+    fwrite($handler, "    \$this->" . $propertyName . " = ");
+    if($propertyType == "int" || $propertyType == "number") {
+      fwrite($handler, "(count(\$arr) > " . $j . " ? intval(\$arr[" . $j . "]) : -1);\r\n");
+    } else if($propertyType == "float") {
+      fwrite($handler, "(count(\$arr) > " . $j . " ? floatval(\$arr[" . $j . "]) : -1);\r\n");
+    } else if($propertyType == "boolean") {
+      // Stored as literal "true"/"false" in the serialized line.
+      fwrite($handler, "(count(\$arr) > " . $j . " ? filter_var(\$arr[" . $j . "], FILTER_VALIDATE_BOOLEAN) : false);\r\n");
+    } else if($propertyType == "array") {
+      // Arrays are serialized with ~ delimiter, e.g. "item1~item2~item3" or "-" for empty
+      fwrite($handler, "(count(\$arr) > " . $j . " && \$arr[" . $j . "] != \"-\" ? explode(\"~\", \$arr[" . $j . "]) : []);\r\n");
+    } else if($propertyType == "json") {
+      // JSON fields are base64-encoded in the serialized line to avoid space/delimiter collisions
+      fwrite($handler, "(count(\$arr) > " . $j . " && \$arr[" . $j . "] != \"-\" ? json_decode(base64_decode(\$arr[" . $j . "]), true) : []);\r\n");
+    } else {
+      fwrite($handler, "(count(\$arr) > " . $j . " ? \$arr[" . $j . "] : \"\");\r\n");
+    }
+  }
+  fwrite($handler, "    \$this->Location = \$location;\r\n");
+  fwrite($handler, "    \$this->PlayerID = \$playerID;\r\n");
+  fwrite($handler, "    \$this->mzIndex = \$mzIndex;\r\n");
+  fwrite($handler, "  }\r\n");
+  //Serialize function
+  fwrite($handler, "  function Serialize(\$delimiter = \" \") {\r\n");
+  fwrite($handler, "    \$rv = \"\";\r\n");
+  for($j=0; $j<count($zone->Properties); ++$j) {
+    $property = $zone->Properties[$j];
+    $propertyName = $property->Name;
+    if($j > 0) fwrite($handler, "    \$rv .= \$delimiter;\r\n");
+    if($property->Type == "array") {
+      // Serialize arrays with ~ delimiter, or "-" if empty
+      fwrite($handler, "    \$rv .= (count(\$this->" . $propertyName . ") > 0 ? implode(\"~\", \$this->" . $propertyName . ") : \"-\");\r\n");
+    } else if($property->Type == "json") {
+      // Serialize JSON fields as base64-encoded JSON strings, or "-" if empty
+      fwrite($handler, "    \$rv .= (!empty(\$this->" . $propertyName . ") ? base64_encode(json_encode(\$this->" . $propertyName . ")) : \"-\");\r\n");
+    } else if($property->Type == "boolean") {
+      // Serialize booleans as literal "true"/"false" strings
+      fwrite($handler, "    \$rv .= (\$this->" . $propertyName . " ? 'true' : 'false');\r\n");
+    } else {
+      fwrite($handler, "    \$rv .= \$this->" . $propertyName . ";\r\n");
+    }
+  }
+  fwrite($handler, "    return \$rv;\r\n");
+  fwrite($handler, "  }\r\n");
+  } else {
+    // Versions: custom constructor parses "N:data" prefix to preserve DisplayNumber across deletes
+    fwrite($handler, "  function __construct(\$line, \$location = \"\", \$playerID = 0, \$mzIndex = -1) {\r\n");
+    fwrite($handler, "    \$rawLine = trim(\$line);\r\n");
+    fwrite($handler, "    if(preg_match('/^(\\\\d+):(.+)/', \$rawLine, \$m)) {\r\n");
+    fwrite($handler, "      \$this->DisplayNumber = intval(\$m[1]);\r\n");
+    fwrite($handler, "      \$rest = \$m[2];\r\n");
+    fwrite($handler, "      if(strpos(\$rest, '<vname>') !== false) {\r\n");
+    fwrite($handler, "        \$vnameParts = explode('<vname>', \$rest, 2);\r\n");
+    fwrite($handler, "        \$this->VersionName = \$vnameParts[0];\r\n");
+    fwrite($handler, "        \$this->Version = \$vnameParts[1];\r\n");
+    fwrite($handler, "      } else {\r\n");
+    fwrite($handler, "        \$this->VersionName = '';\r\n");
+    fwrite($handler, "        \$this->Version = \$rest;\r\n");
+    fwrite($handler, "      }\r\n");
+    fwrite($handler, "    } else {\r\n");
+    fwrite($handler, "      \$this->DisplayNumber = (\$mzIndex >= 0 ? \$mzIndex : 0);\r\n");
+    fwrite($handler, "      \$this->VersionName = '';\r\n");
+    fwrite($handler, "      \$this->Version = \$rawLine;\r\n");
+    fwrite($handler, "    }\r\n");
+    fwrite($handler, "    \$this->Location = \$location;\r\n");
+    fwrite($handler, "    \$this->PlayerID = \$playerID;\r\n");
+    fwrite($handler, "    \$this->mzIndex = \$mzIndex;\r\n");
+    fwrite($handler, "  }\r\n");
+    // Versions: Serialize with DisplayNumber prefix and optional VersionName so number/name persists
+    fwrite($handler, "  function Serialize(\$delimiter = \" \") {\r\n");
+    fwrite($handler, "    \$namePrefix = (strlen(\$this->VersionName) > 0 ? \$this->VersionName . '<vname>' : '');\r\n");
+    fwrite($handler, "    return \$this->DisplayNumber . ':' . \$namePrefix . \$this->Version;\r\n");
+    fwrite($handler, "  }\r\n");
+  }
+
+  // Generate indexed property methods if this zone has any
+  if($hasIndexedProperties) {
+    // GetMzID function — use Controller if the zone has it, otherwise fall back to PlayerID
+    $hasControllerField = false;
+    foreach($zone->Properties as $prop) {
+      if($prop->Name === 'Controller') { $hasControllerField = true; break; }
+    }
+    $ownerExpr = $hasControllerField ? "\$this->Controller" : "\$this->PlayerID";
+    fwrite($handler, "  function GetMzID() {\r\n");
+    fwrite($handler, "    global \$playerID;\r\n");
+    if($rootName == "SWUSim") {
+      // Twin Suns: "their<Zone>" names no seat, so above two seats a FOREIGN object's mzID is ambiguous —
+      // it resolves to whichever opponent the reader's frame happens to pick, which is seat 2 for seat 1
+      // and NULL/self for seats 3-4. Every unqualified pool (ZoneSearch's opponent fan-out,
+      // SWUAllUnits, SWUAllBaseMzIDs) already emits real p{n} mzIDs; GetMzID() was the last producer
+      // still speaking the two-seat dialect, and it feeds ~29 call sites that hand the result straight to
+      // damage/token/trigger APIs. Emit the seat-specific form whenever the object is NOT the reader's
+      // and the game has more than two seats; 2-player is byte-identical.
+      fwrite($handler, "    \$mzOwner = " . $ownerExpr . ";\r\n");
+      fwrite($handler, "    if(\$playerID != \$mzOwner && function_exists('SeatCountForGame') && SeatCountForGame() > 2)\r\n");
+      fwrite($handler, "      return \"p\" . intval(\$mzOwner) . \$this->Location . \"-\" . \$this->mzIndex;\r\n");
+      fwrite($handler, "    \$prefix = \$playerID == \$mzOwner ? \"my\" : \"their\";\r\n");
+    } else {
+      fwrite($handler, "    \$prefix = \$playerID == " . $ownerExpr . " ? \"my\" : \"their\";\r\n");
+    }
+    fwrite($handler, "    return \$prefix . \$this->Location . \"-\" . \$this->mzIndex;\r\n");
+    fwrite($handler, "  }\r\n");
+
+    // For each indexed property that is an array, generate Add/Remove methods
+    for($j=0; $j<count($zone->Properties); ++$j) {
+      $property = $zone->Properties[$j];
+      if(in_array($property->Name, $zone->IndexedProperties) && $property->Type == "array") {
+        $propName = $property->Name;
+
+        // Add method
+        fwrite($handler, "  function Add" . $propName . "(\$value) {\r\n");
+        fwrite($handler, "    global \$objectDataIndices;\r\n");
+        fwrite($handler, "    \$this->" . $propName . "[] = \$value;\r\n");
+        fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
+        fwrite($handler, "    if(!isset(\$objectDataIndices[\$mzID])) \$objectDataIndices[\$mzID] = [];\r\n");
+        fwrite($handler, "    if(!isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"])) \$objectDataIndices[\$mzID][\"" . $propName . "\"] = [];\r\n");
+        fwrite($handler, "    if(!isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value])) \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value] = 0;\r\n");
+        fwrite($handler, "    \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value]++;\r\n");
+        fwrite($handler, "  }\r\n");
+
+        // Remove method
+        fwrite($handler, "  function Remove" . $propName . "(\$value) {\r\n");
+        fwrite($handler, "    global \$objectDataIndices;\r\n");
+        fwrite($handler, "    \$key = array_search(\$value, \$this->" . $propName . ");\r\n");
+        fwrite($handler, "    if(\$key !== false) {\r\n");
+        fwrite($handler, "      array_splice(\$this->" . $propName . ", \$key, 1);\r\n");
+        fwrite($handler, "      \$mzID = \$this->GetMzID();\r\n");
+        fwrite($handler, "      if(isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value])) {\r\n");
+        fwrite($handler, "        \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value]--;\r\n");
+        fwrite($handler, "        if(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value] <= 0) {\r\n");
+        fwrite($handler, "          unset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value]);\r\n");
+        fwrite($handler, "        }\r\n");
+        fwrite($handler, "      }\r\n");
+        fwrite($handler, "    }\r\n");
+        fwrite($handler, "  }\r\n");
+
+        // Has method
+        fwrite($handler, "  function Has" . $propName . "(\$value) {\r\n");
+        fwrite($handler, "    global \$objectDataIndices;\r\n");
+        fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
+        fwrite($handler, "    return isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value]) && \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value] > 0;\r\n");
+        fwrite($handler, "  }\r\n");
+
+        // Get count method
+        fwrite($handler, "  function Get" . $propName . "Count(\$value) {\r\n");
+        fwrite($handler, "    global \$objectDataIndices;\r\n");
+        fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
+        fwrite($handler, "    return isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value]) ? \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value] : 0;\r\n");
+        fwrite($handler, "  }\r\n");
+
+        // Clear method
+        fwrite($handler, "  function Clear" . $propName . "() {\r\n");
+        fwrite($handler, "    global \$objectDataIndices;\r\n");
+        fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
+        fwrite($handler, "    \$this->" . $propName . " = [];\r\n");
+        fwrite($handler, "    if(isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"])) {\r\n");
+        fwrite($handler, "      \$objectDataIndices[\$mzID][\"" . $propName . "\"] = [];\r\n");
+        fwrite($handler, "    }\r\n");
+        fwrite($handler, "  }\r\n");
+      }
+    }
+
+    // BuildIndex method to rebuild indices from current array state
+    fwrite($handler, "  function BuildIndex() {\r\n");
+    fwrite($handler, "    global \$objectDataIndices;\r\n");
+    fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
+    fwrite($handler, "    if(!isset(\$objectDataIndices[\$mzID])) \$objectDataIndices[\$mzID] = [];\r\n");
+    for($j=0; $j<count($zone->Properties); ++$j) {
+      $property = $zone->Properties[$j];
+      if(in_array($property->Name, $zone->IndexedProperties) && $property->Type == "array") {
+        $propName = $property->Name;
+        fwrite($handler, "    \$objectDataIndices[\$mzID][\"" . $propName . "\"] = [];\r\n");
+        fwrite($handler, "    foreach(\$this->" . $propName . " as \$val) {\r\n");
+        fwrite($handler, "      if(!isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$val])) \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$val] = 0;\r\n");
+        fwrite($handler, "      \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$val]++;\r\n");
+        fwrite($handler, "    }\r\n");
+      }
+    }
+    fwrite($handler, "  }\r\n");
+
+    // ClearIndex method to clear this object's entries from the index
+    fwrite($handler, "  function ClearIndex() {\r\n");
+    fwrite($handler, "    global \$objectDataIndices;\r\n");
+    fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
+    fwrite($handler, "    if(isset(\$objectDataIndices[\$mzID])) {\r\n");
+    fwrite($handler, "      unset(\$objectDataIndices[\$mzID]);\r\n");
+    fwrite($handler, "    }\r\n");
+    fwrite($handler, "  }\r\n");
+  } else {
+    // If no indexed properties, just add empty BuildIndex and ClearIndex methods for consistency
+    fwrite($handler, "  function BuildIndex() {\r\n");
+    fwrite($handler, "    // No indexed properties\r\n");
+    fwrite($handler, "  }\r\n");
+    fwrite($handler, "  function ClearIndex() {\r\n");
+    fwrite($handler, "    // No indexed properties\r\n");
+    fwrite($handler, "  }\r\n");
+  }
+
+  //Remove function
+  fwrite($handler, "  function Remove(\$trigger=\"\") {\r\n");
+  fwrite($handler, "    \$this->removed = true;\r\n");
+  if($hasIndexedProperties) {
+    fwrite($handler, "    \$this->ClearIndex();\r\n");
+  }
+  fwrite($handler, "  }\r\n");
+  //Removed function
+  fwrite($handler, "  function Removed() {\r\n");
+  fwrite($handler, "    return \$this->removed;\r\n");
+  fwrite($handler, "  }\r\n");
+  //DragMode function
+  fwrite($handler, "  function DragMode() {\r\n");
+  fwrite($handler, "    return \"" . $zone->DragMode . "\";\r\n");
+  fwrite($handler, "  }\r\n");
+
+  fwrite($handler, "  static function GetMacros() {\r\n");
+  fwrite($handler, "    return [");
+  for($j=0; $j<count($zone->Macros); ++$j) {
+    $macro = $zone->Macros[$j];
+    fwrite($handler, "\"" . $macro->Name . "\"");
+    if($j < count($zone->Macros) - 1) fwrite($handler, ", ");
+  }
+  fwrite($handler, "];\r\n");
+  fwrite($handler, "  }\r\n");
+  if($zoneName == "Versions") {
+    $versionsModule = GetModule("Versions");
+    $isNewModule = true;
+    if($versionsModule == null) {
+      $versionsModule = GetModuleOfType("Versions");
+      $isNewModule = false;
+    }
+    if($versionsModule != null) {
+      $separator = $isNewModule ? "," : ";";
+      $versionZones = explode($separator, $versionsModule->Parameters ?? $versionsModule->Zones ?? "");
+
+      // Build lookup map for Value mode zones
+      $valueZones = [];
+      $globalZones = [];
+      for($k=0; $k<count($zones); ++$k) {
+        if($zones[$k]->DisplayMode == 'Value') {
+          $valueZones[$zones[$k]->Name] = true;
+        }
+        if($zones[$k]->Scope == 'Global') {
+          $globalZones[$zones[$k]->Name] = true;
+        }
+      }
+
+      fwrite($handler, "  static function GetSerializedZones() {\r\n");
+      fwrite($handler, "    \$rv = \"\";\r\n");
+      for($j=0; $j<count($versionZones); ++$j) {
+        $baseZoneName = $versionZones[$j];
+        // Strip my/their prefix to check zone DisplayMode
+        $checkZoneName = $baseZoneName;
+        if(str_starts_with($checkZoneName, "my")) $checkZoneName = substr($checkZoneName, 2);
+        elseif(str_starts_with($checkZoneName, "their")) $checkZoneName = substr($checkZoneName, 5);
+        elseif(preg_match('/^p\d/', $checkZoneName)) $checkZoneName = preg_replace('/^p\d/', '', $checkZoneName);
+
+        $isValueZone = isset($valueZones[$checkZoneName]);
+        $isGlobalZone = isset($globalZones[$checkZoneName]);
+
+        if($isValueZone) {
+          $globalName = $isGlobalZone ? "g" . $checkZoneName : $baseZoneName;
+          // Value zones are single objects, not arrays
+          if($isGlobalZone) {
+            fwrite($handler, "    global \$g" . $checkZoneName . ";\r\n");
+            fwrite($handler, "    \$rv .= \$g" . $checkZoneName . ";\r\n");
+          } else {
+            fwrite($handler, "    \$rv .= GetZone(\"" . $baseZoneName . "\");\r\n");
+          }
+        } else {
+          // Array zones
+          fwrite($handler, "    \$zone = &GetZone(\"" . $baseZoneName . "\");\r\n");
+          fwrite($handler, "    \$wroteAny = false;\r\n");
+          fwrite($handler, "    for(\$i=0; \$i<count(\$zone); ++\$i) {\r\n");
+          fwrite($handler, "      if(!isset(\$zone[\$i]) || \$zone[\$i] === null) continue;\r\n");
+          fwrite($handler, "      if(\$zone[\$i]->Removed()) continue;\r\n");
+          fwrite($handler, "      if(\$wroteAny) \$rv .= \"<v1>\";\r\n");
+          fwrite($handler, "      \$rv .= \$zone[\$i]->Serialize(\"<v2>\");\r\n");
+          fwrite($handler, "      \$wroteAny = true;\r\n");
+          fwrite($handler, "    }\r\n");
+        }
+        if($j < count($versionZones) - 1) fwrite($handler, "    \$rv .= \"<v0>\";\r\n");
+      }
+      fwrite($handler, "    return \$rv;\r\n");
+      fwrite($handler, "  }\r\n");
+    }
+  }
+
+  fwrite($handler, "}\r\n\r\n");//End of this class
+}
+fwrite($handler, "?>");
+fclose($handler);
+//Write the Gamestate parsing file
+$filename = $rootPath . "/GamestateParser.php";
+$handler = fopen($filename, "w");
+fwrite($handler, "<?php\r\n");
+fwrite($handler, "include_once __DIR__ . '/../Core/GameAuth.php';\r\n");
+for($i=0; $i<count($serverIncludes); ++$i) {
+  fwrite($handler, "include __DIR__ . '" . $serverIncludes[$i] . "';\r\n");
+}
+if($rootName == "SWUSim") {
+  fwrite($handler, "include_once __DIR__ . '/Telemetry.php';\r\n"); // Plan D: per-game stats accumulator (loaded everywhere the engine runs)
+}
+//Function to get asset reflection path
+fwrite($handler, "function GetAssetReflectionPath() {\r\n");
+fwrite($handler, "  return \"" . ($assetReflection === null ? "" : $assetReflection) . "\";\r\n");
+fwrite($handler, "}\r\n\r\n");
+// Function to control whether regression recording tools should be exposed
+$supportsRegressionRecording = in_array($rootName, ["GrandArchiveSim", "RBSim", "GudnakSim", "SoulMastersSim", "AzukiSim", "HellbreakSim"], true) ? "true" : "false";
+fwrite($handler, "function SupportsRegressionRecording() {\r\n");
+fwrite($handler, "  return " . $supportsRegressionRecording . ";\r\n");
+fwrite($handler, "}\r\n\r\n");
+//Function to get edit authorization type
+fwrite($handler, "function GetEditAuth() {\r\n");
+fwrite($handler, "  return \"" . $editAuth . "\";\r\n");
+fwrite($handler, "}\r\n\r\n");
+//Gamestate storage configuration helpers
+fwrite($handler, "function GamestateStorageMode() {\r\n");
+fwrite($handler, "  return \"" . $gamestateStorageMode . "\";\r\n");
+fwrite($handler, "}\r\n\r\n");
+fwrite($handler, "function GamestateUsesMemoryStorage() {\r\n");
+fwrite($handler, "  return GamestateStorageMode() === \"apcu\";\r\n");
+fwrite($handler, "}\r\n\r\n");
+fwrite($handler, "function GetGamestateStorageKey(\$gameName) {\r\n");
+fwrite($handler, "  return \"tcgengine:gamestate:" . $rootName . ":\" . \$gameName;\r\n");
+fwrite($handler, "}\r\n\r\n");
+//Initialize gamestate function
+fwrite($handler, "function InitializeGamestate() {\r\n");
+fwrite($handler, GetZoneGlobals($zones) . "\r\n");
+fwrite($handler, GetCoreGlobals() . "\r\n");
+if($hasAnyIndexedProperties) {
+  fwrite($handler, "  \$objectDataIndices = [];\r\n");
+}
+for($i=0; $i<count($zones); ++$i) {
+  $zone = $zones[$i];
+  $zoneName = $zone->Name;
+  $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+  if (strtolower($scope) == 'global') {
+    if ($zone->DisplayMode == 'Value') {
+      fwrite($handler, "  \$g" . $zoneName . " = " . GetValueZoneDefaultLiteral($zone) . ";\r\n");
+    } else {
+      fwrite($handler, "  \$g" . $zoneName . " = [];\r\n");
+    }
+  } else {
+    global $maxSeats;
+    for ($s = 1; $s <= $maxSeats; ++$s) {
+      if ($zone->DisplayMode == 'Value') {
+        fwrite($handler, "  \$p" . $s . $zoneName . " = " . GetValueZoneDefaultLiteral($zone) . ";\r\n");
+      } else {
+        fwrite($handler, "  \$p" . $s . $zoneName . " = [];\r\n");
+      }
+    }
+  }
+}
+fwrite($handler, "  \$currentPlayer = 1;\r\n");//TODO: Change this to startPlayer (needs to be linked up w/ lobby code)
+fwrite($handler, "  \$updateNumber = 1;\r\n");//TODO: Change this to startPlayer (needs to be linked up w/ lobby code)
+if(!SchemaOwnsRandomCounter()) {
+  fwrite($handler, "  \$gRandomCounter = 0;\r\n");
+}
+if(in_array($rootName, ["SWUSim"], true)) {
+  fwrite($handler, "  global \$gWinner, \$gPendingTriggers, \$gTriggerDepth;\r\n");
+  fwrite($handler, "  \$gWinner = null;\r\n");
+  fwrite($handler, "  \$gPendingTriggers = [];\r\n");
+  fwrite($handler, "  \$gTriggerDepth = 1;\r\n");
+  fwrite($handler, "  global \$gTelemetry; \$gTelemetry = \"-\";\r\n"); // Plan D: per-game telemetry global
+}
+fwrite($handler, "}\r\n\r\n");
+//Write gamestate function
+fwrite($handler, "function WriteGamestate(\$filepath=\"./\") {\r\n");
+fwrite($handler, GetZoneGlobals($zones) . "\r\n");
+fwrite($handler, GetCoreGlobals() . "\r\n");
+fwrite($handler, AddWriteGamestate() . "\r\n");
+
+fwrite($handler, "}\r\n\r\n");
+//Parse gamestate function
+fwrite($handler, "function ParseGamestate(\$filepath=\"./\") {\r\n");
+fwrite($handler, GetZoneGlobals($zones) . "\r\n");
+fwrite($handler, GetCoreGlobals() . "\r\n");
+fwrite($handler, AddReadGamestate() . "\r\n");
+
+fwrite($handler, "}\r\n\r\n");
+
+//Load version function
+$versionsModule = GetModule("Versions");
+$isNewVersionsModule = true;
+if($versionsModule == null) {
+  $versionsModule = GetModuleOfType("Versions");
+  $isNewVersionsModule = false;
+}
+if($versionsModule != null) {
+  $separator = $isNewVersionsModule ? "," : ";";
+  $versionZones = array_map('trim', explode($separator, $versionsModule->Parameters ?? $versionsModule->Zones ?? ""));
+  $versionsOwnsRandomCounter = in_array("RandomCounter", $versionZones, true);
+
+  // Build lookup map for Value mode zones
+  $valueZones = [];
+  $globalZones = [];
+  for($k=0; $k<count($zones); ++$k) {
+    if($zones[$k]->DisplayMode == 'Value') {
+      $valueZones[$zones[$k]->Name] = true;
+    }
+    if($zones[$k]->Scope == 'Global') {
+      $globalZones[$zones[$k]->Name] = true;
+    }
+  }
+
+  fwrite($handler, "function LoadVersion(\$playerID, \$versionNum = -1) {\r\n");
+  fwrite($handler, "  \$versions = &GetVersions(\$playerID);\r\n");
+  fwrite($handler, "  if(\$versionNum == -1) \$versionNum = count(\$versions) - 1;\r\n");
+  fwrite($handler, "  if(\$versionNum == -1) return;\r\n//No versions to load\r\n");
+  fwrite($handler, "  \$versionNum = intval(\$versionNum);\r\n");
+  fwrite($handler, "  \$copyFrom = \$versions[\$versionNum];\r\n");
+  fwrite($handler, "  \$zones = explode(\"<v0>\", \$copyFrom->Version);\r\n");
+  for($i=0; $i<count($versionZones); ++$i) {
+    $baseZoneName = $versionZones[$i];
+    $className = $baseZoneName;
+    if(str_starts_with($className, "my")) $className = substr($className, 2);
+    elseif(str_starts_with($className, "their")) $className = substr($className, 5);
+    elseif(preg_match('/^p\d/', $className)) $className = preg_replace('/^p\d/', '', $className);
+
+    $isValueZone = isset($valueZones[$className]);
+    $isGlobalZone = isset($globalZones[$className]);
+
+    fwrite($handler, "  if(count(\$zones) > " . $i . ") {\r\n");
+    if($isValueZone) {
+      // Value zones are single objects, not arrays
+      fwrite($handler, "    \$data = str_replace(\"<v2>\", \" \", \$zones[" . $i . "]);\r\n");
+
+      if($isGlobalZone) {
+        fwrite($handler, "  global \$g" . $className . ";\r\n");
+        fwrite($handler, "  \$g" . $className . " = \$data;\r\n");
+      } else {
+        fwrite($handler, "    if(trim(\$data) != \"\") {\r\n");
+        fwrite($handler, "      \$zone = &GetZone(\"" . $baseZoneName . "\");\r\n");
+        fwrite($handler, "      \$zone = \$data;\r\n");
+        fwrite($handler, "    }\r\n");
+      }
+    } else {
+      // Array zones
+      fwrite($handler, "    \$data = explode(\"<v1>\", \$zones[" . $i . "]);\r\n");
+      fwrite($handler, "    if(count(\$data) > 0) {\r\n");
+      fwrite($handler, "      \$zone = &GetZone(\"" . $baseZoneName . "\");\r\n");
+      fwrite($handler, "      \$zone = [];\r\n");
+      fwrite($handler, "      for(\$j=0; \$j<count(\$data); ++\$j) {\r\n");
+      fwrite($handler, "        if(trim(\$data[\$j]) == \"\") continue;\r\n");
+      fwrite($handler, "        \$data[\$j] = str_replace(\"<v2>\", \" \", \$data[\$j]);\r\n");
+      // Location MUST be the RELATIVE base name ($className, e.g. 'GroundArena') — matching ParseGamestate.
+      // The engine composes zone names as "my"/"their" . Location (GetMzID, SWUGetValidAttackTargets), so an
+      // absolute 'p2GroundArena' here builds a null zone ("theirp2GroundArena") and fatals combat on the next
+      // action. Normally invisible (a WriteGamestate + re-ParseGamestate follows every action and re-normalizes
+      // these objects); an in-memory match-replay "Play All" skips that boundary and carries the corruption in.
+      fwrite($handler, "        \$location = '" . $className . "';\r\n");
+      // Owner PlayerID, from the version-zone prefix (p1→1, p2→2, global→0) — also matching ParseGamestate.
+      // (Was always 0: a copy-paste bug tested the literal string "'\" . \$baseZoneName . \"'" instead of the value.)
+      $ownerPlayer = str_starts_with($baseZoneName, 'p1') ? '1'
+                   : (str_starts_with($baseZoneName, 'p2') ? '2' : '0');
+      fwrite($handler, "        \$controller = " . $ownerPlayer . ";\r\n");
+      fwrite($handler, "        array_push(\$zone, new " . $className . "(\$data[\$j], \$location, \$controller));\r\n");
+      fwrite($handler, "      }\r\n");
+      fwrite($handler, "    }\r\n");
+    }
+    fwrite($handler, "  }\r\n");
+  }
+  if(!$versionsOwnsRandomCounter) {
+    fwrite($handler, "  if(count(\$zones) > " . count($versionZones) . ") {\r\n");
+    fwrite($handler, "    \$data = str_replace(\"<v2>\", \" \", \$zones[" . count($versionZones) . "]);\r\n");
+    fwrite($handler, "  global \$gRandomCounter;\r\n");
+    fwrite($handler, "  \$gRandomCounter = intval(\$data);\r\n");
+    fwrite($handler, "  }\r\n");
+  }
+  fwrite($handler, "}\r\n\r\n");
+
+  //Save version function
+  fwrite($handler, "function SaveVersion(\$playerID, \$name = \"\") {\r\n");
+  fwrite($handler, "  \$zones = Versions::GetSerializedZones();\r\n");
+  if(!$versionsOwnsRandomCounter) {
+    fwrite($handler, "  global \$gRandomCounter;\r\n");
+    fwrite($handler, "  \$zones .= \"<v0>\" . \$gRandomCounter;\r\n");
+  }
+  fwrite($handler, "  \$existingVersions = &GetVersions(\$playerID);\r\n");
+  fwrite($handler, "  \$nextNum = 0;\r\n");
+  fwrite($handler, "  foreach(\$existingVersions as \$v) {\r\n");
+  fwrite($handler, "    if(isset(\$v->DisplayNumber) && \$v->DisplayNumber >= \$nextNum) \$nextNum = \$v->DisplayNumber + 1;\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  \$namePrefix = (strlen(\$name) > 0 ? \$name . '<vname>' : '');\r\n");
+  fwrite($handler, "  AddVersions(\$playerID, \$nextNum . ':' . \$namePrefix . \$zones);\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
+
+fwrite($handler, "?>");
+fclose($handler);
+
+//Write the Gamestate network file
+$filename = $rootPath . "/GetNextTurn.php";
+$handler = fopen($filename, "w");
+fwrite($handler, "<?php\r\n");
+fwrite($handler, "include '../Core/UILibraries.php';\r\n");
+fwrite($handler, "include '../Core/NetworkingLibraries.php';\r\n");
+fwrite($handler, "include '../Core/HTTPLibraries.php';\r\n");
+fwrite($handler, "include '../Core/CoreZoneModifiers.php';\r\n");
+fwrite($handler, "include '../Core/BotController.php';\r\n");
+fwrite($handler, "include '../Core/ViewerIdentity.php';\r\n");
+fwrite($handler, "include '../Assets/patreon-php-master/src/PatreonLibraries.php';\r\n");
+fwrite($handler, "include './GamestateParser.php';\r\n");
+fwrite($handler, "include './ZoneAccessors.php';\r\n");
+fwrite($handler, "include './ZoneClasses.php';\r\n");
+// Card dictionaries live with the asset owner. A reflected site (e.g. SWUCardList ->
+// SWUDeck) has no local GeneratedCode/, so pull the dictionaries from the reflected
+// site's folder — matching how NextTurn.php resolves them via GetAssetReflectionPath.
+if ($assetReflection !== null && $assetReflection !== "") {
+  fwrite($handler, "include '../" . $assetReflection . "/GeneratedCode/GeneratedCardDictionaries.php';\r\n");
+} else {
+  fwrite($handler, "include './GeneratedCode/GeneratedCardDictionaries.php';\r\n");
+}
+// GetNextTurn.php is fetched as its OWN request, so it only has what the generator gives it. Without
+// this the display substitution is an undefined-function fatal on every board render.
+if($rootName === "SWUSim" || $rootName === "SWUDeck") {
+  fwrite($handler, "include_once '../AppCore/SWU/CardDisplayID.php';\r\n");
+}
+//TODO: Validate these inputs
+fwrite($handler, "\$gameName = TryGet(\"gameName\");\r\n");
+if($rootName == "SWUSim") {
+  // Plan C: a finished game awaiting sideboarding sends SEATED players to the sideboard screen;
+  // spectators skip it and keep polling (they follow MATCHADVANCE once the next game spawns).
+  fwrite($handler, "\$swuSidePtr = __DIR__ . '/Games/' . preg_replace('/[^A-Za-z0-9_]/', '', strval(\$gameName)) . '/Sideboard.json';\r\n");
+  fwrite($handler, "if (is_file(\$swuSidePtr) && TryGet(\"playerID\") !== 'S') {\r\n");
+  fwrite($handler, "  \$sp = json_decode(file_get_contents(\$swuSidePtr), true);\r\n");
+  fwrite($handler, "  \$sMatch = is_array(\$sp) ? strval(\$sp['matchId'] ?? '') : '';\r\n");
+  fwrite($handler, "  if (\$sMatch !== '') {\r\n");
+  fwrite($handler, "    if (is_file(__DIR__ . '/MatchFlow.php')) include_once __DIR__ . '/MatchFlow.php';\r\n");
+  fwrite($handler, "    if (function_exists('SWUSideboardTimeoutCheck')) SWUSideboardTimeoutCheck(\$sMatch);\r\n");
+  fwrite($handler, "    echo '1236SIDEBOARD' . \$sMatch; exit;\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "}\r\n");
+  // Plan B2: a game that advanced to the next child game redirects clients (authKey carries over).
+  fwrite($handler, "\$swuNextGamePtr = __DIR__ . '/Games/' . preg_replace('/[^A-Za-z0-9_]/', '', strval(\$gameName)) . '/NextGame.json';\r\n");
+  fwrite($handler, "if (is_file(\$swuNextGamePtr)) {\r\n");
+  fwrite($handler, "  \$swuPtr = json_decode(file_get_contents(\$swuNextGamePtr), true);\r\n");
+  fwrite($handler, "  \$swuNext = is_array(\$swuPtr) ? strval(\$swuPtr['nextGameName'] ?? '') : '';\r\n");
+  fwrite($handler, "  if (\$swuNext !== '') { echo '1235MATCHADVANCE' . \$swuNext; exit; }\r\n");
+  fwrite($handler, "}\r\n");
+}
+fwrite($handler, "\$requestPlayerID = TryGet(\"playerID\");\r\n");
+// SWUSim (Twin Suns) has up to 4 real seats — pass maxSeats so seat 3/4 is a player, not a spectator.
+// Non-SWU sims ($maxSeats==2) emit the original single-arg call → byte-identical output.
+$viewerSeatsArg = ($maxSeats > 2) ? ", " . intval($maxSeats) : "";
+fwrite($handler, "\$viewerInfo = NormalizeViewerIdentity(\$requestPlayerID" . $viewerSeatsArg . ");\r\n");
+fwrite($handler, "\$viewerPerspective = NormalizeViewerPerspective(\$viewerInfo, TryGet(\"viewerPerspective\", \"\")" . $viewerSeatsArg . ");\r\n");
+fwrite($handler, "\$playerID = \$viewerPerspective;\r\n");
+// Each seat's viewer-privacy flag (Twin Suns: 1..N; other sims: 1..2, byte-identical). Gates the
+// per-seat private-zone serialization (Hand/Deck/DecisionQueue/TempZone). Without a flag defined for
+// the viewer's OWN seat, that seat's decisions + hand serialize as face-down CardBacks — which is why
+// a seat-3/4 viewer never saw their own attack-target prompt.
+for ($cspSeat = 1; $cspSeat <= $maxSeats; ++$cspSeat) {
+  fwrite($handler, "\$canSeePrivatePlayer{$cspSeat} = !\$viewerInfo[\"isSpectator\"] && intval(\$viewerInfo[\"viewerSeat\"] ?? 0) === {$cspSeat};\r\n");
+}
+fwrite($handler, "\$spectatorCanSeeHands = SimGameViewerCanSeeHands('" . $rootName . "', \$gameName, \$viewerInfo);\r\n");
+fwrite($handler, "\$authKey = TryGet(\"authKey\", \"\");\r\n");
+fwrite($handler, "if(\$viewerInfo[\"viewerID\"] === \"\") {\r\n");
+fwrite($handler, "  echo(\"Invalid player.\");\r\n");
+fwrite($handler, "  exit;\r\n");
+fwrite($handler, "}\r\n");
+fwrite($handler, "if(!SimGameValidateViewerAuth('" . $rootName . "', \$gameName, \$viewerInfo, \$authKey)) {\r\n");
+fwrite($handler, "  echo(\"Invalid auth key.\");\r\n");
+fwrite($handler, "  exit;\r\n");
+fwrite($handler, "}\r\n");
+// Inactivity clock (SWUSim only): the poll IS the heartbeat. Emitted after the auth check so an
+// unauthenticated request cannot mark a seat present. Other sims emit nothing here.
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "// Inactivity clock: the poll IS the heartbeat. Seated viewers only — a spectator poll must\r\n");
+  fwrite($handler, "// never make an absent player look present. Throttled inside PresenceTouchSeat.\r\n");
+  fwrite($handler, "if (empty(\$viewerInfo['isSpectator']) && function_exists('PresenceTouchSeat')) {\r\n");
+  fwrite($handler, "  PresenceTouchSeat(strval(\$gameName), intval(\$viewerInfo['viewerSeat'] ?? 0), time());\r\n");
+  fwrite($handler, "}\r\n");
+}
+fwrite($handler, "\$lastUpdate = TryGet(\"lastUpdate\", 0);\r\n");
+fwrite($handler, "\$lastChatVersion = TryGet(\"lastChatVersion\", 0);\r\n");
+fwrite($handler, "\$lastChatID = TryGet(\"lastChatID\", 0);\r\n");
+// Inactivity clock (SWUSim): the client echoes back the VOTE version, so a vote opening/changing wakes
+// the poll. Heartbeats bump a different counter and deliberately wake nobody.
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "\$lastPresenceVersion = TryGet(\"lastPresenceVersion\", 0);\r\n");
+}
+fwrite($handler, "\$count = 0;\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "while(!CheckUpdate(\$gameName, \$lastUpdate) && !HasChatUpdate(\$gameName, \$lastChatVersion) && !PresenceHasVoteUpdate(\$gameName, \$lastPresenceVersion) && \$count < 100) {\r\n");
+} else {
+  fwrite($handler, "while(!CheckUpdate(\$gameName, \$lastUpdate) && !HasChatUpdate(\$gameName, \$lastChatVersion) && \$count < 100) {\r\n");
+}
+fwrite($handler, "  usleep(25000); //25 milliseconds\r\n");
+fwrite($handler, "  ++\$count;\r\n");
+fwrite($handler, "}\r\n");
+fwrite($handler, "\$boardChanged = CheckUpdate(\$gameName, \$lastUpdate);\r\n");
+fwrite($handler, "\$chatChanged = HasChatUpdate(\$gameName, \$lastChatVersion);\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  // Cheap path: evaluate the inactivity clock from the FACTS CACHED BY THE LAST ACTION, so a stall or a
+  // disconnect is noticed (and its vote opened) without parsing the gamestate on every poll.
+  fwrite($handler, "\$swuPresence = function_exists('SWUPresenceLight')\r\n");
+  fwrite($handler, "  ? SWUPresenceLight(strval(\$gameName), intval(\$viewerInfo['viewerSeat'] ?? 0), time())\r\n");
+  fwrite($handler, "  : ['v' => 0, 'onClock' => null, 'vote' => null];\r\n");
+  fwrite($handler, "\$presenceChanged = PresenceHasVoteUpdate(\$gameName, \$lastPresenceVersion);\r\n");
+  fwrite($handler, "if(!\$boardChanged && !\$chatChanged && !\$presenceChanged) {\r\n");
+} else {
+  fwrite($handler, "if(!\$boardChanged && !\$chatChanged) {\r\n");
+}
+fwrite($handler, "  echo(\"KEEPALIVE\");\r\n");
+fwrite($handler, "  exit;\r\n");
+fwrite($handler, "}\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "if(!\$boardChanged && (\$chatChanged || \$presenceChanged)) {\r\n");
+} else {
+  fwrite($handler, "if(!\$boardChanged && \$chatChanged) {\r\n");
+}
+fwrite($handler, "  \$chatPayload = json_encode([\r\n");
+fwrite($handler, "    \"version\" => GetChatUpdateVersion(\$gameName),\r\n");
+fwrite($handler, "    \"messages\" => GetChatMessagesSince(\$gameName, \$lastChatID, \$viewerInfo),\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "    \"presence\" => \$swuPresence,\r\n");
+}
+fwrite($handler, "  ]);\r\n");
+fwrite($handler, "  if(\$chatPayload === false) \$chatPayload = '{\"version\":0,\"messages\":[]}';\r\n");
+fwrite($handler, "  echo(\"CHATONLY<~>\");\r\n");
+fwrite($handler, "  echo(\$chatPayload);\r\n");
+fwrite($handler, "  exit;\r\n");
+fwrite($handler, "}\r\n");
+fwrite($handler, "ParseGamestate();\r\n");
+if($rootName == "SWUSim") {
+  // "Look at an opponent's hand" (SOR_200/201/228, …): while the viewer has a pending decision
+  // whose param references the opponent's hand ("theirHand"), reveal that hand face-up to them so
+  // they can see which card they are picking. Computed AFTER ParseGamestate (needs the decision
+  // queue). Auto-clears when the decision resolves.
+  // ── "Look at an opponent's hidden zone" reveal (hand + resources) ──────────────────────────────
+  // While the viewer has a PENDING decision whose Param references another seat's Hand/Resources,
+  // reveal that seat's zone face-up to them so they can see what they are picking. Computed AFTER
+  // ParseGamestate (needs the decision queue); auto-clears when the decision resolves.
+  //
+  // ⚠ REWRITTEN 2026-08-23 (Twin Suns "an opponent" sweep). The previous version was hardcoded to two
+  // seats in THREE independent ways, in each of two near-identical blocks:
+  //   (1) the queue scan only ran `if($vSeat === 1 || $vSeat === 2)`;
+  //   (2) it matched the literal 'theirHand'/'theirResources', but an N-player Param carries
+  //       'p3Hand-0'/'p3Resources-0', which matches neither;
+  //   (3) only $canSee…Player1/2 ever carried a reveal term at all.
+  // Net effect above two seats: the pick was BLIND — a row of card backs — i.e. bug #964 reintroduced
+  // by seat count, and invisible to the schema harness because no transport is rendered there.
+  // The old code's own comment called cross-seat reveal "a separate, deferred feature"; it was not.
+  //
+  // Now: one scanner returns the SET of seats the viewer may currently see, per zone.
+  // I1 — at two seats this is byte-identical to the old flags: a seat-2 viewer with a 'theirHand'
+  // decision reveals seat 1 and nothing else, a spectator ($vSeat 0) reveals nothing.
+  // ⚠ 'their<Zone>' is honoured ONLY at <=2 seats. Above that "their" names no specific seat, and a
+  // card still emitting the legacy form must be converted to 'p{n}<Zone>' rather than have the
+  // transport guess — under-revealing is a blank row, over-revealing leaks a private zone.
+  fwrite($handler, "\$vSeat = \$viewerInfo[\"isSpectator\"] ? 0 : intval(\$viewerInfo[\"viewerSeat\"] ?? 0);\r\n");
+  $revealScanner = <<<'SWUREVEAL'
+$_swuRevealSeats = function(int $vs, string $zone): array {
+    $out = [];
+    if ($vs < 1) return $out;
+    $twoSeat = (SeatCountForGame() <= 2);
+    foreach (GetDecisionQueue($vs) as $_d) {
+        if (!empty($_d->removed)) continue;
+        $_p = (string)($_d->Param ?? '');
+        if ($_p === '') continue;
+        if (preg_match_all('/p(\d+)' . $zone . '/', $_p, $_mm)) {
+            foreach ($_mm[1] as $_sn) { $_sn = intval($_sn); if ($_sn >= 1 && $_sn !== $vs) $out[$_sn] = true; }
+        }
+        if ($twoSeat && strpos($_p, 'their' . $zone) !== false) {
+            foreach (OpponentsOf($vs) as $_o) $out[$_o] = true;
+        }
+    }
+    return $out;
+};
+$viewerLooksAtHandSeats     = $_swuRevealSeats($vSeat, 'Hand');
+$viewerLooksAtResourceSeats = $_swuRevealSeats($vSeat, 'Resources');
+SWUREVEAL;
+  foreach (explode("\n", $revealScanner) as $_rl) {
+    fwrite($handler, $_rl . "\r\n");
+  }
+  for ($cshSeat = 1; $cshSeat <= $maxSeats; ++$cshSeat) {
+    fwrite($handler, "\$canSeeHandPlayer{$cshSeat} = \$canSeePrivatePlayer{$cshSeat} || \$spectatorCanSeeHands || !empty(\$viewerLooksAtHandSeats[{$cshSeat}]);\r\n");
+  }
+  // "You may look at the top card of your deck at any time" (LAW_094 Hondo Ohnaka, HMW_205 Intelligence
+  // Agency). Unlike the reveals above this is NOT decision-scoped — it is a standing permission
+  // recomputed from the board, so it is read straight from the game-logic predicate rather than by
+  // scanning the decision queue. One source of truth for the rule; the transport only asks the question.
+  for ($ctcSeat = 1; $ctcSeat <= $maxSeats; ++$ctcSeat) {
+    fwrite($handler, "\$canSeeOwnTopCardPlayer{$ctcSeat} = function_exists('_SWUCanSeeOwnTopCard') && _SWUCanSeeOwnTopCard({$ctcSeat});\r\n");
+  }
+  // Resources have no spectator term (a spectator who may see hands is not thereby shown resource rows).
+  for ($csrSeat = 1; $csrSeat <= $maxSeats; ++$csrSeat) {
+    fwrite($handler, "\$canSeeResourcesPlayer{$csrSeat} = \$canSeePrivatePlayer{$csrSeat} || !empty(\$viewerLooksAtResourceSeats[{$csrSeat}]);\r\n");
+  }
+} else {
+  for ($cshSeat = 1; $cshSeat <= $maxSeats; ++$cshSeat) {
+    fwrite($handler, "\$canSeeHandPlayer{$cshSeat} = \$canSeePrivatePlayer{$cshSeat} || \$spectatorCanSeeHands;\r\n");
+  }
+  for ($csrSeat = 1; $csrSeat <= $maxSeats; ++$csrSeat) {
+    fwrite($handler, "\$canSeeResourcesPlayer{$csrSeat} = \$canSeePrivatePlayer{$csrSeat};\r\n");
+  }
+}
+fwrite($handler, "SetCachePiece(\$gameName, 1, \$updateNumber);\r\n");
+fwrite($handler, "echo(\$updateNumber . \"<~>\");\r\n");
+$assetVisibilityModule = GetModuleOfType("AssetVisibility");
+if($assetVisibilityModule != NULL) {
+  fwrite($handler, "include_once '../AccountFiles/AccountSessionAPI.php';\r\n");
+  fwrite($handler, "include_once '../AccountFiles/AccountDatabaseAPI.php';\r\n");
+  fwrite($handler, "include_once '../Database/ConnectionManager.php';\r\n");
+  fwrite($handler, "include_once '../Database/functions.inc.php';\r\n");
+  fwrite($handler, "include_once '../Assets/patreon-php-master/src/PatreonLibraries.php';\r\n");
+  fwrite($handler, "include_once '../Assets/patreon-php-master/src/PatreonDictionary.php';\r\n");
+  fwrite($handler, "\$assetData = LoadAssetData(" . $assetVisibilityModule->AssetType . ", \$gameName);\r\n");
+  fwrite($handler, "\$requiresLogin = \$assetData[\"assetVisibility\"] == 0 || (\$assetData[\"assetVisibility\"] > 1000 && \$assetData[\"assetVisibility\"] != 99999999);\r\n");
+  fwrite($handler, "if(\$requiresLogin) {\r\n");
+  fwrite($handler, "  if (!IsUserLoggedIn()) {\r\n");
+  fwrite($handler, "    if (isset(\$_COOKIE[\"rememberMeToken\"])) {\r\n");
+  fwrite($handler, "      loginFromCookie();\r\n");
+  fwrite($handler, "    }\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  if(!IsUserLoggedIn()) {\r\n");
+  fwrite($handler, "    echo(\"You must be logged in to view this asset.\");\r\n");
+  fwrite($handler, "    exit;\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  \$loggedInUser = LoggedInUser();\r\n");
+  fwrite($handler, "  \$assetOwner = \$assetData[\"assetOwner\"];\r\n");
+  fwrite($handler, "  if(\$loggedInUser != \$assetOwner) {\r\n");
+  fwrite($handler, "    if(\$assetData[\"assetVisibility\"] > 1000000) {\r\n");
+  fwrite($handler, "      if(\$assetData[\"assetVisibility\"] != 99999999 && !IsPatron(\$assetData[\"assetVisibility\"])){\r\n");//Check if they're a patron
+  fwrite($handler, "        echo(\"You must be a patron to view this.\");\r\n");
+  fwrite($handler, "        exit;\r\n");
+  fwrite($handler, "      }\r\n");
+  fwrite($handler, "    } else if(\$assetData[\"assetVisibility\"] > 1000) {\r\n");
+  fwrite($handler, "      \$userData = LoadUserDataFromId(\$loggedInUser);\r\n");
+  fwrite($handler, "      if(\$userData[\"teamID\"] == null || \$assetData[\"assetVisibility\"] != \$userData[\"teamID\"]+1000) {\r\n");
+  fwrite($handler, "        echo(\"You must be on this team to view this.\");\r\n");
+  fwrite($handler, "        exit;\r\n");
+  fwrite($handler, "      }\r\n");
+  fwrite($handler, "    } else {\r\n");
+  fwrite($handler, "      echo(\"You must own this asset view it.\");\r\n");
+  fwrite($handler, "      exit;\r\n");
+  fwrite($handler, "    }\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "}\r\n");
+}
+// Emit a per-seat data block for every possible seat (1..$maxSeats). Non-SWU sims have $maxSeats==2
+// → exactly the original two writes (byte-identical). SWUSim emits 4; seats beyond the live count are
+// empty blocks the render only indexes when otherPlayerIndex points at them (Twin Suns view-cycling).
+for ($s = 1; $s <= $maxSeats; ++$s) {
+  fwrite($handler, AddGetNextTurnForPlayer($s) . "\r\n");
+}
+fwrite($handler, "if(function_exists('GameBotControllerMode')) {\r\n");
+fwrite($handler, "  echo(\"<~>\" . EncodeBotControllerClientPayload('" . $rootName . "', \$gameName));\r\n");
+fwrite($handler, "}\r\n");
+fwrite($handler, "echo(\"<~>\");\r\n");
+fwrite($handler, "\$chatPayload = json_encode([\r\n");
+fwrite($handler, "  \"version\" => GetChatUpdateVersion(\$gameName),\r\n");
+fwrite($handler, "  \"messages\" => GetChatMessagesSince(\$gameName, \$lastChatID, \$viewerInfo),\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "  \"presence\" => function_exists('SWUPresencePayload')\r\n");
+  fwrite($handler, "    ? SWUPresencePayload(strval(\$gameName), intval(\$viewerInfo['viewerSeat'] ?? 0), time())\r\n");
+  fwrite($handler, "    : ['v' => 0, 'onClock' => null, 'vote' => null],\r\n");
+}
+fwrite($handler, "]);\r\n");
+fwrite($handler, "if(\$chatPayload === false) \$chatPayload = '{\"version\":0,\"messages\":[]}';\r\n");
+fwrite($handler, "echo(\$chatPayload);\r\n");
+// SWUSim: per-viewer actions data piece; NextTurnRender reads it at responseArr[length-2]
+// (second-to-last; frameAnimations must remain the final piece).
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "echo(\"<~>\");\r\n");
+  fwrite($handler, "\$actionsData = json_encode(SWUComputeActionsData(intval(\$playerID)));\r\n");
+  fwrite($handler, "if(\$actionsData === false) \$actionsData = '{}';\r\n");
+  fwrite($handler, "echo(\$actionsData);\r\n");
+}
+if (GetModule("GameLog") !== null) {
+  fwrite($handler, "echo(\"<~>GAMELOG:\");\r\n");
+  fwrite($handler, "\$gameLogPayload = function_exists('GameLogClientPayload') ? GameLogClientPayload(\$viewerPerspective, \$gameName) : ['enabled' => false, 'game_id' => strval(\$gameName), 'events' => []];\r\n");
+  fwrite($handler, "\$gameLogJson = json_encode(\$gameLogPayload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);\r\n");
+  fwrite($handler, "echo(\$gameLogJson === false ? '{\"enabled\":false,\"events\":[]}' : \$gameLogJson);\r\n");
+}
+fwrite($handler, "echo(\"<~>\");\r\n");
+// Frame animations live under a DEDICATED cache key (not cache piece 15) so the unlocked
+// read-modify-write of the shared multi-piece game-state blob can't clobber them — see
+// SetFrameAnimationCache in EngineActionRunner.php.
+fwrite($handler, "\$frameAnimations = ReadCache(\$gameName . '_anim');\r\n");
+fwrite($handler, "if(\$frameAnimations == \"\") \$frameAnimations = \"[]\";\r\n");
+fwrite($handler, "echo(\$frameAnimations);\r\n");
+
+fwrite($handler, "?>");
+fclose($handler);
+
+//Write the game render file
+$filename = $rootPath . "/NextTurnRender.php";
+$handler = fopen($filename, "w");
+fwrite($handler, "<?php\r\n");
+fwrite($handler, AddNextTurn() . "\r\n");
+fwrite($handler, "?>");
+fclose($handler);
+
+WriteInitialLayout();
+
+//Write JavaScript helper file
+$fileSuffix = date("YmdHis");
+$filename = "$rootPath/GeneratedUI_$fileSuffix.js";
+//delete old files if they exist
+$oldFiles = glob("$rootPath/GeneratedUI*.js");
+foreach ($oldFiles as $oldFile) {
+    unlink($oldFile);
+}
+$handler = fopen($filename, "w");
+fwrite($handler, AddGeneratedUI() . "\r\n");
+fclose($handler);
+
+// Generate macro code from database card abilities
+GenerateMacroCode();
+
+echo("Game code generator completed successfully!");
+
+function GetZoneGlobals($zones) {
+  $zoneGlobals = "";
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $zoneName = $zone->Name;
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if (strtolower($scope) == 'global') {
+      $zoneGlobals .= "  global \$g" . $zoneName . ";\r\n";
+    } else {
+      global $maxSeats;
+      $seatGlobals = [];
+      for ($s = 1; $s <= $maxSeats; ++$s) $seatGlobals[] = "\$p" . $s . $zoneName;
+      $zoneGlobals .= "  global " . implode(", ", $seatGlobals) . ";\r\n";
+    }
+  }
+  return $zoneGlobals;
+}
+
+function GetCoreGlobals() {
+  global $hasAnyIndexedProperties;
+  $coreGlobals = "";
+  $coreGlobals .= "  global \$currentPlayer, \$updateNumber, \$gRandomCounter;\r\n";
+  if($hasAnyIndexedProperties) {
+    $coreGlobals .= "  global \$objectDataIndices;\r\n";
+  }
+  return $coreGlobals;
+}
+
+function AddReadGamestate() {
+  $readGamestate = "";
+  global $zones, $rootName;
+  $readGamestate .= "  InitializeGamestate();\r\n";
+  $readGamestate .= "  global \$gameName;\r\n";
+  $readGamestate .= "  \$filename = \$filepath . \"Games/\$gameName/Gamestate.txt\";\r\n";
+  $readGamestate .= "  \$gamestateText = \"\";\r\n";
+  $readGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"SimGameReadGamestateCache\")) {\r\n";
+  $readGamestate .= "    \$cachedGamestate = SimGameReadGamestateCache('" . $rootName . "', \$gameName);\r\n";
+  $readGamestate .= "    if(\$cachedGamestate !== false) \$gamestateText = \$cachedGamestate;\r\n";
+  $readGamestate .= "  }\r\n";
+  $readGamestate .= "  if(\$gamestateText === \"\" && is_file(\$filename)) {\r\n";
+  $readGamestate .= "    \$gamestateText = file_get_contents(\$filename);\r\n";
+  $readGamestate .= "  }\r\n";
+  $readGamestate .= "  if(\$gamestateText === false || \$gamestateText === \"\") return;\r\n";
+  $readGamestate .= "  \$handler = fopen(\"php://temp\", \"r+\");\r\n";
+  $readGamestate .= "  fwrite(\$handler, \$gamestateText);\r\n";
+  $readGamestate .= "  rewind(\$handler);\r\n";
+  $readGamestate .= "  \$currentPlayer = intval(fgets(\$handler));\r\n";
+  $readGamestate .= "  \$updateNumber = intval(fgets(\$handler));\r\n";
+  $readGamestate .= "  while (!feof(\$handler)) {\r\n";
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    $hasIndexedProperties = count($zone->IndexedProperties) > 0;
+    if (strtolower($scope) == 'global') {
+      if ($zone->DisplayMode == 'Value') {
+        $readGamestate .= "    \$line = fgets(\$handler);\r\n";
+        $readGamestate .= "    if (\$line !== false) {\r\n";
+        $readGamestate .= "      \$g" . $zone->Name . " = " . GetValueZoneReadExpression($zone) . ";\r\n";
+        $readGamestate .= "    }\r\n";
+      } else {
+        $readGamestate .= "    \$line = fgets(\$handler);\r\n";
+        $readGamestate .= "    if (\$line !== false) {\r\n";
+        $readGamestate .= "      \$num = intval(\$line);\r\n";
+        $readGamestate .= "      for(\$i=0; \$i<\$num; ++\$i) {\r\n";
+        $readGamestate .= "        \$line = fgets(\$handler);\r\n";
+        $readGamestate .= "        if (\$line !== false) {\r\n";
+        $readGamestate .= "          \$obj = new " . $zone->Name . "(trim(\$line), '" . $zone->Name . "', 0, \$i);\r\n";
+        $readGamestate .= "          array_push(\$g" . $zone->Name . ", \$obj);\r\n";
+        if($hasIndexedProperties) {
+          $readGamestate .= "          \$obj->BuildIndex();\r\n";
+        }
+        $readGamestate .= "        }\r\n";
+        $readGamestate .= "      }\r\n";
+        $readGamestate .= "    }\r\n";
+        if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio" || $zone->DisplayMode == "Dropdown") $readGamestate .= "    if(count(\$g" . $zone->Name . ") == 0) array_push(\$g" . $zone->Name . ", new " . $zone->Name . "(0));\r\n";
+      }
+    } else {
+      global $maxSeats;
+      for ($s = 1; $s <= $maxSeats; ++$s) $readGamestate .= AddReadZone($zone, $s);
+    }
+  }
+  if(!SchemaOwnsRandomCounter()) {
+    $readGamestate .= "    \$line = fgets(\$handler);\r\n";
+    $readGamestate .= "    if (\$line !== false) {\r\n";
+    $readGamestate .= "      \$gRandomCounter = intval(trim(\$line));\r\n";
+    $readGamestate .= "    }\r\n";
+  }
+  global $rootName;
+  if($rootName === 'SWUSim') {
+    // Plan D: read per-game telemetry (final field; absent in old saves leaves the init default).
+    $readGamestate .= "    \$line = fgets(\$handler);\r\n";
+    $readGamestate .= "    if (\$line !== false) { global \$gTelemetry; \$gTelemetry = trim(\$line); }\r\n";
+  }
+  $readGamestate .= "  }\r\n";
+  $readGamestate .= "  fclose(\$handler);\r\n";
+  return $readGamestate;
+}
+
+function AddReadZone($zone, $player) {
+  $zoneName = $zone->Name;
+  $hasIndexedProperties = count($zone->IndexedProperties) > 0;
+  if ($zone->DisplayMode == 'Value') {
+    $rv = "";
+    $rv .= "    \$line = fgets(\$handler);\r\n";
+    $rv .= "    if (\$line !== false) {\r\n";
+    $rv .= "      \$p" . $player . $zoneName . " = " . GetValueZoneReadExpression($zone) . ";\r\n";
+    $rv .= "    }\r\n";
+    return $rv;
+  } else {
+    $rv = "";
+    $rv .= "    \$line = fgets(\$handler);\r\n";
+    $rv .= "    if (\$line !== false) {\r\n";
+    $rv .= "      \$num = intval(\$line);\r\n";
+    $rv .= "      for(\$i=0; \$i<\$num; ++\$i) {\r\n";
+    $rv .= "        \$line = fgets(\$handler);\r\n";
+    $rv .= "        if (\$line !== false) {\r\n";
+    $rv .= "          \$obj = new " . $zoneName . "(trim(\$line), '" . $zoneName . "', " . $player . ", \$i);\r\n";
+    $rv .= "          array_push(\$p" . $player . $zoneName . ", \$obj);\r\n";
+    if($hasIndexedProperties) {
+      $rv .= "          \$obj->BuildIndex();\r\n";
+    }
+    $rv .= "        }\r\n";
+    $rv .= "      }\r\n";
+    $rv .= "    }\r\n";
+    if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio" || $zone->DisplayMode == "Dropdown") $rv .= "    if(count(\$p" . $player . $zoneName . ") == 0) array_push(\$p" . $player . $zoneName . ", new " . $zoneName . "(0));\r\n";
+    return $rv;
+  }
+}
+
+function AddWriteGamestate() {
+  global $zones;
+  $writeGamestate = "";
+  $writeGamestate .= "  global \$gameName;\r\n";
+  $writeGamestate .= "  \$filename = \$filepath . \"Games/\$gameName/Gamestate.txt\";\r\n";
+  $writeGamestate .= "  \$gamestateText = \"\";\r\n";
+  // $zoneName/$seat let an app rewrite index references into this zone before it is serialized —
+  // see the EngineRemapZoneForSave hook below. Both default, so any hand-written caller still works.
+  $writeGamestate .= "  \$writeZone = function(\$zone, \$zoneName = '', \$seat = 0) use (&\$gamestateText) {\r\n";
+  $writeGamestate .= "    // A zone is serialized WITHOUT its removed tombstones, so the next ParseGamestate\r\n";
+  $writeGamestate .= "    // renumbers it 0..N-1 over the survivors. Anything holding an INDEX into the zone (a\r\n";
+  $writeGamestate .= "    // pending target choice's candidate mzIDs) is stale the instant that happens. Give the app\r\n";
+  $writeGamestate .= "    // one chance to rewrite those references into post-compaction coordinates. The hook returns\r\n";
+  $writeGamestate .= "    // a transformed COPY: nothing in memory changes, so a second WriteGamestate in the same\r\n";
+  $writeGamestate .= "    // request re-derives from the same source state instead of shifting twice.\r\n";
+  $writeGamestate .= "    if (\$zoneName !== '' && function_exists('EngineRemapZoneForSave')) {\r\n";
+  $writeGamestate .= "      \$zone = EngineRemapZoneForSave(\$zone, \$zoneName, \$seat);\r\n";
+  $writeGamestate .= "    }\r\n";
+  $writeGamestate .= "    \$zoneText = \"\";\r\n";
+  $writeGamestate .= "    \$count = 0;\r\n";
+  $writeGamestate .= "    foreach(\$zone as \$obj) {\r\n";
+  $writeGamestate .= "      if(\$obj == null || \$obj->Removed()) continue;\r\n";
+  $writeGamestate .= "      ++\$count;\r\n";
+  $writeGamestate .= "      \$zoneText .= trim(\$obj->Serialize()) . \"\\r\\n\";\r\n";
+  $writeGamestate .= "    }\r\n";
+  $writeGamestate .= "    \$gamestateText .= \$count . \"\\r\\n\";\r\n";
+  $writeGamestate .= "    \$gamestateText .= \$zoneText;\r\n";
+  $writeGamestate .= "  };\r\n";
+  //First write global data
+  $writeGamestate .= "  \$gamestateText .= \$currentPlayer . \"\\r\\n\";\r\n";
+  $writeGamestate .= "  \$gamestateText .= \$updateNumber . \"\\r\\n\";\r\n";
+  //Then write player zones
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $zoneName = $zone->Name;
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if (strtolower($scope) == 'global') {
+      if ($zone->DisplayMode == 'Value') {
+        $writeGamestate .= "  \$gamestateText .= \$g" . $zoneName . " . \"\\r\\n\";\r\n";
+      } else {
+        $writeGamestate .= "  \$writeZone(\$g" . $zoneName . ", '" . $zoneName . "', 0);\r\n";
+      }
+    } else {
+      global $maxSeats;
+      for ($s = 1; $s <= $maxSeats; ++$s) {
+        if ($zone->DisplayMode == 'Value') {
+          $writeGamestate .= "  \$gamestateText .= \$p" . $s . $zoneName . " . \"\\r\\n\";\r\n";
+        } else {
+          $writeGamestate .= AddWriteZone($zoneName, $s);
+        }
+      }
+    }
+  }
+  if(!SchemaOwnsRandomCounter()) {
+    $writeGamestate .= "  \$gamestateText .= \$gRandomCounter . \"\\r\\n\";\r\n";
+  }
+  global $rootName;
+  if($rootName === 'SWUSim') {
+    // Plan D: append per-game telemetry as the final field (backward-compat: absent -> '-').
+    $writeGamestate .= "  global \$gTelemetry; \$gamestateText .= ((\$gTelemetry === null || \$gTelemetry === '') ? '-' : \$gTelemetry) . \"\\r\\n\";\r\n";
+  }
+  if($rootName === 'SWUSim') $writeGamestate .= "  \$gamestateCached = false;\r\n";
+  $writeGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"SimGameWriteGamestateCache\")) {\r\n";
+  $writeGamestate .= "    " . ($rootName === 'SWUSim' ? "\$gamestateCached = " : "")
+    . "SimGameWriteGamestateCache('" . $rootName . "', \$gameName, \$gamestateText);\r\n";
+  $writeGamestate .= "  }\r\n";
+  // Durable write-through for EVERY root, not just SWUSim: in apcu mode the cache is an accelerator,
+  // but the file is the durable copy. A root that never writes the file (e.g. running in a CLI test
+  // harness where apcu_store is unavailable) would otherwise persist NOTHING, so every action re-read
+  // the stale initial state and multi-step flows (attacks, transforms) silently fizzled. ParseGamestate
+  // already falls back to this file when the cache misses, so writing both keeps the two sides consistent.
+  if($rootName === 'SWUSim') {
+    // SWUSim's CLI self-play harness can keep a game in process-local APCu. Web requests always
+    // write durably, and a failed cache store must never silently discard a memory-only state.
+    $writeGamestate .= "  \$persistToFile = PHP_SAPI !== 'cli' || !function_exists('EngineShouldPersistGamestateFile') || EngineShouldPersistGamestateFile('SWUSim', \$gameName);\r\n";
+    $writeGamestate .= "  if(!\$persistToFile && !\$gamestateCached) throw new RuntimeException('Memory-only gamestate cache write failed.');\r\n";
+    $writeGamestate .= "  if(\$persistToFile) file_put_contents(\$filename, \$gamestateText);\r\n";
+  } else {
+    $writeGamestate .= "  file_put_contents(\$filename, \$gamestateText);\r\n";
+  }
+  return $writeGamestate;
+}
+
+function AddWriteZone($zoneName, $player) {
+  $rv = "";
+  $rv .= "  \$writeZone(\$p" . $player . $zoneName . ", '" . $zoneName . "', " . $player . ");\r\n";
+  return $rv;
+}
+
+function AddGetNextTurnForPlayer($player) {
+  global $zones, $rootName;
+  $getNextTurn = "";
+  // Reprint display substitution applies to the two real SWU roots only. Deliberately NOT the
+  // $swuRoot in GenImageFolder(): that one also covers asset-REFLECTING roots, which borrow SWU art
+  // but have no SWU card dictionaries, so SWUDisplayCardID would be undefined there.
+  $swuCardApp = ($rootName === "SWUSim" || $rootName === "SWUDeck");
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $scope = strtolower(isset($zone->Scope) ? $zone->Scope : 'Player');
+    // Skip global zones for player 2+, they were already output for player 1.
+    // SWUSim EXCEPTION (Twin Suns N-seat): the client indexes each seat's block at a fixed
+    // stride of count($zones) (=31). Skipping globals makes seat-1's block 31 wide but seats
+    // 2-4 only ~11 wide, so the stride only lands correctly on seat 2 (which starts right after
+    // seat 1's 31) and misreads seat 3-4. Emitting globals in EVERY seat block keeps all blocks
+    // a uniform 31 wide so the stride is correct for all seats. The client still reads globals
+    // from seat-1's fixed indices (13-31); the repeats in later blocks are inert. Non-SWU sims
+    // keep the skip → byte-identical.
+    if ($scope == 'global' && $player > 1 && !in_array($rootName, ['SWUSim', 'FaBSim'], true)) continue;
+
+    $zoneName = ($scope == 'global') ? "g" . $zone->Name : "p" . $player . $zone->Name;
+    echo($zoneName . "<BR>");
+    if($i > 0 || $player > 1) $getNextTurn .= "echo(\"<~>\");\r\n";
+    if($zone->DisplayMode == "Single") {
+      if($zone->Visibility == "Public") {
+        //$getNextTurn .= "echo \"Single Public\";\r\n";
+        if ($scope == 'global') {
+          $getNextTurn .= "  \$arr = &Get" . $zone->Name . "();\r\n";
+        } else {
+          $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
+        }
+        // For Single Public zones, return ALL cards so they can be accessed from window data
+        // (needed for MZCHOOSE decision queue and other client-side operations)
+        $getNextTurn .= "  for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
+        $getNextTurn .= "    if(!isset(\$arr[\$i])) continue;\r\n";
+        $getNextTurn .= "    if(\$i > 0) echo(\"<|>\");\r\n";
+        $getNextTurn .= "    \$obj = \$arr[\$i];\r\n";
+        if(count($zone->VirtualProperties) > 0) {
+          $getNextTurn .= "    ComputeVirtualProperties(\$obj);\r\n";
+        }
+        // SWUSim: TWI_017 "Flipatine" is a flip leader with no unit side — the leader slot shows its
+        // back image while flipped (Deployed). Other leaders keep their front in the slot.
+        if($rootName == "SWUSim" && $zone->Name == "Leader") {
+          $getNextTurn .= "    \$displayID = SWULeaderDisplayCardID(\$obj);\r\n";
+        } else {
+          $getNextTurn .= $swuCardApp
+          ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
+          : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+        }
+        if ($rootName === 'FaBSim' && $zone->Name === 'Graveyard') {
+          $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1 && !\$canSeePrivatePlayer" . $player . ") echo(ClientRenderedCard('CardBack'));\r\n";
+          $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        } else $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        $getNextTurn .= "  }\r\n";
+      } else if($zone->Visibility == "Private") {
+        //Single Private
+        if($rootName == "FaBSim" && $zone->Name == "Deck") {
+          $getNextTurn .= "  \$_dashTop = FaBEVODeckView(" . $player . ", \$canSeePrivatePlayer" . $player . ");\r\n";
+          $getNextTurn .= "  if(\$_dashTop !== null) { ComputeVirtualProperties(\$_dashTop); echo(ClientRenderedCard(\$_dashTop->CardID, counters:count(\$" . $zoneName . "), cardJSON:json_encode(\$_dashTop))); }\r\n";
+          $getNextTurn .= "  else echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . ")));\r\n";
+        } else if($rootName == "SWUSim" && $zone->Name == "Deck") {
+          // "You may look at the top card of your deck at any time" (LAW_094 / HMW_205). The identity of
+          // the top card is sent ONLY to the seat that holds the permission and only for its OWN deck —
+          // never to the opponent and never to a spectator, so this cannot leak hidden information. The
+          // count is unchanged for everyone.
+          // ⚠ The rendered CardID stays "CardBack" and the real top card travels in cardJSON.TopCardPeek.
+          // That is deliberate: the Deck renders in Mode=Single, so emitting the real CardID would make
+          // EVERY existing render path (board slot, popup, mobile layout) show it face up. Carrying it in
+          // the JSON means only the code that opts in can reveal it — the deck still looks like a deck,
+          // and a future render path cannot leak the card by accident.
+          // An EMPTY deck emits NOTHING, so the zone renders as its empty pile container (the bordered
+          // "DECK" placeholder in GameLayout's .swu-pile) instead of a card back standing for no cards.
+          // A face-down back is a lie about a pile that has none, and deck-out is a reachable state
+          // (CR 6.1). The Discard is the existing proof this is safe on the wire: it is Public, so it
+          // already emits an empty zone piece when the pile is empty and the client renders the same
+          // placeholder — nothing downstream needs a card to be present.
+          $getNextTurn .= "  if(count(\$" . $zoneName . ") > 0) {\r\n";
+          $getNextTurn .= "    if(\$canSeeOwnTopCardPlayer" . $player . " && \$vSeat === " . $player . ") {\r\n";
+          $getNextTurn .= "      \$_tcIdx = -1;\r\n";
+          $getNextTurn .= "      for(\$_i=0; \$_i<count(\$" . $zoneName . "); ++\$_i) { if(empty(\$" . $zoneName . "[\$_i]->removed)) { \$_tcIdx = \$_i; break; } }\r\n";
+          $getNextTurn .= "      if(\$_tcIdx >= 0) echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . "), cardJSON:json_encode(['TopCardPeek'=>SWUDisplayCardID(\$" . $zoneName . "[\$_tcIdx]->CardID)])));\r\n";
+          $getNextTurn .= "      else echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . ")));\r\n";
+          $getNextTurn .= "    } else {\r\n";
+          $getNextTurn .= "      echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . ")));\r\n";
+          $getNextTurn .= "    }\r\n";
+          $getNextTurn .= "  }\r\n";
+        } else {
+          $getNextTurn .= "  echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . ")));\r\n";
+        }
+
+      } else if ($zone->Visibility == "Self") {
+        if ($scope == 'global') {
+          $getNextTurn .= "  \$arr = &Get" . $zone->Name . "();\r\n";
+        } else {
+          $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
+        }
+        $selfFlag = ($zone->Name == "Hand") ? "canSeeHandPlayer" : "canSeePrivatePlayer";
+        $faceUpArsenal = $rootName === 'FaBSim' && $zone->Name === 'Arsenal';
+        $getNextTurn .= "  if(\$" . $selfFlag . $player . ($faceUpArsenal ? ' || true' : '') . ") {\r\n";
+        $getNextTurn .= "    for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
+        $getNextTurn .= "      if(!isset(\$arr[\$i])) continue;\r\n";
+        $getNextTurn .= "      if(\$i > 0) echo(\"<|>\");\r\n";
+        $getNextTurn .= "      \$obj = \$arr[\$i];\r\n";
+        if(count($zone->VirtualProperties) > 0) {
+          $getNextTurn .= "      ComputeVirtualProperties(\$obj);\r\n";
+        }
+        $getNextTurn .= $swuCardApp
+          ? "      \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
+          : "      \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+        if($faceUpArsenal) {
+          $getNextTurn .= "      if(\$" . $selfFlag . $player . " || intval(\$obj->FaceDown ?? 1) === 0) echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+          $getNextTurn .= "      else echo(ClientRenderedCard('CardBack'));\r\n";
+        } else $getNextTurn .= "      echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        $getNextTurn .= "    }\r\n";
+        $getNextTurn .= "  } else {\r\n";
+        $getNextTurn .= "    if(count(\$arr) > 0) echo(ClientRenderedCard(\"CardBack\", counters:count(\$arr)));\r\n";
+        $getNextTurn .= "  }\r\n";
+      }
+    } else if($zone->DisplayMode == "All" || $zone->DisplayMode == "Pane" || $zone->DisplayMode == "Tile" || $zone->DisplayMode == "None") {
+      if ($scope == 'global') {
+        $getNextTurn .= "  \$arr = &Get" . $zone->Name . "();\r\n";
+      } else {
+        $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
+      }
+      $getNextTurn .= "  for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
+      $getNextTurn .= "    if(!isset(\$arr[\$i])) continue;\r\n";
+      $getNextTurn .= "    if(\$i > 0) echo(\"<|>\");\r\n";
+      $getNextTurn .= "    \$obj = \$arr[\$i];\r\n";
+      if(count($zone->VirtualProperties) > 0) {
+        $getNextTurn .= "    ComputeVirtualProperties(\$obj);\r\n";
+      }
+      if($zone->Visibility == "Public") {
+        // SWUSim: deployed leaders keep their leader-side CardID in state but must
+        // SHOW their unit side ("{CardID}_back") while on the battlefield.
+        if($rootName == "SWUSim" && ($zone->Name == "GroundArena" || $zone->Name == "SpaceArena")) {
+          $getNextTurn .= "    \$displayID = SWUArenaDisplayCardID(\$obj);\r\n";
+        } else if($rootName == "SWUSim" && $zone->Name == "Leader") {
+          // TWI_017 "Flipatine" is a double-leader-face FLIP card with NO unit side — its Deployed flag
+          // IS the flipped Villainy face, so the LEADER SLOT itself must show "{CardID}_back".
+          // ⚠ This arm exists in the DisplayMode=="Single" branch too, but SWUSim's Leader zone is
+          // declared `Display: Visibility=Public, Mode=All` — so that copy is NEVER emitted and
+          // SWULeaderDisplayCardID() had no caller at all. Reported as "Palpatine exhausted but never
+          // flipped to the Villainy side" (game 506505): the engine HAD flipped him, the payload kept
+          // shipping the front CardID. Pinned by DevTools/tdd-regression/test_swusim_flipatine_leader_art.php.
+          $getNextTurn .= "    \$displayID = SWULeaderDisplayCardID(\$obj);\r\n";
+        } else {
+          $getNextTurn .= $swuCardApp
+          ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
+          : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+        }
+        if ($rootName === 'FaBSim' && in_array($zone->Name, ['Equipment','Graveyard'], true)) {
+          $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1 && !\$canSeePrivatePlayer" . $player . ") echo(ClientRenderedCard('CardBack'));\r\n";
+          $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        } else if ($rootName === 'FaBSim' && $zone->Name === 'Banish') {
+          $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1) echo(ClientRenderedCard('CardBack'));\r\n";
+          $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        } else {
+          $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        }
+      } else if($zone->Visibility == "Private") {
+        $getNextTurn .= "    echo(ClientRenderedCard(\"CardBack\"));\r\n";
+      } else if ($zone->Visibility == "Self") {
+        // SWUSim Hand uses the look-at-opponent's-hand-aware flag so a "look at an opponent's hand"
+        // decision reveals it to the chooser; Resources has the exact twin for "look at an opponent's
+        // resources" (LAW_066 / SHD_213 / Xanadu Blood — bug report #964, they showed card backs and the
+        // player picked blind). All other Self zones keep the plain privacy flag.
+        $selfFlag = ($zone->Name == "Hand") ? "canSeeHandPlayer"
+                  : (($rootName == "SWUSim" && $zone->Name == "Resources") ? "canSeeResourcesPlayer"
+                                                                          : "canSeePrivatePlayer");
+        $getNextTurn .= $swuCardApp
+          ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
+          : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+        // SWUSim Resources: Credit tokens (CR 3.13) are public info (count + targetable by LAW_106),
+        // so they render face-up even to the opponent; real resources stay Self-only (CardBack).
+        $creditClause = ($rootName == "SWUSim" && $zone->Name == "Resources")
+            ? " || SWUIsCreditToken(\$obj->CardID ?? '')" : "";
+        if($rootName === 'FaBSim' && $zone->Name === 'Arsenal') $creditClause = " || intval(\$obj->FaceDown ?? 1) === 0";
+        $getNextTurn .= "    if(\$" . $selfFlag . $player . $creditClause . ") echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        // A masked card normally sends NO payload — its identity is the secret. SWUSim Resources are the
+        // exception: whether a resource is EXHAUSTED is public (the physical card is visibly rotated, and
+        // this zone declares Rotation/Overlay on Status), and the client's resource badge computes
+        // ready-vs-total from it. Sending a bare CardBack made the opponent's badge read N/N all game
+        // ("opponent's resources do not go down as they play cards"). Identity still never travels.
+        $maskedPayload = ($rootName == "SWUSim" && $zone->Name == "Resources")
+            ? ", cardJSON:SWUMaskedResourceJSON(\$obj)" : "";
+        $getNextTurn .= "    else echo(ClientRenderedCard(\"CardBack\"" . $maskedPayload . "));\r\n";
+      }
+      $getNextTurn .= "  }\r\n";
+    } else if($zone->DisplayMode == "Count") {
+      $countZoneName = count($zone->DisplayParameters) == 0 ? $zone->Name : $zone->DisplayParameters[0];
+      if ($scope == 'global') {
+        $getNextTurn .= "  \$arr = &Get" . $countZoneName . "();\r\n";
+      } else {
+        $getNextTurn .= "  \$arr = &Get" . $countZoneName . "(" . $player . ");\r\n";
+      }
+      $getNextTurn .= "  echo(count(\$arr));\r\n";
+      if($zone->Visibility == "Public") {
+        //$getNextTurn .= "echo \"Count Public\";\r\n";
+      } else if($zone->Visibility == "Private") {
+        //$getNextTurn .= "echo \"Count Private\";\r\n";
+      } else if ($zone->Visibility == "Self") {
+        //$getNextTurn .= "echo \"Count Self\";\r\n";
+      }
+    } else if($zone->DisplayMode == "Value") {
+      if ($scope == 'global') {
+        if ($zone->Name == "GameLog") {
+          // GameLog entries are "TYPE|VISIBILITY|text" joined by "<NL>". Filter per viewer:
+          // 'ALL' always; otherwise a COMMA-SEPARATED seat list ('P1' or 'P1,P3'), visible only to a
+          // seated viewer named in it — never to a spectator.
+          // ⚠ The list form is what makes "just the two players involved" expressible. It used to be a
+          // single seat, so a private look (SWULogPrivateReveal) had to emit ONE ENTRY PER SEAT and the
+          // same line appeared twice in the stored log; team-scoped visibility was not expressible at all.
+          $getNextTurn .= "  \$logEntries = explode('<NL>', \$gGameLog);\r\n";
+          $getNextTurn .= "  \$visibleLog = [];\r\n";
+          $getNextTurn .= "  \$vSeatTag = 'P' . intval(\$viewerInfo[\"viewerSeat\"] ?? 0);\r\n";
+          $getNextTurn .= "  foreach(\$logEntries as \$logEntry) {\r\n";
+          $getNextTurn .= "    \$logVis = explode('|', \$logEntry, 3)[1] ?? 'ALL';\r\n";
+          $getNextTurn .= "    if(\$logVis === 'ALL' || (!\$viewerInfo[\"isSpectator\"] && in_array(\$vSeatTag, array_map('trim', explode(',', \$logVis)), true))) \$visibleLog[] = \$logEntry;\r\n";
+          $getNextTurn .= "  }\r\n";
+          $getNextTurn .= "  echo(implode('<NL>', \$visibleLog));\r\n";
+        } else if (in_array($zone->Name, MatchReplayModuleFields(), true)) {
+          // The replay's initial gamestate (BOTH decks in order, BOTH hands) and its input log are
+          // server-only: APIs/MatchReplay.php reads them from the gamestate, and no client reads them
+          // from the poll. Echoing them leaked hidden information to every viewer mid-game. The
+          // position stays (the remote-frontend guide documents it), carrying the empty value.
+          $getNextTurn .= "  echo('-');\r\n";
+        } else {
+          $getNextTurn .= "  echo(\$g" . $zone->Name . ");\r\n";
+        }
+      } else {
+        $getNextTurn .= "  echo(\$p" . $player . $zone->Name . ");\r\n";
+      }
+    }
+    else if($zone->DisplayMode == "Radio" || $zone->DisplayMode == "Dropdown") {
+      if ($scope == 'global') {
+        $getNextTurn .= "  \$arr = &Get" . $zone->Name . "();\r\n";
+      } else {
+        $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
+      }
+      $getNextTurn .= "  echo(\$arr[0]->Value);\r\n";
+    } else if($zone->DisplayMode == "Calculate") {
+
+    } else if($zone->DisplayMode == "Panel") {
+      //$getNextTurn .= "  echo('<div id=" . $zone->Name . " class=\"panel-wrapper\">');\r\n";
+      //$getNextTurn .= "  echo('</div>');\r\n";
+    }
+  }
+  return $getNextTurn;
+}
+function AddNextTurn() {
+  global $zones, $numRows, $rootPath, $hasDecisionQueue, $hasFlashMessage, $rootName;
+  $startPiece = 1;
+  $numPieces = count($zones);
+  $setData = "";
+  $myStuff = "";
+  $theirStuff = "";
+  $myStaticStuff = "";
+  $theirStaticStuff = "";
+  $header = "echo(\"var myStatic = '';\");\r\n";
+  $header .= "echo(\"var theirStatic = '';\");\r\n";
+  $header .= "echo(\"var globalStatic = '';\");\r\n";
+  $header .= "echo(\"var myRows = [];\");\r\n";
+  $header .= "echo(\"var theirRows = [];\");\r\n";
+  $header .= "echo(\"window.rootPath = '" . $rootPath . "';\");\r\n";
+  $header .= "echo(\"window.assetImageFolder = '" . GenImageRoot() . "';\");\r\n";
+  if ($rootName === "SWUSim") {
+    // Twin Suns pair-switcher: the viewer/opponent seats default to the page-baked values but are
+    // overridden by a mutable client view-state (window.swuView) so the board can re-render for a
+    // different matchup WITHOUT a page reload. window.swuLastResponseArr caches the array so swuSetView()
+    // can repaint from it. 2-player never sets swuView → the || fallbacks reproduce today's values exactly.
+    // The "vs" default is the requested opponentID when it's a live seat other than the viewer, else the
+    // next live seat clockwise (2-player: the one other seat == the old `playerID==1?2:1`).
+    $header .= "echo(\"window.swuLastResponseArr = responseArr;\");\r\n";
+    $header .= "echo(\"var currentPlayerIndex = (window.swuView && window.swuView.viewSeat) ? window.swuView.viewSeat : playerID;\");\r\n";
+    $header .= "\$__vp = intval(\$viewerPerspective);\r\n";
+    $header .= "\$__opp = isset(\$opponentID) ? intval(\$opponentID) : (isset(\$_GET['opponentID']) ? intval(\$_GET['opponentID']) : 0);\r\n";
+    $header .= "if (\$__opp <= 0 || \$__opp === \$__vp || !IsSeatLive(\$__opp)) \$__opp = NextLiveSeat(\$__vp);\r\n";
+    // ⚠ THE CLIENT OVERRIDE MUST CHECK LIVENESS TOO. The PHP fallback one line up already refuses a
+    // dead seat (`!IsSeatLive($__opp) -> NextLiveSeat($__vp)`); the swuView override used to not, and
+    // it WINS when set. So a viewer whose swuView still named the seat that just died kept rendering
+    // that seat as their opponent — an empty enemy arena and a bare "Base" placeholder, because
+    // _SWUEliminationCleanup has cleared the dead seat's base and arenas. Reported on game 846502:
+    // P3 attacked P1's base (so P3's swuView.oppSeat was 1), P1 was eliminated by that attack, and the
+    // board stayed on "P3 vs P1". swuInitPairSwitcher() does clear swuView once LiveSeats drops to 2,
+    // but it returns early WITHOUT repainting, so the stale board survives until something else
+    // re-renders — which is why a page RELOAD fixes it and a snapshot never reproduces it.
+    // ⚠ THE LIVE-SEAT LIST MUST COME FROM responseArr, AND NOTHING ELSE. Two wrong sources, both tried
+    // and both measured failing against the real repro:
+    //   • `window.LiveSeatsData` — assigned ~35 lines BELOW this one, so on the very poll that reports
+    //     the elimination it still holds the PREVIOUS value and the dead seat reads as alive.
+    //   • a server-baked PHP literal — NextTurn.php includes this file ONCE, at page load, so the list
+    //     freezes there and every later RenderUpdate re-runs this function with the page-load value.
+    // responseArr is the render's own input and is fresh on every repaint, so read the LiveSeats slot
+    // straight out of it. Falling back to window.LiveSeatsData covers a short/absent slot; an EMPTY
+    // list means a pre-Twin-Suns game, where swuView is never set anyway, so the permissive branch
+    // keeps 2-player byte-identical.
+    $__liveIdx = -1;
+    for ($zi = 0; $zi < count($zones); ++$zi) {
+      if (($zones[$zi]->Name ?? '') === 'LiveSeats') { $__liveIdx = $zi + $startPiece; break; }
+    }
+    // ⚠ AND THE FALLBACK HAS TO BE PER-RENDER TOO. $__opp is a PHP literal, so it freezes at page load
+    // exactly like the list did. In the repro it froze at 1 — NextLiveSeat(3) with all three seats
+    // alive — so after the elimination the guard correctly REJECTED the stale swuView.oppSeat=1 and
+    // then fell back to a baked 1 anyway. Both branches named the dead seat and the board stayed blank.
+    // So mirror NextLiveSeat() in JS over the fresh list; the baked value survives only as the
+    // last-resort default for a game that ships no list at all (pre-Twin-Suns, where it is correct).
+    $__liveExpr = ($__liveIdx >= 0)
+      ? "String((responseArr && responseArr[" . $__liveIdx . "] != null) ? responseArr[" . $__liveIdx . "] : (window.LiveSeatsData || ''))"
+      : "String(window.LiveSeatsData || '')";
+    $header .= "echo(\"var otherPlayerIndex = (function(){\");\r\n";
+    $header .= "echo(\"  var _l = " . $__liveExpr . ";\");\r\n";
+    $header .= "echo(\"  var _v = window.swuView && window.swuView.oppSeat;\");\r\n";
+    $header .= "echo(\"  if (_v && (!_l || _l.indexOf(String(_v)) !== -1)) return _v;\");\r\n";
+    $header .= "echo(\"  if (_l) {\");\r\n";
+    $header .= "echo(\"    var _s = _l.split('').map(Number), _i = _s.indexOf(currentPlayerIndex);\");\r\n";
+    $header .= "echo(\"    if (_i !== -1 && _s.length > 1) return _s[(_i + 1) % _s.length];\");\r\n";
+    $header .= "echo(\"    for (var _k = 0; _k < _s.length; ++_k) if (_s[_k] !== currentPlayerIndex) return _s[_k];\");\r\n";
+    $header .= "echo(\"  }\");\r\n";
+    $header .= "echo(\"  return \" . \$__opp . \";\");\r\n";
+    $header .= "echo(\"})();\");\r\n";
+  } else {
+    $header .= "echo(\"var currentPlayerIndex = playerID;\");\r\n";
+    $header .= "echo(\"var otherPlayerIndex = playerID == 1 ? 2 : 1;\");\r\n";
+  }
+  $footer = "echo(\"RenderRows(myRows, theirRows);\");\r\n";
+  $footer .= "echo(\"AppendStaticZones(myStatic, theirStatic, globalStatic);\");\r\n";
+  // SWUSim: refresh the Undo button state after every render cycle (GameLayout defines swuUpdateUndoUI).
+  if (in_array($rootName, ['SWUSim'], true)) {
+    $footer .= "echo(\"if (typeof swuUpdateUndoUI === 'function') swuUpdateUndoUI(currentPlayerIndex);\");\r\n";
+  }
+  if (GetModule('SimHistory') !== null) {
+    $footer .= "echo(\"if (typeof UpdateSimHistoryUI === 'function') UpdateSimHistoryUI();\");\r\n";
+  }
+  for ($i = 0; $i < count($zones); ++$i) {
+    $zone = $zones[$i];
+    if ($zone->DisplayMode == "Panel") {
+      $header .= "echo(\"window.my" . $zone->Name . "Panes = [];\");\r\n";
+      $header .= "echo(\"window.their" . $zone->Name . "Panes = [];\");\r\n";
+      $footer .= "echo(\"RenderPanes('" . $zone->Name . "', window.my" . $zone->Name . "Panes, window.their" . $zone->Name . "Panes);\");\r\n";
+    }
+  }
+  if ($rootName === 'FaBSim') {
+    $renderZones = [];
+    foreach ($zones as $i => $zone) {
+      if (strtolower($zone->Scope ?? 'Player') !== 'global' && $zone->BindTo && $zone->Visibility !== 'None') {
+        $renderZones[] = ['name' => $zone->Name, 'index' => $i + $startPiece, 'mode' => $zone->DisplayMode];
+      }
+    }
+    $renderCall = "if (typeof RenderFaBMultiplayer === 'function') RenderFaBMultiplayer(responseArr, " . count($zones) . ", " . json_encode($renderZones) . ", cardSize, currentPlayerIndex);";
+    $footer .= 'echo(' . var_export($renderCall, true) . ");\r\n";
+  }
+  if ($hasDecisionQueue) {
+    // Selection state is prepared before zone HTML is built. Mount prompts and DOM-dependent
+    // controls only after all zones exist, while still inside the same synchronous render update.
+    $footer .= "echo(\"CheckAndShowDecisionQueue(window.myDecisionQueueData, 'finalize');\");\r\n";
+  }
+  $header .= "echo(\"for(var i=0; i<" . ($numRows+1) . "; ++i) { myRows[i] = \\\"\\\"; theirRows[i] = \\\"\\\"; }\");\r\n";
+
+  // Add data references first to ensure they're defined before using them
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $index = $i + $startPiece;
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if (strtolower($scope) == 'global') {
+      // Server will emit the same value in the slot for both players; use the base index
+      $setData .= "echo(\"window." . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
+      if($zone->Name == "MacroGameIndex") {
+        $setData .= "echo(\"if(typeof ObserveMacroToastEvents === 'function') ObserveMacroToastEvents(window.MacroGameIndexData);\");\r\n";
+      }
+    } else {
+      $setData .= "echo(\"window.my" . $zone->Name . "Data = responseArr[" . $index . " + (currentPlayerIndex-1)*" . count($zones) . "];\");\r\n";
+      $setData .= "echo(\"window.their" . $zone->Name . "Data = responseArr[" . $index . " + (otherPlayerIndex-1)*" . count($zones) . "];\");\r\n";
+      // ── Per-SEAT aliases: window.p{n}<Zone>Data, for every seat in the payload ──────────────────
+      // "my"/"their" name only the two boards the current VIEW renders. Above two seats the server
+      // addresses a target by seat ("p2Hand-0"), and anything that resolves a spec by name — the
+      // MZChoose popup does exactly `window[spec.zone + 'Data']` — found nothing and silently drew
+      // no cards. Reported 2026-09-25 (game 1310334): choosing which opponent's hand to look at
+      // opened an EMPTY picker unless you happened to be zoomed into that seat.
+      // ⚠ This leaks nothing. It renames data the client already holds: responseArr is published whole
+      // as window.swuLastResponseArr, and each slot was already redacted per viewer server-side (the
+      // $canSee<Zone>Player{n} reveal gates). A hidden zone the viewer may not see is card backs here
+      // exactly as it is there.
+      $setData .= "echo(\"for (var _ps = 1; _ps * " . count($zones) . " <= responseArr.length; _ps++) "
+                . "window['p' + _ps + '" . $zone->Name . "Data'] = responseArr[" . $index . " + (_ps-1)*" . count($zones) . "];\");\r\n";
+    }
+  }
+
+  // Then add row-based zones
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $index = $i + $startPiece;
+    if($zone->Row >= 0) {//If it's -1, position is defined some other way
+      $myStuff .= "echo(\"myRows[" . $zone->Row . "] += PopulateZone('my" . $zone->Name . "', responseArr[" . $index . " + (currentPlayerIndex-1)*" . count($zones) . "], cardSize, '" . GenImageRoot($zone) . "', '" . $zone->Row . "', '". $zone->DisplayMode . "');\");\r\n";
+      $theirStuff .= "echo(\"theirRows[" . $zone->Row . "] += PopulateZone('their" . $zone->Name . "', responseArr[" . $index . " + (otherPlayerIndex-1)*" . count($zones) . "], cardSize, '" . GenImageRoot($zone) . "', '" . $zone->Row . "', '". $zone->DisplayMode . "');\");\r\n";
+    }
+  }
+
+  // Finally add static positioned zones
+  $globalStaticStuff = "";
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $index = $i + $startPiece;
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if($zone->Row < 0) {
+      if (strtolower($scope) == 'global') {
+        // Global zones: single zone, no my/their prefix, use absolute positioning
+        $globalStaticStuff .= GeneratedGlobalZoneElement($zone, $index, $dummy);
+      } else {
+        // Player zones: create my/their versions with mirrored positioning
+        $myStaticStuff .= "echo(\"var dataIndex = " . $index . " + (currentPlayerIndex-1)*" . count($zones) . ";\");\r\n";
+        $myStaticStuff .= GeneratedZoneElement($zone, "my", "dataIndex", $dummy);
+
+        $theirStaticStuff .= "echo(\"var dataIndex = " . $index . " + (otherPlayerIndex-1)*" . count($zones) . ";\");\r\n";
+        $theirStaticStuff .= GeneratedZoneElement($zone, "their", "dataIndex", $dummy);
+      }
+    }
+  }
+
+  // SWUSim: actionsData is responseArr[length-2] (second-to-last; last = frameAnimations)
+  if (in_array($rootName, ['SWUSim'], true)) {
+    $setData .= "echo(\"window.myActionsData = JSON.parse(responseArr[responseArr.length - 2] || '{}');\");\r\n";
+  }
+
+  if ($hasDecisionQueue) {
+    $setData .= "echo(\"CheckAndShowDecisionQueue(window.myDecisionQueueData, 'prepare');\");\r\n";
+  }
+  if($hasFlashMessage) {
+    $setData .= "echo(\"if(window.FlashMessageData && window.FlashMessageData != '') { showFlashMessage(window.FlashMessageData); window.FlashMessageData = ''; }\");\r\n";
+  }
+  return $header . $setData . $myStuff . $theirStuff . $myStaticStuff . $theirStaticStuff . $globalStaticStuff . $footer;
+}
+
+function ZoneHasDisplayParameter($zone, $expectedParameter) {
+  if(!isset($zone->DisplayParameters) || !is_array($zone->DisplayParameters)) return false;
+  foreach($zone->DisplayParameters as $parameter) {
+    if(strcasecmp(trim($parameter), $expectedParameter) === 0) return true;
+  }
+  return false;
+}
+
+function GeneratedGlobalZoneElement($zone, $index, &$setData) {
+  global $rootPath;
+  $rv = "";
+
+  $onclick = "onclick=\\\"ZoneClickHandler(\\\'" . $zone->Name . "\\\');\\\"";
+  $onscroll = $zone->DisplayMode == "Panel" ? "onscroll=\\\"ZoneScrollHandler(\\\'" . $zone->Name . "\\\');\\\"" : "";
+  $hasRotations = isset($zone->Rotations) && is_array($zone->Rotations) && count($zone->Rotations) > 0;
+  $hasVisualStack = $zone->DisplayMode === "Single" && ZoneHasDisplayParameter($zone, "Stacked");
+  $needsVisibleOverflow = $hasRotations || $hasVisualStack || $zone->Name === "Field" || $zone->Name === "Intent";
+  $overflowStyle = ($zone->DisplayMode != "Pane")
+    ? ($hasVisualStack ? " overflow:visible;" : ($needsVisibleOverflow ? " overflow-y:visible;" : " overflow-y:auto;"))
+    : "";
+
+  if (!empty($zone->BindTo)) {
+    // BindTo mode: render global zone into an existing DOM element identified by {BindTo}
+    if ($zone->DisplayMode == "Pane") {
+      $rv .= "echo(\"globalCardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
+    } else {
+      $wrapperStyle = $overflowStyle;
+      if ($zone->Width > -1) $wrapperStyle .= " width:" . $zone->Width . ";";
+      $rv .= "echo(\"var _btg_" . $zone->Name . " = document.getElementById('" . $zone->BindTo . "'); if(_btg_" . $zone->Name . ") { _btg_" . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $zone->Name . "'); }; _btg_" . $zone->Name . ".innerHTML = '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . GenImageRoot($zone) . "', '0', '" . $zone->DisplayMode . "') + '</div>'; }\");\r\n";
+    }
+  } else {
+    // Legacy positional mode
+    $baseStyle = "position: fixed; z-index:30;";
+    $staticStyles = "";
+    if($zone->Width > -1) $staticStyles .= " width:" . $zone->Width . ";";
+    $staticStyles .= $overflowStyle;
+    $hasLeft = $zone->Left > -1;
+    $hasRight = $zone->Right > -1;
+    $hasTop = $zone->Top > -1;
+    $hasBottom = $zone->Bottom > -1;
+
+    if($zone->DisplayMode == "Pane") {
+      $rv .= "echo(\"globalCardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
+    } else {
+      // Build dynamic style with conditional mirroring for player 2
+      $rv .= "echo(\"var globalStyle_" . $zone->Name . " = '" . $baseStyle . $staticStyles . "' + (playerID == 1 ? '";
+      if($hasLeft) $rv .= " left:" . $zone->Left . ";";
+      if($hasRight) $rv .= " right:" . $zone->Right . ";";
+      if($hasTop) $rv .= " top:" . $zone->Top . ";";
+      if($hasBottom) $rv .= " bottom:" . $zone->Bottom . ";";
+      $rv .= "' : '";
+      if($hasLeft) $rv .= " right:" . $zone->Left . ";";
+      if($hasRight) $rv .= " left:" . $zone->Right . ";";
+      if($hasTop) $rv .= " bottom:" . $zone->Top . ";";
+      if($hasBottom) $rv .= " top:" . $zone->Bottom . ";";
+      $rv .= "');\");\r\n";
+      $rv .= "echo(\"globalStatic += '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"' + globalStyle_" . $zone->Name . " + '\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . GenImageRoot($zone) . "', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
+    }
+  }
+  if($zone->Visibility == "Private") return "";
+  return $rv;
+}
+
+// Board image source folder for a zone. SWUSim Leader/Base load from WebpImages
+// (correctly-oriented 628x450 landscape cards) instead of concat (450x450 squares):
+// their CSS uses height:auto, so a square source renders them too tall. All other
+// zones/sims keep concat. NOTE: NextTurnRender.php is regenerated from here, so this
+// is the durable home for that choice — patch both if you hand-edit the generated file.
+function GenImageFolder($zone) {
+  global $rootName;
+  // Only covers BindTo-mode zones (the PLACED leader/base slot) — SWUSim's Twin Suns leader
+  // slot is the sole caller today. Pane-mode zones (SWUDeck's Leaders/Leader1/Leader2/Bases
+  // browse lists) never route through GenImageRoot()/GenImageFolder() at all — PopulateZone()
+  // for those is called client-side by Core/UILibraries's RenderPane(), which reads a separate
+  // window.SWU_PANE_IMAGE_FOLDERS override (injected in WriteInitialLayout() below). Don't add
+  // Pane zone names here — it would be dead code that never actually runs.
+  $useWebp = (in_array($rootName, ["SWUSim"], true) && in_array($zone->Name, ["Leader", "Base"], true));
+  return $useWebp ? "WebpImages" : "concat";
+}
+
+function GenImageRoot($zone = null) {
+  global $assetReflection, $rootPath, $rootName;
+  $assetRoot = !empty($assetReflection) ? "./" . $assetReflection : $rootPath;
+  // SWU card art is ONE shared corpus (AppCore/SWU/Images/, SET_NNN-keyed) read by both SWU apps.
+  // Every other root keeps its per-app folders. This is the single source for the client's
+  // assetImageFolder and for every PopulateZone(..., <folder>, ...) argument, so changing it here
+  // moves them all. Filenames are resolved through resolveCardImageID() client-side.
+  $swuRoot = ($rootName === "SWUSim" || $rootName === "SWUDeck")
+      || in_array($assetReflection, ["SWUSim", "SWUDeck"], true);
+  if ($swuRoot) $assetRoot = "/TCGEngine/AppCore/SWU/Images";
+  $folder = $zone === null ? "concat" : GenImageFolder($zone);
+  return $assetRoot . "/" . $folder;
+}
+
+function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
+  global $rootPath, $rootName;
+  $rv = "";
+  $style = "position: absolute;";
+  $onclick = "onclick=\\\"ZoneClickHandler(\\\'" . $prefix . $zone->Name . "\\\');\\\"";
+  $onscroll = $zone->DisplayMode == "Panel" ? "onscroll=\\\"ZoneScrollHandler(\\\'" . $prefix . $zone->Name . "\\\');\\\"" : "";
+  if($zone->Left > -1) $style .= " left:" . $zone->Left . ";";
+  if($zone->Right > -1) $style .= " right:" . $zone->Right . ";";
+  if($zone->Top > -1) $style .= ($prefix == "my" ? " top:" : " bottom:") . $zone->Top . ";";
+  if($zone->Bottom > -1) $style .= ($prefix == "my" ? " bottom:" : " top:") . $zone->Bottom . ";";
+  if($zone->Width > -1) $style .= " width:" . $zone->Width . ";";
+  $hasRotations = isset($zone->Rotations) && is_array($zone->Rotations) && count($zone->Rotations) > 0;
+  $hasVisualStack = $zone->DisplayMode === "Single" && ZoneHasDisplayParameter($zone, "Stacked");
+  $needsVisibleOverflow = $hasRotations || $hasVisualStack || $zone->Name === "Field" || $zone->Name === "Intent";
+  $overflowStyle = ($zone->DisplayMode != "Pane")
+    ? ($hasVisualStack ? " overflow:visible;" : ($needsVisibleOverflow ? " overflow-y:visible;" : " overflow-y:auto;"))
+    : "";
+  if($zone->DisplayMode != "Pane") $style .= $overflowStyle;
+  if (!empty($zone->BindTo)) {
+    // BindTo mode: render zone into an existing DOM element identified by {prefix}{BindTo}
+    $bindToID = $prefix . $zone->BindTo;
+    $wrapperStyle = $overflowStyle;
+    if ($zone->Width > -1) $wrapperStyle .= " width:" . $zone->Width . ";";
+    if ($zone->DisplayMode == "Pane") {
+      $rv .= "echo(\"" . $prefix . "CardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
+    } else {
+      global $rootName;
+      // SWUSim Twin Suns: a seat can hold TWO leaders. Landscape WebpImages crops stack (two at
+      // cardSize width wrap to two rows); square concat crops fit side-by-side. Choose the folder at
+      // RUNTIME by leader count so a 1-leader seat is byte-identical (WebpImages) and a 2-leader seat
+      // uses concat. Only the Leader zone branches; every other zone keeps the static GenImageRoot.
+      // Both folder options route through GenImageRoot so asset-reflection (main) still applies.
+      $isSwuLeader = ($rootName === "SWUSim" && $zone->Name === "Leader");
+      if ($isSwuLeader) {
+        $concatRoot = GenImageRoot();        // null zone → <assetRoot>/concat
+        $webpRoot   = GenImageRoot($zone);   // Leader zone → <assetRoot>/WebpImages
+        $rv .= "echo(\"var _lf_" . $prefix . " = (function(){ var _d = responseArr[" . $index . "]; var _n = (_d && String(_d).trim().length) ? String(_d).trim().split('<|>').length : 0; return _n >= 2 ? '" . $concatRoot . "' : '" . $webpRoot . "'; })();\");\r\n";
+        $folderExpr = "' + _lf_" . $prefix . " + '";
+      } else {
+        $folderExpr = GenImageRoot($zone);
+      }
+      // Base-refactor (AzukiSim uses ReplaceRenderedZoneHTML) + Twin Suns runtime leader folder ($folderExpr).
+      $zoneHTML = "'<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $folderExpr . "', '0', '" . $zone->DisplayMode . "') + '</div>'";
+      $renderZoneHTML = $rootName === "AzukiSim"
+        ? "ReplaceRenderedZoneHTML(_bt_" . $prefix . $zone->Name . ", " . $zoneHTML . ");"
+        : "_bt_" . $prefix . $zone->Name . ".innerHTML = " . $zoneHTML . ";";
+      $rv .= "echo(\"var _bt_" . $prefix . $zone->Name . " = document.getElementById('" . $bindToID . "'); if(_bt_" . $prefix . $zone->Name . ") { _bt_" . $prefix . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $prefix . $zone->Name . "'); }; " . $renderZoneHTML . " }\");\r\n";
+      $setData .= "echo(\"window." . $prefix . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
+    }
+  } else {
+    if($zone->DisplayMode == "Pane") $rv .= "echo(\"" . $prefix . "CardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
+    else {
+      $rv .= "echo(\"" . $prefix . "Static += '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"$style\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . GenImageRoot($zone) . "', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
+      $setData .= "echo(\"window." . $prefix . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
+    }
+  }
+  if($zone->DisplayMode == "None") return "";
+  return $rv;
+}
+
+function AddGeneratedUI() {
+  global $zones, $assetReflection, $hasFlashMessage, $modules, $macros;
+  $rv = "";
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    if($zone->DisplayMode == "Panel") {
+      $rv .= "var _my_" . $zone->Name . "_activePane = 0;\r\n";
+      $rv .= "var _their_" . $zone->Name . "_activePane = 0;\r\n";
+    }
+  }
+  $rv .= "function generatedDragStart() {\r\n";
+  $rv .= "  var zone = null;\r\n";
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if (strtolower($scope) == 'global') {
+      $rv .= "  zone = document.getElementById(\"" . $zone->Name . "\");\r\n";
+      $rv .= "  if(!!zone) zone.classList.add(\"droppable\");\r\n";
+    } else {
+      $rv .= "  zone = document.getElementById(\"my" . $zone->Name . "\");\r\n";
+      $rv .= "  if(!!zone) zone.classList.add(\"droppable\");\r\n";
+      //TODO: Only allow their with a setting? Or holding ctrl?
+      $rv .= "  zone = document.getElementById(\"their" . $zone->Name . "\");\r\n";
+      $rv .= "  if(!!zone) zone.classList.add(\"droppable\");\r\n";
+    }
+  }
+  $rv .= "}\r\n";
+
+  $rv .= "function generatedDragEnd() {\r\n";
+  $rv .= "  var zone = null;\r\n";
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if (strtolower($scope) == 'global') {
+      $rv .= "  zone = document.getElementById(\"" . $zone->Name . "\");\r\n";
+      $rv .= "  if(!!zone) zone.classList.remove(\"droppable\");\r\n";
+    } else {
+      $rv .= "  zone = document.getElementById(\"my" . $zone->Name . "\");\r\n";
+      $rv .= "  if(!!zone) zone.classList.remove(\"droppable\");\r\n";
+      //TODO: Only allow their with a setting? Or holding ctrl?
+      $rv .= "  zone = document.getElementById(\"their" . $zone->Name . "\");\r\n";
+      $rv .= "  if(!!zone) zone.classList.remove(\"droppable\");\r\n";
+    }
+  }
+  $rv .= "}\r\n";
+
+  //Client dictionary of zone widgets and their actions
+  $rv .= "function GetZoneWidgets(zoneName) {\r\n";
+  $rv .= "  zoneName = zoneName.replace(/^p[1-4]/, '');\r\n";
+  $rv .= "  switch(zoneName) {\r\n";
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $widgets = [];
+    foreach ($zone->Widgets as $widget) {
+      $widgetEntry = ['actions' => $widget->Actions];
+      if (isset($widget->Position)) {
+        $widgetEntry['position'] = $widget->Position;
+      }
+      if (isset($widget->Condition) && $widget->Condition !== null) {
+        $condParts = explode('=', $widget->Condition, 2);
+        if (count($condParts) == 2) {
+          $widgetEntry['condition'] = ['field' => trim($condParts[0]), 'value' => trim($condParts[1])];
+        }
+      }
+      $widgets[$widget->LinkedProperty] = $widgetEntry;
+    }
+    $rv .= "    case '" . $zone->Name . "':\r\n";
+    $rv .= "      return " . json_encode($widgets) . ";\r\n";
+  }
+  $rv .= "    default:\r\n";
+  $rv .= "      return {};\r\n";
+  $rv .= "  }\r\n";
+  $rv .= "}\r\n";
+
+  //Client dictionary of zone click actions
+  $rv .= "function GetZoneClickActions(zoneName) {\r\n";
+  $rv .= "  zoneName = zoneName.replace(/^p[1-4]/, '');\r\n";
+  $rv .= "  switch(zoneName) {\r\n";
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $clickActions = [];
+    foreach ($zone->ClickActions as $clickAction) {
+      $clickActions[] = ['Action' => $clickAction->Action, 'Parameters' => $clickAction->Parameters];
+    }
+    $rv .= "    case '" . $zone->Name . "':\r\n";
+    $rv .= "      return " . json_encode(array_values($clickActions)) . ";\r\n";
+  }
+  $rv .= "    default:\r\n";
+  $rv .= "      return {};\r\n";
+  $rv .= "  }\r\n";
+  $rv .= "}\r\n";
+
+
+  // Emit overlay rules as a JS object
+  $overlayRules = [];
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    if (isset($zone->Overlays) && is_array($zone->Overlays) && count($zone->Overlays) > 0) {
+      $overlayRules[$zone->Name] = $zone->Overlays;
+    }
+  }
+  $rv .= "const OverlayRules = " . json_encode($overlayRules) . ";\r\n";
+
+  // Emit rotation rules as a JS object
+  $rotationRules = [];
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    if (isset($zone->Rotations) && is_array($zone->Rotations) && count($zone->Rotations) > 0) {
+      $rotationRules[$zone->Name] = $zone->Rotations;
+    }
+  }
+  $rv .= "const RotationRules = " . json_encode($rotationRules) . ";\r\n";
+
+  // Emit counter rules as a JS object
+  $counterRules = [];
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    if (isset($zone->Counters) && is_array($zone->Counters) && count($zone->Counters) > 0) {
+      $counterRules[$zone->Name] = $zone->Counters;
+    }
+  }
+  $rv .= "const CounterRules = " . json_encode($counterRules) . ";\r\n";
+
+  // Emit highlight rules as a JS object
+  $highlightRules = [];
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    if (isset($zone->HighlightProperty) && $zone->HighlightProperty !== null) {
+      $highlightRules[$zone->Name] = $zone->HighlightProperty;
+    }
+  }
+  $rv .= "const HighlightRules = " . json_encode($highlightRules) . ";\r\n";
+  $macroToastRules = [];
+  for($i=0; $i<count($macros); ++$i) {
+    $macro = $macros[$i];
+    if(!isset($macro->Toast) || strtolower($macro->Toast) !== "card") continue;
+    if(!isset($macro->ToastCardParam) || !in_array($macro->ToastCardParam, $macro->Parameters)) continue;
+    $macroToastRules[$macro->FunctionName] = [
+      "type" => "Card",
+      "cardParam" => $macro->ToastCardParam,
+      "label" => isset($macro->ToastLabel) ? $macro->ToastLabel : $macro->FunctionName
+    ];
+  }
+  $rv .= "const MacroToastRules = " . json_encode($macroToastRules) . ";\r\n";
+  $rv .= "function GetMacroToastRules() {\r\n";
+  $rv .= "  return MacroToastRules;\r\n";
+  $rv .= "}\r\n";
+  $moduleConfigData = [];
+  for($i=0; $i<count($modules); ++$i) {
+    $moduleConfigData[$modules[$i]->Name] = $modules[$i]->Parameters;
+  }
+  $rv .= "const ModuleConfigs = " . json_encode($moduleConfigData) . ";\r\n";
+  $rv .= "function GetModuleConfig(moduleName) {\r\n";
+  $rv .= "  return Object.prototype.hasOwnProperty.call(ModuleConfigs, moduleName) ? ModuleConfigs[moduleName] : null;\r\n";
+  $rv .= "}\r\n";
+  $rv .= "function GetAllModuleConfigs() {\r\n";
+  $rv .= "  return ModuleConfigs;\r\n";
+  $rv .= "}\r\n";
+
+  //Client dictionary of all zone data
+  $rv .= "function GetZoneData(zoneName) {\r\n";
+  $rv .= "  zoneName = zoneName.replace(/^p[1-4]/, '');\r\n";
+  $rv .= "  switch(zoneName) {\r\n";
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $rv .= "    case '" . $zone->Name . "': case 'my" . $zone->Name . "': case 'their" . $zone->Name . "': \r\n";
+    $rv .= "      return " . json_encode($zone) . ";\r\n";
+  }
+  $rv .= "    default:\r\n";
+  $rv .= "      return {};\r\n";
+  $rv .= "  }\r\n";
+  $rv .= "}\r\n";
+
+  //Client dictionary of panes for each panel
+  $panes = [];
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    if($zone->DisplayMode == "Pane") {
+      $panelName = $zone->DisplayParameters[0];
+      if (!isset($panes[$panelName])) {
+        $panes[$panelName] = "";
+      }
+      if($panes[$panelName] != "") $panes[$panelName] .= ",";
+      $panes[$panelName] .= "'" . $zone->Name . "'";
+    }
+  }
+  $rv .= "function GetPaneData(zoneName) {\r\n";
+  $rv .= "  switch(zoneName) {\r\n";
+  foreach ($panes as $panelName => $paneZones) {
+    $rv .= "    case '" . $panelName . "':\r\n";
+    $rv .= "      return [" . $paneZones . "];\r\n";
+  }
+  $rv .= "    default:\r\n";
+  $rv .= "      return [];\r\n";
+  $rv .= "  }\r\n";
+  $rv .= "}\r\n";
+
+  $rv .= "function AssetReflectionPath() {\r\n";
+  $rv .= "  return " . ($assetReflection === null ? "''" : "'" . $assetReflection . "'") . ";\r\n";
+  $rv .= "}\r\n";
+
+  if($hasFlashMessage) {
+    $rv .= "function showFlashMessage(message) {\r\n";
+    $rv .= "  if(message.startsWith('REVEAL:')) {\r\n";
+    $rv .= "    var cardIDs = message.substring(7).split('|');\r\n";
+    $rv .= "    if(cardIDs.length === 1) { showCardReveal(cardIDs[0]); }\r\n";
+    $rv .= "    else { showCardRevealMultiple(cardIDs); }\r\n";
+    $rv .= "    return;\r\n";
+    $rv .= "  }\r\n";
+    $rv .= "  var overlay = document.createElement('div');\r\n";
+    $rv .= "  overlay.style.position = 'fixed';\r\n";
+    $rv .= "  overlay.style.top = '0';\r\n";
+    $rv .= "  overlay.style.left = '0';\r\n";
+    $rv .= "  overlay.style.width = '100%';\r\n";
+    $rv .= "  overlay.style.height = '100%';\r\n";
+    $rv .= "  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';\r\n";
+    $rv .= "  overlay.style.zIndex = '10000';\r\n";
+    $rv .= "  overlay.style.display = 'flex';\r\n";
+    $rv .= "  overlay.style.alignItems = 'center';\r\n";
+    $rv .= "  overlay.style.justifyContent = 'center';\r\n";
+    $rv .= "  overlay.style.opacity = '0';\r\n";
+    $rv .= "  overlay.style.transition = 'opacity 0.10s ease-in';\r\n";
+    $rv .= "  var messageBox = document.createElement('div');\r\n";
+    $rv .= "  messageBox.innerHTML = message;\r\n";
+    $rv .= "  messageBox.style.backgroundColor = 'rgba(50, 50, 50, 0.9)';\r\n";
+    $rv .= "  messageBox.style.padding = '20px';\r\n";
+    $rv .= "  messageBox.style.borderRadius = '10px';\r\n";
+    $rv .= "  messageBox.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';\r\n";
+    $rv .= "  messageBox.style.maxWidth = '80%';\r\n";
+    $rv .= "  messageBox.style.textAlign = 'center';\r\n";
+    $rv .= "  messageBox.style.fontSize = '18px';\r\n";
+    $rv .= "  messageBox.style.fontWeight = 'bold';\r\n";
+    $rv .= "  messageBox.style.color = 'white';\r\n";
+    $rv .= "  overlay.appendChild(messageBox);\r\n";
+    $rv .= "  document.body.appendChild(overlay);\r\n";
+    $rv .= "  setTimeout(function() { overlay.style.opacity = '1'; }, 10);\r\n";
+    $rv .= "  setTimeout(function() {\r\n";
+    $rv .= "    overlay.style.transition = 'opacity .250s ease-out';\r\n";
+    $rv .= "    overlay.style.opacity = '0';\r\n";
+    $rv .= "    setTimeout(function() { if(overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 250);\r\n";
+    $rv .= "  }, 500);\r\n";
+    $rv .= "}\r\n";
+    // showCardReveal: displays a full card image centered on screen with auto-dismiss
+    $rv .= "function showCardReveal(cardID) {\r\n";
+    $rv .= "  var overlay = document.createElement('div');\r\n";
+    $rv .= "  overlay.style.position = 'fixed';\r\n";
+    $rv .= "  overlay.style.top = '0';\r\n";
+    $rv .= "  overlay.style.left = '0';\r\n";
+    $rv .= "  overlay.style.width = '100%';\r\n";
+    $rv .= "  overlay.style.height = '100%';\r\n";
+    $rv .= "  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';\r\n";
+    $rv .= "  overlay.style.zIndex = '10000';\r\n";
+    $rv .= "  overlay.style.display = 'flex';\r\n";
+    $rv .= "  overlay.style.flexDirection = 'column';\r\n";
+    $rv .= "  overlay.style.alignItems = 'center';\r\n";
+    $rv .= "  overlay.style.justifyContent = 'center';\r\n";
+    $rv .= "  overlay.style.opacity = '0';\r\n";
+    $rv .= "  overlay.style.transition = 'opacity 0.15s ease-in';\r\n";
+    $rv .= "  var label = document.createElement('div');\r\n";
+    $rv .= "  label.textContent = 'Revealed';\r\n";
+    $rv .= "  label.style.color = '#FFD700';\r\n";
+    $rv .= "  label.style.fontSize = '22px';\r\n";
+    $rv .= "  label.style.fontWeight = 'bold';\r\n";
+    $rv .= "  label.style.fontFamily = 'Orbitron, sans-serif';\r\n";
+    $rv .= "  label.style.marginBottom = '12px';\r\n";
+    $rv .= "  label.style.textShadow = '0 0 10px rgba(255,215,0,0.5)';\r\n";
+    $rv .= "  overlay.appendChild(label);\r\n";
+    $rv .= "  var img = document.createElement('img');\r\n";
+    $rv .= "  var rootPath = typeof AssetReflectionPath === 'function' ? AssetReflectionPath() : '';\r\n";
+    $rv .= "  img.src = './' + rootPath + '/WebpImages/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(cardID) : cardID) + '.webp';\r\n";
+    $rv .= "  img.style.maxHeight = '60vh';\r\n";
+    $rv .= "  img.style.maxWidth = '80vw';\r\n";
+    $rv .= "  img.style.borderRadius = '12px';\r\n";
+    $rv .= "  img.style.boxShadow = '0 0 30px rgba(255,215,0,0.4), 0 8px 32px rgba(0,0,0,0.6)';\r\n";
+    $rv .= "  img.style.border = '2px solid rgba(255,215,0,0.6)';\r\n";
+    $rv .= "  overlay.appendChild(img);\r\n";
+    $rv .= "  document.body.appendChild(overlay);\r\n";
+    $rv .= "  setTimeout(function() { overlay.style.opacity = '1'; }, 10);\r\n";
+    $rv .= "  setTimeout(function() {\r\n";
+    $rv .= "    overlay.style.transition = 'opacity 0.4s ease-out';\r\n";
+    $rv .= "    overlay.style.opacity = '0';\r\n";
+    $rv .= "    setTimeout(function() { if(overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 400);\r\n";
+    $rv .= "  }, 1200);\r\n";
+    $rv .= "}\r\n";
+    // showCardRevealMultiple: shows multiple revealed cards side-by-side in one overlay
+    $rv .= "function showCardRevealMultiple(cardIDs) {\r\n";
+    $rv .= "  var overlay = document.createElement('div');\r\n";
+    $rv .= "  overlay.style.position = 'fixed';\r\n";
+    $rv .= "  overlay.style.top = '0';\r\n";
+    $rv .= "  overlay.style.left = '0';\r\n";
+    $rv .= "  overlay.style.width = '100%';\r\n";
+    $rv .= "  overlay.style.height = '100%';\r\n";
+    $rv .= "  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';\r\n";
+    $rv .= "  overlay.style.zIndex = '10000';\r\n";
+    $rv .= "  overlay.style.display = 'flex';\r\n";
+    $rv .= "  overlay.style.flexDirection = 'column';\r\n";
+    $rv .= "  overlay.style.alignItems = 'center';\r\n";
+    $rv .= "  overlay.style.justifyContent = 'center';\r\n";
+    $rv .= "  overlay.style.opacity = '0';\r\n";
+    $rv .= "  overlay.style.transition = 'opacity 0.15s ease-in';\r\n";
+    $rv .= "  var label = document.createElement('div');\r\n";
+    $rv .= "  label.textContent = 'Revealed (' + cardIDs.length + ' cards)';\r\n";
+    $rv .= "  label.style.color = '#FFD700';\r\n";
+    $rv .= "  label.style.fontSize = '20px';\r\n";
+    $rv .= "  label.style.fontWeight = 'bold';\r\n";
+    $rv .= "  label.style.fontFamily = 'Orbitron, sans-serif';\r\n";
+    $rv .= "  label.style.marginBottom = '12px';\r\n";
+    $rv .= "  label.style.textShadow = '0 0 10px rgba(255,215,0,0.5)';\r\n";
+    $rv .= "  overlay.appendChild(label);\r\n";
+    $rv .= "  var row = document.createElement('div');\r\n";
+    $rv .= "  row.style.display = 'flex';\r\n";
+    $rv .= "  row.style.flexWrap = 'wrap';\r\n";
+    $rv .= "  row.style.justifyContent = 'center';\r\n";
+    $rv .= "  row.style.gap = '10px';\r\n";
+    $rv .= "  row.style.maxWidth = '90vw';\r\n";
+    $rv .= "  var rootPath = typeof AssetReflectionPath === 'function' ? AssetReflectionPath() : '';\r\n";
+    $rv .= "  var maxImgH = Math.min(55, Math.floor(80 / cardIDs.length)) + 'vh';\r\n";
+    $rv .= "  for(var i = 0; i < cardIDs.length; i++) {\r\n";
+    $rv .= "    var img = document.createElement('img');\r\n";
+    $rv .= "    img.src = './' + rootPath + '/WebpImages/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(cardIDs[i]) : cardIDs[i]) + '.webp';\r\n";
+    $rv .= "    img.style.maxHeight = maxImgH;\r\n";
+    $rv .= "    img.style.borderRadius = '10px';\r\n";
+    $rv .= "    img.style.boxShadow = '0 0 20px rgba(255,215,0,0.35), 0 6px 20px rgba(0,0,0,0.5)';\r\n";
+    $rv .= "    img.style.border = '2px solid rgba(255,215,0,0.5)';\r\n";
+    $rv .= "    row.appendChild(img);\r\n";
+    $rv .= "  }\r\n";
+    $rv .= "  overlay.appendChild(row);\r\n";
+    $rv .= "  document.body.appendChild(overlay);\r\n";
+    $rv .= "  setTimeout(function() { overlay.style.opacity = '1'; }, 10);\r\n";
+    $rv .= "  var duration = Math.min(1200 + cardIDs.length * 300, 3500);\r\n";
+    $rv .= "  setTimeout(function() {\r\n";
+    $rv .= "    overlay.style.transition = 'opacity 0.4s ease-out';\r\n";
+    $rv .= "    overlay.style.opacity = '0';\r\n";
+    $rv .= "    setTimeout(function() { if(overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 400);\r\n";
+    $rv .= "  }, duration);\r\n";
+    $rv .= "}\r\n";
+  }
+
+  //Client function for if screen should be split or not
+  return $rv;
+}
+
+function WriteInitialLayout() {
+  global $zones, $rootPath, $headerElements, $initializeScript, $clientIncludes, $pageBackground, $customLayoutFile, $rootName;
+  $shouldSplitScreen = true;
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    if($zone->Split == "None") $shouldSplitScreen = false;
+  }
+  $filename = $rootPath . "/InitialLayout.php";
+  $handler = fopen($filename, "w");
+  fwrite($handler, "<?php\r\n");
+  if($initializeScript != "") {
+    fwrite($handler, "if(!isset(\$skipInitialize) || !\$skipInitialize) include_once '" . $initializeScript . "';\r\n");
+  }
+  if (count($clientIncludes) > 0) {
+    fwrite($handler, "if(!function_exists('_VersionedClientInclude')){function _VersionedClientInclude(\$p){if(preg_match('#^https?://#i',\$p))return \$p;\$d=\$_SERVER['DOCUMENT_ROOT']??'';if(\$d==='')return \$p;\$m=@filemtime(\$d.\$p);if(\$m===false)return \$p;return \$p.(strpos(\$p,'?')===false?'?':'&').'v='.\$m;}}\r\n");
+  }
+  // SWUDeck-only: inject the deck's format-legal-sets/banned-UUIDs before Filters3.js loads, so
+  // InLegalFilter() can be format-aware. $assetData is hoisted here (instead of inside the
+  // AssetVisibility module below) so both this block and AssetVisibility share one lookup.
+  if ($rootName === "SWUDeck") {
+    fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/AccountFiles/AccountSessionAPI.php';\r\n");
+    fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/AccountFiles/AccountDatabaseAPI.php';\r\n");
+    fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/Database/ConnectionManager.php';\r\n");
+    fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/SWUDeck/Custom/DeckFormats.php';\r\n");
+    fwrite($handler, "\$assetData = LoadAssetData(1, \$gameName);\r\n");
+    fwrite($handler, "\$_deckFormat = \$assetData['format'] ?? 'premier';\r\n");
+    fwrite($handler, "\$_clientFormatData = SWUDeckClientFormatData(\$_deckFormat);\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_FORMAT_LEGAL_SETS = \" . json_encode(\$_clientFormatData['legalSets']) . \"; window.SWU_FORMAT_BANNED_IDS = \" . json_encode(\$_clientFormatData['bannedIDs']) . \"; window.SWU_FORMAT_RARITY_LEGAL_IDS = \" . json_encode(\$_clientFormatData['rarityLegalIDs']) . \";</script>\");\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_DECK_FORMAT = \" . json_encode(\$_deckFormat) . \";</script>\");\r\n");
+    fwrite($handler, "\$_leaderZone = &GetLeader(1);\r\n");
+    fwrite($handler, "\$_currentAlignments = [];\r\n");
+    fwrite($handler, "foreach (\$_leaderZone as \$_l) { if (!\$_l->Removed()) \$_currentAlignments[] = SWUDeckLeaderAlignment(\$_l->CardID); }\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_CURRENT_LEADER_ALIGNMENTS = \" . json_encode(\$_currentAlignments) . \";</script>\");\r\n");
+    fwrite($handler, "\$_allLeaderAlignments = [];\r\n");
+    fwrite($handler, "foreach (\$p1Leaders as \$_leaderCard) { \$_allLeaderAlignments[\$_leaderCard->CardID] = SWUDeckLeaderAlignment(\$_leaderCard->CardID); }\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_LEADER_ALIGNMENTS = \" . json_encode(\$_allLeaderAlignments) . \";</script>\");\r\n");
+    fwrite($handler, "\$_leaderCropUrls = [];\r\n");
+    fwrite($handler, "foreach (\$p1Leaders as \$_leaderCard) { \$_leaderCropUrls[\$_leaderCard->CardID] = SWUDeckLeaderCropUrl(\$_leaderCard->CardID); }\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_LEADER_CROP_URLS = \" . json_encode(\$_leaderCropUrls) . \";</script>\");\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_PANE_IMAGE_FOLDERS = \" . json_encode(['Leaders' => '/TCGEngine/AppCore/SWU/Images/WebpImages', 'Leader1' => '/TCGEngine/AppCore/SWU/Images/WebpImages', 'Leader2' => '/TCGEngine/AppCore/SWU/Images/WebpImages', 'Bases' => '/TCGEngine/AppCore/SWU/Images/WebpImages']) . \";</script>\");\r\n");
+  }
+  for ($i = 0; $i < count($clientIncludes); ++$i) {
+    fwrite($handler, "echo(\"<script src='\" . _VersionedClientInclude('" . $clientIncludes[$i] . "') . \"'></script>\");\r\n");
+  }
+  fwrite($handler, "echo(\"<div class='flex-container' style='margin:0px; padding:0px; display: flex; flex-direction: column; width: 100%; height: 100%;'>\");\r\n");
+  if(count($headerElements) > 0) {
+    fwrite($handler, "echo(\"<div class='flex-item' style='flex-basis: 20px; background-color: #2a2a2a; color: #fff; padding: 0px; display: flex; align-items: left; justify-content: left;'>\");\r\n");
+    for ($i = 0; $i < count($headerElements); ++$i) {
+      $headerElement = $headerElements[$i];
+      if ($headerElement->Access === "Moderator") {
+        fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/AccountFiles/AccountSessionAPI.php';\r\n");
+        if ($rootName === "SWUDeck") {
+          fwrite($handler, "if (IsUserLoggedIn() && CheckLoggedInUserModStrict() === '' && isset(\$assetData['assetOwner']) && (string)\$assetData['assetOwner'] === (string)LoggedInUser()) {\r\n");
+        } else {
+          fwrite($handler, "if (IsUserLoggedIn() && CheckLoggedInUserModStrict() === '') {\r\n");
+        }
+      }
+      if($headerElement->Module != "") {
+        fwrite($handler, "echo(\"<div style='padding: 3px; margin: 5px;' id='" . $headerElement->Module . "'>\");\r\n");
+        switch($headerElement->Module) {
+          case "AssetVisibility":
+            // SWUDeck already hoisted $assetData (and the includes it needs) above, before the
+            // client-include script tags, to feed the format-legal-sets injection — reuse it
+            // instead of querying twice.
+            if ($rootName !== "SWUDeck") {
+              fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/AccountFiles/AccountSessionAPI.php';\r\n");
+              fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/AccountFiles/AccountDatabaseAPI.php';\r\n");
+              fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/Database/ConnectionManager.php';\r\n");
+              fwrite($handler, "\$assetData = LoadAssetData($headerElement->AssetType, \$gameName);\r\n");
+            }
+            fwrite($handler, "\$visibility = \$assetData['assetVisibility'];\r\n");
+            fwrite($handler, "\$patreonId = GetUserPatreonID();\r\n");
+            fwrite($handler, "\$userData = LoadUserDataFromId(LoggedInUser());\r\n");
+            fwrite($handler, "\$_visLabel = 'Private';\r\n");
+            fwrite($handler, "if(\$visibility == 2) \$_visLabel = 'Public';\r\n");
+            fwrite($handler, "else if(\$visibility == 1) \$_visLabel = 'Link Only';\r\n");
+            fwrite($handler, "else if(\$patreonId != \"\" && \$visibility == \$patreonId) \$_visLabel = 'Patreon';\r\n");
+            fwrite($handler, "else if(isset(\$userData['teamID']) && \$visibility == (1000 + \$userData['teamID'])) \$_visLabel = 'Team';\r\n");
+            fwrite($handler, "echo(\"<div id='visibilityDropdownWrapper' style='position:relative; display:inline-block;'>\");\r\n");
+            fwrite($handler, "echo(\"  <button id='visibilityDropdownTrigger' onclick='toggleVisibilityDropdown()' onmouseover=\\\"this.style.backgroundColor='#444';\\\" onmouseout=\\\"this.style.backgroundColor='#333';\\\" style='background-color:#333;color:#fff;border:none;padding:3px;margin:0;border-radius:5px;font-size:14px;cursor:pointer;'><span style='vertical-align:middle;' id='visibilityDropdownLabel'>{\$_visLabel}</span> <span style='vertical-align:middle;font-size:10px;opacity:0.7;'>&#9660;</span></button>\");\r\n");
+            fwrite($handler, "echo(\"  <div id='visibilityDropdownMenu' style='display:none;position:absolute;top:100%;left:0;z-index:9999;background:#2a2a2a;border:1px solid #555;border-radius:5px;min-width:140px;box-shadow:0 4px 12px rgba(0,0,0,0.6);overflow:hidden;'>\");\r\n");
+            fwrite($handler, "\$_visOptions = [['value' => 'private', 'label' => 'Private']];\r\n");
+            fwrite($handler, "if(isset(\$userData['teamID'])) \$_visOptions[] = ['value' => 'team', 'label' => 'Team'];\r\n");
+            fwrite($handler, "if(\$patreonId != \"\") \$_visOptions[] = ['value' => \$patreonId, 'label' => 'Patreon'];\r\n");
+            fwrite($handler, "\$_visOptions[] = ['value' => 'link only', 'label' => 'Link Only'];\r\n");
+            fwrite($handler, "\$_visOptions[] = ['value' => 'public', 'label' => 'Public'];\r\n");
+            fwrite($handler, "foreach(\$_visOptions as \$_opt) {\r\n");
+            fwrite($handler, "  \$_active = (\$_opt['label'] === \$_visLabel) ? 'color:#fff;font-weight:bold;' : 'color:#fff;';\r\n");
+            fwrite($handler, "  echo(\"    <div onclick='selectVisibility(\\\"\" . \$_opt['value'] . \"\\\",\\\"\" . \$_opt['label'] . \"\\\",\\\"\$gameName\\\")' style='padding:7px 12px;cursor:pointer;font-size:13px;\" . \$_active . \"white-space:nowrap;' onmouseover='this.style.background=\\\"#3a3a3a\\\"' onmouseout='this.style.background=\\\"\\\"'>\" . \$_opt['label'] . \"</div>\");\r\n");
+            fwrite($handler, "}\r\n");
+            fwrite($handler, "echo(\"  </div>\");\r\n");
+            fwrite($handler, "echo(\"</div>\");\r\n");
+            break;
+          case "Versions":
+            fwrite($handler, "echo(\"<div id='versionDropdownWrapper' style='position:relative; display:inline-block;'>\");\r\n");
+            fwrite($handler, "echo(\"  <button id='versionDropdownTrigger' data-label='Current Version' onclick='toggleVersionDropdown()' onmouseover=\\\"this.style.backgroundColor='#444';\\\" onmouseout=\\\"this.style.backgroundColor='#333';\\\" style='background-color:#333;color:#fff;border:none;padding:3px;margin:0;border-radius:5px;font-size:14px;cursor:pointer;'><span style='vertical-align:middle;' id='versionDropdownLabel'>Current Version</span> <span style='vertical-align:middle;font-size:10px;opacity:0.7;'>&#9660;</span></button>\");\r\n");
+            fwrite($handler, "echo(\"  <div id='versionDropdownMenu' style='display:none;position:absolute;top:100%;left:0;z-index:9999;background:#2a2a2a;border:1px solid #555;border-radius:5px;min-width:180px;box-shadow:0 4px 12px rgba(0,0,0,0.6);overflow:hidden;'>\");\r\n");
+            fwrite($handler, "echo(\"    <div onclick='selectVersion(\\\"current\\\",\\\"Current Version\\\")' style='padding:7px 12px;cursor:pointer;font-size:13px;color:#fff;white-space:nowrap;' onmouseover='this.style.background=\\\"#3a3a3a\\\"' onmouseout='this.style.background=\\\"\\\"'>Current Version</div>\");\r\n");
+            fwrite($handler, "\$versions = &GetVersions(\$playerID);\r\n");
+            fwrite($handler, "for(\$i=0; \$i<count(\$versions); ++\$i) {\r\n");
+            fwrite($handler, "  \$dispNum = isset(\$versions[\$i]->DisplayNumber) ? \$versions[\$i]->DisplayNumber : \$i;\r\n");
+            fwrite($handler, "  \$dispLabel = (isset(\$versions[\$i]->VersionName) && strlen(\$versions[\$i]->VersionName) > 0) ? htmlspecialchars(\$versions[\$i]->VersionName, ENT_QUOTES) : ('Version ' . \$dispNum);\r\n");
+            fwrite($handler, "  echo(\"    <div data-vnum='\$dispNum' style='padding:7px 12px;cursor:default;font-size:13px;color:#fff;display:flex;justify-content:space-between;align-items:center;' onmouseover='this.style.background=\\\"#3a3a3a\\\"' onmouseout='this.style.background=\\\"\\\"'><span style='flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;'>\$dispLabel</span><span style='display:inline-flex;align-items:center;gap:16px;flex-shrink:0;margin-left:8px;'><span onclick='event.stopPropagation();selectVersion(\\\"\$i\\\",\\\"\$dispLabel\\\")' title='Load \$dispLabel' style='padding:1px 5px;border-radius:3px;background:#1a73e8;color:#fff;font-size:9px;cursor:pointer;line-height:14px;white-space:nowrap;'>Load</span><span onclick='event.stopPropagation();closeVersionDropdown();showDeleteVersionConfirm(\$i,\$dispNum)' title='Delete Version \$dispNum' style='width:15px;height:15px;border-radius:50%;background:#c0392b;color:#fff;font-size:9px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;'>&#10005;</span></span></div>\");\r\n");
+            fwrite($handler, "}\r\n");
+            fwrite($handler, "echo(\"    <div onclick='showNewVersionPrompt()' style='padding:7px 12px;cursor:pointer;font-size:13px;color:#aaf;white-space:nowrap;' onmouseover='this.style.background=\\\"#3a3a3a\\\"' onmouseout='this.style.background=\\\"\\\"'>+ New Version</div>\");\r\n");
+            fwrite($handler, "echo(\"  </div>\");\r\n");
+            fwrite($handler, "echo(\"</div>\");\r\n");
+            break;
+          default: break;
+        }
+        fwrite($handler, "echo(\"</div>\");\r\n");
+        if($headerElement->Module == "Versions" && file_exists($rootPath . "/RefreshImport.php")) {
+          $folderName = basename($rootPath);
+          fwrite($handler, "if(isset(\$assetData) && !is_null(\$assetData['assetSource']) && !is_null(\$assetData['assetSourceID'])) {\r\n");
+          fwrite($handler, "  \$_refreshSource = intval(\$assetData['assetSource']);\r\n");
+          fwrite($handler, "  \$_refreshSourceID = htmlspecialchars(\$assetData['assetSourceID'], ENT_QUOTES);\r\n");
+          fwrite($handler, "  \$_refreshGame = htmlspecialchars(\$gameName, ENT_QUOTES);\r\n");
+          fwrite($handler, "  echo(\"<button style='background-color: #333; color: #fff; border: none; padding: 3px; margin: 5px; border-radius: 5px; font-size: 14px; cursor: pointer;' onmouseover=\\\"this.style.backgroundColor='#444';\\\" onmouseout=\\\"this.style.backgroundColor='#333';\\\" onclick=\\\"RefreshDeckFromSource('{\$_refreshGame}', {\$_refreshSource}, '{\$_refreshSourceID}', event)\\\"><span style='vertical-align: middle;'>Refresh</span></button>\");\r\n");
+          fwrite($handler, "  echo(\"<script>function RefreshDeckFromSource(deckID,src,srcID,event){var btn=event.currentTarget;btn.disabled=true;btn.style.opacity='0.5';var xhr=new XMLHttpRequest();xhr.open('GET','/TCGEngine/$folderName/RefreshImport.php?deckID='+encodeURIComponent(deckID)+'&source='+src+'&sourceID='+encodeURIComponent(srcID)+'&playerID=1',true);xhr.onreadystatechange=function(){if(xhr.readyState===4){btn.disabled=false;btn.style.opacity='1';if(xhr.status===200){setVersionDisplay('current','Current Version');var f=document.createElement('div');f.textContent='Deck refreshed!';f.style.cssText='position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a73e8;color:#fff;padding:8px 18px;border-radius:6px;font-size:14px;z-index:9999;pointer-events:none;';document.body.appendChild(f);setTimeout(function(){if(f.parentNode)f.parentNode.removeChild(f);},1800);}}}; xhr.send();}</script>\");\r\n");
+          fwrite($handler, "}\r\n");
+        }
+      } else {
+        $target = $headerElement->Target == "blank" ? " target='_blank'" : "";
+        fwrite($handler, "echo(\"<button style='background-color: #333; color: #fff; border: none; padding: 3px; margin: 5px; border-radius: 5px; font-size: 14px; cursor: pointer;' onmouseover=\\\"this.style.backgroundColor='#444';\\\" onmouseout=\\\"this.style.backgroundColor='#333';\\\" onclick=\\\"window.open('" . $headerElement->Link . "', '" . ($headerElement->Target == "blank" ? "_blank" : "_self") . "')\\\"$target>\");\r\n");
+        if ($headerElement->Icon != "") {
+          fwrite($handler, "echo(\"<img src='" . $headerElement->Icon . "' style='vertical-align: middle; margin-right: 3px; height:16px; width:16px;'>\");\r\n");
+        }
+        fwrite($handler, "echo(\"<span style='vertical-align: middle;'>" . $headerElement->Title . "</span>\");\r\n");
+        fwrite($handler, "echo(\"</button>\");\r\n");
+      }
+      if ($headerElement->Access === "Moderator") fwrite($handler, "}\r\n");
+    }
+    fwrite($handler, "echo(\"</div>\");\r\n");
+  }
+  $boardFlexStyle = "flex-grow: 1;" . (in_array($rootName, ["SWUDeck", "AzukiDeck"], true) ? " position:relative;" : "");
+  fwrite($handler, "echo(\"<div class='flex-item' style='" . $boardFlexStyle . "'>\");\r\n");
+  if($shouldSplitScreen) {
+    fwrite($handler, "echo(\"<div class='theirStuffWrapper' style='position:relative; z-index:10; left:0; top:0; width:100%; height:50%;'><div class='stuffParent'><div id='theirStuff' class='stuff theirStuff' style='background-image: url(\\\"$pageBackground\\\"); background-size: cover;'></div></div></div>\r\n<div class='myStuffWrapper' style='position:absolute; z-index:10; left:0; top:50%; width:100%; height:50%;'><div style='position:relative; width:100%; height:100%'><div class='stuffParent'><div id='myStuff' class='stuff myStuff' style='background-image: url(\\\"$pageBackground\\\"); background-size: cover;'></div></div></div>\");\r\n");
+  } else {
+    fwrite($handler, "echo(\"<div class='myStuffWrapper' style='position:relative; z-index:10; left:0; top:0; width:100%; height:100%;'><div class='stuffParent'><div id='myStuff' class='stuff myStuff' style='background-image: url(\\\"$pageBackground\\\"); background-size: cover;'></div></div></div>\r\n<div id='theirStuff' style='display:none;' class='theirStuff'></div>\");\r\n");
+  }
+  fwrite($handler, "echo(\"<div id='globalStuff' style='position:fixed; top:0; left:0; width:100%; height:100%; z-index:30; pointer-events:none;'></div>\");\r\n");
+  if (!is_null($customLayoutFile)) {
+    fwrite($handler, "include_once __DIR__ . '/" . ltrim($customLayoutFile, '/') . "';\r\n");
+  }
+  fwrite($handler, "echo(\"</div>\");\r\n");
+  fwrite($handler, "echo(\"</div>\");\r\n");
+  fwrite($handler, "?>");
+  fclose($handler);
+  // SWUDeck's header/dropdown module colors were hand-migrated from hardcoded hex to the
+  // cyan-HUD theme's CSS custom properties (see SharedUI/Sites/SWUDeck/MainMenu.php's own
+  // '.left-pane .login...' theme rules for the same variable names) — this function still emits
+  // the hardcoded hex above, so reconcile in one pass rather than threading theme-awareness
+  // through every fwrite() call above.
+  if ($rootName === "SWUDeck") {
+    $themeMap = [
+      "#2a2a2a" => "var(--surface-raised)",
+      "#333"    => "var(--surface-sunken)",
+      "#444"    => "var(--surface-raised)",
+      "#555"    => "var(--border)",
+      "#3a3a3a" => "var(--check-fill)",
+      "#1a73e8" => "var(--accent)",
+      "#c0392b" => "var(--danger)",
+      "#aaf"    => "var(--accent)",
+    ];
+    $content = file_get_contents($filename);
+    $content = str_replace(array_keys($themeMap), array_values($themeMap), $content);
+    file_put_contents($filename, $content);
+  }
+}
+
+function GetModuleOfType($type) {
+  global $headerElements;
+  for($i=0; $i<count($headerElements); ++$i) {
+    $headerElement = $headerElements[$i];
+    if($headerElement->Module == $type) return $headerElement;
+  }
+  return null;
+}
+
+function GetModule($type) {
+  global $modules;
+  for($i=0; $i<count($modules); ++$i) {
+    if($modules[$i]->Name == $type) return $modules[$i];
+  }
+  return null;
+}
+
+// The zone names `Module: MatchReplay=<initial>,<commands>` stores the replay in — never sent to a client.
+function MatchReplayModuleFields() {
+  $module = GetModule("MatchReplay");
+  if ($module === null || $module->Parameters === "") return [];
+  return array_values(array_filter(array_map('trim', explode(",", $module->Parameters)), 'strlen'));
+}
+
+function SchemaOwnsRandomCounter() {
+  global $zones;
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if($zone->Name == "RandomCounter"
+        && strtolower($scope) == "global"
+        && $zone->DisplayMode == "Value") {
+      return true;
+    }
+  }
+  return false;
+}
+
+function GetPropertyDefaultLiteral($property) {
+  $defaultValue = $property->DefaultValue;
+  $propertyType = strtolower($property->Type);
+  $isQuotedString = strlen($defaultValue) >= 2 &&
+    (($defaultValue[0] === '"' && substr($defaultValue, -1) === '"') || ($defaultValue[0] === "'" && substr($defaultValue, -1) === "'"));
+  $isScalarLiteral = is_numeric($defaultValue) || in_array(strtolower($defaultValue), ["true", "false", "null"], true);
+  if(!$isQuotedString && !$isScalarLiteral && !in_array($propertyType, ["int", "number", "float", "array", "json"], true)) {
+    $defaultValue = '"' . addslashes($defaultValue) . '"';
+  }
+  return $defaultValue;
+}
+
+function GetValueZoneDefaultLiteral($zone) {
+  if(empty($zone->Properties) || !isset($zone->Properties[0])) return '0';
+  return GetPropertyDefaultLiteral($zone->Properties[0]);
+}
+
+function GetValueZoneReadExpression($zone, $lineExpr = 'trim($line)') {
+  $propertyType = strtolower($zone->Properties[0]->Type ?? 'string');
+  switch($propertyType) {
+    case 'int':
+    case 'number':
+      return 'intval(' . $lineExpr . ')';
+    case 'float':
+      return 'floatval(' . $lineExpr . ')';
+    default:
+      return $lineExpr;
+  }
+}
+
+function ZoneHasProperty($zone, $propertyName) {
+  foreach($zone->Properties as $property) {
+    if($property->Name === $propertyName) return true;
+  }
+  return false;
+}
+
+function GetUniqueIDModuleConfigForZone($zoneName) {
+  $module = GetModule("UniqueID");
+  if($module == null || trim($module->Parameters ?? "") === "") return null;
+
+  $configs = explode(";", $module->Parameters);
+  foreach($configs as $config) {
+    $parts = array_map('trim', explode(",", $config));
+    if(count($parts) < 3) continue;
+    if($parts[0] !== $zoneName) continue;
+
+    $rv = new StdClass();
+    $rv->Zone = $parts[0];
+    $rv->Field = $parts[1];
+    $rv->Counter = $parts[2];
+    return $rv;
+  }
+
+  return null;
+}
+
+function IsUniqueIDManagedProperty($zoneName, $propertyName) {
+  $config = GetUniqueIDModuleConfigForZone($zoneName);
+  if($config == null) return false;
+  return $config->Field === $propertyName;
+}
+
+/**
+ * Generate macro code from database card abilities
+ * Creates a GeneratedMacroCode.php file in the GeneratedCode folder
+ * This file contains implementations of macros for specific cards and macro count functions
+ */
+/**
+ * Generate code to retrieve macro parameters from DecisionQueueVariables
+ * This allows ability code to access the parameters that were passed when invoking the macro
+ *
+ * @param array $macroParams Array of parameter names from the macro definition
+ * @return string PHP code to retrieve all macro parameters
+ */
+function GenerateMacroParamRetrievalCode($macroParams) {
+  if (empty($macroParams)) {
+    return "";
+  }
+  $code = "// Retrieve macro parameters\n";
+  foreach ($macroParams as $param) {
+    $code .= "\$" . $param . " = DecisionQueueController::GetVariable(\"" . $param . "\");\n";
+  }
+  return $code;
+}
+
+/**
+ * Generate code to retrieve macro parameters with indentation (for generated resume handlers)
+ *
+ * @param array $macroParams Array of parameter names from the macro definition
+ * @param string $indent Indentation to prepend to each line
+ * @return string PHP code to retrieve all macro parameters
+ */
+function GenerateMacroParamRetrievalCodeIndented($macroParams, $indent = "  ") {
+  if (empty($macroParams)) {
+    return "";
+  }
+  $code = $indent . "// Retrieve macro parameters\n";
+  foreach ($macroParams as $param) {
+    $code .= $indent . "\$" . $param . " = DecisionQueueController::GetVariable(\"" . $param . "\");\n";
+  }
+  return $code;
+}
+
+/**
+ * Transform await syntax in ability code to DecisionQueue calls with variable storage
+ *
+ * Supported patterns:
+ *   Pattern 1: $var = await $player.ChoiceType(params)
+ *     Becomes: AddDecision + generated resume logic with variable storage
+ *
+ *   Pattern 2: await FunctionName($player, args)
+ *     Becomes: FunctionName call + generated resume logic (for functions that queue decisions)
+ *
+ * Supported choice types (Pattern 1):
+ *   - MZChoose: Mandatory card choice from zones
+ *   - MZMayChoose: Optional card choice (client shows Pass button)
+ *   - MZMultiChoose: Select min..max cards in one popup and return an ampersand-delimited result
+ *   - YesNo: Yes/No choice
+ *   - Modal: Choose min..max labeled options and return comma-delimited 0-based indexes
+ *   - NumberChoose: Choose a number in a min..max range
+ *   - Rearrange: Rearrange cards with zones and starting cards (semicolon-delimited)
+ *   - MZSplitAssign: Split-assign a pool of N across multiple targets
+ *   - NameCard: Typeahead/card-name picker; use NameCard($previewParam, "tooltip")
+ *   - Custom types: Any name is converted to uppercase for compatibility only (e.g., CustomChoice -> CUSTOMCHOICE)
+ *
+ * Example transformation (Pattern 1 - choice):
+ *   INPUT:
+ *     $unit1 = await $player.MZChoose("BG1&BG2");
+ *     $unit2 = await $player.MZMayChoose("BG1&BG2");  // Optional choice
+ *     if ($unit2 !== "PASS") SwapPosition($unit1, $unit2);
+ *
+ *   OUTPUT (main handler):
+ *     DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2", 1);
+ *     DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-1", 1);
+ *
+ * Example transformation (Pattern 2 - void function):
+ *   INPUT:
+ *     $hunter = await $player.MZChoose($hunters);
+ *     await DoPlayFighter($player, $hunter);
+ *     echo("Fighter deployed!");
+ *
+ *   OUTPUT (main handler):
+ *     DecisionQueueController::AddDecision($player, "MZCHOOSE", $hunters, 1);
+ *     DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-1", 1);
+ *
+ *   OUTPUT (resume handlers, simplified):
+ *     $customDQHandlers["CARDID-1"] = function($player, $parts, $lastDecision) {
+ *       DecisionQueueController::StoreVariable("hunter", $lastDecision);
+ *       $hunter = $lastDecision;
+ *       DoPlayFighter($player, $hunter);  // Calls function which queues decisions
+ *       DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-2", 1);  // Continue after
+ *     };
+ *     $customDQHandlers["CARDID-2"] = function($player, $parts, $lastDecision) {
+ *       $hunter = DecisionQueueController::GetVariable("hunter");
+ *       echo("Fighter deployed!");
+ *     };
+ */
+/**
+ * Build a single DecisionQueueController::AddDecision() statement for a player-choice await.
+ * For YESNO decisions the prompt text belongs in the tooltip slot (5th arg), not param.
+ * MZChoose/MZMayChoose accept an optional second tooltip argument.
+ */
+/**
+ * Parse comma-separated arguments respecting nested parentheses and quoted strings.
+ * E.g. 'implode("&", $arr), $amount, "tooltip"' => ['implode("&", $arr)', '$amount', '"tooltip"']
+ */
+function ParseAwaitArgs($argsStr) {
+  $args = [];
+  $depth = 0;
+  $current = '';
+  $inString = false;
+  $stringChar = '';
+  for ($i = 0; $i < strlen($argsStr); $i++) {
+    $ch = $argsStr[$i];
+    if ($inString) {
+      $current .= $ch;
+      if ($ch === '\\' && $i + 1 < strlen($argsStr)) {
+        $current .= $argsStr[++$i];
+      } else if ($ch === $stringChar) {
+        $inString = false;
+      }
+    } else if ($ch === '"' || $ch === "'") {
+      $inString = true;
+      $stringChar = $ch;
+      $current .= $ch;
+    } else if ($ch === '(') {
+      $depth++;
+      $current .= $ch;
+    } else if ($ch === ')') {
+      $depth--;
+      $current .= $ch;
+    } else if ($ch === ',' && $depth === 0) {
+      $args[] = trim($current);
+      $current = '';
+    } else {
+      $current .= $ch;
+    }
+  }
+  if (trim($current) !== '') $args[] = trim($current);
+  return $args;
+}
+
+function BuildAddDecisionCall($await, $cardId, $indent = '') {
+  $pv = $await['playerVar'];
+  $ct = $await['choiceType'];
+
+  if ($ct === 'YESNO') {
+    // param is a placeholder; prompt text goes into tooltip so the UI can display it
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"YESNO\", \"-\", 1, \"" . $await['params'] . "\");\n";
+  } else if (isset($await['isMZChoose']) && $await['isMZChoose']) {
+    $tooltip = isset($await['chooseTooltip']) ? $await['chooseTooltip'] : '';
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", " . $await['chooseTargets'] . ", 1, \"" . $tooltip . "\");\n";
+  } else if (isset($await['isRearrange']) && $await['isRearrange']) {
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", " . $await['params'] . ", 1);\n";
+  } else if (isset($await['isSplitAssign']) && $await['isSplitAssign']) {
+    // MZSplitAssign: Param = amount|targets (dynamic), tooltip in 5th arg
+    $tooltip = isset($await['splitTooltip']) ? $await['splitTooltip'] : '';
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", " . $await['splitAmount'] . " . \"|\" . " . $await['splitTargets'] . ", 1, \"" . $tooltip . "\");\n";
+  } else if (isset($await['isMultiChoose']) && $await['isMultiChoose']) {
+    // MZMultiChoose: Param = min|max|targets, tooltip in 5th arg
+    $tooltip = isset($await['multiTooltip']) ? $await['multiTooltip'] : '';
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"MZMULTICHOOSE\", " . $await['multiMin'] . " . \"|\" . " . $await['multiMax'] . " . \"|\" . " . $await['multiTargets'] . ", 1, \"" . $tooltip . "\");\n";
+  } else if (isset($await['isModal']) && $await['isModal']) {
+    // Modal: Param = min|max|label1&label2&label3, tooltip in 5th arg
+    $tooltip = isset($await['modalTooltip']) ? $await['modalTooltip'] : '';
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", " . $await['modalMin'] . " . \"|\" . " . $await['modalMax'] . " . \"|\" . \"" . $await['modalOptions'] . "\", 1, \"" . $tooltip . "\");\n";
+  } else if (isset($await['isNumberChoose']) && $await['isNumberChoose']) {
+    // NumberChoose: Param = min|max, tooltip in 5th arg
+    $tooltip = isset($await['numberTooltip']) ? $await['numberTooltip'] : '';
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"NUMBERCHOOSE\", " . $await['numberMin'] . " . \"|\" . " . $await['numberMax'] . ", 1, \"" . $tooltip . "\");\n";
+  } else if (isset($await['isNameCard']) && $await['isNameCard']) {
+    // NameCard: Param = preview card set/filter, tooltip in 5th arg
+    $tooltip = isset($await['nameCardTooltip']) ? $await['nameCardTooltip'] : '';
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"NAMECARD\", " . $await['nameCardParam'] . ", 1, \"" . $tooltip . "\");\n";
+  } else {
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", \"" . $await['params'] . "\", 1);\n";
+  }
+}
+
+function TransformAwaitCodeLegacy($code, $cardId, $abilityName, &$continuationHandlers, $macroParams = []) {
+  $lines = explode("\n", $code);
+  $awaits = [];
+
+  // First pass: find all await statements
+  for ($i = 0; $i < count($lines); $i++) {
+    $line = $lines[$i];
+    // Pattern 1: $var = await $player.ChoiceType(params) - method call on player variable
+    if (preg_match('/(\$\w+)\s*=\s*await\s+(\$\w+)\.(\w+)\((.*)\)\s*;?\s*$/', $line, $matches)) {
+      $rawParams = trim($matches[4]);
+      $methodName = $matches[3];
+
+      // For Rearrange and MZSplitAssign, keep the parameter exactly as-is (with string concatenation)
+      // For other methods, trim quotes
+      if (strtolower($methodName) === 'rearrange') {
+        $params = $rawParams;
+      } else if (in_array(strtolower($methodName), ['mzchoose', 'mzmaychoose'], true)) {
+        // MZChoose($targets, "tooltip") / MZMayChoose($targets, "tooltip")
+        $chooseArgs = ParseAwaitArgs($rawParams);
+        $params = $rawParams;
+      } else if (strtolower($methodName) === 'mzsplitassign') {
+        // MZSplitAssign($targets, $amount) or MZSplitAssign($targets, $amount, "tooltip")
+        $splitArgs = ParseAwaitArgs($rawParams);
+        $params = $rawParams; // store raw for reference
+      } else if (strtolower($methodName) === 'mzmultichoose') {
+        // MZMultiChoose($targets, $min, $max) or MZMultiChoose($targets, $min, $max, "tooltip")
+        $multiArgs = ParseAwaitArgs($rawParams);
+        $params = $rawParams; // store raw for reference
+      } else if (strtolower($methodName) === 'modal') {
+        // Modal($min, $max, "label1&label2&label3", "tooltip")
+        $modalArgs = ParseAwaitArgs($rawParams);
+        $params = $rawParams; // store raw for reference
+      } else if (strtolower($methodName) === 'numberchoose') {
+        // NumberChoose($min, $max, "tooltip")
+        $numberArgs = ParseAwaitArgs($rawParams);
+        $params = $rawParams; // store raw for reference
+      } else if (strtolower($methodName) === 'namecard') {
+        // NameCard($previewParam, "tooltip")
+        $nameCardArgs = ParseAwaitArgs($rawParams);
+        $params = $rawParams; // store raw for reference
+      } else {
+        $params = trim($rawParams, '"\'');
+      }
+
+      $isMZChoose = in_array(strtolower($methodName), ['mzchoose', 'mzmaychoose'], true);
+      $isSplitAssign = strtolower($methodName) === 'mzsplitassign';
+      $isMultiChoose = strtolower($methodName) === 'mzmultichoose';
+      $isModal = strtolower($methodName) === 'modal';
+      $isNumberChoose = strtolower($methodName) === 'numberchoose';
+      $isNameCard = strtolower($methodName) === 'namecard';
+      $choiceType = strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : ($isMultiChoose ? 'MZMULTICHOOSE' : ($isModal ? 'MZMODAL' : ($isNumberChoose ? 'NUMBERCHOOSE' : ($isNameCard ? 'NAMECARD' : strtoupper($methodName))))));
+      $awaitEntry = [
+        'lineIndex' => $i,
+        'returnVar' => $matches[1],  // e.g., $cardToDeploy
+        'playerVar' => $matches[2],  // e.g., $player
+        'choiceType' => $choiceType,
+        'params' => $params,
+        'isRearrange' => strtolower($methodName) === 'rearrange',
+        'isMZChoose' => $isMZChoose,
+        'isSplitAssign' => $isSplitAssign,
+        'isMultiChoose' => $isMultiChoose,
+        'isModal' => $isModal,
+        'isNumberChoose' => $isNumberChoose,
+        'isNameCard' => $isNameCard,
+        'isVoidFunction' => false
+      ];
+      if ($isMZChoose && isset($chooseArgs)) {
+        $awaitEntry['chooseTargets'] = trim($chooseArgs[0] ?? '""');
+        if ($awaitEntry['chooseTargets'] === '') $awaitEntry['chooseTargets'] = '""';
+        $awaitEntry['chooseTooltip'] = isset($chooseArgs[1]) ? trim(trim($chooseArgs[1]), '"\'') : '';
+      }
+      if ($isSplitAssign && isset($splitArgs)) {
+        $awaitEntry['splitTargets'] = trim($splitArgs[0]);
+        $awaitEntry['splitAmount'] = trim($splitArgs[1]);
+        $awaitEntry['splitTooltip'] = isset($splitArgs[2]) ? trim(trim($splitArgs[2]), '"\'') : '';
+      }
+      if ($isMultiChoose && isset($multiArgs)) {
+        $awaitEntry['multiTargets'] = trim($multiArgs[0]);
+        $awaitEntry['multiMin'] = trim($multiArgs[1]);
+        $awaitEntry['multiMax'] = trim($multiArgs[2]);
+        $awaitEntry['multiTooltip'] = isset($multiArgs[3]) ? trim(trim($multiArgs[3]), '"\'') : '';
+      }
+      if ($isModal && isset($modalArgs)) {
+        $awaitEntry['modalMin'] = trim($modalArgs[0]);
+        $awaitEntry['modalMax'] = trim($modalArgs[1]);
+        $awaitEntry['modalOptions'] = trim($modalArgs[2], '"\'');
+        $awaitEntry['modalTooltip'] = isset($modalArgs[3]) ? trim(trim($modalArgs[3]), '"\'') : '';
+      }
+      if ($isNumberChoose && isset($numberArgs)) {
+        $awaitEntry['numberMin'] = trim($numberArgs[0]);
+        $awaitEntry['numberMax'] = trim($numberArgs[1]);
+        $awaitEntry['numberTooltip'] = isset($numberArgs[2]) ? trim(trim($numberArgs[2]), '"\'') : '';
+      }
+      if ($isNameCard && isset($nameCardArgs)) {
+        $awaitEntry['nameCardParam'] = trim($nameCardArgs[0] ?? '""');
+        if ($awaitEntry['nameCardParam'] === '') $awaitEntry['nameCardParam'] = '""';
+        $awaitEntry['nameCardTooltip'] = isset($nameCardArgs[1]) ? trim(trim($nameCardArgs[1]), '"\'') : '';
+      }
+      $awaits[] = $awaitEntry;
+    }
+    // Pattern 2: await FunctionName(args) - void function call that queues decisions
+    // Also matches: await FunctionName($player, $arg) etc.
+    else if (preg_match('/^\s*await\s+(\w+)\s*\((.+)\)\s*;?\s*$/', $line, $matches)) {
+      $functionName = $matches[1];
+      $functionArgs = trim($matches[2]);
+
+      // Try to extract $player from the arguments (first argument is typically player)
+      // This handles cases like DoPlayFighter($player, $card)
+      $playerVar = '$player'; // Default
+      if (preg_match('/^\s*(\$\w+)/', $functionArgs, $playerMatch)) {
+        $playerVar = $playerMatch[1];
+      }
+
+      $awaits[] = [
+        'lineIndex' => $i,
+        'returnVar' => null,  // No return variable for void await
+        'playerVar' => $playerVar,
+        'functionName' => $functionName,
+        'functionArgs' => $functionArgs,
+        'isVoidFunction' => true
+      ];
+    }
+  }
+
+  // If no awaits found, return original code with macro param retrieval prepended
+  if (count($awaits) == 0) {
+    $paramRetrievalCode = GenerateMacroParamRetrievalCode($macroParams);
+    return $paramRetrievalCode . $code;
+  }
+
+  // Generate main handler code (up to first await)
+  $transformedCode = "";
+  // Add macro parameter retrieval at the start
+  $transformedCode .= GenerateMacroParamRetrievalCode($macroParams);
+  for ($i = 0; $i < $awaits[0]['lineIndex']; $i++) {
+    $transformedCode .= $lines[$i] . "\n";
+  }
+
+  // Add first decision (or call function for void await)
+  $firstAwait = $awaits[0];
+  if (isset($firstAwait['isVoidFunction']) && $firstAwait['isVoidFunction']) {
+    // For void function await: call the function, then queue continuation
+    $transformedCode .= $firstAwait['functionName'] . "(" . $firstAwait['functionArgs'] . ");\n";
+    $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-1\", 1);\n";
+  } else {
+    $transformedCode .= BuildAddDecisionCall($firstAwait, $cardId);
+    $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-1\", 1);\n";
+  }
+
+  // Generate legacy resume handlers for each await
+  for ($awaitIndex = 0; $awaitIndex < count($awaits); $awaitIndex++) {
+    $currentAwait = $awaits[$awaitIndex];
+    $handlerName = $cardId . "-" . ($awaitIndex + 1);
+
+    $handlerCode = "";
+
+    // Retrieve macro parameters first (they persist across continuations)
+    $handlerCode .= GenerateMacroParamRetrievalCodeIndented($macroParams);
+
+    // For non-void awaits: store the current variable (from $lastDecision)
+    if (!isset($currentAwait['isVoidFunction']) || !$currentAwait['isVoidFunction']) {
+      $varName = substr($currentAwait['returnVar'], 1); // Remove $ prefix
+      $handlerCode .= "  DecisionQueueController::StoreVariable(\"" . $varName . "\", \$lastDecision);\n";
+      $handlerCode .= "  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount(\$player, \$lastDecision);\n";
+      $handlerCode .= "  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution(\$player, \$lastDecision, \"" . $handlerName . "\")) return;\n";
+    }
+
+    // Retrieve all previously stored variables that might be referenced in the code block
+    for ($j = 0; $j < $awaitIndex; $j++) {
+      $prevAwait = $awaits[$j];
+      // Only retrieve variables from non-void awaits
+      if (!isset($prevAwait['isVoidFunction']) || !$prevAwait['isVoidFunction']) {
+        $prevVarName = substr($prevAwait['returnVar'], 1);
+        $handlerCode .= "  " . $prevAwait['returnVar'] . " = DecisionQueueController::GetVariable(\"" . $prevVarName . "\");\n";
+      }
+    }
+
+    // For non-void awaits: assign the current result from $lastDecision to the awaited variable
+    if (!isset($currentAwait['isVoidFunction']) || !$currentAwait['isVoidFunction']) {
+      $handlerCode .= "  " . $currentAwait['returnVar'] . " = \$lastDecision;\n";
+    }
+
+    // Get the code between this await and the next await (or end of code)
+    $startLine = $currentAwait['lineIndex'] + 1;
+    $endLine = ($awaitIndex + 1 < count($awaits)) ? $awaits[$awaitIndex + 1]['lineIndex'] : count($lines);
+
+    // Add the code between awaits
+    for ($i = $startLine; $i < $endLine; $i++) {
+      // Skip the next await line itself if we're not at the last await
+      if ($awaitIndex + 1 < count($awaits) && $i == $awaits[$awaitIndex + 1]['lineIndex']) {
+        break;
+      }
+      $handlerCode .= "  " . $lines[$i] . "\n";
+    }
+
+    // If there's another await after this one, queue it
+    if ($awaitIndex + 1 < count($awaits)) {
+      $nextAwait = $awaits[$awaitIndex + 1];
+      if (isset($nextAwait['isVoidFunction']) && $nextAwait['isVoidFunction']) {
+        // For void function await: call the function, then queue continuation
+        $handlerCode .= "  " . $nextAwait['functionName'] . "(" . $nextAwait['functionArgs'] . ");\n";
+        $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-" . ($awaitIndex + 2) . "\", 1);\n";
+      } else {
+        $handlerCode .= BuildAddDecisionCall($nextAwait, $cardId, '  ');
+        $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-" . ($awaitIndex + 2) . "\", 1);\n";
+      }
+    }
+
+    // Store handler for generation
+    $continuationHandlers[$handlerName] = [
+      'code' => $handlerCode,
+      'comment' => $abilityName
+    ];
+  }
+
+  return rtrim($transformedCode);
+}
+
+function AwaitParseAwaitLine($line, $lineIndex = 0) {
+  if (preg_match('/(\$\w+)\s*=\s*await\s+(\$\w+)\.(\w+)\((.*)\)\s*;?\s*$/', $line, $matches)) {
+    $rawParams = trim($matches[4]);
+    $methodName = $matches[3];
+
+    if (strtolower($methodName) === 'rearrange') {
+      $params = $rawParams;
+    } else if (in_array(strtolower($methodName), ['mzchoose', 'mzmaychoose'], true)) {
+      $chooseArgs = ParseAwaitArgs($rawParams);
+      $params = $rawParams;
+    } else if (strtolower($methodName) === 'mzsplitassign') {
+      $splitArgs = ParseAwaitArgs($rawParams);
+      $params = $rawParams;
+    } else if (strtolower($methodName) === 'mzmultichoose') {
+      $multiArgs = ParseAwaitArgs($rawParams);
+      $params = $rawParams;
+    } else if (strtolower($methodName) === 'modal') {
+      $modalArgs = ParseAwaitArgs($rawParams);
+      $params = $rawParams;
+    } else if (strtolower($methodName) === 'numberchoose') {
+      $numberArgs = ParseAwaitArgs($rawParams);
+      $params = $rawParams;
+    } else if (strtolower($methodName) === 'namecard') {
+      $nameCardArgs = ParseAwaitArgs($rawParams);
+      $params = $rawParams;
+    } else {
+      $params = trim($rawParams, '"\'');
+    }
+
+    $isMZChoose = in_array(strtolower($methodName), ['mzchoose', 'mzmaychoose'], true);
+    $isSplitAssign = strtolower($methodName) === 'mzsplitassign';
+    $isMultiChoose = strtolower($methodName) === 'mzmultichoose';
+    $isModal = strtolower($methodName) === 'modal';
+    $isNumberChoose = strtolower($methodName) === 'numberchoose';
+    $isNameCard = strtolower($methodName) === 'namecard';
+    $choiceType = strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : ($isMultiChoose ? 'MZMULTICHOOSE' : ($isModal ? 'MZMODAL' : ($isNumberChoose ? 'NUMBERCHOOSE' : ($isNameCard ? 'NAMECARD' : strtoupper($methodName))))));
+    $awaitEntry = [
+      'lineIndex' => $lineIndex,
+      'returnVar' => $matches[1],
+      'playerVar' => $matches[2],
+      'choiceType' => $choiceType,
+      'params' => $params,
+      'isRearrange' => strtolower($methodName) === 'rearrange',
+      'isMZChoose' => $isMZChoose,
+      'isSplitAssign' => $isSplitAssign,
+      'isMultiChoose' => $isMultiChoose,
+      'isModal' => $isModal,
+      'isNumberChoose' => $isNumberChoose,
+      'isNameCard' => $isNameCard,
+      'isVoidFunction' => false
+    ];
+    if ($isMZChoose && isset($chooseArgs)) {
+      $awaitEntry['chooseTargets'] = trim($chooseArgs[0] ?? '""');
+      if ($awaitEntry['chooseTargets'] === '') $awaitEntry['chooseTargets'] = '""';
+      $awaitEntry['chooseTooltip'] = isset($chooseArgs[1]) ? trim(trim($chooseArgs[1]), '"\'') : '';
+    }
+    if ($isSplitAssign && isset($splitArgs)) {
+      $awaitEntry['splitTargets'] = trim($splitArgs[0] ?? '');
+      $awaitEntry['splitAmount'] = trim($splitArgs[1] ?? '0');
+      $awaitEntry['splitTooltip'] = isset($splitArgs[2]) ? trim(trim($splitArgs[2]), '"\'') : '';
+    }
+    if ($isMultiChoose && isset($multiArgs)) {
+      $awaitEntry['multiTargets'] = trim($multiArgs[0] ?? '');
+      $awaitEntry['multiMin'] = trim($multiArgs[1] ?? '0');
+      $awaitEntry['multiMax'] = trim($multiArgs[2] ?? '0');
+      $awaitEntry['multiTooltip'] = isset($multiArgs[3]) ? trim(trim($multiArgs[3]), '"\'') : '';
+    }
+    if ($isModal && isset($modalArgs)) {
+      $awaitEntry['modalMin'] = trim($modalArgs[0] ?? '0');
+      $awaitEntry['modalMax'] = trim($modalArgs[1] ?? '0');
+      $awaitEntry['modalOptions'] = trim($modalArgs[2] ?? '', '"\'');
+      $awaitEntry['modalTooltip'] = isset($modalArgs[3]) ? trim(trim($modalArgs[3]), '"\'') : '';
+    }
+    if ($isNumberChoose && isset($numberArgs)) {
+      $awaitEntry['numberMin'] = trim($numberArgs[0] ?? '0');
+      $awaitEntry['numberMax'] = trim($numberArgs[1] ?? '0');
+      $awaitEntry['numberTooltip'] = isset($numberArgs[2]) ? trim(trim($numberArgs[2]), '"\'') : '';
+    }
+    if ($isNameCard && isset($nameCardArgs)) {
+      $awaitEntry['nameCardParam'] = trim($nameCardArgs[0] ?? '""');
+      if ($awaitEntry['nameCardParam'] === '') $awaitEntry['nameCardParam'] = '""';
+      $awaitEntry['nameCardTooltip'] = isset($nameCardArgs[1]) ? trim(trim($nameCardArgs[1]), '"\'') : '';
+    }
+    return $awaitEntry;
+  }
+
+  if (preg_match('/^\s*await\s+(\w+)\s*\((.+)\)\s*;?\s*$/', $line, $matches)) {
+    $functionArgs = trim($matches[2]);
+    $playerVar = '$player';
+    if (preg_match('/^\s*(\$\w+)/', $functionArgs, $playerMatch)) {
+      $playerVar = $playerMatch[1];
+    }
+    return [
+      'lineIndex' => $lineIndex,
+      'returnVar' => null,
+      'playerVar' => $playerVar,
+      'functionName' => $matches[1],
+      'functionArgs' => $functionArgs,
+      'isVoidFunction' => true
+    ];
+  }
+
+  return null;
+}
+
+function AwaitNormalizeControlLines($code) {
+  $lines = explode("\n", str_replace(["\r\n", "\r"], "\n", $code));
+  $out = [];
+  foreach ($lines as $line) {
+    $line = rtrim($line);
+    if (preg_match('/^(\s*)}\s*(else\b.*)$/', $line, $matches)) {
+      $out[] = $matches[1] . '}';
+      $out[] = $matches[1] . $matches[2];
+    } else {
+      $out[] = $line;
+    }
+  }
+  return $out;
+}
+
+function AwaitRequiresStateMachine($code) {
+  $depth = 0;
+  $lines = AwaitNormalizeControlLines($code);
+  foreach ($lines as $i => $line) {
+    if (AwaitParseAwaitLine($line, $i) !== null) {
+      if ($depth > 0 || preg_match('/^\s*(if|else\s+if|elseif|for|while)\b/', $line)) {
+        return true;
+      }
+    }
+    $withoutStrings = preg_replace('/(["\']).*?\1/', '', $line);
+    $depth += substr_count($withoutStrings, '{');
+    $depth -= substr_count($withoutStrings, '}');
+    if ($depth < 0) $depth = 0;
+  }
+  return false;
+}
+
+function AwaitFlushRawLines(&$nodes, &$rawLines) {
+  if (empty($rawLines)) return;
+  $code = rtrim(implode("\n", $rawLines));
+  if (trim($code) !== '') {
+    $nodes[] = ['type' => 'raw', 'code' => $code];
+  }
+  $rawLines = [];
+}
+
+function AwaitSimpleNodeFromStatement($stmt) {
+  $trim = trim($stmt);
+  if ($trim === '') return null;
+  $await = AwaitParseAwaitLine($trim);
+  if ($await !== null) return ['type' => 'await', 'await' => $await];
+  if (preg_match('/^break\s*;\s*$/', $trim)) return ['type' => 'break'];
+  if (preg_match('/^continue\s*;\s*$/', $trim)) return ['type' => 'continue'];
+  if (preg_match('/^return\b(.*);\s*$/', $trim, $matches)) {
+    return ['type' => 'return', 'expr' => trim($matches[1])];
+  }
+  return ['type' => 'raw', 'code' => rtrim($stmt)];
+}
+
+function AwaitParseElseBlock($lines, &$idx) {
+  if ($idx >= count($lines)) return [];
+  $line = $lines[$idx];
+  if (preg_match('/^\s*else\s+if\s*\((.*)\)\s*\{\s*$/', $line, $matches) || preg_match('/^\s*elseif\s*\((.*)\)\s*\{\s*$/', $line, $matches)) {
+    $idx++;
+    $thenNodes = AwaitParseBlock($lines, $idx);
+    $elseNodes = AwaitParseElseBlock($lines, $idx);
+    return [[
+      'type' => 'if',
+      'cond' => trim($matches[1]),
+      'then' => $thenNodes,
+      'else' => $elseNodes
+    ]];
+  }
+  if (preg_match('/^\s*else\s*\{\s*$/', $line)) {
+    $idx++;
+    return AwaitParseBlock($lines, $idx);
+  }
+  return [];
+}
+
+function AwaitSplitTopLevel($value, $delimiter) {
+  $parts = [];
+  $current = '';
+  $depth = 0;
+  $inString = false;
+  $stringChar = '';
+  for ($i = 0; $i < strlen($value); ++$i) {
+    $ch = $value[$i];
+    if ($inString) {
+      $current .= $ch;
+      if ($ch === '\\' && $i + 1 < strlen($value)) {
+        $current .= $value[++$i];
+      } else if ($ch === $stringChar) {
+        $inString = false;
+      }
+    } else if ($ch === '"' || $ch === "'") {
+      $inString = true;
+      $stringChar = $ch;
+      $current .= $ch;
+    } else if ($ch === '(' || $ch === '[' || $ch === '{') {
+      $depth++;
+      $current .= $ch;
+    } else if ($ch === ')' || $ch === ']' || $ch === '}') {
+      $depth--;
+      $current .= $ch;
+    } else if ($ch === $delimiter && $depth === 0) {
+      $parts[] = trim($current);
+      $current = '';
+    } else {
+      $current .= $ch;
+    }
+  }
+  $parts[] = trim($current);
+  return $parts;
+}
+
+function AwaitParseBlock($lines, &$idx) {
+  $nodes = [];
+  $rawLines = [];
+  while ($idx < count($lines)) {
+    $line = $lines[$idx];
+    $trim = trim($line);
+
+    if ($trim === '}') {
+      AwaitFlushRawLines($nodes, $rawLines);
+      $idx++;
+      return $nodes;
+    }
+
+    if (preg_match('/^\s*if\s*\((.*)\)\s*\{\s*$/', $line, $matches)) {
+      AwaitFlushRawLines($nodes, $rawLines);
+      $idx++;
+      $thenNodes = AwaitParseBlock($lines, $idx);
+      $elseNodes = AwaitParseElseBlock($lines, $idx);
+      $nodes[] = [
+        'type' => 'if',
+        'cond' => trim($matches[1]),
+        'then' => $thenNodes,
+        'else' => $elseNodes
+      ];
+      continue;
+    }
+
+    if (preg_match('/^\s*while\s*\((.*)\)\s*\{\s*$/', $line, $matches)) {
+      AwaitFlushRawLines($nodes, $rawLines);
+      $idx++;
+      $bodyNodes = AwaitParseBlock($lines, $idx);
+      $nodes[] = [
+        'type' => 'while',
+        'cond' => trim($matches[1]),
+        'body' => $bodyNodes
+      ];
+      continue;
+    }
+
+    if (preg_match('/^\s*for\s*\((.*)\)\s*\{\s*$/', $line, $matches)) {
+      AwaitFlushRawLines($nodes, $rawLines);
+      $idx++;
+      $parts = AwaitSplitTopLevel($matches[1], ';');
+      while (count($parts) < 3) $parts[] = '';
+      $bodyNodes = AwaitParseBlock($lines, $idx);
+      $nodes[] = [
+        'type' => 'for',
+        'init' => trim($parts[0]),
+        'cond' => trim($parts[1]),
+        'inc' => trim($parts[2]),
+        'body' => $bodyNodes
+      ];
+      continue;
+    }
+
+    if (preg_match('/^\s*if\s*\((.*)\)\s*(.+;)\s*$/', $line, $matches)) {
+      AwaitFlushRawLines($nodes, $rawLines);
+      $stmtNode = AwaitSimpleNodeFromStatement($matches[2]);
+      if ($stmtNode !== null) {
+        $nodes[] = [
+          'type' => 'ifline',
+          'cond' => trim($matches[1]),
+          'stmt' => $stmtNode
+        ];
+      }
+      $idx++;
+      continue;
+    }
+
+    $simpleNode = AwaitSimpleNodeFromStatement($line);
+    if ($simpleNode !== null && $simpleNode['type'] !== 'raw') {
+      AwaitFlushRawLines($nodes, $rawLines);
+      $nodes[] = $simpleNode;
+      $idx++;
+      continue;
+    }
+
+    $rawLines[] = $line;
+    $idx++;
+  }
+
+  AwaitFlushRawLines($nodes, $rawLines);
+  return $nodes;
+}
+
+function AwaitAddInstruction(&$instructions, $type, $data = []) {
+  $pc = count($instructions);
+  $instructions[$pc] = array_merge(['type' => $type], $data);
+  return $pc;
+}
+
+function AwaitStatementCode($code) {
+  $code = trim($code);
+  if ($code === '') return '';
+  return substr($code, -1) === ';' ? $code : $code . ';';
+}
+
+function AwaitCompileNodes($nodes, $nextPc, &$instructions, $context = []) {
+  for ($i = count($nodes) - 1; $i >= 0; --$i) {
+    $node = $nodes[$i];
+    switch ($node['type']) {
+      case 'raw':
+        if (trim($node['code']) !== '') {
+          $nextPc = AwaitAddInstruction($instructions, 'raw', ['code' => $node['code'], 'next' => $nextPc]);
+        }
+        break;
+      case 'await':
+        $nextPc = AwaitAddInstruction($instructions, 'await', ['await' => $node['await'], 'next' => $nextPc]);
+        break;
+      case 'return':
+        $nextPc = AwaitAddInstruction($instructions, 'return', ['expr' => $node['expr']]);
+        break;
+      case 'break':
+        $target = $context['break'] ?? $nextPc;
+        $nextPc = AwaitAddInstruction($instructions, 'jump', ['target' => $target]);
+        break;
+      case 'continue':
+        $target = $context['continue'] ?? $nextPc;
+        $nextPc = AwaitAddInstruction($instructions, 'jump', ['target' => $target]);
+        break;
+      case 'ifline':
+        $thenStart = AwaitCompileNodes([$node['stmt']], $nextPc, $instructions, $context);
+        $nextPc = AwaitAddInstruction($instructions, 'branch', [
+          'cond' => $node['cond'],
+          'then' => $thenStart,
+          'else' => $nextPc
+        ]);
+        break;
+      case 'if':
+        $thenStart = AwaitCompileNodes($node['then'], $nextPc, $instructions, $context);
+        $elseStart = AwaitCompileNodes($node['else'], $nextPc, $instructions, $context);
+        $nextPc = AwaitAddInstruction($instructions, 'branch', [
+          'cond' => $node['cond'],
+          'then' => $thenStart,
+          'else' => $elseStart
+        ]);
+        break;
+      case 'while':
+        $condPc = AwaitAddInstruction($instructions, 'branch', [
+          'cond' => $node['cond'],
+          'then' => null,
+          'else' => $nextPc
+        ]);
+        $bodyStart = AwaitCompileNodes($node['body'], $condPc, $instructions, [
+          'break' => $nextPc,
+          'continue' => $condPc
+        ]);
+        $instructions[$condPc]['then'] = $bodyStart;
+        $nextPc = $condPc;
+        break;
+      case 'for':
+        $cond = trim($node['cond']) === '' ? 'true' : $node['cond'];
+        $condPc = AwaitAddInstruction($instructions, 'branch', [
+          'cond' => $cond,
+          'then' => null,
+          'else' => $nextPc
+        ]);
+        $incPc = $condPc;
+        $incCode = AwaitStatementCode($node['inc']);
+        if ($incCode !== '') {
+          $incPc = AwaitAddInstruction($instructions, 'raw', ['code' => $incCode, 'next' => $condPc]);
+        }
+        $bodyStart = AwaitCompileNodes($node['body'], $incPc, $instructions, [
+          'break' => $nextPc,
+          'continue' => $incPc
+        ]);
+        $instructions[$condPc]['then'] = $bodyStart;
+        $initCode = AwaitStatementCode($node['init']);
+        $nextPc = $initCode === ''
+          ? $condPc
+          : AwaitAddInstruction($instructions, 'raw', ['code' => $initCode, 'next' => $condPc]);
+        break;
+    }
+  }
+  return $nextPc;
+}
+
+function AwaitExtractLocalVariables($code, $macroParams = []) {
+  preg_match_all('/\$([A-Za-z_][A-Za-z0-9_]*)/', $code, $matches);
+  $vars = array_merge($macroParams, $matches[1] ?? []);
+  $excluded = [
+    'GLOBALS' => true, '_SERVER' => true, '_GET' => true, '_POST' => true,
+    '_FILES' => true, '_COOKIE' => true, '_SESSION' => true, '_REQUEST' => true,
+    '_ENV' => true, 'this' => true, 'player' => true, 'lastDecision' => true,
+    '_awaitPc' => true, '_awaitFrameKey' => true
+  ];
+  $out = [];
+  foreach ($vars as $var) {
+    $var = trim($var);
+    if ($var === '' || isset($excluded[$var])) continue;
+    $out[$var] = true;
+  }
+  return array_keys($out);
+}
+
+function AwaitLocalArrayCode($vars) {
+  if (empty($vars)) return '[]';
+  $parts = [];
+  foreach ($vars as $var) {
+    $parts[] = '"' . addslashes($var) . '" => $' . $var . ' ?? null';
+  }
+  return '[' . implode(', ', $parts) . ']';
+}
+
+function AwaitIndentCode($code, $indent) {
+  $lines = explode("\n", rtrim($code));
+  $out = '';
+  foreach ($lines as $line) {
+    $out .= $indent . $line . "\n";
+  }
+  return $out;
+}
+
+function AwaitRunnerFunctionName($cardId) {
+  return '__RunAwait_' . substr(md5($cardId), 0, 20);
+}
+
+function AwaitGenerateRunnerFunction($functionName, $handlerName, $instructions, $localVars) {
+  $code = "function " . $functionName . "(\$player, \$lastDecision = null, \$_awaitPc = 0, \$_awaitFrameKey = \"\") {\n";
+  $code .= "  \$_awaitFrame = DecisionQueueController::GetAwaitFrame(\$_awaitFrameKey);\n";
+  $code .= "  \$_awaitLocals = is_array(\$_awaitFrame) && isset(\$_awaitFrame['locals']) && is_array(\$_awaitFrame['locals']) ? \$_awaitFrame['locals'] : [];\n";
+  foreach ($localVars as $var) {
+    $code .= "  if(array_key_exists(\"" . addslashes($var) . "\", \$_awaitLocals)) \$" . $var . " = \$_awaitLocals[\"" . addslashes($var) . "\"];\n";
+  }
+  $code .= "  while(true) {\n";
+  $code .= "    switch(intval(\$_awaitPc)) {\n";
+
+  foreach ($instructions as $pc => $instruction) {
+    $code .= "      case " . intval($pc) . ":\n";
+    switch ($instruction['type']) {
+      case 'raw':
+        $code .= AwaitIndentCode($instruction['code'], "        ");
+        $code .= "        \$_awaitPc = " . intval($instruction['next']) . ";\n";
+        $code .= "        continue 2;\n";
+        break;
+      case 'branch':
+        $code .= "        if(" . $instruction['cond'] . ") { \$_awaitPc = " . intval($instruction['then']) . "; } else { \$_awaitPc = " . intval($instruction['else']) . "; }\n";
+        $code .= "        continue 2;\n";
+        break;
+      case 'jump':
+        $code .= "        \$_awaitPc = " . intval($instruction['target']) . ";\n";
+        $code .= "        continue 2;\n";
+        break;
+      case 'await':
+        $await = $instruction['await'];
+        $nextPc = intval($instruction['next']);
+        $returnVar = isset($await['returnVar']) && $await['returnVar'] !== null ? substr($await['returnVar'], 1) : '';
+        $code .= "        DecisionQueueController::UpdateAwaitFrame(\$_awaitFrameKey, " . AwaitLocalArrayCode($localVars) . ");\n";
+        if (isset($await['isVoidFunction']) && $await['isVoidFunction']) {
+          $code .= "        " . $await['functionName'] . "(" . $await['functionArgs'] . ");\n";
+          $code .= "        DecisionQueueController::AddDecision(" . $await['playerVar'] . ", \"CUSTOM\", \"" . addslashes($handlerName) . "|\" . \$_awaitFrameKey . \"|" . $nextPc . "|\", 1);\n";
+        } else {
+          $code .= BuildAddDecisionCall($await, '', '        ');
+          $code .= "        DecisionQueueController::AddDecision(" . $await['playerVar'] . ", \"CUSTOM\", \"" . addslashes($handlerName) . "|\" . \$_awaitFrameKey . \"|" . $nextPc . "|" . addslashes($returnVar) . "\", 1);\n";
+        }
+        $code .= "        return;\n";
+        break;
+      case 'return':
+        $expr = trim($instruction['expr']);
+        $code .= "        DecisionQueueController::FinishAwaitFrame(\$_awaitFrameKey);\n";
+        $code .= $expr === '' ? "        return;\n" : "        return " . $expr . ";\n";
+        break;
+      case 'finish':
+        $code .= "        DecisionQueueController::FinishAwaitFrame(\$_awaitFrameKey);\n";
+        $code .= "        return;\n";
+        break;
+    }
+  }
+
+  $code .= "      default:\n";
+  $code .= "        DecisionQueueController::FinishAwaitFrame(\$_awaitFrameKey);\n";
+  $code .= "        return;\n";
+  $code .= "    }\n";
+  $code .= "  }\n";
+  $code .= "}\n\n";
+  return $code;
+}
+
+function TransformAwaitCodeStateMachine($code, $cardId, $abilityName, &$continuationHandlers, $macroParams = []) {
+  $lines = AwaitNormalizeControlLines($code);
+  $idx = 0;
+  $nodes = AwaitParseBlock($lines, $idx);
+  $instructions = [];
+  $finishPc = AwaitAddInstruction($instructions, 'finish');
+  $startPc = AwaitCompileNodes($nodes, $finishPc, $instructions);
+  $localVars = AwaitExtractLocalVariables($code, $macroParams);
+  $functionName = AwaitRunnerFunctionName($cardId);
+  $handlerName = $cardId . '-await';
+
+  $continuationHandlers['__awaitRunner:' . $functionName] = [
+    'kind' => 'function',
+    'code' => AwaitGenerateRunnerFunction($functionName, $handlerName, $instructions, $localVars),
+    'comment' => $abilityName
+  ];
+
+  $handlerCode = "";
+  $handlerCode .= "  \$_awaitFrameKey = \$parts[0] ?? \"\";\n";
+  $handlerCode .= "  \$_awaitPc = intval(\$parts[1] ?? 0);\n";
+  $handlerCode .= "  \$_awaitReturnVar = \$parts[2] ?? \"\";\n";
+  $handlerCode .= "  if(\$_awaitReturnVar !== \"\") {\n";
+  $handlerCode .= "    DecisionQueueController::StoreVariable(\$_awaitReturnVar, \$lastDecision);\n";
+  $handlerCode .= "    DecisionQueueController::SetAwaitFrameLocal(\$_awaitFrameKey, \$_awaitReturnVar, \$lastDecision);\n";
+  $handlerCode .= "  }\n";
+  $handlerCode .= "  " . $functionName . "(\$player, \$lastDecision, \$_awaitPc, \$_awaitFrameKey);\n";
+
+  $continuationHandlers[$handlerName] = [
+    'kind' => 'handler',
+    'code' => $handlerCode,
+    'comment' => $abilityName
+  ];
+
+  $initialLocalVars = array_values(array_filter($macroParams, fn($param) => $param !== 'player'));
+  $transformedCode = GenerateMacroParamRetrievalCode($macroParams);
+  $transformedCode .= "\$_awaitFrameKey = DecisionQueueController::BeginAwaitFrame(\"" . addslashes($cardId) . "\", " . AwaitLocalArrayCode($initialLocalVars) . ");\n";
+  $transformedCode .= $functionName . "(\$player, null, " . intval($startPc) . ", \$_awaitFrameKey);";
+  return rtrim($transformedCode);
+}
+
+function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers, $macroParams = [], $forceStateMachine = false) {
+  if (!$forceStateMachine && !AwaitRequiresStateMachine($code)) {
+    return TransformAwaitCodeLegacy($code, $cardId, $abilityName, $continuationHandlers, $macroParams);
+  }
+  return TransformAwaitCodeStateMachine($code, $cardId, $abilityName, $continuationHandlers, $macroParams);
+}
+
+function ListenerEventParamVariableName($paramName) {
+  $safe = preg_replace('/[^A-Za-z0-9_]/', '_', trim(strval($paramName)));
+  if ($safe === '') $safe = 'param';
+  if (preg_match('/^[0-9]/', $safe)) $safe = '_' . $safe;
+  return 'event_' . $safe;
+}
+
+function ListenerContextParamNames($macroParams) {
+  $contextParams = ['listenerMZ', 'listenerCardID', 'eventMacro', 'eventPlayer', 'eventParams'];
+  foreach ($macroParams as $paramName) {
+    $contextParams[] = ListenerEventParamVariableName($paramName);
+  }
+  return array_values(array_unique($contextParams));
+}
+
+function ParseListenerZones($listenerZones) {
+  if (is_array($listenerZones)) return array_values(array_filter(array_map('trim', $listenerZones)));
+  $parts = explode(',', strval($listenerZones ?? ''));
+  return array_values(array_filter(array_map('trim', $parts)));
+}
+
+function WriteGeneratedAwaitContinuationHandlers($handler, $allContinuationHandlers) {
+  if (count($allContinuationHandlers) <= 0) return;
+
+  fwrite($handler, "// Continuation handlers for await syntax\r\n");
+  fwrite($handler, "// These handlers are called after player makes a choice in an ability\r\n\r\n");
+
+  foreach ($allContinuationHandlers as $handlerName => $handlerData) {
+    if (($handlerData['kind'] ?? 'handler') === 'function') {
+      fwrite($handler, $handlerData['code']);
+      continue;
+    }
+    fwrite($handler, "\$customDQHandlers[\"" . $handlerName . "\"] = function(\$player, \$parts, \$lastDecision) { //" . $handlerData['comment'] . "\r\n");
+    fwrite($handler, $handlerData['code']);
+    fwrite($handler, "};\r\n\r\n");
+  }
+}
+
+function WriteMacroListenerCode($handler, $listenerAbilitiesByMacro, $macrosByName) {
+  fwrite($handler, "// Zone-active macro listener implementations\r\n");
+  fwrite($handler, "// App code chooses timing by calling DispatchMacroListeners(...).\r\n\r\n");
+  fwrite($handler, "\$macroListenerAbilities = [];\r\n");
+  fwrite($handler, "\$macroListenerPrereqs = [];\r\n");
+  fwrite($handler, "\$macroListenerZones = [];\r\n");
+  fwrite($handler, "\$macroListenerAbilityNames = [];\r\n");
+  fwrite($handler, "\$macroListenerEventParamMap = [];\r\n\r\n");
+
+  $allContinuationHandlers = [];
+
+  foreach ($listenerAbilitiesByMacro as $macroName => $abilities) {
+    $macroMeta = isset($macrosByName[$macroName]) ? $macrosByName[$macroName] : ['params' => []];
+    $macroParams = $macroMeta['params'] ?? [];
+    $contextParams = ListenerContextParamNames($macroParams);
+
+    $eventParamMap = [];
+    foreach ($macroParams as $paramName) {
+      $eventParamMap[$paramName] = ListenerEventParamVariableName($paramName);
+    }
+    fwrite($handler, "\$macroListenerEventParamMap[\"" . addslashes($macroName) . "\"] = " . var_export($eventParamMap, true) . ";\r\n");
+
+    $abilityIndexByCard = [];
+    foreach ($abilities as $ability) {
+      $cardId = $ability['card_id'];
+      $code = $ability['ability_code'];
+      $prereqCode = $ability['prereq_code'] ?? '';
+      $name = $ability['ability_name'] ?? $cardId;
+      $listenerZones = ParseListenerZones($ability['listener_zones'] ?? '');
+
+      if (!isset($abilityIndexByCard[$cardId])) {
+        $abilityIndexByCard[$cardId] = 0;
+      }
+      $abilityIndex = $abilityIndexByCard[$cardId];
+      $abilityIndexByCard[$cardId]++;
+      $abilityKey = $cardId . ":" . $abilityIndex;
+
+      $continuationHandlers = [];
+      $handlerPrefix = $abilityKey . ":Listener:" . $macroName;
+      $forceStateMachine = stripos($code, 'await') !== false;
+      $transformedCode = TransformAwaitCode($code, $handlerPrefix, $name, $continuationHandlers, $contextParams, $forceStateMachine);
+      $allContinuationHandlers = array_merge($allContinuationHandlers, $continuationHandlers);
+
+      fwrite($handler, "\$macroListenerAbilities[\"" . addslashes($macroName) . "\"][\"" . addslashes($abilityKey) . "\"] = function(\$player) { //" . $name . "\r\n");
+      fwrite($handler, "  " . str_replace("\n", "\n  ", trim($transformedCode)) . "\r\n");
+      fwrite($handler, "};\r\n");
+      fwrite($handler, "\$macroListenerZones[\"" . addslashes($macroName) . "\"][\"" . addslashes($abilityKey) . "\"] = " . var_export($listenerZones, true) . ";\r\n");
+      fwrite($handler, "\$macroListenerAbilityNames[\"" . addslashes($macroName) . "\"][\"" . addslashes($abilityKey) . "\"] = \"" . addslashes($name) . "\";\r\n");
+
+      if (trim($prereqCode) !== '') {
+        $prereqTransformedCode = GenerateMacroParamRetrievalCode($contextParams) . $prereqCode;
+        fwrite($handler, "\$macroListenerPrereqs[\"" . addslashes($macroName) . "\"][\"" . addslashes($abilityKey) . "\"] = function(\$player) { //" . $name . " listener prereq\r\n");
+        fwrite($handler, "  " . str_replace("\n", "\n  ", trim($prereqTransformedCode)) . "\r\n");
+        fwrite($handler, "};\r\n");
+      }
+    }
+    fwrite($handler, "\r\n");
+  }
+
+  WriteGeneratedAwaitContinuationHandlers($handler, $allContinuationHandlers);
+
+  fwrite($handler, "function NormalizeMacroListenerZoneList(\$zones) {\r\n");
+  fwrite($handler, "  if(\$zones === null) return null;\r\n");
+  fwrite($handler, "  if(is_string(\$zones)) \$zones = explode(',', \$zones);\r\n");
+  fwrite($handler, "  if(!is_array(\$zones)) return [];\r\n");
+  fwrite($handler, "  \$out = [];\r\n");
+  fwrite($handler, "  foreach(\$zones as \$zone) {\r\n");
+  fwrite($handler, "    \$zone = trim(strval(\$zone));\r\n");
+  fwrite($handler, "    if(\$zone !== '') \$out[] = \$zone;\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  return array_values(array_unique(\$out));\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function ExpandMacroListenerZoneName(\$zoneName) {\r\n");
+  fwrite($handler, "  \$zoneName = trim(strval(\$zoneName));\r\n");
+  fwrite($handler, "  if(\$zoneName === '') return [];\r\n");
+  fwrite($handler, "  if(preg_match('/^(my|their|p[1-4])/', \$zoneName)) return [\$zoneName];\r\n");
+  fwrite($handler, "  if(function_exists('GameMacroListenerSeats')) return array_map(fn(\$seat) => 'p' . intval(\$seat) . \$zoneName, GameMacroListenerSeats());\r\n");
+  fwrite($handler, "  return array_values(array_unique(['p1' . \$zoneName, 'p2' . \$zoneName, \$zoneName]));\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function ExpandMacroListenerZones(\$zones) {\r\n");
+  fwrite($handler, "  \$zones = NormalizeMacroListenerZoneList(\$zones);\r\n");
+  fwrite($handler, "  if(\$zones === null) return null;\r\n");
+  fwrite($handler, "  \$expanded = [];\r\n");
+  fwrite($handler, "  foreach(\$zones as \$zoneName) {\r\n");
+  fwrite($handler, "    foreach(ExpandMacroListenerZoneName(\$zoneName) as \$expandedZone) \$expanded[] = \$expandedZone;\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  return array_values(array_unique(\$expanded));\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function MacroListenerCardIDFromAbilityKey(\$abilityKey) {\r\n");
+  fwrite($handler, "  \$pos = strrpos(strval(\$abilityKey), ':');\r\n");
+  fwrite($handler, "  return \$pos === false ? strval(\$abilityKey) : substr(strval(\$abilityKey), 0, \$pos);\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function MacroListenerPlayerForZoneObject(\$zoneName, \$obj, \$eventPlayer) {\r\n");
+  fwrite($handler, "  if(preg_match('/^p([1-4])/', strval(\$zoneName), \$matches)) return intval(\$matches[1]);\r\n");
+  fwrite($handler, "  if(is_object(\$obj) && isset(\$obj->Controller) && intval(\$obj->Controller) > 0) return intval(\$obj->Controller);\r\n");
+  fwrite($handler, "  if(is_object(\$obj) && isset(\$obj->Owner) && intval(\$obj->Owner) > 0) return intval(\$obj->Owner);\r\n");
+  fwrite($handler, "  return intval(\$eventPlayer);\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function MacroListenerRelativeMzID(\$zoneName, \$index, \$listenerPlayer, \$resolverPlayer) {\r\n");
+  fwrite($handler, "  \$zoneName = strval(\$zoneName);\r\n");
+  fwrite($handler, "  if(function_exists('GameMacroListenerSeats') && preg_match('/^p[1-4]/', \$zoneName)) return \$zoneName . '-' . intval(\$index);\r\n");
+  fwrite($handler, "  \$listenerPlayer = intval(\$listenerPlayer);\r\n");
+  fwrite($handler, "  \$resolverPlayer = intval(\$resolverPlayer);\r\n");
+  fwrite($handler, "  if(\$resolverPlayer !== 1 && \$resolverPlayer !== 2) \$resolverPlayer = \$listenerPlayer;\r\n");
+  fwrite($handler, "  if(preg_match('/^p([12])(.+)$/', \$zoneName, \$matches)) {\r\n");
+  fwrite($handler, "    \$zonePlayer = intval(\$matches[1]);\r\n");
+  fwrite($handler, "    \$zoneSuffix = \$matches[2];\r\n");
+  fwrite($handler, "    return (\$zonePlayer === \$listenerPlayer ? 'my' : 'their') . \$zoneSuffix . '-' . intval(\$index);\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  if(preg_match('/^(my|their)(.+)$/', \$zoneName, \$matches)) {\r\n");
+  fwrite($handler, "    \$zonePlayer = \$matches[1] === 'my' ? \$resolverPlayer : (\$resolverPlayer === 1 ? 2 : 1);\r\n");
+  fwrite($handler, "    \$zoneSuffix = \$matches[2];\r\n");
+  fwrite($handler, "    return (\$zonePlayer === \$listenerPlayer ? 'my' : 'their') . \$zoneSuffix . '-' . intval(\$index);\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  return \$zoneName . '-' . intval(\$index);\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function MacroListenerContextVariableNames(\$eventMacro) {\r\n");
+  fwrite($handler, "  global \$macroListenerEventParamMap;\r\n");
+  fwrite($handler, "  \$names = ['listenerMZ', 'listenerCardID', 'eventMacro', 'eventPlayer', 'eventParams'];\r\n");
+  fwrite($handler, "  foreach((\$macroListenerEventParamMap[\$eventMacro] ?? []) as \$variableName) \$names[] = \$variableName;\r\n");
+  fwrite($handler, "  return array_values(array_unique(\$names));\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function CaptureMacroListenerContext(\$eventMacro) {\r\n");
+  fwrite($handler, "  \$vars = json_decode(GetDecisionQueueVariables() ?: '{}', true);\r\n");
+  fwrite($handler, "  if(!is_array(\$vars)) \$vars = [];\r\n");
+  fwrite($handler, "  \$snapshot = [];\r\n");
+  fwrite($handler, "  foreach(MacroListenerContextVariableNames(\$eventMacro) as \$name) {\r\n");
+  fwrite($handler, "    \$snapshot[\$name] = ['exists' => array_key_exists(\$name, \$vars), 'value' => \$vars[\$name] ?? null];\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  return \$snapshot;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function RestoreMacroListenerContext(\$snapshot) {\r\n");
+  fwrite($handler, "  \$vars = json_decode(GetDecisionQueueVariables() ?: '{}', true);\r\n");
+  fwrite($handler, "  if(!is_array(\$vars)) \$vars = [];\r\n");
+  fwrite($handler, "  foreach(\$snapshot as \$name => \$entry) {\r\n");
+  fwrite($handler, "    if(!empty(\$entry['exists'])) \$vars[\$name] = \$entry['value'];\r\n");
+  fwrite($handler, "    else unset(\$vars[\$name]);\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  SetDecisionQueueVariables(json_encode(\$vars));\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function StoreMacroListenerContext(\$listenerMZ, \$listenerCardID, \$eventMacro, \$eventPlayer, \$eventParams) {\r\n");
+  fwrite($handler, "  global \$macroListenerEventParamMap;\r\n");
+  fwrite($handler, "  if(!is_array(\$eventParams)) \$eventParams = [];\r\n");
+  fwrite($handler, "  DecisionQueueController::StoreVariable('listenerMZ', \$listenerMZ);\r\n");
+  fwrite($handler, "  DecisionQueueController::StoreVariable('listenerCardID', \$listenerCardID);\r\n");
+  fwrite($handler, "  DecisionQueueController::StoreVariable('eventMacro', \$eventMacro);\r\n");
+  fwrite($handler, "  DecisionQueueController::StoreVariable('eventPlayer', \$eventPlayer);\r\n");
+  fwrite($handler, "  DecisionQueueController::StoreVariable('eventParams', \$eventParams);\r\n");
+  fwrite($handler, "  \$paramMap = \$macroListenerEventParamMap[\$eventMacro] ?? [];\r\n");
+  fwrite($handler, "  foreach(\$paramMap as \$paramName => \$variableName) {\r\n");
+  fwrite($handler, "    DecisionQueueController::StoreVariable(\$variableName, \$eventParams[\$paramName] ?? null);\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function DispatchMacroListeners(\$macroName, \$eventPlayer, \$eventParams = [], \$candidateZones = null) {\r\n");
+  fwrite($handler, "  global \$macroListenerAbilities, \$macroListenerPrereqs, \$macroListenerZones, \$playerID;\r\n");
+  fwrite($handler, "  \$macroName = strval(\$macroName);\r\n");
+  fwrite($handler, "  if(!isset(\$macroListenerAbilities[\$macroName]) || !is_array(\$macroListenerAbilities[\$macroName])) return 0;\r\n");
+  fwrite($handler, "  if(!is_array(\$eventParams)) \$eventParams = [];\r\n");
+  fwrite($handler, "  \$candidateExpanded = ExpandMacroListenerZones(\$candidateZones);\r\n");
+  fwrite($handler, "  \$dispatched = 0;\r\n");
+  fwrite($handler, "  foreach(\$macroListenerAbilities[\$macroName] as \$abilityKey => \$listenerFn) {\r\n");
+  fwrite($handler, "    \$abilityZones = \$macroListenerZones[\$macroName][\$abilityKey] ?? [];\r\n");
+  fwrite($handler, "    \$expandedZones = ExpandMacroListenerZones(\$abilityZones);\r\n");
+  fwrite($handler, "    if(\$candidateExpanded !== null) \$expandedZones = array_values(array_intersect(\$expandedZones, \$candidateExpanded));\r\n");
+  fwrite($handler, "    if(empty(\$expandedZones)) continue;\r\n");
+  fwrite($handler, "    \$abilityCardID = MacroListenerCardIDFromAbilityKey(\$abilityKey);\r\n");
+  fwrite($handler, "    foreach(\$expandedZones as \$zoneName) {\r\n");
+  fwrite($handler, "      \$zone = GetZone(\$zoneName);\r\n");
+  fwrite($handler, "      if(!is_array(\$zone)) continue;\r\n");
+  fwrite($handler, "      for(\$i = 0; \$i < count(\$zone); ++\$i) {\r\n");
+  fwrite($handler, "        \$obj = \$zone[\$i] ?? null;\r\n");
+  fwrite($handler, "        if(\$obj === null || !is_object(\$obj)) continue;\r\n");
+  fwrite($handler, "        if(isset(\$obj->removed) && \$obj->removed) continue;\r\n");
+  fwrite($handler, "        if(!isset(\$obj->CardID) || \$obj->CardID !== \$abilityCardID) continue;\r\n");
+  fwrite($handler, "        if(function_exists('HasNoAbilities') && HasNoAbilities(\$obj)) continue;\r\n");
+  fwrite($handler, "        \$listenerPlayer = MacroListenerPlayerForZoneObject(\$zoneName, \$obj, \$eventPlayer);\r\n");
+  fwrite($handler, "        \$savedPlayerID = \$playerID ?? null;\r\n");
+  fwrite($handler, "        \$listenerMZ = MacroListenerRelativeMzID(\$zoneName, \$i, \$listenerPlayer, \$savedPlayerID ?? \$eventPlayer);\r\n");
+  fwrite($handler, "        \$playerID = \$listenerPlayer;\r\n");
+  fwrite($handler, "        \$listenerContextSnapshot = CaptureMacroListenerContext(\$macroName);\r\n");
+  fwrite($handler, "        StoreMacroListenerContext(\$listenerMZ, \$obj->CardID, \$macroName, intval(\$eventPlayer), \$eventParams);\r\n");
+  fwrite($handler, "        if(isset(\$macroListenerPrereqs[\$macroName][\$abilityKey]) && !\$macroListenerPrereqs[\$macroName][\$abilityKey](\$listenerPlayer)) { RestoreMacroListenerContext(\$listenerContextSnapshot); \$playerID = \$savedPlayerID; continue; }\r\n");
+  fwrite($handler, "        \$listenerFn(\$listenerPlayer);\r\n");
+  fwrite($handler, "        RestoreMacroListenerContext(\$listenerContextSnapshot);\r\n");
+  fwrite($handler, "        \$playerID = \$savedPlayerID;\r\n");
+  fwrite($handler, "        ++\$dispatched;\r\n");
+  fwrite($handler, "      }\r\n");
+  fwrite($handler, "    }\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  return \$dispatched;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
+
+function GenerateMacroCode() {
+  global $rootName;
+
+  try {
+    $cardAbilityDB = OpenCardAbilityRepository($rootName);
+
+    $rootPath = "./" . $rootName;
+    $directory = $rootPath . "/GeneratedCode";
+
+    if (!is_dir($directory)) {
+      mkdir($directory, 0755, true);
+    }
+
+    $filename = $directory . "/GeneratedMacroCode.php";
+    $handler = fopen($filename, "w");
+
+    fwrite($handler, "<?php\r\n");
+    fwrite($handler, "// AUTO-GENERATED FILE: Macro implementations from CardEditor database\r\n");
+    fwrite($handler, "// DO NOT EDIT MANUALLY - changes will be overwritten when generator runs\r\n");
+    fwrite($handler, "// Last generated: " . date("Y-m-d H:i:s") . "\r\n\r\n");
+
+    // Get all macros defined in the schema
+    $schemaFile = "./Schemas/" . $rootName . "/GameSchema.txt";
+    $macrosByName = [];
+
+    if (file_exists($schemaFile)) {
+      $lines = file($schemaFile, FILE_IGNORE_NEW_LINES);
+      foreach ($lines as $line) {
+        if (strpos($line, 'Macro:') !== 0) continue;
+
+        $lineValue = trim(substr($line, strlen('Macro:')));
+        $segments = explode(';', $lineValue);
+        $meta = ['params' => []];
+        $macroName = null;
+
+        foreach ($segments as $segment) {
+          $segment = trim($segment);
+          if ($segment === '') continue;
+          $pair = explode('=', $segment, 2);
+          if (count($pair) !== 2) continue;
+          $key = trim($pair[0]);
+          $value = trim($pair[1]);
+
+          switch ($key) {
+            case 'Name':
+              if (preg_match('/^(\w+)\((.*)\)$/', $value, $matches)) {
+                $macroName = trim($matches[1]);
+                $meta['params'] = $matches[2] === ''
+                  ? []
+                  : array_map('trim', explode(',', $matches[2]));
+              } else {
+                $macroName = $value;
+                $meta['params'] = [];
+              }
+              break;
+            case 'PrereqFunction':
+              $meta['prereqFunction'] = $value;
+              break;
+            case 'SourceParam':
+              $meta['sourceParam'] = $value;
+              break;
+            case 'SelectedIndexParam':
+              $meta['selectedIndexParam'] = $value;
+              break;
+            case 'MacroType':
+              $meta['macroType'] = $value;
+              break;
+            case 'ReturnType':
+              $meta['returnType'] = $value;
+              break;
+            case 'ModifierMode':
+              $meta['modifierMode'] = $value;
+              break;
+            case 'DefaultValue':
+              $meta['defaultValue'] = $value;
+              break;
+            case 'ClampMin':
+              $meta['clampMin'] = $value;
+              break;
+          }
+        }
+
+        if ($macroName !== null) {
+          $macrosByName[$macroName] = $meta;
+        }
+      }
+    }
+
+    $modifierMacrosByName = array_filter($macrosByName, function($meta) {
+      return ($meta['macroType'] ?? '') === 'ValueModifier';
+    });
+
+    // Group abilities by macro name
+    $abilitiesByMacro = [];
+    foreach ($macrosByName as $macroName => $meta) {
+      $abilities = $cardAbilityDB->getAbilitiesByMacro($rootName, $macroName);
+      if (count($abilities) > 0) {
+        $abilitiesByMacro[$macroName] = $abilities;
+      }
+    }
+
+    $listenerAbilitiesByMacro = [];
+    foreach ($cardAbilityDB->getListenerAbilities($rootName) as $ability) {
+      $listenerMacroName = $ability['macro_name'] ?? '';
+      if ($listenerMacroName === '') continue;
+      if (!isset($listenerAbilitiesByMacro[$listenerMacroName])) {
+        $listenerAbilitiesByMacro[$listenerMacroName] = [];
+      }
+      $listenerAbilitiesByMacro[$listenerMacroName][] = $ability;
+    }
+
+    // Generate card-specific macro implementations
+    if (count($abilitiesByMacro) > 0) {
+      fwrite($handler, "// Card-specific macro implementations\r\n");
+      fwrite($handler, "// Each macro has an array where card IDs are keys (or CardID:Index for multiple abilities)\r\n\r\n");
+
+      $allContinuationHandlers = []; // Store all generated await resume handlers for output later
+
+      // Track ability index per card for macros that support multiple abilities
+      $abilityIndexByCard = [];
+
+      foreach ($modifierMacrosByName as $macroName => $macroMeta) {
+        $varName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Abilities";
+        $prereqVarName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Prereqs";
+        fwrite($handler, "\$" . $varName . " = [];\r\n");
+        fwrite($handler, "\$" . $prereqVarName . " = [];\r\n\r\n");
+      }
+
+      foreach ($abilitiesByMacro as $macroName => $abilities) {
+        // Convert macro name to valid variable name (e.g., "card-play" -> "cardPlayAbilities")
+        $varName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Abilities";
+        $prereqVarName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Prereqs";
+
+        // Get the macro parameters from the schema
+        $macroMeta = isset($macrosByName[$macroName]) ? $macrosByName[$macroName] : ['params' => []];
+        $macroParams = $macroMeta['params'] ?? [];
+
+        // Reset per-macro so each macro's first ability is :0 (abilities arrays are looked up as cardID:0)
+        $abilityIndexByCard = [];
+
+        foreach ($abilities as $ability) {
+          $cardId = $ability['card_id'];
+          $code = $ability['ability_code'];
+          if ($rootName === 'FaBSim') { require_once __DIR__ . '/FaBSim/Custom/CodeGeneration.php'; $code = FaBPrepareDamageCode(FaBPrepareHeroCreationCode($code,$cardId)); }
+          $prereqCode = $ability['prereq_code'] ?? '';
+          $name = $ability['ability_name'] ?? $cardId;
+
+          // Track ability index for this card
+          if (!isset($abilityIndexByCard[$cardId])) {
+            $abilityIndexByCard[$cardId] = 0;
+          }
+          $abilityIndex = $abilityIndexByCard[$cardId];
+          $abilityIndexByCard[$cardId]++;
+
+          // Use CardID:Index as the key for abilities (supports multiple per card)
+          $abilityKey = $cardId . ":" . $abilityIndex;
+
+          $continuationHandlers = [];
+          if (($macroMeta['macroType'] ?? '') === 'ValueModifier') {
+            $signature = '$player';
+            if (!empty($macroParams)) {
+              $signature .= ', $' . implode(', $', $macroParams);
+            }
+            $transformedCode = trim($code);
+          } else {
+            // Transform code to handle await syntax (pass macro params for variable retrieval).
+            // Use abilityKey:macroName as handlerPrefix so generated resume handler names are unique
+            // even when the same card has abilities for multiple macros (e.g. OnAttack + Reveal).
+            $handlerPrefix = $abilityKey . ":" . $macroName;
+            // FaB choices keep scalar identity/payment locals across even a flat
+            // sequence of awaits. The legacy flat compiler only restores params.
+            $forceAwaitFrame = in_array($rootName, ['FaBSim', 'PokeSim'], true) && stripos($code, 'await') !== false;
+            $transformedCode = TransformAwaitCode($code, $handlerPrefix, $name, $continuationHandlers, $macroParams, $forceAwaitFrame);
+
+            // Merge generated resume handlers into global collection
+            $allContinuationHandlers = array_merge($allContinuationHandlers, $continuationHandlers);
+            $signature = '$player';
+          }
+
+          fwrite($handler, "\$" . $varName . "[\"" . $abilityKey . "\"] = function(" . $signature . ") { //" . $name . "\r\n");
+          fwrite($handler, "  " . str_replace("\n", "\n  ", trim($transformedCode)) . "\r\n");
+          fwrite($handler, "};\r\n");
+          if(trim($prereqCode) !== '') {
+            $prereqSignature = '$player';
+            if (!empty($macroParams)) {
+              $prereqSignature .= ', $' . implode(', $', $macroParams);
+            }
+            fwrite($handler, "\$" . $prereqVarName . "[\"" . $abilityKey . "\"] = function(" . $prereqSignature . ") { //" . $name . " prereq\r\n");
+            fwrite($handler, "  " . str_replace("\n", "\n  ", trim($prereqCode)) . "\r\n");
+            fwrite($handler, "};\r\n");
+          }
+        }
+
+        fwrite($handler, "\r\n");
+      }
+
+      // Generate generated await resume handlers
+      WriteGeneratedAwaitContinuationHandlers($handler, $allContinuationHandlers);
+
+      // Generate macro count data and functions
+      fwrite($handler, "// Global macro count arrays - stores how many of each macro each card has\r\n");
+      fwrite($handler, "// These are built once at file load time for optimal performance\r\n\r\n");
+
+      foreach ($abilitiesByMacro as $macroName => $abilities) {
+        // Generate PHP function
+        $macroMeta = isset($macrosByName[$macroName]) ? $macrosByName[$macroName] : ['params' => []];
+        $macroParams = $macroMeta['params'] ?? [];
+        $functionName = "Card" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName))) . "Count";
+        $varName = "\$" . $functionName . "Data";
+
+        // Build associative array of card ID => count
+        $countArray = [];
+        foreach ($abilities as $ability) {
+          $cardId = $ability['card_id'];
+          if (!isset($countArray[$cardId])) {
+            $countArray[$cardId] = 0;
+          }
+          $countArray[$cardId]++;
+        }
+
+        // Emit global array
+        fwrite($handler, $varName . " = [\r\n");
+        foreach ($countArray as $cardId => $count) {
+          fwrite($handler, "  \"" . addslashes($cardId) . "\" => " . intval($count) . ",\r\n");
+        }
+        fwrite($handler, "];\r\n\r\n");
+
+        // Emit lookup function
+        fwrite($handler, "function " . $functionName . "(\$cardId) {\r\n");
+        fwrite($handler, "  global \$" . $functionName . "Data;\r\n");
+        fwrite($handler, "  return isset(\$" . $functionName . "Data[\$cardId]) ? \$" . $functionName . "Data[\$cardId] : 0;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+
+        // Generate ability names array for this macro (e.g., CardActivateAbilityNames)
+        $namesVarName = "\$" . $functionName . "NamesData";
+        $abilityIndexByCard = [];
+
+        fwrite($handler, $namesVarName . " = [\r\n");
+        foreach ($abilities as $ability) {
+          $cardId = $ability['card_id'];
+          $name = $ability['ability_name'] ?? $cardId;
+
+          if (!isset($abilityIndexByCard[$cardId])) {
+            $abilityIndexByCard[$cardId] = 0;
+          }
+          $abilityIndex = $abilityIndexByCard[$cardId];
+          $abilityIndexByCard[$cardId]++;
+
+          $abilityKey = $cardId . ":" . $abilityIndex;
+          fwrite($handler, "  \"" . addslashes($abilityKey) . "\" => \"" . addslashes($name) . "\",\r\n");
+        }
+        fwrite($handler, "];\r\n\r\n");
+
+        // Emit ability names lookup function
+        $namesFunction = $functionName . "Names";
+        fwrite($handler, "function " . $namesFunction . "(\$cardId, \$abilityIndex = null) {\r\n");
+        fwrite($handler, "  global \$" . $functionName . "NamesData;\r\n");
+        fwrite($handler, "  if (\$abilityIndex !== null) {\r\n");
+        fwrite($handler, "    \$key = \$cardId . \":\" . \$abilityIndex;\r\n");
+        fwrite($handler, "    return isset(\$" . $functionName . "NamesData[\$key]) ? \$" . $functionName . "NamesData[\$key] : \"\";\r\n");
+        fwrite($handler, "  }\r\n");
+        fwrite($handler, "  // Return all ability names for the card as an array\r\n");
+        fwrite($handler, "  \$names = [];\r\n");
+        fwrite($handler, "  for (\$i = 0; \$i < CardActivateAbilityCount(\$cardId); \$i++) {\r\n");
+        fwrite($handler, "    \$key = \$cardId . \":\" . \$i;\r\n");
+        fwrite($handler, "    if (isset(\$" . $functionName . "NamesData[\$key])) {\r\n");
+        fwrite($handler, "      \$names[] = \$" . $functionName . "NamesData[\$key];\r\n");
+        fwrite($handler, "    }\r\n");
+        fwrite($handler, "  }\r\n");
+        fwrite($handler, "  return \$names;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+
+        if (!empty($macroMeta['prereqFunction'])) {
+          $prereqVarName = "\$" . lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Prereqs";
+          $prereqFunction = $macroMeta['prereqFunction'];
+          // FaBSim owns the complete play/timing gate; card prereqs extend it.
+          if ($rootName === 'FaBSim' && $macroName === 'PlayCard') {
+            $prereqFunction = 'FaBGeneratedCanPlayCard';
+          }
+          $sourceParam = $macroMeta['sourceParam'] ?? null;
+          $selectedIndexParam = $macroMeta['selectedIndexParam'] ?? null;
+          $signatureParams = ['$player'];
+          foreach ($macroParams as $param) {
+            $signatureParams[] = '$' . $param;
+          }
+          fwrite($handler, "function " . $prereqFunction . "(" . implode(", ", $signatureParams) . ") {\r\n");
+          fwrite($handler, "  global " . $prereqVarName . ";\r\n");
+          if ($sourceParam !== null) {
+            fwrite($handler, "  \$_sourceObj = GetZoneObject(\$" . $sourceParam . ");\r\n");
+            fwrite($handler, "  if (\$_sourceObj === null || !isset(\$_sourceObj->CardID)) return false;\r\n");
+            fwrite($handler, "  \$_sourceCardID = \$_sourceObj->CardID;\r\n");
+          } else {
+            fwrite($handler, "  return true;\r\n");
+          }
+          if ($selectedIndexParam !== null) {
+            fwrite($handler, "  \$_abilityKey = \$_sourceCardID . \":\" . intval(\$" . $selectedIndexParam . ");\r\n");
+            fwrite($handler, "  if (!isset(" . $prereqVarName . "[\$_abilityKey])) return true;\r\n");
+            $invokeArgs = ['$player'];
+            foreach ($macroParams as $param) {
+              $invokeArgs[] = '$' . $param;
+            }
+            fwrite($handler, "  return " . $prereqVarName . "[\$_abilityKey](" . implode(", ", $invokeArgs) . ");\r\n");
+          } else {
+            fwrite($handler, "  \$count = " . $functionName . "(\$_sourceCardID);\r\n");
+            fwrite($handler, "  if (\$count <= 0) return true;\r\n");
+            fwrite($handler, "  for (\$i = 0; \$i < \$count; ++\$i) {\r\n");
+            fwrite($handler, "    \$_abilityKey = \$_sourceCardID . \":\" . \$i;\r\n");
+            fwrite($handler, "    if (!isset(" . $prereqVarName . "[\$_abilityKey])) return true;\r\n");
+            $invokeArgs = ['$player'];
+            foreach ($macroParams as $param) {
+              $invokeArgs[] = '$' . $param;
+            }
+            fwrite($handler, "    if (" . $prereqVarName . "[\$_abilityKey](" . implode(", ", $invokeArgs) . ")) return true;\r\n");
+            fwrite($handler, "  }\r\n");
+            fwrite($handler, "  return false;\r\n");
+          }
+          fwrite($handler, "}\r\n\r\n");
+        }
+      }
+
+      foreach ($modifierMacrosByName as $macroName => $macroMeta) {
+        if (isset($abilitiesByMacro[$macroName])) continue;
+
+        $functionName = "Card" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName))) . "Count";
+        $varName = "\$" . $functionName . "Data";
+        $namesVarName = "\$" . $functionName . "NamesData";
+        $namesFunction = $functionName . "Names";
+
+        fwrite($handler, $varName . " = [];\r\n\r\n");
+        fwrite($handler, "function " . $functionName . "(\$cardId) {\r\n");
+        fwrite($handler, "  global \$" . $functionName . "Data;\r\n");
+        fwrite($handler, "  return isset(\$" . $functionName . "Data[\$cardId]) ? \$" . $functionName . "Data[\$cardId] : 0;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+
+        fwrite($handler, $namesVarName . " = [];\r\n\r\n");
+        fwrite($handler, "function " . $namesFunction . "(\$cardId, \$abilityIndex = null) {\r\n");
+        fwrite($handler, "  return \$abilityIndex === null ? [] : \"\";\r\n");
+        fwrite($handler, "}\r\n\r\n");
+      }
+
+      foreach ($modifierMacrosByName as $macroName => $macroMeta) {
+        $varName = "\$" . lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Abilities";
+        $prereqVarName = "\$" . lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Prereqs";
+        $functionName = "Card" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName))) . "Count";
+        $evaluateFunction = "Evaluate" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName)));
+        $signatureParams = ['$abilityCardID', '$player'];
+        foreach (($macroMeta['params'] ?? []) as $param) {
+          $signatureParams[] = '$' . $param;
+        }
+        $invokeArgs = ['$player'];
+        foreach (($macroMeta['params'] ?? []) as $param) {
+          $invokeArgs[] = '$' . $param;
+        }
+
+        fwrite($handler, "function " . $evaluateFunction . "(" . implode(", ", $signatureParams) . ") {\r\n");
+        fwrite($handler, "  global " . $varName . ", " . $prereqVarName . ";\r\n");
+        fwrite($handler, "  \$count = " . $functionName . "(\$abilityCardID);\r\n");
+        fwrite($handler, "  if (\$count <= 0) return 0;\r\n");
+        fwrite($handler, "  \$delta = 0;\r\n");
+        fwrite($handler, "  for (\$i = 0; \$i < \$count; ++\$i) {\r\n");
+        fwrite($handler, "    \$abilityKey = \$abilityCardID . \":\" . \$i;\r\n");
+        fwrite($handler, "    if (!isset(" . $varName . "[\$abilityKey])) continue;\r\n");
+        fwrite($handler, "    if (isset(" . $prereqVarName . "[\$abilityKey]) && !" . $prereqVarName . "[\$abilityKey](" . implode(", ", $invokeArgs) . ")) continue;\r\n");
+        fwrite($handler, "    \$_modifierResult = " . $varName . "[\$abilityKey](" . implode(", ", $invokeArgs) . ");\r\n");
+        fwrite($handler, "    \$_parsedModifier = ParseModifierResult(\$_modifierResult);\r\n");
+        fwrite($handler, "    \$delta += \$_parsedModifier['delta'];\r\n");
+        fwrite($handler, "    if (\$_parsedModifier['consume'] && \$_parsedModifier['applied']) ConsumeModifierSource(\$sourceObj);\r\n");
+        fwrite($handler, "  }\r\n");
+        fwrite($handler, "  return \$delta;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+      }
+
+    } else {
+      fwrite($handler, "// No custom macro implementations found in database\r\n");
+      fwrite($handler, "// This file will be populated as abilities are added through CardEditor\r\n\r\n");
+
+      foreach ($modifierMacrosByName as $macroName => $macroMeta) {
+        $varName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Abilities";
+        $prereqVarName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Prereqs";
+        $functionName = "Card" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName))) . "Count";
+        $evaluateFunction = "Evaluate" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName)));
+        $signatureParams = ['$abilityCardID', '$player'];
+        foreach (($macroMeta['params'] ?? []) as $param) {
+          $signatureParams[] = '$' . $param;
+        }
+
+        fwrite($handler, "\$" . $varName . " = [];\r\n");
+        fwrite($handler, "\$" . $prereqVarName . " = [];\r\n");
+        fwrite($handler, "function " . $functionName . "(\$cardId) { return 0; }\r\n");
+        fwrite($handler, "function " . $evaluateFunction . "(" . implode(", ", $signatureParams) . ") { return 0; }\r\n\r\n");
+      }
+    }
+
+    WriteMacroListenerCode($handler, $listenerAbilitiesByMacro, $macrosByName);
+
+    fwrite($handler, "?>");
+    fclose($handler);
+    $cardAbilityDB->close();
+
+    // Generate JavaScript macro count functions
+    GenerateMacroCountJS($rootName, $abilitiesByMacro);
+
+    echo("Generated macro code file: $filename<BR>");
+
+  } catch (Exception $e) {
+    echo("Note: Could not generate macro code file: " . $e->getMessage() . "<BR>");
+  }
+}
+
+/**
+ * Generate JavaScript macro count functions
+ * Creates count functions that can be called client-side to query macro counts by card ID
+ */
+function GenerateMacroCountJS($rootName, $abilitiesByMacro) {
+  try {
+    $rootPath = "./" . $rootName;
+    $directory = $rootPath . "/GeneratedCode";
+
+    if (!is_dir($directory)) {
+      mkdir($directory, 0755, true);
+    }
+
+    $filename = $directory . "/GeneratedMacroCount.js";
+    $handler = fopen($filename, "w");
+
+    fwrite($handler, "// AUTO-GENERATED FILE: Macro count functions\r\n");
+    fwrite($handler, "// DO NOT EDIT MANUALLY - changes will be overwritten when generator runs\r\n");
+    fwrite($handler, "// Last generated: " . date("Y-m-d H:i:s") . "\r\n\r\n");
+
+    if (count($abilitiesByMacro) > 0) {
+      fwrite($handler, "// Global macro count objects - stores how many of each macro each card has\r\n");
+      fwrite($handler, "// These are built once at file load time for optimal performance\r\n\r\n");
+
+      foreach ($abilitiesByMacro as $macroName => $abilities) {
+        // Generate JavaScript function
+        $functionName = "Card" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName))) . "Count";
+        $varName = $functionName . "Data";
+
+        // Build associative array of card ID => count
+        $countArray = [];
+        foreach ($abilities as $ability) {
+          $cardId = $ability['card_id'];
+          if (!isset($countArray[$cardId])) {
+            $countArray[$cardId] = 0;
+          }
+          $countArray[$cardId]++;
+        }
+
+        // Emit global object
+        fwrite($handler, "const " . $varName . " = {\r\n");
+        foreach ($countArray as $cardId => $count) {
+          fwrite($handler, "  \"" . addslashes($cardId) . "\": " . intval($count) . ",\r\n");
+        }
+        fwrite($handler, "};\r\n\r\n");
+
+        // Emit lookup function
+        fwrite($handler, "function " . $functionName . "(cardId) {\r\n");
+        fwrite($handler, "  return " . $varName . "[cardId] !== undefined ? " . $varName . "[cardId] : 0;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+
+        // Generate ability names data for this macro
+        $namesVarName = $functionName . "NamesData";
+        $abilityIndexByCard = [];
+
+        fwrite($handler, "const " . $namesVarName . " = {\r\n");
+        foreach ($abilities as $ability) {
+          $abCardId = $ability['card_id'];
+          $name = $ability['ability_name'] ?? $abCardId;
+
+          if (!isset($abilityIndexByCard[$abCardId])) {
+            $abilityIndexByCard[$abCardId] = 0;
+          }
+          $abilityIndex = $abilityIndexByCard[$abCardId];
+          $abilityIndexByCard[$abCardId]++;
+
+          $abilityKey = $abCardId . ":" . $abilityIndex;
+          fwrite($handler, "  \"" . addslashes($abilityKey) . "\": \"" . addslashes($name) . "\",\r\n");
+        }
+        fwrite($handler, "};\r\n\r\n");
+
+        // Emit ability names lookup function
+        $namesFunction = $functionName . "Names";
+        fwrite($handler, "function " . $namesFunction . "(cardId, abilityIndex) {\r\n");
+        fwrite($handler, "  if (abilityIndex !== undefined && abilityIndex !== null) {\r\n");
+        fwrite($handler, "    const key = cardId + \":\" + abilityIndex;\r\n");
+        fwrite($handler, "    return " . $namesVarName . "[key] !== undefined ? " . $namesVarName . "[key] : \"\";\r\n");
+        fwrite($handler, "  }\r\n");
+        fwrite($handler, "  // Return all ability names for the card as an array\r\n");
+        fwrite($handler, "  const names = [];\r\n");
+        fwrite($handler, "  const count = " . $functionName . "(cardId);\r\n");
+        fwrite($handler, "  for (let i = 0; i < count; i++) {\r\n");
+        fwrite($handler, "    const key = cardId + \":\" + i;\r\n");
+        fwrite($handler, "    if (" . $namesVarName . "[key] !== undefined) {\r\n");
+        fwrite($handler, "      names.push(" . $namesVarName . "[key]);\r\n");
+        fwrite($handler, "    }\r\n");
+        fwrite($handler, "  }\r\n");
+        fwrite($handler, "  return names;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+      }
+
+    } else {
+      fwrite($handler, "// No custom macro implementations found in database\r\n");
+      fwrite($handler, "// This file will be populated as abilities are added through CardEditor\r\n\r\n");
+    }
+
+    fclose($handler);
+    echo("Generated JavaScript macro count file: $filename<BR>");
+
+  } catch (Exception $e) {
+    echo("Note: Could not generate JavaScript macro count file: " . $e->getMessage() . "<BR>");
+  }
+}
+
+?>

@@ -1,0 +1,48 @@
+{
+  "status": "INDEPENDENTLY_REVIEWED_SPECS_STAGED_PENDING_NATIVE_PILOT",
+  "scenario_count": 399,
+  "pilot_count": 4,
+  "original_fixtures_preserved": 72,
+  "files": [
+    {
+      "target": "DevTools\\FaB\\CardRegression\\card-regression-batch47.json",
+      "sha256": "f6757524bae88b96320c4c98628fc60a71ca7620492072943b6e16d8fd02ae31"
+    },
+    {
+      "target": "DevTools\\FaB\\CardRegression\\card-regression-batch48.json",
+      "sha256": "7dfc9964dd36dabc62c4762c756cb4f28b925816b105bf5e8f9692eb6235c61b"
+    },
+    {
+      "target": "DevTools\\FaB\\CardRegression\\card-regression-batch49.json",
+      "sha256": "6d70dc9a900b5e5321d8f7d922d6f390909f313bb305c762bb198718081750b4"
+    },
+    {
+      "target": "DevTools\\FaB\\CardRegression\\card-regression-batch50.json",
+      "sha256": "8c077a4f6d8848830bc5578d7f1b64b2e6c3f2556402ce9b40297957dbb4c87e"
+    },
+    {
+      "target": "DevTools\\FaB\\CardRegression\\card-regression-batch51.json",
+      "sha256": "02201c0f32cc9b1eaaba893395aacadc935232356febfda98f3a0f7d205c1f95"
+    },
+    {
+      "target": "DevTools\\FaB\\CardRegression\\card-regression-batch52.json",
+      "sha256": "b8fa524709455638a79c197396dee8f4412f4aaaae03a54bf7ddd92dd8896e50"
+    },
+    {
+      "target": "DevTools\\FaB\\CardRegression\\card-regression-batch53.json",
+      "sha256": "111f338c33af6f8b9dd7b56403a268f250a9bdc27b98ba6aadaddaa03567a1af"
+    },
+    {
+      "target": "DevTools\\FaB\\CardRegression\\card-regression-batch54.json",
+      "sha256": "27287f80a25c17fa50599e14853b170fa69a0c00b6cc2e372ea37c0195238860"
+    },
+    {
+      "target": "DevTools\\FaB\\CardRegression\\card-regression-batch55.json",
+      "sha256": "8bda7d6d0fe0c2d6b717895c1e25f6add2cc2b932499613e6f3fd97bf14b8119"
+    },
+    {
+      "target": "DevTools\\FaB\\CardRegression\\card-regression-innate-ga27-pilot.json",
+      "sha256": "ecae8647865410394fe59268ee85b32e3bed4bd6c04a09d0f9a4f46bddb4be83"
+    }
+  ]
+}

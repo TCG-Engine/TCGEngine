@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-20T03:25:05+00:00",
+    "input_file": "card-regression-batch64.json",
+    "input_sha256": "7c03bf0b7f04ba1064a035bec1045ce78f41d0b2fe23a5b7454096fe6deb9925",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-command-and-conquer-red-hit-trigger-sigil-hand-response",
+            "status": "recorded_semantically_checked",
+            "actions": 20,
+            "assertions": 399
+        },
+        {
+            "slug": "card-command-and-conquer-red-hit-trigger-sigil-arsenal-response",
+            "status": "recorded_semantically_checked",
+            "actions": 20,
+            "assertions": 381
+        },
+        {
+            "slug": "card-command-and-conquer-red-fully-blocked-no-hit-keeps-arsenal",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 380
+        }
+    ]
+}

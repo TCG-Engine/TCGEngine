@@ -1,0 +1,7 @@
+{
+    "name": "Warrior's Valor / red / two-grants-two-triggers-one-ap",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:04:13+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Dorinthea legally plays 2 Warrior's Valor (red), each cost1 and go again, then activates generic sword Talishar (cost2/base4). Expected weapon power10, resources2. The unqualified hit ability triggers 2 time(s); computed go again remains0 before resolving any layer, becomes1 only after resolution, and grants exactly AP1 when this chain link resolves. Opposing hero ends at10 life. Final real pass stays in RESOLUTION; no second attack or new chain link is exercised. Sources: https://judge.fabtcg.com/cards/detail/242/ FaBSim/GeneratedCode/cardArrayCache.json#warriors_valor_red https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

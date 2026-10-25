@@ -1,0 +1,7 @@
+{
+    "name": "Winter's Grasp / ordinary baseline / wrong-priority-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:28:27+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost2, power4, pitch3, defense3, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Actual Hand click must be rejected for wrong-priority-rejected. Preserve source, AP/resources[1, 0]/[2, 0], health20/20, priority2, empty Stack and graveyard; no author-only legality query is substituted for the action. Sources: FaBSim/GeneratedCode/cardArrayCache.json#winters_grasp_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

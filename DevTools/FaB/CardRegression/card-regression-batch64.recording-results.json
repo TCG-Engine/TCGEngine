@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-command-and-conquer-red-hit-trigger-sigil-hand-response",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 399
+    },
+    {
+        "slug": "card-command-and-conquer-red-hit-trigger-sigil-arsenal-response",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 381
+    },
+    {
+        "slug": "card-command-and-conquer-red-fully-blocked-no-hit-keeps-arsenal",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 380
+    }
+]

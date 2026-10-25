@@ -1,0 +1,7 @@
+{
+    "name": "Autumn's Touch / ordinary baseline / zero-action-points-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:20:57+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost3, power6, pitch2, defense3, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Actual Hand click must be rejected for zero-action-points-rejected. Preserve source, AP/resources[0, 0]/[3, 0], health20/20, priority1, empty Stack and graveyard; no author-only legality query is substituted for the action. Sources: FaBSim/GeneratedCode/cardArrayCache.json#autumns_touch_yellow https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

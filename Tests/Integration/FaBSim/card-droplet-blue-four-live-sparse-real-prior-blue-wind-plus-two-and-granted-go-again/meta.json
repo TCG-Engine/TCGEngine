@@ -1,0 +1,7 @@
+{
+    "name": "Droplet / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T01:49:27+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actually play and resolve First Tenet of Chi: Wind Blue before Droplet. The earlier blue card makes Droplet2+2=4. Wind separately grants the next blue Action go again. Unblocked damage4 leaves P2 at16, and attack resolution returns one AP; all costs/resources are zero. Exactly one bounded positive first-pass representative; no pitch matrix or full-card/group completion. Source candidates are independently checked, not accepted merely because metadata exists. No prior-blue-false, nonblue, response-changing-history or token/hero activation branch. Droplet has no printed go again; its GA is attributed to actual Wind support. Support synchronous source-clear/callback internal order remains outside the atomic endpoint witness and is not asserted correct. No known pending user-choice lifecycle is omitted. Sources: https://judge.fabtcg.com/cards/detail/3019/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MST087.webp https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

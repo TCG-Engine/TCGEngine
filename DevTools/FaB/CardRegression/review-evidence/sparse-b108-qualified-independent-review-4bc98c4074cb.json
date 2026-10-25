@@ -1,0 +1,306 @@
+{
+  "status": "B108_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b105_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch108.json",
+  "input_sha256": "04d96e3a96ce23c17c15ed01254a63a3745ccd71cb2edfed6271d7496fb527c7",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T17:47:31.245991+00:00",
+  "fixtures": [
+    {
+      "slug": "card-starting-stake-yellow-four-live-sparse-actual-zero-cost-action-with-no-gold-creates-one-owned-gold",
+      "fixture_sha256": "448d01ba7e4db7ff91ada221ad39594a65b97b9481768f544481f8e0646081c4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f72dc58a32ecbbbd5f4a949d19de3dd9323d2645c406fbbb8b8dbb19f7f290c6",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "f4b26308116294b7a5a0e117a2dfbccfc7acdf2fd54e97abe72597ae7b8cde3b",
+        "expected_final_gamestate.txt": "5393d456afa9a3f52adedade282901a1c787758311618107691c149b2a97933d",
+        "meta.json": "34788dfee5065785d9ef16c77d6c6dfcf5d9162518952310707f997c9aa4eec8"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 289,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-this-rounds-on-me-blue-four-live-sparse-actual-blue-pitch-play-draws-one-owned-card-for-each-live-hero",
+      "fixture_sha256": "89880b9ee0870e73d12ef813ba47ce797595b7f7580577cad9e85d5f211e3e8b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3f904fef161e4fc90998a852517e66fe181641f38e542784c43951e28232544a",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "1253843e6b41f92bd3b5d914fe8f021d780e3695814222c85563386e4e0e1de2",
+        "expected_final_gamestate.txt": "314e0fe80a5aa2bc8e603b37962d3aaded3876994b72f27159b7338f3bb3daec",
+        "meta.json": "2fa749fffc744098237fe50c95775eee8c62e37ec89a44bf6042c5b36a0a78cb"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 409,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-poison-the-well-blue-four-live-sparse-real-instant-then-real-sun-kiss-gain-three-becomes-lose-three",
+      "fixture_sha256": "e97e33a086bdd59ae29cb5471586ecae1d625db4841e877a30c72643f10a6bfb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "00421a3d289400d492b496e03733e47c4254410477a52acf52fd0459c271bcc1",
+        "actions.json": "4e77e2368de6a39a387b48f8143fbb03a5c1857caed1dda4fe6546a2a3a944e4",
+        "assertions.json": "410f7f5efd9c5f1234d7d63f183da3518e45b7f34c35fe121a4268bf1b9661b5",
+        "expected_final_gamestate.txt": "092e2bf8f1c30814c0dcb61e311339f2e29f6fff0c94f46a2754ab6c15b54421",
+        "meta.json": "fa76f519cd8872898cc8bbb3ec1f52d073726e31f80df595fca03ead750eac1d"
+      },
+      "semantically_approved": true,
+      "actions": 10,
+      "native_assertions": 502,
+      "actual_manual_passes": 8,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        17,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-sirens-of-safe-harbor-red-four-live-sparse-real-combat-chain-cleanup-puts-source-in-own-graveyard-and-heals-one",
+      "fixture_sha256": "ad15dff93521e547df110d23c18c85b4e86d0fb15b90df0195a9864455ebaa23",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "429b38134bbdacf86ed8fc6a4d43869728ec5688b8aa5f7dbe1099e699506357",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "1fd7afead020c437369fe584ad7963444becaa72d3e65029404997dcb549c80c",
+        "expected_final_gamestate.txt": "7cfeeeacc29f389437146dc677d3e6622f5b1dfce18aa70077a4c94042a1ac6a",
+        "meta.json": "712eabfb050ae949bc6ca71b5fd398f00be174dd505069a0509eca7814e20153"
+      },
+      "semantically_approved": true,
+      "actions": 28,
+      "native_assertions": 436,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 49,
+  "total_native_assertions": 1636,
+  "total_manual_passes": 41,
+  "checks": 90,
+  "actual_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b108-actual-saved-independent-review.json",
+    "sha256": "fff4aefed35873d51547a6e294a0e2bd45c4c6221fefe89edbacda177144c1ff"
+  },
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b108-independent-spec-review.json",
+    "sha256": "7ff824c9ad4d4615e5c43cdfe86a3ec6febb86399cdb81f2ec5e080081f8b240"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch108-20261022T174522Z-6ada4bb2486eb.json",
+    "sha256": "ead2af6239f1ac430fb5d0d0dfb40ef6a3dd5f4fba37eebc3b9109e04ffd41db"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b108-four-live-run1.json",
+      "sha256": "ae3ed32665a6e5ad6a40b1a25ca8f07bb5f1819c575a632852ce66e13ed2ef66",
+      "passed": 4,
+      "total": 4,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b108-four-live-run2.json",
+      "sha256": "4ae0f48e0bcc31d1fa623a5c3224ba42a43152bd016e2171336e787927a6f92a",
+      "passed": 4,
+      "total": 4,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b108-fault-controls.json",
+    "sha256": "d919e96a37c5a599df94c79ab7f534d66856d8990e9a4bea33c49846df30d9ed"
+  },
+  "focused_native_controls": [
+    {
+      "id": "b108_starting_stake_yellow_focused_effect_sensitivity",
+      "fixture": "card-starting-stake-yellow-four-live-sparse-actual-zero-cost-action-with-no-gold-creates-one-owned-gold",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "gold"
+          }
+        ]
+      },
+      "retained_assertions": 110,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Relocate the sole actual newly created Gold away from Arena after resolution, retaining all terminal oracles. Synthetic token-presence outcome sensitivity; no existing-Gold or token lifecycle branch credit. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b108_this_rounds_on_me_blue_focused_effect_sensitivity",
+      "fixture": "card-this-rounds-on-me-blue-four-live-sparse-actual-blue-pitch-play-draws-one-owned-card-for-each-live-hero",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 4,
+            "from": "Hand",
+            "to": "Temp",
+            "cardID": "raging_onslaught_red"
+          }
+        ]
+      },
+      "retained_assertions": 125,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p4Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Relocate the exact actual fourth-hero drawn card away from Hand after resolution, retaining all terminal oracles. Fourth-seat draw endpoint sensitivity; no independent draw-replacement or targeted attack modifier claim. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b108_poison_the_well_blue_focused_effect_sensitivity",
+      "fixture": "card-poison-the-well-blue-four-live-sparse-real-instant-then-real-sun-kiss-gain-three-becomes-lose-three",
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "DTD_POISON"
+      },
+      "retained_assertions": 304,
+      "expected_failure_step": 5,
+      "expected_failure": "Expected p1Health to equal 17, got 23.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove sole actual next-gain replacement after real instant resolution, preserve real later SunKiss action, all passes and every original suffix oracle. Primary life-event replacement sensitivity only, not expiry or another-hero branch. Every original suffix action and oracle retained; only step offsets change."
+    },
+    {
+      "id": "b108_sirens_of_safe_harbor_red_focused_effect_sensitivity",
+      "fixture": "card-sirens-of-safe-harbor-red-four-live-sparse-real-combat-chain-cleanup-puts-source-in-own-graveyard-and-heals-one",
+      "prefix_actions": 28,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 1,
+            "value": 19
+          }
+        ]
+      },
+      "retained_assertions": 109,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Health to equal 20, got 19.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Override P1 back to19 after actual source graveyard cleanup healed20; terminal missing-heal outcome sensitivity with every final oracle retained. Does not isolate or suppress a native triggered ability, and is not alternative graveyard-entry branch coverage. Every original suffix action and oracle retained; only step offsets change."
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b108-focused-fault-plan.json",
+    "sha256": "6b8b9e00e884d3eb2e061b65510b3aac9956ba163966dc7e65e7be9149158a95"
+  },
+  "targeted_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "limitations": [
+    "One positive primary representative per cycle; no sibling pitch, alternate branch, full-card, hero/support or callback lifecycle credit.",
+    "StartingStake and ThisRounds controls remove physical endpoint Gold/fourth-seat drawn card; Sirens control overrides the actual gained life. These are terminal outcome sensitivities, not isolated creation/draw/graveyard-callback suppression. Poison control removes its real next-gain replacement before retaining actual later SunKiss. ThisRounds attack reduction, otherhero/repeatedheals and othergraveyard-entry zones remain untested.",
+    "Only these four new fixtures are rehashed/replayed. Unrelated fixture bytes are not freshly checked; no full suite or legacy audit is performed.",
+    "Every original suffix assertion retained; synthetic faults are sensitivity probes, not legal alternate-action branch coverage."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "12adb0c10f72336c11bacb85082f951f0fc8d9294116b837530b1c0d954ee9c0"
+}

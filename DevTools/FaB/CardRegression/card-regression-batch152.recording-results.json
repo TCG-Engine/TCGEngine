@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-time-skippers-four-live-sparse-actual-blue-pitch-three-destroy-gain-two-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 395
+    },
+    {
+        "slug": "card-skullhorn-four-live-sparse-actual-destroy-draw-sole-card-random-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 361
+    }
+]

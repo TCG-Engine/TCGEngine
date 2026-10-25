@@ -1,0 +1,7 @@
+{
+    "name": "Evasive Leap / flat-defense-reaction / resolution-window-too-late-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:48:36+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Generic Defense Reaction; cost0, defense1, pitch3; empty rules text. It costs no AP, can be played only by the player controlling the attacked hero during Reaction, resolves as a defending card on that link, and clears to owner Graveyard at ordinary Close. Numeric expectations are derived from printed stats/costs before native execution. Branch: resolution-window-too-late-rejected. Sources: FaBSim/GeneratedCode/cardArrayCache.json#evasive_leap_blue https://rules.fabtcg.com/en/cr/08-keywords/#813 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/01-game-concepts/#114"
+}

@@ -1,0 +1,1745 @@
+{
+    "completed_at_utc": "2026-10-19T22:48:41+00:00",
+    "input_file": "card-regression-batch19.json",
+    "input_sha256": "07e2523c83f566ba581a9f0c0b9459cd746d88a5623d1a32fdf05ce754b29928",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-burgeoning-red-hand-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-burgeoning-red-arsenal-face-up-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-burgeoning-red-arsenal-defense-three",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 29
+        },
+        {
+            "slug": "card-burgeoning-red-arsenal-defense-nine-full-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 29
+        },
+        {
+            "slug": "card-burgeoning-red-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+        },
+        {
+            "slug": "card-burgeoning-red-arsenal-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+        },
+        {
+            "slug": "card-burgeoning-red-hand-insufficient-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-red-arsenal-insufficient-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-red-hand-no-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-red-arsenal-no-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-red-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-red-arsenal-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-red-arsenal-known-blinding-no-intrinsic-bonus",
+            "status": "blocked_or_incorrect",
+            "error": "power  expected 6 got 7",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Arsenal-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "ATTACK",
+                "combatOpen": true,
+                "combatStep": "ATTACK",
+                "chainLink": 1,
+                "attacker": 1,
+                "defender": 2,
+                "attackUID": 3,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Burgeoning",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_AA_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_2",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_burgeoning",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "burgeoning_red"
+                    ]
+                },
+                "mpgDurations": [
+                    {
+                        "player": 1,
+                        "kind": "BLIND",
+                        "active": true,
+                        "started": true
+                    }
+                ],
+                "eleKorshemActiveTurn": 2,
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "faceUp": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Arsenal",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "outPreviousNames": {
+                    "1": []
+                },
+                "lastAttackCardID": "burgeoning_red",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 2,
+                        "uid": 2,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        },
+        {
+            "slug": "card-burgeoning-red-hand-known-blinding-printed-power",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-burgeoning-red-arsenal-opponent-instant-above-pending-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 36
+        },
+        {
+            "slug": "card-burgeoning-red-arsenal-external-next-aa-additive",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 31
+        },
+        {
+            "slug": "card-burgeoning-red-arsenal-then-hand-same-identity-no-carry",
+            "status": "recorded_semantically_checked",
+            "actions": 24,
+            "assertions": 48
+        },
+        {
+            "slug": "card-burgeoning-yellow-hand-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-burgeoning-yellow-arsenal-face-down-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-burgeoning-yellow-arsenal-face-up-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-burgeoning-yellow-arsenal-defense-three",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 29
+        },
+        {
+            "slug": "card-burgeoning-yellow-arsenal-defense-nine-full-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 29
+        },
+        {
+            "slug": "card-burgeoning-yellow-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+        },
+        {
+            "slug": "card-burgeoning-yellow-arsenal-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+        },
+        {
+            "slug": "card-burgeoning-yellow-hand-insufficient-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-yellow-arsenal-insufficient-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-yellow-hand-no-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-yellow-arsenal-no-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-yellow-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-yellow-arsenal-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-yellow-arsenal-known-blinding-no-intrinsic-bonus",
+            "status": "blocked_or_incorrect",
+            "error": "power  expected 5 got 6",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Arsenal-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "ATTACK",
+                "combatOpen": true,
+                "combatStep": "ATTACK",
+                "chainLink": 1,
+                "attacker": 1,
+                "defender": 2,
+                "attackUID": 3,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Burgeoning",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_AA_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_2",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_burgeoning",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "burgeoning_yellow"
+                    ]
+                },
+                "mpgDurations": [
+                    {
+                        "player": 1,
+                        "kind": "BLIND",
+                        "active": true,
+                        "started": true
+                    }
+                ],
+                "eleKorshemActiveTurn": 2,
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "faceUp": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Arsenal",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "outPreviousNames": {
+                    "1": []
+                },
+                "lastAttackCardID": "burgeoning_yellow",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 2,
+                        "uid": 2,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        },
+        {
+            "slug": "card-burgeoning-yellow-hand-known-blinding-printed-power",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-burgeoning-yellow-arsenal-opponent-instant-above-pending-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 36
+        },
+        {
+            "slug": "card-burgeoning-yellow-arsenal-external-next-aa-additive",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 31
+        },
+        {
+            "slug": "card-burgeoning-yellow-arsenal-then-hand-same-identity-no-carry",
+            "status": "recorded_semantically_checked",
+            "actions": 24,
+            "assertions": 48
+        },
+        {
+            "slug": "card-burgeoning-blue-hand-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-burgeoning-blue-arsenal-face-down-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-burgeoning-blue-arsenal-face-up-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-burgeoning-blue-arsenal-defense-three",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 29
+        },
+        {
+            "slug": "card-burgeoning-blue-arsenal-defense-nine-full-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 29
+        },
+        {
+            "slug": "card-burgeoning-blue-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+        },
+        {
+            "slug": "card-burgeoning-blue-arsenal-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+        },
+        {
+            "slug": "card-burgeoning-blue-hand-insufficient-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-blue-arsenal-insufficient-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-blue-hand-no-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-blue-arsenal-no-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-blue-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-blue-arsenal-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-burgeoning-blue-arsenal-known-blinding-no-intrinsic-bonus",
+            "status": "blocked_or_incorrect",
+            "error": "power  expected 4 got 5",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Arsenal-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "ATTACK",
+                "combatOpen": true,
+                "combatStep": "ATTACK",
+                "chainLink": 1,
+                "attacker": 1,
+                "defender": 2,
+                "attackUID": 3,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Burgeoning",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MST_BLUE_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_AA_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_2",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_burgeoning",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "burgeoning_blue"
+                    ]
+                },
+                "mpgDurations": [
+                    {
+                        "player": 1,
+                        "kind": "BLIND",
+                        "active": true,
+                        "started": true
+                    }
+                ],
+                "eleKorshemActiveTurn": 2,
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "faceUp": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Arsenal",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstBluePlayedTurn": 2,
+                        "mstBluePlayedPlayer": 1,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "outPreviousNames": {
+                    "1": []
+                },
+                "lastAttackCardID": "burgeoning_blue",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 2,
+                        "uid": 2,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        },
+        {
+            "slug": "card-burgeoning-blue-hand-known-blinding-printed-power",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-burgeoning-blue-arsenal-opponent-instant-above-pending-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 36
+        },
+        {
+            "slug": "card-burgeoning-blue-arsenal-external-next-aa-additive",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 31
+        },
+        {
+            "slug": "card-burgeoning-blue-arsenal-then-hand-same-identity-no-carry",
+            "status": "recorded_semantically_checked",
+            "actions": 24,
+            "assertions": 48
+        },
+        {
+            "slug": "card-power-play-red-hand-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-red-arsenal-face-up-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-red-arsenal-defense-three",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 29
+        },
+        {
+            "slug": "card-power-play-red-arsenal-defense-nine-full-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 29
+        },
+        {
+            "slug": "card-power-play-red-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+        },
+        {
+            "slug": "card-power-play-red-arsenal-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+        },
+        {
+            "slug": "card-power-play-red-hand-insufficient-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-red-arsenal-insufficient-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-red-hand-no-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-red-arsenal-no-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-red-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-red-arsenal-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-red-arsenal-known-blinding-no-intrinsic-bonus",
+            "status": "blocked_or_incorrect",
+            "error": "power  expected 3 got 8",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Arsenal-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "ATTACK",
+                "combatOpen": true,
+                "combatStep": "ATTACK",
+                "chainLink": 1,
+                "attacker": 1,
+                "defender": 2,
+                "attackUID": 3,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Power Play",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_AA_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_2",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_power_play",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "power_play_red"
+                    ]
+                },
+                "mpgDurations": [
+                    {
+                        "player": 1,
+                        "kind": "BLIND",
+                        "active": true,
+                        "started": true
+                    }
+                ],
+                "eleKorshemActiveTurn": 2,
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "faceUp": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Arsenal",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true
+                    }
+                },
+                "iar": {
+                    "2": {
+                        "1": {
+                            "CHORUS_ATTACK": 1
+                        }
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "outPreviousNames": {
+                    "1": []
+                },
+                "lastAttackCardID": "power_play_red",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 2,
+                        "uid": 2,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        },
+        {
+            "slug": "card-power-play-red-hand-known-blinding-printed-power",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-red-arsenal-opponent-instant-above-pending-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 36
+        },
+        {
+            "slug": "card-power-play-red-arsenal-external-next-aa-additive",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 31
+        },
+        {
+            "slug": "card-power-play-red-arsenal-then-hand-same-identity-no-carry",
+            "status": "recorded_semantically_checked",
+            "actions": 24,
+            "assertions": 48
+        },
+        {
+            "slug": "card-power-play-yellow-hand-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-yellow-arsenal-face-down-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-yellow-arsenal-face-up-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-yellow-arsenal-defense-three",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 29
+        },
+        {
+            "slug": "card-power-play-yellow-arsenal-defense-nine-full-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 29
+        },
+        {
+            "slug": "card-power-play-yellow-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+        },
+        {
+            "slug": "card-power-play-yellow-arsenal-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+        },
+        {
+            "slug": "card-power-play-yellow-hand-insufficient-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-yellow-arsenal-insufficient-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-yellow-hand-no-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-yellow-arsenal-no-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-yellow-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-yellow-arsenal-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-yellow-arsenal-known-blinding-no-intrinsic-bonus",
+            "status": "blocked_or_incorrect",
+            "error": "power  expected 2 got 7",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Arsenal-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "ATTACK",
+                "combatOpen": true,
+                "combatStep": "ATTACK",
+                "chainLink": 1,
+                "attacker": 1,
+                "defender": 2,
+                "attackUID": 3,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Power Play",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "UPR_SMALL",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_AA_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_2",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_power_play",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "power_play_yellow"
+                    ]
+                },
+                "mpgDurations": [
+                    {
+                        "player": 1,
+                        "kind": "BLIND",
+                        "active": true,
+                        "started": true
+                    }
+                ],
+                "eleKorshemActiveTurn": 2,
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "faceUp": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Arsenal",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true
+                    }
+                },
+                "iar": {
+                    "2": {
+                        "1": {
+                            "CHORUS_ATTACK": 1
+                        }
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "outPreviousNames": {
+                    "1": []
+                },
+                "lastAttackCardID": "power_play_yellow",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 2,
+                        "uid": 2,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        },
+        {
+            "slug": "card-power-play-yellow-hand-known-blinding-printed-power",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-yellow-arsenal-opponent-instant-above-pending-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 36
+        },
+        {
+            "slug": "card-power-play-yellow-arsenal-external-next-aa-additive",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 31
+        },
+        {
+            "slug": "card-power-play-yellow-arsenal-then-hand-same-identity-no-carry",
+            "status": "recorded_semantically_checked",
+            "actions": 24,
+            "assertions": 48
+        },
+        {
+            "slug": "card-power-play-blue-hand-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-blue-arsenal-face-down-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-blue-arsenal-face-up-unblocked-float",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-blue-arsenal-defense-three",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 29
+        },
+        {
+            "slug": "card-power-play-blue-arsenal-defense-nine-full-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 29
+        },
+        {
+            "slug": "card-power-play-blue-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+        },
+        {
+            "slug": "card-power-play-blue-arsenal-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+        },
+        {
+            "slug": "card-power-play-blue-hand-insufficient-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-blue-arsenal-insufficient-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-blue-hand-no-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-blue-arsenal-no-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-blue-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-blue-arsenal-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 14
+        },
+        {
+            "slug": "card-power-play-blue-arsenal-known-blinding-no-intrinsic-bonus",
+            "status": "blocked_or_incorrect",
+            "error": "power  expected 1 got 6",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Arsenal-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "ATTACK",
+                "combatOpen": true,
+                "combatStep": "ATTACK",
+                "chainLink": 1,
+                "attacker": 1,
+                "defender": 2,
+                "attackUID": 3,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Power Play",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "UPR_SMALL",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MST_BLUE_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_AA_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_2",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_power_play",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "power_play_blue"
+                    ]
+                },
+                "mpgDurations": [
+                    {
+                        "player": 1,
+                        "kind": "BLIND",
+                        "active": true,
+                        "started": true
+                    }
+                ],
+                "eleKorshemActiveTurn": 2,
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "faceUp": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Arsenal",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstBluePlayedTurn": 2,
+                        "mstBluePlayedPlayer": 1,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true
+                    }
+                },
+                "iar": {
+                    "2": {
+                        "1": {
+                            "CHORUS_ATTACK": 1
+                        }
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "outPreviousNames": {
+                    "1": []
+                },
+                "lastAttackCardID": "power_play_blue",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 2,
+                        "uid": 2,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        },
+        {
+            "slug": "card-power-play-blue-hand-known-blinding-printed-power",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-blue-arsenal-opponent-instant-above-pending-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 36
+        },
+        {
+            "slug": "card-power-play-blue-arsenal-external-next-aa-additive",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 31
+        },
+        {
+            "slug": "card-power-play-blue-arsenal-then-hand-same-identity-no-carry",
+            "status": "recorded_semantically_checked",
+            "actions": 24,
+            "assertions": 48
+        }
+    ]
+}

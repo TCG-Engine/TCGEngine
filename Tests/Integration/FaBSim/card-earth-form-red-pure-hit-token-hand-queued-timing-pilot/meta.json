@@ -1,0 +1,7 @@
+{
+    "name": "Earth Form Red / hit trigger resolves before token creation",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T06:11:59+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost3/power7/defense2/pitch1. Real unblocked physical hit against a hero deals7; targetHP13. The printed when-hit effect creates an independent triggered layer before next priority. No embodiment_of_earth exists until that layer resolves; then exactly one attacker-controlled embodiment_of_earth. Source stays on combat chain through damage and resolution, has no goagain, AP0/resources0, moves to ownerGY on close while token persists. UID1/2 heroes, source3, first created triggered layer4, token5 follow ordinary AddStack allocation. No printed code output sampled. Current source predicts eager creation; a mismatch is blocked and must not be saved as passing. Sources: https://judge.fabtcg.com/cards/detail/3021/ https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

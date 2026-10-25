@@ -1,0 +1,293 @@
+{
+  "mode": "built-in image_gen",
+  "purpose": "24 champion-specific move illustrations, illustration-story",
+  "jobs": [
+    {
+      "id": 1000,
+      "slug": "canal-jab",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Iddin, the same faceless tan human martial artist with a smooth featureless oval face, red sleeveless crossover tunic, dark brown belt and trousers, wrapped shins. MOVE: CANAL JAB. ACTION AND SETTING: A precise straight lead-fist jab, torso twisting and rear hand tucked in guard, a short crisp motion streak following the fist. Canal-side sandstone practice court.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/assets/fighter-red-transparent.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-2509f735-268e-468e-9580-4233f96d226e.png",
+      "original": "canal-jab-v1.png",
+      "asset": "techniques/1000-canal-jab-v1.webp"
+    },
+    {
+      "id": 1001,
+      "slug": "ferrymans-feint",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Iddin, the same faceless tan human martial artist with a smooth featureless oval face, red sleeveless crossover tunic, dark brown belt and trousers, wrapped shins. MOVE: FERRYMANS FEINT. ACTION AND SETTING: A deceptive low reaching hand feint with weight shifted onto rear leg, opposite hand poised to counter, faint curved motion trails clarifying the fake. On a reed-lined stone footbridge.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/assets/fighter-red-transparent.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-06a96a26-7e8e-47fa-a5dc-9b17bf241ed0.png",
+      "original": "ferrymans-feint-v1.png",
+      "asset": "techniques/1001-ferrymans-feint-v1.webp"
+    },
+    {
+      "id": 1002,
+      "slug": "reed-step",
+      "prompt": "Use case: illustration-story. Asset: single wide landscape trading-card move illustration for DFGSim, no card frame or typography. Reference image is character identity and exact cartoon style reference, NOT the pose. Depict Iddin, the same faceless tan human martial artist, red sleeveless cross-over tunic, dark brown belt and trousers, thick near-black outlines and flat cel shading. Move: REED STEP. Iddin performs a light, precise sideways evasive step on a Sumerian canal bank, one foot just skimming the water beside bending reeds, hands composed in guard, red sash trailing with a small sweeping motion arc. New dynamic three-quarter pose, athletic but not exaggerated. Warm sandstone canal garden, stylized teal water and reeds, simple softly subordinate background. Character and entire readable action occupy central 75 percent, composed to remain legible in a shallow card-art crop. Match reference's approachable clean hand-drawn cartoon, broad simple shapes, restrained 2-tone shading. No realism, no glossy 3D, no detailed skin or fur, no letters, no text, no border, no watermark. Landscape 3:2. This is ONE standalone illustration.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/assets/fighter-red-transparent.webp"
+      ],
+      "source": "C:/Users/maxim/.codex/generated_images/01a16985-d57e-7dd1-86e8-2df72b77f7a6/exec-2db0beb4-6e88-4081-817e-37deefc142d9.png",
+      "original": "reed-step-v1.png",
+      "asset": "techniques/1002-reed-step-v1.webp"
+    },
+    {
+      "id": 1003,
+      "slug": "bank-guard",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Iddin, the same faceless tan human martial artist with a smooth featureless oval face, red sleeveless crossover tunic, dark brown belt and trousers, wrapped shins. MOVE: BANK GUARD. ACTION AND SETTING: A firmly planted side-on forearm guard, both arms braced across his chest and cheek, feet spread on a sloped canal bank, a small pebble skidding off the guard.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/assets/fighter-red-transparent.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-5a6a0044-ba6b-402b-b34c-cf00518de76b.png",
+      "original": "bank-guard-v1.png",
+      "asset": "techniques/1003-bank-guard-v1.webp"
+    },
+    {
+      "id": 1004,
+      "slug": "still-water-palm",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Iddin, the same faceless tan human martial artist with a smooth featureless oval face, red sleeveless crossover tunic, dark brown belt and trousers, wrapped shins. MOVE: STILL WATER PALM. ACTION AND SETTING: A calm forward open-palm parry, one hand pushing a curling ribbon of water aside while the other stays at the hip, low balanced stance. Still reflecting canal pool.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/assets/fighter-red-transparent.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-3947c641-a915-48aa-8bc4-67172e5a129c.png",
+      "original": "still-water-palm-v1.png",
+      "asset": "techniques/1004-still-water-palm-v1.webp"
+    },
+    {
+      "id": 1005,
+      "slug": "sluice-reversal",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Iddin, the same faceless tan human martial artist with a smooth featureless oval face, red sleeveless crossover tunic, dark brown belt and trousers, wrapped shins. MOVE: SLUICE REVERSAL. ACTION AND SETTING: A low pivoting counterstrike, one forearm sweeping outward to redirect force as opposite palm thrusts forward, canal water curves in an S-shaped wake echoing the reversal. Beside a stone sluice.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/assets/fighter-red-transparent.webp",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-f1a20a49-d8fd-4669-b7e4-57a6b615b1cb.png",
+      "original": "sluice-reversal-v1.png",
+      "asset": "techniques/1005-sluice-reversal-v1.webp"
+    },
+    {
+      "id": 1010,
+      "slug": "lions-cry",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Imdugud, the same golden lion-headed eagle martial artist with golden mane and muzzle, dark slate-blue feathered body, TWO wing-arms, golden eagle talon feet, cream martial wrap and golden sash. MOVE: LIONS CRY. ACTION AND SETTING: A fierce roaring forward wing-fist strike, lion mouth open in a determined roar, golden curved sound lines and wind sweeping out from the striking wing. Sandstone temple training terrace.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/imdugud-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-2ad2a16b-e7ca-4fb4-a5ec-618a982fb3f3.png",
+      "original": "lions-cry-v1.png",
+      "asset": "techniques/1010-lions-cry-v1.webp"
+    },
+    {
+      "id": 1011,
+      "slug": "storm-talon",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Imdugud, the same golden lion-headed eagle martial artist with golden mane and muzzle, dark slate-blue feathered body, TWO wing-arms, golden eagle talon feet, cream martial wrap and golden sash. MOVE: STORM TALON. ACTION AND SETTING: A dynamic airborne forward talon kick, one golden eagle foot extended, the other bent, wing-arms balancing, a thin spiraling wind trail around the kicking talon. High Sumerian terrace against blue sky.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/imdugud-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-a3248fa2-072b-427c-b242-32a3461908a3.png",
+      "original": "storm-talon-v1.png",
+      "asset": "techniques/1011-storm-talon-v1.webp"
+    },
+    {
+      "id": 1012,
+      "slug": "sky-step",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Imdugud, the same golden lion-headed eagle martial artist with golden mane and muzzle, dark slate-blue feathered body, TWO wing-arms, golden eagle talon feet, cream martial wrap and golden sash. MOVE: SKY STEP. ACTION AND SETTING: A nimble sideways airborne evasive hop, one taloned leg tucked and the other reaching for landing, TWO feathered wing-arms raised into a defensive screen, a curling gust marks the dodged line. Sandstone terrace with open sky.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/imdugud-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-4df23599-494f-4eb1-9cb2-f767174cd6ce.png",
+      "original": "sky-step-v1.png",
+      "asset": "techniques/1012-sky-step-v1.webp"
+    },
+    {
+      "id": 1013,
+      "slug": "wing-shelter",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Imdugud, the same golden lion-headed eagle martial artist with golden mane and muzzle, dark slate-blue feathered body, TWO wing-arms, golden eagle talon feet, cream martial wrap and golden sash. MOVE: WING SHELTER. ACTION AND SETTING: A compact protective crouch behind TWO broad wing-arms crossed like a feathered shield, lion head peering above the guard, wind and small sand flecks sliding around it. Temple terrace.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/imdugud-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-80b16b3d-0664-4ad3-81b0-2d3dec36aa32.png",
+      "original": "wing-shelter-v1.png",
+      "asset": "techniques/1013-wing-shelter-v1.webp"
+    },
+    {
+      "id": 1014,
+      "slug": "rainward-guard",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Imdugud, the same golden lion-headed eagle martial artist with golden mane and muzzle, dark slate-blue feathered body, TWO wing-arms, golden eagle talon feet, cream martial wrap and golden sash. MOVE: RAINWARD GUARD. ACTION AND SETTING: A resolute wide stance with one wing-arm held diagonally overhead to turn aside slanting rain and other wing-fist ready near chest, determined lion face. A few stylized rain slashes and sandstone terrace.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/imdugud-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-c7fba10b-14ba-43b8-8288-67048f73dae1.png",
+      "original": "rainward-guard-v1.png",
+      "asset": "techniques/1014-rainward-guard-v1.webp"
+    },
+    {
+      "id": 1015,
+      "slug": "thunder-descent",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Imdugud, the same golden lion-headed eagle martial artist with golden mane and muzzle, dark slate-blue feathered body, TWO wing-arms, golden eagle talon feet, cream martial wrap and golden sash. MOVE: THUNDER DESCENT. ACTION AND SETTING: A powerful descending overhead wing-fist hammer strike from a short leap, bent legs and tilted torso communicating downward momentum, one clean gold lightning-shaped impact streak near stone ground. Sumerian temple terrace.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/imdugud-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-238f3499-f0e9-43ac-a64a-700f5aae1286.png",
+      "original": "thunder-descent-v1.png",
+      "asset": "techniques/1015-thunder-descent-v1.webp"
+    },
+    {
+      "id": 1020,
+      "slug": "cedar-hand",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Huwawa, the same orange-skinned broad guardian with mask-like ridged orange face, large hooked nose, dark beard, swept-back cedar-green hair, green sleeveless tunic, golden sash, brown pants, bare orange feet. MOVE: CEDAR HAND. ACTION AND SETTING: A short grounded forward open-palm strike, green sleeve and gold sash trailing, rear fist guarding ribs, a few cedar needles swept forward in the palm's wake. Sunlit cedar grove training clearing.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/huwawa-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-87582f23-6287-497c-a61c-13cb36a2c8a4.png",
+      "original": "cedar-hand-v1.png",
+      "asset": "techniques/1020-cedar-hand-v1.webp"
+    },
+    {
+      "id": 1021,
+      "slug": "rooted-grip",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Huwawa, the same orange-skinned broad guardian with mask-like ridged orange face, large hooked nose, dark beard, swept-back cedar-green hair, green sleeveless tunic, golden sash, brown pants, bare orange feet. MOVE: ROOTED GRIP. ACTION AND SETTING: A low grappling stance with TWO open hands gripping the ends of one thick training rope, twisting it across the body, feet planted like roots, cedar needles underfoot. Cedar grove.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/huwawa-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-fc9c2a46-fa15-446d-ad25-b7c07047af63.png",
+      "original": "rooted-grip-v1.png",
+      "asset": "techniques/1021-rooted-grip-v1.webp"
+    },
+    {
+      "id": 1022,
+      "slug": "forest-turn",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Huwawa, the same orange-skinned broad guardian with mask-like ridged orange face, large hooked nose, dark beard, swept-back cedar-green hair, green sleeveless tunic, golden sash, brown pants, bare orange feet. MOVE: FOREST TURN. ACTION AND SETTING: A deep evasive turning stance, one shoulder rotated away and one open hand sweeping past his flank, robe and cedar leaves trace the curved pivot, broad bare feet near ground. Cedar grove clearing.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/huwawa-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-fbb42bba-56aa-4519-8868-1bf7989150d8.png",
+      "original": "forest-turn-v1.png",
+      "asset": "techniques/1022-forest-turn-v1.webp"
+    },
+    {
+      "id": 1023,
+      "slug": "sevenfold-guard",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Huwawa, the same orange-skinned broad guardian with mask-like ridged orange face, large hooked nose, dark beard, swept-back cedar-green hair, green sleeveless tunic, golden sash, brown pants, bare orange feet. MOVE: SEVENFOLD GUARD. ACTION AND SETTING: An impenetrable rooted guard with exactly TWO arms, BOTH forearms crossed before chest, exactly seven translucent green curved shield bands arranged concentrically BEHIND his silhouette, protecting but not hiding his expressive ridged face. Warm cedar grove light.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/huwawa-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-fbb40eaa-f7ed-45eb-8a20-fbbbcb619923.png",
+      "original": "sevenfold-guard-v1.png",
+      "asset": "techniques/1023-sevenfold-guard-v1.webp"
+    },
+    {
+      "id": 1024,
+      "slug": "breath-of-cedar",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Huwawa, the same orange-skinned broad guardian with mask-like ridged orange face, large hooked nose, dark beard, swept-back cedar-green hair, green sleeveless tunic, golden sash, brown pants, bare orange feet. MOVE: BREATH OF CEDAR. ACTION AND SETTING: A calm measured counter-palm from a half-crouch, one open hand reaching forward and other hand drawing toward chest as he exhales a small soft green spiral with floating cedar needles, suggesting measured recovery. Quiet cedar grove.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/huwawa-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-5d082f9a-b40e-4f34-aeb6-3e7f8d2f6bc7.png",
+      "original": "breath-of-cedar-v1.png",
+      "asset": "techniques/1024-breath-of-cedar-v1.webp"
+    },
+    {
+      "id": 1025,
+      "slug": "guardians-rebuke",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Huwawa, the same orange-skinned broad guardian with mask-like ridged orange face, large hooked nose, dark beard, swept-back cedar-green hair, green sleeveless tunic, golden sash, brown pants, bare orange feet. MOVE: GUARDIANS REBUKE. ACTION AND SETTING: A strong defensive low stance, ONE heavy forearm angled up to deflect and the other fist chambered, stern ridged face, a curved green shock arc and loose needles mark the stopped force. Ancient cedar trunks.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/huwawa-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-caddf454-0e93-405f-8557-a3d50e6de48e.png",
+      "original": "guardians-rebuke-v1.png",
+      "asset": "techniques/1025-guardians-rebuke-v1.webp"
+    },
+    {
+      "id": 1030,
+      "slug": "heavens-horn",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Bull of Heaven, the same powerful upright blue bull martial artist with two large curved GOLD horns, cream muzzle, cream sleeveless crossover robe, gold belt with white star, dark cloven hooves and blue tufted tail. MOVE: HEAVENS HORN. ACTION AND SETTING: An explosive rising horn-and-shoulder uppercut, blue bull torso twisting upward, gold horns tracing a bright curved arc, one fist tucked in guard, robe swept sideways. Sandstone temple courtyard under blue sky.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/bull-of-heaven-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-e34f4c97-b0de-4b8c-996e-de703364526c.png",
+      "original": "heavens-horn-v1.png",
+      "asset": "techniques/1030-heavens-horn-v1.webp"
+    },
+    {
+      "id": 1031,
+      "slug": "gatebreaker",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Bull of Heaven, the same powerful upright blue bull martial artist with two large curved GOLD horns, cream muzzle, cream sleeveless crossover robe, gold belt with white star, dark cloven hooves and blue tufted tail. MOVE: GATEBREAKER. ACTION AND SETTING: A committed forward shoulder tackle into a freestanding wooden padded training post, head lowered with gold horns kept clear of the post, forward driving hooves, dust at rear hoof. Temple gate training court; no destruction or gore.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/bull-of-heaven-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-5231ee2c-46f3-4d40-8b6f-947f8ea76dca.png",
+      "original": "gatebreaker-v1.png",
+      "asset": "techniques/1031-gatebreaker-v1.webp"
+    },
+    {
+      "id": 1032,
+      "slug": "starbound-step",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Bull of Heaven, the same powerful upright blue bull martial artist with two large curved GOLD horns, cream muzzle, cream sleeveless crossover robe, gold belt with white star, dark cloven hooves and blue tufted tail. MOVE: STARBOUND STEP. ACTION AND SETTING: A quick diagonal sidestep on cloven hooves, robe and tufted tail swinging opposite the movement, compact hands guarding, golden star-shaped motion flecks along the footwork arc. Sunlit Sumerian temple courtyard.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/bull-of-heaven-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-e461107b-a5ec-4f7b-a629-f69fd9158b8b.png",
+      "original": "starbound-step-v1.png",
+      "asset": "techniques/1032-starbound-step-v1.webp"
+    },
+    {
+      "id": 1033,
+      "slug": "sacred-mantle",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Bull of Heaven, the same powerful upright blue bull martial artist with two large curved GOLD horns, cream muzzle, cream sleeveless crossover robe, gold belt with white star, dark cloven hooves and blue tufted tail. MOVE: SACRED MANTLE. ACTION AND SETTING: A braced cross-body elbow strike while cream robe fans around torso like a protective mantle, other fist shielding face, blue muscular arms prominent, small sweeping gold arc echoing the robe. Sandstone temple court.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/bull-of-heaven-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-69ddf9ba-5cd0-474f-b9a1-a287e8cd03f3.png",
+      "original": "sacred-mantle-v1.png",
+      "asset": "techniques/1033-sacred-mantle-v1.webp"
+    },
+    {
+      "id": 1034,
+      "slug": "skyward-guard",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Bull of Heaven, the same powerful upright blue bull martial artist with two large curved GOLD horns, cream muzzle, cream sleeveless crossover robe, gold belt with white star, dark cloven hooves and blue tufted tail. MOVE: SKYWARD GUARD. ACTION AND SETTING: A sharp upward palm-and-forearm deflection, one muscular blue arm angled above the head between gold horns and the other fist guarding waist, gold wind arc directed skyward. Temple rooftop courtyard.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/bull-of-heaven-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-72c363c2-c41c-4b55-9be2-d6e3451488f2.png",
+      "original": "skyward-guard-v1.png",
+      "asset": "techniques/1034-skyward-guard-v1.webp"
+    },
+    {
+      "id": 1035,
+      "slug": "horizon-charge",
+      "prompt": "Use case: illustration-story. Asset: ONE standalone wide landscape trading-card move illustration for DFGSim. Input image 1 = exact champion identity and cartoon style reference (NOT pose); input image 2 = approved companion card for scene/rendering consistency. Character: Bull of Heaven, the same powerful upright blue bull martial artist with two large curved GOLD horns, cream muzzle, cream sleeveless crossover robe, gold belt with white star, dark cloven hooves and blue tufted tail. MOVE: HORIZON CHARGE. ACTION AND SETTING: A thunderous low forward rushing punch, blue bull head lowered but face visible in three-quarter profile, gold horns sweeping back, ONE fist driving ahead and other tucked, powerful cloven hooves launching off sandstone, dust and a broad golden crescent trailing the charge. Temple court at golden horizon.. Match the character reference's approachable clean cartoon: thick near-black contour lines, broad simple shapes, flat color with restrained two-tone cel shading. Background simplified warm adventure cartoon, subordinate to the move. NEW distinct dynamic three-quarter action composition, character large and readable in central 75 percent, action also legible in a shallow landscape card-art crop. Exactly two arms and two legs, preserve species, costume, face and proportions. Landscape 3:2, fully illustrated opaque scene. No card frame, no text, no letters, no title, no border, no watermark, no collage, no extra limbs, no photorealism, no glossy 3D, no detailed skin/fur rendering.",
+      "references": [
+        "C:/xampp/htdocs/TCGEngine/DFGSim/roguelike/assets/sumerian/bull-of-heaven-v1.png",
+        "C:/xampp/htdocs/TCGEngine/DFGSim/adventure/assets/reed-step-v1.png"
+      ],
+      "source": "C:\\Users\\maxim\\.codex\\generated_images\\01a16985-d57e-7dd1-86e8-2df72b77f7a6\\exec-9a68ece3-5c2c-4de7-887b-0703e44ff8ea.png",
+      "original": "horizon-charge-v1.png",
+      "asset": "techniques/1035-horizon-charge-v1.webp"
+    }
+  ]
+}

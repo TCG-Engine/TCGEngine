@@ -1117,7 +1117,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* The Force token is rendered INSIDE the base card (top-right corner) by the
        core Card() renderer, driven by the base's HasForce virtual — same path as the
-       Epic-Action-Used token. See Core/UILibraries20261001.js. */
+       Epic-Action-Used token. See Core/UILibraries20261023.js. */
 
     /* ── Counter badges below the frame animations ───────────────────────────────
        The shared CreateCountersHTML hardcodes z-index:1100 on every counter badge,
@@ -1217,7 +1217,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* The top-deck search popup centres on the BOARD too (owner 2026-09-28). Same sidebar correction as
        the YES/NO panel above, but it keeps its VERTICAL centring: it shows card art at 180px and has no
-       room to sit above the hand band. Its minimise control (Core/UILibraries20261001.js) is what answers
+       room to sit above the hand band. Its minimise control (Core/UILibraries20261023.js) is what answers
        "let me read the board first" here, rather than moving it out of the way permanently.
        The overlay stays flex-centred; only the box is shifted, so nothing about its layout changes. */
     #topdecksearch-panel > .topdecksearch-box {
@@ -1526,6 +1526,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     }
     .swu-round-phase-row .swu-phase-line { padding: 0; border-bottom: 0; }
     .swu-round-inline { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+    /* Twin Suns house rules chip — pushed to the row's right end. Its list spans the ROW (the row is the positioned
+       ancestor, not the chip), because the sidebar is narrow and clips anything that pokes out of its left edge. */
+    .swu-round-phase-row { position: relative; }
+    .swu-hr-wrap { margin-left: auto; display: inline-flex; }
+    .swu-round-phase-row .swu-hr-pop { left: 10px; right: 10px; min-width: 0; white-space: normal; }
     #swuUndoBtn {
         display: none;
         font: 600 11px/1 var(--swu-font-label);
@@ -1982,6 +1987,10 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
             onclick="event.stopPropagation(); window.swuTakeBlastCounter();"><span>Blast</span></button>
     <button id="swuPlanBtn" class="swu-init-pass-btn swu-take-counter" title="Take the Plan counter (draw 1, bottom 1)" hidden
             onclick="event.stopPropagation(); window.swuTakePlanCounter();"><span>Plan</span></button>
+    <!-- Twin Suns HOUSE RULE 4th counter (Take Credit / Take Restore) — updateInitiative() labels it from fourthKind and
+         shows it only when fourthAvailable; absent entirely from games without the rule. -->
+    <button id="swuFourthBtn" class="swu-init-pass-btn swu-take-counter" hidden
+            onclick="event.stopPropagation(); window.swuTakeFourthCounter();"><span>Credit</span></button>
     <?php if (function_exists('SWUGameMode') && SWUGameMode() === 'hotseat'): ?>
     <!-- Hotseat: hand the device to the other player. Reloads this page as the other seat
          (shared authKey). Mirrors the test editor's swapPlayerBtn. -->
@@ -2214,6 +2223,10 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     <div class="swu-round-phase-row">
         <span class="swu-round-inline"><span class="swu-round-label">Round</span> <span id="swuRoundNumber">—</span></span>
         <div id="swuPhaseLine" class="swu-phase-line"><span class="swu-phase-dot"></span><span id="swuPhaseName">—</span></div>
+        <!-- Twin Suns house rules: shown only when the game has any (myActionsData.houseRules); tap/click lists them. -->
+        <span class="swu-hr-wrap" hidden><button id="swuHouseRulesChip" class="swu-hr-chip" type="button" hidden
+            aria-haspopup="true" aria-expanded="false" onclick="event.stopPropagation(); window.swuToggleHouseRules();">House Rules</button>
+            <span id="swuHouseRulesPop" class="swu-hr-pop" role="tooltip" hidden></span></span>
     </div>
     <div id="swuLastPlayedSection">
         <div class="swu-sidebar-section-label">Last Played</div>

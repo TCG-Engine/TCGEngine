@@ -1,0 +1,1169 @@
+{
+  "command": "Existing RunIntegrationTests.php --root=FaBSim --test=<each listed slug>",
+  "scope": "TARGETED_SUBSET_ONLY_NOT_A_FULL_CORPUS_RUN",
+  "runtime_sha256": "8ef84003d127806df61aa7bb0eb577df5783846f088fcb063d3fcec5b9a83f87",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T01:13:46.775886+00:00",
+  "canonical_inventory_at_capture": 1541,
+  "fixtures": [
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-barrier-while-defending-real-kano-instant",
+      "fixture_sha256": "8594b5f4d9c79407f654a2f13ccbc942813871354ae07191cf54b07096ab85e9",
+      "passed": true,
+      "result": "[PASS] Aetherstorm Wellingtons / intrinsic closure / barrier-while-defending-real-kano-instant"
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-two-sources-second-listed-first",
+      "fixture_sha256": "9b9e9bf1cc9e97c34390bef76d1409201a3fdfd178e70051a66c1ff48709482e",
+      "passed": true,
+      "result": "[PASS] Aetherstorm Wellingtons / intrinsic closure / two-sources-second-listed-first"
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-missing-defense-real-block-rejected",
+      "fixture_sha256": "234eac60f33f4335347f3d1911f6ee04b16cfee8d69bb6f058a87bef21694ea7",
+      "passed": true,
+      "result": "[PASS] Arcane Lantern / intrinsic closure / missing-defense-real-block-rejected"
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-static-no-manual-activation-own-main",
+      "fixture_sha256": "eea5372bdc253554e73d16e7231d0e7addaf3b1dba3a6f9dfdfc7bc1c596e1a9",
+      "passed": true,
+      "result": "[PASS] Arcane Lantern / intrinsic closure / static-no-manual-activation-own-main"
+    },
+    {
+      "slug": "card-autumns-touch-red-baseline-arsenal-faceup-floating",
+      "fixture_sha256": "8fa736351c3cde987e839bbf35a3f65d42e29b919adef63d941fccd3a82ed944",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / ordinary baseline / arsenal-faceup-floating"
+    },
+    {
+      "slug": "card-brutal-assault-red-baseline-hand-red-then-red-pitch",
+      "fixture_sha256": "cfe9bcbd18a15d1c2fb08dcb444a1263db1def6cc6ab05c2709e7b058bcfb16e",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / ordinary baseline / hand-red-then-red-pitch"
+    },
+    {
+      "slug": "card-critical-strike-blue-baseline-defends-exactly-3-partial-damage",
+      "fixture_sha256": "b2af60f479c53557827ac5b17a7fe9ab545f044389639eae1475892c87a0b47c",
+      "passed": true,
+      "result": "[PASS] Critical Strike / ordinary baseline / defends-exactly-3-partial-damage"
+    },
+    {
+      "slug": "card-critical-strike-red-baseline-hand-red-pitch-exact",
+      "fixture_sha256": "ec2365cb6d8197456047a954e9182486b9833312330390c2f09a1b843227d117",
+      "passed": true,
+      "result": "[PASS] Critical Strike / ordinary baseline / hand-red-pitch-exact"
+    },
+    {
+      "slug": "card-cut-deep-red-attack-action-excluded-and-preserves-buff",
+      "fixture_sha256": "2a34d56a8aee837b6b524c19a77e038adc6bf032d15349125bd44210af76778b",
+      "passed": true,
+      "result": "[PASS] Cut Deep / attack-action-excluded-and-preserves-buff"
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-hand-floating-exact-at-zero-ap",
+      "fixture_sha256": "36c0fbe055c83e11c96556fcccbf44177b4e9d5ab3c6e74da60f5f4114a3b38c",
+      "passed": true,
+      "result": "[PASS] Evasive Leap / flat-defense-reaction / hand-floating-exact-at-zero-ap"
+    },
+    {
+      "slug": "card-felling-swing-red-blue-pitch-payments",
+      "fixture_sha256": "440f95dd38dac35f4ac43c523c9198c0d051b0a4802aec977a7995e2d4cb7ed4",
+      "passed": true,
+      "result": "[PASS] Felling Swing / blue-pitch-payments"
+    },
+    {
+      "slug": "card-heavens-claws-yellow-baseline-arsenal-facedown-floating",
+      "fixture_sha256": "e3e474b03d60ba17f28e85dc3fca77d7a5f20faa76b1d755b906dedf69a3dca1",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / ordinary baseline / arsenal-facedown-floating"
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-attacker-cannot-defend-own-attack",
+      "fixture_sha256": "fddc4b38a58c5682cb836ba16febb6fa3468ce614a3903b2be1d77f85d3be875",
+      "passed": true,
+      "result": "[PASS] Ironrot Gauntlet / Blade Break attacker-cannot-defend-own-attack"
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-defend-alone-three-damage",
+      "fixture_sha256": "365f6c12c40a274841ace20a88957eec5d278ebf5382eff947bffe626dc69ea8",
+      "passed": true,
+      "result": "[PASS] Ironrot Gauntlet / Blade Break defend-alone-three-damage"
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-destroyed-equipment-unavailable-next-chain",
+      "fixture_sha256": "394bcc8f79beb93d6f3e06bc4a55b72327c7c4fa06d85f6755218ee493f9bf85",
+      "passed": true,
+      "result": "[PASS] Ironrot Gauntlet / Blade Break destroyed-equipment-unavailable-next-chain"
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-hand-first-equipment-second-no-hit",
+      "fixture_sha256": "7ebcdce2aecdac737eb49f98576687fac11b172b618435c711242dc80a91055b",
+      "passed": true,
+      "result": "[PASS] Ironrot Gauntlet / Blade Break hand-first-equipment-second-no-hit"
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-not-defending-survives-close",
+      "fixture_sha256": "0ff5ea52c6806e01f4df009a6d2aadb548ed846cb1a6787f287c8a9dae9172d9",
+      "passed": true,
+      "result": "[PASS] Ironrot Gauntlet / Blade Break not-defending-survives-close"
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-prior-link-equipment-cannot-defend-again",
+      "fixture_sha256": "0eae2150c89420e1bbaca9db2b036525a71ba18f5c3dca5b9cfd035bac6259aa",
+      "passed": true,
+      "result": "[PASS] Ironrot Gauntlet / Blade Break prior-link-equipment-cannot-defend-again"
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-attacker-cannot-defend-own-attack",
+      "fixture_sha256": "63e8eac4e9371f2d3d258633e96c9955dc7836f1b46351eccc4da2d9caab625a",
+      "passed": true,
+      "result": "[PASS] Ironrot Helm / Blade Break attacker-cannot-defend-own-attack"
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-defend-alone-three-damage",
+      "fixture_sha256": "f402444908aebd31a72da01e53786d6301cc1cf358f082bd4b33d5ada630c336",
+      "passed": true,
+      "result": "[PASS] Ironrot Helm / Blade Break defend-alone-three-damage"
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-destroyed-equipment-unavailable-next-chain",
+      "fixture_sha256": "47ed4d0fdabe36d5ba1ec623c39c40a1b2bd78bfb588cf55479effb08441ba2f",
+      "passed": true,
+      "result": "[PASS] Ironrot Helm / Blade Break destroyed-equipment-unavailable-next-chain"
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-fully-blocked-no-hit-still-destroys",
+      "fixture_sha256": "ace1f48705dc9252549d904540aff1b61f6238a316d1ecad8cd0aac32bbc837a",
+      "passed": true,
+      "result": "[PASS] Ironrot Helm / Blade Break fully-blocked-no-hit-still-destroys"
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-hand-first-equipment-second-no-hit",
+      "fixture_sha256": "720e558238db8dcd91ca52de10197d71a9a6b30c89f2e3ccaea5d138f0d5f38e",
+      "passed": true,
+      "result": "[PASS] Ironrot Helm / Blade Break hand-first-equipment-second-no-hit"
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-multiple-distinct-slots-each-destroys",
+      "fixture_sha256": "7cc5a2107ba529dbb3cc43d4b6c7609a91f11f55671ff24a51dc841ff83efc24",
+      "passed": true,
+      "result": "[PASS] Ironrot Helm / Blade Break multiple-distinct-slots-each-destroys"
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-not-defending-survives-close",
+      "fixture_sha256": "982aeca726e9eaf7fe7ce996a0064b7b764b19bd5ff0961b08bdcdf95e590e9f",
+      "passed": true,
+      "result": "[PASS] Ironrot Helm / Blade Break not-defending-survives-close"
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-prior-link-equipment-cannot-defend-again",
+      "fixture_sha256": "966967bd44278807fcef6271ca3352f8020676146ce7e88f3d1d88e58bf7f767",
+      "passed": true,
+      "result": "[PASS] Ironrot Helm / Blade Break prior-link-equipment-cannot-defend-again"
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-attacker-cannot-defend-own-attack",
+      "fixture_sha256": "8afe7c10615ca77fc541b4847f6d19fe36f8babbc470b9a82ef725e0c065d7e3",
+      "passed": true,
+      "result": "[PASS] Ironrot Legs / Blade Break attacker-cannot-defend-own-attack"
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-defend-alone-three-damage",
+      "fixture_sha256": "4dcb9ee3d6d62f59b5c6a9e15f24f66bf122c54f1f244656abb607ba8a1fbb7e",
+      "passed": true,
+      "result": "[PASS] Ironrot Legs / Blade Break defend-alone-three-damage"
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-destroyed-equipment-unavailable-next-chain",
+      "fixture_sha256": "5c5d45b6d5f823b9a95f5b34079d816f42e73fb83d1733d56a77b729a807baf9",
+      "passed": true,
+      "result": "[PASS] Ironrot Legs / Blade Break destroyed-equipment-unavailable-next-chain"
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-fully-blocked-no-hit-still-destroys",
+      "fixture_sha256": "709217b7d0ad60813cb9efdfcc7e042fdfdf4fc70bb435f64d544be4967a6de3",
+      "passed": true,
+      "result": "[PASS] Ironrot Legs / Blade Break fully-blocked-no-hit-still-destroys"
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-hand-first-equipment-second-no-hit",
+      "fixture_sha256": "ea11b07c36d471b2d8a7872e29b7118f9fbfb2cf8c3273064172e9faa5197b61",
+      "passed": true,
+      "result": "[PASS] Ironrot Legs / Blade Break hand-first-equipment-second-no-hit"
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-not-defending-survives-close",
+      "fixture_sha256": "e833a0b7c48541db654cbc812a8a7581b2f77ce87f8b59f9183ca1c93a4bae0c",
+      "passed": true,
+      "result": "[PASS] Ironrot Legs / Blade Break not-defending-survives-close"
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-prior-link-equipment-cannot-defend-again",
+      "fixture_sha256": "1fbdfa090786bf6f299a40012b48648b51c296f98422775f0ae81c624e1fe53c",
+      "passed": true,
+      "result": "[PASS] Ironrot Legs / Blade Break prior-link-equipment-cannot-defend-again"
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-attacker-cannot-defend-own-attack",
+      "fixture_sha256": "246fe54605e07de199100fc6c29a28fdc21d6bdc55acfba7f3da549b743aa011",
+      "passed": true,
+      "result": "[PASS] Ironrot Plate / Blade Break attacker-cannot-defend-own-attack"
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-defend-alone-three-damage",
+      "fixture_sha256": "b71c40e8b8eace9256ce365b29b29e722dd189b21153442601be5e17e7f6842a",
+      "passed": true,
+      "result": "[PASS] Ironrot Plate / Blade Break defend-alone-three-damage"
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-destroyed-equipment-unavailable-next-chain",
+      "fixture_sha256": "a364a0e42b647656a3ea758969757dc12ec4d049ac42e7b6a8f528a0cec5dc05",
+      "passed": true,
+      "result": "[PASS] Ironrot Plate / Blade Break destroyed-equipment-unavailable-next-chain"
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-fully-blocked-no-hit-still-destroys",
+      "fixture_sha256": "78bb63921d4a0a3fbc4e7fa19b8d2359ff44375c2aa56cf1f439153680041b63",
+      "passed": true,
+      "result": "[PASS] Ironrot Plate / Blade Break fully-blocked-no-hit-still-destroys"
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-hand-first-equipment-second-no-hit",
+      "fixture_sha256": "34274bd85cc2f6978102f886ef657203bb3963557ee6e432005cba7c4df4ba99",
+      "passed": true,
+      "result": "[PASS] Ironrot Plate / Blade Break hand-first-equipment-second-no-hit"
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-not-defending-survives-close",
+      "fixture_sha256": "222e75358c21d746f95c1f440eb0089024a076b86c76fbc1eeb8522420a08387",
+      "passed": true,
+      "result": "[PASS] Ironrot Plate / Blade Break not-defending-survives-close"
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-prior-link-equipment-cannot-defend-again",
+      "fixture_sha256": "c7de6467034c1282efa3284087dbed5d1552aaa10517003e1def1886a4d8e528",
+      "passed": true,
+      "result": "[PASS] Ironrot Plate / Blade Break prior-link-equipment-cannot-defend-again"
+    },
+    {
+      "slug": "card-nullrune-gloves-intrinsic-barrier-while-defending-real-kano-instant",
+      "fixture_sha256": "ff16094165d03d60e4c844e86da32618a83d2c0c1ebf47a91fd91c69233ea395",
+      "passed": true,
+      "result": "[PASS] Nullrune Gloves / intrinsic closure / barrier-while-defending-real-kano-instant"
+    },
+    {
+      "slug": "card-raging-onslaught-red-baseline-hand-red-then-yellow-pitch",
+      "fixture_sha256": "3f5fb1dd5b72fa8a60cdb3173c0dcd4ea39a4317bb42b178bfdbe94703c9c330",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / ordinary baseline / hand-red-then-yellow-pitch"
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-attacker-cannot-defend-own-attack",
+      "fixture_sha256": "dedcd2ee236423d203e1f584db1ed5ae12bbd7fc0b771816fd56b279aaca155e",
+      "passed": true,
+      "result": "[PASS] Rotten Old Buckler / Blade Break attacker-cannot-defend-own-attack"
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-defend-alone-three-damage",
+      "fixture_sha256": "6ce26206c8047a3ddcab5b9f219b9fef82f82182908b058371f1c1d10d03bfd7",
+      "passed": true,
+      "result": "[PASS] Rotten Old Buckler / Blade Break defend-alone-three-damage"
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-destroyed-equipment-unavailable-next-chain",
+      "fixture_sha256": "a9c88947d1265c05dc7ab74754b195512939d0ea9c47de368171785d1446d4ec",
+      "passed": true,
+      "result": "[PASS] Rotten Old Buckler / Blade Break destroyed-equipment-unavailable-next-chain"
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-hand-first-equipment-second-no-hit",
+      "fixture_sha256": "1878e5b254c543bb638e00e87f9bed23d3a5d883c10eaf400d83fcaada485e90",
+      "passed": true,
+      "result": "[PASS] Rotten Old Buckler / Blade Break hand-first-equipment-second-no-hit"
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-multiple-distinct-slots-each-destroys",
+      "fixture_sha256": "eee22c0e1a3bd273d7dc94864953f13be6ffca8cfba055dfcfa3c1f1e35ce945",
+      "passed": true,
+      "result": "[PASS] Rotten Old Buckler / Blade Break multiple-distinct-slots-each-destroys"
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-not-defending-survives-close",
+      "fixture_sha256": "25899145121ded7cb0e148b521170e239e2fb6a1d9e3026feb16b9afac01295d",
+      "passed": true,
+      "result": "[PASS] Rotten Old Buckler / Blade Break not-defending-survives-close"
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-prior-link-equipment-cannot-defend-again",
+      "fixture_sha256": "19a0fd329993ecf3f65d146fafe0389b4eafd6182b82e816af61cfd3bb2ac133",
+      "passed": true,
+      "result": "[PASS] Rotten Old Buckler / Blade Break prior-link-equipment-cannot-defend-again"
+    },
+    {
+      "slug": "card-rusty-harpoon-blue-baseline-arsenal-arrow-rejected-without-bow",
+      "fixture_sha256": "02827498ff7738ece01b64aace27061352de2bcb9efc5196e8a27dbc5005fb82",
+      "passed": true,
+      "result": "[PASS] Rusty Harpoon / ordinary baseline / arsenal-arrow-rejected-without-bow"
+    },
+    {
+      "slug": "card-rusty-harpoon-blue-baseline-arsenal-facedown-floating",
+      "fixture_sha256": "5aaabc9c379dfea2a3fa9bc597ba4b0550031084056116df5522be40c4d2604c",
+      "passed": true,
+      "result": "[PASS] Rusty Harpoon / ordinary baseline / arsenal-facedown-floating"
+    },
+    {
+      "slug": "card-rusty-harpoon-blue-baseline-hand-arrow-rejected-with-bow",
+      "fixture_sha256": "5667e5d252882ec43521cdeb9a0da07e55b5630b9aee73a1d0f404c91747dd42",
+      "passed": true,
+      "result": "[PASS] Rusty Harpoon / ordinary baseline / hand-arrow-rejected-with-bow"
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-hand-blue-pitch-singleton",
+      "fixture_sha256": "9439bd57bbebb7d8f73b1268de9739f56fd6fb262177bf2f605a17d425ff9694",
+      "passed": true,
+      "result": "[PASS] Savage Swing / hand-blue-pitch-singleton"
+    },
+    {
+      "slug": "card-sharpen-steel-red-opponent-response-before-buff-resolves",
+      "fixture_sha256": "e739e7d1a1d41520ad7edcadaf64bc3da5b216bf1ca4d94cc8e9ab4f74354244",
+      "passed": true,
+      "result": "[PASS] Sharpen Steel / opponent-response-before-buff-resolves"
+    },
+    {
+      "slug": "card-smash-with-big-tree-blue-baseline-no-defense-value-cannot-declare-block",
+      "fixture_sha256": "3debc3ce93e5241f1bb515fdf20c09162df8a8bf92b12d947451b8e4fe93ac9b",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / ordinary baseline / no-defense-value-cannot-declare-block"
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-attacker-cannot-defend-own-attack",
+      "fixture_sha256": "5d29693234b0ada40bbee06947979b55f6bfb7dda50cce17968f03cfee49989c",
+      "passed": true,
+      "result": "[PASS] Teklo Base Arms / Blade Break attacker-cannot-defend-own-attack"
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-destroyed-equipment-unavailable-next-chain",
+      "fixture_sha256": "e3c225d343857ad09d0a6b3d5c87bcb4ac7b957d9573fb74a1feebe83100ead3",
+      "passed": true,
+      "result": "[PASS] Teklo Base Arms / Blade Break destroyed-equipment-unavailable-next-chain"
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-fully-blocked-no-hit-still-destroys",
+      "fixture_sha256": "a78d5c1b8fce6f1a67a8afe4df315503004bc09132ed986a3b76552134adeee8",
+      "passed": true,
+      "result": "[PASS] Teklo Base Arms / Blade Break fully-blocked-no-hit-still-destroys"
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-hand-first-equipment-second-no-hit",
+      "fixture_sha256": "a6400d235993fa9b71f19dbea0b18a0fa34f9a5bb6a219424150ffa8d6eae554",
+      "passed": true,
+      "result": "[PASS] Teklo Base Arms / Blade Break hand-first-equipment-second-no-hit"
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-not-defending-survives-close",
+      "fixture_sha256": "898fe0f4030a23913ccac3b89a73d484e3ad213d79b55f2999c2613e430301d2",
+      "passed": true,
+      "result": "[PASS] Teklo Base Arms / Blade Break not-defending-survives-close"
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-prior-link-equipment-cannot-defend-again",
+      "fixture_sha256": "0f4600d3e00d6c5de154e8ffe22c20a0327eb5ba339d12a4c6df7ce6b963fc2b",
+      "passed": true,
+      "result": "[PASS] Teklo Base Arms / Blade Break prior-link-equipment-cannot-defend-again"
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-attacker-cannot-defend-own-attack",
+      "fixture_sha256": "75decf7b9775b05dab8dafec3bd6737ba71fd2d66b98f902d59ddbb7bbca577a",
+      "passed": true,
+      "result": "[PASS] Teklo Base Chest / Blade Break attacker-cannot-defend-own-attack"
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-defend-alone-three-damage",
+      "fixture_sha256": "059d05992351e4516b3e58279115098c69630c0b759823278b64ab2f1e20ff23",
+      "passed": true,
+      "result": "[PASS] Teklo Base Chest / Blade Break defend-alone-three-damage"
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-destroyed-equipment-unavailable-next-chain",
+      "fixture_sha256": "0c393a830bf5cc612befef0cd034ccbc9f0ae14eab5edeb6d54f31be9267cb64",
+      "passed": true,
+      "result": "[PASS] Teklo Base Chest / Blade Break destroyed-equipment-unavailable-next-chain"
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-fully-blocked-no-hit-still-destroys",
+      "fixture_sha256": "73f4c18ba8f60f5d88b16e9a9de49284bc4c43965713a33673e6a438910c9165",
+      "passed": true,
+      "result": "[PASS] Teklo Base Chest / Blade Break fully-blocked-no-hit-still-destroys"
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-hand-first-equipment-second-no-hit",
+      "fixture_sha256": "d7295a77fb088929772bd8fb5f887e21899d15ddf92f74f7dcdb4f5da88b37dd",
+      "passed": true,
+      "result": "[PASS] Teklo Base Chest / Blade Break hand-first-equipment-second-no-hit"
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-not-defending-survives-close",
+      "fixture_sha256": "23e5fdd397cd0e844271c854208cda2750f9f065fb978a2154fb0ff30cf32496",
+      "passed": true,
+      "result": "[PASS] Teklo Base Chest / Blade Break not-defending-survives-close"
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-prior-link-equipment-cannot-defend-again",
+      "fixture_sha256": "c912f8caeac335bc141f1fc0c028193879a99ed16a668495ce95dc3dc35741ca",
+      "passed": true,
+      "result": "[PASS] Teklo Base Chest / Blade Break prior-link-equipment-cannot-defend-again"
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-attacker-cannot-defend-own-attack",
+      "fixture_sha256": "3ec8fd3c8a66c5a88ec7282182ad83080af06289f9e9d5a0a39d34b886913106",
+      "passed": true,
+      "result": "[PASS] Teklo Base Head / Blade Break attacker-cannot-defend-own-attack"
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-defend-alone-three-damage",
+      "fixture_sha256": "e28bbe2652d196dced1b66282e5ef4381e874950e5ab5e8a284b54af17a21321",
+      "passed": true,
+      "result": "[PASS] Teklo Base Head / Blade Break defend-alone-three-damage"
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-destroyed-equipment-unavailable-next-chain",
+      "fixture_sha256": "b4323a7cd8e26dce9406969e6e9204dcf23c1eb5584d1f1ec54f65f7af23b2be",
+      "passed": true,
+      "result": "[PASS] Teklo Base Head / Blade Break destroyed-equipment-unavailable-next-chain"
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-fully-blocked-no-hit-still-destroys",
+      "fixture_sha256": "88c0821f04088c240462baa12132b541758dac33ff51163cdc5e4b42b527507b",
+      "passed": true,
+      "result": "[PASS] Teklo Base Head / Blade Break fully-blocked-no-hit-still-destroys"
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-hand-first-equipment-second-no-hit",
+      "fixture_sha256": "86563bb88e611eecbb32f3b99522cc98aeff87681b92bea321376c0a5ae16038",
+      "passed": true,
+      "result": "[PASS] Teklo Base Head / Blade Break hand-first-equipment-second-no-hit"
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-multiple-distinct-slots-each-destroys",
+      "fixture_sha256": "18b938e2a46725db05384d15d57272044a4c83163a0c55fb87f416feb6bdff5e",
+      "passed": true,
+      "result": "[PASS] Teklo Base Head / Blade Break multiple-distinct-slots-each-destroys"
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-not-defending-survives-close",
+      "fixture_sha256": "db80e563a94be9d1ee683a0633a1c36519eb27d8f8907628b28d29e50c8f9a30",
+      "passed": true,
+      "result": "[PASS] Teklo Base Head / Blade Break not-defending-survives-close"
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-prior-link-equipment-cannot-defend-again",
+      "fixture_sha256": "b63a1cb5150403fea063b49bec9a3f9fca3e93d1ce2094546cf0a644aeea6394",
+      "passed": true,
+      "result": "[PASS] Teklo Base Head / Blade Break prior-link-equipment-cannot-defend-again"
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-attacker-cannot-defend-own-attack",
+      "fixture_sha256": "dfcc9fca395d1506c3a43b22fc907d3ca61afe3c53435fdb8c6da68eaa45b56e",
+      "passed": true,
+      "result": "[PASS] Teklo Base Legs / Blade Break attacker-cannot-defend-own-attack"
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-defend-alone-three-damage",
+      "fixture_sha256": "541ff7cca533ca0faf0104ff8dbb8f20a32064d4d664b3e8e84dd58b6d976c72",
+      "passed": true,
+      "result": "[PASS] Teklo Base Legs / Blade Break defend-alone-three-damage"
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-destroyed-equipment-unavailable-next-chain",
+      "fixture_sha256": "15fe7b673f50c0ebf20065db34353de587288fce055f72e3f72e7c9ae6229029",
+      "passed": true,
+      "result": "[PASS] Teklo Base Legs / Blade Break destroyed-equipment-unavailable-next-chain"
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-fully-blocked-no-hit-still-destroys",
+      "fixture_sha256": "8867abc38c76b971f46223549e13c21e9a74dee6e5da44b69d20ccfcd5694950",
+      "passed": true,
+      "result": "[PASS] Teklo Base Legs / Blade Break fully-blocked-no-hit-still-destroys"
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-hand-first-equipment-second-no-hit",
+      "fixture_sha256": "2c1387143cea3fa1d34422d010e341a4f818ac19181b1247055406c957f5fa8c",
+      "passed": true,
+      "result": "[PASS] Teklo Base Legs / Blade Break hand-first-equipment-second-no-hit"
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-not-defending-survives-close",
+      "fixture_sha256": "4e3837ba25fc7d3cd10cfe1547a2e289f3a14b58b09ebeff05be16e1e5e67224",
+      "passed": true,
+      "result": "[PASS] Teklo Base Legs / Blade Break not-defending-survives-close"
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-prior-link-equipment-cannot-defend-again",
+      "fixture_sha256": "f1262511d86d24a6ad9110915ae4efe8055ce40c4e0b91a070822ae2dfcc0229",
+      "passed": true,
+      "result": "[PASS] Teklo Base Legs / Blade Break prior-link-equipment-cannot-defend-again"
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-blue-pitch-leaves-one-resource",
+      "fixture_sha256": "4a97e955ca4266148dfa9bbda2dcd981325d9bdb486ac291d716205b65c9040e",
+      "passed": true,
+      "result": "[PASS] Toughen Up / flat-defense-reaction / hand-blue-pitch-leaves-one-resource"
+    },
+    {
+      "slug": "card-winters-grasp-blue-baseline-hand-blue-pitch",
+      "fixture_sha256": "abc4794814db01b23449da08ec99f8c33e5c879dc47c1e9a231c198c4ecfefd9",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / ordinary baseline / hand-blue-pitch"
+    },
+    {
+      "slug": "card-winters-grasp-red-baseline-pitched-for-exact-1",
+      "fixture_sha256": "047192b89fffd8636ff075892ecc22c592966a03ccceda22da6467aff3f0a34d",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / ordinary baseline / pitched-for-exact-1"
+    },
+    {
+      "slug": "card-wounding-blow-red-baseline-hand-floating-exact",
+      "fixture_sha256": "f14752167a3ef34848058b79c2bf33e318ca3587963f021be7916b9509634f08",
+      "passed": true,
+      "result": "[PASS] Wounding Blow / ordinary baseline / hand-floating-exact"
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-two-red-pitches-before-singleton-discard",
+      "fixture_sha256": "431e7e5722cec401169c04eb55016ae9e6dbb50ab30e0c538d88ce754377e9c1",
+      "passed": true,
+      "result": "[PASS] Wrecker Romp / two-red-pitches-before-singleton-discard"
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-fully-blocked-still-pays-discard",
+      "fixture_sha256": "a483d998a21d94ca8d6b07d3145088e0bbd9bcf3d3f590d590a2cb1bd11b9998",
+      "passed": true,
+      "result": "[PASS] Wrecker Romp / fully-blocked-still-pays-discard"
+    }
+  ],
+  "per_fixture_native_commands": [
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-barrier-while-defending-real-kano-instant",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-aetherstorm-wellingtons-intrinsic-barrier-while-defending-real-kano-instant",
+      "returncode": 0,
+      "stdout": "[PASS] Aetherstorm Wellingtons / intrinsic closure / barrier-while-defending-real-kano-instant\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-two-sources-second-listed-first",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-aetherstorm-wellingtons-intrinsic-two-sources-second-listed-first",
+      "returncode": 0,
+      "stdout": "[PASS] Aetherstorm Wellingtons / intrinsic closure / two-sources-second-listed-first\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-missing-defense-real-block-rejected",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-arcane-lantern-intrinsic-missing-defense-real-block-rejected",
+      "returncode": 0,
+      "stdout": "[PASS] Arcane Lantern / intrinsic closure / missing-defense-real-block-rejected\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-static-no-manual-activation-own-main",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-arcane-lantern-intrinsic-static-no-manual-activation-own-main",
+      "returncode": 0,
+      "stdout": "[PASS] Arcane Lantern / intrinsic closure / static-no-manual-activation-own-main\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-autumns-touch-red-baseline-arsenal-faceup-floating",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-autumns-touch-red-baseline-arsenal-faceup-floating",
+      "returncode": 0,
+      "stdout": "[PASS] Autumn's Touch / ordinary baseline / arsenal-faceup-floating\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-brutal-assault-red-baseline-hand-red-then-red-pitch",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-brutal-assault-red-baseline-hand-red-then-red-pitch",
+      "returncode": 0,
+      "stdout": "[PASS] Brutal Assault / ordinary baseline / hand-red-then-red-pitch\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-critical-strike-blue-baseline-defends-exactly-3-partial-damage",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-critical-strike-blue-baseline-defends-exactly-3-partial-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Critical Strike / ordinary baseline / defends-exactly-3-partial-damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-critical-strike-red-baseline-hand-red-pitch-exact",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-critical-strike-red-baseline-hand-red-pitch-exact",
+      "returncode": 0,
+      "stdout": "[PASS] Critical Strike / ordinary baseline / hand-red-pitch-exact\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-cut-deep-red-attack-action-excluded-and-preserves-buff",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cut-deep-red-attack-action-excluded-and-preserves-buff",
+      "returncode": 0,
+      "stdout": "[PASS] Cut Deep / attack-action-excluded-and-preserves-buff\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-hand-floating-exact-at-zero-ap",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-evasive-leap-red-flat-dr-hand-floating-exact-at-zero-ap",
+      "returncode": 0,
+      "stdout": "[PASS] Evasive Leap / flat-defense-reaction / hand-floating-exact-at-zero-ap\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-felling-swing-red-blue-pitch-payments",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-felling-swing-red-blue-pitch-payments",
+      "returncode": 0,
+      "stdout": "[PASS] Felling Swing / blue-pitch-payments\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-heavens-claws-yellow-baseline-arsenal-facedown-floating",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-heavens-claws-yellow-baseline-arsenal-facedown-floating",
+      "returncode": 0,
+      "stdout": "[PASS] Heaven's Claws / ordinary baseline / arsenal-facedown-floating\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-attacker-cannot-defend-own-attack",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-gauntlet-blade-break-attacker-cannot-defend-own-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Gauntlet / Blade Break attacker-cannot-defend-own-attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-defend-alone-three-damage",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-gauntlet-blade-break-defend-alone-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Gauntlet / Blade Break defend-alone-three-damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-destroyed-equipment-unavailable-next-chain",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-gauntlet-blade-break-destroyed-equipment-unavailable-next-chain",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Gauntlet / Blade Break destroyed-equipment-unavailable-next-chain\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-hand-first-equipment-second-no-hit",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-gauntlet-blade-break-hand-first-equipment-second-no-hit",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Gauntlet / Blade Break hand-first-equipment-second-no-hit\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-not-defending-survives-close",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-gauntlet-blade-break-not-defending-survives-close",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Gauntlet / Blade Break not-defending-survives-close\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-prior-link-equipment-cannot-defend-again",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-gauntlet-blade-break-prior-link-equipment-cannot-defend-again",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Gauntlet / Blade Break prior-link-equipment-cannot-defend-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-attacker-cannot-defend-own-attack",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-helm-blade-break-attacker-cannot-defend-own-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Helm / Blade Break attacker-cannot-defend-own-attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-defend-alone-three-damage",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-helm-blade-break-defend-alone-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Helm / Blade Break defend-alone-three-damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-destroyed-equipment-unavailable-next-chain",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-helm-blade-break-destroyed-equipment-unavailable-next-chain",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Helm / Blade Break destroyed-equipment-unavailable-next-chain\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-fully-blocked-no-hit-still-destroys",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-helm-blade-break-fully-blocked-no-hit-still-destroys",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Helm / Blade Break fully-blocked-no-hit-still-destroys\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-hand-first-equipment-second-no-hit",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-helm-blade-break-hand-first-equipment-second-no-hit",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Helm / Blade Break hand-first-equipment-second-no-hit\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-multiple-distinct-slots-each-destroys",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-helm-blade-break-multiple-distinct-slots-each-destroys",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Helm / Blade Break multiple-distinct-slots-each-destroys\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-not-defending-survives-close",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-helm-blade-break-not-defending-survives-close",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Helm / Blade Break not-defending-survives-close\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-prior-link-equipment-cannot-defend-again",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-helm-blade-break-prior-link-equipment-cannot-defend-again",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Helm / Blade Break prior-link-equipment-cannot-defend-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-attacker-cannot-defend-own-attack",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-legs-blade-break-attacker-cannot-defend-own-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Legs / Blade Break attacker-cannot-defend-own-attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-defend-alone-three-damage",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-legs-blade-break-defend-alone-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Legs / Blade Break defend-alone-three-damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-destroyed-equipment-unavailable-next-chain",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-legs-blade-break-destroyed-equipment-unavailable-next-chain",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Legs / Blade Break destroyed-equipment-unavailable-next-chain\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-fully-blocked-no-hit-still-destroys",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-legs-blade-break-fully-blocked-no-hit-still-destroys",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Legs / Blade Break fully-blocked-no-hit-still-destroys\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-hand-first-equipment-second-no-hit",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-legs-blade-break-hand-first-equipment-second-no-hit",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Legs / Blade Break hand-first-equipment-second-no-hit\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-not-defending-survives-close",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-legs-blade-break-not-defending-survives-close",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Legs / Blade Break not-defending-survives-close\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-prior-link-equipment-cannot-defend-again",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-legs-blade-break-prior-link-equipment-cannot-defend-again",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Legs / Blade Break prior-link-equipment-cannot-defend-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-attacker-cannot-defend-own-attack",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-plate-blade-break-attacker-cannot-defend-own-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Plate / Blade Break attacker-cannot-defend-own-attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-defend-alone-three-damage",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-plate-blade-break-defend-alone-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Plate / Blade Break defend-alone-three-damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-destroyed-equipment-unavailable-next-chain",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-plate-blade-break-destroyed-equipment-unavailable-next-chain",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Plate / Blade Break destroyed-equipment-unavailable-next-chain\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-fully-blocked-no-hit-still-destroys",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-plate-blade-break-fully-blocked-no-hit-still-destroys",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Plate / Blade Break fully-blocked-no-hit-still-destroys\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-hand-first-equipment-second-no-hit",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-plate-blade-break-hand-first-equipment-second-no-hit",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Plate / Blade Break hand-first-equipment-second-no-hit\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-not-defending-survives-close",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-plate-blade-break-not-defending-survives-close",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Plate / Blade Break not-defending-survives-close\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-prior-link-equipment-cannot-defend-again",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironrot-plate-blade-break-prior-link-equipment-cannot-defend-again",
+      "returncode": 0,
+      "stdout": "[PASS] Ironrot Plate / Blade Break prior-link-equipment-cannot-defend-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-nullrune-gloves-intrinsic-barrier-while-defending-real-kano-instant",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-nullrune-gloves-intrinsic-barrier-while-defending-real-kano-instant",
+      "returncode": 0,
+      "stdout": "[PASS] Nullrune Gloves / intrinsic closure / barrier-while-defending-real-kano-instant\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-raging-onslaught-red-baseline-hand-red-then-yellow-pitch",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-raging-onslaught-red-baseline-hand-red-then-yellow-pitch",
+      "returncode": 0,
+      "stdout": "[PASS] Raging Onslaught / ordinary baseline / hand-red-then-yellow-pitch\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-attacker-cannot-defend-own-attack",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rotten-old-buckler-blade-break-attacker-cannot-defend-own-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Rotten Old Buckler / Blade Break attacker-cannot-defend-own-attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-defend-alone-three-damage",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rotten-old-buckler-blade-break-defend-alone-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Rotten Old Buckler / Blade Break defend-alone-three-damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-destroyed-equipment-unavailable-next-chain",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rotten-old-buckler-blade-break-destroyed-equipment-unavailable-next-chain",
+      "returncode": 0,
+      "stdout": "[PASS] Rotten Old Buckler / Blade Break destroyed-equipment-unavailable-next-chain\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-hand-first-equipment-second-no-hit",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rotten-old-buckler-blade-break-hand-first-equipment-second-no-hit",
+      "returncode": 0,
+      "stdout": "[PASS] Rotten Old Buckler / Blade Break hand-first-equipment-second-no-hit\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-multiple-distinct-slots-each-destroys",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rotten-old-buckler-blade-break-multiple-distinct-slots-each-destroys",
+      "returncode": 0,
+      "stdout": "[PASS] Rotten Old Buckler / Blade Break multiple-distinct-slots-each-destroys\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-not-defending-survives-close",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rotten-old-buckler-blade-break-not-defending-survives-close",
+      "returncode": 0,
+      "stdout": "[PASS] Rotten Old Buckler / Blade Break not-defending-survives-close\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-prior-link-equipment-cannot-defend-again",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rotten-old-buckler-blade-break-prior-link-equipment-cannot-defend-again",
+      "returncode": 0,
+      "stdout": "[PASS] Rotten Old Buckler / Blade Break prior-link-equipment-cannot-defend-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-rusty-harpoon-blue-baseline-arsenal-arrow-rejected-without-bow",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rusty-harpoon-blue-baseline-arsenal-arrow-rejected-without-bow",
+      "returncode": 0,
+      "stdout": "[PASS] Rusty Harpoon / ordinary baseline / arsenal-arrow-rejected-without-bow\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-rusty-harpoon-blue-baseline-arsenal-facedown-floating",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rusty-harpoon-blue-baseline-arsenal-facedown-floating",
+      "returncode": 0,
+      "stdout": "[PASS] Rusty Harpoon / ordinary baseline / arsenal-facedown-floating\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-rusty-harpoon-blue-baseline-hand-arrow-rejected-with-bow",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rusty-harpoon-blue-baseline-hand-arrow-rejected-with-bow",
+      "returncode": 0,
+      "stdout": "[PASS] Rusty Harpoon / ordinary baseline / hand-arrow-rejected-with-bow\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-savage-swing-red-mandatory-discard-hand-blue-pitch-singleton",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-savage-swing-red-mandatory-discard-hand-blue-pitch-singleton",
+      "returncode": 0,
+      "stdout": "[PASS] Savage Swing / hand-blue-pitch-singleton\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-sharpen-steel-red-opponent-response-before-buff-resolves",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sharpen-steel-red-opponent-response-before-buff-resolves",
+      "returncode": 0,
+      "stdout": "[PASS] Sharpen Steel / opponent-response-before-buff-resolves\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-smash-with-big-tree-blue-baseline-no-defense-value-cannot-declare-block",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-smash-with-big-tree-blue-baseline-no-defense-value-cannot-declare-block",
+      "returncode": 0,
+      "stdout": "[PASS] Smash with Big Tree / ordinary baseline / no-defense-value-cannot-declare-block\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-attacker-cannot-defend-own-attack",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-arms-blade-break-attacker-cannot-defend-own-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Arms / Blade Break attacker-cannot-defend-own-attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-destroyed-equipment-unavailable-next-chain",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-arms-blade-break-destroyed-equipment-unavailable-next-chain",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Arms / Blade Break destroyed-equipment-unavailable-next-chain\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-fully-blocked-no-hit-still-destroys",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-arms-blade-break-fully-blocked-no-hit-still-destroys",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Arms / Blade Break fully-blocked-no-hit-still-destroys\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-hand-first-equipment-second-no-hit",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-arms-blade-break-hand-first-equipment-second-no-hit",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Arms / Blade Break hand-first-equipment-second-no-hit\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-not-defending-survives-close",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-arms-blade-break-not-defending-survives-close",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Arms / Blade Break not-defending-survives-close\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-prior-link-equipment-cannot-defend-again",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-arms-blade-break-prior-link-equipment-cannot-defend-again",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Arms / Blade Break prior-link-equipment-cannot-defend-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-attacker-cannot-defend-own-attack",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-chest-blade-break-attacker-cannot-defend-own-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Chest / Blade Break attacker-cannot-defend-own-attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-defend-alone-three-damage",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-chest-blade-break-defend-alone-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Chest / Blade Break defend-alone-three-damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-destroyed-equipment-unavailable-next-chain",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-chest-blade-break-destroyed-equipment-unavailable-next-chain",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Chest / Blade Break destroyed-equipment-unavailable-next-chain\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-fully-blocked-no-hit-still-destroys",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-chest-blade-break-fully-blocked-no-hit-still-destroys",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Chest / Blade Break fully-blocked-no-hit-still-destroys\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-hand-first-equipment-second-no-hit",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-chest-blade-break-hand-first-equipment-second-no-hit",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Chest / Blade Break hand-first-equipment-second-no-hit\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-not-defending-survives-close",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-chest-blade-break-not-defending-survives-close",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Chest / Blade Break not-defending-survives-close\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-prior-link-equipment-cannot-defend-again",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-chest-blade-break-prior-link-equipment-cannot-defend-again",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Chest / Blade Break prior-link-equipment-cannot-defend-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-attacker-cannot-defend-own-attack",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-head-blade-break-attacker-cannot-defend-own-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Head / Blade Break attacker-cannot-defend-own-attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-defend-alone-three-damage",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-head-blade-break-defend-alone-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Head / Blade Break defend-alone-three-damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-destroyed-equipment-unavailable-next-chain",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-head-blade-break-destroyed-equipment-unavailable-next-chain",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Head / Blade Break destroyed-equipment-unavailable-next-chain\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-fully-blocked-no-hit-still-destroys",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-head-blade-break-fully-blocked-no-hit-still-destroys",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Head / Blade Break fully-blocked-no-hit-still-destroys\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-hand-first-equipment-second-no-hit",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-head-blade-break-hand-first-equipment-second-no-hit",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Head / Blade Break hand-first-equipment-second-no-hit\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-multiple-distinct-slots-each-destroys",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-head-blade-break-multiple-distinct-slots-each-destroys",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Head / Blade Break multiple-distinct-slots-each-destroys\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-not-defending-survives-close",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-head-blade-break-not-defending-survives-close",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Head / Blade Break not-defending-survives-close\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-prior-link-equipment-cannot-defend-again",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-head-blade-break-prior-link-equipment-cannot-defend-again",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Head / Blade Break prior-link-equipment-cannot-defend-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-attacker-cannot-defend-own-attack",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-legs-blade-break-attacker-cannot-defend-own-attack",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Legs / Blade Break attacker-cannot-defend-own-attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-defend-alone-three-damage",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-legs-blade-break-defend-alone-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Legs / Blade Break defend-alone-three-damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-destroyed-equipment-unavailable-next-chain",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-legs-blade-break-destroyed-equipment-unavailable-next-chain",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Legs / Blade Break destroyed-equipment-unavailable-next-chain\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-fully-blocked-no-hit-still-destroys",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-legs-blade-break-fully-blocked-no-hit-still-destroys",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Legs / Blade Break fully-blocked-no-hit-still-destroys\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-hand-first-equipment-second-no-hit",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-legs-blade-break-hand-first-equipment-second-no-hit",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Legs / Blade Break hand-first-equipment-second-no-hit\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-not-defending-survives-close",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-legs-blade-break-not-defending-survives-close",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Legs / Blade Break not-defending-survives-close\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-prior-link-equipment-cannot-defend-again",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-base-legs-blade-break-prior-link-equipment-cannot-defend-again",
+      "returncode": 0,
+      "stdout": "[PASS] Teklo Base Legs / Blade Break prior-link-equipment-cannot-defend-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-blue-pitch-leaves-one-resource",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-toughen-up-blue-flat-dr-hand-blue-pitch-leaves-one-resource",
+      "returncode": 0,
+      "stdout": "[PASS] Toughen Up / flat-defense-reaction / hand-blue-pitch-leaves-one-resource\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-winters-grasp-blue-baseline-hand-blue-pitch",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-winters-grasp-blue-baseline-hand-blue-pitch",
+      "returncode": 0,
+      "stdout": "[PASS] Winter's Grasp / ordinary baseline / hand-blue-pitch\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-winters-grasp-red-baseline-pitched-for-exact-1",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-winters-grasp-red-baseline-pitched-for-exact-1",
+      "returncode": 0,
+      "stdout": "[PASS] Winter's Grasp / ordinary baseline / pitched-for-exact-1\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-wounding-blow-red-baseline-hand-floating-exact",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-wounding-blow-red-baseline-hand-floating-exact",
+      "returncode": 0,
+      "stdout": "[PASS] Wounding Blow / ordinary baseline / hand-floating-exact\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-wrecker-romp-blue-mandatory-discard-two-red-pitches-before-singleton-discard",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-wrecker-romp-blue-mandatory-discard-two-red-pitches-before-singleton-discard",
+      "returncode": 0,
+      "stdout": "[PASS] Wrecker Romp / two-red-pitches-before-singleton-discard\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-wrecker-romp-red-mandatory-discard-fully-blocked-still-pays-discard",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-wrecker-romp-red-mandatory-discard-fully-blocked-still-pays-discard",
+      "returncode": 0,
+      "stdout": "[PASS] Wrecker Romp / fully-blocked-still-pays-discard\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ]
+}

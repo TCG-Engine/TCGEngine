@@ -1,0 +1,7 @@
+{
+    "name": "Voltic Bolt / no-action-point",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:23:26+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Action card requires an AP even with printed resource cost2 available; announcement must be rejected. Sources: FaBSim/GeneratedCode/cardArrayCache.json#voltic_bolt_blue https://rules.fabtcg.com/en/cr/07-combat/"
+}

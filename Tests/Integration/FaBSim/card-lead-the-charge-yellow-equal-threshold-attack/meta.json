@@ -1,0 +1,7 @@
+{
+    "name": "Lead the Charge / equal-threshold-attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:08:32+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost0, own go again, next played ACTION CARD with cost at least1 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. Play critical_strike_red, printed cost1, paying from1 floating resources. Spent AP becomes0 while trigger waits above the attack (Stack2). Trigger resolution returnsAP1 while attack remains Stack1; printed power5 is unchanged and no go again was granted. Damage5, AP1 remains after link. Sources: https://judge.fabtcg.com/cards/detail/549/ https://rules.fabtcg.com/en/cr/06-effects/#663 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_yellow"
+}

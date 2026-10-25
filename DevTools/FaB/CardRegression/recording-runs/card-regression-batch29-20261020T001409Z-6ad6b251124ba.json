@@ -1,0 +1,272 @@
+{
+    "completed_at_utc": "2026-10-20T00:14:09+00:00",
+    "input_file": "card-regression-batch29.json",
+    "input_sha256": "347b4729dd59a46cb2c3cf974ed3afd12cce8607767089af227d35fad9fb6a3b",
+    "filter": "card-healing-balm",
+    "results": [
+        {
+            "slug": "card-healing-balm-red-hand-low-life",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-red-hand-starting-life-no-cap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-red-arsenal-face-down",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-red-arsenal-face-up",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-red-hand-spare-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-red-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-red-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-red-opponent-turn-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-red-opponent-turn-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-red-hand-without-priority-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-red-double-copies-two-paid-action-points",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 70
+        },
+        {
+            "slug": "card-healing-balm-red-no-go-again-followup-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-healing-balm-red-spare-action-point-can-fund-followup-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 63
+        },
+        {
+            "slug": "card-healing-balm-red-defending-from-hand-prevents-two-without-healing",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 36
+        },
+        {
+            "slug": "card-healing-balm-yellow-hand-low-life",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-yellow-hand-starting-life-no-cap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-yellow-arsenal-face-down",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-yellow-arsenal-face-up",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-yellow-hand-spare-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-yellow-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-yellow-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-yellow-opponent-turn-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-yellow-opponent-turn-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-yellow-hand-without-priority-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-yellow-double-copies-two-paid-action-points",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 70
+        },
+        {
+            "slug": "card-healing-balm-yellow-opponent-response-before-life-gain",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 68
+        },
+        {
+            "slug": "card-healing-balm-yellow-no-go-again-followup-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-healing-balm-yellow-spare-action-point-can-fund-followup-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 63
+        },
+        {
+            "slug": "card-healing-balm-yellow-defending-from-hand-prevents-two-without-healing",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 36
+        },
+        {
+            "slug": "card-healing-balm-blue-hand-low-life",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-blue-hand-starting-life-no-cap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-blue-arsenal-face-down",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-blue-arsenal-face-up",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-blue-hand-spare-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-healing-balm-blue-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-blue-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-blue-opponent-turn-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-blue-opponent-turn-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-blue-hand-without-priority-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 27
+        },
+        {
+            "slug": "card-healing-balm-blue-double-copies-two-paid-action-points",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 70
+        },
+        {
+            "slug": "card-healing-balm-blue-opponent-response-before-life-gain",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 68
+        },
+        {
+            "slug": "card-healing-balm-blue-no-go-again-followup-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-healing-balm-blue-spare-action-point-can-fund-followup-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 63
+        },
+        {
+            "slug": "card-healing-balm-blue-defending-from-hand-prevents-two-without-healing",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 36
+        }
+    ]
+}

@@ -1,0 +1,435 @@
+{
+  "status": "BOUNDED_VIRTUAL_LAYER_OWNER_CORRECTION_NOT_CARD_RULE_FIX_PENDING_INDEPENDENT_GATE",
+  "deltas": [
+    {
+      "original_path": "mon-continuous-stat-attacks\\live-aura-transitions\\scenarios12-proposed.json",
+      "original_sha256": "c37e689e8c6e2649f13628ee9ed2d59bc4a4f0ad22140de1d7d01d2b2eb44562",
+      "corrected_file": "live12-proposed.json",
+      "corrected_sha256": "fb6345530c084d2fe0ce100193c947b59db50f733ae577ff915717bb44a6d0b5",
+      "changed_cases": [
+        "card-yinti-yanti-red-mon-live-destroyed-attack",
+        "card-yinti-yanti-red-mon-live-destroyed-defense",
+        "card-yinti-yanti-yellow-mon-live-destroyed-attack",
+        "card-yinti-yanti-yellow-mon-live-destroyed-defense",
+        "card-yinti-yanti-blue-mon-live-destroyed-attack",
+        "card-yinti-yanti-blue-mon-live-destroyed-defense"
+      ],
+      "changes": [
+        {
+          "path": [
+            2,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            3,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        },
+        {
+          "path": [
+            6,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            7,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        },
+        {
+          "path": [
+            10,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            11,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        }
+      ],
+      "all_actions_oracles_except_listed_values_unchanged": true
+    },
+    {
+      "original_path": "mon-continuous-stat-attacks\\full-ordinary\\scenarios-proposed.json",
+      "original_sha256": "467c0bf09bffc16143a9cbf87e94ea73ba179ba393bc7cdc4db24dc7f4a32b20",
+      "corrected_file": "full210-proposed.json",
+      "corrected_sha256": "0a2630d9714382fd0779ef3c9aa426d50b45542e57d78718aec16b1a87b96db3",
+      "changed_cases": [
+        "card-yinti-yanti-red-mon-live-destroyed-attack",
+        "card-yinti-yanti-red-mon-live-destroyed-defense",
+        "card-yinti-yanti-yellow-mon-live-destroyed-attack",
+        "card-yinti-yanti-yellow-mon-live-destroyed-defense",
+        "card-yinti-yanti-blue-mon-live-destroyed-attack",
+        "card-yinti-yanti-blue-mon-live-destroyed-defense"
+      ],
+      "changes": [
+        {
+          "path": [
+            160,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            161,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        },
+        {
+          "path": [
+            184,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            185,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        },
+        {
+          "path": [
+            208,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            209,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        }
+      ],
+      "all_actions_oracles_except_listed_values_unchanged": true
+    },
+    {
+      "original_path": "mon210-serial-family-split-proposal\\card-regression-batch72-yinti.json",
+      "original_sha256": "c7640d06336e4208487bcd23f3d6bcb081c015bf229217c56494067e5f8a9232",
+      "corrected_file": "card-regression-batch72-yinti.json",
+      "corrected_sha256": "825de6b4996854329330cabb9ab6eaefe23cd847183fb6167d031409e2bb2ef4",
+      "changed_cases": [
+        "card-yinti-yanti-red-mon-live-destroyed-attack",
+        "card-yinti-yanti-red-mon-live-destroyed-defense",
+        "card-yinti-yanti-yellow-mon-live-destroyed-attack",
+        "card-yinti-yanti-yellow-mon-live-destroyed-defense",
+        "card-yinti-yanti-blue-mon-live-destroyed-attack",
+        "card-yinti-yanti-blue-mon-live-destroyed-defense"
+      ],
+      "changes": [
+        {
+          "path": [
+            22,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            23,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        },
+        {
+          "path": [
+            46,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            47,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        },
+        {
+          "path": [
+            70,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            71,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        }
+      ],
+      "all_actions_oracles_except_listed_values_unchanged": true
+    },
+    {
+      "original_path": "mon-continuous-stat-attacks\\live-aura-transitions\\pilots4-exact-subset-proposed.json",
+      "original_sha256": "7579e2179497b11c93b70be2ef75e604661bb0605444f451e1dda324fd12b21f",
+      "corrected_file": "live-pilot4-exact-subset-proposed.json",
+      "corrected_sha256": "e6a8018cb20e3130fa543d5876c9bf424c425d8b08036110f43344c54c15dea1",
+      "changed_cases": [
+        "card-yinti-yanti-red-mon-live-destroyed-attack",
+        "card-yinti-yanti-blue-mon-live-destroyed-defense"
+      ],
+      "changes": [
+        {
+          "path": [
+            2,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            3,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        }
+      ],
+      "all_actions_oracles_except_listed_values_unchanged": true
+    }
+  ],
+  "source": [
+    {
+      "path": "FaBSim/Custom/ARCAbilities.php",
+      "name": "FaBARCActivate",
+      "file_sha256": "3d93e7520aeeadcfd14bb9c5664b95d7b7b17aa3d3b768fdf431c0e32167c54b",
+      "function_sha256": "d81e470ad2cca864b9bcf62950ecec94a3fec4edd031c24906cdb05c027d8196",
+      "body": "function FaBARCActivate(int $player,array $f,int $index): bool {\n    $spec=FaBARCAbilityActions($player,$f)[$index]??null;if($spec===null)return false;\n    $o=$f['object'];$s=FaBGetState();\n    $emperorTarget=null;if($o->CardID==='emperor_dracai_of_aesir'){$emperorTarget=FaBClaimOrRequestAttackTarget($player,intval($o->UniqueID),'ACTIVATE');if($emperorTarget===null)return true;if($emperorTarget===false)return false;$s=FaBGetState();}\n    if(FaBHasType($o,'Bow')&&FaBELECount($player,'SNAP'))$spec['timing']='INSTANT';\n    $cost=FaBWTRAbilityCost($player,$spec)+($o->CardID==='grasp_of_the_arknight'?FaBARCRunechants($player):0);\n    $stack=AddStack(CardID:$o->CardID,Controller:$player,Kind:'ABILITY',SourceZone:$f['zone'],SourceUniqueID:intval($o->UniqueID),Params:['arcSpec'=>$spec,'returnWindow'=>$s['window'],'returnCombatStep'=>$s['combatStep'],'attackUID'=>intval($s['attackUID']),'dynEmperorTarget'=>$emperorTarget]);\n    $s['pendingPayment']=['player'=>$player,'uid'=>intval($stack->UniqueID),'cost'=>$cost,'fromZone'=>$f['zone'],'kind'=>'ABILITY','isAbility'=>true,'abilityAction'=>$spec['timing']==='ACTION','returnWindow'=>$s['window'],'returnCombatStep'=>$s['combatStep']];\n    $s['window']='PITCH';FaBSetState($s);SetConsecutivePasses(0);\n    if((isset(FaBMONAbilityRows()[$o->CardID])||isset(FaBBoltynAbilityRows()[$o->CardID])||isset(FaBELEAbilityRows()[$o->CardID]))&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBFindUID(intval($stack->UniqueID))['mzID']]))return true;\n    if((in_array($o->CardID,FaBHNTAgents(),true)||in_array(FaBWTRBase($o->CardID),['war_cry_of_bellona','war_cry_of_themis'],true)||in_array($o->CardID,['oscilio','oscilio_constella_intelligence','bloodtorn_bodice'],true)||$o->CardID==='longdraw_half_glove')&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBFindUID(intval($stack->UniqueID))['mzID']]))return true;\n    if(in_array($o->CardID,['pleiades','pleiades_superstar','backspin_thrust_red','gallow_end_of_the_line_yellow','light_up_the_leaves_red'],true)&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBDTDSource(intval($stack->UniqueID))]))return true;\n    if(FaBSEANeedsPrepare($o->CardID)&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBDTDSource(intval($stack->UniqueID))]))return true;\n    if((FaBIARNeedsPrepare($o->CardID)||FaBPENNeedsPrepare($o->CardID)||FaBOMNNeedsPrepare($o->CardID))&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBDTDSource(intval($stack->UniqueID))]))return true;\n    if(FaBHVYPrepareAbility($player,$stack))return true;\n    if(FaBEVOPrepareAbility($player,$stack))return true;\n    if(FaBDTDPrepareAbility($player,$stack))return true;\n    if(FaBOUTPrepareAbility($player,$stack))return true;\n    return FaBTryCompletePayment();\n}"
+    },
+    {
+      "path": "FaBSim/ZoneAccessors.php",
+      "name": "AddStack",
+      "file_sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "function_sha256": "7256bd2817dec7bb7991048c3bed52fcc82acc65245666d409a765ccf9bcf193",
+      "body": "function AddStack( $CardID=\"-\", $Owner=0, $Controller=0, $Kind=\"\", $SourceZone=\"\", $SourceUniqueID=0, $Params=\"-\", $TurnEffects=\"-\", $Counters=\"-\", $sourceObject=null) {\n  $zoneObj = new Stack($CardID . ' ' . $Owner . ' ' . $Controller . ' ' . $Kind . ' ' . $SourceZone . ' ' . $SourceUniqueID . ' ' . (is_array($Params) ? base64_encode(json_encode($Params)) : $Params) . ' ' . 0 . ' ' . (is_array($TurnEffects) ? (count($TurnEffects) > 0 ? implode('~', $TurnEffects) : '-') : $TurnEffects) . ' ' . (is_array($Counters) ? base64_encode(json_encode($Counters)) : $Counters), 'Stack', 0);\n  $zone = &GetStack();\n  $zoneObj->mzIndex = count($zone);\n  array_push($zone, $zoneObj);\n  // Deep copy properties from sourceObject if provided\n  if($sourceObject !== null) {\n    $properties = get_object_vars($sourceObject);\n    foreach($properties as $prop => $value) {\n      if($prop !== 'removed' && $prop !== 'Location' && $prop !== 'mzIndex') {\n        $zoneObj->$prop = $value;\n      }\n    }\n  }\n  global $gUniqueIDCounter;\n  // A zone move keeps the physical card's identity; only newly created objects get a new ID.\n  if($sourceObject === null || intval($zoneObj->UniqueID ?? 0) <= 0) {\n    $gUniqueIDCounter++;\n    $zoneObj->UniqueID = $gUniqueIDCounter;\n  }\n  return $zoneObj;\n}\n"
+    },
+    {
+      "path": "FaBSim/Custom/ARCAbilities.php",
+      "name": "FaBARCAbilitySpecs",
+      "file_sha256": "3d93e7520aeeadcfd14bb9c5664b95d7b7b17aa3d3b768fdf431c0e32167c54b",
+      "function_sha256": "f4201fb344de519f02d1e9f93503c79ab02f01b43dd2b3697d811f30d77af029",
+      "body": "function FaBARCAbilitySpecs(string $id): array {\n    // timing, resources, destroy, go again, once per turn, steam removed, label\n    $rows=[\n        'blood_scent'=>[['INSTANT',0,true,false,false,0,'Gain one resource']],\n        'mask_of_three_tails'=>[['INSTANT',0,true,false,false,0,'Draw a card']],\n        'pouncing_paws'=>[['INSTANT',0,true,false,false,0,'Create Crouching Tiger']],\n        'tearing_shuko'=>[['INSTANT',0,true,false,false,0,'Empower next Crouching Tiger']],\n        'aether_conduit'=>[['ACTION',2,false,false,true,0,'Deal two arcane damage']],\n        'bloodsheath_skeleta'=>[['INSTANT',0,true,false,false,0,'Reduce action costs']],\n        'courage_of_bladehold'=>[['ACTION',0,true,true,false,0,'Sword attacks cost less']],\n        'crater_fist'=>[['ACTION',3,true,true,false,0,'Crush attacks gain power']],\n        'copper'=>[['ACTION',4,true,true,false,0,'Draw a card']],\n        'kavdaen_trader_of_skins'=>[['ACTION',3,false,true,true,0,'Trade life for Copper']],\n        'perch_grapplers'=>[['ACTION',2,true,true,false,0,'Face-up arrows gain go again']],\n        'red_liner'=>[['ACTION',0,false,true,true,0,'Load arrow']],\n        'skullhorn'=>[['ACTION',0,true,true,false,0,'Draw then discard']],\n        'viziertronic_model_i'=>[['ACTION',0,true,true,false,0,'Draw and reorder when boosting']],\n        'plasma_barrel_shot'=>[['ACTION',2,false,true,false,0,'Load gun']],\n        'plasma_purifier_red'=>[['ACTION',1,false,true,false,0,'Add steam counter'],['ACTION',0,false,true,true,1,'Empower pistol']],\n        'kano'=>[['INSTANT',3,false,false,false,0,'Look at top card']],\n        'kano_dracai_of_aether'=>[['INSTANT',3,false,false,false,0,'Look at top card']],\n        'azalea'=>[['ACTION',0,false,true,true,0,'Replace arsenal']],\n        'azalea_ace_in_the_hole'=>[['ACTION',0,false,true,true,0,'Replace arsenal']],\n        'death_dealer'=>[['ACTION',1,false,true,true,0,'Load arrow and draw']],\n        'bulls_eye_bracers'=>[['ACTION',0,true,true,false,0,'Load arrow']],\n        'skullbone_crosswrap'=>[['ACTION',0,false,true,true,0,'Turn arsenal face up and opt']],\n        'crucible_of_aetherweave'=>[['INSTANT',1,false,false,true,0,'Increase next arcane damage']],\n        'storm_striders'=>[['INSTANT',1,true,false,false,0,'Play next Wizard action as instant']],\n        'robe_of_rapture'=>[['ACTION',0,true,false,false,0,'Gain three resources']],\n        'mage_master_boots'=>[['ACTION',1,true,true,false,0,'Next non-attack action gains go again']],\n        'grasp_of_the_arknight'=>[['ACTION',2,false,true,true,0,'Create Runechant']],\n        'crown_of_dichotomy'=>[['ACTION',1,true,false,false,0,'Return Runeblade cards']],\n        'talismanic_lens'=>[['INSTANT',0,true,false,false,0,'Opt two']],\n        'bracers_of_belief'=>[['ACTION',0,true,true,false,0,'Reveal and empower next attack']],\n        'achilles_accelerator'=>[['INSTANT',0,true,false,false,0,'Gain action point']],\n        'teklo_foundry_heart'=>[['ACTION',1,false,true,true,0,'Banish two for resources']],\n        'aether_sink_yellow'=>[['ACTION',1,false,true,false,0,'Add steam counter'],['INSTANT',0,false,false,false,1,'Arcane Barrier 2']],\n        'cognition_nodes_blue'=>[['ACTION',1,false,true,false,0,'Add steam counter'],['REACTION',0,false,false,true,1,'Return attack on hit']],\n        'induction_chamber_red'=>[['ACTION',1,false,true,false,0,'Add steam counter'],['REACTION',0,false,false,true,1,'Pistol gains go again']],\n        'teklo_plasma_pistol'=>[['ACTION',1,false,true,false,0,'Load pistol']],\n        'convection_amplifier_red'=>[['ACTION',0,false,true,false,1,'Next attack gains dominate']],\n        'optekal_monocle_blue'=>[['ACTION',0,false,true,false,1,'Opt one']],\n        'dissipation_shield_yellow'=>[['INSTANT',0,true,false,false,0,'Prevent next damage']],\n    ];\n    $rows=array_merge($rows,FaBMONAbilityRows(),FaBBoltynAbilityRows(),FaBELEAbilityRows(),FaBEVRAbilityRows(),FaBUPRAbilityRows(),FaBDYNAbilityRows(),FaBArakniAbilityRows(),FaBOUTAbilityRows(),FaBDTDAbilityRows(),FaBEVOAbilityRows(),FaBHVYAbilityRows(),FaBMSTAbilityRows(),FaBROSAbilityRows(),FaBHNTAbilityRows(),FaBSEAAbilityRows(),FaBMPGAbilityRows(),FaBSUPAbilityRows(),FaBPENAbilityRows(),FaBOMNAbilityRows(),FaBIARAbilityRows());\n    if(FaBHasType($id,'Instant'))$rows[$id][]=['INSTANT',0,false,false,false,0,'Discard to prevent two damage'];\n    $result=[];foreach($rows[$id]??[] as $index=>$row)$result[]=array_combine(['timing','cost','destroy','goAgain','once','steam','label'],$row)+['index'=>$index,'cardID'=>$id];return $result;\n}"
+    }
+  ],
+  "source_meaning": "The actual ARC activation route allocates a fresh virtual ABILITY with controller=caster, physical Hero SourceUniqueID retained, Owner omitted. The generated adder defaults its implementation Owner field to0 because this is a virtual layer, not a copied physical Hero. No native rule change is proposed. Physical Hero and Dart ownership/controller are untouched.",
+  "all_originals_preserved": true,
+  "original_models_preserved": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\mon-continuous-stat-attacks\\live-aura-transitions\\check_live12_rule_model.py",
+    "sha256": "30c1c312e8f1b4f5b4364738b81754b629f094ed79a218b6bc318ccc055c5174"
+  },
+  "live_model_values": 8892,
+  "live_supported_descriptors": 156,
+  "old_six_wrong_owner_descriptors_rejected": 6,
+  "live_model_results": [
+    {
+      "slug": "card-yinti-yanti-red-mon-live-enters-attack",
+      "intended_native_oracles": 488,
+      "supported_action_descriptors": 8,
+      "terminal_hp": 16,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-red-mon-live-enters-defense",
+      "intended_native_oracles": 592,
+      "supported_action_descriptors": 10,
+      "terminal_hp": 19,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-red-mon-live-destroyed-attack",
+      "intended_native_oracles": 853,
+      "supported_action_descriptors": 16,
+      "terminal_hp": 17,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-red-mon-live-destroyed-defense",
+      "intended_native_oracles": 1031,
+      "supported_action_descriptors": 18,
+      "terminal_hp": 18,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-yellow-mon-live-enters-attack",
+      "intended_native_oracles": 488,
+      "supported_action_descriptors": 8,
+      "terminal_hp": 17,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-yellow-mon-live-enters-defense",
+      "intended_native_oracles": 592,
+      "supported_action_descriptors": 10,
+      "terminal_hp": 19,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-yellow-mon-live-destroyed-attack",
+      "intended_native_oracles": 853,
+      "supported_action_descriptors": 16,
+      "terminal_hp": 18,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-yellow-mon-live-destroyed-defense",
+      "intended_native_oracles": 1031,
+      "supported_action_descriptors": 18,
+      "terminal_hp": 18,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-blue-mon-live-enters-attack",
+      "intended_native_oracles": 488,
+      "supported_action_descriptors": 8,
+      "terminal_hp": 18,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-blue-mon-live-enters-defense",
+      "intended_native_oracles": 592,
+      "supported_action_descriptors": 10,
+      "terminal_hp": 19,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-blue-mon-live-destroyed-attack",
+      "intended_native_oracles": 853,
+      "supported_action_descriptors": 16,
+      "terminal_hp": 19,
+      "native_recorded": false
+    },
+    {
+      "slug": "card-yinti-yanti-blue-mon-live-destroyed-defense",
+      "intended_native_oracles": 1031,
+      "supported_action_descriptors": 18,
+      "terminal_hp": 18,
+      "native_recorded": false
+    }
+  ],
+  "all_numeric_card_stat_cost_health_resource_ap_oracles_unchanged": true,
+  "all_supported_actions_unchanged": true,
+  "whole_full210_native_intended_values_still": 74755,
+  "source_runtime_note": "Current source is parent-owned2b after token031. The three source function bodies and actual named-argument/default convention are explicitly bound. Whole-source/model qualifications remain separate native gates.",
+  "scope": "Only six diagnostic Stack.Owner values across six liveKano recipes. Source Controller, sourceHeroUID, physical cardUID, target, direct math, Arcane prevention, choices, damage/cleanup and AP behavior remain exact. Ordinary entry6 and original4 native pilots are unchanged.",
+  "native_writes": 0,
+  "game_actions": 0,
+  "script_sha256": "3b7f30907e1af21310c1cbb1a4036a6a00cd8dd44f0463fe02216e00f526e8a9"
+}

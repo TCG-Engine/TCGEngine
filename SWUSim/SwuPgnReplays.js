@@ -1,5 +1,7 @@
-// Replays tab: open a .swupgn, keep it in this browser (IndexedDB), list it, Play SWUPGN, Delete.
-// Every string from a file is set with textContent (untrusted input).
+// Replays tab: open a .swupgn, keep it in this browser (IndexedDB), list it, Play SWUPGN, Delete. Also lists
+// the games saved with the in-game "Save Replay" button (Core/MatchReplayClient.js, its own IndexedDB store)
+// — the menu redesign dropped the #match-replay-menu-list container MainMenu.php still renders them into, so
+// saved games silently vanished from the menu. Every string from a file is set with textContent.
 (function () {
   const DB = 'petranaki-swupgn', STORE = 'files';
   const base = (() => { const p = location.pathname, i = p.indexOf('/TCGEngine/'); return i >= 0 ? p.slice(0, i + 11) : '/TCGEngine/'; })();
@@ -55,16 +57,45 @@
     openText(rec.text, rec.id);
   }
 
+  const mrc = () => window.MatchReplayClient;
+  const button = (label, attr, id, quiet) => {
+    const b = document.createElement('button'); b.type = 'button';
+    b.className = 'swu2-btn swu2-btn--chip' + (quiet ? ' swu2-btn--quiet' : '') + ' ch';
+    b.textContent = label; b.setAttribute(attr, id); return b;
+  };
+  const confirmDelete = (msg) => window.StyledConfirm ? window.StyledConfirm(msg) : Promise.resolve(window.confirm(msg));
+
+  // A game saved with "Save Replay": Play re-runs it in the replay player, Delete drops it from this browser.
+  function savedRow(r) {
+    const li = document.createElement('li'); li.className = 'match ch'; li.setAttribute('data-saved-replay', r.id);
+    const seats = document.createElement('div'); seats.className = 'match__seats';
+    seats.textContent = `Saved game #${r.gameName || '?'}`;
+    const sub = document.createElement('div'); sub.className = 'match__meta';
+    const at = Date.parse(r.savedAt || r.storedAt || '');
+    sub.textContent = [r.winner ? `Winner: Player ${r.winner}` : '', at ? new Date(at).toLocaleDateString() : '', `${r.actionCount || 0} actions`].filter(Boolean).join(' · ');
+    const play = button('Play', 'data-saved-play', r.id);
+    play.onclick = () => { play.disabled = true; mrc().playReplay(r.id).then(() => { play.disabled = false; }); };
+    const rm = button('Delete', 'data-saved-delete', r.id, true);
+    rm.onclick = async () => { if (await confirmDelete('Delete this saved replay from this browser?')) { await mrc().deleteReplay(r.id); render(); } };
+    li.append(seats, sub, play, rm);
+    return li;
+  }
+
   async function render() {
     const list = document.getElementById('swupgnReplayList');
     const empty = document.getElementById('swupgnReplayEmpty');
     if (!list) return;
-    let recs = [];
+    let recs = [], saved = [];
     try { recs = await all(); } catch (e) { recs = []; }
-    recs.sort((a, b) => (b.openedAt || 0) - (a.openedAt || 0));
+    try { saved = mrc() ? await mrc().listReplays('SWUSim') : []; } catch (e) { saved = []; }
+    const rows = recs.map((rec) => ({ at: rec.openedAt || 0, rec }))
+      .concat(saved.map((r) => ({ at: Date.parse(r.savedAt || r.storedAt || '') || 0, saved: r })))
+      .sort((a, b) => b.at - a.at);
     list.textContent = '';
-    if (empty) empty.hidden = recs.length > 0;
-    for (const rec of recs) {
+    if (empty) empty.hidden = rows.length > 0;
+    for (const row of rows) {
+      if (row.saved) { list.appendChild(savedRow(row.saved)); continue; }
+      const rec = row.rec;
       const s = rec.summary || {};
       const li = document.createElement('li'); li.className = 'match ch';
       const seats = document.createElement('div'); seats.className = 'match__seats';

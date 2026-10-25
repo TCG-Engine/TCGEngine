@@ -1,0 +1,7 @@
+{
+    "name": "Energy Potion / wrong-priority-cannot-activate",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:28+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1 has priority; P2 cannot activate its instant until it receives priority. Source remains and no resource/AP/stack mutation occurs. Sources: FaBSim/GeneratedCode/cardArrayCache.json#energy_potion_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

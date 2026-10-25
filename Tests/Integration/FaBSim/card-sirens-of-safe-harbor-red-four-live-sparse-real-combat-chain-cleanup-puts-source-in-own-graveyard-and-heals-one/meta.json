@@ -1,0 +1,7 @@
+{
+    "name": "Sirens of Safe Harbor / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T19:45:22+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1initialhealth19. ActualBlueUID6pitch3 paysprinted2, leaves1resource/AP0. RealattackUID5power6 deals6unblocked toP4,20to14. Nohealingatattackdeclaration,hit,DAMAGEorRESOLUTIONpriority: P1stays19. Final fourthRESOLUTIONpass closescombat; sourceUID5entersownGY and printedGYtrigger heals1,P1to20. NoGA,finalAP0. OnlyCombatChain-to-ownGYentry; discard/mill/otherfromzones, replacement/prevention and later lifecycle untested. Four living legal young heroes and all manual response windows are pinned; physicalsourceUID5and actualpitchUID6 persist. No seeded effects/history, no shared bookkeeping-array predicates. Onepositiveprimaryrepresentative only; no sibling/support/hero/full-cardcredit. Sources: https://judge.fabtcg.com/cards/detail/3980/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/GEM063.webp https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

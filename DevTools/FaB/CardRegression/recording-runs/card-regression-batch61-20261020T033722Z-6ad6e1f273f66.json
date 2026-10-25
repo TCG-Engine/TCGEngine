@@ -1,0 +1,104 @@
+{
+    "completed_at_utc": "2026-10-20T03:37:22+00:00",
+    "input_file": "card-regression-batch61.json",
+    "input_sha256": "ae6aba4b9d46a4c01773be4172d49f88807174fd94a1d86b0275afef666597c7",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-sharpen-steel-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 138
+        },
+        {
+            "slug": "card-sharpen-steel-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 143
+        },
+        {
+            "slug": "card-sharpen-steel-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 138
+        },
+        {
+            "slug": "card-sharpen-steel-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 143
+        },
+        {
+            "slug": "card-sharpen-steel-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 138
+        },
+        {
+            "slug": "card-sharpen-steel-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 143
+        },
+        {
+            "slug": "card-cut-deep-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 138
+        },
+        {
+            "slug": "card-cut-deep-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 143
+        },
+        {
+            "slug": "card-cut-deep-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 138
+        },
+        {
+            "slug": "card-cut-deep-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 143
+        },
+        {
+            "slug": "card-cut-deep-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 138
+        },
+        {
+            "slug": "card-cut-deep-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 143
+        },
+        {
+            "slug": "card-felling-swing-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 138
+        },
+        {
+            "slug": "card-felling-swing-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 143
+        },
+        {
+            "slug": "card-felling-swing-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 138
+        },
+        {
+            "slug": "card-felling-swing-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 143
+        }
+    ]
+}

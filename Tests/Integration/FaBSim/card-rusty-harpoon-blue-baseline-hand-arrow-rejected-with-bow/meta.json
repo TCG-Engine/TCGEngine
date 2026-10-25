@@ -1,0 +1,7 @@
+{
+    "name": "Rusty Harpoon / ordinary baseline / hand-arrow-rejected-with-bow",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:03:18+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0, power1, pitch3, defense3, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Actual Hand click must be rejected for hand-arrow-rejected-with-bow. Preserve source, AP/resources[1, 0]/[0, 0], health20/20, priority1, empty Stack and graveyard; no author-only legality query is substituted for the action. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rusty_harpoon_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Unmovable / hand-before-reaction-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:36:41+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The defender can afford3 using the blue card, but has priority during Attack Step rather than Reaction Step. CR7.4.2b permits defense reactions only in Reaction Step. The attempted play must preserve the source and all resources. Sources: FaBSim/GeneratedCode/cardArrayCache.json#unmovable_red https://rules.fabtcg.com/en/cr/07-combat/#7.4 https://rules.fabtcg.com/en/cr/07-combat/#7.5"
+}

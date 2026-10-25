@@ -1,0 +1,41 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch101.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-21T00:30:41.878929+00:00",
+  "fixtures": [
+    {
+      "slug": "card-zealous-belting-red-four-live-sparse-real-greater-power-yellow-pitch-grants-go-again",
+      "fixture_sha256": "4c11bfb48f47d908adb210690a916a62af2b133d693025b1dd390419bafe1e17",
+      "passed": true,
+      "result": "[PASS] Zealous Belting / four live sparse positive condition"
+    },
+    {
+      "slug": "card-hulk-up-red-four-live-sparse-actual-lower-life-than-all-three-heroes-reduces-four-cost-to-three",
+      "fixture_sha256": "3ab00bfe2aa6d13effa7e50b11388046eb13e3683853cca977ec49d17ea78559",
+      "passed": true,
+      "result": "[PASS] Hulk Up / four live sparse positive condition"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-zealous-belting-red-four-live-sparse-real-greater-power-yellow-pitch-grants-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Zealous Belting / four live sparse positive condition\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-hulk-up-red-four-live-sparse-actual-lower-life-than-all-three-heroes-reduces-four-cost-to-three",
+      "returncode": 0,
+      "stdout": "[PASS] Hulk Up / four live sparse positive condition\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3154,
+  "omitted_source_scenarios": [
+    "card-flex-speed-red-four-live-sparse-real-come-to-fight-buff-crosses-six-and-grants-go-again",
+    "card-flex-strength-red-four-live-sparse-real-come-to-fight-crosses-six-and-enables-own-three-power"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

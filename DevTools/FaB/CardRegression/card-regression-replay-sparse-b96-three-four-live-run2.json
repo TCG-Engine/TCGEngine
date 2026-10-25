@@ -1,0 +1,50 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch96.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-21T00:04:43.887344+00:00",
+  "fixtures": [
+    {
+      "slug": "card-penetration-script-yellow-four-live-sparse-actual-mechanologist-attack-gets-one-from-controlled-script",
+      "fixture_sha256": "fc881a9c44dab17bb29429c9c3a41b4bb4e07063137ef8c03deb11e341952acd",
+      "passed": true,
+      "result": "[PASS] Penetration Script / four live sparse passive effect"
+    },
+    {
+      "slug": "card-security-script-blue-four-live-sparse-actual-mechanologist-hand-defender-three-plus-one-exact-four",
+      "fixture_sha256": "15c060e52a72c66e2f2f2d3809c902db015393329b2d6193500f30602c0eb593",
+      "passed": true,
+      "result": "[PASS] Security Script / four live sparse passive effect"
+    },
+    {
+      "slug": "card-dissolution-sphere-yellow-four-live-sparse-actual-exactly-one-physical-damage-prevented-no-hit",
+      "fixture_sha256": "480b2ea7f740bc3af925415fb7ff0bbabc313d049c9e32d53d9d564980ac7b9c",
+      "passed": true,
+      "result": "[PASS] Dissolution Sphere / four live sparse passive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-penetration-script-yellow-four-live-sparse-actual-mechanologist-attack-gets-one-from-controlled-script",
+      "returncode": 0,
+      "stdout": "[PASS] Penetration Script / four live sparse passive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-security-script-blue-four-live-sparse-actual-mechanologist-hand-defender-three-plus-one-exact-four",
+      "returncode": 0,
+      "stdout": "[PASS] Security Script / four live sparse passive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dissolution-sphere-yellow-four-live-sparse-actual-exactly-one-physical-damage-prevented-no-hit",
+      "returncode": 0,
+      "stdout": "[PASS] Dissolution Sphere / four live sparse passive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3136,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

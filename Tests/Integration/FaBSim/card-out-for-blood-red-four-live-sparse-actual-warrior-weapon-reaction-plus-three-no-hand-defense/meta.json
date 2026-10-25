@@ -1,0 +1,7 @@
+{
+    "name": "Out for Blood / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T01:30:24+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actually activate Cintari Saber against P2 and pitch blue3 to pay1, leaving2/AP0. At real Reaction priority, pay1 for Out for Blood without spending AP. Pending reaction does not yet raise power. Resolution gives the current weapon2+3=5; no hand card defended, so Reprise is not active. Actual damage5 leaves P2 at15; resources1/AP0, physical Saber remains equipped. Exactly one positive sparse representative; no pitch matrix, full-card, family-completion or unsupported async-lifecycle claim. All four genuine live young20 heroes manually pass priority; no passive seat/seeded history/permission. No Reprise-positive, second attack, attack-action target, equipment defense or sibling expansion. Virtual weapon layer Owner0 is a generated diagnostic only; physical source ownership and SourceUniqueID are independently pinned. Dorinthea weapon-hit allowance does not supply AP or a second attack; her ability is not a primary tested group. Sources: https://judge.fabtcg.com/cards/detail/632/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP165.webp https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

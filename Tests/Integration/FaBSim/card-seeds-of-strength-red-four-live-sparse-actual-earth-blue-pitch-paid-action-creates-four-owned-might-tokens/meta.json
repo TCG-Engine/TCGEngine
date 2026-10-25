@@ -1,0 +1,7 @@
+{
+    "name": "Seeds of Strength / four live sparse positive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T20:48:10+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Terra is a legal young Elemental Guardian with Essence of Earth and printed20life. Actually play sourceUID5cost2, actually pitch EarthloreSurgeBlueUID6Earth/pitch3, leaving1resource/AP0. Before fourth manual response source5 is Stack and Arena/GY empty. Printed EarthBond applies because an actual Earth card paid this source: create4MightUID7..10, all own/controller1Status2, rather than base3. Source5 ends own publicGYFaceDown0, Earth6 remains ownPitch. No printedGoagain, finalAP0/res1/allhealth20. Only actual EarthBond-positive creation; nonEarth/base3, other pitches/siblings, later token effects/expiry/replacement and Terra end-phase trigger remain untested. All four are living legal young heroes with real supported manual response actors; no passive seats. Exact original source and support UIDs, owners/controllers, resources/AP, health and physical endpoint zones are pinned. No seeded history/effect tags or shared effect-bucket emptiness/index oracles. One positive primary representative only; no sibling/support/hero/full-card/alternate-branch credit. Sources: https://judge.fabtcg.com/cards/detail/4632/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN201.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

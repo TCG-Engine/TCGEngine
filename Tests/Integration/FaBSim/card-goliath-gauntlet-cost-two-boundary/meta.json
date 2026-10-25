@@ -1,0 +1,7 @@
+{
+    "name": "Goliath Gauntlet / cost-two-boundary",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:13:30+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cost2 is included: first Surging Strike red attacks for printed5+2=7 with go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#goliath_gauntlet https://rules.fabtcg.com/en/cr/07-combat/"
+}

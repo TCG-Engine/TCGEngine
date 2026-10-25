@@ -1,0 +1,7 @@
+{
+    "name": "Muscle Mutt / defends exactly two, takes two",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:05:24+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Muscle Mutt yellow has printed defense2, cost3, power6, pitch2 and no rules text/keywords. Young Dorintheas legally use these Generic cards; their weapon ability does not apply. Wounding Blow red is a cost0 printed-power4 attack with no text. Muscle Mutt defends from Hand for free at seat2 AP0/resources0. Persisted current attack power4 and final defending hero HP18 independently force exact defense2: defense1 or3 would leave HP17 or19. Muscle Mutt remains on CombatChain through link RESOLUTION, then goes to its owner Graveyard when the combat chain closes. Both resources/AP stay0; Stack and pending payment/resolution queues remain empty at checkpoints. Sources: https://judge.fabtcg.com/cards/detail/1486/ FaBSim/GeneratedCode/cardArrayCache.json#muscle_mutt_yellow https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

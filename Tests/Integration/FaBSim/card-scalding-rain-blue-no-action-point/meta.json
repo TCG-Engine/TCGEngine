@@ -1,0 +1,7 @@
+{
+    "name": "Scalding Rain / no-action-point",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:23:25+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Action card requires an AP even with printed resource cost1 available; announcement must be rejected. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_blue https://rules.fabtcg.com/en/cr/07-combat/"
+}

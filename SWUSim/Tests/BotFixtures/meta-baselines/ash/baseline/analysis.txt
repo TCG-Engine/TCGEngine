@@ -1,0 +1,21 @@
+RUN .claude/tmp/ash-meta-runs/plain-p54-20261019: 9865/9865 real matches replayed, 19656 games (0 failed), median 7.0 rounds, seat-1 win 50.5%
+68 matches on an Intro Battle: Hoth base ignored (20 HP in the sims, 30 HP in real play)
+
+######## THIS RUN vs REAL
+ARCHETYPES (30+ matches): 68   Pearson +0.35   Spearman +0.29   MAE 0.066 (constant 50%: 0.045)   spread SD real 5.8pp / bot 8.0pp
+STYLE BIAS (bot − real game WR, match-weighted): hyperaggro +5.2pp   softaggro +3.8pp   midrange +0.3pp   softcontrol -3.1pp   hardcontrol -8.6pp
+most under-performing:
+   Lando Calrissian (LAW) · Colossus              softcontrol real 57%  bot 37%  gap -19.9  (n=114)
+   Chewbacca (LAW) · Alliance Outpost             hyperaggro  real 53%  bot 34%  gap -18.4  (n=114)
+   The Armorer (ASH) · Nabat Village              midrange    real 43%  bot 25%  gap -18.3  (n=100)
+   Rio Durant (JTL) · Thermal Oscillator          hyperaggro  real 44%  bot 29%  gap -14.5  (n=79)
+   Leia Organa (LAW) · Blue Splash                softaggro   real 50%  bot 36%  gap -14.0  (n=177)
+   The Client (LAW) · Red 30HP                    softaggro   real 53%  bot 40%  gap -13.4  (n=30)
+most over-performing:
+   Grand Admiral Sloane (ASH) · Blue Splash       midrange    real 40%  bot 62%  gap +22.3  (n=53)
+   Darth Vader (JTL) · Yellow 30HP                hyperaggro  real 49%  bot 60%  gap +11.3  (n=1172)
+   Hera Syndulla (LAW) · Blue Splash              midrange    real 34%  bot 43%  gap  +9.7  (n=38)
+   Luke Skywalker (ASH) · Data Vault              midrange    real 47%  bot 56%  gap  +9.1  (n=528)
+   Wedge Antilles (JTL) · Yellow 30HP             hyperaggro  real 41%  bot 50%  gap  +8.9  (n=31)
+   Obi-Wan Kenobi (LOF) · Yellow Force            midrange    real 45%  bot 53%  gap  +8.1  (n=37)
+MATCHUP CELLS (ordered, 10+ matches): 338   Pearson +0.29   MAE 0.131 (constant 50%: 0.086)   favourite right 61%

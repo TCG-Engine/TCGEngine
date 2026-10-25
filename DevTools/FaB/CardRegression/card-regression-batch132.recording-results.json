@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-unsheathed-red-four-live-sparse-actual-sword-plus-three-at-equal-double-base-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 1331
+    },
+    {
+        "slug": "card-dauntless-red-four-live-sparse-actual-paid-next-weapon-plus-three-real-sword-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 1332
+    },
+    {
+        "slug": "card-tiger-form-incantation-red-four-live-sparse-actual-blue-pitch-creates-owned-hand-tiger",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 815
+    }
+]

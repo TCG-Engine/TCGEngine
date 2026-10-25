@@ -1,0 +1,7 @@
+{
+    "name": "Razor Reflex / hand-cost-one-boundary-hit-trigger-go-again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:49+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Pay Razor1; printed +1 increases first attack power4 to5. blackout_kick_red costs1; it has no functional go again before the hit (Blackout Kick has no prior Rising Knee Thrust). Before damage and while the hit trigger remains on Stack1, go again is false and AP0. After that trigger resolves, go again becomes true; chain resolution grants exactly AP1. Hero life ends15. Blue3 pays Blackout cost1, leaving2; Razor1 then leaves1. Sources: FaBSim/GeneratedCode/cardArrayCache.json#razor_reflex_blue https://judge.fabtcg.com/cards/detail/324/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

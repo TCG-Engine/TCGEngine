@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:08:44+00:00",
+    "input_file": "card-regression-batch151.json",
+    "input_sha256": "d100aa2010eaf969a481ea5fe906ed28eaf5a70803fc528a4f3fb3461d7b68fc",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-richter-scale-four-live-sparse-actual-equipment-destruction-creates-two-owned-seismic-surges-without-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 342
+        },
+        {
+            "slug": "card-buccaneers-bounty-four-live-sparse-actual-pirate-equipment-destruction-gains-one-resource-and-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 332
+        }
+    ]
+}

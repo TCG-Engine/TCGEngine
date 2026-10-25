@@ -1,0 +1,7 @@
+{
+    "name": "Breaking Scales / weapon-target-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:33+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Only an attack action card with Combo is a legal target. Weapon attacks are excluded. Rejection must preserve arms, leave ability stack empty, and leave attack damage unmodified. Sources: FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

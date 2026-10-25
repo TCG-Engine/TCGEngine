@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T00:06:20+00:00",
+    "input_file": "card-regression-batch28-no-hit-pilot.json",
+    "input_sha256": "b99f66baae22abb35a584d19de075419f4b22de65e649ffe7f001c72140caf47",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-ironrot-gauntlet-blade-break-fully-blocked-no-hit-still-destroys",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 55
+        }
+    ]
+}

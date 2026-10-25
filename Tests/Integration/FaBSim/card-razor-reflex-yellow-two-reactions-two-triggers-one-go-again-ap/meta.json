@@ -1,0 +1,7 @@
+{
+    "name": "Razor Reflex / two-reactions-two-triggers-one-go-again-ap",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:56:06+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two copies each add2 to Wounding Blow4, for power8. Each grants a separate hit trigger: Stack2 before resolution. Both triggers may give go again, but multiple instances of go again grant only one AP at chain-link resolution. Reactions cost1+1, paid by one blue3 leaving1; final life12, AP1. Sources: FaBSim/GeneratedCode/cardArrayCache.json#razor_reflex_yellow https://judge.fabtcg.com/cards/detail/323/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

@@ -1,0 +1,136 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-20T23:55:13.193310+00:00",
+  "plan_sha256": "994b20bfc5b7dcfe2fbd53fe2bab672e3d6327f08ba5d75148ef72c1f8fcfe8d",
+  "independent_saved_proof_sha256": "54b5a3c596a728d5925a7ec0ce58b81c011a39e13116c404a9d1fc3ca37350bd",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    ".\\sparse-b94-focused-fault-plan.json",
+    "994b20bfc5b7dcfe2fbd53fe2bab672e3d6327f08ba5d75148ef72c1f8fcfe8d",
+    "card-regression-sparse-b94-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b94_droplet_blue_positive_effect_sensitivity",
+      "fixture": "card-droplet-blue-four-live-sparse-real-prior-blue-wind-plus-two-and-granted-go-again",
+      "fixture_sha256": "58b07d5fce4660bd3b956cce85153e64c41aeaac0c39e468b9f28ef628312eac",
+      "source_raw5": {
+        "initial_gamestate.txt": "3f679073c3a2fb09063564b4420bbdf459b89c2d989a3714867c43c6963964a3",
+        "actions.json": "bc1f09bc79136f3b276a927865eef40a985d6b8effbd8878374315fc7b683d62",
+        "assertions.json": "71d066a2eaf61b1c235fb75821fe34d919cc090140a07888463871ec5f101ff8",
+        "expected_final_gamestate.txt": "1fc459a4521fba0b9f6cf84094c937db5a1e733b8b923b4a0233eb99c2d12c31",
+        "meta.json": "233eabb94599984a10a183c6ee9fddb044e3c84dcaf37c99f90912ed38ad4d12"
+      },
+      "prefix_actions": 10,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "Stack",
+            "cardID": "droplet_blue",
+            "mode": "add",
+            "tag": "WTR_POWER:-2"
+          }
+        ]
+      },
+      "retained_assertions": 591,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Droplet / four live sparse positive effect: Step 1 assertion failed: Expected p1CombatChain-0 computed power to equal 4, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Inject existing signed WTR_POWER:-2 on unique actual paid primaryStack5 immediately before fourth layer pass. Preserves actual prior-blue history/WindGA/physical IDs. Pins numerical +2 sensitivity through first original livepower4 vs2, not independent simulation of missing-history branch.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b94_amplifying_arrow_yellow_positive_effect_sensitivity",
+      "fixture": "card-amplifying-arrow-yellow-four-live-sparse-real-take-aim-power-gain-replacement-arrow-from-arsenal",
+      "fixture_sha256": "f49e0c86c17c668a92758e20ac8d1293aa88d6001fc4ff2d2fbbb18f5d53b0bd",
+      "source_raw5": {
+        "initial_gamestate.txt": "afff559cc7a51b31c9dbef303a0f3440b1cc52079f88a390fe2d649699dcdd43",
+        "actions.json": "7776d3f25ceddcb28164475a81f98e6842f5fe0d3ab570213e272cdf1f77551a",
+        "assertions.json": "cd54d22628d68124a64716651ae0d6988a43bf63b48cf29494138d6b01560deb",
+        "expected_final_gamestate.txt": "ded3ac8897be148592194584d40bd498ae355c6aa984f7774cabb06e8cc42853",
+        "meta.json": "9c16270ef3852ff3d3207067fdbaa15c22311707eea48c655ca358b3ef47dcf5"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "ARC_NEXT_RANGER"
+      },
+      "retained_assertions": 756,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Amplifying Arrow / four live sparse positive effect: Step 6 assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove exact existing qualifying support grant after it actually resolves, before real primary announcement. Preserve card/history/assets/adjacent target and every original suffix oracle. Arrow loses replaced+4 and exposesbase2; Cut losesMinnow3 and consequent self+1, exposesbase3. No replacement expected values.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b94_cut_a_long_story_short_yellow_positive_effect_sensitivity",
+      "fixture": "card-cut-a-long-story-short-yellow-four-live-sparse-real-minnow-base-three-plus-three-conditional-extra-one",
+      "fixture_sha256": "c1fee6da8c75905591b897f6e2856c1080df10c31a451fd9a11fb02e67fb0e5d",
+      "source_raw5": {
+        "initial_gamestate.txt": "b63ec55d49d99b99f32f093be42714ceea0874bcc83205a060dee80e5f22db7f",
+        "actions.json": "bc1f09bc79136f3b276a927865eef40a985d6b8effbd8878374315fc7b683d62",
+        "assertions.json": "4d767ccb467fcf1d0cbdd049e7343aa88197b7d01e6c98b4732ec38ecd8c12a5",
+        "expected_final_gamestate.txt": "cad33d26f64ff2ba23c3208b7734ea80814467c5c6911eeab176406b4b81fae3",
+        "meta.json": "38bf72fd905dc38da04ec0b90ec569bfda47724c91f073f1b61e6746a52b9d07"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "MON_MINNOW"
+      },
+      "retained_assertions": 703,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Cut a Long Story Short / four live sparse positive effect: Step 6 assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove exact existing qualifying support grant after it actually resolves, before real primary announcement. Preserve card/history/assets/adjacent target and every original suffix oracle. Arrow loses replaced+4 and exposesbase2; Cut losesMinnow3 and consequent self+1, exposesbase3. No replacement expected values.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b94_rusted_relic_blue_positive_effect_sensitivity",
+      "fixture": "card-rusted-relic-blue-four-live-sparse-real-arena-arcane-barrier-one-blue-pitch-versus-dart-one",
+      "fixture_sha256": "b413f19ddcf403078a94a358b69b9ec4b5b72498d149db6142baa8e48c0d7e03",
+      "source_raw5": {
+        "initial_gamestate.txt": "52572a88b52640db8ae51d10ddd095c0b22371c2607d97dd21ba3ddae0611608",
+        "actions.json": "4f14af04ac06d477876ce26a8561f6e6c004100a96cc6fa66d46b49a156d7fd4",
+        "assertions.json": "2de5721eed5718b123f8f8e435969bac23103811ee17936aee897f599f86f7e3",
+        "expected_final_gamestate.txt": "509066ac5b83410592458ea9a0690a22da06bc14822f5d107c277610752dee1c",
+        "meta.json": "7c093b37cc3e5ebfd9046af0a5f63bff64236143f89cd71015f9f51b4733ae87"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "Arena",
+            "cardID": "rusted_relic_blue",
+            "mode": "add",
+            "tag": "NO_ABILITIES"
+          }
+        ]
+      },
+      "retained_assertions": 236,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"ACTION\".",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Rusted Relic / four live sparse positive effect: Step 1 assertion failed: Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"ACTION\".\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual managed Dart offers owned Relic6, add existing NO_ABILITIES to unique Arena6 before original choice answer. Same captured legal choice source/UID and physical payment assets retained. Current source readsBarrierValue0 after answer, so no pitch/prevention and public endpointACTION/damage1. First retained original windowPRIORITY expectation must failACTION; all later original pitch/resource/HP/source lifecycle assertions retained. A bounded injected ability-loss sensitivity control, not a new gameplay case.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

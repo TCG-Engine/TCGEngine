@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "rule-activation-guard-sledge-blind-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 21
+    },
+    {
+        "slug": "rule-activation-guard-sledge-four-resource-positive",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 33
+    },
+    {
+        "slug": "rule-activation-guard-skybody-hidden-activation-positive",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 23
+    },
+    {
+        "slug": "rule-activation-guard-skybody-explicit-no-abilities-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 23
+    }
+]

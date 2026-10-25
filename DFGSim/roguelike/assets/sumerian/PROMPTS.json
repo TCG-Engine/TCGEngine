@@ -1,0 +1,42 @@
+{
+  "mode": "built-in image_gen",
+  "purpose": "Sumerian myth-inspired base enemy art; not yet in encounter roster",
+  "references": [
+    "DFGSim/assets/fighter-red-transparent.webp",
+    "DFGSim/roguelike/assets/fox-v2.png"
+  ],
+  "sources": [
+    {
+      "name": "Imdugud",
+      "url": "https://www.metmuseum.org/art/collection/search/326897"
+    },
+    {
+      "name": "Huwawa",
+      "url": "https://www.britishmuseum.org/collection/object/W_1883-0118-AH-2598"
+    },
+    {
+      "name": "Bull of Heaven",
+      "url": "https://etcsl.orinst.ox.ac.uk/section1/tr1812.htm"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "imdugud-v1",
+      "name": "Imdugud",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transparent base sprite for DFGSim, a martial arts card fighting game. Input image 1 is STRICT STYLE REFERENCE ONLY (existing red human fighter), input image 2 is supporting STYLE REFERENCE ONLY (existing fox enemy); invent a new subject. Match their very thick dark brown-black outlines, simple geometric anatomy, chunky hands and feet, broad flat color shapes, at most one restrained flat shadow per shape, very sparse detail, approachable cartoon proportions. No realism, painterly rendering, gradients, texture, glow, particles, intricate decoration, scenery, ground plane, shadows cast onto background, text or labels. Exactly ONE character, full body completely inside the canvas with generous transparent margins on all sides including horns/wings. Three-quarter profile facing LEFT, combat ready, static readable guard pose, grounded feet, easy to animate later. True transparent background. Sumerian myth-inspired fantasy martial arts adaptation, not an archaeological reconstruction. Subject: Imdugud, the lion-headed eagle. An upright eagle-bodied martial artist with an unmistakable golden lion head, small blocky ochre mane, tawny lion muzzle and rounded ears (NO eagle beak), dark slate-blue eagle wings folded into two clear guarded forelimb silhouettes, strong ochre bird legs and large simple three-toed talons. Keep folded wing silhouettes compact enough for a fight arena. A plain cream short wrap around the waist with a muted ochre belt, a few large feather shapes only. Proud alert expression. Build the silhouette around lion head plus eagle body and talons, not a griffin or human with extra wings.",
+      "file": "imdugud-v1.png"
+    },
+    {
+      "id": "huwawa-v1",
+      "name": "Huwawa",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transparent base sprite for DFGSim, a martial arts card fighting game. Input image 1 is STRICT STYLE REFERENCE ONLY (existing red human fighter), input image 2 is supporting STYLE REFERENCE ONLY (existing fox enemy); invent a new subject. Match their very thick dark brown-black outlines, simple geometric anatomy, chunky hands and feet, broad flat color shapes, at most one restrained flat shadow per shape, very sparse detail, approachable cartoon proportions. No realism, painterly rendering, gradients, texture, glow, particles, intricate decoration, scenery, ground plane, shadows cast onto background, text or labels. Exactly ONE character, full body completely inside the canvas with generous transparent margins on all sides including horns/wings. Three-quarter profile facing LEFT, combat ready, static readable guard pose, grounded feet, easy to animate later. True transparent background. Sumerian myth-inspired fantasy martial arts adaptation, not an archaeological reconstruction. Subject: Huwawa (Humbaba), a broad powerful cedar-forest guardian giant. A squat muscular humanoid martial artist with a wide terracotta face, huge rounded nose, simple bared square teeth, and three bold curving raised ridges framing his cheeks and brow to evoke ancient Huwawa mask imagery. No horror realism or visceral detail. Dark green hair in a few large cedar-like stepped tufts, thick brown-black beard in large block shapes. Bare strong arms, two chunky fists raised in a grounded grappling guard, simple muted forest-green sleeveless wrap tunic and broad ochre belt, dark brown loose trousers, large wrapped feet. Compact heavy silhouette, stern rather than evil expression. No axe, tree trunk, weapons, branches or scenery.",
+      "file": "huwawa-v1.png"
+    },
+    {
+      "id": "bull-of-heaven-v1",
+      "name": "Bull of Heaven",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transparent base sprite for DFGSim, a martial arts card fighting game. Input image 1 is STRICT STYLE REFERENCE ONLY (existing red human fighter), input image 2 is supporting STYLE REFERENCE ONLY (existing fox enemy); invent a new subject. Match their very thick dark brown-black outlines, simple geometric anatomy, chunky hands and feet, broad flat color shapes, at most one restrained flat shadow per shape, very sparse detail, approachable cartoon proportions. No realism, painterly rendering, gradients, texture, glow, particles, intricate decoration, scenery, ground plane, shadows cast onto background, text or labels. Exactly ONE character, full body completely inside the canvas with generous transparent margins on all sides including horns/wings. Three-quarter profile facing LEFT, combat ready, static readable guard pose, grounded feet, easy to animate later. True transparent background. Sumerian myth-inspired fantasy martial arts adaptation, not an archaeological reconstruction. Subject: the Bull of Heaven, reimagined as an upright heavyweight bull martial artist. Deep midnight-blue bull head and thick neck, very wide simple gold horns curving upward and forward, small pale muzzle, compact ears, strong bovine silhouette and short tail. Massive blue forearms with chunky guarded fists, sturdy bent legs ending in two broad cloven hooves. Plain cream sleeveless martial arts waist wrap and short skirt inspired by simplified Sumerian wool garments: only two large stepped tiers, no fine fringe or embroidery. Broad warm gold belt with a single simple star emblem. A few broad navy shadow shapes. Imposing calm strength, no weapons, lightning, halo, elaborate jewelry or background.",
+      "file": "bull-of-heaven-v1.png"
+    }
+  ]
+}

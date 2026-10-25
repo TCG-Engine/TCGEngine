@@ -1,0 +1,7 @@
+{
+    "name": "Ice Bolt / own-barrier-unfunded",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:00:59+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost2 and 5 arcane damage to any target. Choose player1's hero. Pay2 from the caster pool and1AP, leaving0. Victim1 has Barrier1 but resources0 and no pitchable hand; other player's floating resources cannot fund it. No affordable prevention chooser. Deal the full5 only on resolution: hero120->15, other hero20. No printed go again, Frostbite or extra layer. Source leaves Stack for its owner's graveyard after resolution. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ice_bolt_red https://judge.fabtcg.com/cards/detail/1633/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

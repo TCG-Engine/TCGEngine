@@ -1,0 +1,7 @@
+{
+    "name": "Nullrune Robe / pay-blue-pitch",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:11:14+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "With0 floating resources elect the one actual AB1 source, then pitch 1 Generic Wounding Blow blue card(s) for3. Pay full1, leave2, prevent1, take2. HP20/sourceStack/ownerGY0 and AP0 persist until pitching/payment finishes; equipment retained/unexhausted. No printed pitch trigger applies. Each answer uses displayed live Hand0 after native compaction. Sources: FaBSim/GeneratedCode/cardArrayCache.json#nullrune_robe https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP347.webp DevTools/FaB/upr_abilities.json#aether_dart_red/PrepareCard,ResolveCard FaBSim/Custom/UPRCards.php::FaBUPRBarrierValue/FaBUPRBarrierChoices/FaBUPRDeal FaBSim/Custom/ARCCards.php::FaBARCPitchChoices/FaBARCPitchForEffect FaBSim/Custom/GameLogic.php::FaBFinishReactionResolution https://rules.fabtcg.com/en/cr/08-keywords/#838 https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/#8210"
+}

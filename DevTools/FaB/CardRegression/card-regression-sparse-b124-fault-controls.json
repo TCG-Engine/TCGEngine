@@ -1,0 +1,149 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:54:05.914328+00:00",
+  "plan_sha256": "11ad2be5992a0111ee040e4c9b8d6c1578994e12b67a532c6b1a437dab8493f3",
+  "independent_saved_proof_sha256": "23e58d5b4d92cfb61f3e944c0d99a772007b86885852dbee554d193b849ab12f",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b124-focused-fault-plan.json",
+    "11ad2be5992a0111ee040e4c9b8d6c1578994e12b67a532c6b1a437dab8493f3",
+    "card-regression-sparse-b124-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b124_homage_to_ancestors_blue_resolved_effect_result_sensitivity",
+      "fixture": "card-homage-to-ancestors-blue-four-live-sparse-actual-first-blue-instant-gains-one-without-transcend",
+      "fixture_sha256": "78dd17fd6330cbb34c609fa88a85a63a8adc287568209c3eb7125cd933a4171f",
+      "source_raw5": {
+        "initial_gamestate.txt": "93dce0cb6baf674845e8d299bce61eec05bde85d7af4cc81a1f44e7b9d86e67a",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "932afe9f784252cbc5d53e42773b9a357e2201a849b12a23155d26f79dd1d72d",
+        "expected_final_gamestate.txt": "81a9289cd34a1c06dea77dc947ac4c852437ae21abfac40e626ebc4dccfb8b72",
+        "meta.json": "a6091e9df3723a39530ad6bbd1480f3a6253788db894a977b4c7951587e115fa"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 1,
+            "value": 19
+          }
+        ]
+      },
+      "retained_assertions": 110,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Health to equal 20, got 19.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Homage to Ancestors / four live sparse ordinary effect: Initial assertion failed: Expected p1Health to equal 20, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual source5 and allfour real responses have healed caster19to20, restore only casterHealth19 on disposable. Missing printedlife result detected; numeric terminal outcome sensitivity only, not upstream callback omission/prevention/Transcend branch. Prefix executes every original action; every original final oracle retained with step offsets, no action suffix remains.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b124_tome_of_torment_red_resolved_effect_result_sensitivity",
+      "fixture": "card-tome-of-torment-red-four-live-sparse-actual-hand-action-draws-one-physical-deck-card",
+      "fixture_sha256": "17050baaefa47783decb57265de57ee5efbc63d65122aa5043ffe7aac9011145",
+      "source_raw5": {
+        "initial_gamestate.txt": "750604a52f5b82773bbfc11cc176c1353bc4763c65844425319196fe2df6c27f",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "fe2fbbcee5f4ac456fa2334e2d57c27bc5b9bcd2737a304e12413da4309ca6af",
+        "expected_final_gamestate.txt": "d1bc1439347c1104b4532bb044514dd660cd019957b9a1d04b72ca6b91b64980",
+        "meta.json": "74f22a433fe5746591dff4c0a67a6521f6727f05f530e360a0063ba8f30d2894"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Hand",
+            "cardID": "wounding_blow_blue",
+            "uid": 6,
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Tome of Torment / four live sparse ordinary effect: Initial assertion failed: Expected p1Hand count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real source5 resolution draws actualDeck cardBlue6 toHand, move only that exactuid outofHand toTemp ondisposable. Missing physicaldraw result detected by first Handcount oracle; all other physicaldrawnIDs/order remain. Terminal result-zone sensitivity only, not legal cardmovement/upstreamcallback omission/draw replacement/restriction branch. Prefix executes every original action; every original final oracle retained with step offsets, no action suffix remains.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b124_three_of_a_kind_red_resolved_effect_result_sensitivity",
+      "fixture": "card-three-of-a-kind-red-four-live-sparse-actual-paid-ranger-action-draws-three-ordered-physical-cards",
+      "fixture_sha256": "893afcb2615b7e4b2a5a015828fd86544a924344c7ecc68f3015d45846b4e65b",
+      "source_raw5": {
+        "initial_gamestate.txt": "6778bb5ef1e4f4aaa781f72f08fd2def39afd72b86f6390a35a98f9fba6175ef",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "eac5f4637d17e3e5ce55583175f1dd049945a1d973e9a7f4193edd027af584af",
+        "expected_final_gamestate.txt": "c7af7d9634df57f5e4e07133ace6f1725e762b244a0595ae791069279696899c",
+        "meta.json": "51df58d66dbc4e845d9a2bc2127acee1099c8b5a804a7b73747310cee56f5d05"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Hand",
+            "cardID": "wounding_blow_blue",
+            "uid": 9,
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 126,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Three of a Kind / four live sparse ordinary effect: Initial assertion failed: Expected p1Hand count 3, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real source5 resolution draws actualDeck cardBlue9 toHand, move only that exactuid outofHand toTemp ondisposable. Missing physicaldraw result detected by first Handcount oracle; all other physicaldrawnIDs/order remain. Terminal result-zone sensitivity only, not legal cardmovement/upstreamcallback omission/draw replacement/restriction branch. Prefix executes every original action; every original final oracle retained with step offsets, no action suffix remains.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b124_grim_feast_red_resolved_effect_result_sensitivity",
+      "fixture": "card-grim-feast-red-four-live-sparse-actual-full-hand-cost-shadow-action-gains-three",
+      "fixture_sha256": "814db10100a4ac3e71815f23f1639daf60c98930f2c7dcb6ab02c29d2c001393",
+      "source_raw5": {
+        "initial_gamestate.txt": "4e7b226ccc265ca453b4420969afc4b72d491ac06eb064414f1984cd47379160",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "362d8f1266f22ef0869bd687c56f85cc23b1591361130decd230c0bc245f4e58",
+        "expected_final_gamestate.txt": "0a943fb41bb9d80553ecde051d1d977d12a2f35a3d5563f4e5af7f855b2389f8",
+        "meta.json": "e3472a8b9625560642cabdb8e1d9d1706fdd4f2ade2668c3c7ca28f65f37ef37"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "set_health": [
+          {
+            "player": 1,
+            "value": 17
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Health to equal 20, got 17.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Grim Feast / four live sparse ordinary effect: Initial assertion failed: Expected p1Health to equal 20, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual source5 and allfour real responses have healed caster17to20, restore only casterHealth17 on disposable. Missing printedlife result detected; numeric terminal outcome sensitivity only, not upstream callback omission/prevention/Transcend branch. Prefix executes every original action; every original final oracle retained with step offsets, no action suffix remains.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

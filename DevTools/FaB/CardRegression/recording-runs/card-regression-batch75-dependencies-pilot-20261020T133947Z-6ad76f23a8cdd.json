@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T13:39:47+00:00",
+    "input_file": "card-regression-batch75-dependencies-pilot.json",
+    "input_sha256": "019d3a1237671a5b61248e52baf3934ea7bfb470d07cf72fd9974a44f821ea3a",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-plus-one",
+            "status": "recorded_semantically_checked",
+            "actions": 35,
+            "assertions": 752
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+  "status": "EXACT_ONE_UNSUPPORTED_ORACLE_REMOVED_PLUS_LABEL_PROSE_QUALIFICATION",
+  "checks": 227,
+  "supportedDeclaredPropertyChecks": 1203,
+  "sourceZoneClassesSHA256": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+  "originalManifestSHA256": "17c4d706ba6a3e3493bd79f240df91d98e9645e36a00082d8108ff92f88f32f9",
+  "originalFull31SHA256": "ec9f13cc5621fc52a1e059483c31dd320821cd3d3cf4d9d4c8834558a6c6ef72",
+  "originalPilots5SHA256": "c31d90264eed3f779299bcec704ede8eadfc87e2c73d738535d51e070dd37264",
+  "correctedFull31SHA256": "d52e40bf904486ee36d79589371cdefce1895531f748090bcf25a272b6036b12",
+  "correctedPilots5SHA256": "f3b66d1fae1aa6d3e85287dec718f5fcd809a1fe4299c75065c33d4b9ff59898",
+  "delta": "Only Rout post-fizzle Hand.TurnEffects fallback-empty assertion removed. Related checkpoint label and explanatory scope/Oracle qualification corrected. Every other executable field/action/check and all other30 full recipes identical. All queried generated properties now declared in their actual native zone classes. Original package/scripts unchanged.",
+  "nativeActions": 0,
+  "nativeWrites": 0
+}

@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-19T23:09:14+00:00",
+    "input_file": "card-regression-battleworn-timing-pilots.json",
+    "input_sha256": "349a495467fb88868a4ff065b6104e0c142f7306dc26a9269320b808706c7a9a",
+    "filter": "rule-",
+    "results": [
+        {
+            "slug": "rule-battleworn-close-first-counter-then-second-chain",
+            "status": "recorded_semantically_checked",
+            "actions": 31,
+            "assertions": 32
+        },
+        {
+            "slug": "rule-battleworn-close-nondefending-equipment-unchanged",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 13
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Lunging Press / target scope / current AA plus opposing defending AA / choose attacker",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T15:51:08+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actual Wounding Red power4 is defended from Hand by opposing Wounding Blue defense3. Both are legal LP targets. Choose 3/link1: current power4 gets+1; defense stays3, damage2 leaves18. LP source clears before damage; both physical chain cards clear only at Close. Sources: https://judge.fabtcg.com/cards/detail/720/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

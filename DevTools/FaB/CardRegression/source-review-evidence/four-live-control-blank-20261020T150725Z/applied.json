@@ -1,0 +1,8 @@
+{
+  "status": "REVIEWED_SINGLE_SIGIL_BLANK_GUARD_APPLIED_NATIVE4_RETRY_PENDING",
+  "only_changed_path": "DevTools/FaB/CardRegression/negative_control_state.php",
+  "helper_after": "ee09aa4310f51372316d78c1161075dbde2c5e81eec26a24e6507d45d3ffdb02",
+  "runtime_unchanged": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "all_canonical_raw5_preserved": 3079,
+  "archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\source-review-evidence\\four-live-control-blank-20261020T150725Z"
+}

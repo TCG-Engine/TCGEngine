@@ -1,0 +1,7 @@
+{
+    "name": "Command and Conquer / real Sigil Hand response before hit destruction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:24:58+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Unblocked printed6 leaves defender14; one mandatory CnC hit layer waits. A real attacker pass gives defender priority, then the defender plays printedcost0 instant Sigil from Hand. No early life gain; after real passes Sigil resolves first, heals defender to17 and moves its exact source to owner2GY while CnC still waits. Original facedown WoundingBlueUID4 remains Arsenal until lower CnC resolves and destroys it to owner2GY. Actual Resolution passes and Close move CnCUID3 to owner1GY; noAP/goagain/resources gained. Sources: https://judge.fabtcg.com/cards/detail/498/ https://rules.fabtcg.com/en/cr/06-effects/#665 https://rules.fabtcg.com/en/cr/06-effects/#666 https://rules.fabtcg.com/en/cr/07-combat/#752 FaBSim/WebpImages/sigil_of_solace_red.webp FaBSim/WebpImages/wounding_blow_blue.webp"
+}

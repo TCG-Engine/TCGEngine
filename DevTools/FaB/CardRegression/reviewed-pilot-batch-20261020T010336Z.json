@@ -1,0 +1,55 @@
+{
+  "runtime_sha256": "8ef84003d127806df61aa7bb0eb577df5783846f088fcb063d3fcec5b9a83f87",
+  "results": [
+    {
+      "input": "card-regression-batch28.json",
+      "input_sha256": "0ec1b73c4f8159d634b2ce931115bd7127f0c0da52b8c4907e53df293ed33886",
+      "returncode": 0,
+      "stdout": "[RECORDED] card-ironrot-gauntlet-blade-break-defend-alone-three-damage actions=15\n[EXISTS] card-ironrot-gauntlet-blade-break-fully-blocked-no-hit-still-destroys\n[RECORDED] card-ironrot-gauntlet-blade-break-hand-first-equipment-second-no-hit actions=16\n[RECORDED] card-ironrot-gauntlet-blade-break-not-defending-survives-close actions=14\n[RECORDED] card-ironrot-gauntlet-blade-break-attacker-cannot-defend-own-attack actions=15\n[RECORDED] card-ironrot-gauntlet-blade-break-prior-link-equipment-cannot-defend-again actions=28\n[RECORDED] card-ironrot-gauntlet-blade-break-destroyed-equipment-unavailable-next-chain actions=30\n[RECORDED] card-ironrot-helm-blade-break-defend-alone-three-damage actions=15\n[RECORDED] card-ironrot-helm-blade-break-fully-blocked-no-hit-still-destroys actions=16\n[RECORDED] card-ironrot-helm-blade-break-hand-first-equipment-second-no-hit actions=16\n[RECORDED] card-ironrot-helm-blade-break-not-defending-survives-close actions=14\n[RECORDED] card-ironrot-helm-blade-break-attacker-cannot-defend-own-attack actions=15\n[RECORDED] card-ironrot-helm-blade-break-prior-link-equipment-cannot-defend-again actions=28\n[RECORDED] card-ironrot-helm-blade-break-destroyed-equipment-unavailable-next-chain actions=30\n[RECORDED] card-ironrot-legs-blade-break-defend-alone-three-damage actions=15\n[RECORDED] card-ironrot-legs-blade-break-fully-blocked-no-hit-still-destroys actions=16\n[RECORDED] card-ironrot-legs-blade-break-hand-first-equipment-second-no-hit actions=16\n[RECORDED] card-ironrot-legs-blade-break-not-defending-survives-close actions=14\n[RECORDED] card-ironrot-legs-blade-break-attacker-cannot-defend-own-attack actions=15\n[RECORDED] card-ironrot-legs-blade-break-prior-link-equipment-cannot-defend-again actions=28\n[RECORDED] card-ironrot-legs-blade-break-destroyed-equipment-unavailable-next-chain actions=30\n[RECORDED] card-ironrot-plate-blade-break-defend-alone-three-damage actions=15\n[RECORDED] card-ironrot-plate-blade-break-fully-blocked-no-hit-still-destroys actions=16\n[RECORDED] card-ironrot-plate-blade-break-hand-first-equipment-second-no-hit actions=16\n[RECORDED] card-ironrot-plate-blade-break-not-defending-survives-close actions=14\n[RECORDED] card-ironrot-plate-blade-break-attacker-cannot-defend-own-attack actions=15\n[RECORDED] card-ironrot-plate-blade-break-prior-link-equipment-cannot-defend-again actions=28\n[RECORDED] card-ironrot-plate-blade-break-destroyed-equipment-unavailable-next-chain actions=30\n[RECORDED] card-rotten-old-buckler-blade-break-defend-alone-three-damage actions=15\n[EXISTS] card-rotten-old-buckler-blade-break-fully-blocked-no-hit-still-destroys\n[RECORDED] card-rotten-old-buckler-blade-break-hand-first-equipment-second-no-hit actions=16\n[RECORDED] card-rotten-old-buckler-blade-break-not-defending-survives-close actions=14\n[RECORDED] card-rotten-old-buckler-blade-break-attacker-cannot-defend-own-attack actions=15\n[RECORDED] card-rotten-old-buckler-blade-break-prior-link-equipment-cannot-defend-again actions=28\n[RECORDED] card-rotten-old-buckler-blade-break-destroyed-equipment-unavailable-next-chain actions=30\n[EXISTS] card-teklo-base-arms-blade-break-defend-alone-three-damage\n[RECORDED] card-teklo-base-arms-blade-break-fully-blocked-no-hit-still-destroys actions=16\n[RECORDED] card-teklo-base-arms-blade-break-hand-first-equipment-second-no-hit actions=16\n[RECORDED] card-teklo-base-arms-blade-break-not-defending-survives-close actions=14\n[RECORDED] card-teklo-base-arms-blade-break-attacker-cannot-defend-own-attack actions=15\n[RECORDED] card-teklo-base-arms-blade-break-prior-link-equipment-cannot-defend-again actions=28\n[RECORDED] card-teklo-base-arms-blade-break-destroyed-equipment-unavailable-next-chain actions=30\n[RECORDED] card-teklo-base-chest-blade-break-defend-alone-three-damage actions=15\n[RECORDED] card-teklo-base-chest-blade-break-fully-blocked-no-hit-still-destroys actions=16\n[RECORDED] card-teklo-base-chest-blade-break-hand-first-equipment-second-no-hit actions=16\n[RECORDED] card-teklo-base-chest-blade-break-not-defending-survives-close actions=14\n[RECORDED] card-teklo-base-chest-blade-break-attacker-cannot-defend-own-attack actions=15\n[RECORDED] card-teklo-base-chest-blade-break-prior-link-equipment-cannot-defend-again actions=28\n[RECORDED] card-teklo-base-chest-blade-break-destroyed-equipment-unavailable-next-chain actions=30\n[RECORDED] card-teklo-base-head-blade-break-defend-alone-three-damage actions=15\n[RECORDED] card-teklo-base-head-blade-break-fully-blocked-no-hit-still-destroys actions=16\n[RECORDED] card-teklo-base-head-blade-break-hand-first-equipment-second-no-hit actions=16\n[RECORDED] card-teklo-base-head-blade-break-not-defending-survives-close actions=14\n[RECORDED] card-teklo-base-head-blade-break-attacker-cannot-defend-own-attack actions=15\n[RECORDED] card-teklo-base-head-blade-break-prior-link-equipment-cannot-defend-again actions=28\n[RECORDED] card-teklo-base-head-blade-break-destroyed-equipment-unavailable-next-chain actions=30\n[RECORDED] card-teklo-base-legs-blade-break-defend-alone-three-damage actions=15\n[RECORDED] card-teklo-base-legs-blade-break-fully-blocked-no-hit-still-destroys actions=16\n[RECORDED] card-teklo-base-legs-blade-break-hand-first-equipment-second-no-hit actions=16\n[RECORDED] card-teklo-base-legs-blade-break-not-defending-survives-close actions=14\n[RECORDED] card-teklo-base-legs-blade-break-attacker-cannot-defend-own-attack actions=15\n[RECORDED] card-teklo-base-legs-blade-break-prior-link-equipment-cannot-defend-again actions=28\n[RECORDED] card-teklo-base-legs-blade-break-destroyed-equipment-unavailable-next-chain actions=30\n[RECORDED] card-ironrot-helm-blade-break-multiple-distinct-slots-each-destroys actions=18\n[RECORDED] card-teklo-base-head-blade-break-multiple-distinct-slots-each-destroys actions=18\n[RECORDED] card-rotten-old-buckler-blade-break-multiple-distinct-slots-each-destroys actions=16\n",
+      "stderr": ""
+    },
+    {
+      "input": "card-regression-batch31-pilot.json",
+      "input_sha256": "dba6218595f2c070ef23712e20c597c0ad3ff7c20dac940c963bc9a56f494ad1",
+      "returncode": 0,
+      "stdout": "[RECORDED] card-savage-swing-red-mandatory-discard-hand-blue-pitch-singleton actions=15\n[RECORDED] card-wrecker-romp-blue-mandatory-discard-two-red-pitches-before-singleton-discard actions=16\n[RECORDED] card-wrecker-romp-red-mandatory-discard-fully-blocked-still-pays-discard actions=17\n",
+      "stderr": ""
+    },
+    {
+      "input": "card-regression-batch33-pilot.json",
+      "input_sha256": "725c9c40551d2127c65b65369eb8514786c4f7b8238f6f3de34d763d2aca7680",
+      "returncode": 1,
+      "stdout": "[RECORDED] card-sharpen-steel-red-opponent-response-before-buff-resolves actions=18\n[RECORDED] card-cut-deep-red-attack-action-excluded-and-preserves-buff actions=27\n[RECORDED] card-felling-swing-red-blue-pitch-payments actions=17\n[BLOCKED] card-en-garde-red-hand-floating: Expected Stack-0.TurnEffects to equal '[\"WTR_POWER:3\"]', got '[]'.\n",
+      "stderr": ""
+    },
+    {
+      "input": "card-regression-vanilla25-pilot.json",
+      "input_sha256": "36927213e964c131f5e93361fe236069d21776f7b3db74dd26eed70ac73d0343",
+      "returncode": 0,
+      "stdout": "[RECORDED] card-wounding-blow-red-baseline-hand-floating-exact actions=14\n[RECORDED] card-critical-strike-red-baseline-hand-red-pitch-exact actions=15\n[RECORDED] card-brutal-assault-red-baseline-hand-red-then-red-pitch actions=16\n[RECORDED] card-raging-onslaught-red-baseline-hand-red-then-yellow-pitch actions=16\n[RECORDED] card-autumns-touch-red-baseline-arsenal-faceup-floating actions=14\n[RECORDED] card-winters-grasp-blue-baseline-hand-blue-pitch actions=15\n[RECORDED] card-heavens-claws-yellow-baseline-arsenal-facedown-floating actions=14\n[RECORDED] card-smash-with-big-tree-blue-baseline-no-defense-value-cannot-declare-block actions=15\n[RECORDED] card-rusty-harpoon-blue-baseline-arsenal-facedown-floating actions=14\n[RECORDED] card-rusty-harpoon-blue-baseline-hand-arrow-rejected-with-bow actions=1\n[RECORDED] card-rusty-harpoon-blue-baseline-arsenal-arrow-rejected-without-bow actions=1\n[RECORDED] card-winters-grasp-red-baseline-pitched-for-exact-1 actions=15\n[RECORDED] card-critical-strike-blue-baseline-defends-exactly-3-partial-damage actions=15\n",
+      "stderr": ""
+    },
+    {
+      "input": "card-regression-batch43-pilot.json",
+      "input_sha256": "f3a5463c3ab421c8b9195becbbc9b1752eebe4a11a8c7251cf7e21638aba66d3",
+      "returncode": 0,
+      "stdout": "[RECORDED] card-evasive-leap-red-flat-dr-hand-floating-exact-at-zero-ap actions=18\n[RECORDED] card-toughen-up-blue-flat-dr-hand-blue-pitch-leaves-one-resource actions=19\n",
+      "stderr": ""
+    },
+    {
+      "input": "card-regression-batch44-pilot.json",
+      "input_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "returncode": 0,
+      "stdout": "[RECORDED] card-arcane-lantern-intrinsic-missing-defense-real-block-rejected actions=15\n[RECORDED] card-aetherstorm-wellingtons-intrinsic-barrier-while-defending-real-kano-instant actions=24\n[RECORDED] card-nullrune-gloves-intrinsic-barrier-while-defending-real-kano-instant actions=24\n[RECORDED] card-aetherstorm-wellingtons-intrinsic-two-sources-second-listed-first actions=6\n[RECORDED] card-arcane-lantern-intrinsic-static-no-manual-activation-own-main actions=1\n",
+      "stderr": ""
+    },
+    {
+      "input": "card-regression-batch45.json",
+      "input_sha256": "c70005bbb9b417c037912272cecc2ce1f8c66fae8bd06da5bb4bcf438f3f503f",
+      "returncode": 1,
+      "stdout": "[BLOCKED] compat-flat-defense-reaction-third-response-after-partial-resolution: Expected Stack count 2, got 1.\n",
+      "stderr": ""
+    }
+  ],
+  "qualification": "Native recording outcomes only. Independent actual saved review and current clean replay are separate; failed correct oracles remain unsaved."
+}

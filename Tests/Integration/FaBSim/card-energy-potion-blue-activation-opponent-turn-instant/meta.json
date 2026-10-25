@@ -1,0 +1,7 @@
+{
+    "name": "Energy Potion / opponent-turn-instant",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:28+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Defender activates its instant during the opponent turn before blocks, starting at AP0. Gain2 resources without AP; destruction precedes resolution. Taking4 physical damage afterward does not spend the resources. Sources: FaBSim/GeneratedCode/cardArrayCache.json#energy_potion_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

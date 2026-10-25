@@ -1,0 +1,7 @@
+{
+    "name": "Activation guard / Sledge under Blind rejects",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:42+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Start during Guardian Bravo turn with the active/started Blinding of the Old Ones duration from a prior turn. The owned Sledge has lost its Action attack ability. Clicking it must leave the weapon, hand, pitch, stack, resources, AP and both health totals unchanged, despite sufficient blue3+red1 available to pay printed activation4. This fixture begins after suppression resolved; it does not test generation or expiry of Blinding. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sledge_of_anvilheim https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/Custom/WTRCards.php::FaBWTRCanActivate FaBSim/Custom/ARCAbilities.php::FaBARCAbilityLegal https://judge.fabtcg.com/cards/detail/3761/ FaBSim/Custom/MPGCards.php::FaBMPGSuppressed"
+}

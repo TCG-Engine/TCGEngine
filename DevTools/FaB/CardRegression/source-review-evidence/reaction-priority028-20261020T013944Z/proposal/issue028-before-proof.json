@@ -1,0 +1,63 @@
+{
+  "issue": "FaB-REG-028",
+  "status": "native_before_failure_proven_proposed_repair_not_applied",
+  "archive_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch45-20261020T010336Z-6ad6bde845c87.json",
+  "archive_sha256": "7f724d4eac7e0f76d8b9b609e359e9ef7ef3f314409a66854ad2c6bddafba028",
+  "probe_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\flat-defense-reactions\\post-partial-resolution-third-reaction-probe.json",
+  "probe_sha256": "c70005bbb9b417c037912272cecc2ce1f8c66fae8bd06da5bb4bcf438f3f503f",
+  "completed_at_utc": "2026-10-20T01:03:36+00:00",
+  "slug": "compat-flat-defense-reaction-third-response-after-partial-resolution",
+  "error": "Expected Stack count 2, got 1.",
+  "attempted_actions": 15,
+  "failed_action_1based": 15,
+  "failed_action": {
+    "playerID": 2,
+    "mode": 10002,
+    "buttonInput": "",
+    "cardID": "p2Hand-0!FSM",
+    "chkInput": [],
+    "inputText": ""
+  },
+  "observed_facts": {
+    "window": "PRIORITY",
+    "combatStep": "REACTION",
+    "combatOpen": true,
+    "attackUID": 3,
+    "chainLink": 1,
+    "attacker": 1,
+    "defender": 2,
+    "pendingPayment": null,
+    "decision_queues": {
+      "1": [],
+      "2": []
+    },
+    "remaining_p2_hand_refs": [
+      "p2Hand-0"
+    ]
+  },
+  "archive_limits": "Archive records failed Stack count and state/queues/hand refs, not full card objects or PriorityPlayer. Prior exact checkpoint assertions and action sequence are in the unchanged reviewed recipe; no missing raw snapshot is invented.",
+  "expected_model": "After top Razor resolves, lower Dodge still waits. Turn player passes once. Attacked hero with priority may play Evasive Leap while the Reaction Step continues; Stack must become 2. This is not contingent on resolving the lower layer first.",
+  "rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "sections": [
+        "7.4.2a",
+        "7.4.2b",
+        "7.4.2c",
+        "7.4.3"
+      ],
+      "basis": "Reaction eligibility follows the Reaction Step and actor; the step ends only with an empty stack and successive passes."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.3.7"
+      ],
+      "basis": "Turn player receives priority after layer resolution."
+    }
+  ],
+  "canonical_fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\compat-flat-defense-reaction-third-response-after-partial-resolution",
+  "no_passing_fixture_saved": true,
+  "native_game_actions_by_author": 0,
+  "native_source_writes_by_author": 0
+}

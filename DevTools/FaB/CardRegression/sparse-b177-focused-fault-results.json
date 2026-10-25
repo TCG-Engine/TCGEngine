@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:12:41.604244+00:00",
+  "plan_sha256": "98c46d07cdb62bc40271934010b1eb4e10b286d47e886642807e9cab3faf53ad",
+  "independent_saved_proof_sha256": "25a53ea15c1d804bee61fec86c26cb80f1d58f057dc41175a0c74409396c0994",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b177-focused-fault-plan.json",
+    "98c46d07cdb62bc40271934010b1eb4e10b286d47e886642807e9cab3faf53ad",
+    "sparse-b177-focused-fault-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b177_blood_scent_focused_effect_sensitivity",
+      "fixture": "card-blood-scent-four-live-sparse-actual-tiger-attack-earns-condition-then-instant-destroy-gains-resource",
+      "fixture_sha256": "d4f52fc70ceb1168c66d45e1ea17221a169c1a82d3df0eb80d3c76116cb57a68",
+      "source_raw5": {
+        "initial_gamestate.txt": "73732e14134be95cc40ca5d7e7741bc56adfb4d11aaaef9005e712b98bb9b968",
+        "actions.json": "0c33ffa3b5e5176bb0d36d21bb1d1595c6c7c82384a827f5a61af0278ffb1471",
+        "assertions.json": "6abc9f9db09bec5adc9167d7e009887fa360188fe8fe4aa3743e4f7676194160",
+        "expected_final_gamestate.txt": "a61ed1db4746df7775a59c9223240f3b0382bbb30eed4241a443d28ac7448732",
+        "meta.json": "746720c11a9de75412f58260310da8c105ccc5480c9c587213e6f65a19d95108"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "blood_scent",
+            "uid": 5,
+            "from": "Graveyard",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 1131,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Blood Scent / four live sparse earned condition and resource effect: Initial assertion failed: Expected p1Graveyard count 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Omit exact actualdestroyedBloodScent5 from ownpublicGY1 afteractualTiger8attackevent earnscondition and actuallegalATTACKpriorityInstantactivation, leaving Paws6GY0/Tiger8Chain/Stackability9/earnedcondition/AP0/R0 intact. FirstoriginalGY2to1 detects physicalprimarydestroy-cost destination only. All21remainingmanualresponses/everyoriginalsuffixoracle retained. No isolatednative+1resourcegain or condition-removal claim: existinghelper hasnogenericresourceoverride andexecutoraction-denialcontrolunsupported. Printedearnedcondition/legalpriority/positiveactualgain/puremissingextraearlyresourcefaults separatelybound. No negativeconditionrejection/cleanup/expiry/Battleworn/hero/support/full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

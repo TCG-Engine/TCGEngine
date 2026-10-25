@@ -1,0 +1,7 @@
+{
+    "name": "Opal Amulet / four live known lifecycle repair",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-24T18:44:51+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Instant0 destroys owned Opal5 as a real cost, AP1/resources0 remain. Legend of the Watery Grave creates distinct trigger10 above original ability9; exactly four actual live responses turn physical5face-down and leave9waiting. Four more real responses resolve Opt2 but virtual9mustremainStack during actual P1rearrange; Temp6/7 and untouched Deck8 are pinned with ARC_ABILITY marker/sourceMZp1Graveyard-0/frameMacroResolveAbility using existing nested state assertions, no completed ACTION/priority claim. Actual choose Blue7top/Red6bottom yields exact Deck7,8,6; physical5onlyGYFaceDown1, virtual9removed withoutGYentry, noAPgain/duplicateGO, allfourlife20. Exact owned frame/source binding and complete frame cleanup require raw saved review plus existing extracted components; no arbitrary global frame counter is asserted. OrdinaryItemplay, otherOptpartitions, privacyUI, expiry/fullcard not credited. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/SEA192.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

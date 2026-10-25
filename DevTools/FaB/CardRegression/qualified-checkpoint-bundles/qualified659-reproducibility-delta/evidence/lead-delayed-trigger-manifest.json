@@ -1,0 +1,139 @@
+{
+  "status": "PROPOSAL_ONLY_NOT_NATIVE_APPLIED",
+  "anchors": [
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "label": "capture Lead provenance at new duration creation only",
+      "before": "function FaBWTRAddEffect(int $player, string $type, int $amount = 0, array $data = [], bool $nextTurn = false): void {\n",
+      "after": "function FaBWTRAddEffect(int $player, string $type, int $amount = 0, array $data = [], bool $nextTurn = false): void {\n    if ($type === 'ARC_LEAD') $data = FaBARCLeadEffectData($player, $data);\n",
+      "occurrences_required": 1,
+      "before_sha256": "b574af945547a6822bed2e86d741f54b56d82fef643a497ef4dcc43429addc11",
+      "line_at_freeze": 19
+    },
+    {
+      "path": "FaBSim/Custom/ARCCards.php",
+      "label": "native Lead creation/queue helpers; no generated macro changes",
+      "before": "function FaBARCCardPlayed(int $player,object $obj,string $fromZone): void {\n",
+      "after": "/** Capture the resolved Lead source while its synchronous ResolveCard context is live. */\nfunction FaBARCLeadEffectData(int $player, array $data): array {\n    $source = FaBIdentityFromMZ((string)DecisionQueueController::GetVariable('mzID'));\n    $known = $source !== null && in_array((string)$source['object']->CardID,\n        ['lead_the_charge_red','lead_the_charge_yellow','lead_the_charge_blue'], true);\n    // Metadata is diagnostic identity, not a persistent-source dependency.\n    $data['arcLeadSource'] = ['version'=>1, 'controller'=>$player, 'known'=>$known,\n        'uid'=>$known ? intval($source['object']->UniqueID) : 0,\n        'cardID'=>$known ? (string)$source['object']->CardID : '',\n        'zone'=>$known ? (string)$source['zone'] : ''];\n    return $data;\n}\n\n/** Each matching next-time effect creates its own independently resolving layer. */\nfunction FaBARCQueueLeadTrigger(int $player, array $effect, object $qualifier, string $fromZone): void {\n    $source = is_array($effect['arcLeadSource'] ?? null) ? $effect['arcLeadSource'] : [];\n    $controller = intval($source['controller'] ?? $player);\n    if (!in_array($controller, FaBSeatOrder(), true)) $controller = $player;\n    if (!FaBSeatIsLive($controller)) return;\n    $known = !empty($source['known']) && intval($source['uid'] ?? 0) > 0\n        && in_array((string)($source['cardID'] ?? ''),\n            ['lead_the_charge_red','lead_the_charge_yellow','lead_the_charge_blue'], true);\n    $threshold = intval($effect['amount'] ?? 0);\n    // Legacy saves have no physical source identity. This ID is a display fallback only.\n    $displayID = $known ? (string)$source['cardID'] : ([0=>'lead_the_charge_red',\n        1=>'lead_the_charge_yellow', 2=>'lead_the_charge_blue'][$threshold] ?? '-');\n    AddStack(CardID:$displayID, Controller:$controller, Kind:'ABILITY',\n        SourceUniqueID:$known ? intval($source['uid']) : 0,\n        SourceZone:$known ? (string)($source['zone'] ?? '') : '',\n        Params:['arcLeadTrigger'=>true, 'arcLeadController'=>$controller,\n            'arcLeadThreshold'=>$threshold, 'arcLeadQualifierUID'=>intval($qualifier->UniqueID),\n            'arcLeadQualifierCardID'=>(string)$qualifier->CardID, 'arcLeadFromZone'=>$fromZone,\n            'arcLeadSourceKnown'=>$known]);\n    $state = FaBGetState();\n    if ($state['pendingPayment'] === null) $state['window'] = 'PRIORITY';\n    FaBSetState($state);\n}\n\nfunction FaBARCCardPlayed(int $player,object $obj,string $fromZone): void {\n",
+      "occurrences_required": 1,
+      "before_sha256": "46588a7a44d99d2df366abf26d7fd61857e5f8d04453fb4440c9c4ffb66929cc",
+      "line_at_freeze": 259
+    },
+    {
+      "path": "FaBSim/Custom/ARCCards.php",
+      "label": "queue after completed qualifying card play; retain all other ARC branches",
+      "before": "        if($type==='ARC_LEAD'&&FaBHasType($obj,'Action')&&intval(CardCost($obj->CardID))>=intval($e['amount'])){AddActionPoints($player,intval(GetActionPoints($player))+1);continue;}\n",
+      "after": "        if($type==='ARC_LEAD'&&in_array($fromZone,['Hand','Arsenal','Banish','Deck','Graveyard'],true)\n            &&FaBHasType($obj,'Action')&&intval(CardCost($obj->CardID))>=intval($e['amount']??0)){\n            FaBARCQueueLeadTrigger($player,$e,$obj,$fromZone);continue;\n        }\n",
+      "occurrences_required": 1,
+      "before_sha256": "bbe0fcfb3d13e41842b72f0966266fbcdfc82e149cfc0415848d706cdb567adf",
+      "line_at_freeze": 274
+    },
+    {
+      "path": "FaBSim/Custom/WTRAbilities.php",
+      "label": "resolve captured AP payload without rechecking source or qualifying card",
+      "before": "function FaBWTRResolveAbility(int $player, object $stack): void {\n",
+      "after": "function FaBWTRResolveAbility(int $player, object $stack): void {\n    if (!empty($stack->Params['arcLeadTrigger'])) {\n        $controller = intval($stack->Params['arcLeadController'] ?? $player);\n        // The AP gain is the delayed effect, not go again; source loss cannot cancel it.\n        if (FaBSeatIsLive($controller)) AddActionPoints($controller, intval(GetActionPoints($controller)) + 1);\n        $state = FaBGetState();\n        $stack->Params['returnWindow'] = FaBStackTop() !== null ? 'PRIORITY'\n            : (!empty($state['combatOpen']) ? ($state['combatStep'] === 'DEFEND' ? 'DEFEND_PRIORITY' : $state['combatStep']) : 'ACTION');\n        $stack->Params['returnCombatStep'] = (string)($state['combatStep'] ?? 'NONE');\n        return;\n    }\n",
+      "occurrences_required": 1,
+      "before_sha256": "2be0d4cf9779bdd2b41609e07225f38dfee6f0ef58f52f11bea0242ae9a5a075",
+      "line_at_freeze": 153
+    }
+  ],
+  "source_files": [
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "raw_before_sha256": "5c579e418b48b9de107b875e4c5b83676b3d02737256d8d2538d8b36e44c374f",
+      "normalized_before_sha256": "5c579e418b48b9de107b875e4c5b83676b3d02737256d8d2538d8b36e44c374f",
+      "normalized_candidate_sha256": "3bda61637365703bb06ea78d7cfcfed1b5d9e2247d645d6bfe82272389a943cd"
+    },
+    {
+      "path": "FaBSim/Custom/ARCCards.php",
+      "raw_before_sha256": "8a9a03a997e751d6aba95cc04ba1f8c27251388fd48dbd27acf034030823b350",
+      "normalized_before_sha256": "714d898c6764f32468cb28f5e8c27f5e30014c71c8276bc5762723b99d06b05e",
+      "normalized_candidate_sha256": "9e5f7bb922b8ded26ffe8ef306203af16eaab511c0289380928bbd066efab7e4"
+    },
+    {
+      "path": "FaBSim/Custom/WTRAbilities.php",
+      "raw_before_sha256": "d6ff0d407b444e9e82bab94b63949da6d0485669bdf4cffd38cc3bd3d2e4fe51",
+      "normalized_before_sha256": "d6ff0d407b444e9e82bab94b63949da6d0485669bdf4cffd38cc3bd3d2e4fe51",
+      "normalized_candidate_sha256": "0238a9cd883811c95e30eb59ba78e2689ed75e241bf352ffe14d616894a52d10"
+    }
+  ],
+  "unchanged_game_logic_raw_sha256": "7dfb6d866dd04f62ed0b953168ddc0108281960b1904c8767afb277301753ff5",
+  "patch_sha256": "9e4f510101f78a740e0b5cd6b53830765df19f6be4fd18d8ec89ba0250eba351",
+  "components": {
+    "status": "PASS",
+    "checks": 354,
+    "scope": "isolated extracted-function components; not native replay",
+    "lint": [
+      {
+        "path": "lead-delayed-trigger-candidate-WTRCards.php",
+        "exit_code": 0,
+        "output": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\lead-delayed-trigger-candidate-WTRCards.php"
+      },
+      {
+        "path": "lead-delayed-trigger-candidate-ARCCards.php",
+        "exit_code": 0,
+        "output": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\lead-delayed-trigger-candidate-ARCCards.php"
+      },
+      {
+        "path": "lead-delayed-trigger-candidate-WTRAbilities.php",
+        "exit_code": 0,
+        "output": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\lead-delayed-trigger-candidate-WTRAbilities.php"
+      },
+      {
+        "path": "lead-delayed-trigger-component-check.php",
+        "exit_code": 0,
+        "output": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\lead-delayed-trigger-component-check.php"
+      }
+    ],
+    "native_runtime_imports": false,
+    "semantic_fault_controls": [
+      {
+        "name": "eager-ap-in-queue",
+        "result": "DETECTED",
+        "exit_code": 255,
+        "first_failure": "AP unchanged before trigger actual=1 expected=0"
+      },
+      {
+        "name": "drop-trigger-layer",
+        "result": "DETECTED",
+        "exit_code": 255,
+        "first_failure": "one independent layer iff exact CardCost meets threshold actual=1 expected=2"
+      },
+      {
+        "name": "weapon-activation-counts-as-play",
+        "result": "DETECTED",
+        "exit_code": 255,
+        "first_failure": "non-card or pure Instant excluded Weapons actual=2 expected=1"
+      },
+      {
+        "name": "source-recheck-cancels-trigger",
+        "result": "DETECTED",
+        "exit_code": 255,
+        "first_failure": "legacy old matching numeric behavior now delayed actual=0 expected=1"
+      }
+    ]
+  },
+  "deliverables": {
+    "lead-delayed-trigger-candidate-ARCCards.php": "9e5f7bb922b8ded26ffe8ef306203af16eaab511c0289380928bbd066efab7e4",
+    "lead-delayed-trigger-candidate-WTRAbilities.php": "0238a9cd883811c95e30eb59ba78e2689ed75e241bf352ffe14d616894a52d10",
+    "lead-delayed-trigger-candidate-WTRCards.php": "3bda61637365703bb06ea78d7cfcfed1b5d9e2247d645d6bfe82272389a943cd",
+    "lead-delayed-trigger-component-check.php": "d12cbb01bd5b9b2890fe312f1620a8402dfda3a2c36f91d865e31bc402a64ca6",
+    "lead-delayed-trigger-component-results.json": "2a24296457fe5a6d8a0de318a722682c19b8070c023bb291991979ea214f3853",
+    "lead-delayed-trigger-fault-drop-trigger-layer.php": "271ca25dc33851ecb5ea9cb1ba11e48fb73b37d76b48bc767a75c2071a9be3fe",
+    "lead-delayed-trigger-fault-eager-ap-in-queue.php": "18021435673dabfaba44d994b82ef40405568bb5516a5db997d814638d34b798",
+    "lead-delayed-trigger-fault-source-recheck-cancels-trigger.php": "91d1d1166c88924a270db0647b4a71745b08588c264cbabc027b27435324275d",
+    "lead-delayed-trigger-fault-weapon-activation-counts-as-play.php": "94b5915880d6da1a22b6b70db0c416ac79f9aa031b8456644b7d2975013fa445",
+    "lead-delayed-trigger-proposed.patch": "9e4f510101f78a740e0b5cd6b53830765df19f6be4fd18d8ec89ba0250eba351",
+    "lead-delayed-trigger-review-notes.json": "a47ec9e68b3ee877db64e3099d53ffc234fef02d43d50bf8658f6cd11b674cd9",
+    "lead-delayed-trigger-source-audit.json": "684040c3a33373490587c434d1b35256f8d44c113f4429e9b0030b20b75410df"
+  },
+  "commands": [
+    "python .\\build_lead_trigger_repair_proposal.py",
+    "& C:\\xampp\\php\\php.exe -n -l .\\lead-delayed-trigger-candidate-WTRCards.php",
+    "& C:\\xampp\\php\\php.exe -n -l .\\lead-delayed-trigger-candidate-ARCCards.php",
+    "& C:\\xampp\\php\\php.exe -n -l .\\lead-delayed-trigger-candidate-WTRAbilities.php",
+    "& C:\\xampp\\php\\php.exe -n .\\lead-delayed-trigger-component-check.php"
+  ],
+  "apply_policy": "Recheck each exact before anchor occurs once on current file and source hashes; parent applies anchors only after independent review/native failure evidence. Never overwrite a whole native file."
+}

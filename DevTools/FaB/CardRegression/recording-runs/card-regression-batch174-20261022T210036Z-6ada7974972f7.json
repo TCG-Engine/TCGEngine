@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-22T21:00:36+00:00",
+    "input_file": "card-regression-batch174.json",
+    "input_sha256": "83fc8b48d15c48134bc1980fd5eb78449417388e6ee45e6ef928b46b80013587",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-dream-weavers-four-live-sparse-actual-next-illusionist-attack-survives-seven-power-defender-and-deals-two",
+            "status": "recorded_semantically_checked",
+            "actions": 34,
+            "assertions": 1127
+        }
+    ]
+}

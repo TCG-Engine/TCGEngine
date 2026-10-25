@@ -1,0 +1,7 @@
+{
+    "name": "Autumn's Touch / unblocked",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:29+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed attack 6, cost 3, go again False; pay using 1 blue pitch card(s). Defender has 0 defense; expected damage 6. Hero oldhim has no modifying effect in this first-attack state. Sources: FaBSim/GeneratedCode/cardArrayCache.json#autumns_touch_yellow https://rules.fabtcg.com/en/cr/07-combat/"
+}

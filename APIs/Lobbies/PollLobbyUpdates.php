@@ -8,6 +8,7 @@ require_once "../../Core/HTTPLibraries.php";
 require_once "./Classes/Player.php";
 require_once "./Classes/LobbyAdapter.php";
 require_once "./Classes/HostVote.php";
+require_once "./Classes/HouseRules.php";
 require_once "./Classes/LobbyStore.php";
 
 $response = new stdClass();
@@ -157,7 +158,9 @@ while (true) {
     // release the seat and destroy the survive-a-refresh property this page exists for.
     $meSeat = null;
     $now = time();
-    $lobbyAfter = LobbyMutate($lobbyID, function ($l) use ($authKey, $now, &$meSeat) {
+    // House Rules menu (Twin Suns family). Resolved BEFORE the lock — the callback must not do I/O.
+    $houseRuleDefs = ($pollAdapter instanceof LobbyHouseRulesAdapter) ? $pollAdapter->houseRuleDefs($lobby) : [];
+    $lobbyAfter = LobbyMutate($lobbyID, function ($l) use ($authKey, $now, &$meSeat, $houseRuleDefs) {
       $meSeat = SWURoomFindPlayerByAuthKey($l, $authKey);
       if ($meSeat !== null) $meSeat->touch();
       $migrated = SWUMigrateHostIfAway($l);
@@ -165,7 +168,10 @@ while (true) {
       // Re-arms the Kick Host timer on every join/leave/kick/host-migration for free — this mutate
       // already runs on every poll, so no other call site needs to know about it.
       $armed = SWUHostVoteArm($l, $now);
-      return ($meSeat !== null || $migrated || $assigned || $armed);   // false = nothing changed, skip the write
+      // A join/leave/kick/host change moves the house-rule threshold (and prunes a leaver's votes), so a rule can
+      // light up or go dark with nobody clicking. Re-resolved here for the same reason the Kick Host timer is.
+      $rulesMoved = !empty($houseRuleDefs) && LobbyHouseRulesResolve($l, $houseRuleDefs);
+      return ($meSeat !== null || $migrated || $assigned || $armed || $rulesMoved);   // false = nothing changed, skip the write
     });
     // A busy or vanished lobby must not blank the roster: fall back to the unlocked read we already
     // have. The heartbeat is idempotent and the next poll is 1.5s away.
@@ -253,6 +259,11 @@ while (true) {
     // Kick Host: whether the vote window is open, the live tally, and whether THIS viewer may cast
     // or has already cast a Yes. A viewer with no seat gets canVote=false for free (playerID 0).
     $response->hostVote = SWUHostVoteState($lobby, $now, intval($meRoom !== null ? $meRoom->getPlayerID() : 0));
+    // ADDITIVE (2026-10-19): the House Rules panel — per-rule tally, this viewer's own votes, which rules are lit.
+    // ABSENT for every room whose sim/format has no house rules, so their responses are unchanged.
+    if (!empty($houseRuleDefs)) {
+      $response->houseRules = LobbyHouseRulesView($lobby, $houseRuleDefs, intval($meRoom !== null ? $meRoom->getPlayerID() : 0));
+    }
     // Presenting a key the room does not know means this browser HELD a seat and no longer does —
     // the host removed it, or it left from another tab. Say so. Sending no key at all is a viewer
     // who has not joined yet, which is not the same thing and keeps the plain not-seated state.

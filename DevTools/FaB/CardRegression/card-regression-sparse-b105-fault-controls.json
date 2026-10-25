@@ -1,0 +1,154 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T17:34:08.768739+00:00",
+  "plan_sha256": "56802a3655818970420dc654214751afe1455779968255ef3a04fe9541526423",
+  "independent_saved_proof_sha256": "5b117136b32d2b2fc7dc0b86f1ca685d5d18974b5c53f05823cbba241790ff2f",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b105-focused-fault-plan.json",
+    "56802a3655818970420dc654214751afe1455779968255ef3a04fe9541526423",
+    "card-regression-sparse-b105-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b105_adrenaline_rush_red_focused_effect_sensitivity",
+      "fixture": "card-adrenaline-rush-red-four-live-sparse-actual-play-at-less-life-grants-three-power",
+      "fixture_sha256": "6dd954bba80ea40ec435658b8ab9b44e7228a90519cb40bc87ccf3c77a73f18c",
+      "source_raw5": {
+        "initial_gamestate.txt": "e9211e94501395169143282b52533b53db68f309c0107b47e59a22ae95b7b741",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "aeb94aa9778f5b34db7d2b5c081408c20b53be6b3a510bd9bb5edb09c3968a9c",
+        "expected_final_gamestate.txt": "478bca7a8780a5c4efaba411bd0f2021427237b9972fe73ee9c8dbab970c9aee",
+        "meta.json": "89c911beaf4d66ffdb7b3099578d67c692894a1613b4cfc676bf28107bd6270d"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "adrenaline_rush_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 236,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Adrenaline Rush / four live sparse positive condition: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove exact printed conditional +3 on actual primary after real legal play/payment. Every physical condition is retained; this is bonus sensitivity, not alternative-condition coverage. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b105_spring_load_red_focused_effect_sensitivity",
+      "fixture": "card-spring-load-red-four-live-sparse-actual-last-hand-attack-and-blue-pitch-enable-three-power",
+      "fixture_sha256": "c3a328ea292cdcc6bd3dbc5d9e2ca4fd67dc719bf8b01d7bb109f6bdcdeca403",
+      "source_raw5": {
+        "initial_gamestate.txt": "2c3a7ee03f2a02a3843f1a8508bfa7227ae5e6bcf23b28e251d86c5baf999ca5",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "a3c2e6d19bb2d9018940e8d6dfbd14f09f3b234286d201a23ccf6d4ed0ec2b72",
+        "expected_final_gamestate.txt": "bcef78f080287b82be3c84505be5273116efeb4d212dc693d5fbbdf0c93caa04",
+        "meta.json": "badc5d403a38719e1459458cf73ca1c3cf97acafa945128e7dddf0f5d36ea08c"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "spring_load_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 236,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 5, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Spring Load / four live sparse positive condition: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove exact printed conditional +3 on actual primary after real legal play/payment. Every physical condition is retained; this is bonus sensitivity, not alternative-condition coverage. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b105_spellblade_strike_red_focused_effect_sensitivity",
+      "fixture": "card-spellblade-strike-red-four-live-sparse-actual-attack-creates-one-owned-runechant",
+      "fixture_sha256": "9538ced123254aea6fa3c4d8133a891c2d095befd74a2195c5f5fe872f8e99f1",
+      "source_raw5": {
+        "initial_gamestate.txt": "02d5ec3167f88af535e3a981d0c9bd277af415fedfa1e60956817c0845e5b963",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "87fc239d69a8818c8743d29a86720fc2d67c758b463352dc8c5dc55d2f521b3a",
+        "expected_final_gamestate.txt": "e6e39a8f6ad615a87ff15ed6455ab3712220af284d03c62d071d55dc92b1dc10",
+        "meta.json": "c5fdb0b97273f18ea7e45b15b9f0469dd95462ed59ce9ce58ed0c73726cc18b8"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "to": "Banish",
+            "cardID": "runechant",
+            "from": "Arena"
+          }
+        ]
+      },
+      "retained_assertions": 248,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Spellblade Strike / four live sparse positive condition: Initial assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Move sole actual Runechant to Banish after attack declaration; token-count sensitivity using an existing unique-card helper operation. No later Runechant destruction/arcane-targeting claim. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b105_spellblade_assault_red_focused_effect_sensitivity",
+      "fixture": "card-spellblade-assault-red-four-live-sparse-actual-attack-creates-two-owned-runechants",
+      "fixture_sha256": "8066887e7c44e8f6c3f74c22fbc14a1aafc992c930f867ef35f9affaf288190d",
+      "source_raw5": {
+        "initial_gamestate.txt": "3924ba11e3b4ce1ef9eec837f807537c9a04e4b59f4771aed56c7542a739ea3d",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "c0bc4f111bfb56708de9288c5eb88519163bb5a1c044ad16a31b8e4da99b95f6",
+        "expected_final_gamestate.txt": "63ad495c5d4acfdf5901b5d36b9adccdd37106591bde1fcfb5ff7f325fbbbc03",
+        "meta.json": "488fa5abdf2d0d9426d4227f286059b6d611d2f5e2466235cea3156c1fced07c"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "spellblade_assault_red",
+            "mode": "add",
+            "tag": "WTR_POWER:-1"
+          }
+        ]
+      },
+      "retained_assertions": 260,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Spellblade Assault / four live sparse positive condition: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 4, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Numeric -1 sensitivity on actual primary while both new Runechant tokens remain; pins computed power/damage assertions. Does not certify isolated two-token-count fault sensitivity or any legal timing branch. Exact physical two-token positive evidence is inspected independently. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

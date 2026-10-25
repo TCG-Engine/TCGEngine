@@ -1,0 +1,430 @@
+{
+  "status": "INDEPENDENT_MATERIAL12_AND_SUPPORT10_DELTA_APPROVED_FOR_NATIVE_PILOT7_THEN_BOUNDED_BATCH_GATES",
+  "reviewer": "/root/resume_cnc_triage",
+  "checks": 3752,
+  "input_sha256": "4d86f360a670ff8055a7c375468ecc12ae53c0df926b0ef87d6d4dd7eb15d1be",
+  "pilot_sha256": "0c36f2b98d5ab4e624e830cff48f502b202d6d80db6df26ac77f7b247aeb3010",
+  "source_manifest_sha256": "387413994d1d551b5f54d311fd28039260c7e4b26cd45ffa3cf2a970e79f0933",
+  "material_manifest_sha256": "61c436e27d1b0589e1e00a9e7f3ccb929f1b37cbc559f57c5b45500fb182bd1d",
+  "model_report_sha256": "5cbcc5343789b7918521053909c988fff538d4f0e20629596662c5cdc7320e60",
+  "model_checks": 105741,
+  "model_totals": {
+    "cases": 228,
+    "subjects": 12,
+    "printing_records": 33,
+    "oracles": 68076,
+    "modeled_supported_actions": 3021,
+    "modeled_individual_passes": 2610,
+    "ordinary_requirements": 219,
+    "mapped_requirements": 216,
+    "additional_responses": 12,
+    "held_requirements": [
+      {
+        "card_id": "lightning_form_red",
+        "branch": "repeated-independent-copies",
+        "scenario_slugs": [],
+        "status": "REQUIRED_NOT_YET_AUTHORED"
+      },
+      {
+        "card_id": "lightning_form_yellow",
+        "branch": "repeated-independent-copies",
+        "scenario_slugs": [],
+        "status": "REQUIRED_NOT_YET_AUTHORED"
+      },
+      {
+        "card_id": "lightning_form_blue",
+        "branch": "repeated-independent-copies",
+        "scenario_slugs": [],
+        "status": "REQUIRED_NOT_YET_AUTHORED"
+      }
+    ]
+  },
+  "model_faults": 10,
+  "material_delta": [
+    {
+      "index": 18,
+      "slug": "card-destructive-deliberation-red-token75-ally-target-qualifier",
+      "zone_index": 1,
+      "physical_uid": 4
+    },
+    {
+      "index": 36,
+      "slug": "card-destructive-deliberation-yellow-token75-ally-target-qualifier",
+      "zone_index": 1,
+      "physical_uid": 4
+    },
+    {
+      "index": 54,
+      "slug": "card-destructive-deliberation-blue-token75-ally-target-qualifier",
+      "zone_index": 1,
+      "physical_uid": 4
+    },
+    {
+      "index": 68,
+      "slug": "card-strike-gold-red-token75-ally-target-qualifier",
+      "zone_index": 1,
+      "physical_uid": 4
+    },
+    {
+      "index": 83,
+      "slug": "card-strike-gold-yellow-token75-ally-target-qualifier",
+      "zone_index": 1,
+      "physical_uid": 4
+    },
+    {
+      "index": 98,
+      "slug": "card-strike-gold-blue-token75-ally-target-qualifier",
+      "zone_index": 1,
+      "physical_uid": 4
+    },
+    {
+      "index": 115,
+      "slug": "card-earth-form-red-token75-ally-target-qualifier",
+      "zone_index": 1,
+      "physical_uid": 4
+    },
+    {
+      "index": 133,
+      "slug": "card-earth-form-yellow-token75-ally-target-qualifier",
+      "zone_index": 1,
+      "physical_uid": 4
+    },
+    {
+      "index": 151,
+      "slug": "card-earth-form-blue-token75-ally-target-qualifier",
+      "zone_index": 1,
+      "physical_uid": 4
+    },
+    {
+      "index": 168,
+      "slug": "card-lightning-form-red-token75-ally-target-qualifier",
+      "zone_index": 1,
+      "physical_uid": 4
+    },
+    {
+      "index": 185,
+      "slug": "card-lightning-form-yellow-token75-ally-target-qualifier",
+      "zone_index": 1,
+      "physical_uid": 4
+    },
+    {
+      "index": 202,
+      "slug": "card-lightning-form-blue-token75-ally-target-qualifier",
+      "zone_index": 1,
+      "physical_uid": 4
+    }
+  ],
+  "support_delta": [
+    {
+      "index": 15,
+      "slug": "card-destructive-deliberation-red-token75-overblock-no-hit",
+      "physical_uid_changes": {
+        "5": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_yellow"
+        ],
+        "6": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_blue"
+        ]
+      },
+      "check_identity_edits": 20,
+      "usage": {
+        "5": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ],
+        "6": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ]
+      }
+    },
+    {
+      "index": 105,
+      "slug": "card-earth-form-red-token75-red-sequential-payments",
+      "physical_uid_changes": {
+        "5": [
+          "wounding_blow_red",
+          "flock_of_the_feather_walkers_red"
+        ],
+        "6": [
+          "wounding_blow_red",
+          "nimblism_red"
+        ]
+      },
+      "check_identity_edits": 22,
+      "usage": {
+        "5": [
+          "p1Hand",
+          "p1Pitch"
+        ],
+        "6": [
+          "p1Hand",
+          "p1Pitch"
+        ]
+      }
+    },
+    {
+      "index": 112,
+      "slug": "card-earth-form-red-token75-overblock-no-hit",
+      "physical_uid_changes": {
+        "5": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_yellow"
+        ],
+        "6": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_blue"
+        ],
+        "7": [
+          "flock_of_the_feather_walkers_red",
+          "muscle_mutt_yellow"
+        ]
+      },
+      "check_identity_edits": 33,
+      "usage": {
+        "5": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ],
+        "6": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ],
+        "7": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ]
+      }
+    },
+    {
+      "index": 113,
+      "slug": "card-earth-form-red-token75-one-damage-hit-still-one-token",
+      "physical_uid_changes": {
+        "5": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_yellow"
+        ],
+        "6": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_blue"
+        ]
+      },
+      "check_identity_edits": 24,
+      "usage": {
+        "5": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ],
+        "6": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ]
+      }
+    },
+    {
+      "index": 114,
+      "slug": "card-earth-form-red-token75-fully-prevented-hit-negative",
+      "physical_uid_changes": {
+        "5": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_yellow"
+        ],
+        "6": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_blue"
+        ]
+      },
+      "check_identity_edits": 22,
+      "usage": {
+        "5": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ],
+        "6": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ]
+      }
+    },
+    {
+      "index": 123,
+      "slug": "card-earth-form-yellow-token75-red-sequential-payments",
+      "physical_uid_changes": {
+        "5": [
+          "wounding_blow_red",
+          "flock_of_the_feather_walkers_red"
+        ],
+        "6": [
+          "wounding_blow_red",
+          "nimblism_red"
+        ]
+      },
+      "check_identity_edits": 22,
+      "usage": {
+        "5": [
+          "p1Hand",
+          "p1Pitch"
+        ],
+        "6": [
+          "p1Hand",
+          "p1Pitch"
+        ]
+      }
+    },
+    {
+      "index": 129,
+      "slug": "card-earth-form-yellow-token75-exact-block-no-hit",
+      "physical_uid_changes": {
+        "5": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_yellow"
+        ],
+        "6": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_blue"
+        ]
+      },
+      "check_identity_edits": 20,
+      "usage": {
+        "5": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ],
+        "6": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ]
+      }
+    },
+    {
+      "index": 141,
+      "slug": "card-earth-form-blue-token75-red-sequential-payments",
+      "physical_uid_changes": {
+        "5": [
+          "wounding_blow_red",
+          "flock_of_the_feather_walkers_red"
+        ],
+        "6": [
+          "wounding_blow_red",
+          "nimblism_red"
+        ]
+      },
+      "check_identity_edits": 22,
+      "usage": {
+        "5": [
+          "p1Hand",
+          "p1Pitch"
+        ],
+        "6": [
+          "p1Hand",
+          "p1Pitch"
+        ]
+      }
+    },
+    {
+      "index": 148,
+      "slug": "card-earth-form-blue-token75-overblock-no-hit",
+      "physical_uid_changes": {
+        "5": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_yellow"
+        ],
+        "6": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_blue"
+        ]
+      },
+      "check_identity_edits": 20,
+      "usage": {
+        "5": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ],
+        "6": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ]
+      }
+    },
+    {
+      "index": 165,
+      "slug": "card-lightning-form-red-token75-overblock-no-hit",
+      "physical_uid_changes": {
+        "5": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_yellow"
+        ],
+        "6": [
+          "flock_of_the_feather_walkers_red",
+          "flock_of_the_feather_walkers_blue"
+        ]
+      },
+      "check_identity_edits": 20,
+      "usage": {
+        "5": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ],
+        "6": [
+          "p2CombatChain",
+          "p2Graveyard",
+          "p2Hand"
+        ]
+      }
+    }
+  ],
+  "independent_delta_faults": [
+    "Incorrect material UPR_ASH",
+    "Incorrect material DYN_ASH",
+    "Changed ready-status",
+    "defense-stat-source",
+    "numeric-oracle",
+    "action-seat",
+    "source-UID",
+    "other-object"
+  ],
+  "canonical_transform_component": {
+    "status": "PASS",
+    "checks": 18,
+    "scope": "Selected unmodified native FaBUPRTransform with local fixture stubs. No game, native write, recording, full ability or invocation branch validation."
+  },
+  "exact_source_hashes": {
+    "FaBSim/Custom/UPRCards.php": "e50d9638393ee59c60362d612d3765d95a03a15877e00045c342ff2c60b1b682",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "printed_faces_viewed": {
+    "flock_of_the_feather_walkers_red": "e852f5022347e96f0a2cdb8097b537e6b3889fc113896f77e6d61dd48c339099",
+    "flock_of_the_feather_walkers_yellow": "eaa6c9e2e6a55dcd2372be2bd1c9402428bc6f68ca09d226dbff1dda186f5669",
+    "flock_of_the_feather_walkers_blue": "b272aec7991e12b0d250db9a5616ea08a4699b856f4114fd07ca98f4679278e3",
+    "muscle_mutt_yellow": "91dce3de66df2d53b13bc431efec28f00adcca6cd63e3c816b69075b88858bc2",
+    "wounding_blow_red": "eeef3533671017d126b9b4e7303e07429cdc2fce84986f95abb2314fd5519dc7",
+    "nimblism_red": "81966460f99ff6a5df9433789c375aa009d6647631048e1b33e834db86b14c13",
+    "ash": "f473948b6fb84d3ce47003a6218847d469a1e4fe9210935fac6bb877060fca3d",
+    "aether_ashwing": "fd6ab1c9470eff4947d2c937611c1c07470dad56c7654c865b0b9bfa11ba7078"
+  },
+  "preservation": "Exactly12 initial nested Ashwing material properties and10 support-identity sets change;22disjoint rows/206unchanged. All228 action/pass/target sequences and all numeric/UID/owner/controller/role/source/cost/HP assertions exact. Original4 actual saved pilots and correctedpilot7 exact. No observed native output was used to select expectations.",
+  "legal_setup_scope": "Support substitutions have printed and compiled Generic DEF2 or red pitch1. They remain Hand-to-CombatChain-to-Graveyard defenders or Hand-to-Pitch resource sources; no substituted support becomes a played Stack source. At most2 initial copies per seat/face; this is an isolated known-state fixture, not a full constructed deck legality claim. Seeded opposing Dromai Ashwing has the canonical transformed Ash material/status; no inferred TalesOfAdventure exception.",
+  "limits": "Approves bounded setup delta together with separately authored independent228-rule model. No new full engine execution/replay/recorded coverage claim. Rule-model report excludes3 repeated-Lightning requirements; consumer/end-phase/source-dependency cases remain separate holds. Native pilot7 must exercise material route before batch expansion; actual raw5 independent review, clean replays/controls/current-suite qualification still required.",
+  "native_imports": 0,
+  "native_writes": 0,
+  "native_game_actions": 0,
+  "passing_coverage_added": 0,
+  "reviewer_script_sha256": "7da233b3b5fec864612dba200082c741d9e8ee9f1b5daffbe2663be1938d9d6d"
+}

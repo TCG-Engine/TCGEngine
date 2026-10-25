@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:13:01.227118+00:00",
+  "plan_sha256": "79535aa7239467c108314413710d517808ca6e13a78b0840500aeaedafcfc865",
+  "independent_saved_proof_sha256": "7ac721ec627a42d79b31333874de6eceb701e83aebe83436d4d781d235a5bb29",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b178-focused-fault-plan.json",
+    "79535aa7239467c108314413710d517808ca6e13a78b0840500aeaedafcfc865",
+    "sparse-b178-focused-fault-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b178_punching_gloves_actual_next_attack_power_sensitivity",
+      "fixture": "card-punching-gloves-four-live-sparse-actual-paid-destruction-gives-next-real-attack-action-plus-two-power",
+      "fixture_sha256": "78d99786515219572665606025d8302a76841ebcac6bb0b6b6f91309805ca0b0",
+      "source_raw5": {
+        "initial_gamestate.txt": "03d31f10889824f49f18d98109c82497ec803b3dda64d4a4fd10ba004140c472",
+        "actions.json": "a8268102745472a624d7d9016304429294798e19eea85ae25e3f0b2d00f2c676",
+        "assertions.json": "0371d9a12701a1e236fb3aa16ed98ab3478b133e6821cc60f19d4b44f4a7c3b5",
+        "expected_final_gamestate.txt": "281cc3d2fd63fe488400d7f8f140cf7dd399b95a92feecf80d14082b12b5f97c",
+        "meta.json": "b66e9a71327a14008270c1d5d42377b76109bd8195b186ad628ea9bdfd04dd32"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:2"
+          }
+        ]
+      },
+      "retained_assertions": 503,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Punching Gloves / four live actual paid next-attack power: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real Gloves5 activation/Blue7pitch pays2/destroysphysical5/publicGY and fourresponses resolve next-AA2/abilityGA, actual WB6 Hand attack0 plays/targets/enters real combat. Remove only actual source-created WTR_POWER2 on physical WB6, preserving printedbase4 and noattackGA, payment/source/pitch/history. Intended original computedpower6-to4; every original suffix action/oracle retained. No legal alternate/otherrecipient/filter/repeat/expiry/fullcard credit.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

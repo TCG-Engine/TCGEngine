@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-19T23:01:48+00:00",
+    "input_file": "card-regression-batch17-pilot.json",
+    "input_sha256": "7c06fc5644294f2f7f177d0bb4ef27f227a6ac2381fbe5d7949da2ab1d7e78a4",
+    "filter": "card-",
+    "results": [
+        {
+            "slug": "card-throttle-red-boost-mechanologist-unblocked",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 70
+        },
+        {
+            "slug": "card-full-tilt-red-boost-nonmechanologist-no-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 64
+        },
+        {
+            "slug": "card-heart-wrencher-red-boost-mechanologist-unblocked",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 62
+        }
+    ]
+}

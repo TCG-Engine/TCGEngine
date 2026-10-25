@@ -1,0 +1,38 @@
+[
+    {
+        "slug": "card-strike-gold-yellow-token75-created-gold-real-action-two-destroy-draw-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 450
+    },
+    {
+        "slug": "card-strike-gold-blue-token75-created-gold-real-action-two-destroy-draw-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 450
+    },
+    {
+        "slug": "card-earth-form-yellow-token75-created-earth-real-next-turn-naa-defense-plus-one",
+        "status": "recorded_semantically_checked",
+        "actions": 35,
+        "assertions": 752
+    },
+    {
+        "slug": "card-earth-form-blue-token75-created-earth-real-next-turn-naa-defense-plus-one",
+        "status": "recorded_semantically_checked",
+        "actions": 35,
+        "assertions": 752
+    },
+    {
+        "slug": "card-earth-form-red-token75-created-earth-real-next-turn-aa-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 35,
+        "assertions": 752
+    },
+    {
+        "slug": "card-earth-form-red-token75-created-earth-real-next-turn-naa-defense-stacking",
+        "status": "recorded_semantically_checked",
+        "actions": 51,
+        "assertions": 1321
+    }
+]

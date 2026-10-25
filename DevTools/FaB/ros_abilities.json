@@ -308,8 +308,9 @@
     "abilities": [
       {
         "macroName": "PrepareCard",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$chosen = \"-\";\n $refs = FaBROSRefs($player, 'Arena', 'Aura');\n if ($refs !== \"\") {\n $chosen = await $player.MZChoose($refs, \"Pay_additional_cost\");\n \n}\nFaBHVYDestroyChoices($chosen);\nFaBFinishPreparedCard($uid);\n",
-        "isImplemented": true
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$chosen = \"-\";\n $refs = FaBROSRefs($player, 'Arena', 'Aura');\n if ($refs !== \"\") {\n $chosen = await $player.MZChoose($refs, \"Pay_additional_cost\");\n\n}\nif (!FaBDeclareBodiceAuraCost($player, $uid, $chosen)) {\n return;\n\n}\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true,
+        "previousCodeHash": "0a2906eda3610539c683d9bdcb9aba32ee28c98d8b7b9f11a2b6be470b5240bf"
       },
       {
         "macroName": "ResolveAbility",

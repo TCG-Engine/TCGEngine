@@ -1,0 +1,7 @@
+{
+    "name": "Sic Em Shot / equipped-bow-faceup-allowed",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:20:34+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR8.2.6a: arrow requires arsenal and a controlled bow. Status, ability suppression, and face-down arsenal do not remove the bow subtype or control requirement. Sources: https://rules.fabtcg.com/en/cr/08-keywords/#826a FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+}

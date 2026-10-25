@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:57:26.559821+00:00",
+  "plan_sha256": "099083d1b19249d406a47c0f6eb0fe200913f8fd5c180ec76f5ceb56b7684223",
+  "independent_saved_proof_sha256": "f55613faa19f0778e72208f8d4ec1ffdda865f7dbb4b1d635ed8d2ddb8115284",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b168-unordered-focused-fault-plan.json",
+    "099083d1b19249d406a47c0f6eb0fe200913f8fd5c180ec76f5ceb56b7684223",
+    "card-regression-sparse-b168-membership-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b168_talisman_of_tithes_blue_focused_effect_sensitivity",
+      "fixture": "card-talisman-of-tithes-blue-four-live-sparse-actual-four-hero-draw-first-opponent-reduced-to-zero-and-item-consumed-unordered-graveyard-membership",
+      "fixture_sha256": "f9c57e25b876670c8b888da4a68c6cefdaf530793de9d284892c391416c87b98",
+      "source_raw5": {
+        "initial_gamestate.txt": "1cafd9864069de141fc9e0d6548af788bf011158831c11d8f2368e9ac9502ee3",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "457b2a4668057db352124c5d19a767ac20925fffe4ad217adc2948b91f5bd7aa",
+        "expected_final_gamestate.txt": "0d9bfd550adb936220987b0e6c47995f14ed0644cdce89b3d12ec8061c4e072f",
+        "meta.json": "a7d0ec82356523adc94f0e02afc8cb07e2e56e7510ca5536668d3ddc43c2f1f7"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 2,
+            "from": "Deck",
+            "to": "Hand",
+            "cardID": "wounding_blow_yellow",
+            "uid": 9
+          }
+        ]
+      },
+      "retained_assertions": 129,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p2Hand count 0, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Talisman of Tithes / four live first-opponent draw replacement / unordered graveyard membership: Initial assertion failed: Expected p2Hand count 0, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Move only physical P2Deck9 to ownHand after actual completed replacement; retained draw0/Deck9 oracles must reject synthetic erroneous extra draw. Real Tithes5 destruction, support6 payment/ownGA and P1/P3/P4 draws unchanged. Endpoint wrong-draw sensitivity only, not actual bypass/disable of replacement or alternative legal action coverage. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

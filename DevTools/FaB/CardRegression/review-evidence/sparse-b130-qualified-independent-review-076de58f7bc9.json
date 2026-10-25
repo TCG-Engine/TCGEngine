@@ -1,0 +1,145 @@
+{
+  "status": "B130_ONE_SPARSE_REPRESENTATIVE_TWO_CLEAN_TARGETED_REPLAYS_ONE_NATIVE_CONTROL_QUALIFIED",
+  "reviewer": "/root/b105_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch130.json",
+  "input_sha256": "9f8622261c4e82cbb629b24d120daa5e0a180227af208197477f8981433187af",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T19:15:50.371583+00:00",
+  "fixtures": [
+    {
+      "slug": "card-beat-the-same-drum-blue-four-live-sparse-real-goblet-history-repeats-agility-and-vigor",
+      "fixture_sha256": "7b39a633ebea3a3e920b0d1990cec56c8ea1b328f9cacd049a102c5e2f256919",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9a4c0204cb07838cc76f733e2615ba84a76567003f308f0ea67518e238e92bc7",
+        "actions.json": "4e77e2368de6a39a387b48f8143fbb03a5c1857caed1dda4fe6546a2a3a944e4",
+        "assertions.json": "fd1bd8182b86f64f1baea947b3e8bea4d1d36e1957795b85bd5c651e33cf0b90",
+        "expected_final_gamestate.txt": "6c98c3039c8e1a56269587178c27ac16d773e6a7c7c97227ab2172d6d5fdd44e",
+        "meta.json": "64aa89fb772c462370ec973cb20c114958cdf8ce014de23df2cb899281eb4117"
+      },
+      "semantically_approved": true,
+      "actions": 10,
+      "native_assertions": 1344,
+      "actual_manual_passes": 8,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 6,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 10,
+  "total_native_assertions": 1344,
+  "total_manual_passes": 8,
+  "checks": 44,
+  "actual_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b130-actual-saved-independent-review.json",
+    "sha256": "710ff2be679eebda2e7b36a68ccaf39d317d6945027deda214ca0981fded71bf"
+  },
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b130-drum-only-independent-spec-review.json",
+    "sha256": "0e218ad8d86feaaf2501ee065412f9e018b8875a448f847f698a1b848687c6a3"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch130-20261022T191249Z-6ada6031762d6.json",
+    "sha256": "ecc4ab4a95d5e903dfcb364ec2bff3b88b9aff7b8e71c2e902c1f57a24f53709"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b130-four-live-run1.json",
+      "sha256": "4952febe0508eaab8d562c3d57b729b02769dde14cfd2d06b10520d6a0ef9582",
+      "passed": 1,
+      "total": 1,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b130-four-live-run2.json",
+      "sha256": "ef022c5acec74860a6d1d21cbfc205150d0fbe33bcc6880842acdbaccc8924ac",
+      "passed": 1,
+      "total": 1,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b130-fault-controls.json",
+    "sha256": "15fb47b851d4418363a10ebdc893c3a849d6314fcd761d770415591d330b1e54"
+  },
+  "focused_native_controls": [
+    {
+      "id": "b130_beat_the_same_drum_blue_focused_effect_sensitivity",
+      "fixture": "card-beat-the-same-drum-blue-four-live-sparse-real-goblet-history-repeats-agility-and-vigor",
+      "prefix_actions": 10,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "agility",
+            "uid": 9
+          }
+        ]
+      },
+      "retained_assertions": 135,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 4, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Relocate only newly repeated Agility9 among two identical Agility tokens after actual Goblet-created controlled-this-turn history and primary resolution, retaining original GobletAgility7/Vigor8 and repeated Vigor10. Exact Arena4 to3 endpoint sensitivity. No missing dispatch, alternate legal action, other Drum positive types or future token lifecycle credit. TigerForm excluded/unattempted/uncredited. Every original suffix action and oracle retained; only step offsets change."
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b130-focused-fault-plan.json",
+    "sha256": "ad06f33c1dd0a40bc33931535efa3c828faa2faee3dae0f3db4d95d86e414787"
+  },
+  "targeted_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "limitations": [
+    "One positive primary representative per cycle; no sibling pitch, alternate branch, full-card, hero/support or callback lifecycle credit.",
+    "Drum control selects newly repeated Agility9 among two identical Agility tokens, preserving earlier actual GobletAgility7/Vigor8 plus repeatedVigor10; Arena4 becomes3. Source/public cleanup and go again preserved. Exact endpoint sensitivity only; no missing dispatch, legal alternate branch, other positive Drum type or future token ability credit. TigerForm original draft never installed/recorded, excluded unattempted/uncredited; correct Owner1 expectation unchanged.",
+    "Only this one new fixture are rehashed/replayed. Unrelated fixture bytes are not freshly checked; no full suite or legacy audit is performed.",
+    "Every original suffix assertion retained; synthetic faults are sensitivity probes, not legal alternate-action branch coverage."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "7ca2bff5e4d683919bb582944913f020105e5c5a4796d80319825d21da375a54",
+  "reused_stable_helper_and_orchestration_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b114-qualified-independent-review.json",
+    "sha256": "34f4ed518b19c89242bafc46b95e1e16e2fb0bf55583e8348b81dea4c76f7287",
+    "qualification": "Exact unchanged UID helper and prior18/18 component/orchestration evidence reused without new helper contract execution or broad audit."
+  },
+  "excluded_original_draft_resolution": {
+    "review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b127-tiger-ownership-representation-review.json",
+      "sha256": "4fc2a133a8682336e3db46bc72678e7266122c7c7d5c6d1558fc4fed99d1fa44"
+    },
+    "finding": "Original two-case B130 draft never installed or recorded; Drum-only successor qualifies here. Related Predatory/Roar failures used overspecified raw ownership assertions on default-zero factories, not demonstrated gameplay ownership defects. TigerForm FaBMSTTiger explicitly supplies Owner1/Controller1, unlike those calls; its original raw1 expectation was correct source-derived and is eligible for a separately reviewed future representative. No TigerForm qualification, native attempt, engine fix or global ownership claim in B130."
+  }
+}

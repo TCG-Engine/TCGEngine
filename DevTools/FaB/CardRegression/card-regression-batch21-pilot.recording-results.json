@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-aether-dart-red-opponent-hero-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 4,
+        "assertions": 54
+    },
+    {
+        "slug": "card-ice-bolt-red-opponent-barrier-pay-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 67
+    }
+]

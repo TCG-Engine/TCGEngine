@@ -1,0 +1,7 @@
+{
+    "name": "Energy Potion / deploy-then-instant-at-zero-ap",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:51:00+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Pay zero to play the item, using the single AP with no go again. Then activate its instant at AP0. Destruction is paid before the ability resolves: Arena empty, potion in graveyard, stack1, still zero resources. Resolution grants exactly2 resources without AP; graveyard activation cannot repeat. Sources: FaBSim/GeneratedCode/cardArrayCache.json#energy_potion_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

@@ -1,0 +1,65 @@
+{
+  "status": "READ_ONLY_SCENARIO_VOLUME_EXPLANATION_NOT_PRUNING_PLAN",
+  "canonical_scenarios": 3079,
+  "primary_subject_ids": 239,
+  "primary_subject_groups": 114,
+  "average_scenarios_per_identity": 12.88,
+  "largest_eight_batches": [
+    {
+      "source_spec": "card-regression-batch21.json",
+      "scenarios": 226,
+      "family": "Plain arcane spells: targets, payment and prevention",
+      "distinct_primary_ids": 12
+    },
+    {
+      "source_spec": "card-regression-batch17.json",
+      "scenarios": 213,
+      "family": "Plain Boost: accept/decline, reveal result, funding, defense and refusals",
+      "distinct_primary_ids": 24
+    },
+    {
+      "source_spec": "card-regression-batch33.json",
+      "scenarios": 198,
+      "family": "Next-attack/weapon buffs: source zone, payment, consumption and restrictions",
+      "distinct_primary_ids": 10
+    },
+    {
+      "source_spec": "card-regression-batch01.json",
+      "scenarios": 143,
+      "family": "Initial ordinary attack/go-again pilot matrix",
+      "distinct_primary_ids": 52
+    },
+    {
+      "source_spec": "card-regression-batch13.json",
+      "scenarios": 135,
+      "family": "Pummel/Razor and granted-hit timing/response matrix",
+      "distinct_primary_ids": 6
+    },
+    {
+      "source_spec": "card-regression-batch31.json",
+      "scenarios": 111,
+      "family": "Mandatory discard/additional-cost attacks",
+      "distinct_primary_ids": 6
+    },
+    {
+      "source_spec": "card-regression-batch19.json",
+      "scenarios": 108,
+      "family": "Arsenal bonus and known suppression cases",
+      "distinct_primary_ids": 6
+    },
+    {
+      "source_spec": "card-regression-batch43.json",
+      "scenarios": 108,
+      "family": "Flat defense-reaction finite-baseline matrix",
+      "distinct_primary_ids": 5
+    }
+  ],
+  "largest_eight_total": 1242,
+  "single_primary_id_scenarios": 3064,
+  "multiple_primary_id_scenarios": 15,
+  "single_primary_id_scenarios_in_multi_member_groups": 2581,
+  "same_named_shapes_in_those_groups": 947,
+  "additional_pitch_variant_instances_of_same_named_shapes": 1634,
+  "normalization_limit": "Diagnostic slug shape only: replace one exact primary card ID in its scenario slug with a placeholder inside the independently reviewed cycle group. Funding/choice descriptors and other tokens remain. Matching names do not establish semantic redundancy: printed numbers and expected results differ. No tests are pruned or marked disposable.",
+  "coverage_source_sha256": "817fcd451e7ba58453381edbe2a9ffbcadab24196840c2235bac362d402a255f"
+}

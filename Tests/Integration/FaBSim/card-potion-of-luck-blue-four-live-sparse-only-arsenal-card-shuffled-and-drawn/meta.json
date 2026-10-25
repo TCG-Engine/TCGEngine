@@ -1,0 +1,7 @@
+{
+    "name": "Potion of Luck / one-card deterministic four-live positive",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-21T02:44:20+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "All four genuinely live youngDorinthea20 seats use manual priority/disabledshortcutwindows. Known owned Potion5 in Arena, P1Hand empty/Deck empty and exactly one facedown owned ArsenalWBRed6; no seeded play/draw/random history. Actual Instant activation costs destroyPotion5 to ownGY while virtualABILITY7/controller1/source5 waits, noAP/resource spend. Actual passes1,2,3 keep Arsenal6 untouched/Hand0/Deck0, then actualpass4 resolves: printed shuffle counts exactly1 Arsenal card, moves6 into otherwise emptyDeck and draws exactlyone sameUID6 toHand; Arsenal/Deck nowempty, source5 remainsownGY, no otherphysical cards move. AP1/resources0/life20 remain, noGOrefund. One-card shuffle cannot reorder and actual EngineShuffle count1 executes zero loop iterations/no RNG orRandomCounter use. No claim on multi-card shuffle order/seeding/RNG correctness, item deployment/cancel/replacements/foreignownership or full-card completion; no asynchronous await/source-clear shortcut. Sources: https://judge.fabtcg.com/cards/detail/1459/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

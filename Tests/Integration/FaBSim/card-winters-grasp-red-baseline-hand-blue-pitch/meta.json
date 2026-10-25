@@ -1,0 +1,7 @@
+{
+    "name": "Winter's Grasp / ordinary baseline / hand-blue-pitch",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:28:31+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost2, power6, pitch1, defense3, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Actual play from Hand spends one AP and exactly2 resources; initial0 plus pitches[3] leaves1. Printed attack6 against defense0 causes6 damage; no go again. Source stays on chain through resolution, then clears at Close. Sources: FaBSim/GeneratedCode/cardArrayCache.json#winters_grasp_red https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

@@ -4,6 +4,7 @@ include './Core/NetworkingLibraries.php';
 include './Core/HTTPLibraries.php';
 include './Core/CoreZoneModifiers.php';
 include './Core/ViewerIdentity.php';
+include './Core/PopupZoneVisibility.php';
 
 $gameName = $_GET["gameName"];
 if (!IsGameNameValid($gameName)) {
@@ -43,21 +44,12 @@ $playerID = $viewerPerspective;
 $cardSize = 120;
 $params = explode("-", $popupType);
 $popupType = $params[0];
-$hiddenZonePrefixes = [
-  'Hand',
-  'Memory',
-  'Material',
-  'TempZone',
-  'DecisionQueue',
-  'Versions',
-];
+// Who may see which zone: Core/PopupZoneVisibility.php (the schema's visibility, by owning seat).
+$popupSpectatorCanSeeHands = function_exists('SimGameViewerCanSeeHands') && SimGameViewerCanSeeHands($folderPath, $gameName, $viewerInfo);
 switch ($popupType) {
   default://Zone popups can be the default
     $arr = &GetZone($popupType);
-    $isOpponentZone = strpos($popupType, "their") === 0;
-    $zoneSuffix = preg_replace('/^(my|their)/', '', $popupType);
-    $isHiddenZone = in_array($zoneSuffix, $hiddenZonePrefixes, true);
-    $shouldMaskContents = $isHiddenZone && ($viewerInfo['isSpectator'] || $isOpponentZone);
+    $shouldMaskContents = !PopupMayShowZone(strval($folderPath), strval($popupType), $viewerInfo, intval($viewerPerspective), $popupSpectatorCanSeeHands);
     $popup = ($shouldMaskContents || count($arr) === 0 ? "" : implode(",", $arr[0]->GetMacros())) . "</>";
     if ($shouldMaskContents) {
       $visibleCount = 0;

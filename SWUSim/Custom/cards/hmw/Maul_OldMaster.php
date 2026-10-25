@@ -80,8 +80,16 @@ $customDQHandlers["HMW_016#0"] = function($player, $parts, $lastDecision) {
 
     // The marker is how the played unit is FOUND afterwards. A positional guess would be wrong as soon
     // as the unit lands in the other arena, or the arena reindexes.
+    // ONE trigger batch for the played unit (CR: "When Played abilities resolve after the unit is defeated", and the
+    // controller orders simultaneous triggers): its entry triggers are HELD here and flushed together with the
+    // defeat's When Defeated in _SWUHmw016ThenDefeat. Reported 2026-10-19 (ASH_050 Morgan Elsbeth): held apart, the
+    // When Defeated skipped the ordering prompt and cut INTO the Support attack, which CR Support e. forbids.
+    SWUBeginDeferEntryTriggers();
     SWUNestedPlayUnit(intval($player), $handMz, intval($parts[0] ?? 0),
         ['turnEffect' => 'HMW_016', 'then' => '_SWUHmw016ThenDefeat']);
+    // The play PAUSED at an additional cost (the defeat comes in a later request): release the hold now, which is
+    // exactly the old, separate-batches behaviour — never leave this request's later entry triggers stranded.
+    if (!empty($GLOBALS['gDeferEntryTriggers'])) SWUFlushDeferredEntryTriggers(intval($player));
 };
 
 // The "Then, defeat it" step — see HMW_016#0. $placedMz is unused: the marker is the authoritative
@@ -89,6 +97,7 @@ $customDQHandlers["HMW_016#0"] = function($player, $parts, $lastDecision) {
 function _SWUHmw016ThenDefeat(int $player, string $placedMz): void {
     global $playerID;
     $playerID = intval($player);
+    $batching = !empty($GLOBALS['gDeferEntryTriggers']);   // HMW_016#0 is holding the played unit's entry triggers
     $newMz = null;
     // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
     // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
@@ -114,14 +123,34 @@ function _SWUHmw016ThenDefeat(int $player, string $placedMz): void {
     // stay green without it. It is kept as the sibling card's proven shape rather than because it is
     // demonstrably load-bearing on THIS card — do not copy it onward as if it were verified.
     $newUID = ($newMz !== null) ? intval((GetZoneObject($newMz)->UniqueID) ?? 0) : 0;
+    // Held entry triggers mean ActivateCard did NOT run its action-end (SWUAfterAction), which is where a second
+    // copy of a unique queues its CR uniqueness choose-and-defeat — so raise that choice here, as it would have.
+    // INLINE ($closesAction false): HMW_016#1 below owns the close. The choice is normally queued already — CollectEntryTriggers
+    // raises it the moment the copy enters (2026-10-20) — and a closing call here would upgrade it to close as well (twice).
+    if ($batching && $newUID > 0) SWUEnforceUniqueness(intval($player), intval($player), false);
     if ($newUID > 0 && _SWUMaulUniquenessPending(intval($player))) {
+        if ($batching) SWUFlushDeferredEntryTriggers(intval($player));   // the defeat waits a step: old separate batches
         DecisionQueueController::AddDecision(intval($player), 'CUSTOM',
             "HMW_016#1|{$newUID}", 1, dontSkipOnPass: 1);
         return;   // HMW_016#1 owns the After Action
     }
 
+    if (!$batching) {
+        if ($newMz !== null) SWUDefeatUnit(intval($player), $newMz);
+        SWUAfterAction(intval($player));
+        return;
+    }
+    // The defeat's When Defeated (and anything else it sets off) must join the HELD entry triggers, not be queued
+    // on its own: a defeat flushes the WHOLE pending bag as bare RESOLVE_TRIGGERs (bug #1110's shape). Exploit's
+    // park captures it all; replaying it refills the bag, and ONE flush orders the lot — 2+ → the controller picks.
+    global $gExploitDeferTriggers;
+    $gExploitDeferTriggers = true;
     if ($newMz !== null) SWUDefeatUnit(intval($player), $newMz);
-    SWUAfterAction(intval($player));
+    SWUFlushExploitDeferredTriggers(intval($player));   // also clears the park flag
+    // Same close contract as ActivateCard: a flush that queued triggers also queued SWU_TRIGGER_RESUME, which
+    // closes the action once they have resolved — closing here as well passed the turn with the When Defeated
+    // still pending and closed the action twice (core/ActionCloseWaitsForTheActorsPicks, the two Maul sections).
+    if (SWUFlushDeferredEntryTriggers(intval($player)) === 0) SWUAfterAction(intval($player));
 }
 
 // True when ActivateCard queued the CR 1050.3 uniqueness choose-and-defeat for this player.

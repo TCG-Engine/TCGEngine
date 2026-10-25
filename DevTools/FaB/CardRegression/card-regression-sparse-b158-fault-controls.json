@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:24:36.403323+00:00",
+  "plan_sha256": "f04ec06b88c2c9c1210bb586444f978e0098a4f45c7002c336d155dc2e02687c",
+  "independent_saved_proof_sha256": "9c6e82e4071cc4183768b96c8210ffeee4fadab2e2bf38ab1318c35fb30d9cb5",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b158-focused-fault-plan.json",
+    "f04ec06b88c2c9c1210bb586444f978e0098a4f45c7002c336d155dc2e02687c",
+    "card-regression-sparse-b158-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b158_quartermasters_boots_actual_next_nonattack_go_again_sensitivity",
+      "fixture": "card-quartermasters-boots-four-live-sparse-actual-paid-equipment-real-nonattack-go-again",
+      "fixture_sha256": "4991dfd5a70d9ebe4033d7d7a950486e654e8dd0d82c475a021774073e555b24",
+      "source_raw5": {
+        "initial_gamestate.txt": "1010e1492bfb4e04a4f1337c3f963fbed52b0e61978ba4b79278da64fb00c19a",
+        "actions.json": "197c73df30c73487e7f17094b3507511b36e0a8bc9c24316be60981f3f2e12b8",
+        "assertions.json": "1b2fd3f588b14c80f6caa4ce6074884d4f0c64575baf999f8a24df6c4c1c4b56",
+        "expected_final_gamestate.txt": "9401d2b126f949c5f23f779b22983cc63cf9b1f1a98288e1d51f8390f9f2ddb3",
+        "meta.json": "eee26bc9d7e560b4e74cc0a229ed39be70aecfbd59ce1c3be889cac0849fbd49"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "Stack",
+            "cardID": "tome_of_torment_red",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 623,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1ActionPoints to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Quartermaster Boots / four live actual paid nonattack go again: Step 4 assertion failed: Expected p1ActionPoints to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real Equipment5 activation/Blue7 pitch pays2/destroys5 and four responses resolve primary grant and own abilityGA, actual Tome6 Hand Action0 is played and receives GO_AGAIN. Remove only this actual tag from its Stack object after prefix7. Retain all four original responses and every suffix oracle, actual draw of DeckRed8 and paid/destroyed physical sources. Intended final AP1-to0 sensitivity only; no legal alternate branch, Banish/BloodDebt, BladeBreak or further AP use credit.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

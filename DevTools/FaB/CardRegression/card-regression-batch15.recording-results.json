@@ -1,0 +1,440 @@
+[
+    {
+        "slug": "card-come-to-fight-red-cost-0-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 16
+    },
+    {
+        "slug": "card-come-to-fight-red-cost-1-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 16
+    },
+    {
+        "slug": "card-come-to-fight-red-first-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 30,
+        "assertions": 21
+    },
+    {
+        "slug": "card-come-to-fight-red-weapon-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 21
+    },
+    {
+        "slug": "card-come-to-fight-red-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 19
+    },
+    {
+        "slug": "card-come-to-fight-red-unused-expires-at-end-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 25
+    },
+    {
+        "slug": "card-come-to-fight-red-arsenal-facedown-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 15
+    },
+    {
+        "slug": "card-come-to-fight-red-fully-blocked-first-still-consumes",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 25
+    },
+    {
+        "slug": "card-come-to-fight-red-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-come-to-fight-red-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-come-to-fight-red-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-come-to-fight-yellow-cost-0-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 16
+    },
+    {
+        "slug": "card-come-to-fight-yellow-cost-1-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 16
+    },
+    {
+        "slug": "card-come-to-fight-yellow-cost-3-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 16
+    },
+    {
+        "slug": "card-come-to-fight-yellow-first-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 30,
+        "assertions": 21
+    },
+    {
+        "slug": "card-come-to-fight-yellow-weapon-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 21
+    },
+    {
+        "slug": "card-come-to-fight-yellow-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 19
+    },
+    {
+        "slug": "card-come-to-fight-yellow-unused-expires-at-end-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 25
+    },
+    {
+        "slug": "card-come-to-fight-yellow-arsenal-facedown-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 15
+    },
+    {
+        "slug": "card-come-to-fight-yellow-fully-blocked-first-still-consumes",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 25
+    },
+    {
+        "slug": "card-come-to-fight-yellow-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-come-to-fight-yellow-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-come-to-fight-yellow-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-come-to-fight-blue-cost-0-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 16
+    },
+    {
+        "slug": "card-come-to-fight-blue-cost-1-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 16
+    },
+    {
+        "slug": "card-come-to-fight-blue-cost-3-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 16
+    },
+    {
+        "slug": "card-come-to-fight-blue-first-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 30,
+        "assertions": 21
+    },
+    {
+        "slug": "card-come-to-fight-blue-weapon-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 21
+    },
+    {
+        "slug": "card-come-to-fight-blue-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 19
+    },
+    {
+        "slug": "card-come-to-fight-blue-unused-expires-at-end-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 25
+    },
+    {
+        "slug": "card-come-to-fight-blue-arsenal-facedown-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 15
+    },
+    {
+        "slug": "card-come-to-fight-blue-fully-blocked-first-still-consumes",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 25
+    },
+    {
+        "slug": "card-come-to-fight-blue-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-come-to-fight-blue-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-come-to-fight-blue-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-earthlore-surge-red-cost-0-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 16
+    },
+    {
+        "slug": "card-earthlore-surge-red-cost-1-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 16
+    },
+    {
+        "slug": "card-earthlore-surge-red-cost-3-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 16
+    },
+    {
+        "slug": "card-earthlore-surge-red-first-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 30,
+        "assertions": 21
+    },
+    {
+        "slug": "card-earthlore-surge-red-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 19
+    },
+    {
+        "slug": "card-earthlore-surge-red-unused-expires-at-end-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 25
+    },
+    {
+        "slug": "card-earthlore-surge-red-arsenal-facedown-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 15
+    },
+    {
+        "slug": "card-earthlore-surge-red-fully-blocked-first-still-consumes",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 25
+    },
+    {
+        "slug": "card-earthlore-surge-red-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-earthlore-surge-red-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-earthlore-surge-red-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-earthlore-surge-yellow-cost-0-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 16
+    },
+    {
+        "slug": "card-earthlore-surge-yellow-cost-1-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 16
+    },
+    {
+        "slug": "card-earthlore-surge-yellow-cost-3-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 16
+    },
+    {
+        "slug": "card-earthlore-surge-yellow-first-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 30,
+        "assertions": 21
+    },
+    {
+        "slug": "card-earthlore-surge-yellow-weapon-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 21
+    },
+    {
+        "slug": "card-earthlore-surge-yellow-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 19
+    },
+    {
+        "slug": "card-earthlore-surge-yellow-unused-expires-at-end-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 25
+    },
+    {
+        "slug": "card-earthlore-surge-yellow-arsenal-facedown-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 15
+    },
+    {
+        "slug": "card-earthlore-surge-yellow-fully-blocked-first-still-consumes",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 25
+    },
+    {
+        "slug": "card-earthlore-surge-yellow-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-earthlore-surge-yellow-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-earthlore-surge-yellow-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-earthlore-surge-blue-cost-0-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 16
+    },
+    {
+        "slug": "card-earthlore-surge-blue-cost-1-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 16
+    },
+    {
+        "slug": "card-earthlore-surge-blue-cost-3-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 16
+    },
+    {
+        "slug": "card-earthlore-surge-blue-first-attack-only",
+        "status": "recorded_semantically_checked",
+        "actions": 30,
+        "assertions": 21
+    },
+    {
+        "slug": "card-earthlore-surge-blue-weapon-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 21
+    },
+    {
+        "slug": "card-earthlore-surge-blue-nonattack-action-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 19
+    },
+    {
+        "slug": "card-earthlore-surge-blue-unused-expires-at-end-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 25
+    },
+    {
+        "slug": "card-earthlore-surge-blue-arsenal-facedown-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 15
+    },
+    {
+        "slug": "card-earthlore-surge-blue-fully-blocked-first-still-consumes",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 25
+    },
+    {
+        "slug": "card-earthlore-surge-blue-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-earthlore-surge-blue-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-earthlore-surge-blue-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 9
+    },
+    {
+        "slug": "card-come-to-fight-red-same-family-stack",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 20
+    },
+    {
+        "slug": "card-earthlore-surge-red-same-family-stack",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 20
+    },
+    {
+        "slug": "card-come-to-fight-red-cross-family-stack",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 20
+    }
+]

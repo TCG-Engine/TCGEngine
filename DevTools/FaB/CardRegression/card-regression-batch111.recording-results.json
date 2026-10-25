@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-torrent-of-tempo-red-four-live-sparse-actual-paid-five-damage-hit-grants-go-again-before-resolution-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 447
+    },
+    {
+        "slug": "card-sweeping-blow-red-four-live-sparse-actual-attack-creates-owned-ash-and-printed-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 470
+    },
+    {
+        "slug": "card-hocus-pocus-red-four-live-sparse-actual-zero-cost-attack-creates-one-owned-runechant",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 429
+    },
+    {
+        "slug": "card-soulbead-strike-red-four-live-sparse-actual-four-damage-hit-grants-go-again-before-resolution-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 406
+    }
+]

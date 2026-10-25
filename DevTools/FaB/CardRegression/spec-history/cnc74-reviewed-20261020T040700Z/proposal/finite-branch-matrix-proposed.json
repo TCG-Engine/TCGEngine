@@ -1,0 +1,865 @@
+{
+  "status": "PROPOSED_FINITE_INTRINSIC_CNC_DEFINITION_REQUIRES_SEPARATE_INDEPENDENT_SCOPE_APPROVAL",
+  "card_id": "command_and_conquer_red",
+  "closed_ordinary_cases": 30,
+  "existing_cases": [
+    "card-command-and-conquer-red-fully-blocked-no-hit-keeps-arsenal",
+    "card-command-and-conquer-red-hit-trigger-sigil-arsenal-response",
+    "card-command-and-conquer-red-hit-trigger-sigil-hand-response",
+    "compat-reaction-priority028-cnc-prohibition-physical-source-owner",
+    "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+    "probe-command-and-conquer-red-mandatory-hit-trigger-empty-arsenal-still-triggers"
+  ],
+  "additional_cases": [
+    "card-command-and-conquer-red-ordinary-hand-floating-overfunded",
+    "card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact",
+    "card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus",
+    "card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact",
+    "card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact",
+    "card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact",
+    "card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact",
+    "card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal",
+    "card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals",
+    "card-command-and-conquer-red-ordinary-ally-hit-does-not-trigger-or-destroy-hero-arsenal",
+    "card-command-and-conquer-red-ordinary-hand-total-one-resource-rejected",
+    "card-command-and-conquer-red-ordinary-hand-total-one-red-card-rejected",
+    "card-command-and-conquer-red-ordinary-arsenal-total-one-resource-rejected",
+    "card-command-and-conquer-red-ordinary-zero-ap-funded-hand-rejected",
+    "card-command-and-conquer-red-ordinary-nonturn-action-rejected-after-real-priority-pass",
+    "card-command-and-conquer-red-ordinary-wrong-priority-rejected-after-real-pass",
+    "card-command-and-conquer-red-ordinary-no-permission-deck-click-rejected",
+    "card-command-and-conquer-red-ordinary-no-permission-graveyard-click-rejected",
+    "card-command-and-conquer-red-ordinary-no-permission-banish-click-rejected",
+    "card-command-and-conquer-red-ordinary-primary-pitched-for-exact-one-resource",
+    "card-command-and-conquer-red-ordinary-primary-defends-three-with-one-damage",
+    "card-command-and-conquer-red-ordinary-arsenal-source-cannot-declare-ordinary-block",
+    "card-command-and-conquer-red-ordinary-wrong-role-attack-reaction-rejected-with-real-spare-ap",
+    "card-command-and-conquer-red-ordinary-arsenal-dr-prohibition-ends-at-next-real-chain-link"
+  ],
+  "requirements": [
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "hand-floating-overfunded",
+      "slug": "card-command-and-conquer-red-ordinary-hand-floating-overfunded",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hand-floating-overfunded",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Arsenal",
+          "player": 2,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        }
+      ],
+      "required_checkpoint_names": [
+        "printed_cost_two_paid_before_priority",
+        "attack_six_no_go_again",
+        "no_early_hit_or_destruction",
+        "first_damage_requires_correct_hero_only_trigger",
+        "mandatory_trigger_then_destroys_every_current_arsenal_card",
+        "real_resolution_no_action_refund",
+        "actual_final_priority_pass",
+        "normal_owner_close"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "hand-yellow-pitch-exact",
+      "slug": "card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Arsenal",
+          "player": 2,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        },
+        {
+          "card_id": "wounding_blow_yellow",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "real_pitch_payment_wait_0",
+        "printed_cost_two_paid_before_priority",
+        "attack_six_no_go_again",
+        "no_early_hit_or_destruction",
+        "first_damage_requires_correct_hero_only_trigger",
+        "mandatory_trigger_then_destroys_every_current_arsenal_card",
+        "real_resolution_no_action_refund",
+        "actual_final_priority_pass",
+        "normal_owner_close"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "hand-blue-pitch-one-surplus",
+      "slug": "card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Arsenal",
+          "player": 2,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "real_pitch_payment_wait_0",
+        "printed_cost_two_paid_before_priority",
+        "attack_six_no_go_again",
+        "no_early_hit_or_destruction",
+        "first_damage_requires_correct_hero_only_trigger",
+        "mandatory_trigger_then_destroys_every_current_arsenal_card",
+        "real_resolution_no_action_refund",
+        "actual_final_priority_pass",
+        "normal_owner_close"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "hand-two-red-pitches-exact",
+      "slug": "card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact",
+      "pilot": true,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Arsenal",
+          "player": 2,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        },
+        {
+          "card_id": "wounding_blow_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "critical_strike_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "real_pitch_payment_wait_0",
+        "real_pitch_payment_wait_1",
+        "printed_cost_two_paid_before_priority",
+        "attack_six_no_go_again",
+        "no_early_hit_or_destruction",
+        "first_damage_requires_correct_hero_only_trigger",
+        "mandatory_trigger_then_destroys_every_current_arsenal_card",
+        "real_resolution_no_action_refund",
+        "actual_final_priority_pass",
+        "normal_owner_close"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "hand-one-floating-plus-red-exact",
+      "slug": "card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Arsenal",
+          "player": 2,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        },
+        {
+          "card_id": "wounding_blow_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "real_pitch_payment_wait_0",
+        "printed_cost_two_paid_before_priority",
+        "attack_six_no_go_again",
+        "no_early_hit_or_destruction",
+        "first_damage_requires_correct_hero_only_trigger",
+        "mandatory_trigger_then_destroys_every_current_arsenal_card",
+        "real_resolution_no_action_refund",
+        "actual_final_priority_pass",
+        "normal_owner_close"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "arsenal-facedown-floating-exact",
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Arsenal",
+          "player": 1,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Arsenal",
+          "player": 2,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        }
+      ],
+      "required_checkpoint_names": [
+        "printed_cost_two_paid_before_priority",
+        "attack_six_no_go_again",
+        "no_early_hit_or_destruction",
+        "first_damage_requires_correct_hero_only_trigger",
+        "mandatory_trigger_then_destroys_every_current_arsenal_card",
+        "real_resolution_no_action_refund",
+        "actual_final_priority_pass",
+        "normal_owner_close"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "arsenal-faceup-floating-exact",
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Arsenal",
+          "player": 1,
+          "known_properties": {
+            "FaceDown": 0
+          }
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Arsenal",
+          "player": 2,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        }
+      ],
+      "required_checkpoint_names": [
+        "printed_cost_two_paid_before_priority",
+        "attack_six_no_go_again",
+        "no_early_hit_or_destruction",
+        "first_damage_requires_correct_hero_only_trigger",
+        "mandatory_trigger_then_destroys_every_current_arsenal_card",
+        "real_resolution_no_action_refund",
+        "actual_final_priority_pass",
+        "normal_owner_close"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "partial-three-damage-still-destroys-arsenal",
+      "slug": "card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Arsenal",
+          "player": 2,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Hand",
+          "player": 2,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "printed_cost_two_paid_before_priority",
+        "attack_six_no_go_again",
+        "actual_printed_three_defense_per_blocker",
+        "no_early_hit_or_destruction",
+        "first_damage_requires_correct_hero_only_trigger",
+        "mandatory_trigger_then_destroys_every_current_arsenal_card",
+        "real_resolution_no_action_refund",
+        "actual_final_priority_pass",
+        "normal_owner_close"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "hero-hit-destroys-both-legal-new-horizon-arsenals",
+      "slug": "card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals",
+      "pilot": true,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Arsenal",
+          "player": 2,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        },
+        {
+          "card_id": "wounding_blow_yellow",
+          "zone": "Arsenal",
+          "player": 2,
+          "known_properties": {
+            "FaceDown": 0
+          }
+        },
+        {
+          "card_id": "new_horizon",
+          "zone": "Equipment",
+          "player": 2,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "printed_cost_two_paid_before_priority",
+        "attack_six_no_go_again",
+        "no_early_hit_or_destruction",
+        "first_damage_requires_correct_hero_only_trigger",
+        "mandatory_trigger_then_destroys_every_current_arsenal_card",
+        "real_resolution_no_action_refund",
+        "actual_final_priority_pass",
+        "normal_owner_close"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "ally-hit-does-not-trigger-or-destroy-hero-arsenal",
+      "slug": "card-command-and-conquer-red-ordinary-ally-hit-does-not-trigger-or-destroy-hero-arsenal",
+      "pilot": true,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-ally-hit-does-not-trigger-or-destroy-hero-arsenal",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Arsenal",
+          "player": 2,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        },
+        {
+          "card_id": "aether_ashwing",
+          "zone": "Arena",
+          "player": 2,
+          "known_properties": {
+            "Counters": {
+              "UPR_ASH": 1,
+              "DYN_ASH": "ash"
+            }
+          }
+        }
+      ],
+      "required_checkpoint_names": [
+        "actual_target_choice_before_any_source_payment",
+        "printed_cost_two_paid_before_priority",
+        "attack_six_no_go_again",
+        "no_early_hit_or_destruction",
+        "first_damage_requires_correct_hero_only_trigger",
+        "real_resolution_no_action_refund",
+        "actual_final_priority_pass",
+        "normal_owner_close"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "hand-total-one-resource-rejected",
+      "slug": "card-command-and-conquer-red-ordinary-hand-total-one-resource-rejected",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hand-total-one-resource-rejected",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "actual_rejected_click_preserves_source_economy_and_priority"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "hand-total-one-red-card-rejected",
+      "slug": "card-command-and-conquer-red-ordinary-hand-total-one-red-card-rejected",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-hand-total-one-red-card-rejected",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "wounding_blow_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "actual_rejected_click_preserves_source_economy_and_priority"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "arsenal-total-one-resource-rejected",
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-total-one-resource-rejected",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-arsenal-total-one-resource-rejected",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Arsenal",
+          "player": 1,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        }
+      ],
+      "required_checkpoint_names": [
+        "actual_rejected_click_preserves_source_economy_and_priority"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "zero-ap-funded-hand-rejected",
+      "slug": "card-command-and-conquer-red-ordinary-zero-ap-funded-hand-rejected",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-zero-ap-funded-hand-rejected",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "actual_rejected_click_preserves_source_economy_and_priority"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "nonturn-action-rejected-after-real-priority-pass",
+      "slug": "card-command-and-conquer-red-ordinary-nonturn-action-rejected-after-real-priority-pass",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-nonturn-action-rejected-after-real-priority-pass",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 2,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "actual_rejected_click_preserves_source_economy_and_priority"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "wrong-priority-rejected-after-real-pass",
+      "slug": "card-command-and-conquer-red-ordinary-wrong-priority-rejected-after-real-pass",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-wrong-priority-rejected-after-real-pass",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "actual_rejected_click_preserves_source_economy_and_priority"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "no-permission-deck-click-rejected",
+      "slug": "card-command-and-conquer-red-ordinary-no-permission-deck-click-rejected",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-no-permission-deck-click-rejected",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Deck",
+          "player": 1,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "actual_rejected_click_preserves_source_economy_and_priority"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "no-permission-graveyard-click-rejected",
+      "slug": "card-command-and-conquer-red-ordinary-no-permission-graveyard-click-rejected",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-no-permission-graveyard-click-rejected",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Graveyard",
+          "player": 1,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "actual_rejected_click_preserves_source_economy_and_priority"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "no-permission-banish-click-rejected",
+      "slug": "card-command-and-conquer-red-ordinary-no-permission-banish-click-rejected",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-no-permission-banish-click-rejected",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Banish",
+          "player": 1,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "actual_rejected_click_preserves_source_economy_and_priority"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "primary-pitched-for-exact-one-resource",
+      "slug": "card-command-and-conquer-red-ordinary-primary-pitched-for-exact-one-resource",
+      "pilot": true,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-primary-pitched-for-exact-one-resource",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "muscle_mutt_yellow",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "subject_is_only_pitch_candidate_for_cost_three",
+        "actual_cnc_red_pitch_one_exactly_completes_payment",
+        "only_support_attack_six_no_cnc_hit_ability_from_pitch",
+        "ordinary_support_damage_has_no_cnc_trigger",
+        "real_resolution_pass_after_primary_pitch",
+        "support_close_primary_stays_pitch"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "primary-defends-three-with-one-damage",
+      "slug": "card-command-and-conquer-red-ordinary-primary-defends-three-with-one-damage",
+      "pilot": true,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-primary-defends-three-with-one-damage",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "wounding_blow_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 2,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "primary_declares_real_hand_defense_three",
+        "printed_three_blocks_exactly_three_of_four",
+        "actual_resolution_priority_pass_defending_primary",
+        "both_original_physical_owner_graveyards"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "arsenal-source-cannot-declare-ordinary-block",
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-source-cannot-declare-ordinary-block",
+      "pilot": false,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-arsenal-source-cannot-declare-ordinary-block",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "wounding_blow_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Arsenal",
+          "player": 2,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        }
+      ],
+      "required_checkpoint_names": [
+        "arsenal_attack_action_cannot_declare_ordinary_defense",
+        "unblocked_support_hit_cannot_borrow_arsenal_cnc_trigger",
+        "real_pass_after_rejected_arsenal_block",
+        "arsenal_source_and_owner_preserved_at_close"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "wrong-role-attack-reaction-rejected-with-real-spare-ap",
+      "slug": "card-command-and-conquer-red-ordinary-wrong-role-attack-reaction-rejected-with-real-spare-ap",
+      "pilot": true,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-wrong-role-attack-reaction-rejected-with-real-spare-ap",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "timesnap_potion_blue",
+          "zone": "Arena",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "wounding_blow_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "real_timesnap_action_cost_before_gain_two",
+        "actual_timesnap_two_ap_without_resource_cost",
+        "support_attack_uses_first_of_two_real_ap",
+        "cnc_actual_action_card_rejected_as_attack_reaction_despite_ap_and_funding",
+        "support_hit_does_not_gain_hand_cnc_ability",
+        "actual_resolution_pass_wrong_role_case",
+        "normal_close_rejected_cnc_still_hand"
+      ]
+    },
+    {
+      "card_id": "command_and_conquer_red",
+      "branch": "arsenal-dr-prohibition-ends-at-next-real-chain-link",
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-dr-prohibition-ends-at-next-real-chain-link",
+      "pilot": true,
+      "recording_path": "Tests/Integration/FaBSim/card-command-and-conquer-red-ordinary-arsenal-dr-prohibition-ends-at-next-real-chain-link",
+      "status": "PROPOSED_UNRECORDED_PENDING_INDEPENDENT_REVIEW",
+      "effect_coverage": "intrinsic_ordinary",
+      "setup_sources": [
+        {
+          "card_id": "timesnap_potion_blue",
+          "zone": "Arena",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "command_and_conquer_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "wounding_blow_red",
+          "zone": "Hand",
+          "player": 1,
+          "known_properties": {}
+        },
+        {
+          "card_id": "dodge_blue",
+          "zone": "Arsenal",
+          "player": 2,
+          "known_properties": {
+            "FaceDown": 1
+          }
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Hand",
+          "player": 2,
+          "known_properties": {}
+        },
+        {
+          "card_id": "wounding_blow_blue",
+          "zone": "Hand",
+          "player": 2,
+          "known_properties": {}
+        }
+      ],
+      "required_checkpoint_names": [
+        "real_timesnap_action_cost_before_gain_two",
+        "actual_timesnap_two_ap_without_resource_cost",
+        "first_cnc_link_uses_real_extra_ap_and_exact_two_resources",
+        "ordinary_blocks_six_preserve_arsenal_for_later_witness",
+        "funded_actual_arsenal_dodge_rejected_on_cnc_link",
+        "first_link_no_hit_has_no_trigger_or_arsenal_loss",
+        "first_link_resolved_source_remains_while_one_ap_available",
+        "real_second_attack_announced_from_resolution_not_injected_link",
+        "actual_second_link_has_only_new_active_attack",
+        "same_original_dodge_now_legally_announced_on_link_two",
+        "printed_dodge_two_defends_only_the_new_link",
+        "old_cnc_on_link_one_does_not_trigger_for_new_attack_hit",
+        "real_final_second_link_priority_pass",
+        "normal_close_all_two_link_physical_owners"
+      ]
+    }
+  ],
+  "scope": "One implemented Generic red identity, ordinary cost/pitch/power/defense/noGA, source/timing/payment refusal, hero-only mandatory/all-current-Arsenal trigger/response/nohit and this-chain-link defense-reaction prohibition. External-interaction holds are separate and do not hide ordinary authorable branches.",
+  "required_controls": [
+    "cnc_missing_hit_layer",
+    "cnc_premature_arsenal_destruction",
+    "cnc_wrong_captured_victim"
+  ],
+  "required_gates": [
+    "Separate independent exact24+7pilot semantics and finite-definition approval before parent recording.",
+    "Actual7pilot saved semantic review, intended native control failures and repeated clean replay before full24 expansion.",
+    "All30 ordinary cases actual saved/independently reviewed/current behavior+raw5/native assertion sequences, current77 intended semantic failures (or exact additive successor), two complete same-runtime corpus passes and current WTR/ARC suites.",
+    "Separate exact finite adapter registration with proof hashes before conditional completion; this definition registers nothing."
+  ],
+  "holds": [
+    "Copy/provenance, ability-loss/restoration and source lifetime/departure/reentry around hit.",
+    "Competing prevention/damage/destruction replacements, observers, simultaneous/async trigger ordering.",
+    "Foreign physical ownership, multiplayer, elimination and dead chooser/controller lifetimes.",
+    "Alternative play/search permissions such as Emperor; hero/equipment effects beyond specifically named legal support fixtures."
+  ],
+  "current_completion_claim": false,
+  "native_writes": 0,
+  "game_actions": 0
+}

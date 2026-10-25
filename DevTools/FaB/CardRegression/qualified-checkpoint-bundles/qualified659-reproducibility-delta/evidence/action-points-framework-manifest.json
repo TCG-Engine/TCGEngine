@@ -1,0 +1,137 @@
+{
+  "status": "SCRATCH_PROPOSAL_SELECTED_ADDER_PROOF_PASS_REVIEW_REQUIRED",
+  "anchors": [
+    {
+      "path": "Schemas/FaBSim/GameSchema.txt",
+      "before": "ActionPoints - Value:number=1\n",
+      "after": "ActionPoints - Value:number=1\nBeforeAdd: FaBBeforeActionPoints\n",
+      "label": "use existing BeforeAdd schema callback",
+      "occurrences_required": 1,
+      "line_at_freeze": 172
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "before": "function StartOfTurnPhase() {\n    $player = intval(GetTurnPlayer()); AddResources($player, 0); AddActionPoints($player, 1);\n    SetCurrentPhase('MAIN');\n",
+      "after": "/** AddActionPoints assigns an absolute balance; veto only prohibited increases. */\nfunction FaBBeforeActionPoints($player, $value, $source = null): bool {\n    if ($value <= GetActionPoints(intval($player))) return true;\n    return intval($player) === intval(GetTurnPlayer()) && GetCurrentPhase() === 'MAIN';\n}\n\nfunction StartOfTurnPhase() {\n    $player = intval(GetTurnPlayer()); AddResources($player, 0);\n    SetCurrentPhase('MAIN'); AddActionPoints($player, 1);\n",
+      "label": "native increase-only gate; preserve start grant after entering existing MAIN phase",
+      "occurrences_required": 1,
+      "line_at_freeze": 2024
+    },
+    {
+      "path": "FaBSim/Custom/ROSRuntime.php",
+      "before": "function FaBROSGo(int $p,int $source=0): void {if(FaBROSCount($p,'ARC_LIGHTNING'))for($i=0;$i<FaBROSCount($p,'ARC_LIGHTNING');++$i)FaBROSQueue($p,'arc_lightning_yellow',FaBROSStoredSource($p,'ARC_LIGHTNING'));}",
+      "after": "function FaBROSGo(int $p,int $source=0): void {if($p!==intval(GetTurnPlayer())||GetCurrentPhase()!=='MAIN')return;if(FaBROSCount($p,'ARC_LIGHTNING'))for($i=0;$i<FaBROSCount($p,'ARC_LIGHTNING');++$i)FaBROSQueue($p,'arc_lightning_yellow',FaBROSStoredSource($p,'ARC_LIGHTNING'));}",
+      "label": "Arc Lightning requires an actual AP gain from go again",
+      "occurrences_required": 1,
+      "line_at_freeze": 30
+    },
+    {
+      "path": "zzGameCodeGenerator.php",
+      "before": "include './zzImageConverter.php';\ninclude './Core/Trie.php';\ninclude \"./Core/HTTPLibraries.php\";\ninclude_once \"./AccountFiles/AccountSessionAPI.php\";\ninclude_once \"./Database/ConnectionManager.php\";\ninclude_once \"./CardEditor/Database/CardAbilityRepository.php\";\n",
+      "after": "// This CLI-only target needs the schema emitter, never auth, images or card databases.\n$zoneAccessorsOnlyCLI = false;\n$generatorScalarAdder = null;\n$generatorExpectedSHA = null;\nif (PHP_SAPI === 'cli') foreach (($argv ?? []) as $generatorArg) {\n  if (str_starts_with($generatorArg, 'only=')) {\n    if (substr($generatorArg, 5) !== 'ZoneAccessors') {\n      fwrite(STDERR, \"Unsupported only= target; expected ZoneAccessors.\\n\"); exit(2);\n    }\n    $zoneAccessorsOnlyCLI = true;\n  }\n  if (str_starts_with($generatorArg, 'scalarAdder=')) $generatorScalarAdder = substr($generatorArg, 12);\n  if (str_starts_with($generatorArg, 'expectedSHA=')) $generatorExpectedSHA = substr($generatorArg, 12);\n}\nif (PHP_SAPI === 'cli' && ($zoneAccessorsOnlyCLI || $generatorScalarAdder !== null || $generatorExpectedSHA !== null)) {\n  if (!$zoneAccessorsOnlyCLI || !preg_match('/^[A-Za-z][A-Za-z0-9_]*$/D', (string)$generatorScalarAdder)\n      || !preg_match('/^[0-9a-f]{64}$/D', (string)$generatorExpectedSHA)) {\n    fwrite(STDERR, \"Selective regeneration requires only=ZoneAccessors scalarAdder=NAME expectedSHA=SHA256.\\n\"); exit(2);\n  }\n}\nif (!$zoneAccessorsOnlyCLI) include './zzImageConverter.php';\ninclude './Core/Trie.php';\ninclude \"./Core/HTTPLibraries.php\";\nif (!$zoneAccessorsOnlyCLI) {\n  include_once \"./AccountFiles/AccountSessionAPI.php\";\n  include_once \"./Database/ConnectionManager.php\";\n  include_once \"./CardEditor/Database/CardAbilityRepository.php\";\n}\n",
+      "label": "validated selective CLI entry before any include or write; default includes unchanged",
+      "occurrences_required": 1,
+      "line_at_freeze": 3
+    },
+    {
+      "path": "zzGameCodeGenerator.php",
+      "before": "function EmitSeatReturnBody($handler, $zoneName) {\n",
+      "after": "/** Locate one real named function using tokens, ignoring braces in strings/comments. */\nfunction GeneratorScalarAdderSpan(string $code, string $name): array {\n  $tokens = token_get_all($code); $offsets = []; $offset = 0;\n  foreach ($tokens as $i => $token) {\n    $offsets[$i] = $offset; $offset += strlen(is_array($token) ? $token[1] : $token);\n  }\n  $matches = [];\n  foreach ($tokens as $i => $token) {\n    if (!is_array($token) || $token[0] !== T_FUNCTION) continue;\n    $j = $i + 1;\n    while (isset($tokens[$j]) && is_array($tokens[$j]) && in_array($tokens[$j][0], [T_WHITESPACE,T_COMMENT,T_DOC_COMMENT], true)) ++$j;\n    if (!isset($tokens[$j]) || !is_array($tokens[$j]) || $tokens[$j][0] !== T_STRING || $tokens[$j][1] !== $name) continue;\n    while (isset($tokens[$j]) && $tokens[$j] !== '{' && $tokens[$j] !== ';') ++$j;\n    if (!isset($tokens[$j]) || $tokens[$j] !== '{') throw new RuntimeException('Expected concrete scalar adder body.');\n    $brace = $j; $depth = 1;\n    while (++$j < count($tokens) && $depth > 0) {\n      if ($tokens[$j] === '{' || (is_array($tokens[$j]) && in_array($tokens[$j][0], [T_CURLY_OPEN,T_DOLLAR_OPEN_CURLY_BRACES], true))) ++$depth;\n      elseif ($tokens[$j] === '}') --$depth;\n    }\n    if ($depth !== 0) throw new RuntimeException('Unbalanced scalar adder body.');\n    $end = $offsets[$j - 1] + 1;\n    $signature = substr($code, $offsets[$i], $offsets[$brace] - $offsets[$i]);\n    $matches[] = ['start'=>$offsets[$i], 'length'=>$end-$offsets[$i],\n      'signature'=>preg_replace('/\\s+/', '', $signature),\n      'code'=>substr($code, $offsets[$i], $end-$offsets[$i])];\n  }\n  if (count($matches) !== 1) throw new RuntimeException('Expected exactly one selected scalar adder.');\n  return $matches[0];\n}\n\nfunction EmitSeatReturnBody($handler, $zoneName) {\n",
+      "label": "token-based validated named scalar adder span; no evaluation of generated file",
+      "occurrences_required": 1,
+      "line_at_freeze": 47
+    },
+    {
+      "path": "zzGameCodeGenerator.php",
+      "before": "$rootPath = \"./\" . $rootName;\nif(!is_dir($rootPath)) mkdir($rootPath, 0755, true);\n\n//Write the zone accessors file\n$filename = $rootPath . \"/ZoneAccessors.php\";\n$handler = fopen($filename, \"w\");\n",
+      "after": "$rootPath = \"./\" . $rootName;\nif ($zoneAccessorsOnlyCLI) {\n  $selectedZones = array_values(array_filter($zones, fn($z) => $z->Name === $generatorScalarAdder));\n  if (count($selectedZones) !== 1) throw new RuntimeException('Selected scalar zone is absent or duplicated.');\n  $selectedZone = $selectedZones[0];\n  if ($selectedZone->DisplayMode !== 'Value'\n      || count($selectedZone->Properties) !== 1 || $selectedZone->Properties[0]->Name !== 'Value'\n      || $selectedZone->Properties[0]->Type !== 'number') throw new RuntimeException('Selection must be an existing numeric Value-mode scalar zone.');\n  $generatorExistingPath = $rootPath . \"/ZoneAccessors.php\";\n  if (!is_file($generatorExistingPath)) throw new RuntimeException('Selective generation requires an existing accessor file.');\n  $generatorOriginalAccessors = file_get_contents($generatorExistingPath);\n  if (hash('sha256', $generatorOriginalAccessors) !== $generatorExpectedSHA) throw new RuntimeException('Accessor base hash changed; preserve current file.');\n  $generatorOriginalAdder = GeneratorScalarAdderSpan($generatorOriginalAccessors, 'Add' . $generatorScalarAdder);\n}\nif(!is_dir($rootPath)) mkdir($rootPath, 0755, true);\n\n//Write the zone accessors file; selective mode renders the same emitter to memory.\n$filename = $rootPath . \"/ZoneAccessors.php\";\n$handler = fopen($zoneAccessorsOnlyCLI ? 'php://memory' : $filename, $zoneAccessorsOnlyCLI ? 'w+' : 'w');\n",
+      "label": "validate selected schema scalar/current file before any writes; render actual emitter into memory",
+      "occurrences_required": 1,
+      "line_at_freeze": 592
+    },
+    {
+      "path": "zzGameCodeGenerator.php",
+      "before": "fwrite($handler, \"?>\");\nfclose($handler);\n//Write the class file\n",
+      "after": "fwrite($handler, \"?>\");\nif ($zoneAccessorsOnlyCLI) {\n  rewind($handler); $generatorRendered = stream_get_contents($handler); fclose($handler);\n  $generatorNewAdder = GeneratorScalarAdderSpan($generatorRendered, 'Add' . $generatorScalarAdder);\n  if ($generatorNewAdder['signature'] !== $generatorOriginalAdder['signature']) throw new RuntimeException('Selected scalar adder signature changed; preserve current file.');\n  $generatorMerged = substr_replace($generatorOriginalAccessors, $generatorNewAdder['code'],\n    $generatorOriginalAdder['start'], $generatorOriginalAdder['length']);\n  $generatorTarget = fopen($filename, 'r+b');\n  if ($generatorTarget === false || !flock($generatorTarget, LOCK_EX)) throw new RuntimeException('Cannot lock selected accessor file.');\n  try {\n    $generatorCurrent = stream_get_contents($generatorTarget);\n    if (hash('sha256', $generatorCurrent) !== $generatorExpectedSHA) throw new RuntimeException('Accessor changed while generating; preserve current file.');\n    if ($generatorMerged !== $generatorCurrent) {\n      rewind($generatorTarget);\n      if (fwrite($generatorTarget, $generatorMerged) !== strlen($generatorMerged)) throw new RuntimeException('Incomplete selected accessor write.');\n      if (!ftruncate($generatorTarget, strlen($generatorMerged)) || !fflush($generatorTarget)) throw new RuntimeException('Cannot finish selected accessor write.');\n    }\n  } finally { flock($generatorTarget, LOCK_UN); fclose($generatorTarget); }\n  echo json_encode(['path'=>$filename, 'scalarAdder'=>$generatorScalarAdder,\n    'emittedFunctionSHA'=>hash('sha256', $generatorNewAdder['code']),\n    'beforeSHA'=>$generatorExpectedSHA, 'afterSHA'=>hash('sha256', $generatorMerged),\n    'nonselectedBytesPreserved'=>true]) . \"\\n\";\n  exit(0);\n}\nfclose($handler);\n//Write the class file\n",
+      "label": "generator-managed function merge preserves every nonselected byte; exit before other outputs/DB",
+      "occurrences_required": 1,
+      "line_at_freeze": 1385
+    }
+  ],
+  "source_files": [
+    {
+      "path": "Schemas/FaBSim/GameSchema.txt",
+      "raw_before_sha256": "86126c903e2a823f001834bfc84a0dbc2dffa0153ea421d0ad5a20ec4e920b63",
+      "normalized_candidate_sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "raw_before_sha256": "7dfb6d866dd04f62ed0b953168ddc0108281960b1904c8767afb277301753ff5",
+      "normalized_candidate_sha256": "2ce3dfd5ad8ebcca693f7b3b983246dc02ecaf0a42fe7b87b4570e4f1f225b56"
+    },
+    {
+      "path": "FaBSim/Custom/ROSRuntime.php",
+      "raw_before_sha256": "d374fc17f7919350adc02c35c2c745c2d64431cc934dcaa13946f3f06d50b63f",
+      "normalized_candidate_sha256": "18eb7e5e4b5b0289a78226cefe0b9fbdaaad465cc1fbfd4892d152afea313c20"
+    },
+    {
+      "path": "zzGameCodeGenerator.php",
+      "raw_before_sha256": "696f30ea851a5b971bdb7409da20f4a752a0eafc1e9be8a2eb0a483ac05dc5f3",
+      "normalized_candidate_sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    }
+  ],
+  "patch_sha256": "2815c2fb5734e149a864e1323691a5ebb0df7f8d617b1acb6b49375899209557",
+  "generated_native_baseline_sha256": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8",
+  "generated_candidate_sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+  "component_results": {
+    "status": "PASS",
+    "checks": 3641,
+    "scope": "isolated extracted functions/generated BeforeAdd only; no native replay",
+    "lints_passed": [
+      "action-points-framework-component-check.php",
+      "ZoneAccessors.php",
+      "action-points-framework-candidate-GameLogic.php",
+      "action-points-framework-candidate-ROSRuntime.php",
+      "action-points-framework-candidate-zzGameCodeGenerator.php"
+    ],
+    "faults": [
+      {
+        "fault": "no-beforeadd",
+        "status": "DETECTED",
+        "first_failure": "generated Add veto or exact assignment actual=1 expected=0"
+      },
+      {
+        "fault": "phase-missing",
+        "status": "DETECTED",
+        "first_failure": "increase-only own-phase callback actual=true expected=false"
+      },
+      {
+        "fault": "turn-missing",
+        "status": "DETECTED",
+        "first_failure": "increase-only own-phase callback actual=true expected=false"
+      },
+      {
+        "fault": "start-grant-before-main",
+        "status": "DETECTED",
+        "first_failure": "native start grant survives strict hook actual=0 expected=1"
+      },
+      {
+        "fault": "ros-go-no-ownphase",
+        "status": "DETECTED",
+        "first_failure": "ArcLightning only when goagain actually gains AP actual=2 expected=0"
+      }
+    ]
+  },
+  "commands": [
+    "python .\\build_action_points_framework_proposal.py",
+    "php zzGameCodeGenerator.php rootName=FaBSim only=ZoneAccessors scalarAdder=ActionPoints expectedSHA=4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8 (parent only after source approval/application)",
+    "& C:\\xampp\\php\\php.exe -n .\\action-points-framework-component-check.php"
+  ],
+  "deliverables": {
+    "action-points-framework-callsite-audit.json": "c67208568f550cdc920c994e0c3bac745072caf0e1ddb0d1ef4d1acaadf395b4",
+    "action-points-framework-component-results.json": "31eb65971252b7dc67caf4503839709c970f2bb7fa4cbda53ec5bad3d3755c78",
+    "action-points-framework-review-notes.json": "1744592b18de8ef836a70b4f89aac3d1695ad3a9e200ba6898792abc4afdfd19",
+    "action-points-generator-canonical-drift-history.json": "b371e0d994ce42ece94aa0b538736849ef662e8d475c2f8bb218258e23205b58",
+    "action-points-generator-proof-results.json": "610d28acfd72d0393823cdd720daf8da5d8858ef996b5c5bda18d85222f0cdad"
+  }
+}

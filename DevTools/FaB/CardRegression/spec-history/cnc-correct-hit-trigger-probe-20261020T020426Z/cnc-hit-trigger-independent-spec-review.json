@@ -1,0 +1,52 @@
+{
+  "status": "INDEPENDENT_SPEC_APPROVED_FOR_CORRECT_ORACLE_NATIVE_BEFOREPROBE_ONLY",
+  "source_sha256": "0821527f4056adfb5475090a87e261554c712d88f5aa39aebb967f8b99ca5e71",
+  "pilot_sha256": "10b6e2c2a0c2a9348a0dbff56fead6d99be4f24403952e6b90bf99809b9403d5",
+  "independent_checks": 621,
+  "native_persistable_checks": 438,
+  "rows": [
+    {
+      "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+      "arsenal_initial": 1,
+      "modeled_actual_actions": 16,
+      "modeled_priority_passes": 15
+    },
+    {
+      "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-empty-arsenal-still-triggers",
+      "arsenal_initial": 0,
+      "modeled_actual_actions": 16,
+      "modeled_priority_passes": 15
+    }
+  ],
+  "printed_evidence": {
+    "local_face": "FaBSim/WebpImages/command_and_conquer_red.webp",
+    "sha256": "e79de808a68b6562582e32a2c5a0dfc9b4cb61c93fc968dfc52fb602449eb612",
+    "basis": "Independently viewed printed cost2/power6/defense3, DR prohibition and older If-hits-hero wording; current cached functional text uses When. CR6.6.1 note expressly includes pre2022 If trigger wording."
+  },
+  "independent_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6",
+        "6.6.6a"
+      ],
+      "basis": "Hit creates a triggered layer before priority. Destruction is non-targeted, so an empty Arsenal does not activate the no-legal-target exception; it resolves without moving cards."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "sections": [
+        "7.5.2",
+        "7.5.5",
+        "7.6.2"
+      ],
+      "basis": "Unblocked6 damage; no printed or granted go again, so no AP refund."
+    }
+  ],
+  "source_only_concern": "Current generated Hit closure runs destruction inline. This is a source concern, not a native reproducer result; the parent must run the unchanged correct Stack1 oracle and retain an unsaved failure if it occurs.",
+  "approval_bounds": "Correct rules reproducer only. No trigger rawCardID/Owner/Kind/Params/UID golden is guessed. No native behavior, regression coverage, fix or replay qualification approved.",
+  "native_source_writes": 0,
+  "game_actions": 0,
+  "accepted_coverage": 0
+}

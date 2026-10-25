@@ -1,0 +1,7 @@
+{
+    "name": "Tiger Form Incantation / four live actual blue-pitch creation",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T21:23:45+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "With legal young Mystic Ninja Zen, actually play physical TigerFormIncantationRed5 from Hand at printed1 cost, pitching physical BlueWoundingBlow6 for3. That real blue pitch makes the printed blue-pitched-this-turn condition true; source costs oneAP and leaves resources2/AP0. All four living seats manually respond while Hand stays empty and no Tiger exists. Only the fourth response creates one physical CrouchingTiger7 in P1Hand, Owner1/Controller1, moves source5 to own publicGraveyard FaceDown0 and resolves printed go again toAP1. Actual pitch6 staysPitch. Every hero remains20 and all queues/other zones are empty. Stop before playing the created card or activating Zen. Only actual blue pitch and one owned Hand Crouching Tiger creation. The separate next-Crouching-Tiger +3 buff, Tiger play/ephemeral cleanup, false-blue condition, other pitch values, replacement, expiry and Zen ability remain untested. Crouching Tiger is a created ephemeral attack card in Hand, not an Aura token. No support/full-card credit. Sources: https://judge.fabtcg.com/cards/detail/3161/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MST063.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

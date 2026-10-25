@@ -1,0 +1,7 @@
+{
+    "name": "Command and Conquer / ordinary / arsenal-dr-prohibition-ends-at-next-real-chain-link",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T15:45:11+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actual Timesnap gives2AP at no resource cost. Pay2/CnC6/AP1; two normal3 blockers fully block and preserve original ArsenalDodge. After a real attacker pass the affordable cost0 Dodge click from Arsenal rejects on CnC link. At Resolution, spend remaining realAP on WoundingRed4, starting actual link2 while old CnC stays public on link1. Same Dodge now plays from Arsenal, resolves as defense2 only on link2; damage2/HP18, no CnC trigger from old link. Close both real links/each physical owner exactly once. Sources: https://judge.fabtcg.com/cards/detail/498/ https://rules.fabtcg.com/en/cr/03-zones/#334 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

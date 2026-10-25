@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch137.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T19:32:38.031789+00:00",
+  "fixtures": [
+    {
+      "slug": "card-draw-back-the-hammer-red-four-live-sparse-actual-paid-mechanologist-grant-and-two-real-blue-pitches-produce-seven-attack-damage",
+      "fixture_sha256": "697d7c7b1c80033e4e79b6a8f50f0affc7cf0fc3f0c3ce7ef91b310b1143ae59",
+      "passed": true,
+      "result": "[PASS] Draw Back the Hammer / four live sparse positive effect"
+    },
+    {
+      "slug": "card-monkey-powder-red-four-live-sparse-actual-blue-pitch-full-three-cost-ranger-action-draws-one-owned-physical-card",
+      "fixture_sha256": "2b585bac2270b2772fe409148138e50669cfc9696e82005d38f4cac2c227af0b",
+      "passed": true,
+      "result": "[PASS] Monkey Powder / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-draw-back-the-hammer-red-four-live-sparse-actual-paid-mechanologist-grant-and-two-real-blue-pitches-produce-seven-attack-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Draw Back the Hammer / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-monkey-powder-red-four-live-sparse-actual-blue-pitch-full-three-cost-ranger-action-draws-one-owned-physical-card",
+      "returncode": 0,
+      "stdout": "[PASS] Monkey Powder / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

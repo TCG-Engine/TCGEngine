@@ -1,0 +1,7 @@
+{
+    "name": "Threadbare Tunic / four live actual empty-Hand resource Instant",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-22T22:08:07+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed ThreadbareTunic is GenericEquipmentInstant-destroythis:gain1resource, onlyifHandempty. With legalyoungDorinthea20, actuallyactivatephysicalEquipment5 fromownEquipment withzeroHand/resources0/AP1. EmptyHandpasses realactivationgate. ItisInstant, soAP1isretained; destroyphysical5asactualcost intoownpublicGYFaceDown0 beforeanybodyeffect. Rawabilityproxy6 hasCardIDThreadbare/KindABILITY/Owner0/Controller1/SourceZoneEquipment/SourceUID5. Fourlivingplayersmanualresponses: physical5remainsGY/Equipmentempty/Handempty/AP1/resources0 throughfirstthreepasses. Fourthresponse addsprinted1resource toactualresources1, clearsproxy/queues, leavesAP1/physicalsource5publicGYFaceDown0, allfourhealth20/noPitchDeckArena. Noattack/heroactivation/seededcondition. Only actualempty-Handeligibility positive, physicaldestroycost, one-resourceeffect andInstantAPretention. NonemptyHandrejection, opponentturn/response/consumption, laterresourcespending andheroabilities remainunverified; no full-card/support credit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AZL005.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

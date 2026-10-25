@@ -1,0 +1,62 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch85.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T22:15:44.342512+00:00",
+  "fixtures": [
+    {
+      "slug": "card-minnowism-red-four-live-sparse-next-small-base-real-attack-buff",
+      "fixture_sha256": "a98a8f7620824668caf05e06a0520a7d8f4b5e9fdd6128a730a63ecc80c60df8",
+      "passed": true,
+      "result": "[PASS] Minnowism / four live sparse effect"
+    },
+    {
+      "slug": "card-tome-of-fyendal-yellow-four-live-sparse-arsenal-draw-two-then-heal-current-hand",
+      "fixture_sha256": "18168536dbd4a00314a5c6be42eb582d6a042650f08a0978aa50f9485c51b7fe",
+      "passed": true,
+      "result": "[PASS] Tome of Fyendal / four live sparse effect"
+    },
+    {
+      "slug": "card-ruby-amulet-blue-four-live-sparse-instant-destroy-watery-trigger-then-two-resources",
+      "fixture_sha256": "1d67157a14ffb809151bf8abbf7edefad8af7afac1c18555b4c5c319205cd88e",
+      "passed": true,
+      "result": "[PASS] Ruby Amulet / four live sparse effect"
+    },
+    {
+      "slug": "card-dissolve-reality-yellow-four-live-sparse-all-four-arsenals-bottom-decks-and-own-ponder",
+      "fixture_sha256": "9ff53b21bce09f0fba087b9238dce61e3c59f5ba86236ce4cc05afb8108b8eb3",
+      "passed": true,
+      "result": "[PASS] Dissolve Reality / four live sparse effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-minnowism-red-four-live-sparse-next-small-base-real-attack-buff",
+      "returncode": 0,
+      "stdout": "[PASS] Minnowism / four live sparse effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tome-of-fyendal-yellow-four-live-sparse-arsenal-draw-two-then-heal-current-hand",
+      "returncode": 0,
+      "stdout": "[PASS] Tome of Fyendal / four live sparse effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ruby-amulet-blue-four-live-sparse-instant-destroy-watery-trigger-then-two-resources",
+      "returncode": 0,
+      "stdout": "[PASS] Ruby Amulet / four live sparse effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dissolve-reality-yellow-four-live-sparse-all-four-arsenals-bottom-decks-and-own-ponder",
+      "returncode": 0,
+      "stdout": "[PASS] Dissolve Reality / four live sparse effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3093,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

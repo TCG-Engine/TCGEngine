@@ -1,0 +1,145 @@
+{
+  "status": "B176_ONE_SPARSE_REPRESENTATIVE_TWO_CLEAN_TARGETED_REPLAYS_ONE_NATIVE_CONTROL_QUALIFIED",
+  "reviewer": "/root/b105_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch176.json",
+  "input_sha256": "86b7abd873100e3086266f7c5260e44aaede59a3c371624434e5b71b23039fa1",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:12:03.200820+00:00",
+  "fixtures": [
+    {
+      "slug": "card-aether-ironweave-four-live-sparse-actual-nonattack-and-attack-play-close-combat-before-equipment-resource-activation",
+      "fixture_sha256": "205864a2dcad0ea61d495c3bccea298b50a577943a8df66e5f5491dbc26da408",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a351afc34f76bcf4b52217111037e3ecef31000b3b0c59ee390f1d1d317fe131",
+        "actions.json": "1d4ea162018ad6efbf7a2c84d1ee14b868eccdc2aaa7594c1f22e0fcc59b4c64",
+        "assertions.json": "2e4706abd63dfb4bc03745f254587df7acdd0992b338a55cdfa099ce0fdec33f",
+        "expected_final_gamestate.txt": "09c27f0382b61cb16214ba4e31012f018b33d9a30a29c85a24d4b935e341a903",
+        "meta.json": "17f8aa6d33c85fc4c4f8f59d6efc0112e69009dd881c1e9270e8586b4b3174ff"
+      },
+      "semantically_approved": true,
+      "actions": 37,
+      "native_assertions": 1484,
+      "actual_manual_passes": 33,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "actual_support_uid": 6,
+      "closed_action_boundary": {
+        "action_step": 32,
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "stack_count": 0,
+        "own_chain": 0,
+        "defender_chain": 0,
+        "action_points": 1,
+        "both_actual_play_types": true
+      },
+      "authoring_only_can_activate_checks": 1,
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive actualNAA+AA-earned equipmentresource standalone representative; no missing-type rejection, earlierwindows, Battleworn, support/hero/full-card or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 37,
+  "total_native_assertions": 1484,
+  "total_manual_passes": 33,
+  "total_authoring_only_checks": 1,
+  "checks": 43,
+  "actual_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b176-actual-saved-independent-review.json",
+    "sha256": "354dbfb88da6d4d34779714242b0454134bd9e397922dc7557a4d543b3d31b0a"
+  },
+  "independent_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b176-independent-spec-review.json",
+    "sha256": "3a57b626be7981efdd37959586bf6379af53798ed29a0e139b839b26098cbcad"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch176-20261022T211044Z-6ada7bd4ae1b3.json",
+    "sha256": "47e9ce645622c4e9f757643612adc4cce067c60d0505b26450c6d42d22eb4bf4"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b176-four-live-run1.json",
+      "sha256": "8d843bfc37d8a4c3ac60e6e58a4666f8762bbb8602a3d4bcaf62d5e5fe004cd9",
+      "passed": 1,
+      "total": 1,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b176-four-live-run2.json",
+      "sha256": "9205bc5e47d538521ce79e08caad1f52a3301fd196dd9667859cd22ac565ad06",
+      "passed": 1,
+      "total": 1,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-b176-focused-fault-results.json",
+    "sha256": "784829fc1ae916166af2c10f6f0b4371be5a02eed99d7b0e2f42ebc10f1ac9b0"
+  },
+  "focused_native_controls": [
+    {
+      "id": "b176_aether_ironweave_focused_effect_sensitivity",
+      "fixture": "card-aether-ironweave-four-live-sparse-actual-nonattack-and-attack-play-close-combat-before-equipment-resource-activation",
+      "prefix_actions": 33,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 261,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Resources to equal 2, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true,
+      "scope": "Remove only sole actualABI8 arcSpec dispatch after actual Fasting6 NAA and WB7 AA actualplays/combat2damage/fullchainclose then Aether5destroy/AP0. Existing WTRAbilitySpec has noAetherIronweave fallback, so body/abilityGA inert. First native final resource2 becomes0; physical sourcecost/priorphysicalGY6/7 preserved. Missing printed resource-body sensitivity, not isolated +1versus+2 gain-amount/condition-rejection or legal alternate action credit. Every original suffix action and oracle retained; only step offsets change."
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b176-focused-fault-plan.json",
+    "sha256": "c7a47ac539f53dee566f66d8d7b5bd5f43c346ccb3aee4aef840a5bc9a529d3f"
+  },
+  "targeted_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "limitations": [
+    "Four living legal young20 seats manually pass priority; legalChaneRuneblade/Shadow support. ActualFasting6 NAA+WB7 AA plays earnboth prerequisites; support2damage/HP18 andgrantedGA observed.",
+    "At exactaction32 fullfourResolutionpasses closecombat: actualsavedACTION/closedcombat/emptyStack+chains/priority1/AP1 before equipmentAction. One can_activate is supportedauthoring-only, excludedfrom1484nativeassertions; actualsavedactivation is replayevidence. No earlier illegalwindow or missing-type rejection credit.",
+    "Aether5Action0/destroy/ABI8fourresponses gainsR2/AP1. Native singlearcSpec removal disablesbody+abilityGA; firstR2 becomes0. Not isolated2vs1 gainamount or legalalternate/conditionfault. Alloriginalsuffixoracles retained.",
+    "Exact unorderedGY physicalUID5Aether/6Fasting/7WB own/public verified; noBattleworn/BloodDebt/Chane/support/full-card/internalNAA source-timing credit.",
+    "Only this newfixture rehashed/replayed, selectedpreservation only. No fullsuite, legacyreview orreviewer nativeexecution."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "badbab636ca6ac481569fce6fbe8092d33b60af4cc0627ad5e32069581bf2e89",
+  "reused_stable_helper_and_orchestration_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b114-qualified-independent-review.json",
+    "sha256": "34f4ed518b19c89242bafc46b95e1e16e2fb0bf55583e8348b81dea4c76f7287",
+    "qualification": "Exact unchanged UID helper and prior18/18 component/orchestration evidence reused without new helper contract execution or broad audit."
+  }
+}

@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-22T18:06:25+00:00",
+    "input_file": "card-regression-batch113.json",
+    "input_sha256": "31b7d301b6350a72cc600bcb95b89cb9365079cde6cfd695ec6faa946f59cceb",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-agile-windup-red-four-live-sparse-actual-zero-cost-instant-discards-physical-hand-source-to-create-one-owned-agility",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 395
+        },
+        {
+            "slug": "card-mighty-windup-red-four-live-sparse-actual-zero-cost-instant-discards-physical-hand-source-to-create-one-owned-might",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 395
+        },
+        {
+            "slug": "card-vigorous-windup-red-four-live-sparse-actual-zero-cost-instant-discards-physical-hand-source-to-create-one-owned-vigor",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 395
+        },
+        {
+            "slug": "card-fruits-of-the-forest-red-four-live-sparse-actual-zero-cost-instant-discards-physical-hand-source-to-gain-exact-two-life",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 391
+        }
+    ]
+}

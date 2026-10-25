@@ -22,6 +22,14 @@ async function openViewerText(text) {
 }
 const phNames = (page) => page.$$eval('.swupgn-ph-name', (els) => els.map((e) => e.textContent));
 const rel = (u) => u.replace(/^\/TCGEngine\//, '');
+// A finished game saved with the in-game "Save Replay" button (Core/MatchReplayClient.js putReplay).
+const SAVED = JSON.parse(fs.readFileSync(new URL('./fixtures/replay-optionchoose-goldfish.json', import.meta.url), 'utf8'));
+const seedSavedReplay = (page) => page.evaluate((replay) => new Promise((res, rej) => {
+  const r = indexedDB.open('tcgengine-match-replays', 1);
+  r.onupgradeneeded = () => r.result.createObjectStore('replays', { keyPath: 'id' });
+  r.onerror = () => rej(r.error);
+  r.onsuccess = () => { const t = r.result.transaction('replays', 'readwrite'); t.objectStore('replays').put({ ...replay, id: 'SWUSim:harness:1', storedAt: new Date().toISOString() }); t.oncomplete = () => { r.result.close(); res(); }; };
+}), SAVED);
 const caption = (page) => page.$eval('#swupgnCaption', (el) => el.textContent);
 const waitStep = (page, n) => page.waitForFunction((n) => window.SwuPgnViewer && window.SwuPgnViewer.state.step === n && !window.SwuPgnViewer.state.busy, n, { timeout: 15000 });
 
@@ -39,6 +47,13 @@ if (PART !== 'menu') for (const [name, type] of ENGINES) {
       await waitStep(page, 0);
       ok(tag, 'the viewer bar appears', true);
       ok(tag, 'step 0 caption is Setup', (await caption(page)).startsWith('Setup'));
+      // The board's flash-message popup (a dimming full-screen overlay) must not appear when stepping.
+      await page.evaluate(() => {
+        window.__swupgnPopups = [];
+        new MutationObserver((ms) => { for (const m of ms) m.addedNodes.forEach((n) => {
+          if (n.nodeType === 1 && n.parentElement === document.body && n.style && n.style.position === 'fixed' && n.style.backgroundColor === 'rgba(0, 0, 0, 0.5)') window.__swupgnPopups.push(n.textContent);
+        }); }).observe(document.body, { childList: true });
+      });
       await page.click('[data-swupgn="next"]'); await waitStep(page, 1);
       ok(tag, 'Next moves to step 1', (await caption(page)).includes('Round 1'));
       for (let i = 0; i < 5; i++) await page.click('[data-swupgn="next"]');
@@ -47,6 +62,9 @@ if (PART !== 'menu') for (const [name, type] of ENGINES) {
       ok(tag, '★ five fast Next presses land on step 6 (latest wins)', (await page.evaluate(() => window.SwuPgnViewer.state.step)) === 6);
       await page.click('[data-swupgn="prev"]'); await waitStep(page, 5);
       ok(tag, 'Prev goes back one step', true);
+      await page.waitForTimeout(800);
+      const popups = await page.evaluate(() => window.__swupgnPopups);
+      ok(tag, '★ stepping pops up no flash message', popups.length === 0, JSON.stringify(popups));
       const chips = await page.$$('.swupgn-round');
       await chips[chips.length - 1].click();
       await page.waitForFunction(() => window.SwuPgnViewer && window.SwuPgnViewer.state.round === 2 && !window.SwuPgnViewer.state.busy, null, { timeout: 15000 });
@@ -63,14 +81,20 @@ if (PART !== 'menu') for (const [name, type] of ENGINES) {
       const clear = await page.evaluate((layout) => {
         const bar = document.getElementById('swupgnViewerBar').getBoundingClientRect();
         if (layout === 'mobile') {
+          // The phone layout ends above the bar (a sticky footer could never scroll clear of it), and its
+          // last row — the sidebar header with the gear — is reachable: scrolled to the end, it is not under the bar.
           const root = document.getElementById('swuMobileRoot');
-          return { ok: !!root && parseFloat(getComputedStyle(root).paddingBottom) >= bar.height, pad: root && getComputedStyle(root).paddingBottom, h: bar.height };
+          if (!root) return { ok: false, why: 'no #swuMobileRoot' };
+          root.scrollTop = root.scrollHeight;
+          const rb = root.getBoundingClientRect(), g = document.getElementById('swuGearBtn').getBoundingClientRect();
+          const hit = document.elementFromPoint(g.left + g.width / 2, g.top + g.height / 2);
+          return { ok: rb.bottom <= bar.top + 0.5 && !!hit && !!hit.closest('#swuGearBtn'), rootBottom: rb.bottom, barTop: bar.top, gearHit: hit && (hit.id || String(hit.className)) };
         }
         const hit = [...document.querySelectorAll('img')].filter((i) => !i.closest('#swupgnViewerBar')).map((i) => i.getBoundingClientRect())
           .filter((r) => r.width > 40 && r.height > 40 && r.left < bar.right && r.right > bar.left && r.top < bar.bottom && r.bottom > bar.top);
         return { ok: hit.length === 0, covered: hit.length };
       }, layout);
-      ok(tag, '★ the bar does not cover cards (desktop: docked clear; phone: board padded under it)', clear.ok, JSON.stringify(clear));
+      ok(tag, '★ the bar does not cover cards (desktop: docked clear; phone: the layout ends above it, gear reachable)', clear.ok, JSON.stringify(clear));
       await page.waitForTimeout(2500);   // let the last step's damage animation finish
       await page.screenshot({ path: `/tmp/swupgn-viewer-${name}-${layout}.png` });
       if (layout === 'desktop') {
@@ -84,6 +108,21 @@ if (PART !== 'menu') for (const [name, type] of ENGINES) {
         ok(tag, '★ after the Hands reload the unknown card still shows its name', after.includes('Mystery <b>Card</b>'), JSON.stringify(after));
       }
       ok(tag, 'no page errors', errors.length === 0, errors.join(' | '));
+      // The gear menu offers a way out (a viewer is a spectator, so the Match section stays hidden).
+      await page.click('#swuGearBtn');
+      const back = await page.waitForSelector('[data-swupgn="menu"]', { state: 'visible', timeout: 5000 }).catch(() => null);
+      ok(tag, '★ the gear menu shows Return to Main Menu', back !== null);
+      const covered = await page.evaluate(() => {
+        const r = document.getElementById('swupgnViewerBar').getBoundingClientRect();
+        const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+        return !!(hit && hit.closest('#swupgnViewerBar'));
+      });
+      ok(tag, '★ the open settings panel sits above the replay bar', !covered);
+      if (back) {
+        await back.click();
+        await page.waitForURL(/MainMenu\.php/, { timeout: 15000, waitUntil: 'commit' }).catch(() => {});
+        ok(tag, '★ Return to Main Menu leaves the replay for the main menu', /MainMenu\.php/.test(page.url()), page.url());
+      }
     } catch (e) { ok(tag, 'viewer run completed', false, String(e).slice(0, 300)); }
     await ctx.close();
   }
@@ -127,6 +166,25 @@ if (PART !== 'viewer') for (const [name, type] of ENGINES) {
     const errors = []; page.on('pageerror', (e) => errors.push(String(e)));
     const MENU = BASE + 'SharedUI/Sites/SWUSim/MainMenu.php';
     try {
+      // A game saved with "Save Replay" is listed, plays, and deletes.
+      await page.goto(MENU);
+      await seedSavedReplay(page);
+      await page.goto(MENU);
+      await page.click('#ga-info-tab-replays');
+      const saved = await page.waitForSelector(`#swupgnReplayList li[data-saved-replay="SWUSim:harness:1"]`, { timeout: 8000 }).catch(() => null);
+      ok(tag, '★ a game saved with Save Replay is listed', saved !== null && (await saved.textContent()).includes(SAVED.gameName), saved ? await saved.textContent() : 'no row');
+      ok(tag, '★ with only a saved game, the empty note is not RENDERED', await page.$eval('#swupgnReplayEmpty', (e) => e.getBoundingClientRect().height === 0 || getComputedStyle(e).display === 'none'));
+      if (saved) {
+        await (await saved.$('[data-saved-play]')).click();
+        await page.waitForURL(/NextTurn\.php.*replay=1/, { timeout: 20000, waitUntil: 'commit' }).catch(() => {});
+        ok(tag, '★ Play opens the saved game in the replay player', /NextTurn\.php.*replay=1/.test(page.url()), page.url());
+        await page.goto(MENU);
+        await page.click('#ga-info-tab-replays');
+        await page.evaluate(() => { window.StyledConfirm = async () => true; window.confirm = () => true; });
+        await page.click('#swupgnReplayList li[data-saved-replay="SWUSim:harness:1"] [data-saved-delete]');
+        await page.waitForFunction(() => !document.querySelector('#swupgnReplayList li[data-saved-replay="SWUSim:harness:1"]'), null, { timeout: 8000 }).catch(() => {});
+        ok(tag, '★ Delete removes the saved game', await page.$('#swupgnReplayList li[data-saved-replay="SWUSim:harness:1"]') === null);
+      }
       await page.goto(MENU);
       await page.click('#ga-info-tab-replays');
       await page.setInputFiles('#swupgnFileInput', new URL('viewer-game.swupgn', FIX).pathname);

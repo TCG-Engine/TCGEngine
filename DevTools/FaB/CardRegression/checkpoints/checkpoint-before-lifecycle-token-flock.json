@@ -1,0 +1,272 @@
+{
+  "completed_utc": "2026-10-19T22:09:43.602854+00:00",
+  "runtime_sha256": "a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34",
+  "summary": {
+    "identities_inventoried": 5196,
+    "printing_records": 17188,
+    "ability_snapshot_identities": 4806,
+    "compiled_macro_identities": 3816,
+    "implemented_or_shared_hook_candidates": 4810,
+    "identities_with_recorded_branches": 106,
+    "scenarios_recorded": 485,
+    "scenarios_independently_semantically_reviewed": 485,
+    "scenarios_with_clean_replay_pass": 485,
+    "scenarios_with_two_clean_replay_passes": 412,
+    "fully_covered_identities": 0,
+    "negative_controls_detected": 36,
+    "negative_controls_total": 36,
+    "recorded_terminal_state_compatibility_scenarios": 4,
+    "blocked_incorrect_behavior_scenarios": 12,
+    "identities_without_recorded_branches": 5090,
+    "identities_with_semantically_verified_branches": 106,
+    "identities_with_partial_verified_coverage": 106,
+    "identities_without_semantically_verified_branches": 5090,
+    "scenarios_semantically_reviewed_and_current_replay_passed": 485,
+    "card_scenario_branch_entries": 651,
+    "canonical_saved_fixture_folders": 485,
+    "unmapped_canonical_fixture_folders": []
+  },
+  "latest_clean_replay": "card-regression-replay-next-aa-expansion-run1.json",
+  "latest_clean_replay_result": "485/485 PASS",
+  "repeat_pass_scope": "412 exact current fixtures have at least two clean passes under this same runtime;73 newly expanded fixtures have one.",
+  "review_scope": "Family specifications independently reviewed; representative saved pilots inspected before scaling. Review entries distinguish this from every fixture being manually inspected. All485 have explicit author-time semantics plus persisted native assertions and current replay.",
+  "fixed_bugs": [
+    {
+      "id": "FAB-REG-001",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "sic_em_shot_red",
+        "sic_em_shot_yellow",
+        "sic_em_shot_blue",
+        "rusty_harpoon_blue"
+      ],
+      "individually_reproduced_card_ids": [
+        "sic_em_shot_red"
+      ],
+      "scope_note": "Only Sic Em Shot red was exercised without a bow. Other arrow identities are potentially affected by the same shared legality path, not individually proven incorrect.",
+      "rule": "CR 8.2.6a: an arrow can only be played from arsenal and only if its controller controls a bow.",
+      "source": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "setup": "Isolated duel, Azalea controller, ACTION phase with priority and one action point, Sic Em Shot red in face-down arsenal, one floating resource, no bow or weapons.",
+      "action": {
+        "playerID": 1,
+        "mode": 10002,
+        "cardID": "p1Arsenal-0!FSM"
+      },
+      "expected": "Reject play; arrow remains in arsenal; stack empty; resources and action point unchanged.",
+      "observed": "Arrow leaves arsenal, is announced on the stack, pays its resource cost, and enters PRIORITY despite no bow.",
+      "reproducer_command": "php DevTools/FaB/CardRegression/record_card_regressions.php DevTools/FaB/CardRegression/card-regression-rule-probes.json",
+      "reproducer_scenario": "card-sic-em-shot-red-no-bow-rejected",
+      "evidence": "blocked-rule-probe-results.json",
+      "passing_fixture": "Tests/Integration/FaBSim/card-sic-em-shot-red-no-bow-rejected",
+      "source_location": "FaBSim/Custom/ARCCards.php:FaBARCCanPlay",
+      "resolution": "Shared arrow legality now requires arsenal origin and an equipped controlled bow. Independent review accepted12 authored cases and a semantic negative control; removed-bow serialization case is an absent-bow duplicate, not in-memory tombstone-filter coverage.",
+      "current_runtime_validation": "activation-pilots-run1:380/380 PASS, runtime a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34; native WTR/ARC pass"
+    },
+    {
+      "id": "FAB-REG-002",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [],
+      "scope_note": "Generic integration runner initial-assertion setup; affects any root with step0 zone assertions.",
+      "expected": "Load runtime and fresh fixture before evaluating initial assertions.",
+      "observed_before_fix": "First fixture could fatal undefined GetZone, or initial assertions could see prior fixture globals.",
+      "resolution": "RunnerPrepareTempGame now loads selected runtime and parses fresh state before returning.",
+      "source_location": "DevTools/RunIntegrationTests.php:RunnerPrepareTempGame",
+      "passing_fixture": "Tests/Integration/FaBSim/card-snatch-red-wtr-hit-unblocked-draw-exactly-one",
+      "validation": "AzukiSim alley-thug passed. Hellbreak spot check cannot run because its preexisting generated TurnController.php is missing; unrelated files unchanged.",
+      "current_runtime_validation": "activation-pilots-run1:380/380 PASS, runtime a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34; native WTR/ARC pass",
+      "before_fix_evidence_path": null,
+      "evidence_qualification": "The before-fix failure was observed during the working session; no failing-before log or fixture artifact was preserved in this repository. Current passing step-0 assertion fixtures and replay reports support the fixed behavior, but do not constitute a preserved before/after pair."
+    },
+    {
+      "id": "FAB-REG-003",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [],
+      "scope_note": "Shared turn cleanup, not attributed to individual card coverage.",
+      "rule": "CR4.4.3e-f clears all action points before turn-player refill.",
+      "source": "https://rules.fabtcg.com/pdf/en-fab-cr.pdf",
+      "expected": "Departing player AP0 before refill; next turn player subsequently receives AP1.",
+      "observed_before_fix": "Departing player retained AP1 after passing turn.",
+      "resolution": "FaBFinishEndTurn clears every seat before drawing.",
+      "source_location": "FaBSim/Custom/GameLogic.php:FaBFinishEndTurn",
+      "evidence": "ap-cleanup-before-fix-results.json",
+      "passing_fixture": "Tests/Integration/FaBSim/rule-end-turn-clears-unused-action-points",
+      "current_runtime_validation": "activation-pilots-run1:380/380 PASS, runtime a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34; native WTR/ARC pass"
+    },
+    {
+      "id": "FAB-REG-004",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "snatch_red",
+        "snatch_yellow",
+        "snatch_blue"
+      ],
+      "individually_reproduced_card_ids": [
+        "snatch_red"
+      ],
+      "rule": "CR1.6.2c and6.6: hit creates a triggered layer before another player receives priority.",
+      "source": "https://rules.fabtcg.com/pdf/en-fab-cr.pdf",
+      "expected": "After hit damage but before draw resolution, Stack1/hand0/deck2; allow an opposing instant response above the draw.",
+      "observed_before_fix": "Draw executed synchronously during combat damage, leaving no response window.",
+      "resolution": "Existing ABILITY stack path queues a captured-controller draw. Queue-time ability suppression checked, no suppression/source recheck on resolution.",
+      "source_location": "FaBSim/Custom/WTRAbilities.php:FaBWTRQueueDrawOnHit and FaBSim/Custom/WTRCards.php:FaBWTRHit",
+      "evidence": "snatch-trigger-before-fix-results.json",
+      "passing_fixture": "Tests/Integration/FaBSim/card-snatch-red-opponent-responds-before-hit-draw",
+      "limitations": [
+        "Externally tagged weapon draw uses same helper; simultaneous-trigger ordering and multiple identical granted-trigger multiplicity remain unverified.",
+        "Original Hand NO_ABILITIES setup was invalid: Hand does not serialize that dynamic field. It is not evidence of a rule bug. Corrected known-BLIND interaction uses Guardian Bravo and persisted duration state."
+      ],
+      "current_runtime_validation": "activation-pilots-run1:380/380 PASS, runtime a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34; native WTR/ARC pass"
+    },
+    {
+      "id": "FAB-REG-005",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "scar_for_a_scar_red",
+        "scar_for_a_scar_yellow",
+        "scar_for_a_scar_blue",
+        "wounded_bull_red",
+        "wounded_bull_yellow",
+        "wounded_bull_blue"
+      ],
+      "individually_reproduced_card_ids": [
+        "scar_for_a_scar_red",
+        "wounded_bull_red"
+      ],
+      "rule": "CR6.6.1c-d: conditional generated effects are distinct from the play event trigger; evaluate life on triggered-layer resolution.",
+      "source": "https://rules.fabtcg.com/pdf/en-fab-cr.pdf",
+      "expected": "On play Stack2 with no early bonus. Own healing can prevent grant; opponent healing can enable grant; life changes after resolution do not change grant.",
+      "observed_before_fix": "Life checked and bonus granted synchronously during CardPlayed; only the attack was on stack.",
+      "resolution": "Queue whitelisted play-trigger ABILITY with source UID. On resolution compare current life and grant only if source remains on Stack. Check abilities at queue time only.",
+      "source_location": "FaBSim/Custom/WTRAbilities.php:FaBWTRQueueLifeOnPlay and FaBWTRResolveAbility; WTRCards.php:FaBWTRCardPlayed",
+      "evidence": "life-trigger-before-fix-results.json",
+      "passing_fixtures": [
+        "Tests/Integration/FaBSim/card-scar-for-a-scar-red-lower-own-heal-removes-condition",
+        "Tests/Integration/FaBSim/card-wounded-bull-red-lower-own-heal-removes-condition"
+      ],
+      "limitations": [
+        "Source leave/reenter round trips are unverified because existing engine physical UIDs survive zone changes."
+      ],
+      "current_runtime_validation": "activation-pilots-run1:380/380 PASS, runtime a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34; native WTR/ARC pass"
+    },
+    {
+      "id": "FAB-REG-006",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "energy_potion_blue"
+      ],
+      "scope_note": "Native weapon and fixed WTR activation fallbacks; only Energy Potion under known BLIND reproduced before fix.",
+      "rule": "CR5.2.2 functional activated ability required.",
+      "expected": "Guardian Bravo owns Energy Potion under active BLIND: reject and preserve Arena/resource/AP.",
+      "observed_before_fix": "Supported item click destroyed suppressed potion and created ability layer.",
+      "resolution": "HasNoAbilities fallback guard after ARC activation dispatch preserves legal hidden equipment exception.",
+      "source_location": "FaBSim/Custom/WTRCards.php:FaBWTRCanActivate",
+      "evidence": "activation-and-battleworn-before-fix-results.json",
+      "passing_fixture": "Tests/Integration/FaBSim/card-energy-potion-blue-activation-lost-ability-rejection-probe",
+      "current_runtime_validation": "activation-pilots-run1:380/380 PASS, runtime a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34; native WTR/ARC pass"
+    }
+  ],
+  "open_reproduced_bugs": [
+    {
+      "id": "FAB-REG-007",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "card_ids": [
+        "breaking_scales"
+      ],
+      "scope_note": "Shared Battleworn timing; Breaking Scales is the exact exercised source.",
+      "rule": "CR8.3.2,7.7: Battleworn resolves in Close Step automatically before equipment returns; no priority during Close.",
+      "expected": "Counters[] in RESOLUTION before chain close, then DEFENSE1 after automatic close.",
+      "observed": "p2CombatChain-0.Counters already DEFENSE1 during RESOLUTION.",
+      "source_location": "FaBSim/Custom/GameLogic.php:FaBCleanupResolvedLink",
+      "evidence": "activation-and-battleworn-before-fix-results.json",
+      "passing_fixture": null,
+      "remaining_work": "Move timing with correct per-defended-attack Nerves condition, live keyword/aura checks, LKI and close ordering. Do not record round-trip snapshots preserving premature counters."
+    },
+    {
+      "id": "FAB-REG-008",
+      "status": "incorrect_behavior_reproduced_independently_confirmed_not_saved",
+      "card_ids": [
+        "pummel_red",
+        "pummel_yellow",
+        "pummel_blue",
+        "razor_reflex_red",
+        "razor_reflex_yellow",
+        "razor_reflex_blue"
+      ],
+      "individually_reproduced_card_ids": [
+        "pummel_red",
+        "razor_reflex_red"
+      ],
+      "rule": "Current CR8.1.2b: resolving attack reaction is cleared; contrast8.1.3b defense reaction becomes defending.",
+      "source": "https://rules.fabtcg.com/pdf/en-fab-cr.pdf",
+      "expected": "Reaction leaves stack for graveyard on resolution while its power/granted abilities affect current attack.",
+      "observed": "Both attack/defense reactions enter CombatChain in shared branch; all7 reviewed pilots stop at reaction-in-graveyard assertion before reaching later hit-trigger probes.",
+      "source_location": "FaBSim/Custom/GameLogic.php:DoResolveCard combined reaction branch",
+      "evidence": "card-regression-batch13-pilot.recording-results.json",
+      "passing_fixture": null,
+      "remaining_work": "Preserve Stack source through synchronous/asynchronous resolution; clear to owner only afterward if still Stack. Simple premacro move would skip Ephemeral effects and is rejected by review. Confirm await completion, source self-return and unchanged defense reactions before retrying hit probes."
+    },
+    {
+      "id": "FAB-REG-009",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "card_ids": [
+        "flock_of_the_feather_walkers_red"
+      ],
+      "scope_note": "Exact reviewed red/Quicken pilot only; broader pitch variants remain proposed.",
+      "reproducer_scenario": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+      "observed": "Expected p1Resources to equal 0, got 1.",
+      "evidence": "card-regression-batch16-pilot.recording-results.json",
+      "expected": "The attack trigger must offer a real response window. Before it resolves, opponent casts Sigil blue and heals20->21; Quicken remains absent while Sigil resolves above the trigger. Only afterward is one Quicken created. The already-played Flock has no go again; it deals5, leaving life16 and AP0. This pilot distinguishes eager token creation from the required triggered-layer behavior. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9.",
+      "passing_fixture": null
+    },
+    {
+      "id": "FAB-REG-010",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "card_ids": [
+        "quicken"
+      ],
+      "scope_note": "Exact reviewed red/Quicken pilot only; broader pitch variants remain proposed.",
+      "reproducer_scenario": "card-quicken-attack-action-trigger-timing",
+      "observed": "Expected Stack count 2, got 1.",
+      "evidence": "card-regression-batch16-pilot.recording-results.json",
+      "expected": "Start with one existing Quicken token and Wounding Blow red in hand. The first attack receives no Ira second-attack bonus. Pay its zero resources and one AP to play the attack. Quicken triggers and is a separate layer: Stack2/Arena1, and the attacking Stack-0 has no granted TurnEffects yet. Resolving the trigger destroys Quicken and grants GO_AGAIN to the still-pending attack: Stack1/Arena0, AP remains0. The attack then resolves to the combat chain with power4 and go again. After unblocked damage4, opponent life16 and AP1. This isolates Quicken timing independently of Flock creation or payment.",
+      "passing_fixture": null
+    },
+    {
+      "id": "FAB-REG-011",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "card_ids": [
+        "flock_of_the_feather_walkers_red"
+      ],
+      "scope_note": "Exact reviewed red/Quicken pilot only; broader pitch variants remain proposed.",
+      "reproducer_scenario": "card-flock-of-the-feather-walkers-red-known-blinding-no-reveal-cost-no-trigger",
+      "observed": "can_play  expected true got false",
+      "evidence": "card-regression-batch16-pilot.recording-results.json",
+      "expected": "Known already-resolved Blinding of the Old Ones during Guardian Bravo turn suppresses all owned-card abilities. Flock has no additional reveal ability, even with no spare card, and no attack trigger. Pay only printed1; no chooser, no token or pending trigger, printed power5, no go again. This tests interaction with a known persistent effect; it does not cover Blinding generation, crush or expiry.",
+      "passing_fixture": null
+    },
+    {
+      "id": "FAB-REG-012",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "card_ids": [
+        "flock_of_the_feather_walkers_red"
+      ],
+      "scope_note": "Exact reviewed red/Quicken pilot only; broader pitch variants remain proposed.",
+      "reproducer_scenario": "card-flock-of-the-feather-walkers-red-known-blinding-spare-card-no-chooser-no-trigger",
+      "observed": "Expected p1Arena count 0, got 1.",
+      "evidence": "card-regression-batch16-pilot.recording-results.json",
+      "expected": "Known already-resolved Blinding of the Old Ones during Guardian Bravo turn suppresses all owned-card abilities. Flock has no additional reveal ability, even with no spare card, and no attack trigger. Pay only printed1; no chooser, no token or pending trigger, printed power5, no go again. This tests interaction with a known persistent effect; it does not cover Blinding generation, crush or expiry.",
+      "passing_fixture": null
+    }
+  ],
+  "static_only_concerns": [
+    "Razor/Pummel hit-trigger timing, hero-only discard and multiplicity are blocked before those checkpoints by shared reaction destination defect.",
+    "Flock ordinary attack-trigger creation timing is blocked by its earlier asset/reveal ordering failure.",
+    "Heart Wrencher Boost PrepareCard implementation absent by source inspection; not exercised yet."
+  ],
+  "negative_controls": {
+    "detected": 36,
+    "total": 36,
+    "canonical_fixture_folders": 0
+  },
+  "continuation": "Continue catalog families; no fixed stopping point and no current laptop-access blocker."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Breaking Scales / outside-reaction-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:33+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Attack-reaction activation cannot occur in ACTION without a current own attack. Sources: FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

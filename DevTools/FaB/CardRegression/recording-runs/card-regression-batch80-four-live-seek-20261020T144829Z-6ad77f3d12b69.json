@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T14:48:29+00:00",
+    "input_file": "card-regression-batch80-four-live-seek.json",
+    "input_sha256": "2ddf2e3d25ac8b0da7329b0166059f1b5b02205ba5ca43b6fd7530c1317f205a",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-seek-horizon-red-four-live-optional-topdeck-cost-adjacent-target4",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 3306
+        }
+    ]
+}

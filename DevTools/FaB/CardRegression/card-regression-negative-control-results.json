@@ -1,0 +1,1454 @@
+[
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-sigil-of-solace-red-gain",
+    "mutation": "sigil_of_solace_red -> sigil_of_solace_blue",
+    "expected_failure": "p1Health to equal 13, got 11",
+    "detected": true,
+    "output": "[FAIL] Sigil of Solace / gain: Step 3 assertion failed: Expected p1Health to equal 13, got 11.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-wounding-blow-red-unblocked",
+    "mutation": "wounding_blow_red -> wounding_blow_yellow",
+    "expected_failure": "p2Health to equal 16, got 17",
+    "detected": true,
+    "output": "[FAIL] Wounding Blow / unblocked: Step 12 assertion failed: Expected p2Health to equal 16, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-head-jab-red-unblocked",
+    "mutation": "head_jab_red -> wounding_blow_yellow",
+    "expected_failure": "p1ActionPoints to equal 1, got 0",
+    "detected": true,
+    "output": "[FAIL] Head Jab / unblocked: Step 12 assertion failed: Expected p1ActionPoints to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-harmonized-kodachi-zero-cost-pitch",
+    "mutation": "wounding_blow_blue -> raging_onslaught_blue",
+    "expected_failure": "p1ActionPoints to equal 1, got 0",
+    "detected": true,
+    "output": "[FAIL] Harmonized Kodachi / zero-cost-pitch: Step 13 assertion failed: Expected p1ActionPoints to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-sink-below-red-exchange",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected card wounding_blow_blue to exist in p2Hand",
+    "detected": true,
+    "output": "[FAIL] Sink Below / exchange: Step 13 assertion failed: Expected card wounding_blow_blue to exist in p2Hand.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-goliath-gauntlet-destroy-buff",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 11, got 13",
+    "detected": true,
+    "output": "[FAIL] Goliath Gauntlet / destroy-buff: Step 13 assertion failed: Expected p2Health to equal 11, got 13.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-enlightened-strike-red-mode-draw",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p1Hand count 1, got 0",
+    "detected": true,
+    "output": "[FAIL] Enlightened Strike / mode-draw: Step 5 assertion failed: Expected p1Hand count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-enlightened-strike-red-mode-power",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 13, got 15",
+    "detected": true,
+    "output": "[FAIL] Enlightened Strike / mode-power: Step 14 assertion failed: Expected p2Health to equal 13, got 15.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-enlightened-strike-red-mode-go-again",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p1ActionPoints to equal 1, got 0",
+    "detected": true,
+    "output": "[FAIL] Enlightened Strike / mode-go-again: Step 14 assertion failed: Expected p1ActionPoints to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-enlightened-strike-red-missing-additional-cost",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected card enlightened_strike_red to exist in p1Hand",
+    "detected": true,
+    "output": "[FAIL] Enlightened Strike / missing-additional-cost: Step 1 assertion failed: Expected card enlightened_strike_red to exist in p1Hand.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-bravo-cost-three-dominate",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2CombatChain count 1, got 2",
+    "detected": true,
+    "output": "[FAIL] Bravo / cost-three-dominate: Step 8 assertion failed: Expected p2CombatChain count 1, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-scalding-rain-red-target-2",
+    "mutation": "scalding_rain_red -> scalding_rain_yellow",
+    "expected_failure": "p2Health to equal 16, got 17",
+    "detected": true,
+    "output": "[FAIL] Scalding Rain / target-2: Step 5 assertion failed: Expected p2Health to equal 16, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-scalding-rain-red-target-2",
+    "mutation": "wounding_blow_blue -> wounding_blow_red",
+    "expected_failure": "p1Resources to equal 2, got 0",
+    "detected": true,
+    "output": "[FAIL] Scalding Rain / target-2: Step 5 assertion failed: Expected p1Resources to equal 2, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-scalding-rain-red-target-2",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 16, got 20",
+    "detected": true,
+    "output": "[FAIL] Scalding Rain / target-2: Step 5 assertion failed: Expected p2Health to equal 16, got 20.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-scalding-rain-red-barrier-pay",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 17, got 16",
+    "detected": true,
+    "output": "[FAIL] Scalding Rain / barrier-pay: Step 6 assertion failed: Expected p2Health to equal 17, got 16.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-scalding-rain-red-barrier-decline",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 16, got 17",
+    "detected": true,
+    "output": "[FAIL] Scalding Rain / barrier-decline: Step 6 assertion failed: Expected p2Health to equal 16, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-nimblism-red-cost-two-excluded-preserves-buff",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 8, got 11",
+    "detected": true,
+    "output": "[FAIL] Nimblism / cost-two-excluded-preserves-buff: Step 12 assertion failed: Expected p2Health to equal 8, got 11.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-sloggism-red-cost-two-boundary-next-only",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 9, got 15",
+    "detected": true,
+    "output": "[FAIL] Sloggism / cost-two-boundary-next-only: Step 13 assertion failed: Expected p2Health to equal 9, got 15.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-potion-of-strength-blue-weapon-included-next-only",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 17, got 19",
+    "detected": true,
+    "output": "[FAIL] Potion of Strength / weapon-included-next-only: Step 13 assertion failed: Expected p2Health to equal 17, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-unmovable-red-arsenal-paid-blue-three",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 19, got 18",
+    "detected": true,
+    "output": "[FAIL] Unmovable / arsenal-paid-blue-three: Step 8 assertion failed: Expected p2Health to equal 19, got 18.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-unmovable-red-hand-paid-blue-three",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 18, got 19",
+    "detected": true,
+    "output": "[FAIL] Unmovable / hand-paid-blue-three: Step 8 assertion failed: Expected p2Health to equal 18, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-fate-foreseen-red-hand-opt-one-top-then-draw",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected card wounding_blow_red to exist in p2Hand",
+    "detected": true,
+    "output": "[FAIL] Fate Foreseen / hand-opt-one-top-then-draw: Step 19 assertion failed: Expected card wounding_blow_red to exist in p2Hand.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-sic-em-shot-red-equipped-bow-facedown-allowed",
+    "mutation": "death_dealer -> talishar_the_lost_prince",
+    "expected_failure": "p1Arsenal count 0, got 1",
+    "detected": true,
+    "output": "[FAIL] Sic Em Shot / equipped-bow-facedown-allowed: Step 1 assertion failed: Expected p1Arsenal count 0, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-snatch-red-hit-trigger-response-window",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p1Hand count 1, got 0",
+    "detected": true,
+    "output": "[FAIL] Snatch / hit trigger response window: Step 2 assertion failed: Expected p1Hand count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-scar-for-a-scar-red-lower-own-heal-removes-condition",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "TurnEffects to equal '[]', got '[\"GO_AGAIN\"]'",
+    "detected": true,
+    "output": "[FAIL] Scar For A Scar / lower-own-heal-removes-condition: Step 7 assertion failed: Expected Stack-0.TurnEffects to equal '[]', got '[\"GO_AGAIN\"]'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-scar-for-a-scar-red-equal-opponent-heal-enables-condition",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "TurnEffects to equal '[\"GO_AGAIN\"]', got '[]'",
+    "detected": true,
+    "output": "[FAIL] Scar For A Scar / equal-opponent-heal-enables-condition: Step 6 assertion failed: Expected Stack-0.TurnEffects to equal '[\"GO_AGAIN\"]', got '[]'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-wounded-bull-red-lower-own-heal-removes-condition",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "TurnEffects to equal '[]', got '[\"WTR_WOUNDED_BULL\"]'",
+    "detected": true,
+    "output": "[FAIL] Wounded Bull / lower-own-heal-removes-condition: Step 7 assertion failed: Expected Stack-0.TurnEffects to equal '[]', got '[\"WTR_WOUNDED_BULL\"]'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-wounded-bull-red-equal-opponent-heal-enables-condition",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "TurnEffects to equal '[\"WTR_WOUNDED_BULL\"]', got '[]'",
+    "detected": true,
+    "output": "[FAIL] Wounded Bull / equal-opponent-heal-enables-condition: Step 6 assertion failed: Expected Stack-0.TurnEffects to equal '[\"WTR_WOUNDED_BULL\"]', got '[]'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-energy-potion-blue-activation-deploy-then-instant-at-zero-ap",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p1Resources to equal 2, got 0",
+    "detected": true,
+    "output": "[FAIL] Energy Potion / deploy-then-instant-at-zero-ap: Step 2 assertion failed: Expected p1Resources to equal 2, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-timesnap-potion-blue-activation-pay-one-gain-two-two-attacks",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p1ActionPoints to equal 2, got 0",
+    "detected": true,
+    "output": "[FAIL] Timesnap Potion / pay-one-gain-two-two-attacks: Step 2 assertion failed: Expected p1ActionPoints to equal 2, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-heartened-cross-strap-activation-cost-three-discount-two",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p1Resources to equal 2, got 0",
+    "detected": true,
+    "output": "[FAIL] Heartened Cross Strap / cost-three-discount-two: Step 4 assertion failed: Expected p1Resources to equal 2, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-snapdragon-scalers-activation-cost-one-boundary-grants-go-again",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p1ActionPoints to equal 1, got 0",
+    "detected": true,
+    "output": "[FAIL] Snapdragon Scalers / cost-one-boundary-grants-go-again: Step 4 assertion failed: Expected p1ActionPoints to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-breaking-scales-activation-combo-label-without-active-condition",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 16, got 17",
+    "detected": true,
+    "output": "[FAIL] Breaking Scales / combo-label-without-active-condition: Step 4 assertion failed: Expected p2Health to equal 16, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-snapdragon-scalers-activation-cost-one-boundary-grants-go-again",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "computed go again to equal 0, got 1",
+    "detected": true,
+    "output": "[FAIL] Snapdragon Scalers / cost-one-boundary-grants-go-again: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 0, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-come-to-fight-red-cost-3-attack-no-granted-go-again",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 10, got 13",
+    "detected": true,
+    "output": "[FAIL] Come to Fight / cost-3-attack-no-granted-go-again: Step 13 assertion failed: Expected p2Health to equal 10, got 13.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-earthlore-surge-red-weapon-excluded-preserves-buff",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 5, got 10",
+    "detected": true,
+    "output": "[FAIL] Earthlore Surge / weapon-excluded-preserves-buff: Step 21 assertion failed: Expected p2Health to equal 5, got 10.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "compat-reaction-rout-red-reprise-return-defender",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected card rout_red to exist in Stack",
+    "detected": true,
+    "output": "[FAIL] Rout / resolution lifecycle / reprise-return-defender: Initial assertion failed: Expected card rout_red to exist in Stack.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "compat-reaction-stroke-of-foresight-red-reprise-draw-put-top",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "CardID to equal 'wounding_blow_yellow', got 'raging_onslaught_blue'",
+    "detected": true,
+    "output": "[FAIL] Stroke of Foresight / resolution lifecycle / reprise-draw-put-top: Step 15 assertion failed: Expected p1Deck-0.CardID to equal 'wounding_blow_yellow', got 'raging_onslaught_blue'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "compat-reaction-roaring-beam-yellow-empty-soul-charge-self",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p1Graveyard count 0, got 1",
+    "detected": true,
+    "output": "[FAIL] Roaring Beam / resolution lifecycle / empty-soul-charge-self: Initial assertion failed: Expected p1Graveyard count 0, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-quicken-attack-action-trigger-timing",
+    "mutation": "quicken -> copper",
+    "expected_failure": "Expected Stack count 2, got 1",
+    "detected": true,
+    "output": "[FAIL] Quicken / attack-action-trigger-timing: Step 1 assertion failed: Expected Stack count 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-quicken-attack-action-trigger-timing",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "computed go again to equal 1, got 0",
+    "detected": true,
+    "output": "[FAIL] Quicken / attack-action-trigger-timing: Step 2 assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-quicken-attack-action-trigger-timing",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "TurnEffects to equal '[]', got '[\"GO_AGAIN\"]'",
+    "detected": true,
+    "output": "[FAIL] Quicken / attack-action-trigger-timing: Initial assertion failed: Expected Stack-0.TurnEffects to equal '[]', got '[\"GO_AGAIN\"]'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p1Arena count 1, got 0",
+    "detected": true,
+    "output": "[FAIL] Flock of the Feather Walkers / opponent-response-before-quicken-created: Step 6 assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-burgeoning-red-arsenal-face-down-unblocked-float",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 13, got 14",
+    "detected": true,
+    "output": "[FAIL] Burgeoning / arsenal-face-down-unblocked-float: Step 12 assertion failed: Expected p2Health to equal 13, got 14.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-power-play-red-arsenal-face-down-unblocked-float",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 12, got 17",
+    "detected": true,
+    "output": "[FAIL] Power Play / arsenal-face-down-unblocked-float: Step 12 assertion failed: Expected p2Health to equal 12, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-pummel-red-two-reactions-two-hit-triggers-two-discards",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected Stack count 2, got 1",
+    "detected": true,
+    "output": "[FAIL] Pummel / two-reactions-two-hit-triggers-two-discards: Step 2 assertion failed: Expected Stack count 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "remove_one_pummel",
+    "prefix_actions": 16,
+    "expected_failure_step": 2,
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-pummel-red-hand-cost-two-hit-defender-chooses-0",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected p2DecisionQueue-0.Type to equal 'MZCHOOSE', got ''",
+    "detected": true,
+    "output": "[FAIL] Pummel / hand-cost-two-hit-defender-chooses-0: Step 2 assertion failed: Expected p2DecisionQueue-0.Type to equal 'MZCHOOSE', got ''.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "wrong_pummel_victim",
+    "prefix_actions": 15,
+    "expected_failure_step": 2,
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "computed go again to equal 0, got 1",
+    "detected": true,
+    "output": "[FAIL] Razor Reflex / hand-cost-zero-hit-trigger-go-again: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 0, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "early_razor_go_again",
+    "prefix_actions": 14,
+    "expected_failure_step": 0,
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "computed go again to equal 1, got 0",
+    "detected": true,
+    "output": "[FAIL] Razor Reflex / hand-cost-zero-hit-trigger-go-again: Step 2 assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "inert_razor_layer",
+    "prefix_actions": 14,
+    "expected_failure_step": 2,
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-ice-bolt-red-opponent-barrier-pay-floating",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected FaBSim state [\"arcaneDealt\"] to equal JSON {\"1\":{\"2\":4}}, got {\"2\":{\"2\":4}}",
+    "detected": true,
+    "output": "[FAIL] Ice Bolt / opponent-barrier-pay-floating: Initial assertion failed: Expected FaBSim state [\"arcaneDealt\"] to equal JSON {\"1\":{\"2\":4}}, got {\"2\":{\"2\":4}}.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "wrong_arcane_actor",
+    "prefix_actions": 5,
+    "expected_failure_step": 0,
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-ice-bolt-red-opponent-barrier-pay-floating",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected FaBSim state [\"resolvingReaction\"] to be missing or null.",
+    "detected": true,
+    "output": "[FAIL] Ice Bolt / opponent-barrier-pay-floating: Initial assertion failed: Expected FaBSim state [\"resolvingReaction\"] to be missing or null.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "stale_resolution_marker",
+    "prefix_actions": 5,
+    "expected_failure_step": 0,
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-ice-bolt-red-opponent-barrier-pay-floating",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected Stack count 1, got 0",
+    "detected": true,
+    "output": "[FAIL] Ice Bolt / opponent-barrier-pay-floating: Initial assertion failed: Expected Stack count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "premature_plain_source_clear",
+    "prefix_actions": 4,
+    "expected_failure_step": 0,
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 18, got 19",
+    "detected": true,
+    "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "muscle_defense_plus_one",
+    "prefix_actions": 6,
+    "expected_failure_step": 7,
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 18, got 17",
+    "detected": true,
+    "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "muscle_defense_minus_one",
+    "prefix_actions": 6,
+    "expected_failure_step": 7,
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-ironrot-gauntlet-blade-break-fully-blocked-no-hit-still-destroys",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected card ironrot_gauntlet to exist in p2Graveyard",
+    "detected": true,
+    "output": "[FAIL] Ironrot Gauntlet / Blade Break fully-blocked-no-hit-still-destroys: Step 11 assertion failed: Expected card ironrot_gauntlet to exist in p2Graveyard.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "blade_break_missing_keyword",
+    "prefix_actions": 5,
+    "expected_failure_step": 11,
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-ironrot-gauntlet-blade-break-fully-blocked-no-hit-still-destroys",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 20, got 19",
+    "detected": true,
+    "output": "[FAIL] Ironrot Gauntlet / Blade Break fully-blocked-no-hit-still-destroys: Step 7 assertion failed: Expected p2Health to equal 20, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "blade_break_defense_minus_one",
+    "prefix_actions": 7,
+    "expected_failure_step": 7,
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-ironrot-gauntlet-blade-break-fully-blocked-no-hit-still-destroys",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected card ironrot_gauntlet to exist in p2CombatChain",
+    "detected": true,
+    "output": "[FAIL] Ironrot Gauntlet / Blade Break fully-blocked-no-hit-still-destroys: Initial assertion failed: Expected card ironrot_gauntlet to exist in p2CombatChain.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "blade_break_premature_clear",
+    "prefix_actions": 14,
+    "expected_failure_step": 0,
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-critical-strike-red-baseline-hand-red-pitch-exact",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p1Resources to equal 0, got 1",
+    "detected": true,
+    "output": "[FAIL] Critical Strike / ordinary baseline / hand-red-pitch-exact: Step 2 assertion failed: Expected p1Resources to equal 0, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "vanilla_cost_one_pitch_overfund",
+    "prefix_actions": 0,
+    "expected_failure_step": 2,
+    "expected_failure_assertion": {
+      "type": "scalar_zone_equals",
+      "zone": "p1Resources",
+      "value": 0
+    },
+    "fault_target_binding": {
+      "old": "wounding_blow_red",
+      "new": "wounding_blow_yellow",
+      "zone": "p1Hand",
+      "index": 1,
+      "sourceUID": 4,
+      "rewritten_memberships": 2
+    },
+    "original_initial_sha256": "3aaa9f93bd1bef4a48bf11cd51d100bfc1afa46112dfad702f152711ef6cb8ff",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-brutal-assault-red-baseline-hand-red-then-red-pitch",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p1Resources to equal 0, got 2",
+    "detected": true,
+    "output": "[FAIL] Brutal Assault / ordinary baseline / hand-red-then-red-pitch: Step 3 assertion failed: Expected p1Resources to equal 0, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "vanilla_cost_two_second_pitch_overfund",
+    "prefix_actions": 0,
+    "expected_failure_step": 3,
+    "expected_failure_assertion": {
+      "type": "scalar_zone_equals",
+      "zone": "p1Resources",
+      "value": 0
+    },
+    "fault_target_binding": {
+      "old": "critical_strike_red",
+      "new": "critical_strike_blue",
+      "zone": "p1Hand",
+      "index": 2,
+      "sourceUID": 5,
+      "rewritten_memberships": 2
+    },
+    "original_initial_sha256": "aa755a5e2a915e0be7f9ce042ebb4bdcfe55d9e976486e8d1d6e29026abb89d8",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-critical-strike-blue-baseline-defends-exactly-3-partial-damage",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected FaBSim state [\"damageDealt\"] to equal JSON 1, got 0.",
+    "detected": true,
+    "output": "[FAIL] Critical Strike / ordinary baseline / defends-exactly-3-partial-damage: Step 7 assertion failed: Expected FaBSim state [\"damageDealt\"] to equal JSON 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "vanilla_defense_three_plus_one",
+    "prefix_actions": 6,
+    "expected_failure_step": 7,
+    "expected_failure_assertion": {
+      "type": "game_state_field",
+      "rootName": "FaBSim",
+      "path": [
+        "damageDealt"
+      ],
+      "comparison": "equals",
+      "valueJson": "1"
+    },
+    "fault_target_binding": [
+      {
+        "player": 2,
+        "zone": "CombatChain",
+        "cardID": "critical_strike_blue",
+        "tag": "WTR_DEFENSE:1",
+        "mode": "add",
+        "vanilla_defense_source": {
+          "sourceUID": 4,
+          "attackUID": 3
+        }
+      }
+    ],
+    "original_initial_sha256": "84540c793e11e72e0073870958d7e48d5eda9e3deda40787ba3cfb56d6ef6e5d",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-critical-strike-blue-baseline-defends-exactly-3-partial-damage",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected FaBSim state [\"damageDealt\"] to equal JSON 1, got 2.",
+    "detected": true,
+    "output": "[FAIL] Critical Strike / ordinary baseline / defends-exactly-3-partial-damage: Step 7 assertion failed: Expected FaBSim state [\"damageDealt\"] to equal JSON 1, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "vanilla_defense_three_minus_one",
+    "prefix_actions": 6,
+    "expected_failure_step": 7,
+    "expected_failure_assertion": {
+      "type": "game_state_field",
+      "rootName": "FaBSim",
+      "path": [
+        "damageDealt"
+      ],
+      "comparison": "equals",
+      "valueJson": "1"
+    },
+    "fault_target_binding": [
+      {
+        "player": 2,
+        "zone": "CombatChain",
+        "cardID": "critical_strike_blue",
+        "tag": "WTR_DEFENSE:-1",
+        "mode": "add",
+        "vanilla_defense_source": {
+          "sourceUID": 4,
+          "attackUID": 3
+        }
+      }
+    ],
+    "original_initial_sha256": "84540c793e11e72e0073870958d7e48d5eda9e3deda40787ba3cfb56d6ef6e5d",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-smash-with-big-tree-blue-baseline-no-defense-value-cannot-declare-block",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected FaBSim state [\"defenseValue\"] to equal JSON 0, got 3.",
+    "detected": true,
+    "output": "[FAIL] Smash with Big Tree / ordinary baseline / no-defense-value-cannot-declare-block: Step 6 assertion failed: Expected FaBSim state [\"defenseValue\"] to equal JSON 0, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "vanilla_absent_defense_becomes_legal",
+    "prefix_actions": 0,
+    "expected_failure_step": 6,
+    "expected_failure_assertion": {
+      "type": "game_state_field",
+      "rootName": "FaBSim",
+      "path": [
+        "defenseValue"
+      ],
+      "comparison": "equals",
+      "valueJson": "0"
+    },
+    "fault_target_binding": {
+      "old": "smash_with_big_tree_blue",
+      "new": "brutal_assault_blue",
+      "zone": "p2Hand",
+      "index": 0,
+      "sourceUID": 4,
+      "rewritten_memberships": 3
+    },
+    "original_initial_sha256": "c1aa44e58bc60a59fcd6e7ea17024c371738f43699b622cdb79457a319f3801c",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-rusty-harpoon-blue-baseline-arsenal-facedown-floating",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"ACTION\".",
+    "detected": true,
+    "output": "[FAIL] Rusty Harpoon / ordinary baseline / arsenal-facedown-floating: Step 1 assertion failed: Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"ACTION\".\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "vanilla_zero_cost_arrow_without_bow",
+    "prefix_actions": 0,
+    "expected_failure_step": 1,
+    "expected_failure_assertion": {
+      "type": "game_state_field",
+      "rootName": "FaBSim",
+      "path": [
+        "window"
+      ],
+      "comparison": "equals",
+      "valueJson": "\"PRIORITY\""
+    },
+    "fault_target_binding": {
+      "old": "death_dealer",
+      "new": "talishar_the_lost_prince",
+      "zone": "p1Weapons",
+      "index": 0,
+      "sourceUID": 4,
+      "rewritten_memberships": 0
+    },
+    "original_initial_sha256": "af2e7387277ced18c0c567419340bef74ea02a44f569e47a4506d83c3dfd88ff",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-aetherstorm-wellingtons-pay-floating-exact",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "state [\"arcaneDealt\"] to equal JSON {\"1\":{\"2\":1}}, got {\"1\":{\"2\":3}}",
+    "detected": true,
+    "output": "[FAIL] Aetherstorm Wellingtons / pay-floating-exact: Step 5 assertion failed: Expected FaBSim state [\"arcaneDealt\"] to equal JSON {\"1\":{\"2\":1}}, got {\"1\":{\"2\":3}}.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "ab_fixed_two_decline",
+    "prefix_actions": 0,
+    "expected_failure_step": 5,
+    "expected_failure_assertion": {
+      "type": "game_state_field",
+      "rootName": "FaBSim",
+      "path": [
+        "arcaneDealt"
+      ],
+      "comparison": "equals",
+      "valueJson": "{\"1\":{\"2\":1}}"
+    },
+    "fault_semantics": "supported_choice_or_pitch_value_perturbation",
+    "fault_target_binding": {
+      "index": 4,
+      "old": {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "p2Equipment-0",
+        "chkInput": [],
+        "inputText": ""
+      },
+      "new": {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "PASS",
+        "chkInput": [],
+        "inputText": ""
+      }
+    },
+    "original_initial_sha256": "cf946f095debd7da97f2dd4d138fcde6d6a597239d88f27239449c8015c92397",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-aetherstorm-wellingtons-pay-blue-pitch",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Resources to equal 1, got 0",
+    "detected": true,
+    "output": "[FAIL] Aetherstorm Wellingtons / pay-blue-pitch: Step 6 assertion failed: Expected p2Resources to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "ab_blue_pitch_funding",
+    "prefix_actions": 0,
+    "expected_failure_step": 6,
+    "expected_failure_assertion": {
+      "type": "scalar_zone_equals",
+      "zone": "p2Resources",
+      "value": 1
+    },
+    "fault_semantics": "supported_choice_or_pitch_value_perturbation",
+    "fault_target_binding": {
+      "zone": "p2Hand",
+      "index": 0,
+      "sourceUID": 5,
+      "old": "wounding_blow_blue",
+      "new": "wounding_blow_yellow",
+      "rewritten_memberships": 1
+    },
+    "original_initial_sha256": "a58266e3f4b439dc354317b4052b3c4207f3d41ebfedc62282e6f39c7ecbad0b",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-aetherstorm-wellingtons-intrinsic-barrier-while-defending-real-kano-instant",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2DecisionQueue-0.Param to equal 'p2CombatChain-0', got ''",
+    "detected": true,
+    "output": "[FAIL] Aetherstorm Wellingtons / intrinsic closure / barrier-while-defending-real-kano-instant: Initial assertion failed: Expected p2DecisionQueue-0.Param to equal 'p2CombatChain-0', got ''.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "ab_defending_source_eligibility",
+    "prefix_actions": 17,
+    "expected_failure_step": 0,
+    "expected_failure_assertion": {
+      "type": "card_property_equals",
+      "mzId": "p2DecisionQueue-0",
+      "property": "Param",
+      "value": "p2CombatChain-0"
+    },
+    "fault_semantics": "component_backed_eligibility_enumeration_injection_not_dynamic_revalidation",
+    "fault_target_binding": {
+      "sourceUID": 4,
+      "spellUID": 5,
+      "attackUID": 3,
+      "victim": 2,
+      "sourceRef": "p2CombatChain-0"
+    },
+    "original_initial_sha256": "1b6a2db26e71036940b31e5cd488530a79226e2ddd8c891a45f3a5fcc1b1249d",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-surging-strike-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "computed go again to equal 1, got 0",
+    "detected": true,
+    "output": "[FAIL] Surging Strike / innate go again / red / hand-fully-blocked-go-again-real-followup: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "innate_ga_missing_refund",
+    "prefix_actions": 10,
+    "expected_failure_step": 0,
+    "expected_failure_assertion": {
+      "type": "computed_go_again_equals",
+      "mzId": "p1CombatChain-0",
+      "value": 1
+    },
+    "fault_target_binding": [
+      {
+        "player": 1,
+        "zone": "CombatChain",
+        "cardID": "surging_strike_red",
+        "tag": "PEN_BLANK_ATTACK",
+        "mode": "add",
+        "innate_ga_source": {
+          "control": "innate_ga_missing_refund",
+          "sourceUID": 3,
+          "attackUID": 3
+        }
+      }
+    ],
+    "original_initial_sha256": "e1f7745d98c038d437bab9429a3f84dbe1d86ee2803f763a06a773ed7ca997d1",
+    "fault_semantics": "disposable_exact_printed_pilot_fault_not_legal_suppression_generation",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-fry-blue-innate-ga-zero-cost-keeps-spare-blue",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "computed power to equal 1, got 2",
+    "detected": true,
+    "output": "[FAIL] Fry / innate go again / blue / zero-cost-keeps-spare-blue: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 1, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "innate_ga_printed_power",
+    "prefix_actions": 8,
+    "expected_failure_step": 0,
+    "expected_failure_assertion": {
+      "type": "computed_power_equals",
+      "mzId": "p1CombatChain-0",
+      "value": 1
+    },
+    "fault_target_binding": [
+      {
+        "player": 1,
+        "zone": "CombatChain",
+        "cardID": "fry_blue",
+        "tag": "WTR_POWER:1",
+        "mode": "add",
+        "innate_ga_source": {
+          "control": "innate_ga_printed_power",
+          "sourceUID": 3,
+          "attackUID": 3
+        }
+      }
+    ],
+    "original_initial_sha256": "5f5559ea6594a3b660916f85d6899d848d5567f6aab0a6fd080107e4ae97edbc",
+    "fault_semantics": "disposable_exact_printed_pilot_fault_not_legal_suppression_generation",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-surging-strike-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p2Health to equal 20, got 19",
+    "detected": true,
+    "output": "[FAIL] Surging Strike / innate go again / red / hand-fully-blocked-go-again-real-followup: Step 4 assertion failed: Expected p2Health to equal 20, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "innate_ga_full_block_defense_loss",
+    "prefix_actions": 10,
+    "expected_failure_step": 4,
+    "expected_failure_assertion": {
+      "type": "scalar_zone_equals",
+      "zone": "p2Health",
+      "value": 20
+    },
+    "fault_target_binding": [
+      {
+        "player": 2,
+        "zone": "CombatChain",
+        "cardID": "wounding_blow_blue",
+        "tag": "WTR_DEFENSE:-2",
+        "mode": "add",
+        "innate_ga_source": {
+          "control": "innate_ga_full_block_defense_loss",
+          "sourceUID": 4,
+          "attackUID": 3
+        }
+      }
+    ],
+    "original_initial_sha256": "e1f7745d98c038d437bab9429a3f84dbe1d86ee2803f763a06a773ed7ca997d1",
+    "fault_semantics": "disposable_exact_printed_pilot_fault_not_legal_suppression_generation",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-sic-em-shot-red-innate-ga-arsenal-blue-pitch",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "p1Resources to equal 2, got 1",
+    "detected": true,
+    "output": "[FAIL] Sic 'Em Shot / innate go again / red / arsenal-blue-pitch: Step 2 assertion failed: Expected p1Resources to equal 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "innate_ga_asset_pitch_surplus",
+    "prefix_actions": 0,
+    "expected_failure_step": 2,
+    "expected_failure_assertion": {
+      "type": "scalar_zone_equals",
+      "zone": "p1Resources",
+      "value": 2
+    },
+    "fault_target_binding": {
+      "zone": "p1Hand",
+      "index": 0,
+      "sourceUID": 4,
+      "old": "wounding_blow_blue",
+      "new": "wounding_blow_yellow",
+      "rewritten_identity_properties": 2
+    },
+    "original_initial_sha256": "56d17f7e663a2ead3773f902a13ff70e4168029b2a281ff40f9fa3093560c5d2",
+    "fault_semantics": "disposable_exact_printed_pilot_fault_not_legal_suppression_generation",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-savage-swing-red-mandatory-discard-hand-no-spare-despite-funded-assets",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected p1Hand count 1, got 0.",
+    "detected": true,
+    "output": "[FAIL] Savage Swing / hand-no-spare-despite-funded-assets: Step 1 assertion failed: Expected p1Hand count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "mandatory_discard_missing_cost_becomes_payable",
+    "prefix_actions": 0,
+    "expected_failure_step": 1,
+    "expected_failure_assertion": {
+      "step": 1,
+      "type": "zone_count",
+      "viewerPlayerID": 1,
+      "zone": "p1Hand",
+      "value": 1
+    },
+    "fault_target_binding": {
+      "add_hand": [
+        {
+          "player": 1,
+          "cardID": "wounding_blow_blue"
+        }
+      ]
+    },
+    "original_initial_sha256": "a3bc6ff863d3e5b6a378acfba155fddc2666d82e2439f56508656cb49de28406",
+    "fault_semantics": "one_discard_candidate_enables_otherwise_funded_legal_play",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "diagnostic-en-garde-red-hand-floating-printed-power",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "computed power to equal 5, got 2",
+    "detected": true,
+    "output": "[FAIL] En Garde / unchanged legal pilot with printed numeric witness: Step 3 assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "weapon_next_missing_grant",
+    "prefix_actions": 3,
+    "expected_failure_step": 3,
+    "expected_failure_assertion": {
+      "step": 3,
+      "type": "computed_power_equals",
+      "viewerPlayerID": 1,
+      "mzId": "p1CombatChain-0",
+      "value": 5
+    },
+    "fault_target_binding": {
+      "remove_effect": "NEXT_WEAPON"
+    },
+    "omitted_assertions": [],
+    "original_initial_sha256": "6f308023356340d6d03d853720e0016ce837163bf9b2cbfc284bb135929e5288",
+    "source_behavior_sha256": "759d739b4175c7ae0bfaa6d17d550e6603f4cc4bfc172ffc2cad3f85536527e6",
+    "fault_semantics": "remove_one_exact_precombat_next_grant_then_unchanged_real_weapon_action",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-cut-deep-red-hand-floating",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "computed power to equal 5, got 1",
+    "detected": true,
+    "output": "[FAIL] Cut Deep / hand-floating: Step 3 assertion failed: Expected p1CombatChain-0 computed power to equal 5, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "dagger_next_missing_grant",
+    "prefix_actions": 3,
+    "expected_failure_step": 3,
+    "expected_failure_assertion": {
+      "step": 3,
+      "type": "computed_power_equals",
+      "viewerPlayerID": 1,
+      "mzId": "p1CombatChain-0",
+      "value": 5
+    },
+    "fault_target_binding": {
+      "remove_effect": "HNT_NEXT"
+    },
+    "omitted_assertions": [
+      {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "TurnEffects",
+        "value": "[\"WTR_POWER:4\"]"
+      }
+    ],
+    "original_initial_sha256": "7e612220cdc2aa8a97832e14a36632da0c95f05134f768112e40dad6714785b5",
+    "source_behavior_sha256": "f6f9a96d96319000100792072ede25bef2ef758178fdcd4c03cec6192e10d73b",
+    "fault_semantics": "remove_one_exact_precombat_next_grant_then_unchanged_real_weapon_action",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-felling-swing-red-hand-floating",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "computed power to equal 8, got 2",
+    "detected": true,
+    "output": "[FAIL] Felling Swing / hand-floating: Step 3 assertion failed: Expected p1CombatChain-0 computed power to equal 8, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "axe_next_missing_grant",
+    "prefix_actions": 3,
+    "expected_failure_step": 3,
+    "expected_failure_assertion": {
+      "step": 3,
+      "type": "computed_power_equals",
+      "viewerPlayerID": 1,
+      "mzId": "p1CombatChain-0",
+      "value": 8
+    },
+    "fault_target_binding": {
+      "remove_effect": "DYN_NEXT"
+    },
+    "omitted_assertions": [
+      {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "TurnEffects",
+        "value": "[\"WTR_POWER:6\"]"
+      }
+    ],
+    "original_initial_sha256": "7af040f435e31dcfcfe0bd58d86e3b4e9be81a6b0c3167d3f7390484cd27c399",
+    "source_behavior_sha256": "cb31e64e7065490ad038b3ed0e5cb498824d953dda53a2d751c7c5a71c9ae95a",
+    "fault_semantics": "remove_one_exact_precombat_next_grant_then_unchanged_real_weapon_action",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected Stack count 1, got 0.",
+    "detected": true,
+    "output": "[FAIL] Command and Conquer / mandatory when-hit trigger / arsenal-present: Initial assertion failed: Expected Stack count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "cnc_missing_hit_layer",
+    "prefix_actions": 10,
+    "expected_failure_step": 0,
+    "expected_failure_assertion": {
+      "step": 0,
+      "type": "zone_count",
+      "viewerPlayerID": 1,
+      "zone": "Stack",
+      "value": 1
+    },
+    "fault_target_binding": {
+      "attackUID": 3,
+      "victim": 2,
+      "arsenalUID": 4
+    },
+    "original_initial_sha256": "5fb449c3126d84949347052689f5c43486e60b491879701463158d446945ad94",
+    "source_behavior_sha256": "bed06a4057ac2db1b7c3a10ebe62f5002d753fe6d85213e6f3fa7ea8dc4fa7a2",
+    "omitted_assertions": [],
+    "fault_semantics": "disposable_exact_pending_hit_layer_or_effect_timing_fault",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected p2Arsenal count 1, got 0.",
+    "detected": true,
+    "output": "[FAIL] Command and Conquer / mandatory when-hit trigger / arsenal-present: Initial assertion failed: Expected p2Arsenal count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "cnc_premature_arsenal_destruction",
+    "prefix_actions": 10,
+    "expected_failure_step": 0,
+    "expected_failure_assertion": {
+      "step": 0,
+      "type": "zone_count",
+      "viewerPlayerID": 1,
+      "zone": "p2Arsenal",
+      "value": 1
+    },
+    "fault_target_binding": {
+      "attackUID": 3,
+      "victim": 2,
+      "arsenalUID": 4
+    },
+    "original_initial_sha256": "5fb449c3126d84949347052689f5c43486e60b491879701463158d446945ad94",
+    "source_behavior_sha256": "bed06a4057ac2db1b7c3a10ebe62f5002d753fe6d85213e6f3fa7ea8dc4fa7a2",
+    "omitted_assertions": [],
+    "fault_semantics": "disposable_exact_pending_hit_layer_or_effect_timing_fault",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected p2Arsenal count 0, got 1.",
+    "detected": true,
+    "output": "[FAIL] Command and Conquer / mandatory when-hit trigger / arsenal-present: Step 2 assertion failed: Expected p2Arsenal count 0, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "cnc_wrong_captured_victim",
+    "prefix_actions": 10,
+    "expected_failure_step": 2,
+    "expected_failure_assertion": {
+      "step": 2,
+      "type": "zone_count",
+      "viewerPlayerID": 1,
+      "zone": "p2Arsenal",
+      "value": 0
+    },
+    "fault_target_binding": {
+      "attackUID": 3,
+      "victim": 2,
+      "arsenalUID": 4
+    },
+    "original_initial_sha256": "5fb449c3126d84949347052689f5c43486e60b491879701463158d446945ad94",
+    "source_behavior_sha256": "bed06a4057ac2db1b7c3a10ebe62f5002d753fe6d85213e6f3fa7ea8dc4fa7a2",
+    "omitted_assertions": [],
+    "fault_semantics": "disposable_exact_pending_hit_layer_or_effect_timing_fault",
+    "evidence_kind": "disposable_fixture_semantic_assertion"
+  },
+  {
+    "id": "repair035_nip_actual_bound_weapon_plus_one",
+    "fixture": "card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+    "fixture_sha256": "be9f55ba6446ec324ca64c1dcfb0bd6a26b396986508add9b26bbf4caf9ea349",
+    "source_raw5": {
+      "initial_gamestate.txt": "85d0c93e9fb61c600ecf75a3d5784f9949dd5e04196f6a224757d2a03927d601",
+      "actions.json": "1bccfc0f07aba58dedfca14169efeead8050617dffd32bf609ca96805ed5ba7e",
+      "assertions.json": "5103bccdbf3e333a58413046580b3879b9d27473210bf7a6dffea1c673623871",
+      "expected_final_gamestate.txt": "0e6912d5294076cde173afbdc8616f54a7da810e65e76b6f666aa474c7dcb2d1",
+      "meta.json": "45dad994ed1cb12407e60665881eb47466809aae9e9228e62a9d23e35661d1ba"
+    },
+    "prefix_actions": 21,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "harmonized_kodachi",
+          "mode": "remove",
+          "tag": "WTR_POWER:1"
+        }
+      ]
+    },
+    "retained_assertions": 137,
+    "expected_failure_step": 0,
+    "expected_failure": "Expected p1CombatChain-0 computed power to equal 2, got 1.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] Nip at the Heels / four live sparse reaction: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual announced/declaration-bound Nip resolves, omit only its +1 tag on the real Kodachi attack proxy. Printed base1 becomes computed1 instead of2; host, target, payment and source GY remain. Initial computed-power sensitivity. Do not delete the active weapon/attack, remove its target, or treat lost reaction-window legality as the intended failure. Declaration legality/link/revalidation/rollback/Snag contracts use the035 component.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "evidence": "card-regression-repair-20261024-focused-fault-results.json",
+    "evidence_sha256": "1587662731417a662ae96ff45b272cd4a63603637479bf19051f553eb5b0aaf1",
+    "qualification": "Exact native first-failure sensitivity with preserved original suffix assertions; scope follows the independently reviewed plan."
+  },
+  {
+    "id": "repair035_shred_actual_bound_defender_minus_four",
+    "fixture": "card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+    "fixture_sha256": "6e43fe4cc82dd463759416237d91034190e899040a46eebd623d61eeaf398a49",
+    "source_raw5": {
+      "initial_gamestate.txt": "1e4fd5b0855c7e695d0e0778f8a79d996033896f244ab10bed94b496e7bf1290",
+      "actions.json": "caf49654584f326d6a881689e15de2f22c331f4c32c6c33e356b2cf3f75dd286",
+      "assertions.json": "f4685212793a01203bffd27df2bd82cf0404b74eac67faf873038fba1278242a",
+      "expected_final_gamestate.txt": "1faa09e6fcbe7e2b88e93b696e0170a60a58ec289e6d7909cc7b5ccd887d8d68",
+      "meta.json": "0c9d13414e6c36d177d15653d2173664cacab1d070af5dbbb9388b5f674f9e69"
+    },
+    "prefix_actions": 22,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 4,
+          "zone": "CombatChain",
+          "cardID": "wounding_blow_red",
+          "mode": "remove",
+          "tag": "DYN_DEFENSE:-4"
+        }
+      ]
+    },
+    "retained_assertions": 140,
+    "expected_failure_step": 4,
+    "expected_failure": "Expected p4Health to equal 17, got 20.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] Shred / four live sparse reaction: Step 4 assertion failed: Expected p4Health to equal 17, got 20.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual declaration-bound Shred resolves, omit only defender UID7's -4 tag. Physical printed defense3 blocks the unchanged attack3, so damage0 leaves P4HP20 instead of17. First changed source oracle is physical p4Health at damage, before cached damageDealt. Keep the actual defender and all suffix checks. Rebind if saved oracle order differs; no cached-defense-only qualification.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "evidence": "card-regression-repair-20261024-focused-fault-results.json",
+    "evidence_sha256": "1587662731417a662ae96ff45b272cd4a63603637479bf19051f553eb5b0aaf1",
+    "qualification": "Exact native first-failure sensitivity with preserved original suffix assertions; scope follows the independently reviewed plan."
+  },
+  {
+    "id": "boon_conditional_base_suppression_with_own_blasmophet_retained",
+    "fixture": "card-blasmophets-boon-blue-four-live-repair-controlled-blasmophet-base-six-real-damage",
+    "fixture_sha256": "9eed20f12e4dcb3e0838ae03f6d8e51dd83b85c8b7f00df76c50c4600b5379e7",
+    "source_raw5": {
+      "initial_gamestate.txt": "c956b59e9c5b07976a3374d745534704b709a90ebb74a088d97e461f8f82115c",
+      "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+      "assertions.json": "3ae01c5854382b7fc37ed31604f13f059fbebf795f82e25e55df4ff631a8bb92",
+      "expected_final_gamestate.txt": "2f593e98dd254f9a833857255c9ba523b962bd717bbe1a1e85bfac06a29d5255",
+      "meta.json": "8111c4c65a557a589f6c2935a064d2637045ab7f98d8dc8d30250c1e0377aceb"
+    },
+    "prefix_actions": 7,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "blasmophets_boon_blue",
+          "mode": "add",
+          "tag": "NO_ABILITIES"
+        }
+      ]
+    },
+    "retained_assertions": 381,
+    "expected_failure_step": 0,
+    "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 0.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] Blasmophet's Boon / four live controlled Blasmophet defines six power: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "At real attack entry, blank only Boon while retaining its controlled physical Blasmophet and all economy. The conditional base-defining ability is absent: computed power6 becomes printed numeric0. Native ability-omission sensitivity, not a direct Owner/Controller mutation or proof that an opponent's Blasmophet is ignored. Actual focused IAR own/opponent/no-source/suppression cases supply that condition distinction.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "evidence": "card-regression-repair-20261024-focused-fault-results.json",
+    "evidence_sha256": "1587662731417a662ae96ff45b272cd4a63603637479bf19051f553eb5b0aaf1",
+    "qualification": "Exact native first-failure sensitivity with preserved original suffix assertions; scope follows the independently reviewed plan."
+  },
+  {
+    "id": "flying_high_actual_matching_blue_plus_one_only",
+    "fixture": "card-flying-high-blue-four-live-bugfix-actual-blue-next-attack-receives-matching-color-plus-one-and-go-again",
+    "fixture_sha256": "cc36dc1748ceeb1720850223556db36be75f56541817e9f11e97e86b096abf7b",
+    "source_raw5": {
+      "initial_gamestate.txt": "4bf5657934771dbfe1e00ed729bd7c41420bd5e7d32542c8739257cf6bc3dff9",
+      "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+      "assertions.json": "1737b941df79107be4f108148ca42b9c3557d2f34f2ddc8df5d1ad17ffc0b757",
+      "expected_final_gamestate.txt": "3abff1bf9d5fa760b6feee631566667199289fd79a0bf958b9153d082eab0bcf",
+      "meta.json": "5cb5401822c9c40b97c209b12ebf4831bdc36925522ba48446ed0c8c8a0f148d"
+    },
+    "prefix_actions": 11,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "wounding_blow_blue",
+          "mode": "remove",
+          "tag": "WTR_POWER:1"
+        }
+      ]
+    },
+    "retained_assertions": 268,
+    "expected_failure_step": 0,
+    "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 2.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] Flying High Blue / four live color-condition repair proof: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 3, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After real Blue Flying High and real Blue Wounding Blow enter combat, remove only matching-color +1 on the physical attack. Base2 remains2; retain GO_AGAIN, real source, targets and costs. Do not remove the SEA_NEXT global type: two entries can exist and the helper requires exactly one. This isolates matching bonus only; no other color/mismatch/second-attack branch credit.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "evidence": "card-regression-repair-20261024-focused-fault-results.json",
+    "evidence_sha256": "1587662731417a662ae96ff45b272cd4a63603637479bf19051f553eb5b0aaf1",
+    "qualification": "Exact native first-failure sensitivity with preserved original suffix assertions; scope follows the independently reviewed plan."
+  },
+  {
+    "id": "head_shot_exact_resolved_trigger_plus_two_tag",
+    "fixture": "card-head-shot-red-four-live-sparse-actual-face-up-load-queues-four-live-trigger-then-real-arrow-power-six",
+    "fixture_sha256": "68b6f0665c9ebe3a1c7d27e05950e191547d0e2271fe292129f568c001ec0425",
+    "source_raw5": {
+      "initial_gamestate.txt": "c28d174a65f396c5852cda9917809734cbe40ba88dbdad48ddf347f52772d66a",
+      "actions.json": "e4822cf7dc40b814233b1a19fb251212938e8b69bd10a5f62bc3349fa9a2fd74",
+      "assertions.json": "df4b2102517b992d37ff67006c55ac54afbd9842a107ec04d4e4c5c992e32c8d",
+      "expected_final_gamestate.txt": "65eb3053ee5b6fdfc7edf33a335732681d7f689d03dd65d1c96fa8e89191a62c",
+      "meta.json": "166e2f5a4f38152bc241d55c73e7b3541f3f1fa817a21722f9629bf2414daaea"
+    },
+    "prefix_actions": 11,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "Arsenal",
+          "cardID": "head_shot_red",
+          "mode": "remove",
+          "tag": "WTR_POWER:2"
+        }
+      ]
+    },
+    "retained_assertions": 639,
+    "expected_failure_step": 0,
+    "expected_failure": "Expected p1Arsenal-0.TurnEffects to equal '[\"WTR_POWER:2\"]', got '[]'.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] Head Shot / four live sparse positive effect: Initial assertion failed: Expected p1Arsenal-0.TurnEffects to equal '[\"WTR_POWER:2\"]', got '[]'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After the fourth actual Head Shot trigger response and before Arrow play, remove only its resolved +2 tag from the same public physical Arrow in Arsenal. Exact post-trigger TurnEffects must fail immediately. This is resolved-effect/tag timing sensitivity. Earlier three-response empty-tag assertions already ran in the prefix. Do not claim a premature-inline-bonus native mutant; exact trigger timing is separately pinned by positive/component evidence. Do not skip the tag assertion to advertise a later power6-to4 first failure.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "evidence": "card-regression-repair-20261024-focused-fault-results.json",
+    "evidence_sha256": "1587662731417a662ae96ff45b272cd4a63603637479bf19051f553eb5b0aaf1",
+    "qualification": "Exact native first-failure sensitivity with preserved original suffix assertions; scope follows the independently reviewed plan."
+  },
+  {
+    "id": "regain_actual_granted_hit_event_omission",
+    "fixture": "card-regain-composure-blue-four-live-repair-granted-hit-trigger-delays-hero-untap",
+    "fixture_sha256": "4f16541d3e50c44b443927a8715730e91da3cf2d14781457665b821a3a9132ed",
+    "source_raw5": {
+      "initial_gamestate.txt": "783495cc36465b4ba2f695aae176508a1e720a363a1f00fdb51a9afdd49c7eab",
+      "actions.json": "fe40bede68f7392aee1588167ba6ca0baf9a5238224b2aececfa8372e186a4f0",
+      "assertions.json": "e108c8ea3657f9c9ce4b05e90be404c9242ca0c0492fd9a3b8a6581a9a53fd7d",
+      "expected_final_gamestate.txt": "99a0e59af52a30ce7924ff8a6699a68c03295fa37db9c7868cf5e01653fc2911",
+      "meta.json": "491b5212a43b89953aa3e575d4a9e42c2698db20597b600c73d569f1a8f5b7f0"
+    },
+    "prefix_actions": 28,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "wounding_blow_blue",
+          "mode": "remove",
+          "tag": "SEA_UNTAP_HERO"
+        }
+      ]
+    },
+    "retained_assertions": 390,
+    "expected_failure_step": 1,
+    "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"DAMAGE\".",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] Regain Composure / actual Old Knocker costs and four-live hit responses before untap: Step 1 assertion failed: Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"DAMAGE\".\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After three real reaction-priority passes, remove only Regain's granted hit tag. Keep WTR_POWER:1, actual Old Knocker hero tap, attack3, target and all costs. Damage3 still happens but cannot queue the expected hit trigger. Earliest intended source failure is window PRIORITY versus DAMAGE, not later Stack1/hero-untap. Confirms hit-event producer sensitivity. Fourth-response untap body/other controllers/source-departure contracts require focused components; no extra native control needed.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "evidence": "card-regression-repair-20261024-focused-fault-results.json",
+    "evidence_sha256": "1587662731417a662ae96ff45b272cd4a63603637479bf19051f553eb5b0aaf1",
+    "qualification": "Exact native first-failure sensitivity with preserved original suffix assertions; scope follows the independently reviewed plan."
+  },
+  {
+    "id": "smash195_actual_declared_target_binding_sensitivity",
+    "fixture": "card-smash-instinct-red-four-live-repair-declared-other-hero-intimidate-after-responses-end-turn-return",
+    "fixture_sha256": "0bd296365cb3f7ae2891a530fbddb7f5cf0be11d2ce20001f30255ad131ea291",
+    "source_raw5": {
+      "initial_gamestate.txt": "687b2649d8c229efcd8b72a58162ec6fd49aca2d9f8b503f07e0b04f4c49e274",
+      "actions.json": "14e3221c8bbb133e854106d8532010bceeecceb87464489d1a2e7dfc07652335",
+      "assertions.json": "1235894c6dbae40659c1c795acb9c0c32b3333c574153c28e3324bba01aa9b78",
+      "expected_final_gamestate.txt": "0d69c1c9f2012d069a7ffdc340d5cb2c7933602965f359dc82325232ec40ce2f",
+      "meta.json": "5314a23241a6cc00f90493a463b8d51bdefb88bc5682c22cd3925554a41b179a"
+    },
+    "prefix_actions": 8,
+    "mutation": {
+      "remove_stack_param": "rosTarget"
+    },
+    "retained_assertions": 1461,
+    "expected_failure_step": 0,
+    "expected_failure": "Expected Stack-0.Params to equal '{\"rosTrigger\":true,\"rosEvent\":\"wtrAttackIntimidate\",\"rosTarget\":2,\"wtrIntimidateAmount\":1}', got '{\"rosTrigger\":true,\"rosEvent\":\"wtrAttackIntimidate\",\"wtrIntimidateAmount\":1}'.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] Smash Instinct / separate P2 intimidate target waits for four responses while attacking P4 / beginning end phase delayed return: Initial assertion failed: Expected Stack-0.Params to equal '{\"rosTrigger\":true,\"rosEvent\":\"wtrAttackIntimidate\",\"rosTarget\":2,\"wtrIntimidateAmount\":1}', got '{\"rosTrigger\":true,\"rosEvent\":\"wtrAttackIntimidate\",\"wtrIntimidateAmount\":1}'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "Fresh45-action Smash195 with independently reviewed real end-turn followthrough. Remove only captured rosTarget from actual queued trigger after actual P2 declaration, distinct from attackP4. First retained exact Params assertion must fail immediately. Preserve ALL suffix actions/assertions including target banish and real end-turn return; control credit is binding sensitivity only, not independent fault isolation of the future-return body. Prefix/oracle derived anew from current saved actions/assertions and195source; old33-action snapshot excluded.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "evidence": "card-regression-repair-20261024-focused-fault-results.json",
+    "evidence_sha256": "1587662731417a662ae96ff45b272cd4a63603637479bf19051f553eb5b0aaf1",
+    "qualification": "Exact native first-failure sensitivity with preserved original suffix assertions; scope follows the independently reviewed plan."
+  }
+]

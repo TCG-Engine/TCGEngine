@@ -1,0 +1,129 @@
+{
+  "command": "Existing RunIntegrationTests.php --root=FaBSim --test=<each listed slug>",
+  "scope": "TARGETED_SUBSET_ONLY_NOT_A_FULL_CORPUS_RUN",
+  "runtime_sha256": "5e12e58ae987f75a33f9e6c3c96c4baa0237368c20a7e5df4b137ab69e1da4ae",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T01:32:15.870427+00:00",
+  "canonical_inventory_at_capture": 2020,
+  "fixtures": [
+    {
+      "slug": "card-cut-deep-red-attack-action-excluded-and-preserves-buff",
+      "fixture_sha256": "2a34d56a8aee837b6b524c19a77e038adc6bf032d15349125bd44210af76778b",
+      "passed": true,
+      "result": "[PASS] Cut Deep / attack-action-excluded-and-preserves-buff"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+      "fixture_sha256": "f210da44886c9dd744e8a0bf93599200fef2edd88e431944d968493172c57ba3",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / innate go again / yellow / printed-pitch-funds-generic-cost-three"
+    },
+    {
+      "slug": "card-en-garde-red-hand-floating",
+      "fixture_sha256": "d73974e45032bb36f65facf5f43a8c7eea8793dd76f93a466dc5fb22a12f0f4b",
+      "passed": true,
+      "result": "[PASS] En Garde / hand-floating"
+    },
+    {
+      "slug": "card-felling-swing-red-blue-pitch-payments",
+      "fixture_sha256": "440f95dd38dac35f4ac43c523c9198c0d051b0a4802aec977a7995e2d4cb7ed4",
+      "passed": true,
+      "result": "[PASS] Felling Swing / blue-pitch-payments"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-zero-cost-keeps-spare-blue",
+      "fixture_sha256": "e9342a1ff90a64f871bd846b4a1ff3a4e7b5aa9f2ce7a772d3ebdf1ee3440db0",
+      "passed": true,
+      "result": "[PASS] Fry / innate go again / blue / zero-cost-keeps-spare-blue"
+    },
+    {
+      "slug": "card-sharpen-steel-red-opponent-response-before-buff-resolves",
+      "fixture_sha256": "e739e7d1a1d41520ad7edcadaf64bc3da5b216bf1ca4d94cc8e9ab4f74354244",
+      "passed": true,
+      "result": "[PASS] Sharpen Steel / opponent-response-before-buff-resolves"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-blue-pitch",
+      "fixture_sha256": "5fe01a6c4c3ab57c3cf7780d71b15110d2abb5ceb5085a78b3fd0af13bf0c2ee",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / innate go again / red / arsenal-blue-pitch"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "fixture_sha256": "bd26d91584747a23984a9fbc706cc1ff64aff46a187f48ecf1b3f8e4fa473371",
+      "passed": true,
+      "result": "[PASS] Surging Strike / innate go again / red / hand-fully-blocked-go-again-real-followup"
+    },
+    {
+      "slug": "diagnostic-en-garde-red-hand-floating-printed-power",
+      "fixture_sha256": "759d739b4175c7ae0bfaa6d17d550e6603f4cc4bfc172ffc2cad3f85536527e6",
+      "passed": true,
+      "result": "[PASS] En Garde / unchanged legal pilot with printed numeric witness"
+    }
+  ],
+  "per_fixture_native_commands": [
+    {
+      "slug": "card-cut-deep-red-attack-action-excluded-and-preserves-buff",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cut-deep-red-attack-action-excluded-and-preserves-buff",
+      "returncode": 0,
+      "stdout": "[PASS] Cut Deep / attack-action-excluded-and-preserves-buff\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dust-runner-outlaw-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+      "returncode": 0,
+      "stdout": "[PASS] Dust Runner Outlaw / innate go again / yellow / printed-pitch-funds-generic-cost-three\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-en-garde-red-hand-floating",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-en-garde-red-hand-floating",
+      "returncode": 0,
+      "stdout": "[PASS] En Garde / hand-floating\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-felling-swing-red-blue-pitch-payments",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-felling-swing-red-blue-pitch-payments",
+      "returncode": 0,
+      "stdout": "[PASS] Felling Swing / blue-pitch-payments\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-zero-cost-keeps-spare-blue",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-fry-blue-innate-ga-zero-cost-keeps-spare-blue",
+      "returncode": 0,
+      "stdout": "[PASS] Fry / innate go again / blue / zero-cost-keeps-spare-blue\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-sharpen-steel-red-opponent-response-before-buff-resolves",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sharpen-steel-red-opponent-response-before-buff-resolves",
+      "returncode": 0,
+      "stdout": "[PASS] Sharpen Steel / opponent-response-before-buff-resolves\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-blue-pitch",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sic-em-shot-red-innate-ga-arsenal-blue-pitch",
+      "returncode": 0,
+      "stdout": "[PASS] Sic 'Em Shot / innate go again / red / arsenal-blue-pitch\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-surging-strike-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "returncode": 0,
+      "stdout": "[PASS] Surging Strike / innate go again / red / hand-fully-blocked-go-again-real-followup\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "diagnostic-en-garde-red-hand-floating-printed-power",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=diagnostic-en-garde-red-hand-floating-printed-power",
+      "returncode": 0,
+      "stdout": "[PASS] En Garde / unchanged legal pilot with printed numeric witness\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Scalding Rain / barrier-pay",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:23:25+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Arcane packet2; target seat2 elects to pay1 to prevent1. Caster pays cost1; equipment persists. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_blue https://rules.fabtcg.com/en/cr/07-combat/"
+}

@@ -1,0 +1,197 @@
+{
+  "status": "INDEPENDENT_ACTUAL_SAVED_TWO_DEFENSE_PILOTS_APPROVED",
+  "reviewer": "/root/wtr_buff_scenarios",
+  "spec_sha256": "ae6aba4b9d46a4c01773be4172d49f88807174fd94a1d86b0275afef666597c7",
+  "actual_prior_pilot_sha256": "20ce4c1fb4db461559b451e6c6651f0e2090abc407c208d665c016ee5eb8ac13",
+  "recipes_unchanged_from_prior_20ce": true,
+  "native_attempt_sha256": "9f4113a8dbb06dff2108bada60118bfef11358c706dea6b106e8e3571f8431f5",
+  "prior_independent_model_source_sha256": "ce557836fccb4ae10f2301bd4dc8a048c43464016f7546261da75cbb00d365e7",
+  "saved_tools_source_sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8",
+  "model_checks": 490,
+  "saved_review_checks": 522,
+  "totals": {
+    "fixtures": 2,
+    "actions": 30,
+    "native_assertions": 286
+  },
+  "fixtures": [
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "0ef2cfd445028c286251ae847a43d5f3ee1a5a546bbf34091a1f455497935785",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "84edf383417f9f4605bb55c24a30500fd03720f3bc70cfc308da44dcec80c93a",
+        "expected_final_gamestate.txt": "8049fab1801554ec38cc52e6ccc07760295119bad07c9dc1ec30f8bf889916f8",
+        "meta.json": "342092aae8014ab0010491b957126caf3f88964845774637cd99e12dbc61429c"
+      },
+      "fixture_sha256": "96d3aecdfacfa36ab7b537ae071f94c26ec4bcd520d9479cd7987056388791ed",
+      "actions": 15,
+      "native_assertions": 143,
+      "native_game_state_fields": 36,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_defender_zero_ap_resources",
+          "step": 0,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "attacking_card_paid_once",
+          "step": 1,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "ordinary_defend_declaration_before_subject_moves",
+          "step": 5,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "primary_defends_free_for_printed_three_no_buff",
+          "step": 6,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "reaction_step_power_four_defense_three_no_granted_go_again",
+          "step": 9,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "one_damage_no_primary_own_go_again_or_effect",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_close_preserves_subject_identity_owner_and_no_effect",
+          "step": 15,
+          "native_assertions": 30
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "independent_model": {
+        "printedAttackPower": 4,
+        "printedDefense": 3,
+        "damage": 1,
+        "finalHP": [
+          20,
+          19
+        ],
+        "finalResources": [
+          0,
+          0
+        ],
+        "finalAP": [
+          0,
+          0
+        ],
+        "actions": 15,
+        "individualPasses": 13
+      },
+      "raw_final_relevant_grants_absent": [
+        "DYN_NEXT",
+        "HNT_NEXT",
+        "NEXT_WEAPON"
+      ],
+      "raw_final_global_history_not_required_empty": true,
+      "archived_native_run": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch61-pilot-20261020T032119Z-6ad6de2f6afe6.json",
+        "sha256": "9f4113a8dbb06dff2108bada60118bfef11358c706dea6b106e8e3571f8431f5"
+      },
+      "review_basis": "All15 actual actions and143 native assertions, both complete snapshots and physical UIDs/owners checked; separate prior independent printed action model retained with focused played-ledger extension. Exact normal defense3 against WB4, free/AP0, no primary play, no ownGA and damage1. Relevant future weapon/dagger/axe grants absent in raw complete terminal state; unrelated normal history not normalized or blessed as an exact expected list."
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5322d10ce99f64a5b9276387ace8d15538bc6530b51c4bd60485ad2a8b457acf",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "81b496ab5a3064231795d24d5aed3043db55a11930b9e172371a2fb89ee44834",
+        "expected_final_gamestate.txt": "5d8e39dc8949f2eb2f3dd64b1a2049bd042f986e7268c1ffc2cdeb345dd0833a",
+        "meta.json": "2cbbc9ce0f535470736717e8014e29c72131966398b9b93f57c0b0a4515df479"
+      },
+      "fixture_sha256": "b11feaddac97e28876ea3641f60dba2abcffb98692d96d64367b9a0f9b420207",
+      "actions": 15,
+      "native_assertions": 143,
+      "native_game_state_fields": 36,
+      "checkpoints": [
+        {
+          "checkpoint": "initial_defender_zero_ap_resources",
+          "step": 0,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "attacking_card_paid_once",
+          "step": 1,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "ordinary_defend_declaration_before_subject_moves",
+          "step": 5,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "primary_defends_free_for_printed_three_no_buff",
+          "step": 6,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "reaction_step_power_four_defense_three_no_granted_go_again",
+          "step": 9,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "one_damage_no_primary_own_go_again_or_effect",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "actual_close_preserves_subject_identity_owner_and_no_effect",
+          "step": 15,
+          "native_assertions": 30
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "independent_model": {
+        "printedAttackPower": 4,
+        "printedDefense": 3,
+        "damage": 1,
+        "finalHP": [
+          20,
+          19
+        ],
+        "finalResources": [
+          0,
+          0
+        ],
+        "finalAP": [
+          0,
+          0
+        ],
+        "actions": 15,
+        "individualPasses": 13
+      },
+      "raw_final_relevant_grants_absent": [
+        "DYN_NEXT",
+        "HNT_NEXT",
+        "NEXT_WEAPON"
+      ],
+      "raw_final_global_history_not_required_empty": true,
+      "archived_native_run": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch61-pilot-20261020T032119Z-6ad6de2f6afe6.json",
+        "sha256": "9f4113a8dbb06dff2108bada60118bfef11358c706dea6b106e8e3571f8431f5"
+      },
+      "review_basis": "All15 actual actions and143 native assertions, both complete snapshots and physical UIDs/owners checked; separate prior independent printed action model retained with focused played-ledger extension. Exact normal defense3 against WB4, free/AP0, no primary play, no ownGA and damage1. Relevant future weapon/dagger/axe grants absent in raw complete terminal state; unrelated normal history not normalized or blessed as an exact expected list."
+    }
+  ],
+  "limits": [
+    "Only two saved normal-defense pilots; remaining18 new recipes unverified.",
+    "Two pitch failures are unsupported field oracles, not card-rule failures or accepted recordings.",
+    "No arbitrary future modifier/ability-loss/copy interaction coverage; raw final grant check is exact named normal setup only.",
+    "Fresh same-runtime replay/controls/suites remain parent gates; no engine action or replay executed by reviewer."
+  ],
+  "native_games": 0,
+  "native_writes": 0,
+  "fixture_writes": 0,
+  "review_script_sha256": "7c202b6162118d434e42fc3f662a7cc662ad95b334787eb667c87d7833a0e419"
+}

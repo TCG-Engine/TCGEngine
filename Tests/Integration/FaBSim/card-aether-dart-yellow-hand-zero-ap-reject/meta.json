@@ -1,0 +1,7 @@
+{
+    "name": "Aether Dart / hand-zero-ap-reject",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:59:42+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The own-turn player has0AP. These printed actions have no own-turn instant permission, including blue cards in Iyslander's arsenal. Supported click fromHand is rejected before target preparation: preserve source, HP, resources andAP; no Stack, pitch or chooser. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_dart_yellow https://judge.fabtcg.com/cards/detail/1673/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

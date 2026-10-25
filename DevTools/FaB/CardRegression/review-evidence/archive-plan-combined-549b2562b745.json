@@ -1,0 +1,1180 @@
+{
+  "archive_operations": [
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-independent-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-independent-review.json",
+      "sha256": "f89737c3bc2df737308a127cfc3187242bb1e535ba15f40b9c4ace9f346e7ab0"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-proposal\\before-proof.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/before-proof.json",
+      "sha256": "90699ddb2ae0fd9f867a8b944454b0a5b70c6e8f0cb875e66cab3ba7b5ae6d34"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-proposal\\candidate-WTRCards.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/candidate-WTRCards.php",
+      "sha256": "50906b085cab2b994b88563f93548fbd6c660fd14e4872f73d8c9b1c2d8b41a5"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-proposal\\component-check.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/component-check.php",
+      "sha256": "1c14cba401675085ec12b360fd7223d660110f86224ccf243b327ceeb92482c7"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-proposal\\component-results.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/component-results.json",
+      "sha256": "026053067e0c2afd94586609fade5504f1bd1fc77410fb85a5a39e58674fc431"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-proposal\\fault-expand-unlisted-candidates.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/fault-expand-unlisted-candidates.php",
+      "sha256": "8803ec75f77339fdb486da26a2c91d5b5488182415aaef8dea87b637d25f538a"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-proposal\\fault-in-place-queue-mutation.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/fault-in-place-queue-mutation.php",
+      "sha256": "b8975ccbed9b0303494cc725ae748135cf6e693b8b1252edb0614ca2730ad2e3"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-proposal\\fault-missing-owned-frame-guard.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/fault-missing-owned-frame-guard.php",
+      "sha256": "257b5b53ec32991f02d8296183d6c133e4d891f72f8652a3226581332637201c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-proposal\\fault-no-remap-call.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/fault-no-remap-call.php",
+      "sha256": "1d61552dd91a5f86ac9ac158f5cefa5f38bccfed2ddfec6bea911bf920f569fd"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-proposal\\fault-results.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/fault-results.json",
+      "sha256": "03ad420c3c540e0263c4b50db0d62171291ab78fb5b7ce6237989abc55edfa73"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-proposal\\fault-wrong-payment-seat-guard.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/fault-wrong-payment-seat-guard.php",
+      "sha256": "0e321c8e9aa4b82dbcb42315dd88738c7ee6500392e1e474fe8be58727752e48"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-proposal\\manifest.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/manifest.json",
+      "sha256": "9a5fd4e143b0067f746cf400d9ae6cc294161ac6bef07d40d82028c1077d0dfb"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-proposal\\proposed.patch",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/proposed.patch",
+      "sha256": "c620c1331632f66f8717beaab186f8bf9c6566002bb58760a3c8fb329e69197e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab-pitch-remap-proposal\\review-notes.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/review-notes.json",
+      "sha256": "f5d48578dc4c0ef860ae4b662af6ae890ff25c384c6c0096af590383f19bb64c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab87th-actual-saved-independent-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab87th-actual-saved-independent-review.json",
+      "sha256": "2843e8c7c91539bd3d65d7e4b1bd4f1f5ce75c6681aa05aed67a2583e3e357b8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\ab87th-saved-review-approved-rows.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/ab87th-saved-review-approved-rows.json",
+      "sha256": "227c08b088ee38ae76730667aa3d77a52d585cf638a69c2d8c3d5d9f9201d85e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-point-rule-issue024-proposed-row.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-point-rule-issue024-proposed-row.json",
+      "sha256": "6b8464db46bb144c19495f0d989fe705aace897ef8b9fc41255bdd113f23b832"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-callsite-audit.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-callsite-audit.json",
+      "sha256": "c67208568f550cdc920c994e0c3bac745072caf0e1ddb0d1ef4d1acaadf395b4"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-candidate-GameLogic.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-candidate-GameLogic.php",
+      "sha256": "2ce3dfd5ad8ebcca693f7b3b983246dc02ecaf0a42fe7b87b4570e4f1f225b56"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-candidate-GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-candidate-GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-candidate-ROSRuntime.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-candidate-ROSRuntime.php",
+      "sha256": "18eb7e5e4b5b0289a78226cefe0b9fbdaaad465cc1fbfd4892d152afea313c20"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-candidate-zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-candidate-zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-component-check.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-component-check.php",
+      "sha256": "ce4df9651a2160f43f06f302fe31bcf206b330081ab4a5746ea2e574f05235e9"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-component-results.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-component-results.json",
+      "sha256": "31eb65971252b7dc67caf4503839709c970f2bb7fa4cbda53ec5bad3d3755c78"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-fault-no-beforeadd.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-fault-no-beforeadd.php",
+      "sha256": "34b0a820a8cbd731989892daa42d18b89d19df1eeba35fef3f79f0705fd3f329"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-fault-phase-missing.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-fault-phase-missing.php",
+      "sha256": "c3183f8914ca2e6d35531766e83644bc8ec77584f835024306994062aad805c4"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-fault-ros-go-no-ownphase.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-fault-ros-go-no-ownphase.php",
+      "sha256": "bd36a7bdcc273fddeb5b43c6d5dd66835002883cc475d5f0df9ca8552431c391"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-fault-start-grant-before-main.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-fault-start-grant-before-main.php",
+      "sha256": "4071d9eddd11a8568499e3179dca455f5f1196a8d6156d28028b66a00dc61b2a"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-fault-turn-missing.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-fault-turn-missing.php",
+      "sha256": "29d32716b95c8775d105450d315e6ca1d611a8f152ca6a620d8882724c3cd0d9"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-independent-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-independent-review.json",
+      "sha256": "fdff8133cf7b3c96977ec1ad32f237edb973c0932800ba98dc0b2298c4a01bd7"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-manifest.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-manifest.json",
+      "sha256": "1f9d1180120ab8e7ec33387de43fdda4ae99355b1fc8bb97ee1f549aacb25e1e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-proposed.patch",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-proposed.patch",
+      "sha256": "2815c2fb5734e149a864e1323691a5ebb0df7f8d617b1acb6b49375899209557"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-framework-review-notes.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-review-notes.json",
+      "sha256": "1744592b18de8ef836a70b4f89aac3d1695ad3a9e200ba6898792abc4afdfd19"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-baseline-drift-evidence.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-baseline-drift-evidence.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-canonical-drift-history.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-canonical-drift-history.json",
+      "sha256": "b371e0d994ce42ece94aa0b538736849ef662e8d475c2f8bb218258e23205b58"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\baseline\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/baseline/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\baseline\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/baseline/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\baseline\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/baseline/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\baseline\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/baseline/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\baseline\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/baseline/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\baseline\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/baseline/FaBSim/ZoneAccessors.php",
+      "sha256": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\baseline\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/baseline/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "26afb2d84ea437c173c9c08b1a33372fc347ba8f8357acde2c2f09b74270c438"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\baseline\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/baseline/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\baseline\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/baseline/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\candidate\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/candidate/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\candidate\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/candidate/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\candidate\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/candidate/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\candidate\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/candidate/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\candidate\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/candidate/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\candidate\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/candidate/FaBSim/ZoneAccessors.php",
+      "sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\candidate\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/candidate/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\candidate\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/candidate/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\candidate\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/candidate/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\duplicate-function\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/duplicate-function/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\duplicate-function\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/duplicate-function/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\duplicate-function\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/duplicate-function/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\duplicate-function\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/duplicate-function/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\duplicate-function\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/duplicate-function/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\duplicate-function\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/duplicate-function/FaBSim/ZoneAccessors.php",
+      "sha256": "456ee1b7054cd2ab5e30f24d4af9322ffa17eaa6d002fa65af1d46b92beee0a5"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\duplicate-function\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/duplicate-function/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\duplicate-function\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/duplicate-function/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\duplicate-function\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/duplicate-function/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\empty-target\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/empty-target/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\empty-target\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/empty-target/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\empty-target\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/empty-target/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\empty-target\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/empty-target/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\empty-target\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/empty-target/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\empty-target\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/empty-target/FaBSim/ZoneAccessors.php",
+      "sha256": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\empty-target\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/empty-target/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\empty-target\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/empty-target/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\empty-target\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/empty-target/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid/FaBSim/ZoneAccessors.php",
+      "sha256": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid-zone\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid-zone/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid-zone\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid-zone/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid-zone\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid-zone/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid-zone\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid-zone/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid-zone\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid-zone/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid-zone\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid-zone/FaBSim/ZoneAccessors.php",
+      "sha256": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid-zone\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid-zone/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid-zone\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid-zone/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\invalid-zone\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/invalid-zone/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\signature-change\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/signature-change/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\signature-change\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/signature-change/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\signature-change\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/signature-change/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\signature-change\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/signature-change/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\signature-change\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/signature-change/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\signature-change\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/signature-change/FaBSim/ZoneAccessors.php",
+      "sha256": "00931a997b42be460e0f11ed784c45eeaf61262dcaf747ecc6f93ba5757399de"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\signature-change\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/signature-change/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\signature-change\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/signature-change/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\signature-change\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/signature-change/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\wrong-base\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/wrong-base/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\wrong-base\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/wrong-base/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\wrong-base\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/wrong-base/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\wrong-base\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/wrong-base/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\wrong-base\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/wrong-base/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\wrong-base\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/wrong-base/FaBSim/ZoneAccessors.php",
+      "sha256": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\wrong-base\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/wrong-base/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\wrong-base\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/wrong-base/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof\\wrong-base\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof/wrong-base/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-generator-proof-results.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-generator-proof-results.json",
+      "sha256": "610d28acfd72d0393823cdd720daf8da5d8858ef996b5c5bda18d85222f0cdad"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-callsite-audit.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-callsite-audit.json",
+      "sha256": "c67208568f550cdc920c994e0c3bac745072caf0e1ddb0d1ef4d1acaadf395b4"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-candidate-GameLogic.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-candidate-GameLogic.php",
+      "sha256": "2ce3dfd5ad8ebcca693f7b3b983246dc02ecaf0a42fe7b87b4570e4f1f225b56"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-candidate-GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-candidate-GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-candidate-ROSRuntime.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-candidate-ROSRuntime.php",
+      "sha256": "18eb7e5e4b5b0289a78226cefe0b9fbdaaad465cc1fbfd4892d152afea313c20"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-candidate-zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-candidate-zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-component-check.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-component-check.php",
+      "sha256": "ce4df9651a2160f43f06f302fe31bcf206b330081ab4a5746ea2e574f05235e9"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-component-results.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-component-results.json",
+      "sha256": "31eb65971252b7dc67caf4503839709c970f2bb7fa4cbda53ec5bad3d3755c78"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-fault-no-beforeadd.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-fault-no-beforeadd.php",
+      "sha256": "34b0a820a8cbd731989892daa42d18b89d19df1eeba35fef3f79f0705fd3f329"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-fault-phase-missing.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-fault-phase-missing.php",
+      "sha256": "c3183f8914ca2e6d35531766e83644bc8ec77584f835024306994062aad805c4"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-fault-ros-go-no-ownphase.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-fault-ros-go-no-ownphase.php",
+      "sha256": "bd36a7bdcc273fddeb5b43c6d5dd66835002883cc475d5f0df9ca8552431c391"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-fault-start-grant-before-main.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-fault-start-grant-before-main.php",
+      "sha256": "4071d9eddd11a8568499e3179dca455f5f1196a8d6156d28028b66a00dc61b2a"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-fault-turn-missing.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-fault-turn-missing.php",
+      "sha256": "29d32716b95c8775d105450d315e6ca1d611a8f152ca6a620d8882724c3cd0d9"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-manifest.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-manifest.json",
+      "sha256": "1f9d1180120ab8e7ec33387de43fdda4ae99355b1fc8bb97ee1f549aacb25e1e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-proposed.patch",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-proposed.patch",
+      "sha256": "2815c2fb5734e149a864e1323691a5ebb0df7f8d617b1acb6b49375899209557"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-framework-review-notes.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-framework-review-notes.json",
+      "sha256": "1744592b18de8ef836a70b4f89aac3d1695ad3a9e200ba6898792abc4afdfd19"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-canonical-drift-history.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-canonical-drift-history.json",
+      "sha256": "b371e0d994ce42ece94aa0b538736849ef662e8d475c2f8bb218258e23205b58"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\baseline\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/baseline/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\baseline\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/baseline/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\baseline\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/baseline/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\baseline\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/baseline/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\baseline\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/baseline/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\baseline\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/baseline/FaBSim/ZoneAccessors.php",
+      "sha256": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\baseline\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/baseline/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "26afb2d84ea437c173c9c08b1a33372fc347ba8f8357acde2c2f09b74270c438"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\baseline\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/baseline/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\baseline\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/baseline/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\candidate\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/candidate/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\candidate\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/candidate/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\candidate\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/candidate/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\candidate\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/candidate/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\candidate\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/candidate/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\candidate\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/candidate/FaBSim/ZoneAccessors.php",
+      "sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\candidate\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/candidate/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\candidate\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/candidate/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\candidate\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/candidate/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\duplicate-function\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/duplicate-function/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\duplicate-function\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/duplicate-function/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\duplicate-function\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/duplicate-function/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\duplicate-function\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/duplicate-function/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\duplicate-function\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/duplicate-function/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\duplicate-function\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/duplicate-function/FaBSim/ZoneAccessors.php",
+      "sha256": "456ee1b7054cd2ab5e30f24d4af9322ffa17eaa6d002fa65af1d46b92beee0a5"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\duplicate-function\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/duplicate-function/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\duplicate-function\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/duplicate-function/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\duplicate-function\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/duplicate-function/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\empty-target\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/empty-target/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\empty-target\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/empty-target/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\empty-target\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/empty-target/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\empty-target\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/empty-target/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\empty-target\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/empty-target/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\empty-target\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/empty-target/FaBSim/ZoneAccessors.php",
+      "sha256": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\empty-target\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/empty-target/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\empty-target\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/empty-target/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\empty-target\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/empty-target/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid/FaBSim/ZoneAccessors.php",
+      "sha256": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid-zone\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid-zone/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid-zone\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid-zone/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid-zone\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid-zone/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid-zone\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid-zone/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid-zone\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid-zone/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid-zone\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid-zone/FaBSim/ZoneAccessors.php",
+      "sha256": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid-zone\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid-zone/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid-zone\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid-zone/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\invalid-zone\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/invalid-zone/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\signature-change\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/signature-change/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\signature-change\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/signature-change/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\signature-change\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/signature-change/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\signature-change\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/signature-change/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\signature-change\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/signature-change/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\signature-change\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/signature-change/FaBSim/ZoneAccessors.php",
+      "sha256": "00931a997b42be460e0f11ed784c45eeaf61262dcaf747ecc6f93ba5757399de"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\signature-change\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/signature-change/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\signature-change\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/signature-change/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\signature-change\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/signature-change/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\wrong-base\\AccountFiles\\AccountSessionAPI.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/wrong-base/AccountFiles/AccountSessionAPI.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\wrong-base\\CardEditor\\Database\\CardAbilityRepository.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/wrong-base/CardEditor/Database/CardAbilityRepository.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\wrong-base\\Core\\HTTPLibraries.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/wrong-base/Core/HTTPLibraries.php",
+      "sha256": "db213e254e40fe3e62962cf5288dd45a36fc249e91447fb6117d4de7bfd77c9e"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\wrong-base\\Core\\Trie.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/wrong-base/Core/Trie.php",
+      "sha256": "f2f42d36a543f0656b030bb208200f6705d848268ac2d94c564b5b27a4f3baf6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\wrong-base\\Database\\ConnectionManager.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/wrong-base/Database/ConnectionManager.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\wrong-base\\FaBSim\\ZoneAccessors.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/wrong-base/FaBSim/ZoneAccessors.php",
+      "sha256": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\wrong-base\\Schemas\\FaBSim\\GameSchema.txt",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/wrong-base/Schemas/FaBSim/GameSchema.txt",
+      "sha256": "e07bb0ba2daacac58366e010028c9106180c837a614b98c5dfb58faae080203c"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\wrong-base\\zzGameCodeGenerator.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/wrong-base/zzGameCodeGenerator.php",
+      "sha256": "20e2fd5f7be9bd5eb0a96543d28e53756e905da723c65a92889bfbb7efed6e91"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof\\wrong-base\\zzImageConverter.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof/wrong-base/zzImageConverter.php",
+      "sha256": "b59e9f478b3a224f4a7313116dfc5d54eefbe44cd5da909e002929400657bc45"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\action-points-generator-proof-results.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/action-points-generator-proof-results.json",
+      "sha256": "610d28acfd72d0393823cdd720daf8da5d8858ef996b5c5bda18d85222f0cdad"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\action-points-independent-rerun\\build_action_points_framework_proposal.py",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/action-points-independent-rerun/build_action_points_framework_proposal.py",
+      "sha256": "a3fa872732f024087b3bc3b09796e4b1a995b03362e2b4e2fd78e7a03082b695"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\b29-saved73-independent-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/b29-saved73-independent-review.json",
+      "sha256": "814640dc92fc6af8a856904988e07c44586dc84cc2318908922447fe62cdd5eb"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\card-regression-replay-expanded1452-run1.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/card-regression-replay-expanded1452-run1.json",
+      "sha256": "3989856865368e39ea523ac49f8d2e65374f0688f8fe42ef30bb462b56401176"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\fab-reg-025-026-issue-additions-proposed.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/fab-reg-025-026-issue-additions-proposed.json",
+      "sha256": "81ccd76d1ef6f8fd6e1b0d7c8b3cfc862d43ea2da36a7bb3a7f2044c792aa761"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\fab-reg-025-proposed.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/fab-reg-025-proposed.json",
+      "sha256": "6a8e8bf654da220ceaf41ae037c38ace23467ae5b77e7a128f50112be7ae56c8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\fab-reg-026-proposed.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/fab-reg-026-proposed.json",
+      "sha256": "23ae6c2a7e4c3c09e82e87ae5c619f4459c9cb0acd73b434aef2fdb8d2a76d3f"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\lead-nonturn-kano-ap-witness-actual-saved-independent-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/lead-nonturn-kano-ap-witness-actual-saved-independent-review.json",
+      "sha256": "0b66da19ed23dda8fcb6a95fca14c15baae2764aef98b1a8f1d0bd257d9f9914"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\lead-nonturn-kano-ap-witness-independent-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/lead-nonturn-kano-ap-witness-independent-review.json",
+      "sha256": "1af53dc39f8aa90ae33cdf0fd7c07adcf98bd5fde1500bbd1db612391e9c76ef"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\lead-nonturn-kano-ap-witness-saved-review-approved-rows.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/lead-nonturn-kano-ap-witness-saved-review-approved-rows.json",
+      "sha256": "0f485d70df969dd4155f12859b49ff5a67410de0ccd231badc2cfd7d98add494"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-boundary-independent-component-rerun.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-boundary-independent-component-rerun.json",
+      "sha256": "5aaf46ae36d1544ce83c35eafa3d5d1e2ebbf426d92e74cafe454568e25332fb"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-boundary-independent-getter-only.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-boundary-independent-getter-only.php",
+      "sha256": "a3d6fd9ec0d84c2fb01f78b2e9e0b2c68c25adbc42b1fd74116d2e4b779b7e1f"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-boundary-independent-neither.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-boundary-independent-neither.php",
+      "sha256": "4acd2069df84068fb5bb3760a07cc83bea87dfb7b8dcbcc1bf39aff85a7e20a7"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-boundary-independent-setter-only.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-boundary-independent-setter-only.php",
+      "sha256": "72eeb667014b1f0860f7c76dcfb81b3aa714a88e7d5c178bdf1b4bd3c20b70be"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-boundary-native-diagnostic-guards.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-boundary-native-diagnostic-guards.json",
+      "sha256": "8486f743db42cd6fe5699b7d1f41b8c90255c11a0d325d4c484767b3672da6ad"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-boundary-native-diagnostic-manifest.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-boundary-native-diagnostic-manifest.json",
+      "sha256": "33defa7e86aada215cd83768aaf8deaf127af5c4252ccb4a927d1a4891a8d6a2"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-boundary-native-diagnostic-results.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-boundary-native-diagnostic-results.json",
+      "sha256": "beeb35460585f4ffba049802b6451e84e544c39724053442c1bc6edfd769df01"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-boundary-native-proof-independent-read-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-boundary-native-proof-independent-read-review.json",
+      "sha256": "7a4530f2fe3da1d938e0ed6e5cde4c75b463d3ce8ab202a1e3e3cbc21e108820"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-independent-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-independent-review.json",
+      "sha256": "fc22598b510d4c19d90d55642fb3b96643470b91e2b325e158b3e4b53acda5c3"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\before-proof.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/before-proof.json",
+      "sha256": "e4ea9e02e2dcb6d5cff77415b7f3c3816bb7045733e4f6f7d48e9575eddaca61"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\candidate-RunIntegrationTests.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/candidate-RunIntegrationTests.php",
+      "sha256": "3c1af7262f8bda026c03713c36005f1e59d92ede52ed63b566694acb45d70be5"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\component-check.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/component-check.php",
+      "sha256": "b0e4abc8dc19013d45bd84a73f99af1550de4467e62f40760efc4b0cf1f2cb69"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\component-results.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/component-results.json",
+      "sha256": "c25704d4a95680626120ad28287605fd9eb74cbf86f6a7cd08db52c7d42e882a"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\fault-drop-flash-restore.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/fault-drop-flash-restore.php",
+      "sha256": "c1aae0db7ea81d1c32f441f4bd64946ffcdcbf52b0f2aedf91497ab89befe9b6"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\fault-drop-reload-error-catch.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/fault-drop-reload-error-catch.php",
+      "sha256": "519bd676c8fb72be323cbaf2e4e38103f84656b3d965a631031a15a524d89a56"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\fault-non-writing-reload.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/fault-non-writing-reload.php",
+      "sha256": "ca256ec09f9b86445778cc61cf16a4ee828c20ced3c85e7c38ac1400438d3229"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\fault-omit-reload-call.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/fault-omit-reload-call.php",
+      "sha256": "7e5c67b493107c407385bc6775cea4d415fdb66cf62485bc2e0a226ce852963d"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\fault-other-roots-reload.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/fault-other-roots-reload.php",
+      "sha256": "fdaba0f4968862886af4dcf381ffcc7212cc67881e300dff1fd3dfa6d807ff41"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\fault-rejection-reload.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/fault-rejection-reload.php",
+      "sha256": "20885abee67e932128c54ca364b75cfbed642bff2b928cf040e6a5a9c25f7d26"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\fault-results.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/fault-results.json",
+      "sha256": "391d31561b4bee357b394f2faaad1d362b6b5134cd5c3e7eb8e6bad2b90f5269"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\manifest.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/manifest.json",
+      "sha256": "bcfe92e7acc4b3eb7b620e3f73eed705edb6c7b3647c3a16aad15eb00ee646f2"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\proposed.patch",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/proposed.patch",
+      "sha256": "4eba23164963362253824c6fde79df1b4d5a79265d37df235dc609742562aae8"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner-persisted-boundary-proposal\\review-notes.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner-persisted-boundary-proposal/review-notes.json",
+      "sha256": "7d741fbed18132642f92f0217f19ac75f5619ca89772d802b947d9d8359dd81b"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\files\\runner_boundary_native_diagnostic.php",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/files/runner_boundary_native_diagnostic.php",
+      "sha256": "c678c09d13e201b5ce100d2e46de95995c33e97f306665d822d121da46b72809"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues024-026-normalized-v3\\evidence-path-index.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/evidence-path-index.json",
+      "sha256": "2f1153f115d8f4798cc402b4df74976ba3a5a0de5ac89282b78fdb9f1418efc0"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues023-026-bounded-decisions\\evidence\\b27-saved49-independent-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues023-026-resolution-60e6f94a7401/b27-saved49-independent-review.json",
+      "sha256": "e919b7a6115115af140ae9f65cba0f3ae4510566f768da84ad7bc4d3c87e6f80"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues023-026-bounded-decisions\\evidence\\completion-scopes-override-independent-review.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues023-026-resolution-60e6f94a7401/completion-scopes-override-independent-review.json",
+      "sha256": "3761679e94f8b85b4cc56d535d6d54ab712ddc6010b3310abd694e50dcb387ea"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues023-026-bounded-decisions\\evidence\\card-regression-negative-control-results.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues023-026-resolution-60e6f94a7401/card-regression-negative-control-results.json",
+      "sha256": "017e82907557befd41ce50b8aafd85bfc97f8172978157ddc1b1475827c5192d"
+    },
+    {
+      "scratch_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issues023-026-bounded-decisions\\evidence\\normalized-issue-proposals.json",
+      "target": "DevTools/FaB/CardRegression/source-review-evidence/issues024-026-62d6c259ae94/normalized-issue-proposals.json",
+      "sha256": "6e43d715ef42f8e18f7c35d6a47437a1b8eb1d5a34ec4d4ac0eee870d6aef092"
+    }
+  ],
+  "qualification": "Exact source/review evidence only; no gameplay/fixture writes."
+}

@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:30:57.319086+00:00",
+  "plan_sha256": "e5b4376aa987e8d2d9f6bfed88aaf878e60b5c37dc5c6be85ff91be816a69d34",
+  "independent_saved_proof_sha256": "7d73138ac6a9afdfd3b5cec2b71f6cb406a1c037e5fa8955614f74f6aac05b15",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b161-focused-fault-plan.json",
+    "e5b4376aa987e8d2d9f6bfed88aaf878e60b5c37dc5c6be85ff91be816a69d34",
+    "card-regression-sparse-b161-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b161_hundred_winds_red_focused_effect_sensitivity",
+      "fixture": "card-hundred-winds-red-four-live-sparse-actual-first-chain-link-hand-attack-and-printed-go-again-without-combo",
+      "fixture_sha256": "ffdfbaeef7266095470343c36f5e826fdbba77d7cb3fa2641ab6794693fd4d91",
+      "source_raw5": {
+        "initial_gamestate.txt": "6237f67b7b4ff64cc62f69d5bcdbca16013d3d7876e350cc6e6efb56db34ec5f",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "7383f16fe5df4a355f3c006575a66875f0870ee4a32bea66c7a8dae7389b8972",
+        "expected_final_gamestate.txt": "906da38ef5c0be2465a272d8b779d82c243c947b6e37d68b28ba15783e0cea46",
+        "meta.json": "9f6627ad619731b5da3bef2176de13002241808d840b29a937cf1b47afca5a0b"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "hundred_winds_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 228,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Hundred Winds / four live sparse first attack and go again: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add existing ELE_NO_GO tag only to actual primary5 CombatChain after real first Hand attack and four living-seat source responses. Current GameLogic409 directly suppresses Go again before printed evaluation; original first computedGA1to0 detects GA evaluation sensitivity while printedpower/cost/UID remain intact. All21 suffix actions and every original suffix oracle retained. Synthetic inhibition only, not legal card inhibition or positive Combo branch. Control stops at first GA oracle; positive native refund timing/pure lost-lateGA faults separately pin AP behavior. No Combo count/whenhit bottomdeck/sibling/hero/support/full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b161_spinning_wheel_kick_red_focused_effect_sensitivity",
+      "fixture": "card-spinning-wheel-kick-red-four-live-sparse-actual-first-chain-link-hand-attack-and-printed-go-again-without-combo",
+      "fixture_sha256": "af70c9b5b94d66e84f017b2a54d62ef82b5da9a7b77d4bacfb2524845740b155",
+      "source_raw5": {
+        "initial_gamestate.txt": "153432456372df77e5c89db4f3037acc2ac59a952dbeadb59493a5ff2da2a208",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "703764ba0d15ac952edcd6b4aa301db4744602805fb752ad94e885d362999da7",
+        "expected_final_gamestate.txt": "e9adf02564bd00aa6b500a258bed0acf72011abfb1e193b8416ed867bacd45e6",
+        "meta.json": "a12657fe6a1b30588ca974cfa3f51d749ad19f8c26fac8b4d1ad5a7a22bf9544"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "spinning_wheel_kick_red",
+            "mode": "add",
+            "tag": "ELE_NO_GO"
+          }
+        ]
+      },
+      "retained_assertions": 237,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Spinning Wheel Kick / four live sparse first attack and go again: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Add existing ELE_NO_GO tag only to actual primary5 CombatChain after real first Hand attack and four living-seat source responses. Current GameLogic409 directly suppresses Go again before printed evaluation; original first computedGA1to0 detects GA evaluation sensitivity while printedpower/cost/UID remain intact. All21 suffix actions and every original suffix oracle retained. Synthetic inhibition only, not legal card inhibition or positive Combo branch. Control stops at first GA oracle; positive native refund timing/pure lost-lateGA faults separately pin AP behavior. No Combo count/whenhit bottomdeck/sibling/hero/support/full-card credit. Every original suffix action and oracle retained; only offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

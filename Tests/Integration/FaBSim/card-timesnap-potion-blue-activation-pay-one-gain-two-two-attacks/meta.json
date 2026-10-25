@@ -1,0 +1,7 @@
+{
+    "name": "Timesnap Potion / pay-one-gain-two-two-attacks",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:51:00+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Action activation spends initial AP1 and destroys the item immediately, with no resource cost. Resolve gain2 AP (net +1, no separate go again). Attempting graveyard reuse does nothing. Two ordinary no-go-again attacks can now be played: first4, second printed3+Ira1=4, leaving defender12 and AP0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#timesnap_potion_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

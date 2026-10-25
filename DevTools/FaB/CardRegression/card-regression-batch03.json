@@ -1,0 +1,3089 @@
+[
+  {
+    "slug": "card-sigil-of-solace-red-opponent-turn-instant",
+    "name": "Sigil of Solace / opponent-turn-instant",
+    "cardIDs": [
+      "sigil_of_solace_red"
+    ],
+    "branches": [
+      "opponent-turn-instant"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sigil_of_solace_red",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Graveyard",
+            "cardID": "sigil_of_solace_red"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 9
+          }
+        ]
+      }
+    ],
+    "oracle": "Non-turn player plays the instant before blocks. Gain exactly 3 with zero action points, then take 4 from Wounding Blow.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_solace_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "health": [
+      20,
+      10
+    ]
+  },
+  {
+    "slug": "card-sigil-of-solace-yellow-opponent-turn-instant",
+    "name": "Sigil of Solace / opponent-turn-instant",
+    "cardIDs": [
+      "sigil_of_solace_yellow"
+    ],
+    "branches": [
+      "opponent-turn-instant"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sigil_of_solace_yellow",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Graveyard",
+            "cardID": "sigil_of_solace_yellow"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 8
+          }
+        ]
+      }
+    ],
+    "oracle": "Non-turn player plays the instant before blocks. Gain exactly 2 with zero action points, then take 4 from Wounding Blow.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_solace_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "health": [
+      20,
+      10
+    ]
+  },
+  {
+    "slug": "card-sigil-of-solace-blue-opponent-turn-instant",
+    "name": "Sigil of Solace / opponent-turn-instant",
+    "cardIDs": [
+      "sigil_of_solace_blue"
+    ],
+    "branches": [
+      "opponent-turn-instant"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sigil_of_solace_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 11
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Graveyard",
+            "cardID": "sigil_of_solace_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 7
+          }
+        ]
+      }
+    ],
+    "oracle": "Non-turn player plays the instant before blocks. Gain exactly 1 with zero action points, then take 4 from Wounding Blow.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_solace_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "health": [
+      20,
+      10
+    ]
+  },
+  {
+    "slug": "card-sink-below-red-arsenal-exchange",
+    "name": "Sink Below / arsenal-exchange",
+    "cardIDs": [
+      "sink_below_red"
+    ],
+    "branches": [
+      "arsenal-exchange"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_red",
+        "player": 2,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Arsenal-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hand-0",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "wounding_blow_blue"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "head_jab_blue"
+            ],
+            "player": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "sink_below_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "Play defense reaction from Arsenal. Printed defense 4 prevents 4 of incoming4. Optional exchange is True; only acceptance bottoms chosen card and draws original deck top.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-red-arsenal-decline",
+    "name": "Sink Below / arsenal-decline",
+    "cardIDs": [
+      "sink_below_red"
+    ],
+    "branches": [
+      "arsenal-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_red",
+        "player": 2,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Arsenal-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "-",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "head_jab_blue"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "wounding_blow_blue"
+            ],
+            "player": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "sink_below_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "Play defense reaction from Arsenal. Printed defense 4 prevents 4 of incoming4. Optional exchange is False; only acceptance bottoms chosen card and draws original deck top.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-red-empty-hand",
+    "name": "Sink Below / empty-hand",
+    "cardIDs": [
+      "sink_below_red"
+    ],
+    "branches": [
+      "empty-hand"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_red",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "REACTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Deck",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      }
+    ],
+    "oracle": "With no card left in hand after playing Sink, no exchange is possible and no card is drawn. Printed defense4 still applies.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-red-empty-deck-exchange",
+    "name": "Sink Below / empty-deck-exchange",
+    "cardIDs": [
+      "sink_below_red"
+    ],
+    "branches": [
+      "empty-deck-exchange"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_red",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hand-0",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Hand",
+            "cardID": "head_jab_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      }
+    ],
+    "oracle": "Bottoming into an empty deck makes the chosen card the sole deck card; the following draw returns that card. Printed defense4 still applies. Terminal-state compatibility only: membership alone does not distinguish an omitted exchange.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "coverage_kind": "terminal_state_compatibility"
+  },
+  {
+    "slug": "card-sink-below-yellow-hand-exchange",
+    "name": "Sink Below / hand-exchange",
+    "cardIDs": [
+      "sink_below_yellow"
+    ],
+    "branches": [
+      "hand-exchange"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_yellow",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hand-0",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "wounding_blow_blue"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "head_jab_blue"
+            ],
+            "player": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "sink_below_yellow"
+          }
+        ]
+      }
+    ],
+    "oracle": "Play defense reaction from Hand. Printed defense 3 prevents 3 of incoming4. Optional exchange is True; only acceptance bottoms chosen card and draws original deck top.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-yellow-hand-decline",
+    "name": "Sink Below / hand-decline",
+    "cardIDs": [
+      "sink_below_yellow"
+    ],
+    "branches": [
+      "hand-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_yellow",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "-",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "head_jab_blue"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "wounding_blow_blue"
+            ],
+            "player": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "sink_below_yellow"
+          }
+        ]
+      }
+    ],
+    "oracle": "Play defense reaction from Hand. Printed defense 3 prevents 3 of incoming4. Optional exchange is False; only acceptance bottoms chosen card and draws original deck top.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-yellow-arsenal-exchange",
+    "name": "Sink Below / arsenal-exchange",
+    "cardIDs": [
+      "sink_below_yellow"
+    ],
+    "branches": [
+      "arsenal-exchange"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_yellow",
+        "player": 2,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Arsenal-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hand-0",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "wounding_blow_blue"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "head_jab_blue"
+            ],
+            "player": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "sink_below_yellow"
+          }
+        ]
+      }
+    ],
+    "oracle": "Play defense reaction from Arsenal. Printed defense 3 prevents 3 of incoming4. Optional exchange is True; only acceptance bottoms chosen card and draws original deck top.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-yellow-arsenal-decline",
+    "name": "Sink Below / arsenal-decline",
+    "cardIDs": [
+      "sink_below_yellow"
+    ],
+    "branches": [
+      "arsenal-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_yellow",
+        "player": 2,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Arsenal-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "-",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "head_jab_blue"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "wounding_blow_blue"
+            ],
+            "player": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "sink_below_yellow"
+          }
+        ]
+      }
+    ],
+    "oracle": "Play defense reaction from Arsenal. Printed defense 3 prevents 3 of incoming4. Optional exchange is False; only acceptance bottoms chosen card and draws original deck top.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-yellow-empty-hand",
+    "name": "Sink Below / empty-hand",
+    "cardIDs": [
+      "sink_below_yellow"
+    ],
+    "branches": [
+      "empty-hand"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_yellow",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "REACTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Deck",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          }
+        ]
+      }
+    ],
+    "oracle": "With no card left in hand after playing Sink, no exchange is possible and no card is drawn. Printed defense3 still applies.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-yellow-empty-deck-exchange",
+    "name": "Sink Below / empty-deck-exchange",
+    "cardIDs": [
+      "sink_below_yellow"
+    ],
+    "branches": [
+      "empty-deck-exchange"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_yellow",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hand-0",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Hand",
+            "cardID": "head_jab_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          }
+        ]
+      }
+    ],
+    "oracle": "Bottoming into an empty deck makes the chosen card the sole deck card; the following draw returns that card. Printed defense3 still applies. Terminal-state compatibility only: membership alone does not distinguish an omitted exchange.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "coverage_kind": "terminal_state_compatibility"
+  },
+  {
+    "slug": "card-sink-below-blue-hand-exchange",
+    "name": "Sink Below / hand-exchange",
+    "cardIDs": [
+      "sink_below_blue"
+    ],
+    "branches": [
+      "hand-exchange"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hand-0",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "wounding_blow_blue"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "head_jab_blue"
+            ],
+            "player": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "sink_below_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Play defense reaction from Hand. Printed defense 2 prevents 2 of incoming4. Optional exchange is True; only acceptance bottoms chosen card and draws original deck top.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-blue-hand-decline",
+    "name": "Sink Below / hand-decline",
+    "cardIDs": [
+      "sink_below_blue"
+    ],
+    "branches": [
+      "hand-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "-",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "head_jab_blue"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "wounding_blow_blue"
+            ],
+            "player": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "sink_below_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Play defense reaction from Hand. Printed defense 2 prevents 2 of incoming4. Optional exchange is False; only acceptance bottoms chosen card and draws original deck top.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-blue-arsenal-exchange",
+    "name": "Sink Below / arsenal-exchange",
+    "cardIDs": [
+      "sink_below_blue"
+    ],
+    "branches": [
+      "arsenal-exchange"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_blue",
+        "player": 2,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Arsenal-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hand-0",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "wounding_blow_blue"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "head_jab_blue"
+            ],
+            "player": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "sink_below_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Play defense reaction from Arsenal. Printed defense 2 prevents 2 of incoming4. Optional exchange is True; only acceptance bottoms chosen card and draws original deck top.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-blue-arsenal-decline",
+    "name": "Sink Below / arsenal-decline",
+    "cardIDs": [
+      "sink_below_blue"
+    ],
+    "branches": [
+      "arsenal-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_blue",
+        "player": 2,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Arsenal-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "-",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "head_jab_blue"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "wounding_blow_blue"
+            ],
+            "player": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "sink_below_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "Play defense reaction from Arsenal. Printed defense 2 prevents 2 of incoming4. Optional exchange is False; only acceptance bottoms chosen card and draws original deck top.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-blue-empty-hand",
+    "name": "Sink Below / empty-hand",
+    "cardIDs": [
+      "sink_below_blue"
+    ],
+    "branches": [
+      "empty-hand"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "REACTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Deck",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          }
+        ]
+      }
+    ],
+    "oracle": "With no card left in hand after playing Sink, no exchange is possible and no card is drawn. Printed defense2 still applies.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-blue-empty-deck-exchange",
+    "name": "Sink Below / empty-deck-exchange",
+    "cardIDs": [
+      "sink_below_blue"
+    ],
+    "branches": [
+      "empty-deck-exchange"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hand-0",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Hand",
+            "cardID": "head_jab_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          }
+        ]
+      }
+    ],
+    "oracle": "Bottoming into an empty deck makes the chosen card the sole deck card; the following draw returns that card. Printed defense2 still applies. Terminal-state compatibility only: membership alone does not distinguish an omitted exchange.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "coverage_kind": "terminal_state_compatibility"
+  },
+  {
+    "slug": "card-bravo-cost-two-no-dominate",
+    "name": "Bravo / cost-two-no-dominate",
+    "cardIDs": [
+      "bravo"
+    ],
+    "branches": [
+      "cost-two-no-dominate"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hero-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "ACTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE"
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact negative boundary: Brutal Assault blue costs2, below Bravo threshold3, so both hand blockers must be legal.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#bravo",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ]
+  },
+  {
+    "slug": "card-goliath-gauntlet-cost-two-boundary",
+    "name": "Goliath Gauntlet / cost-two-boundary",
+    "cardIDs": [
+      "goliath_gauntlet"
+    ],
+    "branches": [
+      "cost-two-boundary"
+    ],
+    "zones": [
+      {
+        "cardID": "goliath_gauntlet",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "ACTION"
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 7
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Cost2 is included: first Surging Strike red attacks for printed5+2=7 with go again.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#goliath_gauntlet",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-goliath-gauntlet-cost-one-exclusion",
+    "name": "Goliath Gauntlet / cost-one-exclusion",
+    "cardIDs": [
+      "goliath_gauntlet"
+    ],
+    "branches": [
+      "cost-one-exclusion"
+    ],
+    "zones": [
+      {
+        "cardID": "goliath_gauntlet",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "ACTION"
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact negative boundary: Leg Tap red costs1, so it attacks for printed4 without the +2 Goliath buff.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#goliath_gauntlet",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-goliath-gauntlet-filter-and-consumption",
+    "name": "Goliath Gauntlet / filter-and-consumption",
+    "cardIDs": [
+      "goliath_gauntlet"
+    ],
+    "branches": [
+      "filter-and-consumption"
+    ],
+    "zones": [
+      {
+        "cardID": "goliath_gauntlet",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "ACTION"
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 8
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 9
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 6
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Cost0 Head Jab does not consume buff. Second attack Surging red costs2 and gets printed5+Goliath2+Ira1=8. Third Surging blue3 receives neither consumed Goliath nor second-attack Ira bonus.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#goliath_gauntlet",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-red-target-1",
+    "name": "Scalding Rain / target-1",
+    "cardIDs": [
+      "scalding_rain_red"
+    ],
+    "branches": [
+      "target-1"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "scalding_rain_red"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "arcaneDealt",
+            "value": {
+              "1": {
+                "1": 4
+              }
+            }
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "oracle": "Target hero may be own or opposing. Pay printed1 by pitching blue3; deal exactly4 arcane to selected hero, leave2resources, no go again.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "authoringNotes": [
+      "Fresh native rerecord after reviewed effects-before-clear repair; all prior action/numeric oracles retained. Added explicit caster1/target damage-credit expectation from printed damage and paid AB1, not captured outputs."
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-red-target-2",
+    "name": "Scalding Rain / target-2",
+    "cardIDs": [
+      "scalding_rain_red"
+    ],
+    "branches": [
+      "target-2"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "scalding_rain_red"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "arcaneDealt",
+            "value": {
+              "1": {
+                "2": 4
+              }
+            }
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "oracle": "Target hero may be own or opposing. Pay printed1 by pitching blue3; deal exactly4 arcane to selected hero, leave2resources, no go again.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "authoringNotes": [
+      "Fresh native rerecord after reviewed effects-before-clear repair; all prior action/numeric oracles retained. Added explicit caster1/target damage-credit expectation from printed damage and paid AB1, not captured outputs."
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-red-barrier-pay",
+    "name": "Scalding Rain / barrier-pay",
+    "cardIDs": [
+      "scalding_rain_red"
+    ],
+    "branches": [
+      "barrier-pay"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "1",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "arcaneDealt",
+            "value": {
+              "1": {
+                "2": 3
+              }
+            }
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane Barrier1 may pay1 to prevent1 of the 4 arcane damage, or decline. Equipment persists; payer is target seat2, not caster.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ],
+    "authoringNotes": [
+      "Fresh native rerecord after reviewed effects-before-clear repair; all prior action/numeric oracles retained. Added explicit caster1/target damage-credit expectation from printed damage and paid AB1, not captured outputs."
+    ]
+  },
+  {
+    "slug": "card-scalding-rain-red-barrier-decline",
+    "name": "Scalding Rain / barrier-decline",
+    "cardIDs": [
+      "scalding_rain_red"
+    ],
+    "branches": [
+      "barrier-decline"
+    ],
+    "zones": [
+      {
+        "cardID": "scalding_rain_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "nullrune_gloves",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hero-0",
+        "player": 1,
+        "type": "MZCHOOSE"
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "0",
+        "player": 2,
+        "type": "MZMODAL"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "nullrune_gloves"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "arcaneDealt",
+            "value": {
+              "1": {
+                "2": 4
+              }
+            }
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "oracle": "Arcane Barrier1 may pay1 to prevent1 of the 4 arcane damage, or decline. Equipment persists; payer is target seat2, not caster.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "kano_dracai_of_aether",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      0,
+      1
+    ],
+    "authoringNotes": [
+      "Fresh native rerecord after reviewed effects-before-clear repair; all prior action/numeric oracles retained. Added explicit caster1/target damage-credit expectation from printed damage and paid AB1, not captured outputs."
+    ]
+  }
+]

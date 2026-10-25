@@ -1,0 +1,7 @@
+{
+    "name": "Fate Foreseen / hand-opt-one-bottom-then-draw",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:36:45+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Fate Foreseen costs0 and defends for printed 2 from either hand or arsenal; no source-zone bonus. Opt1 looks only at original top wounding_blow_red; choose bottom, leaving order ['wounding_blow_yellow', 'wounding_blow_red']. Subsequent Sink Below blue bottoms the independent hand filler raging_onslaught_blue and draws wounding_blow_yellow; this persisted hand-card assertion proves the chosen ordering rather than only deck membership. Combined defense 2+2 prevents 4 of incoming Raging Onslaught7, giving life 17. Both cards are Generic and both heroes Ira; this is the first attack so no Ira bonus applies. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fate_foreseen_blue https://rules.fabtcg.com/en/cr/07-combat/#7.4 https://rules.fabtcg.com/en/cr/07-combat/#7.5 https://rules.fabtcg.com/en/cr/08-keywords/#8.5.22"
+}

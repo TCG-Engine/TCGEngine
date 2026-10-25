@@ -1,0 +1,1119 @@
+{
+  "status": "INDEPENDENT_ACTUAL_SAVED_BASELINE_REVIEW_APPROVED_PENDING_CURRENT_RUNTIME_REPLAY_AND_CONTROLS",
+  "reviewer": "/root/pilot_review",
+  "native_writes": 0,
+  "game_actions": 0,
+  "exact_spec_sha256": "f66901b20c29a21fe3e3d44568d8042faed8ef08c95168f8f065292d3fb809e9",
+  "checks": 1819,
+  "totals": {
+    "fixtures": 16,
+    "actions": 168,
+    "native_assertions": 455,
+    "native_game_state_fields": 18
+  },
+  "fixtures": [
+    {
+      "slug": "card-muscle-mutt-yellow-hand-floating-exact",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "36dc17a4fc22ebba6c2a18eaa806495e05a797d45fe6e833f30053f680069d10",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "3f2c812b6891e00801df55912ae846a17422e2c688c340151e167de3fa5a6a42",
+        "expected_final_gamestate.txt": "39411dbd6e2a521ac4f3b7c23a275ce0b958a013ec7ac73a5d7042590aa37fdd",
+        "meta.json": "a5cfed1b82b2c73ccc91a86cd9fc046c277b65269f284ff1cd9e6c1100f6af3b"
+      },
+      "fixture_sha256": "94fe5d1a62a8db97fe53c6c8428b698025df612c63de0ebbd1152b322ea267ec",
+      "actions": 14,
+      "native_assertions": 39,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": "costs_complete_before_priority",
+          "step": 1,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 1
+        },
+        {
+          "checkpoint": "attack_declared",
+          "step": 3,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "link_resolved_no_early_clear",
+          "step": 12,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "chain_closed_to_owner_graveyard",
+          "step": 14,
+          "native_assertions": 9
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        }
+      ],
+      "independent_expected": {
+        "terminal_p2_health": 14,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "hand-floating-exact"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-hand-floating-overfunded",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "44079f1203689b2c16cc318947437f287d6ed6c35eee2358eed71a72da122fc7",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "f57fa2a929d1f9564fe1c1799bbef1a46f14a5a1313bc78a6cd4dee23775fc80",
+        "expected_final_gamestate.txt": "1d45074bcdb3c03000f782a30167e36bf7cc43b1406707b2e4400fdb75eb75b5",
+        "meta.json": "9019a0066ab278ff5f528937be28e486dea39dc2b3e1ed183ebe3de355e8cb97"
+      },
+      "fixture_sha256": "8fafe94ff2fe565374e904f78b64b35da0184dadd2aa3b228833d8987640c484",
+      "actions": 14,
+      "native_assertions": 39,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": "costs_complete_before_priority",
+          "step": 1,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 1
+        },
+        {
+          "checkpoint": "attack_declared",
+          "step": 3,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "link_resolved_no_early_clear",
+          "step": 12,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "chain_closed_to_owner_graveyard",
+          "step": 14,
+          "native_assertions": 9
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        }
+      ],
+      "independent_expected": {
+        "terminal_p2_health": 14,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "hand-floating-overfunded"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-arsenal-facedown-floating",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "da46fb76536ba2cd062021e97260314b82db0b560449609d6dae887add7f15f7",
+        "actions.json": "6307663f4c92cc393702956421915a51535aeb68b85deaa8a7266ec62d8aec29",
+        "assertions.json": "a515c7b88a4ea5ba2972efb23f237d21c94341ee4be911141c47806dfd52d7af",
+        "expected_final_gamestate.txt": "2055d2dc4f8adac39cfc757210773064c781a59fabc9031d8da097d6f0936000",
+        "meta.json": "907b723ee58f16a620a547f3bcde003e2c4c869698b19773dd693a725a0e5348"
+      },
+      "fixture_sha256": "832712cf85151fa644bc9eed4f84fd738281687c0a1ee3055bc3cc2107aa98e4",
+      "actions": 14,
+      "native_assertions": 39,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": "costs_complete_before_priority",
+          "step": 1,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 1
+        },
+        {
+          "checkpoint": "attack_declared",
+          "step": 3,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "link_resolved_no_early_clear",
+          "step": 12,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "chain_closed_to_owner_graveyard",
+          "step": 14,
+          "native_assertions": 9
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Arsenal-0"
+          }
+        }
+      ],
+      "independent_expected": {
+        "terminal_p2_health": 14,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "arsenal-facedown-floating"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-arsenal-faceup-floating",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "62fe14be23728632abb9ab1f2930c8b236289fa25546859b9994051154638229",
+        "actions.json": "6307663f4c92cc393702956421915a51535aeb68b85deaa8a7266ec62d8aec29",
+        "assertions.json": "a515c7b88a4ea5ba2972efb23f237d21c94341ee4be911141c47806dfd52d7af",
+        "expected_final_gamestate.txt": "d20c943eb831faf4544a7f80bc7a8b65d074efa03cd8558b79200ae4d941027a",
+        "meta.json": "61f27d2a3b8e1d3d74786f40e2b4b756ed1f9c254e13a68982bc5ee234eb2ad6"
+      },
+      "fixture_sha256": "d8a7593a689dac754c9d5dca455f8c0c9abb83c8d30d68d3067db393e7aadfc6",
+      "actions": 14,
+      "native_assertions": 39,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": "costs_complete_before_priority",
+          "step": 1,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 1
+        },
+        {
+          "checkpoint": "attack_declared",
+          "step": 3,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "link_resolved_no_early_clear",
+          "step": 12,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "chain_closed_to_owner_graveyard",
+          "step": 14,
+          "native_assertions": 9
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Arsenal-0"
+          }
+        }
+      ],
+      "independent_expected": {
+        "terminal_p2_health": 14,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "arsenal-faceup-floating"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-hand-blue-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e8bb71d64a8acf419695379d662aa99e2d7e58abc6e0aa0db721f9afa9779188",
+        "actions.json": "a5527b44e1419ef78f27212f020666139abf2833f6221775456d91bea3ed7eae",
+        "assertions.json": "ccd156176b9e79418e5b99dd44ea6546308b860bfd962bcd238b30cd6b5771c3",
+        "expected_final_gamestate.txt": "8cd7423cf5cdfe1d24a14963d9ac6b8a3cc74b87cf7be309d42d823b1ce4c1cb",
+        "meta.json": "7b65fd1d693ffc4263302a04b04277da78205a364249ebb9c939518f65beb36a"
+      },
+      "fixture_sha256": "6fe5fda052210cbf27c9cd22e8daffcd42e0c2ea43e6ffff5a15c32030cfeafd",
+      "actions": 15,
+      "native_assertions": 46,
+      "native_game_state_fields": 2,
+      "checkpoints": [
+        {
+          "checkpoint": "await_asset_payment",
+          "step": 1,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "costs_complete_before_priority",
+          "step": 2,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": "attack_declared",
+          "step": 4,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "link_resolved_no_early_clear",
+          "step": 13,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "chain_closed_to_owner_graveyard",
+          "step": 15,
+          "native_assertions": 9
+        }
+      ],
+      "author_only_checks": [],
+      "independent_expected": {
+        "terminal_p2_health": 14,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "hand-blue-pitch"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-hand-red-then-yellow-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e61f04ca87dbf85bb2e8b3e71a6b1d7e3f3f9d2d7a4cfc111d77cd0920fa61a4",
+        "actions.json": "26673f0d8e82bf9641b5eb9492a8711061e13f357edbbbe3407845acf24cdb7e",
+        "assertions.json": "3339dd1eaf37625a7c8aad36fa5bc50eea000ad372b7e3193157c4f6b5caf218",
+        "expected_final_gamestate.txt": "1da0d991825724046bc7861ce20a45cb966ecfd13a438e186529e376cce0b6d1",
+        "meta.json": "34e26afd388ee3e41e33a79ffe2ade3845e7e38ca1d256f208ad470229a650a0"
+      },
+      "fixture_sha256": "a125e49096f3e2aead54a4c5c1b31825af0b5fee7e17979a4667cbff5cb85b66",
+      "actions": 16,
+      "native_assertions": 51,
+      "native_game_state_fields": 3,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "partially_funded_one_of_three",
+          "step": 2,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "costs_complete_before_priority",
+          "step": 3,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": null,
+          "step": 3,
+          "native_assertions": 1
+        },
+        {
+          "checkpoint": "attack_declared",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "link_resolved_no_early_clear",
+          "step": 14,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "chain_closed_to_owner_graveyard",
+          "step": 16,
+          "native_assertions": 9
+        }
+      ],
+      "author_only_checks": [],
+      "independent_expected": {
+        "terminal_p2_health": 14,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "hand-red-then-yellow-pitch"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-single-block-three-damage",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ad6eb1181a22212e37982a31692e4ef2113d564589b46eb51a6be0a41580b218",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "adf81533719a8cb2c9f082a68238747cb21b419bea829dcd8c55277c4ac08295",
+        "expected_final_gamestate.txt": "c0ba2d42cd4edcf0f5a5dbbec841972ee36726848191dd4be4e5cd1ad1eeafe7",
+        "meta.json": "3949431184067c4248e2d467dc63f2f6db0190fcc34e4dfa0342ee998c7f30d0"
+      },
+      "fixture_sha256": "7a9f7db9342334cb55ad5982996f1aa8ca129e48eb635b8e9266f6c5e0a83f0d",
+      "actions": 15,
+      "native_assertions": 43,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "costs_complete_before_priority",
+          "step": 1,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": "attack_declared",
+          "step": 3,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "declared_ordinary_defense",
+          "step": 6,
+          "native_assertions": 2
+        },
+        {
+          "checkpoint": "link_resolved_no_early_clear",
+          "step": 13,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "chain_closed_to_owner_graveyard",
+          "step": 15,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 15,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "declared_ordinary_defense",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        }
+      ],
+      "independent_expected": {
+        "terminal_p2_health": 17,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "single-block-three-damage"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-fully-blocked-no-hit",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "996aba2932f22d0464dc2e1aa7ea8a3985b138f1ca167af8918af4c4c6d93e9c",
+        "actions.json": "ee1554813ae56fd5c4c952b7aaffeb1e1c944bd939f62ac3555a1102072258ca",
+        "assertions.json": "a5f4d3b69b00d3ce3cb2cefc7244aeb7ce06136cef290a3ccbf135ecd918c681",
+        "expected_final_gamestate.txt": "7ff91af3f194dff8c0baf07dff8030b9315c9d8566beb05c5859c8ca6fcc01fc",
+        "meta.json": "4a22a119935246d981c84ed8f97e2f07767da7645905078987c74f46ca9910c1"
+      },
+      "fixture_sha256": "1b60c9afa0e1f6083c229d84a78f99708f4d511e4b8d782feb7b9d4ceae87549",
+      "actions": 16,
+      "native_assertions": 43,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": "costs_complete_before_priority",
+          "step": 1,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": "attack_declared",
+          "step": 3,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "declared_ordinary_defense",
+          "step": 7,
+          "native_assertions": 2
+        },
+        {
+          "checkpoint": "link_resolved_no_early_clear",
+          "step": 14,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "chain_closed_to_owner_graveyard",
+          "step": 16,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 16,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "declared_ordinary_defense",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        }
+      ],
+      "independent_expected": {
+        "terminal_p2_health": 20,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "fully-blocked-no-hit"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-defends-for-two-no-hit",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "fe07c4652430fae183562d06a3825eb4f759e85c587686ccdc782b0b57625580",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "8173feceb2bf71c8416390a0328b01b01833e1b789c8d7622bfbdb69736abade",
+        "expected_final_gamestate.txt": "b606b3be45f70b0bfe1a168f95e76e5ebed85e9f006e5a77e438da7cdec435db",
+        "meta.json": "ba26ddd766f8f1bbd7e1a7e5785dd1c08246b9f8c5875c0d45a1fee1c2aa8988"
+      },
+      "fixture_sha256": "d5a42c1d279e571f394027cffeab438560e893abaccb19af599f0f1008290f2b",
+      "actions": 15,
+      "native_assertions": 16,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": "muscle_mutt_defense_two",
+          "step": 6,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": null,
+          "step": 13,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 15,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "muscle_mutt_defense_two",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        }
+      ],
+      "independent_expected": {
+        "terminal_p2_health": 20,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "defends-for-two-no-hit"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-pitched-yellow-for-two",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3c9331d4582c4d5ed9eef41efce86b8d7ea592c2872fcc12554136981bbeca0a",
+        "actions.json": "a5527b44e1419ef78f27212f020666139abf2833f6221775456d91bea3ed7eae",
+        "assertions.json": "12801f1fc9bb41623e6695cad68a349f143e3e612f2e09b4461bc444d1222371",
+        "expected_final_gamestate.txt": "f29bfeafbb24156a425056bd008d9cc99977fc9601e598748e2a35562d885aec",
+        "meta.json": "bdb047788431b7c66a6e34b08898c96d40d6c9f85d11bdde00f04c68a4a188f3"
+      },
+      "fixture_sha256": "72e867c32cd70ad625179653c40d6accdf41e166af54899d54341a5f6c7d1dae",
+      "actions": 15,
+      "native_assertions": 20,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "yellow_pitch_supplies_two",
+          "step": 2,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": null,
+          "step": 4,
+          "native_assertions": 2
+        },
+        {
+          "checkpoint": null,
+          "step": 13,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": null,
+          "step": 15,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [],
+      "independent_expected": {
+        "terminal_p2_health": 13,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "pitched-yellow-for-two"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-hand-insufficient-two-resources",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4a3882ea578674d4bce1742aa7eb68cabc93df92e8b2e5269fa5cbf4d38317db",
+        "actions.json": "552f566dbb3f92cd5ba073367ebc69489d64068f7398d09f17f8cf93f0e2025d",
+        "assertions.json": "cc68c9133b18c715074e24b65e7c1c58bcac93510a97c5318beb9462c4e71396",
+        "expected_final_gamestate.txt": "875245a13a8afc7701a9b4d0ce01aaaba1832a48d30b9e66682ad35c1b6044ca",
+        "meta.json": "e7f9b207374eab75379379647848aa3ed949653352f9ae3271dfa14e29145d95"
+      },
+      "fixture_sha256": "02ed83bbc68c361bc8f5443549c8fb37604eb1f03bd82eba5a650fd7c678a319",
+      "actions": 1,
+      "native_assertions": 8,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 8
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        }
+      ],
+      "independent_expected": {
+        "terminal_p2_health": 20,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "hand-insufficient-two-resources"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-arsenal-insufficient-two-resources",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ec46872866b07096c2cef51e9dc575c197868c590670a7ffb856a1cbbf54a3ea",
+        "actions.json": "2e026749e693d5022c4f6e88007acffd99666f09dbec6db454522331fdd0d2ce",
+        "assertions.json": "8442b6dcfa8c2c4837a898b5c5cc51d996c88af5272af406529353e80265e144",
+        "expected_final_gamestate.txt": "1c87ec91245cb4dbb4fb6efdc917dd0944f800ef7308bcd782692e379f683248",
+        "meta.json": "b97dd526eb91d92ea3c75c6da42832bb6181140ff456f4418205abd5f3ee2b0b"
+      },
+      "fixture_sha256": "1492cd5954bafd4660c3e951a4cafa44630e91cb5ba3bd2784144ca04cfc9496",
+      "actions": 1,
+      "native_assertions": 8,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 8
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Arsenal-0"
+          }
+        }
+      ],
+      "independent_expected": {
+        "terminal_p2_health": 20,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "arsenal-insufficient-two-resources"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-zero-action-points-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "45711975e3203d1c5e2b08fb611c1409dec1cdf564576876cb81980da645d705",
+        "actions.json": "552f566dbb3f92cd5ba073367ebc69489d64068f7398d09f17f8cf93f0e2025d",
+        "assertions.json": "6fb8524bffda0cb3fbc4d7b404c1089c89a805e7aa43b9161a21ea89741ffe8d",
+        "expected_final_gamestate.txt": "f544fde86cd91674bc00e8077f7c531e5b4ec13a977bab7b32ddce96ba2f7418",
+        "meta.json": "6653222dd4dc5cb1e971d25150d333668074ab95dd2366fbd5d8bbdb68ccb68c"
+      },
+      "fixture_sha256": "1ff9cb52adcde68a7b0d13d866cf56b822f87ac0965eec47cfe20c98b6c96f6d",
+      "actions": 1,
+      "native_assertions": 9,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 9
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        }
+      ],
+      "independent_expected": {
+        "terminal_p2_health": 20,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "zero-action-points-rejected"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-nonturn-action-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d87db5098c99bd433f7c18df4722e1c27ea2e39493b018ecb93161618eb89212",
+        "actions.json": "f09dd53c2a5c5d163b4a2920873daf59040048dd0668994dee1a686156268dd3",
+        "assertions.json": "58605945696d5a7888d29e8993b6ca57a10aadef417596bc561ffcf180542c2a",
+        "expected_final_gamestate.txt": "fe5ea5428c18d679c9a3250ab60a4f6b37c326d6f5e6bacb4934ba3d055de73d",
+        "meta.json": "1a66b44a67f80df383b81cbc77d9de27cac665485d2602ac8b816b14a74483a1"
+      },
+      "fixture_sha256": "b225fe2fc415403eb9984826aed5584b4b21731676fab1bfcb3593d1dd69ba55",
+      "actions": 1,
+      "native_assertions": 10,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 10
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 2,
+            "mzID": "p2Hand-0"
+          }
+        }
+      ],
+      "independent_expected": {
+        "terminal_p2_health": 20,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "nonturn-action-rejected"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 2,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-wrong-priority-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "f08f1d8b747fc39ca33f9d3752cd8ae84113cdd5a1ce67201139a76cfff23f26",
+        "actions.json": "552f566dbb3f92cd5ba073367ebc69489d64068f7398d09f17f8cf93f0e2025d",
+        "assertions.json": "ef1992d3df007ed1405dabf92100c1eb40fcb5b906960cf00214cb327f06a818",
+        "expected_final_gamestate.txt": "3fe998d6d113885326c26885c3086a308fa938602401237afbe026e763223ed3",
+        "meta.json": "ae3b3fed8c56a4e912792cc351e64f7c8a8f83c066f2ed7ecad088f3249dd57d"
+      },
+      "fixture_sha256": "7edb73cf135df40d14e61a96ebe1e8aee4268c25b4f937b4c64ed752aa01ffbd",
+      "actions": 1,
+      "native_assertions": 10,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 1,
+          "native_assertions": 10
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        }
+      ],
+      "independent_expected": {
+        "terminal_p2_health": 20,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "wrong-priority-rejected"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 2,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5c1b5c68318837b596152b559357ff65068f483092c20fa10562e906dc152164",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "e27bce96d15e246059de354607c9f69f9bf783fbd47fb7579d04894dfccce2ec",
+        "expected_final_gamestate.txt": "7f844797ce7b24cf18ed9c95ce46713b33409625357745996ed4b64b89440c18",
+        "meta.json": "7604f63aa8d6d10e922dbf7b6489ce4a32d40dab88abd4ab19d3b4dc0d807500"
+      },
+      "fixture_sha256": "0262458bfb3bb5b22c924cda19ba5fc018a550f5ea9b5666ff955c9ab793344a",
+      "actions": 15,
+      "native_assertions": 35,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "printed_two_defense_before_exact_damage",
+          "step": 6,
+          "native_assertions": 13
+        },
+        {
+          "checkpoint": null,
+          "step": 13,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": null,
+          "step": 15,
+          "native_assertions": 13
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "printed_two_defense_before_exact_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        }
+      ],
+      "independent_expected": {
+        "terminal_p2_health": 18,
+        "primary_stats": {
+          "cost": 3,
+          "power": 6,
+          "defense": 2,
+          "pitch": 2
+        },
+        "branch": "printed-defense-two-persisted-by-exact-damage"
+      },
+      "final_state_observed_not_all_explicitly_asserted": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "priority": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      }
+    }
+  ],
+  "fresh_exact_defense_control_readiness": [
+    {
+      "mutation": "muscle_defense_plus_one",
+      "prefix": 6,
+      "expected_failure_step": 7,
+      "object_effect": [
+        {
+          "player": 2,
+          "zone": "CombatChain",
+          "cardID": "muscle_mutt_yellow",
+          "tag": "WTR_DEFENSE:1",
+          "mode": "add"
+        }
+      ],
+      "tail_actions": 9,
+      "retained_native_assertions": 35
+    },
+    {
+      "mutation": "muscle_defense_minus_one",
+      "prefix": 6,
+      "expected_failure_step": 7,
+      "object_effect": [
+        {
+          "player": 2,
+          "zone": "CombatChain",
+          "cardID": "muscle_mutt_yellow",
+          "tag": "WTR_DEFENSE:-1",
+          "mode": "add"
+        }
+      ],
+      "tail_actions": 9,
+      "retained_native_assertions": 35
+    }
+  ],
+  "independent_rules_sources": [
+    "https://judge.fabtcg.com/cards/detail/1486/",
+    "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+    "https://rules.fabtcg.com/en/cr/07-combat/"
+  ],
+  "finite_scope_completion_criteria": {
+    "scope": "Ordinary printed-stat/no-text Muscle Mutt yellow behavior in a two-hero game; versioned baseline16 matrix, not arbitrary effects/format legality.",
+    "required_behavior_witnesses": [
+      "All six payment/source routes: Hand exact/overfunded; facedown/faceup Arsenal; one blue and sequential red+yellow funding.",
+      "Printed power6, paid cost3/AP1, native go-again0 and AP0 after hit/full block; source on chain through resolution then owner Graveyard at Close.",
+      "Unblocked6, single printed3 blocker causing3, full printed6 block causing0.",
+      "Primary pitch2 isolated by funding cost3 from initial1 and leaving resources0; source stays Pitch.",
+      "Primary defense2 bounded both by blue2 fullblock and red4 partial2 damage; defense1/3 must change native HP18.",
+      "Actual no-change clicks for resources2 from Hand/Arsenal, own-turn AP0, nonturn legal AP0 state, and funded own-turn wrong priority."
+    ],
+    "already_present_in_exact_saved16": "All behavior witnesses are represented with actual supported action lists and persisted critical numeric/zone/state assertions.",
+    "required_remaining_gates": [
+      "Independent Muscle54 mutation helper/planner review; native +1/-1 faults fail semantic HP assertion, no setup exception/snapshot-only failure.",
+      "At least two clean deterministic replays of exact fixture hashes against the same final current runtime after pending shared source changes; relevant native WTR/ARC suites.",
+      "Manifest retains exact paths/hashes, native vs author-only evidence, scope and all remaining exclusions."
+    ],
+    "status": "BASELINE_MATRIX_COMPLETE_AS_SAVED; VERIFIED_FINITE_SCOPE_COMPLETE_ONLY_AFTER_REMAINING_GATES",
+    "qualification": "No card-specific ability text exists. Nonturn rejection is a legal AP0/offturn conjunction; it does not independently prove the internal nonturn predicate. Defense diagnostics and CanPlay diagnostics are author-only; native HP18 plus power4 pins exact defense, and actual rejected clicks pin externally visible outcomes.",
+    "not_claimed": [
+      "Every external cost/power/defense modifier, replacement, prohibition, damage observer, targeting ally/UPF, ownership/source departure, turn-end pitch ordering or other card interactions.",
+      "Any individual internal CanPlay/CanActivate interface regression guarantee; exhaustive private-zone/deck/UI legality."
+    ]
+  },
+  "replay_result": "Not run by this reviewer. Parent owns serial game execution and final current-runtime gates."
+}

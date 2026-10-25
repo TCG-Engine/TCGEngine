@@ -1,0 +1,17 @@
+{
+  "status": "FROZEN_EXACT_TWO_FIELD_CNC074_CORRECTION_PENDING_INDEPENDENT_GATE",
+  "files": {
+    "card-regression-batch74-proposed.json": "6ba6da34a3e868a4ca69a9f9e4ea092a807ed21e4a007f4aad7368857a998ba5",
+    "card-regression-batch74-pilot-proposed.json": "7f7fad9fc79e5333dcc77d1e7fe850131e504ef67db829950c2f7863215aa063",
+    "delta-and-validation.json": "626ad9b829c065b4d376973a1b22b19eaf99f73ae40d92cc9759ec3c23d2f383"
+  },
+  "original_files": {
+    "card-regression-batch74-proposed.json": "8fc65d98f4f2f70d815a340f5eded9f18db3eb377ab69e9eddbdf62d8d8eb897",
+    "card-regression-batch74-pilot-proposed.json": "d835ed906419f244fcbde47ba65c19e8a363f03505b5f3ca18d792c20b6e4b59"
+  },
+  "original_independent_spec_sha256": "ca23257e75fdf9c4b14ed051095042ba8a215ccde81aeff5424996cc11f86aae",
+  "actual_saved6_review_sha256": "ad83043fbe41aaa83535862f6f85ccca0092245f6c9b2c10fcd22059d20abdaa",
+  "originals_not_rewritten": true,
+  "native_writes": 0,
+  "game_actions": 0
+}

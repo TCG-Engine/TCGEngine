@@ -1,0 +1,7 @@
+{
+    "name": "Timesnap Potion / deploy-spends-last-ap-no-immediate-activation",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:28+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Playing this cost0 Action Item spends the last AP and has no go again. The deployed item cannot activate its Action ability at AP0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#timesnap_potion_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

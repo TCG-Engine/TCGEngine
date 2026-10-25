@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T20:35:34+00:00",
+    "input_file": "card-regression-batch163.json",
+    "input_sha256": "0909a6e9c8a9050efd589813d162cd9d1e5aeeae9c2ef0611cc2712706a4b0cd",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-zephyr-needle-four-live-sparse-actual-paid-ninja-weapon-attack-damage-go-again-and-physical-weapon-retention",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 578
+        },
+        {
+            "slug": "card-edge-of-autumn-four-live-sparse-actual-paid-ninja-weapon-attack-damage-go-again-and-physical-weapon-retention",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 578
+        }
+    ]
+}

@@ -11,6 +11,7 @@ $leaderAbilities["SHD_003"] = function(int $player): void {
     if (empty($hosts)) { SWUAfterAction($player); return; }
     DecisionQueueController::StoreVariable("DefeatUpgParams", "1|1|");
     DecisionQueueController::StoreVariable("DefeatUpgThen", "SHD_003#then");
+    SWUFriendlyUpgradeOnlyOnHost(intval($player));
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $hosts), 1, tooltip: "Defeat_a_friendly_upgrade");
     DecisionQueueController::AddDecision($player, "CUSTOM", "DEFEAT_UPGRADE", 1);
     SWUQueueAfterAction($player);
@@ -22,6 +23,7 @@ $onAttackAbilities["SHD_003:0"] = function($player, $mzID) {
     if (empty($hosts)) return;
     DecisionQueueController::StoreVariable("DefeatUpgParams", "1|1|");
     DecisionQueueController::StoreVariable("DefeatUpgThen", "SHD_003#then");
+    SWUFriendlyUpgradeOnlyOnHost(intval($player));
     DecisionQueueController::AddDecision(intval($player), "MZMAYCHOOSE", implode("&", $hosts), 1, tooltip: "Defeat_a_friendly_upgrade?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "DEFEAT_UPGRADE", 1);
 };
@@ -45,20 +47,8 @@ $customDQHandlers["SHD_003#then"] = function($player, $parts, $lastDecision) {
 // Scanning only your own arenas got this wrong in both directions: your own upgrade sitting on an ENEMY
 // unit was unreachable (the ability fizzled entirely), while an ENEMY's upgrade on your unit was offered.
 function FinnThisisaRescueUpgradedFriendlies(int $player): array {
-    $hosts = [];
-    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
-    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
-    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
-    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
-    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o === null || !empty($o->removed)) continue;
-            foreach (GetUpgradesOnUnit($o) as $sub) {
-                $ctrl = is_array($sub) ? intval($sub['Controller'] ?? 0) : intval($sub->Controller ?? 0);
-                if ($ctrl === intval($player)) { $hosts[] = $mz; break; }   // this host carries one of MINE
-            }
-        }
-    }
-    return $hosts;
+    // The shared CR reading (SWUIsFriendlyUpgrade): a non-token upgrade I control, wherever it sits, or a token
+    // upgrade on a unit I control. The old scan read every subcard's own Controller, which the Shield/Experience/
+    // Advantage givers set to the GIVER — so a token I gave to an ENEMY unit was offered as mine.
+    return SWUFriendlyUpgradeHosts($player);
 }

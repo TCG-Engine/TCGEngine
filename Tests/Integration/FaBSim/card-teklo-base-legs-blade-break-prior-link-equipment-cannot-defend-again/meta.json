@@ -1,0 +1,7 @@
+{
+    "name": "Teklo Base Legs / Blade Break prior-link-equipment-cannot-defend-again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:02:58+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed defense1 and only Blade Break. CR8.3.3 destroys this when the combat chain closes if it defended. CR7.7.1/7.7.4 gives no priority during Close Step and resolves close triggers automatically before remaining equipment returns (7.7.5). Start2AP as an isolated legal prior-effect state. First4attack with equipment1 deals3. While the chain remains open, play second plain2attack. Already defending equipment stays on link1, cannot defend link2, and second attack deals2. Total HP15, one close destruction after both links; closing the first link alone must not destroy/return it. Sources: https://rules.fabtcg.com/en/cr/08-keywords/#833 https://rules.fabtcg.com/en/cr/07-combat/#77 https://rules.fabtcg.com/en/cr/06-effects/#66 FaBSim/GeneratedCode/cardArrayCache.json#teklo_base_legs"
+}

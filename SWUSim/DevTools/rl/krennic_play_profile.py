@@ -1,9 +1,9 @@
-"""How a Director Krennic (LAW) player actually plays — measured the SAME way from human Karabast logs and from SWUSim
+"""How a Director Krennic (LAW) player actually plays — measured the SAME way from human game logs and from SWUSim
 bot game logs, so a human demonstration and the bot's own games can be compared side by side.
 
-usage: krennic_play_profile.py <karabast dir> <human player name> <sweep logs dir> <bot krennic fixture> [opp ...]
+usage: krennic_play_profile.py <human logs dir> <human player name> <sweep logs dir> <bot krennic fixture> [opp ...]
 
-Karabast logs: one plain-text game per file ("NininTCG plays Lepi Lookout", "Round: 3 - Action Phase").
+Human game logs: one plain-text game per file ("NininTCG plays Lepi Lookout", "Round: 3 - Action Phase").
 SWUSim logs: the sweep's logs/<deckA>.<deckB>.<seed>.log ("<NL>"-joined; P1 = deckA). Only games where the Krennic
 fixture is one of the two decks are read; with opponents given, only those pairings.
 Measures, for the Krennic player: Krennic Action sacrifices (did the unit already attack this round? does it pay back
@@ -11,7 +11,7 @@ on death?), what Credits bought, when Krennic deployed and what happened earlier
 before vs after acting, when resourcing stopped, attack targets, Chimaera's friendly target."""
 import sys, os, re, glob, collections, statistics
 
-KAR, HUMAN, LOGS, FX = sys.argv[1:5]
+HUMAN_DIR, HUMAN, LOGS, FX = sys.argv[1:5]
 OPPS = set(sys.argv[5:])
 # Units whose death pays back (draw / resource itself / heal / replacement) — name and SET_NNN.
 PAYBACK = {'Ant Droid', 'Expendable Mercenary', 'Nightsister Warrior', 'Onyx Squadron Brute', 'Imperial Door Technician',
@@ -22,7 +22,7 @@ SWEEPS = {'Single Reactor Ignition', 'Hyperspace Disaster', 'Pre Vizsla', 'Lawbr
 def new_game(): return {'sacs': [], 'credits': [], 'deploy': None, 'claims': [], 'resourced': {}, 'attacks': [],
                         'chimaera_friendly': [], 'rounds': 0, 'won': None}
 
-def karabast(path, me):
+def human_log(path, me):
     g = new_game(); rnd = 0; acted = False; attacked = set(); played = set(); sweep_kills = 0; phase = ''
     lines = open(path).read().splitlines()
     for i, l in enumerate(lines):
@@ -117,8 +117,8 @@ def summarise(label, games):
     print(f'  attacks: {len(att) / n:.1f}/game, at base {pct(att.count("base"), len(att))}')
     if chim: print(f'  Chimaera friendly target: {chim.most_common(6)}')
 
-human = [karabast(p, HUMAN) for p in sorted(glob.glob(os.path.join(KAR, '*.txt')))]
-summarise(f'HUMAN {HUMAN} (Karabast)', human)
+human = [human_log(p, HUMAN) for p in sorted(glob.glob(os.path.join(HUMAN_DIR, '*.txt')))]
+summarise(f'HUMAN {HUMAN} (human logs)', human)
 bot = []
 res = {}
 rpath = os.path.join(os.path.dirname(LOGS.rstrip('/')), 'results.tsv')

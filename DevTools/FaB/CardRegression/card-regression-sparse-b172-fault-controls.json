@@ -1,0 +1,45 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:05:51.065791+00:00",
+  "plan_sha256": "b22c8c0861b10f0f2137672b8df1c2f98ff6c984868ce26820528f3dda654c43",
+  "independent_saved_proof_sha256": "46b6f3071bc28b56dec562fae1bc9658251a82c80f4134c7adab271ee6594417",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b172-focused-fault-plan.json",
+    "b22c8c0861b10f0f2137672b8df1c2f98ff6c984868ce26820528f3dda654c43",
+    "card-regression-sparse-b172-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b172_captains_coat_focused_effect_sensitivity",
+      "fixture": "card-captains-coat-four-live-sparse-real-prior-draw-earns-equipment-destruction-resource-ability",
+      "fixture_sha256": "5a7ae51a6ced450126c714efb165ef494a23be5f500c308d94ce32defeb24d51",
+      "source_raw5": {
+        "initial_gamestate.txt": "4a1b9c2b07c465ce6e544bc9ddff61830add82788e627244469ce6be9727266a",
+        "actions.json": "68c0bc7e57b22f872676d2d62260c672775a25a6c8c01418e37bdc68f99609fd",
+        "assertions.json": "cf844c387bc04ee2c5b9af844fd01740034c257d4c84ee4bb4fd0af3a8e60e5b",
+        "expected_final_gamestate.txt": "d3b0f332fede940ca472ddfe33072bf0147e973fb35d835856eacc01260c2181",
+        "meta.json": "ac6974139ec033410a0a5a1a043050ab7e3da1827fd6821c609f0c9aa3c8ae36"
+      },
+      "prefix_actions": 7,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 291,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Resources to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Captain's Coat / four live actual prior-draw activation: Step 4 assertion failed: Expected p1Resources to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Remove only sole actualABI9 arcSpec dispatch after actual DrawSwords6 paidBlue7/draw8 and Coat5destroy/AP0. Existing WTRAbilitySpec has noCaptainCoat fallback, so body/abilityGA inert. First native final resource1 becomes0; physical sourcecost/Hand8/Pitch7 preserved. Missing printed resource-body sensitivity, not isolated gain-amount/condition-rejection or legal alternate action credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

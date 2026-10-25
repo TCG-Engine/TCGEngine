@@ -1,0 +1,7 @@
+{
+    "name": "Surging Strike / innate go again / blue / arsenal-facedown-floating-exact",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T04:04:49+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "surging_strike_blue: printed cost2, pitch3, power3, defense2; exact printed text Go again. Play from legal Arsenal FaceDown1 with2 resources. Pay printed2/oneAP exactly once, retain0. Printed power deals3; go again remains true but AP0 through Reaction, becomesAP1 at Resolution and remains1 after actual chainclose. No subject hit trigger or modifier. Any spare blue is never pitched for a zero-cost play. Sources: FaBSim/GeneratedCode/cardArrayCache.json#surging_strike_blue https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP127.webp https://rules.fabtcg.com/en/cr/08-keywords/#835 https://rules.fabtcg.com/en/cr/08-keywords/#826 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#517 https://rules.fabtcg.com/en/cr/07-combat/#762 FaBSim/Custom/GameLogic.php::CanPlayCard/FaBTryCompletePayment/FaBDeclareBlock/FaBBeginDamageStep/FaBBeginResolutionStep/FaBCleanupResolvedLink/FaBCloseCombatChain"
+}

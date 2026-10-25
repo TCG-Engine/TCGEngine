@@ -1,0 +1,325 @@
+{
+  "status": "B97_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/resume_contract_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch97.json",
+  "input_sha256": "11cd3aa8e5d1bd9e3b1ab49faa8300b0ece39af08d0793fe73f9f59235ff4900",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-21T00:13:50.883590+00:00",
+  "fixtures": [
+    {
+      "slug": "card-barraging-brawnhide-red-four-live-sparse-zero-non-equipment-defenders-gives-one-power",
+      "fixture_sha256": "e55f4eb0f63028081abfee545c191bb81b0dca5fac60facbae981411182e86c0",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "83086c351cdb824ecf5c5bf4bec6a8a3ce3bb40d1e0bf18ad8f76d376a6ea4d2",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "c82923a62236367961846416a458c5b7a9085d1043fa19e7dfb653c697c17903",
+        "expected_final_gamestate.txt": "71658dba455c16773747da3aae52d8dec2700138297b30a94db144fa4895d89c",
+        "meta.json": "e1f63f187fe2e4d58525417171caa1679e2cc926a69519eaddc6645a151d769f"
+      },
+      "actions": 28,
+      "native_assertions": 335,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "pitched_donor_uid": 6,
+      "source_owner_controller": 1,
+      "final_health": [
+        20,
+        20,
+        20,
+        12
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "dorinthea is legal setup support only; one positive primary condition, no sibling/branch/full-card credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-unwavering-resolve-red-four-live-sparse-physically-empty-deck-gives-four-power",
+      "fixture_sha256": "778116a1a950011a9c3fe080e4a21de93a94531c1fb8d31af135f18390d1d99a",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6bc4f1028826990e3d3433352a766aea854d6aa21780f1092e8a93b63739335e",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "f79f920a14f77b53c7b772b3e6101f1ab0470022ea55deda480252333f0811af",
+        "expected_final_gamestate.txt": "eb67a4d5b9943f9ab6a0913af8347d5f76d99d0d001d12427a93204153c44395",
+        "meta.json": "9c5f6629a34e9fcd7bc276ebd8d6fb0d33c1b8abf60a264c7b0a1e30c153cbc8"
+      },
+      "actions": 28,
+      "native_assertions": 335,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "pitched_donor_uid": 6,
+      "source_owner_controller": 1,
+      "final_health": [
+        20,
+        20,
+        20,
+        10
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "dorinthea is legal setup support only; one positive primary condition, no sibling/branch/full-card credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-buckwild-red-four-live-sparse-actual-six-power-blue-pitch-pays-three-and-grants-go-again",
+      "fixture_sha256": "49fbdae9b6607c05577149e6cee937d0f8bdc755f316e91a58581a8beb69c219",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b502f11c84cea2bb78f00b9b0b6ea70c1b9715452919e7f1c5709188f61a39d0",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "3191157fc1387c5b2f10afcb03fa02f1e0db4ef55364308508e2ceabb257d03c",
+        "expected_final_gamestate.txt": "8f7f51dd711805aef715b56ca9d0cb94814444e5a833c6c76c9e35f95a86143e",
+        "meta.json": "2fcbc179c4733ae497f86923766d60b42d1700b4b486637c1fabbc0adde37782"
+      },
+      "actions": 28,
+      "native_assertions": 335,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "pitched_donor_uid": 6,
+      "source_owner_controller": 1,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "levia is legal setup support only; one positive primary condition, no sibling/branch/full-card credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-blistering-assault-red-four-live-sparse-actual-yellow-pitch-pays-two-and-grants-go-again",
+      "fixture_sha256": "7c07c3a3126cd27c697fb08ebdb238060448d0bafbec18d5ebd35aa3968fc43d",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "66e3510569f56b0af060378a408a91a11deb5ac61250f46e791bd248b16a6a5b",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "89599317aaa29a5fdf872d90d4214be682c5906268e9b09fdb44de7fad8ffce9",
+        "expected_final_gamestate.txt": "c8ea91002440c057aa2e5343cfa6fb374d93125706800b52e65c2f4a273da392",
+        "meta.json": "3a6205112f7ffc4141baae45acf8f42c968e68c816fe18e2a4ba971e26d7b674"
+      },
+      "actions": 28,
+      "native_assertions": 335,
+      "actual_manual_passes": 25,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "pitched_donor_uid": 6,
+      "source_owner_controller": 1,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "boltyn is legal setup support only; one positive primary condition, no sibling/branch/full-card credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 112,
+  "total_native_assertions": 1340,
+  "total_manual_passes": 100,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b97-actual-saved-independent-review.json",
+    "sha256": "5770c73ceb76180ac2022eea7ee4dc7e88ccdd515836c979bb6902f9bf1e0b46"
+  },
+  "independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b97-independent-spec-review.json",
+    "sha256": "5199199da49639190f6e4ba440c0098061162cda8865fbbea997ac85b5723636"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch97-20261021T001055Z-6ad8030fd7787.json",
+    "sha256": "f2c9a45bd0b298d58933938ba120b80819de9e12d64afa06fe5f299c46726cb0"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b97-four-live-run1.json",
+      "sha256": "4ef78a6fe347d81d4d4cd93abd4d74281e23a85ea8d6269de01368ebbfa9d7e1",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch97.json",
+      "canonical_raw5_preserved": 3140
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b97-four-live-run2.json",
+      "sha256": "a6ec94bddb5d018f9b635b292b637a2f23664aa9e04ef4da35b61717e1642b69",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch97.json",
+      "canonical_raw5_preserved": 3140
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b97-fault-controls.json",
+    "sha256": "91a2d1817989cb030e4b53e64e925c2322ad790eea5e48631421b650b9b2edc9",
+    "total": 4,
+    "intended_semantic_failures": 4,
+    "plan_sha256": "4c991f030642f91cb32da0208b0e3e410bde4549b3c7c53b20f2e2224f4ed22e",
+    "full_fixture_inventory_preserved": true
+  },
+  "focused_native_controls": [
+    {
+      "id": "b97_barraging_physical_power_sensitivity",
+      "fixture": "card-barraging-brawnhide-red-four-live-sparse-zero-non-equipment-defenders-gives-one-power",
+      "prefix_actions": 16,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "barraging_brawnhide_red",
+            "mode": "add",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 153,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 8, got 9.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b97_unwavering_break_actual_empty_deck_condition",
+      "fixture": "card-unwavering-resolve-red-four-live-sparse-physically-empty-deck-gives-four-power",
+      "prefix_actions": 16,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Pitch",
+            "cardID": "wounding_blow_blue",
+            "to": "Deck"
+          }
+        ]
+      },
+      "retained_assertions": 153,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 10, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b97_buckwild_remove_actual_six_power_pitch_condition",
+      "fixture": "card-buckwild-red-four-live-sparse-actual-six-power-blue-pitch-pays-three-and-grants-go-again",
+      "prefix_actions": 16,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Pitch",
+            "cardID": "wrecker_romp_blue",
+            "to": "Graveyard"
+          }
+        ]
+      },
+      "retained_assertions": 153,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b97_blistering_remove_actual_yellow_pitch_condition",
+      "fixture": "card-blistering-assault-red-four-live-sparse-actual-yellow-pitch-pays-two-and-grants-go-again",
+      "prefix_actions": 16,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Pitch",
+            "cardID": "raging_onslaught_yellow",
+            "to": "Graveyard"
+          }
+        ]
+      },
+      "retained_assertions": 153,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b97-focused-fault-plan.json",
+    "sha256": "4c991f030642f91cb32da0208b0e3e410bde4549b3c7c53b20f2e2224f4ed22e"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a"
+  },
+  "original_semantic_checks": 2248,
+  "native_evidence_review_checks": 96,
+  "limitations": [
+    "One positive representative per primary group, no sibling/branch/full-card/support credit.",
+    "Barraging control is honest numeric power sensitivity; Unwavering/Buckwild/Blistering controls break actual positive physical conditions.",
+    "All four original raw5 and every original assertion retained. Two targeted clean runs qualify only these four; no duplicated full-inventory execution requested.",
+    "Root sole native executor. Reviewer reads immutable evidence and pure models only; Rise nativeRGB credit remains red-only and separate."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "1fa114fbb7f140a88bb6d2fce822161e3da5704b359e9a33f07fb76475bfef50"
+}

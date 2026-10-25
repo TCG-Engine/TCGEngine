@@ -1,0 +1,62 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch93.json",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T23:24:59.037571+00:00",
+  "fixtures": [
+    {
+      "slug": "card-healing-potion-blue-four-live-sparse-actual-destroy-action-heals-two-and-go-again",
+      "fixture_sha256": "f6cb3ee7f0b687a921ac48b3b816e48be23397901b79722e35ad1694b4b037af",
+      "passed": true,
+      "result": "[PASS] Healing Potion / compact four live positive effect"
+    },
+    {
+      "slug": "card-medkit-blue-four-live-sparse-actual-action-bottom-cost-heals-two-without-go-again",
+      "fixture_sha256": "45da7ef9127e0e082c0b9db146f4d399f346f59ce5e2106cfe9c06ea45241aa0",
+      "passed": true,
+      "result": "[PASS] Medkit / compact four live positive effect"
+    },
+    {
+      "slug": "card-fuel-injector-blue-four-live-sparse-actual-instant-bottom-cost-gains-one-resource",
+      "fixture_sha256": "4b8765697c129501ade0b896efc2f8dff7a55de029ed655d92d863648a18f2b4",
+      "passed": true,
+      "result": "[PASS] Fuel Injector / compact four live positive effect"
+    },
+    {
+      "slug": "card-deep-blue-sea-blue-four-live-sparse-two-real-blue-pitches-pay-four-and-give-two-power",
+      "fixture_sha256": "9384c48f3ca941e0abd3b5b6d8b15a629cc9391e5b094d24b80b88db0ffd95ea",
+      "passed": true,
+      "result": "[PASS] Deep Blue Sea / compact four live positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-healing-potion-blue-four-live-sparse-actual-destroy-action-heals-two-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Healing Potion / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-medkit-blue-four-live-sparse-actual-action-bottom-cost-heals-two-without-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Medkit / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-fuel-injector-blue-four-live-sparse-actual-instant-bottom-cost-gains-one-resource",
+      "returncode": 0,
+      "stdout": "[PASS] Fuel Injector / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-deep-blue-sea-blue-four-live-sparse-two-real-blue-pitches-pay-four-and-give-two-power",
+      "returncode": 0,
+      "stdout": "[PASS] Deep Blue Sea / compact four live positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3122,
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

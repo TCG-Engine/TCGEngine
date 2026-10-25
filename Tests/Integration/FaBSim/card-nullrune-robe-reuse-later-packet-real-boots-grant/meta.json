@@ -1,0 +1,7 @@
+{
+    "name": "Nullrune Robe / reuse-later-packet-real-boots-grant",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:11:17+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Activate actual Mage Master Boots for1resource/1AP and destroy it; its own go again restoresAP1. First actual Dart gets next-only go again. Pay AB1 once to first3 packet, take2, retaining same equipmentUID6 and resources1; source completes before its AP refund. Cast second actual Dart atAP1; same equipment can pay1 again for independent second3 packet. Final defenderHP16, resources0, casterAP0 (second Dart lacks go again), casterGY3 including Boots/twoDarts, barrier retained unexhausted. This is later-event reuse, not twice on one event. Sources: FaBSim/GeneratedCode/cardArrayCache.json#nullrune_robe https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP347.webp DevTools/FaB/upr_abilities.json#aether_dart_red/PrepareCard,ResolveCard FaBSim/Custom/UPRCards.php::FaBUPRBarrierValue/FaBUPRBarrierChoices/FaBUPRDeal FaBSim/Custom/ARCCards.php::FaBARCPitchChoices/FaBARCPitchForEffect FaBSim/Custom/GameLogic.php::FaBFinishReactionResolution https://rules.fabtcg.com/en/cr/08-keywords/#838 https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/#8210 DevTools/FaB/arc_abilities.json#mage_master_boots/ResolveAbility"
+}

@@ -135,6 +135,7 @@ function SWUSetupBotPreConGroups(?array $preCons = null): array {
     if (!$defs) return $preCons ? [['id' => '', 'label' => 'Bot Pre-Cons', 'decks' => $preCons]] : [];
     $out = [];
     foreach ($defs as $g) {
+        if (($g['menu'] ?? true) === false) continue;   // retired from the menu but kept for the classifier/tooling (regen-deck-labels.php)
         $id = trim((string)($g['id'] ?? ''));
         $decks = array_values(array_filter($preCons, fn($p) => $p['group'] === $id));
         if ($id !== '' && $decks) $out[] = ['id' => $id, 'label' => trim((string)($g['label'] ?? $id)), 'decks' => $decks];

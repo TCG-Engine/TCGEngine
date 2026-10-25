@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-22T19:50:23+00:00",
+    "input_file": "card-regression-batch140.json",
+    "input_sha256": "b1b2ad9f8a57dfc68e09fa5245c0f8774c7462ff56d2ef4b0c4caa32e03abb2c",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-flash-red-four-live-sparse-actual-zero-cost-action-granted-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 815
+        },
+        {
+            "slug": "card-hit-and-run-red-four-live-sparse-first-real-weapon-granted-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1334
+        }
+    ]
+}

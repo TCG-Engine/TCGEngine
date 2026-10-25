@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch157.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T20:24:07.825925+00:00",
+  "fixtures": [
+    {
+      "slug": "card-monstrous-veil-four-live-sparse-actual-rhinar-specialization-destruction-draws-then-discards-sole-low-power-card",
+      "fixture_sha256": "c516aa5a0cdd34a766a7cf84e9f9fa2b4847d498465d7d852d7a869427f37cde",
+      "passed": true,
+      "result": "[PASS] Monstrous Veil / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-monstrous-veil-four-live-sparse-actual-rhinar-specialization-destruction-draws-then-discards-sole-low-power-card",
+      "returncode": 0,
+      "stdout": "[PASS] Monstrous Veil / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

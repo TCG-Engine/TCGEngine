@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-20T04:04:24+00:00",
+    "input_file": "card-regression-batch72-pilot.json",
+    "input_sha256": "aa169be595ed6811c4ce14d06a7b7b47e84e8c3b8ceaa1bcea4098f6e5adf235",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-surging-militia-red-mon-continuous-one-normal-hand-card",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 334
+        },
+        {
+            "slug": "card-stony-woottonhog-red-mon-continuous-two-normal-hand-cards",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 430
+        },
+        {
+            "slug": "card-yinti-yanti-red-mon-continuous-attack-own-aura-present",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 274
+        },
+        {
+            "slug": "card-yinti-yanti-blue-mon-continuous-defend-own-aura-present",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 362
+        }
+    ]
+}

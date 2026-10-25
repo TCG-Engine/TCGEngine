@@ -1,0 +1,381 @@
+{
+  "status": "INDEPENDENT_ACTUAL_B89_THREE_SPARSE_REPRESENTATIVES_TWO_CLEAN_SUBSET_REPLAYS_THREE_INTENDED_NATIVE_FAULTS_APPROVED",
+  "reviewer": "/root/resume_contract_review",
+  "independent_of_author": true,
+  "completed_utc": "2026-10-20T22:49:39.169095+00:00",
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "input_sha256": "93dfe83b5aed947dcaad93c9eaf6c8cfe7a54500d38fa680e9d1fdc437186d17",
+  "fixtures": [
+    {
+      "slug": "card-bark-obscenities-red-four-live-sparse-actual-next-attack-targets-adjacent-guardian",
+      "fixture_sha256": "8c18521097f17ef56b8bcfa464e17e576d7cc2e8be66bc7f5474e7c87d9cb5c6",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "88ac407d399726c7c92564232f77422b4f1efe06ff1c9e6a2541d8ff64f8c5aa",
+        "actions.json": "6f3e4f60f60b0960221d649a8fb71aa7c3c36bc35f93a67c7390224b486abcf5",
+        "assertions.json": "d74e7e4cfc02d87e805e878fa1130240417b3795acb7e1daa42f867329bdcf3c",
+        "expected_final_gamestate.txt": "1467d5718340801d6df49a240fbb242634c7eef3d75a525966f591c14756b46a",
+        "meta.json": "9d05e331434cfb73c26755f5ecfae846e72ee6a3f37e33685e086c9d7d717bb9"
+      },
+      "actions": 32,
+      "native_assertions": 1162,
+      "actual_manual_passes": 29,
+      "all_four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "source_owner_controller": 1,
+      "actual_event_ledger": [
+        {
+          "event": "paid_play",
+          "cardID": "bark_obscenities_red",
+          "uid": 5,
+          "sourceUID": 5,
+          "prior_history": [],
+          "prior_hit": false,
+          "combat_open": false
+        },
+        {
+          "event": "paid_play",
+          "cardID": "wounding_blow_blue",
+          "uid": 6,
+          "sourceUID": 6,
+          "prior_history": [
+            "bark_obscenities_red"
+          ],
+          "prior_hit": false,
+          "combat_open": false
+        },
+        {
+          "event": "physical_damage",
+          "sourceUID": 6,
+          "victim": 2,
+          "amount": 6
+        }
+      ],
+      "final_health": [
+        20,
+        14,
+        20,
+        20
+      ],
+      "limitations": [
+        "One positive representative per primary singleton/pitch group; no other branch, sibling or support-card promotion.",
+        "Public request endpoints and real physical effect/history are verified; unobserved unmanaged ordinary-source-clear internals remain outside certification."
+      ],
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-lead-with-speed-red-four-live-sparse-actual-brute-weapon-plus-three-and-owned-agility",
+      "fixture_sha256": "ee8f356acd200536abc7d4c7a63c0f39b89e93bd2f15be1a76e8f3bba2496a20",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e646b08b073f2b6a576b208e6d58b59b14023df5b54e76d08d8357ef1aed0f0d",
+        "actions.json": "9ba3485e3d19b94bf6ab03f1524607c9ca033f643d7e0fa5c01d7f1f97d64751",
+        "assertions.json": "ebac9988bae206dbe979693a26e359f8e8b0b36a1cd2ec434539f27a1b469c4b",
+        "expected_final_gamestate.txt": "58187275d42b1f69344a993568187a46cc2e0bd80fd7b3137329827a38262b35",
+        "meta.json": "704a7d3ff6cd3b3c48b6cb0a3e8fd7d7189ab83e070483aaebcbf0bfdaa648ef"
+      },
+      "actions": 33,
+      "native_assertions": 1347,
+      "actual_manual_passes": 29,
+      "all_four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "source_owner_controller": 1,
+      "actual_event_ledger": [
+        {
+          "event": "paid_play",
+          "cardID": "lead_with_speed_red",
+          "uid": 5,
+          "sourceUID": 5,
+          "prior_history": [],
+          "prior_hit": false,
+          "combat_open": false
+        },
+        {
+          "event": "paid_weapon_activation",
+          "cardID": "romping_club",
+          "uid": 9,
+          "sourceUID": 7,
+          "prior_history": [
+            "lead_with_speed_red"
+          ],
+          "prior_hit": false,
+          "combat_open": false
+        },
+        {
+          "event": "physical_damage",
+          "sourceUID": 9,
+          "victim": 2,
+          "amount": 7
+        }
+      ],
+      "final_health": [
+        20,
+        13,
+        20,
+        20
+      ],
+      "limitations": [
+        "One positive representative per primary singleton/pitch group; no other branch, sibling or support-card promotion.",
+        "Public request endpoints and real physical effect/history are verified; unobserved unmanaged ordinary-source-clear internals remain outside certification."
+      ],
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-vigor-rush-red-four-live-sparse-real-prior-nonattack-go-again-base-four-excludes-minnow",
+      "fixture_sha256": "555a837b91c1b2f5dddf8d3b20f17082ecb63e7dbe116e9b281621b9e768416a",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d9d437f7a974389c7bc49718dcd4ac639489d1c264eaa56d5e192445a1dce45a",
+        "actions.json": "9dbbd7d503c228b8e27da84949f71af6ea0dfc3840bbf845cb331bafac6730e8",
+        "assertions.json": "42b5b78e66a18647c50de9c6b8e00a9b6c1b93b9eec0de0777072ef2eb10712e",
+        "expected_final_gamestate.txt": "6851e3bed6f50749a65e01d32eb5ed734c6697519141bbe746585d8116a6f705",
+        "meta.json": "cbb96bb7afffb7cb134b8c55d2491f55258a6adfea56a6cadd510bb64e84ae41"
+      },
+      "actions": 33,
+      "native_assertions": 1263,
+      "actual_manual_passes": 29,
+      "all_four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "source_owner_controller": 1,
+      "actual_event_ledger": [
+        {
+          "event": "paid_play",
+          "cardID": "minnowism_red",
+          "uid": 6,
+          "sourceUID": 6,
+          "prior_history": [],
+          "prior_hit": false,
+          "combat_open": false
+        },
+        {
+          "event": "paid_play",
+          "cardID": "vigor_rush_red",
+          "uid": 5,
+          "sourceUID": 5,
+          "prior_history": [
+            "minnowism_red"
+          ],
+          "prior_hit": false,
+          "combat_open": false
+        },
+        {
+          "event": "physical_damage",
+          "sourceUID": 5,
+          "victim": 2,
+          "amount": 4
+        }
+      ],
+      "final_health": [
+        20,
+        16,
+        20,
+        20
+      ],
+      "limitations": [
+        "One positive representative per primary singleton/pitch group; no other branch, sibling or support-card promotion.",
+        "Public request endpoints and real physical effect/history are verified; unobserved unmanaged ordinary-source-clear internals remain outside certification."
+      ],
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-push-the-point-red-four-live-sparse-real-head-jab-hit-same-open-chain-plus-two",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "attempted_actions": 24,
+      "classification": "RECIPE_PROTOCOL_MODEL_ERROR_NOT_ESTABLISHED_ENGINE_OR_RULE_BUG",
+      "error": "state window expected \"RESOLUTION\" got \"PITCH\"",
+      "observed_state_subset": {
+        "window": "PITCH",
+        "combatStep": "RESOLUTION",
+        "combatOpen": true,
+        "chainLink": 1,
+        "attackUID": 6,
+        "attackHit": true,
+        "damageDealt": 3,
+        "attackTarget": {
+          "type": "HERO",
+          "player": 2,
+          "uid": 2,
+          "zone": "Hero"
+        },
+        "pendingAttackTarget": null,
+        "pendingPayment": {
+          "player": 1,
+          "uid": 5,
+          "cost": 1,
+          "fromZone": "Hand",
+          "kind": "ATTACK",
+          "returnWindow": "RESOLUTION",
+          "returnCombatStep": "RESOLUTION"
+        },
+        "cardsPlayedThisTurn": {
+          "1": [
+            "head_jab_red"
+          ]
+        },
+        "hitsThisTurn": {
+          "1": [
+            6
+          ]
+        }
+      },
+      "captured_initial_sha256": "908465326b3a638b2027ae944dd450aa85d5b4c12dc9281fc902c6ac44819313",
+      "native_receipt": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch89-20261020T224208Z-6ad7ee409dbb5.json",
+        "sha256": "d45ff8ae7d70e43db86581caec70c023f5ab87a46bc48a80d4aba2e4e966b745"
+      },
+      "source_basis": [
+        "FaBSim/Custom/GameLogic.php:176 FaBAttackableSeats restricts open UPF chain to focused defender2.",
+        "FaBSim/Custom/GameLogic.php:592 FaBClaimOrRequestAttackTarget auto-selects a sole legal target at604 before supported payment.",
+        "CR5.1.2,5.1.4b,5.1.6,5.1.7 and TRP9.3 support real announced target/cost/chain focus; UI need not show a choice with only one legal target."
+      ],
+      "required_successor": "Separate standalone recipe: keep all first23 Head Jab actions and intended final power6/damage6/cumulative9/resource2/AP0; after Push click assert actual unpaid printed-cost PITCH with same focused target, omit the nonexistent second target chooser/answer, pitch actual own blueUID7, then full four-player manual responses. Original canonical batch and saved3 remain unchanged.",
+      "limitations": [
+        "Failure receipt includes serialized initial, actual action ledger/state/decisions and Hand references; it does not include a full postfailure raw zone snapshot or postfailure scalar HP/AP fields.",
+        "Original model and approval incorrectly generalized a two-target chooser to this single legal focused target. That Push approval is withdrawn until a separately reviewed correct recipe succeeds; printed expected effect/math is unchanged."
+      ]
+    }
+  ],
+  "total_actions": 98,
+  "total_native_assertions": 3772,
+  "total_manual_passes": 87,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b89-three-saved-and-one-protocol-hold-independent-review.json",
+    "sha256": "1f8211106188b51e5bdb6eed18408580f3ed6536695f8bcab5455ce96c5d3bbf"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch89-20261020T224208Z-6ad7ee409dbb5.json",
+    "sha256": "d45ff8ae7d70e43db86581caec70c023f5ab87a46bc48a80d4aba2e4e966b745"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b89-safe-three-four-live-run1.json",
+      "sha256": "1ec489c6576e1967c9e842c90567cc239c9971a45fedf335c3a37d40cc12115e",
+      "total": 3,
+      "passed": 3,
+      "omitted_source_scenarios": [
+        "card-push-the-point-red-four-live-sparse-real-head-jab-hit-same-open-chain-plus-two"
+      ],
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b89-safe-three-four-live-run2.json",
+      "sha256": "754f63338307e796890eef36cd0df3b9dfa228ceb0807b884b10645a11e49bcd",
+      "total": 3,
+      "passed": 3,
+      "omitted_source_scenarios": [
+        "card-push-the-point-red-four-live-sparse-real-head-jab-hit-same-open-chain-plus-two"
+      ],
+      "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b89-three-fault-controls.json",
+    "sha256": "e4bf65c732130638e802b403fb4347272028544f727e0dc5a45be84a2e8d317e",
+    "total": 3,
+    "intended_semantic_failures": 3,
+    "plan_sha256": "b6429fa9702a6e707504619b43ca699635a37319cce0c64c07441ef1e4016883",
+    "full_fixture_inventory_preserved": true
+  },
+  "focused_native_controls": [
+    {
+      "id": "b89_bark_remove_actual_guardian_target_power_tag",
+      "fixture": "card-bark-obscenities-red-four-live-sparse-actual-next-attack-targets-adjacent-guardian",
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "SUP_TARGET:Guardian:4"
+          }
+        ]
+      },
+      "retained_assertions": 757,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b89_lead_remove_actual_class_qualified_weapon_buff",
+      "fixture": "card-lead-with-speed-red-four-live-sparse-actual-brute-weapon-plus-three-and-owned-agility",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "romping_club",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 853,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b89_vigor_remove_actual_prior_nonattack_earned_go_again",
+      "fixture": "card-vigor-rush-red-four-live-sparse-real-prior-nonattack-go-again-base-four-excludes-minnow",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "vigor_rush_red",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 789,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b89-three-saved-focused-fault-plan.json",
+    "sha256": "b6429fa9702a6e707504619b43ca699635a37319cce0c64c07441ef1e4016883"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a",
+    "alias_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b87-executor-alias-independent-review.json",
+      "sha256": "26a0edc222015e039a7f6aad51f2484d0a67ddb1c5d3bc3df885bd22ddd7d7d3"
+    }
+  },
+  "original_semantic_checks": 3654,
+  "native_evidence_review_checks": 85,
+  "qualification": "Only these three exact saved positive representatives qualify. The original Push attempt/recipe remains unqualified and unsaved in the preserved receipt; its separate corrected recipe needs independent actual qualification.",
+  "limitations": [
+    "One sparse representative per selected primary group; no full-card/group, sibling, alternate-branch or support-card promotion.",
+    "Original failed Push evidence and original canonical four-case batch remain unchanged; reviewed subset omits exactly that one unapproved route.",
+    "Public endpoints/history/physical effects qualified. Unobserved ordinary NAA source-clear internals remain excluded.",
+    "Root executed native games/replays/controls; reviewer performed read-only evidence/source checks. Full-corpus results are separate evidence."
+  ],
+  "reviewer_script_sha256": "63f07c1d0f5046eab671a5d1097f82ac5d9e8e28734d8f4d1b0d60df469de7dd",
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_runtime_imports": 0
+}

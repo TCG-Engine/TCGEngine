@@ -1,0 +1,7 @@
+{
+    "name": "Heartened Cross Strap / cost-three-discount-two",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:51:01+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Activation destroys chest as cost and spends one AP; its go again restores AP1 on resolution. Next Raging Onslaught printed cost3 requires only1; pitch blue3 leaves2. Power remains7, no attack go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

@@ -1,0 +1,235 @@
+[
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-sigil-of-solace-red-four-live-hold-priority-correct-rule-before-probe",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected PriorityPlayer to equal 4, got 1.",
+    "detected": true,
+    "output": "[FAIL] Sigil of Solace / four live players and explicit held priority: Step 1 assertion failed: Expected PriorityPlayer to equal 4, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "four_sigil_hold_false",
+    "prefix_actions": 3,
+    "expected_failure_step": 1,
+    "expected_failure_assertion": {
+      "step": 1,
+      "type": "scalar_zone_equals",
+      "viewerPlayerID": 1,
+      "zone": "PriorityPlayer",
+      "value": 4
+    },
+    "source_files": {
+      "initial_gamestate.txt": "d09fc863fc6e810df6dc49c7aceccdff835b56f72b96a8c2a1e3fd31f9d8336d",
+      "actions.json": "46f52a911b52e5dd9ba5001f62869e6a7ede2618717f4117f01c2681f229811e",
+      "assertions.json": "5d234e6c97a5a80a0c18e9f867c90ef396d40a9671653a365a80bf05dcb95470",
+      "expected_final_gamestate.txt": "6d6cf85e59fb4a721651f90b2c64a57e482f1ab390b3aeaab274eb5f012468de",
+      "meta.json": "2d8fde6036184540e0075402ff2d5dc14cbb26579af7e9e2beef5dc305be1e86"
+    },
+    "omitted_assertions": [],
+    "rewritten_assertions": [],
+    "fault_semantics": "Existing payment policy chooses next live seat if actor holdPriority is false. All shortcut windows remain false; no additional automatic pass. Only preference changes, and actual P4cast must succeed.",
+    "evidence_kind": "disposable_fixture_semantic_assertion",
+    "canonical_raw5_preserved": true,
+    "disposable_fixture_removed": true,
+    "guarded_source_files": {
+      "card-sigil-of-solace-red-four-live-hold-priority-correct-rule-before-probe": {
+        "initial_gamestate.txt": "d09fc863fc6e810df6dc49c7aceccdff835b56f72b96a8c2a1e3fd31f9d8336d",
+        "actions.json": "46f52a911b52e5dd9ba5001f62869e6a7ede2618717f4117f01c2681f229811e",
+        "assertions.json": "5d234e6c97a5a80a0c18e9f867c90ef396d40a9671653a365a80bf05dcb95470",
+        "expected_final_gamestate.txt": "6d6cf85e59fb4a721651f90b2c64a57e482f1ab390b3aeaab274eb5f012468de",
+        "meta.json": "2d8fde6036184540e0075402ff2d5dc14cbb26579af7e9e2beef5dc305be1e86"
+      },
+      "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4": {
+        "initial_gamestate.txt": "ac60286980012708a041bd926fa6ab7622c74309eb8a40bd14c7fb8b2b910a02",
+        "actions.json": "f3af111339ea2cc984793321dd7b91d5f03c81cad31164befdb24cda346a5701",
+        "assertions.json": "4631353746996bbab3c6c436b25ecbac4520a8329cc6bdff713085892cf6d6e2",
+        "expected_final_gamestate.txt": "459bcd968f16853b210f97f15a7bd4f87dfe0ec644657053178e262e782a0c27",
+        "meta.json": "21c5f2f578cb90efc80d264721a695b7767f600d84fc378ae6d9025caf2626c9"
+      },
+      "card-strike-gold-red-upf-four-live-adjacent-four-all-seat-sigil-responses": {
+        "initial_gamestate.txt": "8b7bcd8981b60d2e7d779982ebecbcce01e27f9ea1d95afd37f8897b3a3c0167",
+        "actions.json": "602bb44013ed20ff7eeba0e86821d7a7a36f2bf2706720d9758141e1e19d55ee",
+        "assertions.json": "17036116e71ca6bded70d64fcc1b611d674baff97929262bdfe221799c60839e",
+        "expected_final_gamestate.txt": "f53ca1bfe632d9030b2749f8005e8e18a33e525659c0fbce7e376dee6b2b5112",
+        "meta.json": "dc0ca2c00f5c6962ff75f1ffa8eb2cd4ee0226100f70c603ce6d98489045845f"
+      }
+    },
+    "runtime_preserved": true,
+    "native_sources_preserved": true
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected Stack count 1, got 0.",
+    "detected": true,
+    "output": "[FAIL] Aether Dart / four live players, player3 response and player4 Spellvoid: Initial assertion failed: Expected Stack count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "four_dart_source_lost_during_victim4_choice",
+    "prefix_actions": 13,
+    "expected_failure_step": 0,
+    "expected_failure_assertion": {
+      "step": 0,
+      "type": "zone_count",
+      "viewerPlayerID": 1,
+      "zone": "Stack",
+      "value": 1
+    },
+    "source_files": {
+      "initial_gamestate.txt": "ac60286980012708a041bd926fa6ab7622c74309eb8a40bd14c7fb8b2b910a02",
+      "actions.json": "f3af111339ea2cc984793321dd7b91d5f03c81cad31164befdb24cda346a5701",
+      "assertions.json": "4631353746996bbab3c6c436b25ecbac4520a8329cc6bdff713085892cf6d6e2",
+      "expected_final_gamestate.txt": "459bcd968f16853b210f97f15a7bd4f87dfe0ec644657053178e262e782a0c27",
+      "meta.json": "21c5f2f578cb90efc80d264721a695b7767f600d84fc378ae6d9025caf2626c9"
+    },
+    "omitted_assertions": [],
+    "rewritten_assertions": [],
+    "fault_semantics": "One source visibility fault while actual P4 MZMAYCHOOSE/frame remain unchanged. Deliberate lost-source injection, not a legal move or callback-cleanup simulation.",
+    "evidence_kind": "disposable_fixture_semantic_assertion",
+    "canonical_raw5_preserved": true,
+    "disposable_fixture_removed": true,
+    "guarded_source_files": {
+      "card-sigil-of-solace-red-four-live-hold-priority-correct-rule-before-probe": {
+        "initial_gamestate.txt": "d09fc863fc6e810df6dc49c7aceccdff835b56f72b96a8c2a1e3fd31f9d8336d",
+        "actions.json": "46f52a911b52e5dd9ba5001f62869e6a7ede2618717f4117f01c2681f229811e",
+        "assertions.json": "5d234e6c97a5a80a0c18e9f867c90ef396d40a9671653a365a80bf05dcb95470",
+        "expected_final_gamestate.txt": "6d6cf85e59fb4a721651f90b2c64a57e482f1ab390b3aeaab274eb5f012468de",
+        "meta.json": "2d8fde6036184540e0075402ff2d5dc14cbb26579af7e9e2beef5dc305be1e86"
+      },
+      "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4": {
+        "initial_gamestate.txt": "ac60286980012708a041bd926fa6ab7622c74309eb8a40bd14c7fb8b2b910a02",
+        "actions.json": "f3af111339ea2cc984793321dd7b91d5f03c81cad31164befdb24cda346a5701",
+        "assertions.json": "4631353746996bbab3c6c436b25ecbac4520a8329cc6bdff713085892cf6d6e2",
+        "expected_final_gamestate.txt": "459bcd968f16853b210f97f15a7bd4f87dfe0ec644657053178e262e782a0c27",
+        "meta.json": "21c5f2f578cb90efc80d264721a695b7767f600d84fc378ae6d9025caf2626c9"
+      },
+      "card-strike-gold-red-upf-four-live-adjacent-four-all-seat-sigil-responses": {
+        "initial_gamestate.txt": "8b7bcd8981b60d2e7d779982ebecbcce01e27f9ea1d95afd37f8897b3a3c0167",
+        "actions.json": "602bb44013ed20ff7eeba0e86821d7a7a36f2bf2706720d9758141e1e19d55ee",
+        "assertions.json": "17036116e71ca6bded70d64fcc1b611d674baff97929262bdfe221799c60839e",
+        "expected_final_gamestate.txt": "f53ca1bfe632d9030b2749f8005e8e18a33e525659c0fbce7e376dee6b2b5112",
+        "meta.json": "dc0ca2c00f5c6962ff75f1ffa8eb2cd4ee0226100f70c603ce6d98489045845f"
+      }
+    },
+    "runtime_preserved": true,
+    "native_sources_preserved": true
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected FaBSim state [\"arcaneDealt\"] to equal JSON {\"1\":{\"4\":2}}, got {\"4\":{\"4\":2}}.",
+    "detected": true,
+    "output": "[FAIL] Aether Dart / four live players, player3 response and player4 Spellvoid: Initial assertion failed: Expected FaBSim state [\"arcaneDealt\"] to equal JSON {\"1\":{\"4\":2}}, got {\"4\":{\"4\":2}}.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "four_dart_wrong_arcane_actor",
+    "prefix_actions": 14,
+    "expected_failure_step": 0,
+    "expected_failure_assertion": {
+      "step": 0,
+      "type": "game_state_field",
+      "viewerPlayerID": 1,
+      "rootName": "FaBSim",
+      "path": [
+        "arcaneDealt"
+      ],
+      "comparison": "equals",
+      "valueJson": "{\"1\":{\"4\":2}}"
+    },
+    "source_files": {
+      "initial_gamestate.txt": "ac60286980012708a041bd926fa6ab7622c74309eb8a40bd14c7fb8b2b910a02",
+      "actions.json": "f3af111339ea2cc984793321dd7b91d5f03c81cad31164befdb24cda346a5701",
+      "assertions.json": "4631353746996bbab3c6c436b25ecbac4520a8329cc6bdff713085892cf6d6e2",
+      "expected_final_gamestate.txt": "459bcd968f16853b210f97f15a7bd4f87dfe0ec644657053178e262e782a0c27",
+      "meta.json": "21c5f2f578cb90efc80d264721a695b7767f600d84fc378ae6d9025caf2626c9"
+    },
+    "omitted_assertions": [],
+    "rewritten_assertions": [],
+    "fault_semantics": "Only recorded arcane attribution changes after actual P4answer and damage; all physical cards, HP and source ownership stay unchanged. Bookkeeping control, not alternate legal play.",
+    "evidence_kind": "disposable_fixture_semantic_assertion",
+    "canonical_raw5_preserved": true,
+    "disposable_fixture_removed": true,
+    "guarded_source_files": {
+      "card-sigil-of-solace-red-four-live-hold-priority-correct-rule-before-probe": {
+        "initial_gamestate.txt": "d09fc863fc6e810df6dc49c7aceccdff835b56f72b96a8c2a1e3fd31f9d8336d",
+        "actions.json": "46f52a911b52e5dd9ba5001f62869e6a7ede2618717f4117f01c2681f229811e",
+        "assertions.json": "5d234e6c97a5a80a0c18e9f867c90ef396d40a9671653a365a80bf05dcb95470",
+        "expected_final_gamestate.txt": "6d6cf85e59fb4a721651f90b2c64a57e482f1ab390b3aeaab274eb5f012468de",
+        "meta.json": "2d8fde6036184540e0075402ff2d5dc14cbb26579af7e9e2beef5dc305be1e86"
+      },
+      "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4": {
+        "initial_gamestate.txt": "ac60286980012708a041bd926fa6ab7622c74309eb8a40bd14c7fb8b2b910a02",
+        "actions.json": "f3af111339ea2cc984793321dd7b91d5f03c81cad31164befdb24cda346a5701",
+        "assertions.json": "4631353746996bbab3c6c436b25ecbac4520a8329cc6bdff713085892cf6d6e2",
+        "expected_final_gamestate.txt": "459bcd968f16853b210f97f15a7bd4f87dfe0ec644657053178e262e782a0c27",
+        "meta.json": "21c5f2f578cb90efc80d264721a695b7767f600d84fc378ae6d9025caf2626c9"
+      },
+      "card-strike-gold-red-upf-four-live-adjacent-four-all-seat-sigil-responses": {
+        "initial_gamestate.txt": "8b7bcd8981b60d2e7d779982ebecbcce01e27f9ea1d95afd37f8897b3a3c0167",
+        "actions.json": "602bb44013ed20ff7eeba0e86821d7a7a36f2bf2706720d9758141e1e19d55ee",
+        "assertions.json": "17036116e71ca6bded70d64fcc1b611d674baff97929262bdfe221799c60839e",
+        "expected_final_gamestate.txt": "f53ca1bfe632d9030b2749f8005e8e18a33e525659c0fbce7e376dee6b2b5112",
+        "meta.json": "dc0ca2c00f5c6962ff75f1ffa8eb2cd4ee0226100f70c603ce6d98489045845f"
+      }
+    },
+    "runtime_preserved": true,
+    "native_sources_preserved": true
+  },
+  {
+    "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+    "fixture": "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
+    "mutation": "fixture-only effect/choice/cost perturbation",
+    "expected_failure": "Expected p1DecisionQueue-0.Param to equal 'p2Hero-0&p4Hero-0', got 'p2Hero-0&p3Hero-0&p4Hero-0'.",
+    "detected": true,
+    "output": "[FAIL] Aether Dart / four live players, player3 response and player4 Spellvoid: Initial assertion failed: Expected p1DecisionQueue-0.Param to equal 'p2Hero-0&p4Hero-0', got 'p2Hero-0&p3Hero-0&p4Hero-0'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "returncode": 1,
+    "control_id": "four_dart_nonadjacent_offer",
+    "prefix_actions": 1,
+    "expected_failure_step": 0,
+    "expected_failure_assertion": {
+      "step": 0,
+      "type": "card_property_equals",
+      "viewerPlayerID": 1,
+      "mzId": "p1DecisionQueue-0",
+      "property": "Param",
+      "value": "p2Hero-0&p4Hero-0"
+    },
+    "source_files": {
+      "initial_gamestate.txt": "ac60286980012708a041bd926fa6ab7622c74309eb8a40bd14c7fb8b2b910a02",
+      "actions.json": "f3af111339ea2cc984793321dd7b91d5f03c81cad31164befdb24cda346a5701",
+      "assertions.json": "4631353746996bbab3c6c436b25ecbac4520a8329cc6bdff713085892cf6d6e2",
+      "expected_final_gamestate.txt": "459bcd968f16853b210f97f15a7bd4f87dfe0ec644657053178e262e782a0c27",
+      "meta.json": "21c5f2f578cb90efc80d264721a695b7767f600d84fc378ae6d9025caf2626c9"
+    },
+    "omitted_assertions": [],
+    "rewritten_assertions": [],
+    "fault_semantics": "Only actual target-offer enumeration widens to nonadjacent P3; actor, UID5, pending payment, other queues and await frame unchanged. Does not claim illegal-answer revalidation coverage.",
+    "evidence_kind": "disposable_fixture_semantic_assertion",
+    "canonical_raw5_preserved": true,
+    "disposable_fixture_removed": true,
+    "guarded_source_files": {
+      "card-sigil-of-solace-red-four-live-hold-priority-correct-rule-before-probe": {
+        "initial_gamestate.txt": "d09fc863fc6e810df6dc49c7aceccdff835b56f72b96a8c2a1e3fd31f9d8336d",
+        "actions.json": "46f52a911b52e5dd9ba5001f62869e6a7ede2618717f4117f01c2681f229811e",
+        "assertions.json": "5d234e6c97a5a80a0c18e9f867c90ef396d40a9671653a365a80bf05dcb95470",
+        "expected_final_gamestate.txt": "6d6cf85e59fb4a721651f90b2c64a57e482f1ab390b3aeaab274eb5f012468de",
+        "meta.json": "2d8fde6036184540e0075402ff2d5dc14cbb26579af7e9e2beef5dc305be1e86"
+      },
+      "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4": {
+        "initial_gamestate.txt": "ac60286980012708a041bd926fa6ab7622c74309eb8a40bd14c7fb8b2b910a02",
+        "actions.json": "f3af111339ea2cc984793321dd7b91d5f03c81cad31164befdb24cda346a5701",
+        "assertions.json": "4631353746996bbab3c6c436b25ecbac4520a8329cc6bdff713085892cf6d6e2",
+        "expected_final_gamestate.txt": "459bcd968f16853b210f97f15a7bd4f87dfe0ec644657053178e262e782a0c27",
+        "meta.json": "21c5f2f578cb90efc80d264721a695b7767f600d84fc378ae6d9025caf2626c9"
+      },
+      "card-strike-gold-red-upf-four-live-adjacent-four-all-seat-sigil-responses": {
+        "initial_gamestate.txt": "8b7bcd8981b60d2e7d779982ebecbcce01e27f9ea1d95afd37f8897b3a3c0167",
+        "actions.json": "602bb44013ed20ff7eeba0e86821d7a7a36f2bf2706720d9758141e1e19d55ee",
+        "assertions.json": "17036116e71ca6bded70d64fcc1b611d674baff97929262bdfe221799c60839e",
+        "expected_final_gamestate.txt": "f53ca1bfe632d9030b2749f8005e8e18a33e525659c0fbce7e376dee6b2b5112",
+        "meta.json": "dc0ca2c00f5c6962ff75f1ffa8eb2cd4ee0226100f70c603ce6d98489045845f"
+      }
+    },
+    "runtime_preserved": true,
+    "native_sources_preserved": true
+  }
+]

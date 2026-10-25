@@ -1,0 +1,687 @@
+{
+    "completed_at_utc": "2026-10-20T00:11:28+00:00",
+    "input_file": "card-regression-batch30.json",
+    "input_sha256": "02baa29a655918220b9a80c235e41143bb6ab41d3d7cbdcd9e77741934527880",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-aetherstorm-wellingtons-pay-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-aetherstorm-wellingtons-decline-while-affordable",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-aetherstorm-wellingtons-pay-overfunded-once-per-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-aetherstorm-wellingtons-unfunded-keyword-not-offered",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 70
+        },
+        {
+            "slug": "card-aetherstorm-wellingtons-pay-red-pitch-twice",
+            "status": "blocked_or_incorrect",
+            "error": "Expected p2DecisionQueue-0.Param to equal 'p2Hand-0', got 'p2Hand-1'.",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "p2Hero-0",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "p2Equipment-0",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "p2Hand-0",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "DYN_SURGENT_USED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "aether_dart_red"
+                    ]
+                },
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "uprTargetUID": 2,
+                        "target": 2,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "mstFree": false,
+                        "rosLastLightning": false
+                    },
+                    "5": {
+                        "iarPermission": []
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "resolvingReaction": {
+                    "uid": 3,
+                    "owner": 1,
+                    "controller": 1,
+                    "kind": "ACTION",
+                    "resolutionClass": "PLAIN_SPELL",
+                    "completionSource": {
+                        "CardID": "aether_dart_red",
+                        "Owner": 1,
+                        "Controller": 1,
+                        "Kind": "ACTION",
+                        "SourceZone": "Hand",
+                        "SourceUniqueID": 3,
+                        "Params": [],
+                        "UniqueID": 3,
+                        "TurnEffects": [],
+                        "Counters": {
+                            "FAB_PLAY_ORDER": 1
+                        },
+                        "removed": null,
+                        "Location": "Stack",
+                        "PlayerID": 0,
+                        "mzIndex": 0,
+                        "_sourceZone": null
+                    },
+                    "cardID": "aether_dart_red",
+                    "sourceMZ": "Stack-0",
+                    "baselineFrameKeys": [],
+                    "ownedFrameKeys": [
+                        "aether_dart_red:0:ResolveCard#1"
+                    ]
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": [
+                    {
+                        "Type": "MZCHOOSE",
+                        "Param": "p2Hand-1",
+                        "Block": 1,
+                        "Tooltip": "Pitch_for_arcane_barrier",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "DecisionQueue",
+                        "PlayerID": 2,
+                        "mzIndex": 0,
+                        "_sourceZone": null
+                    },
+                    {
+                        "Type": "CUSTOM",
+                        "Param": "aether_dart_red:0:ResolveCard-await|aether_dart_red:0:ResolveCard#1|36|pitched",
+                        "Block": 1,
+                        "Tooltip": "",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "DecisionQueue",
+                        "PlayerID": 2,
+                        "mzIndex": 1,
+                        "_sourceZone": null
+                    }
+                ]
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": [
+                    "p2Hand-0"
+                ]
+            }
+        },
+        {
+            "slug": "card-aetherstorm-wellingtons-small-packet-full-fixed-cost",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-aetherstorm-wellingtons-reuse-later-packet-real-boots-grant",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 217
+        },
+        {
+            "slug": "card-aetherstorm-wellingtons-two-distinct-sources-same-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-aetherstorm-wellingtons-physical-damage-not-prevented",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 40
+        },
+        {
+            "slug": "card-aetherstorm-wellingtons-zero-defense-block-returns-without-destruction",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 37
+        },
+        {
+            "slug": "card-arcane-lantern-pay-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-arcane-lantern-decline-while-affordable",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-arcane-lantern-pay-overfunded-once-per-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-arcane-lantern-unfunded-keyword-not-offered",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 70
+        },
+        {
+            "slug": "card-arcane-lantern-pay-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-arcane-lantern-small-packet-full-fixed-cost",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-arcane-lantern-reuse-later-packet-real-boots-grant",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 217
+        },
+        {
+            "slug": "card-arcane-lantern-two-distinct-sources-same-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-arcane-lantern-physical-damage-not-prevented",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 40
+        },
+        {
+            "slug": "card-enclosed-firemind-pay-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-enclosed-firemind-decline-while-affordable",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-enclosed-firemind-pay-overfunded-once-per-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-enclosed-firemind-unfunded-keyword-not-offered",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 70
+        },
+        {
+            "slug": "card-enclosed-firemind-pay-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-enclosed-firemind-pay-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-enclosed-firemind-small-packet-full-fixed-cost",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-enclosed-firemind-two-distinct-sources-same-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-enclosed-firemind-physical-damage-not-prevented",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 40
+        },
+        {
+            "slug": "card-enclosed-firemind-zero-defense-block-returns-without-destruction",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 37
+        },
+        {
+            "slug": "card-nullrune-boots-pay-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-boots-decline-while-affordable",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-boots-pay-overfunded-once-per-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-boots-unfunded-keyword-not-offered",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 70
+        },
+        {
+            "slug": "card-nullrune-boots-pay-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-nullrune-boots-pay-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-nullrune-boots-small-packet-full-fixed-cost",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-boots-reuse-later-packet-real-boots-grant",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 217
+        },
+        {
+            "slug": "card-nullrune-boots-two-distinct-sources-same-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-nullrune-boots-physical-damage-not-prevented",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 40
+        },
+        {
+            "slug": "card-nullrune-boots-zero-defense-block-returns-without-destruction",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 37
+        },
+        {
+            "slug": "card-nullrune-gloves-pay-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-gloves-decline-while-affordable",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-gloves-pay-overfunded-once-per-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-gloves-unfunded-keyword-not-offered",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 70
+        },
+        {
+            "slug": "card-nullrune-gloves-pay-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-nullrune-gloves-pay-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-nullrune-gloves-small-packet-full-fixed-cost",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-gloves-reuse-later-packet-real-boots-grant",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 217
+        },
+        {
+            "slug": "card-nullrune-gloves-two-distinct-sources-same-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-nullrune-gloves-physical-damage-not-prevented",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 40
+        },
+        {
+            "slug": "card-nullrune-gloves-zero-defense-block-returns-without-destruction",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 37
+        },
+        {
+            "slug": "card-nullrune-hood-pay-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-hood-decline-while-affordable",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-hood-pay-overfunded-once-per-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-hood-unfunded-keyword-not-offered",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 70
+        },
+        {
+            "slug": "card-nullrune-hood-pay-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-nullrune-hood-pay-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-nullrune-hood-small-packet-full-fixed-cost",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-hood-reuse-later-packet-real-boots-grant",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 217
+        },
+        {
+            "slug": "card-nullrune-hood-two-distinct-sources-same-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-nullrune-hood-physical-damage-not-prevented",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 40
+        },
+        {
+            "slug": "card-nullrune-hood-zero-defense-block-returns-without-destruction",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 37
+        },
+        {
+            "slug": "card-nullrune-robe-pay-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-robe-decline-while-affordable",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-robe-pay-overfunded-once-per-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-robe-unfunded-keyword-not-offered",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 70
+        },
+        {
+            "slug": "card-nullrune-robe-pay-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-nullrune-robe-pay-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-nullrune-robe-small-packet-full-fixed-cost",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-nullrune-robe-reuse-later-packet-real-boots-grant",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 217
+        },
+        {
+            "slug": "card-nullrune-robe-two-distinct-sources-same-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-nullrune-robe-physical-damage-not-prevented",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 40
+        },
+        {
+            "slug": "card-nullrune-robe-zero-defense-block-returns-without-destruction",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 37
+        },
+        {
+            "slug": "card-shamanic-shinbones-pay-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-shamanic-shinbones-pay-overfunded-once-per-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-shamanic-shinbones-unfunded-keyword-not-offered",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 70
+        },
+        {
+            "slug": "card-shamanic-shinbones-pay-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-shamanic-shinbones-pay-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-shamanic-shinbones-small-packet-full-fixed-cost",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-shamanic-shinbones-reuse-later-packet-real-boots-grant",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 217
+        },
+        {
+            "slug": "card-shamanic-shinbones-two-distinct-sources-same-packet",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-shamanic-shinbones-physical-damage-not-prevented",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 40
+        },
+        {
+            "slug": "card-shamanic-shinbones-zero-defense-block-returns-without-destruction",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 37
+        }
+    ]
+}

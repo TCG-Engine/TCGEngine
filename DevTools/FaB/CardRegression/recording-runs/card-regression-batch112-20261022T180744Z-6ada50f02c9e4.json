@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-22T18:07:44+00:00",
+    "input_file": "card-regression-batch112.json",
+    "input_sha256": "00aec70ebe60784268d456e881eff13ca91b6ddc826cd1766d9c2f1065556fa6",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-seismic-stir-red-four-live-sparse-actual-blue-pitch-paid-action-creates-three-owned-seismic-surges",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 338
+        },
+        {
+            "slug": "card-sky-fire-lanterns-red-four-live-sparse-real-reveal-of-red-physical-deck-top-creates-one-owned-runechant",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 319
+        },
+        {
+            "slug": "card-cruel-ambition-red-four-live-sparse-actual-zero-cost-reviled-action-creates-three-owned-might-tokens",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 301
+        },
+        {
+            "slug": "card-runic-reckoning-red-four-live-sparse-real-paid-action-buffs-next-real-two-cost-runeblade-attack-by-three",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 688
+        }
+    ]
+}

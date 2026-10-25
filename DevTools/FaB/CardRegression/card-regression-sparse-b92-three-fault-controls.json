@@ -1,0 +1,94 @@
+{
+  "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6",
+  "completed_utc": "2026-10-20T23:11:16.447149+00:00",
+  "plan_sha256": "125f9a9dee0c93f3c336982230fc07816777c8d8a8b918b2d2c12dd646e667a3",
+  "independent_saved_proof_sha256": "53b18b1fd4edf5bdeec2380d9e202f469c4bfc96e2c9504eec987f6d9384495e",
+  "command": [
+    ".\\execute_reviewed_fault_plan.py",
+    "sparse-b92-three-focused-fault-plan.json",
+    "125f9a9dee0c93f3c336982230fc07816777c8d8a8b918b2d2c12dd646e667a3",
+    "card-regression-sparse-b92-three-fault-controls.json"
+  ],
+  "results": [
+    {
+      "id": "b92_blood_harvest_remove_actual_arc_dispatch",
+      "fixture": "card-blood-harvest-four-live-sparse-real-hand-banish-instant-gains-three-resources",
+      "fixture_sha256": "e9cbd2a01dbe97e72cf2a15270e6e74b15fdcbd81f66bbf696bfbabf38417cd4",
+      "source_raw5": {
+        "initial_gamestate.txt": "9c990d3d3c11f511b92d397f22644790c48ddefbd1a593b55a2cae3969711a33",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "77865a507d631225b59ac17bcb4ee8f540ab47718de24d01c0f06be36a1c996c",
+        "expected_final_gamestate.txt": "59ca840f5cd84ed92974b0137c403141fa0581c78da06fc60c909324f235b4c5",
+        "meta.json": "3b5b55b00a0cec90f3d3f7f5565ee5a8da943b858a0a895b6ed7ab5a042a3243"
+      },
+      "prefix_actions": 1,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 136,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Resources to equal 3, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Blood Harvest / four live sparse effect: Step 4 assertion failed: Expected p1Resources to equal 3, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real Hand activation banishes physical Blood HarvestUID5 and pays its Instant cost, remove arcSpec only from sole original virtual abilityUID6. The unchanged WTR dispatcher has no Blood Harvest fallback, so resource gain is absent. Keep paid Banish, original source/controller, AP1 and four real passes; this is an isolated dispatch fault, not a legal source-loss action.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b92_fallen_herald_remove_actual_prevention",
+      "fixture": "card-fallen-herald-yellow-four-live-sparse-real-hand-banish-instant-prevents-next-four-damage",
+      "fixture_sha256": "d528de4ff2927e89175b6ad42098523e2d4ea3f4215d1b859eade36bb099b2de",
+      "source_raw5": {
+        "initial_gamestate.txt": "25384ef1d4f5680901e162087efa66bd3332b2cacbc325885a805600990c6710",
+        "actions.json": "2ff3ef07d19c28db33bd2fac5a1d6ca03f5ba155c80e3227952cf8a2a954c383",
+        "assertions.json": "3233071c06bacb9d861a6c10c7faea81ee11c502c92272ccb315f8e6aa17723a",
+        "expected_final_gamestate.txt": "6248ab66628d074e36fe1e2dfa7bb0a25ba54d1119843a35811e1dbd58b8a828",
+        "meta.json": "ee9be602b017cc0e5a03afc0dc89af26748e9a167af3e22595a0463a5fe90ea9"
+      },
+      "prefix_actions": 14,
+      "mutation": {
+        "remove_effect": "PREVENT_DAMAGE"
+      },
+      "retained_assertions": 193,
+      "expected_failure_step": 13,
+      "expected_failure": "Expected p4Health to equal 20, got 16.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Fallen Herald / four live sparse effect: Step 13 assertion failed: Expected p4Health to equal 20, got 16.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual paid Hand-banish Instant resolves at public ATTACK, remove exactly one PREVENT_DAMAGE4 effect. Actual Wounding Blow power stays4; the next normal unblocked damage packet becomes4 and P4Health20 becomes16. Preserve all four-live passes/physical costs/source ownership. The health assertion precedes retained damageDealt and hit assertions; no later expected failure is substituted.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b92_dense_blue_mist_remove_actual_targeting_power_reduction",
+      "fixture": "card-dense-blue-mist-blue-four-live-sparse-real-paid-nochi-instant-reduces-targeting-attack-power",
+      "fixture_sha256": "4a2d66da561a25136105dbd6569bd5d5671ef217917822390c12ede2378380ba",
+      "source_raw5": {
+        "initial_gamestate.txt": "ff181225b0a2a2128710675f15713b3d4287c132c3e82d860c18ec712bc62d34",
+        "actions.json": "2ff3ef07d19c28db33bd2fac5a1d6ca03f5ba155c80e3227952cf8a2a954c383",
+        "assertions.json": "0da410f7aee5ffa76a39c8f267c9f18f2631d48b37a970451cdf53346b46fb2e",
+        "expected_final_gamestate.txt": "08c12b253d074857bf1228c7e71c88cd5f1c2878eadbe07d61509e9b27ae3795",
+        "meta.json": "83cd2711cc7e1d0cbdd533e7bc908f959894caa316662f7ff5755e429a5fa9ed"
+      },
+      "prefix_actions": 14,
+      "mutation": {
+        "remove_effect": "MST_DENSE_MIST"
+      },
+      "retained_assertions": 193,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Dense Blue Mist / four live sparse effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 3, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual paid no-Chi Instant public resolution, remove exactly one P4 MST_DENSE_MIST effect. The real targeting Wounding BlowUID5 computed power3 becomes4 at the retained Initial checkpoint. Paid resource1, physical MistUID6 ownGY, attack source, all priority and every later oracle remain unchanged. No internal source-clear/effect-order approval.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": true
+}

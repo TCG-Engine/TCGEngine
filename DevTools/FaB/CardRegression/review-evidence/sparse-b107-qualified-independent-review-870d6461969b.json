@@ -1,0 +1,323 @@
+{
+  "status": "B107_FOUR_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_FOUR_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch107.json",
+  "input_sha256": "d274b473b1990bda20954c5b8336c6320ef3f97da5318cab959b07800819c6dd",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T17:46:31.472909+00:00",
+  "fixtures": [
+    {
+      "slug": "card-high-striker-red-four-live-sparse-real-next-hit-creates-six-owned-copper",
+      "fixture_sha256": "28b33a9867c6cccb0eacaccbcbe8e37ae21bce69d6dff8f24471b04c4c7de8a9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95a47d60040c41a6e2c5a47edb1c59fc966dc82fbdda105e644a9876eb5a6316",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "2a5aa2a44ebd1449066a5b6654f71066a6886b769c46492c8392b30675b2d3e8",
+        "expected_final_gamestate.txt": "ed923a96bded658397fd8c91f894beacd461de6f9b6314232f7d8dfb8ec56047",
+        "meta.json": "515851b9f53b8901735326c414ba42cdcec6fba97a3e10a94714179a125a06cc"
+      },
+      "semantically_approved": true,
+      "actions": 32,
+      "native_assertions": 713,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-plunder-run-red-four-live-sparse-real-arsenal-play-buffs-next-attack-and-hit-draws-physical-top-card",
+      "fixture_sha256": "e7b9923532692376f4d1b79f2ddcc2472b7e44e43095552e1c78c664835b6baa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5a3c7599ece8eef224186add1d3d8170633f7f4ca040a3884f82980829da9e99",
+        "actions.json": "8b5341d0539b44737de6450d399d00825ce4252b393149bfa07ba153798bba8a",
+        "assertions.json": "0520f4f8bd02a7ae6052dd0618a46c1e5680b3f01c3419d0e6aaa6f297aaf766",
+        "expected_final_gamestate.txt": "90b704ad106f0bae8eddff83b022bfc7e7800a346572d46439862f0f4ce941d6",
+        "meta.json": "af280815fcd5126652bfab8b89726b3300ba09bcb85ae87711ba89441499d37a"
+      },
+      "semantically_approved": true,
+      "actions": 32,
+      "native_assertions": 631,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-premeditate-red-four-live-sparse-real-next-arsenal-attack-plus-three-and-hit-creates-owned-ponder",
+      "fixture_sha256": "72cece6c40ab32def45cdd6ce6ffe5eaff0fe25dbdfad0744b1dd1bcbfcc1c40",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0c6375f12afe68c6b5a627f49880258ca132f516b08d457e706e3e87c5c92501",
+        "actions.json": "1ec45fbde5846f2645e8c25e7d7d95b96bd1d93a6ed4c6208f7005f9cfc59724",
+        "assertions.json": "77514fb8f4a1fa0a3dee21479cdf0535ca7ee3273d23303dd8d657678e1ec9b4",
+        "expected_final_gamestate.txt": "d22c2c3b2d379c725a602e61222dab6ca7c9fc1a3bec7ef9212e7ad6bb70d4f0",
+        "meta.json": "97f120d34a42eb3e522a5e26d0852f430026b0b8dc6c5e700fa75de1d6621b7f"
+      },
+      "semantically_approved": true,
+      "actions": 32,
+      "native_assertions": 534,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-exorcism-red-four-live-sparse-real-next-attack-plus-three-hit-turns-two-physical-banish-cards-face-down",
+      "fixture_sha256": "b838ba435f70a12e39511f18ffc2f4106d7c2d18faa50e48d91685085ec376c7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0ac20092f9c6216923dfb04b8c5334ca3518708c9dc97136186e865e8aac9e20",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "526812464de9f02a0c6cb68d403f4ed2d75f82c610e2bcf6e6ec08a1c49ee05c",
+        "expected_final_gamestate.txt": "1ff30882f6448ff5092b7e55102cd2b8c920e39379aba0ffa2818939ccbe128e",
+        "meta.json": "2cd0ea8401a9c2aa753f00c0dcd125b9bc5dfe65c370546fa1cc1b1b134b2094"
+      },
+      "semantically_approved": true,
+      "actions": 33,
+      "native_assertions": 798,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 129,
+  "total_native_assertions": 2676,
+  "total_manual_passes": 116,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b107-actual-saved-independent-review.json",
+    "sha256": "19613f7feabc4ba5e846e90e9ad1ec439686830c62a7a2dfa4471811b547f0fd"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b107-independent-spec-review.json",
+    "sha256": "2b02ca7043d13a8a192dd9e202043760f434b6b7add1504bfcc1face32d23137"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch107-20261022T174141Z-6ada4ad59d761.json",
+    "sha256": "84a374c29e247116b05de7fbe5c0748e6449d4ae7b42ffaea926a2e15cf64ced"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b107-four-live-run1.json",
+      "sha256": "74ce42e998561456ca00df381e185a7cf501d5d837812d4544a7c23592165409",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch107.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b107-four-live-run2.json",
+      "sha256": "a0f0742aec06e6fb0f60dfce711c37a3d4b9908636f30970e8a5954cb544a493",
+      "passed": 4,
+      "total": 4,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch107.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 4
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b107-fault-controls.json",
+    "sha256": "b10dfa45fa90c4c635399c087aa65692ad2907338bba87793ff44556eeb3c78b",
+    "total": 4,
+    "intended_semantic_failures": 4,
+    "plan_sha256": "68b830d18d11adab310547332a4ff114bf093c87be57e276d4cf5ffae4e59940",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b107_high_striker_red_focused_on_hit_effect_sensitivity",
+      "fixture": "card-high-striker-red-four-live-sparse-real-next-hit-creates-six-owned-copper",
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "EVR_HIGH_STRIKER"
+      },
+      "retained_assertions": 556,
+      "expected_failure_step": 19,
+      "expected_failure": "Expected p1Arena count 6, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b107_plunder_run_red_focused_on_hit_effect_sensitivity",
+      "fixture": "card-plunder-run-red-four-live-sparse-real-arsenal-play-buffs-next-attack-and-hit-draws-physical-top-card",
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "ARC_PLUNDER"
+      },
+      "retained_assertions": 469,
+      "expected_failure_step": 19,
+      "expected_failure": "Expected p1Deck count 0, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b107_premeditate_red_focused_on_hit_effect_sensitivity",
+      "fixture": "card-premeditate-red-four-live-sparse-real-next-arsenal-attack-plus-three-and-hit-creates-owned-ponder",
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "OUT_PREMEDITATE"
+      },
+      "retained_assertions": 376,
+      "expected_failure_step": 19,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b107_exorcism_red_focused_on_hit_effect_sensitivity",
+      "fixture": "card-exorcism-red-four-live-sparse-real-next-attack-plus-three-hit-turns-two-physical-banish-cards-face-down",
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "remove",
+            "tag": "IAR_EXORCISM"
+          }
+        ]
+      },
+      "retained_assertions": 500,
+      "expected_failure_step": 13,
+      "expected_failure": "Expected p4Banish-0.FaceDown to equal '1', got '0'.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b107-focused-fault-plan.json",
+    "sha256": "68b830d18d11adab310547332a4ff114bf093c87be57e276d4cf5ffae4e59940"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 3751,
+  "native_evidence_review_checks": 100,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "No support-card/token activation, second hit, other attacker, trigger-layer ordering, ordinary spell source-departure or asynchronous-lifecycle certification.",
+    "Only current new four are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and four individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "High Striker, Plunder and Premeditate controls omit one actual primary delayed effect while retaining real printed attack/damage and separate power grants. Exorcism loses only its actual granted hit tag; +3 and physical victim cards remain. These are effect sensitivity controls, not legal alternative branches."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "e19449ed259b77ec5035bdd78212dbbb46aa1186f1dee074a644a73aea12b853",
+  "review_model_correction": {
+    "scope": "Read-only reviewer model only. Playing an initially face-down Arsenal card reveals it; the independent physical model now clears FaceDown for played Arsenal spell/attack rather than carrying private Arsenal FaceDown1 into face-up Graveyard. No authored or saved action/oracle/value or native source/runtime was changed.",
+    "current_model": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b107_independent.py",
+      "sha256": "9b4e0bdd617a8f24d792469147496ece871e479d07560d342347652152926e76"
+    },
+    "previous_spec_approval": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b107-independent-spec-review.json",
+      "sha256": "2b02ca7043d13a8a192dd9e202043760f434b6b7add1504bfcc1face32d23137"
+    },
+    "all_2676_authored_oracles_unchanged": true
+  },
+  "reviewer_identity_note": "The scratch saved-audit adapter inherited the role label /root/b107_saved_review. Actual independent reviewer and final registrable packet use /root/b104_saved_review; this is metadata labeling only, not another agent or another semantic review.",
+  "additional_official_corroboration": {
+    "url": "https://judge.fabtcg.com/cards/detail/2130/",
+    "claim": "Premeditate official current text independently read, reached directly through Plunder Run JudgeHub509 related-card link; agrees with viewed official local face and printed model. No source/input replacement was needed."
+  }
+}

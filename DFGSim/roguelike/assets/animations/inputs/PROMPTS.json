@@ -1,0 +1,26 @@
+[
+  {
+    "enemy": "fox",
+    "prompt": "Prepare this exact existing sprite as a black-background image-to-video input. Preserve the supplied character's identity, exact pose, proportions, facing left, costume, color palette, thick dark outlines and simple flat cartoon style. Do not redesign, re-pose, add detail or change expression. ONLY replace transparency with perfectly uniform pure black (#000000) and extend the canvas horizontally to a landscape 16:9 frame. Center the full existing figure, with its full body occupying about 75 percent of canvas height, leaving safe black margin above/below and generous black room on either side for recoil and a later horizontal knockout pose. Keep tails, horns, wings, shell and feet inside frame. No floor, shadow, gradients, scenery, texture, particles, text or extra objects. One character only. Completely opaque black background.",
+    "output": "DFGSim/roguelike/assets/animations/inputs/fox-black.png",
+    "mode": "built-in imagegen"
+  },
+  {
+    "enemy": "tortoise",
+    "prompt": "Prepare this exact existing sprite as a black-background image-to-video input. Preserve the supplied character's identity, exact pose, proportions, facing left, costume, color palette, thick dark outlines and simple flat cartoon style. Do not redesign, re-pose, add detail or change expression. ONLY replace transparency with perfectly uniform pure black (#000000) and extend the canvas horizontally to a landscape 16:9 frame. Center the full existing figure, with its full body occupying about 75 percent of canvas height, leaving safe black margin above/below and generous black room on either side for recoil and a later horizontal knockout pose. Keep tails, horns, wings, shell and feet inside frame. No floor, shadow, gradients, scenery, texture, particles, text or extra objects. One character only. Completely opaque black background.",
+    "output": "DFGSim/roguelike/assets/animations/inputs/tortoise-black.png",
+    "mode": "built-in imagegen"
+  },
+  {
+    "enemy": "tengu",
+    "prompt": "Prepare this exact existing sprite as a black-background image-to-video input. Preserve the supplied character's identity, exact pose, proportions, facing left, costume, color palette, thick dark outlines and simple flat cartoon style. Do not redesign, re-pose, add detail or change expression. ONLY replace transparency with perfectly uniform pure black (#000000) and extend the canvas horizontally to a landscape 16:9 frame. Center the full existing figure, with its full body occupying about 75 percent of canvas height, leaving safe black margin above/below and generous black room on either side for recoil and a later horizontal knockout pose. Keep tails, horns, wings, shell and feet inside frame. No floor, shadow, gradients, scenery, texture, particles, text or extra objects. One character only. Completely opaque black background.",
+    "output": "DFGSim/roguelike/assets/animations/inputs/tengu-black.png",
+    "mode": "built-in imagegen"
+  },
+  {
+    "enemy": "dragon",
+    "prompt": "Prepare this exact existing sprite as a black-background image-to-video input. Preserve the supplied character's identity, exact pose, proportions, facing left, costume, color palette, thick dark outlines and simple flat cartoon style. Do not redesign, re-pose, add detail or change expression. ONLY replace transparency with perfectly uniform pure black (#000000) and extend the canvas horizontally to a landscape 16:9 frame. Center the full existing figure, with its full body occupying about 75 percent of canvas height, leaving safe black margin above/below and generous black room on either side for recoil and a later horizontal knockout pose. Keep tails, horns, wings, shell and feet inside frame. No floor, shadow, gradients, scenery, texture, particles, text or extra objects. One character only. Completely opaque black background.",
+    "output": "DFGSim/roguelike/assets/animations/inputs/dragon-black.png",
+    "mode": "built-in imagegen"
+  }
+]

@@ -1,0 +1,7 @@
+{
+    "name": "Burgeoning / arsenal-blue-pitch",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:48:02+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed power6, cost2; originArsenal. The arsenal-only intrinsic bonus is1; expected current power7. No extra trigger layer or go again is created. One blue pitch generates3, pays2, leaving1; AP stays1 while awaiting payment and becomes0 when paid. Defense0; damage=max(0,7-0)=7; defender life20->13. Origin is checked independently on Stack and CombatChain; the arsenal becomes empty as the attack leaves it. Sources: FaBSim/GeneratedCode/cardArrayCache.json#burgeoning_red https://judge.fabtcg.com/cards/detail/1174/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

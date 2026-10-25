@@ -1,0 +1,774 @@
+{
+  "command": "php DevTools/RunIntegrationTests.php --root=FaBSim",
+  "returncode": 1,
+  "completed_utc": "2026-10-19T21:04:12.890300+00:00",
+  "fixtures": [
+    {
+      "slug": "card-autumns-touch-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / blocked"
+    },
+    {
+      "slug": "card-autumns-touch-blue-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / insufficient-resources"
+    },
+    {
+      "slug": "card-autumns-touch-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / unblocked"
+    },
+    {
+      "slug": "card-autumns-touch-red-blocked",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / blocked"
+    },
+    {
+      "slug": "card-autumns-touch-red-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / insufficient-resources"
+    },
+    {
+      "slug": "card-autumns-touch-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / unblocked"
+    },
+    {
+      "slug": "card-autumns-touch-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / blocked"
+    },
+    {
+      "slug": "card-autumns-touch-yellow-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / insufficient-resources"
+    },
+    {
+      "slug": "card-autumns-touch-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Autumn's Touch / unblocked"
+    },
+    {
+      "slug": "card-brutal-assault-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / blocked"
+    },
+    {
+      "slug": "card-brutal-assault-blue-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / insufficient-resources"
+    },
+    {
+      "slug": "card-brutal-assault-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / unblocked"
+    },
+    {
+      "slug": "card-brutal-assault-red-blocked",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / blocked"
+    },
+    {
+      "slug": "card-brutal-assault-red-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / insufficient-resources"
+    },
+    {
+      "slug": "card-brutal-assault-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / unblocked"
+    },
+    {
+      "slug": "card-brutal-assault-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / blocked"
+    },
+    {
+      "slug": "card-brutal-assault-yellow-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / insufficient-resources"
+    },
+    {
+      "slug": "card-brutal-assault-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Brutal Assault / unblocked"
+    },
+    {
+      "slug": "card-critical-strike-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Critical Strike / blocked"
+    },
+    {
+      "slug": "card-critical-strike-blue-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Critical Strike / insufficient-resources"
+    },
+    {
+      "slug": "card-critical-strike-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Critical Strike / unblocked"
+    },
+    {
+      "slug": "card-critical-strike-red-blocked",
+      "passed": true,
+      "result": "[PASS] Critical Strike / blocked"
+    },
+    {
+      "slug": "card-critical-strike-red-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Critical Strike / insufficient-resources"
+    },
+    {
+      "slug": "card-critical-strike-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Critical Strike / unblocked"
+    },
+    {
+      "slug": "card-critical-strike-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Critical Strike / blocked"
+    },
+    {
+      "slug": "card-critical-strike-yellow-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Critical Strike / insufficient-resources"
+    },
+    {
+      "slug": "card-critical-strike-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Critical Strike / unblocked"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / blocked"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / insufficient-resources"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / unblocked"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-blocked",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / blocked"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / insufficient-resources"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / unblocked"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / blocked"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / insufficient-resources"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Dust Runner Outlaw / unblocked"
+    },
+    {
+      "slug": "card-electrolyze-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Electrolyze / blocked"
+    },
+    {
+      "slug": "card-electrolyze-blue-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Electrolyze / insufficient-resources"
+    },
+    {
+      "slug": "card-electrolyze-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Electrolyze / unblocked"
+    },
+    {
+      "slug": "card-electrolyze-red-blocked",
+      "passed": true,
+      "result": "[PASS] Electrolyze / blocked"
+    },
+    {
+      "slug": "card-electrolyze-red-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Electrolyze / insufficient-resources"
+    },
+    {
+      "slug": "card-electrolyze-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Electrolyze / unblocked"
+    },
+    {
+      "slug": "card-electrolyze-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Electrolyze / blocked"
+    },
+    {
+      "slug": "card-electrolyze-yellow-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Electrolyze / insufficient-resources"
+    },
+    {
+      "slug": "card-electrolyze-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Electrolyze / unblocked"
+    },
+    {
+      "slug": "card-fry-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Fry / blocked"
+    },
+    {
+      "slug": "card-fry-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Fry / unblocked"
+    },
+    {
+      "slug": "card-fry-red-blocked",
+      "passed": true,
+      "result": "[PASS] Fry / blocked"
+    },
+    {
+      "slug": "card-fry-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Fry / unblocked"
+    },
+    {
+      "slug": "card-fry-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Fry / blocked"
+    },
+    {
+      "slug": "card-fry-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Fry / unblocked"
+    },
+    {
+      "slug": "card-goliath-gauntlet-destroy-buff",
+      "passed": true,
+      "result": "[PASS] Goliath Gauntlet / destroy-buff"
+    },
+    {
+      "slug": "card-harmonized-kodachi-no-cost-pitch",
+      "passed": true,
+      "result": "[PASS] Harmonized Kodachi / no-cost-pitch"
+    },
+    {
+      "slug": "card-harmonized-kodachi-nonzero-cost-pitch",
+      "passed": true,
+      "result": "[PASS] Harmonized Kodachi / nonzero-cost-pitch"
+    },
+    {
+      "slug": "card-harmonized-kodachi-zero-cost-pitch",
+      "passed": true,
+      "result": "[PASS] Harmonized Kodachi / zero-cost-pitch"
+    },
+    {
+      "slug": "card-head-jab-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Head Jab / blocked"
+    },
+    {
+      "slug": "card-head-jab-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Head Jab / unblocked"
+    },
+    {
+      "slug": "card-head-jab-red-blocked",
+      "passed": true,
+      "result": "[PASS] Head Jab / blocked"
+    },
+    {
+      "slug": "card-head-jab-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Head Jab / unblocked"
+    },
+    {
+      "slug": "card-head-jab-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Head Jab / blocked"
+    },
+    {
+      "slug": "card-head-jab-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Head Jab / unblocked"
+    },
+    {
+      "slug": "card-heavens-claws-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / blocked"
+    },
+    {
+      "slug": "card-heavens-claws-blue-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / insufficient-resources"
+    },
+    {
+      "slug": "card-heavens-claws-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / unblocked"
+    },
+    {
+      "slug": "card-heavens-claws-red-blocked",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / blocked"
+    },
+    {
+      "slug": "card-heavens-claws-red-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / insufficient-resources"
+    },
+    {
+      "slug": "card-heavens-claws-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / unblocked"
+    },
+    {
+      "slug": "card-heavens-claws-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / blocked"
+    },
+    {
+      "slug": "card-heavens-claws-yellow-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / insufficient-resources"
+    },
+    {
+      "slug": "card-heavens-claws-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Heaven's Claws / unblocked"
+    },
+    {
+      "slug": "card-leg-tap-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Leg Tap / blocked"
+    },
+    {
+      "slug": "card-leg-tap-blue-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Leg Tap / insufficient-resources"
+    },
+    {
+      "slug": "card-leg-tap-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Leg Tap / unblocked"
+    },
+    {
+      "slug": "card-leg-tap-red-blocked",
+      "passed": true,
+      "result": "[PASS] Leg Tap / blocked"
+    },
+    {
+      "slug": "card-leg-tap-red-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Leg Tap / insufficient-resources"
+    },
+    {
+      "slug": "card-leg-tap-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Leg Tap / unblocked"
+    },
+    {
+      "slug": "card-leg-tap-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Leg Tap / blocked"
+    },
+    {
+      "slug": "card-leg-tap-yellow-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Leg Tap / insufficient-resources"
+    },
+    {
+      "slug": "card-leg-tap-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Leg Tap / unblocked"
+    },
+    {
+      "slug": "card-raging-onslaught-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / blocked"
+    },
+    {
+      "slug": "card-raging-onslaught-blue-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / insufficient-resources"
+    },
+    {
+      "slug": "card-raging-onslaught-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / unblocked"
+    },
+    {
+      "slug": "card-raging-onslaught-red-blocked",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / blocked"
+    },
+    {
+      "slug": "card-raging-onslaught-red-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / insufficient-resources"
+    },
+    {
+      "slug": "card-raging-onslaught-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / unblocked"
+    },
+    {
+      "slug": "card-raging-onslaught-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / blocked"
+    },
+    {
+      "slug": "card-raging-onslaught-yellow-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / insufficient-resources"
+    },
+    {
+      "slug": "card-raging-onslaught-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Raging Onslaught / unblocked"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / blocked"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / insufficient-resources"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / unblocked"
+    },
+    {
+      "slug": "card-rebellious-rush-red-blocked",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / blocked"
+    },
+    {
+      "slug": "card-rebellious-rush-red-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / insufficient-resources"
+    },
+    {
+      "slug": "card-rebellious-rush-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / unblocked"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / blocked"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / insufficient-resources"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Rebellious Rush / unblocked"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Ronin Renegade / blocked"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Ronin Renegade / unblocked"
+    },
+    {
+      "slug": "card-ronin-renegade-red-blocked",
+      "passed": true,
+      "result": "[PASS] Ronin Renegade / blocked"
+    },
+    {
+      "slug": "card-ronin-renegade-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Ronin Renegade / unblocked"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Ronin Renegade / blocked"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Ronin Renegade / unblocked"
+    },
+    {
+      "slug": "card-rusty-harpoon-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Rusty Harpoon / blocked"
+    },
+    {
+      "slug": "card-rusty-harpoon-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Rusty Harpoon / unblocked"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / blocked"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / insufficient-resources"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / unblocked"
+    },
+    {
+      "slug": "card-sic-em-shot-red-blocked",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / blocked"
+    },
+    {
+      "slug": "card-sic-em-shot-red-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / insufficient-resources"
+    },
+    {
+      "slug": "card-sic-em-shot-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / unblocked"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / blocked"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / insufficient-resources"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Sic 'Em Shot / unblocked"
+    },
+    {
+      "slug": "card-sigil-of-solace-blue-gain",
+      "passed": true,
+      "result": "[PASS] Sigil of Solace / gain"
+    },
+    {
+      "slug": "card-sigil-of-solace-red-gain",
+      "passed": true,
+      "result": "[PASS] Sigil of Solace / gain"
+    },
+    {
+      "slug": "card-sigil-of-solace-yellow-gain",
+      "passed": true,
+      "result": "[PASS] Sigil of Solace / gain"
+    },
+    {
+      "slug": "card-sink-below-red-decline",
+      "passed": true,
+      "result": "[PASS] Sink Below / decline"
+    },
+    {
+      "slug": "card-sink-below-red-exchange",
+      "passed": false,
+      "result": "[FAIL] Sink Below / exchange: Step 13 assertion failed: Expected p2Hand-0.CardID to equal 'wounding_blow_blue', got 'head_jab_blue'."
+    },
+    {
+      "slug": "card-smash-with-big-tree-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / blocked"
+    },
+    {
+      "slug": "card-smash-with-big-tree-blue-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / insufficient-resources"
+    },
+    {
+      "slug": "card-smash-with-big-tree-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / unblocked"
+    },
+    {
+      "slug": "card-smash-with-big-tree-red-blocked",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / blocked"
+    },
+    {
+      "slug": "card-smash-with-big-tree-red-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / insufficient-resources"
+    },
+    {
+      "slug": "card-smash-with-big-tree-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / unblocked"
+    },
+    {
+      "slug": "card-smash-with-big-tree-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / blocked"
+    },
+    {
+      "slug": "card-smash-with-big-tree-yellow-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / insufficient-resources"
+    },
+    {
+      "slug": "card-smash-with-big-tree-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Smash with Big Tree / unblocked"
+    },
+    {
+      "slug": "card-surging-strike-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Surging Strike / blocked"
+    },
+    {
+      "slug": "card-surging-strike-blue-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Surging Strike / insufficient-resources"
+    },
+    {
+      "slug": "card-surging-strike-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Surging Strike / unblocked"
+    },
+    {
+      "slug": "card-surging-strike-red-blocked",
+      "passed": true,
+      "result": "[PASS] Surging Strike / blocked"
+    },
+    {
+      "slug": "card-surging-strike-red-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Surging Strike / insufficient-resources"
+    },
+    {
+      "slug": "card-surging-strike-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Surging Strike / unblocked"
+    },
+    {
+      "slug": "card-surging-strike-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Surging Strike / blocked"
+    },
+    {
+      "slug": "card-surging-strike-yellow-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Surging Strike / insufficient-resources"
+    },
+    {
+      "slug": "card-surging-strike-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Surging Strike / unblocked"
+    },
+    {
+      "slug": "card-winters-grasp-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / blocked"
+    },
+    {
+      "slug": "card-winters-grasp-blue-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / insufficient-resources"
+    },
+    {
+      "slug": "card-winters-grasp-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / unblocked"
+    },
+    {
+      "slug": "card-winters-grasp-red-blocked",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / blocked"
+    },
+    {
+      "slug": "card-winters-grasp-red-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / insufficient-resources"
+    },
+    {
+      "slug": "card-winters-grasp-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / unblocked"
+    },
+    {
+      "slug": "card-winters-grasp-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / blocked"
+    },
+    {
+      "slug": "card-winters-grasp-yellow-insufficient-resources",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / insufficient-resources"
+    },
+    {
+      "slug": "card-winters-grasp-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Winter's Grasp / unblocked"
+    },
+    {
+      "slug": "card-wounding-blow-blue-blocked",
+      "passed": true,
+      "result": "[PASS] Wounding Blow / blocked"
+    },
+    {
+      "slug": "card-wounding-blow-blue-unblocked",
+      "passed": true,
+      "result": "[PASS] Wounding Blow / unblocked"
+    },
+    {
+      "slug": "card-wounding-blow-red-blocked",
+      "passed": true,
+      "result": "[PASS] Wounding Blow / blocked"
+    },
+    {
+      "slug": "card-wounding-blow-red-unblocked",
+      "passed": true,
+      "result": "[PASS] Wounding Blow / unblocked"
+    },
+    {
+      "slug": "card-wounding-blow-yellow-blocked",
+      "passed": true,
+      "result": "[PASS] Wounding Blow / blocked"
+    },
+    {
+      "slug": "card-wounding-blow-yellow-unblocked",
+      "passed": true,
+      "result": "[PASS] Wounding Blow / unblocked"
+    },
+    {
+      "slug": "sigil-of-solace-red-gain",
+      "passed": true,
+      "result": "[PASS] Sigil of Solace red gains 3 life"
+    }
+  ],
+  "stdout": "[PASS] Autumn's Touch / blocked\n[PASS] Autumn's Touch / insufficient-resources\n[PASS] Autumn's Touch / unblocked\n[PASS] Autumn's Touch / blocked\n[PASS] Autumn's Touch / insufficient-resources\n[PASS] Autumn's Touch / unblocked\n[PASS] Autumn's Touch / blocked\n[PASS] Autumn's Touch / insufficient-resources\n[PASS] Autumn's Touch / unblocked\n[PASS] Brutal Assault / blocked\n[PASS] Brutal Assault / insufficient-resources\n[PASS] Brutal Assault / unblocked\n[PASS] Brutal Assault / blocked\n[PASS] Brutal Assault / insufficient-resources\n[PASS] Brutal Assault / unblocked\n[PASS] Brutal Assault / blocked\n[PASS] Brutal Assault / insufficient-resources\n[PASS] Brutal Assault / unblocked\n[PASS] Critical Strike / blocked\n[PASS] Critical Strike / insufficient-resources\n[PASS] Critical Strike / unblocked\n[PASS] Critical Strike / blocked\n[PASS] Critical Strike / insufficient-resources\n[PASS] Critical Strike / unblocked\n[PASS] Critical Strike / blocked\n[PASS] Critical Strike / insufficient-resources\n[PASS] Critical Strike / unblocked\n[PASS] Dust Runner Outlaw / blocked\n[PASS] Dust Runner Outlaw / insufficient-resources\n[PASS] Dust Runner Outlaw / unblocked\n[PASS] Dust Runner Outlaw / blocked\n[PASS] Dust Runner Outlaw / insufficient-resources\n[PASS] Dust Runner Outlaw / unblocked\n[PASS] Dust Runner Outlaw / blocked\n[PASS] Dust Runner Outlaw / insufficient-resources\n[PASS] Dust Runner Outlaw / unblocked\n[PASS] Electrolyze / blocked\n[PASS] Electrolyze / insufficient-resources\n[PASS] Electrolyze / unblocked\n[PASS] Electrolyze / blocked\n[PASS] Electrolyze / insufficient-resources\n[PASS] Electrolyze / unblocked\n[PASS] Electrolyze / blocked\n[PASS] Electrolyze / insufficient-resources\n[PASS] Electrolyze / unblocked\n[PASS] Fry / blocked\n[PASS] Fry / unblocked\n[PASS] Fry / blocked\n[PASS] Fry / unblocked\n[PASS] Fry / blocked\n[PASS] Fry / unblocked\n[PASS] Goliath Gauntlet / destroy-buff\n[PASS] Harmonized Kodachi / no-cost-pitch\n[PASS] Harmonized Kodachi / nonzero-cost-pitch\n[PASS] Harmonized Kodachi / zero-cost-pitch\n[PASS] Head Jab / blocked\n[PASS] Head Jab / unblocked\n[PASS] Head Jab / blocked\n[PASS] Head Jab / unblocked\n[PASS] Head Jab / blocked\n[PASS] Head Jab / unblocked\n[PASS] Heaven's Claws / blocked\n[PASS] Heaven's Claws / insufficient-resources\n[PASS] Heaven's Claws / unblocked\n[PASS] Heaven's Claws / blocked\n[PASS] Heaven's Claws / insufficient-resources\n[PASS] Heaven's Claws / unblocked\n[PASS] Heaven's Claws / blocked\n[PASS] Heaven's Claws / insufficient-resources\n[PASS] Heaven's Claws / unblocked\n[PASS] Leg Tap / blocked\n[PASS] Leg Tap / insufficient-resources\n[PASS] Leg Tap / unblocked\n[PASS] Leg Tap / blocked\n[PASS] Leg Tap / insufficient-resources\n[PASS] Leg Tap / unblocked\n[PASS] Leg Tap / blocked\n[PASS] Leg Tap / insufficient-resources\n[PASS] Leg Tap / unblocked\n[PASS] Raging Onslaught / blocked\n[PASS] Raging Onslaught / insufficient-resources\n[PASS] Raging Onslaught / unblocked\n[PASS] Raging Onslaught / blocked\n[PASS] Raging Onslaught / insufficient-resources\n[PASS] Raging Onslaught / unblocked\n[PASS] Raging Onslaught / blocked\n[PASS] Raging Onslaught / insufficient-resources\n[PASS] Raging Onslaught / unblocked\n[PASS] Rebellious Rush / blocked\n[PASS] Rebellious Rush / insufficient-resources\n[PASS] Rebellious Rush / unblocked\n[PASS] Rebellious Rush / blocked\n[PASS] Rebellious Rush / insufficient-resources\n[PASS] Rebellious Rush / unblocked\n[PASS] Rebellious Rush / blocked\n[PASS] Rebellious Rush / insufficient-resources\n[PASS] Rebellious Rush / unblocked\n[PASS] Ronin Renegade / blocked\n[PASS] Ronin Renegade / unblocked\n[PASS] Ronin Renegade / blocked\n[PASS] Ronin Renegade / unblocked\n[PASS] Ronin Renegade / blocked\n[PASS] Ronin Renegade / unblocked\n[PASS] Rusty Harpoon / blocked\n[PASS] Rusty Harpoon / unblocked\n[PASS] Sic 'Em Shot / blocked\n[PASS] Sic 'Em Shot / insufficient-resources\n[PASS] Sic 'Em Shot / unblocked\n[PASS] Sic 'Em Shot / blocked\n[PASS] Sic 'Em Shot / insufficient-resources\n[PASS] Sic 'Em Shot / unblocked\n[PASS] Sic 'Em Shot / blocked\n[PASS] Sic 'Em Shot / insufficient-resources\n[PASS] Sic 'Em Shot / unblocked\n[PASS] Sigil of Solace / gain\n[PASS] Sigil of Solace / gain\n[PASS] Sigil of Solace / gain\n[PASS] Sink Below / decline\n[FAIL] Sink Below / exchange: Step 13 assertion failed: Expected p2Hand-0.CardID to equal 'wounding_blow_blue', got 'head_jab_blue'.\n[PASS] Smash with Big Tree / blocked\n[PASS] Smash with Big Tree / insufficient-resources\n[PASS] Smash with Big Tree / unblocked\n[PASS] Smash with Big Tree / blocked\n[PASS] Smash with Big Tree / insufficient-resources\n[PASS] Smash with Big Tree / unblocked\n[PASS] Smash with Big Tree / blocked\n[PASS] Smash with Big Tree / insufficient-resources\n[PASS] Smash with Big Tree / unblocked\n[PASS] Surging Strike / blocked\n[PASS] Surging Strike / insufficient-resources\n[PASS] Surging Strike / unblocked\n[PASS] Surging Strike / blocked\n[PASS] Surging Strike / insufficient-resources\n[PASS] Surging Strike / unblocked\n[PASS] Surging Strike / blocked\n[PASS] Surging Strike / insufficient-resources\n[PASS] Surging Strike / unblocked\n[PASS] Winter's Grasp / blocked\n[PASS] Winter's Grasp / insufficient-resources\n[PASS] Winter's Grasp / unblocked\n[PASS] Winter's Grasp / blocked\n[PASS] Winter's Grasp / insufficient-resources\n[PASS] Winter's Grasp / unblocked\n[PASS] Winter's Grasp / blocked\n[PASS] Winter's Grasp / insufficient-resources\n[PASS] Winter's Grasp / unblocked\n[PASS] Wounding Blow / blocked\n[PASS] Wounding Blow / unblocked\n[PASS] Wounding Blow / blocked\n[PASS] Wounding Blow / unblocked\n[PASS] Wounding Blow / blocked\n[PASS] Wounding Blow / unblocked\n[PASS] Sigil of Solace red gains 3 life\n[SUMMARY] Total: 153 | Pass: 152 | Fail: 1\n",
+  "stderr": ""
+}

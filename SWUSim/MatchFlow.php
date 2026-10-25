@@ -26,6 +26,8 @@ function SWUMaybeSpawnAfterSideboard($matchId)      { return MatchMaybeSpawnAfte
 // this match rated at all?) is captured here; BlockedUsers.php's forfeit has no gamestate and passes none.
 function SWUConcedeMatch($matchId, $concedingSeat) {
     $detail = (function_exists('SWUCaptureCurrentGameDetail') && function_exists('GetTurnNumber')) ? SWUCaptureCurrentGameDetail() : null;
+    // SWU-PGN: the open game ends here with no gamestate winner — finish its recording before the match is sealed.
+    if ($detail !== null && function_exists('SwuPgnRecFinishConcede')) SwuPgnRecFinishConcede(intval($concedingSeat) === 1 ? 2 : 1);
     return MatchConcede('SWUSim', $matchId, $concedingSeat, $detail);
 }
 function SWUReapStaleMatches($maxAgeSeconds = 86400, $nowTs = null) { return MatchReapStale('SWUSim', $maxAgeSeconds, $nowTs); }

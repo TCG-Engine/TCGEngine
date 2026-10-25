@@ -1,0 +1,213 @@
+{
+  "status": "B153_TWO_EQUIPMENT_ACTUAL_ATTACK_AND_RESOURCE_SPARSE_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch153.json",
+  "input_sha256": "3fbffc1a84dfed761557645598011db6fbf21892029be423d0a078904c76ebe7",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:14:12.841156+00:00",
+  "fixtures": [
+    {
+      "slug": "card-cracker-jax-four-live-sparse-actual-equipment-destruction-grants-one-to-next-real-blue-attack",
+      "fixture_sha256": "a530f5b01b8d1bbc9ec9947a83126d6eb8d9088d9be0228734ac373ed91343af",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ce62abdcf734769976f51c5a1f108e615fd360e7367786001bb29ae90db1e9a3",
+        "actions.json": "32b9d81764462abd53956d1251473ada46f22bb33662b1b230d63dfe6f874d94",
+        "assertions.json": "a606f2cc4a5b00240a2cea50fe766719ff17a47a2faa5272e9a3948429666f1f",
+        "expected_final_gamestate.txt": "b288fbd17f487ea52db7b43a26915773103b4a00ecefbe54e8ef7a14e80308e7",
+        "meta.json": "7f5b97ef65ccb8280e033d5526a8944659e6f3204fc2bc09b6f8618302f9913a"
+      },
+      "semantically_approved": true,
+      "actions": 32,
+      "native_assertions": 852,
+      "actual_manual_passes": 29,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-coat-of-allegiance-four-live-sparse-actual-draconic-equipment-destruction-gains-one-resource-and-go-again",
+      "fixture_sha256": "82cd4f8aebdebb90d629ae6930d874b5c487f9073b78198fc21bf24b9af67e6d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b16a16d0bc83d276b979f3f81919070dce28abb04728e37fc9beafb9636794e8",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "2e5568ae10cdd5bc2331848097a634d8c8678c5b31b62fe9fb2dec5c24dba1e7",
+        "expected_final_gamestate.txt": "f1efc53cfbc28c3326677377a62ef84e33247a77dbd736959b884408474ac199",
+        "meta.json": "dc1de7a96a5acebfeb9632dce96253ea782621f237b4d6ab522df50ad1e60673"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 332,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 37,
+  "total_native_assertions": 1184,
+  "total_manual_passes": 33,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b153-actual-saved-independent-review.json",
+    "sha256": "b4ef6d1177371bf27c7ffae8b2abc6452e1cf19a375d4a7476523dcccd06e119"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b153-independent-spec-review.json",
+    "sha256": "b91beb5786d6d60c9120891e099efed6d72a891e6299a5748e42395680d76d3e"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch153-20261022T201232Z-6ada6e303be32.json",
+    "sha256": "aa380cb3de52a0d64d32f669f931e0cf72a7454ee6795b6e35d2a79c901fcfca"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b153-four-live-run1.json",
+      "sha256": "93648e31052f5c659b385f16b9c460959cbdc33ea9e2c62115d221c832d5613e",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch153.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b153-four-live-run2.json",
+      "sha256": "604c59d06b972623f95bedf8d766969652517d5d23e0154a4bb82a1d9775c47a",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch153.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b153-fault-controls.json",
+    "sha256": "a324d09d61155f577a340054e8aee4b4024ea942fbcaed505a6bd342867e2dd1",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "035c424e1fde705bbe5f95c5ff69301ace1840587eb82751de74ed660b2c13f9",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b153_cracker_jax_focused_effect_sensitivity",
+      "fixture": "card-cracker-jax-four-live-sparse-actual-equipment-destruction-grants-one-to-next-real-blue-attack",
+      "prefix_actions": 11,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_blue",
+            "mode": "remove",
+            "tag": "WTR_POWER:1"
+          }
+        ]
+      },
+      "retained_assertions": 411,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b153_coat_of_allegiance_focused_effect_sensitivity",
+      "fixture": "card-coat-of-allegiance-four-live-sparse-actual-draconic-equipment-destruction-gains-one-resource-and-go-again",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "cardID": "coat_of_allegiance",
+            "uid": 5,
+            "from": "Graveyard",
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 106,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b153-focused-fault-plan.json",
+    "sha256": "035c424e1fde705bbe5f95c5ff69301ace1840587eb82751de74ed660b2c13f9"
+  },
+  "approved_uid_selector_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\optional-token-uid-component-result.json",
+    "sha256": "a7b49697ac217e4df1244e5e2af1c7e956a0f257671a9a5f9b213131193344e0"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1693,
+  "native_evidence_review_checks": 65,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Two standaloneequipment positives: CrackerJaxdestroyEq5/abilityGA then realBlueAA6base2plus1=3/damage3/P4HP17/noattackGA/AP0/R0; CoatlegalDraconicFai actualdestroyEq5/gainresource1/abilityGAAP1. No laterDraconiconlypermission, resourceuse, nonAA/expiry/hero/support/fullcard credit.",
+    "Only current TWO-case new packet audited; root alone executes native games and writes repo. Only established virtualABILITYrawOwner0/Controller1representation; physicalEq5 remains owned1. No broadownership or legacy review.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Cracker prefix11 removes exact actualWTR_POWER1 from real BlueWB6 after realEquipment5destroy/fourmanualresponses/abilityGA; first computed3to2 pins nextAAgrant. Coat completeprefix5 moves actuallydestroyedphysicalEq5 GYtoTemp; first originalGY1to0 is physicaldestroy-cost destination sensitivity only, actualresource1/AP1remain. No isolatednative resourcegain mutation claim: printed+1, positive nativeassertions/tworeplays and puremissing/extra/earlygain faults separate. Coat laterDraconiconlypermission/allowedorprohibitedplays/expiry/resourceuse remainsUNTESTED. No hero/support/fullcard credit.",
+    "Cracker prefix11 retains21remainingrealactions/alloriginalsuffixoracles; Coat completeprefix5 retains alloriginalfinaloracles asInitial/zero suffixactions. Same exact selectedraw5/runtime preserved; no helperextension/newownership/broad-suite claim."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "cc814a1cd38e4ca5a9b083621cc03816d3d6336f84096133c85010e14e558c19"
+}

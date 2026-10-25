@@ -212,4 +212,62 @@ if (!empty($st['gameName'])) {
     check(($names['3'] ?? '') === 'Arenabot Beta', 'the game keeps the room\'s name: the seat-3 bot is "Arenabot Beta" on the board: ' . json_encode($names));
 }
 
+echo "── team suns room (owner 2026-10-12: a fill button per team) ──\n";
+// The host (claudebot1, the fixture deck's SEC_002 + SHD_002 leaders) is Red; the four pre-cons lead with TS26 leaders, so no pre-con
+// clashes with the host — the clash below is a bot repeating another bot's pre-con on one team.
+$tseats = function (string $lobbyID): array {   // [seat => [team, botProfile]]
+    $l = apcu_fetch($lobbyID); $o = [];
+    foreach (($l->players ?? []) as $p) if ($p instanceof Player) $o[intval($p->getSeat() ?? 0)] = [strval($p->getTeam()), $p->getBotProfile()];
+    ksort($o); return $o;
+};
+$th = hit($L . 'JoinQueue.php', ['rootName' => 'SWUSim', 'createPrivate' => '1', 'format' => 'teamsuns',
+    'deckLink' => $deck, 'preconstructedDeck' => '', 'game_type' => ''], $jarHost);
+check(!empty($th['success']), 'created a private Team Suns room: ' . ($th['message'] ?? json_encode($th)));
+$tlobby = $th['lobbyID'] ?? ''; $tk = $th['authKey'] ?? '';
+$st = hit($L . 'SetTeam.php', ['lobbyID' => $tlobby, 'authKey' => $tk, 'team' => 'red'], $jarHost);
+check(!empty($st['success']) && ($st['seat'] ?? 0) === 1, 'the host takes Red seat 1: ' . json_encode($st));
+$tadd = function (string $profile, ?string $team) use ($L, $jarHost, $tlobby, $tk) {
+    $p = ['lobbyID' => $tlobby, 'authKey' => $tk, 'botProfile' => $profile, 'botDeck' => ''];
+    if ($team !== null) $p['team'] = $team;
+    return hit($L . 'AddBot.php', $p, $jarHost);
+};
+$tpoll = fn() => hit($L . 'PollLobbyUpdates.php', ['rootName' => 'SWUSim', 'lobbyID' => $tlobby, 'playerID' => 0, 'authKey' => $tk], $jarHost);
+$prof = (array)($tpoll()['botProfiles'] ?? []);
+check(isset($prof['precon:ts1']) && ($prof['precon:ts1']['clashTeams'] ?? null) === [], 'a Team Suns room offers bots; no pre-con clashes yet: ' . json_encode(array_map(fn($p) => $p['clashTeams'] ?? null, $prof)));
+$r = $tadd('precon:ts1', null);
+check(empty($r['success']) && stripos($r['message'] ?? '', 'team') !== false, 'a team room refuses a bot with no team: ' . ($r['message'] ?? ''));
+$r = $tadd('precon:ts1', 'blue');
+check(!empty($r['success']), 'the host fills a Blue slot with a pre-con bot: ' . ($r['message'] ?? ''));
+check(((array)($tpoll()['botProfiles']['precon:ts1'] ?? []))['clashTeams'] === ['blue'], 'the poll marks that pre-con as clashing on Blue only');
+$r = $tadd('precon:ts1', 'blue');
+check(empty($r['success']) && stripos($r['message'] ?? '', 'leader') !== false, 'the same pre-con again on Blue is refused (team-wide unique leaders): ' . ($r['message'] ?? ''));
+$r = $tadd('precon:ts2', 'blue');
+check(!empty($r['success']), 'a second Blue bot: ' . ($r['message'] ?? ''));
+// 3 of 4 seats taken, so this is the TEAM's capacity, not the room's.
+$r = $tadd('precon:ts3', 'blue');
+check(empty($r['success']) && stripos($r['message'] ?? '', 'Team Blue is already full') !== false, 'a third bot on a full TEAM is refused while the room has a seat: ' . ($r['message'] ?? ''));
+$r = $tadd('precon:ts1', 'red');
+check(!empty($r['success']), 'the same pre-con on the OTHER team is fine: ' . ($r['message'] ?? ''));
+$ts = $tseats($tlobby);
+check(array_map(fn($x) => $x[0], $ts) === [1 => 'red', 2 => 'blue', 3 => 'red', 4 => 'blue'] && $ts[1][1] === '' && $ts[2][1] !== '' && $ts[3][1] !== '' && $ts[4][1] !== '',
+    'every bot sits in its team\'s slot (R/B/R/B): ' . json_encode($ts));
+// A friend joins the bot-full room: the OLDEST bot (backdated: the seat-4 Blue one) leaves, and the friend lands on Blue in its place.
+$l = apcu_fetch($tlobby);
+foreach ($l->players as $p) if ($p->getBotProfile() !== '') $p->setJoinedAt(time() - ($p->getSeat() === 4 ? 60 : 10));
+apcu_store($tlobby, $l);
+$tj = $join(strval($th['inviteCode'] ?? ''), jar());
+check(!empty($tj['success']), 'a friend joins the bot-full Team Suns room: ' . ($tj['message'] ?? ''));
+$ts = $tseats($tlobby);
+check(($ts[4][0] ?? '') === 'blue' && ($ts[4][1] ?? 'x') === '' && count($ts) === 4, 'the friend takes the oldest bot\'s Blue seat 4: ' . json_encode($ts));
+$st = hit($L . 'StartRoom.php', ['rootName' => 'SWUSim', 'lobbyID' => $tlobby, 'playerID' => intval($th['playerID'] ?? 1), 'authKey' => $tk], $jarHost);
+check(!empty($st['success']) && !empty($st['gameName']), 'Start creates the Team Suns game: ' . ($st['message'] ?? json_encode($st)));
+if (!empty($st['gameName'])) {
+    $ch = curl_init($B . 'SWUSim/GetNextTurn.php?' . http_build_query(['gameName' => $st['gameName'], 'playerID' => 1, 'authKey' => $tk, 'lastUpdate' => 0]));
+    curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => 1, CURLOPT_TIMEOUT => 30, CURLOPT_COOKIEFILE => $jarHost]);
+    $raw = (string)curl_exec($ch); curl_close($ch);
+    $bc = null; $at = strpos($raw, '{"enabled"');
+    if ($at !== false) { $end = strpos($raw, '<~>', $at); $bc = json_decode($end === false ? substr($raw, $at) : substr($raw, $at, $end - $at), true); }
+    check(is_array($bc) && !empty($bc['enabled']) && $bc['players'] === [2, 3], 'the game drives seats 2 (Blue) and 3 (Red) with bots: ' . json_encode($bc));
+}
+
 echo $FAILS === 0 ? "\nALL PASS\n" : "\n$FAILS FAILED\n";

@@ -1,0 +1,7 @@
+{
+    "name": "Nimblism / cost-one-boundary-next-only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:04+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact inclusive boundary: printed-cost1 Leg Tap red gets4+3; blue pitch3 leaves2. Its printed go again permits a second attack. Next-only consumption: Head Jab blue then gets printed1 plus Ira second-attack1 =2, with no remaining Nimblism bonus. Health checkpoints13 then11 persist these effects. No combo card follows Leg Tap. Sources: FaBSim/GeneratedCode/cardArrayCache.json#nimblism_red https://judge.fabtcg.com/cards/detail/331/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

@@ -1,0 +1,30 @@
+/* Share AzukiSim's tutorial panel and non-interactive spotlight presentation. */
+.dfg-tutorial-panel { width: min(390px, calc(100vw - 28px)); overflow-y: auto; padding: 18px; }
+.dfg-tutorial-panel[hidden], .azuki-tutorial-cutout[hidden] { display: none; }
+.dfg-tutorial-panel .tutorial-heading { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
+.dfg-tutorial-panel .azuki-tutorial-kicker { font-size: 10px; line-height: 1.5; }
+.dfg-tutorial-panel a { color: #f4c95d; }
+.dfg-tutorial-panel h2 { font-size: 21px; }
+.dfg-tutorial-panel #tutorialTask { color: #fff2ce; font-size: 14px; }
+.dfg-tutorial-panel .tutorial-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.dfg-tutorial-panel .tutorial-actions:has(> [hidden]):not(:has(> :not([hidden]))) { display: none; }
+.dfg-tutorial-panel #tutorialText { font-size: 14px; line-height: 1.55; }
+.dfg-tutorial-panel #tutorialTask { margin-top: 12px; }
+.dfg-tutorial-panel .tutorial-navigation { display: flex; gap: 8px; margin-top: 14px; border-top: 1px solid #f4c95d30; padding-top: 10px; }
+.dfg-tutorial-panel .tutorial-navigation button { padding: 5px 8px; min-height: 32px; background: transparent; color: #f4c95d; border-color: transparent; }
+.dfg-tutorial-panel #lessonTabs[hidden] { display: none; }
+.dfg-tutorial-panel nav { display: grid; gap: 6px; margin-top: 8px; }
+.dfg-tutorial-panel button { font-size: 12px; padding: 8px 10px; min-height: 36px; }
+.dfg-tutorial-panel [aria-current="step"] { border-color: #f4c95d; }
+@media (max-width: 700px) {
+  /* Only compact, highlighted steps need room to scroll a control above the guide. */
+  .dfg-guided-game.dfg-tutorial-target { padding-bottom: min(55vh, 440px); }
+  /* Position from measured target and popup bounds, including the full lesson text. */
+  .dfg-tutorial-panel { left: auto !important; top: auto !important; right: auto; bottom: auto; width: min(390px, calc(100vw - 28px)); padding: 14px; }
+  .dfg-tutorial-panel:not(.is-centered) { left: var(--tutorial-left, 14px) !important; top: var(--tutorial-top, 14px) !important; }
+  .dfg-tutorial-panel.is-centered { left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; }
+}
+@media (prefers-reduced-motion: reduce) { .azuki-tutorial-cutout { transition: none; } }
+
+.dfg-tutorial-backdrop { position: fixed; inset: 0; z-index: 45000; background: rgba(7, 10, 25, .78); pointer-events: none; }
+.dfg-tutorial-backdrop[hidden] { display: none; }

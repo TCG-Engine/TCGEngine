@@ -1,0 +1,400 @@
+{
+  "status": "INDEPENDENT_B94_FOUR_BOUNDED_SAVED_BRANCHES_TWO_CURRENT_REPLAYS_AND_FOCUSED_CONTROLS_APPROVED",
+  "reviewer": "/root/resume_actual_audit",
+  "independent_of_scenario_author": true,
+  "recorder_exit0_confirmed_by_parent": true,
+  "captured_utc": "2026-10-20T23:54:26.330021+00:00",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "input_sha256": "4742453ec4a09102737afe359bc277b72a661b31163707160aef505b07a0426a",
+  "recording_report": {
+    "path": "recording-runs/card-regression-batch94-20261020T234950Z-6ad7fe1e33de1.json",
+    "sha256": "b6e8e69a7e33d8a651a624f7413883cbe4c501b52bc1650c321c5a86bcc9f37d"
+  },
+  "prior_review_refs": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b94-independent-review\\independent-spec-review.json",
+      "sha256": "9932140aac80a401e14f29323c77b2780ab1e618c2fcea7031125a86c598af47"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b94-current-e947-staging\\independent-staging-approval.json",
+      "sha256": "5034978e0fbd02938d2402bf6f8cdcf413b6a39a2bde93fefe69688f864b4c5d"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\b94-b95-rise-epoch-bridge\\independent-epoch-bridge.json",
+      "sha256": "ba50448bdbec701c09038c7a091df299686c682bb1912a6e0bfaef0d5fe17636"
+    }
+  ],
+  "reviewer_script_sha256": "f8f507f99243913a82619d2e7973c98ef5037260496fea9fb4675f64bd2337bf",
+  "checks_passed": 4509,
+  "physical_checks_passed": 1029,
+  "model_checks_passed": 8926,
+  "fixtures": [
+    {
+      "slug": "card-droplet-blue-four-live-sparse-real-prior-blue-wind-plus-two-and-granted-go-again",
+      "cardIDs": [
+        "droplet_blue"
+      ],
+      "source_spec": "card-regression-batch94.json",
+      "semantically_approved": true,
+      "fixture_sha256": "58b07d5fce4660bd3b956cce85153e64c41aeaac0c39e468b9f28ef628312eac",
+      "file_sha256": {
+        "initial_gamestate.txt": "3f679073c3a2fb09063564b4420bbdf459b89c2d989a3714867c43c6963964a3",
+        "actions.json": "bc1f09bc79136f3b276a927865eef40a985d6b8effbd8878374315fc7b683d62",
+        "assertions.json": "71d066a2eaf61b1c235fb75821fe34d919cc090140a07888463871ec5f101ff8",
+        "expected_final_gamestate.txt": "1fc459a4521fba0b9f6cf84094c937db5a1e733b8b923b4a0233eb99c2d12c31",
+        "meta.json": "233eabb94599984a10a183c6ee9fddb044e3c84dcaf37c99f90912ed38ad4d12"
+      },
+      "effect_branches": [
+        "real-prior-blue-wind-plus-two-and-granted-go-again"
+      ],
+      "actions": 32,
+      "native_assertions": 894,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        2,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_health": [
+        20,
+        16,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "review_basis": "Exact target raw5/actions/all ordered saved assertions bound to previously independently approved printed-rule/UID/economy/manual-priority model; full initial/final physical snapshots checked separately. Intermediate snapshots are not stored by framework; exact original intermediate oracles need actual clean replay qualification. Sparse one positive primary representative only, no sibling/support completion or internal synchronous source/callback lifecycle certification."
+    },
+    {
+      "slug": "card-amplifying-arrow-yellow-four-live-sparse-real-take-aim-power-gain-replacement-arrow-from-arsenal",
+      "cardIDs": [
+        "amplifying_arrow_yellow"
+      ],
+      "source_spec": "card-regression-batch94.json",
+      "semantically_approved": true,
+      "fixture_sha256": "f49e0c86c17c668a92758e20ac8d1293aa88d6001fc4ff2d2fbbb18f5d53b0bd",
+      "file_sha256": {
+        "initial_gamestate.txt": "afff559cc7a51b31c9dbef303a0f3440b1cc52079f88a390fe2d649699dcdd43",
+        "actions.json": "7776d3f25ceddcb28164475a81f98e6842f5fe0d3ab570213e272cdf1f77551a",
+        "assertions.json": "cd54d22628d68124a64716651ae0d6988a43bf63b48cf29494138d6b01560deb",
+        "expected_final_gamestate.txt": "ded3ac8897be148592194584d40bd498ae355c6aa984f7774cabb06e8cc42853",
+        "meta.json": "9c16270ef3852ff3d3207067fdbaa15c22311707eea48c655ca358b3ef47dcf5"
+      },
+      "effect_branches": [
+        "real-take-aim-power-gain-replacement-arrow-from-arsenal"
+      ],
+      "actions": 32,
+      "native_assertions": 961,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        2,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_health": [
+        20,
+        14,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "review_basis": "Exact target raw5/actions/all ordered saved assertions bound to previously independently approved printed-rule/UID/economy/manual-priority model; full initial/final physical snapshots checked separately. Intermediate snapshots are not stored by framework; exact original intermediate oracles need actual clean replay qualification. Sparse one positive primary representative only, no sibling/support completion or internal synchronous source/callback lifecycle certification."
+    },
+    {
+      "slug": "card-cut-a-long-story-short-yellow-four-live-sparse-real-minnow-base-three-plus-three-conditional-extra-one",
+      "cardIDs": [
+        "cut_a_long_story_short_yellow"
+      ],
+      "source_spec": "card-regression-batch94.json",
+      "semantically_approved": true,
+      "fixture_sha256": "c1fee6da8c75905591b897f6e2856c1080df10c31a451fd9a11fb02e67fb0e5d",
+      "file_sha256": {
+        "initial_gamestate.txt": "b63ec55d49d99b99f32f093be42714ceea0874bcc83205a060dee80e5f22db7f",
+        "actions.json": "bc1f09bc79136f3b276a927865eef40a985d6b8effbd8878374315fc7b683d62",
+        "assertions.json": "4d767ccb467fcf1d0cbdd049e7343aa88197b7d01e6c98b4732ec38ecd8c12a5",
+        "expected_final_gamestate.txt": "cad33d26f64ff2ba23c3208b7734ea80814467c5c6911eeab176406b4b81fae3",
+        "meta.json": "38bf72fd905dc38da04ec0b90ec569bfda47724c91f073f1b61e6746a52b9d07"
+      },
+      "effect_branches": [
+        "real-minnow-base-three-plus-three-conditional-extra-one"
+      ],
+      "actions": 32,
+      "native_assertions": 894,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        2,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_health": [
+        20,
+        13,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "review_basis": "Exact target raw5/actions/all ordered saved assertions bound to previously independently approved printed-rule/UID/economy/manual-priority model; full initial/final physical snapshots checked separately. Intermediate snapshots are not stored by framework; exact original intermediate oracles need actual clean replay qualification. Sparse one positive primary representative only, no sibling/support completion or internal synchronous source/callback lifecycle certification."
+    },
+    {
+      "slug": "card-rusted-relic-blue-four-live-sparse-real-arena-arcane-barrier-one-blue-pitch-versus-dart-one",
+      "cardIDs": [
+        "rusted_relic_blue"
+      ],
+      "source_spec": "card-regression-batch94.json",
+      "semantically_approved": true,
+      "fixture_sha256": "b413f19ddcf403078a94a358b69b9ec4b5b72498d149db6142baa8e48c0d7e03",
+      "file_sha256": {
+        "initial_gamestate.txt": "52572a88b52640db8ae51d10ddd095c0b22371c2607d97dd21ba3ddae0611608",
+        "actions.json": "4f14af04ac06d477876ce26a8561f6e6c004100a96cc6fa66d46b49a156d7fd4",
+        "assertions.json": "2de5721eed5718b123f8f8e435969bac23103811ee17936aee897f599f86f7e3",
+        "expected_final_gamestate.txt": "509066ac5b83410592458ea9a0690a22da06bc14822f5d107c277610752dee1c",
+        "meta.json": "7c093b37cc3e5ebfd9046af0a5f63bff64236143f89cd71015f9f51b4733ae87"
+      },
+      "effect_branches": [
+        "real-arena-arcane-barrier-one-blue-pitch-versus-dart-one"
+      ],
+      "actions": 8,
+      "native_assertions": 493,
+      "actual_four_live_profile_verified": true,
+      "actual_saved_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "full_initial_and_final_physical_snapshots_checked": true,
+      "entire_saved_action_and_ordered_oracle_sequence_matches_independent_model": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "review_basis": "Exact target raw5/actions/all ordered saved assertions bound to previously independently approved printed-rule/UID/economy/manual-priority model; full initial/final physical snapshots checked separately. Intermediate snapshots are not stored by framework; exact original intermediate oracles need actual clean replay qualification. Sparse one positive primary representative only, no sibling/support completion or internal synchronous source/callback lifecycle certification."
+    }
+  ],
+  "qualification": "Exactly four approved sparse primary positive branches have two actual current clean targeted runs and four existing-helper controlled first failures. All original fixture rows/raw5/actions/oracles remain exact. Each run historical inventory-preservation count applies to its own time; later unrelated additions do not invalidate target evidence. No whole-current-corpus or new finite-card completion is claimed. Droplet control pins numeric+2 sensitivity with priorblue history retained; Arrow/Cut controls remove qualifying support grants; Relic control removes abilities after an actual captured offer, exposing absence of subsequent Barrier pitch/prevention. Positive printed-rule branches remain independently reviewed. No sibling/support inheritance, Tower discard, alternate-condition matrix or internal synchronous callback lifecycle qualification.",
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "qualified_utc": "2026-10-20T23:56:31.023618+00:00",
+  "original_saved_review": {
+    "path": "sparse-b94-actual-saved-independent-review.json",
+    "sha256": "54b5a3c596a728d5925a7ec0ce58b81c011a39e13116c404a9d1fc3ca37350bd"
+  },
+  "native_qualification": {
+    "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+    "checks_passed": 77,
+    "targeted_replay_reports": [
+      {
+        "path": "card-regression-replay-sparse-b94-four-live-run1.json",
+        "sha256": "842b651b11283ec3ca9c3af54e95cf52302e0ed352af8c84dccdbce1d4ec9741",
+        "passed": 4,
+        "failed": 0,
+        "completed_utc": "2026-10-20T23:50:17.943504+00:00",
+        "historical_raw5_preservation_count": 3129
+      },
+      {
+        "path": "card-regression-replay-sparse-b94-four-live-run2.json",
+        "sha256": "f9a075614994813a23e846bfb6375ac9ef5c98ab472d3fe3d14cad8e095b8703",
+        "passed": 4,
+        "failed": 0,
+        "completed_utc": "2026-10-20T23:51:24.990766+00:00",
+        "historical_raw5_preservation_count": 3129
+      }
+    ],
+    "four_native_controls": {
+      "path": "card-regression-sparse-b94-fault-controls.json",
+      "sha256": "9e43bd439cd0311d40adfef9263de57c931334b165494cbc70398db29aafdf83",
+      "command_exit0_confirmed_by_root": true,
+      "all_detected": true,
+      "controls": [
+        {
+          "id": "b94_droplet_blue_positive_effect_sensitivity",
+          "fixture": "card-droplet-blue-four-live-sparse-real-prior-blue-wind-plus-two-and-granted-go-again",
+          "prefix_actions": 10,
+          "relative_step": 1,
+          "first_failure": "Expected p1CombatChain-0 computed power to equal 4, got 2.",
+          "retained_original_assertions": 591,
+          "detected": true,
+          "scope": "Inject existing signed WTR_POWER:-2 on unique actual paid primaryStack5 immediately before fourth layer pass. Preserves actual prior-blue history/WindGA/physical IDs. Pins numerical +2 sensitivity through first original livepower4 vs2, not independent simulation of missing-history branch."
+        },
+        {
+          "id": "b94_amplifying_arrow_yellow_positive_effect_sensitivity",
+          "fixture": "card-amplifying-arrow-yellow-four-live-sparse-real-take-aim-power-gain-replacement-arrow-from-arsenal",
+          "prefix_actions": 5,
+          "relative_step": 6,
+          "first_failure": "Expected p1CombatChain-0 computed power to equal 6, got 2.",
+          "retained_original_assertions": 756,
+          "detected": true,
+          "scope": "Remove exact existing qualifying support grant after it actually resolves, before real primary announcement. Preserve card/history/assets/adjacent target and every original suffix oracle. Arrow loses replaced+4 and exposesbase2; Cut losesMinnow3 and consequent self+1, exposesbase3. No replacement expected values."
+        },
+        {
+          "id": "b94_cut_a_long_story_short_yellow_positive_effect_sensitivity",
+          "fixture": "card-cut-a-long-story-short-yellow-four-live-sparse-real-minnow-base-three-plus-three-conditional-extra-one",
+          "prefix_actions": 5,
+          "relative_step": 6,
+          "first_failure": "Expected p1CombatChain-0 computed power to equal 7, got 3.",
+          "retained_original_assertions": 703,
+          "detected": true,
+          "scope": "Remove exact existing qualifying support grant after it actually resolves, before real primary announcement. Preserve card/history/assets/adjacent target and every original suffix oracle. Arrow loses replaced+4 and exposesbase2; Cut losesMinnow3 and consequent self+1, exposesbase3. No replacement expected values."
+        },
+        {
+          "id": "b94_rusted_relic_blue_positive_effect_sensitivity",
+          "fixture": "card-rusted-relic-blue-four-live-sparse-real-arena-arcane-barrier-one-blue-pitch-versus-dart-one",
+          "prefix_actions": 6,
+          "relative_step": 1,
+          "first_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"ACTION\".",
+          "retained_original_assertions": 236,
+          "detected": true,
+          "scope": "After actual managed Dart offers owned Relic6, add existing NO_ABILITIES to unique Arena6 before original choice answer. Same captured legal choice source/UID and physical payment assets retained. Current source readsBarrierValue0 after answer, so no pitch/prevention and public endpointACTION/damage1. First retained original windowPRIORITY expectation must failACTION; all later original pitch/resource/HP/source lifecycle assertions retained. A bounded injected ability-loss sensitivity control, not a new gameplay case."
+        }
+      ]
+    },
+    "reviewed_fault_plan": {
+      "path": "sparse-b94-focused-fault-plan.json",
+      "sha256": "994b20bfc5b7dcfe2fbd53fe2bab672e3d6327f08ba5d75148ef72c1f8fcfe8d"
+    },
+    "wrapper_alias_review": {
+      "path": "sparse-b86-independent-review/executor-alias-independent-review.json",
+      "sha256": "11b00a3a02c0f257c8db5902948070207371cb2c79d3582d31eb57b735647fd9",
+      "executor_sha256": "792415997787362c69cfea4a45ba6909c6b94a6834d6f5c34a940512d1980c4a"
+    },
+    "existing_native_helper_sha256": "021627a41cf4a44bef7cafe48302357e74ffae6ba39b147c3c068388384f2974",
+    "exact_first_failures_verified": true,
+    "unchanged_original_suffix_expectations_verified": true,
+    "canonical_target_raw5_preserved": true,
+    "cleanup_verified": true,
+    "original_fixture_rows_preserved": true,
+    "new_finite_card_baselines": 0,
+    "qualified_positive_four_live_representatives": 4
+  }
+}

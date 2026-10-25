@@ -1,0 +1,598 @@
+{
+  "schema_version": 1,
+  "status": "PAUSED_AT_USER_REQUEST_NO_FURTHER_EXECUTION",
+  "frozen_utc": "2026-10-21T00:58:57.961142+00:00",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "counts": {
+    "saved_scenarios": 3161,
+    "qualified_scenarios": 3161,
+    "pending_saved_scenarios": 0,
+    "duel_scenarios_preserved": 3074,
+    "genuine_four_live_scenarios": 87,
+    "new_scenarios_and_distinct_cycles_this_resumption": 82,
+    "verified_primary_identities": 321,
+    "catalog_functional_identities_including_pitch_variants": 5196,
+    "printing_records": 17188,
+    "groups_with_verified_primary_evidence_any_profile": 196,
+    "catalog_cycles_or_standalones": 3324,
+    "qualified_four_live_groups": 87,
+    "catalog_groups_without_four_live_representative": 3237,
+    "implementation_candidate_groups": 3002,
+    "candidate_groups_without_four_live_representative": 2915,
+    "identities_without_primary_verified_evidence": 4875
+  },
+  "preservation": {
+    "original_scenarios": 3079,
+    "original_raw_files": 15395,
+    "all_original_five_file_sets_byte_identical": true,
+    "current_raw_file_count": 15805,
+    "inventory_sha256": "7af099306f9c6799430ed5b3306086c0636a072449f8e45df33871aaefba7bf6",
+    "inventory_digest_format": "UTF-8 compact sorted-key JSON mapping slug to five filename/SHA256 pairs"
+  },
+  "validation": {
+    "full_runs_this_resumption": [
+      {
+        "path": "card-regression-replay-sparse-resume-baseline-89d2-run1.json",
+        "sha256": "8441d540769485dc50c699d6183279970b1a4b32d0b2e49a8f7045eebb3dd7fe",
+        "cases": 3079,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-3087-89d2-run1.json",
+        "sha256": "da522599863f3e2d7a72b574a423d35341d2e7e3f9917f3031e427492e0bceba",
+        "cases": 3087,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-3087-89d2-run2.json",
+        "sha256": "827a9b9600664c53d91f991942fd163126a506ec24bb00b252b163a316e32756",
+        "cases": 3087,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-3101-89d2-run1.json",
+        "sha256": "a1e3f85b9bc3a3d3bc0f6dd35c16544ce0e57febc3c22fd28a5af33dcf718606",
+        "cases": 3101,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-3101-89d2-run2.json",
+        "sha256": "3d97026389a38ee85051ef667f005aee7641425c5333e157c64140da44e45500",
+        "cases": 3101,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-rise-e947-shared-change-run1.json",
+        "sha256": "68ec0b19265a104937f757c7f33b8046b6c4656fa704740c8ffd07bc895cb75b",
+        "cases": 3125,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      }
+    ],
+    "targeted_runs_this_resumption": [
+      {
+        "path": "card-regression-replay-sparse-b100-four-live-run1.json",
+        "sha256": "ad772902d92ecab95e8e84a4aa2770ffafd893a6d23dedc2c0185d52b2e493ff",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b100-four-live-run2.json",
+        "sha256": "94572c3be7937b7826a262b825c223f8ba961e64b2caf1aa28fd90c97d2b20d2",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b101-flex-two-corrected-run1.json",
+        "sha256": "dada7d72fc4ff695e63add76a205ef4714fba1ae1d2ee0c8e2db2a1b51432d1f",
+        "cases": 2,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b101-flex-two-corrected-run2.json",
+        "sha256": "58a00e97a7b5da08ab9d19b3bf546ce1c11507f56b7f130e30903f88f2cb6318",
+        "cases": 2,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b101-safe-two-four-live-run1.json",
+        "sha256": "250f1a37210f78ed3adf5c07672e84b2d6ea84b92606f7e87ece238b7cb5db0d",
+        "cases": 2,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b101-safe-two-four-live-run2.json",
+        "sha256": "6f2c73933126eee5dd48c8f5b489e4e86bfe452bd8ca7e3464672273ebf3ab68",
+        "cases": 2,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b102-one-four-live-run1.json",
+        "sha256": "f009297a67766a78899d70047eb92c162eb92c87ef138cdf97a1ce698dee534f",
+        "cases": 1,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b102-one-four-live-run2.json",
+        "sha256": "f66db76885633bd4b887155448dd9d9edbe406df02341ecd849428a26dd6d8d0",
+        "cases": 1,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b103-four-live-run1.json",
+        "sha256": "d9b1ca000693a44c87eead41cf3d825339b71ce866efa6486e52228b27189727",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b103-four-live-run2.json",
+        "sha256": "f64475b5295575118a92fa8dd75ad47b91ced6ae14a91a7e4ed2fe482b1b43fc",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b82-four-live-run1.json",
+        "sha256": "6237dbae2dd79a561322c5afb0b5494ad567af41051912ef6609de5a0316e53e",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b82-four-live-run2.json",
+        "sha256": "f2a54f592ff124106c523e81fc8e73f7acf9dc6012a0adb2e5b7edaaacb008ee",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b83-four-live-run1.json",
+        "sha256": "349110ca63ac140101479270ba896b96d3fd63530a9f9152d1d520b01c8d3356",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b83-four-live-run2.json",
+        "sha256": "cd544e4dbeed31d79f822533da914edf41e176982c59280463c78a8ed847b968",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b84-safe-two-four-live-run1.json",
+        "sha256": "5ef8ae78bf493539c6c1e193af3d28b7661c9cead03de2de728fc3b65701668b",
+        "cases": 2,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b84-safe-two-four-live-run2.json",
+        "sha256": "322a6c89bf50e858d81247c8cd9512a26f2e93ff97dbdcd9a1e5ee8a83d0c433",
+        "cases": 2,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b85-four-live-run1.json",
+        "sha256": "fcde08fb834fd0cdc3fb1207f614b2f5103ef20e62b94f4f0144029e34b6097a",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b85-four-live-run2.json",
+        "sha256": "9878885fb4a3351958fa283c91c145c32ca1e751fe21ec38cee4dd6472ecb83b",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b86-four-live-run1.json",
+        "sha256": "1cba4145d7bfa246c2ba9e638fbf4e88c73bf5e13d45f8967a115f67571a15c4",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b86-four-live-run2.json",
+        "sha256": "65c186cd5735ba7a8fa01790c38ad6635e0a68c0aaa0887c9d1d23a05bd4e12e",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b87-four-live-run1.json",
+        "sha256": "da48d99eb628b4e273fcd3c6d9c99f040ac548624c170cf73f018f7c2eb5f460",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b87-four-live-run2.json",
+        "sha256": "1b36ca445a758e6c649c19c12a17eec35ca722afb20a2f26d22bf9a6e1f65b66",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b88-four-live-run1.json",
+        "sha256": "244878204e15b46923e7388326fedf4eb9962069aff2c37c211f5513641e58af",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b88-four-live-run2.json",
+        "sha256": "fdc9cfb3060294c3f472c125b4534d6c8224f709d81a24ccf0e3544c2faf18a3",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b89-push-focused-run1.json",
+        "sha256": "8dcf195725c097c40e52b2b0e19989bcdc93a336af790328f6492e59b65b9136",
+        "cases": 1,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b89-push-focused-run2.json",
+        "sha256": "f67259c875127c757c00acc410128c55f079da207b3c16f0f2f2e84b70e9cdc4",
+        "cases": 1,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b89-safe-three-four-live-run1.json",
+        "sha256": "1ec489c6576e1967c9e842c90567cc239c9971a45fedf335c3a37d40cc12115e",
+        "cases": 3,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b89-safe-three-four-live-run2.json",
+        "sha256": "754f63338307e796890eef36cd0df3b9dfa228ceb0807b884b10645a11e49bcd",
+        "cases": 3,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b90-canonical-four-live-run1.json",
+        "sha256": "0a76bf7592ceb4c050ed7b841261e823733944cf3f0d4e43d78002037b5d25e7",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b90-canonical-four-live-run2.json",
+        "sha256": "c43fbcbe6777e65a33cb82d41400dde319f2111a1da45aeb53ee4cf433029179",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b91-safe-two-four-live-run1.json",
+        "sha256": "168d346adbbab0939fe932341276490a3c3268d90ecf9683807ec43fd8e1952f",
+        "cases": 2,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b91-safe-two-four-live-run2.json",
+        "sha256": "d0487cdd3dbd77a5c410e54504cd96919c260a3b6a3c9707e4a56e9aa04d305d",
+        "cases": 2,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b91-stir-ofb-corrected-run1.json",
+        "sha256": "2679f0d711465d9ee6f907fc5eafb42b831c313ce533b372a2eec59294b6a38f",
+        "cases": 2,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b91-stir-ofb-corrected-run2.json",
+        "sha256": "c73062b389d2e4b9dee2ad3ae08b002b9765cf6c17ec75683c9038bd31053cff",
+        "cases": 2,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b92-safe-three-four-live-run1.json",
+        "sha256": "5ef8e4b64f9e47cb860ca76d9bec17b4c52e80c686b35e916d4dd02c3a602ab6",
+        "cases": 3,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b92-safe-three-four-live-run2.json",
+        "sha256": "114080749ede4c9af863e9aa68acf408f556997a9c10f0af835f1b51c78b67bf",
+        "cases": 3,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b93-four-live-run1.json",
+        "sha256": "07e94c36af5cb24ca87772127917a6708f2dbe5c39fae84679e8151a67fb99c4",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b93-four-live-run2.json",
+        "sha256": "b9444a5e09ddca457db9d5ff3ba487398500df8c15843a64793d49380fad2aee",
+        "cases": 4,
+        "runtime_sha256": "89d2a5b14134e6ff0e6a150dec3b6859d26ee74124988905dc7a0d0ce6ef67c6"
+      },
+      {
+        "path": "card-regression-replay-sparse-b94-four-live-run1.json",
+        "sha256": "842b651b11283ec3ca9c3af54e95cf52302e0ed352af8c84dccdbce1d4ec9741",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b94-four-live-run2.json",
+        "sha256": "f9a075614994813a23e846bfb6375ac9ef5c98ab472d3fe3d14cad8e095b8703",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b95-four-live-run1.json",
+        "sha256": "395116db4b639e8c051ca8bb36900c828ace02d7d6098c09e80105320dd90f5d",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b95-four-live-run2.json",
+        "sha256": "2760f6f8350fbd6fa68c5fe79ec061219e8854fd10a5909d2aa595c9d31ceaca",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b96-three-four-live-run1.json",
+        "sha256": "b610502552a7f3a96a9e64fe4f051ed83a4190c617dc8887b367f98fc7ba417b",
+        "cases": 3,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b96-three-four-live-run2.json",
+        "sha256": "ef794621abf951b2f073e414b769628706040c9d4433c5e936c47f42b96d47e1",
+        "cases": 3,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b97-four-live-run1.json",
+        "sha256": "4ef78a6fe347d81d4d4cd93abd4d74281e23a85ea8d6269de01368ebbfa9d7e1",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b97-four-live-run2.json",
+        "sha256": "a6ec94bddb5d018f9b635b292b637a2f23664aa9e04ef4da35b61717e1642b69",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b98-four-live-run1.json",
+        "sha256": "4c0983bacf888a2787a2915139114973f0aa9276fbbba9df5fc017b917af85d8",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b98-four-live-run2.json",
+        "sha256": "b89427007585d454bafd3d75b6b7adc824cd85c001198c8b60c9f995b0b9df3c",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b99-four-live-run1.json",
+        "sha256": "1281958d535e43e9008c23c5439631d78428bfdf57fd63e41f27937c55e260f2",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-b99-four-live-run2.json",
+        "sha256": "dd242cfaf8e852e3dd7eb30ab1011b4fc7a57ceec5f5371c9ccba3a403124773",
+        "cases": 4,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-rise-e947-original-run1.json",
+        "sha256": "af2bc58ab937a734e6bbc5b495c17b611edea6c6819a2ba4eaa38b1cc05dd4d3",
+        "cases": 1,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      },
+      {
+        "path": "card-regression-replay-sparse-rise-e947-original-run2.json",
+        "sha256": "6979ac0de3cd2fb4dc43e3fc1f129d82b438267f0474c5d4d7f6d1e242e5fe51",
+        "cases": 1,
+        "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27"
+      }
+    ],
+    "targeted_run_count": 52,
+    "targeted_scenario_passes": 164,
+    "two_clean_creation_replays_for_each_new_case": true,
+    "last_full_scope": "3125 current-runtime fixtures; later 36 additions validated individually twice.",
+    "no_final_redundant_full_run": true,
+    "global_controls_boundary": "77 semantic and4 four-live controls remain historical at89d2; not retagged e947.",
+    "current_native_four_suite_report": {
+      "path": "card-regression-native-four-suite-sparse-rise-e947.json",
+      "sha256": "782c43d469b63a7815798b07011cf3ad685a0735b480135a855b175dd7a5fe5f"
+    },
+    "new_exact_semantic_proofs": [
+      {
+        "path": "review-evidence/sparse-b100-qualified-independent-review-522e7cfd6402.json",
+        "sha256": "522e7cfd64029561c2890d9183551609bcaeeb771dc54536836e43f09c83532b"
+      },
+      {
+        "path": "review-evidence/sparse-b101-flex-two-qualified-independent-review-f6a9954dee89.json",
+        "sha256": "f6a9954dee899c4db31b0287578192b69e3ba625a56a71176a73dcdb4be8c275"
+      },
+      {
+        "path": "review-evidence/sparse-b101-safe-two-qualified-independent-review-039b9dbd61bf.json",
+        "sha256": "039b9dbd61bf547497b35665d14195c12c706d6ab345e30813e2f6b5faf55803"
+      },
+      {
+        "path": "review-evidence/sparse-b102-qualified-independent-review-e86c4df66f6a.json",
+        "sha256": "e86c4df66f6a87dff1d2e511fda4d406f7c1dc8bbea1f3e3d98f096183fe0c17"
+      },
+      {
+        "path": "review-evidence/sparse-b103-qualified-independent-review-daad7413247d.json",
+        "sha256": "daad7413247d9d66ef943cf2d51ba3a44f7b6d644421b01799364185d1b78fb0"
+      },
+      {
+        "path": "review-evidence/sparse-b82-four-live-independent-saved-review-a0e475a27aa1.json",
+        "sha256": "a0e475a27aa104682e7f52b2663c64d78677e5a1fc90c8a08d6994e40d08e426"
+      },
+      {
+        "path": "review-evidence/sparse-b83-four-live-independent-saved-review-031815033809.json",
+        "sha256": "03181503380988d4d2cd443c7d879d585087bab728197617d61ae14e05bad2f2"
+      },
+      {
+        "path": "review-evidence/sparse-b84-safe2-and-blocked2-independent-review-458ede857a1a.json",
+        "sha256": "458ede857a1a4f6572e8d2f1c0e3e2011000b77b2481fc62a7842a9db26c9138"
+      },
+      {
+        "path": "review-evidence/sparse-b85-four-live-qualified-independent-review-906f948b59ce.json",
+        "sha256": "906f948b59ce0c024811ec7192052f4700bff527453846d174e8d21d2282ae5e"
+      },
+      {
+        "path": "review-evidence/sparse-b86-four-live-qualified-independent-review-08eae9dc3978.json",
+        "sha256": "08eae9dc3978b2540b02803817200290c0fdbb1fe9d5690d06cc5707874afa35"
+      },
+      {
+        "path": "review-evidence/sparse-b87-four-live-qualified-independent-review-b464ea44f8d0.json",
+        "sha256": "b464ea44f8d0fc6d21c68ff8077c82ff59d420a8ec32c899b9a8728cd2c86b90"
+      },
+      {
+        "path": "review-evidence/sparse-b88-four-live-qualified-independent-review-d454ade1e876.json",
+        "sha256": "d454ade1e876a654b33137ed6aa041935258ec3bfd602ebbc4880e5436c2f286"
+      },
+      {
+        "path": "review-evidence/sparse-b89-push-qualified-independent-review-5613bb4c45fb.json",
+        "sha256": "5613bb4c45fb1f8cc0cda604432649a3bbc48dfaf017354834f65d4732359ee6"
+      },
+      {
+        "path": "review-evidence/sparse-b89-three-qualified-independent-review-b02280c58d32.json",
+        "sha256": "b02280c58d326afb15cf0991bc5fe63a0696140abbba0fede5ca6cdbd27a1abc"
+      },
+      {
+        "path": "review-evidence/sparse-b90-four-live-qualified-independent-review-200a3b681fc3.json",
+        "sha256": "200a3b681fc30f31a72e6348440fd2076274d730779ec975da67a7d9c4820a16"
+      },
+      {
+        "path": "review-evidence/sparse-b91-corrected2-qualified-independent-review-2e066db84dcc.json",
+        "sha256": "2e066db84dcc279b99050f22c2f1113c6e288cc78687bd8c118233e9979af0bb"
+      },
+      {
+        "path": "review-evidence/sparse-b91-safe2-qualified-independent-review-29d25d77fb29.json",
+        "sha256": "29d25d77fb29b1bf343c6cf47380bdcdbecd189d9146302102c795f65047d07e"
+      },
+      {
+        "path": "review-evidence/sparse-b92-three-qualified-independent-review-3613c4754b32.json",
+        "sha256": "3613c4754b32db0389a7501bf9854c5a5adfdd4d66a1f774c08c8d8065859d01"
+      },
+      {
+        "path": "review-evidence/sparse-b93-qualified-independent-review-0263e12329ab.json",
+        "sha256": "0263e12329ab6b6c0dcf6cff936ed8eaf98315d701e3605aa01756cd87cf9a30"
+      },
+      {
+        "path": "review-evidence/sparse-b94-qualified-independent-review-57a3f925842b.json",
+        "sha256": "57a3f925842b0748bc0d0b8297b0fe396447bea9bbcc6240b4202e5047463fc6"
+      },
+      {
+        "path": "review-evidence/sparse-b95-qualified-independent-review-43c0b2a2b62a.json",
+        "sha256": "43c0b2a2b62aa082685a41809710954a40ca140a5b50c22ecafb62a0e8d0aaaa"
+      },
+      {
+        "path": "review-evidence/sparse-b96-qualified-independent-review-6217e4762b9c.json",
+        "sha256": "6217e4762b9ca0ab1a7f4badd1485033c23136981296a5adb93f00eb912d18a1"
+      },
+      {
+        "path": "review-evidence/sparse-b97-qualified-independent-review-69f033dbf151.json",
+        "sha256": "69f033dbf151f5522d2aea8cf8f278689aa8a104ee2befd5224c3e14a813d1ce"
+      },
+      {
+        "path": "review-evidence/sparse-b98-qualified-independent-review-f604a387d364.json",
+        "sha256": "f604a387d364c44aa8d19eac25bd33fd0d34e9e67dfb06e38892c1a317f33b26"
+      },
+      {
+        "path": "review-evidence/sparse-b99-qualified-independent-review-fa72c5072db5.json",
+        "sha256": "fa72c5072db57669ddaf78e70c7a8590c798138c30ff48027f2301407a917731"
+      },
+      {
+        "path": "review-evidence/sparse-rise-e947-qualified-independent-review-0c4e9127c596.json",
+        "sha256": "0c4e9127c596992a991fd6af7fd1dd5be32ec953267f55151b2bf32c4ffa1306"
+      }
+    ]
+  },
+  "coverage_limits": {
+    "all_new_cases_are_partial_representatives": true,
+    "pitch_siblings_inherit_no_individual_credit": true,
+    "historical_finite_baselines_at_3101_checkpoint": 75,
+    "current_strict_finite_classifier": 0,
+    "reason": "Legacy finite gate requires two exact current whole-inventory reports and current global controls; retained historical finite scopes are not erased."
+  },
+  "gameplay_fix_this_resumption": {
+    "issue": "FAB-REG-036",
+    "qualified_fix_groups": 1,
+    "path": "FaBSim/Custom/WTRCards.php",
+    "sha256": "79b04e30d9b9f7dca6fb78bd3e32e4e9429f137e1afa9d1d8af2a8faf718d74d",
+    "scope": "Rise Above save-choice persistence; red native representative only, RGB guarded component checks separate.",
+    "core_or_generated_code_changed": false
+  },
+  "holds": [
+    {
+      "id": "FAB-REG-030",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "lunging_press_blue"
+      ]
+    },
+    {
+      "id": "FAB-REG-034",
+      "status": "open_source_component_only_unapplied",
+      "card_ids": [
+        "gorganian_tome"
+      ]
+    },
+    {
+      "id": "FAB-REG-035",
+      "status": "open_native_reproduced_target_announcement_timing",
+      "card_ids": [
+        "nip_at_the_heels_blue",
+        "shred_red"
+      ]
+    },
+    {
+      "id": "FAB-REG-036",
+      "status": "fixed_native_qualified_bounded_rise_save_choice",
+      "card_ids": [
+        "rise_above_red",
+        "rise_above_yellow",
+        "rise_above_blue"
+      ]
+    }
+  ],
+  "source_only_holds": {
+    "path": "sparse-source-only-holds.json",
+    "sha256": "cae3fcf486a15fd06fd8e4dc9d76161e0b6d2b7922f1ae4d1a5404df6b9a9845"
+  },
+  "oracle_and_protocol_corrections": [
+    "Flex:16 source-derived effect-bucket assertions; no action, printed effect, power, cost or damage changed.",
+    "Potion:4 legacy all-queue checks expanded to explicit seats1/2/3/4; +12 assertions.",
+    "Hulk control: corrected affordability prediction and reran only that control; old false whole-report retained, only its successful Zealous row reused.",
+    "Recorder pre-initialization rejection diagnostics can mask the primary error with null-Hand TypeError; left unchanged and documented, not a gameplay defect."
+  ],
+  "deferred": {
+    "batch104_approved_unrecorded": [
+      "card-strength-of-four-seasons-red-four-live-sparse-four-physical-face-up-earth-banish-cards-enable-four-power",
+      "card-runerager-swarm-red-four-live-sparse-real-prior-sigil-aura-play-grants-go-again",
+      "card-hit-the-high-notes-red-four-live-sparse-real-prior-sigil-aura-play-enables-two-power",
+      "card-shrill-of-skullform-red-four-live-sparse-real-prior-sigil-aura-play-enables-three-power"
+    ],
+    "batch105": "Scratch authoring interrupted; no native input, game action, fixture or coverage credit."
+  },
+  "git": {
+    "head": "1f10c999168d59a132cefdff6570c606d6b3f13d",
+    "changes_uncommitted": true,
+    "staged_paths": 0,
+    "app_source_paths_changed": [
+      "FaBSim/Custom/WTRCards.php"
+    ],
+    "core_paths_changed": [],
+    "generated_paths_changed": [],
+    "committed_pushed_deployed": false
+  },
+  "authoritative_metadata": [
+    {
+      "path": "card-regression-coverage.json",
+      "sha256": "2eb67e8822f69e90151798ebcca72bd48c59f2cb0f9c08821cb2ffd0ec58f91c"
+    },
+    {
+      "path": "cycle-coverage-current.json",
+      "sha256": "e148c199c7ac6032e0fc76ad3a3e6becb62ec6484666e14dbaa0d2610b832a2f"
+    },
+    {
+      "path": "card-regression-review.json",
+      "sha256": "a2fb83a54c2acda6c1b3cf4e7e89dae603dc191b371f9c5b4320205c2134c7a9"
+    },
+    {
+      "path": "card-regression-issues.json",
+      "sha256": "5db30e5ca25b7fdbb226288a50ecc32611a7387baa95fdb979bf70dfc6355d50"
+    }
+  ]
+}

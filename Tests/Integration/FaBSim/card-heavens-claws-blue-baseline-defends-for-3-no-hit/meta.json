@@ -1,0 +1,7 @@
+{
+    "name": "Heaven's Claws / ordinary baseline / defends-for-3-no-hit",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:23:54+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost1, power3, pitch3, defense3, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Printed defense3: actual free Hand defense against printed power3 leaves HP20; partial case distinguishes defense2/3/4 by HP18/19/20. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heavens_claws_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

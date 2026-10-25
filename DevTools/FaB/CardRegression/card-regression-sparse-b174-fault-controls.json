@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T21:02:02.361576+00:00",
+  "plan_sha256": "97c6c6daec45cc7bef8090235e2301cbee0befbc38352b55c73e78c930109d30",
+  "independent_saved_proof_sha256": "9142a5a0c5f897bf132c4716ac9ec18d3a6020b1adfc425247cfad8840e36e7e",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b174-focused-fault-plan.json",
+    "97c6c6daec45cc7bef8090235e2301cbee0befbc38352b55c73e78c930109d30",
+    "card-regression-sparse-b174-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b174_dream_weavers_actual_phantasm_removal_sensitivity",
+      "fixture": "card-dream-weavers-four-live-sparse-actual-next-illusionist-attack-survives-seven-power-defender-and-deals-two",
+      "fixture_sha256": "8a174ce0e019e2e13874b8d005b3060d979b47bfca5dc1e94e50605025165de6",
+      "source_raw5": {
+        "initial_gamestate.txt": "11eabd1bc70d8a85581a2a3e3a8c2f5ce46059cb49a8fe5a454725a8835fc152",
+        "actions.json": "b6364db99c8c075ee3bf0cc37eecdeab1e515ce4e192447341be2dd709c755a9",
+        "assertions.json": "cceddd88f95be3eed6fe7f39a87f4a4031f8d671a34b89e27595e6a2e157905a",
+        "expected_final_gamestate.txt": "b509b71e3cc86000072beaa89328eac116b9e53cf35c571304a9eb4fedc645f5",
+        "meta.json": "944f107be5cb6aa271baaf5cad0f4fbef6dfcfcc80f08623fde1f6c43df54459"
+      },
+      "prefix_actions": 17,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "spears_of_surreality_red",
+            "mode": "remove",
+            "tag": "MON_NO_PHANTASM"
+          }
+        ]
+      },
+      "retained_assertions": 458,
+      "expected_failure_step": 5,
+      "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"REACTION\", got \"ACTION\".",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Dream Weavers / four live real phantasm removal against seven-power defender: Step 5 assertion failed: Expected FaBSim state [\"window\"] to equal JSON \"REACTION\", got \"ACTION\".\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Dream5 destroy/resolution and real Spears6 play/Blue7payment/attackentry plus actual P4 sevenpower Hand8 defender declaration, remove only actual source-created MON_NO_PHANTASM on actual attack6 before finishdeclaring. Existing Phantasm then queues/resolves against qualifying nonIllusionist7power defender through original finish+four live responses; original expected REACTION instead sees attack destroyed/combatclosed ACTION at Step5. All original suffix actions/oracles retained, no added synthetic defense/history/source play. Exact effect omission sensitivity only, not cant-regain/Spellvoid/global lifecycle/otherlegalbranch credit.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

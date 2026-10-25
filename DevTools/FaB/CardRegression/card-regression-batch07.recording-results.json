@@ -1,0 +1,230 @@
+[
+    {
+        "slug": "card-unmovable-red-hand-paid-red-one-yellow-two",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 16
+    },
+    {
+        "slug": "card-unmovable-red-hand-insufficient-two-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 9
+    },
+    {
+        "slug": "card-unmovable-red-arsenal-paid-red-one-yellow-two",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 16
+    },
+    {
+        "slug": "card-unmovable-red-arsenal-insufficient-two-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 9
+    },
+    {
+        "slug": "card-unmovable-yellow-hand-paid-blue-three",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 14
+    },
+    {
+        "slug": "card-unmovable-yellow-hand-paid-red-one-yellow-two",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 16
+    },
+    {
+        "slug": "card-unmovable-yellow-hand-insufficient-two-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 9
+    },
+    {
+        "slug": "card-unmovable-yellow-arsenal-paid-blue-three",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 14
+    },
+    {
+        "slug": "card-unmovable-yellow-arsenal-paid-red-one-yellow-two",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 16
+    },
+    {
+        "slug": "card-unmovable-yellow-arsenal-insufficient-two-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 9
+    },
+    {
+        "slug": "card-unmovable-blue-hand-paid-blue-three",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 14
+    },
+    {
+        "slug": "card-unmovable-blue-hand-paid-red-one-yellow-two",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 16
+    },
+    {
+        "slug": "card-unmovable-blue-hand-insufficient-two-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 9
+    },
+    {
+        "slug": "card-unmovable-blue-arsenal-paid-blue-three",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 14
+    },
+    {
+        "slug": "card-unmovable-blue-arsenal-paid-red-one-yellow-two",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 16
+    },
+    {
+        "slug": "card-unmovable-blue-arsenal-insufficient-two-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 9
+    },
+    {
+        "slug": "card-unmovable-red-hand-before-reaction-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 6
+    },
+    {
+        "slug": "card-unmovable-red-arsenal-before-reaction-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 6
+    },
+    {
+        "slug": "card-fate-foreseen-red-hand-empty-deck-no-opt",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 8
+    },
+    {
+        "slug": "card-fate-foreseen-red-arsenal-opt-one-top-then-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 24
+    },
+    {
+        "slug": "card-fate-foreseen-red-arsenal-opt-one-bottom-then-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 24
+    },
+    {
+        "slug": "card-fate-foreseen-red-arsenal-empty-deck-no-opt",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 8
+    },
+    {
+        "slug": "card-fate-foreseen-yellow-hand-opt-one-top-then-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 24
+    },
+    {
+        "slug": "card-fate-foreseen-yellow-hand-opt-one-bottom-then-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 24
+    },
+    {
+        "slug": "card-fate-foreseen-yellow-hand-empty-deck-no-opt",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 8
+    },
+    {
+        "slug": "card-fate-foreseen-yellow-arsenal-opt-one-top-then-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 24
+    },
+    {
+        "slug": "card-fate-foreseen-yellow-arsenal-opt-one-bottom-then-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 24
+    },
+    {
+        "slug": "card-fate-foreseen-yellow-arsenal-empty-deck-no-opt",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 8
+    },
+    {
+        "slug": "card-fate-foreseen-blue-hand-opt-one-top-then-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 24
+    },
+    {
+        "slug": "card-fate-foreseen-blue-hand-opt-one-bottom-then-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 24
+    },
+    {
+        "slug": "card-fate-foreseen-blue-hand-empty-deck-no-opt",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 8
+    },
+    {
+        "slug": "card-fate-foreseen-blue-arsenal-opt-one-top-then-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 24
+    },
+    {
+        "slug": "card-fate-foreseen-blue-arsenal-opt-one-bottom-then-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 24
+    },
+    {
+        "slug": "card-fate-foreseen-blue-arsenal-empty-deck-no-opt",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 8
+    },
+    {
+        "slug": "card-fate-foreseen-red-hand-one-card-deck-top",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 8
+    },
+    {
+        "slug": "card-fate-foreseen-red-hand-one-card-deck-bottom",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 8
+    },
+    {
+        "slug": "card-fate-foreseen-red-arsenal-one-card-deck-top",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 8
+    },
+    {
+        "slug": "card-fate-foreseen-red-arsenal-one-card-deck-bottom",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 8
+    }
+]

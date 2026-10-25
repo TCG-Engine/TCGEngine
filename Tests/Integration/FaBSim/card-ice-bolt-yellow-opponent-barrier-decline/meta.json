@@ -1,0 +1,7 @@
+{
+    "name": "Ice Bolt / opponent-barrier-decline",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:01:06+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cast for printed cost2 and1AP, then resolve printed4 arcane toward hero2. Before prevention completes, both HP20, source on Stack and caster Graveyard0. Victim2 explicitly declines Barrier1 with PASS, preserving its resource. Prevent0; damage=max(0,4-0)=4, victim life16, other hero20. Final resources[0, 1]; no go again. Source goes to its owner's graveyard after effects finish. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ice_bolt_yellow https://judge.fabtcg.com/cards/detail/1634/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

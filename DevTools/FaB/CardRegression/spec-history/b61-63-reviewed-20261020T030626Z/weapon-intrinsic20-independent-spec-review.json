@@ -1,0 +1,513 @@
+{
+  "status": "INDEPENDENT_WEAPON_INTRINSIC20_SPEC_APPROVED_FOR_NATIVE_PILOTS",
+  "reviewer": "/root/wtr_attack_scenarios",
+  "spec_sha256": "e45ae88cb7d27274e37f66cf998df86908fb43a13f44f09d55d9a7e4d2a70418",
+  "pilot_sha256": "949d8ab7c81c1ee11daf5e68f9a81727a3d5e37859d4e0e8a20de24ef331c7a8",
+  "independent_checks": 5458,
+  "native_persistable_oracles_modeled": 2750,
+  "scenarios": 20,
+  "identities": 10,
+  "pilots": 4,
+  "rows": [
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p1Pitch"
+    },
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p2Graveyard"
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p1Pitch"
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p2Graveyard"
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p1Pitch"
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p2Graveyard"
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p1Pitch"
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p2Graveyard"
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p1Pitch"
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p2Graveyard"
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p1Pitch"
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p2Graveyard"
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p1Pitch"
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p2Graveyard"
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p1Pitch"
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p2Graveyard"
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p1Pitch"
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p2Graveyard"
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        14
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p1Pitch"
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "semantically_approved": true,
+      "modeled_supported_actions": 15,
+      "modeled_individual_passes": 13,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "primaryFinalZone": "p2Graveyard"
+    }
+  ],
+  "printed_faces_independently_viewed": [
+    {
+      "card_id": "sharpen_steel_red",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\sharpen_steel_red.webp",
+      "sha256": "218ec17dfc269726f1a21cec8b9b01e47fafbb3b16e88ea1d5e8c67916eb19f7",
+      "visually_observed": {
+        "pitch": 1,
+        "defense": 3,
+        "type": "Warrior Action"
+      }
+    },
+    {
+      "card_id": "sharpen_steel_yellow",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\sharpen_steel_yellow.webp",
+      "sha256": "c204cbfc08ffee831b84f1330a39a291c993c534fdb99fc043c21a7ad1e2ef24",
+      "visually_observed": {
+        "pitch": 2,
+        "defense": 3,
+        "type": "Warrior Action"
+      }
+    },
+    {
+      "card_id": "sharpen_steel_blue",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\sharpen_steel_blue.webp",
+      "sha256": "5185381d5227dc06d2117fcebaf0323864aa6f357738db3618ba6fc0b6273cfa",
+      "visually_observed": {
+        "pitch": 3,
+        "defense": 3,
+        "type": "Warrior Action"
+      }
+    },
+    {
+      "card_id": "cut_deep_red",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\cut_deep_red.webp",
+      "sha256": "3a94b9f0a3c8cd896e563247465e87d4aff100fe3f4c326444eecde63bde9ba4",
+      "visually_observed": {
+        "pitch": 1,
+        "defense": 3,
+        "type": "Warrior Action"
+      }
+    },
+    {
+      "card_id": "cut_deep_yellow",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\cut_deep_yellow.webp",
+      "sha256": "cf7b8c64452cd3312755b337b3fab5241e07cd037b7135fc4d144f5715be119b",
+      "visually_observed": {
+        "pitch": 2,
+        "defense": 3,
+        "type": "Warrior Action"
+      }
+    },
+    {
+      "card_id": "cut_deep_blue",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\cut_deep_blue.webp",
+      "sha256": "101f550521e56f9e78bf28e23110df11d843e757ca30481425c98396330d1644",
+      "visually_observed": {
+        "pitch": 3,
+        "defense": 3,
+        "type": "Warrior Action"
+      }
+    },
+    {
+      "card_id": "felling_swing_red",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\felling_swing_red.webp",
+      "sha256": "c2092146f7b6447f0ed5f1295515ce54c1b22f4cadd2106c9372c1bf58cd05fb",
+      "visually_observed": {
+        "pitch": 1,
+        "defense": 3,
+        "type": "Warrior Action"
+      }
+    },
+    {
+      "card_id": "felling_swing_yellow",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\felling_swing_yellow.webp",
+      "sha256": "c032b0dfc2555e20689f09bfdf91b70527fd76cd0a31fba068e93db6dd6dc700",
+      "visually_observed": {
+        "pitch": 2,
+        "defense": 3,
+        "type": "Warrior Action"
+      }
+    },
+    {
+      "card_id": "felling_swing_blue",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\felling_swing_blue.webp",
+      "sha256": "4a1f3677145dad351c47213bbf26e8eacae8d539c2ad3bfcee1d4f4ae3e23b16",
+      "visually_observed": {
+        "pitch": 3,
+        "defense": 3,
+        "type": "Warrior Action"
+      }
+    },
+    {
+      "card_id": "en_garde_red",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\en_garde_red.webp",
+      "sha256": "2a5923616c638d7191b2c465b5fb8c4332bf71baf9eb6d3b9c0051d7943b1bb0",
+      "visually_observed": {
+        "pitch": 1,
+        "defense": 3,
+        "type": "Warrior Action"
+      }
+    }
+  ],
+  "review_basis": "New independent small individual-pass rules model checks every persisted planned oracle and supported action from exact real two-Hand-card setups. Printed pitch1/2/3 plus initial3-pitch pays distinct Generic MuscleMuttcost3; AP1 until completion then0; unmodified power6 -> damage6/HP14 and primaryUID4 remainsPitch. Printeddefense3 is declared normally at AP0/resources0 against WB4 ->1damage/HP19; sourceUID4 RoleDEFENSE clears to owner2GY. Neither operation plays the primary NAA, so no goagain or next weapon/dagger/axe effect. Quiet Warrior heroes have no weapons. All ten printed faces viewed independently.",
+  "prior_coverage_search": {
+    "corrected_scan_sha256": "a5ebcf73d0ad6bb1f0e578a737b9b9cfb163b0be185447b76a70e083e77fa8dd",
+    "verified_prior_subject_fixture_raw_pairs": 199,
+    "qualification": "Corrected whitespace-delimited initial-row scan explicitly preserves original erroneous delimiter report; all199 matched assertion/initial pairs rehashed here. No existing explicit primary Pitch/opponent CombatChain branch was credited."
+  },
+  "bounds": [
+    "Only own printed pitch and normal Hand defense; does not independently reapprove entire198 action-effect matrix or continuous-effect earliest Stack timing.",
+    "Native recording/actual saved review/same-runtime replay/controls/suites remain required. No new verified runtime coverage here.",
+    "TurnEffects empty typed buckets are source serialization facts; no fabricated gameplay grants/permissions/modifiers/UIDs."
+  ],
+  "rules": [
+    "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+    "https://rules.fabtcg.com/en/cr/07-combat/"
+  ],
+  "native_writes": 0,
+  "game_actions": 0,
+  "accepted_coverage": 0
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Sloggism / cost-three-no-granted-go-again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:07+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Sloggism costs3, paid with blue3, and restores AP1. Cost3 is above the cost2 threshold and must qualify: Raging Onslaught red receives7+6. Pay its3 using a second blue3. The attack has no printed go again and ends at AP0 despite Sloggism own go again. Health7. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sloggism_red https://judge.fabtcg.com/cards/detail/334/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

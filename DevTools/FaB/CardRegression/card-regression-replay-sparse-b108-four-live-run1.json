@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch108.json",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "returncode": 0,
+  "completed_utc": "2026-10-22T17:45:25.812854+00:00",
+  "fixtures": [
+    {
+      "slug": "card-starting-stake-yellow-four-live-sparse-actual-zero-cost-action-with-no-gold-creates-one-owned-gold",
+      "fixture_sha256": "448d01ba7e4db7ff91ada221ad39594a65b97b9481768f544481f8e0646081c4",
+      "passed": true,
+      "result": "[PASS] Starting Stake / four live sparse positive effect"
+    },
+    {
+      "slug": "card-this-rounds-on-me-blue-four-live-sparse-actual-blue-pitch-play-draws-one-owned-card-for-each-live-hero",
+      "fixture_sha256": "89880b9ee0870e73d12ef813ba47ce797595b7f7580577cad9e85d5f211e3e8b",
+      "passed": true,
+      "result": "[PASS] This Round's on Me / four live sparse positive effect"
+    },
+    {
+      "slug": "card-poison-the-well-blue-four-live-sparse-real-instant-then-real-sun-kiss-gain-three-becomes-lose-three",
+      "fixture_sha256": "e97e33a086bdd59ae29cb5471586ecae1d625db4841e877a30c72643f10a6bfb",
+      "passed": true,
+      "result": "[PASS] Poison the Well / four live sparse positive effect"
+    },
+    {
+      "slug": "card-sirens-of-safe-harbor-red-four-live-sparse-real-combat-chain-cleanup-puts-source-in-own-graveyard-and-heals-one",
+      "fixture_sha256": "ad15dff93521e547df110d23c18c85b4e86d0fb15b90df0195a9864455ebaa23",
+      "passed": true,
+      "result": "[PASS] Sirens of Safe Harbor / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-starting-stake-yellow-four-live-sparse-actual-zero-cost-action-with-no-gold-creates-one-owned-gold",
+      "returncode": 0,
+      "stdout": "[PASS] Starting Stake / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-this-rounds-on-me-blue-four-live-sparse-actual-blue-pitch-play-draws-one-owned-card-for-each-live-hero",
+      "returncode": 0,
+      "stdout": "[PASS] This Round's on Me / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-poison-the-well-blue-four-live-sparse-real-instant-then-real-sun-kiss-gain-three-becomes-lose-three",
+      "returncode": 0,
+      "stdout": "[PASS] Poison the Well / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sirens-of-safe-harbor-red-four-live-sparse-real-combat-chain-cleanup-puts-source-in-own-graveyard-and-heals-one",
+      "returncode": 0,
+      "stdout": "[PASS] Sirens of Safe Harbor / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

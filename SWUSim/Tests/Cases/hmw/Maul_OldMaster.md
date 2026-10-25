@@ -573,14 +573,10 @@ P1RESAVAILABLE:8
 #// It is Cunning at cost 2, so 1 here. Draw takes deck 3->2; the discard then takes the only card in
 #// hand (the one just drawn), so the discard holds TWI_208 itself plus that card.
 #//
-#// ⚠ KNOWN DIVERGENCE FROM THE RULING, DELIBERATELY ASSERTED AS-IS: the ruling says both triggers go on
-#// the stack together and the controller resolves them IN EITHER ORDER. The engine does not offer that
-#// choice here — the When Played is flushed from the entry bag and the When Defeated is collected later
-#// at the defeat, so they land in SEPARATE batches and always resolve When-Played-first with no prompt.
-#// Verified, not assumed: the same board passes identically with and without an EffectStack answer,
-#// i.e. any such answer is silently ABSORBED. The order is observable on this very card (drawing first
-#// lets you discard the drawn card; discarding first cannot), so a real choice is being denied. Flagged
-#// for a decision — batching the two windows is shared trigger plumbing that also affects SEC_018 DJ.
+#// ★ The ruling is honoured since 2026-10-19 (owner: "fix it"): both triggers go on the stack TOGETHER and the
+#// controller picks the order ("Choose_trigger_to_resolve": EffectStack-0 = the When Played, EffectStack-1 = the
+#// When Defeated). They used to land in separate batches — When Played always first, no prompt. This section
+#// takes the When Played first; ..._WhenDefeatedFIRST below takes the other order, and the outcomes differ.
 
 ## GIVEN
 CommonSetup: yyk/bbw/{myResources:6;myLeader:HMW_016}
@@ -591,6 +587,7 @@ WithP1Deck: [SOR_046 SOR_046 SOR_046]
 ## WHEN
 - P1>UseLeaderAbility
 - P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-0
 - P1>AnswerDecision:myHand-0
 
 ## EXPECT
@@ -604,8 +601,8 @@ P1NODECISION
 ---
 
 # Interaction_TWI208_TheDiscardSeesTheDRAWNCard_PinningTheCurrentOrder
-#// The order pinned explicitly, so that if the trigger batching is ever changed to honour the ruling
-#// this section fails LOUDLY rather than drifting.
+#// The When-Played-FIRST order, chosen explicitly at the ordering prompt (it was the only order before the two
+#// windows were batched together; this section was written to fail loudly when that changed — and did).
 #// P1 holds a second card (SOR_128) when Maul's Action resolves. Under the current When-Played-first
 #// order the draw happens while SOR_128 is still in hand, giving a two-card hand from which P1 discards
 #// the DRAWN card — leaving SOR_128 behind. Under the other order the discard would be forced to take
@@ -621,12 +618,39 @@ WithP1Deck: [SOR_046 SOR_046 SOR_046]
 ## WHEN
 - P1>UseLeaderAbility
 - P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-0
 - P1>AnswerDecision:myHand-1
 
 ## EXPECT
 P1DECKCOUNT:2
 P1HANDCOUNT:1
 P1HANDCARD:0:SOR_128
+P1DISCARDCOUNT:2
+P1NODECISION
+
+---
+
+# Interaction_TWI208_WhenDefeatedFIRST_TheDiscardTakesTheOtherCard
+#// The OTHER order, which the batching makes possible: P1 resolves TWI_208's When Defeated first. The discard
+#// happens while SOR_128 is the ONLY card in hand, so SOR_128 goes; the draw comes after and the hand ends on
+#// the drawn SOR_046. Same board as the section above, opposite end state — the choice is real.
+
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:6;myLeader:HMW_016}
+P1OnlyActions: true
+WithP1Hand: TWI_208
+WithP1Hand: SOR_128
+WithP1Deck: [SOR_046 SOR_046 SOR_046]
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-1
+
+## EXPECT
+P1DECKCOUNT:2
+P1HANDCOUNT:1
+P1HANDCARD:0:SOR_046
 P1DISCARDCOUNT:2
 P1NODECISION
 
@@ -651,6 +675,7 @@ WithP1Hand: LAW_091
 ## WHEN
 - P1>UseLeaderAbility
 - P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:1
@@ -682,6 +707,7 @@ WithP1Hand: LOF_207
 ## WHEN
 - P1>UseLeaderAbility
 - P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-0
 - P1>AnswerDecision:theirGroundArena-0
 - P1>AnswerDecision:theirGroundArena-1
 
@@ -710,6 +736,7 @@ WithP1Hand: LOF_207
 ## WHEN
 - P1>UseLeaderAbility
 - P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-0
 - P1>AnswerDecision:-
 - P1>AnswerDecision:theirGroundArena-1
 
@@ -736,6 +763,7 @@ WithP1Hand: ASH_167
 ## WHEN
 - P1>UseLeaderAbility
 - P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-0
 - P1>AnswerDecision:myGroundArena-0
 - P1>AnswerDecision:myGroundArena-0
 
@@ -766,6 +794,7 @@ WithP1Hand: SOR_134
 ## WHEN
 - P1>UseLeaderAbility
 - P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-0
 - P1>AnswerDecision:theirGroundArena-0
 - P1>AnswerDecision:theirGroundArena-0
 
@@ -810,4 +839,144 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LOF_093
 P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:LOF_093
+P1NODECISION
+
+---
+
+# Front_ThePlayedUnitsSUPPORTStillResolves_LendingItsAbilities
+#// ★ REPORTED 2026-10-19: "Support on Morgan Elsbeth not triggering on Maul (HMW) action." Support "resolves like the
+#// triggered ability 'When Played…: You may attack with another unit. If you do, it gains this unit's other
+#// abilities for this attack'" (CR, Support a./c.), and Maul prints "When Played abilities resolve after the unit is
+#// defeated". The attack is made by ANOTHER unit, so the Support unit being gone stops nothing — its abilities are
+#// lent from its last known information. The Support dispatch used to fizzle on a supporter that had left play.
+#// ASH_154 (Support, Raid 1) is played and defeated; SOR_095 (3 power) takes the Support attack with the lent
+#// Raid 1 → 4 damage to P2's base (P2 has no unit, so the base is the only target).
+## GIVEN
+CommonSetup: yyk/brk/{myLeader:HMW_016;myResources:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: ASH_154
+WithP1GroundArena: SOR_095:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P2BASEDMG:4
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1DISCARDUNIT:0:CARDID:ASH_154
+
+---
+
+# Front_MorganElsbeth_SupportFIRST_HerWhenDefeatedWaitsForTheWholeAttack
+#// The reported board: ASH_050 Morgan Elsbeth (Support; When Defeated: may give a unit -2/-2). After Maul plays and
+#// defeats her, her Support and her When Defeated are triggered together, so P1 is asked which resolves first
+#// (EffectStack-0 = Support, EffectStack-1 = When Defeated). P1 takes SUPPORT: SOR_095 attacks P2's base (3), and
+#// only AFTER that attack does the -2/-2 resolve — CR Support e.: the other triggered abilities "are not resolved
+#// until after the attack resulting from Support and any abilities triggered during the attack are resolved."
+#// The answer ORDER below is the assertion: an -2/-2 cutting into the attack (the old bug) takes the
+#// "theirBase-0" answer as its own and the section fails.
+## GIVEN
+CommonSetup: yyk/brk/{myLeader:HMW_016;myResources:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: ASH_050
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirBase-0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2BASEDMG:3
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:0:POWER:1
+P1DISCARDUNIT:0:CARDID:ASH_050
+P1NODECISION
+
+---
+
+# Front_MorganElsbeth_WhenDefeatedFIRST_ThenTheSupportAttack
+#// The other order: P1 resolves Morgan's When Defeated first (-2/-2 on P2's SOR_046), and her Support is still
+#// offered afterwards — her being in the discard stops neither.
+## GIVEN
+CommonSetup: yyk/brk/{myLeader:HMW_016;myResources:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: ASH_050
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-1
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P2BASEDMG:3
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:0:POWER:1
+P1DISCARDUNIT:0:CARDID:ASH_050
+P1NODECISION
+
+---
+
+# Deployed_ReplayedAmbushUnit_StillAmbushes
+#// Bug report P-3 (Petranaki game 401, 2026-10-23): "Replayed Mae with Maul and it didn't ambush in." A unit the When Deployed
+#// plays from the discard is PLAYED, so its Ambush triggers like any played unit's. HMW_055 Mae (2/4, Ambush/Shielded/Grit) starts
+#// with 3 damage, so Grit makes her 5 power: she trades with one Battlefield Marine (3/3) and is defeated THIS phase. Maul deploys,
+#// replays her, and the OTHER Marine is a legal Ambush target. Her two entry triggers (Shielded = EffectStack-1, Ambush) are ordered;
+#// she enters undamaged at 2 power, her Shield takes the Marine's 3.
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:8;myLeader:HMW_016}
+P1OnlyActions: true
+WithP1GroundArena: HMW_055:1:3
+WithP2GroundArena: [SOR_095:1:0 SOR_095:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>DeployLeader
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myDiscard-0
+- P1>AnswerDecision:EffectStack-1
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:HMW_055
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P1GROUNDARENAUNIT:1:SHIELDCOUNT:0
+P1GROUNDARENAUNIT:1:DAMAGE:0
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# Deployed_ReplayedAmbushUnit_OnlyAHiddenEnemyPlayedThisPhase_NoAmbush
+#// The reported board itself: in game 401 both enemy ground units (SEC_148 Karis Nemik, HMW_162 Teebo) had been played THIS phase,
+#// and Hidden reads "This unit can't be attacked if it was played this phase", so Mae had nothing to Ambush — correct, not a bug.
+#// Here P2 plays Teebo after Mae's trade; the replayed Mae then raises no Ambush offer and Teebo is untouched. No P1OnlyActions:
+#// P2 has to take a real turn to play him. P1NODECISION is the load-bearing line: an Ambush wrongly raised against a Hidden
+#// unit would leave an Ambush (or trigger-order) prompt pending, while the damage line alone would still pass.
+## GIVEN
+CommonSetup: yyk/rrw/{myResources:8;myLeader:HMW_016;theirResources:4}
+WithP1GroundArena: HMW_055:1:3
+WithP2GroundArena: SOR_095:1:0
+WithP2Hand: HMW_162
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P2>PlayHand:0
+- P1>DeployLeader
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myDiscard-0
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:HMW_055
+P2GROUNDARENAUNIT:0:CARDID:HMW_162
+P2GROUNDARENAUNIT:0:DAMAGE:0
 P1NODECISION

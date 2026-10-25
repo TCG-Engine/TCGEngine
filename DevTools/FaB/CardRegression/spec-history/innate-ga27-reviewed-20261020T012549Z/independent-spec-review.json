@@ -1,0 +1,5953 @@
+{
+  "status": "INDEPENDENT_FROZEN_GA27_399_AND_PILOTS4_APPROVED_FOR_SERIAL_NATIVE_PILOTS",
+  "reviewer": "/root/pilot_review",
+  "checks": 43978,
+  "scenario_count": 399,
+  "identity_count": 27,
+  "pilot_count": 4,
+  "manifest_sha256": "ac8172abd47704be701ee028b24e65200161a51531259549b8c6206a50bf8c1c",
+  "full_spec_sha256": "0e0368b5317708da42c0be3cf08e3d0ea26cd4bf46954d81306be9277bbe3a11",
+  "pilot_spec_sha256": "ecae8647865410394fe59268ee85b32e3bed4bd6c04a09d0f9a4f46bddb4be83",
+  "independent_viewed_card_faces": {
+    "dust_runner_outlaw_red": {
+      "sha256": "ed22f7a33ed457649ced477393be7b028448a7da7835e5edabdfee98a9a7898d",
+      "independent_viewed_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "dust_runner_outlaw_yellow": {
+      "sha256": "a99b770caae3312c21ab4f1a1633f04911590ef18ac0db82908f6fa9801c4c49",
+      "independent_viewed_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "dust_runner_outlaw_blue": {
+      "sha256": "9122af031b95c46d433f1e7a73986367500d88aae9c035d133a2152e4d17e804",
+      "independent_viewed_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "electrolyze_red": {
+      "sha256": "5fafbc3f52e201ae76400eb9fcb3e178a8c3ed6708c0837cb4184713eee17dd6",
+      "independent_viewed_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "electrolyze_yellow": {
+      "sha256": "f0d3ba5c1ec16159324e252c5019cf0dd10e8f86214e35648582bd5893a845be",
+      "independent_viewed_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "electrolyze_blue": {
+      "sha256": "88c7347842dee077160bf3fbaaa43317506534e244990f4a1cba1e4ffde1cb4a",
+      "independent_viewed_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "fry_red": {
+      "sha256": "0fed30ef2d530d9c6d91822ff201b982f7549de534e935bdce9d34030db74d27",
+      "independent_viewed_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "fry_yellow": {
+      "sha256": "2cc2183b7befd29052b48190dff8779c5d49b9bbd2ca72294876394f90a1ad21",
+      "independent_viewed_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "fry_blue": {
+      "sha256": "276e6378e4a1d4e9702e08fce9a9e852846f4ac82464e0d1a40be683f64571e6",
+      "independent_viewed_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "head_jab_red": {
+      "sha256": "f473fe6e3254642be83f73b362bc25b1dc12de91762ff876fe0d6bee24599442",
+      "independent_viewed_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "head_jab_yellow": {
+      "sha256": "9e7bc163f39f719ba9d5e9572237a904672d3f31083360355307a616cf75e9eb",
+      "independent_viewed_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "head_jab_blue": {
+      "sha256": "fd4329d2348dc70bfc53ba314f2bdd3766819afd349544ca11579d8135c2b953",
+      "independent_viewed_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "leg_tap_red": {
+      "sha256": "e655fa725e43e0842322aac1a517ee6790b05cee3f4c9775b2ef11eef453f9f6",
+      "independent_viewed_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "leg_tap_yellow": {
+      "sha256": "69ba826efc5abcdffe08cf189dbd4a0db525bf160a5bc4eb4a4cb0ed10bd59d3",
+      "independent_viewed_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "leg_tap_blue": {
+      "sha256": "85288baceddcff70e8306f0f25c5f8173b6ea392c61e0b64a0ec08f5ff25cf87",
+      "independent_viewed_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "rebellious_rush_red": {
+      "sha256": "a7216f01f46fda7bb94a161fbf5524a431c31d3c9f56fd5d1d232731c590559b",
+      "independent_viewed_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "rebellious_rush_yellow": {
+      "sha256": "d935f70720e8302a34dddfe1ae497470aba695b521de782a3dc4dd4d539b6189",
+      "independent_viewed_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "rebellious_rush_blue": {
+      "sha256": "3ae1d6ba11eb1b49b429429fb50f6b5b030c6e7a136616357fc671cb4243e703",
+      "independent_viewed_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "ronin_renegade_red": {
+      "sha256": "0a0f097e65d65e506e7921d35e7fafe0dd7f2373969d51cdb88354a593fbe5e8",
+      "independent_viewed_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "ronin_renegade_yellow": {
+      "sha256": "ffde37e48273e3ea4dc0f5658cb6dafe66b98dd7b7dfae1e5e48835c5e057028",
+      "independent_viewed_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "ronin_renegade_blue": {
+      "sha256": "eaf82b07d8975bd21377ca63ae117b3b29b97d2d0a5540ed7ff90695a9f7285a",
+      "independent_viewed_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "sic_em_shot_red": {
+      "sha256": "83161b1fda5b061a95e54b8af8adceded0be9de8f25d50306eb7004f1c31d42a",
+      "independent_viewed_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1,
+        "functional_text": "Go again",
+        "arrow": true
+      }
+    },
+    "sic_em_shot_yellow": {
+      "sha256": "c4abda5d0895939f5b11216e56659c640e6205a7ae1d1b8a626303bf5044dffc",
+      "independent_viewed_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2,
+        "functional_text": "Go again",
+        "arrow": true
+      }
+    },
+    "sic_em_shot_blue": {
+      "sha256": "72c613ceea8d934c456906f23186c8d9dc127f7f0281b71d192a95f9fa314931",
+      "independent_viewed_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3,
+        "functional_text": "Go again",
+        "arrow": true
+      }
+    },
+    "surging_strike_red": {
+      "sha256": "b4064cff5d0916e682964b1d7361709e81b7bc1aa2d687907d85bcdf0b823ed8",
+      "independent_viewed_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "surging_strike_yellow": {
+      "sha256": "1e53466fff905c688dbe0010041121b4f41228df669d36267663bbb8e023888d",
+      "independent_viewed_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    },
+    "surging_strike_blue": {
+      "sha256": "63cd67b649039e3c2c7f065cba636d24c2121373ea1a590aabf762bb804e1699",
+      "independent_viewed_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3,
+        "functional_text": "Go again",
+        "arrow": false
+      }
+    }
+  },
+  "case_reviews": [
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-hand-floating-exact",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-hand-overfunded-retains-one",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-hand-blue-pitch",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-hand-red-exact-pitch",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "hand-red-exact-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-red-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "dust_runner_outlaw_red",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-floating-exact",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-overfunded-retains-one",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-blue-pitch",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-red-exact-pitch",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "hand-red-exact-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "dust_runner_outlaw_yellow",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-floating-exact",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-overfunded-retains-one",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-blue-pitch",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-red-exact-pitch",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "hand-red-exact-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "dust_runner_outlaw_blue",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-hand-floating-exact",
+      "cardID": "electrolyze_red",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "electrolyze_red",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "electrolyze_red",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-hand-overfunded-retains-one",
+      "cardID": "electrolyze_red",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-hand-blue-pitch",
+      "cardID": "electrolyze_red",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-hand-red-exact-pitch",
+      "cardID": "electrolyze_red",
+      "branch": "hand-red-exact-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "electrolyze_red",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "electrolyze_red",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "electrolyze_red",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "electrolyze_red",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "electrolyze_red",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "electrolyze_red",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "electrolyze_red",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "electrolyze_red",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "electrolyze_red",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-red-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "electrolyze_red",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-hand-floating-exact",
+      "cardID": "electrolyze_yellow",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "electrolyze_yellow",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "electrolyze_yellow",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-hand-overfunded-retains-one",
+      "cardID": "electrolyze_yellow",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-hand-blue-pitch",
+      "cardID": "electrolyze_yellow",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-hand-red-exact-pitch",
+      "cardID": "electrolyze_yellow",
+      "branch": "hand-red-exact-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "electrolyze_yellow",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "electrolyze_yellow",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "electrolyze_yellow",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "electrolyze_yellow",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "electrolyze_yellow",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "electrolyze_yellow",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "electrolyze_yellow",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "electrolyze_yellow",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "electrolyze_yellow",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-yellow-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "electrolyze_yellow",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-hand-floating-exact",
+      "cardID": "electrolyze_blue",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "electrolyze_blue",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "electrolyze_blue",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-hand-overfunded-retains-one",
+      "cardID": "electrolyze_blue",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-hand-blue-pitch",
+      "cardID": "electrolyze_blue",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-hand-red-exact-pitch",
+      "cardID": "electrolyze_blue",
+      "branch": "hand-red-exact-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "electrolyze_blue",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "electrolyze_blue",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "electrolyze_blue",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "electrolyze_blue",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "electrolyze_blue",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "electrolyze_blue",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "electrolyze_blue",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "electrolyze_blue",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "electrolyze_blue",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-electrolyze-blue-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "electrolyze_blue",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-red-innate-ga-hand-floating-exact",
+      "cardID": "fry_red",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-red-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "fry_red",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-red-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "fry_red",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-red-innate-ga-hand-overfunded-retains-one",
+      "cardID": "fry_red",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-red-innate-ga-zero-cost-keeps-spare-blue",
+      "cardID": "fry_red",
+      "branch": "zero-cost-keeps-spare-blue",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "fry_red",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-red-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "fry_red",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-red-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "fry_red",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-red-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "fry_red",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-red-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "fry_red",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-red-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "fry_red",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-red-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "fry_red",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-red-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "fry_red",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 0,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-yellow-innate-ga-hand-floating-exact",
+      "cardID": "fry_yellow",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-yellow-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "fry_yellow",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-yellow-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "fry_yellow",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-yellow-innate-ga-hand-overfunded-retains-one",
+      "cardID": "fry_yellow",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-yellow-innate-ga-zero-cost-keeps-spare-blue",
+      "cardID": "fry_yellow",
+      "branch": "zero-cost-keeps-spare-blue",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-yellow-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "fry_yellow",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "fry_yellow",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-yellow-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "fry_yellow",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-yellow-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "fry_yellow",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-yellow-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "fry_yellow",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-yellow-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "fry_yellow",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-yellow-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "fry_yellow",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-yellow-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "fry_yellow",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 0,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-hand-floating-exact",
+      "cardID": "fry_blue",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "fry_blue",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "fry_blue",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-hand-overfunded-retains-one",
+      "cardID": "fry_blue",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-zero-cost-keeps-spare-blue",
+      "cardID": "fry_blue",
+      "branch": "zero-cost-keeps-spare-blue",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "fry_blue",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "fry_blue",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "fry_blue",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "fry_blue",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "fry_blue",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "fry_blue",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "fry_blue",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-fry-blue-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "fry_blue",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 0,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-red-innate-ga-hand-floating-exact",
+      "cardID": "head_jab_red",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-red-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "head_jab_red",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-red-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "head_jab_red",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-red-innate-ga-hand-overfunded-retains-one",
+      "cardID": "head_jab_red",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-red-innate-ga-zero-cost-keeps-spare-blue",
+      "cardID": "head_jab_red",
+      "branch": "zero-cost-keeps-spare-blue",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "head_jab_red",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-red-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "head_jab_red",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-red-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "head_jab_red",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-red-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "head_jab_red",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-red-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "head_jab_red",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-red-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "head_jab_red",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-red-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "head_jab_red",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-red-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "head_jab_red",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-yellow-innate-ga-hand-floating-exact",
+      "cardID": "head_jab_yellow",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-yellow-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "head_jab_yellow",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-yellow-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "head_jab_yellow",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-yellow-innate-ga-hand-overfunded-retains-one",
+      "cardID": "head_jab_yellow",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-yellow-innate-ga-zero-cost-keeps-spare-blue",
+      "cardID": "head_jab_yellow",
+      "branch": "zero-cost-keeps-spare-blue",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-yellow-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "head_jab_yellow",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "head_jab_yellow",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-yellow-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "head_jab_yellow",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-yellow-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "head_jab_yellow",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-yellow-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "head_jab_yellow",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-yellow-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "head_jab_yellow",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-yellow-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "head_jab_yellow",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-yellow-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "head_jab_yellow",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-blue-innate-ga-hand-floating-exact",
+      "cardID": "head_jab_blue",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-blue-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "head_jab_blue",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-blue-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "head_jab_blue",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-blue-innate-ga-hand-overfunded-retains-one",
+      "cardID": "head_jab_blue",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-blue-innate-ga-zero-cost-keeps-spare-blue",
+      "cardID": "head_jab_blue",
+      "branch": "zero-cost-keeps-spare-blue",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-blue-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "head_jab_blue",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "head_jab_blue",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-blue-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "head_jab_blue",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-blue-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "head_jab_blue",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-blue-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "head_jab_blue",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-blue-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "head_jab_blue",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-blue-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "head_jab_blue",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-head-jab-blue-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "head_jab_blue",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-hand-floating-exact",
+      "cardID": "leg_tap_red",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "leg_tap_red",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "leg_tap_red",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-hand-overfunded-retains-one",
+      "cardID": "leg_tap_red",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-hand-blue-pitch",
+      "cardID": "leg_tap_red",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-hand-red-exact-pitch",
+      "cardID": "leg_tap_red",
+      "branch": "hand-red-exact-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "leg_tap_red",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "leg_tap_red",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "leg_tap_red",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "leg_tap_red",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "leg_tap_red",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "leg_tap_red",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "leg_tap_red",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "leg_tap_red",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "leg_tap_red",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-red-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "leg_tap_red",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-hand-floating-exact",
+      "cardID": "leg_tap_yellow",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "leg_tap_yellow",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "leg_tap_yellow",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-hand-overfunded-retains-one",
+      "cardID": "leg_tap_yellow",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-hand-blue-pitch",
+      "cardID": "leg_tap_yellow",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-hand-red-exact-pitch",
+      "cardID": "leg_tap_yellow",
+      "branch": "hand-red-exact-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "leg_tap_yellow",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "leg_tap_yellow",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "leg_tap_yellow",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "leg_tap_yellow",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "leg_tap_yellow",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "leg_tap_yellow",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "leg_tap_yellow",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "leg_tap_yellow",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "leg_tap_yellow",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-yellow-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "leg_tap_yellow",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-hand-floating-exact",
+      "cardID": "leg_tap_blue",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "leg_tap_blue",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "leg_tap_blue",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-hand-overfunded-retains-one",
+      "cardID": "leg_tap_blue",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-hand-blue-pitch",
+      "cardID": "leg_tap_blue",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-hand-red-exact-pitch",
+      "cardID": "leg_tap_blue",
+      "branch": "hand-red-exact-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "leg_tap_blue",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "leg_tap_blue",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "leg_tap_blue",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "leg_tap_blue",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "leg_tap_blue",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "leg_tap_blue",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "leg_tap_blue",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "leg_tap_blue",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "leg_tap_blue",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-leg-tap-blue-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "leg_tap_blue",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-hand-floating-exact",
+      "cardID": "rebellious_rush_red",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 5,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "rebellious_rush_red",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 5,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "rebellious_rush_red",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 5,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-hand-overfunded-retains-one",
+      "cardID": "rebellious_rush_red",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 5,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-hand-blue-pitch",
+      "cardID": "rebellious_rush_red",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 5,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-hand-two-red-partial-funding",
+      "cardID": "rebellious_rush_red",
+      "branch": "hand-two-red-partial-funding",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 5,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "rebellious_rush_red",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "rebellious_rush_red",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "rebellious_rush_red",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "rebellious_rush_red",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "rebellious_rush_red",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "rebellious_rush_red",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "rebellious_rush_red",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "rebellious_rush_red",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "rebellious_rush_red",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-red-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "rebellious_rush_red",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-hand-floating-exact",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-hand-overfunded-retains-one",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-hand-blue-pitch",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-hand-two-red-partial-funding",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "hand-two-red-partial-funding",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-yellow-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "rebellious_rush_yellow",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-hand-floating-exact",
+      "cardID": "rebellious_rush_blue",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "rebellious_rush_blue",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "rebellious_rush_blue",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-hand-overfunded-retains-one",
+      "cardID": "rebellious_rush_blue",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 3,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-hand-blue-pitch",
+      "cardID": "rebellious_rush_blue",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 3,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-hand-two-red-partial-funding",
+      "cardID": "rebellious_rush_blue",
+      "branch": "hand-two-red-partial-funding",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "rebellious_rush_blue",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "rebellious_rush_blue",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "rebellious_rush_blue",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "rebellious_rush_blue",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "rebellious_rush_blue",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "rebellious_rush_blue",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "rebellious_rush_blue",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "rebellious_rush_blue",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "rebellious_rush_blue",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-rebellious-rush-blue-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "rebellious_rush_blue",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-red-innate-ga-hand-floating-exact",
+      "cardID": "ronin_renegade_red",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-red-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "ronin_renegade_red",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-red-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "ronin_renegade_red",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-red-innate-ga-hand-overfunded-retains-one",
+      "cardID": "ronin_renegade_red",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-red-innate-ga-zero-cost-keeps-spare-blue",
+      "cardID": "ronin_renegade_red",
+      "branch": "zero-cost-keeps-spare-blue",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "ronin_renegade_red",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-red-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "ronin_renegade_red",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-red-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "ronin_renegade_red",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-red-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "ronin_renegade_red",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-red-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "ronin_renegade_red",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-red-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "ronin_renegade_red",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-red-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "ronin_renegade_red",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-red-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "ronin_renegade_red",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 3,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-innate-ga-hand-floating-exact",
+      "cardID": "ronin_renegade_yellow",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "ronin_renegade_yellow",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "ronin_renegade_yellow",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-innate-ga-hand-overfunded-retains-one",
+      "cardID": "ronin_renegade_yellow",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-innate-ga-zero-cost-keeps-spare-blue",
+      "cardID": "ronin_renegade_yellow",
+      "branch": "zero-cost-keeps-spare-blue",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "ronin_renegade_yellow",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "ronin_renegade_yellow",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "ronin_renegade_yellow",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "ronin_renegade_yellow",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "ronin_renegade_yellow",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "ronin_renegade_yellow",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "ronin_renegade_yellow",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-yellow-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "ronin_renegade_yellow",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 2,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-innate-ga-hand-floating-exact",
+      "cardID": "ronin_renegade_blue",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "ronin_renegade_blue",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "ronin_renegade_blue",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-innate-ga-hand-overfunded-retains-one",
+      "cardID": "ronin_renegade_blue",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-innate-ga-zero-cost-keeps-spare-blue",
+      "cardID": "ronin_renegade_blue",
+      "branch": "zero-cost-keeps-spare-blue",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "ronin_renegade_blue",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "ronin_renegade_blue",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "ronin_renegade_blue",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "ronin_renegade_blue",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "ronin_renegade_blue",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "ronin_renegade_blue",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "ronin_renegade_blue",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-ronin-renegade-blue-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "ronin_renegade_blue",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 0,
+        "power": 1,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "sic_em_shot_red",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "sic_em_shot_red",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-overfunded-retains-one",
+      "cardID": "sic_em_shot_red",
+      "branch": "arsenal-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-blue-pitch",
+      "cardID": "sic_em_shot_red",
+      "branch": "arsenal-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-red-exact-pitch",
+      "cardID": "sic_em_shot_red",
+      "branch": "arsenal-red-exact-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-fully-blocked-go-again-real-followup",
+      "cardID": "sic_em_shot_red",
+      "branch": "arsenal-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "sic_em_shot_red",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "sic_em_shot_red",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "sic_em_shot_red",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "sic_em_shot_red",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "sic_em_shot_red",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-nonturn-action-rejected",
+      "cardID": "sic_em_shot_red",
+      "branch": "arsenal-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-hand-arrow-requires-arsenal-even-with-bow-rejected",
+      "cardID": "sic_em_shot_red",
+      "branch": "hand-arrow-requires-arsenal-even-with-bow-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-red-innate-ga-arsenal-arrow-arsenal-requires-bow-rejected",
+      "cardID": "sic_em_shot_red",
+      "branch": "arsenal-arrow-arsenal-requires-bow-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 4,
+        "defense": 3,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-overfunded-retains-one",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "arsenal-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-blue-pitch",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "arsenal-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-red-exact-pitch",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "arsenal-red-exact-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-fully-blocked-go-again-real-followup",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "arsenal-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-nonturn-action-rejected",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "arsenal-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-hand-arrow-requires-arsenal-even-with-bow-rejected",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "hand-arrow-requires-arsenal-even-with-bow-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-arrow-arsenal-requires-bow-rejected",
+      "cardID": "sic_em_shot_yellow",
+      "branch": "arsenal-arrow-arsenal-requires-bow-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 3,
+        "defense": 3,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "sic_em_shot_blue",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "sic_em_shot_blue",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-arsenal-overfunded-retains-one",
+      "cardID": "sic_em_shot_blue",
+      "branch": "arsenal-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-arsenal-blue-pitch",
+      "cardID": "sic_em_shot_blue",
+      "branch": "arsenal-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-arsenal-red-exact-pitch",
+      "cardID": "sic_em_shot_blue",
+      "branch": "arsenal-red-exact-pitch",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-arsenal-fully-blocked-go-again-real-followup",
+      "cardID": "sic_em_shot_blue",
+      "branch": "arsenal-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "sic_em_shot_blue",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "sic_em_shot_blue",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 1,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "sic_em_shot_blue",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "sic_em_shot_blue",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "sic_em_shot_blue",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-arsenal-nonturn-action-rejected",
+      "cardID": "sic_em_shot_blue",
+      "branch": "arsenal-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-hand-arrow-requires-arsenal-even-with-bow-rejected",
+      "cardID": "sic_em_shot_blue",
+      "branch": "hand-arrow-requires-arsenal-even-with-bow-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-sic-em-shot-blue-innate-ga-arsenal-arrow-arsenal-requires-bow-rejected",
+      "cardID": "sic_em_shot_blue",
+      "branch": "arsenal-arrow-arsenal-requires-bow-rejected",
+      "independent_primary_stats": {
+        "cost": 1,
+        "power": 2,
+        "defense": 3,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-hand-floating-exact",
+      "cardID": "surging_strike_red",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 5,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "surging_strike_red",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 5,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "surging_strike_red",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 5,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-hand-overfunded-retains-one",
+      "cardID": "surging_strike_red",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 5,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-hand-blue-pitch",
+      "cardID": "surging_strike_red",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 5,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-hand-two-red-partial-funding",
+      "cardID": "surging_strike_red",
+      "branch": "hand-two-red-partial-funding",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 5,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "surging_strike_red",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "surging_strike_red",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "surging_strike_red",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "surging_strike_red",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "surging_strike_red",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "surging_strike_red",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "surging_strike_red",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "surging_strike_red",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "surging_strike_red",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-red-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "surging_strike_red",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 5,
+        "defense": 2,
+        "pitch": 1
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-hand-floating-exact",
+      "cardID": "surging_strike_yellow",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "surging_strike_yellow",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "surging_strike_yellow",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-hand-overfunded-retains-one",
+      "cardID": "surging_strike_yellow",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-hand-blue-pitch",
+      "cardID": "surging_strike_yellow",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-hand-two-red-partial-funding",
+      "cardID": "surging_strike_yellow",
+      "branch": "hand-two-red-partial-funding",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 4,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "surging_strike_yellow",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "surging_strike_yellow",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "surging_strike_yellow",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "surging_strike_yellow",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "surging_strike_yellow",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "surging_strike_yellow",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "surging_strike_yellow",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "surging_strike_yellow",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "surging_strike_yellow",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-yellow-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "surging_strike_yellow",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 4,
+        "defense": 2,
+        "pitch": 2
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-hand-floating-exact",
+      "cardID": "surging_strike_blue",
+      "branch": "hand-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-arsenal-facedown-floating-exact",
+      "cardID": "surging_strike_blue",
+      "branch": "arsenal-facedown-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-arsenal-faceup-floating-exact",
+      "cardID": "surging_strike_blue",
+      "branch": "arsenal-faceup-floating-exact",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-hand-overfunded-retains-one",
+      "cardID": "surging_strike_blue",
+      "branch": "hand-overfunded-retains-one",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 3,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-hand-blue-pitch",
+      "cardID": "surging_strike_blue",
+      "branch": "hand-blue-pitch",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 3,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-hand-two-red-partial-funding",
+      "cardID": "surging_strike_blue",
+      "branch": "hand-two-red-partial-funding",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 3,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "cardID": "surging_strike_blue",
+      "branch": "hand-fully-blocked-go-again-real-followup",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+      "cardID": "surging_strike_blue",
+      "branch": "printed-pitch-funds-generic-cost-three",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 6,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-printed-defense-exact-partial-damage",
+      "cardID": "surging_strike_blue",
+      "branch": "printed-defense-exact-partial-damage",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 2,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-hand-zero-action-points-rejected",
+      "cardID": "surging_strike_blue",
+      "branch": "hand-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-hand-wrong-priority-rejected",
+      "cardID": "surging_strike_blue",
+      "branch": "hand-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-hand-insufficient-resources-rejected",
+      "cardID": "surging_strike_blue",
+      "branch": "hand-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-arsenal-zero-action-points-rejected",
+      "cardID": "surging_strike_blue",
+      "branch": "arsenal-zero-action-points-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-arsenal-wrong-priority-rejected",
+      "cardID": "surging_strike_blue",
+      "branch": "arsenal-wrong-priority-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 2,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-arsenal-insufficient-resources-rejected",
+      "cardID": "surging_strike_blue",
+      "branch": "arsenal-insufficient-resources-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 1,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    },
+    {
+      "slug": "card-surging-strike-blue-innate-ga-hand-nonturn-action-rejected",
+      "cardID": "surging_strike_blue",
+      "branch": "hand-nonturn-action-rejected",
+      "independent_primary_stats": {
+        "cost": 2,
+        "power": 3,
+        "defense": 2,
+        "pitch": 3
+      },
+      "expected_damage": 0,
+      "expected_resources": 0,
+      "verdict": "APPROVED_CORRECT_SPEC_PENDING_NATIVE_PILOT_AND_RUNTIME_GATES"
+    }
+  ],
+  "branch_counts": {
+    "hand-floating-exact": 24,
+    "arsenal-facedown-floating-exact": 27,
+    "arsenal-faceup-floating-exact": 27,
+    "hand-overfunded-retains-one": 24,
+    "hand-blue-pitch": 15,
+    "hand-red-exact-pitch": 9,
+    "hand-fully-blocked-go-again-real-followup": 24,
+    "printed-pitch-funds-generic-cost-three": 27,
+    "printed-defense-exact-partial-damage": 27,
+    "hand-zero-action-points-rejected": 24,
+    "hand-wrong-priority-rejected": 24,
+    "hand-insufficient-resources-rejected": 15,
+    "arsenal-zero-action-points-rejected": 27,
+    "arsenal-wrong-priority-rejected": 27,
+    "arsenal-insufficient-resources-rejected": 18,
+    "hand-nonturn-action-rejected": 24,
+    "zero-cost-keeps-spare-blue": 9,
+    "hand-two-red-partial-funding": 6,
+    "arsenal-overfunded-retains-one": 3,
+    "arsenal-blue-pitch": 3,
+    "arsenal-red-exact-pitch": 3,
+    "arsenal-fully-blocked-go-again-real-followup": 3,
+    "arsenal-nonturn-action-rejected": 3,
+    "hand-arrow-requires-arsenal-even-with-bow-rejected": 3,
+    "arsenal-arrow-arsenal-requires-bow-rejected": 3
+  },
+  "native_persistable_checks": 33732,
+  "author_only_can_play_diagnostics": 282,
+  "preserved_original_fixtures": 72,
+  "preserved_original_raw_files": 360,
+  "rules_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "basis": "CR8.3.5 attack go again gives one AP at beginning of Resolution and does not require hit; ArrowCR8.2.6 requires Arsenal/Bow."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "basis": "Ordinary defense/damage/source lifetime and cleanup."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "basis": "Actual supported action and asset-cost sequence."
+    }
+  ],
+  "scope_verdict": "Finite ordinary unsuppressed printed-stat/innate-go-again baseline is well-defined. Completion requires actual399 saved review, intended native controls and two current same-final-runtime full-corpus replays/suites. No current completion or new verified coverage.",
+  "draft_control_qualification": "Retain every native checkpoint. Reaction-prefix blank/power injections first fail native computedGA/power at Initial, before later AP/HP. Defense refresh earliest failure requires actual planner/native evidence. Separate clarification addendum by author; frozen correct399 recipes unchanged.",
+  "explicit_holds": [
+    "Ability loss/restoration/cannotgain/provenance, modifiers/replacements/unpreventable/observers and arbitrary cross-card effects.",
+    "Ally/UPF/ownership/elimination/LKI, early combat Close, turn-end pitch order and UI/deck legality.",
+    "No private CanPlay predicate guarantee from author diagnostics; source identity/UID provenance beyond explicitly persisted checks is not inferred."
+  ],
+  "native_writes": 0,
+  "game_actions": 0,
+  "new_verified_coverage": 0
+}

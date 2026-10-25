@@ -1,0 +1,100 @@
+.lesson-shell{max-width:1100px;margin:auto;padding:26px 22px 60px}.lesson-nav{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:28px}.lesson-nav a{color:#efc66f}.lesson-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}.lesson-tabs button[aria-current=step]{border-color:#efc66f;color:#efc66f}.lesson-body{display:grid;grid-template-columns:1fr 1.25fr;gap:26px;margin-top:26px}.lesson-copy,.practice-board{padding:26px;background:#101c27;border:1px solid #354b5b;border-radius:14px;min-width:0}.lesson-copy h2{font-size:28px}.lesson-copy p{line-height:1.7;color:#c6d2da}.lesson-copy .lesson-task{padding:14px;border-left:3px solid #efc66f;background:#efc66f0a;color:#f3dfad}.lesson-copy button{margin-top:16px}.practice-vitals{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid #354b5b;padding-bottom:18px;font-size:18px}.practice-vitals small{display:block;font-size:12px;color:#b6c7d3;margin-top:6px}.practice-mains{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}.practice-card{padding:14px;border:2px solid var(--hand,#405569);border-radius:9px;background:#172633;min-width:0}.practice-card h3{font-size:17px;margin:8px 0;overflow-wrap:anywhere}.practice-card p{font-size:12px;line-height:1.5;color:#c6d2da;white-space:pre-line}.practice-card strong{color:#efc66f}.practice-hand{display:flex;gap:8px;flex-wrap:wrap}.practice-hand button{border-bottom:3px solid var(--hand);text-align:left;flex:1;min-width:120px}.practice-hand small{display:block;margin-top:5px}.lesson-outcome{padding:14px;border:1px solid #688e7e;border-radius:8px;background:#60bd9b10;line-height:1.6}.lesson-footer{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.lesson-footer a{color:#efc66f}.lesson-shell h1{font-size:clamp(30px,4vw,48px);margin:12px 0}.lesson-progress{color:#efc66f;font-size:12px}.practice-note{font-size:12px;line-height:1.7;color:#c6d2da}
+@media(max-width:700px){.lesson-shell{padding:20px 12px}.lesson-body{grid-template-columns:1fr;gap:14px}.lesson-copy,.practice-board{padding:18px}.practice-mains{gap:8px}.practice-card{padding:10px}.lesson-tabs button{font-size:11px;padding:10px}}
+.practice-hand button[aria-pressed=true]{outline:2px solid #efc66f;outline-offset:2px;background:#3b3528}
+/* Menu styles stay scoped to avoid changing the arena and guided lessons. */
+.home-screen {
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+  min-height: calc(100vh - 72px);
+  min-height: calc(100svh - 72px);
+  padding: 48px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #f4f0e8;
+  text-align: center;
+}
+.home-logo { display: block; margin-bottom: 20px; }
+.home-screen h1 {
+  margin: 0 0 36px;
+  font-size: clamp(24px, 5vw, 32px);
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -.5px;
+}
+.home-screen h1:focus { outline: none; }
+.home-actions { display: grid; gap: 12px; width: 100%; max-width: 300px; }
+.home-actions > :is(a, button) {
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  padding: 15px 20px;
+  border: 1px solid #566774;
+  border-radius: 6px;
+  background: #192630;
+  color: #f4f0e8;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+}
+.home-actions > a:hover { background: #263743; border-color: #91a1ad; }
+.home-actions > .primary { background: #edc77e; border-color: #edc77e; color: #1c211f; }
+.home-actions > .primary:hover:not(:disabled) { background: #ffdda0; }
+.home-screen :focus-visible { outline: 3px solid #edc77e; outline-offset: 4px; }
+.home-save { max-width: 300px; margin: 18px 0 0; color: #adbdc8; font-size: 13px; line-height: 1.6; }
+.lesson-shell :focus-visible { outline: 3px solid #efc66f; outline-offset: 4px; }
+.lesson-shell .primary { background: #efc66f; color: #151d24; }
+
+/* Match setup carries the same typography, spacing, and colors as the menu. */
+#setup {
+  width: min(560px, calc(100vw - 28px));
+  max-height: calc(100vh - 28px);
+  max-height: calc(100svh - 28px);
+  padding: 32px;
+  border: 1px solid #6f644e;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #1b2832, #0e1922 75%);
+  box-shadow: 0 24px 100px #000a;
+}
+#setup::backdrop { background: #050b12d9; backdrop-filter: blur(7px); }
+#setup .eyebrow { font-size: 10px; letter-spacing: 1.8px; }
+#setup h2 { margin: 15px 0 12px; font-size: clamp(26px, 5vw, 34px); line-height: 1.12; letter-spacing: -1px; }
+#setup #setupIntro { margin: 0; color: #bfccd5; font-size: 14px; line-height: 1.7; }
+#setup .setup-grid { gap: 20px 16px; margin: 25px 0; }
+#setup label { color: #d6dfe5; font-size: 13px; font-weight: 600; min-width: 0; }
+#setup .setup-style { grid-column: 1 / -1; }
+#setup select, #setup input {
+  min-height: 48px;
+  padding: 12px;
+  border: 1px solid #4a5d6c;
+  border-radius: 5px;
+  background: #0b151e;
+  color: #f3efe7;
+  font-size: 14px;
+  font-weight: 400;
+}
+#setup input::placeholder { color: #96a9b6; opacity: 1; }
+#setup :is(button, select, input, summary):focus-visible { outline: 3px solid #edc77e; outline-offset: 3px; }
+#setup .setup-field-help { display: block; color: #aabcc9; font-size: 12px; font-weight: 400; line-height: 1.6; margin: 10px 0 0; }
+#setup .setup-optional { color: #aabcc9; font-weight: 400; }
+#setup .setup-advanced { padding: 16px 0; border-top: 1px solid #ffffff20; border-bottom: 1px solid #ffffff20; }
+#setup .setup-advanced summary { cursor: pointer; font-size: 13px; color: #c4d0d9; padding: 3px 0; }
+#setup .setup-advanced summary:hover { color: #edc77e; }
+#setup .setup-advanced .setup-grid { margin: 20px 0 0; }
+#setup .dialog-actions { margin-top: 24px; gap: 12px; }
+#setup .dialog-actions button { min-height: 48px; padding: 12px 22px; border-radius: 5px; font-size: 14px; }
+#setup #cancelSetup { background: transparent; border-color: #4a5d6c; }
+#setup #cancelSetup:hover { background: #ffffff0a; border-color: #9aabb8; }
+#setup .primary { background: linear-gradient(110deg, #f2d59c, #e2b366); border-color: #f4d79e; color: #1c211f; }
+#setup .primary:hover:not(:disabled) { background: #ffe0a5; }
+#setup .primary span { margin-left: 20px; }
+@media (max-width: 620px) {
+  #setup { padding: 24px 20px; }
+  #setup .setup-grid { grid-template-columns: 1fr; gap: 18px; }
+  #setup .dialog-actions button { flex: 1; padding: 12px 15px; }
+}

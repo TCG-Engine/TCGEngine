@@ -1,0 +1,2158 @@
+[
+    {
+        "slug": "card-pummel-red-ally-hit-does-not-discard-hero-hand",
+        "status": "blocked_or_incorrect",
+        "error": "Expected card pummel_red to exist in p1Graveyard.",
+        "attempted_actions": [
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 100,
+                "buttonInput": "",
+                "cardID": "theirArena-0",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-1!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            }
+        ],
+        "observed_state": {
+            "window": "REACTION",
+            "combatOpen": true,
+            "combatStep": "REACTION",
+            "chainLink": 1,
+            "attacker": 1,
+            "defender": 2,
+            "attackUID": 3,
+            "attackTarget": {
+                "type": "PERMANENT",
+                "player": 2,
+                "uid": 9,
+                "zone": "Arena"
+            },
+            "pendingAttackTarget": null,
+            "previousAttackCardID": "",
+            "handBlockUIDs": [],
+            "intimidated": [],
+            "pendingPayment": null,
+            "lastAttackName": "Brutal Assault",
+            "attackHit": false,
+            "attackPower": 0,
+            "defenseValue": 0,
+            "damageDealt": 0,
+            "declaredBlockUIDs": [],
+            "passiveSeats": [],
+            "gameMode": "",
+            "turnEffects": {
+                "1": [
+                    {
+                        "type": "MST_BLUE_PITCHED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_COST_ONE",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "CRU_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MST_BLUE_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_AA_ATTACK",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SEA_ATTACKED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MON_LAST_brutal_assault",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "ELE_AA_COMBAT",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MST_BLUE_PITCHED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_COST_ONE",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ],
+                "2": []
+            },
+            "nextTurnEffects": [],
+            "hitsThisTurn": [],
+            "cardsPlayedThisTurn": {
+                "1": [
+                    "brutal_assault_blue",
+                    "pummel_red"
+                ]
+            },
+            "arcCards": {
+                "3": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "penPitchTypes": [
+                        "Generic",
+                        "Action",
+                        "Attack"
+                    ],
+                    "dynPitchAA": true,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "outPreviousNames": [],
+                    "mstFree": false,
+                    "mstBluePlayedTurn": 2,
+                    "mstBluePlayedPlayer": 1,
+                    "mstPreviousPitch": 0,
+                    "mstPreviousAA": false,
+                    "rosLastLightning": false,
+                    "iarPermission": [],
+                    "mstReactions": 1,
+                    "mstBanished": [],
+                    "supFirst": true
+                },
+                "5": {
+                    "iarPermission": []
+                },
+                "4": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "penPitchTypes": [
+                        "Generic",
+                        "Action",
+                        "Attack"
+                    ],
+                    "dynPitchAA": true,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "mstFree": false,
+                    "iarPermission": []
+                },
+                "6": {
+                    "iarPermission": []
+                }
+            },
+            "arcActions": {
+                "1": 1
+            },
+            "outPreviousNames": {
+                "1": []
+            },
+            "lastAttackCardID": "brutal_assault_blue",
+            "attackTargets": [
+                {
+                    "type": "PERMANENT",
+                    "player": 2,
+                    "uid": 9,
+                    "zone": "Arena"
+                }
+            ],
+            "defendIndex": 0,
+            "attackGoAgain": false,
+            "arakniReactionSteps": {
+                "2:3:1": true
+            },
+            "arakniAttackReactions": {
+                "2:3:1": true
+            },
+            "outAnyReactions": {
+                "2:1:1": true
+            },
+            "outReactions": {
+                "2:1:1": true
+            },
+            "eleKorshemActiveTurn": 2
+        }
+    },
+    {
+        "slug": "card-pummel-red-hand-club-weapon-no-discard",
+        "status": "blocked_or_incorrect",
+        "error": "Expected card pummel_red to exist in p1Graveyard.",
+        "attempted_actions": [
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Weapons-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-1!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            }
+        ],
+        "observed_state": {
+            "window": "REACTION",
+            "combatOpen": true,
+            "combatStep": "REACTION",
+            "chainLink": 1,
+            "attacker": 1,
+            "defender": 2,
+            "attackUID": 9,
+            "attackTarget": {
+                "type": "HERO",
+                "player": 2,
+                "uid": 2,
+                "zone": "Hero"
+            },
+            "pendingAttackTarget": null,
+            "previousAttackCardID": "",
+            "handBlockUIDs": [],
+            "intimidated": [],
+            "pendingPayment": null,
+            "lastAttackName": "Romping Club",
+            "attackHit": false,
+            "attackPower": 0,
+            "defenseValue": 0,
+            "damageDealt": 0,
+            "declaredBlockUIDs": [],
+            "passiveSeats": [],
+            "gameMode": "",
+            "turnEffects": {
+                "1": [
+                    {
+                        "type": "MST_BLUE_PITCHED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "PEN_WEAPON_ACTIVATED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "CRU_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "CRU_WEAPONS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HVY_WEAPON_ATTACKED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_WEAPON_ATTACK",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_ATTACKED_2",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SEA_ATTACKED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MON_LAST_romping_club",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MST_BLUE_PITCHED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_COST_ONE",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ],
+                "2": [
+                    {
+                        "type": "SEA_ATTACKED_HERO",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ]
+            },
+            "nextTurnEffects": [],
+            "hitsThisTurn": [],
+            "cardsPlayedThisTurn": {
+                "1": [
+                    "romping_club",
+                    "pummel_red"
+                ]
+            },
+            "arcCards": {
+                "9": {
+                    "penPitchTypes": [
+                        "Generic",
+                        "Action",
+                        "Attack"
+                    ],
+                    "dynPitchAA": true,
+                    "outPreviousNames": [],
+                    "mstFree": false,
+                    "mstPreviousPitch": 0,
+                    "mstPreviousAA": false,
+                    "iarPermission": [],
+                    "mstReactions": 1,
+                    "mstBanished": [],
+                    "supFirst": true
+                },
+                "4": {
+                    "iarPermission": []
+                },
+                "3": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "penPitchTypes": [
+                        "Generic",
+                        "Action",
+                        "Attack"
+                    ],
+                    "dynPitchAA": true,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "mstFree": false,
+                    "iarPermission": []
+                },
+                "5": {
+                    "iarPermission": []
+                }
+            },
+            "arcActions": {
+                "1": 1
+            },
+            "outPreviousNames": {
+                "1": []
+            },
+            "lastAttackCardID": "romping_club",
+            "attackTargets": [
+                {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                }
+            ],
+            "defendIndex": 0,
+            "attackGoAgain": false,
+            "arakniReactionSteps": {
+                "2:9:1": true
+            },
+            "arakniAttackReactions": {
+                "2:9:1": true
+            },
+            "outAnyReactions": {
+                "2:1:1": true
+            },
+            "outReactions": {
+                "2:1:1": true
+            },
+            "eleKorshemActiveTurn": 2
+        }
+    },
+    {
+        "slug": "card-pummel-red-hand-cost-two-hit-defender-chooses-0",
+        "status": "blocked_or_incorrect",
+        "error": "Expected card pummel_red to exist in p1Graveyard.",
+        "attempted_actions": [
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-1!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            }
+        ],
+        "observed_state": {
+            "window": "REACTION",
+            "combatOpen": true,
+            "combatStep": "REACTION",
+            "chainLink": 1,
+            "attacker": 1,
+            "defender": 2,
+            "attackUID": 3,
+            "attackTarget": {
+                "type": "HERO",
+                "player": 2,
+                "uid": 2,
+                "zone": "Hero"
+            },
+            "pendingAttackTarget": null,
+            "previousAttackCardID": "",
+            "handBlockUIDs": [],
+            "intimidated": [],
+            "pendingPayment": null,
+            "lastAttackName": "Brutal Assault",
+            "attackHit": false,
+            "attackPower": 0,
+            "defenseValue": 0,
+            "damageDealt": 0,
+            "declaredBlockUIDs": [],
+            "passiveSeats": [],
+            "gameMode": "",
+            "turnEffects": {
+                "1": [
+                    {
+                        "type": "MST_BLUE_PITCHED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_COST_ONE",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "CRU_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MST_BLUE_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_AA_ATTACK",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_ATTACKED_2",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SEA_ATTACKED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MON_LAST_brutal_assault",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "ELE_AA_COMBAT",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MST_BLUE_PITCHED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_COST_ONE",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ],
+                "2": [
+                    {
+                        "type": "SEA_ATTACKED_HERO",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ]
+            },
+            "nextTurnEffects": [],
+            "hitsThisTurn": [],
+            "cardsPlayedThisTurn": {
+                "1": [
+                    "brutal_assault_blue",
+                    "pummel_red"
+                ]
+            },
+            "arcCards": {
+                "3": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "penPitchTypes": [
+                        "Generic",
+                        "Action",
+                        "Attack"
+                    ],
+                    "dynPitchAA": true,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "outPreviousNames": [],
+                    "mstFree": false,
+                    "mstBluePlayedTurn": 2,
+                    "mstBluePlayedPlayer": 1,
+                    "mstPreviousPitch": 0,
+                    "mstPreviousAA": false,
+                    "rosLastLightning": false,
+                    "iarPermission": [],
+                    "mstReactions": 1,
+                    "mstBanished": [],
+                    "supFirst": true
+                },
+                "5": {
+                    "iarPermission": []
+                },
+                "4": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "penPitchTypes": [
+                        "Generic",
+                        "Action",
+                        "Attack"
+                    ],
+                    "dynPitchAA": true,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "mstFree": false,
+                    "iarPermission": []
+                },
+                "6": {
+                    "iarPermission": []
+                }
+            },
+            "arcActions": {
+                "1": 1
+            },
+            "outPreviousNames": {
+                "1": []
+            },
+            "lastAttackCardID": "brutal_assault_blue",
+            "attackTargets": [
+                {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                }
+            ],
+            "defendIndex": 0,
+            "attackGoAgain": false,
+            "arakniReactionSteps": {
+                "2:3:1": true
+            },
+            "arakniAttackReactions": {
+                "2:3:1": true
+            },
+            "outAnyReactions": {
+                "2:1:1": true
+            },
+            "outReactions": {
+                "2:1:1": true
+            },
+            "eleKorshemActiveTurn": 2
+        }
+    },
+    {
+        "slug": "card-pummel-red-two-reactions-two-hit-triggers-two-discards",
+        "status": "blocked_or_incorrect",
+        "error": "Expected card pummel_red to exist in p1Graveyard.",
+        "attempted_actions": [
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-2!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-1!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            }
+        ],
+        "observed_state": {
+            "window": "REACTION",
+            "combatOpen": true,
+            "combatStep": "REACTION",
+            "chainLink": 1,
+            "attacker": 1,
+            "defender": 2,
+            "attackUID": 3,
+            "attackTarget": {
+                "type": "HERO",
+                "player": 2,
+                "uid": 2,
+                "zone": "Hero"
+            },
+            "pendingAttackTarget": null,
+            "previousAttackCardID": "",
+            "handBlockUIDs": [],
+            "intimidated": [],
+            "pendingPayment": null,
+            "lastAttackName": "Brutal Assault",
+            "attackHit": false,
+            "attackPower": 0,
+            "defenseValue": 0,
+            "damageDealt": 0,
+            "declaredBlockUIDs": [],
+            "passiveSeats": [],
+            "gameMode": "",
+            "turnEffects": {
+                "1": [
+                    {
+                        "type": "MST_BLUE_PITCHED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_COST_ONE",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "CRU_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MST_BLUE_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_AA_ATTACK",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_ATTACKED_2",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SEA_ATTACKED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MON_LAST_brutal_assault",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "ELE_AA_COMBAT",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MST_BLUE_PITCHED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_COST_ONE",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ],
+                "2": [
+                    {
+                        "type": "SEA_ATTACKED_HERO",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ]
+            },
+            "nextTurnEffects": [],
+            "hitsThisTurn": [],
+            "cardsPlayedThisTurn": {
+                "1": [
+                    "brutal_assault_blue",
+                    "pummel_red"
+                ]
+            },
+            "arcCards": {
+                "3": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "penPitchTypes": [
+                        "Generic",
+                        "Action",
+                        "Attack"
+                    ],
+                    "dynPitchAA": true,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "outPreviousNames": [],
+                    "mstFree": false,
+                    "mstBluePlayedTurn": 2,
+                    "mstBluePlayedPlayer": 1,
+                    "mstPreviousPitch": 0,
+                    "mstPreviousAA": false,
+                    "rosLastLightning": false,
+                    "iarPermission": [],
+                    "mstReactions": 1,
+                    "mstBanished": [],
+                    "supFirst": true
+                },
+                "6": {
+                    "iarPermission": []
+                },
+                "4": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "penPitchTypes": [
+                        "Generic",
+                        "Action",
+                        "Attack"
+                    ],
+                    "dynPitchAA": true,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "mstFree": false,
+                    "iarPermission": []
+                },
+                "7": {
+                    "iarPermission": []
+                }
+            },
+            "arcActions": {
+                "1": 1
+            },
+            "outPreviousNames": {
+                "1": []
+            },
+            "lastAttackCardID": "brutal_assault_blue",
+            "attackTargets": [
+                {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                }
+            ],
+            "defendIndex": 0,
+            "attackGoAgain": false,
+            "arakniReactionSteps": {
+                "2:3:1": true
+            },
+            "arakniAttackReactions": {
+                "2:3:1": true
+            },
+            "outAnyReactions": {
+                "2:1:1": true
+            },
+            "outReactions": {
+                "2:1:1": true
+            },
+            "eleKorshemActiveTurn": 2
+        }
+    },
+    {
+        "slug": "card-razor-reflex-red-fully-blocked-no-hit-no-go-again",
+        "status": "blocked_or_incorrect",
+        "error": "Expected card razor_reflex_red to exist in p1Graveyard.",
+        "attempted_actions": [
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p2Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p2Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p2Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            }
+        ],
+        "observed_state": {
+            "window": "REACTION",
+            "combatOpen": true,
+            "combatStep": "REACTION",
+            "chainLink": 1,
+            "attacker": 1,
+            "defender": 2,
+            "attackUID": 3,
+            "attackTarget": {
+                "type": "HERO",
+                "player": 2,
+                "uid": 2,
+                "zone": "Hero"
+            },
+            "pendingAttackTarget": null,
+            "previousAttackCardID": "",
+            "handBlockUIDs": [
+                7,
+                8,
+                9
+            ],
+            "intimidated": [],
+            "pendingPayment": null,
+            "lastAttackName": "Wounding Blow",
+            "attackHit": false,
+            "attackPower": 0,
+            "defenseValue": 9,
+            "damageDealt": 0,
+            "declaredBlockUIDs": [
+                7,
+                8,
+                9
+            ],
+            "passiveSeats": [],
+            "gameMode": "",
+            "turnEffects": {
+                "1": [
+                    {
+                        "type": "CRU_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_AA_ATTACK",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_ATTACKED_2",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SEA_ATTACKED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MON_LAST_wounding_blow",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "ELE_AA_COMBAT",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MST_BLUE_PITCHED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_COST_ONE",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ],
+                "2": [
+                    {
+                        "type": "SEA_ATTACKED_HERO",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "ELE_AA_COMBAT",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "ELE_AA_COMBAT",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MST_BLUE_DEFENDED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "ELE_AA_COMBAT",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ]
+            },
+            "nextTurnEffects": [],
+            "hitsThisTurn": [],
+            "cardsPlayedThisTurn": {
+                "1": [
+                    "wounding_blow_red",
+                    "razor_reflex_red"
+                ]
+            },
+            "arcCards": {
+                "3": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "outPreviousNames": [],
+                    "mstFree": false,
+                    "mstPreviousPitch": 0,
+                    "mstPreviousAA": false,
+                    "rosLastLightning": false,
+                    "iarPermission": [],
+                    "mstReactions": 1,
+                    "mstBanished": [],
+                    "supFirst": true
+                },
+                "7": {
+                    "iarPermission": []
+                },
+                "8": {
+                    "iarPermission": []
+                },
+                "9": {
+                    "iarPermission": []
+                },
+                "4": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "penPitchTypes": [
+                        "Generic",
+                        "Action",
+                        "Attack"
+                    ],
+                    "dynPitchAA": true,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "mstFree": false,
+                    "iarPermission": []
+                },
+                "5": {
+                    "iarPermission": []
+                }
+            },
+            "arcActions": {
+                "1": 1
+            },
+            "outPreviousNames": {
+                "1": []
+            },
+            "lastAttackCardID": "wounding_blow_red",
+            "attackTargets": [
+                {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                }
+            ],
+            "defendIndex": 0,
+            "attackGoAgain": false,
+            "arakniReactionSteps": {
+                "2:3:1": true
+            },
+            "arakniAttackReactions": {
+                "2:3:1": true
+            },
+            "outAnyReactions": {
+                "2:1:1": true
+            },
+            "outReactions": {
+                "2:1:1": true
+            },
+            "eleKorshemActiveTurn": 2
+        }
+    },
+    {
+        "slug": "card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
+        "status": "blocked_or_incorrect",
+        "error": "Expected card razor_reflex_red to exist in p1Graveyard.",
+        "attempted_actions": [
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            }
+        ],
+        "observed_state": {
+            "window": "REACTION",
+            "combatOpen": true,
+            "combatStep": "REACTION",
+            "chainLink": 1,
+            "attacker": 1,
+            "defender": 2,
+            "attackUID": 3,
+            "attackTarget": {
+                "type": "HERO",
+                "player": 2,
+                "uid": 2,
+                "zone": "Hero"
+            },
+            "pendingAttackTarget": null,
+            "previousAttackCardID": "",
+            "handBlockUIDs": [],
+            "intimidated": [],
+            "pendingPayment": null,
+            "lastAttackName": "Wounding Blow",
+            "attackHit": false,
+            "attackPower": 0,
+            "defenseValue": 0,
+            "damageDealt": 0,
+            "declaredBlockUIDs": [],
+            "passiveSeats": [],
+            "gameMode": "",
+            "turnEffects": {
+                "1": [
+                    {
+                        "type": "CRU_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_AA_ATTACK",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_ATTACKED_2",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SEA_ATTACKED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MON_LAST_wounding_blow",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "ELE_AA_COMBAT",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MST_BLUE_PITCHED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_COST_ONE",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ],
+                "2": [
+                    {
+                        "type": "SEA_ATTACKED_HERO",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ]
+            },
+            "nextTurnEffects": [],
+            "hitsThisTurn": [],
+            "cardsPlayedThisTurn": {
+                "1": [
+                    "wounding_blow_red",
+                    "razor_reflex_red"
+                ]
+            },
+            "arcCards": {
+                "3": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "outPreviousNames": [],
+                    "mstFree": false,
+                    "mstPreviousPitch": 0,
+                    "mstPreviousAA": false,
+                    "rosLastLightning": false,
+                    "iarPermission": [],
+                    "mstReactions": 1,
+                    "mstBanished": [],
+                    "supFirst": true
+                },
+                "4": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "penPitchTypes": [
+                        "Generic",
+                        "Action",
+                        "Attack"
+                    ],
+                    "dynPitchAA": true,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "mstFree": false,
+                    "iarPermission": []
+                },
+                "5": {
+                    "iarPermission": []
+                }
+            },
+            "arcActions": {
+                "1": 1
+            },
+            "outPreviousNames": {
+                "1": []
+            },
+            "lastAttackCardID": "wounding_blow_red",
+            "attackTargets": [
+                {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                }
+            ],
+            "defendIndex": 0,
+            "attackGoAgain": false,
+            "arakniReactionSteps": {
+                "2:3:1": true
+            },
+            "arakniAttackReactions": {
+                "2:3:1": true
+            },
+            "outAnyReactions": {
+                "2:1:1": true
+            },
+            "outReactions": {
+                "2:1:1": true
+            },
+            "eleKorshemActiveTurn": 2
+        }
+    },
+    {
+        "slug": "card-razor-reflex-red-hand-sword-weapon-no-granted-go-again",
+        "status": "blocked_or_incorrect",
+        "error": "Expected card razor_reflex_red to exist in p1Graveyard.",
+        "attempted_actions": [
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Weapons-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-1!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 2,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            },
+            {
+                "playerID": 1,
+                "mode": 10001,
+                "buttonInput": "",
+                "cardID": "!CustomInput!Pass",
+                "chkInput": [],
+                "inputText": ""
+            }
+        ],
+        "observed_state": {
+            "window": "REACTION",
+            "combatOpen": true,
+            "combatStep": "REACTION",
+            "chainLink": 1,
+            "attacker": 1,
+            "defender": 2,
+            "attackUID": 6,
+            "attackTarget": {
+                "type": "HERO",
+                "player": 2,
+                "uid": 2,
+                "zone": "Hero"
+            },
+            "pendingAttackTarget": null,
+            "previousAttackCardID": "",
+            "handBlockUIDs": [],
+            "intimidated": [],
+            "pendingPayment": null,
+            "lastAttackName": "Talishar, the Lost Prince",
+            "attackHit": false,
+            "attackPower": 0,
+            "defenseValue": 0,
+            "damageDealt": 0,
+            "declaredBlockUIDs": [],
+            "passiveSeats": [],
+            "gameMode": "",
+            "turnEffects": {
+                "1": [
+                    {
+                        "type": "MST_BLUE_PITCHED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "PEN_WEAPON_ACTIVATED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "CRU_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "CRU_WEAPONS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "CRU_SWORDS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HVY_WEAPON_ATTACKED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_WEAPON_ATTACK",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "HNT_ATTACKED_2",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SEA_ATTACKED",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "MON_LAST_talishar_the_lost_prince",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_SWORD_DAGGER",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "SUP_COST_ONE",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ],
+                "2": [
+                    {
+                        "type": "SEA_ATTACKED_HERO",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ]
+            },
+            "nextTurnEffects": [],
+            "hitsThisTurn": [],
+            "cardsPlayedThisTurn": {
+                "1": [
+                    "talishar_the_lost_prince",
+                    "razor_reflex_red"
+                ]
+            },
+            "arcCards": {
+                "6": {
+                    "penPitchTypes": [
+                        "Generic",
+                        "Action",
+                        "Attack"
+                    ],
+                    "dynPitchAA": true,
+                    "outPreviousNames": [],
+                    "mstFree": false,
+                    "mstPreviousPitch": 0,
+                    "mstPreviousAA": false,
+                    "iarPermission": [],
+                    "mstReactions": 1,
+                    "mstBanished": [],
+                    "supFirst": true
+                },
+                "4": {
+                    "iarPermission": []
+                },
+                "3": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "mstFree": false,
+                    "iarPermission": []
+                }
+            },
+            "arcActions": {
+                "1": 1
+            },
+            "outPreviousNames": {
+                "1": []
+            },
+            "lastAttackCardID": "talishar_the_lost_prince",
+            "attackTargets": [
+                {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                }
+            ],
+            "defendIndex": 0,
+            "attackGoAgain": false,
+            "arakniReactionSteps": {
+                "2:6:1": true
+            },
+            "arakniAttackReactions": {
+                "2:6:1": true
+            },
+            "outAnyReactions": {
+                "2:1:1": true
+            },
+            "outReactions": {
+                "2:1:1": true
+            },
+            "eleKorshemActiveTurn": 2
+        }
+    }
+]

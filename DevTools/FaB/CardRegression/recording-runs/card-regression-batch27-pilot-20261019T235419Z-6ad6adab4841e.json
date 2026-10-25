@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-19T23:54:19+00:00",
+    "input_file": "card-regression-batch27-pilot.json",
+    "input_sha256": "05d7702930f106abbc4fc455de9d50d1dc6c60424efba16d210a31fd516d799e",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-lead-the-charge-blue-equal-threshold-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 26
+        },
+        {
+            "slug": "card-lead-the-charge-red-nonattack-action-qualifies",
+            "status": "recorded_semantically_checked",
+            "actions": 8,
+            "assertions": 21
+        }
+    ]
+}

@@ -1,0 +1,125 @@
+{
+  "status": "BOUNDED_CORRECTED20_AND4_PILOT_SPEC_APPROVED",
+  "reviewer": "/root/wtr_attack_scenarios",
+  "spec_sha256": "72af4aac5526ff5b11beef1deb5abf68a830ab7b43c0c32d776fc877fc5d0830",
+  "pilot_sha256": "20ce4c1fb4db461559b451e6c6651f0e2090abc407c208d665c016ee5eb8ac13",
+  "manifest_sha256": "d3f007170627eeadfecac5075311eac9bbf5af90c3f3ebe571ad72caa53e6e84",
+  "independent_checks": 5124,
+  "modeled_persistable_oracles": 2830,
+  "modeled_supported_actions": 300,
+  "rows": [
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    }
+  ],
+  "correction_basis": "Pitch and normal defense do not play the primary NAA. Actual supported play of distinct MuttYellow or WoundingBlowRed creates only that source in cardsPlayedThisTurn; initial normalized ledger is empty. Exact persisted card-play ledger replaces overbroad global turnEffects emptiness, while physical source tags, computed attack power/noGA, HP, AP, costs, ownership and real Close remain unchanged.",
+  "prior_review_correction": "Prior90a review incorrectly accepted broad empty global turnEffects; native four-pilot proof demonstrates ordinary history bookkeeping. That oracle approval is superseded only for these100 checks. Original specs/report and immutable failed attempt are retained; this is a representation/oracle defect, not a demonstrated card-rule bug.",
+  "preserved": {
+    "old_spec_sha256": "e45ae88cb7d27274e37f66cf998df86908fb43a13f44f09d55d9a7e4d2a70418",
+    "failed_attempt_sha256": "1c2a955de51d8ef444939bdf860e82821a8d58cd9ab15f2d706b2089c6d32a1d",
+    "all_other_setup_action_oracle_bytes_structurally_equal": true
+  },
+  "limits": [
+    "New ledger pins played-card bookkeeping, not absence of every possible global effect. Immediate printed power/noGA and physical empty tags remain the intended no-action-effect evidence.",
+    "Native recording, actual saved fixture review, same-runtime clean replay and controls/suites still required. No verified runtime coverage added by this review."
+  ],
+  "native_writes": 0,
+  "game_actions": 0
+}

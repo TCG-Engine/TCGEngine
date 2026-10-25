@@ -1,0 +1,147 @@
+{
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T18:20:45.263863+00:00",
+  "plan_sha256": "a82f555004a94660640bb00d6311a1f12a6fe1d6e5178a384e285239d3abc96f",
+  "independent_saved_proof_sha256": "dd204958f3d759ee092047c5fd18dd361a2cfe3cc4a6e7399939c7a75faba67f",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "sparse-b114-focused-fault-plan.json",
+    "a82f555004a94660640bb00d6311a1f12a6fe1d6e5178a384e285239d3abc96f",
+    "card-regression-sparse-b114-fault-controls.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "b114_seismic_eruption_yellow_focused_effect_sensitivity",
+      "fixture": "card-seismic-eruption-yellow-four-live-sparse-actual-printed-instant-creates-3-owned-seismic-surge-tokens",
+      "fixture_sha256": "f89624c444a3ae073130a19d70243280ff9eda72a2f3b264655b9d5b7218f90f",
+      "source_raw5": {
+        "initial_gamestate.txt": "35722ce2df3343c7c84a614b785700abad4e68adccda8f96e829fc5f3e819079",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "2a6bb5e8d97e35ebd932542616f1c6c29c211ee5f5b7427e86cfea4cc17aed70",
+        "expected_final_gamestate.txt": "90b940ce7ad65376429bf57a9671b0fd0613dbc53efb21f7fc198d7dbcbb9a4c",
+        "meta.json": "04548b2f58a924e8325f1e70ee5cb2bdf419c4739871f86a332a9f8cf98c6915"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "seismic_surge",
+            "uid": 6
+          }
+        ]
+      },
+      "retained_assertions": 122,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 3, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Seismic Eruption / four live sparse own-token instant: Initial assertion failed: Expected p1Arena count 3, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Select exactly one actual owned token by positive physical UID among identical token IDs and relocate it from Arena after real resolution; every terminal oracle retained. Exact multiplicity endpoint sensitivity, not an alternative legal move or later token ability/lifecycle branch. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b114_tome_of_quandaries_blue_focused_effect_sensitivity",
+      "fixture": "card-tome-of-quandaries-blue-four-live-sparse-actual-printed-instant-creates-2-owned-ponder-tokens",
+      "fixture_sha256": "359d80dd805e07a86f4d24a2243c149b15d6cbb9f53495f7a51d9cc8b8c03735",
+      "source_raw5": {
+        "initial_gamestate.txt": "b59eff9eb133f86d2da6c984c600dfea4462505899bd36b58b3722a62895c541",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "d9b7321a73693a064a32eed86887475a991130c5e2c17fb05d9d235f9117007c",
+        "expected_final_gamestate.txt": "0c904bae114c3c9da66a65bb85c39f5e8df10ee7a1af5a281c51aa6a88a18390",
+        "meta.json": "d3e54a7c911546f3ab16ea2dbf658f9e4048bfd2cb2b84d91e90b10be8b7e92b"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "ponder",
+            "uid": 6
+          }
+        ]
+      },
+      "retained_assertions": 118,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Tome of Quandaries / four live sparse own-token instant: Initial assertion failed: Expected p1Arena count 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Select exactly one actual owned token by positive physical UID among identical token IDs and relocate it from Arena after real resolution; every terminal oracle retained. Exact multiplicity endpoint sensitivity, not an alternative legal move or later token ability/lifecycle branch. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b114_starworld_warning_yellow_focused_effect_sensitivity",
+      "fixture": "card-starworld-warning-yellow-four-live-sparse-actual-printed-instant-creates-2-owned-lightning-flow-tokens",
+      "fixture_sha256": "5f9de78af015fe42c5942035f032bc7da51cd98dbb62d5f2f9bdc048930d1e17",
+      "source_raw5": {
+        "initial_gamestate.txt": "f26667c8e57dfd08563b1615b7e719c151a12438f75506725e74c4d87e69cef4",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "e6eab022451d5b46fe9bd4658fe98dd27e8ca005a426b9b815c54d002929899d",
+        "expected_final_gamestate.txt": "4ed7f4b90719dea2d6823f9dae693092be5a0d335d6964e7694de8d66229d8ff",
+        "meta.json": "999059e348ccd2083ad0f74bd45ca45fa61cbe4fcbe64562f5729c0833c14ef7"
+      },
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Arena",
+            "to": "Temp",
+            "cardID": "lightning_flow",
+            "uid": 7
+          }
+        ]
+      },
+      "retained_assertions": 122,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Arena count 2, got 1.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Starworld Warning / four live sparse own-token instant: Initial assertion failed: Expected p1Arena count 2, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Select exactly one actual owned token by positive physical UID among identical token IDs and relocate it from Arena after real resolution; every terminal oracle retained. Exact multiplicity endpoint sensitivity, not an alternative legal move or later token ability/lifecycle branch. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b114_runic_disposition_red_focused_effect_sensitivity",
+      "fixture": "card-runic-disposition-red-four-live-sparse-actual-zero-cost-discard-instant-creates-one-owned-runechant",
+      "fixture_sha256": "355f61e0a98a5109a6af17d9915ecbb6b27edf83c5653517d0a6ec13f188bcc5",
+      "source_raw5": {
+        "initial_gamestate.txt": "cd47a8c5e24a8a9e9954c72c3ae13c46210bd24971baf45258f926be14b72c68",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "fecefea781fce3d87598b1eeac815ebeef559e78e83aa8a2dd7c199aca5d2958",
+        "expected_final_gamestate.txt": "b0d7753006a290f4223e1ba178858ade2d9bf98cbb345f97a39702ca721d2bcb",
+        "meta.json": "4859c1daa45bea86abb2376539375593a32226654eadac3235dc11607c7ba4f4"
+      },
+      "prefix_actions": 1,
+      "mutation": {
+        "remove_stack_param": "arcSpec"
+      },
+      "retained_assertions": 386,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1Arena count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] Runic Disposition / four live sparse own-token instant: Step 4 assertion failed: Expected p1Arena count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real discard-this cost put source5 in own public Graveyard and created virtualABI6, remove sole arcSpec dispatch. WTR fallback has no Runic spec, so four original live passes resolve inert layer without Runechant. Every original suffix oracle retained; cost/source/AP stay intact. Missing printed-body dispatch sensitivity only, no attack/Usurp or cancellation-lifecycle credit. Every original suffix action and oracle retained; only step offsets change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

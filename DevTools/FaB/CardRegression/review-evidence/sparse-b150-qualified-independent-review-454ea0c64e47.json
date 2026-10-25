@@ -1,0 +1,214 @@
+{
+  "status": "B150_TWO_SPARSE_EQUIPMENT_REPRESENTATIVES_TWO_CLEAN_TARGETED_REPLAYS_TWO_EXACT_NATIVE_CONTROLS_QUALIFIED",
+  "reviewer": "/root/b104_saved_review",
+  "independent_of_author": true,
+  "source_spec": "card-regression-batch150.json",
+  "input_sha256": "7355713d462bcf79f0d8cb597dc83516aced6d6beeb1c58009409627ecae5f0d",
+  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "completed_utc": "2026-10-22T20:10:03.098363+00:00",
+  "fixtures": [
+    {
+      "slug": "card-threadbare-tunic-four-live-sparse-actual-empty-hand-instant-destroy-resource",
+      "fixture_sha256": "e35fd2c2a2b5a42d3cb9012ce633cc114764ed40765b28e4046fb74b82f068b7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "299bdcfa8cf8abe10cdf29343af54a9bde2b9a70bb64cfa2e1ab701ff923b2b9",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "1ef1e7449aa0ff34ac9cf46e5c2a3ca3c6823fd9378856ee75518fccd84cf44d",
+        "expected_final_gamestate.txt": "e011e66536fd52b8b5f065f6010f89897f9282d8a93342e9f5b6f12a97fdfb6c",
+        "meta.json": "4fe032a591b8deb842210f0c43ffc4ae8ced0a1313080ecf7532f78ed5bb1bb1"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 332,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "distinct_virtual_ability_uid": 6,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    },
+    {
+      "slug": "card-blue-sea-tricorn-four-live-sparse-actual-blue-pitch-three-destroy-draw",
+      "fixture_sha256": "420e673f3fa49b2eae8168c59c1a4082a3b23ecbdd412276ddfb89d9b68766bd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "73d9bc12beaa7fa06eefa132007f18d0e58ec0bf53b5df8b87a59df4621497c3",
+        "actions.json": "02e014fcbc767be35abb52b1fba8950f602a853b060793ec33880f9f114fa6e5",
+        "assertions.json": "cfc7ab23563fc65ed5d4d49d27f4719627eb2d1d96eea8969e15cb6388cdf3be",
+        "expected_final_gamestate.txt": "794022ad981670a73390b37d05bc2c5dbd00ce5222b2d32f0112b3c64f6c662b",
+        "meta.json": "2c6b24af2343b119cb723b261e6dfb7ea3aac4f0d0f7888056881bc8e7e8a2e5"
+      },
+      "semantically_approved": true,
+      "actions": 6,
+      "native_assertions": 423,
+      "actual_manual_passes": 4,
+      "four_live_manual_profile_verified": true,
+      "physical_source_uid": 5,
+      "distinct_virtual_ability_uid": 8,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "limitations": "One positive primary representative; no siblings, alternative conditions, support-card/hero or callback-lifecycle credit.",
+      "two_clean_targeted_replays": true,
+      "focused_native_sensitivity_detected": true
+    }
+  ],
+  "total_actions": 11,
+  "total_native_assertions": 755,
+  "total_manual_passes": 8,
+  "preserved_actual_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b150-actual-saved-independent-review.json",
+    "sha256": "b2f23846d22f4ba74d5ce071feaf750b836265a3e5dfa886d9341d5bb9743a70"
+  },
+  "reused_independent_expected_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b150-independent-spec-review.json",
+    "sha256": "2cb9e6fcd6acc3609a0a2791097db56ce485a8c0a7734ff9a2d28cb397761827"
+  },
+  "recording_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch150-20261022T200811Z-6ada6d2b6c4f7.json",
+    "sha256": "5dae79e7215736e86670b45be03e611375f3dad2214718e2d7c65ed58a60632d"
+  },
+  "clean_replay_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b150-four-live-run1.json",
+      "sha256": "db1af81c758dc392a72ef34df9ba79da9f683a5b333df7eb4ad17e9f664b5dfe",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch150.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-sparse-b150-four-live-run2.json",
+      "sha256": "fd0f43f7d224bb1cce5038fc5d48c8bbb0755d2991da5fad90e1cc22197256b0",
+      "passed": 2,
+      "total": 2,
+      "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+      "source_spec": "card-regression-batch150.json",
+      "preservation_scope": "selected fixtures only",
+      "canonical_raw5_preserved": 2
+    }
+  ],
+  "bounded_fault_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-sparse-b150-fault-controls.json",
+    "sha256": "d81369412e7e07d42ae398fbd98131766f2b9cbb52ae76a4fe5e408f53653c70",
+    "total": 2,
+    "intended_semantic_failures": 2,
+    "plan_sha256": "c9fc4d4186b4be466a0e3c5f1fb443dc3a5b802df77ef679229f2a8303adb380",
+    "preservation_scope": "selected fixtures only",
+    "full_fixture_inventory_preserved": false
+  },
+  "focused_native_controls": [
+    {
+      "id": "b150_threadbare_tunic_physical_selected_endpoint_sensitivity",
+      "fixture": "card-threadbare-tunic-four-live-sparse-actual-empty-hand-instant-destroy-resource",
+      "prefix_actions": 5,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Graveyard",
+            "cardID": "threadbare_tunic",
+            "uid": 5,
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 106,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Graveyard count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "b150_blue_sea_tricorn_physical_selected_endpoint_sensitivity",
+      "fixture": "card-blue-sea-tricorn-four-live-sparse-actual-blue-pitch-three-destroy-draw",
+      "prefix_actions": 6,
+      "mutation": {
+        "move_card": [
+          {
+            "player": 1,
+            "from": "Hand",
+            "cardID": "wounding_blow_red",
+            "uid": 7,
+            "to": "Temp"
+          }
+        ]
+      },
+      "retained_assertions": 114,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1Hand count 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "reviewed_fault_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-b150-focused-fault-plan.json",
+    "sha256": "c9fc4d4186b4be466a0e3c5f1fb443dc3a5b802df77ef679229f2a8303adb380"
+  },
+  "reviewed_executor": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "sha256": "8c8e50dfb9a083b670b6eae4166d46787f86df0addc5f2edf6e95f37c26d49b5"
+  },
+  "reviewed_targeted_replay_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\replay_sparse_batch.py",
+    "sha256": "7c0e6c7d91039ff246a95e9790e5bf02dd0c0596c084de19df9314b09cf04549"
+  },
+  "actual_saved_semantic_checks": 1317,
+  "native_evidence_review_checks": 62,
+  "limitations": [
+    "Native assertions/intermediate states pass recorder; independent paper model checks every expected value and exact saved action/actor/oracle. Raw endpoint snapshots additionally inspected directly.",
+    "No re-review of unchanged legacy cases, no full suite, no sibling or full-card credit.",
+    "Threadbare onlyemptyHandInstant/destroy/gain1; nonemptyHand or otherwindows untested. Tricorn actualdestroycost3/Bluepitch/draw/abilityGA only; BladeBreak/equipmentdefense untested. No sourceabilitycancellation/globalowner/hero/support/fullcard/lifecycle credit. Nativecontrols physicalcostdestination/drawresult only, notisolatedresourcegain suppression.",
+    "Only current new two are audited; root alone executes native games and writes repo.",
+    "Two new targeted clean replays and two individual intended native controls only. Full-suite runs are explicitly left to the user; no fresh baseline or global compatibility/preservation claim.",
+    "Optional workspace targeted-preservation deltas independently source-reviewed: same native commands, same exact selected raw5/runtime before/after binding, same full suffix assertions and contained cleanup. Unrelated fixture bytes and unrelated concurrent disposable existence are not audited; root serializes native execution.",
+    "Both nativecontrols are terminal physical endpoint sensitivity: Threadbare actualdestroycostsource5publicGYtoTemp (GY1to0) leavesresource1 unchanged, so no isolatednativeResource-suppressionclaim. Tricorn actualdrawnRed7HandtoTemp (Hand1to0), cost/source/pitch/GA unchanged. Alloriginalactions executed/allfinaloraclesretained. No upstreamcallback/costomission, legalmovement, BladeBreak/otherbranch/lifecycle credit."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_engine_imports": 0,
+  "reviewer_script_sha256": "8a391f4eaa548f88657b71feb75d2bdf25223e9822d0db1441284e5814f50e1a",
+  "current_independent_delta_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_sparse_b150_independent.py",
+    "sha256": "8838688374ff57a7edee8bef3c33fdd124a689ef724c4e412dd3ad6bf03e01b1"
+  }
+}

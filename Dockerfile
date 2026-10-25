@@ -88,6 +88,9 @@ RUN docker-php-ext-enable opcache \
 FROM base as dev
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
+# pcntl: the SWUSim self-play harness (DevTools/SWUSimBotSelfPlayTest.php --fork) boots the engine ONCE and forks a child per
+# game, instead of paying ~0.3 s of runtime load per game in a fresh process. CLI-only use; dev stage only.
+RUN docker-php-ext-install pcntl
 
 # Dev-only ML tooling for the SWUSim bot value model (docs/superpowers/specs/2026-09-19-swusim-value-model-design.md
 # §6a). OFF by default: this Dockerfile is shared by every sim, and only docker-compose-files/swusim.dev.yml sets

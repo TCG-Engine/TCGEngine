@@ -1,0 +1,607 @@
+{
+  "status": "complete",
+  "jobs": [
+    {
+      "id": "fox-idle",
+      "enemy": "fox",
+      "kind": "idle",
+      "reference": "DFGSim/roguelike/assets/fox-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/fox-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/fox-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/fox-idle.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 0
+      },
+      "prompt": "DFG Huo the Ember Fox idle. A seamless five-second fighting-game idle breathing loop. Preserve the exact supplied ready stance. One quiet natural breath with very small ribcage expansion, tiny knee compression and body bob of about one percent of body height. Supporting feet remain planted; preserve a raised foot if present. Head and shoulders move with the torso. Forearms and fists remain fixed relative to the torso throughout, with no independent arm action. Tails, wings, shell and horns retain their shapes. Return precisely to the identical supplied last-frame pose. No flexing, punching, stepping, turning, changing guard or cloth flapping. Preserve the exact supplied russet fox head, three flame-shaped tails, cream gi, amber sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "fox-light",
+      "enemy": "fox",
+      "kind": "light",
+      "reference": "DFGSim/roguelike/assets/fox-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/fox-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/fox-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/fox-light.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Huo the Ember Fox light. A single three-second fighting-game light-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE light unseen impact: a small sharp head-and-shoulder flinch backwards, slight torso recoil and softened knees. Keep the guard close. Small recoil only. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied russet fox head, three flame-shaped tails, cream gi, amber sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "fox-medium",
+      "enemy": "fox",
+      "kind": "medium",
+      "reference": "DFGSim/roguelike/assets/fox-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/fox-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/fox-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/fox-medium.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Huo the Ember Fox medium. A single three-second fighting-game medium-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE solid unseen impact: a clear backward torso recoil, shoulders jerk back and knees compress. Recover balance and raise the original guard. Stronger than a small flinch, no falling. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied russet fox head, three flame-shaped tails, cream gi, amber sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "fox-heavy",
+      "enemy": "fox",
+      "kind": "heavy",
+      "reference": "DFGSim/roguelike/assets/fox-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/fox-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/fox-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/fox-heavy.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Huo the Ember Fox heavy. A single three-second fighting-game heavy-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE powerful unseen impact: a large backward torso recoil and deep knee compression. Head and shoulders snap back, guard briefly opens as balance is nearly lost. Remain standing within the original footprint, visibly gather balance and recover the original guard. No knockdown. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied russet fox head, three flame-shaped tails, cream gi, amber sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "fox-block",
+      "enemy": "fox",
+      "kind": "block",
+      "reference": "DFGSim/roguelike/assets/fox-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/fox-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/fox-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/fox-block.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Huo the Ember Fox block. A single three-second fighting-game block-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to BLOCK ONE unseen incoming strike: bring the forearms into a compact high guard in front of chest and head, brace with small knee compression and a tiny impact jolt, then return to the original guard. No injury or large recoil. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied russet fox head, three flame-shaped tails, cream gi, amber sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "fox-knockout",
+      "enemy": "fox",
+      "kind": "knockout",
+      "reference": "DFGSim/roguelike/assets/fox-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/fox-black.png",
+      "lastFrame": null,
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/fox-knockout.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Huo the Ember Fox knockout. A single five-second fighting-game knockout. Start in the supplied left-facing guard. In the first two seconds one unseen final blow from screen-left makes the creature recoil toward screen-right, lose balance, knees buckle and collapse naturally onto its back or side on the invisible ground. Settle into a clearly defeated lying-down pose by the third second and remain motionless for the rest of the clip. DO NOT stand up or return to guard. One fall only, no rolling out of frame, repeated impacts, blood, wounds or gore. Leave room for the final horizontal body and any tail, shell or wings. Final pose stays down permanently. Preserve the exact supplied russet fox head, three flame-shaped tails, cream gi, amber sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "tortoise-idle",
+      "enemy": "tortoise",
+      "kind": "idle",
+      "reference": "DFGSim/roguelike/assets/tortoise-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/tortoise-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/tortoise-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/tortoise-idle.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 0
+      },
+      "prompt": "DFG Shan the Jade Tortoise idle. A seamless five-second fighting-game idle breathing loop. Preserve the exact supplied ready stance. One quiet natural breath with very small ribcage expansion, tiny knee compression and body bob of about one percent of body height. Supporting feet remain planted; preserve a raised foot if present. Head and shoulders move with the torso. Forearms and fists remain fixed relative to the torso throughout, with no independent arm action. Tails, wings, shell and horns retain their shapes. Return precisely to the identical supplied last-frame pose. No flexing, punching, stepping, turning, changing guard or cloth flapping. Preserve the exact supplied rounded green head, jade shell, olive gi, dark green sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "tortoise-light",
+      "enemy": "tortoise",
+      "kind": "light",
+      "reference": "DFGSim/roguelike/assets/tortoise-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/tortoise-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/tortoise-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/tortoise-light.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Shan the Jade Tortoise light. A single three-second fighting-game light-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE light unseen impact: a small sharp head-and-shoulder flinch backwards, slight torso recoil and softened knees. Keep the guard close. Small recoil only. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied rounded green head, jade shell, olive gi, dark green sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "tortoise-medium",
+      "enemy": "tortoise",
+      "kind": "medium",
+      "reference": "DFGSim/roguelike/assets/tortoise-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/tortoise-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/tortoise-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/tortoise-medium.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Shan the Jade Tortoise medium. A single three-second fighting-game medium-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE solid unseen impact: a clear backward torso recoil, shoulders jerk back and knees compress. Recover balance and raise the original guard. Stronger than a small flinch, no falling. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied rounded green head, jade shell, olive gi, dark green sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "tortoise-heavy",
+      "enemy": "tortoise",
+      "kind": "heavy",
+      "reference": "DFGSim/roguelike/assets/tortoise-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/tortoise-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/tortoise-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/tortoise-heavy.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Shan the Jade Tortoise heavy. A single three-second fighting-game heavy-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE powerful unseen impact: a large backward torso recoil and deep knee compression. Head and shoulders snap back, guard briefly opens as balance is nearly lost. Remain standing within the original footprint, visibly gather balance and recover the original guard. No knockdown. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied rounded green head, jade shell, olive gi, dark green sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "tortoise-block",
+      "enemy": "tortoise",
+      "kind": "block",
+      "reference": "DFGSim/roguelike/assets/tortoise-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/tortoise-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/tortoise-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/tortoise-block.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Shan the Jade Tortoise block. A single three-second fighting-game block-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to BLOCK ONE unseen incoming strike: bring the forearms into a compact high guard in front of chest and head, brace with small knee compression and a tiny impact jolt, then return to the original guard. No injury or large recoil. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied rounded green head, jade shell, olive gi, dark green sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "tortoise-knockout",
+      "enemy": "tortoise",
+      "kind": "knockout",
+      "reference": "DFGSim/roguelike/assets/tortoise-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/tortoise-black.png",
+      "lastFrame": null,
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/tortoise-knockout.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Shan the Jade Tortoise knockout. A single five-second fighting-game knockout. Start in the supplied left-facing guard. In the first two seconds one unseen final blow from screen-left makes the creature recoil toward screen-right, lose balance, knees buckle and collapse naturally onto its back or side on the invisible ground. Settle into a clearly defeated lying-down pose by the third second and remain motionless for the rest of the clip. DO NOT stand up or return to guard. One fall only, no rolling out of frame, repeated impacts, blood, wounds or gore. Leave room for the final horizontal body and any tail, shell or wings. Final pose stays down permanently. Preserve the exact supplied rounded green head, jade shell, olive gi, dark green sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "tengu-idle",
+      "enemy": "tengu",
+      "kind": "idle",
+      "reference": "DFGSim/roguelike/assets/tengu-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/tengu-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/tengu-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/tengu-idle.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 0
+      },
+      "prompt": "DFG Sora the Crane Tengu idle. A seamless five-second fighting-game idle breathing loop. Preserve the exact supplied ready stance. One quiet natural breath with very small ribcage expansion, tiny knee compression and body bob of about one percent of body height. Supporting feet remain planted; preserve a raised foot if present. Head and shoulders move with the torso. Forearms and fists remain fixed relative to the torso throughout, with no independent arm action. Tails, wings, shell and horns retain their shapes. Return precisely to the identical supplied last-frame pose. No flexing, punching, stepping, turning, changing guard or cloth flapping. Preserve the exact supplied white crane head, long red beak, black feathered forearms, indigo gi and raised-knee stance, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "tengu-light",
+      "enemy": "tengu",
+      "kind": "light",
+      "reference": "DFGSim/roguelike/assets/tengu-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/tengu-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/tengu-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/tengu-light.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Sora the Crane Tengu light. A single three-second fighting-game light-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE light unseen impact: a small sharp head-and-shoulder flinch backwards, slight torso recoil and softened knees. Keep the guard close. Small recoil only. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied white crane head, long red beak, black feathered forearms, indigo gi and raised-knee stance, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "tengu-medium",
+      "enemy": "tengu",
+      "kind": "medium",
+      "reference": "DFGSim/roguelike/assets/tengu-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/tengu-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/tengu-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/tengu-medium.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Sora the Crane Tengu medium. A single three-second fighting-game medium-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE solid unseen impact: a clear backward torso recoil, shoulders jerk back and knees compress. Recover balance and raise the original guard. Stronger than a small flinch, no falling. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied white crane head, long red beak, black feathered forearms, indigo gi and raised-knee stance, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "tengu-heavy",
+      "enemy": "tengu",
+      "kind": "heavy",
+      "reference": "DFGSim/roguelike/assets/tengu-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/tengu-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/tengu-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/tengu-heavy.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Sora the Crane Tengu heavy. A single three-second fighting-game heavy-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE powerful unseen impact: a large backward torso recoil and deep knee compression. Head and shoulders snap back, guard briefly opens as balance is nearly lost. Remain standing within the original footprint, visibly gather balance and recover the original guard. No knockdown. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied white crane head, long red beak, black feathered forearms, indigo gi and raised-knee stance, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "tengu-block",
+      "enemy": "tengu",
+      "kind": "block",
+      "reference": "DFGSim/roguelike/assets/tengu-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/tengu-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/tengu-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/tengu-block.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Sora the Crane Tengu block. A single three-second fighting-game block-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to BLOCK ONE unseen incoming strike: bring the forearms into a compact high guard in front of chest and head, brace with small knee compression and a tiny impact jolt, then return to the original guard. No injury or large recoil. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied white crane head, long red beak, black feathered forearms, indigo gi and raised-knee stance, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "tengu-knockout",
+      "enemy": "tengu",
+      "kind": "knockout",
+      "reference": "DFGSim/roguelike/assets/tengu-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/tengu-black.png",
+      "lastFrame": null,
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/tengu-knockout.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Sora the Crane Tengu knockout. A single five-second fighting-game knockout. Start in the supplied left-facing guard. In the first two seconds one unseen final blow from screen-left makes the creature recoil toward screen-right, lose balance, knees buckle and collapse naturally onto its back or side on the invisible ground. Settle into a clearly defeated lying-down pose by the third second and remain motionless for the rest of the clip. DO NOT stand up or return to guard. One fall only, no rolling out of frame, repeated impacts, blood, wounds or gore. Leave room for the final horizontal body and any tail, shell or wings. Final pose stays down permanently. Preserve the exact supplied white crane head, long red beak, black feathered forearms, indigo gi and raised-knee stance, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "dragon-idle",
+      "enemy": "dragon",
+      "kind": "idle",
+      "reference": "DFGSim/roguelike/assets/dragon-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/dragon-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/dragon-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/dragon-idle.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 0
+      },
+      "prompt": "DFG Ao the Azure Dragon idle. A seamless five-second fighting-game idle breathing loop. Preserve the exact supplied ready stance. One quiet natural breath with very small ribcage expansion, tiny knee compression and body bob of about one percent of body height. Supporting feet remain planted; preserve a raised foot if present. Head and shoulders move with the torso. Forearms and fists remain fixed relative to the torso throughout, with no independent arm action. Tails, wings, shell and horns retain their shapes. Return precisely to the identical supplied last-frame pose. No flexing, punching, stepping, turning, changing guard or cloth flapping. Preserve the exact supplied azure dragon head, antlers, whiskers, curved tail, navy gi, gold sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "dragon-light",
+      "enemy": "dragon",
+      "kind": "light",
+      "reference": "DFGSim/roguelike/assets/dragon-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/dragon-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/dragon-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/dragon-light.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Ao the Azure Dragon light. A single three-second fighting-game light-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE light unseen impact: a small sharp head-and-shoulder flinch backwards, slight torso recoil and softened knees. Keep the guard close. Small recoil only. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied azure dragon head, antlers, whiskers, curved tail, navy gi, gold sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "dragon-medium",
+      "enemy": "dragon",
+      "kind": "medium",
+      "reference": "DFGSim/roguelike/assets/dragon-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/dragon-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/dragon-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/dragon-medium.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Ao the Azure Dragon medium. A single three-second fighting-game medium-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE solid unseen impact: a clear backward torso recoil, shoulders jerk back and knees compress. Recover balance and raise the original guard. Stronger than a small flinch, no falling. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied azure dragon head, antlers, whiskers, curved tail, navy gi, gold sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "dragon-heavy",
+      "enemy": "dragon",
+      "kind": "heavy",
+      "reference": "DFGSim/roguelike/assets/dragon-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/dragon-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/dragon-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/dragon-heavy.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Ao the Azure Dragon heavy. A single three-second fighting-game heavy-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE powerful unseen impact: a large backward torso recoil and deep knee compression. Head and shoulders snap back, guard briefly opens as balance is nearly lost. Remain standing within the original footprint, visibly gather balance and recover the original guard. No knockdown. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied azure dragon head, antlers, whiskers, curved tail, navy gi, gold sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "dragon-block",
+      "enemy": "dragon",
+      "kind": "block",
+      "reference": "DFGSim/roguelike/assets/dragon-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/dragon-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/dragon-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/dragon-block.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Ao the Azure Dragon block. A single three-second fighting-game block-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to BLOCK ONE unseen incoming strike: bring the forearms into a compact high guard in front of chest and head, brace with small knee compression and a tiny impact jolt, then return to the original guard. No injury or large recoil. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied azure dragon head, antlers, whiskers, curved tail, navy gi, gold sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "dragon-knockout",
+      "enemy": "dragon",
+      "kind": "knockout",
+      "reference": "DFGSim/roguelike/assets/dragon-v2.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/dragon-black.png",
+      "lastFrame": null,
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/dragon-knockout.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 1
+      },
+      "prompt": "DFG Ao the Azure Dragon knockout. A single five-second fighting-game knockout. Start in the supplied left-facing guard. In the first two seconds one unseen final blow from screen-left makes the creature recoil toward screen-right, lose balance, knees buckle and collapse naturally onto its back or side on the invisible ground. Settle into a clearly defeated lying-down pose by the third second and remain motionless for the rest of the clip. DO NOT stand up or return to guard. One fall only, no rolling out of frame, repeated impacts, blood, wounds or gore. Leave room for the final horizontal body and any tail, shell or wings. Final pose stays down permanently. Preserve the exact supplied azure dragon head, antlers, whiskers, curved tail, navy gi, gold sash and brown trousers, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    }
+  ],
+  "estimatedTotalCredits": 792,
+  "productionLedger": "animations/ledger.json"
+}
