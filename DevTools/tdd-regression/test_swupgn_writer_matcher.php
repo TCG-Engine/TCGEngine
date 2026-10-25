@@ -184,6 +184,23 @@ SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'temp
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'deck', 'to' => 'ground', 'uid' => 9, 'exhausted' => false]], [], $ctx);
 SwuPgnTestEq([array_column($r['events'], 'card'), $ctx['ledger']['limbo'] ?? []], [['SOR#95'], []], 'a held card shown leaving the deck: the held copy, limbo cleared');
 
+// A held card that never lands is not held forever: after SWUPGN_LIMBO_PASSES passes its move out of the game is written,
+// as an unannounced change (a gap), and the board and the file agree again.
+$ctx = MCtx(); MPlace($ctx, 1, 'space', 'SOR_049', 7); MPlace($ctx, 1, 'attached:7', 'SOR_120');
+SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_120', 'from' => 'space', 'to' => 'outsideTheGame', 'host' => 7, 'kind' => 'upgrade']], [], $ctx);
+$late = [];
+for ($i = 0; $i < SWUPGN_LIMBO_PASSES; $i++) { $r = SwuPgnMatch([], [], $ctx); $late = array_merge($late, $r['events']); $lateGaps = $r['gaps']; }
+SwuPgnTestEq([array_map(fn($e) => [$e['t'], $e['card'] ?? null, $e['from'] ?? null, $e['to'] ?? null], $late), count($lateGaps), $ctx['ledger']['limbo'] ?? []],
+    [[['MOVE', 'SOR#120', 'space', 'outsideTheGame']], 1, []], 'a held card that never lands: its move out of the game is written late, as a gap');
+// Two held copies of one card, one per seat: the one landing in seat 2's play is seat 2's copy.
+$ctx = MCtx(); MPlace($ctx, 1, 'space', 'SOR_049', 7); MPlace($ctx, 2, 'space', 'SOR_049', 8);
+SwuPgnLedgerPut($ctx['ledger'], 1, 'attached:7', SwuPgnLedgerNewToken($ctx['ledger'], 'JTL_046'));
+SwuPgnLedgerPut($ctx['ledger'], 2, 'attached:8', $p2pilot = SwuPgnLedgerNewToken($ctx['ledger'], 'JTL_046'));
+SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'JTL_046', 'from' => 'space', 'to' => 'outsideTheGame', 'host' => 7, 'kind' => 'upgrade'],
+    ['k' => 'move', 'seat' => 2, 'cardID' => 'JTL_046', 'from' => 'space', 'to' => 'outsideTheGame', 'host' => 8, 'kind' => 'upgrade']], [], $ctx);
+$r = SwuPgnMatch([['k' => 'move', 'seat' => 2, 'cardID' => 'JTL_046', 'from' => 'outsideTheGame', 'to' => 'space', 'host' => 8, 'kind' => 'upgrade']], [], $ctx);
+SwuPgnTestEq(array_values(array_unique(array_column($r['events'], 'card'))), [$p2pilot], 'a held card lands as its own seat\'s copy');
+
 // A deck card out of sight for a request in the middle of a search, then put back through the staging area: it never
 // left the deck.
 $ctx = MCtx();

@@ -62,7 +62,15 @@ function SWUBotRuleInitiativeForLethal(array $ctx): ?array {
     if ($init === null) return null;
     $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
     if (SWUBotLethalNow($seat, $opp) || !SWUBotLethalNextRound($seat, $opp)) return null;
-    return SWUBotOpponentCanGetSentinel($opp) ? null : $init;
+    if (SWUBotOpponentCanGetSentinel($opp)) return null;
+    // Feature 'chipfirst' (p64): the claim passes away every attack I have left this round. While a ready unit can still hit their
+    // base, attack first — it readies for next round anyway and their base only gets lower; claim once the attacks are spent.
+    if (SWUBotFeatureOn('chipfirst') && _SWUBotFind($ctx, function ($a) use ($seat) {
+        if (SWUBotActionKind($a) !== 'attack') return false;
+        $att = SWUBotViewForMz($seat, SWUBotActionMz($a));
+        return $att !== null && SWUBotAttackTargets($seat, $att)['base'];
+    }) !== null) { _SWUBotFired('chipfirst', $seat); return null; }
+    return $init;
 }
 
 // Shared by rules 4 and 5. Tries every candidate except pass and taking the initiative (they never move the

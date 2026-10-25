@@ -94,4 +94,21 @@ array_splice($withChoices['events'], 1, 0, [
 $cc = array_values(array_filter(SwuPgnCutPerspective($withChoices, 1)['events'], fn($e) => $e['t'] === 'CHOICE' && in_array($e['seq'], ['R0.S.900', 'R0.S.901'], true)));
 SwuPgnTestEq(array_map(fn($e) => [$e['p'], $e['prompt'] ?? null], $cc), [[2, null], [1, 'Mine to read']], 'the other player\'s CHOICE prompts are left out of your view');
 
+// A card of theirs that goes back into their deck is forgotten: drawn again it is HIDDEN, shown again it is a new id —
+// the file must not tell you that the card they redraw (or later show) is the same one you saw.
+$back = ['headers' => SwuPgnTestHeaderTags(), 'decks' => [], 'cards' => [], 'annotations' => [],
+    'setup' => [['seq' => 'R1.S.0', 't' => 'INIT', 'p1DeckOrder' => ['SOR#010'], 'p2DeckOrder' => ['SOR#095', 'SOR#095:2']]],
+    'events' => SwuPgnTestSeq([
+        ['t' => 'MOVE', 'card' => 'SOR#095', 'from' => 'deck', 'to' => 'hand', 'p' => 2],
+        ['t' => 'MOVE', 'card' => 'SOR#095', 'from' => 'hand', 'to' => 'ground', 'p' => 2, 'kind' => 'unit'],
+        ['t' => 'MOVE', 'card' => 'SOR#095', 'from' => 'ground', 'to' => 'deck', 'p' => 2, 'kind' => 'unit'],
+        ['t' => 'MOVE', 'card' => 'SOR#095', 'from' => 'deck', 'to' => 'hand', 'p' => 2],
+        ['t' => 'MOVE', 'card' => 'SOR#095', 'from' => 'hand', 'to' => 'discard', 'p' => 2],
+    ])];
+$ids = array_column(SwuPgnCutPerspective($back, 1)['events'], 'card');
+SwuPgnTestCheck($ids[0] === 'HIDDEN' && $ids[1] !== 'HIDDEN' && $ids[2] === $ids[1] && $ids[3] === 'HIDDEN' && !in_array($ids[4], ['HIDDEN', $ids[1]], true),
+    'their card back in the deck is forgotten: redrawn HIDDEN, shown again under a new id', json_encode($ids));
+$cutBack = SwuPgnParse(SwuPgnWriteText(SwuPgnCutPerspective($back, 1)));
+SwuPgnTestEq(array_values(array_filter(SwuPgnValidate($cutBack)['errors'], fn($e) => !str_starts_with($e['code'], 'decks') && !str_starts_with($e['code'], 'header'))), [], 'and the cut still validates');
+
 SwuPgnTestFinish();

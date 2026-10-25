@@ -47,8 +47,11 @@ $norm = function (string $gs, string $name) use (&$norm): string {
         $raw = base64_decode($m[1], true); $payload = $raw === false ? false : @gzdecode($raw);
         return $payload === false ? $m[0] : 'MR1{' . $norm($payload, $name) . '}';
     }, $gs);
-    $gs = preg_replace('/\|@\d+(\.\d+)?\|/', '|@<time>|', str_replace($name, '<game>', $gs));   // game-log entries' wall clock
-    return preg_replace('/\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(Z|[+-]\d\d:\d\d)?/', '<iso-time>', $gs);    // and the replay's
+    // The clocks first, then the name — as a whole token only: a game name here is a short number ("47"), which a
+    // plain replace also finds inside a timestamp or a card id (JTL_131).
+    $gs = preg_replace('/\|@\d+(\.\d+)?\|/', '|@<time>|', $gs);   // game-log entries' wall clock
+    $gs = preg_replace('/\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(Z|[+-]\d\d:\d\d)?/', '<iso-time>', $gs);    // and the replay's
+    return preg_replace('/(?<![A-Za-z0-9_#.])' . preg_quote($name, '/') . '(?![A-Za-z0-9_])/', '<game>', $gs);
 };
 $a = $norm($gs0, $n0); $b = $norm($gs1, $n1);
 $firstDiff = null;

@@ -69,7 +69,7 @@ SwuPgnTestEq($meta()['undos'] ?? null, 2, 'meta.undos = 2');
 $frame(fn() => $a->playCardFromHand(1, 0));
 $frame(fn() => SWUTakeBookmark(1, 'before the end', 'SWUSim', $GLOBALS['gameName']));
 $bmEvents = count(SwuPgnEventsRead($gameName));
-$frame(fn() => $a->playCardFromHand(1, 0));                    // a later action
+$frame(fn() => $a->passAction(2));                             // a later action (P2's: P1 just played)
 DecisionQueueController::StoreVariable('GAMEOVER_WINNER', '1'); // …and the game ends
 $m = $meta(); $m['finished'] = true; SwuPgnMetaWrite($gameName, $m);
 @mkdir(SwuPgnRecDir($gameName) . '/out', 0777, true);
@@ -83,6 +83,9 @@ $ev = SwuPgnEventsRead($gameName);
 SwuPgnTestEq(count($ev), $bmEvents + 1, 'the events are cut back to the bookmark, plus its UNDO mark');
 SwuPgnTestEq(end($ev)['t'] ?? null, 'UNDO', 'the bookmark load is an UNDO');
 SwuPgnTestCheck(SwuPgnRecIsRecording($gameName), 'recording continues after the reopen');
+
+// The restored state's board snapshot is the restored board (checkpoints keep none), so the next frame diffs from it.
+SwuPgnTestEq(SwuPgnStateRead($gameName)['prev'] ?? null, SwuPgnSnapshot(), 'after a restore the recorder\'s board is the restored one');
 
 // A missing checkpoint: the UNDO mark is still written, nothing is cut, and it counts as a recorder error.
 $errLog = ini_get('error_log'); ini_set('error_log', sys_get_temp_dir() . '/swupgn-undo-errors.log');
@@ -124,5 +127,16 @@ $ev = SwuPgnEventsRead($gameName);
 SwuPgnTestEq([end($ev)['t'] ?? null, end($ev)['p'] ?? null], ['PASS', 2], 'play continues on the restored line');
 SwuPgnTestEq(count(array_column($ev, 'seq')), count(array_unique(array_column($ev, 'seq'))), 'with unique seqs');
 SwuPgnTestEq(array_values(array_filter(SwuPgnValidate(SwuPgnParse(SwuPgnTestFile($ev)))['errors'], fn($e) => $e['code'] !== 'undo.count')), [], 'and it validates');
+// A rewind that retracts nothing leaves no mark (a mark goes where records were cut); one that would cut only an
+// earlier mark retracts nothing either — never an "…-undo-undo".
+$frame(fn() => SwuPgnRecCheckpoint('t1'));
+$before = SwuPgnEventsRead($gameName); $u = $meta()['undos'] ?? 0;
+$frame(fn() => SwuPgnRecRestore('t1', 1));
+SwuPgnTestEq([SwuPgnEventsRead($gameName), $meta()['undos'] ?? null], [$before, $u + 1], 'a rewind that cuts nothing: no mark (still counted)');
+SwuPgnEventsAppend($gameName, [['seq' => 'R9.A.1', 't' => 'PASS', 'p' => 1]]);
+$frame(fn() => SwuPgnRecRestore('t1', 1));
+$frame(fn() => SwuPgnRecRestore('t1', 1));
+$seqT = array_column(SwuPgnEventsRead($gameName), 'seq');
+SwuPgnTestEq([array_slice($seqT, count($before)), in_array('R9.A.1-undo-undo', $seqT, true)], [['R9.A.1-undo'], false], 'a rewind past only a mark: the mark stays, no -undo-undo');
 exec('rm -rf ' . escapeshellarg('./SWUSim/Games/' . $gameName));
 SwuPgnTestFinish();

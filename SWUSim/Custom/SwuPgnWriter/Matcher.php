@@ -15,12 +15,16 @@
 
 const SWUPGN_TOKEN_CARDS = ['shield' => 'SOR_T02', 'experience' => 'SOR_T01', 'advantage' => 'ASH_T02', 'weakness' => 'HMW_T02'];
 const SWUPGN_ACTION_NOTES = ['PLAY', 'ATTACK', 'DEPLOY', 'PASS', 'CLAIM'];
+// How many recorder passes (frames and their mid-action flushes) a card may sit in limbo before it is taken to have left.
+const SWUPGN_LIMBO_PASSES = 8;
 
 function SwuPgnMatch(array $changes, array $notes, array &$ctx): array {
     $run = ['ctx' => &$ctx, 'pool' => array_values($changes), 'claimed' => [], 'remaining' => [], 'out' => [],
         'notes' => array_values($notes), 'lastCopy' => [], 'carry' => [], 'gaps' => []];
+    $heldBefore = array_column($ctx['ledger']['limbo'] ?? [], 'copy');
     foreach ($run['notes'] as $ni => $note) _SwuPgnMNote($run, $ni, $note);
     $gaps = _SwuPgnMUnclaimed($run);
+    $gaps = array_merge($gaps, _SwuPgnMLimboAge($run, $heldBefore));
     $events = _SwuPgnMSequence($run);
     return ['events' => $events, 'gaps' => $gaps, 'carry' => $run['carry']];
 }
@@ -667,6 +671,24 @@ function _SwuPgnMLimboOut(array &$run, array $c): bool {
     }
     return false;
 }
+// Each pass ages the cards held since before it; one held SWUPGN_LIMBO_PASSES passes did leave: its move out of the game is
+// written now (late, so a gap), and the board and the file agree again.
+function _SwuPgnMLimboAge(array &$run, array $heldBefore): array {
+    $L = &$run['ctx']['ledger'];
+    $gaps = [];
+    foreach ($L['limbo'] ?? [] as $i => $lb) {
+        if (!in_array($lb['copy'], $heldBefore, true)) continue;
+        $L['limbo'][$i]['age'] = intval($lb['age'] ?? 0) + 1;
+        if ($L['limbo'][$i]['age'] < SWUPGN_LIMBO_PASSES) continue;
+        $kind = $lb['host'] !== null ? 'upgrade' : _SwuPgnMKind($lb['cardID']);
+        _SwuPgnMEmit($run, 'MOVE', ['card' => $lb['copy'], 'from' => $lb['from'], 'to' => 'outsideTheGame', 'p' => $lb['seat'], 'kind' => $kind], null);
+        $gaps[] = ['k' => 'move', 'seat' => $lb['seat'], 'cardID' => $lb['cardID'], 'from' => $lb['from'], 'to' => 'outsideTheGame'];
+        unset($L['limbo'][$i]);
+    }
+    if (isset($L['limbo'])) $L['limbo'] = array_values($L['limbo']);
+    return $gaps;
+}
+
 function _SwuPgnMLimboFind(array $L, string $cardID, string $from): ?int {
     // Out of the zone it was held from — or, for a deck card, back out of the staging area it is returned through.
     foreach ($L['limbo'] ?? [] as $i => $lb) {
@@ -677,7 +699,10 @@ function _SwuPgnMLimboFind(array $L, string $cardID, string $from): ?int {
 // null = not a held card; otherwise whether its landing is an announcement gap.
 function _SwuPgnMLimboIn(array &$run, array $c): ?bool {
     $L = &$run['ctx']['ledger'];
-    foreach ($L['limbo'] ?? [] as $i => $lb) {
+    // Its own seat's held copy first: the same card can be held for both seats.
+    $held = $L['limbo'] ?? [];
+    uksort($held, fn($a, $b) => (($held[$b]['seat'] ?? 0) === intval($c['seat'])) <=> (($held[$a]['seat'] ?? 0) === intval($c['seat'])) ?: $a <=> $b);
+    foreach ($held as $i => $lb) {
         if ($lb['cardID'] !== $c['cardID']) continue;
         array_splice($L['limbo'], $i, 1);
         if ($lb['from'] === 'capture' && $c['to'] === 'capture') {   // a tucked captive back under its captor: no zone change

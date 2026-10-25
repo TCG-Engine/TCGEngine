@@ -5,7 +5,8 @@
 //   your cards                         unchanged information, ids renumbered 1..k per card in your own deck order
 //   their cards while hidden           "HIDDEN" (deck / hand / resource); their DRAW.cards = [], SEARCH.found dropped
 //   their cards once public            real card, copy numbered k+1, k+2, … in order of appearance (so neither their
-//                                      deck order nor their copy count leaks, and no id collides with yours)
+//                                      deck order nor their copy count leaks, and no id collides with yours);
+//                                      back in their deck it is forgotten — shown again, it is a new id
 //   their CHOICE prompts               left out (an engine prompt can name a card only its chooser may see)
 //   their SETUP order / DECKS lists    [] (leader and base are public and kept)
 //   keyframes                          their resources list left out (§14 checks it only when present); their hand —
@@ -61,9 +62,13 @@ function SwuPgnCutPerspective(array $doc, int $seat): array {
         if ($t === 'DRAW' && $p === $other) $e['cards'] = [];
         if ($t === 'SEARCH' && $p === $other) unset($e['found']);
         if ($t === 'CHOICE' && $p === $other) unset($e['prompt']);   // an engine prompt can name a card only its chooser sees
+        $original = $e['card'] ?? null;
         foreach (SWUPGN_ID_FIELDS as $f) if (array_key_exists($f, $e)) $e[$f] = $id($e[$f]);
         foreach (SWUPGN_ID_LIST_FIELDS as $f) if (is_array($e[$f] ?? null)) $e[$f] = array_map($id, $e[$f]);
         if (is_array($e['keyframe'] ?? null)) $e['keyframe'] = _SwuPgnCutKeyframe($e['keyframe'], $other, $id);
+        // Back into their deck, it is forgotten (its move there still names it): drawn again it is HIDDEN, shown again a
+        // new id. The fold keeps no deck contents, so nothing in this file still holds the old one.
+        if ($t === 'MOVE' && ($e['to'] ?? '') === 'deck' && is_string($original) && isset($theirs[$original])) unset($map[$original]);
         $events[] = $e;
     }
 

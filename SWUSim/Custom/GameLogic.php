@@ -1858,7 +1858,7 @@ function SWUEnforceUpgradeUniqueness(int $player, string $cardID, object $keepSu
                 $u = GetZoneObject($unitMz);
                 if (SWUObjGone($u)) continue;
                 if (($u->CardID ?? '') === $cardID) {
-                    SWUDefeatUnit(intval($player), $unitMz);
+                    SwuPgnDefeatCause('uniqueRule', null, fn() => SWUDefeatUnit(intval($player), $unitMz));
                     DecisionQueueController::CleanupRemovedCards();
                     $defeated = true;
                     break 2;
@@ -1878,7 +1878,7 @@ function SWUEnforceUpgradeUniqueness(int $player, string $cardID, object $keepSu
                     if ($isCaptive || $isRemoved) continue;
                     $subCid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
                     if ($subCid === $cardID && !(is_object($sub) && $sub === $keepSub)) {
-                        SWUDefeatUpgrade(intval($player), $hostMz, $upgIdx);
+                        SwuPgnDefeatCause('uniqueRule', null, fn() => SWUDefeatUpgrade(intval($player), $hostMz, $upgIdx));
                         DecisionQueueController::CleanupRemovedCards();
                         $defeated = true;
                         break 3;
@@ -3166,7 +3166,7 @@ function SWUCheckShrinkDefeats(): void {
                     // reaction twice — TS26_13 Darth Sidious made two Battle Droids off one kill.
                     if (!empty($GLOBALS['gSWUUnitsMidDefeat'][intval($obj->UniqueID ?? 0)])) continue;
                     if (ObjectCurrentHP($obj) - intval($obj->Damage ?? 0) <= 0 && !SWUImmuneToHpDefeat($obj)) {
-                        SWUDefeatUnit($p, $mz);
+                        SwuPgnDefeatCause('frameworkEffect', null, fn() => SWUDefeatUnit($p, $mz), true);   // a card's effect, if one is the source
                         $defeated = true;
                         break 2;
                     }
@@ -3964,7 +3964,7 @@ function _SWUMarkUnitPlayUsedFlags($player, $cardID): void {
 // only ActivateCard applies and so only ActivateCard spends.
 function SWUCommitPlay(int $player, string $cardID, ?string $logSuffix, string $as, $chargeObj = null, ?string $fromZone = null): void {
     if ($logSuffix !== null) SWULogPlay($player, $cardID, $logSuffix);
-    if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'PLAY', 'p' => $player, 'cardID' => $cardID,
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'PLAY', 'p' => $player, 'cardID' => $cardID,
         'how' => ($as === 'unit' && $logSuffix === ' using Smuggle') ? 'smuggle' : $as, 'cost' => CardCost($cardID) ?? null, 'from' => $fromZone]);
     if (function_exists('SWUTelemetryBumpCard')) { SWUTelemetryBumpCard($player, $cardID, 'played'); SWUTelemetryBumpTurn($player, 'cardsUsed'); }
     AddGlobalEffects($player, 'SWU_CARDS_PLAYED');
@@ -4927,7 +4927,7 @@ function DoResourceCard($player, $mzID) {
     $savedPID = $playerID;
     $playerID = intval($player);
     $newObj   = MZMove($player, $mzID, "myResources");
-    if ($newObj !== null && function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'RESOURCE', 'p' => intval($player), 'cardID' => strval($newObj->CardID ?? '')]);
+    if ($newObj !== null && function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'RESOURCE', 'p' => intval($player), 'cardID' => strval($newObj->CardID ?? '')]);
     if ($newObj !== null && function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newObj->CardID ?? '', 'resourced');
     if ($newObj !== null) SWUKeepCreditTokensLast(intval($player)); // Credit tokens stay at the end
     $playerID = $savedPID;
@@ -5477,7 +5477,7 @@ function DoGiveShieldToken($player, $targetMZ, string $grantTag = '') {
     if ($obj === null || (isset($obj->removed) && $obj->removed)) return "-";
     if (!is_array($obj->Subcards)) $obj->Subcards = [];
     if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('TOKEN', $obj, 'gave ' . _SWULogTokenPhrase('SOR_T02') . ' to {U}', '{U} gained ' . _SWULogTokenPhrase('SOR_T02')); // game log
-    if (function_exists('SwuPgnNoteToken')) SwuPgnNoteToken($obj, 'SOR_T02', 1);
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNoteToken($obj, 'SOR_T02', 1);
     $obj->Subcards[] = (object)[
         'CardID'      => 'SOR_T02',
         'Owner'       => $player,
@@ -5533,7 +5533,7 @@ function DoGiveExperienceToken($player, $targetMZ, bool $fireAsh208 = true) {
     if ($obj === null || (isset($obj->removed) && $obj->removed)) return "-";
     if (!is_array($obj->Subcards)) $obj->Subcards = [];
     if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('TOKEN', $obj, 'gave ' . _SWULogTokenPhrase('SOR_T01') . ' to {U}', '{U} gained ' . _SWULogTokenPhrase('SOR_T01')); // game log
-    if (function_exists('SwuPgnNoteToken')) SwuPgnNoteToken($obj, 'SOR_T01', 1);
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNoteToken($obj, 'SOR_T01', 1);
     $obj->Subcards[] = (object)[
         'CardID'      => 'SOR_T01',
         'Owner'       => $player,
@@ -5559,7 +5559,7 @@ function DoGiveAdvantageToken($player, $targetMZ) {
     if ($obj === null || (isset($obj->removed) && $obj->removed)) return "-";
     if (!is_array($obj->Subcards)) $obj->Subcards = [];
     if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('TOKEN', $obj, 'gave ' . _SWULogTokenPhrase('ASH_T02') . ' to {U}', '{U} gained ' . _SWULogTokenPhrase('ASH_T02')); // game log
-    if (function_exists('SwuPgnNoteToken')) SwuPgnNoteToken($obj, 'ASH_T02', 1);
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNoteToken($obj, 'ASH_T02', 1);
     $obj->Subcards[] = (object)[
         'CardID'      => 'ASH_T02',
         'Owner'       => $player,
@@ -5590,7 +5590,7 @@ function DoGiveTokenUpgrade($player, $targetMZ, string $tokenCardID) {
     if (!is_array($obj->Subcards)) $obj->Subcards = [];
     $hostCtrl = intval($obj->Controller ?? $player);
     if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('TOKEN', $obj, 'gave ' . _SWULogTokenPhrase($tokenCardID) . ' to {U}', '{U} gained ' . _SWULogTokenPhrase($tokenCardID)); // game log
-    if (function_exists('SwuPgnNoteToken')) SwuPgnNoteToken($obj, $tokenCardID, 1);
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNoteToken($obj, $tokenCardID, 1);
     $obj->Subcards[] = (object)[
         'CardID'      => $tokenCardID,
         'Owner'       => $hostCtrl,
@@ -5629,7 +5629,7 @@ function _SWUDefeatAllAdvantageTokens($targetMZ, bool $onlyMarked = false): int 
         }
     }
     if ($removed > 0) $obj->Subcards = array_values($obj->Subcards);
-    if ($removed > 0 && function_exists('SwuPgnNoteToken')) SwuPgnNoteToken($obj, 'ASH_T02', -$removed);
+    if ($removed > 0 && function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNoteToken($obj, 'ASH_T02', -$removed);
     // An Advantage token IS an upgrade, so shedding it DEFEATS it and every "when a friendly upgrade is
     // defeated" observer fires — ONCE PER TOKEN (ASH_161 Zeb, ASH_039's phase flag, ASH_055). This shed was
     // the one leave-play path that spliced the subcard out without the observer while the other eight
@@ -5845,7 +5845,7 @@ function DoCaptureUnit($player, $capturingMZ, $capturedMZ) {
     // Game log — the capture is committed (immunity and the token case returned above).
     if (function_exists('SWULogObjRef')) {
         [, $lsCard] = SWULogSource();
-        if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'CAPTURE', 'p' => intval($captor->Controller ?? $player),
+        if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'CAPTURE', 'p' => intval($captor->Controller ?? $player),
             'cardID' => strval($captive->CardID ?? ''), 'by' => intval($captor->UniqueID ?? 0)]);
         AddGameLogEntry('CAPTURE', SWULogObjRef($captor) . ' captured ' . SWULogObjRef($captive)
             . (($lsCard !== '' && $lsCard !== ($captor->CardID ?? '')) ? SWULogSourceSuffix() : ''));
@@ -5922,7 +5922,7 @@ function _SWUBaseCaptureUnit(int $player, string $capturedMZ): bool {
     $cardID     = $captive->CardID;
     $owner      = intval($captive->Owner ?? $player);
     $controller = intval($captive->Controller ?? $owner);
-    if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'CAPTURE', 'p' => intval($player), 'cardID' => strval($cardID), 'by' => 'base@' . intval($player)]);
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'CAPTURE', 'p' => intval($player), 'cardID' => strval($cardID), 'by' => 'base@' . intval($player)]);
     // Snapshot the GRANTED bounties before the upgrades carrying them are defeated below.
     $grantedBounties = _SWUGrantedBountyRewards($captive, $cardID, $controller);
     // CR 8.34.1: defeat all non-captive, non-removed upgrades before capture (mirror DoCaptureUnit).
@@ -6205,7 +6205,7 @@ function DoRescueUnit($captiveSubcard, $hostObj, bool $enforceUnique = true): vo
         $playerID = $savedPID;
         return;
     }
-    if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'RESCUE', 'p' => $owner, 'cardID' => $cardID]);
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'RESCUE', 'p' => $owner, 'cardID' => $cardID]);
     if (function_exists('AddGameLogEntry')) AddGameLogEntry('RESCUE', 'P' . $owner . "'s " . GameLogCardRef($cardID) . ' was rescued' . (function_exists('SWULogSourceSuffix') ? SWULogSourceSuffix() : ''), 'ALL'); // game log
 
     // Add the rescued unit directly to the arena as the owner/controller, exhausted (Status:0).
@@ -7147,10 +7147,10 @@ $customDQHandlers["MulliganDecision"] = function($player, $parts, $lastDecision)
     $targetPlayer = isset($parts[0]) ? intval($parts[0]) : intval($player);
     if (strtoupper($lastDecision) !== "YES") {
         AddGameLogEntry('MULLIGAN', "P{$targetPlayer} kept their hand", 'ALL');   // game log
-        if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'KEEP', 'p' => $targetPlayer]);
+        if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'KEEP', 'p' => $targetPlayer]);
         return;
     }
-    if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'MULLIGAN', 'p' => $targetPlayer]);
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'MULLIGAN', 'p' => $targetPlayer]);
 
     // Shuffle hand back into deck then draw 6 (SWU CR 1.8 setup)
     global $playerID;
@@ -7167,6 +7167,7 @@ $customDQHandlers["MulliganDecision"] = function($player, $parts, $lastDecision)
     // Deterministic mulligan reshuffle: restoring the counter+seed on undo replays the same redraw,
     // so undo + re-mulligan yields the identical second hand (Task 3, undo redesign).
     EngineShuffle($deck, false);
+    SwuPgnRecSplit();   // SWU-PGN: the hand going back, recorded before the new hand is drawn (they can be the same cards)
 
     // Redraw the player's OWN starting hand size, not a flat 6 — a base may modify it (JTL_021
     // Colossus -1, JTL_028 Nabat Village +3). Same helper QueuePregameSetup uses for the opening hand;
@@ -7231,7 +7232,7 @@ $customDQHandlers["ApplyStartingResource"] = function($player, $parts, $lastDeci
         // Hand cards don't carry a Status field; Resources must default to 1 (ready).
         if ($newResource !== null) {
             $newResource->Status = 1;
-            if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'RESOURCE', 'p' => intval($player), 'cardID' => strval($newResource->CardID ?? '')]);
+            if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'RESOURCE', 'p' => intval($player), 'cardID' => strval($newResource->CardID ?? '')]);
             if (function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newResource->CardID ?? '', 'resourced'); // Plan D telemetry
         }
     }
@@ -7252,7 +7253,7 @@ $customDQHandlers["SWUApplyRegroupResource"] = function($player, $parts, $lastDe
         SWUQueueZoneMoveAnim($lastDecision, 'myResources-0', intval($player), 420, null, intval($player));
         if (function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newResource->CardID ?? '', 'resourced'); // Plan D telemetry
         AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' resourced a card');
-        if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'RESOURCE', 'p' => intval($player), 'cardID' => strval($newResource->CardID ?? '')]);
+        if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'RESOURCE', 'p' => intval($player), 'cardID' => strval($newResource->CardID ?? '')]);
     }
     $playerID = $savedPID;
 };
@@ -8495,7 +8496,7 @@ function SWUTakeControlOfUnit(int $newController, string $mzID): string {
         $leaderUid = intval($unit->UniqueID ?? 0);
         $playerID  = $curController;
         $ownerMz   = $leaderUid > 0 ? SWUFindMzByUID($leaderUid) : null;
-        if ($ownerMz !== null) SWUDefeatUnit($curController, $ownerMz);
+        if ($ownerMz !== null) SwuPgnDefeatCause('frameworkEffect', null, fn() => SWUDefeatUnit($curController, $ownerMz));
         $playerID = $savedPID;
         return '';
     }
@@ -8506,7 +8507,7 @@ function SWUTakeControlOfUnit(int $newController, string $mzID): string {
     if (function_exists('SWULogObjRef')) {
         [$lsP] = SWULogSource();
         $lsRef = SWULogObjRef($unit);
-        if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'CONTROL', 'p' => intval($newController), 'uid' => intval($unit->UniqueID ?? 0)]);
+        if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'CONTROL', 'p' => intval($newController), 'uid' => intval($unit->UniqueID ?? 0)]);
         if ($lsP === intval($newController)) SWULogEffect('CONTROL', "took control of {$lsRef}", '');
         else AddGameLogEntry('CONTROL', 'P' . intval($newController) . " took control of {$lsRef}" . SWULogSourceSuffix());
     }
@@ -10010,7 +10011,7 @@ function SWUPassAction($player) {
         // so the two-player log is unchanged.
         if (!_SWUSeatTookCounterThisRound(intval($player))) {
             AddGameLogEntry('PASS', 'P' . intval($player) . ' passed');
-            if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'PASS', 'p' => intval($player)]);
+            if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'PASS', 'p' => intval($player)]);
         }
         SetSWUVar('PASS', strval($consecutivePasses + 1));   // accumulate the consecutive-pass streak
         // ⚠ A PASS / INITIATIVE CLAIM NEVER OPENS AN ACTION ID. Neither SWUPassAction nor
@@ -10033,7 +10034,7 @@ function SWUTakeInitiative($player) {
     }
     SetInitiativeCounter("P{$player}_CLAIMED");
     AddGameLogEntry('INITIATIVE', 'P' . intval($player) . ' took the initiative');
-    if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'CLAIM', 'p' => intval($player)]);
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'CLAIM', 'p' => intval($player)]);
     // LOF_203 Premonition of Doom — "The next time you take the initiative this phase, exhaust all units."
     if (GlobalEffectCount(intval($player), 'SWU_LOF203') > 0) {
         RemoveGlobalEffect(intval($player), 'SWU_LOF203');
@@ -11735,7 +11736,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
     // Game log: this trigger's card is the source of everything it does (see SWULogTriggerSource).
     $logSrc = SWULogTriggerSource((string)$triggerType, (string)$cardID);
     if ($logSrc !== '') SWULogSetSource(intval($player), $logSrc);
-    if ($logSrc !== '' && function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'TRIGGER', 'cardID' => $logSrc, 'p' => intval($player)]);
+    if ($logSrc !== '' && function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'TRIGGER', 'cardID' => $logSrc, 'p' => intval($player)]);
     // "Had no effect" — see SWULogNoEffectCheck. Probed AFTER the source is set (so setting it is not a change).
     $noEffectProbe = ($logSrc !== '' && SWULogNoEffectEligible((string)$triggerType)) ? SWULogNoEffectProbe() : '';
     switch ($triggerType) {
@@ -14700,7 +14701,7 @@ $customDQHandlers["UNIQUENESS_DEFEAT"] = function($player, $parts, $lastDecision
     $inline = !empty($parts[1]);
     // $parts[2] = 'R': the start of the regroup phase (_SWURegroupStartContinue) is suspended behind this choice.
     $regroup = ($parts[2] ?? '') === 'R';
-    SWULogWithDefeatNote('uniqueness rule', fn() => SWUDefeatUnit(intval($player), $lastDecision));
+    SWULogWithDefeatNote('uniqueness rule', fn() => SwuPgnDefeatCause('uniqueRule', null, fn() => SWUDefeatUnit(intval($player), $lastDecision)));
     // CR 29.3.3 — "the player still must resolve any abilities that trigger upon either copy being
     // defeated", so the bag is flushed either way. UNIQINLINE is the no-finalise resume tag (cf.
     // REGROUP): the When Defeated triggers resolve, then control returns without closing the action.
@@ -19304,7 +19305,7 @@ function _SWUResolveExploitPicks(int $player, string $playedCardID, ?string $las
             // Only count units actually defeated — a unit already removed before this runs must not
             // inflate the Exploit discount (CR 16.a: 2 less per unit DEFEATED).
             $wasDroid = ($fo !== null) && HasTrait($fo->CardID ?? '', 'Droid');
-            if (SWULogWithDefeatNote('Exploit, ' . GameLogCardRef($playedCardID), fn() => SWUDefeatUnit(intval($player), $currentMz))) {
+            if (SWULogWithDefeatNote('Exploit, ' . GameLogCardRef($playedCardID), fn() => SwuPgnDefeatCause('ability', $playedCardID, fn() => SWUDefeatUnit(intval($player), $currentMz)))) {
                 $count++;
                 $gLastExploitedPowers[] = $pwr;
                 if ($wasDroid) $droidsExploited++;
@@ -19548,7 +19549,7 @@ function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''
     }
 
     AddGameLogEntry('PLAY', 'P' . intval($player) . ' deployed ' . GameLogCardRef($cardID));
-    if (function_exists('SwuPgnNote')) SwuPgnNote(['t' => 'DEPLOY', 'p' => intval($player), 'cardID' => $cardID]);
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'DEPLOY', 'p' => intval($player), 'cardID' => $cardID]);
 
     // Mark the leader side: epic action consumed (NOT for JTL_014's non-epic repeatable deploy),
     // leader flipped to deployed state.

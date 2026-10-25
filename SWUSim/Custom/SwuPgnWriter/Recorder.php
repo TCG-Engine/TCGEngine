@@ -100,6 +100,11 @@ function SwuPgnRecFrameBegin(): void {
         $GLOBALS['SWU_PGN_S0'] = SwuPgnSnapshot();
         $GLOBALS['SWU_PGN_FRAME_GAME'] = $g;
         $GLOBALS['SWU_PGN_RECORDING'] = true;
+        SwuPgnTxBegin($g);   // the frame's writes wait for its commit
+        // The board the recorder last saw is the board now — unless something outside the runner changed it: that
+        // change is written here (plain records, counted as gaps), so the file and the board never drift apart.
+        $prev = SwuPgnStateRead($g)['prev'] ?? null;
+        if (is_array($prev) && $prev !== $GLOBALS['SWU_PGN_S0']) _SwuPgnRecFlush($g, $prev, []);
     } catch (Throwable $e) {
         _SwuPgnRecResetRequest();
         _SwuPgnRecError($g, $e, 'begin');
@@ -116,13 +121,18 @@ function SwuPgnRecFrameCommit(): void {
     _SwuPgnRecResetRequest();
     // The frame must end on the game it began on: a request that loaded another game mid-action (a quick
     // rematch) would otherwise diff one game's board against another's.
-    if (!$active || $frameGame !== $g || !is_array($before)) return;
     try {
-        _SwuPgnTestThrow('commit');
-        _SwuPgnRecFlush($g, $before, $notes);
-        if (function_exists('SwuPgnRecFinishIfOver')) SwuPgnRecFinishIfOver($g);
+        if ($active && $frameGame === $g && is_array($before)) {
+            _SwuPgnTestThrow('commit');
+            _SwuPgnRecFlush($g, $before, $notes);
+            if (function_exists('SwuPgnRecFinishIfOver')) SwuPgnRecFinishIfOver($g);
+        }
     } catch (Throwable $e) {
         _SwuPgnRecError($g, $e, 'commit');
+    } finally {
+        // The action is kept (the runner commits only one it writes): everything the frame held goes to disk — also
+        // for a frame that ended on another game, whose own records up to the switch were real.
+        try { SwuPgnTxCommit(); } catch (Throwable $e) { _SwuPgnRecError($g, $e, 'commit-write'); }
     }
 }
 
@@ -136,6 +146,14 @@ function _SwuPgnRecMidFlush(string $g): array {
     $GLOBALS['SWU_PGN_S0'] = $after;
     $GLOBALS['SWU_PGN_NOTES'] = [];
     return [SwuPgnStateRead($g), $after];
+}
+
+// Records what the open frame has done so far, so the rest of the action diffs from here. For a step that undoes itself
+// inside one action — a mulligan puts the hand back and draws the same cards: one diff of the whole action sees nothing.
+function SwuPgnRecSplit(): void {
+    $g = _SwuPgnRecFrameGame();
+    if ($g === null) return;
+    try { _SwuPgnRecMidFlush($g); } catch (Throwable $e) { _SwuPgnRecError($g, $e, 'split'); }
 }
 
 function _SwuPgnRecFrameGame(): ?string {
@@ -203,8 +221,8 @@ function SwuPgnRecCheckpoint(string $key): void {
     try {
         if (SwuPgnMetaRead($g) === null) return;
         if (_SwuPgnRecFrameGame() === $g) _SwuPgnRecMidFlush($g);   // the board the engine just saved, recorded up to now
-        $ev = SwuPgnEventsRead($g);
-        SwuPgnCheckpointSave($g, $key, SwuPgnStateRead($g), count($ev), SwuPgnEventsHash($ev));
+        [$count, $hash] = SwuPgnEventsIndex($g);   // no read of the whole file
+        SwuPgnCheckpointSave($g, $key, SwuPgnStateRead($g), $count, $hash);
     } catch (Throwable $e) {
         _SwuPgnRecError($g, $e, 'checkpoint');
     }
@@ -245,7 +263,8 @@ function SwuPgnRecRestore(string $key, int $bySeat): void {
         $events = SwuPgnEventsRead($g);
         $cp = SwuPgnCheckpointLoad($g, $key);
         if ($cp === null) {
-            $at = end($events)['seq'] ?? 'R0.S.start';
+            $realEv = array_values(array_filter($events, fn($e) => ($e['t'] ?? '') !== 'UNDO'));
+            $at = end($realEv)['seq'] ?? 'R0.S.start';
             _SwuPgnRecError($g, new RuntimeException("no checkpoint $key"), 'restore');
             $meta = SwuPgnMetaRead($g);
         } else {
@@ -260,21 +279,27 @@ function SwuPgnRecRestore(string $key, int $bySeat): void {
             $enc = fn($e) => json_encode($e, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
             $common = 0;
             while ($common < count($events) && $common < count($line) && $enc($events[$common]) === $enc($line[$common])) $common++;
-            $at = $events[$common]['seq'] ?? (end($events)['seq'] ?? 'R0.S.start');
-            SwuPgnBranchAppend($g, $common, array_slice($events, 0, $common), array_slice($events, $common));   // kept, in case it is undone
+            // What the rewind retracts: the records after the cut that are not themselves marks of earlier rewinds.
+            $dropped = array_slice($events, $common);
+            $real = array_values(array_filter($dropped, fn($e) => ($e['t'] ?? '') !== 'UNDO'));
+            $at = $real[0]['seq'] ?? null;
+            SwuPgnBranchAppend($g, $common, array_slice($events, 0, $common), $dropped);   // kept, in case it is undone
+            // The marks that sat after the cut stay where they were: a mark is about the file, not the game.
+            $line = array_merge($line, array_values(array_filter($dropped, fn($e) => ($e['t'] ?? '') === 'UNDO')));
             SwuPgnEventsWrite($g, $line);
-            SwuPgnStateWrite($g, $cp['state']);
+            SwuPgnStateWrite($g, ['prev' => SwuPgnSnapshot()] + $cp['state']);   // the restored board (checkpoints keep none)
             $events = $line;
         }
         // An UNDO's seq is exactly <at>-undo and seqs are unique (§9.1): a second cut back to the same point leaves the mark
-        // already there standing for both — meta.undos (the [Undos] header) is the authority (§10.2).
-        if (!in_array("$at-undo", array_column($events, 'seq'), true)) {
+        // already there standing for both, and a rewind that retracted nothing leaves none — meta.undos (the [Undos]
+        // header) is the authority (§10.2).
+        if ($at !== null && !in_array("$at-undo", array_column($events, 'seq'), true)) {
             SwuPgnEventsAppend($g, [['seq' => "$at-undo", 't' => 'UNDO', 'at' => $at, 'by' => $bySeat > 0 ? $bySeat : null]]);
         }
         $meta['undos'] = intval($meta['undos'] ?? 0) + 1;
         if (!empty($meta['finished']) && SWUGetGameWinner() === 0) {
             $meta['finished'] = false;
-            _SwuPgnRmTree(SwuPgnRecDir($g) . '/out');
+            SwuPgnOutClear($g);
         }
         SwuPgnMetaWrite($g, $meta);
         // The open frame continues from the restored board: the restore itself is not a change.
@@ -430,6 +455,7 @@ function SwuPgnRecStart($lobby, array $opts = [], bool $deckLoadOk = true): void
         $GLOBALS['SWU_PGN_S0'] = $snap;
         $GLOBALS['SWU_PGN_FRAME_GAME'] = $g;
         $GLOBALS['SWU_PGN_RECORDING'] = true;
+        SwuPgnTxBegin($g);   // the setup frame's writes wait for SWUSetupGame's commit
     } catch (Throwable $e) {
         _SwuPgnRecResetRequest();
         _SwuPgnRecError($g, $e, 'start');

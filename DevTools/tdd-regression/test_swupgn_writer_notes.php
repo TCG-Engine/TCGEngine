@@ -229,6 +229,44 @@ $ev = array_merge($ev1, $ev2);
 SwuPgnTestCheck(NFind($ev, 'SEARCH', ['p' => 1]) !== null && NFind($ev, 'MOVE', ['from' => 'deck', 'to' => 'hand']) !== null, 'SEARCH, then the searched card\'s MOVE', NTypes($ev));
 SwuPgnTestEq($g1 + $g2, 0, 'a search leaves no gaps');
 
+// ── A mulligan writes the whole hand going back and the whole new hand drawn — even when the same cards come back ──────
+$g = NGame(function ($b) { for ($i = 0; $i < 6; $i++) $b->WithCardInHandForPlayer(1, 'SOR_095'); for ($i = 0; $i < 6; $i++) $b->WithCardInDeckForPlayer(1, 'SOR_095'); });
+$handBefore = count(array_filter(GetHand(1), fn($o) => empty($o->removed)));
+[$ev] = NFrame(function () use ($customDQHandlers) { global $customDQHandlers; $GLOBALS['playerID'] = 1; $customDQHandlers['MulliganDecision'](1, ['1'], 'YES'); });
+$back = count(array_filter($ev, fn($e) => $e['t'] === 'MOVE' && ($e['p'] ?? 0) === 1 && $e['from'] === 'hand' && $e['to'] === 'deck'));
+$drawn = count(array_filter($ev, fn($e) => $e['t'] === 'MOVE' && ($e['p'] ?? 0) === 1 && $e['from'] === 'deck' && $e['to'] === 'hand'));
+$handAfter = count(array_filter(GetHand(1), fn($o) => empty($o->removed)));
+SwuPgnTestEq([$back, $drawn], [$handBefore, $handAfter], 'a mulligan of the same cards: every card back to the deck, every card of the new hand drawn');
+
+// ── DEFEAT reasons the rules give (§6.4): the uniqueness rule, the rules engine (no card to blame), Exploit ──────────
+$reasonOf = function (array $ev, string $cardID) {
+    foreach ($ev as $e) if ($e['t'] === 'DEFEAT' && SwuPgnBaseId($e['card']) === SwuPgnCardRef($cardID)) return [$e['reason'] ?? null, $e['defeatedBy'] ?? null];
+    return null;
+};
+global $playerID, $customDQHandlers;
+// The uniqueness choice: a second Darth Vader, the player defeats one.
+$g = NGame(fn($b) => $b->WithGroundUnitForPlayer(1, 'SOR_087')->WithGroundUnitForPlayer(1, 'SOR_087'));
+[$ev] = NFrame(function () use ($customDQHandlers) { $GLOBALS['playerID'] = 1; $customDQHandlers['UNIQUENESS_DEFEAT'](1, ['1', '1'], 'myGroundArena-0'); });
+SwuPgnTestEq($reasonOf($ev, 'SOR_087'), ['uniqueRule', null], 'a copy defeated by the uniqueness rule: reason uniqueRule');
+// A unique pilot attaching while its unit form is in play: that copy is defeated automatically.
+$g = NGame(fn($b) => $b->WithGroundUnitForPlayer(1, 'JTL_046'));
+[$ev] = NFrame(function () { $GLOBALS['playerID'] = 1; SWUEnforceUpgradeUniqueness(1, 'JTL_046', new stdClass()); });
+SwuPgnTestEq($reasonOf($ev, 'JTL_046'), ['uniqueRule', null], 'a copy defeated when another attaches: reason uniqueRule');
+// No remaining HP, nobody's card: the rules engine.
+$g = NGame(fn($b) => $b->WithGroundUnitForPlayer(1, 'SOR_095'));
+[$ev] = NFrame(function () { $u = &GetGroundArena(1); $u[0]->Damage = 3; unset($u); SWUCheckShrinkDefeats(); });
+SwuPgnTestEq($reasonOf($ev, 'SOR_095'), ['frameworkEffect', null], 'a unit left with no HP and no card to blame: reason frameworkEffect');
+// A leader unit that would change control is defeated instead (CR 3.4.6).
+$g = NGame(fn($b) => null, ['leaderDeployed' => true]);
+$leaderCard = strval(GetLeader(1)[0]->CardID);
+[$ev] = NFrame(function () { $GLOBALS['playerID'] = 1; SWUTakeControlOfUnit(2, 'myGroundArena-0'); });
+SwuPgnTestEq($reasonOf($ev, $leaderCard), ['frameworkEffect', null], 'a leader unit that would change control: reason frameworkEffect');
+// Exploit: the played card's keyword defeated it.
+$g = NGame(fn($b) => $b->WithGroundUnitForPlayer(1, 'SOR_095')->WithCardInHandForPlayer(1, 'SOR_046'));
+[$ev] = NFrame(function () { $GLOBALS['playerID'] = 1; _SWUResolveExploitPicks(1, 'SOR_046', 'myGroundArena-0', 1, fn() => true); });
+$ex = $reasonOf($ev, 'SOR_095');
+SwuPgnTestCheck(($ex[0] ?? null) === 'ability' && SwuPgnBaseId(strval($ex[1] ?? '')) === SwuPgnCardRef('SOR_046'), 'a unit exploited: reason ability, defeatedBy the played card', json_encode($ex));
+
 // ── CHOICE notes say whose zone each offered card is in (the matcher names THAT seat's copy) ─────────────────────
 $g = NGame(fn($b) => $b->WithCardInHandForPlayer(2, 'SOR_095')->WithCardInHandForPlayer(2, 'SOR_046'));
 SwuPgnRecFrameBegin();
