@@ -1,0 +1,7 @@
+{
+    "name": "Rousing Aether / actual barrier choice retains source and defers external go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-24T18:58:49+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four actual live legal Verdance20/Dorinthea20x3, no passive seats, no seeded effects/history/health changes. Actual Boots Action1/destroy and blue7 pitch3 leaveR2/AP0; four real responses restoreAP1 and grant nextNAAgoagain. Actual Rousing6 targetP4 before assets; cost2/AP1 consumed. Four source responses present actual affordable barrier MZMODAL Take_damage&Pay1 (P4 has actual Red9). Source6 remainsStack/AP0/R0/P4HP20 and captured PLAIN_SPELL ResolveCard#2; no nextarcanegrant yet. Actual answer0 Take_damage applies4arcane->P4HP16 before nextarcane+1grant and oneexternalGA/AP1. Physical Boots5 and primary6 ownpublicGYFace0, same Blue7 ownPitch, untouched P4Red9Hand/Nullrune8Equipment/P4R0. No skipped packet, no prevention payment spent. FinalStack/queues/markerempty andnormalACTIONpriority1. Hidden frame locals/inside-damage source observers and repeatedSurge/default compatibility remain root component requirements; this native positive witness does not claim those hidden observations, sibling colors, threshold matrix or full-suite qualification. Sources: FaBSim/WebpImages/rousing_aether_red.webp FaBSim/WebpImages/mage_master_boots.webp FaBSim/WebpImages/nullrune_gloves.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

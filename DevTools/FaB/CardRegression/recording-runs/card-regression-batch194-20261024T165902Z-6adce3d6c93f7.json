@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-24T16:59:02+00:00",
+    "input_file": "card-regression-batch194.json",
+    "input_sha256": "8531f92a5266da6a261ad455c6d2f703fa9c0bbb07525696c9cf3481c4fa0891",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-rousing-aether-red-four-live-repair-earned-boots-go-again-source-stays-stack-through-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 818
+        },
+        {
+            "slug": "card-aether-quickening-red-four-live-repair-earned-surge-and-external-go-again-once",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 1031
+        }
+    ]
+}

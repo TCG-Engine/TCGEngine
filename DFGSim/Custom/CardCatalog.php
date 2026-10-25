@@ -120,6 +120,8 @@ function DFGCompileAdvantage(string $text): array {
 }
 
 function DFGCatalog(): array {
+    // Standalone variants may supply a compiled catalog without changing the core set.
+    if (function_exists('DFGCustomCatalog')) return DFGCustomCatalog();
     static $cards;
     if ($cards !== null) return $cards;
     $snapshot = json_decode(file_get_contents(__DIR__ . '/../data/cards.json'), true, 64, JSON_THROW_ON_ERROR);

@@ -1,7 +1,7 @@
 # Sparse four-player first pass
 
-<!-- REPAIR-HANDOFF-20261022 -->
-> **Repair checkpoint: blocked, not verified commit-ready.** The3,341-scenario totals below are historical qualification at runtime e947, not post-repair passes. Source repairs are applied; canonical generation failed HTTP521 and both generated outputs were restored exactly. No new repair fixture is saved/qualified. See [current repair handoff](REPAIR_HANDOFF_20261022.md), [bug ledger](repair-status-20261022.json) and [focused results](repair-validation-20261022.json).
+<!-- REPAIR-HANDOFF-20261025 -->
+> **25 October compatibility repair: final full suite3,363/3,363 passed,0 failed.** The15 reproduced failures were stale expected snapshots; all actions/assertions and the gameplay runtime were preserved. See [current assessment](FAILURE_REPAIR_20261025.md) and [validation](failure-repair-validation-20261025.json). Coverage remains522 exact IDs/396 groups; historical dated evidence below keeps its original scope.
 
 Resumed 20 October 2026. Future coverage uses one positive representative per previously uncovered pitch cycle or standalone group. Existing matrices stay intact. Each new scenario uses four living owned young heroes, manual priority and actual supported actions; an all-player effect must also pin each affected seat. Pitch siblings and support cards receive no primary credit.
 

@@ -1,0 +1,165 @@
+{
+  "status": "APPROVED_FINAL_BOUNDED_REPAIR_HANDOFF_FOCUSED_QUALIFICATION_ONLY_FULL_CORPUS_UNRUN",
+  "reviewer": "/root/b105_semantic_review",
+  "utc": "2026-10-24T18:28:25.744471+00:00",
+  "scope": "Only final5custom source byte binding, compact handoff/validation/status consistency and referenced evidence. No source semantic re-review, fixture replay, broad corpus audit, or reviewer repository writes.",
+  "documents": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\REPAIR_HANDOFF_20261024.md",
+      "sha256": "5a612e690312aa9eb29492d4cfdc81f0109dee7608b2a4feb1299356bce5d9a1"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\repair-validation-20261024.json",
+      "sha256": "e4736ce8ba41f50c4ee71465fd313e8d81a6cc39f49f2a6348741f334a11d9a7"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\repair-status-20261024.json",
+      "sha256": "facd6ae50d627aa26eddd61688bcdc9288fdbba7a5e69df023955467ee5e3171"
+    }
+  ],
+  "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+  "source_checks": [
+    {
+      "path": "FaBSim/Custom/ARCCards.php",
+      "sha256": "b8f3c0d36e78794d24a61365aed387e6ec171c5eb2a4785b84f028475fac9b4b",
+      "verdict": "MATCHES_REUSED_EXACT_APPROVED_DELTA"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "sha256": "524d6ee4e6d8e157dba34b2260304d0b3df9cfa1613a7836c554045dc8ec1a0e",
+      "verdict": "MATCHES_REUSED_EXACT_APPROVED_DELTA"
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "sha256": "0a09955352b07186f1d2cfcebd2f558d4fc4fb2f7ca83620fb30378e4a5b4481",
+      "verdict": "MATCHES_REUSED_EXACT_APPROVED_DELTA"
+    },
+    {
+      "path": "FaBSim/Custom/UPRCards.php",
+      "sha256": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+      "verdict": "MATCHES_REUSED_EXACT_APPROVED_DELTA"
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "sha256": "2b8c672f47413d475c8cc23fbbc3530c60b2e7f0f41f5bba8e52ffc5166a3ea4",
+      "verdict": "MATCHES_REUSED_EXACT_APPROVED_DELTA"
+    }
+  ],
+  "findings": {
+    "blocking_new_source_findings": [],
+    "resolved_current_claim": "Icy native hit/creator Frostbite qualification is now explicitly distinguished from Smoldering replacement-await component evidence. No native replacement-choice claim remains in the table.",
+    "historical_notes": "Historical planning/old-runtime fields are explicitly separated from current qualification. Labels-only clarifications do not supply new native evidence or change source/test behavior."
+  },
+  "counts_checked": {
+    "saved": 3363,
+    "historical_preserved_not_fresh_replayed": 3341,
+    "current_final_runtime": 22,
+    "two_player": 3074,
+    "four_live": 289,
+    "primary_identities": 522,
+    "identity_denominator": 5196,
+    "pitch_or_standalone_groups": 396,
+    "group_denominator": 3324,
+    "four_live_groups": 287,
+    "new_primary_identities": 21,
+    "new_groups": 20,
+    "current_actions": 524,
+    "current_saved_assertions": 19159,
+    "targeted_runner_passes": 46,
+    "current_matching_clean_passes_per_fixture": 2,
+    "selected_native_controls": 7,
+    "omitted_suffix_oracles": 0,
+    "full_suite_runs": 0
+  },
+  "evidence_checks": {
+    "all8targeted_report_hashes_match": true,
+    "all22current_fixture_digests_each_have2matching_final_runtime_passes": true,
+    "superseded_Gorganian_old_digest_not_counted": true,
+    "native7control_report_hash_matches": true,
+    "local_markdown_links_checked": 5,
+    "local_markdown_links_all_resolve": true,
+    "fixture_source_and_review_paths_all_exist": true,
+    "fresh_generated_outputs_match_independent_postgen_binding": true
+  },
+  "source_and_evidence_reused": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\intimidate-return-v4-independent-source-review.json",
+      "sha256": "86b91d15a70ec15787e473d44d25a64ec9821ee9a8530aff596733977a9de3ed"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\wizard-v5-caster-and-iar-independent-review.json",
+      "sha256": "2a93a61e8c2988eff793e8eba14acc5337c6b94cd7b48d5c55333c7054059077"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\postgen-20261024-independent-source-and-binding-review-v2.json",
+      "sha256": "7b6139d9cba32dd3bfabeb12497851f1e7e9da262c5e9923a3587cacdc976ac1"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\actual-repair-await-prefixes-independent-review.json",
+      "sha256": "e37589d202193af79df33ebaca335e35918401eeb1807b852ffda4cf2e527dec"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\original3341-final-preservation-20261024.json",
+      "sha256": "8799193c36bd0fe9f79d14732068796c90637518dc1bfc83ca2b14e307219eda"
+    }
+  ],
+  "targeted_reports": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-repair193-final-20261024-r1.json",
+      "sha256": "4beeea2ea0804076776e10d3fa6963809a60bc366f2a97b2f5b976474b226c9a",
+      "passed": 19
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-repair193-final-20261024-r2.json",
+      "sha256": "c2379773171c78ed105171e6c3734adf9a0fcc39216d7b75559e6bc8fafe4238",
+      "passed": 19
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-repair194-final-20261024-r1.json",
+      "sha256": "d42af80185e66150ffedfe6c3b295f702b618e3de943e7545d6189b7ed840acd",
+      "passed": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-repair194-final-20261024-r2.json",
+      "sha256": "d158d389ca2c00f31f838d2f1a65b1282cbc9dce187044b52c43899ca61aa32b",
+      "passed": 2
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-repair195-final-20261024-r1.json",
+      "sha256": "bc5e4dc26a4641f86621a69aff6277a2075f894242c4dc3e42135dad1565ac33",
+      "passed": 1
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-repair195-final-20261024-r2.json",
+      "sha256": "fee8985ef551656faaa6fefcab96e666c51496e891b38ccde9397aa0cd92c4d8",
+      "passed": 1
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-repair193-gorganian-initial-guards-20261024-r1.json",
+      "sha256": "4c4b2fb03f5446cd3f083adaf41b6dce1789e22bbe9864d7d1571dbfaa8f4afa",
+      "passed": 1
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-repair193-gorganian-initial-guards-20261024-r2.json",
+      "sha256": "d7eb30132ae85cce1ffb2f70d8a9c3a451dc077b6622c488f65477f9098b052a",
+      "passed": 1
+    }
+  ],
+  "remaining_limits": [
+    "Full3341historical corpus compatibility has not been executed after shared-source changes. Ready for focused review, not a claim of full merge readiness.",
+    "22 positive repair representatives do not certify complete cards/pitch siblings, alternate targets/costs/triggers, entire catalog, APNAP/group ordering, eliminated-controller or dynamic ownership/copy branches.",
+    "Legacy flat-only Intimidate save fallback and anonymous source-specific paths retain their documented limitations; no retroactive qualification.",
+    "Seven selected native sensitivities are not one native fault for every22case; Intimidate return is a positive follow-through, not an additional native return fault.",
+    "Five earlier serialized-prefix observations stay at ce16capture runtime, not relabeled86b; actual final replays separately qualify current fixture behavior.",
+    "Historical27mechanism grouping and18overlapping applied work groups are not a new unique-bug count. Source-only gaps/recording limits remain named.",
+    "User DFGSim changes, historical3341files and recovery artifacts remain outside selective FaB commit scope. Source/generated manual edits, stage/commit/push/deploy were not performed by reviewer."
+  ],
+  "reviewer_execution": {
+    "php": 0,
+    "native_game_or_replay": 0,
+    "engine_imports": 0,
+    "full_suite": 0,
+    "repository_writes": 0
+  },
+  "outcome": "No unresolved blocking finding within this bounded final source/document review. Parent remains responsible for final local Git status/link/lint administrative receipts and stopping."
+}

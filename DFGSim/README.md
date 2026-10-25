@@ -6,6 +6,10 @@ at runtime. This is an isolated PHP prototype in `DFGSim/`; it does not modify o
 
 ## Play
 
+The separate [Cloudbreak Stair roguelike](roguelike/) is playable at
+`/TCGEngine/DFGSim/roguelike/`: a short branching run with card rewards, armor,
+three mythological opponent types, and a dragon boss. See its [rules and implementation notes](roguelike/README.md).
+
 The main menu has two actions: Learn to play and Play against the bot. Play resumes
 an unfinished session match, or opens match setup when there is no active fight.
 Returning to the menu or refreshing preserves the current session match. The in-match
@@ -842,3 +846,14 @@ both seats, independent and overlapping reads, multi-token spends, cancellation,
 Driving Palm (ID 23) now switches to Red/Purple. Its Green destination moves to Firm Counter
 (ID 21), which now switches to Red/Green/Blue. Green still has exactly one card that can stay
 in its own hand. Stats, abilities, and burn effects are unchanged. Start a fresh match for v44.
+
+## El’s Invitation: overworld adventure
+
+The current progression direction is a persistent exploration adventure, available at
+`DFGSim/adventure/` and from the main menu. The first playable Sumerian chapter includes
+the clay-tablet invitation, keyboard/click/touch walking, NPC tasks, three lesser champions,
+the Bull of Heaven’s witnessed-challenge gate, permanent signature techniques, free deck
+editing (up to six cards per color), equipment, and sanctuary recovery without losing progress.
+Fights use this same polished simulator interface. See [adventure/README.md](adventure/README.md)
+for controls, save behavior, validation, and the explicit scope of future regions/tournament.
+The earlier roguelike and animation galleries are retained as prototypes and asset studies.

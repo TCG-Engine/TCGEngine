@@ -1,0 +1,436 @@
+{
+  "status": "PASS_FOCUSED_REPAIR_QUALIFICATION_FULL_CORPUS_NOT_RUN",
+  "generated_utc": "2026-10-24T18:24:28.977648+00:00",
+  "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+  "saved_scenarios": 3363,
+  "historical_qualified_at_original_runtime": 3341,
+  "current_repair_scenarios": 22,
+  "current_repair_scenarios_two_clean_replays": 22,
+  "current_repair_scenarios_four_live": 22,
+  "configured_player_breakdown": {
+    "two_player": 3074,
+    "four_live": 289
+  },
+  "new_exact_primary_ids": 21,
+  "new_groups": 20,
+  "counts": {
+    "primary_identities_saved_reviewed": 522,
+    "catalog_identities": 5196,
+    "printing_records": 17188,
+    "groups_saved_reviewed": 396,
+    "catalog_groups": 3324,
+    "implementation_candidate_groups": 3002,
+    "four_live_groups_saved_reviewed": 287,
+    "current_four_live_groups": 22
+  },
+  "targeted_replays": {
+    "total_passes": 46,
+    "initial_repair_batch_passes": 44,
+    "modified_gorganian_only_passes": 2,
+    "qualification": "Two current passing reports match each of22 current fixture hashes; the superseded Gorganian digest in the original two reports receives no current-fixture credit.",
+    "reports": [
+      {
+        "path": "card-regression-replay-repair193-final-20261024-r1.json",
+        "sha256": "4beeea2ea0804076776e10d3fa6963809a60bc366f2a97b2f5b976474b226c9a",
+        "passed": 19
+      },
+      {
+        "path": "card-regression-replay-repair193-final-20261024-r2.json",
+        "sha256": "c2379773171c78ed105171e6c3734adf9a0fcc39216d7b75559e6bc8fafe4238",
+        "passed": 19
+      },
+      {
+        "path": "card-regression-replay-repair194-final-20261024-r1.json",
+        "sha256": "d42af80185e66150ffedfe6c3b295f702b618e3de943e7545d6189b7ed840acd",
+        "passed": 2
+      },
+      {
+        "path": "card-regression-replay-repair194-final-20261024-r2.json",
+        "sha256": "d158d389ca2c00f31f838d2f1a65b1282cbc9dce187044b52c43899ca61aa32b",
+        "passed": 2
+      },
+      {
+        "path": "card-regression-replay-repair195-final-20261024-r1.json",
+        "sha256": "bc5e4dc26a4641f86621a69aff6277a2075f894242c4dc3e42135dad1565ac33",
+        "passed": 1
+      },
+      {
+        "path": "card-regression-replay-repair195-final-20261024-r2.json",
+        "sha256": "fee8985ef551656faaa6fefcab96e666c51496e891b38ccde9397aa0cd92c4d8",
+        "passed": 1
+      },
+      {
+        "path": "card-regression-replay-repair193-gorganian-initial-guards-20261024-r1.json",
+        "sha256": "4c4b2fb03f5446cd3f083adaf41b6dce1789e22bbe9864d7d1571dbfaa8f4afa",
+        "passed": 1
+      },
+      {
+        "path": "card-regression-replay-repair193-gorganian-initial-guards-20261024-r2.json",
+        "sha256": "d7eb30132ae85cce1ffb2f70d8a9c3a451dc077b6622c488f65477f9098b052a",
+        "passed": 1
+      }
+    ]
+  },
+  "native_faults": {
+    "detected": 7,
+    "total": 7,
+    "retained_suffix_oracles": 3416,
+    "omitted_oracles": 0,
+    "report": "card-regression-repair-20261024-focused-fault-results.json",
+    "sha256": "1587662731417a662ae96ff45b272cd4a63603637479bf19051f553eb5b0aaf1",
+    "scope": "Nip power, Shred actual HP, Boon power, Flying power, Head physical tag, Regain window, Smash original target binding. Smash return follow-through is a positive witness, not a separate native return fault."
+  },
+  "focused_families": [
+    {
+      "command": "DevTools/FaB/ele_rules_test.php",
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "command": "DevTools/FaB/evr_rules_test.php",
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "command": "DevTools/FaB/iar_rules_test.php",
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "command": "DevTools/FaB/shortcuts_test.php",
+      "exit": 0,
+      "expected_exit": 0
+    }
+  ],
+  "component_checks": {
+    "gorganian_profiles": 36,
+    "gorganian_assertions": 541,
+    "gorganian_faults_detected": 2,
+    "intimidate_marker_contracts": 10,
+    "intimidate_marker_checks": 15,
+    "intimidate_group_contracts": 20,
+    "intimidate_group_checks": 29,
+    "keyword_contracts_reused": 32,
+    "payment_contracts_reused": 19,
+    "payment_assertions_reused": 116,
+    "reaction_profiles_reused": 30,
+    "reaction_assertions_reused": 150,
+    "qualification": "Controlled source-function doubles, not additional native scenario coverage. Reused parser/payment selected-function hashes were verified unchanged; no repeated legacy tests."
+  },
+  "persisted_await_captures": {
+    "count": 5,
+    "runtime_sha256": "ce16b84ede4326ee5394827e672baabcedf205626123458484ba75bf14c2fd02",
+    "proof": "Actual serialized live UID/chooser/packet locals verified. Earlier capture runtime retained, not retagged to final code; later source changes were Intimidate-only."
+  },
+  "generation": {
+    "status": "SUCCESS_GUARDED_MACRO_REGEN_AND_INDEPENDENT_DIFF_REVIEW",
+    "endpoint": "https://soulmastersdb.net/TCGEngine/CardEditor/API/CardCodeService.php?action=snapshot",
+    "http_status": 200,
+    "ability_rows": 6261,
+    "snapshot_sha256": "e78c540bf7ff1ab6d62a268c0f50c8a2c4a18d139a4018a129932d7b5fa4afa8",
+    "changed_units": 10,
+    "added_or_removed_units": 0,
+    "php_sha256": "ab56ba30ed55b339fce05cf0c47dedc1c2a268ca911d1fabc0927e2507913241",
+    "count_js_sha256": "9b9ca9904182614d3b50824d108d9a8c56a50b453e3ea4c64041f507af20dea8",
+    "manual_generated_edits": false
+  },
+  "fixture_preservation": {
+    "original_scenarios": 3341,
+    "original_files": 16705,
+    "all_raw5_unchanged": true,
+    "evidence_utc": "2026-10-24T17:40:21.317551+00:00",
+    "qualification": "Existing raw-five-byte preservation receipt retained. Subsequent writes touched only the newly authored Gorganian fixture, coverage, proofs, docs and component tools."
+  },
+  "final_source_sha256": {
+    "FaBSim/Custom/ARCCards.php": "b8f3c0d36e78794d24a61365aed387e6ec171c5eb2a4785b84f028475fac9b4b",
+    "FaBSim/Custom/GameLogic.php": "524d6ee4e6d8e157dba34b2260304d0b3df9cfa1613a7836c554045dc8ec1a0e",
+    "FaBSim/Custom/ROSCards.php": "0a09955352b07186f1d2cfcebd2f558d4fc4fb2f7ca83620fb30378e4a5b4481",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "FaBSim/Custom/WTRCards.php": "2b8c672f47413d475c8cc23fbbc3530c60b2e7f0f41f5bba8e52ffc5166a3ea4"
+  },
+  "fixtures": [
+    {
+      "slug": "card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+      "primary_card_ids": [
+        "gorganian_tome"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "68beb93854cd29cfc94c4fd990e31ed089d034a5b08e5666ed088d9e5f23ce72",
+      "actions": 5,
+      "assertions": 110,
+      "review_evidence": "review-evidence/gorganian-initial-guards-20261024-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+      "primary_card_ids": [
+        "nip_at_the_heels_blue"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "be9f55ba6446ec324ca64c1dcfb0bd6a26b396986508add9b26bbf4caf9ea349",
+      "actions": 33,
+      "assertions": 342,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+      "primary_card_ids": [
+        "shred_red"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "6e43fe4cc82dd463759416237d91034190e899040a46eebd623d61eeaf398a49",
+      "actions": 34,
+      "assertions": 354,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-talisman-of-warfare-yellow-four-live-repair-trigger-priority-and-public-arsenals",
+      "primary_card_ids": [
+        "talisman_of_warfare_yellow"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "8a31a581222124d192cd5127927b019f50a5a8daaa588d47918edb85483eec4d",
+      "actions": 31,
+      "assertions": 852,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+      "primary_card_ids": [
+        "abyssal_bite_blue"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "960b57bcf6fe8c565184df91ba8ff3c346ba616dae9c03553ab176d1ca2d9c0c",
+      "actions": 33,
+      "assertions": 1269,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-blasmophets-boon-blue-four-live-repair-controlled-blasmophet-base-six-real-damage",
+      "primary_card_ids": [
+        "blasmophets_boon_blue"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "9eed20f12e4dcb3e0838ae03f6d8e51dd83b85c8b7f00df76c50c4600b5379e7",
+      "actions": 28,
+      "assertions": 610,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-flying-high-blue-four-live-bugfix-actual-blue-next-attack-receives-matching-color-plus-one-and-go-again",
+      "primary_card_ids": [
+        "flying_high_blue"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "cc36dc1748ceeb1720850223556db36be75f56541817e9f11e97e86b096abf7b",
+      "actions": 32,
+      "assertions": 624,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-head-shot-red-four-live-sparse-actual-face-up-load-queues-four-live-trigger-then-real-arrow-power-six",
+      "primary_card_ids": [
+        "head_shot_red"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "68b6f0665c9ebe3a1c7d27e05950e191547d0e2271fe292129f568c001ec0425",
+      "actions": 38,
+      "assertions": 1897,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-icy-encounter-red-four-live-repair-hit-trigger-creates-creator-owned-opposing-frostbite",
+      "primary_card_ids": [
+        "icy_encounter_red"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "bd37440df5da708e31790207979b3bd548c5cd688ac5c2b9b37d0d9ce4816b23",
+      "actions": 32,
+      "assertions": 596,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+      "primary_card_ids": [
+        "tome_of_harvests_blue"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "0874d6fd8f2aff02c2898f5a8fd6169328e7d3cf4c978c3713f38d339cb2a08b",
+      "actions": 7,
+      "assertions": 1040,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+      "primary_card_ids": [
+        "rouse_the_ancients_blue"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "dcc9687493360ea91c318f5f53a905886b2a477c559ce47c81cbbe31af25440a",
+      "actions": 29,
+      "assertions": 690,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-chorus-of-rotwood-red-four-live-repair-empty-graveyard-source-stays-stack-three-runechants",
+      "primary_card_ids": [
+        "chorus_of_rotwood_red"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "6a3fb0d965298c91b220a0a7b7bef7c7248a4bd2596769382e40464d25f088e9",
+      "actions": 6,
+      "assertions": 362,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-battle-prep-red-four-live-repair-opt-two-source-stack-until-answer-before-go-again",
+      "primary_card_ids": [
+        "battle_prep_red"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "3b767151f41aee04c61b05a707820b2c593d62b0bbc93f4f6ff1cdd9a1e7a97d",
+      "actions": 6,
+      "assertions": 420,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "repair-opal-amulet-blue-four-live-watery-trigger-then-pending-opt-two-physical-order",
+      "primary_card_ids": [
+        "opal_amulet_blue"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "c7eeedbb1f017b9700c6e3d8e08a454274a5969c0787a45309dcc3ff845855e0",
+      "actions": 10,
+      "assertions": 1450,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "repair-potion-of-deja-vu-blue-four-live-actual-own-pitch-staging-top-order-and-pending-layer",
+      "primary_card_ids": [
+        "potion_of_deja_vu_blue"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "e0349f5544e9abd76b26d6104b5c5afbe196c5200f458e05767b6acb54383bac",
+      "actions": 6,
+      "assertions": 906,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation",
+      "primary_card_ids": [
+        "runechant"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "ba388bc64005fe434b78c50df256089102a43a46b5bfd1b1e292b67eb20b94fc",
+      "actions": 34,
+      "assertions": 769,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-regain-composure-blue-four-live-repair-granted-hit-trigger-delays-hero-untap",
+      "primary_card_ids": [
+        "regain_composure_blue"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "4f16541d3e50c44b443927a8715730e91da3cf2d14781457665b821a3a9132ed",
+      "actions": 41,
+      "assertions": 1005,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "repair-bloodtorn-bodice-four-live-real-aura-declaration-action-asset-before-both-destructions",
+      "primary_card_ids": [
+        "bloodtorn_bodice"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "fedb29cfe050b68f0d3f69f21651abf286d25c59f41634a28bcdc54fea968e00",
+      "actions": 6,
+      "assertions": 791,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "repair-laden-with-lightning-four-live-real-bond-next-attack-and-responseable-embodiment-trigger",
+      "primary_card_ids": [
+        "laden_with_lightning_red"
+      ],
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "aa6dc6827ccb4f5228e23022a7f5336eb04dd6adc2a5f7073aa85f3bc48fc9ba",
+      "actions": 37,
+      "assertions": 1442,
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-rousing-aether-red-four-live-repair-earned-boots-go-again-source-stays-stack-through-barrier",
+      "primary_card_ids": [
+        "rousing_aether_red"
+      ],
+      "source_spec": "card-regression-batch194.json",
+      "fixture_sha256": "f83db5f95716d14150474d53204f61336eced58f85550e807deb139bf7ce6b87",
+      "actions": 13,
+      "assertions": 818,
+      "review_evidence": "review-evidence/repair194-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-aether-quickening-red-four-live-repair-earned-surge-and-external-go-again-once",
+      "primary_card_ids": [
+        "aether_quickening_red"
+      ],
+      "source_spec": "card-regression-batch194.json",
+      "fixture_sha256": "da458690e09086d7e2c3f305d64e535cfd782c7fd90a41569cb05f8f1e535be4",
+      "actions": 18,
+      "assertions": 1031,
+      "review_evidence": "review-evidence/repair194-20261024-qualified-saved-review.json",
+      "four_live": true
+    },
+    {
+      "slug": "card-smash-instinct-red-four-live-repair-declared-other-hero-intimidate-after-responses-end-turn-return",
+      "primary_card_ids": [
+        "smash_instinct_red"
+      ],
+      "source_spec": "card-regression-batch195.json",
+      "fixture_sha256": "0bd296365cb3f7ae2891a530fbddb7f5cf0be11d2ce20001f30255ad131ea291",
+      "actions": 45,
+      "assertions": 1781,
+      "review_evidence": "review-evidence/repair195-20261024-qualified-saved-review.json",
+      "four_live": true
+    }
+  ],
+  "external_evidence": {
+    "root": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task",
+    "backup_root": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repair-source-backups-20261024",
+    "focused_components": {
+      "path": "final-repair-focused-components-20261024.json",
+      "sha256": "d3daf46bd3762ca4c71b80821327a343c31c85de34ebdd2d5a040fa8207d8508"
+    },
+    "intimidate_components": {
+      "path": "final-intimidate-components-20261024.json",
+      "sha256": "6e9bf19fa60001ff1585d82e93f6df3243512b0dd309ad066822417dd97efb41"
+    },
+    "retention": "Large raw receipts and recoverable source/generated/superseded fixture backups stay outside the repository. Canonical fixture inputs, registered semantic proofs, replay reports, fault results, coverage and issue ledgers stay in the repository."
+  },
+  "full_suite_runs": 0,
+  "full_suite_command": "& 'C:\\xampp\\php\\php.exe' DevTools/RunIntegrationTests.php --root=FaBSim",
+  "broad_validation": "UNRUN_BY_USER_REQUEST; no full restart baseline, between-batch or final corpus run; not fully merge-qualified.",
+  "git_head_at_restart": "897ba7d9732fb0a3cf0301ca250cd955b74ff101",
+  "staged_by_agent": false,
+  "committed_by_agent": false
+}

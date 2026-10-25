@@ -19,4 +19,12 @@ Observed contracts:32 keyword cases;36 Gorganian profiles/541 assertions;30 reac
 
 Optional in-memory faults append `missing-addend` or `foreign-owner-excluded` to the Gorganian command, or `ignore-bound-link` or `lose-snag-tag` to the reaction command. Each must fail at the named intended assertion; source files are never mutated. The retained component copies differ from executed scratch copies only in portable default repository paths/comment text. Explicit repository arguments retain the executed behavior.
 
-See ../REPAIR_HANDOFF_20261022.md for the HTTP521 generation blocker, known failing ELE check and missing native qualification. Do not record incorrect behavior as passing or run the full suite automatically.
+Intimidate checks retained after qualification:10 marker contracts/15 checks and20 beginning-end-phase group contracts/29 checks. The copies differ from executed scratch scripts only in their portable default repository path; explicit-argument execution is unchanged. Lint passed after retention.
+
+```powershell
+$rosSHA = (Get-FileHash FaBSim/Custom/ROSCards.php -Algorithm SHA256).Hash.ToLowerInvariant()
+php DevTools/FaB/CardRegression/components/intimidate_marker_component.php $repo $gameSHA
+php DevTools/FaB/CardRegression/components/intimidate_return_component.php $repo $gameSHA $rosSHA
+```
+
+See [current repair handoff](../REPAIR_HANDOFF_20261024.md). Generation and focused qualification passed; broad compatibility remains unrun by request. Older22October failure receipts are historical.

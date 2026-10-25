@@ -1,0 +1,563 @@
+{
+  "status": "complete",
+  "estimatedTotalCredits": 594,
+  "jobs": [
+    {
+      "id": "imdugud-idle",
+      "enemy": "imdugud",
+      "kind": "idle",
+      "reference": "DFGSim/roguelike/assets/sumerian/imdugud-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/imdugud-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/imdugud-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/imdugud-idle.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 0
+      },
+      "prompt": "DFG Imdugud the Lion-Headed Eagle idle. A seamless five-second fighting-game idle breathing loop. Preserve the exact supplied ready stance. One quiet natural breath with very small ribcage expansion, tiny knee compression and body bob of about one percent of body height. Supporting feet remain planted; preserve a raised foot if present. Head and shoulders move with the torso. Forearms and fists remain fixed relative to the torso throughout, with no independent arm action. Tails, wings, shell and horns retain their shapes. Return precisely to the identical supplied last-frame pose. No flexing, punching, stepping, turning, changing guard or cloth flapping. Preserve the exact supplied golden lion head, ochre mane, slate-blue folded feathered wing arms, cream waist wrap, ochre belt, strong eagle legs and talons, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "imdugud-light",
+      "enemy": "imdugud",
+      "kind": "light",
+      "reference": "DFGSim/roguelike/assets/sumerian/imdugud-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/imdugud-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/imdugud-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/imdugud-light.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          7,
+          8
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve reaction duration. Original MP4 retained."
+      },
+      "prompt": "DFG Imdugud the Lion-Headed Eagle light. A single three-second fighting-game light-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE light unseen impact: a small sharp head-and-shoulder flinch backwards, slight torso recoil and softened knees. Keep the guard close. Small recoil only. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied golden lion head, ochre mane, slate-blue folded feathered wing arms, cream waist wrap, ochre belt, strong eagle legs and talons, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "imdugud-medium",
+      "enemy": "imdugud",
+      "kind": "medium",
+      "reference": "DFGSim/roguelike/assets/sumerian/imdugud-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/imdugud-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/imdugud-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/imdugud-medium.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          5,
+          6,
+          7
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve reaction duration. Original MP4 retained."
+      },
+      "prompt": "DFG Imdugud the Lion-Headed Eagle medium. A single three-second fighting-game medium-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE solid unseen impact: a clear backward torso recoil, shoulders jerk back and knees compress. Recover balance and raise the original guard. Stronger than a small flinch, no falling. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied golden lion head, ochre mane, slate-blue folded feathered wing arms, cream waist wrap, ochre belt, strong eagle legs and talons, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "imdugud-heavy",
+      "enemy": "imdugud",
+      "kind": "heavy",
+      "reference": "DFGSim/roguelike/assets/sumerian/imdugud-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/imdugud-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/imdugud-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/imdugud-heavy.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve reaction duration. Original MP4 retained."
+      },
+      "prompt": "DFG Imdugud the Lion-Headed Eagle heavy. A single three-second fighting-game heavy-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE powerful unseen impact: a large backward torso recoil and deep knee compression. Head and shoulders snap back, guard briefly opens as balance is nearly lost. Remain standing within the original footprint, visibly gather balance and recover the original guard. No knockdown. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied golden lion head, ochre mane, slate-blue folded feathered wing arms, cream waist wrap, ochre belt, strong eagle legs and talons, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "imdugud-block",
+      "enemy": "imdugud",
+      "kind": "block",
+      "reference": "DFGSim/roguelike/assets/sumerian/imdugud-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/imdugud-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/imdugud-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/imdugud-block.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          4,
+          5,
+          6
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve duration. Original MP4 retained."
+      },
+      "prompt": "DFG Imdugud the Lion-Headed Eagle block. A single three-second fighting-game block-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to BLOCK ONE unseen incoming strike: bring the forearms into a compact high guard in front of chest and head, brace with small knee compression and a tiny impact jolt, then return to the original guard. No injury or large recoil. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied golden lion head, ochre mane, slate-blue folded feathered wing arms, cream waist wrap, ochre belt, strong eagle legs and talons, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "imdugud-knockout",
+      "enemy": "imdugud",
+      "kind": "knockout",
+      "reference": "DFGSim/roguelike/assets/sumerian/imdugud-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/imdugud-black.png",
+      "lastFrame": null,
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/imdugud-knockout.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          10,
+          11,
+          12,
+          13
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve duration. Original MP4 retained."
+      },
+      "prompt": "DFG Imdugud the Lion-Headed Eagle knockout. A single five-second fighting-game knockout. Start in the supplied left-facing guard. In the first two seconds one unseen final blow from screen-left makes the creature recoil toward screen-right, lose balance, knees buckle and collapse naturally onto its back or side on the invisible ground. Settle into a clearly defeated lying-down pose by the third second and remain motionless for the rest of the clip. DO NOT stand up or return to guard. One fall only, no rolling out of frame, repeated impacts, blood, wounds or gore. Leave room for the final horizontal body and any tail, shell or wings. Final pose stays down permanently. Preserve the exact supplied golden lion head, ochre mane, slate-blue folded feathered wing arms, cream waist wrap, ochre belt, strong eagle legs and talons, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "huwawa-idle",
+      "enemy": "huwawa",
+      "kind": "idle",
+      "reference": "DFGSim/roguelike/assets/sumerian/huwawa-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/huwawa-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/huwawa-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/huwawa-idle.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 0
+      },
+      "prompt": "DFG Huwawa the Cedar Guardian idle. A seamless five-second fighting-game idle breathing loop. Preserve the exact supplied ready stance. One quiet natural breath with very small ribcage expansion, tiny knee compression and body bob of about one percent of body height. Supporting feet remain planted; preserve a raised foot if present. Head and shoulders move with the torso. Forearms and fists remain fixed relative to the torso throughout, with no independent arm action. Tails, wings, shell and horns retain their shapes. Return precisely to the identical supplied last-frame pose. No flexing, punching, stepping, turning, changing guard or cloth flapping. Preserve the exact supplied terracotta ridged face, broad nose, square teeth, stepped green hair, blocky dark beard, forest-green wrap tunic, ochre belt, dark trousers and wrapped feet, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "huwawa-light",
+      "enemy": "huwawa",
+      "kind": "light",
+      "reference": "DFGSim/roguelike/assets/sumerian/huwawa-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/huwawa-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/huwawa-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/huwawa-light.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          4,
+          5
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve reaction duration. Original MP4 retained."
+      },
+      "prompt": "DFG Huwawa the Cedar Guardian light. A single three-second fighting-game light-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE light unseen impact: a small sharp head-and-shoulder flinch backwards, slight torso recoil and softened knees. Keep the guard close. Small recoil only. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied terracotta ridged face, broad nose, square teeth, stepped green hair, blocky dark beard, forest-green wrap tunic, ochre belt, dark trousers and wrapped feet, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "huwawa-medium",
+      "enemy": "huwawa",
+      "kind": "medium",
+      "reference": "DFGSim/roguelike/assets/sumerian/huwawa-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/huwawa-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/huwawa-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/huwawa-medium.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          3,
+          4,
+          5
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve reaction duration. Original MP4 retained."
+      },
+      "prompt": "DFG Huwawa the Cedar Guardian medium. A single three-second fighting-game medium-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE solid unseen impact: a clear backward torso recoil, shoulders jerk back and knees compress. Recover balance and raise the original guard. Stronger than a small flinch, no falling. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied terracotta ridged face, broad nose, square teeth, stepped green hair, blocky dark beard, forest-green wrap tunic, ochre belt, dark trousers and wrapped feet, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "huwawa-heavy",
+      "enemy": "huwawa",
+      "kind": "heavy",
+      "reference": "DFGSim/roguelike/assets/sumerian/huwawa-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/huwawa-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/huwawa-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/huwawa-heavy.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve reaction duration. Original MP4 retained."
+      },
+      "prompt": "DFG Huwawa the Cedar Guardian heavy. A single three-second fighting-game heavy-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE powerful unseen impact: a large backward torso recoil and deep knee compression. Head and shoulders snap back, guard briefly opens as balance is nearly lost. Remain standing within the original footprint, visibly gather balance and recover the original guard. No knockdown. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied terracotta ridged face, broad nose, square teeth, stepped green hair, blocky dark beard, forest-green wrap tunic, ochre belt, dark trousers and wrapped feet, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "huwawa-block",
+      "enemy": "huwawa",
+      "kind": "block",
+      "reference": "DFGSim/roguelike/assets/sumerian/huwawa-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/huwawa-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/huwawa-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/huwawa-block.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve duration. Original MP4 retained."
+      },
+      "prompt": "DFG Huwawa the Cedar Guardian block. A single three-second fighting-game block-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to BLOCK ONE unseen incoming strike: bring the forearms into a compact high guard in front of chest and head, brace with small knee compression and a tiny impact jolt, then return to the original guard. No injury or large recoil. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied terracotta ridged face, broad nose, square teeth, stepped green hair, blocky dark beard, forest-green wrap tunic, ochre belt, dark trousers and wrapped feet, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "huwawa-knockout",
+      "enemy": "huwawa",
+      "kind": "knockout",
+      "reference": "DFGSim/roguelike/assets/sumerian/huwawa-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/huwawa-black.png",
+      "lastFrame": null,
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/huwawa-knockout.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          10,
+          11,
+          12,
+          13
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve duration. Original MP4 retained."
+      },
+      "prompt": "DFG Huwawa the Cedar Guardian knockout. A single five-second fighting-game knockout. Start in the supplied left-facing guard. In the first two seconds one unseen final blow from screen-left makes the creature recoil toward screen-right, lose balance, knees buckle and collapse naturally onto its back or side on the invisible ground. Settle into a clearly defeated lying-down pose by the third second and remain motionless for the rest of the clip. DO NOT stand up or return to guard. One fall only, no rolling out of frame, repeated impacts, blood, wounds or gore. Leave room for the final horizontal body and any tail, shell or wings. Final pose stays down permanently. Preserve the exact supplied terracotta ridged face, broad nose, square teeth, stepped green hair, blocky dark beard, forest-green wrap tunic, ochre belt, dark trousers and wrapped feet, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "bull-of-heaven-idle",
+      "enemy": "bull-of-heaven",
+      "kind": "idle",
+      "reference": "DFGSim/roguelike/assets/sumerian/bull-of-heaven-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/bull-of-heaven-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/bull-of-heaven-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/bull-of-heaven-idle.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 0
+      },
+      "prompt": "DFG Bull of Heaven idle. A seamless five-second fighting-game idle breathing loop. Preserve the exact supplied ready stance. One quiet natural breath with very small ribcage expansion, tiny knee compression and body bob of about one percent of body height. Supporting feet remain planted; preserve a raised foot if present. Head and shoulders move with the torso. Forearms and fists remain fixed relative to the torso throughout, with no independent arm action. Tails, wings, shell and horns retain their shapes. Return precisely to the identical supplied last-frame pose. No flexing, punching, stepping, turning, changing guard or cloth flapping. Preserve the exact supplied midnight-blue bull head and body, large curved golden horns, pale muzzle, cream stepped wrap skirt, gold star belt, short tail and cloven hooves, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "bull-of-heaven-light",
+      "enemy": "bull-of-heaven",
+      "kind": "light",
+      "reference": "DFGSim/roguelike/assets/sumerian/bull-of-heaven-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/bull-of-heaven-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/bull-of-heaven-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/bull-of-heaven-light.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve reaction duration. Original MP4 retained."
+      },
+      "prompt": "DFG Bull of Heaven light. A single three-second fighting-game light-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE light unseen impact: a small sharp head-and-shoulder flinch backwards, slight torso recoil and softened knees. Keep the guard close. Small recoil only. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied midnight-blue bull head and body, large curved golden horns, pale muzzle, cream stepped wrap skirt, gold star belt, short tail and cloven hooves, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "bull-of-heaven-medium",
+      "enemy": "bull-of-heaven",
+      "kind": "medium",
+      "reference": "DFGSim/roguelike/assets/sumerian/bull-of-heaven-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/bull-of-heaven-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/bull-of-heaven-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/bull-of-heaven-medium.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve reaction duration. Original MP4 retained."
+      },
+      "prompt": "DFG Bull of Heaven medium. A single three-second fighting-game medium-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE solid unseen impact: a clear backward torso recoil, shoulders jerk back and knees compress. Recover balance and raise the original guard. Stronger than a small flinch, no falling. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied midnight-blue bull head and body, large curved golden horns, pale muzzle, cream stepped wrap skirt, gold star belt, short tail and cloven hooves, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "bull-of-heaven-heavy",
+      "enemy": "bull-of-heaven",
+      "kind": "heavy",
+      "reference": "DFGSim/roguelike/assets/sumerian/bull-of-heaven-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/bull-of-heaven-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/bull-of-heaven-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/bull-of-heaven-heavy.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve reaction duration. Original MP4 retained."
+      },
+      "prompt": "DFG Bull of Heaven heavy. A single three-second fighting-game heavy-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to ONE powerful unseen impact: a large backward torso recoil and deep knee compression. Head and shoulders snap back, guard briefly opens as balance is nearly lost. Remain standing within the original footprint, visibly gather balance and recover the original guard. No knockdown. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied midnight-blue bull head and body, large curved golden horns, pale muzzle, cream stepped wrap skirt, gold star belt, short tail and cloven hooves, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "bull-of-heaven-block",
+      "enemy": "bull-of-heaven",
+      "kind": "block",
+      "reference": "DFGSim/roguelike/assets/sumerian/bull-of-heaven-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/bull-of-heaven-black.png",
+      "lastFrame": "DFGSim/roguelike/assets/animations/inputs/bull-of-heaven-black.png",
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 3,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 27,
+      "source": "sources/bull-of-heaven-block.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 2.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          6,
+          7
+        ],
+        "cleanupReason": "Remove generated attacker/impact streak samples; rescale cumulative times to preserve duration. Original MP4 retained."
+      },
+      "prompt": "DFG Bull of Heaven block. A single three-second fighting-game block-hit reaction. Start in the supplied left-facing guard. The unseen impact arrives from screen-left; recoil goes toward screen-right. Immediately react to BLOCK ONE unseen incoming strike: bring the forearms into a compact high guard in front of chest and head, brace with small knee compression and a tiny impact jolt, then return to the original guard. No injury or large recoil. One brief reaction and recovery, no repeated hits or idle flexing. Return exactly to the identical supplied last-frame guard. No counterattack, punching, stepping, turning or falling. Preserve the original supporting-foot arrangement. Preserve the exact supplied midnight-blue bull head and body, large curved golden horns, pale muzzle, cream stepped wrap skirt, gold star belt, short tail and cloven hooves, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    },
+    {
+      "id": "bull-of-heaven-knockout",
+      "enemy": "bull-of-heaven",
+      "kind": "knockout",
+      "reference": "DFGSim/roguelike/assets/sumerian/bull-of-heaven-v1.png",
+      "firstFrame": "DFGSim/roguelike/assets/animations/inputs/bull-of-heaven-black.png",
+      "lastFrame": null,
+      "settings": {
+        "model": "Kling 4.0",
+        "mode": "Keyframes",
+        "resolution": "720p",
+        "seconds": 5,
+        "ratio": "adaptive",
+        "outputs": 1
+      },
+      "estimatedCredits": 45,
+      "source": "sources/bull-of-heaven-knockout.mp4",
+      "conversion": {
+        "height": 480,
+        "fps": 12,
+        "speed": 1.5,
+        "loopCount": 1,
+        "omitSampledFrames": [
+          4,
+          5
+        ],
+        "cleanupReason": "Remove brief generated impact streaks; rescale cumulative times to preserve duration. Original MP4 retained."
+      },
+      "prompt": "DFG Bull of Heaven knockout. A single five-second fighting-game knockout. Start in the supplied left-facing guard. In the first two seconds one unseen final blow from screen-left makes the creature recoil toward screen-right, lose balance, knees buckle and collapse naturally onto its back or side on the invisible ground. Settle into a clearly defeated lying-down pose by the third second and remain motionless for the rest of the clip. DO NOT stand up or return to guard. One fall only, no rolling out of frame, repeated impacts, blood, wounds or gore. Leave room for the final horizontal body and any tail, shell or wings. Final pose stays down permanently. Preserve the exact supplied midnight-blue bull head and body, large curved golden horns, pale muzzle, cream stepped wrap skirt, gold star belt, short tail and cloven hooves, anatomy, simple cartoon silhouette, thick dark outlines, flat colors, proportions, scale and left-facing direction. No added detail or realistic textures. Locked camera and unchanged framing. Keep the complete body, head, hands, feet, tail, shell, wings and horns as applicable visible with safe margin from every canvas edge. Uniform perfectly pure black background, no scenery, shadows, text, audio, attacker, particles or effects."
+    }
+  ],
+  "productionLedger": "animation-ledger.json"
+}

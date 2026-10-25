@@ -19,10 +19,10 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;'
 const card = id => catalog.get(id);
 const classColor = color => color.toLowerCase();
 const cardHand = (player, id) => player.cardHands?.[id] ?? card(id).color;
-function orbMeter(count) {
-  const extra=Math.max(0,count-6);
+function orbMeter(count, capacity = 6) {
+  const extra=Math.max(0,count-capacity);
   const wave='<path d="M0 5 Q50 4 100 5 T200 5 V100 H0 Z" fill="currentColor"/><path d="M0 5 Q50 4 100 5 T200 5" fill="none" stroke="white" stroke-opacity=".35" stroke-width=".8"/>';
-  return `<span class="orb-meter ${extra?'overfilled':''}"><span class="orb-sphere"><span class="orb-fill" data-empty="${count===0}" data-full="${count>=6}" style="height:${Math.min(100,count/6*100)}%"><span class="orb-slosh" aria-hidden="true"><span class="orb-liquid"><svg class="orb-wave orb-wave-back" viewBox="0 0 200 100" preserveAspectRatio="none">${wave}</svg><svg class="orb-wave orb-wave-front" viewBox="0 0 200 100" preserveAspectRatio="none">${wave}</svg></span></span></span><span class="orb-count">${count}</span></span>${extra?`<span class="orb-extra" aria-hidden="true">+${extra}</span>`:''}</span>`;
+  return `<span class="orb-meter ${extra?'overfilled':''}"><span class="orb-sphere"><span class="orb-fill" data-empty="${count===0}" data-full="${count>=capacity}" style="height:${Math.min(100,count/Math.max(1,capacity)*100)}%"><span class="orb-slosh" aria-hidden="true"><span class="orb-liquid"><svg class="orb-wave orb-wave-back" viewBox="0 0 200 100" preserveAspectRatio="none">${wave}</svg><svg class="orb-wave orb-wave-front" viewBox="0 0 200 100" preserveAspectRatio="none">${wave}</svg></span></span></span><span class="orb-count">${count}</span></span>${extra?`<span class="orb-extra" aria-hidden="true">+${extra}</span>`:''}</span>`;
 }
 function sloshFighterLiquid(seat, amount) {
   if(orbMotionPreference.matches || !Number.isFinite(amount) || amount<=0) return;
@@ -102,6 +102,7 @@ function showError(message) {
   target.textContent = message; target.hidden = !message;
 }
 async function request(body = null) {
+  if(window.DFGMatchMode) return DFGMatchMode.request(body);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 12000);
   try {
@@ -173,7 +174,7 @@ function animateMeterChanges(previous,next) {
       if(track) {
         const trail=document.createElement('span');
         trail.className='health-trail';trail.setAttribute('aria-hidden','true');
-        trail.style.width=`${Math.min(100,Math.max(0,before.life)/40*100)}%`;
+        trail.style.width=`${Math.min(100,Math.max(0,before.life)/(before.maxLife??40)*100)}%`;
         track.append(trail);trail.addEventListener('animationend',()=>trail.remove(),{once:true});
       }
     }
@@ -243,9 +244,9 @@ async function act(action) {
   finally { busy = false; if(!accepted) render(); }
 }
 function fighter(seat) {
-  const p = state.players[seat];
+  const p = state.players[seat], max=p.maxLife??40;
   const advantage=`<div class="advantage-tray" aria-label="${seat===0?'Your':'Bot'} advantage tokens"><span>ADV</span>${(p.advantages??[]).length?p.advantages.map(color=>`<span class="advantage-token ${classColor(color)}" title="${esc(color)} advantage" aria-label="${esc(color)} advantage"></span>`).join(''):'<span class="muted" aria-label="No advantage">—</span>'}</div>`;
-  return `<div class="fighter ${classColor(p.color)}"><div class="fighter-head"><div class="fighter-identity"><h2>${seat===0?'YOU':'SPARRING BOT'}</h2></div><div class="fighter-vitals">${advantage}<div class="life">${p.life}<small> / 40</small></div></div></div><div class="health-track"><div class="health-fill" data-full="${p.life>=40}" data-empty="${p.life<=0}" style="width:${Math.min(40,Math.max(0,p.life))/40*100}%"><span class="health-slosh" aria-hidden="true"><svg class="health-meniscus" viewBox="0 0 18 100" preserveAspectRatio="none"><defs><linearGradient id="health-glass-${seat}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="white" stop-opacity=".22"/><stop offset=".42" stop-color="white" stop-opacity=".04"/><stop offset=".55" stop-color="black" stop-opacity="0"/><stop offset="1" stop-color="black" stop-opacity=".2"/></linearGradient></defs><rect width="18" height="100" fill="currentColor"/><rect width="18" height="100" fill="url(#health-glass-${seat})"/></svg></span></div></div>${handStatus(seat)}</div>`;
+  return `<div class="fighter ${classColor(p.color)}"><div class="fighter-head"><div class="fighter-identity"><h2>${seat===0?'YOU':esc(window.DFGMatchMode?.opponentName??'SPARRING BOT')}</h2></div><div class="fighter-vitals">${advantage}<div class="life">${p.life}<small> / ${max}</small></div></div></div><div class="health-track"><div class="health-fill" data-full="${p.life>=max}" data-empty="${p.life<=0}" style="width:${Math.min(max,Math.max(0,p.life))/max*100}%"><span class="health-slosh" aria-hidden="true"><svg class="health-meniscus" viewBox="0 0 18 100" preserveAspectRatio="none"><defs><linearGradient id="health-glass-${seat}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="white" stop-opacity=".22"/><stop offset=".42" stop-color="white" stop-opacity=".04"/><stop offset=".55" stop-color="black" stop-opacity="0"/><stop offset="1" stop-color="black" stop-opacity=".2"/></linearGradient></defs><rect width="18" height="100" fill="currentColor"/><rect width="18" height="100" fill="url(#health-glass-${seat})"/></svg></span></div></div>${handStatus(seat)}</div>`;
 }
 function reveal(seat) {
   const staged=seat===0&&state.phase==='planning'&&!state.commitments[0];
@@ -268,15 +269,15 @@ function reveal(seat) {
 function handStatus(seat) {
   const p = state.players[seat], own=seat===0;
   return `<div id="${own?'yourOrbs':'opponentOrbs'}" class="hand-orbs" aria-label="${own?'Browse your hands':'Opponent hand inventory'}">${Object.keys(styles).map(color=>{
-    const remaining = p.available.filter(id=>cardHand(p,id)===color), burned = p.discarded.filter(id=>cardHand(p,id)===color);
-    return `<button id="${own?'your-orb':'orb'}-${color}" class="hand-orb ${classColor(color)} ${color===p.color?'active-hand':''}" ${own?`data-browse="${color}" aria-pressed="${(browseColor??p.color)===color}" aria-controls="cards"`:`data-opponent="${color}" aria-haspopup="dialog" aria-expanded="${opponentColor===color}"`} aria-label="${own?'Browse your':'Opponent'} ${color} hand: ${remaining.length} remaining (starting size 6), ${burned.length} burned${color===p.color?', active':''}${!remaining.length?', exhausted':''}" title="${color}: ${remaining.length} remaining · starting size 6 · ${burned.length} burned${color===p.color?' · Active':''}">${orbMeter(remaining.length)}<span class="orb-label">${color}</span></button>`;
+    const remaining = p.available.filter(id=>cardHand(p,id)===color), burned = p.discarded.filter(id=>cardHand(p,id)===color), capacity=p.deck?.filter(id=>card(id).color===color).length??6;
+    return `<button id="${own?'your-orb':'orb'}-${color}" class="hand-orb ${classColor(color)} ${color===p.color?'active-hand':''}" ${own?`data-browse="${color}" aria-pressed="${(browseColor??p.color)===color}" aria-controls="cards"`:`data-opponent="${color}" aria-haspopup="dialog" aria-expanded="${opponentColor===color}"`} aria-label="${own?'Browse your':'Opponent'} ${color} hand: ${remaining.length} remaining (starting size ${capacity}), ${burned.length} burned${color===p.color?', active':''}${!remaining.length?', exhausted':''}" title="${color}: ${remaining.length} remaining · starting size ${capacity} · ${burned.length} burned${color===p.color?' · Active':''}">${orbMeter(remaining.length,capacity)}<span class="orb-label">${color}</span></button>`;
   }).join('')}</div>`;
 }
 function renderOpponentPopup() {
   const p=state.players[1], color=opponentColor;
-  const remaining=p.available.filter(id=>cardHand(p,id)===color), burned=p.discarded.filter(id=>cardHand(p,id)===color);
+  const remaining=p.available.filter(id=>cardHand(p,id)===color), burned=p.discarded.filter(id=>cardHand(p,id)===color), capacity=p.deck?.filter(id=>card(id).color===color).length??6;
   const tile=id=>{const c=card(id);return `<button class="tile-face ${classColor(c.color)}" data-opponent-card="${id}" aria-label="Inspect ${esc(c.name)}">${DFGCardRenderer.mini(c, {badge:burned.includes(id)?"BURNED":""})}</button>`;};
-  const html=`<p class="muted">${remaining.length} remaining · starting size 6 · ${burned.length} permanently burned. Hover or focus a card for details.</p><div class="opponent-popup-cards remaining-cards">${remaining.map(tile).join('')||'<p>This hand is exhausted.</p>'}</div>${burned.length?`<h3 class="burned-label">PERMANENTLY BURNED</h3><div class="opponent-popup-cards burned-cards">${burned.map(tile).join('')}</div>`:''}<p class="muted">Face-down commitments stay hidden. Main cards return after damage; Bait and Slip can change their hand.</p>`;
+  const html=`<p class="muted">${remaining.length} remaining · starting size ${capacity} · ${burned.length} permanently burned. Hover or focus a card for details.</p><div class="opponent-popup-cards remaining-cards">${remaining.map(tile).join('')||'<p>This hand is exhausted.</p>'}</div>${burned.length?`<h3 class="burned-label">PERMANENTLY BURNED</h3><div class="opponent-popup-cards burned-cards">${burned.map(tile).join('')}</div>`:''}<p class="muted">Face-down commitments stay hidden. Main cards return after damage; Bait and Slip can change their hand.</p>`;
   $('popupContainer').innerHTML=createPopupHTML('opponentHand','',{titleHTML:`Opponent · ${esc(color)} hand`,contentHTML:html});
   const popup=$('opponentHandPopup'); popup.setAttribute('role','dialog'); popup.setAttribute('aria-label',`Opponent ${color} hand`);
   _openPopup='opponentHand';
@@ -311,7 +312,7 @@ function advantageControls() {
   const extraColors=Object.keys(styles).filter(color=>color!==state.players[0].color&&!c.switches.includes(color)&&state.players[0].available.some(id=>cardHand(state.players[0],id)===color));
   const choices=held.length?held:rule.colors;
   const payoff=rule.byCount?'Any one color: +1 attack. Any two different colors instead: +4 attack, +2 block, ignore 2 opposing block.':rule.flexible?'Red/Purple +1 attack · Green/Blue +1 block · Orange ignore 1 block · Yellow extra switch':c.ability.split('\n').filter(line=>/spend/i.test(line)).join(' ');
-  const earners=!held.length?[...catalog.values()].filter(candidate=>rule.colors.includes(candidate.advantage?.earn?.color)):[];
+  const earners=!held.length?[...catalog.values()].filter(candidate=>(!state.players[0].deck||state.players[0].deck.includes(candidate.id))&&rule.colors.includes(candidate.advantage?.earn?.color)):[];
   const selected=[...selectedAdvantages];
   return `<details id="advantagePicker" class="advantage-picker ${held.length?'':'unavailable'}" ${$('advantagePicker')?.open?'open':''}><summary>Spend advantage ${selected.length?`<span class="spend-selection">${selected.map(color=>`<i class="${classColor(color)}" title="${esc(color)}"></i>`).join('')}<span>${selected.length}/${limit}</span></span>`:`<span class="spend-count">${held.length?'Optional':'None held'}</span>`}</summary><div class="advantage-popover"><strong>${esc(c.name)} · optional spend</strong><div class="token-choices">${choices.map(color=>`<button class="advantage-token ${classColor(color)}" data-advantage="${color}" aria-pressed="${selectedAdvantages.has(color)}" ${!held.includes(color)||busy||(!selectedAdvantages.has(color)&&selectedAdvantages.size===limit)||(color==='Yellow'&&rule.flexible&&!rule.byCount&&!extraColors.length)?'disabled':''}>${selectedAdvantages.has(color)?'✓ ':''}${color}${!held.includes(color)?' · not held':''}</button>`).join('')}</div><p>${esc(payoff)}</p>${!held.length?`<p>Earn ${rule.colors.map(esc).join(' / ')} advantage through a main card’s objective.</p><details class="advantage-earning"><summary>How to earn it</summary><p>${earners.map(candidate=>`${esc(candidate.name)}: ${esc(candidate.ability.split('\n').find(line=>line.startsWith('Objective:'))?.replace('Objective: ',''))}`).join(' ')}</p></details>`:''}${rule.flexible&&!rule.byCount&&selectedAdvantages.has('Yellow')?`<label>Yellow: extra switch<select id="extraSwitch" ${busy?'disabled':''}>${extraColors.map(color=>`<option value="${color}" ${extraSwitch===color?'selected':''}>${color}</option>`).join('')}</select></label>`:''}<small>Choose before committing. Bonus and reaction burns cannot spend advantage.</small></div></details>`;
 }
@@ -488,12 +489,13 @@ function render() {
   renderTimeline(state);
   $('reveals').innerHTML=reveal(0)+reveal(1);
   const p=state.players[0];browseColor=browseColor??p.color;
-  $('cards').innerHTML=[...catalog.values()].filter(c=>cardHand(p,c.id)===browseColor).map(cardMarkup).join('');
+  $('cards').innerHTML=[...catalog.values()].filter(c=>(!p.deck||p.deck.includes(c.id))&&cardHand(p,c.id)===browseColor).map(cardMarkup).join('');
   if(opponentColor && _openPopup==='opponentHand') renderOpponentPopup();
   controls();
   restoreLiquidImpacts();
   if(window.DFGTutorial) DFGTutorial.render();
   $('log').innerHTML=state.log.slice().reverse().map(entry=>`<div class="log-entry"><small>R${entry.round}</small>${esc(entry.text)}</div>`).join('');
+  window.DFGMatchMode?.render(state);
 }
 document.addEventListener('click',event=>{
   const menu=$('matchMenu');
@@ -502,6 +504,7 @@ document.addEventListener('click',event=>{
   event.target.closest('.commit-prompt.needs-main')?.focus({preventScroll:true});
   const button=event.target.closest('button');if(!button||button.disabled)return;
   if(button.id==='showRules'){showRulesPopup();return;}
+  if(window.DFGMatchMode&&['goHome','newMatch','playAgain'].includes(button.id)){location.href=DFGMatchMode.returnUrl?.(button.id)??(button.id==='goHome'?'roguelike/?overview=1':'roguelike/');return;}
   if(button.id==='goHome'){if($('tutorialGuide'))location.href='index.php';else showScreen(false);return;}
   if(button.id==='homePlay'){
     if(state && state.phase!=='finished' && !state.needsNewMatch) showScreen(true);
@@ -580,6 +583,6 @@ request().then(data=>{
   accept(data);
   const options=Object.entries(styles).map(([color,style])=>`<option value="${color}">${color} · ${esc(style)}</option>`).join('');
   $('humanColor').innerHTML=options;$('botColor').innerHTML=options;$('humanColor').value='Red';$('botColor').value='Purple';
-  if($('tutorialGuide'))showScreen(true);
+  if($('tutorialGuide')||window.DFGMatchMode)showScreen(true);
   if(new URLSearchParams(location.search).has('play'))$('setup').showModal();
 }).catch(error=>showError(error.message));

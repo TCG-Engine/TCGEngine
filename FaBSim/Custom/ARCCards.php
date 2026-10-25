@@ -387,7 +387,7 @@ function FaBARCEndTurn(int $player): void {
     if(!FaBARCPlayed($player,true))foreach(FaBChoiceRefs($player,'Arena',['base'=>'enchanting_melody']) as $ref)FaBMoveChoice($player,$ref,'Arena','Graveyard');
 }
 function FaBARCIsArcaneCard(string $id): bool {
-    return in_array(FaBWTRBase($id),['aether_wildfire','emeritus_scolding','timekeepers_whim','scour','foreboding_bolt','rousing_aether','snapback','chain_lightning','aether_flare','aether_spindle','blazing_aether','forked_lightning','lesson_in_lava','reverberate','scalding_rain','sonic_boom','voltic_bolt','zap'],true);
+    return in_array(FaBWTRBase($id),['aether_wildfire','aether_quickening','emeritus_scolding','timekeepers_whim','scour','foreboding_bolt','rousing_aether','snapback','chain_lightning','aether_flare','aether_spindle','blazing_aether','forked_lightning','lesson_in_lava','reverberate','scalding_rain','sonic_boom','voltic_bolt','zap'],true);
 }
 
 function FaBARCPreventDamage(int $player,int $amount,string $type): int {

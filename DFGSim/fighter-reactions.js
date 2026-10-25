@@ -5,6 +5,7 @@ window.DFGFighterReactions = (() => {
   const assets = JSON.parse(document.getElementById('fighterReactionAssets').textContent);
   const playing = [null, null];
   const defeated = [false, false];
+  const configured = [null, null];
   let serial = 0;
   const kind = damage => damage === 0 ? 'block' : damage <= 2 ? 'light' : damage <= 4 ? 'medium' : 'heavy';
   function stop(seat) {
@@ -36,6 +37,7 @@ window.DFGFighterReactions = (() => {
   }
   function start(seat, type, animate = true) {
     stop(seat);
+    if(window.DFGMatchMode?.playReaction(seat,type,animate)) return;
     const knockout = type === 'knockout';
     if (preference.matches && !knockout) return;
     const color = seat === 0 ? 'blue' : 'red';
@@ -95,5 +97,15 @@ window.DFGFighterReactions = (() => {
       else stop(seat);
     }
   });
-  return { play, reset, kind, syncOutcome };
+  // Variants can use the same playback lifecycle with their own per-seat assets.
+  function configureSeat(seat, clips) {
+    if (![0,1].includes(seat)) throw new Error('Invalid animation seat');
+    const signature=JSON.stringify(clips);
+    if(configured[seat]===signature)return;
+    stop(seat);defeated[seat]=false;configured[seat]=signature;
+    assets[seat===0?'blue':'red']=clips;
+    document.getElementById('fighterReactionAssets').textContent=JSON.stringify(assets);
+    window.DFGAssetPreloader?.warmScene();
+  }
+  return { play, reset, kind, syncOutcome, configureSeat };
 })();

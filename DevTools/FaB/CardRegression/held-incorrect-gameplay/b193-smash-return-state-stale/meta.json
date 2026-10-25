@@ -1,0 +1,7 @@
+{
+    "name": "Smash Instinct / separate P2 intimidate target waits for four responses while attacking P4",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-24T18:45:44+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four live Rhinar20/Dorinthea20x3. Real primarySmash5 cost3 attack targets adjacentP4 before actual blue6 pitch3 pays3 ->R0/AP0; four responses move attack5 onto chain. Actual attack declaration asks Intimidate target, choose separate adjacentP2 with sole physical redWounding7 Hand. Captured triggerUID8 sourceSmash5/eventwtrAttackIntimidate/victim2 does not move card yet. Through three further real responses same7 staysP2Hand andBanish0. Fourth resolves exactly same7 toP2Banish Owner2Controller2FaceDown1ReturnAtEndTurn1Playable0, stateintimidated[7], and attack target stillP4. Finish every four-live combat response cycle; unblocked7 ->P4HP13, noGA/AP0R0. Physical own source5GYFaceDown0, blue6Pitch, victim7 stillP2Banish. No initial effects/history/passive seats, no Rhinar discard and no endphase return. One Smash representative for shared Smash/Pack attack Intimidate defect only; Pack/Alpha not separately covered. Sources: https://judge.fabtcg.com/cards/detail/139/ https://judge.fabtcg.com/cards/detail/136/ https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

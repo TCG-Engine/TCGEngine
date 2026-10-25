@@ -3373,12 +3373,16 @@
       "review_basis": "all4 semantic specs independently reviewed after removing unsupported weaponFaceDown fields; knownBLIND and legalCloaked controls, explicitNO_ABILITIES case is abstractcompatibility only"
     },
     "rule-activation-guard-skybody-hidden-activation-positive": {
-      "reviewer": "/root/pilot_review",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
       "reviewed_utc": "2026-10-19T22:06:35.418759+00:00",
       "source_spec": "card-regression-batch14.json",
-      "fixture_sha256": "105cd25279827ea7f7ba4493ec674b48c5754b115eddbda85137d1b846ccfa69",
+      "fixture_sha256": "e22abdd66fb5f5be5e5e291ef84e2a41957ede8a7eac4023858559c78cd15cb1",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "all4 semantic specs independently reviewed after removing unsupported weaponFaceDown fields; knownBLIND and legalCloaked controls, explicitNO_ABILITIES case is abstractcompatibility only"
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification."
     },
     "rule-activation-guard-skybody-explicit-no-abilities-rejected": {
       "reviewer": "/root/pilot_review",
@@ -29008,15 +29012,16 @@
       "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
     },
     "card-command-and-conquer-red-hit-trigger-sigil-hand-response": {
-      "reviewer": "/root/resume_actual_audit",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
       "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
       "source_spec": "card-regression-batch64.json",
-      "fixture_sha256": "1c24592726ae072b72eaa2d60cb4f44525c69d4990790969065fd9e86143deda",
+      "fixture_sha256": "2101ab948143dd34d07b53430e7107e9bf61dd5c4967c8df594c8321a903261f",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
-      "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
-      "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
-      "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification.",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00"
     },
     "card-command-and-conquer-red-ordinary-ally-hit-does-not-trigger-or-destroy-hero-arsenal": {
       "reviewer": "/root/resume_actual_audit",
@@ -29041,26 +29046,28 @@
       "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
     },
     "card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact": {
-      "reviewer": "/root/resume_actual_audit",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
       "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
       "source_spec": "card-regression-batch74.json",
-      "fixture_sha256": "f603f514b0aee17336feb8957848678cb24786e05184467215e49b5b7fdb5c3d",
+      "fixture_sha256": "a695d836d6db9e40dc51029aa1f35fb165eeaa6c3aa72b5c3b80bb13fda59890",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
-      "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
-      "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
-      "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification.",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00"
     },
     "card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact": {
-      "reviewer": "/root/resume_actual_audit",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
       "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
       "source_spec": "card-regression-batch74.json",
-      "fixture_sha256": "7ce6b7ae51207db0b3c6ec5c772e5ec463a97f4e023f27451c48cfbd196445cc",
+      "fixture_sha256": "7402a4c8d9c573e1ac30403b4f38a7f905ba61423f1b45a33af90cc62d66e450",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
-      "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
-      "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
-      "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification.",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00"
     },
     "card-command-and-conquer-red-ordinary-arsenal-source-cannot-declare-ordinary-block": {
       "reviewer": "/root/resume_actual_audit",
@@ -29085,37 +29092,40 @@
       "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
     },
     "card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus": {
-      "reviewer": "/root/resume_actual_audit",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
       "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
       "source_spec": "card-regression-batch74.json",
-      "fixture_sha256": "60e89040188c5372a4bd8cdf0da361936232e5f58477ae76e635f0a72cd3741f",
+      "fixture_sha256": "7a7ee0272e514f8784708442e597bede353c8a3ecd6fdaaa9431dbf156991b81",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
-      "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
-      "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
-      "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification.",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00"
     },
     "card-command-and-conquer-red-ordinary-hand-floating-overfunded": {
-      "reviewer": "/root/resume_actual_audit",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
       "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
       "source_spec": "card-regression-batch74.json",
-      "fixture_sha256": "f83250958ebf0c1942c0dde9c67ce04d0450bfac431a77045634c73792e398f6",
+      "fixture_sha256": "60a1addd5da97d895fc670a074bcbf6111e355b1f1c266a83258ae14bb9f8750",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
-      "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
-      "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
-      "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification.",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00"
     },
     "card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact": {
-      "reviewer": "/root/resume_actual_audit",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
       "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
       "source_spec": "card-regression-batch74.json",
-      "fixture_sha256": "d601c4e886f541bb6ae455456813caa3497b68fe029bf2c90c037e40817171a0",
+      "fixture_sha256": "1480282460f790effdf1becbe52275f00706320d5d8761ec3dbd18ea871960dc",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
-      "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
-      "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
-      "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification.",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00"
     },
     "card-command-and-conquer-red-ordinary-hand-total-one-red-card-rejected": {
       "reviewer": "/root/resume_actual_audit",
@@ -29140,37 +29150,40 @@
       "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
     },
     "card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact": {
-      "reviewer": "/root/resume_actual_audit",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
       "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
       "source_spec": "card-regression-batch74.json",
-      "fixture_sha256": "ae786484f1c642606d8dec8194d0a78b5965979ff1782e7ad102f82ea455f1d5",
+      "fixture_sha256": "dd86ffe3b046152428ccdc1a67dd8b03495c76afeca55c7ca593a484e8669572",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
-      "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
-      "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
-      "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification.",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00"
     },
     "card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact": {
-      "reviewer": "/root/resume_actual_audit",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
       "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
       "source_spec": "card-regression-batch74.json",
-      "fixture_sha256": "22387c06a95a2f761c1b5e2aa91c18ee7511df8ea89ed83f62fe01c5c91a2946",
+      "fixture_sha256": "268f41aa04c2c36829d5b17445e47e8caaee9413859cb548a4667cb4ac496ab1",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
-      "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
-      "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
-      "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification.",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00"
     },
     "card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals": {
-      "reviewer": "/root/resume_actual_audit",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
       "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
       "source_spec": "card-regression-batch74.json",
-      "fixture_sha256": "55dbfbb60ec2a0aba5718c11a59a278037b8e500498d35406c3b0cca5bd6f319",
+      "fixture_sha256": "50a1fdafa7d3b9dec5ea3ac9610bc9caa7c2b1ba4c188c29efe19a5d347ab580",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
-      "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
-      "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
-      "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification.",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00"
     },
     "card-command-and-conquer-red-ordinary-no-permission-banish-click-rejected": {
       "reviewer": "/root/resume_actual_audit",
@@ -29217,15 +29230,16 @@
       "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
     },
     "card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal": {
-      "reviewer": "/root/resume_actual_audit",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
       "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
       "source_spec": "card-regression-batch74.json",
-      "fixture_sha256": "2f5924cd8b408dc5e4b65686cb50b947667d31f09546f782cd734f3b0e4972bb",
+      "fixture_sha256": "815a1aae5190fc3b4b9788286380e89b4240a38d95d792057495a0e6a7b0873a",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
-      "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
-      "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
-      "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification.",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00"
     },
     "card-command-and-conquer-red-ordinary-primary-defends-three-with-one-damage": {
       "reviewer": "/root/resume_actual_audit",
@@ -32088,15 +32102,16 @@
       "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
     },
     "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present": {
-      "reviewer": "/root/resume_actual_audit",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
       "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
       "source_spec": "card-regression-batch59.json",
-      "fixture_sha256": "bed06a4057ac2db1b7c3a10ebe62f5002d753fe6d85213e6f3fa7ea8dc4fa7a2",
+      "fixture_sha256": "239ccd673eb8b8e327e234da72df73709d5f5b8ba637cc6b45cc30ebd8d704c7",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
-      "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
-      "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
-      "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification.",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00"
     },
     "probe-command-and-conquer-red-mandatory-hit-trigger-empty-arsenal-still-triggers": {
       "reviewer": "/root/resume_actual_audit",
@@ -33199,15 +33214,15 @@
       "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
     },
     "card-this-rounds-on-me-blue-four-live-sparse-actual-blue-pitch-play-draws-one-owned-card-for-each-live-hero": {
-      "reviewer": "/root/b105_semantic_review",
-      "registered_utc": "2026-10-22T17:48:00.259615+00:00",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00",
       "source_spec": "card-regression-batch108.json",
-      "fixture_sha256": "89880b9ee0870e73d12ef813ba47ce797595b7f7580577cad9e85d5f211e3e8b",
+      "fixture_sha256": "fca2f47029598d248dce2c71143040b449d027aa8f68666d30ed078dfc9e2a97",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
-      "review_evidence": "review-evidence/sparse-b108-qualified-independent-review-4bc98c4074cb.json",
-      "review_evidence_sha256": "4bc98c4074cbacd858c70a44e59d2c71b9968869be18735dbbd79ba157d255d7",
-      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification."
     },
     "card-poison-the-well-blue-four-live-sparse-real-instant-then-real-sun-kiss-gain-three-becomes-lose-three": {
       "reviewer": "/root/b105_semantic_review",
@@ -33793,15 +33808,15 @@
       "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
     },
     "card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token": {
-      "reviewer": "/root/b105_semantic_review",
-      "registered_utc": "2026-10-22T18:52:11.708692+00:00",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00",
       "source_spec": "card-regression-batch122.json",
-      "fixture_sha256": "d077239e65ecaa9d3e7d48d5725b3a16efefb044f120f52bc13d44bb4b56a685",
+      "fixture_sha256": "d9ae0d72c5e703562fcd6a19c16e3388761771610bc86904d524f1db38e92e14",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
-      "review_evidence": "review-evidence/sparse-b122-qualified-independent-review-f60789c81e43.json",
-      "review_evidence_sha256": "f60789c81e4362eac44f79714ab4135dadaa0722bae41f725f17e784a2ed984c",
-      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification."
     },
     "card-leech-vitality-red-four-live-sparse-actual-next-attack-buff-and-four-seat-damage-life-trigger": {
       "reviewer": "/root/b105_semantic_review",
@@ -34816,15 +34831,15 @@
       "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
     },
     "card-talisman-of-tithes-blue-four-live-sparse-actual-four-hero-draw-first-opponent-reduced-to-zero-and-item-consumed-unordered-graveyard-membership": {
-      "reviewer": "/root/b105_semantic_review",
-      "registered_utc": "2026-10-22T20:59:19.958578+00:00",
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-25T14:45:21.653240+00:00",
       "source_spec": "card-regression-batch168-unordered-graveyard-successor.json",
-      "fixture_sha256": "f9c57e25b876670c8b888da4a68c6cefdaf530793de9d284892c391416c87b98",
+      "fixture_sha256": "15a908a1121d34685dcbd4753725e5423511d39633895319a4b23d19ca6f3a70",
       "verdict": "semantically_valid_partial_branch_coverage",
-      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
-      "review_evidence": "review-evidence/sparse-b168-unordered-qualified-independent-review-07bedadee619.json",
-      "review_evidence_sha256": "07bedadee619008c24528d4678e17df0de7d27505b74d4e0a93ca40bd21d8386",
-      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+      "review_basis": "Prior exact action/oracle semantics retained; independent full-snapshot delta review corrects stale expected visibility/timing and validates every changed field/history. No action or assertion weakened.",
+      "review_evidence": "review-evidence/failure15-20261025-approved-snapshot-delta-review.json",
+      "review_evidence_sha256": "82183606b358ae4a15377194038f97c8d2b9b54a6f4e8942e63359778bab01d5",
+      "qualification": "Same historical named branch only; exact new expected-final snapshot independently approved. Subsequent clean replay evidence is separate; no sibling or exhaustive-card certification."
     },
     "card-ragamuffins-hat-four-live-sparse-actual-exactly-one-hand-instant-draw-then-original-card-bottom-choice": {
       "reviewer": "/root/b106_semantic_review",
@@ -34990,6 +35005,248 @@
       "review_evidence": "review-evidence/sparse-b188-qualified-independent-review-348556a0452b.json",
       "review_evidence_sha256": "348556a0452b79549722bf2ee6edc75d577e2e9374d42aa042c9d536ff6077da",
       "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "be9f55ba6446ec324ca64c1dcfb0bd6a26b396986508add9b26bbf4caf9ea349",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-shred-red-four-live-sparse-actual-selected-defender-minus-four": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "6e43fe4cc82dd463759416237d91034190e899040a46eebd623d61eeaf398a49",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-talisman-of-warfare-yellow-four-live-repair-trigger-priority-and-public-arsenals": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "8a31a581222124d192cd5127927b019f50a5a8daaa588d47918edb85483eec4d",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "960b57bcf6fe8c565184df91ba8ff3c346ba616dae9c03553ab176d1ca2d9c0c",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-blasmophets-boon-blue-four-live-repair-controlled-blasmophet-base-six-real-damage": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "9eed20f12e4dcb3e0838ae03f6d8e51dd83b85c8b7f00df76c50c4600b5379e7",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-flying-high-blue-four-live-bugfix-actual-blue-next-attack-receives-matching-color-plus-one-and-go-again": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "cc36dc1748ceeb1720850223556db36be75f56541817e9f11e97e86b096abf7b",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-head-shot-red-four-live-sparse-actual-face-up-load-queues-four-live-trigger-then-real-arrow-power-six": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "68b6f0665c9ebe3a1c7d27e05950e191547d0e2271fe292129f568c001ec0425",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-icy-encounter-red-four-live-repair-hit-trigger-creates-creator-owned-opposing-frostbite": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "bd37440df5da708e31790207979b3bd548c5cd688ac5c2b9b37d0d9ce4816b23",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "0874d6fd8f2aff02c2898f5a8fd6169328e7d3cf4c978c3713f38d339cb2a08b",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "dcc9687493360ea91c318f5f53a905886b2a477c559ce47c81cbbe31af25440a",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-chorus-of-rotwood-red-four-live-repair-empty-graveyard-source-stays-stack-three-runechants": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "6a3fb0d965298c91b220a0a7b7bef7c7248a4bd2596769382e40464d25f088e9",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-battle-prep-red-four-live-repair-opt-two-source-stack-until-answer-before-go-again": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "3b767151f41aee04c61b05a707820b2c593d62b0bbc93f4f6ff1cdd9a1e7a97d",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "repair-opal-amulet-blue-four-live-watery-trigger-then-pending-opt-two-physical-order": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "c7eeedbb1f017b9700c6e3d8e08a454274a5969c0787a45309dcc3ff845855e0",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "repair-potion-of-deja-vu-blue-four-live-actual-own-pitch-staging-top-order-and-pending-layer": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "e0349f5544e9abd76b26d6104b5c5afbe196c5200f458e05767b6acb54383bac",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "ba388bc64005fe434b78c50df256089102a43a46b5bfd1b1e292b67eb20b94fc",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-regain-composure-blue-four-live-repair-granted-hit-trigger-delays-hero-untap": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "4f16541d3e50c44b443927a8715730e91da3cf2d14781457665b821a3a9132ed",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "repair-bloodtorn-bodice-four-live-real-aura-declaration-action-asset-before-both-destructions": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "fedb29cfe050b68f0d3f69f21651abf286d25c59f41634a28bcdc54fea968e00",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "repair-laden-with-lightning-four-live-real-bond-next-attack-and-responseable-embodiment-trigger": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "aa6dc6827ccb4f5228e23022a7f5336eb04dd6adc2a5f7073aa85f3bc48fc9ba",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-rousing-aether-red-four-live-repair-earned-boots-go-again-source-stays-stack-through-barrier": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.428886+00:00",
+      "source_spec": "card-regression-batch194.json",
+      "fixture_sha256": "f83db5f95716d14150474d53204f61336eced58f85550e807deb139bf7ce6b87",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair194-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "adbe7b7eec29d78007ee9c8913f4daa99945a252460a92b1a795dedc0725fada",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-aether-quickening-red-four-live-repair-earned-surge-and-external-go-again-once": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.428886+00:00",
+      "source_spec": "card-regression-batch194.json",
+      "fixture_sha256": "da458690e09086d7e2c3f305d64e535cfd782c7fd90a41569cb05f8f1e535be4",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair194-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "adbe7b7eec29d78007ee9c8913f4daa99945a252460a92b1a795dedc0725fada",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-smash-instinct-red-four-live-repair-declared-other-hero-intimidate-after-responses-end-turn-return": {
+      "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+      "registered_utc": "2026-10-24T17:41:09.669315+00:00",
+      "source_spec": "card-regression-batch195.json",
+      "fixture_sha256": "0bd296365cb3f7ae2891a530fbddb7f5cf0be11d2ce20001f30255ad131ea291",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/repair195-20261024-qualified-saved-review.json",
+      "review_evidence_sha256": "66de69093152e6a93c77209ca4cf2607da5e6fe6d32457a8ee2ada230694dbff",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+    },
+    "card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe": {
+      "reviewer": "/root/b106_semantic_review",
+      "registered_utc": "2026-10-24T18:19:04.775958+00:00",
+      "source_spec": "card-regression-batch193.json",
+      "fixture_sha256": "68beb93854cd29cfc94c4fd990e31ed089d034a5b08e5666ed088d9e5f23ce72",
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+      "review_evidence": "review-evidence/gorganian-initial-guards-20261024-saved-review.json",
+      "review_evidence_sha256": "ec63f8916e1837f05666f131bdd01f356f2261cb4c20d9f4cd1b5496e291eb5d",
+      "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
     }
   },
   "limitations": [
@@ -35058,5 +35315,365 @@
   "historical_source_review_archive": {
     "index": "archived-review-artifacts.json",
     "meaning": "archived: paths are captured historical SOURCE references retained in verified external archives. Restore them before historical source/proposal reconstruction. Current primary issue evidence and all strict qualification review proofs remain in-repo."
-  }
+  },
+  "superseded_reviewed_versions": [
+    {
+      "slug": "card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+      "reason": "Ten explicit initial-state guards added through native rerecord; previous behavior valid and independently reviewed, not an incorrect-gameplay hold.",
+      "review": {
+        "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+        "registered_utc": "2026-10-24T17:41:09.170251+00:00",
+        "source_spec": "card-regression-batch193.json",
+        "fixture_sha256": "a04ea2065f36a65c308cb6e687b4cff0984e6f4093d4d17d983fe0269aa5e339",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+        "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json",
+        "review_evidence_sha256": "e7a8a57b26d5498aca280546a63b1bc21dd9e23ece463481a2aba2e8a183bfaa",
+        "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repair-source-backups-20261024\\gorganian-initial-guard-strengthening"
+    },
+    {
+      "slug": "card-command-and-conquer-red-hit-trigger-sigil-hand-response",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/resume_actual_audit",
+        "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
+        "source_spec": "card-regression-batch64.json",
+        "fixture_sha256": "1c24592726ae072b72eaa2d60cb4f44525c69d4990790969065fd9e86143deda",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
+        "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
+        "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "raw5_sha256": {
+        "meta.json": "5013cf2e737a56ddcb89dc16adc31fdbd3c620d9940ade3e6ba991de8b4130ae",
+        "initial_gamestate.txt": "1129cf7655f720d712d25e3e495e8f7f6e54aa2b8487cccbb8e9adb44a826f52",
+        "actions.json": "092e7422b03aaa42976ef80417893fa172878213c664ae5b8cf280e3e3f19071",
+        "assertions.json": "64ce9a35ce856bb6f78d330eda183cb1b625e2c5b10e9bdca8a1ae8d9915faaf",
+        "expected_final_gamestate.txt": "1080660a82dbac3ac8d5d9b260edbcc90fd1c22c8ead376a32b720d82af15edf"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-hit-trigger-sigil-hand-response\\original-raw5"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-floating-overfunded",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/resume_actual_audit",
+        "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
+        "source_spec": "card-regression-batch74.json",
+        "fixture_sha256": "f83250958ebf0c1942c0dde9c67ce04d0450bfac431a77045634c73792e398f6",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
+        "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
+        "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "raw5_sha256": {
+        "meta.json": "89b58d6e50ffb3059f3909c0bca440b4d10b78bab545bd772b4e95b72a8cc10b",
+        "initial_gamestate.txt": "a53cda1e1751d669bba1708b67d231d1452950e87fdf291f436e7bd2d59842a0",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "346674d423ce9cff5164ec17fb15f01f105c69363a4e28ca8766b60f0072f023",
+        "expected_final_gamestate.txt": "dcae512600930a0564e486c069bc37613478190427d33cad0a2cd54c5eff0709"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-hand-floating-overfunded\\original-raw5"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/resume_actual_audit",
+        "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
+        "source_spec": "card-regression-batch74.json",
+        "fixture_sha256": "22387c06a95a2f761c1b5e2aa91c18ee7511df8ea89ed83f62fe01c5c91a2946",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
+        "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
+        "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "raw5_sha256": {
+        "meta.json": "b5c120f94dd1f728af00f2dc8224158ff35c9c447164db66b8237a53cb75b4f0",
+        "initial_gamestate.txt": "7fc11e230ad69bb207adbb99b23c420628ec5995adeda83868b76d882f0f8ec3",
+        "actions.json": "7d376041284d5a129aa1cb3607b7480d36e1c7d97aab738eb6882a071d87e771",
+        "assertions.json": "4c564c80a9fea77549e370d82dd71239388a369d75937708ddda5890b3f52517",
+        "expected_final_gamestate.txt": "e86957d8acce38ad7b100153d64bcf551453891792b922d8c96eac149126b8bf"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact\\original-raw5"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/resume_actual_audit",
+        "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
+        "source_spec": "card-regression-batch74.json",
+        "fixture_sha256": "60e89040188c5372a4bd8cdf0da361936232e5f58477ae76e635f0a72cd3741f",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
+        "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
+        "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "raw5_sha256": {
+        "meta.json": "09f0eb4df3c8f37ab4759a3d526a9689c7de020f4aaa2db3db83f18d14ffb80c",
+        "initial_gamestate.txt": "836f9fa354bc5d259debd982c221ab9e57f0a99343862daa66dce3464220b6ea",
+        "actions.json": "7d376041284d5a129aa1cb3607b7480d36e1c7d97aab738eb6882a071d87e771",
+        "assertions.json": "732b243fc9b522c1d3d7df0e0b58f98bc5381ca34d517e4f6b922e1bca1c422e",
+        "expected_final_gamestate.txt": "edd3408ad274e15f8bf367e561554c2f090d9c16c63a08654c37fd96d6c77267"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus\\original-raw5"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/resume_actual_audit",
+        "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
+        "source_spec": "card-regression-batch74.json",
+        "fixture_sha256": "ae786484f1c642606d8dec8194d0a78b5965979ff1782e7ad102f82ea455f1d5",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
+        "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
+        "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "raw5_sha256": {
+        "meta.json": "ea5f7b9883ef25282a6d2d235343ce5b03cdb2416552d5deaebe250a590e7f4e",
+        "initial_gamestate.txt": "03816e6a1914da6027e35b7d2c08b32790d768f614d0e9a6da5d69d5425a3e35",
+        "actions.json": "7221d7e3176699873cc4833c0e98ce732e0830116afa2860cdc91392dbd04e2f",
+        "assertions.json": "18f04db6c1fb0fbbd314d10d02ac7e295fc7c0ea8830c10ed8187f6e0359fea3",
+        "expected_final_gamestate.txt": "004ad4fbe434a401e88a4e16450bbb2f941c6016983fd95f30181777ef248ca9"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact\\original-raw5"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/resume_actual_audit",
+        "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
+        "source_spec": "card-regression-batch74.json",
+        "fixture_sha256": "d601c4e886f541bb6ae455456813caa3497b68fe029bf2c90c037e40817171a0",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
+        "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
+        "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "raw5_sha256": {
+        "meta.json": "6874589be2c719c2e534fb1c493092cead77e65f6c86aaec9f82b36b1098194e",
+        "initial_gamestate.txt": "e2a3ac8e9af4fddf8b9fa41c0f546c19a3c4035d2eadd82d56376197c2ed1abd",
+        "actions.json": "7d376041284d5a129aa1cb3607b7480d36e1c7d97aab738eb6882a071d87e771",
+        "assertions.json": "bd32302ad9b17796fe35e6f29264fd47ce361bfb0fb040821eff28c26a74ef7e",
+        "expected_final_gamestate.txt": "dec8a4e13dcef14322a4168a7aa11fa04ed62a1b5eb70c7d298503839590f413"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact\\original-raw5"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/resume_actual_audit",
+        "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
+        "source_spec": "card-regression-batch74.json",
+        "fixture_sha256": "f603f514b0aee17336feb8957848678cb24786e05184467215e49b5b7fdb5c3d",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
+        "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
+        "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "raw5_sha256": {
+        "meta.json": "2e32e82e090ad9b7876e405b71beb0d42a4d6659cbeaef88bfcc88bfe267b095",
+        "initial_gamestate.txt": "668b38dae0253a54659832fd7885dc87d9aaae637c31149ee68fd9e654d66548",
+        "actions.json": "f95659702c1190e53110db668672e86350812e597610561a57ff808e4228b168",
+        "assertions.json": "a3518e5d922e3359f078e252fe8c13df4e54e44ce8eba42c12ce0f51f989468f",
+        "expected_final_gamestate.txt": "c6d4e5d72be7d0fc8cc36836f78fd4495472f9295457bd33c4779fe350c2780e"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact\\original-raw5"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/resume_actual_audit",
+        "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
+        "source_spec": "card-regression-batch74.json",
+        "fixture_sha256": "7ce6b7ae51207db0b3c6ec5c772e5ec463a97f4e023f27451c48cfbd196445cc",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
+        "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
+        "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "raw5_sha256": {
+        "meta.json": "c0936e4090d53e33fd0bd850c54359fbf648cc52a07ac66dca643eafa378508b",
+        "initial_gamestate.txt": "48b35beffd44c8f88e01912acd77739077e16601c2b6ef8a479dc84ece3d7f27",
+        "actions.json": "f95659702c1190e53110db668672e86350812e597610561a57ff808e4228b168",
+        "assertions.json": "a3518e5d922e3359f078e252fe8c13df4e54e44ce8eba42c12ce0f51f989468f",
+        "expected_final_gamestate.txt": "ef01c1a45adb1bcb469d9bc1688578882efb17839ba085965d34eb55f1cdd49b"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact\\original-raw5"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/resume_actual_audit",
+        "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
+        "source_spec": "card-regression-batch74.json",
+        "fixture_sha256": "2f5924cd8b408dc5e4b65686cb50b947667d31f09546f782cd734f3b0e4972bb",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
+        "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
+        "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "raw5_sha256": {
+        "meta.json": "a569adef2265cc88af7bb1c1d0446a45deefd55d5d5b4e37a1fce82d1b334067",
+        "initial_gamestate.txt": "df324fd135ee4e08abb68109de8bf5962d9a766267b787cf8d4c314d240d21bb",
+        "actions.json": "b1863b2004e8da99cfc687184fb6902d0df934d66840362f2a15f5e794d10ae4",
+        "assertions.json": "8f04c000ee613f52b4d8a791b74b619d7499dbd8f11bce87dd82bdd1acb5de0b",
+        "expected_final_gamestate.txt": "0db304527f8b0114b9a9026cd4a2d5caf4f25766ae3a28713aa3d2c9dd1ccde1"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal\\original-raw5"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/resume_actual_audit",
+        "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
+        "source_spec": "card-regression-batch74.json",
+        "fixture_sha256": "55dbfbb60ec2a0aba5718c11a59a278037b8e500498d35406c3b0cca5bd6f319",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
+        "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
+        "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "raw5_sha256": {
+        "meta.json": "9e394961ec903ad4ef3d8650396ca062c7fab65e8c62c8660deac43237a15502",
+        "initial_gamestate.txt": "2d5a6b8582899a0b6665da48f6baa4c7a61d8c486cddaae22f7a69e81a14d0ab",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "b9469b96e16cd5764cbcd121afc9a7dde7d9dfbb06cb84a1c386594f1a336f11",
+        "expected_final_gamestate.txt": "e5de78ba1db3a37736c22bdf33a788aee3c1abf5e98a0277ce9db040f58af02e"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals\\original-raw5"
+    },
+    {
+      "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/resume_actual_audit",
+        "reviewed_utc": "2026-10-20T15:38:22.101228+00:00",
+        "source_spec": "card-regression-batch59.json",
+        "fixture_sha256": "bed06a4057ac2db1b7c3a10ebe62f5002d753fe6d85213e6f3fa7ea8dc4fa7a2",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Existing actual-saved independent bounded semantic review; exact five saved files preserved. Only the named branches and qualifications in the bound original packet are credited.",
+        "review_evidence": "review-evidence/all336-extra-saved-review-adapter-d1c6d7456e50.json",
+        "review_evidence_sha256": "d1c6d7456e5023c184c510b7ddcee0800335c0f61c80de141e9f72c5cd6277b2",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "raw5_sha256": {
+        "meta.json": "1257eab23687176445922d0bd4e2957394f8b05a6aaa12e04161f7ce84ea6657",
+        "initial_gamestate.txt": "5fb449c3126d84949347052689f5c43486e60b491879701463158d446945ad94",
+        "actions.json": "2bcedee0bb80d40da3960acb47f4e26a5feebfb9fd44631bcef566e6b4c0eff6",
+        "assertions.json": "24e76b848deb92d9931d0370790ec5af6adbbabfdcafe4d214c41b443d494d93",
+        "expected_final_gamestate.txt": "bdb9dfecadb5bab6ad4fa58d711e382204aebde0d187e39e992bc711b33377af"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\case-f4083b4081b0b5\\original-raw5"
+    },
+    {
+      "slug": "rule-activation-guard-skybody-hidden-activation-positive",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/pilot_review",
+        "reviewed_utc": "2026-10-19T22:06:35.418759+00:00",
+        "source_spec": "card-regression-batch14.json",
+        "fixture_sha256": "105cd25279827ea7f7ba4493ec674b48c5754b115eddbda85137d1b846ccfa69",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "all4 semantic specs independently reviewed after removing unsupported weaponFaceDown fields; knownBLIND and legalCloaked controls, explicitNO_ABILITIES case is abstractcompatibility only"
+      },
+      "raw5_sha256": {
+        "meta.json": "f011b4ebe1294031241bab180fd1b3410ddfab8b3870bc799bd969d548e14421",
+        "initial_gamestate.txt": "a034647241ad808d3cc21873d1e2aa2944a9f6b0d18c6ea86753d2bab398c436",
+        "actions.json": "61268b39e61b52c1c951a5ec66807724d9cd7cd0956f9616e658975e800c3fb6",
+        "assertions.json": "cc6766b082e70660a800a6933c8f808ad222d064130b5cb645def4419220cb6a",
+        "expected_final_gamestate.txt": "ef594d821736fa7c5873f13057f141150e5311dc40b33b5a15018edf51fdd2f3"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\case-7098da1369399f\\original-raw5"
+    },
+    {
+      "slug": "card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/b105_semantic_review",
+        "registered_utc": "2026-10-22T18:52:11.708692+00:00",
+        "source_spec": "card-regression-batch122.json",
+        "fixture_sha256": "d077239e65ecaa9d3e7d48d5725b3a16efefb044f120f52bc13d44bb4b56a685",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+        "review_evidence": "review-evidence/sparse-b122-qualified-independent-review-f60789c81e43.json",
+        "review_evidence_sha256": "f60789c81e4362eac44f79714ab4135dadaa0722bae41f725f17e784a2ed984c",
+        "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+      },
+      "raw5_sha256": {
+        "meta.json": "f54956f2f55cfe6c49182181c26ab74903aed4b458a95543623dc71e2927f7af",
+        "initial_gamestate.txt": "a7d49f985c250a804d01797ed178d53ed2daa63f5ed6a433819a9ed20eb38286",
+        "actions.json": "7cf179fdcacde46a1c7aa457b42b0d35f16587dc757f685870dc6891428fd508",
+        "assertions.json": "5d5647638aae1c802437a549d555b3a76f8a05cf853304ac3ee53687225a9d2e",
+        "expected_final_gamestate.txt": "da1e42dc2640e12c8136d8ca879fbaf9e92b29da7e827ab11ddc02cae3fd743d"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token\\original-raw5"
+    },
+    {
+      "slug": "card-talisman-of-tithes-blue-four-live-sparse-actual-four-hero-draw-first-opponent-reduced-to-zero-and-item-consumed-unordered-graveyard-membership",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/b105_semantic_review",
+        "registered_utc": "2026-10-22T20:59:19.958578+00:00",
+        "source_spec": "card-regression-batch168-unordered-graveyard-successor.json",
+        "fixture_sha256": "f9c57e25b876670c8b888da4a68c6cefdaf530793de9d284892c391416c87b98",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+        "review_evidence": "review-evidence/sparse-b168-unordered-qualified-independent-review-07bedadee619.json",
+        "review_evidence_sha256": "07bedadee619008c24528d4678e17df0de7d27505b74d4e0a93ca40bd21d8386",
+        "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+      },
+      "raw5_sha256": {
+        "meta.json": "a7d0ec82356523adc94f0e02afc8cb07e2e56e7510ca5536668d3ddc43c2f1f7",
+        "initial_gamestate.txt": "1cafd9864069de141fc9e0d6548af788bf011158831c11d8f2368e9ac9502ee3",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "457b2a4668057db352124c5d19a767ac20925fffe4ad217adc2948b91f5bd7aa",
+        "expected_final_gamestate.txt": "0d9bfd550adb936220987b0e6c47995f14ed0644cdce89b3d12ec8061c4e072f"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\case-3decf810760fa0\\original-raw5"
+    },
+    {
+      "slug": "card-this-rounds-on-me-blue-four-live-sparse-actual-blue-pitch-play-draws-one-owned-card-for-each-live-hero",
+      "reason": "Expected terminal snapshot corrected for independently verified public visibility or post-effect source-clear timing. All initial/actions/assertions/meta retained.",
+      "review": {
+        "reviewer": "/root/b105_semantic_review",
+        "registered_utc": "2026-10-22T17:48:00.259615+00:00",
+        "source_spec": "card-regression-batch108.json",
+        "fixture_sha256": "89880b9ee0870e73d12ef813ba47ce797595b7f7580577cad9e85d5f211e3e8b",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Independent exact saved actions, every native oracle, four-live initial/priority profile, physical UID/effect/economy model; two current clean replays and focused semantic sensitivity faults separately retained.",
+        "review_evidence": "review-evidence/sparse-b108-qualified-independent-review-4bc98c4074cb.json",
+        "review_evidence_sha256": "4bc98c4074cbacd858c70a44e59d2c71b9968869be18735dbbd79ba157d255d7",
+        "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
+      },
+      "raw5_sha256": {
+        "meta.json": "2fa749fffc744098237fe50c95775eee8c62e37ec89a44bf6042c5b36a0a78cb",
+        "initial_gamestate.txt": "3f904fef161e4fc90998a852517e66fe181641f38e542784c43951e28232544a",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "1253843e6b41f92bd3b5d914fe8f021d780e3695814222c85563386e4e0e1de2",
+        "expected_final_gamestate.txt": "314e0fe80a5aa2bc8e603b37962d3aaded3876994b72f27159b7338f3bb3daec"
+      },
+      "recoverable_external_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fab-failure-snapshot-candidates-20261025\\case-a0ae27eccf3cf9\\original-raw5"
+    }
+  ]
 }

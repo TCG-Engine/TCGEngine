@@ -35,7 +35,13 @@ try {
           .filter(entry=>entry.name.includes('/assets/cards/individual/') && entry.initiatorType==='img')
           .map(entry=>new URL(entry.name).pathname.split('/').pop()));
         assert.equal(warmed.length,36,'Each art URL warms only once');
-        assert.ok(warmed.slice(0,6).every(file=>/^00[1-6]-/.test(file)),'Red opening hand warms first');
+        // Resource entries with identical (coarsened) timestamps may appear in either order.
+        const priority=await page.evaluate(()=>{
+          const entries=performance.getEntriesByType('resource').filter(entry=>entry.name.includes('/assets/cards/individual/')&&entry.initiatorType==='img');
+          const red=entry=>/\/00[1-6]-/.test(new URL(entry.name).pathname);
+          return {lastRed:Math.max(...entries.filter(red).map(entry=>entry.startTime)),firstOther:Math.min(...entries.filter(entry=>!red(entry)).map(entry=>entry.startTime))};
+        });
+        assert.ok(priority.lastRed<=priority.firstOther,'Red opening hand warms first');
         assert.ok(warmed.includes('020-v5.webp'),'Preloader uses current art revisions');
         await page.locator('#homePlay').click();
         await page.locator('#setupForm [type=submit]').click();

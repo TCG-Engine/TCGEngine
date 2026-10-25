@@ -1,0 +1,6 @@
+{
+  "mode": "built-in image_gen",
+  "reference": "huwawa-kneeling.png",
+  "file": "huwawa-kneeling-v2.png",
+  "prompt": "Use case: precise-object-edit. Correct this supplied transparent cartoon Huwawa kneeling sprite ONLY by removing its erroneous EXTRA THIRD ARM: remove the diagonal forearm and open hand laid across the center of his chest. He must have EXACTLY TWO ARMS AND TWO HANDS total. Keep the existing screen-left arm and hand resting on the raised knee, and keep the existing screen-right arm and hand hanging down alongside the grounded knee. Remove ONLY the extra chest arm/hand and restore the plain green wrap tunic underneath with original flat fills/outlines. Preserve the exact one-knee pose, bowed head, terracotta skin, ridged face, stepped green hair, beard, gold belt, pants, feet, silhouette, identity, framing, transparent background and thick cartoon style. No other changes, no redesign, no new objects, no text. Exactly two arms and two hands."
+}

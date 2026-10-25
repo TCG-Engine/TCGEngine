@@ -1,15 +1,20 @@
 <?php
+$dfgRoguelike = isset($_GET['roguelike']);
+$dfgAdventure = isset($_GET['adventure']);
+$dfgCampaign = $dfgRoguelike || $dfgAdventure;
 $reactionManifest = __DIR__ . '/assets/fighter-reactions.json';
 $fighterReactionAssets = is_file($reactionManifest) ? json_decode(file_get_contents($reactionManifest), true) : [];
+if ($dfgCampaign) $fighterReactionAssets['red'] = [];
 ?><!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deterministic Fighting Game · Simulator</title><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-no-pips-16.png?v=1"><link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-no-pips-32.png?v=1"><link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-no-pips-64.png?v=1"><link rel="stylesheet" href="app.css?v=<?= filemtime(__DIR__ . '/app.css') ?>"><link rel="stylesheet" href="compact.css?v=<?= filemtime(__DIR__ . '/compact.css') ?>"><link rel="stylesheet" href="arena.css?v=<?= filemtime(__DIR__ . '/arena.css') ?>"><link rel="stylesheet" href="menu.css?v=<?= filemtime(__DIR__ . '/menu.css') ?>"><link rel="stylesheet" href="cards.css?v=<?= filemtime(__DIR__ . '/cards.css') ?>"></head>
-<body class="fight-screen">
+<body class="fight-screen<?= $dfgCampaign ? ' roguelike-fight' : '' ?>">
 <main class="shell">
 <div id="error" class="error" role="alert" hidden></div>
 <section id="home" class="home-screen" aria-labelledby="homeTitle">
 <img class="home-logo" src="assets/logo-no-randomness.png?v=1" width="72" height="72" alt="">
 <h1 id="homeTitle" tabindex="-1">Deterministic Fighting Game</h1>
 <nav class="home-actions" aria-label="Main menu">
+<a class="primary" href="adventure/">Explore El’s Invitation</a>
 <a class="home-learn" href="learn.php">Learn to play</a>
 <button id="homePlay" class="primary" disabled>Play against the bot</button>
 </nav>
@@ -84,5 +89,7 @@ $fighterReactionAssets = is_file($reactionManifest) ? json_decode(file_get_conte
 <script src="fighter-reactions.js?v=<?= filemtime(__DIR__ . '/fighter-reactions.js') ?>" defer></script>
 <script src="arena-background.js?v=<?= filemtime(__DIR__ . '/arena-background.js') ?>" defer></script>
 <?php if (!empty($dfgTutorial)): ?><link rel="stylesheet" href="../AzukiSim/Tutorial/tutorial.css?v=<?= filemtime(__DIR__ . '/../AzukiSim/Tutorial/tutorial.css') ?>"><link rel="stylesheet" href="learn.css?v=<?= filemtime(__DIR__ . '/learn.css') ?>"><script src="learn.js?v=<?= filemtime(__DIR__ . '/learn.js') ?>" defer></script><?php endif; ?>
+<?php if ($dfgAdventure): ?><script>window.DFGCampaignConfig={api:'adventure/api.php',root:'adventure/',title:'El’s Invitation',adventure:true};</script><?php endif; ?>
+<?php if ($dfgCampaign): ?><link rel="stylesheet" href="roguelike/fight.css?v=<?= filemtime(__DIR__ . '/roguelike/fight.css') ?>"><script src="roguelike/fight.js?v=<?= filemtime(__DIR__ . '/roguelike/fight.js') ?>" defer></script><?php endif; ?>
 <script src="app.js?v=<?= filemtime(__DIR__ . '/app.js') ?>" defer></script>
 </body></html>

@@ -1,0 +1,17 @@
+{
+  "mode": "built-in image_gen",
+  "jobs": [
+    {
+      "id": "imdugud",
+      "prompt": "Use case: background-extraction / animation input preparation. Edit the supplied imdugud DFGSim sprite. Preserve this EXACT character, its cartoon identity, thick dark outlines, colors, proportions, clothes, anatomy and LEFT-facing ready guard pose. Change only its background and canvas placement: put the full unchanged character on a uniform PERFECT PURE BLACK RGB(0,0,0) opaque background, centered in a landscape 16:9 canvas, character about 73 percent of canvas height with generous clear margins on every side. Leave enough horizontal empty space for a later sideways knockout pose. Keep both feet at one consistent baseline, whole silhouette including horns/wings/head/feet/tail visible, no cropping. No new pose, details, highlights, redesign, scenery, ground, shadow, texture, gradient, text or extra objects. One character only. This is the first-frame reference for matching Kling game animations."
+    },
+    {
+      "id": "huwawa",
+      "prompt": "Use case: background-extraction / animation input preparation. Edit the supplied huwawa DFGSim sprite. Preserve this EXACT character, its cartoon identity, thick dark outlines, colors, proportions, clothes, anatomy and LEFT-facing ready guard pose. Change only its background and canvas placement: put the full unchanged character on a uniform PERFECT PURE BLACK RGB(0,0,0) opaque background, centered in a landscape 16:9 canvas, character about 73 percent of canvas height with generous clear margins on every side. Leave enough horizontal empty space for a later sideways knockout pose. Keep both feet at one consistent baseline, whole silhouette including horns/wings/head/feet/tail visible, no cropping. No new pose, details, highlights, redesign, scenery, ground, shadow, texture, gradient, text or extra objects. One character only. This is the first-frame reference for matching Kling game animations."
+    },
+    {
+      "id": "bull-of-heaven",
+      "prompt": "Use case: background-extraction / animation input preparation. Edit the supplied bull-of-heaven DFGSim sprite. Preserve this EXACT character, its cartoon identity, thick dark outlines, colors, proportions, clothes, anatomy and LEFT-facing ready guard pose. Change only its background and canvas placement: put the full unchanged character on a uniform PERFECT PURE BLACK RGB(0,0,0) opaque background, centered in a landscape 16:9 canvas, character about 73 percent of canvas height with generous clear margins on every side. Leave enough horizontal empty space for a later sideways knockout pose. Keep both feet at one consistent baseline, whole silhouette including horns/wings/head/feet/tail visible, no cropping. No new pose, details, highlights, redesign, scenery, ground, shadow, texture, gradient, text or extra objects. One character only. This is the first-frame reference for matching Kling game animations."
+    }
+  ]
+}

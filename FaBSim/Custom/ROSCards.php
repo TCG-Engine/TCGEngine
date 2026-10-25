@@ -17,6 +17,7 @@ function FaBROSShuffle(int $p,string $refs): void {$seats=[];foreach(FaBUPRUIDs(
 function FaBROSMark(int $uid,string $key): void {FaBARCSetCard($uid,'ros'.$key,true);}
 function FaBROSQueue(int $p,string $id,int $uid=0,array $extra=[]): void {if(!FaBSeatIsLive($p))return;AddStack(CardID:$id,Controller:$p,Kind:'ABILITY',SourceUniqueID:$uid,Params:['rosTrigger'=>true]+$extra);$s=FaBGetState();if($s['pendingPayment']===null)$s['window']='PRIORITY';FaBSetState($s);}
 function FaBROSResolveTrigger(int $p,object $o): void {
+ if(($o->Params['rosEvent']??'')==='wtrIntimidateReturn'){FaBResolveIntimidateReturn($p,$o);return;}
  if($o->CardID==='embodiment_of_lightning'&&($o->Params['rosEvent']??'')==='eleEmbodimentLightning'){FaBELEResolveEmbodiment($p,$o);return;}
  if(($o->Params['rosEvent']??'')==='wtrAttackIntimidate'&&in_array(FaBWTRBase($o->CardID),['smash_instinct','pack_hunt','alpha_rampage'],true)){FaBWTRResolveAttackIntimidate($p,$o);return;}
  if(($o->Params['rosEvent']??'')==='seaRegainComposure'){FaBSEAResolveRegainComposure($p);return;}

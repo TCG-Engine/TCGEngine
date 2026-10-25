@@ -237,9 +237,10 @@ function FaBResetWindowState(): array {
     $state['passiveSeats'] = $passiveSeats;
     $state['gameMode'] = (string)($previous['gameMode'] ?? '');
     if ($state['gameMode'] === '' && !empty($passiveSeats)) $state['gameMode'] = 'GOLDFISH';
-    foreach (['mpgDurations', 'botProfiles', 'turnEffects', 'nextTurnEffects', 'hitsThisTurn', 'cardsPlayedThisTurn', 'weaponHits', 'attackActionHits', 'arcNames', 'arcaneDealt', 'arcCards', 'arcActions'] as $key) {
+    foreach (['mpgDurations', 'botProfiles', 'turnEffects', 'nextTurnEffects', 'hitsThisTurn', 'cardsPlayedThisTurn', 'intimidated', 'weaponHits', 'attackActionHits', 'arcNames', 'arcaneDealt', 'arcCards', 'arcActions'] as $key) {
         $state[$key] = is_array($previous[$key] ?? null) ? $previous[$key] : [];
     }
+    if(isset($previous['intimidateReturns'])&&is_array($previous['intimidateReturns']))$state['intimidateReturns']=$previous['intimidateReturns'];
     return $state;
 }
 
@@ -432,8 +433,8 @@ function FaBAttackHasGoAgain(array $state, object $attack): bool {
     return max(0, min(1, $base + $delta)) === 1;
 }
 
-function FaBIntimidate(int $sourcePlayer, int $targetPlayer, int $amount = 1): array {
-    $state = FaBGetState(); $banished = [];
+function FaBIntimidate(int $sourcePlayer, int $targetPlayer, int $amount = 1, int $sourceUID = 0, string $sourceCardID = ''): array {
+    $banished = [];
     for ($n = 0; $n < max(0, $amount); ++$n) {
         $choices = [];
         foreach (GetHand($targetPlayer) as $obj) if (is_object($obj) && empty($obj->removed)) $choices[] = intval($obj->UniqueID ?? 0);
@@ -442,8 +443,12 @@ function FaBIntimidate(int $sourcePlayer, int $targetPlayer, int $amount = 1): a
         $moved = FaBMoveUID($uid, 'Banish', $targetPlayer);
         if ($moved !== null) { $moved->FaceDown = 1; $moved->ReturnAtEndTurn = 1; $banished[] = $uid; }
     }
+    // Moves can update shared counters; capture fresh state after their callbacks.
+    $state = FaBGetState();
     $state['intimidated'] = array_values(array_unique(array_merge($state['intimidated'] ?? [], $banished)));
-    FaBSetState($state); FaBHVYAdd($sourcePlayer,'INTIMIDATED'); return $banished;
+    FaBSetState($state);
+    FaBRememberIntimidateReturn($sourcePlayer, $sourceUID, $sourceCardID, $banished);
+    FaBHVYAdd($sourcePlayer,'INTIMIDATED'); return $banished;
 }
 
 function FaBRandomHandUID(int $player, array $excludedUIDs = []): int {
@@ -474,16 +479,92 @@ function FaBHandCount(int $player): int {
     $count = 0; foreach (GetHand($player) as $obj) if (is_object($obj) && empty($obj->removed)) ++$count; return $count;
 }
 
-function FaBReturnIntimidatedCards(): void {
-    $state = FaBGetState();
-    foreach (($state['intimidated'] ?? []) as $uid) {
-        $found = FaBFindUID(intval($uid));
-        if ($found !== null && $found['zone'] === 'Banish' && intval($found['object']->ReturnAtEndTurn ?? 0) === 1) {
-            FaBMoveUID(intval($uid), 'Hand', intval($found['object']->Owner ?? $found['player']));
-        }
+/** A fresh Intimidate invocation owns its own delayed return (CR 8.5.10c). */
+function FaBRememberIntimidateReturn(int $controller, int $sourceUID, string $sourceCardID, array $uids): void {
+    $state=FaBGetState();
+    $group=intval($state['intimidateReturns']['next']??0)+1;
+    $state['intimidateReturns']['next']=$group;
+    $cards=[];
+    foreach(array_unique(array_map('intval',$uids)) as $uid){
+        $f=FaBFindUID($uid);if(!$f||$f['zone']!=='Banish')continue;
+        $owner=intval($f['object']->Owner??0);if($owner<1)$owner=intval($f['player']);
+        $cards[]=['uid'=>$uid,'owner'=>$owner,'holder'=>intval($f['player'])];
+        $state['arcCards'][(string)$uid]['intimidateReturnGroup']=$group;
     }
-    $state['intimidated'] = []; FaBSetState($state);
+    // Empty-source metadata is an honest legacy caller, never an invented caster/card.
+    $state['intimidateReturns']['pending'][(string)$group]=[
+        'controller'=>$controller,'sourceUID'=>$sourceUID,'cardID'=>$sourceCardID,
+        'cards'=>$cards,'queued'=>false];
+    FaBSetState($state);
 }
+
+/** Queue one independent layer per invocation at the beginning of the end phase. */
+function FaBQueueIntimidateReturns(): void {
+    $groups=(array)(FaBGetState()['intimidateReturns']['pending']??[]);
+    foreach($groups as $group=>$record){
+        if(!empty($record['queued'])||!FaBSeatIsLive(intval($record['controller']??0)))continue;
+        $state=FaBGetState();
+        if(!isset($state['intimidateReturns']['pending'][(string)$group]))continue;
+        $state['intimidateReturns']['pending'][(string)$group]['queued']=true;
+        FaBSetState($state);
+        FaBROSQueue(intval($record['controller']),(string)$record['cardID'],intval($record['sourceUID']),
+            ['rosEvent'=>'wtrIntimidateReturn','intimidateGroup'=>intval($group)]);
+    }
+}
+
+function FaBResolveIntimidateReturn(int $controller, object $trigger): void {
+    $group=intval($trigger->Params['intimidateGroup']??0);$state=FaBGetState();
+    $record=$state['intimidateReturns']['pending'][(string)$group]??null;
+    if(!is_array($record)||empty($record['queued'])||intval($record['controller'])!==$controller
+        ||intval($trigger->SourceUniqueID)!==intval($record['sourceUID'])
+        ||(string)$trigger->CardID!==(string)$record['cardID'])return;
+    // Consume before callbacks; source departure and later ability loss do not cancel it.
+    unset($state['intimidateReturns']['pending'][(string)$group]);FaBSetState($state);
+    $finished=[];
+    foreach((array)$record['cards'] as $card){
+        $uid=intval($card['uid']);
+        $entryGroup=intval(FaBARCCard($uid,'intimidateReturnGroup'));
+        if($entryGroup!==$group){if($entryGroup===0)$finished[]=$uid;continue;}
+        $f=FaBFindUID($uid);
+        if($f&&$f['zone']==='Banish'&&intval($f['object']->ReturnAtEndTurn??0)===1
+            &&intval($f['player'])===intval($card['holder'])
+            &&(intval($f['object']->Owner??0)>0?intval($f['object']->Owner):intval($f['player']))===intval($card['owner']))
+            FaBMoveUID($uid,'Hand',intval($card['owner']));
+        $state=FaBGetState();$now=intval($state['arcCards'][(string)$uid]['intimidateReturnGroup']??0);
+        if($now===$group)unset($state['arcCards'][(string)$uid]['intimidateReturnGroup']);
+        if($now===0||$now===$group)$finished[]=$uid;
+        FaBSetState($state);
+    }
+    $state=FaBGetState();
+    $state['intimidated']=array_values(array_diff((array)$state['intimidated'],$finished));
+    FaBSetState($state);
+}
+
+/** Direct helper compatibility; normal end cleanup touches only unattributed old saves. */
+function FaBReturnIntimidatedCards(bool $legacyOnly = false): void {
+    $state=FaBGetState();$protected=[];$finished=[];
+    $initialGroups=array_map('intval',array_keys((array)($state['intimidateReturns']['pending']??[])));
+    $initialTracked=[];foreach((array)($state['intimidateReturns']['pending']??[]) as $record)foreach((array)$record['cards'] as $card)$initialTracked[]=intval($card['uid']);
+    if($legacyOnly)foreach((array)($state['intimidateReturns']['pending']??[]) as $record)
+        foreach((array)$record['cards'] as $card)$protected[]=intval($card['uid']);
+    foreach((array)$state['intimidated'] as $uid){
+        $uid=intval($uid);$current=FaBGetState();$oldGroup=intval($current['arcCards'][(string)$uid]['intimidateReturnGroup']??0);
+        if($legacyOnly&&(in_array($uid,$protected,true)||($oldGroup>0&&isset($current['intimidateReturns']['pending'][(string)$oldGroup]))))continue;
+        if(!$legacyOnly&&$oldGroup>0&&!in_array($oldGroup,$initialGroups,true))continue;
+        if(!$legacyOnly&&$oldGroup===0&&in_array($uid,$initialTracked,true)){$finished[]=$uid;continue;}
+        $f=FaBFindUID($uid);
+        if($f&&$f['zone']==='Banish'&&intval($f['object']->ReturnAtEndTurn??0)===1)
+            FaBMoveUID($uid,'Hand',intval($f['object']->Owner??$f['player']));
+        $current=FaBGetState();$now=intval($current['arcCards'][(string)$uid]['intimidateReturnGroup']??0);
+        if($now===$oldGroup)unset($current['arcCards'][(string)$uid]['intimidateReturnGroup']);
+        if($now===0||$now===$oldGroup)$finished[]=$uid;
+        FaBSetState($current);
+    }
+    $state=FaBGetState();$state['intimidated']=array_values(array_diff((array)$state['intimidated'],$finished));
+    if(!$legacyOnly)foreach($initialGroups as $group)unset($state['intimidateReturns']['pending'][(string)$group]);
+    FaBSetState($state);
+}
+
 
 function ParseModifierResult($result): array {
     if (is_array($result)) {
@@ -668,7 +749,7 @@ function FaBMoveUID(int $uid, string $toZone, ?int $targetPlayer = null, bool $a
     if ($toZone === 'Graveyard' && in_array($source->CardID, ['engulfing_shadows_yellow','embraforged_gauntlet'], true)) $toZone = 'Banish';
     if($toZone==='Graveyard'&&FaBARCCard($uid,'hntTrapReplaceTurn',-1)===intval(GetTurnNumber()))$toZone='Banish';
     if(!in_array($toZone,['Stack','CombatChain'],true)&&!empty(FaBObjectCounters($source)['HNT_ORIGINAL'])){$source->CardID=FaBObjectCounters($source)['HNT_ORIGINAL'];unset($source->Counters['HNT_ORIGINAL']);}
-    if($found['zone']==='Banish'){$permissions=FaBGetState();unset($permissions['outInfiltrate'][$uid]);FaBSetState($permissions);}
+    if($found['zone']==='Banish'){$permissions=FaBGetState();unset($permissions['outInfiltrate'][$uid],$permissions['arcCards'][(string)$uid]['intimidateReturnGroup']);FaBSetState($permissions);}
     if($toZone==='Soul'&&$source->CardID==='spirit_of_eirina_yellow')$toZone='Arena';
     if((in_array($found['zone'],['Arena','Equipment'],true)||($found['zone']==='CombatChain'&&($source->Role??'')!=='ATTACK'))&&!in_array($toZone,['Arena','Equipment','CombatChain'],true))FaBDYNLeaving($found['player'],$source,$toZone);
     if($toZone==='Graveyard'&&(in_array('EVR_BOTTOM',(array)($source->TurnEffects??[]),true)||in_array('SEA_BOTTOM',(array)($source->TurnEffects??[]),true)))$toZone='Deck';
@@ -1509,7 +1590,7 @@ function DoResolveCard($player, $mzID) {
     if (FaBManagedVirtualResolutionClass($obj) !== '') return FaBResolveManagedVirtualLayer($controller, $obj, $found);
     if ($kind === 'ABILITY') {
         $obj->removed=true;
-        if(!empty($obj->Params['rosTrigger'])) { FaBROSResolveTrigger($controller,$obj);$s=FaBGetState();$s['window']=FaBStackTop()!==null?'PRIORITY':(!empty($s['combatOpen'])?($s['combatStep']==='DEFEND'?'DEFEND_PRIORITY':$s['combatStep']):'ACTION');FaBSetState($s); SetPriorityPlayer(intval(GetTurnPlayer())); SetConsecutivePasses(0); return true; }
+        if(!empty($obj->Params['rosTrigger'])) { FaBROSResolveTrigger($controller,$obj);$s=FaBGetState();$s['window']=FaBStackTop()!==null?'PRIORITY':(($obj->Params['rosEvent']??'')==='wtrIntimidateReturn'?'END_PHASE':(!empty($s['combatOpen'])?($s['combatStep']==='DEFEND'?'DEFEND_PRIORITY':$s['combatStep']):'ACTION'));FaBSetState($s); SetPriorityPlayer(intval(GetTurnPlayer())); SetConsecutivePasses(0); return true; }
         FaBWTRResolveAbility($controller,$obj);
         $state=FaBGetState();
         $state['window']=(string)($obj->Params['returnWindow']??'ACTION');
@@ -1988,7 +2069,8 @@ function FaBPassPriority(int $player, bool $automatic = false): bool {
     if ($state['window'] === 'RESOLUTION') { FaBCloseCombatChain(); return true; }
     if ($state['window'] === 'ACTION') {
         $turnPlayer = intval(GetTurnPlayer());
-        $state['window'] = 'END_PHASE'; FaBSetState($state); SetPriorityPlayer($turnPlayer); return true;
+        $state['window'] = 'END_PHASE'; FaBSetState($state); SetPriorityPlayer($turnPlayer);
+        FaBQueueIntimidateReturns(); return true;
     }
     if ($state['window'] === 'END_PHASE') { FaBEndTurn(intval(GetTurnPlayer())); return true; }
     SetPriorityPlayer(intval(GetTurnPlayer())); return true;
@@ -2259,7 +2341,8 @@ function FaBEndTurn(int $player): bool {
     if(!empty(FaBGetState()['endingTurn']))return true;
     SetCurrentPhase('END');
     FaBCloseCombatChain();
-    FaBReturnIntimidatedCards();
+    // Only flat-only pre-repair saves use the historical compatibility cleanup.
+    FaBReturnIntimidatedCards(true);
     if (function_exists('FaBWTREndTurn')) FaBWTREndTurn($player);
     FaBARCEndTurn($player);
     FaBCRUEnd($player);

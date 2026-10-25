@@ -1,0 +1,267 @@
+{
+  "command": "Existing native single-fixture runner once per fifteen independently corrected snapshots; no snapshot updates",
+  "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T14:45:46.205046+00:00",
+  "fixtures": [
+    {
+      "slug": "card-command-and-conquer-red-hit-trigger-sigil-hand-response",
+      "fixture_sha256": "2101ab948143dd34d07b53430e7107e9bf61dd5c4967c8df594c8321a903261f",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / real Sigil Hand response before hit destruction"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-floating-overfunded",
+      "fixture_sha256": "60a1addd5da97d895fc670a074bcbf6111e355b1f1c266a83258ae14bb9f8750",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / ordinary / hand-floating-overfunded"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact",
+      "fixture_sha256": "268f41aa04c2c36829d5b17445e47e8caaee9413859cb548a4667cb4ac496ab1",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / ordinary / hand-yellow-pitch-exact"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus",
+      "fixture_sha256": "7a7ee0272e514f8784708442e597bede353c8a3ecd6fdaaa9431dbf156991b81",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / ordinary / hand-blue-pitch-one-surplus"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact",
+      "fixture_sha256": "dd86ffe3b046152428ccdc1a67dd8b03495c76afeca55c7ca593a484e8669572",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / ordinary / hand-two-red-pitches-exact"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact",
+      "fixture_sha256": "1480282460f790effdf1becbe52275f00706320d5d8761ec3dbd18ea871960dc",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / ordinary / hand-one-floating-plus-red-exact"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact",
+      "fixture_sha256": "a695d836d6db9e40dc51029aa1f35fb165eeaa6c3aa72b5c3b80bb13fda59890",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / ordinary / arsenal-facedown-floating-exact"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact",
+      "fixture_sha256": "7402a4c8d9c573e1ac30403b4f38a7f905ba61423f1b45a33af90cc62d66e450",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / ordinary / arsenal-faceup-floating-exact"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal",
+      "fixture_sha256": "815a1aae5190fc3b4b9788286380e89b4240a38d95d792057495a0e6a7b0873a",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / ordinary / partial-three-damage-still-destroys-arsenal"
+    },
+    {
+      "slug": "card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals",
+      "fixture_sha256": "50a1fdafa7d3b9dec5ea3ac9610bc9caa7c2b1ba4c188c29efe19a5d347ab580",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / ordinary / hero-hit-destroys-both-legal-new-horizon-arsenals"
+    },
+    {
+      "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+      "fixture_sha256": "239ccd673eb8b8e327e234da72df73709d5f5b8ba637cc6b45cc30ebd8d704c7",
+      "passed": true,
+      "result": "[PASS] Command and Conquer / mandatory when-hit trigger / arsenal-present"
+    },
+    {
+      "slug": "rule-activation-guard-skybody-hidden-activation-positive",
+      "fixture_sha256": "e22abdd66fb5f5be5e5e291ef84e2a41957ede8a7eac4023858559c78cd15cb1",
+      "passed": true,
+      "result": "[PASS] Activation guard / face-down Skybody Keikoi still activates"
+    },
+    {
+      "slug": "card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token",
+      "fixture_sha256": "d9ae0d72c5e703562fcd6a19c16e3388761771610bc86904d524f1db38e92e14",
+      "passed": true,
+      "result": "[PASS] Laden with Lightning / four live sparse positive effect"
+    },
+    {
+      "slug": "card-talisman-of-tithes-blue-four-live-sparse-actual-four-hero-draw-first-opponent-reduced-to-zero-and-item-consumed-unordered-graveyard-membership",
+      "fixture_sha256": "15a908a1121d34685dcbd4753725e5423511d39633895319a4b23d19ca6f3a70",
+      "passed": true,
+      "result": "[PASS] Talisman of Tithes / four live first-opponent draw replacement / unordered graveyard membership"
+    },
+    {
+      "slug": "card-this-rounds-on-me-blue-four-live-sparse-actual-blue-pitch-play-draws-one-owned-card-for-each-live-hero",
+      "fixture_sha256": "fca2f47029598d248dce2c71143040b449d027aa8f68666d30ed078dfc9e2a97",
+      "passed": true,
+      "result": "[PASS] This Round's on Me / four live sparse positive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-command-and-conquer-red-hit-trigger-sigil-hand-response"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / real Sigil Hand response before hit destruction\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-command-and-conquer-red-ordinary-hand-floating-overfunded"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / ordinary / hand-floating-overfunded\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-command-and-conquer-red-ordinary-hand-yellow-pitch-exact"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / ordinary / hand-yellow-pitch-exact\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-command-and-conquer-red-ordinary-hand-blue-pitch-one-surplus"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / ordinary / hand-blue-pitch-one-surplus\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-command-and-conquer-red-ordinary-hand-two-red-pitches-exact"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / ordinary / hand-two-red-pitches-exact\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-command-and-conquer-red-ordinary-hand-one-floating-plus-red-exact"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / ordinary / hand-one-floating-plus-red-exact\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-command-and-conquer-red-ordinary-arsenal-facedown-floating-exact"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / ordinary / arsenal-facedown-floating-exact\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-command-and-conquer-red-ordinary-arsenal-faceup-floating-exact"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / ordinary / arsenal-faceup-floating-exact\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-command-and-conquer-red-ordinary-partial-three-damage-still-destroys-arsenal"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / ordinary / partial-three-damage-still-destroys-arsenal\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-command-and-conquer-red-ordinary-hero-hit-destroys-both-legal-new-horizon-arsenals"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / ordinary / hero-hit-destroys-both-legal-new-horizon-arsenals\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Command and Conquer / mandatory when-hit trigger / arsenal-present\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=rule-activation-guard-skybody-hidden-activation-positive"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Activation guard / face-down Skybody Keikoi still activates\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-laden-with-lightning-red-four-live-sparse-actual-lightning-pitch-bond-creates-owned-token"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Laden with Lightning / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-talisman-of-tithes-blue-four-live-sparse-actual-four-hero-draw-first-opponent-reduced-to-zero-and-item-consumed-unordered-graveyard-membership"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] Talisman of Tithes / four live first-opponent draw replacement / unordered graveyard membership\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-this-rounds-on-me-blue-four-live-sparse-actual-blue-pitch-play-draws-one-owned-card-for-each-live-hero"
+      ],
+      "returncode": 0,
+      "stdout": "[PASS] This Round's on Me / four live sparse positive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 15,
+  "preservation_scope": "Fifteen selected fixtures only; final full-suite run records whole inventory separately."
+}

@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "status": "SOURCE_ONLY_PLANNING_NOT_CONFIRMED_NATIVE_DEFECTS",
-  "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "status": "RECONCILED_BOUNDED_REPAIRS_AND_REMAINING_SOURCE_ONLY_LIMITS",
+  "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
   "holds": [
     {
       "group_id": "identity:blasmophets_boon_blue",
       "card_id": "blasmophets_boon_blue",
-      "status": "source_mapped_concern_not_native_verified",
+      "status": "fixed_bounded_four_live_representative",
       "reason": "Outside-chain MONBasePower recognizes controlled Blasmophet and returns6. Current actual FaBAttackPower starts from intval(CardPower(*)) and has no call to that helper or Boon-specific replacement; no compiled modifier callback exists. Native power path cannot be established as correct, so no passing play-only case or expected-zero oracle is authored.",
       "scope": "Unexercised branch or proposed scenario prerequisite; not a blanket coverage veto.",
-      "native_attempted_for_this_hold": false,
+      "native_attempted_for_this_hold": true,
       "confirmed_gameplay_bug": false,
-      "coverage_credit": false,
+      "coverage_credit": true,
       "sources": [
         {
           "path": "FaBSim/Custom/MONCards.php",
@@ -35,17 +35,28 @@
             "FaBAttackPower"
           ]
         }
-      ]
+      ],
+      "historical_planning_status": "source_mapped_concern_not_native_verified",
+      "resolution": {
+        "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+        "pilot": {
+          "path": "Tests/Integration/FaBSim/card-blasmophets-boon-blue-four-live-repair-controlled-blasmophet-base-six-real-damage",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        "scope": "Only exact primary identity/representative and documented mechanism; other branches/siblings remain untested."
+      },
+      "historical_native_attempted_before_repair": false
     },
     {
       "group_id": "identity:opal_amulet_blue",
       "card_id": "opal_amulet_blue",
-      "status": "source_mapped_concern_not_native_verified",
+      "status": "fixed_bounded_four_live_representative",
       "reason": "DoResolveCard KindABILITY removes the virtual layer before awaiting Opal opt and restores ACTION. CR5.3 requires resolving effects/decisions before completion; no eager-clear/ACTION oracle is authored as passing.",
       "scope": "Unexercised branch or proposed scenario prerequisite; not a blanket coverage veto.",
-      "native_attempted_for_this_hold": false,
+      "native_attempted_for_this_hold": true,
       "confirmed_gameplay_bug": false,
-      "coverage_credit": false,
+      "coverage_credit": true,
       "sources": [
         {
           "path": "FaBSim/Custom/GameLogic.php",
@@ -70,7 +81,18 @@
             "FaBARCFinishOrder"
           ]
         }
-      ]
+      ],
+      "historical_planning_status": "source_mapped_concern_not_native_verified",
+      "resolution": {
+        "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+        "pilot": {
+          "path": "Tests/Integration/FaBSim/repair-opal-amulet-blue-four-live-watery-trigger-then-pending-opt-two-physical-order",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        "scope": "Only exact primary identity/representative and documented mechanism; other branches/siblings remain untested."
+      },
+      "historical_native_attempted_before_repair": false
     },
     {
       "group_id": "identity:potion_of_luck_blue",
@@ -107,7 +129,7 @@
     {
       "group_id": "pitch-cycle:rune_flash",
       "card_id": "rune_flash_red",
-      "status": "source_mapped_concern_not_native_verified",
+      "status": "shared_runechant_mechanism_repaired_support_only",
       "reason": "Actual controlled Runechants would be destroyed at play in FaBARCCardPlayed before their queued trigger resolves. Correct trigger-response timing must not be replaced with eager-destruction expected values.",
       "scope": "Unexercised branch or proposed scenario prerequisite; not a blanket coverage veto.",
       "native_attempted_for_this_hold": false,
@@ -122,17 +144,25 @@
           ],
           "previous_note_line": 328
         }
-      ]
+      ],
+      "resolution": {
+        "pilot": {
+          "path": "Tests/Integration/FaBSim/card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        "scope": "Actual Rune Flash discount/arcane trigger path supports primary Runechant evidence. Rune Flash cycle receives no primary coverage credit."
+      }
     },
     {
       "group_id": "pitch-cycle:rousing_aether",
       "card_id": "rousing_aether_red",
-      "status": "source_mapped_concern_not_native_verified",
+      "status": "fixed_bounded_four_live_representative",
       "reason": "Compiled legacy packet always awaits at least Take_damage modal. Rousing is outside managed24; source clears and externally granted go again is applied before awaiting damage/effects finish. Do not omit these timing obligations to fit a green test.",
       "scope": "Unexercised branch or proposed scenario prerequisite; not a blanket coverage veto.",
-      "native_attempted_for_this_hold": false,
+      "native_attempted_for_this_hold": true,
       "confirmed_gameplay_bug": false,
-      "coverage_credit": false,
+      "coverage_credit": true,
       "sources": [
         {
           "path": "FaBSim/Custom/GameLogic.php",
@@ -151,17 +181,28 @@
             "FaBARCAsInstant"
           ]
         }
-      ]
+      ],
+      "historical_planning_status": "source_mapped_concern_not_native_verified",
+      "resolution": {
+        "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+        "pilot": {
+          "path": "Tests/Integration/FaBSim/card-rousing-aether-red-four-live-repair-earned-boots-go-again-source-stays-stack-through-barrier",
+          "source_spec": "card-regression-batch194.json",
+          "review_evidence": "review-evidence/repair194-20261024-qualified-saved-review.json"
+        },
+        "scope": "Only exact primary identity/representative and documented mechanism; other branches/siblings remain untested."
+      },
+      "historical_native_attempted_before_repair": false
     },
     {
       "group_id": "pitch-cycle:aether_quickening",
       "card_id": "aether_quickening_red",
-      "status": "unverified_candidate_protocol_review_required",
+      "status": "fixed_bounded_four_live_representative",
       "reason": "Prior survey requires exact Surge go-again timing and legacy awaited-source lifecycle review before authoring. The located evidence maps generated awaited ResolveCard/PrepareCard callbacks, but does not establish the exact current managed-cohort membership or a native timing failure.",
       "scope": "Unexercised branch or proposed scenario prerequisite; not a blanket coverage veto.",
-      "native_attempted_for_this_hold": false,
+      "native_attempted_for_this_hold": true,
       "confirmed_gameplay_bug": false,
-      "coverage_credit": false,
+      "coverage_credit": true,
       "sources": [
         {
           "path": "FaBSim/Custom/GameLogic.php",
@@ -179,7 +220,18 @@
             "FaBARCAsInstant"
           ]
         }
-      ]
+      ],
+      "historical_planning_status": "unverified_candidate_protocol_review_required",
+      "resolution": {
+        "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+        "pilot": {
+          "path": "Tests/Integration/FaBSim/card-aether-quickening-red-four-live-repair-earned-surge-and-external-go-again-once",
+          "source_spec": "card-regression-batch194.json",
+          "review_evidence": "review-evidence/repair194-20261024-qualified-saved-review.json"
+        },
+        "scope": "Only exact primary identity/representative and documented mechanism; other branches/siblings remain untested."
+      },
+      "historical_native_attempted_before_repair": false
     },
     {
       "group_id": "identity:skyzyk_red",
@@ -194,11 +246,11 @@
     {
       "group_id": "pitch-cycle:flying_high",
       "card_id": "flying_high_blue",
-      "status": "source_route_or_text_concern_not_native_verified",
+      "status": "fixed_bounded_four_live_representative",
       "reason": "PrintedconditionalbonusisifnextattackBLUE,butcompiledsupportqueuesSEA_RED_POWERandnativeconsumerchecksprintedpitch1(RED). Source-textconflictunprobed; unusedassupportandnotrecordedaspassing.",
-      "native_attempted_for_this_hold": false,
+      "native_attempted_for_this_hold": true,
       "confirmed_gameplay_bug": false,
-      "coverage_credit": false,
+      "coverage_credit": true,
       "sources": [
         {
           "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
@@ -208,32 +260,54 @@
           "path": "FaBSim/Custom/SEARuntime.php",
           "source_sha256": "414ae0f1b8d3e5ea2f2aec306f7a7e469ede9dd489d3a3971361442e11ddfab4"
         }
-      ]
+      ],
+      "historical_planning_status": "source_route_or_text_concern_not_native_verified",
+      "resolution": {
+        "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+        "pilot": {
+          "path": "Tests/Integration/FaBSim/card-flying-high-blue-four-live-bugfix-actual-blue-next-attack-receives-matching-color-plus-one-and-go-again",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        "scope": "Only exact primary identity/representative and documented mechanism; other branches/siblings remain untested."
+      },
+      "historical_native_attempted_before_repair": false
     },
     {
       "group_id": "identity:potion_of_deja_vu_blue",
       "card_id": "potion_of_deja_vu_blue",
-      "status": "source_mapped_concern_not_native_verified",
+      "status": "fixed_bounded_four_live_representative",
       "reason": "Generated ResolveAbility passes Pitch references to FaBARCStageRefs; that helper accepts only Deck objects, so the proposed positive return-to-top route cannot stage any Pitch UID. Excluded rather than weakening expected card effect or executing exploratory repair.",
       "scope": "22 October breadth-pass candidate excluded before any native attempt; no claim about untested siblings or unrelated existing evidence.",
-      "native_attempted_for_this_hold": false,
+      "native_attempted_for_this_hold": true,
       "confirmed_gameplay_bug": false,
-      "coverage_credit": false,
+      "coverage_credit": true,
       "correct_expected_token": null,
       "rule_sources": [],
       "source_reference": "FaBSim/GeneratedCode/GeneratedMacroCode.php::__RunAwait_c815534f7c39438a6cff and FaBSim/Custom/ARCCards.php::FaBARCStageRefs",
       "related_qualified_batch_proof": "review-evidence/sparse-b109-safe-three-qualified-independent-review-62b3cbddea80.json",
-      "related_qualified_batch_proof_sha256": "62b3cbddea80b238434e3f161f8f6d1618634872db63e5aa8a88cce1a4a94146"
+      "related_qualified_batch_proof_sha256": "62b3cbddea80b238434e3f161f8f6d1618634872db63e5aa8a88cce1a4a94146",
+      "historical_planning_status": "source_mapped_concern_not_native_verified",
+      "resolution": {
+        "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+        "pilot": {
+          "path": "Tests/Integration/FaBSim/repair-potion-of-deja-vu-blue-four-live-actual-own-pitch-staging-top-order-and-pending-layer",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        "scope": "Only exact primary identity/representative and documented mechanism; other branches/siblings remain untested."
+      },
+      "historical_native_attempted_before_repair": false
     },
     {
       "group_id": "pitch-cycle:icy_encounter",
       "card_id": "icy_encounter_red",
-      "status": "source_mapped_concern_not_native_verified",
+      "status": "fixed_bounded_four_live_representative",
       "reason": "Icy Encounter tells creator P1 to create Frostbite under hit P4 control. FaBELEFrost(int $p) takes only P4 and calls FaBWTRCreateArena($p,frostbite), whose arena creator sets both Owner and Controller to P4. This route cannot satisfy the independently reviewed expected owner1/controller4. Excluded before native actions rather than weakening expectation or broadening shared ownership repairs.",
       "scope": "22 October breadth-pass candidate excluded before any native attempt; no claim about untested siblings or unrelated existing evidence.",
-      "native_attempted_for_this_hold": false,
+      "native_attempted_for_this_hold": true,
       "confirmed_gameplay_bug": false,
-      "coverage_credit": false,
+      "coverage_credit": true,
       "correct_expected_token": {
         "owner": 1,
         "controller": 4,
@@ -245,18 +319,29 @@
       ],
       "source_reference": "FaBSim/Custom/ELECards.php",
       "related_qualified_batch_proof": "review-evidence/sparse-b111-qualified-independent-review-67cb4f995b12.json",
-      "related_qualified_batch_proof_sha256": "67cb4f995b124032069c6c15d3647897e826e1899c7f18f71fdf7360c0d9c06a"
+      "related_qualified_batch_proof_sha256": "67cb4f995b124032069c6c15d3647897e826e1899c7f18f71fdf7360c0d9c06a",
+      "historical_planning_status": "source_mapped_concern_not_native_verified",
+      "resolution": {
+        "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+        "pilot": {
+          "path": "Tests/Integration/FaBSim/card-icy-encounter-red-four-live-repair-hit-trigger-creates-creator-owned-opposing-frostbite",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        "scope": "Only exact primary identity/representative and documented mechanism; other branches/siblings remain untested."
+      },
+      "historical_native_attempted_before_repair": false
     },
     {
       "group_id": "pitch-cycle:smash_instinct",
       "card_id": "smash_instinct_red",
-      "status": "source_mapped_concern_not_native_verified",
+      "status": "fixed_bounded_four_live_representative",
       "reason": "The inspected attack declaration calls FaBRequestIntimidate, whose CUSTOM target answer directly calls FaBIntimidate and moves Hand to Banish. No separate triggered-layer response cycle is visible in that bounded path. A passing scenario asserting the immediate banish would pin suspect early resolution; target declaration alone could be valid, but immediate effect generation is not justified.",
       "shared_concern": "intimidate_when_attacks_priority_interposition",
       "scope": "Bounded source review only, no native execution, no saved fixture, no source fix, no existing-case audit. Shared engine context has not been exhaustively analyzed; focused native reproduction remains necessary before confirming a gameplay defect.",
-      "native_attempted_for_this_hold": false,
+      "native_attempted_for_this_hold": true,
       "confirmed_gameplay_bug": false,
-      "coverage_credit": false,
+      "coverage_credit": true,
       "rule_sources": [
         "https://rules.fabtcg.com/en/cr/06-effects/",
         "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
@@ -288,12 +373,23 @@
           "sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4"
         }
       ],
-      "next_step": "Replace before B121 proposal; retain source-only concern for a future focused native trigger/response reproducer, not a broad repair now."
+      "next_step": "Replace before B121 proposal; retain source-only concern for a future focused native trigger/response reproducer, not a broad repair now.",
+      "historical_planning_status": "source_mapped_concern_not_native_verified",
+      "resolution": {
+        "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+        "pilot": {
+          "path": "Tests/Integration/FaBSim/card-smash-instinct-red-four-live-repair-declared-other-hero-intimidate-after-responses-end-turn-return",
+          "source_spec": "card-regression-batch195.json",
+          "review_evidence": "review-evidence/repair195-20261024-qualified-saved-review.json"
+        },
+        "scope": "Only exact primary identity/representative and documented mechanism; other branches/siblings remain untested."
+      },
+      "historical_native_attempted_before_repair": false
     },
     {
       "group_id": "pitch-cycle:pack_hunt",
       "card_id": "pack_hunt_red",
-      "status": "source_mapped_concern_not_native_verified",
+      "status": "shared_named_intimidate_route_repaired_source_only",
       "reason": "The inspected attack declaration calls FaBRequestIntimidate, whose CUSTOM target answer directly calls FaBIntimidate and moves Hand to Banish. No separate triggered-layer response cycle is visible in that bounded path. A passing scenario asserting the immediate banish would pin suspect early resolution; target declaration alone could be valid, but immediate effect generation is not justified.",
       "shared_concern": "intimidate_when_attacks_priority_interposition",
       "scope": "Bounded source review only, no native execution, no saved fixture, no source fix, no existing-case audit. Shared engine context has not been exhaustively analyzed; focused native reproduction remains necessary before confirming a gameplay defect.",
@@ -331,7 +427,15 @@
           "sha256": "5eb9138958cad2b9ceb99ad07f6591ce2dc3b0f87a4c84b1fa0c94541cf6ecc4"
         }
       ],
-      "next_step": "Replace before B121 proposal; retain source-only concern for a future focused native trigger/response reproducer, not a broad repair now."
+      "next_step": "Replace before B121 proposal; retain source-only concern for a future focused native trigger/response reproducer, not a broad repair now.",
+      "resolution": {
+        "pilot": {
+          "path": "Tests/Integration/FaBSim/card-smash-instinct-red-four-live-repair-declared-other-hero-intimidate-after-responses-end-turn-return",
+          "source_spec": "card-regression-batch195.json",
+          "review_evidence": "review-evidence/repair195-20261024-qualified-saved-review.json"
+        },
+        "scope": "Shared named route source-reviewed; Pack Hunt itself was not exercised and receives no primary credit."
+      }
     },
     {
       "card_id": "rouse_the_ancients_blue",
@@ -339,11 +443,22 @@
       "evidence": "review-evidence/sparse-b179-b181-cost-order-hold-905811cc8a25.json",
       "issue_id": "FAB-REG-039",
       "group_id": "identity:rouse_the_ancients_blue",
-      "status": "unattempted_authoring_or_preparation_concern",
+      "status": "fixed_bounded_four_live_representative",
       "scope": "Selected proposed representative only; no blanket full-card coverage veto.",
-      "native_attempted_for_this_hold": false,
+      "native_attempted_for_this_hold": true,
       "confirmed_gameplay_bug": false,
-      "coverage_credit": false
+      "coverage_credit": true,
+      "historical_planning_status": "unattempted_authoring_or_preparation_concern",
+      "resolution": {
+        "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+        "pilot": {
+          "path": "Tests/Integration/FaBSim/fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        "scope": "Only exact primary identity/representative and documented mechanism; other branches/siblings remain untested."
+      },
+      "historical_native_attempted_before_repair": false
     },
     {
       "card_id": "regurgitating_slog_red",
@@ -377,11 +492,22 @@
         }
       ],
       "group_id": "identity:bloodtorn_bodice",
-      "status": "unattempted_authoring_or_preparation_concern",
+      "status": "fixed_bounded_four_live_representative",
       "scope": "Selected proposed representative only; no blanket full-card coverage veto.",
-      "native_attempted_for_this_hold": false,
+      "native_attempted_for_this_hold": true,
       "confirmed_gameplay_bug": false,
-      "coverage_credit": false
+      "coverage_credit": true,
+      "historical_planning_status": "unattempted_authoring_or_preparation_concern",
+      "resolution": {
+        "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+        "pilot": {
+          "path": "Tests/Integration/FaBSim/repair-bloodtorn-bodice-four-live-real-aura-declaration-action-asset-before-both-destructions",
+          "source_spec": "card-regression-batch193.json",
+          "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+        },
+        "scope": "Only exact primary identity/representative and documented mechanism; other branches/siblings remain untested."
+      },
+      "historical_native_attempted_before_repair": false
     }
   ],
   "external_notes": {
@@ -407,5 +533,7 @@
     "Canonical coverage and issue ledgers remain authoritative.",
     "Aether Quickening and Skyzyk routes remain explicitly unverified."
   ],
-  "updated_utc": "2026-10-22T18:42:20.976075+00:00"
+  "updated_utc": "2026-10-24T17:46:53.549434+00:00",
+  "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
+  "planning_field_note": "historical_native_attempted_before_repair retains the original source-only inventory flag; native_attempted_for_this_hold now reflects completed repair execution. Current status/evidence remain bounded."
 }

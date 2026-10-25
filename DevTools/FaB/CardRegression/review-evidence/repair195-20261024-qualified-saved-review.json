@@ -1,0 +1,368 @@
+{
+  "status": "APPROVED_INDEPENDENT_SAVED_REVIEWS_COMPOSED_WITH_TWO_FINAL_TARGETED_REPLAYS",
+  "reviewer": "/root/b105_semantic_review and /root/b106_semantic_review; root exact-hash composition",
+  "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+  "source_spec": "card-regression-batch195.json",
+  "source_spec_sha256": "9a431f7ae0ec7c44789637cb02a932eac7533eafab2c9e9a9b34178e77d93279",
+  "fixtures": [
+    {
+      "slug": "card-smash-instinct-red-four-live-repair-declared-other-hero-intimidate-after-responses-end-turn-return",
+      "semantically_approved": true,
+      "verdict": "semantically_valid_partial_branch_coverage",
+      "fixture_sha256": "0bd296365cb3f7ae2891a530fbddb7f5cf0be11d2ce20001f30255ad131ea291",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "687b2649d8c229efcd8b72a58162ec6fd49aca2d9f8b503f07e0b04f4c49e274",
+        "actions.json": "14e3221c8bbb133e854106d8532010bceeecceb87464489d1a2e7dfc07652335",
+        "assertions.json": "1235894c6dbae40659c1c795acb9c0c32b3333c574153c28e3324bba01aa9b78",
+        "expected_final_gamestate.txt": "0d69c1c9f2012d069a7ffdc340d5cb2c7933602965f359dc82325232ec40ce2f",
+        "meta.json": "5314a23241a6cc00f90493a463b8d51bdefb88bc5682c22cd3925554a41b179a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "687b2649d8c229efcd8b72a58162ec6fd49aca2d9f8b503f07e0b04f4c49e274",
+        "actions.json": "14e3221c8bbb133e854106d8532010bceeecceb87464489d1a2e7dfc07652335",
+        "assertions.json": "1235894c6dbae40659c1c795acb9c0c32b3333c574153c28e3324bba01aa9b78",
+        "expected_final_gamestate.txt": "0d69c1c9f2012d069a7ffdc340d5cb2c7933602965f359dc82325232ec40ce2f",
+        "meta.json": "5314a23241a6cc00f90493a463b8d51bdefb88bc5682c22cd3925554a41b179a"
+      },
+      "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+      "actions": 45,
+      "native_assertions": 1781,
+      "actual_manual_passes": 41,
+      "actual_pass_actors": {
+        "1": 10,
+        "2": 10,
+        "3": 10,
+        "4": 11
+      },
+      "four_live_manual_profile_verified": true,
+      "checkpoints": [
+        {
+          "checkpoint": "legal_four_live_rhinar_actual_primary_blue_and_single_random_candidate",
+          "step": 0,
+          "native_assertions": 116
+        },
+        {
+          "checkpoint": "actual_attack_p4_target_declared_before_resource_payment",
+          "step": 1,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_printed_three_cost_requires_real_blue_pitch_not_discard",
+          "step": 2,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "actual_blue_pitch_three_pays_three_and_does_not_trigger_rhinar_discard",
+          "step": 3,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "smash_attack_source_actual_response_1_of_four",
+          "step": 4,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "smash_attack_source_actual_response_2_of_four",
+          "step": 5,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "smash_attack_source_actual_response_3_of_four",
+          "step": 6,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "smash_attack_source_fourth_actual_response_boundary",
+          "step": 7,
+          "native_assertions": 33
+        },
+        {
+          "checkpoint": "declared_p2_intimidate_trigger_captured_distinct_from_p4_attack_no_eager_move",
+          "step": 8,
+          "native_assertions": 37
+        },
+        {
+          "checkpoint": "smash_intimidate_trigger_actual_response_1_of_four",
+          "step": 9,
+          "native_assertions": 37
+        },
+        {
+          "checkpoint": "smash_intimidate_trigger_actual_response_2_of_four",
+          "step": 10,
+          "native_assertions": 37
+        },
+        {
+          "checkpoint": "smash_intimidate_trigger_actual_response_3_of_four",
+          "step": 11,
+          "native_assertions": 37
+        },
+        {
+          "checkpoint": "smash_intimidate_trigger_fourth_actual_response_boundary",
+          "step": 12,
+          "native_assertions": 35
+        },
+        {
+          "checkpoint": "smash_attack_step_actual_response_1_of_four",
+          "step": 13,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "smash_attack_step_actual_response_2_of_four",
+          "step": 14,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "smash_attack_step_actual_response_3_of_four",
+          "step": 15,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "smash_attack_step_fourth_actual_response_boundary",
+          "step": 16,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "smash_actual_player4_declares_zero_defenders",
+          "step": 17,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "smash_defend_priority_actual_response_1_of_four",
+          "step": 18,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "smash_defend_priority_actual_response_2_of_four",
+          "step": 19,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "smash_defend_priority_actual_response_3_of_four",
+          "step": 20,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "smash_defend_priority_fourth_actual_response_boundary",
+          "step": 21,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "smash_reaction_priority_actual_response_1_of_four",
+          "step": 22,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "smash_reaction_priority_actual_response_2_of_four",
+          "step": 23,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "smash_reaction_priority_actual_response_3_of_four",
+          "step": 24,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "smash_reaction_priority_fourth_actual_response_boundary",
+          "step": 25,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "smash_damage_priority_actual_response_1_of_four",
+          "step": 26,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "smash_damage_priority_actual_response_2_of_four",
+          "step": 27,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "smash_damage_priority_actual_response_3_of_four",
+          "step": 28,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "smash_damage_priority_fourth_actual_response_boundary",
+          "step": 29,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "smash_resolution_priority_actual_response_1_of_four",
+          "step": 30,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "smash_resolution_priority_actual_response_2_of_four",
+          "step": 31,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "smash_resolution_priority_actual_response_3_of_four",
+          "step": 32,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "smash_resolution_priority_fourth_actual_response_boundary",
+          "step": 33,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "full_cleanup_distinct_victim_identity_retained_no_expiry_or_sibling_credit",
+          "step": 33,
+          "native_assertions": 121
+        },
+        {
+          "checkpoint": "closed_attack_preserves_exact_intimidated_uid_until_beginning_end_phase",
+          "step": 33,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_action_priority_pass_1_of_four_keeps_hidden_banish",
+          "step": 34,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_action_priority_pass_2_of_four_keeps_hidden_banish",
+          "step": 35,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_action_priority_pass_3_of_four_keeps_hidden_banish",
+          "step": 36,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_action_priority_pass_4_of_four_enters_return_trigger",
+          "step": 37,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "actual_return_trigger_response_1_of_four_keeps_exact_hidden_uid7",
+          "step": 38,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "actual_return_trigger_response_2_of_four_keeps_exact_hidden_uid7",
+          "step": 39,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "actual_return_trigger_response_3_of_four_keeps_exact_hidden_uid7",
+          "step": 40,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "fourth_actual_return_trigger_response_returns_uid7_before_later_end_phase_priority",
+          "step": 41,
+          "native_assertions": 55
+        },
+        {
+          "checkpoint": "actual_end_phase_pass_1_of_four_returned_hand_already_available",
+          "step": 42,
+          "native_assertions": 55
+        },
+        {
+          "checkpoint": "actual_end_phase_pass_2_of_four_returned_hand_already_available",
+          "step": 43,
+          "native_assertions": 55
+        },
+        {
+          "checkpoint": "actual_end_phase_pass_3_of_four_returned_hand_already_available",
+          "step": 44,
+          "native_assertions": 55
+        },
+        {
+          "checkpoint": "fourth_actual_end_phase_pass_finishes_turn_refill_and_next_player_two",
+          "step": 45,
+          "native_assertions": 55
+        }
+      ],
+      "author_only_checks": [],
+      "final_physical_cards": {
+        "p1Hand": [
+          [
+            "6",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p2Hand": [
+          [
+            "7",
+            "wounding_blow_red",
+            "2",
+            "2",
+            null
+          ]
+        ],
+        "p1Graveyard": [
+          [
+            "5",
+            "smash_instinct_red",
+            "1",
+            "1",
+            "0"
+          ]
+        ]
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_action_points": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_return_group_cleanup": {
+        "flat_intimidated": [],
+        "pending": [],
+        "monotonic_next": 1,
+        "UID7_group_marker_absent": true
+      },
+      "limits": "One actual single-group named Smash45 positive. Later-return semantics nowexercised beforeEND_PHASEcleanup; alloriginal33actions/oracles retained. No Pack/Alpha/sibling/groupordering/elimination/foreignowner/sourcegone/newinstance coverage. Hiddeninsidecallbacks andtwofinalruntimecleanreplays/faultgate remainseparate.",
+      "independent_actual_saved_review": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\smash195-actual-saved-independent-review-106.json",
+        "sha256": "427f1226059540942b696134e30274a497d83846a1477c584355ff2cb0487d2b",
+        "observed_runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0"
+      },
+      "final_runtime_replay_evidence": [
+        {
+          "path": "card-regression-replay-repair195-final-20261024-r1.json",
+          "sha256": "bc5e4dc26a4641f86621a69aff6277a2075f894242c4dc3e42135dad1565ac33"
+        },
+        {
+          "path": "card-regression-replay-repair195-final-20261024-r2.json",
+          "sha256": "fee8985ef551656faaa6fefcab96e666c51496e891b38ccde9397aa0cd92c4d8"
+        }
+      ],
+      "qualification": "Exact named representative only; source review retains branch/variant limits. Actual saved review runtime is preserved separately; two new clean replays ran at final runtime."
+    }
+  ],
+  "replays": [
+    {
+      "path": "card-regression-replay-repair195-final-20261024-r1.json",
+      "sha256": "bc5e4dc26a4641f86621a69aff6277a2075f894242c4dc3e42135dad1565ac33"
+    },
+    {
+      "path": "card-regression-replay-repair195-final-20261024-r2.json",
+      "sha256": "fee8985ef551656faaa6fefcab96e666c51496e891b38ccde9397aa0cd92c4d8"
+    }
+  ],
+  "focused_fault_result": {
+    "path": "card-regression-repair-20261024-focused-fault-results.json",
+    "sha256": "1587662731417a662ae96ff45b272cd4a63603637479bf19051f553eb5b0aaf1"
+  },
+  "composition_note": "Independent saved-review rows copied by slug with all raw5 verified. No new semantic verdict invented. Recording runtimes retained in per-row provenance. Authoring HOLD metadata updated without changing actions/oracles."
+}

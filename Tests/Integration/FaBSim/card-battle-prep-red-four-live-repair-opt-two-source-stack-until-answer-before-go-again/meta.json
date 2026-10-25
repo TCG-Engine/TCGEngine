@@ -1,0 +1,7 @@
+{
+    "name": "Battle Prep / Opt2 keeps physical source Stack and AP0 until actual ordered answer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-24T18:44:31+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four legal living young Dorinthea20x4, no passive seats. HandBattle5 and exact ownDeck Red6/Blue7/Yellow8, R0/AP1. Actual Battle Action0 spends AP to0; source staysStack5 through first3 real responses. Fourth actual response starts Opt2 while source5 is STILL Stack/Owner1Controller1/KindACTION, GYempty, AP0R0: realTempRed6/Blue7 and untouchedDeckYellow8, MZREARRANGE Top=red,blue;Bottom= plus exact ResolveCard continuation and serialized PLAIN_SPELL owned frame boundStack-0. No completed ACTION/priority claim is made while choosing. Actual answer Top=blue;Bottom=red -> exact native physical DeckBlue7/Yellow8/Red6, Tempempty; then exactly one goagain restoresAP1, source5 ownpublicGYFaceDown0, Stack/DQs/markerempty, normalACTIONpriority1/all20. Source fromHand only; arsenal+3 branch, siblings and unrelated Opt cases uncredited. Raw5/component audit must additionally check serialized owned frame locals and final empty __awaitFrames; existing native state assertions pin marker ownership and actual CUSTOM frame binding without extending the recorder. Sources: FaBSim/WebpImages/battle_prep_red.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

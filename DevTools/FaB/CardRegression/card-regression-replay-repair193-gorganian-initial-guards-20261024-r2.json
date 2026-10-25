@@ -1,0 +1,46 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch193.json",
+  "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+  "returncode": 0,
+  "completed_utc": "2026-10-24T18:17:37.471015+00:00",
+  "fixtures": [
+    {
+      "slug": "card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+      "fixture_sha256": "68beb93854cd29cfc94c4fd990e31ed089d034a5b08e5666ed088d9e5f23ce72",
+      "passed": true,
+      "result": "[PASS] Gorganian Tome / four live players, three other graveyards, correct four-card draw"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+      "returncode": 0,
+      "stdout": "[PASS] Gorganian Tome / four live players, three other graveyards, correct four-card draw\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+    "card-battle-prep-red-four-live-repair-opt-two-source-stack-until-answer-before-go-again",
+    "card-blasmophets-boon-blue-four-live-repair-controlled-blasmophet-base-six-real-damage",
+    "card-chorus-of-rotwood-red-four-live-repair-empty-graveyard-source-stays-stack-three-runechants",
+    "card-flying-high-blue-four-live-bugfix-actual-blue-next-attack-receives-matching-color-plus-one-and-go-again",
+    "card-head-shot-red-four-live-sparse-actual-face-up-load-queues-four-live-trigger-then-real-arrow-power-six",
+    "card-icy-encounter-red-four-live-repair-hit-trigger-creates-creator-owned-opposing-frostbite",
+    "card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+    "card-regain-composure-blue-four-live-repair-granted-hit-trigger-delays-hero-untap",
+    "card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation",
+    "card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+    "card-talisman-of-warfare-yellow-four-live-repair-trigger-priority-and-public-arsenals",
+    "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+    "fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+    "repair-bloodtorn-bodice-four-live-real-aura-declaration-action-asset-before-both-destructions",
+    "repair-laden-with-lightning-four-live-real-bond-next-attack-and-responseable-embodiment-trigger",
+    "repair-opal-amulet-blue-four-live-watery-trigger-then-pending-opt-two-physical-order",
+    "repair-potion-of-deja-vu-blue-four-live-actual-own-pitch-staging-top-order-and-pending-layer"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

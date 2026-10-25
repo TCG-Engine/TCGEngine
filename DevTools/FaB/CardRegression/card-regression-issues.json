@@ -5357,7 +5357,7 @@
   },
   {
     "id": "FAB-REG-034",
-    "status": "open_source_component_only_unapplied",
+    "status": "fixed_verified_bounded_four_live_repair",
     "card_ids": [
       "gorganian_tome"
     ],
@@ -5370,11 +5370,24 @@
       "runtime_sha256_at_audit": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
       "native_passing_fixtures": 0,
       "qualification": "No native before recording, saved passing fixture or replay evidence for this issue; complete corpus passes do not validate it."
-    }
+    },
+    "historical_pre_repair_status": "open_source_component_only_unapplied",
+    "fix_applied": true,
+    "fix_runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "pilot_checked_fixtures": [
+      {
+        "path": "Tests/Integration/FaBSim/card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+        "source_spec": "card-regression-batch193.json",
+        "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+      }
+    ],
+    "passing_fixture": "Tests/Integration/FaBSim/card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+    "fix_qualification": "Exact named native representatives independently reviewed and replayed twice at final runtime; focused native/component sensitivities separately retained. Original before-fix evidence and rejected quarantined bytes remain historical. No sibling/whole-card completion. Endpoint draw4 alone cannot distinguish the cancelling defects;36 actual-source component profiles jointly pin printed addend, live source and go-again completion.",
+    "coverage_credit": true
   },
   {
     "id": "FAB-REG-035",
-    "status": "open_native_reproduced_target_announcement_timing",
+    "status": "fixed_verified_bounded_four_live_repair",
     "card_ids": [
       "nip_at_the_heels_blue",
       "shred_red"
@@ -5395,7 +5408,25 @@
       "recorded_failure": "Expected p1DecisionQueue-0.Type to equal 'MZCHOOSE', got ''."
     },
     "evidence_limits": "Actual failure evidence includes captured initial state, attempted actions, observed state and empty queues. Missing accepted UID/deferred ResolveCard binding is independently source-confirmed; no full post-failure Stack/Params/priority snapshot was captured. CR5.1.2 permits the announced card on Stack before targets; this issue does not require a UI chooser if a future implementation correctly auto-binds the target during announcement.",
-    "remaining_work": "Implement reviewed per-card or supported shared reaction target preparation/binding and resolution revalidation, then rerun correct probes, target-loss controls and saved clean replay gates. Keep these cycles blocked during breadth-first work."
+    "remaining_work": "Implement reviewed per-card or supported shared reaction target preparation/binding and resolution revalidation, then rerun correct probes, target-loss controls and saved clean replay gates. Keep these cycles blocked during breadth-first work.",
+    "historical_pre_repair_status": "open_native_reproduced_target_announcement_timing",
+    "fix_applied": true,
+    "fix_runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "pilot_checked_fixtures": [
+      {
+        "path": "Tests/Integration/FaBSim/card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+        "source_spec": "card-regression-batch193.json",
+        "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+      },
+      {
+        "path": "Tests/Integration/FaBSim/card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+        "source_spec": "card-regression-batch193.json",
+        "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+      }
+    ],
+    "passing_fixture": "Tests/Integration/FaBSim/card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+    "fix_qualification": "Exact named native representatives independently reviewed and replayed twice at final runtime; focused native/component sensitivities separately retained. Original before-fix evidence and rejected quarantined bytes remain historical. No sibling/whole-card completion.",
+    "coverage_credit": true
   },
   {
     "id": "FAB-REG-036",
@@ -5525,7 +5556,7 @@
   },
   {
     "id": "FAB-REG-037",
-    "status": "open_native_reproduced_incorrect_fixture_quarantined",
+    "status": "fixed_verified_bounded_four_live_repair",
     "card_ids": [
       "talisman_of_warfare_yellow",
       "wounding_blow_red"
@@ -5551,7 +5582,7 @@
     "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
     "native_recording": "recording-runs/card-regression-batch109-20261022T174733Z-6ada4c3501c2c.json",
     "native_replay_scope": "Both original four-case targeted replays passed snapshots and incomplete oracles; Warfare is explicitly held from semantic qualification.",
-    "fix_applied": false,
+    "fix_applied": true,
     "held_utc": "2026-10-22T17:53:23.298963+00:00",
     "correct_oracle_native_reproducer": {
       "source_spec": "card-regression-batch109-warfare-faceup-rule-reproducer.json",
@@ -5580,11 +5611,23 @@
       "issue_id": "FAB-REG-037",
       "qualification": "Incorrect historical Warfare bytes quarantined outside Tests/Integration/FaBSim. No passing primary or group credit. Separate correct FaceDown=0 native probe failed before save.",
       "quarantine_receipt": "held-incorrect-gameplay/FAB-REG-037-quarantine.json"
-    }
+    },
+    "historical_pre_repair_status": "open_native_reproduced_incorrect_fixture_quarantined",
+    "fix_runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "pilot_checked_fixtures": [
+      {
+        "path": "Tests/Integration/FaBSim/card-talisman-of-warfare-yellow-four-live-repair-trigger-priority-and-public-arsenals",
+        "source_spec": "card-regression-batch193.json",
+        "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+      }
+    ],
+    "passing_fixture": "Tests/Integration/FaBSim/card-talisman-of-warfare-yellow-four-live-repair-trigger-priority-and-public-arsenals",
+    "fix_qualification": "Exact named native representatives independently reviewed and replayed twice at final runtime; focused native/component sensitivities separately retained. Original before-fix evidence and rejected quarantined bytes remain historical. No sibling/whole-card completion.",
+    "coverage_credit": true
   },
   {
     "id": "FAB-REG-038",
-    "status": "open_native_reproduced_correct_expectation_unsaved",
+    "status": "fixed_verified_bounded_four_live_repair",
     "card_ids": [
       "abyssal_bite_blue"
     ],
@@ -5619,13 +5662,24 @@
     "rule_sources": [
       "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/IAR206.webp"
     ],
-    "fix_applied": false,
-    "coverage_credit": false,
-    "held_utc": "2026-10-22T19:04:29.890281+00:00"
+    "fix_applied": true,
+    "coverage_credit": true,
+    "held_utc": "2026-10-22T19:04:29.890281+00:00",
+    "historical_pre_repair_status": "open_native_reproduced_correct_expectation_unsaved",
+    "fix_runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "pilot_checked_fixtures": [
+      {
+        "path": "Tests/Integration/FaBSim/card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+        "source_spec": "card-regression-batch193.json",
+        "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+      }
+    ],
+    "passing_fixture": "Tests/Integration/FaBSim/card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+    "fix_qualification": "Exact named native representatives independently reviewed and replayed twice at final runtime; focused native/component sensitivities separately retained. Original before-fix evidence and rejected quarantined bytes remain historical. No sibling/whole-card completion."
   },
   {
     "id": "FAB-REG-039",
-    "status": "open_reviewed_timing_oracle_quarantined_preparation_order_concern",
+    "status": "fixed_verified_bounded_four_live_repair",
     "classification": "wrong_saved_timing_oracle_with_source_supported_shared_preparation_order_concern",
     "card_ids": [
       "tome_of_harvests_blue",
@@ -5650,8 +5704,8 @@
       "FaBSim/GeneratedCode/GeneratedMacroCode.php"
     ],
     "runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
-    "fix_applied": false,
-    "coverage_credit": false,
+    "fix_applied": true,
+    "coverage_credit": true,
     "separately_demonstrated_gameplay_defect": false,
     "quarantined_original_fixture": {
       "path": "held-incorrect-gameplay/b179-tome-of-harvests-cost-order",
@@ -5674,7 +5728,107 @@
       "qualification": "Original7-action recording and two snapshot PASS receipts are rejected semantic evidence, not passing coverage. Source approval revoked. No separately demonstrated triggered-gameplay defect or fix claimed.",
       "quarantine_receipt": "held-incorrect-gameplay/FAB-REG-039-quarantine.json"
     },
-    "rouse_status": "Uninstalled and unsaved draft, held before native execution; no correct-expectation native probe or gameplay outcome claimed.",
-    "held_utc": "2026-10-22T21:21:45.748038+00:00"
+    "rouse_status": "Qualified bounded four-live representative saved in batch193; two final-runtime replays passed. Wider cost/target alternatives untested.",
+    "held_utc": "2026-10-22T21:21:45.748038+00:00",
+    "historical_pre_repair_status": "open_reviewed_timing_oracle_quarantined_preparation_order_concern",
+    "fix_runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "pilot_checked_fixtures": [
+      {
+        "path": "Tests/Integration/FaBSim/fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+        "source_spec": "card-regression-batch193.json",
+        "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+      },
+      {
+        "path": "Tests/Integration/FaBSim/fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+        "source_spec": "card-regression-batch193.json",
+        "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
+      }
+    ],
+    "passing_fixture": "Tests/Integration/FaBSim/fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+    "fix_qualification": "Exact named native representatives independently reviewed and replayed twice at final runtime; focused native/component sensitivities separately retained. Original before-fix evidence and rejected quarantined bytes remain historical. No sibling/whole-card completion. Original saved timing oracle stays rejected.19 payment contracts provide inside-call asset/effect-order evidence; native before/after checkpoints do not alone prove invisible intraaction ordering.",
+    "historical_pre_repair_rouse_status": "Uninstalled and unsaved draft, held before native execution; no correct-expectation native probe or gameplay outcome claimed."
+  },
+  {
+    "id": "FAB-REG-040",
+    "status": "fixed_verified_bounded_four_live_repair",
+    "classification": "native_confirmed_damage_defect",
+    "card_ids": [
+      "aether_quickening_red"
+    ],
+    "description": "Quickening omitted from Crucible arcane-card classifier. Native correct-expectation probe reached P4HP15 expected, got16; no fixture saved before fix.",
+    "source_paths": [
+      "FaBSim/Custom/ARCCards.php"
+    ],
+    "fix_applied": true,
+    "fix_runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "pilot_checked_fixtures": [
+      {
+        "path": "Tests/Integration/FaBSim/card-aether-quickening-red-four-live-repair-earned-surge-and-external-go-again-once",
+        "source_spec": "card-regression-batch194.json",
+        "review_evidence": "review-evidence/repair194-20261024-qualified-saved-review.json"
+      }
+    ],
+    "passing_fixture": "Tests/Integration/FaBSim/card-aether-quickening-red-four-live-repair-earned-surge-and-external-go-again-once",
+    "fix_qualification": "One exact four-live representative with independent saved review, two clean targeted replays and retained focused evidence; bounded shared-source repair, no pitch-sibling or exhaustive branch inference.",
+    "coverage_credit": true,
+    "rules": [],
+    "extends_existing_issue_ids": []
+  },
+  {
+    "id": "FAB-REG-041",
+    "status": "fixed_verified_bounded_four_live_repair",
+    "classification": "native_confirmed_caster_attribution_defect",
+    "card_ids": [
+      "aether_quickening_red"
+    ],
+    "description": "Quickening damage attribution after opposing barrier await. Native damage5 was correct after040, but callbacks were credited to chooserP4. Existing guarded managed-caster seam now includes exact Quickening family.",
+    "source_paths": [
+      "FaBSim/Custom/UPRCards.php"
+    ],
+    "fix_applied": true,
+    "fix_runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "pilot_checked_fixtures": [
+      {
+        "path": "Tests/Integration/FaBSim/card-aether-quickening-red-four-live-repair-earned-surge-and-external-go-again-once",
+        "source_spec": "card-regression-batch194.json",
+        "review_evidence": "review-evidence/repair194-20261024-qualified-saved-review.json"
+      }
+    ],
+    "passing_fixture": "Tests/Integration/FaBSim/card-aether-quickening-red-four-live-repair-earned-surge-and-external-go-again-once",
+    "fix_qualification": "One exact four-live representative with independent saved review, two clean targeted replays and retained focused evidence; bounded shared-source repair, no pitch-sibling or exhaustive branch inference.",
+    "coverage_credit": true,
+    "rules": [],
+    "extends_existing_issue_ids": [
+      "FAB-REG-021",
+      "FAB-REG-022"
+    ]
+  },
+  {
+    "id": "FAB-REG-042",
+    "status": "fixed_verified_bounded_four_live_repair",
+    "classification": "native_missing_return_marker_and_source_confirmed_delayed_trigger_timing",
+    "card_ids": [
+      "smash_instinct_red"
+    ],
+    "description": "Intimidate return identity and beginning-end-phase delayed return. Actual saved hidden UID7 had no retained marker after combat close; actual reset component failed. Current rules require independent delayed return at beginning end phase, rather than old late cleanup.",
+    "source_paths": [
+      "FaBSim/Custom/GameLogic.php"
+    ],
+    "fix_applied": true,
+    "fix_runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "pilot_checked_fixtures": [
+      {
+        "path": "Tests/Integration/FaBSim/card-smash-instinct-red-four-live-repair-declared-other-hero-intimidate-after-responses-end-turn-return",
+        "source_spec": "card-regression-batch195.json",
+        "review_evidence": "review-evidence/repair195-20261024-qualified-saved-review.json"
+      }
+    ],
+    "passing_fixture": "Tests/Integration/FaBSim/card-smash-instinct-red-four-live-repair-declared-other-hero-intimidate-after-responses-end-turn-return",
+    "fix_qualification": "One exact four-live representative with independent saved review, two clean targeted replays and retained focused evidence; bounded shared-source repair, no pitch-sibling or exhaustive branch inference.",
+    "coverage_credit": true,
+    "rules": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "extends_existing_issue_ids": []
   }
 ]

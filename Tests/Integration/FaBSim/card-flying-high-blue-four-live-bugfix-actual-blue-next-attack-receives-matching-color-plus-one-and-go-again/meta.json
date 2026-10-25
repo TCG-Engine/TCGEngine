@@ -1,0 +1,7 @@
+{
+    "name": "Flying High Blue / four live color-condition repair proof",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-24T18:43:25+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine live young Dorinthea20 heroes, Hand primary Flying High Blue5 and Blue Wounding Blow6 only, AP1/R0, no seeded effects/history. Actual primary ordinary Action0 spendsAP, all four seats manually respond, own GA restoresAP1 and next attack receives GA plus +1 only if blue. Actual same Blue6 ActionAttack0, target adjacent P4Hero4 before payment/responses, printedbase2 plus matched-blue bonus1 gives computedpower3/damage3/P4HP17 and GA. All four manually pass every combat stage, finalAP1/R0/ACTION/priority1, both physical5/6 own publicGYFaceDown0 and all queues/Stack/Hand empty. No card is pitched. This focused repair representative pins missing Blue color bonus and granted attackGA; Red/Yellow/mismatched-color and second-attack consumption are component expectations, not native coverage. No source/preparation timing ambiguity or pending choices. No sibling/support/hero/full-card coverage claim. Sources: https://judge.fabtcg.com/cards/detail/3844/ https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

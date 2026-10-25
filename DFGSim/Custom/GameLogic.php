@@ -18,8 +18,10 @@ function DFGCardHand(array $player, int $id): string {
 }
 
 function DFGAvailable(array $player, ?string $color = null): array {
-    return array_values(array_filter(array_keys(DFGCatalog()), fn($id) => !in_array($id, $player['discarded'], true) && ($color === null || DFGCardHand($player, $id) === $color)));
+    return array_values(array_filter($player['deck'] ?? array_keys(DFGCatalog()), fn($id) => !in_array($id, $player['discarded'], true) && ($color === null || DFGCardHand($player, $id) === $color)));
 }
+
+function DFGMaxLife(array $player): int { return $player['maxLife'] ?? 40; }
 
 // Inspect only the committed bonus's resolved changes for its owner's block.
 // Opponent gifts and reaction burns do not count as defensive bonus commitments.
@@ -125,6 +127,7 @@ function DFGComputeRound(array $plans, array $reactions = []): array {
             }
         }
     }
+    if (function_exists('DFGModifyCombatStats')) $stats = DFGModifyCombatStats($plans, $stats);
     foreach ([0, 1] as $seat) $stats[$seat]['block'] = max(0, $stats[$seat]['block'] - ($plans[$seat]['blockPenalty'] ?? 0));
     foreach ([0, 1] as $seat) {
         $stats[$seat]['effectiveOpponentBlock'] = max(0, $stats[1 - $seat]['block'] - $stats[$seat]['pierce']);
@@ -140,6 +143,7 @@ function DFGComputeRound(array $plans, array $reactions = []): array {
             $stats[$seat]['damage'] += 2;
         }
     }
+    if (function_exists('DFGModifyRoundDamage')) $stats = DFGModifyRoundDamage($plans, $stats);
     return $stats;
 }
 
@@ -201,6 +205,7 @@ function DFGValidateAdvantageSpend(array $state, int $seat, int $main, mixed $sp
 // Shared legal choices for bots and tests; tokens can be spent only through the main card.
 function DFGSpendVariants(array $player, int $main): array {
     $carry = empty($player['nextAttack']) ? [] : ['momentum' => $player['nextAttack']];
+    if (function_exists('DFGPlanContext')) $carry += DFGPlanContext($player);
     if (!empty($player['nextBlockPenalty'])) $carry['blockPenalty'] = $player['nextBlockPenalty'];
     $rule = DFGCatalog()[$main]['advantage']['spend']; $variants = [$carry];
     if (!$rule) return $variants;
@@ -258,6 +263,7 @@ function DFGCancelledPlan(array $plan,int $main): array {
 function DFGResolve(array &$state): void {
     $stats = DFGComputeRound($state['commitments'], $state['reactions']);
     foreach ([0, 1] as $seat) $state['players'][$seat]['life'] = max(0, $state['players'][$seat]['life'] - $stats[1 - $seat]['damage']);
+    if (function_exists('DFGAfterDamage')) DFGAfterDamage($state, $stats);
     DFGLog($state, 'Damage resolves together: you deal ' . $stats[0]['damage'] . ', bot deals ' . $stats[1]['damage'] . '. Life: ' . $state['players'][0]['life'] . ' / ' . $state['players'][1]['life'] . '.');
     foreach ([0,1] as $seat) if ($stats[$seat]['directDamage']) DFGLog($state, ($seat === 0 ? 'Your ' : 'Bot’s ') . 'Guarded Strike deals 2 direct damage after taking no combat damage.');
     $specials = [DFGTriggeredSpecials($state['commitments'], $stats, 0), DFGTriggeredSpecials($state['commitments'], $stats, 1)];
@@ -273,7 +279,7 @@ function DFGResolve(array &$state): void {
             DFGLog($state, ($seat===0?'Your':'Bot’s').' Clinch Throw prevents opposing bonus and reaction burns next round.');
         }
         if (in_array('hit_heal', $specials[$seat], true) && !$knockedOut[$seat]) {
-            $state['players'][$seat]['life'] = min(40, $state['players'][$seat]['life'] + 1);
+            $state['players'][$seat]['life'] = min(DFGMaxLife($state['players'][$seat]), $state['players'][$seat]['life'] + 1);
             DFGLog($state, ($seat === 0 ? 'You recover' : 'Bot recovers') . ' 1 life from Driving Palm (maximum 40).');
         }
         if (in_array('hit_burn_enemy_main', $specials[$seat], true)) {
@@ -442,6 +448,7 @@ function DFGApply(array $state, int $seat, array $action): array {
         $spend = $action['advantages'] ?? []; $extra = $action['extraSwitch'] ?? null;
         DFGValidateAdvantageSpend($state, $seat, $main, $spend, $extra);
         $state['commitments'][$seat] = ['main' => $main, 'bonuses' => $bonuses];
+        if (function_exists('DFGPlanContext')) $state['commitments'][$seat] += DFGPlanContext($state['players'][$seat]);
         if (!empty($state['players'][$seat]['nextAttack'])) $state['commitments'][$seat]['momentum'] = $state['players'][$seat]['nextAttack'];
         if (!empty($state['players'][$seat]['nextBlockPenalty'])) $state['commitments'][$seat]['blockPenalty'] = $state['players'][$seat]['nextBlockPenalty'];
         if ($spend) $state['commitments'][$seat]['advantages'] = $spend;

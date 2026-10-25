@@ -1,0 +1,7 @@
+{
+    "name": "Regain Composure / actual Old Knocker costs and four-live hit responses before untap",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-24T18:45:29+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four live legal young Dorinthea20x4. Actual Old KnockerUID7 Instant0 taps P1 hero and destroys itself as costs; four real responses resolve gainR1/AP1, hero staysStatus1. Actual RegainUID5 Action0 spendsAP, four responses apply next attack+1/hit untap and own go-again restoresAP1. Actual BlueWoundingUID6 cost0 chooses adjacentP4 and spendsAP; four responses declare power2+1=3/noGA. Unblocked3 ->P4HP17 creates sole ABILITYUID9 with actual attack6 source and seaRegainComposure event; hero remainsStatus1 through three further real responses. Fourth untaps only P1 toStatus2, AP0R1 unchanged. Finish all combat cycles: GY physical Old7/Regain5/Host6, each Owner1Controller1FaceDown0; all chains/Stack/queues and other nonhero zones empty. No seeded grant/tap/status/history; no pitch was needed for these actual zero-resource costs. One positive Regain family witness only; no ally, source-leaving, controller4 or OldKnocker primary coverage claim. Sources: https://judge.fabtcg.com/cards/detail/3952/ FaBSim/WebpImages/old_knocker.webp https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

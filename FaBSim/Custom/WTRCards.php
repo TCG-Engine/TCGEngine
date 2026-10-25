@@ -793,5 +793,5 @@ function FaBWTRQueueAttackIntimidate(int $p,int $target,int $amount,int $sourceU
 function FaBWTRResolveAttackIntimidate(int $p,object $trigger): void {
     $target=intval($trigger->Params['rosTarget']??0);
     if(!FaBSeatIsLive($target)||!in_array($target,FaBOpponents($p),true))return;
-    FaBIntimidate($p,$target,max(1,intval($trigger->Params['wtrIntimidateAmount']??1)));
+    FaBIntimidate($p,$target,max(1,intval($trigger->Params['wtrIntimidateAmount']??1)),intval($trigger->SourceUniqueID),(string)$trigger->CardID);
 }

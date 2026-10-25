@@ -90,5 +90,5 @@ window.DFGAssetPreloader = (() => {
   connection?.addEventListener('change', schedule);
   motion.addEventListener('change', warmScene);
   warmScene();
-  return {warmCards, playbackSource};
+  return {warmCards, playbackSource, warmScene};
 })();

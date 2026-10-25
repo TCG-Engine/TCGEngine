@@ -1,0 +1,59 @@
+{
+  "status": "STOPPED_BOUNDED_WRAPUP_COMPLETE_FOCUSED_READY_FULL_SUITE_UNRUN",
+  "utc": "2026-10-24T18:29:28.804527+00:00",
+  "runtime_sha256": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+  "independent_final_review": {
+    "path": "review-evidence/final-repair-20261024-independent-bounded-review.json",
+    "sha256": "3265c0d129d3fb98ba798479abb21f921703ef654221afb703c2e2c06cedfafb",
+    "verdict": "APPROVED_FINAL_BOUNDED_REPAIR_HANDOFF_FOCUSED_QUALIFICATION_ONLY_FULL_CORPUS_UNRUN"
+  },
+  "reviewed_documents": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\REPAIR_HANDOFF_20261024.md",
+      "sha256": "5a612e690312aa9eb29492d4cfdc81f0109dee7608b2a4feb1299356bce5d9a1"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\repair-validation-20261024.json",
+      "sha256": "e4736ce8ba41f50c4ee71465fd313e8d81a6cc39f49f2a6348741f334a11d9a7"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\repair-status-20261024.json",
+      "sha256": "facd6ae50d627aa26eddd61688bcdc9288fdbba7a5e69df023955467ee5e3171"
+    }
+  ],
+  "local_document_links": {
+    "REPAIR_HANDOFF_20261024.md": "PASS",
+    "README.md": "PASS",
+    "SPARSE_FIRST_PASS.md": "PASS",
+    "components/README.md": "PASS"
+  },
+  "git_diff_check": {
+    "exit": 0,
+    "stderr": "warning: in the working copy of 'DevTools/FaB/CardRegression/last-recording-results.json', LF will be replaced by CRLF the next time Git touches it"
+  },
+  "retained_component_lints": "Both retained portable Intimidate copies passed php -l; executed contracts reused unchanged explicit-argument scripts.",
+  "cycle_coverage_input_hash_matches": true,
+  "disposable_control_clones_remaining": 0,
+  "git": {
+    "head": "897ba7d9732fb0a3cf0301ca250cd955b74ff101",
+    "staged_paths": [],
+    "changed_fab_paths": 161,
+    "changed_fab_categories": {
+      "regression_metadata_proofs_tooling": 46,
+      "gameplay_source": 5,
+      "fixtures": 110
+    },
+    "unrelated_changed_paths": 209,
+    "user_edits_preserved": true,
+    "agent_staged": false,
+    "agent_committed": false,
+    "agent_pushed": false
+  },
+  "final_check_scope": "Administrative links/hash/JSON/whitespace/source bindings only; no additional gameplay, full suite or historical review.",
+  "remaining_readiness_gate": "User-owned full FaBSim integration suite and review of documented compatibility limits.",
+  "docs": "REPAIR_HANDOFF_20261024.md",
+  "validation": "repair-validation-20261024.json",
+  "issues": "repair-status-20261024.json",
+  "coverage": "card-regression-coverage.json",
+  "cycles": "cycle-coverage-current.json"
+}

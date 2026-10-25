@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172821">
+  <title>DFG — Small differences, different fights</title>
+  <link rel="stylesheet" href="study.css">
+  <script src="study-data.js" defer></script>
+  <script src="study-refinement.js" defer></script>
+  <script src="live-catalog.js" defer></script>
+  <script src="study-coverage.js" defer></script>
+  <script src="study-model.js" defer></script>
+  <script src="study.js" defer></script>
+</head>
+<body>
+  <header class="masthead"><a href="#top" class="brand">DFG <span>DESIGN ATLAS</span></a><span>FIELD STUDY 002 <i> / </i> OCT 2026</span></header>
+  <main id="top">
+    <section class="intro">
+      <div><p class="eyebrow">CARD FAMILIES / MERGED STUDY 03</p><h1>Small differences.<br><em>Different fights.</em></h1><p class="lede">The current moveset and its possible futures, together. Explore related techniques that trade safety for upside, flexibility for efficiency, and immediate strength for future opportunity.</p><div class="intro-numbers"><span><strong id="family-total">65</strong> families</span><span><strong id="entry-total">257</strong> gallery entries</span><span><strong id="live-total">36</strong> current baselines</span><span><strong>0</strong> live rule changes</span></div></div>
+      <aside class="thesis"><span class="folio">THE DESIGN QUESTION</span><p>“When would I choose<br><em>this version?</em>”</p><div class="mini-spectrum"><span>0 / 0<br><b>HEAL 4</b></span><i>→</i><span>0 / 2<br><b>HEAL 3</b></span><i>→</i><span>0 / 4<br><b>HEAL 2</b></span></div><small>The same intention. Three different bets on the opponent.</small></aside>
+    </section>
+    <section class="reading-notes" aria-label="How to read the study"><p><b>Every current card has a home.</b> The refined 40 families are joined by 25 families for missing mechanics. The coverage index maps every current main clause, objective, spend, burn mode, and destination set.</p><p><b>Current cards and proposals are labeled.</b> CURRENT cards reproduce the v44 catalog exactly, with their original hand and modes. DRAFT and REFERENCE entries explore possible changes. Counts include reference placements.</p><details><summary>Study conventions &amp; limits</summary><div id="conventions"></div></details></section>
+    <section class="coverage" id="coverage" aria-labelledby="coverage-title"><div class="section-heading"><div><p class="eyebrow">THE CURRENT SET / COVERAGE INDEX</p><h2 id="coverage-title">36 cards. Every mechanic traced.</h2></div><p id="coverage-count"></p></div><p class="coverage-intro">Each current card appears once as an exact baseline in its primary family. Links below trace its individual mechanics into related families. A mapped mechanic is represented in the study; it is not a claim that every draft preserves the whole card.</p><details><summary>Open the card-by-card coverage map</summary><div class="table-scroll" tabindex="0" aria-label="Current card coverage table"><table><caption>Links identify families. Hover or focus a family link for its exact original clause.</caption><thead><tr><th scope="col">Current card / baseline</th><th scope="col">Main</th><th scope="col">Objective</th><th scope="col">Spend</th><th scope="col">Bonus</th><th scope="col">Reaction</th><th scope="col">Routes</th></tr></thead><tbody id="coverage-rows"></tbody></table></div></details></section>
+    <section class="explorer" aria-labelledby="lab-title">
+      <div class="section-heading"><div><p class="eyebrow">01 / THE PAYOFF EXPLORER</p><h2 id="lab-title">Move the matchup.</h2></div><p>One exchange, related versions. Watch which tradeoff becomes useful.</p></div>
+      <div class="lab-controls"><label>Family<select id="lab-family"></select></label><label>Your starting life <output id="life-value">24</output><input id="life" type="range" min="1" max="40" value="24"></label><label>Opposing attack <output id="attack-value">4</output><input id="enemy-attack" type="range" min="0" max="12" value="4"></label><label>Opposing block <output id="block-value">2</output><input id="enemy-block" type="range" min="0" max="8" value="2"></label><label id="stamina-control">Your stamina <output id="stamina-value">4</output><input id="stamina" type="range" min="0" max="6" value="4"></label></div>
+      <div class="lab-flags"><label><input type="checkbox" id="own-bonus"> You committed a bonus</label><label><input type="checkbox" id="enemy-bonus"> Opponent committed a bonus</label><span>Flags test conditions only; burn stat effects are not added.</span></div>
+      <p id="lab-assumptions" class="lab-assumptions"></p><div class="table-scroll" tabindex="0" aria-label="Payoff table, horizontally scrollable"><table><caption id="lab-caption">Immediate exchange comparison</caption><thead><tr><th scope="col">Variant</th><th scope="col">Attack / block</th><th scope="col">Life gained</th><th scope="col">Damage taken</th><th scope="col">Damage dealt</th><th scope="col">Life after</th><th scope="col">Life swing</th></tr></thead><tbody id="lab-results"></tbody></table></div><p class="lab-footnote">Life swing = your life change + damage dealt. Highlighting compares surviving versions first; if all are knocked out, no lead is marked. This is a local comparison aid; it does not price routing, permanent burns, resources, or future rewards.</p>
+    </section>
+    <section class="collection" aria-labelledby="collection-title">
+      <div class="section-heading"><div><p class="eyebrow">02 / THE FAMILY GALLERY</p><h2 id="collection-title">Same idea. Different commitments.</h2></div><button type="button" id="export-data">Download refined data ↗</button></div>
+      <div class="toolbar"><label class="search-label">Search the collection<input type="search" id="search" placeholder="Try a current card, healing, or cleanse…"></label><label>Hand in family<select id="hand"><option value="All">All six hands</option></select></label><label>Rules scope<select id="scope"><option value="All">All families</option><option>Existing vocabulary</option><option>New system</option></select></label><button type="button" id="saved-filter" aria-pressed="false">Shortlist <span id="saved-count">0</span></button><button type="button" id="reset">Reset filters</button></div>
+      <nav id="categories" class="category-tabs" aria-label="Family category"></nav><p id="result-count" role="status" aria-live="polite"></p>
+      <div id="families"></div><div id="empty" hidden><h3>No families match.</h3><p>Try a broader search or clear your filters.</p><button type="button" id="clear-empty">Clear filters</button></div>
+    </section>
+    <footer><p><b>Next step: test the crossings.</b> Current mechanics are represented and the proposals remain experimental. Complete-moveset balance is unproven.</p><a href="COVERAGE.md">Read the coverage report ↗</a><a href="REFINEMENT.md">Refinement report ↗</a><span>DFGSim / revision 3 / 23 October 2026</span></footer>
+  </main>
+  <noscript>This gallery requires JavaScript. The complete draft data is available in study-data.js.</noscript>
+</body>
+</html>
