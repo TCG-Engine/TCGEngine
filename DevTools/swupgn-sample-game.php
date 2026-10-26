@@ -19,6 +19,10 @@ $label = preg_replace('/[^a-z0-9-]/', '', strtolower(strval($_GET['label'] ?? 's
 $deckName = fn(string $k, string $d) => preg_replace('/[^a-z0-9_-]/', '', strval($_GET[$k] ?? $d));
 $deck1 = $deckName('deck1', 'darth-vader_jtl_yellow'); $deck2 = $deckName('deck2', 'director-krennic_law_blue');
 $extras = !empty($_GET['extras']);
+// bo3=1: a private best-of-3. plan=W1,W2,W3: each game's winner seat — from round 3 on (two full rounds played, so SWU
+// Forge files it) the other seat concedes that game; 0 plays the game out. Each game's files go to <label>-g<N>.
+$bo3 = !empty($_GET['bo3']);
+$plan = array_map('intval', array_filter(explode(',', preg_replace('/[^0-9,]/', '', strval($_GET['plan'] ?? ''))), 'strlen'));
 $maxSteps = max(50, intval($_GET['maxSteps'] ?? 2500));
 $B = 'http://localhost/TCGEngine/';
 function sg_req(string $url, string $jar, ?array $post = null): string {
@@ -43,9 +47,9 @@ $p1user = in_array($_GET['p1user'] ?? '', ['ninin', 'claudebot3', 'claudebot4'],
 foreach ([1 => $p1user, 2 => 'claudebot2'] as $s => $u) sg_req($B . 'AccountFiles/AttemptPasswordLogin.php', $jar[$s], ['submit' => '1', 'userID' => $u, 'password' => 'pass']);
 // deck1link: seat 1 plays a swuforge.com deck by its link, imported like a player's (the match keeps the link — and with it
 // the Forge deck id a SWU Forge delivery sends).
-$deck1link = preg_match('#^https://swuforge\.com/decks/[A-Za-z0-9_-]{1,64}$#', strval($_GET['deck1link'] ?? '')) ? strval($_GET['deck1link']) : '';
+$deck1link = preg_match('#^https://([a-z0-9-]+\.)?swuforge\.com/decks/[A-Za-z0-9_-]{1,64}$#', strval($_GET['deck1link'] ?? '')) ? strval($_GET['deck1link']) : '';   // swuforge.com or a SWU Forge staging host
 if ($deck1link !== '') $deck1 = $deck1link;
-$host = json_decode(sg_req($B . 'APIs/Lobbies/JoinQueue.php', $jar[1], ['rootName' => 'SWUSim', 'createPrivate' => '1', 'format' => 'premier',
+$host = json_decode(sg_req($B . 'APIs/Lobbies/JoinQueue.php', $jar[1], ['rootName' => 'SWUSim', 'createPrivate' => '1', 'format' => 'premier', 'queueType' => $bo3 ? 'bo3' : 'bo1',
     'deckLink' => $deck1link !== '' ? $deck1link : $deckOf($deck1)]), true);
 $guest = json_decode(sg_req($B . 'APIs/Lobbies/JoinQueue.php', $jar[2], ['rootName' => 'SWUSim', 'privateInviteCode' => $host['inviteCode'] ?? '', 'deckLink' => $deckOf($deck2)]), true);
 $sr = json_decode(sg_req($B . 'APIs/Lobbies/StartRoom.php', $jar[1], ['rootName' => 'SWUSim', 'lobbyID' => $host['lobbyID'] ?? '', 'playerID' => 1, 'authKey' => $host['authKey'] ?? '']), true);
@@ -54,18 +58,27 @@ if ($g === '') { echo "FAIL: no game: " . json_encode([$host, $guest, $sr]) . "\
 $key = [1 => strval($host['authKey']), 2 => strval($guest['authKey'])];
 echo "game $g ($deck1 vs $deck2)\n";
 
-$send = function (int $seat, array $a) use ($B, $jar, $key, $g): array {
+$send = function (int $seat, array $a) use ($B, $jar, $key, &$g): array {
     $q = ['gameName' => $g, 'playerID' => $seat, 'authKey' => $key[$seat], 'folderPath' => 'SWUSim', 'mode' => intval($a['mode']),
         'cardID' => strval($a['cardID'] ?? ''), 'buttonInput' => strval($a['buttonInput'] ?? ''), 'inputText' => strval($a['inputText'] ?? ''), 'responseFormat' => 'json'];
     foreach ((array)($a['chkInput'] ?? []) as $i => $v) $q["chkInput[$i]"] = $v;
     return json_decode(sg_req($B . 'ProcessInput.php?' . http_build_query($q), $jar[$seat]), true) ?? [];
 };
-$load = function () use ($g) { global $gameName; $gameName = $g; $GLOBALS['gameName'] = $g; ParseGamestate('./SWUSim/'); };
+$load = function () use (&$g) { global $gameName; $gameName = $g; $GLOBALS['gameName'] = $g; ParseGamestate('./SWUSim/'); };
+$gameNo = 0;
+while (true) {   // one pass per game (a Bo1 runs once)
+$gameNo++;
+$want = $plan[$gameNo - 1] ?? 0;
 $did = ['mulligan' => !$extras, 'plays' => 0, 'attacks' => 0, 'undo' => !$extras, 'bookmark' => $extras ? 0 : -1, 'afterMark' => 0, 'loaded' => !$extras];
 $steps = 0; $last = ''; $repeat = 0;
 while ($steps++ < $maxSteps) {
     $load();
     if (SWUGetGameWinner() !== 0) break;
+    if ($want > 0 && intval(GetTurnNumber()) >= 3) {   // the plan's loser concedes this game
+        $send(3 - $want, ['mode' => 10006]); $load();
+        echo "game $gameNo: P" . (3 - $want) . ' concedes in round ' . intval(GetTurnNumber()) . "\n";
+        break;
+    }
     $seat = SWUBotPendingDecisionSeat();
     $deciding = $seat !== 0;
     if (!$deciding) $seat = GetCurrentPhase() === 'MAIN' ? intval(GetTurnPlayer()) : 0;
@@ -119,17 +132,35 @@ while ($steps++ < $maxSteps) {
 $load();
 echo "steps $steps, winner " . SWUGetGameWinner() . ', ' . json_encode($did) . "\n";
 
+$lab = $bo3 ? "$label-g$gameNo" : $label;
 $out = "./SWUSim/Games/$g/Pgn/out";
-$dest = "./.superpowers/swupgn-samples/$label";
+$dest = "./.superpowers/swupgn-samples/$lab";
 @mkdir($dest, 0777, true);
 require_once './AppCore/SWU/SwuPgn/SwuPgn.php';
 foreach (['all', 'p1', 'p2'] as $k) {
     if (!is_file("$out/$k.swupgn")) { echo "MISSING $k.swupgn (the game did not finish?)\n"; continue; }
     $text = file_get_contents("$out/$k.swupgn");
-    $file = "$dest/$label" . ($k === 'all' ? '' : "_$k") . '.swupgn';
+    $file = "$dest/$lab" . ($k === 'all' ? '' : "_$k") . '.swupgn';
     file_put_contents($file, $text);
     $doc = SwuPgnParse($text);
     $problems = _SwuPgnFileProblems($text);
     echo sprintf("%-60s %6d events  %s\n", $file, count($doc['events']), $problems ? 'PROBLEMS: ' . implode(' | ', array_slice($problems, 0, 3)) : 'validates, folds to its keyframes');
+}
+if (!$bo3) break;
+// Best of 3: the match goes on (sideboarding) or is over. Both seats submit their decks unchanged, as players do on
+// the sideboard page; the second submit spawns the next game.
+$ref = SWUReadMatchRef($g); $mid = strval($ref['matchId'] ?? '');
+$m = $mid !== '' ? SWUReadMatch($mid) : null;
+echo "match $mid after game $gameNo: " . strval($m['state'] ?? '?') . ' — games ' . json_encode(array_map(fn($x) => [$x['gameName'], $x['winner']], $m['games'] ?? [])) . "\n";
+if (!is_array($m) || ($m['state'] ?? '') !== 'sideboarding') break;
+$next = '';
+foreach ([1 => $deck1link !== '' ? $deck1link : $deckOf($deck1), 2 => $deckOf($deck2)] as $s => $text) {
+    $r = json_decode(sg_req($B . 'SWUSim/SubmitSideboard.php', $jar[$s], ['matchId' => $mid, 'playerID' => $s, 'authKey' => $key[$s], 'deck' => $text]), true);
+    if (empty($r['success'])) { echo "FAIL: P$s sideboard submit: " . json_encode($r) . "\n"; break 2; }
+    if (!empty($r['nextGameName'])) $next = strval($r['nextGameName']);
+}
+if ($next === '') { echo "FAIL: no next game after both submitted\n"; break; }
+$g = $next;
+echo "game $g (game " . ($gameNo + 1) . " of match $mid)\n";
 }
 @unlink($jar[1]); @unlink($jar[2]);

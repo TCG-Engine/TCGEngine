@@ -144,6 +144,16 @@ $checks['CreateDeck no longer scrapes melee inline']   = $create !== null && str
 $checks['RefreshImport uses SWUDeckLinkFetchBySource'] = $refresh !== null && strpos($refresh, 'SWUDeckLinkFetchBySource(') !== false;
 $checks['SWUSim DeckImport uses SWUDeckLinkFetch']     = $sim !== null && strpos($sim, 'SWUDeckLinkFetch(') !== false;
 
+// ── SWU Forge decks: a dev box fetches from SWU Forge STAGING (where its test accounts and decks live) ────
+$devWas = getenv('DEVENV');
+putenv('DEVENV=true');
+$checks['DEVENV: SWU Forge decks are fetched from staging'] = SWUDeckLinkSources()[SWU_DECK_SOURCE_SWUFORGE]['api'] === 'https://staging-andy.swuforge.com/api/decks/{id}/json';
+putenv('DEVENV=false');
+$checks['otherwise: SWU Forge decks are fetched from swuforge.com'] = SWUDeckLinkSources()[SWU_DECK_SOURCE_SWUFORGE]['api'] === 'https://swuforge.com/api/decks/{id}/json';
+putenv($devWas === false ? 'DEVENV' : "DEVENV=$devWas");
+$checks['a staging deck link still parses as a SWU Forge deck'] = SWUDeckLinkParse('https://staging-andy.swuforge.com/decks/cmvon67nl000001l53zwhign8')
+    === ['source' => SWU_DECK_SOURCE_SWUFORGE, 'id' => 'cmvon67nl000001l53zwhign8'];
+
 $fails = array_keys(array_filter($checks, fn($v) => $v !== true));
 if ($fails) {
     echo "FAIL (" . count($fails) . "/" . count($checks) . "):\n";

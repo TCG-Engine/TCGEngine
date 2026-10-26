@@ -51,7 +51,7 @@ function SWUForgeOAuthConsumeFlow(string $state, int $now = 0): array {
 
 function SWUForgeOAuthAuthorizeUrl(string $state): string {
     $cfg = SWUForgeConfig();
-    if ($cfg['clientId'] === '' || $cfg['clientSecret'] === '') {
+    if (!SWUForgeConfigured() || $cfg['clientId'] === '') {
         throw new RuntimeException('SWU Forge linking is not configured on this server.');
     }
     return $cfg['baseUrl'] . '/auth/petranaki/authorize?' . http_build_query([

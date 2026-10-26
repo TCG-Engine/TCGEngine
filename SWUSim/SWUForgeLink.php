@@ -7,12 +7,13 @@ require_once __DIR__ . '/../Database/ConnectionManager.php';
 require_once __DIR__ . '/../Database/functions.inc.php';
 
 const SWUFORGE_REFRESH_MARGIN = 300;   // refresh when under 5 minutes remain
-const SWUFORGE_STAGING_BASE = 'https://swu-forge-staging-andy.up.railway.app';
 
 function SWUForgeIsDev(): bool { return getenv('DEVENV') === 'true'; }
 
 // Every value is a setting (Forge staging now, production later): an environment variable wins, then APIKeys.php
-// ($swuforgeBaseURL, $swuforgeClientID, $swuforgeOAuthKey), then the defaults. Held in $GLOBALS so a test can reset it.
+// ($swuforgeBaseURL, $swuforgeClientID, $swuforgeOAuthKey), then the defaults. There is NO default Forge address: a box
+// that names no environment is not configured, rather than one that quietly links its players to staging.
+// Held in $GLOBALS so a test can reset it.
 // $keysFile: the APIKeys file (a parameter only so a test can hand in a stand-in).
 function SWUForgeConfig(string $keysFile = ''): array {
     if (isset($GLOBALS['SWUFORGE_CONFIG'])) return $GLOBALS['SWUFORGE_CONFIG'];
@@ -32,7 +33,6 @@ function SWUForgeConfig(string $keysFile = ''): array {
         if ($clientId === '') $clientId = trim((string)$k[1]);
         if ($secret === '')   $secret   = trim((string)$k[2]);
     }
-    if ($base === '') $base = SWUFORGE_STAGING_BASE;
     if ($clientId === '') $clientId = 'petranaki';
     if ($redirect === '') {
         $redirect = SWUForgeIsDev()
@@ -43,8 +43,12 @@ function SWUForgeConfig(string $keysFile = ''): array {
         'clientSecret' => $secret, 'redirectUri' => $redirect];
 }
 
-// The off switch: an empty (or missing) client secret turns SWU Forge off on this box — no link, no queue, no send.
-function SWUForgeConfigured(): bool { return trim((string)(SWUForgeConfig()['clientSecret'] ?? '')) !== ''; }
+// The off switch: an empty (or missing) client secret or Forge address turns SWU Forge off on this box — no link, no
+// queue, no send.
+function SWUForgeConfigured(): bool {
+    $cfg = SWUForgeConfig();
+    return trim((string)($cfg['clientSecret'] ?? '')) !== '' && trim((string)($cfg['baseUrl'] ?? '')) !== '';
+}
 
 // The ONE way this sim talks to SWU Forge. Tests set $GLOBALS['SWUFORGE_HTTP_FAKE'] to a
 // fn($method, $url, $body, $headers): array returning this same shape, so no test touches the network.
@@ -136,6 +140,7 @@ function SWUForgeAccessToken(int $usersId, bool $forceRefresh = false, int $now 
         $link = SWUForgeGetLink($conn, $usersId);
         if (!$link) return $none('unlinked');
         if (!$forceRefresh && $fresh($link)) return ['status' => 'ok', 'token' => (string)$link['accessToken']];
+        if (!SWUForgeConfigured()) return $none('unavailable');   // no secret / address to refresh with: keep the link, try later
 
         $lock = 'swuforge_refresh_' . $usersId;
         $stmt = $conn->prepare('SELECT GET_LOCK(?, 10) AS got');
@@ -184,7 +189,7 @@ function SWUForgeUnlink(int $usersId): void {
         if (!SWUForgeLinkReady($conn)) return;
         $link = SWUForgeGetLink($conn, $usersId);
         if (!$link) return;
-        try {
+        if (SWUForgeConfigured()) try {   // no address or secret to revoke with: the local link still goes
             $r = SWUForgeHttp('POST', SWUForgeConfig()['baseUrl'] . '/auth/petranaki/revoke',
                 ['token' => (string)$link['refreshToken'], 'token_type_hint' => 'refresh_token'] + _SWUForgeClient(), [], 10);
             if ($r['status'] !== 200) error_log('SWU Forge revoke failed user=' . $usersId . ' http=' . (int)$r['status']);

@@ -48,12 +48,13 @@ if ($action === 'save') {
     // The menu rebuilds its saved-deck pickers IN PLACE from this (owner, 2026-10-04: saving used to reload the page, which
     // closed the setup modal and left the new deck unselected). `decks` is SWUSetupSavedDecks() — exactly what the page
     // renders on load — plus each deck's leader/base names, and `key` is the new deck's picker key in that list.
-    // Additive: the existing fields are unchanged.
+    // Additive: the existing fields are unchanged. `name` is what was stored, so the profile's import rows can add the deck
+    // to the Saved Decks dropdown in place.
     $decks = array_map(function ($d) {
         $labels = array_map('SWUSetupCardLabel', array_merge((array)$d['leaders'], $d['base'] !== '' ? [$d['base']] : []));
         return $d + ['subtitle' => implode(' · ', $labels)];
     }, SWUSetupSavedDecks($uid));
-    return $respond(['success'=>true,'decklink'=>$decklink,'leader'=>$leader,'base'=>$base,
+    return $respond(['success'=>true,'decklink'=>$decklink,'name'=>$name,'leader'=>$leader,'base'=>$base,
                      'key'=>substr(sha1($decklink), 0, 12), 'decks'=>$decks]);
 }
 // The menu's "last deck used" pointer. Written when a game actually STARTS, and forgotten when

@@ -4601,6 +4601,79 @@ body:has(#cardDetail) .blocked-user-addrow {
 }
 body:has(#cardDetail) .blocked-user-addrow input { flex: 1 1 160px; margin-block-end: 0; }
 body:has(#cardDetail) .blocked-user-addrow button { flex: none; }
+
+/* Saved Decks → Import decks (SharedUI/Render/DeckLibrary.php RenderDeckImport). A row is the link box with its ✕
+   beside it and the row's result underneath; the ✕ is hidden while only one box is left, and the box then takes the
+   full width. */
+body:has(#cardDetail) .dl-import {
+  margin-block-start: var(--s-4);
+  padding-block-start: var(--s-4);
+  border-block-start: 1px solid var(--edge);
+}
+body:has(#cardDetail) .dl-import-title {
+  margin: 0 0 var(--s-1, 4px);
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+body:has(#cardDetail) .dl-import-hint {
+  margin: 0 0 var(--s-3);
+  font-size: var(--t-12);
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+body:has(#cardDetail) .dl-import-rows { display: grid; gap: var(--s-2); }
+body:has(#cardDetail) .dl-import-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px var(--s-2);
+}
+body:has(#cardDetail) .dl-import-input {
+  inline-size: 100%;
+  min-inline-size: 0;
+  box-sizing: border-box;
+  margin: 0;
+}
+body:has(#cardDetail) .dl-import-remove {
+  min-inline-size: var(--tap);
+  min-block-size: var(--tap);
+  margin: 0;
+  padding-inline: 0;
+  font-size: var(--t-15);
+  line-height: 1;
+}
+body:has(#cardDetail) .dl-import-remove[hidden] { display: none; }
+body:has(#cardDetail) .dl-import-status {
+  grid-column: 1 / -1;
+  font-size: var(--t-12);
+  line-height: 1.4;
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+body:has(#cardDetail) .dl-import-status:empty { display: none; }
+body:has(#cardDetail) .dl-import-row[data-state="ok"] .dl-import-status { color: var(--tint-solo); }
+body:has(#cardDetail) .dl-import-row[data-state="error"] .dl-import-status { color: oklch(0.780 0.120 28); }
+body:has(#cardDetail) .dl-import-row[data-state="error"] .dl-import-input { border-color: oklch(0.700 0.130 28); }
+body:has(#cardDetail) .dl-import-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-2);
+  margin-block-start: var(--s-3);
+}
+body:has(#cardDetail) .dl-import-controls button { margin: 0; }
+body:has(#cardDetail) .dl-import-plus { font-size: var(--t-15); line-height: 1; }
+body:has(#cardDetail) .dl-import-summary {
+  margin-block-start: var(--s-3);
+  font-size: var(--t-13);
+  line-height: 1.5;
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+body:has(#cardDetail) .dl-import-summary:empty { display: none; }
 body:has(#cardDetail) .blocked-user-empty,
 body:has(#cardDetail) .blocked-user-list {
   margin: var(--s-3) 0 0;

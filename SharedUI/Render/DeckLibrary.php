@@ -214,8 +214,10 @@ function RenderDeckLibrary(int $userId, array $config = []): string {
     $decks = $config['decks'] ?? ($storage === 'account' ? LoadSavedDecks($userId) : []);
     $emptyText = $config['emptyText'] ?? 'No saved decks yet - paste a deck link and save it.';
     $esc = fn($s) => htmlspecialchars(strval($s ?? ''), ENT_QUOTES);
+    // keepWhenEmpty: render the (empty) dropdown anyway, for a page that adds decks to it in place (RenderDeckImport).
+    $keepWhenEmpty = !empty($config['keepWhenEmpty']);
 
-    if (empty($decks) && $storage !== 'local') {
+    if (empty($decks) && $storage !== 'local' && !$keepWhenEmpty) {
         return "<div class='deck-library deck-library-empty'>" . $esc($emptyText) . "</div>";
     }
 
@@ -237,7 +239,7 @@ function RenderDeckLibrary(int $userId, array $config = []): string {
     }
 
     $sel = "<select class='dl-select'>$opts</select>";
-    $empty = $storage === 'local'
+    $empty = ($storage === 'local' || empty($decks))
         ? "<div class='deck-library-empty'>" . $esc($emptyText) . "</div>"
         : "";
 
@@ -253,7 +255,201 @@ function RenderDeckLibrary(int $userId, array $config = []): string {
          . "<div class='dl-dropdown-actions'>$btns</div>"
          . ($storage === 'account'
             ? "<div class='dl-stats' data-empty='Select a deck to see its stats.'>Select a deck to see its stats.</div>"
-            : $empty)
+            : '')
+         . $empty
          . "</div>"
          . _DeckLibraryScript($config);
+}
+
+// "Import decks": a column of deck-link boxes (one to start, "Add another" up to DECK_IMPORT_MAX), saved to the account
+// with one press. Each box posts, one at a time, to the endpoint's existing `save` action, so the links-only rule and
+// the name lookup are the menu's own. Saved decks join the panel's dropdown in place; a box that failed keeps its link
+// and the reason, so it can be fixed and imported again. Account storage only.
+const DECK_IMPORT_MAX = 10;
+
+function RenderDeckImport(array $config = []): string {
+    $max = DECK_IMPORT_MAX;
+    $row = "<div class='dl-import-row'>"
+         . "<input type='url' class='dl-import-input' placeholder=\"Paste a deck link\" aria-label='Deck link 1'"
+         . " autocomplete='off' spellcheck='false'>"
+         . "<button type='button' class='dl-import-remove' aria-label='Remove this link' hidden>&times;</button>"
+         . "<span class='dl-import-status'></span>"
+         . "</div>";
+    return "<div class='dl-import' data-max='$max'>"
+         . "<h3 class='dl-import-title'>Import decks</h3>"
+         . "<p class='dl-import-hint'>Paste a link from SWUDB, SWUStats, SWU Forge or another deck builder. Up to $max at a time.</p>"
+         . "<div class='dl-import-rows'>$row</div>"
+         . "<div class='dl-import-controls'>"
+         . "<button type='button' class='dl-import-add'><span class='dl-import-plus' aria-hidden='true'>+</span> Add another</button>"
+         . "<button type='button' class='dl-import-save'>Import &amp; Save</button>"
+         . "</div>"
+         . "<div class='dl-import-summary' aria-live='polite'></div>"
+         . "</div>"
+         . _DeckImportScript($config);
+}
+
+function _DeckImportScript(array $config = []): string {
+    $js = <<<'JS'
+<script>(function(){
+  if (window.__deckImportWired) return; window.__deckImportWired = true;
+  function appBase(){ var p=location.pathname, i=p.indexOf('/TCGEngine/'); return i>=0 ? p.slice(0,i+11) : '/TCGEngine/'; }
+  var URL = appBase() + __ENDPOINT__;
+  var REASONS = { not_a_link: 'Not a deck link', empty: 'Paste a deck link', not_logged_in: 'Log in again to save decks',
+                  db_insert_failed: 'Could not save it. Try again', unresolvable: 'Could not load that deck' };
+
+  function rows(box){ return Array.prototype.slice.call(box.querySelectorAll('.dl-import-row')); }
+  function maxRows(box){ return parseInt(box.getAttribute('data-max') || '10', 10); }
+  function input(row){ return row.querySelector('.dl-import-input'); }
+  function setStatus(row, state, text){
+    var s = row.querySelector('.dl-import-status');
+    s.textContent = text || '';
+    if (state) row.setAttribute('data-state', state); else row.removeAttribute('data-state');
+  }
+  // Numbers the boxes for screen readers, hides the ✕ while only one box is left, and stops "Add another" at the cap.
+  function refresh(box){
+    var list = rows(box);
+    list.forEach(function(r, i){
+      input(r).setAttribute('aria-label', 'Deck link ' + (i + 1));
+      r.querySelector('.dl-import-remove').hidden = list.length === 1;
+    });
+    box.querySelector('.dl-import-add').disabled = list.length >= maxRows(box);
+  }
+  function addRow(box, value){
+    var list = rows(box);
+    if (list.length >= maxRows(box)) return null;
+    var row = list[list.length - 1].cloneNode(true);
+    input(row).value = value || '';
+    input(row).readOnly = false;
+    setStatus(row, '', '');
+    box.querySelector('.dl-import-rows').appendChild(row);
+    refresh(box);
+    return row;
+  }
+  function reason(r){
+    if (!r) return 'Could not reach the server';
+    var e = String(r.error || '');
+    if (REASONS[e]) return REASONS[e];
+    return e.indexOf(' ') > 0 ? e.replace(/\.$/, '') : 'Could not load that deck';   // the resolver's own sentence
+  }
+  function post(params, done){
+    var x = new XMLHttpRequest();
+    x.open('POST', URL, true);
+    x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    x.timeout = 45000;
+    x.onload = function(){ var r = null; try { r = JSON.parse(x.responseText); } catch (e) {} done(r); };
+    x.onerror = x.ontimeout = function(){ done(null); };
+    x.send(params);
+  }
+  // Adds (or renames) the deck in this panel's Saved Decks dropdown, after the favourites, as the page would on load.
+  function addToDropdown(box, decklink, link, name){
+    var panel = box.closest('.savedDecks') || document;
+    var sel = panel.querySelector('.deck-library-dropdown[data-storage="account"] .dl-select');
+    if (!sel || !decklink) return;
+    var opts = Array.prototype.slice.call(sel.options), before = null;
+    for (var i = 0; i < opts.length; i++) {
+      if (opts[i].getAttribute('data-id') === decklink) {
+        opts[i].setAttribute('data-name', name);
+        opts[i].textContent = (opts[i].getAttribute('data-fav') === '1' ? '★ ' : '') + name;
+        return;
+      }
+      if (!before && opts[i].getAttribute('data-id') && opts[i].getAttribute('data-fav') !== '1') before = opts[i];
+    }
+    var o = document.createElement('option');
+    o.setAttribute('data-id', decklink);
+    o.setAttribute('data-queue-input', link);
+    o.setAttribute('data-name', name);
+    o.setAttribute('data-fav', '0');
+    o.setAttribute('data-wins', '0');
+    o.setAttribute('data-losses', '0');
+    o.textContent = name;
+    sel.insertBefore(o, before);
+    var empty = panel.querySelector('.deck-library-empty');
+    if (empty) empty.style.display = 'none';
+  }
+
+  function runImport(box){
+    var btn = box.querySelector('.dl-import-save'), summary = box.querySelector('.dl-import-summary');
+    if (btn.disabled) return;
+    var seen = {}, jobs = [], extra = [];
+    rows(box).forEach(function(r){
+      var v = input(r).value.trim();
+      if (!v) { setStatus(r, '', ''); extra.push(r); return; }
+      if (seen[v]) { setStatus(r, '', ''); extra.push(r); return; }   // the same link twice is saved once
+      seen[v] = true; jobs.push({ row: r, link: v });
+    });
+    if (!jobs.length) { summary.textContent = 'Paste a deck link first.'; input(rows(box)[0]).focus(); return; }
+    btn.disabled = true; box.setAttribute('aria-busy', 'true');
+    summary.textContent = 'Saving ' + jobs.length + ' deck' + (jobs.length === 1 ? '' : 's') + '…';
+    var saved = [], failed = [], i = 0;
+    (function next(){
+      if (i >= jobs.length) return finish();
+      var j = jobs[i++];
+      setStatus(j.row, 'saving', 'Saving…');
+      input(j.row).readOnly = true;
+      post('action=save&deckInput=' + encodeURIComponent(j.link), function(r){
+        input(j.row).readOnly = false;
+        if (r && r.success) {
+          var name = String(r.name || '').trim() || 'Untitled Deck';
+          setStatus(j.row, 'ok', '✓ ' + name);
+          addToDropdown(box, r.decklink, j.link, name);
+          saved.push(j);
+          j.name = name;
+        } else {
+          setStatus(j.row, 'error', '✗ ' + reason(r));
+          failed.push(j);
+        }
+        next();
+      });
+    })();
+    // Saved and blank boxes go; failed ones stay with their reason. At least one box is always left.
+    // (The last box is cleared rather than removed: new boxes are copies of an existing one.)
+    function finish(){
+      saved.map(function(j){ return j.row; }).concat(extra).forEach(function(r){
+        if (rows(box).length > 1) r.remove(); else { input(r).value = ''; setStatus(r, '', ''); }
+      });
+      refresh(box);
+      btn.disabled = false; box.removeAttribute('aria-busy');
+      var names = saved.map(function(j){ return j.name; }).join(', ');
+      if (!failed.length) summary.textContent = 'Saved ' + saved.length + ' deck' + (saved.length === 1 ? '' : 's') + ': ' + names + '.';
+      else if (saved.length) summary.textContent = 'Saved ' + saved.length + ' of ' + (saved.length + failed.length) + ': ' + names
+        + '. Fix the links marked ✗ and press Import & Save again.';
+      else summary.textContent = 'Nothing was saved. Fix the links marked ✗ and try again.';
+      if (failed.length) input(failed[0].row).focus();
+    }
+  }
+
+  document.addEventListener('click', function(e){
+    var box = e.target.closest('.dl-import'); if (!box) return;
+    if (e.target.closest('.dl-import-add')) { var r = addRow(box, ''); if (r) input(r).focus(); }
+    else if (e.target.closest('.dl-import-remove')) {
+      var row = e.target.closest('.dl-import-row');
+      if (rows(box).length > 1) { var list = rows(box), at = list.indexOf(row); row.remove(); refresh(box);
+        var left = rows(box); input(left[Math.min(at, left.length - 1)]).focus(); }
+    }
+    else if (e.target.closest('.dl-import-save')) runImport(box);
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Enter' || !e.target.closest('.dl-import-input')) return;
+    e.preventDefault(); runImport(e.target.closest('.dl-import'));
+  });
+  // A pasted LIST of links (one per line, or space separated) fills one box each. A single-line box would otherwise
+  // drop the line breaks and glue every link into one.
+  document.addEventListener('paste', function(e){
+    var inp = e.target.closest && e.target.closest('.dl-import-input'); if (!inp) return;
+    var text = (e.clipboardData || window.clipboardData) ? (e.clipboardData || window.clipboardData).getData('text') : '';
+    var links = String(text || '').split(/\s+/).filter(Boolean);
+    if (links.length < 2) return;
+    e.preventDefault();
+    var box = inp.closest('.dl-import'), list = rows(box), at = list.indexOf(inp.closest('.dl-import-row')), left = 0;
+    inp.value = links.shift();
+    list.slice(at + 1).forEach(function(r){ if (links.length && !input(r).value.trim()) input(r).value = links.shift(); });
+    while (links.length && addRow(box, links[0])) links.shift();
+    left = links.length;
+    box.querySelector('.dl-import-summary').textContent = left
+      ? 'Only ' + maxRows(box) + ' at a time — ' + left + ' link' + (left === 1 ? ' was' : 's were') + ' left out. Import these, then paste the rest.'
+      : '';
+  });
+})();</script>
+JS;
+    return strtr($js, ['__ENDPOINT__' => json_encode($config['endpoint'] ?? 'SWUSim/SavedDecks.php', JSON_UNESCAPED_SLASHES)]);
 }
