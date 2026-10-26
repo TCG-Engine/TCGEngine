@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002
 
 ## Foundations already built — do not re-do
 
@@ -304,11 +304,32 @@ classified it "new" — mapped by hand in `Overrides.php` (IC27_053 → SEC_071)
     via `SWUAddToDiscard`, which fires OnCardDiscarded but NOT the Padmé SEC_016 / Migs SHD_163 hand-discard
     reactions that `DoDiscardCard` fires — any self-chosen discard routed through it skips both.
 
+## Phase 11 — Fifth preview wave, 2026-10-26 (29 → 30 CardIDs)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff: one card, not in the engine dictionary on arrival — ran the three
+preview regens first (plain `zzCardCodeGenerator.php` for SWUSim + SWUDeck from cache, then `Data/ProcessKeywordsSWU.php`);
+Rey then appeared in the dictionary and in `HasOnAttackAbility`.
+
+- [x] **Batch 11.1 — IC27_002 Rey (In Balance)** — done 2026-10-26, 14 sections, suite 13451 → 13465/0. Leader, both sides:
+  FRONT "Action [1 resource, Exhaust]: Give an Experience token to a damaged unit" + Epic deploy at 5 (= printed cost, no
+  wiring); DEPLOYED "On Attack: You may give an Experience token to a damaged unit". Built on the released analogue SHD_004
+  Rey (same shape, different condition): `$leaderActionResourceCosts["IC27_002"] = 1` (the cost is checked BEFORE Rey exhausts
+  and paid centrally, so Credits/Droids can pay), front pool = `SWUAllUnits()` filtered to damage > 0, deployed =
+  `SWUOfferUnitTarget` with `may` + the same filter and NO `excludeSelf` (a damaged Rey may take it herself). Settled by the
+  CR, not a judgement call: the front Action is usable with NO damaged unit (CR 637.3 — the cost changes the game state), so
+  it exhausts Rey and spends the resource for no effect. Preview assumption flagged: "a damaged unit" read as ANY unit with
+  damage (no side, no "another") — the printed text has no qualifier. Seven single-point mutations each caught by their own
+  sections. Side-find, not changed: SHD_004 pays its 1 resource INLINE after exhausting (predates `$leaderActionResourceCosts`),
+  so it can exhaust with no resource to pay and Credits can't pay it.
+
 ## Status
 
-**✅ IC27 IS CARD-COMPLETE AT 29 / 29 mocked CardIDs** (2026-10-24 — re-derived at the END of the run: the
+**✅ IC27 IS CARD-COMPLETE AT 30 / 30 mocked CardIDs** (2026-10-26 — re-derived at the END of the run: the
 `### Already Done` line diffed against the IC27 IDs in `AppCore/SWU/CardMocks.php` is empty), plus the
 hand-mapped reprint override IC27_053 → SEC_071. True only until the next preview import.
+Fifth wave (Phase 11): suite 13451 → **13465/0** (+14 sections), zero deferrals; one preview assumption flagged
+(Rey's "a damaged unit" = any unit with damage).
+Before that: **29 / 29** (2026-10-24).
 Fourth wave (Phase 10): suite 13410 → **13447/0** (+37 sections), zero deferrals; two judgement calls
 flagged (IC27_070 no availability gate; IC27_145 charges stack).
 Before that: **21 / 21** (2026-10-07). Third wave (Phase 9): +15 sections, zero deferrals, no preview assumption

@@ -56,6 +56,41 @@ return array (
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'IC27_002' => 
+  array (
+    'title' => 'Rey',
+    'subtitle' => 'In Balance',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'IC27',
+    'cost' => 5,
+    'power' => 3,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Resistance',
+    ),
+    'text' => 'Action [1 resource, Exhaust]: Give an Experience token to a damaged unit.',
+    'epicAction' => 'Epic Action: If you control 5 or more resources , deploy this leader.',
+    'deployText' => 'On Attack: You may give an Experience token to a damaged unit.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/002.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/002-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'IC27_008' => 
   array (
     'title' => 'Princess Leia',

@@ -399,6 +399,7 @@ return [
     'IBH_102' => 'ibh/IWantProofNotLeads.php',
     'IBH_104' => 'ibh/TheDesolationOfHoth.php',
     'IC27_001' => 'ic27/DarthVader_NoOneToStopUs.php',
+    'IC27_002' => 'ic27/Rey_InBalance.php',
     'IC27_008' => 'ic27/PrincessLeia_OnADiplomaticMission.php',
     'IC27_022' => 'ic27/MoffGideon_ColdCalling.php',
     'IC27_024' => 'ic27/GrandAdmiralThrawn_ListenToMeCarefully.php',
