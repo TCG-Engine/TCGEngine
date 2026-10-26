@@ -1,0 +1,115 @@
+{
+  "status": "ONE_CINTARI_REPRESENTATIVE_AND049_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T02:42:11.396007+00:00",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "recorded_runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1",
+  "source_fix_runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1",
+  "external_auth_rebind": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\external-auth-runtime-delta-20261026.json",
+    "sha256": "d4edb536dea04b7f9e4af52c93c59c80f8227e96f6ea21c6802dc6dd02d2fb87",
+    "current_user_commit": "1d070d851fa3506069e261f35c2ce8b86215a23c",
+    "auth_sha256": "b1c169fbb58e28703cca927dfed10c7b338c4e8d10b81dfe5449e472e016bb6c",
+    "preserved": true
+  },
+  "inventory_scope": "Bounded216/Cintari registration only;217 remains excluded pendingnative/qualification. No inventory scan or coverage index rebuild.",
+  "new_scenarios_recorded": 1,
+  "new_scenarios_qualified": 1,
+  "new_groups": 1,
+  "total_saved_through216": 3425,
+  "two_player": 3074,
+  "four_live_through216": 351,
+  "primary_ids_recorded_through216": 584,
+  "identity_denominator": 5196,
+  "groups_recorded_through216": 458,
+  "group_denominator": 3324,
+  "four_live_groups_through216": 349,
+  "registered_review_rows_after": 3425,
+  "phase_scenarios_qualified_at_batch_contexts": 62,
+  "creation_replay_passes_at_batch_contexts": 124,
+  "new_cases": [
+    {
+      "slug": "card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+      "primary_card_ids": [
+        "cintari_saber"
+      ],
+      "actions": 33,
+      "native_assertions": 2193,
+      "authoring_only_checks": 1,
+      "manual_passes": 29
+    }
+  ],
+  "review_evidence": "review-evidence/sparse216-cintari-f56-qualified-saved-review.json",
+  "review_evidence_sha256": "12ef0a951ef2aece511275b49c21570c5e63d619103ffac8a9243ec79567ec1a",
+  "new_targeted_replay_passes": 2,
+  "original_recorded_context_replay_passes": 2,
+  "auth_rebind_additional_replay_passes": 2,
+  "recorded_context_replays": [
+    {
+      "path": "card-regression-replay-cintari-f3-20261026-r1.json",
+      "sha256": "87fd62679ec0832b5dbb5a9aa45ca48e476e260f09a6449beb29801b4bea9fce",
+      "runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1"
+    },
+    {
+      "path": "card-regression-replay-cintari-f3-20261026-r2.json",
+      "sha256": "a61d13e609476764ccad95228388dcecce6b634aed8eb429d2005a7de1dcbf4d",
+      "runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1"
+    }
+  ],
+  "targeted_replays": [
+    {
+      "path": "card-regression-replay-cintari-f56-auth-rebind-r1.json",
+      "sha256": "642948bdc6f512a3e5366eab93ac3937eaa2f598acdcb99c566c63f4c6011a99"
+    },
+    {
+      "path": "card-regression-replay-cintari-f56-auth-rebind-r2.json",
+      "sha256": "ce2bc41e4d70e8959cc88dfc736b9069e70747348a89e064e852817ad736dbfb"
+    }
+  ],
+  "native_gameplay_fix": {
+    "issue": "FAB-REG-049",
+    "new_distinct_group": true,
+    "evidence": "review-evidence/cintari-defended-trigger-before-after.json"
+  },
+  "phase_distinct_new_fix_groups": [
+    "FAB-REG-043",
+    "FAB-REG-044",
+    "FAB-REG-045",
+    "FAB-REG-048",
+    "FAB-REG-049"
+  ],
+  "phase_existing_group_extensions": [
+    "FAB-REG-046",
+    "FAB-REG-047"
+  ],
+  "components": {
+    "path": "components/cintari_defended_trigger_component.php",
+    "sha256": "312c9283a29d5d2cee22d2348b902be4b06dac6540693353b645ce464f246d86",
+    "groups": 11,
+    "checks": 20
+  },
+  "existing_compatibility": {
+    "path": "card-regression-replay-cintari-f3-ros-mauvrion-compat.json",
+    "sha256": "c739a28de652965810d0bdba68b33608674feb2abeedc4a43c02f37548a4ed93",
+    "passed": 1,
+    "new_coverage_credit": false
+  },
+  "causal_controls": {
+    "global_total": 111,
+    "phase_total": 27,
+    "changed": false,
+    "sha256": "48ca0b6a56f8087484879d21db9d6bfd3185e012c11763a6f4853d582897fcaf",
+    "new_helper_controls": 0,
+    "native_before_after_bug_evidence_is_separate": true
+  },
+  "historical_qualification_note": "Counts retain batch runtime contexts, not blanket current-runtime qualification. Prior3363 historical bytebindings unresolved; no retagging/goldening of old review rows.",
+  "core_generated_or_schema_changed": false,
+  "source_paths_changed": [
+    "FaBSim/Custom/CRUCards.php",
+    "FaBSim/Custom/ROSCards.php"
+  ],
+  "full_suite_runs": 0,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\cintari-f56-registration-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

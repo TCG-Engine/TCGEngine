@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch220-rapture-unactivated-probe.json",
+  "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T04:01:41.928595+00:00",
+  "fixtures": [
+    {
+      "slug": "card-empyrean-rapture-four-live-sparse-unactivated-equipment-has-no-ward-and-real-zap-deals-full-three",
+      "fixture_sha256": "89fac1ebb523993b466664d9be01daa4dff74264b44d640fb0b66f4632d448b5",
+      "passed": true,
+      "result": "[PASS] empyrean_rapture / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-empyrean-rapture-four-live-sparse-unactivated-equipment-has-no-ward-and-real-zap-deals-full-three",
+      "returncode": 0,
+      "stdout": "[PASS] empyrean_rapture / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

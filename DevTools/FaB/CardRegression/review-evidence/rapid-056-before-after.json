@@ -1,0 +1,112 @@
+{
+  "status": "FIXED_QUALIFIED_REGISTERED_OWN_CARD_AND_ACTIVATED_ABILITY_BOUNDARY",
+  "utc": "2026-10-26T14:30:00.404363+00:00",
+  "issue": "FAB-REG-056",
+  "existing_root_family": "FAB-REG-038",
+  "new_distinct_root_cause": false,
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "source_paths": [
+    "FaBSim/Custom/GameLogic.php"
+  ],
+  "source_sha256": "3d243fd5a0382368f0db59863fe8dbbfd06dd54a41447f94c2bb7868a0958e77",
+  "repository_Core_changed": false,
+  "generated_or_metadata_cache_changed": false,
+  "unchanged_correct_source_spec": "card-regression-batch249.json",
+  "unchanged_input_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+  "before": {
+    "evidence": "review-evidence/rapid-056-native-before.json",
+    "actual_inputs": 5,
+    "fixture_saved": false,
+    "failure": "Own Rapid nonattack action resolves; AP1 expected,0 observed. Arrow suffix was not reached."
+  },
+  "after": {
+    "fixture": "Tests/Integration/FaBSim/card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage",
+    "source_spec": "card-regression-batch249.json",
+    "actions": 29,
+    "native_assertions": 712,
+    "manual_passes": 25,
+    "result": "OwnGoAgainAP0\u21921, realArrow8fromfacedownArsenal pays1 withactualBlue7/R2, base4/noHeadShotloadbonus/grantedGoAgain, actual4damageHP16 thenfourDamagepassesResolutionAP1.",
+    "review_evidence": "review-evidence/rapid-056-qualified-saved-review.json",
+    "recorded_and_original_semantic_runtime": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+    "current_validation_runtime": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5"
+  },
+  "two_clean_replays": [
+    "card-regression-replay-rapid056-v2-rapid-7315-r1.json",
+    "card-regression-replay-rapid056-v2-rapid-7315-r2.json"
+  ],
+  "focused_existing038_compatibility": "card-regression-replay-rapid056-abyssal038-f435-compat.json",
+  "actual_component": {
+    "existing_harness": "DevTools/FaB/printed_keyword_test.php",
+    "harness_unchanged": true,
+    "cases": "DevTools/FaB/printed_keyword_cases.json",
+    "total": 48,
+    "old_cases_unchanged": 31,
+    "old_premise_explicitly_corrected": 1,
+    "added_cases": 16,
+    "erratum": "review-evidence/rapid-056-component-case-erratum.json",
+    "actual_helper_with_metadata_text_lookup_doubles": true,
+    "native_control_credit": 0,
+    "v1_39_preserved": true,
+    "v2_added_cases": 9
+  },
+  "change": "Parse unambiguous own keyword sentences before considering structured metadata; empty-text GoAgain/Dominate fallback still requires metadata. Quoted/granted/conditional parsing and all live suppression callers unchanged.",
+  "full_suite_run": false,
+  "limits": "Named Rapid ownGoAgain+one grantedArrow branch only. Reloadpositive/expiry/secondArrow/othercards/siblings/fullcard notcertified. Upstreamstructuredmetadata stillomitsownkeyword; otherdirectmetadata consumers notfixed. OlderKassaiC8andallother evidence contexts preserved. V2 recovery is deliberately conservative after first unquoted activated header; metadata-present behavior unchanged. Induction ordinary-play control adds no group/ID and does not imply fullcard validation.",
+  "registration_checkpoint": "card-regression-rapid056-v2-induction-7315-checkpoint.json",
+  "prior_qualified_versions": [
+    {
+      "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+      "source_sha256": "1141624ae114dc93f6c30ac9f37c5f9a57a92b5ed38e14c3be2bc1da58158b6b",
+      "two_clean_replays": [
+        "card-regression-replay-rapid056-f435-r1.json",
+        "card-regression-replay-rapid056-f435-r2.json"
+      ],
+      "component_contracts": 39,
+      "note": "Rapid branch correct; unquoted activated-ability boundary missed by V1 and caught by focused control/native Itemplay before handoff."
+    }
+  ],
+  "current_validation_overlay": "review-evidence/rapid-056-v2-rapid-current-validation.json",
+  "latest_source_application": "review-evidence/rapid-056-v2-source-application.json",
+  "latest_source_component_review": "review-evidence/rapid-056-v2-source-component-independent-review.json",
+  "latest_component_results": "review-evidence/rapid-056-v2-component-and-syntax-results.json",
+  "collateral_boundary": "review-evidence/rapid-056-activated-ability-boundary.json",
+  "collateral_before": "review-evidence/rapid-056-induction-native-before-v2.json",
+  "collateral_witness": {
+    "card_id": "induction_chamber_red",
+    "group_id": "identity:induction_chamber_red",
+    "scenario_id": "card-induction-chamber-red-four-live-bug-ordinary-play-no-activated-go-again-refund",
+    "effect_branches": [
+      "ordinary-play-pays-two-resource-and-keeps-action-point-spent"
+    ],
+    "recording_test_path": "Tests/Integration/FaBSim/card-induction-chamber-red-four-live-bug-ordinary-play-no-activated-go-again-refund",
+    "source_spec": "card-regression-batch249-induction-own-keyword-probe.json",
+    "source_spec_sha256": "25e43b31fcf3afae4fcb9f2cf3aea086d7c585a19272e7102f2099a2ce489fea",
+    "review_evidence": "review-evidence/rapid-056-induction-v2-qualified-saved-review.json",
+    "review_evidence_sha256": "bf43ed54e2009c1d41032b029dd418d47894b2577964d8518e6a42aac6700d9a",
+    "recorded_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+    "qualification_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+    "matches_current_runtime": true,
+    "two_clean_replays": [
+      {
+        "path": "card-regression-replay-rapid056-v2-induction-7315-r1.json",
+        "sha256": "2682e2b60655ce2cf182644ddad44cbf1a1a17ebe54afd2d21c11fe7493b4b70",
+        "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+        "passed": true
+      },
+      {
+        "path": "card-regression-replay-rapid056-v2-induction-7315-r2.json",
+        "sha256": "68e3446d4dc4f7890cca0c075cdee57f0467f30061371fb5ca7a1b3b1303eafc",
+        "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+        "passed": true
+      }
+    ],
+    "players": "four_live_manual",
+    "coverage_status": "verified_named_existing_group_bug_regression",
+    "coverage_kind": "EXISTING_GROUP_BUG_WITNESS",
+    "new_group_credit": false,
+    "new_primary_id_credit": false,
+    "full_card_complete": false,
+    "isolated_native_fault_status": "NO_NEW_ISOLATED_FAULT_CREDIT_BEFORE_AFTER_BUG_EVIDENCE_SEPARATE"
+  },
+  "activation_compatibility": "card-regression-replay-rapid056-v2-activation-7315-compat.json"
+}

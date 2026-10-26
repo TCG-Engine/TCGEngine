@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T06:50:03+00:00",
+    "input_file": "card-regression-batch228-exploding-corrected-prepare.json",
+    "input_sha256": "fa5c4031845af559712a85f21c69ad12549d1833d337029a04dffe9e068b3258",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-exploding-aether-red-four-live-sparse-actual-paid-amp-three-consumed-by-real-six-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 755
+        }
+    ]
+}

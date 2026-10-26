@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-26T12:17:53+00:00",
+    "input_file": "card-regression-batch244.json",
+    "input_sha256": "505c515aa1fb296582d37d5d04b62d765aeb045bb31cb0b12234b957fb8d8f14",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-hold-focus-four-live-sparse-actual-destroy-action-amp-one-then-real-zap-four-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 11,
+            "assertions": 449
+        },
+        {
+            "slug": "card-calming-cloak-four-live-sparse-actual-paid-destroy-instant-discounts-next-four-cost-aura-by-two",
+            "status": "recorded_semantically_checked",
+            "actions": 11,
+            "assertions": 474
+        },
+        {
+            "slug": "card-lightning-greaves-four-live-sparse-actual-paid-destroy-instant-grants-real-instant-card-go-again-and-extra-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 11,
+            "assertions": 463
+        }
+    ]
+}

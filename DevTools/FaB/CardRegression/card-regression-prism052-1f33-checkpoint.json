@@ -1,0 +1,82 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T09:37:34.993744+00:00",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "source_spec": "card-regression-batch236.json",
+  "source_spec_sha256": "aeae677e8b23509d5aee078f7cb0229a5d54ef0c15edcc1513f67783a066bf66",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 7,
+  "native_assertions": 456,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 3476,
+    "duels": 3074,
+    "four_live": 402,
+    "recorded_primary_ids": 633,
+    "identity_denominator": 5196,
+    "recorded_groups": 507,
+    "group_denominator": 3324,
+    "four_live_groups": 398,
+    "phase_qualified_scenarios_at_actual_contexts": 113,
+    "phase_qualified_unique_groups": 111,
+    "creation_replay_passes": 226,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "prism",
+      "group_id": "identity:prism",
+      "scenario_id": "card-prism-four-live-sparse-correct-resource-assets-before-physical-soul-banish-and-owned-shield",
+      "effect_branches": [
+        "correct-resource-assets-before-physical-soul-banish-and-owned-shield"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-prism-four-live-sparse-correct-resource-assets-before-physical-soul-banish-and-owned-shield",
+      "source_spec": "card-regression-batch236.json",
+      "source_spec_sha256": "aeae677e8b23509d5aee078f7cb0229a5d54ef0c15edcc1513f67783a066bf66",
+      "review_evidence": "review-evidence/prism-052-qualified-saved-review.json",
+      "review_evidence_sha256": "007076186a60d8987cf2789d5c23efeedd2c47f791b30417b2a51a15d33f023d",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-prism052-postfix-r1.json",
+          "sha256": "a859600f4737f400846f7f411a47fdc9bec0261dc143e9cb263f1baf89c1703b",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-prism052-postfix-r2.json",
+          "sha256": "616ace1492386bcb133dbe802afe2fda1aa0b6e5b6c2dd798a422c5f995024f8",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [
+    "card-forked-lightning-red-four-live-sparse-actual-two-declared-hero-targets-and-two-arcane-each",
+    "card-sigil-of-protection-red-four-live-sparse-actual-intrinsic-ward-four-destroys-owned-aura-prevents-four-of-five"
+  ],
+  "fixed_existing_group_extensions": [
+    "FAB-REG-052"
+  ],
+  "new_distinct_gameplay_defect_groups": 0,
+  "repair_evidence": "review-evidence/prism-052-before-after.json",
+  "focused_compatibility_passes": 3
+}

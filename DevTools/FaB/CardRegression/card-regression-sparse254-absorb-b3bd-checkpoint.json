@@ -1,0 +1,75 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T17:03:01.249186+00:00",
+  "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "source_spec": "card-regression-batch254-canonical-combat-windows.json",
+  "source_spec_sha256": "3f6554f6ac208a5d9e598aff5d43588cb20527eabc99ef83f37626f26066b31b",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 37,
+  "native_assertions": 701,
+  "manual_passes": 31,
+  "totals": {
+    "saved_registered_scenarios": 3520,
+    "duels": 3074,
+    "four_live": 446,
+    "recorded_primary_ids": 676,
+    "identity_denominator": 5196,
+    "recorded_groups": 550,
+    "group_denominator": 3324,
+    "four_live_groups": 441,
+    "phase_qualified_scenarios_at_actual_contexts": 157,
+    "phase_qualified_unique_groups": 154,
+    "creation_replay_passes": 314,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 4,
+  "scenarios": [
+    {
+      "card_id": "absorb_in_aether_red",
+      "group_id": "pitch-cycle:absorb_in_aether",
+      "scenario_id": "card-absorb-in-aether-red-four-live-sparse-real-paid-defense-reaction-next-blue-arcane-one-plus-two",
+      "effect_branches": [
+        "real-paid-defense-reaction-next-blue-arcane-one-plus-two"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-absorb-in-aether-red-four-live-sparse-real-paid-defense-reaction-next-blue-arcane-one-plus-two",
+      "source_spec": "card-regression-batch254-canonical-combat-windows.json",
+      "source_spec_sha256": "3f6554f6ac208a5d9e598aff5d43588cb20527eabc99ef83f37626f26066b31b",
+      "review_evidence": "review-evidence/sparse254-absorb-b3bd-qualified-saved-review.json",
+      "review_evidence_sha256": "14a8f591fa4225b3adf11574be5c1a658392a223759f664c692715affffffe45",
+      "recorded_runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+      "qualification_runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse254-absorb-b3bd-r1.json",
+          "sha256": "8a69995a88d6ed217b15a3751183e62f3d1ab66335a2fdca479005379b86b5f1",
+          "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse254-absorb-b3bd-r2.json",
+          "sha256": "7f7377b34574e4e042205149012fd588d680a6b12c1e88a00bf4a5859b77704f",
+          "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [
+    "card-anaphylactic-shock-blue-four-live-sparse-real-opposing-hero-damage-earned-before-life-loss"
+  ]
+}

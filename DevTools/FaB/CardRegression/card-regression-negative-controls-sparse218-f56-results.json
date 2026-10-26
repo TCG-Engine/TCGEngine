@@ -1,0 +1,79 @@
+{
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "completed_utc": "2026-10-26T03:00:43.918957+00:00",
+  "plan_sha256": "d98a4128c342b92237b1283a8d8bdd3e35f9286ec915f494e495af1f5bcda2ae",
+  "independent_saved_proof_sha256": "fd293b86dcef70a9c2421eea75c5c2daa8872c6d6d74580d9d7a9dd6222179b7",
+  "command": [
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch218-two-causal-controls-finalf56-plan.json",
+    "d98a4128c342b92237b1283a8d8bdd3e35f9286ec915f494e495af1f5bcda2ae",
+    "card-regression-negative-controls-sparse218-f56-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "storm_striders_actual_offturn_instant_permission_omitted",
+      "fixture": "card-storm-striders-four-live-sparse-actual-paid-destroy-grants-real-offturn-wizard-action-play-as-instant",
+      "fixture_sha256": "55a116a242d31c16f69f46e8130fdc9e0455c2024a5092e462da2fdae70fc4a0",
+      "source_raw5": {
+        "initial_gamestate.txt": "753b795c951b2c2c03960d23e00542f73f5665704b435c50ca953543dac76e7d",
+        "actions.json": "a89ba76d68e5f00647ee791a5dc123a6d720ecbf4d81b090626ac303e33c43a2",
+        "assertions.json": "d408b65c790ac2fcdb94e85cf1fdc9ddf3e4ceae763d615f315338d23693ab79",
+        "expected_final_gamestate.txt": "23d9727ba6b7d62b630aa4f4127df2fcfa06c468d488851bae27aa6592ddb034",
+        "meta.json": "d39989faaf8f454ba572cbe3a2114f310f805e3201bd5c388dcf8d4a666b7cec"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "remove_effect": "ARC_NEXT_WIZARD_INSTANT"
+      },
+      "retained_assertions": 410,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PITCH\", got \"ACTION\".",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] storm_striders / actual four-live sparse distinctive mechanic: Step 1 assertion failed: Expected FaBSim state [\"window\"] to equal JSON \"PITCH\", got \"ACTION\".\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real paid/destroyed Storm Striders and four source responses, and three real ACTION priority advances to P4, omit only the naturally earned unique ARC_NEXT_WIZARD_INSTANT. Physical destroyed source5, real Blue6 Pitch, resources2/AP4=0 and P1AP1 remain. Actual next Zap7 click has no legal action offturn without permission. Engine FSM ignores ActionMap false and leaves ACTION; first original pending-window PITCH oracle detects missing play, before Hand/Stack or target/economy differences. Tests permission application, not explicit transport rejection, expiry or alternative permission branches.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "recital_actual_next_attack_three_power_tag_omitted",
+      "fixture": "card-warmongers-recital-red-four-live-sparse-actual-paid-action-next-paid-attack-gains-three-with-full-block-no-hit-branch",
+      "fixture_sha256": "73cdda8fea5f2c55d35c60d3be5c2a8ebb0d326d6e28161ae3970b804fc812f1",
+      "source_raw5": {
+        "initial_gamestate.txt": "1f89bf31e25c925342adfcd9c3c0a62c7347ee93516c1d48b6ee7a105c906e09",
+        "actions.json": "ff5b5e1b9430f781eafc7ed3e67336353d1cb8bc51b4b5a911b1c6c7493603e8",
+        "assertions.json": "b41f0ce2d17655628c82dc3ce27e2deb4cd8e1b77f9157adf6c9dff70bf4703a",
+        "expected_final_gamestate.txt": "18fc9ace638af0af810f30380511fa2ab7ed44676553aa31192ceafc19938764",
+        "meta.json": "2aed89e2023924f4392eeaef0fcc1cc9c82acf918db26b31e441a856f5ce282c"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "brutal_assault_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 1686,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 9, got 6.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] warmongers_recital_red / actual four-live sparse distinctive mechanic: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 9, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real Recital cost1/Blue3 payment and own Go again, then actual Brutal Assault cost2 paid from earned resources and actual attack entry, omit only the earned WTR_POWER:3 on unique actual CombatChain attackUID6. Preserve MON_BOTTOM_HIT, both paid sources, costs/AP/resources, all three future physical blockers and every original boundary/suffix oracle. Same-prefix Initial computed power9 becomes6. Both attacks remain fully blocked by three 3-defense cards; this is earned power application sensitivity, not damage, hit/bottom, defense or prevention sensitivity.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

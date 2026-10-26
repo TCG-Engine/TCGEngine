@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T15:15:55+00:00",
+    "input_file": "card-regression-batch249-induction-own-keyword-probe.json",
+    "input_sha256": "25e43b31fcf3afae4fcb9f2cf3aea086d7c585a19272e7102f2099a2ce489fea",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-induction-chamber-red-four-live-bug-ordinary-play-no-activated-go-again-refund",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 333
+        }
+    ]
+}

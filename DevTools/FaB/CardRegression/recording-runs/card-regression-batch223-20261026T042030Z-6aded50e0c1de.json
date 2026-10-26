@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T04:20:30+00:00",
+    "input_file": "card-regression-batch223.json",
+    "input_sha256": "5e757959d9919d792d860ddb6e45d0b30c6691715748a75c817163e6aa1c2391",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-spectral-shield-four-live-sparse-real-static-ward-token-destruction-prevents-one-of-three-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 572
+        }
+    ]
+}

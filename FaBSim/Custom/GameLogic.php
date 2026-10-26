@@ -386,7 +386,7 @@ function FaBCurrentAttackHasKeyword(array $state, string $keyword): bool {
 }
 
 function FaBPrintedKeywordIsActive(string $cardID, string $keyword): bool {
-    if (!FaBHasKeyword($cardID, $keyword)) return false;
+    // An unambiguous own keyword in text does not require complete keyword metadata.
     $text = trim((string)(function_exists('CardFunctional_text_plain') ? CardFunctional_text_plain($cardID) : ''));
     $needle = strtolower($keyword);
     // A keyword granted inside a quoted ability is not this card's own keyword.
@@ -395,13 +395,19 @@ function FaBPrintedKeywordIsActive(string $cardID, string $keyword): bool {
     $text = preg_replace_callback('/"[^"]*"|\x{201C}[^\x{201D}]*\x{201D}|(?<!\w)\'[^\']*\'(?!\w)|\x{2018}[^\x{2019}]*\x{2019}/u', static function(array $match): string {
         return '[quoted ability]' . (preg_match('/[.!?][\'"\x{201D}\x{2019}]$/u', $match[0]) === 1 ? '.' : '');
     }, $text);
+    if (!FaBHasKeyword($cardID, $keyword)) {
+        // Missing-metadata recovery is limited to own text before an unquoted
+        // activated-ability section. Its post-colon Go again belongs to that layer.
+        $text = preg_split('/(?<!\w)(?:Once\h+per\h+Turn\h+)?(?:Attack\h+Reaction|Defense\h+Reaction|Action|Instant)\h*(?:--?|\p{Pd})/iu', $text, 2)[0];
+    }
     // A wrapped conditional/grant clause after a comma or colon stays a clause.
     $text = preg_replace('/([,:])\h*\R\h*/u', '$1 ', $text);
     foreach (preg_split('/\R+|(?<=[.!?])\h+/u', $text) as $sentence) {
         if (strcasecmp(rtrim(trim($sentence), '.!?'), $keyword) === 0) return true;
     }
     // Keyword-only cards sometimes have no text in older source records.
-    return $text === '' && in_array($needle, ['go again', 'dominate'], true);
+    return $text === '' && in_array($needle, ['go again', 'dominate'], true)
+        && FaBHasKeyword($cardID, $keyword);
 }
 
 function FaBComboActive(array $state, string $requiredCardID): bool {
@@ -733,11 +739,11 @@ function FaBMoveUID(int $uid, string $toZone, ?int $targetPlayer = null, bool $a
     $found = FaBFindUID($uid);
     if ($found === null) return null;
     if ($found['zone'] === 'Stack') {
-        // Only an attack reaction currently resolving may move its own source.
-        // This preserves the existing rejection for all other stack layers.
+        // Only a reaction currently resolving may move its own source.
+        // Other stack-layer movement remains rejected by this general API.
         $pending = FaBGetState()['resolvingReaction'] ?? null;
         if (!is_array($pending) || intval($pending['uid'] ?? 0) !== $uid
-            || ($found['object']->Kind ?? '') !== 'ATTACK_REACTION') return null;
+            || !in_array((string)($found['object']->Kind ?? ''), ['ATTACK_REACTION','DEFENSE_REACTION'], true)) return null;
         return FaBMoveStackUID($uid, $toZone,
             $targetPlayer ?? intval($pending['owner']), $animate);
     }
@@ -787,6 +793,15 @@ function FaBMoveStackUID(int $uid, string $toZone, int $targetPlayer, bool $anim
     $found = FaBFindUID($uid);
     if ($found === null || $found['zone'] !== 'Stack') return null;
     $source = $found['object'];
+    // Preserve last-known layer properties if this resolving defense reaction
+    // moves itself before its remaining effects/go again have completed.
+    $resolving = FaBGetState();
+    if (($resolving['resolvingReaction']['resolutionClass'] ?? '') === 'DEFENSE_REACTION'
+        && intval($resolving['resolvingReaction']['uid'] ?? 0) === $uid
+        && ($source->Kind ?? '') === 'DEFENSE_REACTION') {
+        $resolving['resolvingReaction']['completionSource'] = (array)$source;
+        FaBSetState($resolving);
+    }
     if ($toZone === 'Graveyard' && in_array($source->CardID, ['engulfing_shadows_yellow','embraforged_gauntlet'], true)) $toZone = 'Banish';
     if($toZone==='Graveyard'&&FaBARCCard($uid,'hntTrapReplaceTurn',-1)===intval(GetTurnNumber()))$toZone='Banish';
     if(!in_array($toZone,['Stack','CombatChain'],true)&&!empty(FaBObjectCounters($source)['HNT_ORIGINAL'])){$source->CardID=FaBObjectCounters($source)['HNT_ORIGINAL'];unset($source->Counters['HNT_ORIGINAL']);}
@@ -1407,6 +1422,51 @@ function FaBFinishReactionEliminationCleanup(array $candidates): void {
     }
 }
 
+/** Complete a defense reaction only after its body and owned awaits have finished. */
+function FaBFinishDefenseReactionLayer(array $pending, ?array $found): void {
+    $controller = intval($pending['controller']); $uid = intval($pending['uid']);
+    $source = $found !== null && $found['zone'] === 'Stack'
+        ? $found['object'] : (object)($pending['completionSource'] ?? []);
+    // CR 5.3.5 precedes leaving Stack, including go again granted to this layer.
+    if (FaBSeatIsLive($controller) && !FaBSUPSuppressed($source)) {
+        // Ordinary ability loss removes printed abilities, not a later grant.
+        // SUP's explicit cannot-gain restriction still gates both branches.
+        $base = (!HasNoAbilities($source)
+            && FaBPrintedKeywordIsActive((string)$source->CardID, 'Go again'))
+            || in_array('GO_AGAIN', (array)($source->TurnEffects ?? []), true) ? 1 : 0;
+        $delta = function_exists('EvaluateGoAgainModifier')
+            ? intval(EvaluateGoAgainModifier($source->CardID, $controller, $source, $base, $source)) : 0;
+        // Fog Down's non-attack Action restriction does not apply to a DR layer.
+        if (FaBWTRMayGoAgain($controller) && max(0, min(1, $base + $delta)) === 1) {
+            AddActionPoints($controller, intval(GetActionPoints($controller)) + 1);
+            FaBROSGo($controller, $uid);
+        }
+    }
+    // An effect may already have moved its own source: never resurrect/move it twice.
+    if ($found === null || $found['zone'] !== 'Stack') return;
+    $state = FaBGetState();
+    if (!FaBSeatIsLive($controller) || empty($state['combatOpen'])
+        || intval($state['chainLink']) !== intval($pending['chainLink'])
+        || intval($state['attackUID']) !== intval($pending['attackUID'])) {
+        FaBMoveStackUID($uid, 'Graveyard', intval($pending['owner']));
+        return;
+    }
+    $chain = FaBMoveStackUID($uid, 'CombatChain', $controller);
+    if ($chain === null) return;
+    $chain->Role = 'DEFENSE_REACTION';
+    $chain->ChainLink = intval($pending['chainLink']);
+    $chain->FromZone = (string)$pending['fromZone'];
+    FaBWTRApplyNextDefense($controller, $chain);
+    $state = FaBGetState();
+    if (($pending['fromZone'] ?? '') === 'Hand') {
+        $state['handBlockUIDs'][] = $uid;
+        $state['handBlockUIDs'] = array_values(array_unique(array_map('intval', $state['handBlockUIDs'])));
+        FaBSetState($state);
+    }
+    $current = FaBFindUID($uid);
+    if ($current !== null && $current['zone'] === 'CombatChain') OnDefended($controller, $current['mzID'], $controller);
+}
+
 function FaBFinishReactionResolution(): bool {
     $state = FaBGetState();
     $pending = $state['resolvingReaction'] ?? null;
@@ -1430,7 +1490,9 @@ function FaBFinishReactionResolution(): bool {
                 ? $found['object'] : (object)($pending['completionSource'] ?? []);
             FaBFinishPlainSpellGoAgain($pending, $completionSource);
         }
-        if ($found !== null && $found['zone'] === 'Stack') {
+        if (($pending['resolutionClass'] ?? '') === 'DEFENSE_REACTION') {
+            FaBFinishDefenseReactionLayer($pending, $found);
+        } elseif ($found !== null && $found['zone'] === 'Stack') {
             // A resolution effect may already have returned/banished the source.
             // FaBMoveStackUID applies owner routing and destination replacements,
             // including Ephemeral, after the effect has generated its results.
@@ -1466,7 +1528,7 @@ function FaBFinishReactionResolution(): bool {
 
 /** Only previously identified ordinary-spell lifecycle concerns, not all NAA. */
 function FaBKnownPlainSpellLifecycleCard(string $cardID): bool {
-    return in_array($cardID, ['chorus_of_rotwood_red','this_rounds_on_me_blue','rousing_aether_red','rousing_aether_yellow','rousing_aether_blue','aether_quickening_red','aether_quickening_yellow','aether_quickening_blue','battle_prep_red','battle_prep_yellow','battle_prep_blue','laden_with_lightning_red','tome_of_harvests_blue','flying_high_red','flying_high_yellow','flying_high_blue','regain_composure_blue','blood_tribute_red','blood_tribute_yellow','blood_tribute_blue'], true);
+    return in_array($cardID, ['chorus_of_rotwood_red','this_rounds_on_me_blue','rousing_aether_red','rousing_aether_yellow','rousing_aether_blue','aether_quickening_red','aether_quickening_yellow','aether_quickening_blue','battle_prep_red','battle_prep_yellow','battle_prep_blue','laden_with_lightning_red','tome_of_harvests_blue','flying_high_red','flying_high_yellow','flying_high_blue','regain_composure_blue','blood_tribute_red','blood_tribute_yellow','blood_tribute_blue','whisper_of_the_oracle_red','whisper_of_the_oracle_yellow','whisper_of_the_oracle_blue'], true);
 }
 
 function FaBManagedVirtualResolutionClass(object $stack): string {
@@ -1661,16 +1723,28 @@ function DoResolveCard($player, $mzID) {
         FaBFinishReactionResolution();
         if (FaBReactionResolutionIsPending()) return true;
     } elseif ($kind === 'DEFENSE_REACTION') {
-        $owner = $controller;
-        if($kind==='DEFENSE_REACTION'&&$obj->SourceZone==='Hand'&&FaBCurrentAttackHasKeyword($state,'Dominate')&&FaBHandDefendingCount($state,$controller)>=1){
-            FaBMoveStackUID($uid,'Graveyard',$owner);SetPriorityPlayer(intval($state['attacker']));SetConsecutivePasses(0);return true;
+        $owner = intval($obj->Owner ?? 0); if ($owner < 1) $owner = $controller;
+        if (empty($state['combatOpen']) || intval($state['chainLink']) < 1
+            || ($obj->SourceZone === 'Hand' && FaBCurrentAttackHasKeyword($state, 'Dominate')
+                && FaBHandDefendingCount($state, $controller) >= 1)) {
+            FaBMoveStackUID($uid, 'Graveyard', $owner);
+            SetPriorityPlayer(intval(GetTurnPlayer())); SetConsecutivePasses(0); return true;
         }
-        $chain = FaBMoveStackUID($uid, 'CombatChain', $owner);
-        if($kind==='DEFENSE_REACTION'&&$obj->SourceZone==='Hand'){$state['handBlockUIDs'][]=$uid;FaBSetState($state);}
-        if ($chain !== null) { $chain->Role = $kind; $chain->ChainLink = intval($state['chainLink']); $chain->FromZone=(string)$obj->SourceZone; if($kind==='DEFENSE_REACTION')FaBWTRApplyNextDefense($controller,$chain); }
-        FaBResolveRules($controller, $obj, $chain);
-        if ($kind === 'DEFENSE_REACTION' && $chain !== null) OnDefended($controller, FaBFindUID($uid)['mzID'], $controller);
-        SetPriorityPlayer(intval($state['attacker'])); SetConsecutivePasses(0);
+        $variables = json_decode((string)GetDecisionQueueVariables(), true);
+        $state['resolvingReaction'] = ['uid'=>$uid, 'owner'=>$owner, 'controller'=>$controller,
+            'kind'=>$kind, 'resolutionClass'=>'DEFENSE_REACTION', 'completionSource'=>(array)$obj,
+            'cardID'=>(string)$obj->CardID, 'sourceMZ'=>(string)$found['mzID'],
+            'chainLink'=>intval($state['chainLink']), 'attackUID'=>intval($state['attackUID']),
+            'fromZone'=>(string)$obj->SourceZone,
+            'baselineFrameKeys'=>array_keys((array)($variables['__awaitFrames'] ?? [])), 'ownedFrameKeys'=>[]];
+        FaBSetState($state);
+        $depth = intval($GLOBALS['fabReactionResolutionDepth'] ?? 0);
+        $GLOBALS['fabReactionResolutionDepth'] = $depth + 1;
+        try { FaBResolveRules($controller, $obj, $obj); }
+        finally { $GLOBALS['fabReactionResolutionDepth'] = $depth; }
+        FaBTrackReactionAwaitFrames();
+        FaBFinishReactionResolution();
+        if (FaBReactionResolutionIsPending()) return true;
     } else {
         $persistent = FaBHasType($obj, 'Figment') || FaBHasType($obj, 'Ash') || FaBHasType($obj,'Construct') || FaBHasType($obj, 'Aura') || FaBHasType($obj, 'Item') || FaBHasType($obj, 'Ally') || FaBHasType($obj,'Landmark') || FaBHasType($obj,'Invocation') || FaBHasType($obj,'Affliction');
         if (!$persistent && FaBPlainSpellResolutionIsManaged($obj)) {

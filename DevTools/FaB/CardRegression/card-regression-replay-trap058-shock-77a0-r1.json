@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch254-canonical-combat-windows.json",
+  "runtime_sha256": "77a0bdd8458aee8723f873fb3ba23619c51193932d354965ad1524be9468708c",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T17:45:02.100726+00:00",
+  "fixtures": [
+    {
+      "slug": "card-anaphylactic-shock-blue-four-live-sparse-real-opposing-hero-damage-earned-before-life-loss",
+      "fixture_sha256": "8f191e36c8c6362d08df73656186e705138cf948257d99704a18d6fea5268841",
+      "passed": true,
+      "result": "[PASS] anaphylactic_shock_blue / actual opposing hero damage earns life loss"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-anaphylactic-shock-blue-four-live-sparse-real-opposing-hero-damage-earned-before-life-loss",
+      "returncode": 0,
+      "stdout": "[PASS] anaphylactic_shock_blue / actual opposing hero damage earns life loss\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-absorb-in-aether-red-four-live-sparse-real-paid-defense-reaction-next-blue-arcane-one-plus-two"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

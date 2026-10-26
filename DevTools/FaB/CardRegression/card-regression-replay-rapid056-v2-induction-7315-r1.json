@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch249-induction-own-keyword-probe.json",
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T15:17:23.411636+00:00",
+  "fixtures": [
+    {
+      "slug": "card-induction-chamber-red-four-live-bug-ordinary-play-no-activated-go-again-refund",
+      "fixture_sha256": "353ecf94da78399421f4c5769e15635e10dcf6444c3e2f56a6660e45dec1f6d2",
+      "passed": true,
+      "result": "[PASS] Induction Chamber / correct ordinary play spends AP without activated ability refund"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-induction-chamber-red-four-live-bug-ordinary-play-no-activated-go-again-refund",
+      "returncode": 0,
+      "stdout": "[PASS] Induction Chamber / correct ordinary play spends AP without activated ability refund\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

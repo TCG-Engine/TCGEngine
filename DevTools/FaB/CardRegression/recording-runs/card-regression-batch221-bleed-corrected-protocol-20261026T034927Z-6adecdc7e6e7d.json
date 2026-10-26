@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T03:49:27+00:00",
+    "input_file": "card-regression-batch221-bleed-corrected-protocol.json",
+    "input_sha256": "1254290d861ead3af59280e03124e4f0f4721cc70a8f757d9e753f776da3b660",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-bleed-out-red-four-live-sparse-real-two-dagger-damage-earns-zero-cost-next-link",
+            "status": "recorded_semantically_checked",
+            "actions": 50,
+            "assertions": 3533
+        }
+    ]
+}

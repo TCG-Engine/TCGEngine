@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T11:57:47+00:00",
+    "input_file": "card-regression-batch242-take-cover-correct-probe.json",
+    "input_sha256": "5883b7d0c5527809f6b4999104406cc3b095acbba0db82251eb7e0d439e9c7bd",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-take-cover-red-four-live-correct-reload-effects-before-defense-reaction-leaves-stack",
+            "status": "recorded_semantically_checked",
+            "actions": 29,
+            "assertions": 810
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-oscilio-four-live-sparse-actual-discarded-instant-cost-draws-real-deck-card-with-eighteen-health",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 363
+    },
+    {
+        "slug": "card-ink-lined-cloak-four-live-sparse-actual-sigil-aura-cast-earns-condition-then-destroy-instant-gains-one",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 458
+    },
+    {
+        "slug": "card-aurora-four-live-sparse-actual-lightning-action-earns-condition-then-paid-instant-creates-owned-embodiment",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 442
+    }
+]

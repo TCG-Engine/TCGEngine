@@ -1,7 +1,13 @@
 <?php
 /** Rosetta rules. Choice flows remain in saved, resumable card macros. */
 function FaBROSCount(int $p,string $k): int {return FaBARCEffect($p,'ROS_'.$k);}
-function FaBROSAdd(int $p,string $k,int $n=1,array $data=[]): void {FaBWTRAddEffect($p,'ROS_'.$k,$n,$data);}
+function FaBROSAdd(int $p,string $k,int $n=1,array $data=[]): void {
+ if($k==='PREVENT'&&!empty($data['token'])){
+  if(!is_string($data['token'])||$data['token']==='')throw new RuntimeException('Prevention token grant requires a token identity.');
+  $data['preventionTrigger']=FaBROSPreventionTokenOrigin($p,$data['token']);
+ }
+ FaBWTRAddEffect($p,'ROS_'.$k,$n,$data);
+}
 function FaBROSClear(int $p,string $k): void {FaBWTRSetEffects($p,array_values(array_filter(FaBWTREffects($p),fn($e)=>($e['type']??'')!=='ROS_'.$k)));}
 function FaBROSEarth(int $p): int {return count(array_filter(FaBChoiceRefs($p,'Banish',['type'=>'Earth']),fn($r)=>empty(FaBIdentityFromMZ($r)['object']->FaceDown)));}
 function FaBROSActive(int $p,string $hero): bool {foreach(FaBChoiceRefs($p,'Hero') as $r){$o=FaBIdentityFromMZ($r)['object'];if(($o->CardID===$hero||str_starts_with($o->CardID,$hero.'_'))&&!HasNoAbilities($o)&&FaBROSEarth($p)>=(FaBHasType($o,'Young')?4:8))return true;}return false;}
@@ -17,6 +23,7 @@ function FaBROSShuffle(int $p,string $refs): void {$seats=[];foreach(FaBUPRUIDs(
 function FaBROSMark(int $uid,string $key): void {FaBARCSetCard($uid,'ros'.$key,true);}
 function FaBROSQueue(int $p,string $id,int $uid=0,array $extra=[]): void {if(!FaBSeatIsLive($p))return;AddStack(CardID:$id,Controller:$p,Kind:'ABILITY',SourceUniqueID:$uid,Params:['rosTrigger'=>true]+$extra);$s=FaBGetState();if($s['pendingPayment']===null)$s['window']='PRIORITY';FaBSetState($s);}
 function FaBROSResolveTrigger(int $p,object $o): void {
+ if(($o->Params['rosEvent']??'')==='rosPreventionToken'){FaBROSResolvePreventedToken($p,$o);return;}
  if($o->CardID==='cintari_saber'&&($o->Params['rosEvent']??'')==='cruCintariDefended'){FaBCRUResolveCintariDefended($p,$o);return;}
  if(($o->Params['rosEvent']??'')==='eleBriarFirstAADamage'&&in_array($o->CardID,['briar','briar_warden_of_thorns'],true)){FaBWTRCreateArena($p,'embodiment_of_earth');return;}
  if(($o->Params['rosEvent']??'')==='cruMauvrionRuneHit'){FaBARCCreateRunes($p,max(0,intval($o->Params['runeCount']??0)));return;}
@@ -46,7 +53,59 @@ function FaBROSAfterMove(int $p,object $o,string $from,string $to): void {
  if($b==='fluttersteps'&&in_array($from,['Equipment','CombatChain'],true)&&$to==='Graveyard')FaBMSTAdd($p,'AURA_INSTANT');
 }
 function FaBROSPrevent(int $p,int $n,string $type,int $source): int {
- $left=[];$created=[];foreach(FaBWTREffects($p) as $e){$k=$e['type']??'';if($k==='ROS_SHELTER'&&$type==='ARCANE'||$k==='ROS_PREVENT'||$k==='ROS_SOURCE'&&intval($e['source']??0)===$source){$v=min($n,intval($e['amount']));$n-=$v;$e['amount']-=$v;if($v&&!empty($e['token'])){$created[]=$e['token'];unset($e['token']);}if($e['amount']<=0)continue;}if($k==='ROS_BRUSH'&&$n<=intval($e['amount'])){$n=0;continue;}$left[]=$e;}FaBWTRSetEffects($p,$left);foreach($created as $t)FaBWTRCreateArena($p,$t);return $n;
+ $left=[];$earned=[];
+ foreach(FaBWTREffects($p) as $e){
+  $k=$e['type']??'';
+  if($k==='ROS_SHELTER'&&$type==='ARCANE'||$k==='ROS_PREVENT'||$k==='ROS_SOURCE'&&intval($e['source']??0)===$source){
+   $v=min($n,intval($e['amount']));$n-=$v;$e['amount']-=$v;
+   if($v>0&&!empty($e['token'])){
+    $origin=$e['preventionTrigger']??null;
+    if(!FaBROSPreventionTokenPayload($p,$origin)||$origin['token']!==$e['token'])throw new RuntimeException('Prevention token grant has no captured source.');
+    $earned[]=$origin;
+    // Consume this grant's first-prevention marker before any queue callback.
+    unset($e['token'],$e['preventionTrigger']);
+   }
+   if($e['amount']<=0)continue;
+  }
+  if($k==='ROS_BRUSH'&&$n<=intval($e['amount'])){$n=0;continue;}
+  $left[]=$e;
+ }
+ FaBWTRSetEffects($p,$left);
+ foreach($earned as $origin)FaBROSQueue($origin['controller'],$origin['cardID'],$origin['sourceUID'],
+  ['rosEvent'=>'rosPreventionToken','preventionTrigger'=>$origin]);
+ return $n;
+}
+
+/** Use the live native ABI's captured identity, never a token-to-source lookup. */
+function FaBROSPreventionTokenOrigin(int $p,string $token): array {
+ $pending=FaBGetState()['resolvingReaction']??null;
+ $layer=is_array($pending)?FaBFindUID(intval($pending['uid']??0)):null;
+ if(!FaBSeatIsLive($p)||!is_array($pending)||($pending['resolutionClass']??'')!=='ARC_ABILITY'
+  ||($pending['kind']??'')!=='ABILITY'||intval($pending['controller']??0)!==$p
+  ||$layer===null||$layer['zone']!=='Stack'||!FaBManagedAbilityResolutionOwns($layer['object']))throw new RuntimeException('Prevention token grant requires its resolving native ability.');
+ $o=$layer['object'];$uid=intval($pending['sourceUniqueID']??0);$card=(string)($pending['cardID']??'');
+ if($uid<1||$card===''||intval($o->Controller??0)!==$p||intval($o->SourceUniqueID??0)!==$uid
+  ||(string)$o->CardID!==$card||($o->Params['arcSpec']['cardID']??'')!==$card||!FaBHasType($token,'Token'))throw new RuntimeException('Prevention token grant origin changed.');
+ return ['controller'=>$p,'owner'=>$p,'cardID'=>$card,'sourceUID'=>$uid,'grantUID'=>intval($o->UniqueID),
+  'token'=>$token,'actionCardEffect'=>FaBHasType($card,'Action')];
+}
+
+function FaBROSPreventionTokenPayload(int $p,$origin): bool {
+ return is_array($origin)&&intval($origin['controller']??0)===$p&&intval($origin['owner']??0)===$p
+  &&is_string($origin['cardID']??null)&&$origin['cardID']!==''&&intval($origin['sourceUID']??0)>0
+  &&intval($origin['grantUID']??0)>0&&is_string($origin['token']??null)&&FaBHasType($origin['token'],'Token')
+  &&is_bool($origin['actionCardEffect']??null);
+}
+
+/** The earned result survives the original physical source leaving or losing abilities. */
+function FaBROSResolvePreventedToken(int $p,object $o): void {
+ $origin=$o->Params['preventionTrigger']??null;
+ if(!FaBSeatIsLive($p)||!FaBROSPreventionTokenPayload($p,$origin)
+  ||intval($o->Controller??0)!==$p||(string)$o->CardID!==$origin['cardID']
+  ||intval($o->SourceUniqueID??0)!==$origin['sourceUID'])return;
+ // Same token factory/replacements as CreateArena, with captured creator/owner
+ // and source classification rather than another spell's mutable DQ context.
+ FaBHVYToken($p,$origin['token'],1,$p,$origin['actionCardEffect'],false,$origin['owner']);
 }
 function FaBROSShelters(int $p): array {return array_values(array_filter(FaBChoiceRefs($p,'Arena'),fn($r)=>FaBHasKeyword(FaBIdentityFromMZ($r)['object'],'Arcane Shelter')));}
 function FaBROSArcanite(int $p): int {return count(array_filter(FaBChoiceRefs($p,'Equipment'),fn($r)=>str_contains(CardName(FaBIdentityFromMZ($r)['object']->CardID),'Arcanite')));}

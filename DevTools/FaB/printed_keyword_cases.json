@@ -183,11 +183,11 @@
       "expected": false
     },
     {
-      "name": "metadata_gate_must_remain",
+      "name": "standalone_own_text_does_not_require_metadata_membership",
       "text": "Go again",
       "keyword": "Go again",
       "has_keyword": false,
-      "expected": false
+      "expected": true
     },
     {
       "name": "standalone_other_keyword",
@@ -227,6 +227,123 @@
     {
       "name": "legacy_empty_metadata_absent",
       "text": "",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "actual_rapid_fire_separate_own_line_with_metadata_missing",
+      "card_id": "rapid_fire_yellow",
+      "text": "Until end of turn, arrows you control get go again.\nReload\nGo again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": true
+    },
+    {
+      "name": "metadata_missing_grant_only_still_not_own_keyword",
+      "text": "Until end of turn, arrows you control get go again.\nReload",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "metadata_missing_quoted_only_still_not_own_keyword",
+      "text": "Your next attack gets \"Draw a card. Go again.\"",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "metadata_missing_wrapped_conditional_comma_stays_clause",
+      "text": "If this is charged,\nGo again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "metadata_missing_wrapped_grant_colon_stays_clause",
+      "text": "Your next attack gets:\nGo again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "metadata_missing_quote_then_real_own_keyword_still_detected",
+      "text": "Your next attack gets \"When this hits, draw a card.\" Go again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": true
+    },
+    {
+      "name": "empty_dominate_still_requires_metadata_membership",
+      "text": "",
+      "keyword": "Dominate",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "actual_gold_activation_go_again_not_own_card_keyword",
+      "card_id": "gold",
+      "text": "Action - {r}{r}, destroy this: Draw a card. Go again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "actual_silver_activation_go_again_not_own_card_keyword",
+      "card_id": "silver",
+      "text": "Action - {r}{r}{r}, destroy this: Draw a card. Go again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "actual_induction_chamber_red_activation_go_again_not_own_card_keyword",
+      "card_id": "induction_chamber_red",
+      "text": "Action - {r}: If there are no steam counters on this, put a steam counter on it. Go again\nOnce per Turn Attack Reaction - Remove a steam counter from this: Target Mechanologist pistol attack gets go again.",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "actual_plasma_purifier_red_activation_go_again_not_own_card_keyword",
+      "card_id": "plasma_purifier_red",
+      "text": "Action - {r}: If this has no steam counters, put a steam counter on it. Go again\nOnce per Turn Action - Remove a steam counter from this: Target Mechanologist pistol you control gets +1{p} until end of turn. Go again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "own_keyword_before_unquoted_ability_still_recovered",
+      "text": "Go again\nAction - {r}: Draw a card.",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": true
+    },
+    {
+      "name": "quoted_activation_header_then_own_keyword_not_truncated",
+      "text": "Your next attack gains \"Action - Draw a card. Go again.\" Go again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": true
+    },
+    {
+      "name": "unquoted_once_per_turn_instant_em_dash_keyword_not_own",
+      "text": "Once per Turn Instant \u2014 Pay 1: Draw a card. Go again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "unquoted_attack_reaction_ascii_double_dash_keyword_not_own",
+      "text": "Attack Reaction -- Pay 1: Draw a card. Go again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "unquoted_defense_reaction_en_dash_keyword_not_own",
+      "text": "Defense Reaction \u2013 Pay 1: Draw a card. Go again",
       "keyword": "Go again",
       "has_keyword": false,
       "expected": false

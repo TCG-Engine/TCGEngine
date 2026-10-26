@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch249.json",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T14:01:45.915670+00:00",
+  "fixtures": [
+    {
+      "slug": "card-kassai-four-live-sparse-real-gold-draw-earns-sword-activation-one-to-zero-discount",
+      "fixture_sha256": "82e4fe2e084306171efcb666a25b20daecf882637aab0210a3fadb30a5a024a6",
+      "passed": true,
+      "result": "[PASS] kassai / meaningful four-live first-pass representative"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-kassai-four-live-sparse-real-gold-draw-earns-sword-activation-one-to-zero-discount",
+      "returncode": 0,
+      "stdout": "[PASS] kassai / meaningful four-live first-pass representative\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

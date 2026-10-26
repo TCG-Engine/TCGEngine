@@ -1,0 +1,151 @@
+{
+  "status": "APPROVED_EXACT_NEW_FOUR_LIVE_REPRESENTATIVES_TWO_CLEAN_REPLAYS_POSITIVE_ONLY",
+  "reviewer": "/root/b104_saved_review",
+  "assembled_by": "/root from independent actual saved review and actual targeted receipts",
+  "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+  "source_spec": "card-regression-batch223.json",
+  "source_spec_sha256": "5e757959d9919d792d860ddb6e45d0b30c6691715748a75c817163e6aa1c2391",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "spectral_shield",
+      "slug": "card-spectral-shield-four-live-sparse-real-static-ward-token-destruction-prevents-one-of-three-arcane",
+      "source_spec": "card-regression-batch223.json",
+      "input_sha256": "5e757959d9919d792d860ddb6e45d0b30c6691715748a75c817163e6aa1c2391",
+      "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "recorded_runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "reviewer": "/root/b104_saved_review",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_STATIC_WARD_TOKEN_RECORDING_REPLAY_QUALIFICATION_SEPARATE",
+      "file_sha256": {
+        "initial_gamestate.txt": "fbd0328bb0a8d13c8b355a0277e731dc10f932546d3ec1b987ee3c50d895ec69",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "6eb63f744e63ca178fc1cf2586913ee96ca1e0a1523b05454aa9777ab49ca14a",
+        "expected_final_gamestate.txt": "89051620c7eb9f571a13bee8bdd7862c61a30e35cc55a3b682a8f9d1ebb58acf",
+        "meta.json": "5d43c6243a04e6a0c630357448ecbf9ef3f3f32a9b469bf800c7bf2376f7c157"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fbd0328bb0a8d13c8b355a0277e731dc10f932546d3ec1b987ee3c50d895ec69",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "6eb63f744e63ca178fc1cf2586913ee96ca1e0a1523b05454aa9777ab49ca14a",
+        "expected_final_gamestate.txt": "89051620c7eb9f571a13bee8bdd7862c61a30e35cc55a3b682a8f9d1ebb58acf",
+        "meta.json": "5d43c6243a04e6a0c630357448ecbf9ef3f3f32a9b469bf800c7bf2376f7c157"
+      },
+      "fixture_sha256": "00243a93919837ae7c97579582d998fa2129767eaad224dee04cd95cf7b16705",
+      "actions": 7,
+      "native_assertions": 572,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_recorded_actions_assertions_exact": true,
+      "full_physical_endpoints_independently_inspected": true,
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_young20_Wizard_and_Illusionist_static_Ward_token_actual_Zap_no_history",
+          "native_assertions": 110
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_Zap_target_declaration_precedes_zero_resource_Action_asset_shield_still_owned",
+          "native_assertions": 55
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_P4_Zap_target_and_Action_asset_paid_HP20_no_early_Ward_destruction",
+          "native_assertions": 51
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_Zap_manual_response_1_of_four_static_shield_retained",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_Zap_manual_response_2_of_four_static_shield_retained",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_Zap_manual_response_3_of_four_static_shield_retained",
+          "native_assertions": 50
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "fourth_actual_Zap_response_mandatory_static_Ward_choice_live_source_HP20_not_an_activation",
+          "native_assertions": 57
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_mandatory_Ward_destroys_token_prevents_one_Zap_damage_two_HP18_no_token_in_public_zones",
+          "native_assertions": 43
+        },
+        {
+          "source_step": 15,
+          "action_step": 7,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 106
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "current_qualification_runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "current_clean_replays": [
+        "card-regression-replay-sparse223-static-ward-14d9-r1.json",
+        "card-regression-replay-sparse223-static-ward-14d9-r2.json"
+      ],
+      "current_qualification_status": "MANUAL_INDEPENDENT_SOURCE_ACTUAL_SAVED_REVIEW_TWO_CLEAN_REPLAYS_POSITIVE_ONLY",
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "original_independent_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse223-one-actual-saved-independent-review.json",
+    "sha256": "04ebf15679ee859670867d30d62f47139918ce9db2ab747b66bddc15f4f3835c"
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-sparse223-static-ward-14d9-r1.json",
+      "sha256": "0ef8586a7a4df910950f6eca399b20360cd1a693fe24abad40323cae435f8d11"
+    },
+    {
+      "path": "card-regression-replay-sparse223-static-ward-14d9-r2.json",
+      "sha256": "ad20aab07d01a05eb97b1238aa0d97eb4e6dd9bc6e2e304dbcc862b671a00598"
+    }
+  ],
+  "method": "Independent manual printed-rules/source/oracle review then structural comparison to real native action/assertion streams and actual full physical snapshots. No optional simulator or synthesized independent pass.",
+  "isolated_native_faults": {
+    "attempted": 0,
+    "detected": 0
+  },
+  "qualification": "Actual static SpectralShield mandatoryWard1, token ceasesallzones, realZap3minus1 givesHP18, realsource ownership/cleanup. Directly affected staticWard native compatibility also adds one new primarygroup. Positive-only firstpass; no isolatedfault, alternativechoice/negativeprerequisite/EOT/sibling/support/fullcard/fullsuite certification."
+}

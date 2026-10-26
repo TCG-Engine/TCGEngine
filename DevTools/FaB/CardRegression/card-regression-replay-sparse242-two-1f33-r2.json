@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch242-two-healthy.json",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T10:45:43.544073+00:00",
+  "fixtures": [
+    {
+      "slug": "card-enigma-four-live-sparse-actual-chi-three-pitch-payment-creates-owned-shield-with-one-power-counter",
+      "fixture_sha256": "fccbf712f5a5c31543e740d31f7ea9ccc422b6cda088561e76eec12eda962c4c",
+      "passed": true,
+      "result": "[PASS] enigma / lean meaningful positive"
+    },
+    {
+      "slug": "card-pierce-reality-blue-four-live-sparse-actual-cast-persistent-aura-buffs-real-first-illusionist-attack-by-two",
+      "fixture_sha256": "b7b9a4e02bde8d8aff1c7d33fa00bc0ea4da7ec9b7058522fc1632b7b16cfb7f",
+      "passed": true,
+      "result": "[PASS] pierce_reality_blue / lean meaningful positive"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-enigma-four-live-sparse-actual-chi-three-pitch-payment-creates-owned-shield-with-one-power-counter",
+      "returncode": 0,
+      "stdout": "[PASS] enigma / lean meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-pierce-reality-blue-four-live-sparse-actual-cast-persistent-aura-buffs-real-first-illusionist-attack-by-two",
+      "returncode": 0,
+      "stdout": "[PASS] pierce_reality_blue / lean meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T09:46:58+00:00",
+    "input_file": "card-regression-batch238-eirina-corrected.json",
+    "input_sha256": "334e77844daae95d9eb3a6d1eb6bbb6d05468d7c2e282d04c9d9323eb6bc557d",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-eirinas-prayer-red-four-live-sparse-actual-blue-top-reveal-prevents-three-of-five-real-arcane-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 659
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-26T12:58:25+00:00",
+    "input_file": "card-regression-batch246.json",
+    "input_sha256": "e471c3666af11b2145c4a05f2f8cf13a45a6f614a500d9989ce0bc6c8e251aea",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-heart-of-vengeance-four-live-sparse-real-eligible-arakni-target-discounts-paid-attack-three-to-two",
+            "status": "recorded_semantically_checked",
+            "actions": 25,
+            "assertions": 629
+        },
+        {
+            "slug": "card-blazing-aether-red-four-live-sparse-real-earlier-one-arcane-earned-x-one-on-same-hero",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 564
+        },
+        {
+            "slug": "card-riled-up-red-four-live-sparse-real-six-power-discard-earned-plus-one-and-paid-eight-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 34,
+            "assertions": 796
+        }
+    ]
+}

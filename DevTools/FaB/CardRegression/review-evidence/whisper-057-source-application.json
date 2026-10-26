@@ -1,0 +1,26 @@
+{
+  "status": "APPLIED_UNQUALIFIED_NATIVE_AFTER_PENDING",
+  "utc": "2026-10-26T16:29:37.314710+00:00",
+  "issue": "FAB-REG-057",
+  "source_path": "FaBSim/Custom/GameLogic.php",
+  "source_before_sha256": "3d243fd5a0382368f0db59863fe8dbbfd06dd54a41447f94c2bb7868a0958e77",
+  "source_after_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\whisper057-source-application\\GameLogic.before.php",
+  "backup_verified": true,
+  "runtime_before_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "proposal": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\whisper-oracle-managed-plain-proposed-v2-native-confirmed\\proposal.json",
+  "proposal_sha256": "14d13ae2b198b05249513df356b4a672b495f1b9d621bf7ea72da49e48e57d57",
+  "independent_source_review": "review-evidence/whisper-057-source-review.json",
+  "independent_source_review_sha256": "8483cdc5b322ddcde6a898fbbdd1559a04b1f2fc3e5a6b1f830f65e1ab1f5fd2",
+  "native_before": "review-evidence/whisper-057-native-before.json",
+  "candidate_syntax": {
+    "command": "C:\\xampp\\php\\php.exe -l C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\whisper-oracle-managed-plain-source-only-proposed\\candidate\\GameLogic.php",
+    "exit_code": 0,
+    "result": "No syntax errors detected; installed bytes must exactly match this checked candidate."
+  },
+  "changed_scope": "One existing FaBSim KnownPlain admission line adds Whisper RGB only; other source bytes preserved.",
+  "Core_generated_card_bodies_changed": false,
+  "native_after_qualified": false,
+  "full_suite_run": false,
+  "runtime_after_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5"
+}

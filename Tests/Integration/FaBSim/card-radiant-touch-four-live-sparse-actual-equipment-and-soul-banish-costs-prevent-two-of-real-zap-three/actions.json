@@ -1,0 +1,122 @@
+[
+    {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Hand-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "p4Hero-0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 3,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 4,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p4Equipment-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 4,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "p4Soul-0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 4,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 3,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 3,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 4,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    }
+]

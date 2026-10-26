@@ -1,0 +1,141 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T12:35:35.777456+00:00",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "source_spec": "card-regression-batch244.json",
+  "source_spec_sha256": "505c515aa1fb296582d37d5d04b62d765aeb045bb31cb0b12234b957fb8d8f14",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 33,
+  "native_assertions": 1386,
+  "manual_passes": 24,
+  "totals": {
+    "saved_registered_scenarios": 3497,
+    "duels": 3074,
+    "four_live": 423,
+    "recorded_primary_ids": 654,
+    "identity_denominator": 5196,
+    "recorded_groups": 528,
+    "group_denominator": 3324,
+    "four_live_groups": 419,
+    "phase_qualified_scenarios_at_actual_contexts": 134,
+    "phase_qualified_unique_groups": 132,
+    "creation_replay_passes": 268,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 4,
+  "scenarios": [
+    {
+      "card_id": "hold_focus",
+      "group_id": "identity:hold_focus",
+      "scenario_id": "card-hold-focus-four-live-sparse-actual-destroy-action-amp-one-then-real-zap-four-damage",
+      "effect_branches": [
+        "actual-destroy-action-amp-one-then-real-zap-four-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hold-focus-four-live-sparse-actual-destroy-action-amp-one-then-real-zap-four-damage",
+      "source_spec": "card-regression-batch244.json",
+      "source_spec_sha256": "505c515aa1fb296582d37d5d04b62d765aeb045bb31cb0b12234b957fb8d8f14",
+      "review_evidence": "review-evidence/sparse244-5880-qualified-saved-review.json",
+      "review_evidence_sha256": "f4dcfdc969cf755a7b2dd692b5642b9ef339c5a6595ac7af2f6bf02c2a56afa1",
+      "recorded_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "qualification_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse244-5880-r1.json",
+          "sha256": "9636ef2ba15fe416fde2bb756075d9c238397f0c15d33b433e28637b4afc4754",
+          "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse244-5880-r2.json",
+          "sha256": "a59527f8c2ffa7755a46c1166329e4732bb5f372b97f02157afdaf42959b6fdf",
+          "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "calming_cloak",
+      "group_id": "identity:calming_cloak",
+      "scenario_id": "card-calming-cloak-four-live-sparse-actual-paid-destroy-instant-discounts-next-four-cost-aura-by-two",
+      "effect_branches": [
+        "actual-paid-destroy-instant-discounts-next-four-cost-aura-by-two"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-calming-cloak-four-live-sparse-actual-paid-destroy-instant-discounts-next-four-cost-aura-by-two",
+      "source_spec": "card-regression-batch244.json",
+      "source_spec_sha256": "505c515aa1fb296582d37d5d04b62d765aeb045bb31cb0b12234b957fb8d8f14",
+      "review_evidence": "review-evidence/sparse244-5880-qualified-saved-review.json",
+      "review_evidence_sha256": "f4dcfdc969cf755a7b2dd692b5642b9ef339c5a6595ac7af2f6bf02c2a56afa1",
+      "recorded_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "qualification_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse244-5880-r1.json",
+          "sha256": "9636ef2ba15fe416fde2bb756075d9c238397f0c15d33b433e28637b4afc4754",
+          "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse244-5880-r2.json",
+          "sha256": "a59527f8c2ffa7755a46c1166329e4732bb5f372b97f02157afdaf42959b6fdf",
+          "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "lightning_greaves",
+      "group_id": "identity:lightning_greaves",
+      "scenario_id": "card-lightning-greaves-four-live-sparse-actual-paid-destroy-instant-grants-real-instant-card-go-again-and-extra-action-point",
+      "effect_branches": [
+        "actual-paid-destroy-instant-grants-real-instant-card-go-again-and-extra-action-point"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-lightning-greaves-four-live-sparse-actual-paid-destroy-instant-grants-real-instant-card-go-again-and-extra-action-point",
+      "source_spec": "card-regression-batch244.json",
+      "source_spec_sha256": "505c515aa1fb296582d37d5d04b62d765aeb045bb31cb0b12234b957fb8d8f14",
+      "review_evidence": "review-evidence/sparse244-5880-qualified-saved-review.json",
+      "review_evidence_sha256": "f4dcfdc969cf755a7b2dd692b5642b9ef339c5a6595ac7af2f6bf02c2a56afa1",
+      "recorded_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "qualification_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse244-5880-r1.json",
+          "sha256": "9636ef2ba15fe416fde2bb756075d9c238397f0c15d33b433e28637b4afc4754",
+          "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse244-5880-r2.json",
+          "sha256": "a59527f8c2ffa7755a46c1166329e4732bb5f372b97f02157afdaf42959b6fdf",
+          "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

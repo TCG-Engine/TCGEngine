@@ -1,0 +1,41 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch220.json",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T03:25:52.459601+00:00",
+  "fixtures": [
+    {
+      "slug": "card-blade-beckoner-gauntlets-four-live-sparse-actual-weapon-block-continuous-one-defense-bonus-and-one-damage",
+      "fixture_sha256": "0f46dc71d268889c44dbaa9c8ce202cb9724b659fbaefea9ad6fde7b5bdd4920",
+      "passed": true,
+      "result": "[PASS] blade_beckoner_gauntlets / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-enchanted-quiver-four-live-sparse-real-faceup-arrow-condition-doubles-equipment-prevention-to-two",
+      "fixture_sha256": "a9cf3ae227b77ee1ae8e04b65c33c55e9c2c46cfa44800b8fa00ccb1f5b2038b",
+      "passed": true,
+      "result": "[PASS] enchanted_quiver / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blade-beckoner-gauntlets-four-live-sparse-actual-weapon-block-continuous-one-defense-bonus-and-one-damage",
+      "returncode": 0,
+      "stdout": "[PASS] blade_beckoner_gauntlets / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-enchanted-quiver-four-live-sparse-real-faceup-arrow-condition-doubles-equipment-prevention-to-two",
+      "returncode": 0,
+      "stdout": "[PASS] enchanted_quiver / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-empyrean-rapture-four-live-sparse-actual-paid-once-instant-grants-ward-one-then-consumes-equipment-on-real-arcane"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

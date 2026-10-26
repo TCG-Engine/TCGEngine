@@ -1,0 +1,109 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T09:45:09.728408+00:00",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "source_spec": "card-regression-batch238.json",
+  "source_spec_sha256": "deeb3c4974039329d95310b3fbdff076d5e65b3bc80802dc6f23be0311c1f745",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 56,
+  "native_assertions": 1628,
+  "manual_passes": 48,
+  "totals": {
+    "saved_registered_scenarios": 3478,
+    "duels": 3074,
+    "four_live": 404,
+    "recorded_primary_ids": 635,
+    "identity_denominator": 5196,
+    "recorded_groups": 509,
+    "group_denominator": 3324,
+    "four_live_groups": 400,
+    "phase_qualified_scenarios_at_actual_contexts": 115,
+    "phase_qualified_unique_groups": 113,
+    "creation_replay_passes": 230,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 3,
+  "scenarios": [
+    {
+      "card_id": "blessing_of_serenity_red",
+      "group_id": "pitch-cycle:blessing_of_serenity",
+      "scenario_id": "card-blessing-of-serenity-red-four-live-sparse-actual-instant-prevents-three-of-four-real-physical-damage",
+      "effect_branches": [
+        "actual-instant-prevents-three-of-four-real-physical-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-blessing-of-serenity-red-four-live-sparse-actual-instant-prevents-three-of-four-real-physical-damage",
+      "source_spec": "card-regression-batch238.json",
+      "source_spec_sha256": "deeb3c4974039329d95310b3fbdff076d5e65b3bc80802dc6f23be0311c1f745",
+      "review_evidence": "review-evidence/sparse238-two-1f33-qualified-saved-review.json",
+      "review_evidence_sha256": "c15defc1bc5e19aa82512217e3f3d6305b60fb1412e1c580d4a3656180a20c8d",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse238-two-1f33-r1.json",
+          "sha256": "d5d8e8a6cd107d34932366a1405f1df8059241d7a6bdc40503a51deec4977eb9",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse238-two-1f33-r2.json",
+          "sha256": "bfbaa3bf2b509f888650b047105620bebbcd5bd48db52f2f270d4f768d029d83",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "blinding_beam_red",
+      "group_id": "pitch-cycle:blinding_beam",
+      "scenario_id": "card-blinding-beam-red-four-live-sparse-actual-declared-shadow-target-costs-zero-and-reduces-real-attack-by-three",
+      "effect_branches": [
+        "actual-declared-shadow-target-costs-zero-and-reduces-real-attack-by-three"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-blinding-beam-red-four-live-sparse-actual-declared-shadow-target-costs-zero-and-reduces-real-attack-by-three",
+      "source_spec": "card-regression-batch238.json",
+      "source_spec_sha256": "deeb3c4974039329d95310b3fbdff076d5e65b3bc80802dc6f23be0311c1f745",
+      "review_evidence": "review-evidence/sparse238-two-1f33-qualified-saved-review.json",
+      "review_evidence_sha256": "c15defc1bc5e19aa82512217e3f3d6305b60fb1412e1c580d4a3656180a20c8d",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse238-two-1f33-r1.json",
+          "sha256": "d5d8e8a6cd107d34932366a1405f1df8059241d7a6bdc40503a51deec4977eb9",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse238-two-1f33-r2.json",
+          "sha256": "bfbaa3bf2b509f888650b047105620bebbcd5bd48db52f2f270d4f768d029d83",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [
+    "card-eirinas-prayer-red-four-live-sparse-actual-blue-top-reveal-prevents-three-of-five-real-arcane-damage"
+  ]
+}

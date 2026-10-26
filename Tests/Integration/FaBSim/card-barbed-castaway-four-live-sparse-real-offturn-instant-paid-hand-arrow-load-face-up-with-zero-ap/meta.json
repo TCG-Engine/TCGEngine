@@ -1,0 +1,7 @@
+{
+    "name": "barbed_castaway / meaningful first-pass four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T16:44:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1Dori20ownsactive turn/AP1; P2/3Dori20; P4youngAzalea20AP0wears2HBarbedCastaway5Weapons, HandSicEmRed6+BlueWB7, Arsenalempty. ThreeactualACTIONpasses1/2/3earnP4priority. EmptyArsenal+ArrowHandmakesonlyfirstInstant1abilityeligible(secondneedsfacedownArrowArsenalfalse), so nativeBowclickselectsabilityindex0withouta fabricatedmodal. VirtualABI8SourceWeapons5, realnormalPITCHcost1/AP4stays0; actualP4Blue7Handindex1pitches3/pays1->R4=2. Fouractualresponses4/1/2/3; fourthprivateMZMAYCHOOSEp4Hand0whileABI8stillStack/physicalArrow6stillHand/AP4=0/R4=2, no rawpriorityoracle. ChooseactualSicEm6\u2192ArsenalFaceUp0/noAimCounters[], Bow5retainedready2. SourceABIclearsaftereffectcompletion, ACTIONturnplayer1/AP1unchanged; P4AP0R2, Pitch7, Handempty, allHP20. CardSicEmhasnoonloadtrigger, noHeroAzaleaactivation. No secondflip/Aimability/once-rejection/attack/Reload/Arrowprimaryvariantscredit; no fakehistory, trueoffturnInstantpermission. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OUT093.webp"
+}

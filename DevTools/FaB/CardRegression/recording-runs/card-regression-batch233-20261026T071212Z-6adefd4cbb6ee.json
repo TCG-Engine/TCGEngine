@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T07:12:12+00:00",
+    "input_file": "card-regression-batch233.json",
+    "input_sha256": "0205e9c1fb7651f92e30771903e3a52ec17e93c1cfaa29fb36ade97426ae5c05",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-crouching-tiger-four-live-sparse-actual-zero-power-go-again-and-ephemeral-disappearance-on-full-combat-close",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 736
+        }
+    ]
+}

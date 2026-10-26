@@ -1,0 +1,126 @@
+{
+  "approved": true,
+  "status": "NARROW_EXPECTED_SNAPSHOT_CORRECTIONS_APPROVED_NATIVE_FINAL_REPLAY_PENDING",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-takecover054-two-dr-5880-compat.json",
+    "sha256": "ab11fee2c4333790f5c57e86e7aa8614dffc5cfee22935270781a05906c6812e",
+    "actual_result": "Both failed only finalJSON GameState comparison after all38 native assertions passed; no native execution by reviewer."
+  },
+  "method": "Manual actualsource/generatedcallback/printedfaces/currentCR trace and exact recursive captured-JSON comparison. No simulator/model/PHP/native/repository writes. No broad legacy semantic review.",
+  "findings": {
+    "permission": "Not a getter side effect: ARCCards FaBARCCard reads state with ??default only. Existing IARRuntime FaBIARAfterMove118 explicitly clears iarPermission=[] on from!=to. Shared FaBMoveStackUID invokes it. E37 DR captured state before move then overwrote movehook state when adding handBlockUIDs;706c finisher rereads current state after move. New arrays preserve real hook and grant no permission; FaBIARPermission returns false for absent and [].",
+    "ordering": "No extra standalone draw action exists. FateRed UID5 Opt completes first, real second source SinkBelowBLUE UID6 is announced at actualinput16; realMZMAYCHOOSE answer at19 bottoms RagingBlue and draws actual WoundingRed. Generated Sink callback98893\u201398901 performs DoDrawCard before FinishAwaitFrame; actual DoDrawCard2357\u20132359 logs SEA_DRAWN thenDTD_DRAWN. Only after body/frame completion does sharedDR finisher1448\u20131461 placeSinkBlue onChain andOnDefended\u2192MSTRuntime62 log MST_BLUE_DEFENDED. FateRed is not blue, so it is not this marker source.",
+    "timing": "CR5.3.4 layer effects precede5.3.6b DR becomesdefending. New ordering is correct for SinkBlue body draw, not delayed beyond an unrelated later draw/action. Existing rawnative checks still require FateChain afterOpt and twoDRChain cards/actual totalDEF6 before physicalP2HP19. No engine fix needed for these captured deltas.",
+    "limits": "Finalcaptured actualJSON alone is not prefixsnapshot evidence. Source/correctoracles explain known order; no new before-input capture or general allDR/permission gameplay certification claimed."
+  },
+  "source_guards": {
+    "FaBSim/Custom/GameLogic.php": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+    "FaBSim/Custom/ARCCards.php": "5bde46f342529508e33d983cc4a2475debbe2cfb2ba05a6c78a00da2f861672b",
+    "FaBSim/Custom/IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+    "FaBSim/Custom/IARRuntime.php": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/SEARuntime.php": "53466ba23c6ff2d845774e47160b7c9383878e3a8a3345f7d23ac6a20eb42067",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "dcd02e442313777e6c18ebce9528df5d42b38885f9e5ccd12cda1dca02753fa6"
+  },
+  "before_game_logic_sha256": "e37edf98374de00c1d1adb7f7884496bc053dd1eec4bf8882bee6c4a075d1b0e",
+  "printed_faces_independently_viewed": {
+    "sink_below_blue.webp": "b0739e0d7ec5ea71c5cdf6d76217e83a22380c50af449a53ba9ff8ab01dcacf1",
+    "fate_foreseen_red.webp": "ae4069e2e406d430d5289b5e098ad1518f8a163cd65d581d8d29291a4bbac0a7"
+  },
+  "primary_rules": {
+    "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+    "paragraphs": [
+      "5.3.4",
+      "5.3.6b"
+    ]
+  },
+  "fixtures": [
+    {
+      "slug": "card-unmovable-red-hand-paid-blue-three",
+      "raw5_before_sha256": {
+        "initial_gamestate.txt": "dbb5dd6b3abbac4c7033d509e55f5c30da01b6ae7197f13cddd125dda9bb673d",
+        "actions.json": "443dee083ef87115d087ca8a141b3b542b67814f9f9af61318db9fe0dfa679c3",
+        "assertions.json": "7d5cd084c3a47749896f66fe489de4ae2115de2821fabc2e5b75b71856d88df4",
+        "expected_final_gamestate.txt": "86018ea1cd367c02fc896917671d502ef01eda44625b9fd24e0eeb251271dc89",
+        "meta.json": "5f208f339775903bc04d4cd3850cb4e7fb1fb07d24b1c69aa59421d4fe2b53d9"
+      },
+      "fixture_before_sha256": "0fe906246b7170c61fbaffd00f8aa2f0dbc553ae5a0e399cb3eeb86e926e881e",
+      "native_assertions_already_passed_before_snapshot_comparison": 14,
+      "exact_allowed_semantic_delta": [
+        {
+          "path": "/arcCards/6/iarPermission",
+          "before": "ABSENT",
+          "after": []
+        }
+      ],
+      "expected_final_only_changed_line_1_based": 89,
+      "independently_computed_candidate_expected_final_sha256": "2d847f30cf92f5bc8cc77a214a30fe48962a5cbed3cfaa9780cd5ccc37d64763",
+      "candidate_source": "Old expected JSON plus only exact listed3 permission leaves / one unchanged marker relocation, not full actual recapture; independently derived whole state equals root captured actual JSON. Every other snapshot byte held unchanged.",
+      "other_fixture_files_must_stay_byte_exact": [
+        "initial_gamestate.txt",
+        "actions.json",
+        "assertions.json",
+        "meta.json"
+      ]
+    },
+    {
+      "slug": "card-fate-foreseen-red-hand-opt-one-top-then-draw",
+      "raw5_before_sha256": {
+        "initial_gamestate.txt": "554e312ce2e546cbf86b14360024447ba6dca8d0279d0a52f7467507804d45ee",
+        "actions.json": "13baf676b94005abc1cdb577dee0386d94b8c784a05e2034e0461dde039c587a",
+        "assertions.json": "d981f3191967dee6a6e896487c75e5e5eba3b682286acfda1b47a7002718f541",
+        "expected_final_gamestate.txt": "a864243b0715a231689ad8f6611bc080e40343f469ab07c6a08162b11156452b",
+        "meta.json": "bfce687e94c6ddf419199b124b3ed2739180e3f036f7604f095670ed01a2f662"
+      },
+      "fixture_before_sha256": "9c9d4cde55196ae5d9a3ba22518ecc3e95349cf7e4048eac1c151d3bf3462ae0",
+      "native_assertions_already_passed_before_snapshot_comparison": 24,
+      "exact_allowed_semantic_delta": [
+        {
+          "path": "/arcCards/5/iarPermission",
+          "before": "ABSENT",
+          "after": []
+        },
+        {
+          "path": "/arcCards/6/iarPermission",
+          "before": "ABSENT",
+          "after": []
+        },
+        {
+          "path": "/turnEffects/2",
+          "operation": "move_one_unchanged_marker_from_index4_to_index6",
+          "marker": {
+            "type": "MST_BLUE_DEFENDED",
+            "amount": 1,
+            "uses": 1
+          },
+          "before_order": [
+            "MST_BLUE_DEFENDED",
+            "SEA_DRAWN",
+            "DTD_DRAWN"
+          ],
+          "after_order": [
+            "SEA_DRAWN",
+            "DTD_DRAWN",
+            "MST_BLUE_DEFENDED"
+          ]
+        }
+      ],
+      "expected_final_only_changed_line_1_based": 91,
+      "independently_computed_candidate_expected_final_sha256": "26373140af2531edab33e5d22f401992c020b4caed79931f2325d91dc031a093",
+      "candidate_source": "Old expected JSON plus only exact listed3 permission leaves / one unchanged marker relocation, not full actual recapture; independently derived whole state equals root captured actual JSON. Every other snapshot byte held unchanged.",
+      "other_fixture_files_must_stay_byte_exact": [
+        "initial_gamestate.txt",
+        "actions.json",
+        "assertions.json",
+        "meta.json"
+      ]
+    }
+  ],
+  "apply_conditions": [
+    "Root must verify all listed oldraw5 digests and preserve recoverable backup of their old5 files and prior selected review rows/proof references outside repository BEFORE any update.",
+    "Change only expected_final_gamestate one exact GameState line per fixture by independently derived listed deltas, preserving every other byte. No actions/assertions/initial/meta/generic runner changes.",
+    "Retain originalfailedcompat report. Root rerun only these2 focused existing cases after update; no fullsuite or historicalreviewretagging. If any additional snapshot mismatch appears, stop and diagnose without broad blessing.",
+    "These are narrowly identified obsolete expectedstate corrections following real sharedrepair, not new cards/coverage/fixgroups/whole-suite currentreadiness."
+  ]
+}

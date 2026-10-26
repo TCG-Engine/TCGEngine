@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T14:18:25+00:00",
+    "input_file": "card-regression-batch249.json",
+    "input_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+    "filter": "card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage",
+    "results": [
+        {
+            "slug": "card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 29,
+            "assertions": 712
+        }
+    ]
+}

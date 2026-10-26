@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch217.json",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T02:44:30.164579+00:00",
+  "fixtures": [
+    {
+      "slug": "card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+      "fixture_sha256": "505b015c09dd85f92461a5fa1b21df6f6aa6e483895d8bfea5d49120ea03abfc",
+      "passed": true,
+      "result": "[PASS] spellbound_creepers / four live distinctive effect"
+    },
+    {
+      "slug": "card-quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage",
+      "fixture_sha256": "0ee78b2b6808a1626cd7ed31d6b7c662493f35d351128fc239aa8f84db914121",
+      "passed": true,
+      "result": "[PASS] quelling_robe / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+      "returncode": 0,
+      "stdout": "[PASS] spellbound_creepers / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage",
+      "returncode": 0,
+      "stdout": "[PASS] quelling_robe / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

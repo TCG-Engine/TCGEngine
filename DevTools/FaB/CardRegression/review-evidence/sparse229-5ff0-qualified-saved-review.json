@@ -1,0 +1,386 @@
+{
+  "status": "APPROVED_B229_TWO_ACTUAL_SAVED_FOUR_LIVE_CASES_FINAL_REPLAY_QUALIFICATION_SEPARATE",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_scenario_author": true,
+  "utc": "2026-10-26T06:24:10.584262+00:00",
+  "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch229.json",
+  "input_sha256": "4cde304dba364494c72a937da1c27d0165995268e8d874f59a3c749d0ee71f2c",
+  "manifest_sha256": "f1ce349026223a69ff98a82e8bc562c1c3c85666c3a2f5da23bddce50590c9ad",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "reused_manual_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch229-independent-manual-spec-review-106-v2-soul-schema.json",
+    "sha256": "238d063ea26c9769f186ef301bc5ac066494b5bccf6fa61cfe9a19d6e63b7f2f"
+  },
+  "immutable_recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch229-20261026T062138Z-6adef1724dbfc.json",
+    "sha256": "5bd5ab20f3471d3352a29a2a8c2cdadc2c90035c2adfcf1ce3bcc2f1e65cce7f"
+  },
+  "fixtures": [
+    {
+      "slug": "card-radiant-touch-four-live-sparse-actual-equipment-and-soul-banish-costs-prevent-two-of-real-zap-three",
+      "card_id": "radiant_touch",
+      "group_id": "identity:radiant_touch",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B229_FOUR_LIVE_REPRESENTATIVE_FINAL_TARGETED_QUALIFICATION_SEPARATE",
+      "reviewer": "/root/b106_semantic_review",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch229.json",
+      "input_sha256": "4cde304dba364494c72a937da1c27d0165995268e8d874f59a3c749d0ee71f2c",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "fixture_sha256": "78702eb072d5b013a54dba5e1c8e6414a6b8dc50b81c84a16befad4049fac3a6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "12e9785f7159f0f9f45a5bafbdea138152e14820e3c48ccc9d04a5672d79d772",
+        "actions.json": "6236b4601da1e976e1c5123ef7658e8306f807899387a2f3443bef83091606d9",
+        "assertions.json": "fe57e8a566e082e12c4df9654be1b241e43fbb5f6fb56b191b732933749cc7e4",
+        "expected_final_gamestate.txt": "3ba50a91fde682e1db91827306cf71e3a9499485d5f2eb979d8c0f300379a617",
+        "meta.json": "8a531a5893828aa4b1611a6dafe0a484858296099b65d8a94620282a6b0d7f0d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "12e9785f7159f0f9f45a5bafbdea138152e14820e3c48ccc9d04a5672d79d772",
+        "actions.json": "6236b4601da1e976e1c5123ef7658e8306f807899387a2f3443bef83091606d9",
+        "assertions.json": "fe57e8a566e082e12c4df9654be1b241e43fbb5f6fb56b191b732933749cc7e4",
+        "expected_final_gamestate.txt": "3ba50a91fde682e1db91827306cf71e3a9499485d5f2eb979d8c0f300379a617",
+        "meta.json": "8a531a5893828aa4b1611a6dafe0a484858296099b65d8a94620282a6b0d7f0d"
+      },
+      "actions": 15,
+      "native_assertions": 865,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 11,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4
+      ],
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_four_live_legal_Wizard_Light_Warrior_and_owned_ordinary_Soul_card",
+          "step": 0,
+          "native_assertions": 116
+        },
+        {
+          "checkpoint": "actual_Zap_adjacent_target_declared_before_assets",
+          "step": 1,
+          "native_assertions": 44
+        },
+        {
+          "checkpoint": "actual_Zap_zero_resource_and_one_Action_paid",
+          "step": 2,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "actual_Zap_response_opportunity_1_before_P4_equipment",
+          "step": 3,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "actual_Zap_response_opportunity_2_before_P4_equipment",
+          "step": 4,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "actual_Zap_response_opportunity_3_before_P4_equipment",
+          "step": 5,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "actual_zero_resource_Instant_chooses_printed_own_Soul_cost_before_source_responses",
+          "step": 6,
+          "native_assertions": 48
+        },
+        {
+          "checkpoint": "actual_both_printed_banish_costs_paid_no_Action_or_resource_required",
+          "step": 7,
+          "native_assertions": 48
+        },
+        {
+          "checkpoint": "actual_Radiant_Touch_four_live_source_responses_before_prevention_manual_response_1_of_four",
+          "step": 8,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "actual_Radiant_Touch_four_live_source_responses_before_prevention_manual_response_2_of_four",
+          "step": 9,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "actual_Radiant_Touch_four_live_source_responses_before_prevention_manual_response_3_of_four",
+          "step": 10,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "actual_Radiant_Touch_four_live_source_responses_before_prevention_fourth_manual_response_boundary",
+          "step": 11,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "actual_original_Zap_four_live_responses_then_real_three_minus_two_damage_manual_response_1_of_four",
+          "step": 12,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "actual_original_Zap_four_live_responses_then_real_three_minus_two_damage_manual_response_2_of_four",
+          "step": 13,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "actual_original_Zap_four_live_responses_then_real_three_minus_two_damage_manual_response_3_of_four",
+          "step": 14,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "actual_original_Zap_four_live_responses_then_real_three_minus_two_damage_fourth_manual_response_boundary",
+          "step": 15,
+          "native_assertions": 38
+        },
+        {
+          "checkpoint": "full_final_real_two_prevention_and_both_physical_banish_costs",
+          "step": 15,
+          "native_assertions": 121
+        }
+      ],
+      "initial_physical_cards": {
+        "p4Equipment": [
+          [
+            "5",
+            "radiant_touch",
+            "4",
+            "4",
+            "0"
+          ]
+        ],
+        "p1Hand": [
+          [
+            "7",
+            "zap_red",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p4Soul": [
+          [
+            "6",
+            "take_flight_red",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Graveyard": [
+          [
+            "7",
+            "zap_red",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p4Banish": [
+          [
+            "6",
+            "take_flight_red",
+            "4",
+            "4",
+            "0"
+          ],
+          [
+            "5",
+            "radiant_touch",
+            "4",
+            "4",
+            "0"
+          ]
+        ]
+      },
+      "observed_recording_summary": {
+        "slug": "card-radiant-touch-four-live-sparse-actual-equipment-and-soul-banish-costs-prevent-two-of-real-zap-three",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 865
+      },
+      "actual_meaningful_evidence": [
+        "Actual ownSoul6 serializedonlyCardID/UID in p4Soul; no fabricated Owner/Controller field. After realcostchoice both6then5 publicBanish explicitlyOwnerController4/Face0.",
+        "P4 actualInstant at earnedpriority: three initialZapresponses, thenability responses4/1/2/3, then originalZapresponses1/2/3/4. Realbothprintedbanishcosts and independentproxy8/checkpoints preserveactualsource.",
+        "FinalZap7publicP1GY, arcane1caster1victim4/P4HP19, prevention2consumed, otherHP20/allAP/R0, no physicalproxy/queues/frame/payment."
+      ],
+      "limits": [
+        "Only boundedpositivecost/prevention2againstZaparcane. No Prismasset-order/trigger/rollback/earlyprevention/expiry/otherdamage/charge/TakeFlight/hero/support/fullcardcredit.",
+        "FinalsharedDQ/arcCards sourceUIDs are historical completed caches; raw5 plus passedrecording asserts checkpoint expectations, not unseen callback locals."
+      ]
+    },
+    {
+      "slug": "card-cognition-nodes-blue-four-live-sparse-actual-paid-action-retains-owned-item-and-adds-first-steam-after-four-responses",
+      "card_id": "cognition_nodes_blue",
+      "group_id": "identity:cognition_nodes_blue",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B229_FOUR_LIVE_REPRESENTATIVE_FINAL_TARGETED_QUALIFICATION_SEPARATE",
+      "reviewer": "/root/b106_semantic_review",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch229.json",
+      "input_sha256": "4cde304dba364494c72a937da1c27d0165995268e8d874f59a3c749d0ee71f2c",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "fixture_sha256": "314dd687d3a2e77080d0cba1e51b83030726cc8b8d02ce6b1f4115706b209e79",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a815954d2be20fb877237b750e29369008e17d70e5245606f25fa6cc581bce03",
+        "actions.json": "3776cc8bdae860a3336ae28d46f0c8b5c699b5efd1ccac706a8a1f7f376a54b7",
+        "assertions.json": "3084c1fe5c9fdc6453f79ad9b367a160c203747e9acb49b59167fa08d1b0b52b",
+        "expected_final_gamestate.txt": "15ed5c174f6c947ae47e677a1a9c2a45fcfce1b962abe070316d1440da9cfcdc",
+        "meta.json": "668cb0eb0f4cafe0dadd051adb15012f9dca17c3347f89aed018d4cda941e060"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a815954d2be20fb877237b750e29369008e17d70e5245606f25fa6cc581bce03",
+        "actions.json": "3776cc8bdae860a3336ae28d46f0c8b5c699b5efd1ccac706a8a1f7f376a54b7",
+        "assertions.json": "3084c1fe5c9fdc6453f79ad9b367a160c203747e9acb49b59167fa08d1b0b52b",
+        "expected_final_gamestate.txt": "15ed5c174f6c947ae47e677a1a9c2a45fcfce1b962abe070316d1440da9cfcdc",
+        "meta.json": "668cb0eb0f4cafe0dadd051adb15012f9dca17c3347f89aed018d4cda941e060"
+      },
+      "actions": 6,
+      "native_assertions": 479,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_four_live_legal_Mechanologist_owned_Item_zero_steam_and_real_blue_pitch",
+          "step": 0,
+          "native_assertions": 115
+        },
+        {
+          "checkpoint": "actual_printed_resource_asset_required_before_effect_cost",
+          "step": 1,
+          "native_assertions": 46
+        },
+        {
+          "checkpoint": "actual_resource_and_Action_assets_then_printed_self_movement_cost_paid",
+          "step": 2,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "actual_Nodes_four_live_responses_before_first_counter_and_ability_go_again_manual_response_1_of_four",
+          "step": 3,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "actual_Nodes_four_live_responses_before_first_counter_and_ability_go_again_manual_response_2_of_four",
+          "step": 4,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "actual_Nodes_four_live_responses_before_first_counter_and_ability_go_again_manual_response_3_of_four",
+          "step": 5,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "actual_Nodes_four_live_responses_before_first_counter_and_ability_go_again_fourth_manual_response_boundary",
+          "step": 6,
+          "native_assertions": 35
+        },
+        {
+          "checkpoint": "full_final_actual_steam_one_retained_Item_and_real_cost_economy",
+          "step": 6,
+          "native_assertions": 115
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Arena": [
+          [
+            "5",
+            "cognition_nodes_blue",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Hand": [
+          [
+            "6",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Arena": [
+          [
+            "5",
+            "cognition_nodes_blue",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Pitch": [
+          [
+            "6",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "observed_recording_summary": {
+        "slug": "card-cognition-nodes-blue-four-live-sparse-actual-paid-action-retains-owned-item-and-adds-first-steam-after-four-responses",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 479
+      },
+      "actual_meaningful_evidence": [
+        "ActualBlue6pitch3 paysprintedAction1/R2/AP0; ownedItem5retainedStatus2 with Counters[] throughfirstthree responses.",
+        "Fourthactualresponse changesretainedItem5 toSTEAM1andgrantsGA/AP1. FinalBlue6Pitch1/R2/AP1/allHP20, no proxy7GY/Stack/queues/frame/payment."
+      ],
+      "limits": [
+        "Only actualfirstSteam paidAction branch; no ordinarycast/startgame/secondreaction/targetgrant/WHENhit/draw/futuresteam/chargedreject/repeat/fullcardcredit.",
+        "No nativegame credit from implementation/source reading; allclaims bind exactsaveddata andactualrootrecording receipt."
+      ]
+    }
+  ],
+  "totals": {
+    "fixtures": 2,
+    "actions": 21,
+    "native_assertions": 1344,
+    "manual_passes": 15,
+    "recorder_only_checks": 0,
+    "endpoint_preference_values": 192
+  },
+  "scope": "Actual selected raw5/source/actions/all persisted oracles/physicalendpoints independently audited. Root recording receipt binds intermediate checkpoint assertions; root targeted replays/control/registration remain separate. No source changes, generic oldcase review or broad suite.",
+  "source_only_hold": {
+    "card_id": "prism",
+    "status": "UNCHANGED_UNATTEMPTED_UNCOVERED_SOURCE_ONLY_HOLD"
+  },
+  "php_execution": 0,
+  "native_execution": 0,
+  "optional_rules_simulation": 0,
+  "repository_writes": 0
+}

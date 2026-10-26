@@ -1,0 +1,78 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T13:12:11.209737+00:00",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "source_spec": "card-regression-batch245-haunting-correct-probe.json",
+  "source_spec_sha256": "0e8f6bc6dd392d42fa103a3f10255cd0090bb210fada14609b20c17845434391",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 31,
+  "native_assertions": 822,
+  "manual_passes": 28,
+  "totals": {
+    "saved_registered_scenarios": 3502,
+    "duels": 3074,
+    "four_live": 428,
+    "recorded_primary_ids": 659,
+    "identity_denominator": 5196,
+    "recorded_groups": 533,
+    "group_denominator": 3324,
+    "four_live_groups": 424,
+    "phase_qualified_scenarios_at_actual_contexts": 139,
+    "phase_qualified_unique_groups": 137,
+    "creation_replay_passes": 278,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "haunting_rendition_red",
+      "group_id": "identity:haunting_rendition_red",
+      "scenario_id": "card-haunting-rendition-red-four-live-sparse-correct-earned-prevention-trigger-four-responses",
+      "effect_branches": [
+        "actual-hand-discard-prevents-two-then-separate-earned-trigger-creates-owned-runechant"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-haunting-rendition-red-four-live-sparse-correct-earned-prevention-trigger-four-responses",
+      "source_spec": "card-regression-batch245-haunting-correct-probe.json",
+      "source_spec_sha256": "0e8f6bc6dd392d42fa103a3f10255cd0090bb210fada14609b20c17845434391",
+      "review_evidence": "review-evidence/haunting-055-qualified-saved-review.json",
+      "review_evidence_sha256": "35095c79174d4453270ef813c5d93ad5b093090626661b6c027811852dc1fbfb",
+      "recorded_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "qualification_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-haunting055-c8f2-r1.json",
+          "sha256": "5e9caedc03532057efd5574d2775b6b260a9eb0ad91db647c5b88f9bff30303d",
+          "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-haunting055-c8f2-r2.json",
+          "sha256": "08e808e69b4d43ebfbd513e6d3473baf1a2a2bb56a4be39a3a6a29d1c811440d",
+          "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [],
+  "confirmed_existing_group_caller_repairs": 1,
+  "repair_issue": "FAB-REG-055",
+  "existing_root_group": "FAB-REG-043",
+  "repair_evidence": "review-evidence/haunting-055-before-after.json",
+  "new_distinct_gameplay_defect_groups": 0
+}

@@ -1,0 +1,263 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_PENDING_ROOT_TARGETED_QUALIFICATION_REGISTRATION",
+  "reviewer": "/root/b105_semantic_review",
+  "created_utc": "2026-10-26T16:12:33.178333+00:00",
+  "review_method": "Independent104 first manual rules/source review reused; static saved raw10/input/assertion/endpoint comparison only. No simulator, PHP/native game or repository mutation.",
+  "source_spec": "card-regression-batch252.json",
+  "input_sha256": "05f19d4a99ef9942fb6d106848595c7c3c5476861c77453bed453257316f3101",
+  "manifest_sha256": "ebebb7d94df6160c89ac8add7140ebca0d6f424151f2bbc86c6472a189eb102e",
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "recorded_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse252-first-manual-independent-approval.json",
+    "sha256": "995b40ff2736f977946fc29f8bfaeee6953e51085a548209f96af5a5dad31bd8"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch252-20261026T161038Z-6adf7b7e7b2ea.json",
+    "sha256": "924b376a5050e9bec7e1316477ed3c686f26653d3306599f82ae613cd8519f1c"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\audit_sparse252_actual_files.py",
+    "sha256": "04eb4f92f41483013f13b5dd637200775f3c98beaa0257c07aab61c0694affe7"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "new_horizon",
+      "slug": "card-new-horizon-four-live-sparse-real-second-face-up-arsenal-arrow-load",
+      "source_spec": "card-regression-batch252.json",
+      "input_sha256": "05f19d4a99ef9942fb6d106848595c7c3c5476861c77453bed453257316f3101",
+      "reviewer": "/root/b105_semantic_review",
+      "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "recorded_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_sha256": "b2991122e747037ca76f9626f8ded0aca92b8f4b5b76ced07fe6e624d55cd5f2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "03b0b41c20a0fc22153bf213fad584c46540c7dcd9ed042d30ac01d097bd051f",
+        "actions.json": "53323c966174e4349cdefc6c17662e727cc09a95a3e2feb56375d093b0433139",
+        "assertions.json": "a29507a8fd89a47ab28dae2390a218f3c4895d85dd9e5e0e912240f0664e395f",
+        "expected_final_gamestate.txt": "94dd97ef25e7b0587139ce556b30d2cf320497373d5eac8ddd4b90a3f313be54",
+        "meta.json": "401210df24497a88afec6ca13d3600548f5a00a287d875b188af13eaecd23254"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "03b0b41c20a0fc22153bf213fad584c46540c7dcd9ed042d30ac01d097bd051f",
+        "actions.json": "53323c966174e4349cdefc6c17662e727cc09a95a3e2feb56375d093b0433139",
+        "assertions.json": "a29507a8fd89a47ab28dae2390a218f3c4895d85dd9e5e0e912240f0664e395f",
+        "expected_final_gamestate.txt": "94dd97ef25e7b0587139ce556b30d2cf320497373d5eac8ddd4b90a3f313be54",
+        "meta.json": "401210df24497a88afec6ca13d3600548f5a00a287d875b188af13eaecd23254"
+      },
+      "actions": 7,
+      "native_assertions": 393,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "full_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "checkpoint_assertions": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_initial_four_live_legal_Ranger_new_horizon_and_existing_faceup_arsenal",
+          "native_assertions": 136
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_bow_ability_one_announced_second_arsenal_space_is_legal_before_real_pitch",
+          "native_assertions": 38
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_blue_pitch_three_pays_one_retains_two_and_own_AP",
+          "native_assertions": 24
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_manual_ability_response_1",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_manual_ability_response_2",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_manual_ability_response_3",
+          "native_assertions": 8
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "fourth_manual_response_load_choice_before_actual_physical_arrow_move",
+          "native_assertions": 33
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "full_final_second_actual_owned_faceup_arsenal_card_first_card_retained",
+          "native_assertions": 138
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 1,
+      "card_id": "aether_ashwing",
+      "slug": "card-aether-ashwing-four-live-sparse-real-intrinsic-arcane-barrier-one-paid-from-blue-pitch",
+      "source_spec": "card-regression-batch252.json",
+      "input_sha256": "05f19d4a99ef9942fb6d106848595c7c3c5476861c77453bed453257316f3101",
+      "reviewer": "/root/b105_semantic_review",
+      "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "recorded_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_sha256": "147c62e6b7cc1806ee084f16fe60b3d23bc2d1eb7bfbf1105abc04d3143472bb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f8c1b899d6d7557e5ec46cfea90c9dcc9e39c730aa85a8d2f037cdd99c1d8a03",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "f4b5a555c6c50f0ab5170dc6a7d1ce5f8b45e9096e8c3035e431e725f6fbb4fb",
+        "expected_final_gamestate.txt": "9a26dd2b76f8feab2057e832add161e8ed2cca7235d536af4ea31d4a460a2eb4",
+        "meta.json": "4ced7e2dcc8a3c0b83dc676c83846ad841a222878eaf89c75d3b0fbeb224761c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f8c1b899d6d7557e5ec46cfea90c9dcc9e39c730aa85a8d2f037cdd99c1d8a03",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "f4b5a555c6c50f0ab5170dc6a7d1ce5f8b45e9096e8c3035e431e725f6fbb4fb",
+        "expected_final_gamestate.txt": "9a26dd2b76f8feab2057e832add161e8ed2cca7235d536af4ea31d4a460a2eb4",
+        "meta.json": "4ced7e2dcc8a3c0b83dc676c83846ad841a222878eaf89c75d3b0fbeb224761c"
+      },
+      "actions": 8,
+      "native_assertions": 376,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "full_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "checkpoint_assertions": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_initial_four_live_legal_Wizard_and_Dromai_owned_materialized_Ashwing",
+          "native_assertions": 124
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_Zap_announcement_in_prepare_PITCH_before_declared_adjacent_target",
+          "native_assertions": 29
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_target_P4_committed_cost_zero_Action_AP_spent_before_responses",
+          "native_assertions": 21
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_manual_Zap_response_1",
+          "native_assertions": 7
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_manual_Zap_response_2",
+          "native_assertions": 7
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_manual_Zap_response_3",
+          "native_assertions": 7
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "fourth_real_response_intrinsic_ally_Barrier_one_offer_before_damage",
+          "native_assertions": 26
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_Barrier_one_chosen_requires_real_effect_pitch_before_prevention",
+          "native_assertions": 30
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "full_final_actual_Blue_pitch_three_paid_one_Barrier_prevents_one_of_three",
+          "native_assertions": 125
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "total_actions": 15,
+  "total_native_assertions": 769,
+  "total_manual_passes": 8,
+  "total_priority_response_passes": 8,
+  "total_defender_declaration_finish_inputs": 0,
+  "limits": [
+    "Exactly two newly saved B252 fixtures; all15 inputs/769assertions/raw10 exact, all4response actors and48manual preferences eachendpoint verified.",
+    "NewHorizon realsecondslot positive only: existingfaceup7 preserved and newphysical8 actually loadedfaceup/noAim after actualpaid BowInstant. No destruction/BladeBreak/source-loss/negativecapacity/Arrowattack or support-primary credit.",
+    "Ashwing intrinsicArena ArcaneBarrier1 only: legitimate preexisting canonical material representation persists unchanged, actualZap3 with realBlueeffectpitch pays1 leavesR4=2/HP18/caster1target4. No actualtransform/tokencreation/materialgrant/Phantasm/Allyattack/multiplebarriers/suppression/unpreventable credit.",
+    "Private pending-source assertions are exact native passed checks; endpoint raw5 does not independently certify intermediate serialized await locals. Endpoint frames/queues/source layers drain.",
+    "Root two targeted new-only replay receipts/qualification remain separate gates. No source056 or legacy rereview, full suite, native control, PHP/game execution, repository writes or synthetic certification performed by reviewer."
+  ]
+}

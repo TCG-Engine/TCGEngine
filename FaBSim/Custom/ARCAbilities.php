@@ -108,6 +108,23 @@ function FaBARCActivate(int $player,array $f,int $index): bool {
         if (!is_object($bodiceUndo)) return false;
         $bodiceUndoHash = hash('sha256', (string)$bodiceUndo->Version);
     }
+    $prismUndoHash = '';
+    if (in_array((string)$o->CardID, ['prism','prism_sculptor_of_arc_light'], true)) {
+        if ($f['zone'] !== 'Hero' || FaBMONSoul($player) === '') return false;
+        SaveUndoVersion($player, 'Before activating Prism');
+        $prismVersions = GetVersions($player); $prismUndo = $prismVersions[0] ?? null;
+        if (!is_object($prismUndo)) return false;
+        $prismUndoHash = hash('sha256', (string)$prismUndo->Version);
+    }
+    $chaneUndoHash = '';
+    if (in_array((string)$o->CardID, ['chane','chane_bound_by_shadow'], true)) {
+        if ($f['zone'] !== 'Hero' || FaBSEAHeroCreationBlocked($player)
+            || FaBMPGTokenCount($player, 'soul_shackle', 1) < 1) return false;
+        SaveUndoVersion($player, 'Before activating Chane');
+        $chaneVersions = GetVersions($player); $chaneUndo = $chaneVersions[0] ?? null;
+        if (!is_object($chaneUndo)) return false;
+        $chaneUndoHash = hash('sha256', (string)$chaneUndo->Version);
+    }
     $stack=AddStack(CardID:$o->CardID,Controller:$player,Kind:'ABILITY',SourceZone:$f['zone'],SourceUniqueID:intval($o->UniqueID),Params:['arcSpec'=>$spec,'returnWindow'=>$s['window'],'returnCombatStep'=>$s['combatStep'],'attackUID'=>intval($s['attackUID']),'dynEmperorTarget'=>$emperorTarget]);
     $s['pendingPayment']=['player'=>$player,'uid'=>intval($stack->UniqueID),'cost'=>$cost,'fromZone'=>$f['zone'],'kind'=>'ABILITY','isAbility'=>true,'abilityAction'=>$spec['timing']==='ACTION','returnWindow'=>$s['window'],'returnCombatStep'=>$s['combatStep']];
     if ($o->CardID === 'bloodtorn_bodice') {
@@ -115,7 +132,21 @@ function FaBARCActivate(int $player,array $f,int $index): bool {
         $s['pendingPayment']['preparedEffectUndoHash'] = $bodiceUndoHash;
         $s['pendingPayment']['preparedBodiceSourceUID'] = intval($o->UniqueID);
     }
+    if (in_array((string)$o->CardID, ['prism','prism_sculptor_of_arc_light'], true)) {
+        $s['pendingPayment']['preparedEffectCardID'] = (string)$o->CardID;
+        $s['pendingPayment']['preparedEffectUndoHash'] = $prismUndoHash;
+        $s['pendingPayment']['preparedPrismSourceUID'] = intval($o->UniqueID);
+    }
+    if (in_array((string)$o->CardID, ['chane','chane_bound_by_shadow'], true)) {
+        $s['pendingPayment']['preparedEffectCardID'] = (string)$o->CardID;
+        $s['pendingPayment']['preparedEffectUndoHash'] = $chaneUndoHash;
+        $s['pendingPayment']['preparedChaneSourceUID'] = intval($o->UniqueID);
+    }
     $s['window']='PITCH';FaBSetState($s);SetConsecutivePasses(0);
+    if (in_array((string)$o->CardID, ['chane','chane_bound_by_shadow'], true)) {
+        if (!FaBDeclareChaneShackleCost($player, intval($stack->UniqueID))) return true;
+        return FaBTryCompletePayment();
+    }
     if((isset(FaBMONAbilityRows()[$o->CardID])||isset(FaBBoltynAbilityRows()[$o->CardID])||isset(FaBELEAbilityRows()[$o->CardID]))&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBFindUID(intval($stack->UniqueID))['mzID']]))return true;
     if((in_array($o->CardID,FaBHNTAgents(),true)||in_array(FaBWTRBase($o->CardID),['war_cry_of_bellona','war_cry_of_themis'],true)||in_array($o->CardID,['oscilio','oscilio_constella_intelligence','bloodtorn_bodice'],true)||$o->CardID==='longdraw_half_glove')&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBFindUID(intval($stack->UniqueID))['mzID']]))return true;
     if(in_array($o->CardID,['pleiades','pleiades_superstar','backspin_thrust_red','gallow_end_of_the_line_yellow','light_up_the_leaves_red'],true)&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBDTDSource(intval($stack->UniqueID))]))return true;

@@ -1,0 +1,7 @@
+{
+    "name": "dampen_red / real four damage earns exact four arcane prevention",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T17:20:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "YoungVerdance20 P1/P2, Dori20 P3/P4, allfourmanual12prefs. RealP1Dampen5Handcost2 declaredadjacentP4beforefunding, Blue6pitches3/pays2->R1/AP0. P4noGear/Hand/Aura/prevention, soDampenresolvessynchronouslyafterfourresponses1/2/3/4: actual4arcaneP4HP16, earnsnext4arcanepreventionP1. Noearlychoice/source-lifetimebranchiscredited. OneactualACTIONprioritypassgivesP2window; P2Striders7Instant1fundedBlue9(pitch3/pay1->R2/AP0), physicalEquipment7destroyedasactualcost/publicGYbeforefourresponses2/3/4/1. GrantednextWizardInstantpermissionthenactualP1passallowsP2Voltic8Hand(printed2cost/5arcane)asInstant; targetadjacentP1duringPrepare, payfloating2->R0/noextrafunding/AP0. Fourrealresponses2/3/4/1 resolve5arcane againstDampenearned4, actualP1losesexactly1->HP19. FinalP4HP16, P1R1/AP0, P2R0/AP0; P1GYDampen5/Pitch6; P2GYunorderedexactphysicalStriders7+Voltic8/Pitch9; noHeroheal/Earthbanish/temporaryhistory. Thisphysical5minus4=1distinguishesmissing/too-small/too-largeDampenbenefit. StridersownArcaneBarrier2onP2neveroffersbecauseDampenhitP4andVolticP1. No supportprimary/pitchsiblings/alternativeDampentarget/Barrier/await/source-removal/unpreventablecredit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/UPR170.webp"
+}

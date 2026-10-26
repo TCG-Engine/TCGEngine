@@ -1,0 +1,73 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T07:04:30.282400+00:00",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "source_spec": "card-regression-batch228-exploding-corrected-prepare.json",
+  "source_spec_sha256": "fa5c4031845af559712a85f21c69ad12549d1833d337029a04dffe9e068b3258",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 12,
+  "native_assertions": 755,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 3459,
+    "duels": 3074,
+    "four_live": 385,
+    "recorded_primary_ids": 616,
+    "identity_denominator": 5196,
+    "recorded_groups": 490,
+    "group_denominator": 3324,
+    "four_live_groups": 381,
+    "phase_qualified_scenarios_at_actual_contexts": 96,
+    "phase_qualified_unique_groups": 94,
+    "creation_replay_passes": 192,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 11,
+  "scenarios": [
+    {
+      "card_id": "exploding_aether_red",
+      "group_id": "pitch-cycle:exploding_aether",
+      "scenario_id": "card-exploding-aether-red-four-live-sparse-actual-paid-amp-three-consumed-by-real-six-arcane",
+      "effect_branches": [
+        "actual-paid-amp-three-consumed-by-real-six-arcane"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-exploding-aether-red-four-live-sparse-actual-paid-amp-three-consumed-by-real-six-arcane",
+      "source_spec": "card-regression-batch228-exploding-corrected-prepare.json",
+      "source_spec_sha256": "fa5c4031845af559712a85f21c69ad12549d1833d337029a04dffe9e068b3258",
+      "review_evidence": "review-evidence/sparse228-exploding-5ff0-qualified-saved-review.json",
+      "review_evidence_sha256": "84826039444223d7124866eddf59ac610e94d30c89b5eb246dbb7bf222884c64",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "qualification_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse228-exploding-5ff0-r1.json",
+          "sha256": "c94741e2e63b59324908eb2a389e38ac640f5b9034cede95fa148712072263ab",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse228-exploding-5ff0-r2.json",
+          "sha256": "98d92538a92fa041117809d4781403e365afe64a1646da017a54739b936b6b05",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

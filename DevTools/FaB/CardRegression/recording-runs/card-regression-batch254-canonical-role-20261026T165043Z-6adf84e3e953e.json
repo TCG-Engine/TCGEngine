@@ -1,0 +1,780 @@
+{
+    "completed_at_utc": "2026-10-26T16:50:43+00:00",
+    "input_file": "card-regression-batch254-canonical-role.json",
+    "input_sha256": "2ed31da00fb280940a85229ddb089d78968da215576b30d762fd94b7e8878de1",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-anaphylactic-shock-blue-four-live-sparse-real-opposing-hero-damage-earned-before-life-loss",
+            "status": "blocked_or_incorrect",
+            "error": "state window expected \"PRIORITY\" got \"DAMAGE\"",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "p4Hero-0",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p4Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "DAMAGE",
+                "combatOpen": true,
+                "combatStep": "DAMAGE",
+                "chainLink": 1,
+                "attacker": 1,
+                "defender": 4,
+                "attackUID": 5,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 4,
+                    "uid": 4,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Wounding Blow",
+                "attackHit": true,
+                "attackPower": 4,
+                "defenseValue": 0,
+                "damageDealt": 4,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "UPF",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_AA_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_4",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_wounding_blow",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_DAMAGE",
+                            "amount": 4,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_VALLEY_HIT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_PHYSICAL",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PHYSICAL",
+                            "amount": 4,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [],
+                    "3": [],
+                    "4": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "DTD_DAMAGE_EVENT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_DAMAGED",
+                            "amount": 4,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_DAMAGED_BY",
+                            "amount": 1,
+                            "uses": 1,
+                            "uid": 1
+                        },
+                        {
+                            "type": "MON_PHYSICAL",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "DTD_LOST",
+                            "amount": 4,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_DAMAGED",
+                            "amount": 4,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": {
+                    "1": [
+                        5
+                    ]
+                },
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "wounding_blow_red"
+                    ]
+                },
+                "arcCards": {
+                    "5": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true,
+                        "dtdPrevention4": true,
+                        "hntHitMarked4": false
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "outPreviousNames": {
+                    "1": []
+                },
+                "lastAttackCardID": "wounding_blow_red",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 4,
+                        "uid": 4,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false,
+                "iar": {
+                    "2": {
+                        "1": {
+                            "DAMAGE:4": 1
+                        }
+                    }
+                },
+                "omn": {
+                    "2": {
+                        "4": {
+                            "REPROACH": 1
+                        }
+                    }
+                },
+                "chainHits": 1,
+                "consecutiveHits": 1,
+                "attackActionHits": {
+                    "1": 1
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": [
+                    "p4Hand-0"
+                ]
+            },
+            "initial_gamestate_text": "1\r\n0\r\n1\r\ndorinthea 2 1 1 0 1 - -\r\n1\r\ndorinthea 2 2 2 0 2 - -\r\n1\r\ndorinthea 2 3 3 0 3 - -\r\n1\r\narakni 2 4 4 0 4 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\nwounding_blow_red 5 1 1\r\n0\r\n0\r\n1\r\nanaphylactic_shock_blue 6 4 4\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n20\r\n20\r\n20\r\n20\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0\r\n0\r\n0\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n0\r\n1\r\n0\r\n{\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":[],\"nextTurnEffects\":[],\"hitsThisTurn\":[],\"cardsPlayedThisTurn\":[]}\r\n0\r\n1234\r\n1234\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\n1\r\nMAIN\r\n\r\n\r\n\r\n\r\n6\r\n0\r\n",
+            "initial_gamestate_sha256": "155bff9fab1540809ad54026ea68eadea3fbe5793319ac5eefef0265563c7da1"
+        },
+        {
+            "slug": "card-absorb-in-aether-red-four-live-sparse-real-paid-defense-reaction-next-blue-arcane-one-plus-two",
+            "status": "blocked_or_incorrect",
+            "error": "state window expected \"PRIORITY\" got \"REACTION\"",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "p4Hero-0",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p4Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p4Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "REACTION",
+                "combatOpen": true,
+                "combatStep": "REACTION",
+                "chainLink": 1,
+                "attacker": 1,
+                "defender": 4,
+                "attackUID": 8,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 4,
+                    "uid": 4,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Wounding Blow",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "UPF",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_AA_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_4",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_wounding_blow",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [],
+                    "3": [],
+                    "4": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MST_BLUE_PITCHED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "DYN_SURGENT_USED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "wounding_blow_red"
+                    ],
+                    "4": [
+                        "absorb_in_aether_red"
+                    ]
+                },
+                "arcCards": {
+                    "8": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true
+                    },
+                    "6": {
+                        "iarOrigin": 4,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "penPitchTypes": [
+                            "Generic",
+                            "Action",
+                            "Attack"
+                        ],
+                        "dynPitchAA": true,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "mstFree": false
+                    },
+                    "7": {
+                        "iarPermission": []
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "outPreviousNames": {
+                    "1": []
+                },
+                "lastAttackCardID": "wounding_blow_red",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 4,
+                        "uid": 4,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false,
+                "arakniReactionSteps": {
+                    "2:8:4": true
+                },
+                "outAnyReactions": {
+                    "2:1:4": true
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "initial_gamestate_text": "1\r\n0\r\n1\r\ndorinthea 2 1 1 0 1 - -\r\n1\r\ndorinthea 2 2 2 0 2 - -\r\n1\r\ndorinthea 2 3 3 0 3 - -\r\n1\r\niyslander 2 4 4 0 4 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\nwounding_blow_red 8 1 1\r\n0\r\n0\r\n2\r\nabsorb_in_aether_red 6 4 4\r\nwounding_blow_blue 7 4 4\r\n0\r\n0\r\n0\r\n1\r\nzap_blue 5 1 - - 4 4\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n20\r\n20\r\n20\r\n18\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0\r\n0\r\n0\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n0\r\n1\r\n0\r\n{\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":[],\"nextTurnEffects\":[],\"hitsThisTurn\":[],\"cardsPlayedThisTurn\":[]}\r\n0\r\n1234\r\n1234\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\n1\r\nMAIN\r\n\r\n\r\n\r\n\r\n8\r\n0\r\n",
+            "initial_gamestate_sha256": "5dd1abe8d7cceeaf3c53b66a3e48f7dc10e02e9ef068ecb232427518ec4eb4f9"
+        }
+    ]
+}

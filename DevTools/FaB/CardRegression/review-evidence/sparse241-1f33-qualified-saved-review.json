@@ -1,0 +1,626 @@
+{
+  "status": "APPROVED_B241_THREE_ACTUAL_SAVED_FOUR_LIVE_CASES_REPLAY_QUALIFICATION_SEPARATE",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_scenario_author": true,
+  "utc": "2026-10-26T10:34:02.951579+00:00",
+  "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch241.json",
+  "input_sha256": "191f80fa983633a12cbbe03f57fd9395ab3fd7906b408e74b88650061ae936e3",
+  "manifest_sha256": "84e2e494cd7ee51da330c76dec2bada70572d1538969f4d74ad1997eb19dde32",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "reused_manual_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse241-three-manual-source-approval.json",
+    "sha256": "a2cb51b428ced28d001aaea389c98eb81c8676587da827d219547d701bfef040"
+  },
+  "immutable_recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch241-20261026T102518Z-6adf2a8e00004.json",
+    "sha256": "5ee3bad206b6f6307c33360dc4b6ebedc38d3e1e9bee883e1bb0fedeec6df002"
+  },
+  "fixtures": [
+    {
+      "slug": "card-sash-of-sandikai-four-live-sparse-real-red-action-earns-condition-then-destroy-instant-gains-one",
+      "card_id": "sash_of_sandikai",
+      "group_id": "identity:sash_of_sandikai",
+      "reviewer": "/root/b106_semantic_review",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B241_EXACT_POSITIVE_BRANCH_REPLAY_QUALIFICATION_SEPARATE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch241.json",
+      "input_sha256": "191f80fa983633a12cbbe03f57fd9395ab3fd7906b408e74b88650061ae936e3",
+      "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "fixture_sha256": "650dd8f496157b63c13797e6a02a67e2e8f9f5d3b8873507d7164077120d6956",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ca27f2e6cd36e33e5735f0081413c011e32f13e386220c24e600755fd318768b",
+        "actions.json": "c016460c0a3f1a7439708469f27ca582471e90e473647efd2cc98476b59864ec",
+        "assertions.json": "b22e83c0d5ca8e720f2289824b5ca69fe2e391e1aaaf8c5f5877760edc43dc94",
+        "expected_final_gamestate.txt": "d5323c75b1cbb5789b2b25449d8cc0d36432239bb21cef72f5a64f62dff9f5cb",
+        "meta.json": "7fea87a9c31c04df7794231477aedc146ddb66287b9e162b1c9d937c597fd099"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ca27f2e6cd36e33e5735f0081413c011e32f13e386220c24e600755fd318768b",
+        "actions.json": "c016460c0a3f1a7439708469f27ca582471e90e473647efd2cc98476b59864ec",
+        "assertions.json": "b22e83c0d5ca8e720f2289824b5ca69fe2e391e1aaaf8c5f5877760edc43dc94",
+        "expected_final_gamestate.txt": "d5323c75b1cbb5789b2b25449d8cc0d36432239bb21cef72f5a64f62dff9f5cb",
+        "meta.json": "7fea87a9c31c04df7794231477aedc146ddb66287b9e162b1c9d937c597fd099"
+      },
+      "actions": 10,
+      "native_assertions": 464,
+      "native_card_property_assertions": 117,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 8,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "priority_response_passes": 8,
+      "defender_declaration_completion_inputs": 0,
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_legal_Draconic_gear_and_actual_red_Hand",
+          "step": 0,
+          "native_assertions": 120
+        },
+        {
+          "checkpoint": "real_red_Action_pays_AP_before_responses",
+          "step": 1,
+          "native_assertions": 24
+        },
+        {
+          "checkpoint": "actual_red_Action_real_actor_1",
+          "step": 2,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_red_Action_real_actor_2",
+          "step": 3,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_red_Action_real_actor_3",
+          "step": 4,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_red_Action_real_actor_4",
+          "step": 5,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "real_earned_condition_destroy_cost_before_resource_effect",
+          "step": 6,
+          "native_assertions": 35
+        },
+        {
+          "checkpoint": "actual_Sash_resource_real_actor_1",
+          "step": 7,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "actual_Sash_resource_real_actor_2",
+          "step": 8,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "actual_Sash_resource_real_actor_3",
+          "step": 9,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "actual_Sash_resource_real_actor_4",
+          "step": 10,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "full_final_one_resource_and_unordered_owned_public_sources",
+          "step": 10,
+          "native_assertions": 118
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Equipment": [
+          [
+            "5",
+            "sash_of_sandikai",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p1Hand": [
+          [
+            "6",
+            "nimblism_red",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Graveyard": [
+          [
+            "6",
+            "nimblism_red",
+            "1",
+            "1",
+            "0"
+          ],
+          [
+            "5",
+            "sash_of_sandikai",
+            "1",
+            "1",
+            "0"
+          ]
+        ]
+      },
+      "actual_endpoint": {
+        "health": [
+          20,
+          20,
+          20,
+          20
+        ],
+        "resources": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "action_points": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "window": "ACTION",
+        "combat_open": false
+      },
+      "semantic_boundary": "Real NimblismRed6 play earns red condition; actual Sash5 Instant destroys cost before its four responses, then resource+1. Public owned source UID/card set {5Sash,6Nimblism}, with no invented graveyard order requirement.",
+      "limits": "No no-red/repeat/Fai ability, unused Nimblism buff, duration, support or sibling credit."
+    },
+    {
+      "slug": "card-kavdaen-trader-of-skins-four-live-sparse-paid-hero-action-compares-four-lives-and-changes-unique-high-low",
+      "card_id": "kavdaen_trader_of_skins",
+      "group_id": "identity:kavdaen_trader_of_skins",
+      "reviewer": "/root/b106_semantic_review",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B241_EXACT_POSITIVE_BRANCH_REPLAY_QUALIFICATION_SEPARATE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch241.json",
+      "input_sha256": "191f80fa983633a12cbbe03f57fd9395ab3fd7906b408e74b88650061ae936e3",
+      "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "fixture_sha256": "133d8db2e4e956360429b77e30da65e97804a82fc80e17963edfdaa4aa76f80b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fb9621e1e7c98db94f59c25734573cc6cac5b7cd37bb9a8fe7ca625f3f7b4df3",
+        "actions.json": "814e7718d72ddc7f7e93fdea11d66d9b31b6d4a9925eff4af8583a9daaef7559",
+        "assertions.json": "d1971ad4ffbeca178a7f12fa8983c5c538b08b8e93f90170dbe1b05d9e15f488",
+        "expected_final_gamestate.txt": "210745d68338a479b28d1617239b168f28f1cd752d51ceb02c82ed79418df456",
+        "meta.json": "b4108fb2b0d8f2fd8dd1ea8f65f701b6d83887dcae66b353b03bc8ff8375f7f3"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "fb9621e1e7c98db94f59c25734573cc6cac5b7cd37bb9a8fe7ca625f3f7b4df3",
+        "actions.json": "814e7718d72ddc7f7e93fdea11d66d9b31b6d4a9925eff4af8583a9daaef7559",
+        "assertions.json": "d1971ad4ffbeca178a7f12fa8983c5c538b08b8e93f90170dbe1b05d9e15f488",
+        "expected_final_gamestate.txt": "210745d68338a479b28d1617239b168f28f1cd752d51ceb02c82ed79418df456",
+        "meta.json": "b4108fb2b0d8f2fd8dd1ea8f65f701b6d83887dcae66b353b03bc8ff8375f7f3"
+      },
+      "actions": 6,
+      "native_assertions": 362,
+      "native_card_property_assertions": 85,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "priority_response_passes": 4,
+      "defender_declaration_completion_inputs": 0,
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_four_living_young_heroes_unique_high_low",
+          "step": 0,
+          "native_assertions": 113
+        },
+        {
+          "checkpoint": "real_Hero_three_funding_before_life_effects",
+          "step": 1,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "actual_Blue_three_pays_three_AP_spent_before_priority",
+          "step": 2,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "actual_four_hero_life_effect_real_actor_1",
+          "step": 3,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_four_hero_life_effect_real_actor_2",
+          "step": 4,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_four_hero_life_effect_real_actor_3",
+          "step": 5,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_four_hero_life_effect_real_actor_4",
+          "step": 6,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "full_final_unique_high_loses_one_Copper_and_low_gains_one",
+          "step": 6,
+          "native_assertions": 119
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Hand": [
+          [
+            "5",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Arena": [
+          [
+            "7",
+            "copper",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Pitch": [
+          [
+            "5",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "actual_endpoint": {
+        "health": [
+          19,
+          19,
+          18,
+          18
+        ],
+        "resources": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "action_points": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "window": "ACTION",
+        "combat_open": false
+      },
+      "semantic_boundary": "Actual Blue5 pitch pays HeroAction3 before four responses; unique high P1 loses1 and creates own Copper7, unique low P4 gains1; life loss/gain is not damage. Hero1 retained and Blue5 remains Pitch.",
+      "limits": "P3 nonadjacent life is intermediate: all-four totals are verified, but this does not discriminate inclusion/exclusion of a nonadjacent extremum. Ties/elimination/second activation/Copper action untested."
+    },
+    {
+      "slug": "card-plasma-barrel-shot-four-live-sparse-paid-charge-then-real-steam-cost-unboosted-gun-attack",
+      "card_id": "plasma_barrel_shot",
+      "group_id": "identity:plasma_barrel_shot",
+      "reviewer": "/root/b106_semantic_review",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B241_EXACT_POSITIVE_BRANCH_REPLAY_QUALIFICATION_SEPARATE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch241.json",
+      "input_sha256": "191f80fa983633a12cbbe03f57fd9395ab3fd7906b408e74b88650061ae936e3",
+      "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "fixture_sha256": "183215a3b29d16c8bdb70d86afdb093060a1e0a64fc7fd87089d15741134ab9f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1270c2599165101d570d62b705f1cf646e5baf2fdfbe4d5bcd6f20e0b4145942",
+        "actions.json": "7e20aea3d40d81403c336cbfd6d00a6efc90875662f1f7bb3baf977ff50ce5be",
+        "assertions.json": "a64c4d3627233996d1b06d6446ddbe24922a438b081dcce6203f5358590f15ad",
+        "expected_final_gamestate.txt": "d48634808f451a0babc9fda8cb5e92da69837603058c99521cbdb616bda8fd3b",
+        "meta.json": "95032c586fe476c781a6ab12c0fe5930e73b7f9037a85d705b56cae7df8750d2"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1270c2599165101d570d62b705f1cf646e5baf2fdfbe4d5bcd6f20e0b4145942",
+        "actions.json": "7e20aea3d40d81403c336cbfd6d00a6efc90875662f1f7bb3baf977ff50ce5be",
+        "assertions.json": "a64c4d3627233996d1b06d6446ddbe24922a438b081dcce6203f5358590f15ad",
+        "expected_final_gamestate.txt": "d48634808f451a0babc9fda8cb5e92da69837603058c99521cbdb616bda8fd3b",
+        "meta.json": "95032c586fe476c781a6ab12c0fe5930e73b7f9037a85d705b56cae7df8750d2"
+      },
+      "actions": 25,
+      "native_assertions": 770,
+      "native_card_property_assertions": 177,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 21,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "priority_response_passes": 20,
+      "defender_declaration_completion_inputs": 1,
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_real_unloaded_Gun_no_Boost_history",
+          "step": 0,
+          "native_assertions": 120
+        },
+        {
+          "checkpoint": "actual_unloaded_charge_Action_two_PITCH_wait",
+          "step": 1,
+          "native_assertions": 34
+        },
+        {
+          "checkpoint": "actual_Blue_three_pays_two_leaves_one_no_early_Steam",
+          "step": 2,
+          "native_assertions": 33
+        },
+        {
+          "checkpoint": "actual_Gun_charge_real_actor_1",
+          "step": 3,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "actual_Gun_charge_real_actor_2",
+          "step": 4,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "actual_Gun_charge_real_actor_3",
+          "step": 5,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "actual_Gun_charge_real_actor_4",
+          "step": 6,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "actual_loaded_Gun_adjacent_target_preflight",
+          "step": 7,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "actual_AP_and_Steam_attack_cost_before_priority",
+          "step": 8,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "actual_Gun_attack_layer_real_actor_1",
+          "step": 9,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "actual_Gun_attack_layer_real_actor_2",
+          "step": 10,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "actual_Gun_attack_layer_real_actor_3",
+          "step": 11,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "actual_Gun_attack_layer_real_actor_4",
+          "step": 12,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "actual_attack_priority_real_actor_1",
+          "step": 13,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_attack_priority_real_actor_2",
+          "step": 14,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_attack_priority_real_actor_3",
+          "step": 15,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_attack_priority_real_actor_4",
+          "step": 16,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_defender_declines_blocks",
+          "step": 17,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_defend_priority_real_actor_1",
+          "step": 18,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_defend_priority_real_actor_2",
+          "step": 19,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_defend_priority_real_actor_3",
+          "step": 20,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_defend_priority_real_actor_4",
+          "step": 21,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_reaction_priority_real_actor_1",
+          "step": 22,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_reaction_priority_real_actor_2",
+          "step": 23,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_reaction_priority_real_actor_3",
+          "step": 24,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_reaction_priority_real_actor_4",
+          "step": 25,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "full_final_real_one_damage_and_actual_Steam_cost",
+          "step": 25,
+          "native_assertions": 130
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Weapons": [
+          [
+            "5",
+            "plasma_barrel_shot",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Hand": [
+          [
+            "6",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Weapons": [
+          [
+            "5",
+            "plasma_barrel_shot",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1CombatChain": [
+          [
+            "8",
+            "plasma_barrel_shot",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p1Pitch": [
+          [
+            "6",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "actual_endpoint": {
+        "health": [
+          20,
+          20,
+          20,
+          19
+        ],
+        "resources": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "action_points": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "window": "DAMAGE",
+        "combat_open": true
+      },
+      "semantic_boundary": "Actual unloaded Gun5 chargeAction2/Blue6 leavesR1/AP0; Steam absent through three responses and earned1 on fourth/GAAP1. Real sameGun attack pays AP and removes that Steam before priority, targetsP4; unboosted X1 proxy8 deals1/noGA. PhysicalGun5 retained Status1 with real use counters, proxy8 Owner/Controller1 on CombatChain.",
+      "limits": "Stops DAMAGE with live attack proxy; no attack close/expiry/BoostedX/extraattack/Dash setup/full-card credit. Loaded charge legality is not tested."
+    }
+  ],
+  "total_actions": 41,
+  "total_native_assertions": 1596,
+  "total_card_property_assertions": 379,
+  "total_manual_passes": 33,
+  "total_priority_response_passes": 32,
+  "total_defender_declaration_completion_inputs": 1,
+  "total_endpoint_preference_values": 288,
+  "blocked_attempts": [],
+  "limits": [
+    "Exact source action and every persisted oracle normalization checked without omissions; all raw5 unchanged through read-only review.",
+    "Snapshots verify physical endpoints and schema; intermediate/query assertions are the original root-native evidence, not reviewer-executed queries or hidden locals observations.",
+    "Replay results and registration are separate root gates; no PHP/native/engine execution, R writes, optional paper model/certification, whole-card/support/sibling credit."
+  ]
+}

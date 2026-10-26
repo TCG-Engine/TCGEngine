@@ -1,0 +1,56 @@
+{
+  "status": "TWO220_FIRST_PASS_REPRESENTATIVES_QUALIFIED_RAPTURE_HELD_EXCLUDED",
+  "utc": "2026-10-26T03:32:09.153031+00:00",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "new_scenarios_recorded": 2,
+  "new_scenarios_qualified": 2,
+  "new_groups": 2,
+  "total_saved_through220_firsttwo": 3435,
+  "two_player": 3074,
+  "four_live_through220_firsttwo": 361,
+  "primary_ids_recorded": 594,
+  "identity_denominator": 5196,
+  "groups_recorded": 468,
+  "group_denominator": 3324,
+  "four_live_groups": 359,
+  "registered_review_rows_after": 3435,
+  "phase_scenarios_qualified_at_batch_contexts": 72,
+  "creation_replay_passes_at_batch_contexts": 144,
+  "new_targeted_replay_passes": 4,
+  "actions": 35,
+  "native_assertions": 2244,
+  "manual_passes": 28,
+  "qualified_review_evidence": "review-evidence/sparse220-firsttwo-f56-qualified-saved-review.json",
+  "qualified_review_sha256": "052d53a109a5b7255eddd7259d5e768dd8a4e3dde2500714607f030c97d833ef",
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse220-firsttwo-f56-r1.json",
+      "sha256": "58116e981e9620e587a85719c1fe3506727fedf40940e9ada0105638b476f490"
+    },
+    {
+      "path": "card-regression-replay-sparse220-firsttwo-f56-r2.json",
+      "sha256": "807c88ecf7fc2ebe1bc19f92673b6febc9cd3917389b107abd0eb28ebb612622"
+    }
+  ],
+  "isolated_native_faults": {
+    "attempted": 0,
+    "detected": 0,
+    "global_total_unchanged": 117,
+    "phase_total_unchanged": 33
+  },
+  "held": [
+    {
+      "card_id": "empyrean_rapture",
+      "slug": "card-empyrean-rapture-four-live-sparse-actual-paid-once-instant-grants-ward-one-then-consumes-equipment-on-real-arcane",
+      "fixture_saved": false,
+      "coverage_credit": false
+    }
+  ],
+  "inventory_scope": "Through219 plusfirsttwo220. Raptureprobe failedunsaved, activatedpositiveunexecutedheld; laterworkexcluded. Indexsnapshotthrough218, nofullsuite.",
+  "engine_source_changed_in_this_subset": false,
+  "full_suite_runs": 0,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse220-firsttwo-f56-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

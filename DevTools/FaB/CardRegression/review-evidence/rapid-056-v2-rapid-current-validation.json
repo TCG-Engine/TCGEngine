@@ -1,0 +1,83 @@
+{
+  "reviewer": "/root/b104_saved_review",
+  "status": "APPROVED_NARROW_SEMANTIC_REUSE_AND_CURRENT_TARGETED_REPLAY_OVERLAY",
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "input_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+  "method": "Reuse exact completed independent Rapid saved proof43f0 without re-reviewing712 assertions or relabeling original recording/review. Verify current selected raw5/behavior digests equal approved bytes; bind reviewedV2source and two completed current-runtime targeted clean receipts. No PHP/native execution, simulator/model, repository writes or historical requalification.",
+  "reused_semantic_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse249-rapid-actual-saved-independent-review.json",
+    "sha256": "43f0fc66967afdfc0e99cd4c2cf2dc8826152eb3c12e00d21bcd7dcf9579ed87",
+    "reviewer": "/root/b105_semantic_review",
+    "semantic_review_runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+    "recorded_runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+    "original_proof_unchanged": true
+  },
+  "reviewed_source_delta": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid056-v2-activated-header-independent-source-component-approval.json",
+    "sha256": "ff3d45a0bd59ff76786982a928f71a4082c336f1b2ebba7d42ad057cffe59b36",
+    "GameLogic_current_sha256": "3d243fd5a0382368f0db59863fe8dbbfd06dd54a41447f94c2bb7868a0958e77",
+    "scope": "Missing-metadata recovery excludes unquoted activated sections. Reviewed actual Rapid text has no activated header; preserved own line/Arrow-grant behavior is independently exercised by same raw5 at current runtime."
+  },
+  "fixtures": [
+    {
+      "slug": "card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage",
+      "semantically_approved": true,
+      "semantic_approval_reused": true,
+      "original_recorded_runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+      "original_semantic_review_runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+      "qualified_replay_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "actions": 29,
+      "native_assertions": 712,
+      "actual_manual_passes": 25,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4b7e3310e3d1525b93b9c2d98cd01e722e1156edf9ee3280a3683d892002f325",
+        "actions.json": "ad35ad48acc4dd8a3e1d07d6d3ad175e48c032b93bf6c221f74f118f23582435",
+        "assertions.json": "39986efa39dbc787907bed57bc9b783fa4196528d0ec7348b9a1abb360b79730",
+        "expected_final_gamestate.txt": "78ec531e7d0ce07bdaa9da92d45b4359a90c2c8b006840a7025f8cb4dfd4fff0",
+        "meta.json": "ae0798f84b25ffdfdb5352601fad261bb8e1e619d759e7604db645620c9a42b6"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4b7e3310e3d1525b93b9c2d98cd01e722e1156edf9ee3280a3683d892002f325",
+        "actions.json": "ad35ad48acc4dd8a3e1d07d6d3ad175e48c032b93bf6c221f74f118f23582435",
+        "assertions.json": "39986efa39dbc787907bed57bc9b783fa4196528d0ec7348b9a1abb360b79730",
+        "expected_final_gamestate.txt": "78ec531e7d0ce07bdaa9da92d45b4359a90c2c8b006840a7025f8cb4dfd4fff0",
+        "meta.json": "ae0798f84b25ffdfdb5352601fad261bb8e1e619d759e7604db645620c9a42b6"
+      },
+      "fixture_sha256": "03d6e056a64ecbe989b6e2054c0acb4ff7c15841773e0c3c84660441a1ddc3a0",
+      "current_bytes_equal_original_review": true,
+      "focused_replay_reports": [
+        {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-rapid056-v2-rapid-7315-r1.json",
+          "sha256": "c4011f1f41979f53f6e8010a53cf7835438d697f3016e53d91bc7d7fcaa63928",
+          "passed": true,
+          "preservation_scope": "selected fixtures only"
+        },
+        {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-rapid056-v2-rapid-7315-r2.json",
+          "sha256": "7a26548d2dd44b5f5daa2b9ccdf0d7e1e3e4bb640f4322d7b64607193bb56a31",
+          "passed": true,
+          "preservation_scope": "selected fixtures only"
+        }
+      ]
+    }
+  ],
+  "directly_affected_activation_compatibility": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-rapid056-v2-activation-7315-compat.json",
+    "sha256": "551f5f0333d79d3c175f1e9ead4763364cca3f8ade64ccc79fdd3bdb56f0feea",
+    "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+    "slug": "card-induction-chamber-red-four-live-sparse-real-paid-zero-to-one-steam-charge",
+    "fixture_sha256": "0c44fdaec98e97cff43eea23e2bae3dc9f620bb6d404ef33b8ff3accc79dc13a",
+    "passed": true,
+    "scope": "One existing Arena Induction recharge/ability-GA route only; no historical fullsemantic re-review/currentretag/newcard credit."
+  },
+  "induction_play_positive_proof": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\induction-ordinary-play-post-v2-actual-saved-independent-review.json",
+    "sha256": "bf43ed54e2009c1d41032b029dd418d47894b2577964d8518e6a42aac6700d9a",
+    "scope": "Separate new existing-group ordinary-play bugwitness, not Rapid sibling/newidentity credit."
+  },
+  "limits": [
+    "Overlay does not replace original43f0 proof or its f435 recording context, and is not a new Rapid scenario registration/coverage count.",
+    "Root report preservation is selected fixtures only, not full inventory. No fullsuite/current blanket readiness or extra native control claims.",
+    "Source correction remains conservative/missing-metadata-only; no complete grammar or metadata-true activated-section guarantee. Gold/Silver synthetic parser controls are not ordinary-token-play native evidence."
+  ]
+}

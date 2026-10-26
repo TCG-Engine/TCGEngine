@@ -3408,9 +3408,9 @@
     "abilities": [
       {
         "macroName": "PrepareCard",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$chosen = 'PASS';\n $targets = FaBMONSoul($player);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Banish_from_soul\");\n \n}\n FaBMoveChoice($player, $chosen ?? '', 'Soul', 'Banish');\n\nFaBFinishPreparedCard($uid);\n",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$chosen = 'PASS';\n $targets = FaBMONSoul($player);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Banish_from_soul\");\n \n}\n if (!FaBDeclarePrismSoulCost($player, $uid, $chosen ?? '')) {\n return;\n \n}\n\nFaBFinishPreparedCard($uid);\n",
         "isImplemented": true,
-        "previousCodeHash": "bd7274f2ce8e20e795443469fcb3a68e27cfff765dc9879d9e368f6713dd8870"
+        "previousCodeHash": "2bd5f8ac1e2603882ff23f4df639671d8876eaca62fe5d6690a146c51b726555"
       },
       {
         "macroName": "ResolveAbility",
@@ -3424,8 +3424,9 @@
     "abilities": [
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "FaBWTRCreateArena($player, 'soul_shackle');\n FaBMONAdd($player, 'CHANE', 0);\n",
-        "isImplemented": true
+        "abilityCode": "FaBMONAdd($player, 'CHANE', 0);\n",
+        "isImplemented": true,
+        "previousCodeHash": "656c822edd0582ab1eeeb51738fd63f0d5892009a9ef883105636dcfe41a26b6"
       }
     ]
   },

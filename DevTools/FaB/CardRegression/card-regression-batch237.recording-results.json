@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-cleave-the-heavens-red-four-live-sparse-actual-opponent-turn-hand-banish-cost-creates-owned-gate",
+        "status": "recorded_semantically_checked",
+        "actions": 8,
+        "assertions": 402
+    },
+    {
+        "slug": "card-chowder-hearty-cook-yellow-four-live-sparse-actual-opponent-turn-ally-tap-cost-and-one-real-life",
+        "status": "recorded_semantically_checked",
+        "actions": 8,
+        "assertions": 408
+    },
+    {
+        "slug": "card-battered-not-broken-red-four-live-sparse-actual-instant-prevents-two-physical-damage-and-creates-one-might",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 1089
+    }
+]

@@ -1,0 +1,58 @@
+{
+  "status": "ONE225_REPRESENTATIVE_QUALIFIED_REGISTERED_TWO_SOURCE_ONLY_HOLDS",
+  "utc": "2026-10-26T05:14:42.695461+00:00",
+  "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+  "new_scenarios_recorded": 1,
+  "new_scenarios_qualified": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "registered_review_rows_after": 3448,
+  "registered_saved_scenarios_through225": 3448,
+  "two_player": 3074,
+  "four_live": 374,
+  "primary_ids_recorded": 606,
+  "identity_denominator": 5196,
+  "groups_recorded": 480,
+  "group_denominator": 3324,
+  "four_live_groups": 371,
+  "phase_scenarios_qualified_at_batch_contexts": 85,
+  "phase_groups_qualified_at_batch_contexts": 84,
+  "creation_replay_passes_at_batch_contexts": 170,
+  "new_targeted_replay_passes": 2,
+  "actions": 18,
+  "native_assertions": 1284,
+  "manual_passes": 12,
+  "qualified_review_evidence": "review-evidence/sparse225-14d9-qualified-saved-review.json",
+  "qualified_review_sha256": "c49bcd77febe1fa74b56152bad6a1b2705156bd32454573e805fe17e1649eb9c",
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse225-14d9-r1.json",
+      "sha256": "1cc789d63afb20208118e427c4131015546483d52ce2305c114e59b35e570ed9"
+    },
+    {
+      "path": "card-regression-replay-sparse225-14d9-r2.json",
+      "sha256": "a9be99adcc0fbd77f0485f04c763942dbaa49e6a4f8ea87a8c40af059dab2934"
+    }
+  ],
+  "isolated_native_faults": {
+    "attempted": 0,
+    "detected": 0,
+    "global_total_unchanged": 117,
+    "phase_total_unchanged": 33
+  },
+  "source_only_holds": [
+    "wild_ride_red",
+    "waning_moon"
+  ],
+  "open_native_bugs": [
+    "FAB-REG-051"
+  ],
+  "hand_probe_fixture_saved": false,
+  "inventory_scope": "Through225qualifiedonly. No Handpassingfixture, no source-onlyholdcredit oroldcontextretagging. Historicalindexthrough218 pluslatercheckpoints.",
+  "engine_source_changed_in_this_batch": false,
+  "full_suite_runs": 0,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse225-14d9-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

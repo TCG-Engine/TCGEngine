@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch223.json",
+  "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T04:23:28.248804+00:00",
+  "fixtures": [
+    {
+      "slug": "card-spectral-shield-four-live-sparse-real-static-ward-token-destruction-prevents-one-of-three-arcane",
+      "fixture_sha256": "00243a93919837ae7c97579582d998fa2129767eaad224dee04cd95cf7b16705",
+      "passed": true,
+      "result": "[PASS] spectral_shield / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-spectral-shield-four-live-sparse-real-static-ward-token-destruction-prevents-one-of-three-arcane",
+      "returncode": 0,
+      "stdout": "[PASS] spectral_shield / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-26T13:41:23+00:00",
+    "input_file": "card-regression-batch248.json",
+    "input_sha256": "810fd2d957a7a7602a5e6359fdc8ba83b52957c077bc2d79867cc56d3fe449c1",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-dash-database-four-live-sparse-real-top-deck-item-instant-plus-one-cost-and-steam-entry",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 344
+        },
+        {
+            "slug": "card-oldhim-four-live-sparse-real-earth-pitch-defense-reaction-prevents-two-physical",
+            "status": "recorded_semantically_checked",
+            "actions": 28,
+            "assertions": 736
+        }
+    ]
+}

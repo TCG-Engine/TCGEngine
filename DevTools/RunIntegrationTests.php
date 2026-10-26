@@ -9,6 +9,9 @@ function RunnerParseArgs($argv) {
     'updateSnapshots' => false,
     'verbose' => false,
     'auditNoops' => false,
+    'maxFailures' => null,
+    'log' => null,
+    'compact' => false,
   ];
 
   foreach (array_slice($argv, 1) as $arg) {
@@ -17,9 +20,86 @@ function RunnerParseArgs($argv) {
     elseif ($arg === '--update-snapshots') $args['updateSnapshots'] = true;
     elseif ($arg === '--verbose') $args['verbose'] = true;
     elseif ($arg === '--audit-noops') $args['auditNoops'] = true;
+    elseif (str_starts_with($arg, '--max-failures=')) {
+      $value = substr($arg, 15);
+      $limit = filter_var($value, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+      if (!preg_match('/^[1-9][0-9]*$/D', $value) || $limit === false) {
+        throw new InvalidArgumentException('--max-failures requires a positive integer within the PHP integer range.');
+      }
+      $args['maxFailures'] = $limit;
+    } elseif (str_starts_with($arg, '--max-failures')) {
+      throw new InvalidArgumentException('Use --max-failures=N with a positive integer.');
+    } elseif (str_starts_with($arg, '--log=')) {
+      $args['log'] = substr($arg, 6);
+      if ($args['log'] === '' || str_contains($args['log'], "\0") || str_contains($args['log'], '://')) {
+        throw new InvalidArgumentException('--log requires a local file path.');
+      }
+    } elseif (str_starts_with($arg, '--log')) {
+      throw new InvalidArgumentException('Use --log=PATH with a new local file path.');
+    } elseif ($arg === '--compact') $args['compact'] = true;
+    elseif (str_starts_with($arg, '--compact')) {
+      throw new InvalidArgumentException('--compact does not take a value.');
+    }
   }
 
+  if ($args['compact'] && $args['log'] === null) {
+    throw new InvalidArgumentException('--compact requires --log=PATH so complete diagnostics are retained.');
+  }
   return $args;
+}
+
+function RunnerWriteLogChunk($chunk) {
+  $handle = $GLOBALS['integrationRunnerLogHandle'];
+  $length = strlen($chunk);
+  for ($offset = 0; $offset < $length;) {
+    $written = @fwrite($handle, substr($chunk, $offset));
+    if ($written === false || $written === 0) {
+      fwrite(STDERR, "[ERROR] Unable to write the complete integration-test log; stopping.\n");
+      exit(2);
+    }
+    $offset += $written;
+  }
+  if (!@fflush($handle)) {
+    fwrite(STDERR, "[ERROR] Unable to flush the integration-test log; stopping.\n");
+    exit(2);
+  }
+}
+
+function RunnerCompactOutput($chunk, $final) {
+  $state = &$GLOBALS['integrationRunnerCompactState'];
+  $parts = explode("\n", $chunk);
+  $output = '';
+  foreach ($parts as $index => $part) {
+    $available = max(0, 240 - strlen($state['line']));
+    $state['line'] .= substr($part, 0, $available);
+    if (strlen($part) > $available) $state['truncated'] = true;
+    $complete = $index < count($parts) - 1;
+    if (!$complete && !$final) continue;
+    $line = rtrim($state['line'], "\r");
+    if (preg_match('/^\[(FAIL|ERROR|STOP|SUMMARY|LOG)\]/', $line)) {
+      $output .= $line . ($state['truncated'] ? ' ... [full diagnostic in log]' : '') . "\n";
+    } elseif ($line !== '' && !preg_match('/^\[(PASS|STEP|QUEUE|INFO|NOOP)\]/', $line) && !$state['otherReported']) {
+      $output .= "[DIAGNOSTIC] Additional output is retained in the log.\n";
+      $state['otherReported'] = true;
+    }
+    $state['line'] = '';
+    $state['truncated'] = false;
+  }
+  return $output;
+}
+
+function RunnerStartOutput($args) {
+  if ($args['log'] === null) return;
+  // Exclusive creation prevents a diagnostic path from overwriting a fixture or old evidence.
+  $handle = @fopen($args['log'], 'xb');
+  if ($handle === false) throw new RuntimeException('Cannot create --log file; use a new writable local path in an existing directory.');
+  $GLOBALS['integrationRunnerLogHandle'] = $handle;
+  $GLOBALS['integrationRunnerCompactState'] = ['line' => '', 'truncated' => false, 'otherReported' => false];
+  ob_start(static function($chunk, $phase) use ($args) {
+    RunnerWriteLogChunk($chunk);
+    return $args['compact'] ? RunnerCompactOutput($chunk, ($phase & PHP_OUTPUT_HANDLER_FINAL) !== 0) : $chunk;
+  }, 1);
+  echo "[LOG] Full runner output: " . (realpath($args['log']) ?: $args['log']) . "\n";
 }
 
 function RunnerLoadMeta($fixtureDir) {
@@ -30,7 +110,10 @@ function RunnerLoadMeta($fixtureDir) {
 }
 
 function RunnerUsage() {
-  echo "Usage: php DevTools/RunIntegrationTests.php --root=<Root> [--test=<slug>] [--update-snapshots] [--verbose]\n";
+  echo "Usage: php DevTools/RunIntegrationTests.php --root=<Root> [--test=<slug>] [--update-snapshots] [--verbose] [--audit-noops] [--max-failures=N] [--log=PATH] [--compact]\n";
+  echo "  --max-failures=N stops before the next selected fixture after N failures; default is unlimited.\n";
+  echo "  --log=PATH exclusively creates a complete runner-output log; parent directory must exist.\n";
+  echo "  --compact requires --log and shows bounded failure headlines and totals; default console output is unchanged.\n";
 }
 
 function RunnerTempGameName($slug) {
@@ -134,9 +217,21 @@ function RunnerCompareFinalSnapshot($fixtureDir, $rootName, $gameName, $updateSn
   return [true, ''];
 }
 
-$args = RunnerParseArgs($argv);
+try {
+  $args = RunnerParseArgs($argv);
+} catch (Throwable $error) {
+  fwrite(STDERR, "[ERROR] " . $error->getMessage() . "\n");
+  RunnerUsage();
+  exit(1);
+}
 if ($args['root'] === null) {
   RunnerUsage();
+  exit(1);
+}
+try {
+  RunnerStartOutput($args);
+} catch (Throwable $error) {
+  fwrite(STDERR, "[ERROR] " . $error->getMessage() . "\n");
   exit(1);
 }
 
@@ -155,16 +250,24 @@ if ($args['root'] === 'GrandArchiveSim') {
 
 $fixtures = $args['test'] !== null ? [$args['test']] : RegressionListFixtures($args['root']);
 if ($args['test'] === null) $fixtures = array_values(array_unique(array_merge($fixtures, array_keys($gaBehaviorCases))));
+$discovered = count($fixtures); // The selected invocation; --test selects exactly one slug.
 if (empty($fixtures)) {
   echo "No regression fixtures found for root {$args['root']}.\n";
+  echo "[SUMMARY] Total: 0 | Pass: 0 | Fail: 0 | Discovered: 0 | Not run: 0 | Skipped: 0\n";
   exit(0);
 }
 
 $failures = 0;
 $passes = 0;
 $executed = 0;
+$stoppedEarly = false;
 
 foreach ($fixtures as $slug) {
+  // Check here so every failure path, including either Grand Archive continue, obeys the cap.
+  if ($args['maxFailures'] !== null && $failures >= $args['maxFailures']) {
+    $stoppedEarly = true;
+    break;
+  }
   ++$executed;
   if (isset($gaBehaviorCases[$slug])) {
     $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__DIR__ . '/create-prd-ability-fixtures.php')
@@ -317,6 +420,11 @@ foreach ($fixtures as $slug) {
   }
 }
 
-echo "[SUMMARY] Total: {$executed} | Pass: {$passes} | Fail: {$failures}\n";
+$notRun = $discovered - $executed;
+if ($stoppedEarly) {
+  echo "[STOP] Reached --max-failures={$args['maxFailures']}; {$notRun} selected fixture(s) were not run.\n";
+}
+// Total keeps its existing meaning (fixtures run); this runner has no skip path.
+echo "[SUMMARY] Total: {$executed} | Pass: {$passes} | Fail: {$failures} | Discovered: {$discovered} | Not run: {$notRun} | Skipped: 0\n";
 
 exit($failures > 0 ? 1 : 0);

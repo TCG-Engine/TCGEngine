@@ -1,0 +1,128 @@
+{
+  "status": "APPROVED_GUARDED_SOURCE_V3_PENDING_COMPONENT_APPLY_NATIVE_QUALIFICATION",
+  "source_approved": true,
+  "reviewer": "/root/b104_saved_review",
+  "utc": "2026-10-26T11:43:53.674446+00:00",
+  "issue": "FAB-REG-054",
+  "proposal": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\proposal.json",
+  "proposal_sha256": "136339c3c7c3f2d3c39658f5e10eb5abe4f66d1a396fcee74e99bb1362294f0f",
+  "diff_sha256": "c587b3a470a7ea1b80f146402b94143233cb5f671a491cdf810802bfc0d53886",
+  "strict_anchors_sha256": "8278403a9fab771f0599f7b65fe0d8248668d9991ec807a5334294aeed827eab",
+  "runtime_before_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+  "files": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "before_sha256": "e37edf98374de00c1d1adb7f7884496bc053dd1eec4bf8882bee6c4a075d1b0e",
+      "candidate_sha256": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\take-cover054-shared-defense-reaction-completion-proposed-v3-dr-only-ga\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "crlf_verified": true
+    }
+  ],
+  "all10_dependency_guards_match": true,
+  "method": "Independent manual current-primary-rules/actual control-flow/source ownership/depth/frame review, exact before/candidate/delta hashes and unchanged-function source comparisons. No PHP/native execution or optional simulation.",
+  "classification": {
+    "decision": "CALLER_EXTENSION_OF_EXISTING_008_REACTION_SOURCE_LIFETIME_NOT_NEW_DISTINCT_ROOT_CAUSE",
+    "reason": "Historical008 pins an attack-reaction source through resolution before clearing. DR was a separate eager destination branch with the same omitted body-before-leave stage. This admits it into existing serialized reaction lifecycle and supplies correct defending destination, rather than introducing another continuation framework.",
+    "limits": "DR was not previously fixed or covered by008; no blanket all-reaction or old-corpus qualification follows."
+  },
+  "rules_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.3.1",
+        "5.3.2b",
+        "5.3.4",
+        "5.3.4c",
+        "5.3.5",
+        "5.3.5a",
+        "5.3.6b",
+        "5.3.7"
+      ],
+      "supports": "Complete body/choice first, then go again/LKI, then join defending chain and regain turn-player priority. Already departed source is not resurrected."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.3.6",
+        "6.3.7"
+      ],
+      "supports": "Ordinary ability removal does not erase another effect granted property. Only explicit prohibition prevents gain."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "rules": [
+        "1.13.2b"
+      ],
+      "supports": "Go-again does not grant AP outside controller action phase; existing actual BeforeActionPoints and ROSGo hooks enforce it."
+    }
+  ],
+  "review_findings": [
+    "Generic DEFENSE_REACTION kind remains physical Stack source for actual ResolveRules; serialized marker captures positive UID, original owner, controller, CardID, sourceMZ/SourceZone, current chainLink/attackUID and baseline/owned frame keys. No TakeCover-specific ID or generated change.",
+    "Existing ResolveCard frame ownership selector already applies to DR, and inherited all-seat queues plus frame-only work prevent finishing early. Initial callback and finalizer use existing depth guards; marker removal before completion callbacks plus depth prevents duplicate finisher/automatic passes/reentry.",
+    "After body drains, live current Stack source moves once to same captured open chain under captured controller, while Owner survives. Role/ChainLink/FromZone, hand-defenderUID membership, next-defense consumption and OnDefended occur only after movement. Re-read current state protects move-hook metadata; owner routes fallback graveyard if combat closed/changed or controller gone.",
+    "Own resolving DR may use existing stack movement API, restricted to exactly marker UID/kind. Departure captures current source array LKI before replacement/removal. Completion never moves a source already elsewhere, and does not recreate a removed source.",
+    "New DR GA evaluation separates printed/base keyword from explicit GO_AGAIN grant, honors explicit SUP cannot-gain and MayGoAgain restrictions, then uses existing actual AP/ROS hooks. FogDown is NAA-only and correctly absent from DR-specific helper. No global keyword or other cohort semantics changed.",
+    "Source field layout uses existing JSON-serialized marker and defaults; added scalar/array fields introduce no new schema/macro/storage class. Legacy marker absence and existing other resolution classes keep their prior paths.",
+    "One shared FaB-only GameLogic candidate; no repository Core, generated bodies/counts, canonical snapshots, costs/payment, Chane or Prism source edits."
+  ],
+  "peer_corrections_resolved": [
+    {
+      "version": "V1",
+      "finding": "Outer HasNoAbilities suppressed a separately granted GA.",
+      "resolution": "V2 limits ordinary loss to printed/base and retains explicit SUP prohibition; same established Boost distinction.",
+      "scope": "Source-review correction only, no additional native bug claim."
+    },
+    {
+      "version": "V2",
+      "finding": "Copied unconditional Fog gate incorrectly applied NAA-only FogDown restriction to DR.",
+      "resolution": "V3 removes only that new-helper gate plus explanatory comment. Global/plain Fog remains byte-identical.",
+      "delta_sha256": "d59c0d4ed8121055eeedc9cbaadcf76b126c695e92ba004f94923a0cb7ed77f9"
+    }
+  ],
+  "unchanged_functions_independently_byte_compared": [
+    "FaBStateDefaults",
+    "FaBTryCompletePayment",
+    "FaBReactionResolutionIsPending",
+    "FaBReactionResolutionHasWork",
+    "FaBTrackReactionAwaitFrames",
+    "FaBPrepareReactionEliminationCleanup",
+    "FaBFinishReactionEliminationCleanup",
+    "FaBManagedVirtualResolutionClass",
+    "FaBResolveManagedVirtualLayer",
+    "FaBFinishManagedVirtualGoAgain",
+    "FaBPlainSpellResolutionIsManaged",
+    "FaBFinishPlainSpellGoAgain",
+    "GameAfterEngineAction",
+    "HasNoAbilities",
+    "FaBBeforeActionPoints"
+  ],
+  "native_before": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\take-cover-054-resolution-native-before.json",
+    "sha256": "ff0bcf9854d742b2507fe898bc8da671cf4367d029a1287f0c582c7571366f92",
+    "correct_probe": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch242-take-cover-correct-probe.json",
+    "correct_probe_sha256": "5883b7d0c5527809f6b4999104406cc3b095acbba0db82251eb7e0d439e9c7bd",
+    "observed": "After24accepted inputs first physical Stack1 oracle actual0 while P4Reload MZMAYCHOOSE/CUSTOM await pending. No fixture saved, no answer/finaldamage/physicalChaincount inference or cached defenseValue truth claim."
+  },
+  "focused_validation_required": [
+    "Root-only lint plus additive existing15 actual-frame contracts with new actual DR finish/movement contracts. Meaningful gates: synchronous completion; interactive and frame-only pending; no early source/hand-defender/next-defense/OnDefended; exactly-once callbacks under reentry; self-move current LKI/no resurrection; captured owner/controller/chain safeguards.",
+    "New GA contracts must cover ordinary loss plus independent grant, explicit SUP/May denial, Fog nonapplicability, and actual BeforeActionPoints off-turn gate (not an unconstrained increment double). Source/card/zone/economy adapters must be explicit; no game/factory proof from doubles.",
+    "Unchanged5883 correct29-action TakeCover probe with sameinitial15c265: retain physical Stack5 throughout Reload await, real sameHand6 face-down Arsenal after answer, then DR5 enters chain/printed4 and actual7minus4damage3/HP17. Two clean targeted replays only after correct assertions pass; no weakening or expected recipe changes.",
+    "Small directly affected native compatibility: existing synchronous Unmovable DR and managed Glint attack reaction. Existing awaited FateForeseen may have historical eager-chain checkpoints; inspect before running and do not rewrite snapshots or blindly bless them. No full suite."
+  ],
+  "suggested_focused_commands": [
+    "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-unmovable-red-hand-paid-blue-three",
+    "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-glint-the-quicksilver-blue-four-live-sparse-real-reprise-draw-and-paid-weapon-go-again"
+  ],
+  "apply_boundary": "Root alone after243 original507e qualification: exact E37 before guard, verified external backup then exact706c candidate, lint/components/native gate. No generation necessary or authorized by this change; keep canonical/generated bytes unchanged.",
+  "closure_limits": [
+    "054 remains open until actual unchanged correct probe passes and targeted replay/compatibility evidence exists.",
+    "Approval of shared source is not comprehensive all-DR/card/foreign-control/elimination/cancellation/serialization-reload certification.",
+    "Existing conservative unrelated-frame wait and surviving-controller/dead-chooser limitation remain explicit. No unsupported raw reconstruction/self-moving API is added.",
+    "Previously correct attack/virtual/plain paths reuse existing focused evidence and preserved code; no old fixture runtime retag or blanket suite readiness."
+  ],
+  "php_execution": 0,
+  "native_execution": 0,
+  "repository_writes": 0,
+  "generated_writes": 0,
+  "optional_rules_simulation": 0
+}

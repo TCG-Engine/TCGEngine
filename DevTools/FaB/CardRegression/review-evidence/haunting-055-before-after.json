@@ -1,0 +1,48 @@
+{
+  "status": "FIXED_QUALIFIED_REGISTERED_NAMED_FOUR_LIVE_REPRESENTATIVE",
+  "utc": "2026-10-26T13:12:10.727971+00:00",
+  "issue": "FAB-REG-055",
+  "existing_root_family": "FAB-REG-043",
+  "new_distinct_root_cause": false,
+  "counting_boundary": "Separate prevention producer repair extends captured-grant trigger family;043 did not previously cover prevention. No other earlier issue reclassified.",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "source_paths": [
+    "FaBSim/Custom/ROSCards.php"
+  ],
+  "source_sha256": "12bdf8c17c7781d949dd424e2e007d5b07d582135934e98a6a3f5fedb2a2cb00",
+  "repository_Core_changed": false,
+  "generated_files_changed": false,
+  "unchanged_correct_input_sha256": "0e8f6bc6dd392d42fa103a3f10255cd0090bb210fada14609b20c17845434391",
+  "before": {
+    "evidence": "review-evidence/haunting-055-native-before.json",
+    "actual_inputs": 27,
+    "fixture_saved": false,
+    "failure": "Expected Stack count1 got0; later physical assertions and responses were not executed."
+  },
+  "after": {
+    "fixture": "Tests/Integration/FaBSim/card-haunting-rendition-red-four-live-sparse-correct-earned-prevention-trigger-four-responses",
+    "source_spec": "card-regression-batch245-haunting-correct-probe.json",
+    "actions": 31,
+    "native_assertions": 822,
+    "manual_passes": 28,
+    "result": "Actual prevention leaves P4HP18 and queued Haunting trigger8 with original source5; no Rune before four real responses; completion creates owned/controller4 Runechant9.",
+    "review_evidence": "review-evidence/haunting-055-qualified-saved-review.json"
+  },
+  "two_clean_replays": [
+    "card-regression-replay-haunting055-c8f2-r1.json",
+    "card-regression-replay-haunting055-c8f2-r2.json"
+  ],
+  "focused_existing_dispatcher_compatibility": "card-regression-replay-haunting055-briar-dispatcher-c8f2-compat.json",
+  "actual_component": {
+    "path": "review-evidence/haunting-055-component-results.json",
+    "contracts": 22,
+    "old14_bodies_preserved": true,
+    "added_groups": 8,
+    "controlled_boundary_doubles": true,
+    "native_helper_control_credit": 0
+  },
+  "failure_contract": "Origin-free direct new grants are rejected before storage; unsupported old active token grants lacking captured origin are rejected before effect-bucket write/queue. No guessed source, legacy migration or whole-damage transaction rollback claimed.",
+  "full_suite_run": false,
+  "limits": "Only Haunting red named positive first-prevention four-live branch; Mental Block blue shares source producer but has no new native/identity credit. No repeated-damage/native multiple-grant, suppression/recontrol, other-X, whole-card or broad corpus qualification. Older runtime labels remain unchanged.",
+  "registration_checkpoint": "card-regression-haunting055-c8f2-checkpoint.json"
+}

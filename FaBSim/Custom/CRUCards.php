@@ -91,10 +91,18 @@ function FaBCRUAsInstant(int $p,object $o): bool {
     $b=FaBWTRBase($o->CardID);
     return ($b==='cindering_foresight'&&intval(GetTurnPlayer())!==$p)||($b==='snapback'&&FaBCRUWizardPlayed($p))||($b==='rattle_bones'&&FaBCRUArcane($p,true)>0);
 }
+/** Trap itself has no play restriction (CR 8.2.7); retain explicit own-card text. */
+function FaBCRUTrapRequiresArsenal(object $o): bool {
+    $text = (string)CardFunctional_text_plain($o->CardID);
+    $text = preg_replace('/"[^"]*"|“[^”]*”/u', '', $text);
+    $name = preg_quote((string)CardName($o->CardID), '/');
+    $subject = $name === '' ? 'this' : '(?:this|' . $name . ')';
+    return preg_match('/^\s*' . $subject . '\s+can\s+only\s+be\s+played\s+from\s+(?:your\s+)?arsenal\s*(?:\.|$)/iu', $text) === 1;
+}
 function FaBCRUCanPlay(int $p,array $f): bool {
     $o=$f['object'];$b=FaBWTRBase($o->CardID);$s=FaBGetState();
     if($b==='feign_death'&&!FaBCRUCount($p,'DAMAGED'))return false;
-    if(FaBHasType($o,'Trap')&&$f['zone']!=='Arsenal')return false;
+    if(FaBHasType($o,'Trap')&&$f['zone']!=='Arsenal'&&FaBCRUTrapRequiresArsenal($o))return false;
     if(FaBCRUCount($p,'CRUSH_WEAK')&&GetCurrentPhase()==='MAIN'&&intval(GetTurnPlayer())===$p&&FaBWTRIsAttackAction($o)&&intval(CardPower($o->CardID))<=3)return false;
     if(FaBHasType($o,'Defense Reaction')&&!FaBCRUBlockLegal($p,$f))return false;
     if($b==='aetherize'&&FaBCRUTargets($p,'negate')==='')return false;

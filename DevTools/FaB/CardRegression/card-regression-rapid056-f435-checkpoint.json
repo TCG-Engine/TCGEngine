@@ -1,0 +1,80 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T14:34:03.620866+00:00",
+  "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+  "source_spec": "card-regression-batch249.json",
+  "source_spec_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 29,
+  "native_assertions": 712,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 3508,
+    "duels": 3074,
+    "four_live": 434,
+    "recorded_primary_ids": 665,
+    "identity_denominator": 5196,
+    "recorded_groups": 539,
+    "group_denominator": 3324,
+    "four_live_groups": 430,
+    "phase_qualified_scenarios_at_actual_contexts": 145,
+    "phase_qualified_unique_groups": 143,
+    "creation_replay_passes": 290,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "rapid_fire_yellow",
+      "group_id": "identity:rapid_fire_yellow",
+      "scenario_id": "card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage",
+      "effect_branches": [
+        "real-granted-arrow-go-again-earns-action-point-after-four-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage",
+      "source_spec": "card-regression-batch249.json",
+      "source_spec_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+      "review_evidence": "review-evidence/rapid-056-qualified-saved-review.json",
+      "review_evidence_sha256": "43f0fc66967afdfc0e99cd4c2cf2dc8826152eb3c12e00d21bcd7dcf9579ed87",
+      "recorded_runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+      "qualification_runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-rapid056-f435-r1.json",
+          "sha256": "c9a8ae8a729f6c3ff8a9481461c4fd060fcc63a5e782edd645cb194349f1712c",
+          "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-rapid056-f435-r2.json",
+          "sha256": "bbdb5e5f38b2cb7a1921d5b5cbcbf4f7c7481ffcb4746bb54b3f0cae4a7a1be8",
+          "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 1,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [
+    "card-kassai-four-live-sparse-real-gold-draw-earns-sword-activation-one-to-zero-discount"
+  ],
+  "new_distinct_gameplay_defect_groups": 0,
+  "confirmed_existing_group_caller_repairs": 1,
+  "repair_issue": "FAB-REG-056",
+  "existing_root_group": "FAB-REG-038",
+  "repair_evidence": "review-evidence/rapid-056-before-after.json"
+}

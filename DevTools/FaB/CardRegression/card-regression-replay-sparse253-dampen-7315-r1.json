@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch253-dampen.json",
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T16:21:53.812156+00:00",
+  "fixtures": [
+    {
+      "slug": "card-dampen-red-four-live-sparse-real-four-arcane-earned-prevention-four-against-five",
+      "fixture_sha256": "5b495439abf8200d435382ffefafcadd687f03e63b9beab0e2ed71d438417648",
+      "passed": true,
+      "result": "[PASS] dampen_red / real four damage earns exact four arcane prevention"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dampen-red-four-live-sparse-real-four-arcane-earned-prevention-four-against-five",
+      "returncode": 0,
+      "stdout": "[PASS] dampen_red / real four damage earns exact four arcane prevention\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

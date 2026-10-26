@@ -332,6 +332,8 @@ function FaBHandDefendingCount(array $state, ?int $defender=null): int {
 // CR5.1.7 asset payment precedes declared additional effect-cost execution.
 function FaBPreparedEffectCostSource(array $pending): ?array {
     if (($pending['preparedEffectCardID'] ?? '') === 'bloodtorn_bodice') return FaBBodicePreparedEffectCostSource($pending);
+    if (in_array((string)($pending['preparedEffectCardID'] ?? ''), ['prism','prism_sculptor_of_arc_light'], true)) return FaBPrismPreparedEffectCostSource($pending);
+    if (in_array((string)($pending['preparedEffectCardID'] ?? ''), ['chane','chane_bound_by_shadow'], true)) return FaBChanePreparedEffectCostSource($pending);
     $player = intval($pending['player'] ?? 0);
     $uid = intval($pending['uid'] ?? 0);
     $found = FaBFindUID($uid);
@@ -379,7 +381,7 @@ function FaBPreparedEffectCostMayComplete(array $pending): bool {
     if ($source === null) return FaBPreparedEffectCostRollback($pending, 'announced source changed before declaration');
     // Match the existing PrepareCard suppression short-circuit exactly.
     // That path calls FinishPreparedCard without executing any additional-cost ability.
-    if (($pending['preparedEffectCardID'] ?? '') !== 'bloodtorn_bodice'
+    if (!in_array((string)($pending['preparedEffectCardID'] ?? ''), ['bloodtorn_bodice','prism','prism_sculptor_of_arc_light','chane','chane_bound_by_shadow'], true)
         && (FaBMPGSuppressed($source['object']) || FaBSUPSuppressed($source['object']))) return true;
     return false; // Valid await or missing declaration: keep held, never debit/announce.
 }
@@ -492,16 +494,18 @@ function FaBPayDeclaredPreparedEffectCost(): bool {
     $refs = [];
     foreach ((array)($cost['uids'] ?? []) as $chosenUID) {
         $found = FaBFindUID(intval($chosenUID));
-        $zone = $cost['type'] === 'ARSENAL_BOTTOM' ? 'Arsenal' : ($cost['type'] === 'DESTROY_CONTROLLED_AURA' ? 'Arena' : 'Hand');
+        $zone = $cost['type'] === 'ARSENAL_BOTTOM' ? 'Arsenal' : ($cost['type'] === 'DESTROY_CONTROLLED_AURA' ? 'Arena' : ($cost['type'] === 'BANISH_OWN_SOUL' ? 'Soul' : 'Hand'));
         if ($found === null || $found['player'] !== $player || $found['zone'] !== $zone
             || ($cost['type'] === 'REVEAL_THIRTEEN' && !FaBWTRIsAttackAction($found['object']))
-            || ($cost['type'] === 'DESTROY_CONTROLLED_AURA' && !FaBBodiceControlledAura($found, $player))) {
+            || ($cost['type'] === 'DESTROY_CONTROLLED_AURA' && !FaBBodiceControlledAura($found, $player))
+            || ($cost['type'] === 'BANISH_OWN_SOUL' && (!empty($found['object']->removed)
+                || (string)($found['object']->CardID ?? '') !== (string)($cost['soulCardID'] ?? '')))) {
             return FaBPreparedEffectCostRollback($pending, 'declared cost identity left its zone');
         }
         $refs[] = $found['mzID'];
     }
     $reveal = implode('&', $refs);
-    if ((in_array($cost['type'], ['ARSENAL_BOTTOM','DESTROY_CONTROLLED_AURA'], true) && count($refs) !== 1)
+    if ((in_array($cost['type'], ['ARSENAL_BOTTOM','DESTROY_CONTROLLED_AURA','BANISH_OWN_SOUL'], true) && count($refs) !== 1)
         || ($cost['type'] === 'REVEAL_THIRTEEN' && $refs && (FaBUPRBleak() || FaBMONRevealPower($reveal) < 13))) {
         return FaBPreparedEffectCostRollback($pending, 'effect cost became unavailable after assets');
     }
@@ -514,6 +518,17 @@ function FaBPayDeclaredPreparedEffectCost(): bool {
     } elseif ($cost['type'] === 'DESTROY_CONTROLLED_AURA') {
         // The physical equipment destroys itself in the existing ARC ability-cost path.
         FaBMONDestroy(intval($cost['uids'][0]));
+    } elseif ($cost['type'] === 'BANISH_OWN_SOUL') {
+        // The real Soul-to-Banish move and its listeners run only after assets.
+        FaBMoveUID(intval($cost['uids'][0]), 'Banish', $player);
+    } elseif ($cost['type'] === 'CREATE_SOUL_SHACKLE') {
+        if (FaBSEAHeroCreationBlocked($player) || FaBMPGTokenCount($player, 'soul_shackle', 1) < 1) {
+            return FaBPreparedEffectCostRollback($pending, 'Soul Shackle creation cost is unavailable');
+        }
+        // A Hero ability cost is not an action-card effect. Preserve the real
+        // token factory/replacements, with the cost payer as creator and owner.
+        $created = FaBHVYToken($player, 'soul_shackle', 1, $player, false, false, $player);
+        if ($created === null) return FaBPreparedEffectCostRollback($pending, 'Soul Shackle creation cost failed');
     } elseif ($refs) {
         FaBRevealChoices($player, $reveal);
         FaBCRUSelfTagUID($uid, 'WTR_POWER:7');
@@ -599,4 +614,95 @@ function FaBDeclareBodiceAuraCost(int $p,int $uid,string $chosen): bool {
         'cardID'=>'bloodtorn_bodice','sourceUID'=>intval($pending['preparedBodiceSourceUID']),
         'stage'=>'DECLARED','assetsPaid'=>false,'chargedCost'=>null];
     FaBSetState($s);return true;
+}
+
+
+/** Prism's hero activation binds its physical hero separately from the virtual layer. */
+function FaBPrismPreparedEffectCostSource(array $pending): ?array {
+    $p = intval($pending['player'] ?? 0);
+    $uid = intval($pending['uid'] ?? 0);
+    $heroUID = intval($pending['preparedPrismSourceUID'] ?? 0);
+    $card = (string)($pending['preparedEffectCardID'] ?? '');
+    if (!in_array($card, ['prism','prism_sculptor_of_arc_light'], true)
+        || !FaBSeatIsLive($p) || ($pending['kind'] ?? '') !== 'ABILITY'
+        || empty($pending['isAbility']) || !empty($pending['abilityAction'])
+        || ($pending['fromZone'] ?? '') !== 'Hero' || $heroUID < 1 || $uid < 1 || $heroUID === $uid) return null;
+    $layer = FaBFindUID($uid); $hero = FaBFindUID($heroUID);
+    if ($layer === null || $layer['zone'] !== 'Stack' || $hero === null || $hero['zone'] !== 'Hero'
+        || intval($hero['player']) !== $p || intval($hero['object']->Owner ?? 0) !== $p
+        || intval($hero['object']->Controller ?? 0) !== $p || (string)$hero['object']->CardID !== $card) return null;
+    $o = $layer['object']; $spec = $o->Params['arcSpec'] ?? null;
+    if ((string)$o->CardID !== $card || ($o->Kind ?? '') !== 'ABILITY' || intval($o->Controller ?? 0) !== $p
+        || ($o->SourceZone ?? '') !== 'Hero' || intval($o->SourceUniqueID ?? 0) !== $heroUID
+        || !is_array($spec) || ($spec['cardID'] ?? '') !== $card || ($spec['timing'] ?? '') !== 'INSTANT'
+        || intval($spec['index'] ?? -1) !== 0 || intval($spec['cost'] ?? -1) !== 2
+        || !empty($spec['destroy']) || !empty($spec['goAgain']) || empty($spec['once'])
+        || intval($spec['steam'] ?? -1) !== 0 || !empty($o->Params['rosTrigger'])) return null;
+    $cost = $pending['preparedEffectCost'] ?? null;
+    if (is_array($cost) && (($cost['cardID'] ?? '') !== $card || ($cost['type'] ?? '') !== 'BANISH_OWN_SOUL'
+        || intval($cost['sourceUID'] ?? 0) !== $heroUID)) return null;
+    return $layer;
+}
+
+/** Soul has implicit seat ownership; bind its real UID without unsupported Owner fields. */
+function FaBDeclarePrismSoulCost(int $p, int $uid, string $chosen): bool {
+    $s = FaBGetState(); $pending = $s['pendingPayment'] ?? null;
+    if (!is_array($pending) || intval($pending['player'] ?? 0) !== $p || intval($pending['uid'] ?? 0) !== $uid) return false;
+    if (FaBPrismPreparedEffectCostSource($pending) === null || isset($pending['preparedEffectCost'])
+        || !empty($pending['preparedEffectError'])) return FaBPreparedEffectCostRollback($pending, 'Prism source changed or duplicate Soul declaration');
+    $soul = FaBIdentityFromMZ($chosen);
+    if ($soul === null || $soul['zone'] !== 'Soul' || intval($soul['player']) !== $p
+        || !empty($soul['object']->removed) || intval($soul['object']->UniqueID ?? 0) < 1) {
+        return FaBPreparedEffectCostRollback($pending, 'Prism Soul cost unavailable');
+    }
+    $s['pendingPayment']['preparedEffectCost'] = [
+        'type'=>'BANISH_OWN_SOUL', 'uids'=>[intval($soul['object']->UniqueID)],
+        'cardID'=>(string)$pending['preparedEffectCardID'], 'sourceUID'=>intval($pending['preparedPrismSourceUID']),
+        'soulCardID'=>(string)$soul['object']->CardID, 'stage'=>'DECLARED', 'assetsPaid'=>false, 'chargedCost'=>null];
+    FaBSetState($s);
+    return true;
+}
+
+
+/** Chane pays an effect-cost from its physical Hero through a separate ability layer. */
+function FaBChanePreparedEffectCostSource(array $pending): ?array {
+    $p = intval($pending['player'] ?? 0); $uid = intval($pending['uid'] ?? 0);
+    $heroUID = intval($pending['preparedChaneSourceUID'] ?? 0);
+    $card = (string)($pending['preparedEffectCardID'] ?? '');
+    if (!in_array($card, ['chane','chane_bound_by_shadow'], true) || !FaBSeatIsLive($p)
+        || ($pending['kind'] ?? '') !== 'ABILITY' || empty($pending['isAbility']) || empty($pending['abilityAction'])
+        || ($pending['fromZone'] ?? '') !== 'Hero' || $heroUID < 1 || $uid < 1 || $heroUID === $uid) return null;
+    $layer = FaBFindUID($uid); $hero = FaBFindUID($heroUID);
+    if ($layer === null || $layer['zone'] !== 'Stack' || $hero === null || $hero['zone'] !== 'Hero'
+        || intval($hero['player']) !== $p || intval($hero['object']->Owner ?? 0) !== $p
+        || intval($hero['object']->Controller ?? 0) !== $p || (string)$hero['object']->CardID !== $card) return null;
+    $o = $layer['object']; $spec = $o->Params['arcSpec'] ?? null;
+    if ((string)$o->CardID !== $card || ($o->Kind ?? '') !== 'ABILITY' || intval($o->Controller ?? 0) !== $p
+        || ($o->SourceZone ?? '') !== 'Hero' || intval($o->SourceUniqueID ?? 0) !== $heroUID
+        || !is_array($spec) || ($spec['cardID'] ?? '') !== $card || ($spec['timing'] ?? '') !== 'ACTION'
+        || intval($spec['index'] ?? -1) !== 0 || intval($spec['cost'] ?? -1) !== 0
+        || !empty($spec['destroy']) || empty($spec['goAgain']) || empty($spec['once'])
+        || intval($spec['steam'] ?? -1) !== 0 || !empty($o->Params['rosTrigger'])) return null;
+    $cost = $pending['preparedEffectCost'] ?? null;
+    if (is_array($cost) && (($cost['cardID'] ?? '') !== $card || ($cost['type'] ?? '') !== 'CREATE_SOUL_SHACKLE'
+        || intval($cost['sourceUID'] ?? 0) !== $heroUID || ($cost['uids'] ?? null) !== []
+        || ($cost['tokenCardID'] ?? '') !== 'soul_shackle' || intval($cost['amount'] ?? 0) !== 1)) return null;
+    return $layer;
+}
+
+/** No choice is needed: declaration records the required creation, without creating it. */
+function FaBDeclareChaneShackleCost(int $p, int $uid): bool {
+    $s = FaBGetState(); $pending = $s['pendingPayment'] ?? null;
+    if (!is_array($pending) || intval($pending['player'] ?? 0) !== $p || intval($pending['uid'] ?? 0) !== $uid) return false;
+    if (FaBChanePreparedEffectCostSource($pending) === null || isset($pending['preparedEffectCost'])
+        || !empty($pending['preparedEffectError']) || FaBSEAHeroCreationBlocked($p)
+        || FaBMPGTokenCount($p, 'soul_shackle', 1) < 1) {
+        return FaBPreparedEffectCostRollback($pending, 'Chane source changed or creation cost unavailable');
+    }
+    $s['pendingPayment']['preparedEffectCost'] = [
+        'type'=>'CREATE_SOUL_SHACKLE', 'uids'=>[], 'cardID'=>(string)$pending['preparedEffectCardID'],
+        'sourceUID'=>intval($pending['preparedChaneSourceUID']), 'tokenCardID'=>'soul_shackle', 'amount'=>1,
+        'stage'=>'DECLARED', 'assetsPaid'=>false, 'chargedCost'=>null];
+    FaBSetState($s);
+    return true;
 }

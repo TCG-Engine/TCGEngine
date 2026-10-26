@@ -1,0 +1,526 @@
+{
+    "completed_at_utc": "2026-10-26T03:33:22+00:00",
+    "input_file": "card-regression-batch221.json",
+    "input_sha256": "bb7d812348eb2353f332aad1f64de2e75a3c6011a02114d9fc0e8495a60b161e",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-aether-arc-blue-four-live-sparse-real-damage-to-all-three-opponents-and-three-owned-ponders",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 464
+        },
+        {
+            "slug": "card-amulet-of-intervention-blue-four-live-sparse-real-lethal-threat-earned-instant-prevents-one-and-survives",
+            "status": "recorded_semantically_checked",
+            "actions": 35,
+            "assertions": 2185
+        },
+        {
+            "slug": "card-bleed-out-red-four-live-sparse-real-two-dagger-damage-earns-zero-cost-next-link",
+            "status": "blocked_or_incorrect",
+            "error": "state window expected \"RESOLUTION\" got \"PRIORITY\"",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Weapons-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "p4Hero-0",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-1!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": true,
+                "combatStep": "LAYER",
+                "chainLink": 1,
+                "attacker": 1,
+                "defender": 4,
+                "attackUID": 8,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 4,
+                    "uid": 4,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Zephyr Needle",
+                "attackHit": true,
+                "attackPower": 2,
+                "defenseValue": 0,
+                "damageDealt": 2,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "UPF",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "MST_BLUE_PITCHED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "PEN_WEAPON_ACTIVATED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_WEAPONS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HVY_WEAPON_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_WEAPON_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_4",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_zephyr_needle",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_SWORD_DAGGER",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_DAMAGE",
+                            "amount": 2,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_VALLEY_HIT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_PHYSICAL",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PHYSICAL",
+                            "amount": 2,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_DAGGER_HIT_CHAIN",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "PEN_DAGGER_HIT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_WEAPON_HITS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [],
+                    "3": [],
+                    "4": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "DTD_DAMAGE_EVENT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_DAMAGED",
+                            "amount": 2,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_DAMAGED_BY",
+                            "amount": 1,
+                            "uses": 1,
+                            "uid": 1
+                        },
+                        {
+                            "type": "MON_PHYSICAL",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "DTD_LOST",
+                            "amount": 2,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_DAMAGED",
+                            "amount": 2,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": {
+                    "1": [
+                        8
+                    ]
+                },
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "zephyr_needle",
+                        "bleed_out_red"
+                    ]
+                },
+                "arcCards": {
+                    "8": {
+                        "penPitchTypes": [
+                            "Generic",
+                            "Action",
+                            "Attack"
+                        ],
+                        "dynPitchAA": true,
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true,
+                        "dtdPrevention4": true,
+                        "hntHitMarked4": false,
+                        "hvyWagers": []
+                    },
+                    "7": {
+                        "iarPermission": []
+                    },
+                    "6": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "outPreviousNames": [
+                            "Zephyr Needle"
+                        ],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false
+                    }
+                },
+                "arcActions": {
+                    "1": 2
+                },
+                "outPreviousNames": {
+                    "1": []
+                },
+                "lastAttackCardID": "zephyr_needle",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 4,
+                        "uid": 4,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false,
+                "iar": {
+                    "2": {
+                        "1": {
+                            "DAMAGE:4": 1
+                        }
+                    }
+                },
+                "omn": {
+                    "2": {
+                        "4": {
+                            "REPROACH": 1
+                        }
+                    }
+                },
+                "daggerHits": 1,
+                "chainHits": 1,
+                "consecutiveHits": 1,
+                "weaponHits": {
+                    "5": 1
+                },
+                "outDaggerDamage": {
+                    "1": 2
+                },
+                "outDaggerHits": {
+                    "1": 1
+                },
+                "mstPreviousPitch": 0,
+                "mstPreviousAA": false,
+                "hntPreviousDraconic": false
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "initial_gamestate_text": "1\r\n0\r\n1\r\nfai 2 1 1 0 1 - -\r\n1\r\ndorinthea 2 2 2 0 2 - -\r\n1\r\ndorinthea 2 3 3 0 3 - -\r\n1\r\ndorinthea 2 4 4 0 4 - -\r\n1\r\nzephyr_needle 2 1 1 0 5 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\nbleed_out_red 6 1 1\r\nwounding_blow_blue 7 1 1\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n20\r\n20\r\n20\r\n20\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0\r\n0\r\n0\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n0\r\n1\r\n0\r\n{\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":[],\"nextTurnEffects\":[],\"hitsThisTurn\":[],\"cardsPlayedThisTurn\":[]}\r\n0\r\n1234\r\n1234\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\n1\r\nMAIN\r\n\r\n\r\n\r\n\r\n7\r\n0\r\n",
+            "initial_gamestate_sha256": "bbf5dcc0931a2e672874ee9f25f1261ce0fdca562854fe36c710e806863a03ea"
+        }
+    ]
+}

@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch243.json",
+  "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T11:31:46.163533+00:00",
+  "fixtures": [
+    {
+      "slug": "card-oscilio-four-live-sparse-actual-discarded-instant-cost-draws-real-deck-card-with-eighteen-health",
+      "fixture_sha256": "5a3a79a7dd07edd211d123ac151de748f15710535bf700f1c9ae9fe419555d32",
+      "passed": true,
+      "result": "[PASS] oscilio / lean four-live meaningful positive"
+    },
+    {
+      "slug": "card-ink-lined-cloak-four-live-sparse-actual-sigil-aura-cast-earns-condition-then-destroy-instant-gains-one",
+      "fixture_sha256": "3a4d06b5ba3f62557aba02a81516469b17b75892cb992dee370528b44b61b102",
+      "passed": true,
+      "result": "[PASS] ink_lined_cloak / lean four-live meaningful positive"
+    },
+    {
+      "slug": "card-aurora-four-live-sparse-actual-lightning-action-earns-condition-then-paid-instant-creates-owned-embodiment",
+      "fixture_sha256": "e0e8266c427438c46ea7efa2b4910903962529553454cab3248d6f41e0dcfb21",
+      "passed": true,
+      "result": "[PASS] aurora / lean four-live meaningful positive"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-oscilio-four-live-sparse-actual-discarded-instant-cost-draws-real-deck-card-with-eighteen-health",
+      "returncode": 0,
+      "stdout": "[PASS] oscilio / lean four-live meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ink-lined-cloak-four-live-sparse-actual-sigil-aura-cast-earns-condition-then-destroy-instant-gains-one",
+      "returncode": 0,
+      "stdout": "[PASS] ink_lined_cloak / lean four-live meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-aurora-four-live-sparse-actual-lightning-action-earns-condition-then-paid-instant-creates-owned-embodiment",
+      "returncode": 0,
+      "stdout": "[PASS] aurora / lean four-live meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

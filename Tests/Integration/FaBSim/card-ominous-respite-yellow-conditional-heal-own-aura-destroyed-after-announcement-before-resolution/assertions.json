@@ -1231,7 +1231,7 @@
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "PriorityPlayer",
-        "value": 1
+        "value": 2
     },
     {
         "step": 4,

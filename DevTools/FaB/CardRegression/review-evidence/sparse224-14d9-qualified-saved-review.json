@@ -1,0 +1,895 @@
+{
+  "status": "APPROVED_THREE_EXACT_FOUR_LIVE_SPARSE_REPRESENTATIVES_POSITIVE_ONLY",
+  "reviewer": "/root/b106_semantic_review",
+  "assembled_by": "/root from actual independent saved review and clean replay receipts",
+  "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+  "source_spec": "card-regression-batch224.json",
+  "source_spec_sha256": "ee01fe237ff0d32c11837206a11a601e60e30044e8c8bed52c636ef2039fd1a3",
+  "fixtures": [
+    {
+      "slug": "card-skullbone-crosswrap-four-live-sparse-actual-faceup-cost-and-private-opt-one-bottom-retains-layer-until-answer",
+      "card_id": "skullbone_crosswrap",
+      "group_id": "identity:skullbone_crosswrap",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_FOUR_LIVE_NEW_REPRESENTATIVE_FINAL_TARGETED_QUALIFICATION_PENDING",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "recorded_runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "fixture_sha256": "d2d7e10a76676d6734796054d6278789e0f834e355bcaf5bb8025932f715260b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dadf832ca8de83598825d978436ef0908576dc73e801b3686a06693dcdeacb20",
+        "actions.json": "e05e687e50cf7e957f9d53f2f0fa04952ca1f71cee2ba533e25d9f2fedff1261",
+        "assertions.json": "829efc2504d9507ba3ab743f2c389315b0a908d7d62d38ba8245ccb039e52180",
+        "expected_final_gamestate.txt": "f3c02aedeb1b9fdafddfdb686ea3ceef27a6731b3a4523dc9da5f5dc97ee5195",
+        "meta.json": "047ca1c595ca2c6a2fe173b1834bd41de621157f2938c39ae23259a6f7fd9b1d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "dadf832ca8de83598825d978436ef0908576dc73e801b3686a06693dcdeacb20",
+        "actions.json": "e05e687e50cf7e957f9d53f2f0fa04952ca1f71cee2ba533e25d9f2fedff1261",
+        "assertions.json": "829efc2504d9507ba3ab743f2c389315b0a908d7d62d38ba8245ccb039e52180",
+        "expected_final_gamestate.txt": "f3c02aedeb1b9fdafddfdb686ea3ceef27a6731b3a4523dc9da5f5dc97ee5195",
+        "meta.json": "047ca1c595ca2c6a2fe173b1834bd41de621157f2938c39ae23259a6f7fd9b1d"
+      },
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch224.json",
+      "input_sha256": "ee01fe237ff0d32c11837206a11a601e60e30044e8c8bed52c636ef2039fd1a3",
+      "actions": 6,
+      "native_assertions": 554,
+      "paper_only_defense_assertions": 0,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "initial_manual_preferences_by_seat": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_four_live_legal_Ranger_facedown_arrow_and_two_physical_Deck_cards",
+          "step": 0,
+          "native_assertions": 129
+        },
+        {
+          "checkpoint": "actual_Action_asset_and_printed_arsenal_faceup_cost_before_source_responses",
+          "step": 1,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_Crosswrap_response_1_retains_Deck_and_spent_AP",
+          "step": 2,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_Crosswrap_response_2_retains_Deck_and_spent_AP",
+          "step": 3,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_Crosswrap_response_3_retains_Deck_and_spent_AP",
+          "step": 4,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "fourth_source_response_stages_only_top_card_and_keeps_earned_ability_pending",
+          "step": 5,
+          "native_assertions": 64
+        },
+        {
+          "checkpoint": "full_final_real_opt_bottom_reorders_two_UIDs_and_only_then_grants_go_again",
+          "step": 6,
+          "native_assertions": 129
+        }
+      ],
+      "observed_recording_summary": {
+        "slug": "card-skullbone-crosswrap-four-live-sparse-actual-faceup-cost-and-private-opt-one-bottom-retains-layer-until-answer",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 554
+      },
+      "actual_endpoint": {
+        "physical_zones": {
+          "p1Deck": [
+            {
+              "CardID": "wounding_blow_blue",
+              "UniqueID": "8",
+              "Owner": "1",
+              "Controller": "1"
+            },
+            {
+              "CardID": "wounding_blow_red",
+              "UniqueID": "7",
+              "Owner": "1",
+              "Controller": "1"
+            }
+          ],
+          "p1Arsenal": [
+            {
+              "CardID": "endless_arrow_red",
+              "UniqueID": "6",
+              "FaceDown": "0",
+              "TurnEffects": "-",
+              "Counters": "-",
+              "Owner": "1",
+              "Controller": "1"
+            }
+          ],
+          "p1Equipment": [
+            {
+              "CardID": "skullbone_crosswrap",
+              "Status": "2",
+              "FaceDown": "0",
+              "Owner": "1",
+              "Controller": "1",
+              "Damage": "0",
+              "UniqueID": "5",
+              "TurnEffects": "-",
+              "Counters": "eyJBUkNfVVNFRF8wIjoyfQ=="
+            }
+          ],
+          "p1Weapons": [
+            {
+              "CardID": "death_dealer",
+              "Status": "2",
+              "Owner": "1",
+              "Controller": "1",
+              "Damage": "0",
+              "UniqueID": "9",
+              "TurnEffects": "-",
+              "Counters": "-"
+            }
+          ]
+        },
+        "p1_AP": 1,
+        "p4_HP": 20,
+        "arcaneDealt": null,
+        "historical_source_mzID": "p1Equipment-0",
+        "emptyStackQueuesAwaitFrames": true
+      },
+      "scope": "No repeateduse rejection/emptyArsenal rejection/Arrowplay/hit/Bowactivation/AB/BladeBreak/expiry. PendingwindowPRIORITY is an internal representation only, not a legal player-priority claim during Opt.",
+      "current_qualification_runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "current_clean_replays": [
+        "card-regression-replay-sparse224-14d9-r1.json",
+        "card-regression-replay-sparse224-14d9-r2.json"
+      ],
+      "current_qualification_status": "MANUAL_ACTUAL_SAVED_REVIEW_TWO_CLEAN_REPLAYS_POSITIVE_ONLY",
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "slug": "card-amethyst-tiara-four-live-sparse-actual-destroy-grants-owned-runechant-spellvoid-preventing-one-of-real-zap-three",
+      "card_id": "amethyst_tiara",
+      "group_id": "identity:amethyst_tiara",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_FOUR_LIVE_NEW_REPRESENTATIVE_FINAL_TARGETED_QUALIFICATION_PENDING",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "recorded_runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "fixture_sha256": "4374b27c6fb066b343e92bec38ef23c3c7544caa3a04ce23a067ab9cc7be5b9c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "62d7193ac80ce9df41d07f80ac6b720cf62d172875a4bb394bb0a6a086d703cc",
+        "actions.json": "ebabc51f6d92865f6ad9e29f1c9e40d6d841813151ec469f15f3daa634ab9045",
+        "assertions.json": "00531ebeb0fe0b5ee58fcc28f5c642ea50dcfb364d960085f874692491bdb587",
+        "expected_final_gamestate.txt": "ea43e9442bf74f209bb849f16ada8a6d84b7c06d7adf78945dd00a5d4245d2cc",
+        "meta.json": "8f5b7cc2bff5773075cf487dd4105d0f877167edc72a169fabbb5ee459016cc0"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "62d7193ac80ce9df41d07f80ac6b720cf62d172875a4bb394bb0a6a086d703cc",
+        "actions.json": "ebabc51f6d92865f6ad9e29f1c9e40d6d841813151ec469f15f3daa634ab9045",
+        "assertions.json": "00531ebeb0fe0b5ee58fcc28f5c642ea50dcfb364d960085f874692491bdb587",
+        "expected_final_gamestate.txt": "ea43e9442bf74f209bb849f16ada8a6d84b7c06d7adf78945dd00a5d4245d2cc",
+        "meta.json": "8f5b7cc2bff5773075cf487dd4105d0f877167edc72a169fabbb5ee459016cc0"
+      },
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch224.json",
+      "input_sha256": "ee01fe237ff0d32c11837206a11a601e60e30044e8c8bed52c636ef2039fd1a3",
+      "actions": 15,
+      "native_assertions": 853,
+      "paper_only_defense_assertions": 0,
+      "actual_manual_passes": 11,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "initial_manual_preferences_by_seat": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_four_live_legal_Wizard_and_Runeblade_owned_token_no_granted_keyword",
+          "step": 0,
+          "native_assertions": 119
+        },
+        {
+          "checkpoint": "actual_Zap_adjacent_target_declared_before_assets",
+          "step": 1,
+          "native_assertions": 47
+        },
+        {
+          "checkpoint": "actual_Zap_zero_resource_and_one_Action_paid",
+          "step": 2,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "actual_Zap_response_opportunity_1_before_P4_equipment",
+          "step": 3,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "actual_Zap_response_opportunity_2_before_P4_equipment",
+          "step": 4,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "actual_Zap_response_opportunity_3_before_P4_equipment",
+          "step": 5,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "actual_defending_Runeblade_Instant_destroy_cost_no_resource_or_Action_cost",
+          "step": 6,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "actual_Tiara_four_live_responses_before_keyword_grant_manual_response_1_of_four",
+          "step": 7,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "actual_Tiara_four_live_responses_before_keyword_grant_manual_response_2_of_four",
+          "step": 8,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "actual_Tiara_four_live_responses_before_keyword_grant_manual_response_3_of_four",
+          "step": 9,
+          "native_assertions": 49
+        },
+        {
+          "checkpoint": "actual_Tiara_four_live_responses_before_keyword_grant_fourth_manual_response_boundary",
+          "step": 10,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "actual_original_Zap_four_responses_then_granted_Spellvoid_choice_manual_response_1_of_four",
+          "step": 11,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "actual_original_Zap_four_responses_then_granted_Spellvoid_choice_manual_response_2_of_four",
+          "step": 12,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "actual_original_Zap_four_responses_then_granted_Spellvoid_choice_manual_response_3_of_four",
+          "step": 13,
+          "native_assertions": 42
+        },
+        {
+          "checkpoint": "actual_original_Zap_four_responses_then_granted_Spellvoid_choice_actual_resolution_choice",
+          "step": 14,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "full_final_actual_spellvoid_token_ceases_and_real_three_minus_one_arcane_is_two",
+          "step": 15,
+          "native_assertions": 116
+        }
+      ],
+      "observed_recording_summary": {
+        "slug": "card-amethyst-tiara-four-live-sparse-actual-destroy-grants-owned-runechant-spellvoid-preventing-one-of-real-zap-three",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 853
+      },
+      "actual_endpoint": {
+        "physical_zones": {
+          "p1Graveyard": [
+            {
+              "CardID": "zap_red",
+              "UniqueID": "7",
+              "Owner": "1",
+              "Controller": "1",
+              "FaceDown": "0"
+            }
+          ],
+          "p4Graveyard": [
+            {
+              "CardID": "amethyst_tiara",
+              "UniqueID": "5",
+              "Owner": "4",
+              "Controller": "4",
+              "FaceDown": "0"
+            }
+          ]
+        },
+        "p1_AP": 0,
+        "p4_HP": 18,
+        "arcaneDealt": {
+          "1": {
+            "4": 2
+          }
+        },
+        "historical_source_mzID": "Stack-0",
+        "emptyStackQueuesAwaitFrames": true
+      },
+      "scope": "No Runechantcreation/attacktrigger, multipleAura/foreigncontroller/grantexpiry/repeat/BladeBreak credit. Packet demonstrates grantandconsumption; earlyeffectivegrantabsence duringresponses remains source-reviewed rather than isolated with another damagepacket.",
+      "current_qualification_runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "current_clean_replays": [
+        "card-regression-replay-sparse224-14d9-r1.json",
+        "card-regression-replay-sparse224-14d9-r2.json"
+      ],
+      "current_qualification_status": "MANUAL_ACTUAL_SAVED_REVIEW_TWO_CLEAN_REPLAYS_POSITIVE_ONLY",
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "slug": "card-gauntlet-of-boulderhold-four-live-sparse-actual-paid-destroy-boosts-real-paid-arsenal-guardian-attack-two-and-full-block",
+      "card_id": "gauntlet_of_boulderhold",
+      "group_id": "identity:gauntlet_of_boulderhold",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_FOUR_LIVE_NEW_REPRESENTATIVE_FINAL_TARGETED_QUALIFICATION_PENDING",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "recorded_runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "fixture_sha256": "39f0b0050ab800586e1d796ab4e96cba50c4d236d6a9a57fd4635cae0dd85946",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "faed40d81392e6acb1fc8fb0dd2d458964223364e6707bc32a1cb9acbba1e62a",
+        "actions.json": "123395fa1105c52809a3ab9996a0fbe25a8185caeabbe5ae704a33c0bb9783f6",
+        "assertions.json": "63ad051ad663b965493c804faa4d903e0778489da5e56633776f2b23e2360063",
+        "expected_final_gamestate.txt": "88994755f7196a91c197189ddea96e4ebdd8ef1ce9523667c687c04c151ebf85",
+        "meta.json": "79aecc373551a86b0a1737c0de9d6863ed5ce3235b2680669b51207d015ac61c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "faed40d81392e6acb1fc8fb0dd2d458964223364e6707bc32a1cb9acbba1e62a",
+        "actions.json": "123395fa1105c52809a3ab9996a0fbe25a8185caeabbe5ae704a33c0bb9783f6",
+        "assertions.json": "63ad051ad663b965493c804faa4d903e0778489da5e56633776f2b23e2360063",
+        "expected_final_gamestate.txt": "88994755f7196a91c197189ddea96e4ebdd8ef1ce9523667c687c04c151ebf85",
+        "meta.json": "79aecc373551a86b0a1737c0de9d6863ed5ce3235b2680669b51207d015ac61c"
+      },
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch224.json",
+      "input_sha256": "ee01fe237ff0d32c11837206a11a601e60e30044e8c8bed52c636ef2039fd1a3",
+      "actions": 37,
+      "native_assertions": 2650,
+      "paper_only_defense_assertions": 1,
+      "actual_manual_passes": 29,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "initial_manual_preferences_by_seat": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_four_live_legal_Guardian_arsenal_attack_and_two_real_blue_pitch_cards",
+          "step": 0,
+          "native_assertions": 135
+        },
+        {
+          "checkpoint": "actual_printed_resource_asset_required_before_effect_cost",
+          "step": 1,
+          "native_assertions": 67
+        },
+        {
+          "checkpoint": "actual_resource_and_Action_assets_then_printed_self_movement_cost_paid",
+          "step": 2,
+          "native_assertions": 64
+        },
+        {
+          "checkpoint": "actual_Boulderhold_source_and_ability_go_again_manual_response_1_of_four",
+          "step": 3,
+          "native_assertions": 64
+        },
+        {
+          "checkpoint": "actual_Boulderhold_source_and_ability_go_again_manual_response_2_of_four",
+          "step": 4,
+          "native_assertions": 64
+        },
+        {
+          "checkpoint": "actual_Boulderhold_source_and_ability_go_again_manual_response_3_of_four",
+          "step": 5,
+          "native_assertions": 64
+        },
+        {
+          "checkpoint": "actual_Boulderhold_source_and_ability_go_again_fourth_manual_response_boundary",
+          "step": 6,
+          "native_assertions": 57
+        },
+        {
+          "checkpoint": "actual_adjacent_target_declared_before_assets",
+          "step": 7,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "real_printed_attack_resource_cost_before_pitch",
+          "step": 8,
+          "native_assertions": 63
+        },
+        {
+          "checkpoint": "actual_attack_assets_paid_before_all_four_responses",
+          "step": 9,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_attack_source_manual_response_1_of_four",
+          "step": 10,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_attack_source_manual_response_2_of_four",
+          "step": 11,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_attack_source_manual_response_3_of_four",
+          "step": 12,
+          "native_assertions": 58
+        },
+        {
+          "checkpoint": "actual_attack_source_fourth_manual_response_boundary",
+          "step": 13,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_1_of_four",
+          "step": 14,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_2_of_four",
+          "step": 15,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "actual_attack_step_manual_response_3_of_four",
+          "step": 16,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "actual_attack_step_fourth_manual_response_boundary",
+          "step": 17,
+          "native_assertions": 65
+        },
+        {
+          "checkpoint": "completed_three_real_three_defense_cards_block_printed_seven_plus_two",
+          "step": 21,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_1_of_four",
+          "step": 22,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_2_of_four",
+          "step": 23,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_defend_step_manual_response_3_of_four",
+          "step": 24,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_defend_step_fourth_manual_response_boundary",
+          "step": 25,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_1_of_four",
+          "step": 26,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_2_of_four",
+          "step": 27,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_reaction_step_manual_response_3_of_four",
+          "step": 28,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_reaction_step_fourth_manual_response_boundary",
+          "step": 29,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_computed_attack_damage_not_cached_defense",
+          "step": 29,
+          "native_assertions": 76
+        },
+        {
+          "checkpoint": "actual_damage_step_manual_response_1_of_four",
+          "step": 30,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_damage_step_manual_response_2_of_four",
+          "step": 31,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_damage_step_manual_response_3_of_four",
+          "step": 32,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_damage_step_fourth_manual_response_boundary",
+          "step": 33,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_resolution_and_chain_close_manual_response_1_of_four",
+          "step": 34,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_resolution_and_chain_close_manual_response_2_of_four",
+          "step": 35,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_resolution_and_chain_close_manual_response_3_of_four",
+          "step": 36,
+          "native_assertions": 74
+        },
+        {
+          "checkpoint": "actual_resolution_and_chain_close_fourth_manual_response_boundary",
+          "step": 37,
+          "native_assertions": 59
+        },
+        {
+          "checkpoint": "full_final_four_live_physical_ownership_economy_and_queues",
+          "step": 37,
+          "native_assertions": 138
+        }
+      ],
+      "observed_recording_summary": {
+        "slug": "card-gauntlet-of-boulderhold-four-live-sparse-actual-paid-destroy-boosts-real-paid-arsenal-guardian-attack-two-and-full-block",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 2650
+      },
+      "actual_endpoint": {
+        "physical_zones": {
+          "p1Graveyard": [
+            {
+              "CardID": "gauntlet_of_boulderhold",
+              "UniqueID": "5",
+              "Owner": "1",
+              "Controller": "1",
+              "FaceDown": "0"
+            },
+            {
+              "CardID": "cartilage_crush_red",
+              "UniqueID": "7",
+              "Owner": "1",
+              "Controller": "1",
+              "FaceDown": "0"
+            }
+          ],
+          "p1Pitch": [
+            {
+              "CardID": "wounding_blow_blue",
+              "UniqueID": "6",
+              "Owner": "1",
+              "Controller": "1"
+            },
+            {
+              "CardID": "wounding_blow_blue",
+              "UniqueID": "8",
+              "Owner": "1",
+              "Controller": "1"
+            }
+          ],
+          "p4Graveyard": [
+            {
+              "CardID": "wounding_blow_red",
+              "UniqueID": "9",
+              "Owner": "4",
+              "Controller": "4",
+              "FaceDown": "0"
+            },
+            {
+              "CardID": "wounding_blow_yellow",
+              "UniqueID": "10",
+              "Owner": "4",
+              "Controller": "4",
+              "FaceDown": "0"
+            },
+            {
+              "CardID": "wounding_blow_blue",
+              "UniqueID": "11",
+              "Owner": "4",
+              "Controller": "4",
+              "FaceDown": "0"
+            }
+          ]
+        },
+        "p1_AP": 0,
+        "p4_HP": 20,
+        "arcaneDealt": [],
+        "historical_source_mzID": "p1CombatChain-0",
+        "emptyStackQueuesAwaitFrames": true
+      },
+      "scope": "Handroute is explicitly SOURCE_ONLY_UNATTEMPTED_UNCREDITED_NARROWER_THAN_PRINTED, not gameplaynativeconfirmation or endorsedrestriction. No Battleworn/Hand/nonGuardian/furtherattack/expiry/Crushtrigger/hero/support credit.",
+      "current_qualification_runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "current_clean_replays": [
+        "card-regression-replay-sparse224-14d9-r1.json",
+        "card-regression-replay-sparse224-14d9-r2.json"
+      ],
+      "current_qualification_status": "MANUAL_ACTUAL_SAVED_REVIEW_TWO_CLEAN_REPLAYS_POSITIVE_ONLY",
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "original_independent_saved_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch224-actual-saved-independent-review-106.json",
+    "sha256": "4f27e225c286893061ca953a587d6625d22350824d32ff4a27a5abd414ca18d3"
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-sparse224-14d9-r1.json",
+      "sha256": "04b1ff7c2b7bef3cbb91b0afbefb69d6bd58a2bef52f5dbd7d47d12ce3416528"
+    },
+    {
+      "path": "card-regression-replay-sparse224-14d9-r2.json",
+      "sha256": "5e190d3308c500acfc1954d5f6433e761d7203169d1dd7408d15697232d577e3"
+    }
+  ],
+  "method": "Manual source/printed rules and actual native stream/physical endpoint review; no optional simulator or synthesized independent approval.",
+  "isolated_native_faults": {
+    "attempted": 0,
+    "detected": 0
+  },
+  "qualification": "Crosswrap actualcostflip/oncecounter2/retainedOptlayer/deferredAP andactualBottomreorder. Tiaraactualgrant andownedRunechantSpellvoidtokenconsumption/realZapdamage. Boulderhold actualpaidArsenalGuardianbonus/fullblock only; nowrongarsenalconstraintoracle. Handprobe failedseparately, issue051open/noHandpassingfixture orfullcardcredit. Oneauthor-onlydefensecheck notpersisted. Positive-only; noalternativechoice/EOT/sibling/support/fullcard/fullsuites certification."
+}

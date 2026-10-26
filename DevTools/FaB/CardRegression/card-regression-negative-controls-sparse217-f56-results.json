@@ -1,0 +1,79 @@
+{
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "completed_utc": "2026-10-26T02:52:04.143009+00:00",
+  "plan_sha256": "608183eeb91e707e83c0a3f746b76d7640ea821a8c18c88e77403032278152d0",
+  "independent_saved_proof_sha256": "5751180dcc6d7a9c3127834d992511222c3f5a3ee4080854ead0177475fb082a",
+  "command": [
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\execute_reviewed_fault_plan.py",
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch217-two-causal-controls-finalf56-plan.json",
+    "608183eeb91e707e83c0a3f746b76d7640ea821a8c18c88e77403032278152d0",
+    "card-regression-negative-controls-sparse217-f56-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "creepers_actual_next_nonattack_instant_permission_omitted",
+      "fixture": "card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+      "fixture_sha256": "505b015c09dd85f92461a5fa1b21df6f6aa6e483895d8bfea5d49120ea03abfc",
+      "source_raw5": {
+        "initial_gamestate.txt": "27fa074fd4ebe6761163c5ff5630bb1caffbe272862785bfa4717fed3994ca6c",
+        "actions.json": "05a34e3e172422072b9211dccef543b56b02a61b2a25797c2d4a78be74727f4a",
+        "assertions.json": "1b8cbc6437716e915eb07c6e0fbc0b0389a8c61a8e9b9f42ec66845072acb3bb",
+        "expected_final_gamestate.txt": "b33655eb3ebcd46a9826b14152a7540e3a5bcf2d12cc859308e6da0cfccd9111",
+        "meta.json": "1076512711f7a4f5e320445e967b89023ba2a0c0eb79ae9e72b236eef15b244d"
+      },
+      "prefix_actions": 33,
+      "mutation": {
+        "remove_effect": "ELE_NEXT_INSTANT"
+      },
+      "retained_assertions": 472,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"ACTION\".",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] spellbound_creepers / four live distinctive effect: Step 1 assertion failed: Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"ACTION\".\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual earned attack, full close and paid Creepers ability have completed, remove only naturally earned ELE_NEXT_INSTANT. Bind1, once2, resources2 and physical source remain. Actual next Mordred click at AP0 has no legal play; native Engine FSM leaves ACTION with no layer, making the original window PRIORITY oracle fail before physical Hand/Stack or economy oracles. Permission application only, not prerequisite rejection or expiry.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "quell_selected_static_ability_lost_before_real_funding",
+      "fixture": "card-quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage",
+      "fixture_sha256": "0ee78b2b6808a1626cd7ed31d6b7c662493f35d351128fc239aa8f84db914121",
+      "source_raw5": {
+        "initial_gamestate.txt": "189394db2334e6d9b765022df8d4b5d12e4cc2bbd7f3e4aa8cb20ee8908ef1bc",
+        "actions.json": "9353eaa0323651be15ffc46142dd1f193467a43084df60e2133276d750553071",
+        "assertions.json": "312364081594101f63124f6a8886be96f005778054a355cc1505d9b4e722ff30",
+        "expected_final_gamestate.txt": "5dd0a069e19cfe7d1063827d08eb229122829a2c06ee1530106cc8ef5f699935",
+        "meta.json": "3b99228269e17e7e0a7dbe74bccfd33222779bb941ac58f431cc6b144bee7a47"
+      },
+      "prefix_actions": 21,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "Equipment",
+            "cardID": "quelling_robe",
+            "mode": "add",
+            "tag": "NO_ABILITIES"
+          }
+        ]
+      },
+      "retained_assertions": 787,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected p4Health to equal 14, got 13.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] quelling_robe / four live distinctive effect: Step 1 assertion failed: Expected p4Health to equal 14, got 13.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual optional static Quell selection and before its real funding choice, add existing NO_ABILITIES to owned physical Robe5 only. Actual Blue6 still pitches3. FaBKeywords has no active Quell, so FaBUPRQuell returns0 without charging1 or setting end marker; selected UID5 is already in used[], no repeat option, and actual seven damage resumes with no prevention. First original P4Health14 becomes13 before later resource3-vs2/counter failures. Static availability at payment, not an isolated prevention-only quantity change; physical source/cost cards and all suffix oracles preserved.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

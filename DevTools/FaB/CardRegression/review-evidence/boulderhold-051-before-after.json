@@ -1,0 +1,51 @@
+{
+  "status": "QUALIFIED_BOUNDED_NATIVE_BOULDERHOLD_ORIGIN_REPAIR",
+  "issue": "FAB-REG-051",
+  "utc": "2026-10-26T05:56:29.446731+00:00",
+  "before": {
+    "path": "review-evidence/boulderhold-hand-origin-before.json",
+    "sha256": "955c9fadeefd46b50a5f89541237d8a5f265ae2d6d2ca42269bf81f78c6bf802"
+  },
+  "before_scope": "Sameinitiald87f08/samefirst13realinputs; correctpower9 assertion failedactual7. No beforedamage/finalHP claim. No passingfixture saved beforefix.",
+  "after_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "unchanged_correct_source": {
+    "path": "card-regression-batch224-boulderhold-hand-correct-probe.json",
+    "sha256": "0720d26f11271a975713210416b1b770ba4eeb8fa8ad84cbb524fdb10e7c62a0"
+  },
+  "after_saved_review": {
+    "path": "review-evidence/boulderhold-051-hand-qualified-saved-review.json",
+    "sha256": "6844ca250038fea48e11677fc5f12a23ac856270e0d930bab3ed47772d1ba1ba"
+  },
+  "clean_hand_replays": [
+    {
+      "path": "card-regression-replay-boulderhold051-5ff0-r1.json",
+      "sha256": "6196b65b21f6243867bf627b78c53072ae5bacfa0ba5afc6bcd4471800fbefec"
+    },
+    {
+      "path": "card-regression-replay-boulderhold051-5ff0-r2.json",
+      "sha256": "f846bd0272bb3bc21225a5dbde565ca4a46bf3cdbffb9e5153accc3882cf5955"
+    }
+  ],
+  "existing_arsenal_compatibility": {
+    "path": "card-regression-replay-boulderhold051-arsenal-5ff0-compat.json",
+    "sha256": "38f660816de428f8b43992db26cb59a07cee7be597f28f27eb7a94332a0be509"
+  },
+  "after_scope": "37actualactions/2642nativeassertions/29manualpasses. RealHandCartilage7 andbothactual3costpayments; samepower9 oracle nowpasses,threephysicaldefendersfullyblock9,allHP20/fullcleanup. Extra recorder-onlydefense9 isnot persisted. ExistingArsenalraw5unchanged.",
+  "source_fix": "SeparateGauntlet fromgenuineArsenal-onlyCraterhoof inlocalbuilder/snapshot; exactidempotentlocalCardCodegeneration correction plusaccurate UIlabel. SharedFaBMPGNext/Played andCraterhoofbodyunchanged.",
+  "generation": {
+    "path": "review-evidence/boulderhold-051-guarded-generation.json",
+    "sha256": "96eff474f636f16745132f8d031deb29f1daa5f821ca10405ff264f3cde5a84e"
+  },
+  "independent_actual_generation_review": {
+    "path": "review-evidence/boulderhold-051-actual-generated-independent-review.json",
+    "sha256": "4a91a73df126d8dc3a104848a1430a293a82589ce7efe3ad688adabf14ca327e"
+  },
+  "generated_delta": "ActualcompileronlyGauntlettrue-tofalse+oneexistingtimestampperoutput; allotherMacroPHP/CountJSbody/count/order/EOLbytesidentical. MacroPHPexistingmixedEOLpreserved. Bothactualfulloutputs/rollbackbackups retainedoutsideR.",
+  "remote_authoring_writes": false,
+  "upstream_remote_reconciled": false,
+  "upstream_note": "Read-onlyremoteGauntletrevisiondd52194d70895bdc5a845275c2d3413f049add44ed0840237ae90b4cd84f0d40 remainswrong; localreviewedcompilehookprotectsthischeckout. No importer/save run.",
+  "focused_rules_suite": "Notrun: mpg_rules_test.php includes mpg_test.php thenDYN/ARCandearliercatalogs; notasmallisolatedMPGcheck. Exactgenerationbodygate+twonewHandreplays+oneaffectedArsenalreplay used; fullsuitelefttouser.",
+  "limits": "NoBattleworn/expiry/nonGuardian/furtherattack/Crushdamage/fullcard/fullsuitequalification. No synthetichelperfault added; nativebefore/after isseparatecausalevidence. Otherhistoricalruntimebindingsunchanged.",
+  "rollback_workspace": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-051-apply-backup",
+  "actual_generated_archive": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\boulderhold-051-generation-attempt2\\actual-observed"
+}

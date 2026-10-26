@@ -36,6 +36,8 @@ function FaBMSTFlip(int $uid): void {$f=FaBFindUID($uid);if(!$f||$f['zone']!=='E
 function FaBMSTWard(int $p,object $o): int {
  if (!HasNoAbilities($o) && in_array(FaBWTRBase($o->CardID), ['holo_shield','corrosive_space_dust'], true)) return FaBOMNHolo($o) ? 5-intval(CardPitch($o->CardID)) : 1;
  if(HasNoAbilities($o))return 0;$penWard=FaBARCCard(intval($o->UniqueID),'penWard',[]);if(intval($penWard['turn']??-1)===intval(GetTurnNumber()))return intval($penWard['amount']);$b=FaBWTRBase($o->CardID);$text=(string)CardFunctional_text_plain($o->CardID);
+ // Rapture gains Ward only from its resolved activated effect; the printed clause is not intrinsic Ward.
+ if($b==='empyrean_rapture')return in_array('DTD_WARD:1',(array)($o->TurnEffects??[]),true)?1:0;
  if($b==='manifestation_of_miragai')return max(0,intval(FaBObjectCounters($o)['POWER']??0));
  if($b==='haze_shelter')return FaBMSTBlue($p)?4:1;
  if($b==='three_visits')return 3*FaBMSTBlue($p);
@@ -151,7 +153,15 @@ function FaBMSTUnpreventable(object $o): bool {return FaBWTRBase($o->CardID)==='
 function FaBMSTFinishBlocks(): void {$s=FaBGetState();$refs=[];foreach(FaBLiveSeats() as $p)foreach(FaBChoiceRefs($p,'CombatChain') as $r){$o=FaBIdentityFromMZ($r)['object'];if(intval($o->ChainLink)===intval($s['chainLink'])&&($o->Role??'')==='DEFENSE')$refs[]=$r;}if(count($refs)===1){$f=FaBIdentityFromMZ($refs[0]);if(FaBWTRBase($f['object']->CardID)==='battlefront_bastion')FaBWTRAddEffect($f['player'],'PREVENT_DAMAGE',1);}}
 function FaBMSTAttackCounters(object $o): int {$uid=intval(FaBObjectCounters($o)['MON_SOURCE_UID']??0);$f=$uid?FaBFindUID($uid):null;return intval(FaBObjectCounters($f?$f['object']:$o)['POWER']??0);}
 function FaBMSTAmp(int $p,int $uid): int {$f=FaBFindUID($uid);if(!$f||(!FaBHasType($f['object'],'Action')&&!FaBHasType($f['object'],'Instant'))||FaBHasType($f['object'],'Token'))return 0;$n=FaBMSTCount($p,'AMP');if($n)FaBMSTClear($p,'AMP');return $n;}
-function FaBMSTWardActive(object $o): bool {if($o->CardID==='touch_of_reality')return !HasNoAbilities($o)&&intval(FaBARCCard(intval($o->UniqueID),'penTouchTurn',-1))===intval(GetTurnNumber());return !HasNoAbilities($o)&&(preg_match('/\bWard\b/i',(string)CardFunctional_text_plain($o->CardID))||in_array('MST_WARD3',(array)($o->TurnEffects??[]),true));}
+function FaBMSTWardActive(object $o): bool {
+ if(HasNoAbilities($o))return false;
+ if($o->CardID==='touch_of_reality')return intval(FaBARCCard(intval($o->UniqueID),'penTouchTurn',-1))===intval(GetTurnNumber());
+ if($o->CardID==='empyrean_rapture'){
+  $ward=FaBARCCard(intval($o->UniqueID),'penWard',[]);
+  return in_array('DTD_WARD:1',(array)($o->TurnEffects??[]),true)||intval($ward['turn']??-1)===intval(GetTurnNumber());
+ }
+ return preg_match('/\bWard\b/i',(string)CardFunctional_text_plain($o->CardID))||in_array('MST_WARD3',(array)($o->TurnEffects??[]),true);
+}
 function FaBMSTWardRefs(int $p): array {return array_values(array_filter(array_merge(FaBChoiceRefs($p,'Arena'),FaBChoiceRefs($p,'Equipment')),fn($r)=>($f=FaBIdentityFromMZ($r))&&FaBMSTWardActive($f['object'])));}
 function FaBMSTBeforeClose(): void {foreach(FaBLiveSeats() as $p)foreach(FaBChoiceRefs($p,'CombatChain',['base'=>'eloquent_eulogy']) as $r){$o=FaBIdentityFromMZ($r)['object'];if(($o->Role??'')==='ATTACK'&&!HasNoAbilities($o))FaBRunSourceMacro('CombatChainClosed',$p,$o->CardID,[]);}}
 function FaBMSTPrepareBoost(int $p,object $o): bool {

@@ -1,0 +1,90 @@
+{
+  "status": "APPROVED",
+  "reviewer": "/root/b105_semantic_review",
+  "created_utc": "2026-10-26T12:38:47.047822+00:00",
+  "review_method": "Manual current printed-text/rules/source/complete authored-checkpoint review and static exact prefix/hash validation only. No simulator, certification, PHP or native execution.",
+  "scope": "Correct-expectation Haunting ordinal-trigger probe, deliberately rejecting current inline token creation; approval to attempt, not evidence of passing behavior.",
+  "input_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\haunting-rendition-correct-earned-trigger-probe\\haunting-rendition-correct-trigger-probe.json",
+  "input_sha256": "0e8f6bc6dd392d42fa103a3f10255cd0090bb210fada14609b20c17845434391",
+  "manifest_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\haunting-rendition-correct-earned-trigger-probe\\manifest.json",
+  "manifest_sha256": "602135fd5498381b67522157debc488d510703e6c00f76f0ff5e1efb42a3f4eb",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "source_spec": "card-regression-batch245-haunting-correct-trigger-probe.json",
+  "source_guards_verified": {
+    "FaBSim/Custom/GameLogic.php": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+    "FaBSim/Custom/ARCAbilities.php": "a2a3f79b1a2f100f27e9f768a23f55a32e41c73acd34b840bb252679aae63f1b",
+    "FaBSim/Custom/ROSCards.php": "d3cbb8b9cff7dd4bde041c619e153a239e97cc56dd45eb854186522da8982d95",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "FaBSim/Custom/MSTCards.php": "42f119459e4aec25ccba37a43a6891b5ba123195a23e58402bdd2723948b9a45",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/CardChoices.php": "fc3fd40fefb50afa1879b4f9d99383debcff5535f604deb3a20e55b4d4b8889a",
+    "FaBSim/Custom/WTRCards.php": "2b8c672f47413d475c8cc23fbbc3530c60b2e7f0f41f5bba8e52ffc5166a3ea4",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/MONCards.php": "61ffc3d4c3c446b33cac71828436e9b08badc76da4eb3a7208c43d2934e1bcb7",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/GameAuth.php": "b1c169fbb58e28703cca927dfed10c7b338c4e8d10b81dfe5449e472e016bb6c",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/ros_abilities.json": "b123b36f73a7bb45210eee6dcd4ce2326e2be071ef5366444376c9484e4ed229",
+    "DevTools/FaB/mst_abilities.json": "59a5ba6a1a8f5675cfaff2046994f93f4168d5ced0ecb55886dd61c6f427e0b8",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "dcd02e442313777e6c18ebce9528df5d42b38885f9e5ccd12cda1dca02753fa6"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "cardID": "haunting_rendition_red",
+      "group_id": "identity:haunting_rendition_red",
+      "slug": "card-haunting-rendition-red-four-live-sparse-correct-earned-prevention-trigger-four-responses",
+      "actions": 31,
+      "manual_passes": 28,
+      "persistable_authored_checks": 822,
+      "correct_expectations_approved": true,
+      "native_attempted": false
+    }
+  ],
+  "total_actions": 31,
+  "total_manual_passes": 28,
+  "total_persistable_assertions": 822,
+  "author_only_assertions": 0,
+  "unchanged_prefix": {
+    "original_source": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse245-v2-pre-freeze-source-oracle-correction\\batch245-two-ready-cases.json",
+    "original_sha256": "420155a0681aa787046d6a0bc5031774a8c15109c6702f11c16683dd81a0e277",
+    "original_case_index": 0,
+    "source_steps_0_through_52_deep_equal": true
+  },
+  "printed_evidence": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\haunting_rendition_red.webp",
+    "sha256": "95a2e9c4d03e0d229a24a81cb6d64675edb27121d309eaae8585747dbddfa683",
+    "viewed": true,
+    "current_text_url": "https://judge.fabtcg.com/cards/detail/3371/"
+  },
+  "rules": {
+    "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+    "basis": [
+      "6.4.10 prevention modifies incoming damage.",
+      "6.6.1 ordinal-time clause is a triggered effect, separate from that prevention.",
+      "6.6.5/6.6.6 earned layer is added before the next priority."
+    ]
+  },
+  "manual_findings": [
+    "Four legal living Dori/Dori/Dori/Florian20 seats, UPF active1234/no passive. Actual P1 zero-cost Wounding6 targetP4 pays AP1; P4 gains real priority after three source responses. Actual HandRendition5 zero Instant discards physical5 to own public GY before response, creating ability7 controlled4/source5. Four real4/1/2/3 responses establish prevention2 without Rune and preserve underlying attack6. All of this prefix is unchanged from independently inspected original proposal.",
+    "Fresh official text and current CR distinguish two results: incoming4 is prevented2 so P4HP18, while first prevention earns a separate Runechant trigger. No token is created until that layer resolves. The corrected first boundary requires one trigger8 CardIDHaunting/Controller4/SourceUID5/KindABILITY with source5 in publicGY and attack6 physically on chain; no SourceZone or future event-parameter oracle is invented.",
+    "Current normal damage path gives turn-player1 the next priority, so correct trigger responses are1/2/3/4. Firstthree preserve HP18/Arena0/source5/attack6, fourth creates exactly one owned/controller4 Runechant9 and returns DAMAGE/priority1. Florian has no four Earth banishes, so no token multiplicity replacement applies.",
+    "FourthREACTION stop is deliberately priority-only, supported by existing recorder, then immediately tests Stack1. It cannot auto-pass through the queued trigger. If current old inline implementation returns DAMAGE1/Stack0/Rune8, it must fail; that is not accepted as passing behavior.",
+    "Expected UID8 is the next virtual after earlier ability7; Rune9 is next only after trigger. All original cost/prevention/math/physical ownership and all four actual seat responses are retained; new case adds only required delayed resolution flow.",
+    "All822 authored checks are supported persisted types and current schema fields. Full initial/final zones/life/AP/resources/publicGY/attack source/Rune ownership are explicit. No synthetic damage, AP, counters, histories, private frame API or preseeded effect."
+  ],
+  "source_context": [
+    "ROSCards18 existing FaBROSQueue supports captured source UID/controller.",
+    "GameLogic damage path initializes combatStepDAMAGE, rereads state after DoDamage and returns turn-player priority, allowing queued trigger window to survive.",
+    "Current ROSCards48-49 creates token inline; this is the inspected source concern that the correct native probe is intended to confirm. No source code is approved or modified by this spec proof."
+  ],
+  "qualification_limits": [
+    "No native attempt/result, confirmed gameplay bug count or coverage credit claimed yet. Root alone attempts the probe and saves only if correct expectations pass.",
+    "Actual saved review and targeted replay qualification remain separate gates after any independently approved source repair.",
+    "Positive first-prevention case only; no second packet, expiry, suppression, source-leave variant, pitch sibling, Runechant attack or full-card credit.",
+    "Original420155 two-case draft and its rejected inline oracle remain preserved; healthy Zen was separated under its own exact approval.",
+    "No PHP/native execution or repository writes by reviewer."
+  ]
+}

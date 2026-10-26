@@ -1,0 +1,352 @@
+{
+  "status": "QUALIFIED_PARTIAL_INDEPENDENT_ACTUAL_SAVED_REVIEW_TWO_CLEAN_REPLAYS",
+  "reviewer": "/root/b104_saved_review",
+  "utc": "2026-10-26T10:59:04.915499+00:00",
+  "method": "Manual printed/current-rule/source rationale reused, exact saved native action/assertion stream comparison at all27checkpoints, schema positional initial/final endpoint verification and raw5 hashes. Static actual generated-byte comparison only; no new game/native/PHP/model execution.",
+  "input_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch240-chane-correct-probe.json",
+  "input_sha256": "9dac9b0da6a18dcc4d6554de5def0cea768431406610c2c56f838c000192f3f7",
+  "source_spec": "card-regression-batch240-chane-correct-probe.json",
+  "source_spec_sha256": "9dac9b0da6a18dcc4d6554de5def0cea768431406610c2c56f838c000192f3f7",
+  "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+  "fixtures": [
+    {
+      "slug": "card-chane-four-live-correct-activation-soul-shackle-cost-before-responses-and-real-shadow-go-again",
+      "source_case_index": 0,
+      "semantically_approved": true,
+      "verdict": "APPROVED_PARTIAL_NATIVE_YOUNG_CHANE_COST_THEN_RESOLUTION_AND_ACTUAL_SHADOW_ATTACK",
+      "source_spec": "card-regression-batch240-chane-correct-probe.json",
+      "source_spec_sha256": "9dac9b0da6a18dcc4d6554de5def0cea768431406610c2c56f838c000192f3f7",
+      "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "recorded_runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "actions": 25,
+      "native_assertions": 733,
+      "manual_passes": 21,
+      "manual_pass_actor_sequence": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "priority_passes": 20,
+      "defense_declaration_finish_inputs": 1,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "eb06f783dd39910d0b9719139fc7b45a661f92efb3fd9cfe403f9d192f3ffea0",
+        "actions.json": "f32b253d7bc196d15283774fdfeb267a6be6f10fb3e4b854d4aa8e0aa8b320de",
+        "assertions.json": "e8af7d498e66e37092b7d032dd6f8258db167a953851c3a34871339d679a5b54",
+        "expected_final_gamestate.txt": "393acc7a1a921c8f93eacd1839fb945222153d1ce4c8f526817614d1e701bdeb",
+        "meta.json": "4b395901a9a693b09dc9fd6e534b8706a63689b4421d4643917d6e4bab682d3e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "eb06f783dd39910d0b9719139fc7b45a661f92efb3fd9cfe403f9d192f3ffea0",
+        "actions.json": "f32b253d7bc196d15283774fdfeb267a6be6f10fb3e4b854d4aa8e0aa8b320de",
+        "assertions.json": "e8af7d498e66e37092b7d032dd6f8258db167a953851c3a34871339d679a5b54",
+        "expected_final_gamestate.txt": "393acc7a1a921c8f93eacd1839fb945222153d1ce4c8f526817614d1e701bdeb",
+        "meta.json": "4b395901a9a693b09dc9fd6e534b8706a63689b4421d4643917d6e4bab682d3e"
+      },
+      "fixture_sha256": "6cabf4b3801acffbba51ca0c4fbcbad7ab40948ae50993f89ed01ae0e636430d",
+      "checkpoints": [
+        {
+          "source_step": 0,
+          "native_action_count": 0,
+          "assertion_start": 0,
+          "assertions": 117,
+          "checkpoint": "full_initial_four_live_legal_young_Shadow_Runeblade_and_real_Hand_funding"
+        },
+        {
+          "source_step": 2,
+          "native_action_count": 1,
+          "assertion_start": 117,
+          "assertions": 40,
+          "checkpoint": "correct_physical_Soul_Shackle_COST_exists_before_FIRST_response_after_AP_asset_paid"
+        },
+        {
+          "source_step": 4,
+          "native_action_count": 2,
+          "assertion_start": 157,
+          "assertions": 27,
+          "checkpoint": "real_hero_ability_responses_no_duplicate_cost_token_actual_responder_1"
+        },
+        {
+          "source_step": 6,
+          "native_action_count": 3,
+          "assertion_start": 184,
+          "assertions": 27,
+          "checkpoint": "real_hero_ability_responses_no_duplicate_cost_token_actual_responder_2"
+        },
+        {
+          "source_step": 8,
+          "native_action_count": 4,
+          "assertion_start": 211,
+          "assertions": 27,
+          "checkpoint": "real_hero_ability_responses_no_duplicate_cost_token_actual_responder_3"
+        },
+        {
+          "source_step": 10,
+          "native_action_count": 5,
+          "assertion_start": 238,
+          "assertions": 21,
+          "checkpoint": "real_hero_ability_responses_no_duplicate_cost_token_actual_responder_4"
+        },
+        {
+          "source_step": 12,
+          "native_action_count": 6,
+          "assertion_start": 259,
+          "assertions": 20,
+          "checkpoint": "actual_next_Shadow_Action_target_preflight_AFTER_ability_resolution"
+        },
+        {
+          "source_step": 14,
+          "native_action_count": 7,
+          "assertion_start": 279,
+          "assertions": 21,
+          "checkpoint": "actual_Shadow_Action_normal_PITCH_empty_DQ"
+        },
+        {
+          "source_step": 16,
+          "native_action_count": 8,
+          "assertion_start": 300,
+          "assertions": 32,
+          "checkpoint": "actual_Blue_three_pays_Shadow_one_leaves_two_and_resolved_Chane_grants_go_again"
+        },
+        {
+          "source_step": 18,
+          "native_action_count": 9,
+          "assertion_start": 332,
+          "assertions": 21,
+          "checkpoint": "real_Shadow_attack_layer_actual_responder_1"
+        },
+        {
+          "source_step": 20,
+          "native_action_count": 10,
+          "assertion_start": 353,
+          "assertions": 21,
+          "checkpoint": "real_Shadow_attack_layer_actual_responder_2"
+        },
+        {
+          "source_step": 22,
+          "native_action_count": 11,
+          "assertion_start": 374,
+          "assertions": 21,
+          "checkpoint": "real_Shadow_attack_layer_actual_responder_3"
+        },
+        {
+          "source_step": 24,
+          "native_action_count": 12,
+          "assertion_start": 395,
+          "assertions": 22,
+          "checkpoint": "real_Shadow_attack_layer_actual_responder_4"
+        },
+        {
+          "source_step": 26,
+          "native_action_count": 13,
+          "assertion_start": 417,
+          "assertions": 14,
+          "checkpoint": "real_attack_priority_actual_responder_1"
+        },
+        {
+          "source_step": 28,
+          "native_action_count": 14,
+          "assertion_start": 431,
+          "assertions": 14,
+          "checkpoint": "real_attack_priority_actual_responder_2"
+        },
+        {
+          "source_step": 30,
+          "native_action_count": 15,
+          "assertion_start": 445,
+          "assertions": 14,
+          "checkpoint": "real_attack_priority_actual_responder_3"
+        },
+        {
+          "source_step": 32,
+          "native_action_count": 16,
+          "assertion_start": 459,
+          "assertions": 14,
+          "checkpoint": "real_attack_priority_actual_responder_4"
+        },
+        {
+          "source_step": 34,
+          "native_action_count": 17,
+          "assertion_start": 473,
+          "assertions": 15,
+          "checkpoint": "actual_defender_declines_blocks"
+        },
+        {
+          "source_step": 36,
+          "native_action_count": 18,
+          "assertion_start": 488,
+          "assertions": 14,
+          "checkpoint": "real_defend_priority_actual_responder_1"
+        },
+        {
+          "source_step": 38,
+          "native_action_count": 19,
+          "assertion_start": 502,
+          "assertions": 14,
+          "checkpoint": "real_defend_priority_actual_responder_2"
+        },
+        {
+          "source_step": 40,
+          "native_action_count": 20,
+          "assertion_start": 516,
+          "assertions": 14,
+          "checkpoint": "real_defend_priority_actual_responder_3"
+        },
+        {
+          "source_step": 42,
+          "native_action_count": 21,
+          "assertion_start": 530,
+          "assertions": 14,
+          "checkpoint": "real_defend_priority_actual_responder_4"
+        },
+        {
+          "source_step": 44,
+          "native_action_count": 22,
+          "assertion_start": 544,
+          "assertions": 15,
+          "checkpoint": "real_reaction_priority_actual_responder_1"
+        },
+        {
+          "source_step": 46,
+          "native_action_count": 23,
+          "assertion_start": 559,
+          "assertions": 15,
+          "checkpoint": "real_reaction_priority_actual_responder_2"
+        },
+        {
+          "source_step": 48,
+          "native_action_count": 24,
+          "assertion_start": 574,
+          "assertions": 15,
+          "checkpoint": "real_reaction_priority_actual_responder_3"
+        },
+        {
+          "source_step": 50,
+          "native_action_count": 25,
+          "assertion_start": 589,
+          "assertions": 15,
+          "checkpoint": "real_reaction_priority_actual_responder_4"
+        },
+        {
+          "source_step": 51,
+          "native_action_count": 25,
+          "assertion_start": 604,
+          "assertions": 129,
+          "checkpoint": "full_final_ONE_cost_token_and_real_granted_Shadow_go_again_attack_damage"
+        }
+      ],
+      "recorder_only_checks": 0,
+      "full_actions_and_assertions_exact": true,
+      "actual_initial_sha256": "eb06f783dd39910d0b9719139fc7b45a661f92efb3fd9cfe403f9d192f3ffea0",
+      "same_initial_and_first_input_as_native_before": true,
+      "manual_preferences_per_endpoint": 48,
+      "raw5_unchanged_during_review": true,
+      "meaningful_outcome": {
+        "before_responses": "After one actual Hero activation, original first corrected oracle Stack cost is now Arena1 with exact SoulShackle8/Owner1/Controller1/Status2, ABI7 captures Hero1, payment cleared/AP0/R0 before any pass.",
+        "responses": "Saved pass actors1,2,3 retain one token and ABI/AP0; fourth actor4 clears ABI and restores AP1. No second token created.",
+        "benefit": "Only then real GhostlyVisit5 from Hand announces/targetsP4; actual Blue6pitch3 pays1/R2/AP0; physical Ghost gets GO_AGAIN although printed card has none.",
+        "damage": "All4 manual attack/defend/reaction flows reach DAMAGE with actual printed4 power, no defense, physical P4HP16; one Shackle8 remains, Heroonce counter ARC_USED_0turn2, Blue6Pitch, Ghost5 current chain, Stack/DQs/payment/activeframes empty.",
+        "endpoint": "DAMAGE/open chain; AP0 before Ghost later go-again refund. Other3heroes20, no cleanup/turn-end claim."
+      },
+      "limits": [
+        "Exact young Chane ordinary positive only; adult source migration receives no native coverage credit.",
+        "No direct intermediate whole-turnEffects assertion pins absence of next-action grant before fourth response. Own AP timing/source layer retention is directly pinned; benefit is exercised only after fourth response and body source was independently reviewed.",
+        "Preach/unavailable-cost/reentry/rollback/modified-cost/adult identity are focused actual-helper contracts with explicit boundary doubles, not native gameplay coverage.",
+        "No secondactivation rejection, EOT token banish/BloodDebt, alternate recipients, complex replacements, cleanup, sibling/support-primary or full-card credit.",
+        "Native red/green same correct recipe provides causal repair evidence; no isolated helper fault claimed."
+      ]
+    }
+  ],
+  "blocked_attempts": [],
+  "manual_source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse240-chane-correct-cost-probe-manual-source-approval.json",
+    "sha256": "8e550660fd888d2ad0136761688ba8a6753713512e8adb7b2e7cc08c37230c4c"
+  },
+  "source_repair_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\chane053-v2-independent-source-approval.json",
+    "sha256": "3debff0ab316ff3eb347d77503f3d1b85b282af7cbe435bd621b9659a66bb26e"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch240-chane-correct-probe-20261026T105108Z-6adf309c9dd54.json",
+    "sha256": "b499d2c59c3277e1cdc8bf85f50e0f5560c4de87d05bcc51689ee31ab24073a7"
+  },
+  "two_clean_root_replays": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-chane053-507e-postfix-r1.json",
+      "sha256": "664ed8b7ed35b8f61bac33743c7d3483415f0da51d950a30047ec4d0d653c1b7",
+      "passed": 1,
+      "failed": 0,
+      "preservation_scope": "selected Chane only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-chane053-507e-postfix-r2.json",
+      "sha256": "720c5ec7357f905ec3ae0d78fb656139f0ff5c1bbe2948fe33595dd21ac78146",
+      "passed": 1,
+      "failed": 0,
+      "preservation_scope": "selected Chane only"
+    }
+  ],
+  "focused_existing_compatibility": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-chane053-ordinary-hero-action-507e-compat.json",
+    "sha256": "9b11d2317bf55950a7ccd98ba9be17be13574c54426f6e8017cd6836a26a9077",
+    "passed": 1,
+    "scope": "One existing Kavdaen ordinary paid HeroAction after ARCActivate caller changed; no other241 cards or oldPrism native rerun claimed."
+  },
+  "generated_gate_review": {
+    "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\chane053-application-generation\\receipt.json",
+    "receipt_sha256": "840856f13505d055074fed07318a206bd0326292b04c357807fade04f020c2ca",
+    "independently_verified_actual_bytes": "Exactly two existing Chane Resolve wrappers lose only creation statement+explicit one indent; MON_CHANE/params/comment/registrations stay exact. All outside PHP bytes exact except one timestamp; Count body exact except one timestamp. Six actual applied source hashes match reviewed V2.",
+    "generated_php_sha256": "dcd02e442313777e6c18ebce9528df5d42b38885f9e5ccd12cda1dca02753fa6",
+    "count_js_sha256": "1c8634880fcbb14d9c9ef007f27c1a4651d3c62cc9ef598194e52baaa7c38c31",
+    "remote_preflight_and_generator_returncode": 0,
+    "remote_writes_reported": false
+  },
+  "component_reference": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\chane053-actual-payment-component-proposed\\root-component-results.json",
+    "sha256": "e7a6bb7a19fb0c4a052066456319a4b3bea1cb8c06a307a5ca93762f78d699cc",
+    "actual_root_passed_groups": 44,
+    "actual_root_assertions": 486,
+    "old31_assertion_counts_preserved": true,
+    "old31_case_bodies_preserved": "Independently source-reviewed exact block;13additive Chane groups.",
+    "limits": "Actual extracted20functions plus explicit token-count/factory/Undo/transport/activeArena boundaries; no native factory/activation/adult claim from components."
+  },
+  "native_before": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\chane-053-cost-order-native-before.json",
+    "sha256": "d81b7fd1e427d05639f9cf1e31764e28adf4e5ba3ebcfcee175578a9487e9d10",
+    "same_input_sha256": "9dac9b0da6a18dcc4d6554de5def0cea768431406610c2c56f838c000192f3f7",
+    "same_initial_sha256": "eb06f783dd39910d0b9719139fc7b45a661f92efb3fd9cfe403f9d192f3ffea0",
+    "same_actual_first_input": true,
+    "first_failure": "Expected p1Arena count1 got0 before any response; no fixture saved.",
+    "limits": "Original failure aborted first arena oracle; no separately captured original postaction AP/resource scalar claimed."
+  },
+  "recommended_issue053_closure": {
+    "status": "FIXED_QUALIFIED_BOUNDED_YOUNG_CHANE_POSITIVE",
+    "root_cause_classification": "Existing039 prepared_effect_costs caller migration extension, not new distinct root-cause family.",
+    "counting": "Do not inflate distinct-family total; adult and unexercised edges remain limits.",
+    "scope": "Native timing token-as-cost + own fourth-responseGA + earned actualShadowGO_AGAIN/damage, with exact generated gate and44componentgroups; full-suite not run."
+  },
+  "operational_note": "Parent reported postrecord wrapper read wrong236 results and aborted after completed recording. Immutable Chane recording receipt/raw5 verify successful save; only targeted replays resumed, no repeated recording claimed.",
+  "full_suite_run": false,
+  "native_execution_by_reviewer": 0,
+  "php_execution_by_reviewer": 0,
+  "repository_writes_by_reviewer": 0,
+  "optional_rules_simulation": 0,
+  "raw5_preserved": true
+}

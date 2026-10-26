@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch255.json",
+  "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T16:55:10.325759+00:00",
+  "fixtures": [
+    {
+      "slug": "card-aetherize-blue-four-live-sparse-real-paid-opposing-instant-negation-before-healing",
+      "fixture_sha256": "7e9ab0f281ed6c513ea18e55fcf4428c42f4f4651293c02889f5cfec355df242",
+      "passed": true,
+      "result": "[PASS] aetherize_blue / real paid opposing Instant negation before healing"
+    },
+    {
+      "slug": "card-aether-wildfire-red-four-live-sparse-real-offturn-four-damage-increases-next-action-blue-arcane-to-five",
+      "fixture_sha256": "d3b94ba0f0bada6793f2bd5d6376dadeb5bdef7acc63586cd9d5c3b4a1292e1c",
+      "passed": true,
+      "result": "[PASS] aether_wildfire_red / real off-turn four damage increases next action arcane by four"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-aetherize-blue-four-live-sparse-real-paid-opposing-instant-negation-before-healing",
+      "returncode": 0,
+      "stdout": "[PASS] aetherize_blue / real paid opposing Instant negation before healing\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-aether-wildfire-red-four-live-sparse-real-offturn-four-damage-increases-next-action-blue-arcane-to-five",
+      "returncode": 0,
+      "stdout": "[PASS] aether_wildfire_red / real off-turn four damage increases next action arcane by four\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

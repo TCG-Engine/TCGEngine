@@ -1,0 +1,25 @@
+{
+  "utc": "2026-10-26T13:05:19.586577+00:00",
+  "status": "APPLIED_SYNTAX_22_COMPONENT_CONTRACTS_PASS_NATIVE_QUALIFICATION_PENDING",
+  "source_files": [
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "before_sha256": "d3cbb8b9cff7dd4bde041c619e153a239e97cc56dd45eb854186522da8982d95",
+      "after_sha256": "12bdf8c17c7781d949dd424e2e007d5b07d582135934e98a6a3f5fedb2a2cb00",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\haunting055-prevention-token-trigger-proposed-v2-empty-token-preservation\\candidate\\FaBSim\\Custom\\ROSCards.php",
+      "eol": "CRLF retained",
+      "before_crlf_lines": 85,
+      "after_crlf_lines": 144
+    }
+  ],
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\haunting055-source-application\\backup\\FaBSim\\Custom\\ROSCards.php",
+  "backup_sha256": "d3cbb8b9cff7dd4bde041c619e153a239e97cc56dd45eb854186522da8982d95",
+  "runtime_before_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "source_review_sha256": "cde0d749cd25c4c3ad2cd90071c8197c3777090d8ba84152fb3549ff087c786b",
+  "component_review_sha256": "ddd6c38b5a61403beb93c355bafd9d7b43d680832480e80ad1ddf8eb5941f491",
+  "component_results_sha256": "41070c43859d4df033e7586265db41f315df84bad1b990cc5bd783b7d13ac733",
+  "core_changed": false,
+  "generated_files_changed": false,
+  "full_suite_run": false,
+  "runtime_after_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b"
+}

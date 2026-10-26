@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-26T02:43:27+00:00",
+    "input_file": "card-regression-batch217.json",
+    "input_sha256": "376b237a1f1bb92e38739fc044f2b7a8a1aa18f848030ef897fda4f2a1a4e8c9",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 38,
+            "assertions": 2648
+        },
+        {
+            "slug": "card-quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 30,
+            "assertions": 2173
+        }
+    ]
+}

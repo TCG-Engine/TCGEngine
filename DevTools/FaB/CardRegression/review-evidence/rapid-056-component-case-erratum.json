@@ -1,0 +1,84 @@
+{
+  "status": "EXPLICIT_COMPONENT_EXPECTATION_ERRATUM_NOT_NATIVE_ORACLE_CHANGE",
+  "original_file": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\printed_keyword_cases.json",
+    "sha256": "1980e97c4f365c452ef91e7bdcb3e76a39784395298c6b0eb8b4a7d3b72d95ca"
+  },
+  "preserved_exact_backup": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire249-shared-printed-keyword-proposed\\printed_keyword_cases.original.json",
+    "sha256": "1980e97c4f365c452ef91e7bdcb3e76a39784395298c6b0eb8b4a7d3b72d95ca"
+  },
+  "index": 25,
+  "before": {
+    "name": "metadata_gate_must_remain",
+    "text": "Go again",
+    "keyword": "Go again",
+    "has_keyword": false,
+    "expected": false
+  },
+  "after": {
+    "name": "standalone_own_text_does_not_require_metadata_membership",
+    "text": "Go again",
+    "keyword": "Go again",
+    "has_keyword": false,
+    "expected": true
+  },
+  "changed_leaves": [
+    "cases[25].name",
+    "cases[25].expected"
+  ],
+  "reason": "Original synthetic premise metadata_gate_must_remain conflicts with confirmed actual RapidFire standalone own Go again that metadata omits. Current official text, actual catalog and native AP1 expectation require text to be authoritative for unambiguous own sentences. Other31 original cases identical;7 additional cases preserve quote/grant/conditional/emptyfallback boundaries.",
+  "native_expectations_changed": false,
+  "added_cases": [
+    {
+      "name": "actual_rapid_fire_separate_own_line_with_metadata_missing",
+      "card_id": "rapid_fire_yellow",
+      "text": "Until end of turn, arrows you control get go again.\nReload\nGo again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": true
+    },
+    {
+      "name": "metadata_missing_grant_only_still_not_own_keyword",
+      "text": "Until end of turn, arrows you control get go again.\nReload",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "metadata_missing_quoted_only_still_not_own_keyword",
+      "text": "Your next attack gets \"Draw a card. Go again.\"",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "metadata_missing_wrapped_conditional_comma_stays_clause",
+      "text": "If this is charged,\nGo again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "metadata_missing_wrapped_grant_colon_stays_clause",
+      "text": "Your next attack gets:\nGo again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": false
+    },
+    {
+      "name": "metadata_missing_quote_then_real_own_keyword_still_detected",
+      "text": "Your next attack gets \"When this hits, draw a card.\" Go again",
+      "keyword": "Go again",
+      "has_keyword": false,
+      "expected": true
+    },
+    {
+      "name": "empty_dominate_still_requires_metadata_membership",
+      "text": "",
+      "keyword": "Dominate",
+      "has_keyword": false,
+      "expected": false
+    }
+  ]
+}

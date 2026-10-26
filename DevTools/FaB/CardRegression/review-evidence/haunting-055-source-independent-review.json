@@ -1,0 +1,118 @@
+{
+  "reviewer": "/root/b104_saved_review",
+  "approved": true,
+  "source_approved": true,
+  "status": "BOUNDED_SOURCE_PROPOSAL_APPROVED_UNAPPLIED_ROOT_COMPONENT_NATIVE_GATES_REQUIRED",
+  "runtime_before_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "proposal": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\haunting055-prevention-token-trigger-proposed-v2-empty-token-preservation\\proposal.json",
+  "proposal_sha256": "135ec52de63e75fe98a524f533260caa57990f2d7dfd43e5c70cdd04d51dc526",
+  "diff_sha256": "964e2baa4c797fc4a1a172a2cd7fa2cd1a0b25448da29eadc5e431d4c9a626a8",
+  "strict_anchors_sha256": "3cdf3841e87617a1e0ae52222e3bb9b332dead0970086cf9715dbd4671a35d40",
+  "files": [
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "before_sha256": "d3cbb8b9cff7dd4bde041c619e153a239e97cc56dd45eb854186522da8982d95",
+      "after_sha256": "12bdf8c17c7781d949dd424e2e007d5b07d582135934e98a6a3f5fedb2a2cb00",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\haunting055-prevention-token-trigger-proposed-v2-empty-token-preservation\\candidate\\FaBSim\\Custom\\ROSCards.php",
+      "eol": "CRLF retained",
+      "before_crlf_lines": 85,
+      "after_crlf_lines": 144
+    }
+  ],
+  "source_guards_verified": {
+    "FaBSim/Custom/GameLogic.php": "706caa1ff28dedb0c9a0e3fdf2d7b8ca1deb02dfb6f131825b10b99ea8e372b3",
+    "FaBSim/Custom/ARCAbilities.php": "a2a3f79b1a2f100f27e9f768a23f55a32e41c73acd34b840bb252679aae63f1b",
+    "FaBSim/Custom/WTRCards.php": "2b8c672f47413d475c8cc23fbbc3530c60b2e7f0f41f5bba8e52ffc5166a3ea4",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/ros_abilities.json": "b123b36f73a7bb45210eee6dcd4ce2326e2be071ef5366444376c9484e4ed229",
+    "DevTools/FaB/build_ros_abilities.py": "772cf758cb896edc2925f79a44d5f5c4bb2cf0c88ad673429527c15722550a36",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "dcd02e442313777e6c18ebce9528df5d42b38885f9e5ccd12cda1dca02753fa6",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+  },
+  "method": "Independent manual printedface/currentofficialCR/sourcebinding/lifecycle/factory/once-path review; strict3anchor reconstruction/hash checks are statictext only. NoPHP/native/models/repositorymutation.",
+  "rules": {
+    "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+    "checked_utc": "2026-10-26",
+    "paragraphs": [
+      "6.2.2a",
+      "6.4.10a",
+      "6.4.10j",
+      "6.6.1",
+      "6.6.5",
+      "6.6.5d",
+      "6.6.6"
+    ],
+    "finding": "Granted prevention remains a shield; first positive prevention earns the separate ordinal triggered layer, which is queued before priority and resolves after responses. A granted lasting effect and earned event do not require its original physical Block to remain inhand or retainabilities."
+  },
+  "printed_faces_independently_viewed": {
+    "haunting_rendition_red": "95a2e9c4d03e0d229a24a81cb6d64675edb27121d309eaae8585747dbddfa683",
+    "mental_block_blue": "686a03905bfdc670f7a4ff6421df1d53fb158b47655d37e004809726108b81d5"
+  },
+  "findings": [
+    "Exact1ROSCards CRLFcandidate reconstructed from currentd3cbb using3uniqueanchors, nootherfile/codegen/canonical/Corechanges. All9dependencyguardsmatch current5880.",
+    "Origin captures actualliveARC_ABILITY pendingmarker1553\u20131563 and matchingStackABI via actualManagedOwns, validatesABIuid/card/controller/SourceUID and arcSpecCardID. Physicalsource5mayalreadybeownGYafterdiscardcost; source lookup/mutableDQV/latestcard/token-to-card guess neverneeded. PositiveSourceUID/grantUID prevent inventedsource0.",
+    "Eachactualgrant storescaptured controller=creator=owner p, CardID/sourceUID/grantUID/token/actionCardEffect. Both currentnonemptytoken sources are Block, so actionCardEffect=false ratherthan the later attackingAction/otherDQV context. CurrentHVYfactory calledwith explicitcapturedcontroller/owner/class and unchangedreplacements.",
+    "Onlyactualpositiveprevent consumesfirsttokenmarker. Partialshield amountleft remainsusable; firsttoken+originremoved; fullexhaustedgrantremoved. EntireupdatedbucketpersistedBEFORE any queue callback; callbackreentry/repeateddamage cannotreearn marker oroverwritenewerstate with staledata. Independentgrants remainseparate.",
+    "NamedrosPreventionToken dispatch returnsbefore oldsourcebody; createscapturedtokenonce viaexistingHVYfactory. Doesnot replayResolveAbility/regrantPREVENT or requireoldphysicalsourcepresent/unsuppressed/samecontroller. QueueusescapturedCardID/sourceUID/controller and remainsresponseableexistingROS infrastructure.",
+    "No-token PREVENT/SHELTER/SOURCE/BRUSH logic unchanged. ThreecanonicalTripemptystring token callers bypassorigin capture andremainordinaryprevention. Canonicalnonemptytoken callersHauntingRed/MentalBlue alreadyexecuteinsidecorrectnativeResolveAbilitymanagedcontext; no generationneeded."
+  ],
+  "explicit_failure_contract": {
+    "decision": "Acceptable boundedfailclosed contract for impossible/newlyinvalid executioncontext; no guessedlegacy-save migration or swallowed inline fallback. Must be disclosed as compatibilitylimit and component-tested beforeapply.",
+    "fresh_grant_missing_or_corrupted_origin": "ThrowsbeforeFaBWTRAddEffect; nograntstored. Existingnativecanonicalnonemptytoken producers satisfycapturedABIcontext; emptytoken callersdo not requireit.",
+    "preexisting_metadata_free_or_corrupted_token_grant": "Atfirstpositiveprevention throwsbeforeFaBWTRSetEffects/queue (no silentprevention/tokenchoice); localamountcalculationisnotpersisted. This blocks unsupported oldactivegrants ratherthan inventingcontroller/SourceUID0. It is not an atomicrollback of unrelatedearlierDoDamage work; do notclaimwholetransactionrecovery.",
+    "malformed_earned_trigger_at_resolution": "Validationreturnswithoutcreatingtoken. Livevalidpayload retainscapturedresult ifphysicalsourcegone/suppressed/recontrolled. No arbitrarymetadata tamper-resilience proofclaimed.",
+    "limits": "No old-in-progress-save automaticmigration, rollbackofall externalcallbackfailures, eliminatedcontroller/replacementorder/duplicateQueueinvocation/serializationcorruptionmatrixcertification."
+  },
+  "caller_inventory": [
+    {
+      "cardID": "haunting_rendition_red",
+      "macro": "ResolveAbility",
+      "code": "FaBROSAdd($player, 'PREVENT', 2, ['token'=>'runechant']);\n"
+    },
+    {
+      "cardID": "mental_block_blue",
+      "macro": "ResolveAbility",
+      "code": "FaBROSAdd($player, 'PREVENT', 2, ['token'=>'ponder']);\n"
+    },
+    {
+      "cardID": "trip_the_light_fantastic_red",
+      "macro": "ResolveAbility",
+      "code": "FaBROSAdd($player, 'PREVENT', 2, ['token'=>'']);\n"
+    },
+    {
+      "cardID": "trip_the_light_fantastic_yellow",
+      "macro": "ResolveAbility",
+      "code": "FaBROSAdd($player, 'PREVENT', 2, ['token'=>'']);\n"
+    },
+    {
+      "cardID": "trip_the_light_fantastic_blue",
+      "macro": "ResolveAbility",
+      "code": "FaBROSAdd($player, 'PREVENT', 2, ['token'=>'']);\n"
+    }
+  ],
+  "native_before": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\haunting-055-native-before.json",
+    "sha256": "c1d950d82c1d1a6ab6495563c02f0daa328018c6f1535805e908d3a1707dc219",
+    "scope": "Exactly27acceptedinputs firstcorrectStack1oraclegot0. No passingfixture; laterphysicalRuneArena/HP/triggerresponsesunreached andnotinferred."
+  },
+  "classification": {
+    "existing_root_family_extension": true,
+    "finding": "Prevention-grant caller/earnedordinal event added to existingresponseableROSqueue/dispatcher family; new origin+pergrant-once data contract is scoped sharedwork, not a newgenerictriggerframework/rootcount byitself. Preserve055identity/evidence asadditionalcallerextension.",
+    "fixed_count_credit_now": 0,
+    "native_card_credit_now": 0,
+    "mental_block_blue": "Source-only commonproducer, unattempted/uncredited. Pitchsiblingsandfullcardsunverified.",
+    "after_root_qualification": "OneHauntingRed representative plusoneexistingtrigger-familyextension; parentledger remainsauthoritative, no extra independentfamily solelyfornewdispatchbranch."
+  },
+  "required_root_gates": [
+    "Lint exactcandidate; additiveexistingqueued_card_trigger_component actualhelpers preserveoldcases and testoriginmismatch/SourceUID0/controller/spec corruption, partial/repeat/two-grant/reentrantonce, no-positiveprevent, capturedowner/actionfalse, missingphysicalsource, malformedpayload.",
+    "Explicit componentcases: existingemptytoken ordinaryoutsideABI path unchanged; metadatafree nonemptytoken failsbeforebucketwrite/queue; freshinvalidorigin failsbeforegrantwrite. Validateactualsharedfunctions withhonestboundaries, no stubbedalgorithm successclaim.",
+    "GuardoneROSCardsapplyonly, externalbackup/rollbackmanifest; no generated/Core/networkmutation.",
+    "Rununchanged0e8fcorrect31inputprobe, actualindependentraw5 review then2new-onlyreplays. Noexpectationweakening; rootmayreuseordinaryuntokenedpreventionfocusedcompat+existingcomponentcases, nofullsuite."
+  ],
+  "limits": [
+    "Sourceapprovalonly; allruntimeoperationsstillunapplied/unexecutedbyreviewer. No PHP/native/R writes/optionalpaper model.",
+    "Otherpreventioncombination/order, firsteventhistorybeforegrant, sourcechangingkind, doubletriggerresolution, tokenreplacement/Mordred/Flori matrices notnativecertified. ExistingHVYfactorybehavior reused."
+  ]
+}

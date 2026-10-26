@@ -1,7 +1,7 @@
 # Sparse four-player first pass
 
 <!-- SPARSE-CURRENT-20261025 -->
-> **26 October current progress:** 3,420 saved scenarios (3,074 duels +346 four-live); recorded primary subjects579/5,196 IDs and453/3,324 groups. Fifty-seven new representatives qualified at their actual batch contexts,114 targeted creation passes,26 native controls detected. Four new distinct gameplay fix groups plus two existing lifetime-family extensions; no full-suite run. [Current progress/index](SPARSE_PROGRESS_20261025.md) distinguishes current replay evidence, exact branches and historical byte-binding limits.
+> **26 October, latest registration batch254-canonical-combat-windows:** 3,521 saved/registered scenarios (3,074 duels +447 four-live), 677 recorded primary IDs/5,196 and 551 groups/3,324. This phase qualified 158 scenarios across 155 groups at their stated runtimes. 8 new gameplay defect groups fixed, plus 8 existing-family extensions. No full-suite run. [Progress and current lookup](SPARSE_PROGRESS_20261025.md) preserves exact branches, untested siblings and historical contexts.
 
 <!-- REPAIR-HANDOFF-20261025 -->
 > **25 October compatibility repair: final full suite3,363/3,363 passed,0 failed.** The15 reproduced failures were stale expected snapshots; all actions/assertions and the gameplay runtime were preserved. See [current assessment](FAILURE_REPAIR_20261025.md) and [validation](failure-repair-validation-20261025.json). Coverage remains522 exact IDs/396 groups; historical dated evidence below keeps its original scope.
@@ -209,7 +209,7 @@ python DevTools/FaB/CardRegression/summarize_card_regression_cycles.py
 Current evidence includes the 3,079-test baseline pass; two full 3,087/3,087 passes; two clean per-batch replays of all 22 new fixtures; 77/77 existing semantic controls and 4/4 four-live controls detected; WTR, ARC, UPF and shortcut suites passed. Both fresh full 3,101/3,101 replays passed. All 22 new focused faults were detected. [Frozen checkpoint](card-regression-sparse-3101-checkpoint.json) retains the exact hashes and counts; later saves are separate progress until the current index is rebuilt. Final batch fault reports retain mutations, expected first failures and canonical-hash preservation. Keep only compact shared proof packets and immutable run reports in the repository; scratch modeling and bulk source-review copies stay outside it. No commits, pushes or deployments were performed.
 
 <!-- PAUSED-CHECKPOINT -->
-## Paused checkpoint — 21 October 2026
+## Paused checkpoint â€” 21 October 2026
 
 Stopped at the user's request after qualifying every recorded case: **3,161 saved / 3,161 qualified**, comprising 3,074 preserved duel cases and 87 genuine four-live cases. This resumption added **82 scenarios across 82 previously uncovered groups**. There are 321 primary identities with verified partial evidence out of 5,196 (pitch variants are distinct), and 196 groups with any verified primary evidence out of 3,324. Four-live first-pass breadth is 87 groups; 3,237 catalog groups still lack such a representative. Scenario volume is not a completion percentage.
 

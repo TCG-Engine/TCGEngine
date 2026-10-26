@@ -1,0 +1,60 @@
+{
+  "status": "APPROVED_EXACT_SAVED_050_BRANCH_TWO_CURRENT_CLEAN_REPLAYS_AND_BOUNDED_REPAIR_EVIDENCE",
+  "reviewer": "/root/b106_semantic_review",
+  "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+  "source_spec": "card-regression-batch220-rapture-activated-corrected.json",
+  "source_spec_sha256": "e839f6efc1f9760692af9bdecbeeb07f381776206fcd312e885a1f80d4df8c7e",
+  "fixtures": [
+    {
+      "slug": "card-empyrean-rapture-four-live-sparse-actual-paid-once-instant-grants-ward-one-then-consumes-equipment-on-real-arcane",
+      "card_id": "empyrean_rapture",
+      "semantically_approved": true,
+      "verdict": "APPROVED_EXACT_SAVED_050_BRANCH_WITH_TWO_CURRENT_TARGETED_REPLAYS",
+      "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "recorded_runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "fixture_sha256": "033fd047e6f1c3514a1d181977a5c5c3d7c486751d070e7559392b70e9fcdce5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f5b3217d58228c22e8dc36128940cf66b5a12b4630da50a46eb5026676ec4f78",
+        "actions.json": "e28bc5bc31fde77895faa81271bd0cb548951adb2a8e082982a4076b8fe4958a",
+        "assertions.json": "2f928433809b45d0cd35a82ece43e619897271620549412e7d3e0aeced19937a",
+        "expected_final_gamestate.txt": "043d4e99171c63b41218e262cf4d460ffa728c19e49004e1113c646e88937da9",
+        "meta.json": "7ec380ce20be460ca5aa7139e8ae7f4d7f0c01f49af2d945a2d5e0249b00c9fc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f5b3217d58228c22e8dc36128940cf66b5a12b4630da50a46eb5026676ec4f78",
+        "actions.json": "e28bc5bc31fde77895faa81271bd0cb548951adb2a8e082982a4076b8fe4958a",
+        "assertions.json": "2f928433809b45d0cd35a82ece43e619897271620549412e7d3e0aeced19937a",
+        "expected_final_gamestate.txt": "043d4e99171c63b41218e262cf4d460ffa728c19e49004e1113c646e88937da9",
+        "meta.json": "7ec380ce20be460ca5aa7139e8ae7f4d7f0c01f49af2d945a2d5e0249b00c9fc"
+      },
+      "actions": 16,
+      "native_assertions": 928,
+      "actual_manual_passes": 11,
+      "current_qualification_runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "current_clean_replays": [
+        "card-regression-replay-rapture-activated-14d9-r1.json",
+        "card-regression-replay-rapture-activated-14d9-r2.json"
+      ],
+      "isolated_native_fault_status": "NO_NEW_GENERIC_HELPER_CONTROL_NATIVE_PRE_POST_REPAIR_EVIDENCE_SEPARATE"
+    }
+  ],
+  "independent_actual_pair_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\empyrean-pair-postfix-actual-saved-independent-review-106.json",
+    "sha256": "bbbf7d52fb89ba86b7d11fd1f28a254a6f79fdb32195629360cdc8677db0765b"
+  },
+  "final_replays": [
+    {
+      "path": "card-regression-replay-rapture-activated-14d9-r1.json",
+      "sha256": "92d3a53dc4c4d3c27aa9e126939f6c93023b9feabd4a9dbd0e54a4a9be0d26c0"
+    },
+    {
+      "path": "card-regression-replay-rapture-activated-14d9-r2.json",
+      "sha256": "bdd86c8dff9ee4413252dc17f191150a4632bcb2fa55202d527302c9c708defa"
+    }
+  ],
+  "repair_evidence": {
+    "path": "review-evidence/empyrean-ward-050-before-after.json",
+    "sha256": "d08d255582254eed61d2d4afdcbf14eb3e47247dd517b94621d49904b89ea8db"
+  },
+  "qualification": "One exact unactivated or actualpaid activated Rapture branch. Two current14d9 clean replays, unchangedraw5 and independent saved/manual four-live review. Six-input native before/after causal evidence is separate from unchanged117 helper controls. Ten controlled actual-function groups/38checks do not constitute native direct/unpreventable/suppression coverage. No Herald/Soul/repeat/EOT/full-card/fullsuites or legacy-corpus certification."
+}

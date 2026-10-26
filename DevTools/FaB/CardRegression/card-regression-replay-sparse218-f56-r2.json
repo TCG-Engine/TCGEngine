@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch218.json",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T02:49:58.771723+00:00",
+  "fixtures": [
+    {
+      "slug": "card-storm-striders-four-live-sparse-actual-paid-destroy-grants-real-offturn-wizard-action-play-as-instant",
+      "fixture_sha256": "55a116a242d31c16f69f46e8130fdc9e0455c2024a5092e462da2fdae70fc4a0",
+      "passed": true,
+      "result": "[PASS] storm_striders / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-warmongers-recital-red-four-live-sparse-actual-paid-action-next-paid-attack-gains-three-with-full-block-no-hit-branch",
+      "fixture_sha256": "73cdda8fea5f2c55d35c60d3be5c2a8ebb0d326d6e28161ae3970b804fc812f1",
+      "passed": true,
+      "result": "[PASS] warmongers_recital_red / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-storm-striders-four-live-sparse-actual-paid-destroy-grants-real-offturn-wizard-action-play-as-instant",
+      "returncode": 0,
+      "stdout": "[PASS] storm_striders / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-warmongers-recital-red-four-live-sparse-actual-paid-action-next-paid-attack-gains-three-with-full-block-no-hit-branch",
+      "returncode": 0,
+      "stdout": "[PASS] warmongers_recital_red / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,33 @@
+{
+  "status": "48_ACTUAL_PARSER_CONTRACTS_AND_SYNTAX_PASS",
+  "source_sha256": "3d243fd5a0382368f0db59863fe8dbbfd06dd54a41447f94c2bb7868a0958e77",
+  "cases_sha256": "025d98d4751e59727ea1219c2017d8b86d6e2c5cbd9bc3b8e1820d7dccc6c775",
+  "harness_sha256": "2cadd9183da2b9c7cfdf88df55382799cd9c66e62eb1f0ad5be5bf7823475562",
+  "runs": [
+    {
+      "kind": "syntax",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire056-activated-header-recovery-proposed-v2\\candidate\\FaBSim\\Custom\\GameLogic.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire056-activated-header-recovery-proposed-v2\\candidate\\FaBSim\\Custom\\GameLogic.php\n",
+      "stderr": ""
+    },
+    {
+      "kind": "actual-parser",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\printed_keyword_test.php",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire056-activated-header-recovery-proposed-v2\\candidate\\FaBSim\\Custom\\GameLogic.php",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire056-activated-header-recovery-proposed-v2\\candidate\\DevTools\\FaB\\printed_keyword_cases.json"
+      ],
+      "returncode": 0,
+      "stdout": "{\n    \"source_function_sha256\": \"107d1baf77f8ce6838aecf8bfc827790a47cbb901054fa5eb6f0982d930c686e\",\n    \"total\": 48,\n    \"passed\": 48,\n    \"failures\": [],\n    \"scope\": \"Actual extracted parser with synthetic metadata\\/text inputs; not native game validation.\"\n}\n",
+      "stderr": ""
+    }
+  ],
+  "native_gameplay": false,
+  "native_control_credit": 0
+}

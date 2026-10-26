@@ -1,0 +1,7 @@
+{
+    "name": "aether_ashwing / actual intrinsic Arena Arcane Barrier one",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T17:10:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1YoungVerdance20Wizard andthreeYoung20seats(Dori,Dori,Dromai). P4ownedAetherAshwing5Arena hasrealexistingAshmaterialrepresentation CountersUPR_ASH1/DYN_ASHash exactlyUPRTransform16, no played/fused/historyflags. P4BlueWB6Hand, P1ZapRed7Hand. ActualZap0announcement keepssource7Stack/PITCH withrealPrepareMZCHOOSE; declareadjacentP4thenAP1->0/cost0. Fourrealresponses1/2/3/4->P4BarrierMZMODALTake_damage/Pay1beforeanydamage. PrintedintrinsicArcaneBarrier1 isreadfromownedAllyArena byUPRLegacyPreventionPlans206, notanEquipmentoractivatedgrant. ChoosePay1, actualeffectfundingMZCHOOSEBlue6pitches3thenpays1->R4=2; prevent1ofZap3->P4HP18. SourceZap7retainedStackthroughbothprivatechoices, onlythenpublicGYFaceDown0. Ally5unchangedStatus2/Damage0/materialCounters; AP1=0/AP4=0, allotherHP20. BluepitchdoesnottriggerDromaiRedpitchAsh; VerdancenoEarthbanish/lifegain. No syntheticAP/history, allyattack/transform/materialgrant/Phantasm/suppression/unpreventable/otherbarriers/supportprimarycredit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DRO003.webp"
+}

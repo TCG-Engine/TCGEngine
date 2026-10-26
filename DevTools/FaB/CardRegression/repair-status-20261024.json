@@ -916,6 +916,216 @@
       "related_prior_issue": "FAB-REG-041",
       "distinct_mechanism_from_prior_caster": true,
       "scope": "One wrong-source context defect; actualSinkfunding plus actualtwoPitchWellingtoncompatibility. No globalcallback/Core/cardbody/async-order certification."
+    },
+    {
+      "key": "cintari_defended_trigger_response_window",
+      "existing_issue_id": "FAB-REG-049",
+      "mechanism": "Named Cintari WHEN defense trigger receives existing ROS four-seat response window before existing physical weapon +1",
+      "source_paths": [
+        "FaBSim/Custom/CRUCards.php",
+        "FaBSim/Custom/ROSCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "canonical_regeneration_pending": false,
+      "runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1",
+      "current_qualification_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+      "external_auth_rebind_evidence": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\external-auth-runtime-delta-20261026.json",
+      "new_native_qualified_scenarios": 1,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+          "source_spec": "card-regression-batch216-cintari-probe.json",
+          "review_evidence": "review-evidence/sparse216-cintari-f56-qualified-saved-review.json"
+        }
+      ],
+      "status": "QUALIFIED_BOUNDED_NATIVE_REPAIR_WITH_COMPONENT_LIMITS",
+      "evidence": "review-evidence/cintari-defended-trigger-before-after.json",
+      "counting": "One new card trigger-response defect group. Distinct new groups this breadth phase043/044/045/048/049=5;046/047 remain existing-group extensions. Old physical buff target/duration is not counted as another bug.",
+      "scope": "Originalcorrectnativebefore/after plus11actualfunctiongroups20checks/twonewtargetedreplays/existingROSwitness. EOT expiry/physicalStackdetour untested; no universalidentity/Core/generated claim."
+    },
+    {
+      "key": "conditional_ward_activation_gate",
+      "existing_issue_id": "FAB-REG-050",
+      "mechanism": "Named Rapture active Ward presence/value requires resolved tag/current grant; direct consumer shares suppression-safe path",
+      "source_paths": [
+        "FaBSim/Custom/MSTCards.php",
+        "FaBSim/Custom/DYNRuntime.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "canonical_regeneration_pending": false,
+      "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+      "new_native_qualified_scenarios": 2,
+      "new_primary_card_ids": 1,
+      "new_catalog_groups": 1,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-empyrean-rapture-four-live-sparse-unactivated-equipment-has-no-ward-and-real-zap-deals-full-three",
+          "source_spec": "card-regression-batch220-rapture-unactivated-probe.json",
+          "review_evidence": "review-evidence/empyrean-ward-050-unactivated-qualified-saved-review.json"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-empyrean-rapture-four-live-sparse-actual-paid-once-instant-grants-ward-one-then-consumes-equipment-on-real-arcane",
+          "source_spec": "card-regression-batch220-rapture-activated-corrected.json",
+          "review_evidence": "review-evidence/empyrean-ward-050-activated-qualified-saved-review.json"
+        }
+      ],
+      "status": "QUALIFIED_BOUNDED_NATIVE_PAIR_WITH_CONTROLLED_FUNCTION_LIMITS",
+      "evidence": "review-evidence/empyrean-ward-050-before-after.json",
+      "counting": "One new defect group050; phase new distinct043/044/045/048/049/050=6.046/047 remain prior-group extensions. Two Ward branches are one card/group; oracle and component-harness corrections are not gameplay defects.",
+      "scope": "Two actualfour-live nativebranches/22actions1386assertions/4targetedreplays. Controlled10groups38checks supplement, notnative direct/unpreventable/suppression/expiry certification."
+    },
+    {
+      "key": "boulderhold_unprinted_arsenal_restriction",
+      "existing_issue_id": "FAB-REG-051",
+      "mechanism": "CanonicalGauntletproducerrequestsanynextGuardianattack; sharedArsenalconsumersremainunchanged",
+      "source_paths": [
+        "DevTools/FaB/build_mpg_abilities.py",
+        "DevTools/FaB/mpg_abilities.json",
+        "FaBSim/Custom/CodeGeneration.php",
+        "FaBSim/Custom/MPGCards.php",
+        "FaBSim/GeneratedCode/GeneratedMacroCode.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": true,
+      "canonical_regeneration_pending": false,
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "status": "QUALIFIED_BOUNDED_NATIVE_ORIGIN_REPAIR",
+      "new_native_qualified_scenarios": 1,
+      "new_primary_card_ids": 0,
+      "new_catalog_groups": 0,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-gauntlet-of-boulderhold-four-live-sparse-correct-expectation-paid-hand-guardian-attack-two-and-full-block-probe",
+          "source_spec": "card-regression-batch224-boulderhold-hand-correct-probe.json",
+          "review_evidence": "review-evidence/boulderhold-051-hand-qualified-saved-review.json"
+        }
+      ],
+      "evidence": "review-evidence/boulderhold-051-before-after.json",
+      "counting": "Seventhnewdistinctphasegameplaygroup043/044/045/048/049/050/051.046/047existinggroupextensions; additionalHandscenarioaddszerocataloggroups.",
+      "scope": "NoBattleworn/expiry/nonGuardian/furtherattack/Crushdamage/fullcard/fullsuitequalification. No synthetichelperfault added; nativebefore/after isseparatecausalevidence. Otherhistoricalruntimebindingsunchanged.",
+      "upstream_remote_reconciled": false
+    },
+    {
+      "key": "prepared_effect_costs_prism_hero_extension",
+      "existing_issue_id": "FAB-REG-039",
+      "extension_issue_id": "FAB-REG-052",
+      "source_patch_applied": true,
+      "generated_dependency": true,
+      "canonical_regeneration_pending": false,
+      "status": "QUALIFIED_NAMED_YOUNG_FOUR_LIVE_ACTIVATION",
+      "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "new_native_qualified_scenarios": 1,
+      "new_distinct_gameplay_defect_group": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-prism-four-live-sparse-correct-resource-assets-before-physical-soul-banish-and-owned-shield",
+          "source_spec": "card-regression-batch236.json",
+          "review_evidence": "review-evidence/prism-052-qualified-saved-review.json"
+        }
+      ],
+      "evidence": "review-evidence/prism-052-before-after.json",
+      "scope": "One young Prism positive activation only. Adult uses same source migration but has no new native identity credit. No cancellation/once-rejection/full-card/whole-family/full-suite credit; historical corpus retains original runtime evidence. Remote authoring unchanged; local exact-body compile bridge retained."
+    },
+    {
+      "key": "prepared_effect_costs_chane_hero_extension",
+      "existing_issue_id": "FAB-REG-039",
+      "extension_issue_id": "FAB-REG-053",
+      "source_patch_applied": true,
+      "generated_dependency": true,
+      "canonical_regeneration_pending": false,
+      "status": "QUALIFIED_NAMED_YOUNG_FOUR_LIVE_ACTIVATION",
+      "runtime_sha256": "507ef3ebf2042f3220e6b1b0987064b77ba6c1a337d86199744847f5af1668f4",
+      "new_native_qualified_scenarios": 1,
+      "new_distinct_gameplay_defect_group": false,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-chane-four-live-correct-activation-soul-shackle-cost-before-responses-and-real-shadow-go-again",
+          "source_spec": "card-regression-batch240-chane-correct-probe.json",
+          "review_evidence": "review-evidence/chane-053-qualified-saved-review.json"
+        }
+      ],
+      "evidence": "review-evidence/chane-053-before-after.json",
+      "scope": "Bounded young Chane ordinary positive activation and actual Ghost follow-through only. Same adult source migration receives no native sibling credit. No once-rejection/cancel/start-turnSoulShackle/interactive replacement/gameend/fullcard/fullsuite qualification. V1Preach gap was caught before application and corrected in reviewedV2, not another nativebug. Older recorded contexts not retagged. Remote authoring unchanged/local exact-body bridge retained."
+    },
+    {
+      "key": "shared_defense_reaction_completion_existing_reaction_lifecycle_extension",
+      "existing_issue_id": "FAB-REG-008",
+      "extension_issue_id": "FAB-REG-054",
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "canonical_regeneration_pending": false,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_RELOAD_COMPLETION",
+      "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "new_native_qualified_scenarios": 1,
+      "new_distinct_gameplay_defect_group": false,
+      "native_representatives": [
+        {
+          "fixture": "Tests/Integration/FaBSim/card-take-cover-red-four-live-correct-reload-effects-before-defense-reaction-leaves-stack",
+          "source_spec": "card-regression-batch242-take-cover-correct-probe.json",
+          "actions": 29,
+          "native_assertions": 810,
+          "manual_passes": 24,
+          "result": "Physical reaction5 staysStack through realReload; answer movesArrow6 facedownArsenal; only completedDR entersChain defense4. Actual attack7 minus4 deals3/P4HP17.",
+          "review_evidence": "review-evidence/take-cover-054-qualified-saved-review.json"
+        }
+      ],
+      "evidence": "review-evidence/take-cover-054-before-after.json",
+      "scope": "Only named positive young four-live TakeCover red Reload branch; no pitch sibling inheritance, elimination matrix, all DR, whole card or full-corpus requalification. Older source/runtime contexts retained."
+    },
+    {
+      "key": "captured_prevention_grant_trigger_existing_family_extension",
+      "existing_issue_id": "FAB-REG-043",
+      "extension_issue_id": "FAB-REG-055",
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "canonical_regeneration_pending": false,
+      "status": "QUALIFIED_NAMED_FOUR_LIVE_FIRST_PREVENTION_TRIGGER",
+      "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "new_native_qualified_scenarios": 1,
+      "new_distinct_gameplay_defect_group": false,
+      "native_representatives": [
+        {
+          "fixture": "Tests/Integration/FaBSim/card-haunting-rendition-red-four-live-sparse-correct-earned-prevention-trigger-four-responses",
+          "source_spec": "card-regression-batch245-haunting-correct-probe.json",
+          "actions": 31,
+          "native_assertions": 822,
+          "manual_passes": 28,
+          "result": "Actual prevention leaves P4HP18 and queued Haunting trigger8 with original source5; no Rune before four real responses; completion creates owned/controller4 Runechant9.",
+          "review_evidence": "review-evidence/haunting-055-qualified-saved-review.json"
+        }
+      ],
+      "evidence": "review-evidence/haunting-055-before-after.json",
+      "scope": "Only Haunting red named positive first-prevention four-live branch; Mental Block blue shares source producer but has no new native/identity credit. No repeated-damage/native multiple-grant, suppression/recontrol, other-X, whole-card or broad corpus qualification. Older runtime labels remain unchanged."
+    },
+    {
+      "key": "printed_own_keyword_incomplete_metadata_extension",
+      "existing_issue_id": "FAB-REG-038",
+      "extension_issue_id": "FAB-REG-056",
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "canonical_regeneration_pending": false,
+      "status": "QUALIFIED_RAPID_AND_ACTIVATED_ABILITY_BOUNDARY_V2",
+      "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "new_native_qualified_scenarios": 2,
+      "new_distinct_gameplay_defect_group": false,
+      "native_representatives": [
+        {
+          "fixture": "Tests/Integration/FaBSim/card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage",
+          "source_spec": "card-regression-batch249.json",
+          "actions": 29,
+          "native_assertions": 712,
+          "manual_passes": 25,
+          "result": "OwnGoAgainAP0\u21921, realArrow8fromfacedownArsenal pays1 withactualBlue7/R2, base4/noHeadShotloadbonus/grantedGoAgain, actual4damageHP16 thenfourDamagepassesResolutionAP1.",
+          "review_evidence": "review-evidence/rapid-056-qualified-saved-review.json"
+        }
+      ],
+      "evidence": "review-evidence/rapid-056-before-after.json",
+      "scope": "Named Rapid ownGoAgain+one grantedArrow branch only. Reloadpositive/expiry/secondArrow/othercards/siblings/fullcard notcertified. Upstreamstructuredmetadata stillomitsownkeyword; otherdirectmetadata consumers notfixed. OlderKassaiC8andallother evidence contexts preserved.",
+      "prior_qualified_runtime_preserved": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+      "introduced_v1_collateral_not_extra_preexisting_bug": true,
+      "additional_existing_group_witness": "Tests/Integration/FaBSim/card-induction-chamber-red-four-live-bug-ordinary-play-no-activated-go-again-refund"
     }
   ],
   "counting_note": "18 repair work groups overlap earlier mechanisms and one another; not18 independent new bugs.22 exact current representative scenarios qualify; group scenario counts overlap and must not be summed. Original27 historical grouped fixes are not retagged or added mechanically.",
@@ -946,5 +1156,50 @@
   "historical_note": "historical_issue_rows and historical_checkpoint_evidence deliberately retain original dates/statuses; current status, representatives and validation supersede those pending notes without rewriting history.",
   "later_breadth_extension_note": "FAB-REG-046 extends the existing managed_virtual_lifetime group. Historical Oct24 runtime, counts and three named representatives remain their original context; this extension adds one separately qualified Dreadbore representative at97, not a new distinct root cause.",
   "later_named_plain_extension_note": "FAB-REG-047 extends named_plain_lifecycle. Historical Oct24 runtime/counts/representatives remain their context; only Red adds a native-qualified representative at62. RGB source admission contracts confer no sibling-body credit or new distinct rootcause.",
-  "later_effect_pitch_context_note": "048 is one distinct source-reference context defect; prior041 caster attribution was alreadycorrect in the new native trace. Historical Oct24 runtime/counts retained, not blanket405corpus qualification."
+  "later_effect_pitch_context_note": "048 is one distinct source-reference context defect; prior041 caster attribution was alreadycorrect in the new native trace. Historical Oct24 runtime/counts retained, not blanket405corpus qualification.",
+  "later_boulderhold_origin_note": "051qualifiedat5ff0; historicalOct24counts/runtime/22casesretainoriginalcontext. Localcanonicalcompilehookrequireduntilseparatelyauthorizedremoteproducerrepair.",
+  "later_prism_cost_note": "052 extends039prepared_effect_costs; named young Prism now qualified at1f33, unchanged correct probe7actions456assertions/two replays/threeexistingcostcompat PASS. Adult uncredited; historicalOct24counts/runtime remain original.",
+  "historical_later_proposals": [
+    {
+      "issue_id": "FAB-REG-052",
+      "extends_issue": "FAB-REG-039",
+      "key": "prepared_effect_costs_prism_hero_extension",
+      "status": "NATIVE_CONFIRMED_SOURCE_PROPOSAL_UNAPPLIED_REVIEW_PENDING",
+      "native_before_evidence": "review-evidence/prism-052-cost-order-native-before.json",
+      "proposal_workspace": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism-prepared-soul-cost-proposed-v1\\proposal.json",
+      "proposal_sha256": "943cbb19de3be31cb84d139769da76f5c0ddd2b8c6a84445cd8f16e7c86c370e",
+      "source_patch_applied": false,
+      "qualified_scenarios": 0
+    },
+    {
+      "issue_id": "FAB-REG-053",
+      "related_issue": "FAB-REG-039",
+      "key": "chane_soul_shackle_activation_cost",
+      "status": "NATIVE_CONFIRMED_REPAIR_DESIGN_PENDING_NO_SOURCE_PROPOSAL_YET",
+      "native_before_evidence": "review-evidence/chane-053-cost-order-native-before.json",
+      "source_patch_applied": false,
+      "qualified_scenarios": 0
+    },
+    {
+      "issue_id": "FAB-REG-054",
+      "key": "defense_reaction_completion_before_chain_movement",
+      "status": "NATIVE_CONFIRMED_REPAIR_DESIGN_PENDING_NO_SOURCE_PATCH",
+      "native_before_evidence": "review-evidence/take-cover-054-resolution-native-before.json",
+      "source_patch_applied": false,
+      "qualified_scenarios": 0
+    },
+    {
+      "issue_id": "FAB-REG-055",
+      "key": "earned_prevention_token_trigger_layer",
+      "status": "NATIVE_CONFIRMED_W_ONLY_SOURCE_PROPOSAL_PENDING",
+      "native_before_evidence": "review-evidence/haunting-055-native-before.json",
+      "source_patch_applied": false,
+      "qualified_scenarios": 0
+    }
+  ],
+  "later_chane_cost_note": "053qualified507e; unchanged25input/733oracleprobe+2cleanreplays/Kavdaencompat1/actual44helpergroups486assertions. Existing039extension; Preachv1gapcaughtbeforeapply, V2guardsreviewed. HistoricalOct24contextsretained.",
+  "later_take_cover_timing_note": "054native24inputscorrectStack1oraclefails0whileReloadawaits. No fixture/coverage/patch; needs commonFaB reaction completion repair, not weakening TakeCover oracle. Cacheddefense not used; finaldamage unexecuted.",
+  "later_defense_reaction_completion_note": "054 named extension008 qualified at5880; historical status/runtime context retained; source onlyFaBGameLogic/noCore or generation. Broad fullsuite notrun.",
+  "later_prevention_grant_trigger_note": "055 extends captured grant-trigger family043 at c8f2; separate prevention producer evidence retained. Mental Block blue remains without native credit; no Core/generated changes or broad suite.",
+  "later_printed_keyword_metadata_note": "056 extends038 sharedparser; correct Rapidnative expectations unchanged, oneoldmetadata-first componentpremisecorrectedwitherratum. NoCore/generated/cachechange/fullsuite."
 }

@@ -142,9 +142,12 @@ for c in cards:
  if base=='galaxxi_black':add('Hit',"if (FaBFaiHeroHit()) { "+arcane(1,"intval(FaBGetState()['defender'])")+' }')
  if base=='dread_scythe':add('AttackDeclared',"if ((FaBGetState()['attackTarget']['type'] ?? '') === 'HERO') { "+arcane(1,"intval(FaBGetState()['defender'])")+" if (($dealt ?? 0) > 0) { FaBWTRAddEffect($target, 'MON_NO_HEAL', 1, ['expiresAfterTurnOf'=>$target], true); } }")
  if base in ['prism','prism_sculptor_of_arc_light','boltyn','ser_boltyn_breaker_of_dawn']:
-  add('PrepareCard',finish_prepare(choice('FaBMONSoul($player)','Banish_from_soul',False)+" FaBMoveChoice($player, $chosen ?? '', 'Soul', 'Banish');"))
+  if base in ['prism','prism_sculptor_of_arc_light']:
+   add('PrepareCard',finish_prepare(choice('FaBMONSoul($player)','Banish_from_soul',False)+" if (!FaBDeclarePrismSoulCost($player, $uid, $chosen ?? '')) { return; }"))
+  else:
+   add('PrepareCard',finish_prepare(choice('FaBMONSoul($player)','Banish_from_soul',False)+" FaBMoveChoice($player, $chosen ?? '', 'Soul', 'Banish');"))
   add('ResolveAbility',"FaBWTRCreateArena($player, 'spectral_shield');" if base.startswith('prism') else "FaBTagUID(intval(FaBGetState()['attackUID']), 'GO_AGAIN');")
- if base in ['chane','chane_bound_by_shadow']:add('ResolveAbility',"FaBWTRCreateArena($player, 'soul_shackle'); FaBMONAdd($player, 'CHANE', 0);")
+ if base in ['chane','chane_bound_by_shadow']:add('ResolveAbility',"FaBMONAdd($player, 'CHANE', 0);")
  if base in ['doomsday','eclipse']:add('ResolveCard',f"FaBWTRCreateArena($player, '{'blasmophet_the_soul_harvester' if base=='doomsday' else 'ursur_the_soul_reaper'}');")
  if base=='genesis':add('StartTurn',choice("implode('&', FaBChoiceRefs($player, 'Hand'))",'Put_card_into_soul')+" $f = FaBIdentityFromMZ($chosen ?? ''); if ($f !== null) { $light = FaBHasType($f['object'], 'Light'); $illusion = FaBHasType($f['object'], 'Illusionist'); FaBMoveChoice($player, $chosen, 'Hand', 'Soul'); if ($illusion) { FaBWTRCreateArena($player, 'spectral_shield'); } if ($light) { DoDrawCard($player, 1); } }")
  if base=='dimenxxional_crossroads':add('ResolveAbility',arcane(1))

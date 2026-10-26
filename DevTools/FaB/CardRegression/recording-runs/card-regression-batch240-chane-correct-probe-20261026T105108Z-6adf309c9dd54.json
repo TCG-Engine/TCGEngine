@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T10:51:08+00:00",
+    "input_file": "card-regression-batch240-chane-correct-probe.json",
+    "input_sha256": "9dac9b0da6a18dcc4d6554de5def0cea768431406610c2c56f838c000192f3f7",
+    "filter": "card-chane-four-live-correct-activation-soul-shackle-cost-before-responses-and-real-shadow-go-again",
+    "results": [
+        {
+            "slug": "card-chane-four-live-correct-activation-soul-shackle-cost-before-responses-and-real-shadow-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 25,
+            "assertions": 733
+        }
+    ]
+}

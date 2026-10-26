@@ -4637,16 +4637,16 @@
         "value": 2
     },
     {
-        "step": 5,
-        "type": "game_state_field",
-        "viewerPlayerID": 1,
-        "rootName": "FaBSim",
-        "path": [
-            "window"
-        ],
-        "comparison": "equals",
-        "valueJson": "\"ACTION\""
-    },
+    "step": 5,
+    "type": "game_state_field",
+    "viewerPlayerID": 1,
+    "rootName": "FaBSim",
+    "path": [
+      "window"
+    ],
+    "comparison": "equals",
+    "valueJson": "\"PRIORITY\""
+  },
     {
         "step": 5,
         "type": "game_state_field",
@@ -4680,15 +4680,16 @@
         "comparison": "missing_or_null"
     },
     {
-        "step": 5,
-        "type": "game_state_field",
-        "viewerPlayerID": 1,
-        "rootName": "FaBSim",
-        "path": [
-            "resolvingReaction"
-        ],
-        "comparison": "missing_or_null"
-    },
+    "step": 5,
+    "type": "game_state_field",
+    "viewerPlayerID": 1,
+    "rootName": "FaBSim",
+    "path": [
+      "resolvingReaction"
+    ],
+    "comparison": "equals",
+    "valueJson": "{\"uid\":9,\"owner\":1,\"controller\":1,\"kind\":\"ABILITY\",\"resolutionClass\":\"ARC_ABILITY\",\"cardID\":\"ragamuffins_hat\",\"sourceMZ\":\"p1Graveyard-0\",\"frameMacro\":\"ResolveAbility\",\"abilityGoAgain\":false,\"sourceUniqueID\":5,\"returnWindow\":\"ACTION\",\"returnCombatStep\":\"NONE\",\"baselineFrameKeys\":[],\"ownedFrameKeys\":[\"ragamuffins_hat:0:ResolveAbility#1\"]}"
+  },
     {
         "step": 5,
         "type": "game_state_field",
@@ -4701,12 +4702,12 @@
         "valueJson": "false"
     },
     {
-        "step": 5,
-        "type": "scalar_zone_equals",
-        "viewerPlayerID": 1,
-        "zone": "PriorityPlayer",
-        "value": 1
-    },
+    "step": 5,
+    "type": "scalar_zone_equals",
+    "viewerPlayerID": 1,
+    "zone": "PriorityPlayer",
+    "value": 4
+  },
     {
         "step": 5,
         "type": "scalar_zone_equals",
@@ -4715,12 +4716,12 @@
         "value": 0
     },
     {
-        "step": 5,
-        "type": "zone_count",
-        "viewerPlayerID": 1,
-        "zone": "Stack",
-        "value": 0
-    },
+    "step": 5,
+    "type": "zone_count",
+    "viewerPlayerID": 1,
+    "zone": "Stack",
+    "value": 1
+  },
     {
         "step": 5,
         "type": "card_property_equals",
@@ -5508,16 +5509,16 @@
         "value": 2
     },
     {
-        "step": 6,
-        "type": "game_state_field",
-        "viewerPlayerID": 1,
-        "rootName": "FaBSim",
-        "path": [
-            "window"
-        ],
-        "comparison": "equals",
-        "valueJson": "\"ACTION\""
-    },
+    "step": 6,
+    "type": "game_state_field",
+    "viewerPlayerID": 1,
+    "rootName": "FaBSim",
+    "path": [
+      "window"
+    ],
+    "comparison": "equals",
+    "valueJson": "\"PRIORITY\""
+  },
     {
         "step": 6,
         "type": "game_state_field",
@@ -5551,15 +5552,16 @@
         "comparison": "missing_or_null"
     },
     {
-        "step": 6,
-        "type": "game_state_field",
-        "viewerPlayerID": 1,
-        "rootName": "FaBSim",
-        "path": [
-            "resolvingReaction"
-        ],
-        "comparison": "missing_or_null"
-    },
+    "step": 6,
+    "type": "game_state_field",
+    "viewerPlayerID": 1,
+    "rootName": "FaBSim",
+    "path": [
+      "resolvingReaction"
+    ],
+    "comparison": "equals",
+    "valueJson": "{\"uid\":9,\"owner\":1,\"controller\":1,\"kind\":\"ABILITY\",\"resolutionClass\":\"ARC_ABILITY\",\"cardID\":\"ragamuffins_hat\",\"sourceMZ\":\"p1Graveyard-0\",\"frameMacro\":\"ResolveAbility\",\"abilityGoAgain\":false,\"sourceUniqueID\":5,\"returnWindow\":\"ACTION\",\"returnCombatStep\":\"NONE\",\"baselineFrameKeys\":[],\"ownedFrameKeys\":[\"ragamuffins_hat:0:ResolveAbility#1\"]}"
+  },
     {
         "step": 6,
         "type": "game_state_field",
@@ -5572,12 +5574,12 @@
         "valueJson": "false"
     },
     {
-        "step": 6,
-        "type": "scalar_zone_equals",
-        "viewerPlayerID": 1,
-        "zone": "PriorityPlayer",
-        "value": 1
-    },
+    "step": 6,
+    "type": "scalar_zone_equals",
+    "viewerPlayerID": 1,
+    "zone": "PriorityPlayer",
+    "value": 4
+  },
     {
         "step": 6,
         "type": "scalar_zone_equals",
@@ -5586,12 +5588,12 @@
         "value": 0
     },
     {
-        "step": 6,
-        "type": "zone_count",
-        "viewerPlayerID": 1,
-        "zone": "Stack",
-        "value": 0
-    },
+    "step": 6,
+    "type": "zone_count",
+    "viewerPlayerID": 1,
+    "zone": "Stack",
+    "value": 1
+  },
     {
         "step": 6,
         "type": "card_property_equals",
@@ -7226,5 +7228,102 @@
         "mzId": "p1Deck-1",
         "property": "Controller",
         "value": "1"
-    }
+    },
+
+  {
+    "step": 5,
+    "type": "card_property_equals",
+    "viewerPlayerID": 1,
+    "mzId": "Stack-0",
+    "property": "CardID",
+    "value": "ragamuffins_hat"
+  },
+  {
+    "step": 5,
+    "type": "card_property_equals",
+    "viewerPlayerID": 1,
+    "mzId": "Stack-0",
+    "property": "UniqueID",
+    "value": "9"
+  },
+  {
+    "step": 5,
+    "type": "card_property_equals",
+    "viewerPlayerID": 1,
+    "mzId": "Stack-0",
+    "property": "SourceUniqueID",
+    "value": "5"
+  },
+  {
+    "step": 5,
+    "type": "card_property_equals",
+    "viewerPlayerID": 1,
+    "mzId": "Stack-0",
+    "property": "Kind",
+    "value": "ABILITY"
+  },
+  {
+    "step": 5,
+    "type": "card_property_equals",
+    "viewerPlayerID": 1,
+    "mzId": "p1DecisionQueue-0",
+    "property": "Type",
+    "value": "MZCHOOSE"
+  },
+  {
+    "step": 5,
+    "type": "card_property_equals",
+    "viewerPlayerID": 1,
+    "mzId": "p1DecisionQueue-0",
+    "property": "Param",
+    "value": "p1Hand-0&p1Hand-1"
+  },
+  {
+    "step": 6,
+    "type": "card_property_equals",
+    "viewerPlayerID": 1,
+    "mzId": "Stack-0",
+    "property": "CardID",
+    "value": "ragamuffins_hat"
+  },
+  {
+    "step": 6,
+    "type": "card_property_equals",
+    "viewerPlayerID": 1,
+    "mzId": "Stack-0",
+    "property": "UniqueID",
+    "value": "9"
+  },
+  {
+    "step": 6,
+    "type": "card_property_equals",
+    "viewerPlayerID": 1,
+    "mzId": "Stack-0",
+    "property": "SourceUniqueID",
+    "value": "5"
+  },
+  {
+    "step": 6,
+    "type": "card_property_equals",
+    "viewerPlayerID": 1,
+    "mzId": "Stack-0",
+    "property": "Kind",
+    "value": "ABILITY"
+  },
+  {
+    "step": 6,
+    "type": "card_property_equals",
+    "viewerPlayerID": 1,
+    "mzId": "p1DecisionQueue-0",
+    "property": "Type",
+    "value": "MZMODAL"
+  },
+  {
+    "step": 6,
+    "type": "card_property_equals",
+    "viewerPlayerID": 1,
+    "mzId": "p1DecisionQueue-0",
+    "property": "Param",
+    "value": "1|1|Top&Bottom"
+  }
 ]

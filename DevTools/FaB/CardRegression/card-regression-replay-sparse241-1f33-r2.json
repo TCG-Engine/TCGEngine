@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch241.json",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T10:27:07.452623+00:00",
+  "fixtures": [
+    {
+      "slug": "card-sash-of-sandikai-four-live-sparse-real-red-action-earns-condition-then-destroy-instant-gains-one",
+      "fixture_sha256": "650dd8f496157b63c13797e6a02a67e2e8f9f5d3b8873507d7164077120d6956",
+      "passed": true,
+      "result": "[PASS] sash_of_sandikai / lean meaningful positive"
+    },
+    {
+      "slug": "card-kavdaen-trader-of-skins-four-live-sparse-paid-hero-action-compares-four-lives-and-changes-unique-high-low",
+      "fixture_sha256": "133d8db2e4e956360429b77e30da65e97804a82fc80e17963edfdaa4aa76f80b",
+      "passed": true,
+      "result": "[PASS] kavdaen_trader_of_skins / lean meaningful positive"
+    },
+    {
+      "slug": "card-plasma-barrel-shot-four-live-sparse-paid-charge-then-real-steam-cost-unboosted-gun-attack",
+      "fixture_sha256": "183215a3b29d16c8bdb70d86afdb093060a1e0a64fc7fd87089d15741134ab9f",
+      "passed": true,
+      "result": "[PASS] plasma_barrel_shot / lean meaningful positive"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sash-of-sandikai-four-live-sparse-real-red-action-earns-condition-then-destroy-instant-gains-one",
+      "returncode": 0,
+      "stdout": "[PASS] sash_of_sandikai / lean meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-kavdaen-trader-of-skins-four-live-sparse-paid-hero-action-compares-four-lives-and-changes-unique-high-low",
+      "returncode": 0,
+      "stdout": "[PASS] kavdaen_trader_of_skins / lean meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-plasma-barrel-shot-four-live-sparse-paid-charge-then-real-steam-cost-unboosted-gun-attack",
+      "returncode": 0,
+      "stdout": "[PASS] plasma_barrel_shot / lean meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

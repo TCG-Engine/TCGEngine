@@ -1,0 +1,73 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T07:25:10.791575+00:00",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "source_spec": "card-regression-batch233.json",
+  "source_spec_sha256": "0205e9c1fb7651f92e30771903e3a52ec17e93c1cfaa29fb36ade97426ae5c05",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 27,
+  "native_assertions": 736,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 3465,
+    "duels": 3074,
+    "four_live": 391,
+    "recorded_primary_ids": 622,
+    "identity_denominator": 5196,
+    "recorded_groups": 496,
+    "group_denominator": 3324,
+    "four_live_groups": 387,
+    "phase_qualified_scenarios_at_actual_contexts": 102,
+    "phase_qualified_unique_groups": 100,
+    "creation_replay_passes": 204,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 17,
+  "scenarios": [
+    {
+      "card_id": "crouching_tiger",
+      "group_id": "identity:crouching_tiger",
+      "scenario_id": "card-crouching-tiger-four-live-sparse-actual-zero-power-go-again-and-ephemeral-disappearance-on-full-combat-close",
+      "effect_branches": [
+        "actual-zero-power-go-again-and-ephemeral-disappearance-on-full-combat-close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-crouching-tiger-four-live-sparse-actual-zero-power-go-again-and-ephemeral-disappearance-on-full-combat-close",
+      "source_spec": "card-regression-batch233.json",
+      "source_spec_sha256": "0205e9c1fb7651f92e30771903e3a52ec17e93c1cfaa29fb36ade97426ae5c05",
+      "review_evidence": "review-evidence/sparse233-5ff0-qualified-saved-review.json",
+      "review_evidence_sha256": "405595e7eb45ab2b6e4614a3b5ee8006baaa26e7b4a7c37b2c7d35e0a9be703c",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "qualification_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse233-5ff0-r1.json",
+          "sha256": "852de41eccfa7701a81c645c25bc01f0f9850803c22a106e8a4006a7e4feddb6",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse233-5ff0-r2.json",
+          "sha256": "20d6df50bcf62d72d333dbbabcc5ccfc6bf1b3647a719cd82bb17375a2dbdff8",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

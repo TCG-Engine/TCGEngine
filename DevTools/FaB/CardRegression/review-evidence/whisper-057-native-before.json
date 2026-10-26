@@ -1,0 +1,58 @@
+{
+  "status": "NATIVE_CONFIRMED_BEFORE_FIX_NO_PASSING_FIXTURE",
+  "issue": "FAB-REG-057",
+  "classification": "extension_of_existing_021_plain_spell_completion_family_not_new_distinct_root_cause",
+  "utc": "2026-10-26T16:23:00.890637+00:00",
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "GameLogic_sha256": "3d243fd5a0382368f0db59863fe8dbbfd06dd54a41447f94c2bb7868a0958e77",
+  "source_spec": "card-regression-batch253-whisper-correct-probe.json",
+  "input_sha256": "ffe8de56db8566ff706bb6ca37214659f247af5418f919eaea4574fd5057e802",
+  "recording_receipt": "recording-runs/card-regression-batch253-whisper-correct-probe-20261026T162113Z-6adf7df9097dd.json",
+  "recording_receipt_sha256": "375a7934f24f71918b29a87187ce9f300a27696cba2c89301fb79587e7a7d8f3",
+  "scenario_id": "card-whisper-of-the-oracle-red-four-live-sparse-real-opt-four-source-retained-until-mixed-order-completes",
+  "fixture_saved": false,
+  "attempted_native_actions": 5,
+  "actual_actor_seats": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "actual_manual_priority_passes": 4,
+  "expected": "Original spell UID5 stays Stack; GY0 and AP0 while actual Opt4 rearrangement choice remains pending. Finish mixed Opt, then own go again and source clearing.",
+  "observed_native_failure": "Expected Stack count 1, got 0.",
+  "observed_pending_decisions": [
+    {
+      "Type": "MZREARRANGE",
+      "Param": "Top=wounding_blow_red,wounding_blow_blue,wounding_blow_yellow,raging_onslaught_red;Bottom=",
+      "Block": 1,
+      "Tooltip": "",
+      "DontSkipOnPass": 0,
+      "removed": null,
+      "Location": "",
+      "PlayerID": 0,
+      "mzIndex": -1,
+      "_sourceZone": null
+    },
+    {
+      "Type": "CUSTOM",
+      "Param": "whisper_of_the_oracle_red:0:ResolveCard-await|whisper_of_the_oracle_red:0:ResolveCard#1|1|order",
+      "Block": 1,
+      "Tooltip": "",
+      "DontSkipOnPass": 0,
+      "removed": null,
+      "Location": "",
+      "PlayerID": 0,
+      "mzIndex": -1,
+      "_sourceZone": null
+    }
+  ],
+  "action_point_qualification": "Before probe stopped at the first Stack assertion. Premature AP refund is derived from the source fallback, not separately captured as a native AP value. The unchanged passing candidate asserts AP0 before and AP1 after choice.",
+  "rules": [
+    "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+    "https://rules.fabtcg.com/en/cr/08-keywords/"
+  ],
+  "source_cause": "FaBKnownPlainSpellLifecycleCard excludes Whisper; DoResolveCard fallback clears before invoking asynchronous ResolveCard. Existing managed completion path is available.",
+  "reproducer_command": "& 'C:\\xampp\\php\\php.exe' DevTools/FaB/CardRegression/record_card_regressions.php DevTools/FaB/CardRegression/card-regression-batch253-whisper-correct-probe.json",
+  "scope": "Exact red native witness only. No sibling, full-card, fault-control, full-suite or generic catalog migration credit."
+}

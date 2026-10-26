@@ -1,0 +1,69 @@
+{
+  "status": "NATIVE_CONFIRMED_OBSOLETE_TRAP_SUBTYPE_LEGALITY_GUARD_NO_FIXTURE",
+  "issue": "FAB-REG-058",
+  "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "CRUCards_sha256": "a7f823700eb3679c02d843cf8f4ff2c72aa5fcbcadbdb45bfacd2a285ba315b8",
+  "source_spec": "card-regression-batch254-canonical-combat-windows.json",
+  "source_spec_sha256": "3f6554f6ac208a5d9e598aff5d43588cb20527eabc99ef83f37626f26066b31b",
+  "recording_receipt": "recording-runs/card-regression-batch254-canonical-combat-windows-20261026T165626Z-6adf863ae41b4.json",
+  "recording_receipt_sha256": "02061d7e537a34b708d22a29fec53a19c23009515279e60374b1213ea20d47ca",
+  "scenario_id": "card-anaphylactic-shock-blue-four-live-sparse-real-opposing-hero-damage-earned-before-life-loss",
+  "fixture_saved": false,
+  "accepted_native_inputs": 23,
+  "native_failure": "Expected Stack count 1, got 0.",
+  "observed_hand_refs": [
+    "p4Hand-0"
+  ],
+  "observed_earned_history": [
+    {
+      "type": "SEA_ATTACKED_HERO",
+      "amount": 1,
+      "uses": 1
+    },
+    {
+      "type": "DTD_DAMAGE_EVENT",
+      "amount": 1,
+      "uses": 1
+    },
+    {
+      "type": "CRU_DAMAGED",
+      "amount": 4,
+      "uses": 1
+    },
+    {
+      "type": "HNT_DAMAGED_BY",
+      "amount": 1,
+      "uses": 1,
+      "uid": 1
+    },
+    {
+      "type": "MON_PHYSICAL",
+      "amount": 1,
+      "uses": 1
+    },
+    {
+      "type": "DTD_LOST",
+      "amount": 4,
+      "uses": 1
+    },
+    {
+      "type": "ELE_DAMAGED",
+      "amount": 4,
+      "uses": 1
+    }
+  ],
+  "observed_cards_played": {
+    "1": [
+      "wounding_blow_red"
+    ]
+  },
+  "expected": "After real damage earned the history and seat4 actually gained priority, allow own Instant0 Anaphylactic Shock from Hand onto Stack before four responses.",
+  "actual": "Hand click left Stack0, source still Hand, no Shock play recorded; no decision pending.",
+  "source_cause": "FaBCRUCanPlay blanket Trap and zone!=Arsenal check at CRUCards97 rejects the hand Instant.",
+  "rules": "https://rules.fabtcg.com/en/cr/08-keywords/",
+  "rules_basis": "Current CR8.2.7 Trap is no longer a functional subtype keyword; Anaphylactic Shock has no printed play-origin restriction. Legacy traps with explicit Arsenal-only text must remain restricted.",
+  "classification": "Confirmed gameplay legality bug; new distinct phase family, not the preceding draft role/window representation corrections.",
+  "fix_applied": false,
+  "full_suite_run": false,
+  "utc": "2026-10-26T17:06:11.816386+00:00"
+}

@@ -1,0 +1,132 @@
+{
+  "status": "APPROVED_SOURCE_ONLY_PENDING_COMPONENT_GENERATION_NATIVE_QUALIFICATION",
+  "source_approved": true,
+  "reviewer": "/root/b104_saved_review",
+  "utc": "2026-10-26T10:36:27.412087+00:00",
+  "issue": "FAB-REG-053",
+  "classification": "EXISTING_039_PREPARED_EFFECT_COSTS_CALLER_MIGRATION_EXTENSION_NOT_NEW_ROOT_CAUSE",
+  "proposal": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\chane053-prepared-shackle-cost-proposed-v2-preach-guard\\proposal.json",
+  "proposal_sha256": "30ea95fbce4de6a76f2324f3b1b627472530eda17cb2301dc0fcc171ddf18135",
+  "diff_sha256": "c75b3fdcead1b3a293d962d059ae8708f72c8e50eb99d2f995488cba6a181f05",
+  "delta_sha256": "fabd71bd10b81b87b3332c2379707fc33f17de39700a4c71da4f4ad7f053da1a",
+  "runtime_before_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "files": [
+    {
+      "path": "FaBSim/Custom/CardChoices.php",
+      "before_sha256": "801d26cacf4ea83e0ca9b8b6c927a9a70366eef591ed34ff9b65fdb715db7961",
+      "candidate_sha256": "fc3fd40fefb50afa1879b4f9d99383debcff5535f604deb3a20e55b4d4b8889a"
+    },
+    {
+      "path": "FaBSim/Custom/ARCAbilities.php",
+      "before_sha256": "5c393d91c993b1b0af065b1ba563b694f381029a229020fee1645bde656f9657",
+      "candidate_sha256": "a2a3f79b1a2f100f27e9f768a23f55a32e41c73acd34b840bb252679aae63f1b"
+    },
+    {
+      "path": "DevTools/FaB/build_mon_abilities.py",
+      "before_sha256": "60f85a67671c9701b37b0a3a83d6029485cb7fc877b6cc6d1acf995541f9141c",
+      "candidate_sha256": "0332ee5ef4af243552313ff2be945d6b4272257ee45939f07ecc7d34adeb2937"
+    },
+    {
+      "path": "DevTools/FaB/mon_abilities.json",
+      "before_sha256": "441685ea345b774eef1a01503ed605b277c154ab4540eb1b20f3c08181508c55",
+      "candidate_sha256": "f4297b7367ccabaca8a72e08439e916653ea4fc93c54fc223bbcd6f0d7d7d7a0"
+    },
+    {
+      "path": "DevTools/FaB/pen_abilities.json",
+      "before_sha256": "4eefbe8eebe7b318214305aa31cd59d115586118362b662fd57b6431c9efd436",
+      "candidate_sha256": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054"
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "before_sha256": "3a8832b918df2d970e9fe76caa93d71fc742d0f875d3f64259bf10947ae80a48",
+      "candidate_sha256": "c050a3025df22a1dc46356f3f0e73bef1e555e785aff0f42c076762f19bdbc89"
+    }
+  ],
+  "reused_manual_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\chane053-v1-independent-source-review-requires-guard.json",
+    "sha256": "810c1b91f2b80fb543f208a80902ccea26711727a9bccd408f01e4aa0d1b9f01",
+    "accepted_design_findings_reused": [
+      "Named young/adult Chane only; positive distinct physical Hero and virtual ABI UIDs, live actor, own source/card/zone/controller, native ACTION/index0/basecost0/once/goAgain arcSpec and exact typed empty-UID declaration are revalidated.",
+      "Existing actual payment subtracts resources and action point before PayDeclared; DECLARED/PAYING_ASSETS/ASSETS_PAID/PAYING_EFFECTS/COMPLETE guards and exact undo snapshot prevent free completion, double debit and nested creation. Callback state is reread before COMPLETE/pending clear.",
+      "The real HVY token factory is used with explicit payer/controller/owner and action=false, appropriate for a hero ability cost rather than an action-card effect. Broader creation replacement behavior is not newly certified.",
+      "Only resolution-time Soul Shackle creation is removed; MON_CHANE grant stays at resolution and native arcSpec owns own go again after resolution. No new Prepare macro, callback registration or await machine is required.",
+      "Prism and Bodice source/declaration helpers and existing rollback/assets/can-pitch helper bodies remain exact. mon JSON differs only selected Chane rows42/43 Resolve code+previousCodeHash; pen only selected young Chane row343.",
+      "Code-generation bridge accepts exact known legacy or already-correct normalized bodies, rejects unexpected matching authored bodies, and precedes hero preprocessing. No remote authored data changes or generated hand edits."
+    ]
+  },
+  "method": "Manual primary-rule/source review with exact hash, CRLF, delta inverse and unchanged-file checks. No runtime/behavior simulation.",
+  "resolved_blocker": {
+    "id": "CHANE053_SOURCE_REVIEW_1",
+    "finding": "Exactly three guards now call the existing suppression-aware FaBSEAHeroCreationBlocked: before activation snapshot/ABI creation, at declaration, and at effect-cost commit. Source creation remains the real token factory. Early failure leaves activation unannounced; later failure invokes existing bound-snapshot rollback.",
+    "sea_source_sha256": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "scope": "Source-only correction; not an additional native defect or card coverage claim."
+  },
+  "exact_v2_delta": {
+    "changed_candidates": [
+      "FaBSim/Custom/CardChoices.php",
+      "FaBSim/Custom/ARCAbilities.php"
+    ],
+    "only_three_guard_additions_verified_by_inverse_reconstruction": true,
+    "remaining_four_candidates_byte_identical_to_v1": true,
+    "all_live_before_and_candidate_after_hashes_verified": true,
+    "all_read_only_source_guards_match": true,
+    "all_six_candidates_crlf": true
+  },
+  "rules_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3939/",
+      "supports": "Current Preach Modesty prohibits hero abilities creating cards."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "rules": [
+        "1.8.1",
+        "1.8.1a",
+        "1.14.4",
+        "1.14.4b",
+        "1.14.4c"
+      ],
+      "supports": "Effect-cost effects retain source; unavailable mandatory effect-cost reverses action. Replacement exception is distinct from prohibition."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1.7",
+        "5.1.8",
+        "5.1.9",
+        "5.2.1c",
+        "5.2.1d",
+        "5.2.2b"
+      ],
+      "supports": "Action assets precede creation cost; benefit and own go again remain resolution behavior."
+    }
+  ],
+  "strict_generation_gate": {
+    "existing_wrapper_keys": [
+      "chane:0",
+      "chane_bound_by_shadow:0"
+    ],
+    "required_change": "Exactly one existing simple ResolveAbility wrapper per key: remove only the original FaBSEAHeroCreate Soul Shackle creation statement; retain MON_CHANE grant, callback key, parameters and registration. Explicitly bound generator whitespace only; no unrestricted body mask.",
+    "outside_wrappers": "Byte-identical except exactly one Last generated PHP header.",
+    "count_js": "Body byte-identical except exactly one timestamp header; no counts/names/entries/new macros.",
+    "rollback": "Back up all six source files and both generated outputs before apply. Reject unrelated drift and restore exact originals. Remote canonical writes forbidden."
+  },
+  "focused_qualification_gates": [
+    "Root-only actual-source component extension: retain old19 plus Prism12; bind Chane declaration/payment/creation observer and real Preach predicate with explicit boundary doubles. Include suppression before activation/declaration/commit and rollback; no factory-native claim from a double.",
+    "Exact six source and two generated-output backups; remote read-only/local-only guarded generation, expected two Resolve wrapper deletion changes and header only. Count body exact. Reject unrelated drift and restore originals.",
+    "Original unchanged young Chane probe9dac with initialeb06; first physical cost token before all four responses, grant/ownGA only on fourth, then actual paid GhostlyVisit. Two clean targeted replays and directly affected existing Prism native witness. No full suite."
+  ],
+  "closure_limits": [
+    "Issue053 remains open until root native qualification; no passing fixture claimed by this review.",
+    "Young Chane ordinary positive only; same adult source update receives no native coverage credit. Failed-cost, cancellation and complex token-replacement matrices remain unqualified beyond focused components.",
+    "No new root-cause count: the observed resolution-timed cost is another caller migration into existing039."
+  ],
+  "native_before_proof_sha256": "d81b7fd1e427d05639f9cf1e31764e28adf4e5ba3ebcfcee175578a9487e9d10",
+  "native_probe_input_sha256": "9dac9b0da6a18dcc4d6554de5def0cea768431406610c2c56f838c000192f3f7",
+  "php_execution": 0,
+  "native_execution": 0,
+  "code_generation_execution": 0,
+  "repository_writes": 0,
+  "remote_writes": 0,
+  "optional_rules_simulation": 0
+}

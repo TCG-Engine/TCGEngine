@@ -1,0 +1,165 @@
+{
+  "status": "INDEPENDENT_ACTUAL_SAVED_PRISM052_APPROVED_WITH_BOUNDED_REPAIR_CLOSURE",
+  "reviewer": "/root/b104_saved_review",
+  "utc": "2026-10-26T09:34:56.121436+00:00",
+  "method": "Manual actual native actions and all persisted assertions compared to unchanged prior printed/current-rule approved input; schema-aware actual complete initial/final snapshots inspected independently. Read-only root receipt verification, no reviewer PHP/game/model.",
+  "input_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch236.json",
+  "input_sha256": "aeae677e8b23509d5aee078f7cb0229a5d54ef0c15edcc1513f67783a066bf66",
+  "source_spec": "card-regression-batch236.json",
+  "source_spec_sha256": "aeae677e8b23509d5aee078f7cb0229a5d54ef0c15edcc1513f67783a066bf66",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "fixtures": [
+    {
+      "slug": "card-prism-four-live-sparse-correct-resource-assets-before-physical-soul-banish-and-owned-shield",
+      "source_case_index": 2,
+      "semantically_approved": true,
+      "verdict": "APPROVED_BOUNDED_ACTUAL_SAVED_YOUNG_PRISM_AND_TWO_ROOT_CLEAN_REPLAYS",
+      "source_spec": "card-regression-batch236.json",
+      "source_spec_sha256": "aeae677e8b23509d5aee078f7cb0229a5d54ef0c15edcc1513f67783a066bf66",
+      "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "actions": 7,
+      "native_assertions": 456,
+      "manual_passes": 4,
+      "manual_pass_actor_sequence": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3851d2ce77dedbee36c300efd0f64e8f8f74025c5b02504072f8a65e92916382",
+        "actions.json": "94f318965b2c63e07daab19106c4c0705b79d3394c2253920eabe622cfb9dc11",
+        "assertions.json": "b4db4f4fb9d96883cf8d894be41b8e827f8a4771bce5a8d2c06fcaed741b9ff3",
+        "expected_final_gamestate.txt": "3af196f59f93fdc8e640fee056e12e4db7d3fc94b8c836fa7a12d624163de196",
+        "meta.json": "cb5226d1f711f4c7de803e39f8e01ce34eac4f0c7ecd1bab5e7967c2829a2a88"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3851d2ce77dedbee36c300efd0f64e8f8f74025c5b02504072f8a65e92916382",
+        "actions.json": "94f318965b2c63e07daab19106c4c0705b79d3394c2253920eabe622cfb9dc11",
+        "assertions.json": "b4db4f4fb9d96883cf8d894be41b8e827f8a4771bce5a8d2c06fcaed741b9ff3",
+        "expected_final_gamestate.txt": "3af196f59f93fdc8e640fee056e12e4db7d3fc94b8c836fa7a12d624163de196",
+        "meta.json": "cb5226d1f711f4c7de803e39f8e01ce34eac4f0c7ecd1bab5e7967c2829a2a88"
+      },
+      "fixture_sha256": "aed7283ab035ccc10a8c0ba5f6e5f604e868be63217dd36c887d18283af76642",
+      "checkpoints": [
+        {
+          "checkpoint": "full_four_live_legal_young_Prism20_real_Light_Soul_and_Blue_assets",
+          "step": 0,
+          "native_assertions": 111
+        },
+        {
+          "checkpoint": "actual_Instant_two_cost_declaration_selects_physical_Soul_before_assets",
+          "step": 1,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "correct_Soul_selection_only_NO_physical_banish_before_actual_resource_payment",
+          "step": 2,
+          "native_assertions": 41
+        },
+        {
+          "checkpoint": "real_Blue_pays_two_THEN_Soul_banish_cost_commits_before_responses",
+          "step": 3,
+          "native_assertions": 38
+        },
+        {
+          "checkpoint": "actual_response_1_of_four_no_early_resolution",
+          "step": 4,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "actual_response_2_of_four_no_early_resolution",
+          "step": 5,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "actual_response_3_of_four_no_early_resolution",
+          "step": 6,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "full_final_only_fourth_response_creates_one_owned_Shield",
+          "step": 7,
+          "native_assertions": 119
+        }
+      ],
+      "recorder_only_checks": 0,
+      "full_actions_and_assertions_exact": true,
+      "actual_initial_sha256": "3851d2ce77dedbee36c300efd0f64e8f8f74025c5b02504072f8a65e92916382",
+      "same_initial_and_first_two_inputs_as_actual_native_before": true,
+      "manual_preferences_per_endpoint": 48,
+      "raw5_unchanged_during_review": true,
+      "meaningful_outcome": "After actual Soul selection and before funding: original FIRST Soul1 oracle now passes, Banish0/Shield0/R0/AP1 retained. Actual real Blue6 Hand click pays resource2 from3, R1/AP1; Soul5 then public own Banish and captured ABI7 still independent/no Shield. Three actual responses preserve Arena0; only fourth creates owned Shield8. Hero1 retained with actual ARC_USED_0:2, no virtual source/active frames/payment/Stack/queues at completion. All other life/economy/zones retained.",
+      "limits": "Young Prism one legal positive activation only. Native boundary oracles do not resolve invisible inside-action debit-versus-banish ordering alone; actual31 extracted-code contracts separately supply ordered commit-call evidence with explicit boundary doubles. No adult/other Prism, once rejection, cancellation, altered costs/invalid payments, Soul listeners consequences, created Shield Ward or full-card/sibling credit. Existing cached source-context variables may remain as normal; active frame/marker/payment is drained."
+    }
+  ],
+  "blocked_attempts": [],
+  "manual_source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse236-three-manual-source-approval.json",
+    "sha256": "c18b833ced0698b463332413953aaf4a67e08dd1677aa0a00761acbfc139cf0d"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch236-20261026T092921Z-6adf1d71ae59f.json",
+    "sha256": "b81e78e08ded50cc9d7e062c976abffe9ea6407d450683360a7a29e8f0048cae"
+  },
+  "two_clean_root_replays": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-prism052-postfix-r1.json",
+      "sha256": "a859600f4737f400846f7f411a47fdc9bec0261dc143e9cb263f1baf89c1703b",
+      "passed": 1,
+      "failed": 0,
+      "preservation_scope": "selected fixtures only"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-prism052-postfix-r2.json",
+      "sha256": "616ace1492386bcb133dbe802afe2fda1aa0b6e5b6c2dd798a422c5f995024f8",
+      "passed": 1,
+      "failed": 0,
+      "preservation_scope": "selected fixtures only"
+    }
+  ],
+  "focused_existing_compatibility": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-prism052-three-prepared-cost-compat.json",
+    "sha256": "e2782b06dc13e95d7ccf07893c332d8dc4f3a28f86858d476f7700a93e8917d5",
+    "passed": 3,
+    "fixtures": [
+      "fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+      "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+      "repair-bloodtorn-bodice-four-live-real-aura-declaration-action-asset-before-both-destructions"
+    ],
+    "scope": "One current replay each Tome/Rouse/Bodice; no legacy semantic re-review or blanket corpus retag."
+  },
+  "generated_gate_review": {
+    "receipt_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism052-application-generation\\receipt.json",
+    "receipt_sha256": "b67af34385c22e0768e1abf3dd3d56d9132fe7b1897b71a7a44efc5eaf7411f9",
+    "status": "ACCEPTED_GENERATED_NATIVE_QUALIFICATION_PENDING",
+    "runtime_after_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+    "source_and_backup_hashes_verified": true,
+    "actual_static_byte_gate_independently_confirmed": true,
+    "scope": "Only two named Prepare wrappers/owned machines/resume wrappers and single PHP timestamp changed; wrapper only helper/startPC and resume helper substitutions allowed. All other PHP bytes exact, Count timestamp only. Both named new machines declare Soul cost before Finish, no direct unpaid Soul move. Generated pair and six sources match accepted receipt; recoverable backups preserved.",
+    "native_qualification_pending_status_is_historical_generation_stage": true
+  },
+  "component_reference": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prism236-actual-payment-component-proposed\\root-results.json",
+    "sha256": "96981b2f59057ce243d9b0c3429bc19e6ff0e3d8a527892d5762b427e9fd6651",
+    "passed": 31,
+    "assertions": 266,
+    "not_rerun": "Already root-executed/reviewed actual-source contracts; same applied candidate hashes. Boundary doubles remain distinct from native gameplay."
+  },
+  "native_before": {
+    "receipt_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch236-20261026T082906Z-6adf0f520a72f.json",
+    "receipt_sha256": "e7e3ec601ce716b658c0250399332ae6972cbc84b0225c56df9e9b89d396ed60",
+    "first_failed_oracle": "Expected p1Soul count1 got0 after actual Hero activation and Soul selection; no funding input or passing fixture.",
+    "initial_sha256": "3851d2ce77dedbee36c300efd0f64e8f8f74025c5b02504072f8a65e92916382",
+    "postfailure_resource_scalar": "Not separately captured; no later R0 assertion claimed."
+  },
+  "recommended_issue052_closure": "Fixed and verified for named young Prism positive paid activation, as extension of existing039 prepared_effect_costs. Real unchanged red/green probe + actual-source31 contracts + two clean new replays + three focused prior compatibility passes support bounded closure. Not a new independent mechanism and no generic all-cost/all-hero correctness or full-suite readiness. Keep original failure and local canonical-generation bridge evidence; remote authored source remains unchanged.",
+  "other_batch236_rows": "Not re-reviewed or retagged: healthy Sigil/Forked retain their original recorded/qualified5ff evidence. This proof contains Prism ONLY for --existing-reviewed-rest.",
+  "full_suite_run": false,
+  "native_execution_by_reviewer": false,
+  "php_execution_by_reviewer": false,
+  "repository_writes_by_reviewer": false,
+  "optional_rules_simulation": false,
+  "raw5_preserved": true
+}

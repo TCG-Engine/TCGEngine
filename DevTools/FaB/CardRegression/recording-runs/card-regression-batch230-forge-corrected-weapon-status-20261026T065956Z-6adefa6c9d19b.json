@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T06:59:56+00:00",
+    "input_file": "card-regression-batch230-forge-corrected-weapon-status.json",
+    "input_sha256": "961d88c01dcefe2c5823c76d0ec17d37ce03e99c1ce7b802affa39093cd14800",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-visit-the-imperial-forge-red-four-live-sparse-actual-sword-piercing-three-against-real-equipment-defender",
+            "status": "recorded_semantically_checked",
+            "actions": 26,
+            "assertions": 1794
+        }
+    ]
+}

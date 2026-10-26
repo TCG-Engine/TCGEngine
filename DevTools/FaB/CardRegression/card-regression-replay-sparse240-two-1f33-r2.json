@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch240.json",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T10:07:35.359865+00:00",
+  "fixtures": [
+    {
+      "slug": "card-quiver-of-rustling-leaves-four-live-sparse-actual-paid-three-reveals-top-arrow-loads-face-up-and-destroys-quiver",
+      "fixture_sha256": "ca3876c9b1904a25fcf4bbb8dc1c3df77ad855b977f637e54258ee08bb1fe187",
+      "passed": true,
+      "result": "[PASS] quiver_of_rustling_leaves / lean four-live meaningful positive"
+    },
+    {
+      "slug": "card-blade-cuff-four-live-sparse-actual-paid-destroy-action-adds-one-to-controlled-dagger-and-real-two-damage",
+      "fixture_sha256": "b229c93a084e2eb42c86363027f75d7bac9fc0e418c80abdcec0cc81a16a191d",
+      "passed": true,
+      "result": "[PASS] blade_cuff / lean four-live meaningful positive"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-quiver-of-rustling-leaves-four-live-sparse-actual-paid-three-reveals-top-arrow-loads-face-up-and-destroys-quiver",
+      "returncode": 0,
+      "stdout": "[PASS] quiver_of_rustling_leaves / lean four-live meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blade-cuff-four-live-sparse-actual-paid-destroy-action-adds-one-to-controlled-dagger-and-real-two-damage",
+      "returncode": 0,
+      "stdout": "[PASS] blade_cuff / lean four-live meaningful positive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

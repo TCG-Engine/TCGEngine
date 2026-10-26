@@ -1,0 +1,80 @@
+{
+  "reviewer": "/root/b104_saved_review",
+  "status": "APPROVED_BOUNDED_V2_SOURCE_AND_COMPONENT_DATA_EXECUTION_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "component_cases_approved": true,
+  "component_script_sha256": "2cadd9183da2b9c7cfdf88df55382799cd9c66e62eb1f0ad5be5bf7823475562",
+  "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+  "runtime_before_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+  "proposal": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire056-activated-header-recovery-proposed-v2\\proposal.json",
+  "proposal_sha256": "f02bb2f0bd9dc9dede02695cbc020f68741de61c28cedc1311ddbe219de4e040",
+  "diff_sha256": "69f46f3b54eb3fd4a9fe4ebae232ced05a1394240d517044330e7e5dc17226d7",
+  "strict_anchors_sha256": "6ebb87ff467a3b0d08e95ea742bf390fba66a625450a4eacbe47e0c0eeaa9b15",
+  "files": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "before_sha256": "1141624ae114dc93f6c30ac9f37c5f9a57a92b5ed38e14c3be2bc1da58158b6b",
+      "after_sha256": "3d243fd5a0382368f0db59863fe8dbbfd06dd54a41447f94c2bb7868a0958e77",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire056-activated-header-recovery-proposed-v2\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "eol": "CRLF retained"
+    },
+    {
+      "path": "DevTools/FaB/printed_keyword_cases.json",
+      "before_sha256": "65124031892341b433a158832785c0e5527b07d7fd127df5612fbb9ec8ce61f8",
+      "after_sha256": "025d98d4751e59727ea1219c2017d8b86d6e2c5cbd9bc3b8e1820d7dccc6c775",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire056-activated-header-recovery-proposed-v2\\candidate\\DevTools\\FaB\\printed_keyword_cases.json",
+      "eol": "CRLF retained"
+    }
+  ],
+  "method": "Independent manual exact-byte/source/rules and all48 component-case review, with hash/inverse-anchor/unchanged-case comparisons. Reuses unchanged actual token-extracting harness review. No PHP/native/model or repository mutation.",
+  "source_findings": [
+    "One exact CRLF insertion reconstructs entire GL114->3d243fd5 candidate; all other source bytes and callers unchanged. Current before/candidate hashes and four dependent guards match.",
+    "After existing quote stripping, only metadata-absent recovery is truncated at the first unquoted optional Once-per-Turn Action/Instant/Attack-Reaction/Defense-Reaction header with single/double ASCII hyphen or Unicode dash punctuation. An activated body cannot supply a later own-card keyword. This fixes the selected four real metadata-empty text controls.",
+    "Own keyword text before an activated header remains recoverable. Quoted headers are already replaced, so they do not truncate a following real own keyword. Rapid grant/Reload/separate-own-line contains no activated header and preserves the correct AP1 path.",
+    "All existing conditional wrap joining, punctuation/exact sentence matching, quote behavior and metadata-required empty GA/Dominate fallback remain unchanged. Metadata-present behavior is deliberately unchanged; no claim to fix or certify old metadata-true activated-text misclassification.",
+    "The recovery is conservative: it does not newly recover ambiguous own lines after any activated section or claim a complete text grammar. No card IDs/cache/generated/source suppression/AP/ability-spec behavior is modified."
+  ],
+  "rules_boundary": {
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "sections": [
+      "5.2.1d",
+      "8.3.5a"
+    ],
+    "finding": "Post-colon abilities belong to activated layer; ordinary Item card-layer does not inherit activated Go again. Captured native arcSpec still supplies real activated-layer go again independently."
+  },
+  "component": {
+    "harness": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\printed_keyword_test.php",
+    "harness_sha256": "2cadd9183da2b9c7cfdf88df55382799cd9c66e62eb1f0ad5be5bf7823475562",
+    "unchanged_actual_function_extractor": true,
+    "old_cases_sha256": "65124031892341b433a158832785c0e5527b07d7fd127df5612fbb9ec8ce61f8",
+    "new_cases_sha256": "025d98d4751e59727ea1219c2017d8b86d6e2c5cbd9bc3b8e1820d7dccc6c775",
+    "original39_byte_document_metadata_and_case_objects_preserved": true,
+    "old_cases": 39,
+    "added_cases": 9,
+    "planned_total": 48,
+    "additions_sha256": "6313e687295c3065aac81c202673da78b18d035cd0ea8ae2308cfa00c8c2166a",
+    "case_verdict": "Four actual cached Gold/Silver/Induction/Plasma activated-body negatives plus own-prefix positive, quoted-header+real-own positive and three activated-header spelling negatives have correct expectations. All39 prior cases including Rapid and explicit case25 erratum remain exact.",
+    "scope": "Actual parser extraction with only metadata/text lookup doubles; not card play, activation, live AP, source lifetime or game integration. Root48 actual harness and lint still required."
+  },
+  "prior_evidence": {
+    "boundary_proof": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid056-unquoted-activated-keyword-collateral-independent-boundary.json",
+    "boundary_sha256": "fbc8be90f0bbc8a41ac565c16dbdb61847c005eb2626bafdd17230f1f8a58f2b",
+    "qualified_Rapid_V1_runtime": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+    "scope": "Prior V1 Rapid correctness is retained historically; it does not close collateral scope or qualify future runtime automatically."
+  },
+  "required_native_validation": [
+    "Unchanged rules-correct Rapid fixture/new-only focused replay at final V2 runtime.",
+    "Correct ordinary Induction Item PLAY probe must keep AP0, R1 and same owned Item/Steam0 after real cost2/four responses; its pre-V2 native result is not yet assumed here.",
+    "Existing Induction200 recharge witness can provide ability-GA compatibility, but cannot reproduce the ordinary-play false refund. No full suite required."
+  ],
+  "classification": "Existing056 encounter within038 shared printed-keyword family extension, no extra independent root-cause/coverage count for four synthetic controls.",
+  "limits": [
+    "Approval is exact bounded source/component-data readiness only, not execution certification.",
+    "No broad activated-grammar/catalog metadata completeness claim; metadata-present behavior and ambiguous own text after activated sections remain outside new recovery.",
+    "Gold/Silver are parser controls; no ordinary-play native token claim. No further fixtures, gameplay source edits, native tests, remote authoring or fullsuite executed by this reviewer."
+  ]
+}

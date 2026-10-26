@@ -1,0 +1,46 @@
+{
+  "approved": true,
+  "status": "APPROVED_EXACT_COMPONENT_AND_GUARDED_APPLICATION_RUNNER_PENDING_ROOT_EXECUTION",
+  "reviewer": "/root/b104_saved_review",
+  "utc": "2026-10-26T10:46:13.847434+00:00",
+  "issue": "FAB-REG-053",
+  "application_script_sha256": "5174711ba9ebb5a655088570a93f082dd8e599a8171271e3b2ad5cb27bfe0090",
+  "component_script_sha256": "d898360ba1e52efc08972b7883fbe4acd98243877cdfb122598f45be019bae9b",
+  "application_script": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\apply_generate_chane053.py",
+  "component_script": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\chane053-actual-payment-component-proposed\\prepared_payment_prism_component.php",
+  "component_independent_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\chane053-additive-component-independent-review.json",
+    "sha256": "da40c211e7c461e2fd001ab3637c227c194f270b3a4f23830a12de84f94446cb"
+  },
+  "source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\chane053-v2-independent-source-approval.json",
+    "sha256": "3debff0ab316ff3eb347d77503f3d1b85b282af7cbe435bd621b9659a66bb26e"
+  },
+  "runtime_before_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "method": "Independent manual review of exact source, component extraction/boundary contracts and guarded runner. No PHP/codegen/game or optional model execution.",
+  "runner_findings": [
+    "Initial exact runtime, six proposal/candidate/before-file hashes, source approval, all read-only dependencies, generator, both old outputs and protected-config/environment/preflight guards precede mutation. Runtime and all eight original bytes rechecked after read-only remote preflight.",
+    "Actual44-contract result must show44PASS/0FAIL and retain each previous31 PASS/assertion count, with source hashes bound to candidate Choices/ARC and unchanged GameLogic/SEA. Root must execute the approved d898 harness itself; this proof does not claim that execution yet.",
+    "Three exact candidate PHP lints are reused from bound b39db receipt, including identical CodeGeneration candidate; no duplicate lint requested. Application requires this exact peer-proof hash and exact script/component hashes.",
+    "All six source files and both generated outputs are backed up and byte-verified outside repository before apply. Only exact reviewed sources are written; compilation is the existing local macro-only route with expected old output hashes, not remote CardEditor/import publication.",
+    "Strict output expectation names exactly two existing simple Chane Resolve callbacks; removes only exact hero-token creation statement and explicitly one existing grant indentation, retaining MON_CHANE. Parameters/comments/registrations/all outside bytes exact except one valid timestamp. CountJS body exact except one timestamp; no new macros/await machines/count drift.",
+    "Observed generated outputs are archived before acceptance/rejection. Compile/output/source/config/generated-PHP failures trigger exact-output/source restoration with guards against overwriting intervening user source edits. Concurrent edit preventing guarded restoration requires manual reconciliation; no unconditional restoration claim.",
+    "Protected connection contents are not reported. Read-only preflight and known remote backend scope are reused from prior reviewed plumbing; sensitive token redaction covers raw/URL-encoded generator output. No protected config was read by this reviewer."
+  ],
+  "execution_conditions": [
+    "Root sole executor, serial with no active game recording/replay when applying; finish healthy242 at its original1f33 context first.",
+    "Run component through bare key=value arguments shown by author; no -- prefixes. Suggested Python invocation uses -B.",
+    "Only after actual44contracts pass, run frozen application with this proof path/hash. After accepted generation, keep053 open pending unchanged young Chane probe, two focused clean replays and directly affected Prism witness.",
+    "If preflight/generation fails, inspect receipt and exact backups before any retry; unknown/intervening user edits require reconciliation. No remote writes/full suite."
+  ],
+  "component_limits": [
+    "31 original cases retained and13 added; actual20 extracted source functions, explicit token-count/factory/Undo/transport adapters. No native activation/factory/replacement or adult coverage claimed from component.",
+    "Source-only V1 Preach omission resolved by V2; no extra native bug/group count. Existing039 migration extension."
+  ],
+  "php_execution": 0,
+  "native_execution": 0,
+  "code_generation_execution": 0,
+  "repository_writes": 0,
+  "remote_writes": 0,
+  "optional_rules_simulation": 0
+}

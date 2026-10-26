@@ -1,0 +1,64 @@
+{
+  "status": "TWO_EXISTING_BRANCH_SNAPSHOTS_CORRECTED_ALL_NATIVE_ASSERTIONS_AND_TARGETED_REPLAYS_PASS",
+  "reviewer": "/root/b104_saved_review",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "utc": "2026-10-26T12:35:09.866465+00:00",
+  "source_review": "review-evidence/take-cover-054-source-independent-review.json",
+  "outer_review": "review-evidence/take-cover-054-legacy-outer-snapshot-independent-review.json",
+  "undo_review": "review-evidence/take-cover-054-legacy-undo-snapshot-independent-review.json",
+  "fixtures": [
+    {
+      "slug": "card-unmovable-red-hand-paid-blue-three",
+      "source_spec": "card-regression-batch07.json",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dbb5dd6b3abbac4c7033d509e55f5c30da01b6ae7197f13cddd125dda9bb673d",
+        "actions.json": "443dee083ef87115d087ca8a141b3b542b67814f9f9af61318db9fe0dfa679c3",
+        "assertions.json": "7d5cd084c3a47749896f66fe489de4ae2115de2821fabc2e5b75b71856d88df4",
+        "expected_final_gamestate.txt": "efcc6098819f71d3a91b2e58fdeb1ea2023ffd4fd9972ac4315c3b7f5c2826e8",
+        "meta.json": "5f208f339775903bc04d4cd3850cb4e7fb1fb07d24b1c69aa59421d4fe2b53d9"
+      },
+      "original_raw5_sha256": {
+        "initial_gamestate.txt": "dbb5dd6b3abbac4c7033d509e55f5c30da01b6ae7197f13cddd125dda9bb673d",
+        "actions.json": "443dee083ef87115d087ca8a141b3b542b67814f9f9af61318db9fe0dfa679c3",
+        "assertions.json": "7d5cd084c3a47749896f66fe489de4ae2115de2821fabc2e5b75b71856d88df4",
+        "expected_final_gamestate.txt": "86018ea1cd367c02fc896917671d502ef01eda44625b9fd24e0eeb251271dc89",
+        "meta.json": "5f208f339775903bc04d4cd3850cb4e7fb1fb07d24b1c69aa59421d4fe2b53d9"
+      },
+      "fixture_sha256": "701129f46287a05e6bf05f1c0efc8ff3e3de5248549eeb15912c06708549f29d",
+      "semantically_approved": true,
+      "all_original_actions_assertions_initial_meta_preserved": true,
+      "outer_and_both_undo_copies_reviewed": true,
+      "current_targeted_replay": "card-regression-replay-takecover054-two-dr-final-5880-compat.json"
+    },
+    {
+      "slug": "card-fate-foreseen-red-hand-opt-one-top-then-draw",
+      "source_spec": "card-regression-batch07.json",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "554e312ce2e546cbf86b14360024447ba6dca8d0279d0a52f7467507804d45ee",
+        "actions.json": "13baf676b94005abc1cdb577dee0386d94b8c784a05e2034e0461dde039c587a",
+        "assertions.json": "d981f3191967dee6a6e896487c75e5e5eba3b682286acfda1b47a7002718f541",
+        "expected_final_gamestate.txt": "29c8aa85bd118b52010f7746e97a636cf216d300e21c49db149b2c4ea103e454",
+        "meta.json": "bfce687e94c6ddf419199b124b3ed2739180e3f036f7604f095670ed01a2f662"
+      },
+      "original_raw5_sha256": {
+        "initial_gamestate.txt": "554e312ce2e546cbf86b14360024447ba6dca8d0279d0a52f7467507804d45ee",
+        "actions.json": "13baf676b94005abc1cdb577dee0386d94b8c784a05e2034e0461dde039c587a",
+        "assertions.json": "d981f3191967dee6a6e896487c75e5e5eba3b682286acfda1b47a7002718f541",
+        "expected_final_gamestate.txt": "a864243b0715a231689ad8f6611bc080e40343f469ab07c6a08162b11156452b",
+        "meta.json": "bfce687e94c6ddf419199b124b3ed2739180e3f036f7604f095670ed01a2f662"
+      },
+      "fixture_sha256": "406645dcf3904bdaf7c33eebd9adb3ebbcc86f0d8d36f77c609201a4556aadeb",
+      "semantically_approved": true,
+      "all_original_actions_assertions_initial_meta_preserved": true,
+      "outer_and_both_undo_copies_reviewed": true,
+      "current_targeted_replay": "card-regression-replay-takecover054-two-dr-final-5880-compat.json"
+    }
+  ],
+  "original_raw10_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\takecover054-two-legacy-snapshot-backup",
+  "diagnostic_capture": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\takecover054-two-dr-full-actual-diagnostics\\receipt.json",
+  "diagnostic_clones_removed": true,
+  "normalization_boundary": "Actual diagnostic clone capture used CRLF. Independently derived candidate preserved original LF; complete normalized fullfiles equal, no other semantic or serialization differences.",
+  "coverage_credit_added": 0,
+  "new_helper_controls": 0,
+  "limitations": "Focused compatibility of two selected existing DR tests only; other historical cases and broad full suite not run."
+}

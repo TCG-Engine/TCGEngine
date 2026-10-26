@@ -1,0 +1,305 @@
+{
+  "reviewer": "/root/b104_saved_review",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "input_sha256": "810fd2d957a7a7602a5e6359fdc8ba83b52957c077bc2d79867cc56d3fe449c1",
+  "manifest_sha256": "49bec054380cc65fe95b649c940c8719b0c9a35586a5ccd3005376872ce7293f",
+  "status": "INDEPENDENT_ACTUAL_SAVED_SEMANTIC_APPROVAL_REPLAY_GATES_SEPARATE",
+  "method": "Read-only completed raw10/source-input comparison/every native assertion and complete initial/final schema snapshot review. Stable independent printed/source analysis reused. Snapshot Counters/TurnEffects storage decoded for property comparisons; real Oldhim used-turn marker retained. Existing parser/normalization utilities only, no engine import, simulator/model, PHP/game execution or repository mutation.",
+  "source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse248-combined-first-manual-independent-approval.json",
+    "sha256": "d038fa3590fead0c9f81de6b8d1247e871ac131ed890c9cfee8c55b9e2e60945"
+  },
+  "rules_sources": [
+    "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+    "https://rules.fabtcg.com/en/cr/07-combat/"
+  ],
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch248-20261026T134123Z-6adf588356cc0.json",
+    "sha256": "10913fab90907fdecb3ac467527dae6d99ad5ee44354893e5c3ed2a533f20d5d"
+  },
+  "totals": {
+    "scenarios": 2,
+    "actions": 34,
+    "native_assertions": 1080,
+    "actual_manual_passes": 28,
+    "manual_priority_passes": 27,
+    "defender_declaration_finish_inputs": 1,
+    "schema_card_property_checks": 198,
+    "recorder_only_assertions": 0,
+    "endpoint_manual_preferences_verified": 192
+  },
+  "fixtures": [
+    {
+      "slug": "card-dash-database-four-live-sparse-real-top-deck-item-instant-plus-one-cost-and-steam-entry",
+      "source_case_index": 0,
+      "primary_card_id": "dash_database",
+      "group_id": "identity:dash_database",
+      "semantically_approved": true,
+      "verdict": "APPROVED_BOUNDED_ACTUAL_SAVED_FOUR_LIVE_POSITIVE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch248.json",
+      "source_spec_sha256": "810fd2d957a7a7602a5e6359fdc8ba83b52957c077bc2d79867cc56d3fe449c1",
+      "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "recorded_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "actions": 6,
+      "native_assertions": 344,
+      "manual_passes": 4,
+      "actual_manual_passes": 4,
+      "manual_priority_passes": 4,
+      "defender_declaration_finish_inputs": 0,
+      "administrative_endphase_inputs": 0,
+      "pass_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "priority_pass_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "card_property_assertions": 89,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ebc0c535302a99c782935001813c6b5227e34428559f53a2c059e5fe75cf4e0",
+        "actions.json": "b4f460255a0f38b643d9e3761738c5078813a92409254234e585da94433a9e70",
+        "assertions.json": "7eda199e4365e02ccaa90eb7c8ab43432c70a96ede100b1ad9aac296d0a457b4",
+        "expected_final_gamestate.txt": "faa7b30767d4fecc1b1862e4b8a77793cbee6d72fa8100d4327de0e2ce4d4e10",
+        "meta.json": "9aae3df7ccced32b87508f19867ef43a316c023c8e4a65e0968f7bc4b04f1546"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8ebc0c535302a99c782935001813c6b5227e34428559f53a2c059e5fe75cf4e0",
+        "actions.json": "b4f460255a0f38b643d9e3761738c5078813a92409254234e585da94433a9e70",
+        "assertions.json": "7eda199e4365e02ccaa90eb7c8ab43432c70a96ede100b1ad9aac296d0a457b4",
+        "expected_final_gamestate.txt": "faa7b30767d4fecc1b1862e4b8a77793cbee6d72fa8100d4327de0e2ce4d4e10",
+        "meta.json": "9aae3df7ccced32b87508f19867ef43a316c023c8e4a65e0968f7bc4b04f1546"
+      },
+      "fixture_sha256": "234e19f488e8eb2f4c05129218ff12d07edd2c5333fc0007e67096fa66861dcf",
+      "checkpoints": [
+        {
+          "step": 0,
+          "native_assertions": 119
+        },
+        {
+          "step": 1,
+          "native_assertions": 30
+        },
+        {
+          "step": 2,
+          "native_assertions": 27
+        },
+        {
+          "step": 3,
+          "native_assertions": 15
+        },
+        {
+          "step": 4,
+          "native_assertions": 15
+        },
+        {
+          "step": 5,
+          "native_assertions": 15
+        },
+        {
+          "step": 6,
+          "native_assertions": 123
+        }
+      ],
+      "author_only_checks": [],
+      "findings": [
+        "Exact native Deck5->INSTANT Stack/cost2 and real Blue6 funding checkpoints precede the four real response actors1/2/3/4. First3 keep Item outside Arena; fourth produces same owned Item5 with decoded Steam3/FAB_PLAY_ORDER1.",
+        "Final full snapshot independently pins R1/AP1, Dash18/opponents20, empty Hand/Deck, physical Item5Arena and Blue6Pitch. No Maxx/Crank/bonus AP branch inferred."
+      ],
+      "four_live_profile": "All4 legal young hero profiles/initial assets/declared zones/physicalUID ownership match approved setup, UPF1234/passive[]. All96 endpoint manual preferences per scenario verified; exact real pass actors match preceding priority, declaration finish separated.",
+      "limits": [
+        "Root executed native recording. This agent performed completed saved-stream/snapshot review; intermediate claims bind passed native assertions plus exact inputstream, not separately captured prefix snapshots.",
+        "No isolated native fault, extra branches/once-rejection/expiry/adult/sibling/support-primary/full-card coverage."
+      ]
+    },
+    {
+      "slug": "card-oldhim-four-live-sparse-real-earth-pitch-defense-reaction-prevents-two-physical",
+      "source_case_index": 1,
+      "primary_card_id": "oldhim",
+      "group_id": "identity:oldhim",
+      "semantically_approved": true,
+      "verdict": "APPROVED_BOUNDED_ACTUAL_SAVED_FOUR_LIVE_POSITIVE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch248.json",
+      "source_spec_sha256": "810fd2d957a7a7602a5e6359fdc8ba83b52957c077bc2d79867cc56d3fe449c1",
+      "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "recorded_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+      "actions": 28,
+      "native_assertions": 736,
+      "manual_passes": 24,
+      "actual_manual_passes": 24,
+      "manual_priority_passes": 23,
+      "defender_declaration_finish_inputs": 1,
+      "administrative_endphase_inputs": 0,
+      "pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 6
+      },
+      "priority_pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 5
+      },
+      "card_property_assertions": 109,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f73ace8f382a9a0ec14983fe40a509530c98dda5afafd5f49378b9a98b9051c5",
+        "actions.json": "3a0ab041a0873962683d11e71779ea1d3d662342c375f3a0286380c6534d1dde",
+        "assertions.json": "721efb4d18da138214039b91eaeb4a67bde7deed47b665be5e33a5477e9f5232",
+        "expected_final_gamestate.txt": "c81d4f74f6b62d72cac0cf9983f1eb5f4d1d001f7e3d5c850b0441b45a5b0ca8",
+        "meta.json": "96e8e00d49714070951964a96331f87590e04e0e8162322238c470c4760cb107"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f73ace8f382a9a0ec14983fe40a509530c98dda5afafd5f49378b9a98b9051c5",
+        "actions.json": "3a0ab041a0873962683d11e71779ea1d3d662342c375f3a0286380c6534d1dde",
+        "assertions.json": "721efb4d18da138214039b91eaeb4a67bde7deed47b665be5e33a5477e9f5232",
+        "expected_final_gamestate.txt": "c81d4f74f6b62d72cac0cf9983f1eb5f4d1d001f7e3d5c850b0441b45a5b0ca8",
+        "meta.json": "96e8e00d49714070951964a96331f87590e04e0e8162322238c470c4760cb107"
+      },
+      "fixture_sha256": "97b821c802aa94fdb59fdbe55b4c73dab328dd495ef13c539fc126516ea117cb",
+      "checkpoints": [
+        {
+          "step": 0,
+          "native_assertions": 121
+        },
+        {
+          "step": 1,
+          "native_assertions": 12
+        },
+        {
+          "step": 2,
+          "native_assertions": 22
+        },
+        {
+          "step": 3,
+          "native_assertions": 15
+        },
+        {
+          "step": 4,
+          "native_assertions": 15
+        },
+        {
+          "step": 5,
+          "native_assertions": 15
+        },
+        {
+          "step": 6,
+          "native_assertions": 23
+        },
+        {
+          "step": 7,
+          "native_assertions": 15
+        },
+        {
+          "step": 8,
+          "native_assertions": 15
+        },
+        {
+          "step": 9,
+          "native_assertions": 15
+        },
+        {
+          "step": 10,
+          "native_assertions": 15
+        },
+        {
+          "step": 11,
+          "native_assertions": 20
+        },
+        {
+          "step": 12,
+          "native_assertions": 15
+        },
+        {
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "step": 15,
+          "native_assertions": 15
+        },
+        {
+          "step": 16,
+          "native_assertions": 17
+        },
+        {
+          "step": 17,
+          "native_assertions": 17
+        },
+        {
+          "step": 18,
+          "native_assertions": 17
+        },
+        {
+          "step": 19,
+          "native_assertions": 35
+        },
+        {
+          "step": 20,
+          "native_assertions": 29
+        },
+        {
+          "step": 21,
+          "native_assertions": 17
+        },
+        {
+          "step": 22,
+          "native_assertions": 17
+        },
+        {
+          "step": 23,
+          "native_assertions": 17
+        },
+        {
+          "step": 24,
+          "native_assertions": 18
+        },
+        {
+          "step": 25,
+          "native_assertions": 15
+        },
+        {
+          "step": 26,
+          "native_assertions": 15
+        },
+        {
+          "step": 27,
+          "native_assertions": 15
+        },
+        {
+          "step": 28,
+          "native_assertions": 17
+        },
+        {
+          "step": 28,
+          "native_assertions": 127
+        }
+      ],
+      "author_only_checks": [],
+      "findings": [
+        "Actual paid ABI7 is Owner0/Controller4/SourceHero4; real EarthBlue6 pitch3 pays3/R0/AP0. Four real ability response actors4/1/2/3 resolve prevention with HP20 and no defending card; four further reactions1/2/3/4 yield physical P4HP18 from native computed incoming4.",
+        "Final full snapshot independently retains Hero4 identity/status/ownership with ordinary ARC_USED_0 turn2 marker, Earth6PitchOwnerController4, attack5ChainRoleATTACK and no ABI7 in any schema zone. Stack/queues/active frames/payment clear; combat remains open in DAMAGE. No once-rejection or cleanup claim."
+      ],
+      "four_live_profile": "All4 legal young hero profiles/initial assets/declared zones/physicalUID ownership match approved setup, UPF1234/passive[]. All96 endpoint manual preferences per scenario verified; exact real pass actors match preceding priority, declaration finish separated.",
+      "limits": [
+        "Root executed native recording. This agent performed completed saved-stream/snapshot review; intermediate claims bind passed native assertions plus exact inputstream, not separately captured prefix snapshots.",
+        "No isolated native fault, extra branches/once-rejection/expiry/adult/sibling/support-primary/full-card coverage."
+      ]
+    }
+  ],
+  "blocked_attempts": [],
+  "limits": [
+    "All17 selected guards match current c8f2/ROS12 context, no repeated legacy/source audit or global readiness claim.",
+    "Two healthy bounded positives, no confirmed new gameplay bug/native causal-control claim. Parent reports both new-only clean replay rounds complete separately.",
+    "Dash Deck Item Instant/additional cost/entry only; Oldhim Earth-only actual prevention. Ice/both/no-Earth/once-negative/cleanup/adult/sibling/support-primary scope untested."
+  ]
+}

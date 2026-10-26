@@ -1,0 +1,7 @@
+{
+    "name": "eirinas_prayer_red / lean four-live implemented effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T10:46:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legal four live Verdance20/Dori20/Dori20/Dori20, P1 turn. P4 actual Eirina5 plus GenericBlue6; real DeckBlue7 pitch3. P1 actually plays Voltic8, declares P4 before payment and actually pitches Blue9 (3 pays2 leavesR1/AP0). Real responses1/2/3 allow P4 to play Instant5 above live Voltic. Normal PITCH has empty DQ; real HandBlue6 click pays1 leavingP4R2/AP0. Four responders4/1/2/3 resolve Prayer, reveal actual unchanged Deck7, establish6-3=3 prevention and clear physical5 to ownGY; no earlyhealth. Four new responders1/2/3/4 resolve actual arcane5, prevention3 leaves2 => P4HP18. All otherHP20; both original sources/Bluepitches correct owners, no tokens. No explicit reveal-UI/event assertion, expiry/furtherpacket/otherpitches/supportprimary credit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ARC173.webp"
+}

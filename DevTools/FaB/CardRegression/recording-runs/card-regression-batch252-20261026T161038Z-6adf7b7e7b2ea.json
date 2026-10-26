@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-26T16:10:38+00:00",
+    "input_file": "card-regression-batch252.json",
+    "input_sha256": "05f19d4a99ef9942fb6d106848595c7c3c5476861c77453bed453257316f3101",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-new-horizon-four-live-sparse-real-second-face-up-arsenal-arrow-load",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 393
+        },
+        {
+            "slug": "card-aether-ashwing-four-live-sparse-real-intrinsic-arcane-barrier-one-paid-from-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 8,
+            "assertions": 376
+        }
+    ]
+}

@@ -1,0 +1,59 @@
+{
+  "status": "TWO218_FIRST_PASS_FOUR_LIVE_REPRESENTATIVES_QUALIFIED_TWO_SCOPED_CONTROLS",
+  "utc": "2026-10-26T03:01:43.938143+00:00",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "inventory_scope": "Historical milestone through218 only; later saved/pending work excluded. No inventory scan/index rebuild.",
+  "new_scenarios_recorded": 2,
+  "new_scenarios_qualified": 2,
+  "new_groups": 2,
+  "total_saved_through218": 3429,
+  "two_player": 3074,
+  "four_live_through218": 355,
+  "primary_ids_recorded_through218": 588,
+  "identity_denominator": 5196,
+  "groups_recorded_through218": 462,
+  "group_denominator": 3324,
+  "four_live_groups_through218": 353,
+  "registered_review_rows_after": 3429,
+  "phase_scenarios_qualified_at_batch_contexts": 66,
+  "creation_replay_passes_at_batch_contexts": 132,
+  "new_targeted_replay_passes": 4,
+  "actions": 54,
+  "native_assertions": 3396,
+  "paper_only_defense_checks": 1,
+  "manual_passes": 43,
+  "manual_pass_scope": "Storm6ACTIONadvances+8source responses; Recital29source/combat/declarationcompletion. NoEND_PHASE adminpasses.",
+  "qualified_review_evidence": "review-evidence/sparse218-f56-qualified-saved-review.json",
+  "qualified_review_sha256": "62b4e60b239bf2a327c3c4d1a8ef5c44c4364992efb4fcf66a5aa0becf57a80b",
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse218-f56-r1.json",
+      "sha256": "85e23893671a37b4368b1beb7d5abb432f6801bbe56a2b1eb160b4e58dc3cb86"
+    },
+    {
+      "path": "card-regression-replay-sparse218-f56-r2.json",
+      "sha256": "769f0da4feb109bebe9eeae033a3441390277e5094fcf015d2ec8ec57e3db9ff"
+    }
+  ],
+  "causal_controls": {
+    "path": "card-regression-negative-controls-sparse218-f56-results.json",
+    "sha256": "a0b6857b876b3472a1ff043592623d4e1413a5b34e86cd76a79816d7dbc48c6b",
+    "detected": 2,
+    "total": 2,
+    "retained_boundary_and_suffix_oracles": 2096,
+    "omitted": 0,
+    "global_total": 115,
+    "phase_total": 31,
+    "scope": "Storm earned offturn permission omission and Recital actual earned power-tag omission; no explicit transport rejection or hit/bottom sensitivity claim."
+  },
+  "source_only_holds": "SoulFood self-move and Metacarpus WHEN-play remain unattempted/uncredited as recorded in source review; no new hold audit.",
+  "historical_qualification_note": "Registry qualification retains batch contexts; no blanket current-runtime readiness/fullsuite or historical3363 bytebinding remediation.",
+  "engine_source_changed_in_this_batch": false,
+  "confirmed_new_gameplay_defect_groups": 0,
+  "issue_ledger_updated": false,
+  "full_suite_runs": 0,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse218-f56-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

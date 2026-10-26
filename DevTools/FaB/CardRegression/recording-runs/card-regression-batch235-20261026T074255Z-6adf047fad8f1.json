@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-26T07:42:55+00:00",
+    "input_file": "card-regression-batch235.json",
+    "input_sha256": "4fc7461649fe585b6fea0da59e72e2d5a807c11d4c6de41ddfb1ba89ef86cab5",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-draco-fire-red-four-live-sparse-actual-next-draconic-cost-one-becomes-zero-and-printed-three-gets-two",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 994
+        },
+        {
+            "slug": "card-cloud-cover-red-four-live-sparse-actual-lightning-instant-prevents-three-of-real-four-physical-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 35,
+            "assertions": 1068
+        },
+        {
+            "slug": "card-electrify-red-four-live-sparse-actual-paid-arsenal-lightning-action-draws-one-real-physical-card-and-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 377
+        }
+    ]
+}

@@ -1,0 +1,73 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T16:23:16.816311+00:00",
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "source_spec": "card-regression-batch253-dampen.json",
+  "source_spec_sha256": "47ee18630a15b80ad137958aefecbad64eba35705c451df697177bd598fa1802",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 21,
+  "native_assertions": 554,
+  "manual_passes": 14,
+  "totals": {
+    "saved_registered_scenarios": 3516,
+    "duels": 3074,
+    "four_live": 442,
+    "recorded_primary_ids": 672,
+    "identity_denominator": 5196,
+    "recorded_groups": 546,
+    "group_denominator": 3324,
+    "four_live_groups": 437,
+    "phase_qualified_scenarios_at_actual_contexts": 153,
+    "phase_qualified_unique_groups": 150,
+    "creation_replay_passes": 306,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 7,
+  "scenarios": [
+    {
+      "card_id": "dampen_red",
+      "group_id": "pitch-cycle:dampen",
+      "scenario_id": "card-dampen-red-four-live-sparse-real-four-arcane-earned-prevention-four-against-five",
+      "effect_branches": [
+        "real-four-arcane-earned-prevention-four-against-five"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dampen-red-four-live-sparse-real-four-arcane-earned-prevention-four-against-five",
+      "source_spec": "card-regression-batch253-dampen.json",
+      "source_spec_sha256": "47ee18630a15b80ad137958aefecbad64eba35705c451df697177bd598fa1802",
+      "review_evidence": "review-evidence/sparse253-dampen-7315-qualified-saved-review.json",
+      "review_evidence_sha256": "2e23047d6d32091055e0d33d89934201ae873673778e4abbc6789a3c3672d0ad",
+      "recorded_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "qualification_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse253-dampen-7315-r1.json",
+          "sha256": "e2b9dc23946382033cf6680664317fdb24a5a7efd293fafe5bc8bbe19e964f0e",
+          "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse253-dampen-7315-r2.json",
+          "sha256": "876fe1d725a92803a7dbf68c0eb94f902142abd6a52b3b71a69eb7580d9a9556",
+          "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

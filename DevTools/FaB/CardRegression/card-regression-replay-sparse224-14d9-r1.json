@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch224.json",
+  "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T04:52:01.533873+00:00",
+  "fixtures": [
+    {
+      "slug": "card-skullbone-crosswrap-four-live-sparse-actual-faceup-cost-and-private-opt-one-bottom-retains-layer-until-answer",
+      "fixture_sha256": "d2d7e10a76676d6734796054d6278789e0f834e355bcaf5bb8025932f715260b",
+      "passed": true,
+      "result": "[PASS] skullbone_crosswrap / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-amethyst-tiara-four-live-sparse-actual-destroy-grants-owned-runechant-spellvoid-preventing-one-of-real-zap-three",
+      "fixture_sha256": "4374b27c6fb066b343e92bec38ef23c3c7544caa3a04ce23a067ab9cc7be5b9c",
+      "passed": true,
+      "result": "[PASS] amethyst_tiara / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-gauntlet-of-boulderhold-four-live-sparse-actual-paid-destroy-boosts-real-paid-arsenal-guardian-attack-two-and-full-block",
+      "fixture_sha256": "39f0b0050ab800586e1d796ab4e96cba50c4d236d6a9a57fd4635cae0dd85946",
+      "passed": true,
+      "result": "[PASS] gauntlet_of_boulderhold / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-skullbone-crosswrap-four-live-sparse-actual-faceup-cost-and-private-opt-one-bottom-retains-layer-until-answer",
+      "returncode": 0,
+      "stdout": "[PASS] skullbone_crosswrap / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-amethyst-tiara-four-live-sparse-actual-destroy-grants-owned-runechant-spellvoid-preventing-one-of-real-zap-three",
+      "returncode": 0,
+      "stdout": "[PASS] amethyst_tiara / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-gauntlet-of-boulderhold-four-live-sparse-actual-paid-destroy-boosts-real-paid-arsenal-guardian-attack-two-and-full-block",
+      "returncode": 0,
+      "stdout": "[PASS] gauntlet_of_boulderhold / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "amulet_of_havencall_blue / actual four-live sparse distinctive mechanic",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T05:14:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four living legal young20 heroes, P1/P4 unchargedBoltyn/emptySoul. Real WBRed6 cost0/Action/AP0 targetsP4 and becomes attack4. P4 has no Hand and initially no defenders; actual defend phase completes and three real reaction priority passes reach P4. Activate owned ArenaAmulet5 printedDefenseReaction/destroy0, AP/R unchanged. Four real source responses precede supported MZMAYCHOOSE p4Deck-0; abilityproxy8 remains while choosing. Select sole DeckRally7; actual physical UID7 enters current chain RoleDEFENSE/FromDeck, printed2D, then empty Deck shuffles deterministically. Not playing Rally, so its printed2 play cost is not charged. Real4-2=2damage/P4HP18, full closure leaves WB6P1publicGY, Amulet5+Rally7P4publicGY FaceDown0, no proxyGY/Deck/Hand or queues/AP/R. No initial Item casting/goagain, failing search, nonempty-Hand rejection, Rally activated discard ability, other search choices, hero/support coverage. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVR178.webp"
+}

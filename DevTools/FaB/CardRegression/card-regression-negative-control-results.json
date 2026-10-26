@@ -2365,5 +2365,197 @@
     "canonical_raw5_preserved": true,
     "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
     "evidence_report": "card-regression-negative-controls-sparse214-results.json"
+  },
+  {
+    "id": "creepers_actual_next_nonattack_instant_permission_omitted",
+    "fixture": "card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+    "fixture_sha256": "505b015c09dd85f92461a5fa1b21df6f6aa6e483895d8bfea5d49120ea03abfc",
+    "source_raw5": {
+      "initial_gamestate.txt": "27fa074fd4ebe6761163c5ff5630bb1caffbe272862785bfa4717fed3994ca6c",
+      "actions.json": "05a34e3e172422072b9211dccef543b56b02a61b2a25797c2d4a78be74727f4a",
+      "assertions.json": "1b8cbc6437716e915eb07c6e0fbc0b0389a8c61a8e9b9f42ec66845072acb3bb",
+      "expected_final_gamestate.txt": "b33655eb3ebcd46a9826b14152a7540e3a5bcf2d12cc859308e6da0cfccd9111",
+      "meta.json": "1076512711f7a4f5e320445e967b89023ba2a0c0eb79ae9e72b236eef15b244d"
+    },
+    "prefix_actions": 33,
+    "mutation": {
+      "remove_effect": "ELE_NEXT_INSTANT"
+    },
+    "retained_assertions": 472,
+    "expected_failure_step": 1,
+    "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"ACTION\".",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] spellbound_creepers / four live distinctive effect: Step 1 assertion failed: Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"ACTION\".\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual earned attack, full close and paid Creepers ability have completed, remove only naturally earned ELE_NEXT_INSTANT. Bind1, once2, resources2 and physical source remain. Actual next Mordred click at AP0 has no legal play; native Engine FSM leaves ACTION with no layer, making the original window PRIORITY oracle fail before physical Hand/Stack or economy oracles. Permission application only, not prerequisite rejection or expiry.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+    "evidence_report": "card-regression-negative-controls-sparse217-f56-results.json"
+  },
+  {
+    "id": "quell_selected_static_ability_lost_before_real_funding",
+    "fixture": "card-quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage",
+    "fixture_sha256": "0ee78b2b6808a1626cd7ed31d6b7c662493f35d351128fc239aa8f84db914121",
+    "source_raw5": {
+      "initial_gamestate.txt": "189394db2334e6d9b765022df8d4b5d12e4cc2bbd7f3e4aa8cb20ee8908ef1bc",
+      "actions.json": "9353eaa0323651be15ffc46142dd1f193467a43084df60e2133276d750553071",
+      "assertions.json": "312364081594101f63124f6a8886be96f005778054a355cc1505d9b4e722ff30",
+      "expected_final_gamestate.txt": "5dd0a069e19cfe7d1063827d08eb229122829a2c06ee1530106cc8ef5f699935",
+      "meta.json": "3b99228269e17e7e0a7dbe74bccfd33222779bb941ac58f431cc6b144bee7a47"
+    },
+    "prefix_actions": 21,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 4,
+          "zone": "Equipment",
+          "cardID": "quelling_robe",
+          "mode": "add",
+          "tag": "NO_ABILITIES"
+        }
+      ]
+    },
+    "retained_assertions": 787,
+    "expected_failure_step": 1,
+    "expected_failure": "Expected p4Health to equal 14, got 13.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] quelling_robe / four live distinctive effect: Step 1 assertion failed: Expected p4Health to equal 14, got 13.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual optional static Quell selection and before its real funding choice, add existing NO_ABILITIES to owned physical Robe5 only. Actual Blue6 still pitches3. FaBKeywords has no active Quell, so FaBUPRQuell returns0 without charging1 or setting end marker; selected UID5 is already in used[], no repeat option, and actual seven damage resumes with no prevention. First original P4Health14 becomes13 before later resource3-vs2/counter failures. Static availability at payment, not an isolated prevention-only quantity change; physical source/cost cards and all suffix oracles preserved.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+    "evidence_report": "card-regression-negative-controls-sparse217-f56-results.json"
+  },
+  {
+    "id": "storm_striders_actual_offturn_instant_permission_omitted",
+    "fixture": "card-storm-striders-four-live-sparse-actual-paid-destroy-grants-real-offturn-wizard-action-play-as-instant",
+    "fixture_sha256": "55a116a242d31c16f69f46e8130fdc9e0455c2024a5092e462da2fdae70fc4a0",
+    "source_raw5": {
+      "initial_gamestate.txt": "753b795c951b2c2c03960d23e00542f73f5665704b435c50ca953543dac76e7d",
+      "actions.json": "a89ba76d68e5f00647ee791a5dc123a6d720ecbf4d81b090626ac303e33c43a2",
+      "assertions.json": "d408b65c790ac2fcdb94e85cf1fdc9ddf3e4ceae763d615f315338d23693ab79",
+      "expected_final_gamestate.txt": "23d9727ba6b7d62b630aa4f4127df2fcfa06c468d488851bae27aa6592ddb034",
+      "meta.json": "d39989faaf8f454ba572cbe3a2114f310f805e3201bd5c388dcf8d4a666b7cec"
+    },
+    "prefix_actions": 12,
+    "mutation": {
+      "remove_effect": "ARC_NEXT_WIZARD_INSTANT"
+    },
+    "retained_assertions": 410,
+    "expected_failure_step": 1,
+    "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PITCH\", got \"ACTION\".",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] storm_striders / actual four-live sparse distinctive mechanic: Step 1 assertion failed: Expected FaBSim state [\"window\"] to equal JSON \"PITCH\", got \"ACTION\".\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After real paid/destroyed Storm Striders and four source responses, and three real ACTION priority advances to P4, omit only the naturally earned unique ARC_NEXT_WIZARD_INSTANT. Physical destroyed source5, real Blue6 Pitch, resources2/AP4=0 and P1AP1 remain. Actual next Zap7 click has no legal action offturn without permission. Engine FSM ignores ActionMap false and leaves ACTION; first original pending-window PITCH oracle detects missing play, before Hand/Stack or target/economy differences. Tests permission application, not explicit transport rejection, expiry or alternative permission branches.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+    "evidence_report": "card-regression-negative-controls-sparse218-f56-results.json"
+  },
+  {
+    "id": "recital_actual_next_attack_three_power_tag_omitted",
+    "fixture": "card-warmongers-recital-red-four-live-sparse-actual-paid-action-next-paid-attack-gains-three-with-full-block-no-hit-branch",
+    "fixture_sha256": "73cdda8fea5f2c55d35c60d3be5c2a8ebb0d326d6e28161ae3970b804fc812f1",
+    "source_raw5": {
+      "initial_gamestate.txt": "1f89bf31e25c925342adfcd9c3c0a62c7347ee93516c1d48b6ee7a105c906e09",
+      "actions.json": "ff5b5e1b9430f781eafc7ed3e67336353d1cb8bc51b4b5a911b1c6c7493603e8",
+      "assertions.json": "b41f0ce2d17655628c82dc3ce27e2deb4cd8e1b77f9157adf6c9dff70bf4703a",
+      "expected_final_gamestate.txt": "18fc9ace638af0af810f30380511fa2ab7ed44676553aa31192ceafc19938764",
+      "meta.json": "2aed89e2023924f4392eeaef0fcc1cc9c82acf918db26b31e441a856f5ce282c"
+    },
+    "prefix_actions": 12,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "brutal_assault_red",
+          "mode": "remove",
+          "tag": "WTR_POWER:3"
+        }
+      ]
+    },
+    "retained_assertions": 1686,
+    "expected_failure_step": 0,
+    "expected_failure": "Expected p1CombatChain-0 computed power to equal 9, got 6.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] warmongers_recital_red / actual four-live sparse distinctive mechanic: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 9, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After real Recital cost1/Blue3 payment and own Go again, then actual Brutal Assault cost2 paid from earned resources and actual attack entry, omit only the earned WTR_POWER:3 on unique actual CombatChain attackUID6. Preserve MON_BOTTOM_HIT, both paid sources, costs/AP/resources, all three future physical blockers and every original boundary/suffix oracle. Same-prefix Initial computed power9 becomes6. Both attacks remain fully blocked by three 3-defense cards; this is earned power application sensitivity, not damage, hit/bottom, defense or prevention sensitivity.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+    "evidence_report": "card-regression-negative-controls-sparse218-f56-results.json"
+  },
+  {
+    "id": "silken_actual_earned_minus_one_power_omitted_discount_retained",
+    "fixture": "card-silken-gi-four-live-sparse-real-next-attack-cost-three-to-two-and-power-seven-to-six",
+    "fixture_sha256": "8b6aa49f54312050b43d60de51bd91d2774dd1d86d52adfe6b4e66ee83d41d5c",
+    "source_raw5": {
+      "initial_gamestate.txt": "4e3d375280d029b418178d268179ec7656b9c3c430062ecac3eae92134839183",
+      "actions.json": "a415d75cbcb1d87ba7b4854135ace287e416da088c88c66a0729e51040449568",
+      "assertions.json": "0c81487f5d4e164b93caac627385b3819040061cfbffbd8003afd690f54fd74e",
+      "expected_final_gamestate.txt": "5031f9f70483bfe81d7c56b81942b0e919dcff60f0e492702bc59ec4d25a6d44",
+      "meta.json": "f7732dc6d06b3744b040cadb27062aedfa936aea2061d9b07e6730f87b8502bd"
+    },
+    "prefix_actions": 5,
+    "mutation": {
+      "remove_effect": "OUT_NEXT"
+    },
+    "retained_assertions": 1816,
+    "expected_failure_step": 7,
+    "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 7.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] silken_gi / four live distinctive effect: Step 7 assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 7.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual Gi Instant destruction and four responses, remove only naturally earned OUT_NEXT(aa,-1). Actual OUT_SILKEN discount remains, so real Raging6 still costs2, Blue7pays3/R1/AP0 and actual physical source is unchanged. Its base7 power now lacks minus1 and becomes7; first original computed power6 fails at actual source-to-Chain entry. Later realHP14-to13 suffix assertions retained but not reached. This isolates earned weakening, not discount amount or expiry.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+    "evidence_report": "card-regression-negative-controls-sparse219-f56-results.json"
+  },
+  {
+    "id": "spellvoid_live_ability_lost_after_offer_before_acceptance",
+    "fixture": "card-spell-fray-gloves-four-live-sparse-real-static-spellvoid-destroy-prevents-one-of-three-arcane",
+    "fixture_sha256": "c92256e66d025b331f7853c5b3fc140e08983bd27a4a592d58d71e90e0ec0b0d",
+    "source_raw5": {
+      "initial_gamestate.txt": "263d536649f411de1ba3c5e94a96c316186ae18be959f6dd803c1c8ef3fced3e",
+      "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+      "assertions.json": "bb2251c4c1ffd3cc2d2991b7b504eeb1bb7491cfb205e62be98405e919b08df1",
+      "expected_final_gamestate.txt": "2d28e87e02eeb8a52cb195cddb8e3252aeb8c36a134d9ee9d7a7969c152a73fa",
+      "meta.json": "2208b7e558a6d3062caad69e537e0655e16cf75d61a2e8c55ce232d196d060ed"
+    },
+    "prefix_actions": 6,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 4,
+          "zone": "Equipment",
+          "cardID": "spell_fray_gloves",
+          "mode": "add",
+          "tag": "NO_ABILITIES"
+        }
+      ]
+    },
+    "retained_assertions": 216,
+    "expected_failure_step": 1,
+    "expected_failure": "Expected p4Health to equal 18, got 17.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] spell_fray_gloves / four live distinctive effect: Step 1 assertion failed: Expected p4Health to equal 18, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual Zap6 begins arcane damage and offers static Spellvoid, add existing NO_ABILITIES to physical owned Gloves5 before original P4 answer. Queued actual Equipment choice remains a physical candidate; body FaBMONSpellvoid rechecks live keyword and returns0, so Gloves are not destroyed and no1prevention applies. Source remains managed until body completes; actual Zap3 givesHP17 rather than18. First physicalHP oracle precedes retained source-destruction oracles. Static availability at acceptance, not a legal priority-interruption scenario or an isolated prevention-only amount change.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+    "evidence_report": "card-regression-negative-controls-sparse219-f56-results.json"
   }
 ]

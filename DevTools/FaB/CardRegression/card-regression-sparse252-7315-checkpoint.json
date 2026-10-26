@@ -1,0 +1,107 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T16:13:09.342934+00:00",
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "source_spec": "card-regression-batch252.json",
+  "source_spec_sha256": "05f19d4a99ef9942fb6d106848595c7c3c5476861c77453bed453257316f3101",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 15,
+  "native_assertions": 769,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 3515,
+    "duels": 3074,
+    "four_live": 441,
+    "recorded_primary_ids": 671,
+    "identity_denominator": 5196,
+    "recorded_groups": 545,
+    "group_denominator": 3324,
+    "four_live_groups": 436,
+    "phase_qualified_scenarios_at_actual_contexts": 152,
+    "phase_qualified_unique_groups": 149,
+    "creation_replay_passes": 304,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 6,
+  "scenarios": [
+    {
+      "card_id": "new_horizon",
+      "group_id": "identity:new_horizon",
+      "scenario_id": "card-new-horizon-four-live-sparse-real-second-face-up-arsenal-arrow-load",
+      "effect_branches": [
+        "real-second-face-up-arsenal-arrow-load"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-new-horizon-four-live-sparse-real-second-face-up-arsenal-arrow-load",
+      "source_spec": "card-regression-batch252.json",
+      "source_spec_sha256": "05f19d4a99ef9942fb6d106848595c7c3c5476861c77453bed453257316f3101",
+      "review_evidence": "review-evidence/sparse252-7315-qualified-saved-review.json",
+      "review_evidence_sha256": "a95034825d638d0ea7ffbd694ecf21050904e6f559171e15d6d0a709c0de7fc5",
+      "recorded_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "qualification_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse252-7315-r1.json",
+          "sha256": "3054dfd057bad4cc51db2f45ecb6707c437de494d9095b86c67b82933c9c07a0",
+          "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse252-7315-r2.json",
+          "sha256": "cc8ba4fcba8ae6d615082199ed72523354d951a003fd8ad6d4bfb10e44834af6",
+          "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "aether_ashwing",
+      "group_id": "identity:aether_ashwing",
+      "scenario_id": "card-aether-ashwing-four-live-sparse-real-intrinsic-arcane-barrier-one-paid-from-blue-pitch",
+      "effect_branches": [
+        "real-intrinsic-arcane-barrier-one-paid-from-blue-pitch"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-aether-ashwing-four-live-sparse-real-intrinsic-arcane-barrier-one-paid-from-blue-pitch",
+      "source_spec": "card-regression-batch252.json",
+      "source_spec_sha256": "05f19d4a99ef9942fb6d106848595c7c3c5476861c77453bed453257316f3101",
+      "review_evidence": "review-evidence/sparse252-7315-qualified-saved-review.json",
+      "review_evidence_sha256": "a95034825d638d0ea7ffbd694ecf21050904e6f559171e15d6d0a709c0de7fc5",
+      "recorded_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "qualification_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse252-7315-r1.json",
+          "sha256": "3054dfd057bad4cc51db2f45ecb6707c437de494d9095b86c67b82933c9c07a0",
+          "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse252-7315-r2.json",
+          "sha256": "cc8ba4fcba8ae6d615082199ed72523354d951a003fd8ad6d4bfb10e44834af6",
+          "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

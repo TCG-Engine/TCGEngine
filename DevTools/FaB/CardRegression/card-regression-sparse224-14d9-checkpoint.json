@@ -1,0 +1,55 @@
+{
+  "status": "THREE224_REPRESENTATIVES_QUALIFIED_HAND_BOULDERHOLD_SEPARATE_OPEN051",
+  "utc": "2026-10-26T05:09:55.101003+00:00",
+  "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+  "new_scenarios_recorded": 3,
+  "new_scenarios_qualified": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "registered_review_rows_after": 3447,
+  "registered_saved_scenarios_through224": 3447,
+  "two_player": 3074,
+  "four_live": 373,
+  "primary_ids_recorded": 605,
+  "identity_denominator": 5196,
+  "groups_recorded": 479,
+  "group_denominator": 3324,
+  "four_live_groups": 370,
+  "phase_scenarios_qualified_at_batch_contexts": 84,
+  "phase_groups_qualified_at_batch_contexts": 83,
+  "creation_replay_passes_at_batch_contexts": 168,
+  "new_targeted_replay_passes": 6,
+  "actions": 58,
+  "native_assertions": 4057,
+  "manual_passes": 44,
+  "recorder_only_defense_checks": 1,
+  "qualified_review_evidence": "review-evidence/sparse224-14d9-qualified-saved-review.json",
+  "qualified_review_sha256": "36099733be2c27f1bddb4f489daddfad688bea7f6d7c589247afeb8b2260f667",
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse224-14d9-r1.json",
+      "sha256": "04b1ff7c2b7bef3cbb91b0afbefb69d6bd58a2bef52f5dbd7d47d12ce3416528"
+    },
+    {
+      "path": "card-regression-replay-sparse224-14d9-r2.json",
+      "sha256": "5e190d3308c500acfc1954d5f6433e761d7203169d1dd7408d15697232d577e3"
+    }
+  ],
+  "isolated_native_faults": {
+    "attempted": 0,
+    "detected": 0,
+    "global_total_unchanged": 117,
+    "phase_total_unchanged": 33
+  },
+  "open_native_bugs": [
+    "FAB-REG-051"
+  ],
+  "hand_probe_fixture_saved": false,
+  "inventory_scope": "Through224qualifiedrepresentatives only;225savedpending andHandfailedprobeexcluded. Existinghistoricalcontexts untouched; no corpusrebuild/fullsuite.",
+  "engine_source_changed_in_this_batch": false,
+  "full_suite_runs": 0,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse224-14d9-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

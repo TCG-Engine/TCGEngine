@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-26T10:25:18+00:00",
+    "input_file": "card-regression-batch241.json",
+    "input_sha256": "191f80fa983633a12cbbe03f57fd9395ab3fd7906b408e74b88650061ae936e3",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-sash-of-sandikai-four-live-sparse-real-red-action-earns-condition-then-destroy-instant-gains-one",
+            "status": "recorded_semantically_checked",
+            "actions": 10,
+            "assertions": 464
+        },
+        {
+            "slug": "card-kavdaen-trader-of-skins-four-live-sparse-paid-hero-action-compares-four-lives-and-changes-unique-high-low",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 362
+        },
+        {
+            "slug": "card-plasma-barrel-shot-four-live-sparse-paid-charge-then-real-steam-cost-unboosted-gun-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 25,
+            "assertions": 770
+        }
+    ]
+}

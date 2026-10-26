@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-26T03:10:23+00:00",
+    "input_file": "card-regression-batch219.json",
+    "input_sha256": "bdb0a07a8dd19bf1fba7f8f1779deaaf38e9b37935ee925aba228d481ad2f5a1",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-snapback-red-four-live-sparse-real-earlier-wizard-action-earns-instant-at-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 931
+        },
+        {
+            "slug": "card-silken-gi-four-live-sparse-real-next-attack-cost-three-to-two-and-power-seven-to-six",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 2162
+        },
+        {
+            "slug": "card-spell-fray-gloves-four-live-sparse-real-static-spellvoid-destroy-prevents-one-of-three-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 582
+        },
+        {
+            "slug": "card-glory-seeker-four-live-sparse-real-three-resource-instant-destroy-and-physical-deck-draw",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 575
+        }
+    ]
+}

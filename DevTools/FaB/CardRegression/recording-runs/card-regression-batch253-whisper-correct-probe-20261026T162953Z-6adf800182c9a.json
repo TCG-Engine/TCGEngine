@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T16:29:53+00:00",
+    "input_file": "card-regression-batch253-whisper-correct-probe.json",
+    "input_sha256": "ffe8de56db8566ff706bb6ca37214659f247af5418f919eaea4574fd5057e802",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-whisper-of-the-oracle-red-four-live-sparse-real-opt-four-source-retained-until-mixed-order-completes",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 351
+        }
+    ]
+}

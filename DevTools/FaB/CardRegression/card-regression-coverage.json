@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
   "scope": "All local FaBSim functional identities; pitch variants separate, printing records metadata. Implementation candidates include snapshots, compiled macros, native literal/family references; uncertain identities are retained for review.",
   "summary": {
     "identities_inventoried": 5196,
@@ -8,30 +8,30 @@
     "ability_snapshot_identities": 4806,
     "compiled_macro_identities": 3816,
     "implemented_or_shared_hook_candidates": 4811,
-    "identities_with_recorded_branches": 579,
-    "scenarios_recorded": 3420,
-    "scenarios_independently_semantically_reviewed": 57,
-    "scenarios_with_clean_replay_pass": 8,
-    "scenarios_with_two_clean_replay_passes": 6,
+    "identities_with_recorded_branches": 588,
+    "scenarios_recorded": 3429,
+    "scenarios_independently_semantically_reviewed": 66,
+    "scenarios_with_clean_replay_pass": 5,
+    "scenarios_with_two_clean_replay_passes": 5,
     "fully_covered_identities": 0,
-    "negative_controls_detected": 110,
-    "negative_controls_total": 110,
+    "negative_controls_detected": 115,
+    "negative_controls_total": 115,
     "recorded_terminal_state_compatibility_scenarios": 4,
     "blocked_incorrect_behavior_scenarios": 5,
-    "identities_without_recorded_branches": 4617,
-    "identities_with_semantically_verified_branches": 6,
-    "identities_with_partial_verified_coverage": 6,
-    "identities_without_semantically_verified_branches": 5190,
-    "scenarios_semantically_reviewed_and_current_replay_passed": 6,
-    "card_scenario_branch_entries": 3456,
-    "canonical_saved_fixture_folders": 3420,
+    "identities_without_recorded_branches": 4608,
+    "identities_with_semantically_verified_branches": 5,
+    "identities_with_partial_verified_coverage": 5,
+    "identities_without_semantically_verified_branches": 5191,
+    "scenarios_semantically_reviewed_and_current_replay_passed": 5,
+    "card_scenario_branch_entries": 3465,
+    "canonical_saved_fixture_folders": 3429,
     "unmapped_canonical_fixture_folders": [],
     "semantically_held_saved_fixture_folders": [],
     "historical_failure_scenarios_not_rerun_after_fix": 0,
-    "negative_controls_current_runtime_total": 1,
-    "negative_controls_current_runtime_detected": 1,
+    "negative_controls_current_runtime_total": 4,
+    "negative_controls_current_runtime_detected": 4,
     "finite_completion_scopes_declared": 75,
-    "identities_with_partial_recorded_branches": 579
+    "identities_with_partial_recorded_branches": 588
   },
   "recording_framework": "Core/RegressionTestFramework.php via Core/EngineActionRunner.php modes 11000/11002/11001/11003",
   "runner": "php DevTools/RunIntegrationTests.php --root=FaBSim",
@@ -1079,24 +1079,7 @@
             "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries.",
             "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
           },
-          "replays": [
-            {
-              "slug": "card-achilles-accelerator-four-live-sparse-real-earned-boost-instant-destroy-gains-one-action-point",
-              "fixture_sha256": "f1ec5163bb52e22ddcf22c54c19b75dc3bb79f46449d1d4f1dd7746afdc10a61",
-              "passed": true,
-              "result": "[PASS] achilles_accelerator / four live distinctive effect",
-              "run": "card-regression-replay-sparse212-405-20261026-r1.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            },
-            {
-              "slug": "card-achilles-accelerator-four-live-sparse-real-earned-boost-instant-destroy-gains-one-action-point",
-              "fixture_sha256": "f1ec5163bb52e22ddcf22c54c19b75dc3bb79f46449d1d4f1dd7746afdc10a61",
-              "passed": true,
-              "result": "[PASS] achilles_accelerator / four live distinctive effect",
-              "run": "card-regression-replay-sparse212-405-20261026-r2.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            }
-          ],
+          "replays": [],
           "historical_replay_runs": 2,
           "negative_controls": [],
           "blocked_attempt": null
@@ -6530,16 +6513,7 @@
           "fixture_sha256": "634ba50e325a6bf18afadbd7356da34b1c84ec19323db560e755faf445d14bec",
           "authoring_oracle": "Four actual live legal Verdance20/Dorinthea20x3, no passive seats, no seeded effects/history/health changes. Actual Boots Action1/destroy and blue7 pitch3 leaveR2/AP0; four real responses restoreAP1 and grant nextNAAgoagain. Actual Crucible5 Instant1 leavesR1/AP1; four real responses grant nextarcane+1. Actual Quickening8 targetP4 before assets; cost1/AP1 consumed. Four source responses present real affordable Nullrune9 MZMAYCHOOSE (P4 has actual Red10). Source8 remainsStack/AP0/R0/P4HP20 and captured PLAIN_SPELL ResolveCard#2 until answerPASS. Actual4+1=5arcane->P4HP15 earns Surge; final dynSurgeAgaintrue, exactlyAP1 despite externalGA, bothgrantsconsumed. Physical Boots6 and primary8 ownpublicGYFace0, same Blue7 ownPitch, untouched P4Red10Hand/Nullrune9Equipment/P4R0. No skipped packet, no prevention payment spent. FinalStack/queues/markerempty andnormalACTIONpriority1. Hidden frame locals/inside-damage source observers and repeatedSurge/default compatibility remain root component requirements; this native positive witness does not claim those hidden observations, sibling colors, threshold matrix or full-suite qualification. Classification pre-fix probe intentionally defers arcaneBonus1/consumedARC_NEXT_ARCANE/dynSurgeAgaintrue expectations until after actual PASS and realdamage, so it can expose the correct5 versus current4 damage rather than stop at an early metadata difference.",
           "independent_review": null,
-          "replays": [
-            {
-              "slug": "card-aether-quickening-red-four-live-repair-earned-surge-and-external-go-again-once",
-              "fixture_sha256": "634ba50e325a6bf18afadbd7356da34b1c84ec19323db560e755faf445d14bec",
-              "passed": true,
-              "result": "[PASS] Aether Quickening / earned five arcane Surge and external go again complete once",
-              "run": "card-regression-replay-effect-pitch405-quickening-compat.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            }
-          ],
+          "replays": [],
           "historical_replay_runs": 4,
           "negative_controls": [],
           "blocked_attempt": null
@@ -6833,24 +6807,7 @@
             "review_evidence_sha256": "16495a39f2d644b17c98a757d6b44d39f8183953cd4abdc18b803f61f4c87fd0",
             "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
           },
-          "replays": [
-            {
-              "slug": "card-aether-sink-yellow-four-live-sparse-actual-steam-cost-grants-barrier-two-and-paid-opposing-arcane-prevention",
-              "fixture_sha256": "870c2dfd777b4e068389b251e5b620390c4bf9623127fbbed19ea37b2b1d0529",
-              "passed": true,
-              "result": "[PASS] aether_sink_yellow / actual four-live sparse distinctive mechanic",
-              "run": "card-regression-replay-sparse211-405-20261026-r1.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            },
-            {
-              "slug": "card-aether-sink-yellow-four-live-sparse-actual-steam-cost-grants-barrier-two-and-paid-opposing-arcane-prevention",
-              "fixture_sha256": "870c2dfd777b4e068389b251e5b620390c4bf9623127fbbed19ea37b2b1d0529",
-              "passed": true,
-              "result": "[PASS] aether_sink_yellow / actual four-live sparse distinctive mechanic",
-              "run": "card-regression-replay-sparse211-405-20261026-r2.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            }
-          ],
+          "replays": [],
           "historical_replay_runs": 2,
           "negative_controls": [],
           "blocked_attempt": null
@@ -7643,16 +7600,7 @@
           "fixture_sha256": "3516e194d8cad29611f3264146e3c494d9c8772d43d9c530b3179aa9149f3021",
           "authoring_oracle": "With0 floating resources elect the one actual AB2 source, then pitch 2 Generic Wounding Blow red card(s) for2. Pay full2, leave0, prevent2, take1. HP20/sourceStack/ownerGY0 and AP0 persist until pitching/payment finishes; equipment retained/unexhausted. No printed pitch trigger applies. Each answer uses displayed live Hand0 after native compaction.",
           "independent_review": null,
-          "replays": [
-            {
-              "slug": "card-aetherstorm-wellingtons-pay-red-pitch-twice",
-              "fixture_sha256": "3516e194d8cad29611f3264146e3c494d9c8772d43d9c530b3179aa9149f3021",
-              "passed": true,
-              "result": "[PASS] Aetherstorm Wellingtons / pay-red-pitch-twice",
-              "run": "card-regression-replay-effect-pitch405-two-red-corrected.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            }
-          ],
+          "replays": [],
           "historical_replay_runs": 17,
           "negative_controls": [],
           "blocked_attempt": {
@@ -38691,8 +38639,37 @@
       "native_family_reference_evidence": [],
       "legacy_test_mentions": [],
       "legacy_mentions_are_not_verified_effect_coverage": true,
-      "effect_branches": [],
-      "coverage_status": "pending_semantic_scenario_review",
+      "effect_branches": [
+        {
+          "id": "card-blood-drop-brocade-four-live-sparse-real-physical-damage-earns-instant-resource",
+          "source_spec": "card-regression-batch215.json",
+          "effect_branches": [
+            "blood-drop-brocade-four-live-sparse-real-physical-damage-earns-instant-resource"
+          ],
+          "coverage_kind": "ONE_BOUNDED_DISTINCTIVE_EFFECT_REPRESENTATIVE",
+          "status": "recorded_semantically_checked",
+          "recording_test_path": "Tests/Integration/FaBSim/card-blood-drop-brocade-four-live-sparse-real-physical-damage-earns-instant-resource",
+          "fixture_sha256": "9a0610a34b43638112f10d4e4c95a88204d1494e8b220aef0f3163f1884dbc11",
+          "authoring_oracle": "Four living legalFai20/threeDorinthea20/manualUPF. OwnedBrocade5/realWoundingRed6. Actuallyplaycost0attack/targetP4, spendAP1\u00e2\u2020\u20190; fourlive source/attack/no-defense/reaction flows giveprinted4physicaldamage/P4HP16, noGA. Fullchainclosure enterslegalACTION/AP0; actualdamage earnedprinteddealt-or-been-dealtphysical prerequisite. Onlythen actuallyactivate primaryInstant0 atAP0, destroyphysical5publicGY beforevirtual7body; AP0/R0 stay throughfirstthree manualresponses, fourth givesexactR1/AP0. FinalEquipmentempty, GYunorderedcardmembershipBrocade5+Wounding6/count2/Owner1Controller1FaceDown0 andindependentexactUIDset, HPothers20/P4=16/queuesStackempty. No syntheticPHYSICAL/history/AP/resourcegrant; no falseprerequisite/takingdamage/repeatedability/supportprimary/fullcardcredit.",
+          "independent_review": {
+            "reviewer": "/root/b105_semantic_review",
+            "registered_utc": "2026-10-26T01:36:52.819532+00:00",
+            "source_spec": "card-regression-batch215.json",
+            "fixture_sha256": "9a0610a34b43638112f10d4e4c95a88204d1494e8b220aef0f3163f1884dbc11",
+            "verdict": "semantically_valid_partial_branch_coverage",
+            "review_basis": "Independent exact saved actions/all persisted oracles/four-live physical model andtwo clean targeted replays. Positive-only first-pass qualification; no isolatednativefault attempted or claimed for this representative.",
+            "review_evidence": "review-evidence/sparse215-405-qualified-saved-review.json",
+            "review_evidence_sha256": "009f697d06844a339e8b830e05ac510a2773b0e37473966758942c2f5f53782c",
+            "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries.",
+            "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+          },
+          "replays": [],
+          "historical_replay_runs": 2,
+          "negative_controls": [],
+          "blocked_attempt": null
+        }
+      ],
+      "coverage_status": "partial",
       "remaining_branches": "Review full printed text, choices, targets, costs, trigger conditions, restrictions, timing, source zones, turn reset/expiry, failure paths, and relevant seat interactions. Existing scenarios cover only their named branches.",
       "blocked_behaviors": [],
       "completion_assessment": {
@@ -62215,6 +62192,7 @@
       "compiled_macro_present": false,
       "native_reference_evidence": [
         "FaBSim/Custom/CRUCards.php",
+        "FaBSim/Custom/ROSCards.php",
         "FaBSim/Custom/WTRCards.php"
       ],
       "native_family_reference_evidence": [],
@@ -62223,10 +62201,82 @@
         "DevTools/FaB/hvy_rules_test.php"
       ],
       "legacy_mentions_are_not_verified_effect_coverage": true,
-      "effect_branches": [],
-      "coverage_status": "pending_semantic_scenario_review",
+      "effect_branches": [
+        {
+          "id": "card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+          "source_spec": "card-regression-batch216-cintari-probe.json",
+          "effect_branches": [
+            "correct_when_defended_trigger_waits_for_responses_before_one_power"
+          ],
+          "coverage_kind": "ONE_REPRESENTATIVE_PER_PREVIOUSLY_UNCOVERED_GROUP",
+          "status": "recorded_semantically_checked",
+          "recording_test_path": "Tests/Integration/FaBSim/card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+          "fixture_sha256": "a12c791badfac97348bae6cdcca0d9f6bac544ea2d9d61393750c985bd057b64",
+          "authoring_oracle": "Correct-expectation unexecuted probe, not a passing regression or confirmed bug. P1/P4 legal young Boltyn20 uncharged/emptySoul, other live seats Dorinthea20. Real physical Cintari5 Action1 paid Blue6pitch3/R2/AP0, target adjacentP4, proxy8 real attack2. After all source/attack responses P4 selects vanilla AA WoundingBlowRed7 defense3 and explicitly finishes the complete defend declaration. NO intermediate power/trigger assertion on partial UI selection. At first actual turn-player priority after completion, printed WHEN defended requires one pending source-bound ability layer (generic existing layer representation, no private handler/event names) and attack still2/physical weapon unmodified. First three actual all-seat responses retain2; fourth completes layer and actual weapon becomes2+1=3. Another full defend-priority round, reactions/damage/resolution/closure; real3 fully blocked by3, allHP20/nohit, weapon5Status1 retains its until-end-turn +1, Blue6Pitch/R1=2, blocker7publicP4GY FaceDown0/no proxyGY/AP0/queuesempty. No extra blockers/second attack/turn expiry/source loss cases. Existing CRU direct +1 source path is a source suspicion only until root runs this independently reviewed probe.",
+          "independent_review": {
+            "reviewer": "/root/b106_semantic_review",
+            "registered_utc": "2026-10-26T02:42:11.618619+00:00",
+            "source_spec": "card-regression-batch216-cintari-probe.json",
+            "fixture_sha256": "a12c791badfac97348bae6cdcca0d9f6bac544ea2d9d61393750c985bd057b64",
+            "verdict": "semantically_valid_partial_branch_coverage",
+            "review_basis": "Independent exact saved model/all2193 native oracles/four-live physical priority profile, two targeted clean F56 replays after preserved external Auth additions; original f3 correct native before-fail/after-pass causal evidence,11 actual-function component groups/20 checks and existing Mauvrion ROS compatibility remain explicitly f3 context. No new synthetic helper-control claim.",
+            "review_evidence": "review-evidence/sparse216-cintari-f56-qualified-saved-review.json",
+            "review_evidence_sha256": "12ef0a951ef2aece511275b49c21570c5e63d619103ffac8a9243ec79567ec1a",
+            "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries.",
+            "isolated_native_fault_status": "NO_SYNTHETIC_HELPER_CONTROL_CLAIM_NATIVE_PRE_POST_BUG_CAUSAL_EVIDENCE_SEPARATE"
+          },
+          "replays": [
+            {
+              "slug": "card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+              "fixture_sha256": "a12c791badfac97348bae6cdcca0d9f6bac544ea2d9d61393750c985bd057b64",
+              "passed": true,
+              "result": "[PASS] cintari_saber / actual four-live sparse distinctive mechanic",
+              "run": "card-regression-replay-cintari-f56-auth-rebind-r1.json",
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd"
+            },
+            {
+              "slug": "card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+              "fixture_sha256": "a12c791badfac97348bae6cdcca0d9f6bac544ea2d9d61393750c985bd057b64",
+              "passed": true,
+              "result": "[PASS] cintari_saber / actual four-live sparse distinctive mechanic",
+              "run": "card-regression-replay-cintari-f56-auth-rebind-r2.json",
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd"
+            }
+          ],
+          "historical_replay_runs": 4,
+          "negative_controls": [],
+          "blocked_attempt": null
+        }
+      ],
+      "coverage_status": "partial",
       "remaining_branches": "Review full printed text, choices, targets, costs, trigger conditions, restrictions, timing, source zones, turn reset/expiry, failure paths, and relevant seat interactions. Existing scenarios cover only their named branches.",
-      "blocked_behaviors": [],
+      "blocked_behaviors": [
+        {
+          "id": "FAB-REG-049",
+          "status": "fixed_verified_cintari_defended_trigger_response_window",
+          "classification": "native_confirmed_missing_printed_when_trigger_priority_layer",
+          "root_cause_group": "cintari_defended_trigger_response_window",
+          "new_distinct_gameplay_defect_group": true,
+          "card_ids": [
+            "cintari_saber"
+          ],
+          "description": "Completed actual AA defense declaration applied existing physicalSaber +1 inline without responseable WHEN layer. Named producer now queues existing ROS ABI with captured physicalsource/controller/epoch; four responses precede same physicalweapon +1 and live proxy power reads. Physical target/duration of old grant was not separately wrong or counted.",
+          "source_paths": [
+            "FaBSim/Custom/CRUCards.php",
+            "FaBSim/Custom/ROSCards.php"
+          ],
+          "fix_applied": true,
+          "fix_runtime_sha256": "f3afa164acfb7b6a19c14c902bac7bb2a73d9d0eabd052aabec76e4ae5c2d2d1",
+          "current_qualification_runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+          "external_auth_rebind_evidence": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\external-auth-runtime-delta-20261026.json",
+          "passing_fixture": "Tests/Integration/FaBSim/card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+          "native_before_after_evidence": "review-evidence/cintari-defended-trigger-before-after.json",
+          "review_evidence": "review-evidence/sparse216-cintari-f56-qualified-saved-review.json",
+          "fix_qualification": "Sameinitial/13inputprefix before missingStack1/actual0; original unchanged33actions2193native checks saved afterrepair, independent exactsaved review,2targeted cleanreplays,11actualfunction componentgroups20checks and1existingROS witness. Generic111 controls unchanged/no new helpernegative claim.",
+          "core_generated_or_schema_changed": false,
+          "limitations": "EndTurn expiry/physicalStackdetour untested. Normal removal-return/sameArena/proxy identity bounded components only. No sibling/support/fullcard/corpus/fullsuites claim."
+        }
+      ],
       "completion_assessment": {
         "status": "no_reviewed_finite_scope",
         "complete": false,
@@ -123403,8 +123453,74 @@
       ],
       "legacy_test_mentions": [],
       "legacy_mentions_are_not_verified_effect_coverage": true,
-      "effect_branches": [],
-      "coverage_status": "pending_semantic_scenario_review",
+      "effect_branches": [
+        {
+          "id": "card-exude-confidence-red-four-live-sparse-real-paid-instant-from-owned-attacking-card-adds-two-power-and-damage",
+          "source_spec": "card-regression-batch214.json",
+          "effect_branches": [
+            "real_paid_instant_from_owned_attacking_card_adds_two_power_and_damage"
+          ],
+          "coverage_kind": "ONE_REPRESENTATIVE_PER_PREVIOUSLY_UNCOVERED_GROUP",
+          "status": "recorded_semantically_checked",
+          "recording_test_path": "Tests/Integration/FaBSim/card-exude-confidence-red-four-live-sparse-real-paid-instant-from-owned-attacking-card-adds-two-power-and-damage",
+          "fixture_sha256": "bdff03c98b0a88c8d4cfa1da0e947a947a93d075fc9d810627eb0c455d6cd8f9",
+          "authoring_oracle": "P1 uncharged youngBoltyn20/emptySoul actually plays GenericExude5 printed0 attack4 at adjacentP4, pays real Action, four source responses produce active attacking physical5. In legal ATTACK priority, activate its own Instant cost3: proxy7 captures sourceCombatChain5, actual Blue6pitch3 pays all3/R0 with APalready0 unchanged. First three responses retain power4; fourth grants exact WTR_POWER:2 to physical5, not proxy, giving actual6 power. Four live attack/defense/reaction/damage/resolution cycles, no blockers; actual6 damage leaves P4HP14, primary5publicP1GY FaceDown0/Blue6Pitch/noProxyGY/APall0/Rall0/queuesclear. No synthetic resources, charged history, power tags or AP. No play/activation rejection claim for the separate restriction on defender Instants/defense reactions, repeated activations, other blocks, or hero/support identity coverage.",
+          "independent_review": {
+            "reviewer": "/root/b106_semantic_review",
+            "registered_utc": "2026-10-26T01:36:52.545535+00:00",
+            "source_spec": "card-regression-batch214.json",
+            "fixture_sha256": "bdff03c98b0a88c8d4cfa1da0e947a947a93d075fc9d810627eb0c455d6cd8f9",
+            "verdict": "semantically_valid_partial_branch_coverage",
+            "review_basis": "Independent exact saved actions/all persisted oracles/four-live physical model andtwo clean targeted replays; Exude earned+2 omission detected atfirstcomputedpower only, all1117boundary/suffix kept.",
+            "review_evidence": "review-evidence/sparse214-405-qualified-saved-review.json",
+            "review_evidence_sha256": "53a86b06569d362be13ee81eda0f5fa1435f64c2db2b71eea9a5fbcca120a600",
+            "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries.",
+            "isolated_native_fault_status": "DETECTED_EARNED_POWER_TAG_OMISSION_ONLY"
+          },
+          "replays": [],
+          "historical_replay_runs": 2,
+          "negative_controls": [
+            {
+              "id": "exude_actual_paid_attacking_instant_power_two_tag_omission",
+              "fixture": "card-exude-confidence-red-four-live-sparse-real-paid-instant-from-owned-attacking-card-adds-two-power-and-damage",
+              "fixture_sha256": "bdff03c98b0a88c8d4cfa1da0e947a947a93d075fc9d810627eb0c455d6cd8f9",
+              "source_raw5": {
+                "initial_gamestate.txt": "c4aec4480bd8cb2a407bbd64f5feb43697c9146b18fda6cba34e7cb73e2dd01d",
+                "actions.json": "69a61a7377cd84941a71b435942293dfebcc9ad46db4c2e2125639ccf8233d8f",
+                "assertions.json": "3b45cf1053748598bd0e15758da603340b5c1f78eb3bd5242a4392d62de4367f",
+                "expected_final_gamestate.txt": "5752451846b72646f87ca2a91f51548be30878d8181c300ed4b9e4345c7f4617",
+                "meta.json": "de6d0242450d1264c3fb5ea34afd4af392d0077431838f4b7d0efde8a7a7ebca"
+              },
+              "prefix_actions": 12,
+              "mutation": {
+                "object_effect": [
+                  {
+                    "player": 1,
+                    "zone": "CombatChain",
+                    "cardID": "exude_confidence_red",
+                    "mode": "remove",
+                    "tag": "WTR_POWER:2"
+                  }
+                ]
+              },
+              "retained_assertions": 1117,
+              "expected_failure_step": 0,
+              "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 4.",
+              "detected": true,
+              "returncode": 1,
+              "output": "[FAIL] exude_confidence_red / actual four-live sparse distinctive mechanic: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+              "stderr": "",
+              "scope": "After actual Exude0 attack/target/Action payment, then actualown attackingInstant3 paidbyBlue6 and fourrealresponses, omit only earned WTR_POWER:2 on actual physicalExude5 in P1CombatChain. Actualcost/AP/R0/Pitch/source5/removedproxy7/targets/printedbase4 all remain. Boundarycomputedpower6-to4 is firstInitial failure before laterexacttag and realHP14-to16 oracles. This isolates one earnedpower activation, not defenderrestriction/repeatactivation/otherwindows; no privateUID/history/cache/HP mutation.",
+              "disposable_removed": true,
+              "canonical_raw5_preserved": true,
+              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+              "evidence_report": "card-regression-negative-controls-sparse214-results.json"
+            }
+          ],
+          "blocked_attempt": null
+        }
+      ],
+      "coverage_status": "partial",
       "remaining_branches": "Review full printed text, choices, targets, costs, trigger conditions, restrictions, timing, source zones, turn reset/expiry, failure paths, and relevant seat interactions. Existing scenarios cover only their named branches.",
       "blocked_behaviors": [],
       "completion_assessment": {
@@ -139465,24 +139581,7 @@
             "review_evidence_sha256": "16495a39f2d644b17c98a757d6b44d39f8183953cd4abdc18b803f61f4c87fd0",
             "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
           },
-          "replays": [
-            {
-              "slug": "card-forged-for-war-yellow-four-live-sparse-actual-cast-persistent-aura-then-next-live-turn-equipment-defense",
-              "fixture_sha256": "6aabfd4cb83ce42728a730e51c15d58f6194369226e752316f6ab23b9e13afd0",
-              "passed": true,
-              "result": "[PASS] forged_for_war_yellow / actual four-live sparse distinctive mechanic",
-              "run": "card-regression-replay-sparse211-405-20261026-r1.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            },
-            {
-              "slug": "card-forged-for-war-yellow-four-live-sparse-actual-cast-persistent-aura-then-next-live-turn-equipment-defense",
-              "fixture_sha256": "6aabfd4cb83ce42728a730e51c15d58f6194369226e752316f6ab23b9e13afd0",
-              "passed": true,
-              "result": "[PASS] forged_for_war_yellow / actual four-live sparse distinctive mechanic",
-              "run": "card-regression-replay-sparse211-405-20261026-r2.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            }
-          ],
+          "replays": [],
           "historical_replay_runs": 2,
           "negative_controls": [
             {
@@ -146748,24 +146847,7 @@
             "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries.",
             "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
           },
-          "replays": [
-            {
-              "slug": "card-fyendals-spring-tunic-four-live-sparse-actual-three-energy-instant-cost-and-resource-gain",
-              "fixture_sha256": "4fba58fe8201e3775cfa31dfd7069f8a23b524ac9316d0ef05068ca7545e4acc",
-              "passed": true,
-              "result": "[PASS] fyendals_spring_tunic / four live distinctive effect",
-              "run": "card-regression-replay-sparse212-405-20261026-r1.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            },
-            {
-              "slug": "card-fyendals-spring-tunic-four-live-sparse-actual-three-energy-instant-cost-and-resource-gain",
-              "fixture_sha256": "4fba58fe8201e3775cfa31dfd7069f8a23b524ac9316d0ef05068ca7545e4acc",
-              "passed": true,
-              "result": "[PASS] fyendals_spring_tunic / four live distinctive effect",
-              "run": "card-regression-replay-sparse212-405-20261026-r2.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            }
-          ],
+          "replays": [],
           "historical_replay_runs": 2,
           "negative_controls": [],
           "blocked_attempt": null
@@ -208632,7 +208714,7 @@
             "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
           },
           "replays": [],
-          "historical_replay_runs": 2,
+          "historical_replay_runs": 3,
           "negative_controls": [],
           "blocked_attempt": null
         }
@@ -216742,8 +216824,37 @@
       ],
       "legacy_test_mentions": [],
       "legacy_mentions_are_not_verified_effect_coverage": true,
-      "effect_branches": [],
-      "coverage_status": "pending_semantic_scenario_review",
+      "effect_branches": [
+        {
+          "id": "card-nerves-of-steel-blue-four-live-sparse-owned-aura-suppresses-battleworn-on-actual-two-power-weapon-block",
+          "source_spec": "card-regression-batch214.json",
+          "effect_branches": [
+            "owned_aura_suppresses_battleworn_on_actual_two_power_weapon_block"
+          ],
+          "coverage_kind": "ONE_REPRESENTATIVE_PER_PREVIOUSLY_UNCOVERED_GROUP",
+          "status": "recorded_semantically_checked",
+          "recording_test_path": "Tests/Integration/FaBSim/card-nerves-of-steel-blue-four-live-sparse-owned-aura-suppresses-battleworn-on-actual-two-power-weapon-block",
+          "fixture_sha256": "65c28ce69f801f912c75c6b09b4cbf7b17cbb7c6cfd59c8f86d9522ab62eb60e",
+          "authoring_oracle": "Legal P4Bravo owns active GuardianAuraNerves5 and fresh GenericSkullcap6 with no counters; P4current19 below three20 opponents makes Skullcap printed1+conditional1=2D. P1Dash actual TekloBlaster7 cost3 paid Blue8pitch3/R0/AP0 targets P4; no Evos, real weapon attack2. P4 actually blocks Skullcap6, actual2-2=0 damage, so Nerves remains. Through full real combat and closure, Nerves static condition <=2 prevents Battleworn triggering; physical Skullcap6 returns Equipment with Counters[] rather than DEFENSE1, while Nerves5 remains owned Arena, gun7Status1, Blue8Pitch and virtual attack9 absent from all physical graveyards. Four live source/combat responses. Initial active Aura and lower current health are legitimate static midturn baselines, not turn history. Nerves ordinary casting/entry chest-counter repair, >2 attacks/Tempered gear and damage-trigger destruction untested; supportSkullcap conditional defense proof reused, no support identity coverage.",
+          "independent_review": {
+            "reviewer": "/root/b106_semantic_review",
+            "registered_utc": "2026-10-26T01:36:52.545535+00:00",
+            "source_spec": "card-regression-batch214.json",
+            "fixture_sha256": "65c28ce69f801f912c75c6b09b4cbf7b17cbb7c6cfd59c8f86d9522ab62eb60e",
+            "verdict": "semantically_valid_partial_branch_coverage",
+            "review_basis": "Independent exact saved actions/all persisted oracles/four-live physical model andtwo clean targeted replays. Positive-only first-pass qualification; no isolatednativefault attempted or claimed for this representative.",
+            "review_evidence": "review-evidence/sparse214-405-qualified-saved-review.json",
+            "review_evidence_sha256": "53a86b06569d362be13ee81eda0f5fa1435f64c2db2b71eea9a5fbcca120a600",
+            "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries.",
+            "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+          },
+          "replays": [],
+          "historical_replay_runs": 2,
+          "negative_controls": [],
+          "blocked_attempt": null
+        }
+      ],
+      "coverage_status": "partial",
       "remaining_branches": "Review full printed text, choices, targets, costs, trigger conditions, restrictions, timing, source zones, turn reset/expiry, failure paths, and relevant seat interactions. Existing scenarios cover only their named branches.",
       "blocked_behaviors": [],
       "completion_assessment": {
@@ -230926,24 +231037,7 @@
             "review_evidence_sha256": "16495a39f2d644b17c98a757d6b44d39f8183953cd4abdc18b803f61f4c87fd0",
             "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries."
           },
-          "replays": [
-            {
-              "slug": "card-parry-blade-four-live-sparse-actual-weapons-zone-block-gets-two-defense-against-weapon",
-              "fixture_sha256": "1babf74a227581a5ef3f1b502c7ed93ed88131c4953f9c8142e167c9e6af174c",
-              "passed": true,
-              "result": "[PASS] parry_blade / actual four-live sparse distinctive mechanic",
-              "run": "card-regression-replay-sparse211-405-20261026-r1.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            },
-            {
-              "slug": "card-parry-blade-four-live-sparse-actual-weapons-zone-block-gets-two-defense-against-weapon",
-              "fixture_sha256": "1babf74a227581a5ef3f1b502c7ed93ed88131c4953f9c8142e167c9e6af174c",
-              "passed": true,
-              "result": "[PASS] parry_blade / actual four-live sparse distinctive mechanic",
-              "run": "card-regression-replay-sparse211-405-20261026-r2.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            }
-          ],
+          "replays": [],
           "historical_replay_runs": 2,
           "negative_controls": [],
           "blocked_attempt": null
@@ -257090,8 +257184,91 @@
         "DevTools/FaB/upr_rules_test.php"
       ],
       "legacy_mentions_are_not_verified_effect_coverage": true,
-      "effect_branches": [],
-      "coverage_status": "pending_semantic_scenario_review",
+      "effect_branches": [
+        {
+          "id": "card-quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage",
+          "source_spec": "card-regression-batch217.json",
+          "effect_branches": [
+            "quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage"
+          ],
+          "coverage_kind": "ONE_BOUNDED_DISTINCTIVE_EFFECT_REPRESENTATIVE",
+          "status": "recorded_semantically_checked",
+          "recording_test_path": "Tests/Integration/FaBSim/card-quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage",
+          "fixture_sha256": "0ee78b2b6808a1626cd7ed31d6b7c662493f35d351128fc239aa8f84db914121",
+          "authoring_oracle": "Four legal young living Fai20/three Dorinthea20, explicit manualUPF active1234/passive empty. P4 owns primaryRobe5/Blue6, P1 owns RagingRed7/Blue8. Actual targetP4/real Blue8pitch3 pays printed3 and AP1; first normal four-live attack/source/defense rounds leave 7power/noGA/emptyblock. Four actual reaction passes enter would-be damage; Quell1 is STATIC replacement, so existing actualattack7 remains Chain, Stackempty/no invented ABI/trigger. Native private optional P4 choice has only actualEquipment5; P4HP20/R0/AP0/Hand6/counters[] until actual selection. Next actual MZCHOOSE funds effect from physical Blue6, not normal pendingPayment. Actual answer pitches6 for3, pays1 leaving P4R2; Quell1 prevents exactly1, real seven packet gives6/P4HP14, physicalRobe5 remains Equipment with UPR_DESTROY_END1. Source-context scoped effect-pitch helper must retain actualattack7 as prevention source rather than confuse fundingUID6; physicalHP pins it. During private replacement choices, no raw PriorityPlayer oracle; decision-based stop and actualcard/health/cost/output retained. After payment/actualdamage priority returnsP1; four DAMAGE and four RESOLUTION passes close actualchain, Raging7 P1publicGYFaceDown0, Blue8P1Pitch/Blue6P4Pitch, R2 onlyP4/AP0 all, HP otherseats20, equipment5 retained/allqueuesStackempty. Delayed end-phase self-destruction is expressly untested, no turnadvance/casting/activated-ability/ArcaneBarrier/decline/additionalQuell packets/siblings/fullcard credit. No synthetic prevention/resources/history or cached defenseValue oracle.",
+          "independent_review": {
+            "reviewer": "/root/b104_saved_review",
+            "registered_utc": "2026-10-26T02:54:35.744693+00:00",
+            "source_spec": "card-regression-batch217.json",
+            "fixture_sha256": "0ee78b2b6808a1626cd7ed31d6b7c662493f35d351128fc239aa8f84db914121",
+            "verdict": "semantically_valid_partial_branch_coverage",
+            "review_basis": "Independent exact saved actions/all persisted oracles/four-live physical model; two current clean targeted replays and one scoped existing-helper causal fault. See bound proof for permission versus selected static availability limits.",
+            "review_evidence": "review-evidence/sparse217-f56-qualified-saved-review.json",
+            "review_evidence_sha256": "519a0761268e2b6f497d0cfe61fec0f3fdb1261bfc9a84cd61e84918a97f2deb",
+            "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries.",
+            "isolated_native_fault_status": "DETECTED_SELECTED_STATIC_QUELL_ABILITY_LOSS_BEFORE_FUNDING"
+          },
+          "replays": [
+            {
+              "slug": "card-quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage",
+              "fixture_sha256": "0ee78b2b6808a1626cd7ed31d6b7c662493f35d351128fc239aa8f84db914121",
+              "passed": true,
+              "result": "[PASS] quelling_robe / four live distinctive effect",
+              "run": "card-regression-replay-sparse217-f56-r1.json",
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd"
+            },
+            {
+              "slug": "card-quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage",
+              "fixture_sha256": "0ee78b2b6808a1626cd7ed31d6b7c662493f35d351128fc239aa8f84db914121",
+              "passed": true,
+              "result": "[PASS] quelling_robe / four live distinctive effect",
+              "run": "card-regression-replay-sparse217-f56-r2.json",
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd"
+            }
+          ],
+          "historical_replay_runs": 2,
+          "negative_controls": [
+            {
+              "id": "quell_selected_static_ability_lost_before_real_funding",
+              "fixture": "card-quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage",
+              "fixture_sha256": "0ee78b2b6808a1626cd7ed31d6b7c662493f35d351128fc239aa8f84db914121",
+              "source_raw5": {
+                "initial_gamestate.txt": "189394db2334e6d9b765022df8d4b5d12e4cc2bbd7f3e4aa8cb20ee8908ef1bc",
+                "actions.json": "9353eaa0323651be15ffc46142dd1f193467a43084df60e2133276d750553071",
+                "assertions.json": "312364081594101f63124f6a8886be96f005778054a355cc1505d9b4e722ff30",
+                "expected_final_gamestate.txt": "5dd0a069e19cfe7d1063827d08eb229122829a2c06ee1530106cc8ef5f699935",
+                "meta.json": "3b99228269e17e7e0a7dbe74bccfd33222779bb941ac58f431cc6b144bee7a47"
+              },
+              "prefix_actions": 21,
+              "mutation": {
+                "object_effect": [
+                  {
+                    "player": 4,
+                    "zone": "Equipment",
+                    "cardID": "quelling_robe",
+                    "mode": "add",
+                    "tag": "NO_ABILITIES"
+                  }
+                ]
+              },
+              "retained_assertions": 787,
+              "expected_failure_step": 1,
+              "expected_failure": "Expected p4Health to equal 14, got 13.",
+              "detected": true,
+              "returncode": 1,
+              "output": "[FAIL] quelling_robe / four live distinctive effect: Step 1 assertion failed: Expected p4Health to equal 14, got 13.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+              "stderr": "",
+              "scope": "After actual optional static Quell selection and before its real funding choice, add existing NO_ABILITIES to owned physical Robe5 only. Actual Blue6 still pitches3. FaBKeywords has no active Quell, so FaBUPRQuell returns0 without charging1 or setting end marker; selected UID5 is already in used[], no repeat option, and actual seven damage resumes with no prevention. First original P4Health14 becomes13 before later resource3-vs2/counter failures. Static availability at payment, not an isolated prevention-only quantity change; physical source/cost cards and all suffix oracles preserved.",
+              "disposable_removed": true,
+              "canonical_raw5_preserved": true,
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+              "evidence_report": "card-regression-negative-controls-sparse217-f56-results.json"
+            }
+          ],
+          "blocked_attempt": null
+        }
+      ],
+      "coverage_status": "partial",
       "remaining_branches": "Review full printed text, choices, targets, costs, trigger conditions, restrictions, timing, source zones, turn reset/expiry, failure paths, and relevant seat interactions. Existing scenarios cover only their named branches.",
       "blocked_behaviors": [],
       "completion_assessment": {
@@ -270673,8 +270850,37 @@
         "DevTools/FaB/cru_test.php"
       ],
       "legacy_mentions_are_not_verified_effect_coverage": true,
-      "effect_branches": [],
-      "coverage_status": "pending_semantic_scenario_review",
+      "effect_branches": [
+        {
+          "id": "card-reaping-blade-four-live-sparse-actual-heal-earns-unique-life-lead-then-blade-prevents-second-heal",
+          "source_spec": "card-regression-batch214.json",
+          "effect_branches": [
+            "actual_heal_earns_unique_life_lead_then_blade_prevents_second_heal"
+          ],
+          "coverage_kind": "ONE_REPRESENTATIVE_PER_PREVIOUSLY_UNCOVERED_GROUP",
+          "status": "recorded_semantically_checked",
+          "recording_test_path": "Tests/Integration/FaBSim/card-reaping-blade-four-live-sparse-actual-heal-earns-unique-life-lead-then-blade-prevents-second-heal",
+          "fixture_sha256": "1db9af62a7dd1018c17f892cb21bca218a2508afc485c6635a622ce7ef22533f",
+          "authoring_oracle": "All four young legal heroes start at actual20, P1Florian owns RunebladeBlade5 Weapons. Actual P4 zero-cost Instant SigilSolace6 resolves after four live responses while all heroes tied, earns3 life to23; a second actual zero-cost Sigil7 resolves after a fresh four live responses and Blade static highest-life restriction prevents its entire3 gain, leaving P4HP23 rather than26. Both P4 support cards public GY FaceDown0, Blade5 retained Weapons/Status2, all othersHP20, resources0, P1AP1 and others0. No seeded life lead, AP, history or synthetic effects. The six ACTION priority-advance passes are real opportunities, not END_PHASE/turn transitions. Primary baseline weapon deployment/attack and removal/other leader cases untested; supports/hero IDs receive no coverage.",
+          "independent_review": {
+            "reviewer": "/root/b106_semantic_review",
+            "registered_utc": "2026-10-26T01:36:52.545535+00:00",
+            "source_spec": "card-regression-batch214.json",
+            "fixture_sha256": "1db9af62a7dd1018c17f892cb21bca218a2508afc485c6635a622ce7ef22533f",
+            "verdict": "semantically_valid_partial_branch_coverage",
+            "review_basis": "Independent exact saved actions/all persisted oracles/four-live physical model andtwo clean targeted replays. Positive-only first-pass qualification; no isolatednativefault attempted or claimed for this representative.",
+            "review_evidence": "review-evidence/sparse214-405-qualified-saved-review.json",
+            "review_evidence_sha256": "53a86b06569d362be13ee81eda0f5fa1435f64c2db2b71eea9a5fbcca120a600",
+            "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries.",
+            "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+          },
+          "replays": [],
+          "historical_replay_runs": 2,
+          "negative_controls": [],
+          "blocked_attempt": null
+        }
+      ],
+      "coverage_status": "partial",
       "remaining_branches": "Review full printed text, choices, targets, costs, trigger conditions, restrictions, timing, source zones, turn reset/expiry, failure paths, and relevant seat interactions. Existing scenarios cover only their named branches.",
       "blocked_behaviors": [],
       "completion_assessment": {
@@ -333230,8 +333436,83 @@
         "DevTools/FaB/evr_games_test.php"
       ],
       "legacy_mentions_are_not_verified_effect_coverage": true,
-      "effect_branches": [],
-      "coverage_status": "pending_semantic_scenario_review",
+      "effect_branches": [
+        {
+          "id": "card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+          "source_spec": "card-regression-batch217.json",
+          "effect_branches": [
+            "spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap"
+          ],
+          "coverage_kind": "ONE_BOUNDED_DISTINCTIVE_EFFECT_REPRESENTATIVE",
+          "status": "recorded_semantically_checked",
+          "recording_test_path": "Tests/Integration/FaBSim/card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+          "fixture_sha256": "505b015c09dd85f92461a5fa1b21df6f6aa6e483895d8bfea5d49120ea03abfc",
+          "authoring_oracle": "Four legal young living Florian20/three Dorinthea20, UPF/manual active1234/passive empty. Physical owned Creepers5 ready/empty counters, WoundingRed6/Blue7/Mordred8 Hand. Actual Wounding0-cost Action targetP4 spends AP1; four-live source/attack/empty-defense/reaction flows cause printed4 physical/P4HP16. Full damage/resolution/chain closure gives legal ACTION/AP0 and physically public GY6; actual attack earns Creepers prerequisite with no injected AA_COMBAT/history. Actually activate primary Instant1 at AP0: distinct ABI9 SourceUID5 remains Stack, resource await keeps Bind unpaid. Real Blue7 pitch3 pays1, leaves R2/AP0, then physical5 BIND1 and ARC_USED_0=2 before priority. First three manual responses grant no usable permission; fourth resolves primary and virtual9 ceases. Actually play Mordred8 Action from Hand at AP0 as KindINSTANT, preserving R2/AP0; that real supported play pins permission. Four real responses resolve its ordinary body and printed own go again grants AP1. Final primary5 retained owned Equipment/Status2/BIND1/once marker, Pitch7, GY unordered Wounding6+Mordred8 count2/OwnerController1/FaceDown0 with independent exact UID audit, HP other seats20/P4=16, ACTION/closed combat/all queues empty. No synthetic AP/played/attacked/resources; no Runechant creation, Florian Banish ability, next/later nonattack restrictions, Blade Break or end-phase destruction credited. Stop before end phase, so delayed destruction is explicitly untested.",
+          "independent_review": {
+            "reviewer": "/root/b104_saved_review",
+            "registered_utc": "2026-10-26T02:54:35.744693+00:00",
+            "source_spec": "card-regression-batch217.json",
+            "fixture_sha256": "505b015c09dd85f92461a5fa1b21df6f6aa6e483895d8bfea5d49120ea03abfc",
+            "verdict": "semantically_valid_partial_branch_coverage",
+            "review_basis": "Independent exact saved actions/all persisted oracles/four-live physical model; two current clean targeted replays and one scoped existing-helper causal fault. See bound proof for permission versus selected static availability limits.",
+            "review_evidence": "review-evidence/sparse217-f56-qualified-saved-review.json",
+            "review_evidence_sha256": "519a0761268e2b6f497d0cfe61fec0f3fdb1261bfc9a84cd61e84918a97f2deb",
+            "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries.",
+            "isolated_native_fault_status": "DETECTED_SUPPORTED_PERMISSION_OMISSION"
+          },
+          "replays": [
+            {
+              "slug": "card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+              "fixture_sha256": "505b015c09dd85f92461a5fa1b21df6f6aa6e483895d8bfea5d49120ea03abfc",
+              "passed": true,
+              "result": "[PASS] spellbound_creepers / four live distinctive effect",
+              "run": "card-regression-replay-sparse217-f56-r1.json",
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd"
+            },
+            {
+              "slug": "card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+              "fixture_sha256": "505b015c09dd85f92461a5fa1b21df6f6aa6e483895d8bfea5d49120ea03abfc",
+              "passed": true,
+              "result": "[PASS] spellbound_creepers / four live distinctive effect",
+              "run": "card-regression-replay-sparse217-f56-r2.json",
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd"
+            }
+          ],
+          "historical_replay_runs": 2,
+          "negative_controls": [
+            {
+              "id": "creepers_actual_next_nonattack_instant_permission_omitted",
+              "fixture": "card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+              "fixture_sha256": "505b015c09dd85f92461a5fa1b21df6f6aa6e483895d8bfea5d49120ea03abfc",
+              "source_raw5": {
+                "initial_gamestate.txt": "27fa074fd4ebe6761163c5ff5630bb1caffbe272862785bfa4717fed3994ca6c",
+                "actions.json": "05a34e3e172422072b9211dccef543b56b02a61b2a25797c2d4a78be74727f4a",
+                "assertions.json": "1b8cbc6437716e915eb07c6e0fbc0b0389a8c61a8e9b9f42ec66845072acb3bb",
+                "expected_final_gamestate.txt": "b33655eb3ebcd46a9826b14152a7540e3a5bcf2d12cc859308e6da0cfccd9111",
+                "meta.json": "1076512711f7a4f5e320445e967b89023ba2a0c0eb79ae9e72b236eef15b244d"
+              },
+              "prefix_actions": 33,
+              "mutation": {
+                "remove_effect": "ELE_NEXT_INSTANT"
+              },
+              "retained_assertions": 472,
+              "expected_failure_step": 1,
+              "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"ACTION\".",
+              "detected": true,
+              "returncode": 1,
+              "output": "[FAIL] spellbound_creepers / four live distinctive effect: Step 1 assertion failed: Expected FaBSim state [\"window\"] to equal JSON \"PRIORITY\", got \"ACTION\".\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+              "stderr": "",
+              "scope": "After actual earned attack, full close and paid Creepers ability have completed, remove only naturally earned ELE_NEXT_INSTANT. Bind1, once2, resources2 and physical source remain. Actual next Mordred click at AP0 has no legal play; native Engine FSM leaves ACTION with no layer, making the original window PRIORITY oracle fail before physical Hand/Stack or economy oracles. Permission application only, not prerequisite rejection or expiry.",
+              "disposable_removed": true,
+              "canonical_raw5_preserved": true,
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+              "evidence_report": "card-regression-negative-controls-sparse217-f56-results.json"
+            }
+          ],
+          "blocked_attempt": null
+        }
+      ],
+      "coverage_status": "partial",
       "remaining_branches": "Review full printed text, choices, targets, costs, trigger conditions, restrictions, timing, source zones, turn reset/expiry, failure paths, and relevant seat interactions. Existing scenarios cover only their named branches.",
       "blocked_behaviors": [],
       "completion_assessment": {
@@ -341933,8 +342214,83 @@
       "native_family_reference_evidence": [],
       "legacy_test_mentions": [],
       "legacy_mentions_are_not_verified_effect_coverage": true,
-      "effect_branches": [],
-      "coverage_status": "pending_semantic_scenario_review",
+      "effect_branches": [
+        {
+          "id": "card-storm-striders-four-live-sparse-actual-paid-destroy-grants-real-offturn-wizard-action-play-as-instant",
+          "source_spec": "card-regression-batch218.json",
+          "effect_branches": [
+            "actual_paid_destroy_grants_real_offturn_wizard_action_play_as_instant"
+          ],
+          "coverage_kind": "ONE_REPRESENTATIVE_PER_PREVIOUSLY_UNCOVERED_GROUP",
+          "status": "recorded_semantically_checked",
+          "recording_test_path": "Tests/Integration/FaBSim/card-storm-striders-four-live-sparse-actual-paid-destroy-grants-real-offturn-wizard-action-play-as-instant",
+          "fixture_sha256": "55a116a242d31c16f69f46e8130fdc9e0455c2024a5092e462da2fdae70fc4a0",
+          "authoring_oracle": "All four legal young heroes start20. During P1 turn2 P4 Verdance20 owns Storm5 Equipment and Blue6/ZapRed7 Hand, AP4=0. Three real ACTION priority passes reach P4. Actual printedInstant1: Blue6pitch3 pays1 leavingR4=2, then destroy physicalEquipment5 as effect cost; AP1=1/AP4=0 unchanged, four real source responses complete ability8. Three further legal ACTION priority passes reach P4; actual ZapRed7 WizardNAA is playable as INSTANT only through earned Storm permission despite P4AP0/offturn. Declare adjacent targetP3 via clockwise menuP1thenP3 before assets; real0cost and four responses deal printed3 arcane, P3HP17/caster4->target3 cumulative3. Storm5 and Zap7 public P4GY FaceDown0, Blue6Pitch4/R4=2, no abilityproxy8GY, P1AP1/all otherAP0/queuesclear. No seeded AP/resources/history or permission flags. Six ACTION priority advances are not END_PHASE or turn transitions. ArcaneBarrier2, repeated/unused permission, destruction prevention and hero/support identity coverage untested.",
+          "independent_review": {
+            "reviewer": "/root/b106_semantic_review",
+            "registered_utc": "2026-10-26T03:01:44.115666+00:00",
+            "source_spec": "card-regression-batch218.json",
+            "fixture_sha256": "55a116a242d31c16f69f46e8130fdc9e0455c2024a5092e462da2fdae70fc4a0",
+            "verdict": "semantically_valid_partial_branch_coverage",
+            "review_basis": "Independent exact saved actions/all persisted oracles/four-live physical model; two current clean targeted replays and one scoped existing-helper causal fault. See bound proof for offturn permission versus earned power quantity limits.",
+            "review_evidence": "review-evidence/sparse218-f56-qualified-saved-review.json",
+            "review_evidence_sha256": "62b4e60b239bf2a327c3c4d1a8ef5c44c4364992efb4fcf66a5aa0becf57a80b",
+            "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries.",
+            "isolated_native_fault_status": "DETECTED_SUPPORTED_OFFTURN_PERMISSION_OMISSION"
+          },
+          "replays": [
+            {
+              "slug": "card-storm-striders-four-live-sparse-actual-paid-destroy-grants-real-offturn-wizard-action-play-as-instant",
+              "fixture_sha256": "55a116a242d31c16f69f46e8130fdc9e0455c2024a5092e462da2fdae70fc4a0",
+              "passed": true,
+              "result": "[PASS] storm_striders / actual four-live sparse distinctive mechanic",
+              "run": "card-regression-replay-sparse218-f56-r1.json",
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd"
+            },
+            {
+              "slug": "card-storm-striders-four-live-sparse-actual-paid-destroy-grants-real-offturn-wizard-action-play-as-instant",
+              "fixture_sha256": "55a116a242d31c16f69f46e8130fdc9e0455c2024a5092e462da2fdae70fc4a0",
+              "passed": true,
+              "result": "[PASS] storm_striders / actual four-live sparse distinctive mechanic",
+              "run": "card-regression-replay-sparse218-f56-r2.json",
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd"
+            }
+          ],
+          "historical_replay_runs": 2,
+          "negative_controls": [
+            {
+              "id": "storm_striders_actual_offturn_instant_permission_omitted",
+              "fixture": "card-storm-striders-four-live-sparse-actual-paid-destroy-grants-real-offturn-wizard-action-play-as-instant",
+              "fixture_sha256": "55a116a242d31c16f69f46e8130fdc9e0455c2024a5092e462da2fdae70fc4a0",
+              "source_raw5": {
+                "initial_gamestate.txt": "753b795c951b2c2c03960d23e00542f73f5665704b435c50ca953543dac76e7d",
+                "actions.json": "a89ba76d68e5f00647ee791a5dc123a6d720ecbf4d81b090626ac303e33c43a2",
+                "assertions.json": "d408b65c790ac2fcdb94e85cf1fdc9ddf3e4ceae763d615f315338d23693ab79",
+                "expected_final_gamestate.txt": "23d9727ba6b7d62b630aa4f4127df2fcfa06c468d488851bae27aa6592ddb034",
+                "meta.json": "d39989faaf8f454ba572cbe3a2114f310f805e3201bd5c388dcf8d4a666b7cec"
+              },
+              "prefix_actions": 12,
+              "mutation": {
+                "remove_effect": "ARC_NEXT_WIZARD_INSTANT"
+              },
+              "retained_assertions": 410,
+              "expected_failure_step": 1,
+              "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PITCH\", got \"ACTION\".",
+              "detected": true,
+              "returncode": 1,
+              "output": "[FAIL] storm_striders / actual four-live sparse distinctive mechanic: Step 1 assertion failed: Expected FaBSim state [\"window\"] to equal JSON \"PITCH\", got \"ACTION\".\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+              "stderr": "",
+              "scope": "After real paid/destroyed Storm Striders and four source responses, and three real ACTION priority advances to P4, omit only the naturally earned unique ARC_NEXT_WIZARD_INSTANT. Physical destroyed source5, real Blue6 Pitch, resources2/AP4=0 and P1AP1 remain. Actual next Zap7 click has no legal action offturn without permission. Engine FSM ignores ActionMap false and leaves ACTION; first original pending-window PITCH oracle detects missing play, before Hand/Stack or target/economy differences. Tests permission application, not explicit transport rejection, expiry or alternative permission branches.",
+              "disposable_removed": true,
+              "canonical_raw5_preserved": true,
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+              "evidence_report": "card-regression-negative-controls-sparse218-f56-results.json"
+            }
+          ],
+          "blocked_attempt": null
+        }
+      ],
+      "coverage_status": "partial",
       "remaining_branches": "Review full printed text, choices, targets, costs, trigger conditions, restrictions, timing, source zones, turn reset/expiry, failure paths, and relevant seat interactions. Existing scenarios cover only their named branches.",
       "blocked_behaviors": [],
       "completion_assessment": {
@@ -352732,24 +353088,7 @@
             "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries.",
             "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
           },
-          "replays": [
-            {
-              "slug": "card-talisman-of-dousing-yellow-four-live-sparse-actual-owned-spellvoid-destroy-prevents-one-of-real-opposing-zap",
-              "fixture_sha256": "18ca85ac251ee38e76d8bbfcaac218fb35f74e9038513925d46eb11a94e5f67d",
-              "passed": true,
-              "result": "[PASS] talisman_of_dousing_yellow / actual four-live sparse distinctive mechanic",
-              "run": "card-regression-replay-sparse213-405-20261026-r1.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            },
-            {
-              "slug": "card-talisman-of-dousing-yellow-four-live-sparse-actual-owned-spellvoid-destroy-prevents-one-of-real-opposing-zap",
-              "fixture_sha256": "18ca85ac251ee38e76d8bbfcaac218fb35f74e9038513925d46eb11a94e5f67d",
-              "passed": true,
-              "result": "[PASS] talisman_of_dousing_yellow / actual four-live sparse distinctive mechanic",
-              "run": "card-regression-replay-sparse213-405-20261026-r2.json",
-              "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a"
-            }
-          ],
+          "replays": [],
           "historical_replay_runs": 2,
           "negative_controls": [],
           "blocked_attempt": null
@@ -385189,8 +385528,91 @@
       "native_family_reference_evidence": [],
       "legacy_test_mentions": [],
       "legacy_mentions_are_not_verified_effect_coverage": true,
-      "effect_branches": [],
-      "coverage_status": "pending_semantic_scenario_review",
+      "effect_branches": [
+        {
+          "id": "card-warmongers-recital-red-four-live-sparse-actual-paid-action-next-paid-attack-gains-three-with-full-block-no-hit-branch",
+          "source_spec": "card-regression-batch218.json",
+          "effect_branches": [
+            "actual_paid_action_next_paid_attack_gains_three_with_full_block_no_hit_branch"
+          ],
+          "coverage_kind": "ONE_REPRESENTATIVE_PER_PREVIOUSLY_UNCOVERED_GROUP",
+          "status": "recorded_semantically_checked",
+          "recording_test_path": "Tests/Integration/FaBSim/card-warmongers-recital-red-four-live-sparse-actual-paid-action-next-paid-attack-gains-three-with-full-block-no-hit-branch",
+          "fixture_sha256": "73cdda8fea5f2c55d35c60d3be5c2a8ebb0d326d6e28161ae3970b804fc812f1",
+          "authoring_oracle": "P1/P4 uncharged young Boltyn20/emptySoul plus two other living young20 heroes. Actual GenericRecital5 printed1 paidBlue7pitch3/R1=2/AP0, four live responses give printedGA/AP1 and real nextAA+3 effect. Actual GenericBrutalAssaultRed6 printed2 is paid entirely from earnedR2 plus realAction/AP0; adjacentP4 target declared before assets. Printedattack6+3=9, pinned by actual native current power after four source responses. P4 selects three physical vanilla WoundingBlow cards8/9/10 each printed3D; no intermediate declaration timing claim, completed group after explicit finish has paperdefense9. Full real response/combat/closure yields actual9fullyblocked/P4HP20/nohit. Primary5+attack6 publicP1GY, blocker8/9/10publicP4GY, Blue7Pitch1, R/APall0/queuesclear and P1Deckempty. No seeded buff/resources/AP/history. Recital delayed WHEN-hit bottom-deck branch remains untriggered and uncredited; no alternate branches or pitch siblings, heroes/supports credited.",
+          "independent_review": {
+            "reviewer": "/root/b106_semantic_review",
+            "registered_utc": "2026-10-26T03:01:44.115666+00:00",
+            "source_spec": "card-regression-batch218.json",
+            "fixture_sha256": "73cdda8fea5f2c55d35c60d3be5c2a8ebb0d326d6e28161ae3970b804fc812f1",
+            "verdict": "semantically_valid_partial_branch_coverage",
+            "review_basis": "Independent exact saved actions/all persisted oracles/four-live physical model; two current clean targeted replays and one scoped existing-helper causal fault. See bound proof for offturn permission versus earned power quantity limits.",
+            "review_evidence": "review-evidence/sparse218-f56-qualified-saved-review.json",
+            "review_evidence_sha256": "62b4e60b239bf2a327c3c4d1a8ef5c44c4364992efb4fcf66a5aa0becf57a80b",
+            "qualification": "One positive representative for the exact named group; no sibling-pitch, alternate-branch, full-card or internal callback-order certification. See compact proof for precise boundaries.",
+            "isolated_native_fault_status": "DETECTED_EARNED_POWER_TAG_OMISSION"
+          },
+          "replays": [
+            {
+              "slug": "card-warmongers-recital-red-four-live-sparse-actual-paid-action-next-paid-attack-gains-three-with-full-block-no-hit-branch",
+              "fixture_sha256": "73cdda8fea5f2c55d35c60d3be5c2a8ebb0d326d6e28161ae3970b804fc812f1",
+              "passed": true,
+              "result": "[PASS] warmongers_recital_red / actual four-live sparse distinctive mechanic",
+              "run": "card-regression-replay-sparse218-f56-r1.json",
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd"
+            },
+            {
+              "slug": "card-warmongers-recital-red-four-live-sparse-actual-paid-action-next-paid-attack-gains-three-with-full-block-no-hit-branch",
+              "fixture_sha256": "73cdda8fea5f2c55d35c60d3be5c2a8ebb0d326d6e28161ae3970b804fc812f1",
+              "passed": true,
+              "result": "[PASS] warmongers_recital_red / actual four-live sparse distinctive mechanic",
+              "run": "card-regression-replay-sparse218-f56-r2.json",
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd"
+            }
+          ],
+          "historical_replay_runs": 2,
+          "negative_controls": [
+            {
+              "id": "recital_actual_next_attack_three_power_tag_omitted",
+              "fixture": "card-warmongers-recital-red-four-live-sparse-actual-paid-action-next-paid-attack-gains-three-with-full-block-no-hit-branch",
+              "fixture_sha256": "73cdda8fea5f2c55d35c60d3be5c2a8ebb0d326d6e28161ae3970b804fc812f1",
+              "source_raw5": {
+                "initial_gamestate.txt": "1f89bf31e25c925342adfcd9c3c0a62c7347ee93516c1d48b6ee7a105c906e09",
+                "actions.json": "ff5b5e1b9430f781eafc7ed3e67336353d1cb8bc51b4b5a911b1c6c7493603e8",
+                "assertions.json": "b41f0ce2d17655628c82dc3ce27e2deb4cd8e1b77f9157adf6c9dff70bf4703a",
+                "expected_final_gamestate.txt": "18fc9ace638af0af810f30380511fa2ab7ed44676553aa31192ceafc19938764",
+                "meta.json": "2aed89e2023924f4392eeaef0fcc1cc9c82acf918db26b31e441a856f5ce282c"
+              },
+              "prefix_actions": 12,
+              "mutation": {
+                "object_effect": [
+                  {
+                    "player": 1,
+                    "zone": "CombatChain",
+                    "cardID": "brutal_assault_red",
+                    "mode": "remove",
+                    "tag": "WTR_POWER:3"
+                  }
+                ]
+              },
+              "retained_assertions": 1686,
+              "expected_failure_step": 0,
+              "expected_failure": "Expected p1CombatChain-0 computed power to equal 9, got 6.",
+              "detected": true,
+              "returncode": 1,
+              "output": "[FAIL] warmongers_recital_red / actual four-live sparse distinctive mechanic: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 9, got 6.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+              "stderr": "",
+              "scope": "After real Recital cost1/Blue3 payment and own Go again, then actual Brutal Assault cost2 paid from earned resources and actual attack entry, omit only the earned WTR_POWER:3 on unique actual CombatChain attackUID6. Preserve MON_BOTTOM_HIT, both paid sources, costs/AP/resources, all three future physical blockers and every original boundary/suffix oracle. Same-prefix Initial computed power9 becomes6. Both attacks remain fully blocked by three 3-defense cards; this is earned power application sensitivity, not damage, hit/bottom, defense or prevention sensitivity.",
+              "disposable_removed": true,
+              "canonical_raw5_preserved": true,
+              "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+              "evidence_report": "card-regression-negative-controls-sparse218-f56-results.json"
+            }
+          ],
+          "blocked_attempt": null
+        }
+      ],
+      "coverage_status": "partial",
       "remaining_branches": "Review full printed text, choices, targets, costs, trigger conditions, restrictions, timing, source zones, turn reset/expiry, failure paths, and relevant seat interactions. Existing scenarios cover only their named branches.",
       "blocked_behaviors": [],
       "completion_assessment": {
@@ -401716,7 +402138,7 @@
   "completion_definition": "Complete only within an independently reviewed finite card baseline; separate cross-card interaction holds remain explicit.",
   "evidence_qualification": {
     "read_snapshot_stable": true,
-    "current_runtime_clean_replay_qualified_fixtures": 8,
+    "current_runtime_clean_replay_qualified_fixtures": 5,
     "full_current_inventory_clean_reports": [],
     "qualified_current_native_suite_reports": [],
     "current_controls_report_qualified": false,
@@ -401726,7 +402148,8 @@
       "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7": 4,
       "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067": 7,
       "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d": 14,
-      "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a": 1
+      "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a": 2,
+      "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd": 4
     },
     "pending_saved_fixture_reviews": {
       "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack": "No affirmative exact-hash semantic review with valid retained proof.",

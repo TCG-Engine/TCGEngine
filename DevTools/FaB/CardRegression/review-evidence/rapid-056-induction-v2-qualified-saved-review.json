@@ -1,0 +1,136 @@
+{
+  "reviewer": "/root/b104_saved_review",
+  "status": "APPROVED_ACTUAL_SAVED_INDUCTION_ORDINARY_PLAY_EXISTING_GROUP_BUG_WITNESS",
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "input_sha256": "25e43b31fcf3afae4fcb9f2cf3aea086d7c585a19272e7102f2099a2ce489fea",
+  "method": "Independent completed raw5/sourceinput/everyassertion plus initial/final schema snapshot and four-seat preference review. Existing parser/normalizer storage conversion only; no engine imports/PHP/native/model/repository mutation.",
+  "source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\induction-ordinary-play-correct-ap-independent-manual-approval.json",
+    "sha256": "9cd9497ebbff3dc6f49fd3571ad6f9a2786b0ef6f5b0c600bc8e8c4fbcdf9200",
+    "historical_runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f"
+  },
+  "source_repair_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid056-v2-activated-header-independent-source-component-approval.json",
+    "sha256": "ff3d45a0bd59ff76786982a928f71a4082c336f1b2ebba7d42ad057cffe59b36"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch249-induction-own-keyword-probe-20261026T151555Z-6adf6eabb230e.json",
+    "sha256": "76c469e918a0ba2b23f0371a69a1392cae258bd3101d0d51a7592223cf550a8d"
+  },
+  "same_input_before_failure": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\rapid-056-induction-native-before-v2.json",
+    "sha256": "d4ae852a93a02f35bd70b3939d277e494ebfb993854cd01f3ae34b63ab67058f",
+    "initial_sha256": "9800c1c7dfbf453a7c1a8e81d2db0c9b3b5881111d8229b27cced8c392ca86c3",
+    "same_initial_after": true,
+    "actual_inputs": 6,
+    "first_error": "Expected p1ActionPoints to equal 0, got 1.",
+    "fixture_saved": false,
+    "counting": "V1 collateral introduced by same056 repair; not another preexisting independent engine bug/root-cause family."
+  },
+  "focused_clean_replays": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-rapid056-v2-induction-7315-r1.json",
+      "sha256": "2682e2b60655ce2cf182644ddad44cbf1a1a17ebe54afd2d21c11fe7493b4b70"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-rapid056-v2-induction-7315-r2.json",
+      "sha256": "68e3446d4dc4f7890cca0c075cdee57f0467f30061371fb5ca7a1b3b1303eafc"
+    }
+  ],
+  "fixtures": [
+    {
+      "slug": "card-induction-chamber-red-four-live-bug-ordinary-play-no-activated-go-again-refund",
+      "source_case_index": 0,
+      "primary_card_id": "induction_chamber_red",
+      "group_id": "identity:induction_chamber_red",
+      "no_new_group_credit": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_EXISTING_GROUP_ORDINARY_PLAY_BUG_WITNESS",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch249-induction-own-keyword-probe.json",
+      "source_spec_sha256": "25e43b31fcf3afae4fcb9f2cf3aea086d7c585a19272e7102f2099a2ce489fea",
+      "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "recorded_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "actions": 6,
+      "native_assertions": 333,
+      "actual_manual_passes": 4,
+      "manual_passes": 4,
+      "manual_priority_passes": 4,
+      "defender_declaration_finish_inputs": 0,
+      "pass_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "card_property_assertions": 90,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9800c1c7dfbf453a7c1a8e81d2db0c9b3b5881111d8229b27cced8c392ca86c3",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "15a771d86b5dafdb76358ab8546fea015d9840da5a88daef03387a58720c3b14",
+        "expected_final_gamestate.txt": "41cdd2a0d1e2c491ea3ce52807ce54f4bb587fd95a60827197ac46bc2c6bd768",
+        "meta.json": "5e35b65d21a8a4eeecba2ac260cf4175776fa142629aacf4dd6c689d91537f47"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9800c1c7dfbf453a7c1a8e81d2db0c9b3b5881111d8229b27cced8c392ca86c3",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "15a771d86b5dafdb76358ab8546fea015d9840da5a88daef03387a58720c3b14",
+        "expected_final_gamestate.txt": "41cdd2a0d1e2c491ea3ce52807ce54f4bb587fd95a60827197ac46bc2c6bd768",
+        "meta.json": "5e35b65d21a8a4eeecba2ac260cf4175776fa142629aacf4dd6c689d91537f47"
+      },
+      "fixture_sha256": "353ecf94da78399421f4c5769e15635e10dcf6444c3e2f56a6660e45dec1f6d2",
+      "checkpoints": [
+        {
+          "step": 0,
+          "native_assertions": 118
+        },
+        {
+          "step": 1,
+          "native_assertions": 28
+        },
+        {
+          "step": 2,
+          "native_assertions": 25
+        },
+        {
+          "step": 3,
+          "native_assertions": 13
+        },
+        {
+          "step": 4,
+          "native_assertions": 13
+        },
+        {
+          "step": 5,
+          "native_assertions": 13
+        },
+        {
+          "step": 6,
+          "native_assertions": 123
+        }
+      ],
+      "author_only_checks": [],
+      "findings": [
+        "Same correct original ItemPLAY probe before/after. HandItem5 announced KindACTION/SourceHand5 (not ABI); real Blue6pitch3 funds printed2 and AP1 debit, R1/AP0 before four responses. Passed native boundaries retain physicalItem5Stack/absentArena through first3 responses.",
+        "Fourth actual actor4 response puts same owned Item5ArenaStatus2 with only FAB_PLAY_ORDER1 and no Steam (semantic0); final first AP0 oracle passed unchanged, unlike V1 actualAP1 failure. Full snapshot independently confirms R1/AP0/HP20all/Blue6Pitch/HandDeckGYempty/noStack/activeframes/queues/payment.",
+        "All6 source inputs and333 native assertions match exactly. Complete initial/final fourliving legalyoung/manual96settings/UPFprofiles and allrepresented property endpoints checked. No Item activation or charging mechanism is credited."
+      ],
+      "limits": [
+        "Existing group already covered activation; this new ordinary-play scenario earns no newCardID/cycle/identity group credit.",
+        "Read-only actual saved review, not independent game execution. No token ordinaryplay, activation/charge/pistol/expiry/fullcard/sibling coverage, isolatedhelperfault or fullsuite claim."
+      ]
+    }
+  ],
+  "blocked_attempts": [],
+  "no_new_group_credit": true,
+  "totals": {
+    "scenarios": 1,
+    "actions": 6,
+    "native_assertions": 333,
+    "actual_manual_passes": 4,
+    "card_property_assertions": 90,
+    "endpoint_manual_preferences_verified": 96
+  },
+  "limits": [
+    "Only exact bounded ItemPLAY branch qualified. No broad parser/catalog/native test matrix, no oldreview retagging/fullsuite."
+  ]
+}

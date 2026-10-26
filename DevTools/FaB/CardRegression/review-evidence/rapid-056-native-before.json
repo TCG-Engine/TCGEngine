@@ -1,0 +1,105 @@
+{
+  "status": "NATIVE_CONFIRMED_OWN_GO_AGAIN_AP_REFUND_MISSING_NO_FIXTURE",
+  "issue": "FAB-REG-056",
+  "utc": "2026-10-26T14:17:41.647699+00:00",
+  "runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b",
+  "source_spec": "card-regression-batch249.json",
+  "source_spec_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+  "selected_slug": "card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage",
+  "actual_inputs": 5,
+  "first_failure": "Expected p1ActionPoints to equal 1, got 0.",
+  "observed_state": {
+    "window": "ACTION",
+    "combatOpen": false,
+    "combatStep": "NONE",
+    "chainLink": 0,
+    "attacker": 0,
+    "defender": 0,
+    "attackUID": 0,
+    "attackTarget": null,
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "",
+    "attackHit": false,
+    "attackPower": 0,
+    "defenseValue": 0,
+    "damageDealt": 0,
+    "declaredBlockUIDs": [],
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "turnEffects": {
+      "1": [
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ARC_RAPID",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "2": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "3": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "4": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "nextTurnEffects": [],
+    "hitsThisTurn": [],
+    "cardsPlayedThisTurn": {
+      "1": [
+        "rapid_fire_yellow"
+      ]
+    },
+    "arcCards": {
+      "6": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "mstFree": false,
+        "rosLastLightning": false,
+        "iarPermission": []
+      }
+    },
+    "arcActions": {
+      "1": 1
+    }
+  },
+  "initial_sha256": "4b7e3310e3d1525b93b9c2d98cd01e722e1156edf9ee3280a3683d892002f325",
+  "recording_receipt": "recording-runs/card-regression-batch249-20261026T135629Z-6adf5c0d47e45.json",
+  "recording_receipt_sha256": "f65dd67d2d39e41e44f204312ebec1e42269937cbc2ff8875e58d76ecaef3192",
+  "classification": "review-evidence/rapid-056-failure-classification.json",
+  "fixture_saved": false,
+  "scope": "After actual Rapid Fire own nonattack action resolves and ARC_RAPID1 exists, nativeAP1 expectation gets0. Arrow play/payment/damage/grantedGA suffix was not reached.",
+  "limits": "No native Arrow follow-through, laterphysicalArrowstates, Reloadpositive, other keyword/cache consumers or card siblings are certified by this before failure. Correct nativeAP1 expectation remains unchanged."
+}

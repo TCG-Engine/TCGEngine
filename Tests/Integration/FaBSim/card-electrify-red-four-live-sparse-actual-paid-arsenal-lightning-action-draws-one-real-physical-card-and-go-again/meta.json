@@ -1,0 +1,7 @@
+{
+    "name": "electrify_red / actual four-live sparse distinctive mechanic",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T08:42:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four living legal young20 heroes. P1AuroraEssenceLightning owns physicalElectrifyRed5 in facedownArsenal, Blue6Hand and known Red7Deck. Actual Arsenal play5 printedcost1/Action creates normalPITCH with emptyDQ; actual HandBlue6 click pitches3, pays1/R2 and Action/AP0. No source-target or fakePitchMZCHOICE invented. Allfour live source responses precede draw: source came fromArsenal, so fourth actual resolution draws exactly realDeckUID7 into ownHand and source5 ends ownpublicGYFaceDown0; printedGA restoresAP1. Blue6 remainsPitch, Deck/Arsenal empty, allHP20/noStack/pendingqueues. No seeded AP/resources/draw/arcane/fusion/attack history. This first-pass case intentionally covers the meaningful Arsenal-draw branch and real cost/GA only. Electrify next-AA-hit extra3damage/trigger timing, nonArsenal case/expiry and support/hero/sibling primary credit are untested. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ELE198.webp"
+}

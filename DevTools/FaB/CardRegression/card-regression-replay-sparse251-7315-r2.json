@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch251.json",
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T15:46:59.157579+00:00",
+  "fixtures": [
+    {
+      "slug": "card-iris-of-reality-four-live-sparse-real-owned-illusionist-aura-paid-weapon-four-damage-and-go-again",
+      "fixture_sha256": "72418da544897cb4b0d1cf0cfc9c2b442a9c1614b0497c2200c42597ce8f04d6",
+      "passed": true,
+      "result": "[PASS] iris_of_reality / meaningful first-pass four-live representative"
+    },
+    {
+      "slug": "card-barbed-castaway-four-live-sparse-real-offturn-instant-paid-hand-arrow-load-face-up-with-zero-ap",
+      "fixture_sha256": "3cf015fa58b8401034298838d6548f53358a1b26fc7d513897f9eb6697331ad6",
+      "passed": true,
+      "result": "[PASS] barbed_castaway / meaningful first-pass four-live representative"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-iris-of-reality-four-live-sparse-real-owned-illusionist-aura-paid-weapon-four-damage-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] iris_of_reality / meaningful first-pass four-live representative\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-barbed-castaway-four-live-sparse-real-offturn-instant-paid-hand-arrow-load-face-up-with-zero-ap",
+      "returncode": 0,
+      "stdout": "[PASS] barbed_castaway / meaningful first-pass four-live representative\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

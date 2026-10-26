@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-26T13:20:07+00:00",
+    "input_file": "card-regression-batch247.json",
+    "input_sha256": "30425a64cde9e308fae57b689304455575381ed5235b46d7749e03d8b343eb5f",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-arcanite-fortress-four-live-sparse-actual-two-named-equipment-spellvoid-prevents-two",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 391
+        },
+        {
+            "slug": "card-overblast-red-four-live-sparse-real-earlier-boost-this-chain-gives-exact-plus-one",
+            "status": "recorded_semantically_checked",
+            "actions": 43,
+            "assertions": 925
+        }
+    ]
+}

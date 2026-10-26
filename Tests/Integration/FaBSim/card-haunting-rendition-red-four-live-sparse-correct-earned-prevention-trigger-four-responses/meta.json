@@ -1,0 +1,7 @@
+{
+    "name": "haunting_rendition_red / correct earned-prevention trigger response probe",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T14:05:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActualP1WoundingBlow6 attacksP4Florian20; actualHandHaunting5 discardInstant0cost puts physical5 publicGY, virtualABI7 aboveincomingattack. Four real4/1/2/3 responses generate prevention2 with noRune. Resolveactualattackwithfourresponses andordinaryunblockedcombat; actual4incoming prevented2 leavesHP4=18. Ordinalfirsttime prevention ability isearnedtrigger: before nextpriority onecapturedHauntingtriggerUID8/CardIDhaunting_rendition_red/Controller4/SourceUID5/KindABILITY; sourcephysical5alreadyGY; noRune yet. Turnplayer1 receivespriority. Fourrealmanualresponses1/2/3/4 mustpreserveHP18/source5/attack6 andArena0 untilfourth resolves exactownedRunechant9, returningDAMAGE1/AP0/R0. Stopbeforelinkcleanup/Runeuse. No futureeventParam/SourceZone assumption; no source-active requirement afterqueue. Currentinlineimplementation isNOTa passingoracle. Sources: https://judge.fabtcg.com/cards/detail/3371/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS120.webp https://rules.fabtcg.com/en/cr/06-effects/"
+}

@@ -1,0 +1,627 @@
+{
+  "status": "APPROVED_B237_THREE_ACTUAL_SAVED_FOUR_LIVE_SCENARIOS_REPLAY_QUALIFICATION_SEPARATE",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_scenario_author": true,
+  "utc": "2026-10-26T09:12:41.415394+00:00",
+  "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch237.json",
+  "input_sha256": "b3fedee0860124401fcc664408a66063af9b380db8ddae3ae80709930eb5e957",
+  "manifest_sha256": "b161b4b5b8763511779d44a870e246c26404d787b1e2942fb4259bad297ae08c",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "reused_manual_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch237-independent-manual-spec-review-106.json",
+    "sha256": "b6fff94e019453898797bba481954fa63fb92f98954dc2a45fbecf7623bba016"
+  },
+  "immutable_recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch237-20261026T090438Z-6adf17a6e183e.json",
+    "sha256": "e2a7350db06c7087d9cf51a96d03e8a16550a9d961938f6ac5ad4c155c649bd1"
+  },
+  "recording_summary": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch237.recording-results.json",
+    "sha256": "eab98c554abdaed8d1178888dee5e9ad2843a69be9227301d808ae9de975d3c8"
+  },
+  "fixtures": [
+    {
+      "slug": "card-cleave-the-heavens-red-four-live-sparse-actual-opponent-turn-hand-banish-cost-creates-owned-gate",
+      "card_id": "cleave_the_heavens_red",
+      "group_id": "pitch-cycle:cleave_the_heavens",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B237_SCOPED_OFFTURN_ABILITIES_OR_PREVENTION_FINAL_REPLAY_QUALIFICATION_SEPARATE",
+      "reviewer": "/root/b106_semantic_review",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch237.json",
+      "input_sha256": "b3fedee0860124401fcc664408a66063af9b380db8ddae3ae80709930eb5e957",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "fixture_sha256": "7bf9635b47445ebcc71a4a7f1f9a4901d77f191af738d64bb857ec2f4711823b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d0e641eb1ace20e5a69124e3349cf2cd22e977524c4e97214746b82b919feac8",
+        "actions.json": "46f52a911b52e5dd9ba5001f62869e6a7ede2618717f4117f01c2681f229811e",
+        "assertions.json": "9f53d95f1e777d2053e29aec4e49a55448a084dead602d6fec43d8f114d80239",
+        "expected_final_gamestate.txt": "6d5e6fdd66a3d64489a917f1167facfd45b6ffd741e3533a277857bab61c95a1",
+        "meta.json": "f1cd2bb48d016fc83f27b821fd29e2ed177e5016578bbb575b0e6d72cd141932"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "d0e641eb1ace20e5a69124e3349cf2cd22e977524c4e97214746b82b919feac8",
+        "actions.json": "46f52a911b52e5dd9ba5001f62869e6a7ede2618717f4117f01c2681f229811e",
+        "assertions.json": "9f53d95f1e777d2053e29aec4e49a55448a084dead602d6fec43d8f114d80239",
+        "expected_final_gamestate.txt": "6d5e6fdd66a3d64489a917f1167facfd45b6ffd741e3533a277857bab61c95a1",
+        "meta.json": "f1cd2bb48d016fc83f27b821fd29e2ed177e5016578bbb575b0e6d72cd141932"
+      },
+      "actions": 8,
+      "native_assertions": 402,
+      "native_card_property_assertions": 114,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 7,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3
+      ],
+      "priority_response_passes": 7,
+      "defender_declaration_completion_inputs": 0,
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_four_live_legal_ShadowBrute_initial",
+          "step": 0,
+          "native_assertions": 109
+        },
+        {
+          "checkpoint": "actual_ACTION_pass_earns_offturn_priority_2",
+          "step": 1,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "actual_ACTION_pass_earns_offturn_priority_3",
+          "step": 2,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "actual_ACTION_pass_earns_offturn_priority_4",
+          "step": 3,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "actual_printed_banish_cost_no_AP_resource_or_early_Gate",
+          "step": 4,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "actual_response_4_of_four",
+          "step": 5,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "actual_response_1_of_four",
+          "step": 6,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "actual_response_2_of_four",
+          "step": 7,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "full_final_four_responses_create_owned_Gate",
+          "step": 8,
+          "native_assertions": 115
+        }
+      ],
+      "computed_final_oracles_exactly_retained_and_root_native_passed": [],
+      "initial_physical_cards": {
+        "p4Hand": [
+          [
+            "5",
+            "cleave_the_heavens_red",
+            "4",
+            "4",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p4Arena": [
+          [
+            "7",
+            "gate_to_iarathael",
+            "4",
+            "4",
+            null
+          ]
+        ],
+        "p4Banish": [
+          [
+            "5",
+            "cleave_the_heavens_red",
+            "4",
+            "4",
+            "0"
+          ]
+        ]
+      },
+      "observed_recording_summary": {
+        "slug": "card-cleave-the-heavens-red-four-live-sparse-actual-opponent-turn-hand-banish-cost-creates-owned-gate",
+        "status": "recorded_semantically_checked",
+        "actions": 8,
+        "assertions": 402
+      },
+      "actual_meaningful_evidence": [
+        "Actual original P4HandCleave5 is the sole nonhero physical card. Initial allfourHP20/P1AP1/P4AP0/R0. Actual ACTION passes1,2,3 reach P4 on P1turn, then actualHand Instant activation pays physical5publicBanish (OwnerController4/FaceDown0) with no resource/AP asset. ABI6 captures sourceHand5/controller4 and remains through four native responses4,1,2,3.",
+        "Fourth response creates one actualGate7, ownOwnerController4/Status2. Final ACTION/P1priority/P1AP1/P4AP0/allR0/allHP20, source5publicBanish, token7Arena, allother physical zones/Stack/queues empty. Gate creation is distinct from future Gate use or permission."
+      ]
+    },
+    {
+      "slug": "card-chowder-hearty-cook-yellow-four-live-sparse-actual-opponent-turn-ally-tap-cost-and-one-real-life",
+      "card_id": "chowder_hearty_cook_yellow",
+      "group_id": "identity:chowder_hearty_cook_yellow",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B237_SCOPED_OFFTURN_ABILITIES_OR_PREVENTION_FINAL_REPLAY_QUALIFICATION_SEPARATE",
+      "reviewer": "/root/b106_semantic_review",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch237.json",
+      "input_sha256": "b3fedee0860124401fcc664408a66063af9b380db8ddae3ae80709930eb5e957",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "fixture_sha256": "fc91d3c1b2dec54a928b8e6c7552c54025c6e75651b3b14ff58a6d2b2416513c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "eb24ae38c6606348dd9ef74ba063abb350611cb41ec23a04436c159df9879af7",
+        "actions.json": "13a7e0034568aad1eed73bf5480435f097ffadb1cdc4324675731b133e0a7e42",
+        "assertions.json": "44a5d7dd11735beb3df39fdc8f12e7b62f33b0b326a95eb3666648c61a4238b1",
+        "expected_final_gamestate.txt": "dcfc58ad428549d27df9b5a55b976545648994573dd20376a6643bcba5565ab8",
+        "meta.json": "5ecbe99b3408b0c9c7155485e4b3afc2303fc8d2e71176697e87c4bca5743e3f"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "eb24ae38c6606348dd9ef74ba063abb350611cb41ec23a04436c159df9879af7",
+        "actions.json": "13a7e0034568aad1eed73bf5480435f097ffadb1cdc4324675731b133e0a7e42",
+        "assertions.json": "44a5d7dd11735beb3df39fdc8f12e7b62f33b0b326a95eb3666648c61a4238b1",
+        "expected_final_gamestate.txt": "dcfc58ad428549d27df9b5a55b976545648994573dd20376a6643bcba5565ab8",
+        "meta.json": "5ecbe99b3408b0c9c7155485e4b3afc2303fc8d2e71176697e87c4bca5743e3f"
+      },
+      "actions": 8,
+      "native_assertions": 408,
+      "native_card_property_assertions": 122,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 7,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3
+      ],
+      "priority_response_passes": 7,
+      "defender_declaration_completion_inputs": 0,
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_four_live_legal_Pirate_and_existing_wound",
+          "step": 0,
+          "native_assertions": 111
+        },
+        {
+          "checkpoint": "actual_ACTION_pass_earns_offturn_ally_priority_2",
+          "step": 1,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "actual_ACTION_pass_earns_offturn_ally_priority_3",
+          "step": 2,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "actual_ACTION_pass_earns_offturn_ally_priority_4",
+          "step": 3,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "actual_printed_tap_cost_paid_no_early_healing",
+          "step": 4,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "actual_response_4_of_four",
+          "step": 5,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "actual_response_1_of_four",
+          "step": 6,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "actual_response_2_of_four",
+          "step": 7,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "full_final_heal_one_and_same_tapped_Ally",
+          "step": 8,
+          "native_assertions": 111
+        }
+      ],
+      "computed_final_oracles_exactly_retained_and_root_native_passed": [],
+      "initial_physical_cards": {
+        "p4Arena": [
+          [
+            "5",
+            "chowder_hearty_cook_yellow",
+            "4",
+            "4",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p4Arena": [
+          [
+            "5",
+            "chowder_hearty_cook_yellow",
+            "4",
+            "4",
+            null
+          ]
+        ]
+      },
+      "observed_recording_summary": {
+        "slug": "card-chowder-hearty-cook-yellow-four-live-sparse-actual-opponent-turn-ally-tap-cost-and-one-real-life",
+        "status": "recorded_semantically_checked",
+        "actions": 8,
+        "assertions": 408
+      },
+      "actual_meaningful_evidence": [
+        "Actual initial ownedP4ArenaChowder5 Status2/Damage0 and ScurvP4HP19 legal wound. Real ACTION passes1,2,3 reach offturnP4/AP0, then sameAlly5 Instant tap cost changesStatus1 immediately without healing/AP/resource spend. ABI6 captures sameArena5 and four responses4,1,2,3 retainHP19 until fourth.",
+        "Final same physicalAlly5 OwnerController4/Status1/Damage0, actualgain1\u2192HP20, no created/removedcard, noGY/Banish/Stack/queues; allresources0/P1AP1/P4AP0. Scurv resource/Rum activation and Allyattack/Watery event not exercised."
+      ]
+    },
+    {
+      "slug": "card-battered-not-broken-red-four-live-sparse-actual-instant-prevents-two-physical-damage-and-creates-one-might",
+      "card_id": "battered_not_broken_red",
+      "group_id": "identity:battered_not_broken_red",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B237_SCOPED_OFFTURN_ABILITIES_OR_PREVENTION_FINAL_REPLAY_QUALIFICATION_SEPARATE",
+      "reviewer": "/root/b106_semantic_review",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch237.json",
+      "input_sha256": "b3fedee0860124401fcc664408a66063af9b380db8ddae3ae80709930eb5e957",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "fixture_sha256": "f85890215776b13e09771967ead029f12c95a9e13664cfeb112b59c5aba7f368",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "71e58939d7f2441d5c7ecbb4e2190efcc4cd63f0de40dc4d2f455091c219e536",
+        "actions.json": "0efcaf6e17222ea05da8414d178a311ab7464516b7bec595ee798bdf5394e971",
+        "assertions.json": "5f9a36cba0f2f001489dde29de98f7f87ff29ae690d001bac6b77b735b97332f",
+        "expected_final_gamestate.txt": "5f23fc5e41a909cf9cf85ee025930446f5c0e2daa24c4b8f33352441185c12f7",
+        "meta.json": "f035afcff0938bb8ad294fbf7a7d88758fe532abdce731f8f69847c3c1d550ab"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "71e58939d7f2441d5c7ecbb4e2190efcc4cd63f0de40dc4d2f455091c219e536",
+        "actions.json": "0efcaf6e17222ea05da8414d178a311ab7464516b7bec595ee798bdf5394e971",
+        "assertions.json": "5f9a36cba0f2f001489dde29de98f7f87ff29ae690d001bac6b77b735b97332f",
+        "expected_final_gamestate.txt": "5f23fc5e41a909cf9cf85ee025930446f5c0e2daa24c4b8f33352441185c12f7",
+        "meta.json": "f035afcff0938bb8ad294fbf7a7d88758fe532abdce731f8f69847c3c1d550ab"
+      },
+      "actions": 27,
+      "native_assertions": 1089,
+      "native_card_property_assertions": 408,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 24,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "priority_response_passes": 23,
+      "defender_declaration_completion_inputs": 1,
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_four_live_legal_Guardian_Instant_and_vanilla_attack",
+          "step": 0,
+          "native_assertions": 113
+        },
+        {
+          "checkpoint": "actual_adjacent_attack_target_before_payment",
+          "step": 1,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "actual_WB_Action_paid_before_opponent_Instant",
+          "step": 2,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "actual_attack_response_earns_priority_2",
+          "step": 3,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "actual_attack_response_earns_priority_3",
+          "step": 4,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "actual_attack_response_earns_priority_4",
+          "step": 5,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "actual_Instant_above_attack_no_early_token",
+          "step": 6,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "actual_response_4_of_four",
+          "step": 7,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "actual_response_1_of_four",
+          "step": 8,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "actual_response_2_of_four",
+          "step": 9,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "actual_Instant_done_source_GY_attack_still_Stack_no_Might_yet",
+          "step": 10,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "priority_actual_response_1_of_four",
+          "step": 11,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "priority_actual_response_2_of_four",
+          "step": 12,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "priority_actual_response_3_of_four",
+          "step": 13,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "priority_fourth_actual_response_boundary",
+          "step": 14,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "actual_attack_before_damage_replacement",
+          "step": 14,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "attack_actual_response_1_of_four",
+          "step": 15,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "attack_actual_response_2_of_four",
+          "step": 16,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "attack_actual_response_3_of_four",
+          "step": 17,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "attack_fourth_actual_response_boundary",
+          "step": 18,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "actual_defender_declines_blocks",
+          "step": 19,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "defend_priority_actual_response_1_of_four",
+          "step": 20,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "defend_priority_actual_response_2_of_four",
+          "step": 21,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "defend_priority_actual_response_3_of_four",
+          "step": 22,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "defend_priority_fourth_actual_response_boundary",
+          "step": 23,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "reaction_actual_response_1_of_four",
+          "step": 24,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "reaction_actual_response_2_of_four",
+          "step": 25,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "reaction_actual_response_3_of_four",
+          "step": 26,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "reaction_fourth_actual_response_boundary",
+          "step": 27,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "full_final_actual_four_minus_two_damage_and_one_owned_Might",
+          "step": 27,
+          "native_assertions": 128
+        }
+      ],
+      "computed_final_oracles_exactly_retained_and_root_native_passed": [
+        {
+          "step": 27,
+          "type": "computed_power_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 4
+        },
+        {
+          "step": 27,
+          "type": "computed_power_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 4
+        },
+        {
+          "step": 27,
+          "type": "computed_go_again_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 0
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Hand": [
+          [
+            "6",
+            "wounding_blow_red",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p4Hand": [
+          [
+            "5",
+            "battered_not_broken_red",
+            "4",
+            "4",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p4Arena": [
+          [
+            "7",
+            "might",
+            "4",
+            "4",
+            null
+          ]
+        ],
+        "p1CombatChain": [
+          [
+            "6",
+            "wounding_blow_red",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p4Graveyard": [
+          [
+            "5",
+            "battered_not_broken_red",
+            "4",
+            "4",
+            "0"
+          ]
+        ]
+      },
+      "observed_recording_summary": {
+        "slug": "card-battered-not-broken-red-four-live-sparse-actual-instant-prevents-two-physical-damage-and-creates-one-might",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 1089
+      },
+      "actual_meaningful_evidence": [
+        "Actual P1WB6 declares adjacentP4 before normal0cost/AP payment, firstthree responses1,2,3 give P4priority. Actual P4Battered5Instant0 creates second layer; source responses4,1,2,3 resolve prevention only, source5publicGY and actualWB6stillStack, noMight/healthchange.",
+        "Four originalattack responses, ATTACK, actualP4emptydefense completion, DEFEND_PRIORITY and REACTION produce realincoming4 minus2\u2192damage2/P4HP18/hittrue. Conditional replacement instruction creates exactly one physicalMight7 OwnerController4/Status2. At finalDAMAGE native computed oracles pin power4/GAfalse, and savedcache4/false corroborates without replacing actual computed-query evidence.",
+        "Actual final activechainWB6 OwnerController1/FromHand/RoleATTACK/ChainLink1; Battered5ownP4publicGYFaceDown0; Might7ownP4Arena; no other nonhero physicalcards/Stack/decision/payment/frame. Damage endpoint intentionally leaves chain open; no close/expiry/futuretoken claim."
+      ]
+    }
+  ],
+  "totals": {
+    "fixtures": 3,
+    "actions": 43,
+    "native_assertions": 1899,
+    "card_property_assertions": 644,
+    "manual_pass_until_inputs": 38,
+    "priority_response_passes": 37,
+    "defender_declaration_completion_inputs": 1,
+    "end_phase_admin_passes": 0,
+    "recorder_only_checks": 0,
+    "endpoint_manual_preference_values": 288
+  },
+  "limits": [
+    "Nooptionalpaper/model/simulator/certification, PHP/native/Rwrites, sourcefix/remoteauthoring/generation/fullsuite. JSON/manualrationale+requiredfieldshapeinspection only.",
+    "CleaveonlyHandInstant, notAA/BloodDebt/EOT/Gatepermission/otherpitches.",
+    "Chowderonlytapheal1; noattack/WateryGrave/reuse/untap/entry/healreplacement. Initial19ordinarylegalwoundnotfakehistory.",
+    "Batteredonlyfirstphysical4packetprevent2+Might; nofurtherdamage/expiry/multipleeffects/unpreventable/otherdamageType. StopsDAMAGE.",
+    "Onepercycle/standalone; no sibling/support/fullcardcoverage credit. Runtime5ffreadusingexistingpurefingerprintbeforefreeze; no semantic/nativecheckclaim.",
+    "Cleave normalAA/BloodDebt/endturn/Levia condition/Gate permission and untested pitches receive no coverage.",
+    "Chowder casting/Allyattack/WateryGrave/untap/reuse/healreplacement/Scurv activation untested.",
+    "Battered single ordinary physical packet only, no expiry/further damage/multiple replacements/unpreventable/arcane/other token use; DAMAGE endpoint deliberately precedes close.",
+    "No passing fixture/native/replay/qualification claimed before root execution and actualsaved audit. Established raw virtual Owner0 convention is a transport representation, not a new ownership-framework claim.",
+    "All native actions/oracles match unchanged approved source; actual initial/final snapshots independently parsed and checked. Computed final power/GA queries are bound unchanged to the root-passed native receipt; no engine computations executed by reviewer or cache substituted for native query.",
+    "Recorded5ff context is root-reported, corroborated by exact current fingerprint/source guards; receipt binds input/results without its own runtime fingerprint.",
+    "Actual queued ability and replacement branches only: no offturn normalAA, Gatepermission/BloodDebt/Levia/endturn, Allycast/attack/Watery/untap/Rum, additional prevention events/unpreventable/expiry/futureMight or close credit.",
+    "This saved review does not assert pending root replays passed; registration/controls/final qualification remain root-owned."
+  ],
+  "blockers": [],
+  "php_execution": 0,
+  "native_execution": 0,
+  "optional_rules_simulation": 0,
+  "repository_writes": 0
+}

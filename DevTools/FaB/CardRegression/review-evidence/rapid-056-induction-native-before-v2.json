@@ -1,0 +1,94 @@
+{
+  "status": "V1_COLLATERAL_NATIVE_CONFIRMED_ITEM_PLAY_WRONG_GO_AGAIN_NO_FIXTURE",
+  "issue": "FAB-REG-056",
+  "utc": "2026-10-26T15:12:16.349620+00:00",
+  "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+  "introduced_by_v1_patch": true,
+  "not_new_preexisting_engine_bug_count": true,
+  "source_spec": "card-regression-batch249-induction-own-keyword-probe.json",
+  "source_spec_sha256": "25e43b31fcf3afae4fcb9f2cf3aea086d7c585a19272e7102f2099a2ce489fea",
+  "actual_inputs": 6,
+  "failure": "Expected p1ActionPoints to equal 0, got 1.",
+  "observed_state": {
+    "window": "ACTION",
+    "combatOpen": false,
+    "combatStep": "NONE",
+    "chainLink": 0,
+    "attacker": 0,
+    "defender": 0,
+    "attackUID": 0,
+    "attackTarget": null,
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "",
+    "attackHit": false,
+    "attackPower": 0,
+    "defenseValue": 0,
+    "damageDealt": 0,
+    "declaredBlockUIDs": [],
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "turnEffects": {
+      "1": [
+        {
+          "type": "MST_BLUE_PITCHED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_COST_ONE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "nextTurnEffects": [],
+    "hitsThisTurn": [],
+    "cardsPlayedThisTurn": {
+      "1": [
+        "induction_chamber_red"
+      ]
+    },
+    "arcCards": {
+      "5": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "penPitchTypes": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "dynPitchAA": true,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "mstFree": false,
+        "rosLastLightning": false,
+        "iarPermission": []
+      },
+      "6": {
+        "iarPermission": []
+      }
+    },
+    "arcActions": {
+      "1": 1
+    }
+  },
+  "initial_sha256": "9800c1c7dfbf453a7c1a8e81d2db0c9b3b5881111d8229b27cced8c392ca86c3",
+  "recording_receipt": "recording-runs/card-regression-batch249-induction-own-keyword-probe-20261026T150740Z-6adf6cbcabea5.json",
+  "recording_receipt_sha256": "4b5b733a84a84065266d2448c1dc30b7d696cde4f1bbfb8e61dd1b7c49074038",
+  "fixture_saved": false,
+  "boundary_peer": "review-evidence/rapid-056-activated-ability-boundary.json",
+  "scope": "CorrectCardPlayAP0 expected butV1 parserreadactivatedabilityGA ascardown andreturnedAP1. Steam/otherphysicalfinalchecksnotreached afterfirstAP failure. Existingactivated-ability witness wasnot ordinaryItemplay.",
+  "limits": "One introducedcollateral nativefailure; no newcatalog group/identity credit, no incorrectfixture saved, no broader metadata/ability grammar certification."
+}

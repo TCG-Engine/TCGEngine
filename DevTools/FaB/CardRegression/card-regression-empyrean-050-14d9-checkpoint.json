@@ -1,0 +1,96 @@
+{
+  "status": "TWO_050_RAPTURE_BRANCHES_REGISTERED_ONE_NEW_CARD_GROUP",
+  "utc": "2026-10-26T04:22:55.603689+00:00",
+  "runtime_sha256": "14d9e84fc18ecf4ca9b4b9d549897fbaa5d4487b72ba26d7c7b5ab29ad8aa025",
+  "inventory_scope": "Registered rows through050 pair only; currently running222/new223 work excluded without coverage claim. No inventory scan/index rebuild.",
+  "new_scenarios_recorded": 2,
+  "new_scenarios_qualified": 2,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "registered_review_rows_after": 3440,
+  "registered_saved_scenarios_through050": 3440,
+  "two_player": 3074,
+  "four_live_registered_through050": 366,
+  "primary_ids_recorded_through050": 598,
+  "identity_denominator": 5196,
+  "groups_recorded_through050": 472,
+  "group_denominator": 3324,
+  "four_live_groups_through050": 363,
+  "phase_scenarios_qualified_at_batch_contexts": 77,
+  "phase_groups_qualified_at_batch_contexts": 76,
+  "creation_replay_passes_at_batch_contexts": 154,
+  "new_actions": 22,
+  "new_native_assertions": 1386,
+  "new_manual_passes": 15,
+  "new_targeted_replay_passes": 4,
+  "registered": [
+    {
+      "slug": "card-empyrean-rapture-four-live-sparse-unactivated-equipment-has-no-ward-and-real-zap-deals-full-three",
+      "source_spec": "card-regression-batch220-rapture-unactivated-probe.json",
+      "review_evidence": "review-evidence/empyrean-ward-050-unactivated-qualified-saved-review.json",
+      "review_evidence_sha256": "41cc9a6930882de0dc305e066ac3965f8840d752ad3fc8bbca619cb898cf6207"
+    },
+    {
+      "slug": "card-empyrean-rapture-four-live-sparse-actual-paid-once-instant-grants-ward-one-then-consumes-equipment-on-real-arcane",
+      "source_spec": "card-regression-batch220-rapture-activated-corrected.json",
+      "review_evidence": "review-evidence/empyrean-ward-050-activated-qualified-saved-review.json",
+      "review_evidence_sha256": "8e32bdc331fe6b6761037b28969d872cad5c949b2ecfa4e0a0d8479c54781aac"
+    }
+  ],
+  "replay_reports": [
+    {
+      "path": "card-regression-replay-rapture-unactivated-14d9-r1.json",
+      "sha256": "75cfc812181648433b205d4a82d33060bc6290f9130309eff645f39c163157ae"
+    },
+    {
+      "path": "card-regression-replay-rapture-unactivated-14d9-r2.json",
+      "sha256": "296c15c3f801de3f2c89fa02280987b42c59e4d4a7ef396556184e05e3a190d5"
+    },
+    {
+      "path": "card-regression-replay-rapture-activated-14d9-r1.json",
+      "sha256": "92d3a53dc4c4d3c27aa9e126939f6c93023b9feabd4a9dbd0e54a4a9be0d26c0"
+    },
+    {
+      "path": "card-regression-replay-rapture-activated-14d9-r2.json",
+      "sha256": "bdd86c8dff9ee4413252dc17f191150a4632bcb2fa55202d527302c9c708defa"
+    }
+  ],
+  "native_gameplay_fix": {
+    "issue": "FAB-REG-050",
+    "new_distinct_group": true,
+    "evidence": "review-evidence/empyrean-ward-050-before-after.json"
+  },
+  "phase_distinct_new_fixed_groups": [
+    "FAB-REG-043",
+    "FAB-REG-044",
+    "FAB-REG-045",
+    "FAB-REG-048",
+    "FAB-REG-049",
+    "FAB-REG-050"
+  ],
+  "phase_existing_group_extensions": [
+    "FAB-REG-046",
+    "FAB-REG-047"
+  ],
+  "components": {
+    "path": "components/empyrean_ward_grant_component.php",
+    "sha256": "db09ed4b599b5ba37aa8d09fac1def1429635efeb5376c0f3e15be95bba59f47",
+    "groups": 10,
+    "checks": 38,
+    "controlled_not_native_branch_credit": true
+  },
+  "causal_controls": {
+    "global_total": 117,
+    "sha256": "eb2798ae7458b560387cd3982452a700d61ca4a54dcefb40cdc15f2a0b44b044",
+    "changed": false,
+    "new_generic_helper_controls": 0
+  },
+  "historical_qualification_note": "Registry includes prior historical rows;3440 is registered count, not blanket current-runtime qualification. Existing context/byte-binding caveats unchanged. Only77 phase scenarios qualified at their stated runtime contexts.",
+  "static_ward_compatibility": "Separate223source/native gate not claimed here; static/variable shared-function contracts passed under explicit doubles.",
+  "core_generated_schema_auth_dfg_changed": false,
+  "full_suite_runs": 0,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\empyrean-050-14d9-registration-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

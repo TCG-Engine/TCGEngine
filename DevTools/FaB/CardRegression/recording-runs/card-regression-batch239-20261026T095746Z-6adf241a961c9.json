@@ -1,0 +1,26 @@
+{
+    "completed_at_utc": "2026-10-26T09:57:46+00:00",
+    "input_file": "card-regression-batch239.json",
+    "input_sha256": "267fd867ccbeb7386e4181d18d2d5a71513b76733fcaf839675d21016695cb64",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-heat-wave-four-live-sparse-actual-destroyed-equipment-adds-one-to-already-attacking-first-phoenix-flame",
+            "status": "recorded_semantically_checked",
+            "actions": 24,
+            "assertions": 663
+        },
+        {
+            "slug": "card-ancestral-harmony-blue-four-live-sparse-actual-top-combo-banish-permission-and-real-four-damage-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 24,
+            "assertions": 677
+        },
+        {
+            "slug": "card-hyper-driver-red-four-live-sparse-actual-paid-one-cost-item-enters-owned-with-three-steam",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 377
+        }
+    ]
+}

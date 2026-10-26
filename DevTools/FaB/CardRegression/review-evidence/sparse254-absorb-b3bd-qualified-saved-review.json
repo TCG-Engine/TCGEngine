@@ -1,0 +1,326 @@
+{
+  "reviewer": "/root/b104_saved_review",
+  "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+  "input_sha256": "3f6554f6ac208a5d9e598aff5d43588cb20527eabc99ef83f37626f26066b31b",
+  "manifest_sha256": "271d093a4809ea386c1903636d02ab4bcbf034f160c671d246aa798be6c99d63",
+  "status": "INDEPENDENT_ACTUAL_SAVED_ABSORB_SUBSET_APPROVED_SHOCK_UNSAVED_DIAGNOSIS_PENDING",
+  "method": "Read-only completed Absorb raw5, exact37 recorded input/every701 native assertion conversion and complete initial/final schema snapshot review. Existing parser/normalizer used only for saved-data comparison, with all four actual pass actors checked explicitly. Prior independent printed/rules/source semantics and two representation/protocol deltas reused. No game/model/certification/PHP execution or repository mutation.",
+  "source_approvals": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse254-current-b3-first-manual-independent-approval.json",
+      "sha256": "84de42280dcdc3ffe48bb0e356e5e056db49cac6ec65b7076cdeb551bcbdf9af"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse254-v3-canonical-role-delta-independent-approval.json",
+      "sha256": "cdd664e06c869b368ed0647deaa7cecb2eac573f52b3084af23a60f0a6feb452"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse254-v5-canonical-combat-protocol-independent-approval.json",
+      "sha256": "4d763a4c6df86f1afe5ab9c493250807ff4a08bd87a5b064030a90a48fb54cef"
+    }
+  ],
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch254-canonical-combat-windows-20261026T165626Z-6adf863ae41b4.json",
+    "sha256": "02061d7e537a34b708d22a29fec53a19c23009515279e60374b1213ea20d47ca"
+  },
+  "official_primary_text": [
+    "https://judge.fabtcg.com/cards/detail/462/",
+    "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVR120.webp"
+  ],
+  "rules_sources": [
+    "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+    "https://rules.fabtcg.com/en/cr/07-combat/",
+    "https://rules.fabtcg.com/en/trp/09-special-formats/"
+  ],
+  "totals": {
+    "approved_scenarios": 1,
+    "actions": 37,
+    "native_assertions": 701,
+    "actual_manual_passes": 31,
+    "manual_priority_passes": 30,
+    "defender_declaration_finish_inputs": 1,
+    "administrative_endphase_inputs": 0,
+    "card_property_assertions": 183,
+    "endpoint_manual_preferences_verified": 96,
+    "recorder_only_checks": 0
+  },
+  "fixtures": [
+    {
+      "slug": "card-absorb-in-aether-red-four-live-sparse-real-paid-defense-reaction-next-blue-arcane-one-plus-two",
+      "source_case_index": 1,
+      "primary_card_id": "absorb_in_aether_red",
+      "group_id": "pitch-cycle:absorb_in_aether",
+      "semantically_approved": true,
+      "verdict": "APPROVED_BOUNDED_ACTUAL_SAVED_FOUR_LIVE_POSITIVE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch254-canonical-combat-windows.json",
+      "source_spec_sha256": "3f6554f6ac208a5d9e598aff5d43588cb20527eabc99ef83f37626f26066b31b",
+      "runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+      "recorded_runtime_sha256": "b3bddbd833f71ac8eea1ac314018ef1c3aee763481ccb66e5e8cd418c2aaeff5",
+      "actions": 37,
+      "native_assertions": 701,
+      "native_game_state_fields": 70,
+      "manual_passes": 31,
+      "actual_manual_passes": 31,
+      "manual_priority_passes": 30,
+      "defender_declaration_finish_inputs": 1,
+      "administrative_endphase_inputs": 0,
+      "pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 7
+      },
+      "priority_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 6
+      },
+      "card_property_assertions": 183,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5dd1abe8d7cceeaf3c53b66a3e48f7dc10e02e9ef068ecb232427518ec4eb4f9",
+        "actions.json": "3b6c1a3bb704cfbb653816b57fdcd9dfddc51ff907987b431d726aafc61462b3",
+        "assertions.json": "279a1683646cb45783397bfb4a01fce2a674e354659e17ea5de2fa3eda2bbe31",
+        "expected_final_gamestate.txt": "c1724c45cfd39be5544645456872f59546ff14eacab3246add6270da1195ef19",
+        "meta.json": "49e43630691092ad3d219139676b95bcd1efd837632725a3d1ad9c4b21d8d17c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "5dd1abe8d7cceeaf3c53b66a3e48f7dc10e02e9ef068ecb232427518ec4eb4f9",
+        "actions.json": "3b6c1a3bb704cfbb653816b57fdcd9dfddc51ff907987b431d726aafc61462b3",
+        "assertions.json": "279a1683646cb45783397bfb4a01fce2a674e354659e17ea5de2fa3eda2bbe31",
+        "expected_final_gamestate.txt": "c1724c45cfd39be5544645456872f59546ff14eacab3246add6270da1195ef19",
+        "meta.json": "49e43630691092ad3d219139676b95bcd1efd837632725a3d1ad9c4b21d8d17c"
+      },
+      "fixture_sha256": "9a9b9bb6669b693e0823f7b62aad95bbe0fe63b17bde4b9956a081023602e956",
+      "checkpoints": [
+        {
+          "step": 0,
+          "native_assertions": 126
+        },
+        {
+          "step": 1,
+          "native_assertions": 10
+        },
+        {
+          "step": 2,
+          "native_assertions": 18
+        },
+        {
+          "step": 3,
+          "native_assertions": 9
+        },
+        {
+          "step": 4,
+          "native_assertions": 9
+        },
+        {
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "step": 6,
+          "native_assertions": 18
+        },
+        {
+          "step": 7,
+          "native_assertions": 9
+        },
+        {
+          "step": 8,
+          "native_assertions": 9
+        },
+        {
+          "step": 9,
+          "native_assertions": 9
+        },
+        {
+          "step": 10,
+          "native_assertions": 9
+        },
+        {
+          "step": 11,
+          "native_assertions": 9
+        },
+        {
+          "step": 12,
+          "native_assertions": 9
+        },
+        {
+          "step": 13,
+          "native_assertions": 9
+        },
+        {
+          "step": 14,
+          "native_assertions": 9
+        },
+        {
+          "step": 15,
+          "native_assertions": 9
+        },
+        {
+          "step": 16,
+          "native_assertions": 9
+        },
+        {
+          "step": 17,
+          "native_assertions": 9
+        },
+        {
+          "step": 18,
+          "native_assertions": 9
+        },
+        {
+          "step": 19,
+          "native_assertions": 28
+        },
+        {
+          "step": 20,
+          "native_assertions": 20
+        },
+        {
+          "step": 21,
+          "native_assertions": 9
+        },
+        {
+          "step": 22,
+          "native_assertions": 9
+        },
+        {
+          "step": 23,
+          "native_assertions": 9
+        },
+        {
+          "step": 24,
+          "native_assertions": 24
+        },
+        {
+          "step": 25,
+          "native_assertions": 9
+        },
+        {
+          "step": 26,
+          "native_assertions": 9
+        },
+        {
+          "step": 27,
+          "native_assertions": 9
+        },
+        {
+          "step": 28,
+          "native_assertions": 31
+        },
+        {
+          "step": 29,
+          "native_assertions": 20
+        },
+        {
+          "step": 30,
+          "native_assertions": 9
+        },
+        {
+          "step": 31,
+          "native_assertions": 9
+        },
+        {
+          "step": 32,
+          "native_assertions": 9
+        },
+        {
+          "step": 33,
+          "native_assertions": 23
+        },
+        {
+          "step": 34,
+          "native_assertions": 9
+        },
+        {
+          "step": 35,
+          "native_assertions": 9
+        },
+        {
+          "step": 36,
+          "native_assertions": 9
+        },
+        {
+          "step": 37,
+          "native_assertions": 140
+        }
+      ],
+      "author_only_checks": [],
+      "four_live_profile": {
+        "active_seats": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "seat_order": 1234,
+        "live_seats": 1234,
+        "game_mode": "UPF",
+        "passive_seats": [],
+        "initial_heroes": [
+          "dorinthea",
+          "dorinthea",
+          "dorinthea",
+          "iyslander"
+        ],
+        "initial_health": [
+          20,
+          20,
+          20,
+          18
+        ],
+        "initial_resources": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "initial_action_points": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "holdPriority_true_all_four_both_endpoints": true,
+        "all_11_automatic_window_flags_false_all_four_both_endpoints": true,
+        "verified_preference_fields": 96
+      },
+      "actual_semantic_findings": [
+        "Actual P1 WBRed8 from Hand targets adjacent P4, spends its sole AP and resolves after four source responses into ATTACK Role=ATTACK. All actual ATTACK/defender-declaration/DEFEND_PRIORITY/REACTION actor transitions match V5; no ordinary blocks are declared.",
+        "Actual P4 Absorb6 Hand defense reaction announced at earned reaction priority stays Stack KindDEFENSE_REACTION/SourceHand6 during pending printedcost1. Real BlueWB7 Hand click pitches3 and pays1, leaving R4=2/AP4=0. Its four real response actors4/1/2/3 retain REACTION context; only after body completion physical6 joins P4 chain with native RoleDEFENSE_REACTION/fromHand/link1. No extra ability layer or AP refund asserted.",
+        "After actual three reaction passes, P4 Iyslander18 plays the same blueZap5 from actual facedown Arsenal at AP0. Existing printed static off-turn blue-NAA permission earns KindINSTANT before source movement. Actual Prepare retains Stack5/SourceArsenal5 and pendingcost0/returnREACTION, then actual adjacent P1 target choice commits without spending remaining R2. Four real response actors4/1/2/3 yield Zap printed1+earnedAbsorb2=3 arcane, P1Health17. Native final arcCards5.arcaneBonus2/arcaneDealt4to1=3 corroborate the real HP endpoint; ARC_NEXT_ARCANE grant is consumed.",
+        "Zap is Wizard Action with blue pitch, not Ice. No Iyslander Ice-play Frostbite trigger is expected or credited. Support hero permission is not primary hero coverage.",
+        "Actual final four REACTION passes apply incoming WBpower4 against physical Absorb printeddef4, leaving P4Health18. Final full snapshot is DAMAGE/open chain, attackUID8/link1/attacker1/defender4, P1AP0 and P4AP0/R2. WB8 remains P1 chain RoleATTACK and Absorb6 P4 chain RoleDEFENSE_REACTION; Zap5 is sole P4 publicGY FaceDown0 and real Blue7 P4Pitch. All physical UID/CardID/owner/controller and initial/final profiles checked.",
+        "All701 normalized assertions match exact step/order/count, with no extra/omitted inputs or checks. All initial/final scalar/zone/property/state/queue assertions directly agree with schema-parsed snapshots. Native computed-power4 assertions agree with actual unmodified WBRed identity/printed base4; no Python engine/model calculation or cached-defense oracle substitution. Final Stack and all four queues are empty, active await frames absent, pendingPayment/resolvingReaction cleared; incidental callback locals remain uncredited."
+      ],
+      "scope_limits": [
+        "Exactly Red Absorb positive defense4 plus one earned next-card arcane2 use. No Yellow/Blue sibling, repeated/alternate arcane/prevention/replacement/suppression/expiry/full-card credit.",
+        "DAMAGE/open chain only; no RESOLUTION/chain-close/EOT/destruction or support-primary credit.",
+        "Review reads root-recorded completed data; reviewer did not execute native. Focused replay receipts remain separate parent gates; no isolated helper fault is claimed."
+      ]
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-anaphylactic-shock-blue-four-live-sparse-real-opposing-hero-damage-earned-before-life-loss",
+      "source_case_index": 0,
+      "primary_card_id": "anaphylactic_shock_blue",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "reason": "native attempted play left Stack0; root diagnosing legality/payment/no-op before classifying bug",
+      "accepted_inputs": 23,
+      "first_error": "Expected Stack count 1, got 0.",
+      "recording_receipt_sha256": "02061d7e537a34b708d22a29fec53a19c23009515279e60374b1213ea20d47ca",
+      "canonical_fixture_absent": true,
+      "scope": "No assumption that Shock was legally announced or resolved; source case0 is not passing approval. Native cardsPlayed contains only WB at the stop; no gameplay defect classification by this review."
+    }
+  ],
+  "preservation": {
+    "selected_raw5_stable_during_review": true,
+    "only_completed_Absorb_fixture_read": true,
+    "original_failed_sources_receipts_and_approvals_preserved": true,
+    "no_repository_writes": true,
+    "no_full_inventory_or_legacy_semantic_review": true
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T10:04:37.606929+00:00",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "source_spec": "card-regression-batch239.json",
+  "source_spec_sha256": "267fd867ccbeb7386e4181d18d2d5a71513b76733fcaf839675d21016695cb64",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 54,
+  "native_assertions": 1717,
+  "manual_passes": 46,
+  "totals": {
+    "saved_registered_scenarios": 3482,
+    "duels": 3074,
+    "four_live": 408,
+    "recorded_primary_ids": 639,
+    "identity_denominator": 5196,
+    "recorded_groups": 513,
+    "group_denominator": 3324,
+    "four_live_groups": 404,
+    "phase_qualified_scenarios_at_actual_contexts": 119,
+    "phase_qualified_unique_groups": 117,
+    "creation_replay_passes": 238,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 7,
+  "scenarios": [
+    {
+      "card_id": "heat_wave",
+      "group_id": "identity:heat_wave",
+      "scenario_id": "card-heat-wave-four-live-sparse-actual-destroyed-equipment-adds-one-to-already-attacking-first-phoenix-flame",
+      "effect_branches": [
+        "actual-destroyed-equipment-adds-one-to-already-attacking-first-phoenix-flame"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-heat-wave-four-live-sparse-actual-destroyed-equipment-adds-one-to-already-attacking-first-phoenix-flame",
+      "source_spec": "card-regression-batch239.json",
+      "source_spec_sha256": "267fd867ccbeb7386e4181d18d2d5a71513b76733fcaf839675d21016695cb64",
+      "review_evidence": "review-evidence/sparse239-1f33-qualified-saved-review.json",
+      "review_evidence_sha256": "2dbf174a3148827f300b2606c9b74b249e90255f614d553dc40c74e024e6bae1",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse239-1f33-r1.json",
+          "sha256": "23d14732cff1c90b514877b28bdd338f36e26ce989a1d262e17d6d7f22531bc6",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse239-1f33-r2.json",
+          "sha256": "21353d0ffc849e49cad7bda411516f4e8ba83c5698aa2f34579548b0fb59ae6f",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "ancestral_harmony_blue",
+      "group_id": "identity:ancestral_harmony_blue",
+      "scenario_id": "card-ancestral-harmony-blue-four-live-sparse-actual-top-combo-banish-permission-and-real-four-damage-attack",
+      "effect_branches": [
+        "actual-top-combo-banish-permission-and-real-four-damage-attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-ancestral-harmony-blue-four-live-sparse-actual-top-combo-banish-permission-and-real-four-damage-attack",
+      "source_spec": "card-regression-batch239.json",
+      "source_spec_sha256": "267fd867ccbeb7386e4181d18d2d5a71513b76733fcaf839675d21016695cb64",
+      "review_evidence": "review-evidence/sparse239-1f33-qualified-saved-review.json",
+      "review_evidence_sha256": "2dbf174a3148827f300b2606c9b74b249e90255f614d553dc40c74e024e6bae1",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse239-1f33-r1.json",
+          "sha256": "23d14732cff1c90b514877b28bdd338f36e26ce989a1d262e17d6d7f22531bc6",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse239-1f33-r2.json",
+          "sha256": "21353d0ffc849e49cad7bda411516f4e8ba83c5698aa2f34579548b0fb59ae6f",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hyper_driver_red",
+      "group_id": "pitch-cycle:hyper_driver",
+      "scenario_id": "card-hyper-driver-red-four-live-sparse-actual-paid-one-cost-item-enters-owned-with-three-steam",
+      "effect_branches": [
+        "actual-paid-one-cost-item-enters-owned-with-three-steam"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hyper-driver-red-four-live-sparse-actual-paid-one-cost-item-enters-owned-with-three-steam",
+      "source_spec": "card-regression-batch239.json",
+      "source_spec_sha256": "267fd867ccbeb7386e4181d18d2d5a71513b76733fcaf839675d21016695cb64",
+      "review_evidence": "review-evidence/sparse239-1f33-qualified-saved-review.json",
+      "review_evidence_sha256": "2dbf174a3148827f300b2606c9b74b249e90255f614d553dc40c74e024e6bae1",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "qualification_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse239-1f33-r1.json",
+          "sha256": "23d14732cff1c90b514877b28bdd338f36e26ce989a1d262e17d6d7f22531bc6",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse239-1f33-r2.json",
+          "sha256": "21353d0ffc849e49cad7bda411516f4e8ba83c5698aa2f34579548b0fb59ae6f",
+          "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

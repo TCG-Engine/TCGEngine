@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T16:20:46+00:00",
+    "input_file": "card-regression-batch253-dampen.json",
+    "input_sha256": "47ee18630a15b80ad137958aefecbad64eba35705c451df697177bd598fa1802",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-dampen-red-four-live-sparse-real-four-arcane-earned-prevention-four-against-five",
+            "status": "recorded_semantically_checked",
+            "actions": 21,
+            "assertions": 554
+        }
+    ]
+}

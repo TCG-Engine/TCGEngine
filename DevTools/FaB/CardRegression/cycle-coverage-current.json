@@ -1,30 +1,30 @@
 {
   "schema_version": 2,
   "status": "CURRENT_SPARSE_CYCLE_PRIMARY_EVIDENCE_ONLY",
-  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
   "summary": {
     "catalog_functional_ids": 5196,
     "catalog_groups": 3324,
     "implementation_candidate_ids": 4811,
     "implementation_candidate_groups": 3002,
-    "groups_with_any_saved_primary_scenario": 453,
+    "groups_with_any_saved_primary_scenario": 462,
     "all_profiles": {
-      "recorded": 453,
-      "saved_reviewed": 57,
-      "one_current_replay_or_more": 6,
-      "two_current_replays": 6
+      "recorded": 462,
+      "saved_reviewed": 66,
+      "one_current_replay_or_more": 5,
+      "two_current_replays": 5
     },
     "actual_four_live": {
-      "recorded": 344,
-      "saved_reviewed": 57,
-      "one_current_replay_or_more": 6,
-      "two_current_replays": 6
+      "recorded": 353,
+      "saved_reviewed": 66,
+      "one_current_replay_or_more": 5,
+      "two_current_replays": 5
     },
-    "sparse_four_live_first_pass_groups": 6,
-    "catalog_groups_remaining_without_qualified_four_live_representative": 3318,
-    "implementation_candidate_groups_with_qualified_four_live_representative": 6,
-    "implementation_candidate_groups_remaining_without_qualified_four_live_representative": 2996,
-    "represented_or_blocked_group_rows": 453
+    "sparse_four_live_first_pass_groups": 5,
+    "catalog_groups_remaining_without_qualified_four_live_representative": 3319,
+    "implementation_candidate_groups_with_qualified_four_live_representative": 5,
+    "implementation_candidate_groups_remaining_without_qualified_four_live_representative": 2997,
+    "represented_or_blocked_group_rows": 462
   },
   "policy": [
     "One exact reviewed primary-member fixture with a verified four-live profile and at least one current clean replay report represents its own group for sparse four-live first-pass breadth. New fixtures retain two clean replays at creation; after a shared-source change, one current compatibility pass can revalidate unchanged reviewed baseline fixtures. Two-current-replay diagnostics and finite completion gates remain separate and unchanged.",
@@ -116,11 +116,8 @@
         "branches": [
           "achilles-accelerator-four-live-sparse-real-earned-boost-instant-destroy-gains-one-action-point"
         ],
-        "status": "qualified_two_current_replays",
-        "current_replay_reports": [
-          "card-regression-replay-sparse212-405-20261026-r1.json",
-          "card-regression-replay-sparse212-405-20261026-r2.json"
-        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
         "four_live_profile": {
           "verified": true,
           "reasons": [],
@@ -142,11 +139,8 @@
         "branches": [
           "achilles-accelerator-four-live-sparse-real-earned-boost-instant-destroy-gains-one-action-point"
         ],
-        "status": "qualified_two_current_replays",
-        "current_replay_reports": [
-          "card-regression-replay-sparse212-405-20261026-r1.json",
-          "card-regression-replay-sparse212-405-20261026-r2.json"
-        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
         "four_live_profile": {
           "verified": true,
           "reasons": [],
@@ -160,7 +154,7 @@
           "fixture_sha256": "f1ec5163bb52e22ddcf22c54c19b75dc3bb79f46449d1d4f1dd7746afdc10a61"
         }
       },
-      "sparse_four_live_first_pass": true
+      "sparse_four_live_first_pass": false
     },
     {
       "group_id": "identity:aether_ironweave",
@@ -234,11 +228,8 @@
         "branches": [
           "actual_steam_cost_grants_barrier_two_and_paid_opposing_arcane_prevention"
         ],
-        "status": "qualified_two_current_replays",
-        "current_replay_reports": [
-          "card-regression-replay-sparse211-405-20261026-r1.json",
-          "card-regression-replay-sparse211-405-20261026-r2.json"
-        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
         "four_live_profile": {
           "verified": true,
           "reasons": [],
@@ -260,11 +251,8 @@
         "branches": [
           "actual_steam_cost_grants_barrier_two_and_paid_opposing_arcane_prevention"
         ],
-        "status": "qualified_two_current_replays",
-        "current_replay_reports": [
-          "card-regression-replay-sparse211-405-20261026-r1.json",
-          "card-regression-replay-sparse211-405-20261026-r2.json"
-        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
         "four_live_profile": {
           "verified": true,
           "reasons": [],
@@ -278,7 +266,7 @@
           "fixture_sha256": "870c2dfd777b4e068389b251e5b620390c4bf9623127fbbed19ea37b2b1d0529"
         }
       },
-      "sparse_four_live_first_pass": true
+      "sparse_four_live_first_pass": false
     },
     {
       "group_id": "identity:aetherstorm_wellingtons",
@@ -1072,6 +1060,62 @@
         "current_replay_reports": []
       },
       "four_live_representative": null,
+      "sparse_four_live_first_pass": false
+    },
+    {
+      "group_id": "identity:blood_drop_brocade",
+      "implementation_candidate": true,
+      "primary_reviewed_member_ids": [
+        "blood_drop_brocade"
+      ],
+      "members_without_own_primary_reviewed_scenario": [],
+      "saved_primary_scenario_count": 1,
+      "all_profiles_representative": {
+        "card_id": "blood_drop_brocade",
+        "slug": "card-blood-drop-brocade-four-live-sparse-real-physical-damage-earns-instant-resource",
+        "source_spec": "card-regression-batch215.json",
+        "fixture_sha256": "9a0610a34b43638112f10d4e4c95a88204d1494e8b220aef0f3163f1884dbc11",
+        "branches": [
+          "blood-drop-brocade-four-live-sparse-real-physical-damage-earns-instant-resource"
+        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "fc35c3ccad7bd65f32bdf929ed82b321a650bbcb6f0b55672d5d95b331e5e8a2",
+          "fixture_sha256": "9a0610a34b43638112f10d4e4c95a88204d1494e8b220aef0f3163f1884dbc11"
+        }
+      },
+      "four_live_representative": {
+        "card_id": "blood_drop_brocade",
+        "slug": "card-blood-drop-brocade-four-live-sparse-real-physical-damage-earns-instant-resource",
+        "source_spec": "card-regression-batch215.json",
+        "fixture_sha256": "9a0610a34b43638112f10d4e4c95a88204d1494e8b220aef0f3163f1884dbc11",
+        "branches": [
+          "blood-drop-brocade-four-live-sparse-real-physical-damage-earns-instant-resource"
+        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "fc35c3ccad7bd65f32bdf929ed82b321a650bbcb6f0b55672d5d95b331e5e8a2",
+          "fixture_sha256": "9a0610a34b43638112f10d4e4c95a88204d1494e8b220aef0f3163f1884dbc11"
+        }
+      },
       "sparse_four_live_first_pass": false
     },
     {
@@ -2083,6 +2127,68 @@
           "status": "blocked_incorrect_behavior"
         }
       ]
+    },
+    {
+      "group_id": "identity:cintari_saber",
+      "implementation_candidate": true,
+      "primary_reviewed_member_ids": [
+        "cintari_saber"
+      ],
+      "members_without_own_primary_reviewed_scenario": [],
+      "saved_primary_scenario_count": 1,
+      "all_profiles_representative": {
+        "card_id": "cintari_saber",
+        "slug": "card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+        "source_spec": "card-regression-batch216-cintari-probe.json",
+        "fixture_sha256": "a12c791badfac97348bae6cdcca0d9f6bac544ea2d9d61393750c985bd057b64",
+        "branches": [
+          "correct_when_defended_trigger_waits_for_responses_before_one_power"
+        ],
+        "status": "qualified_two_current_replays",
+        "current_replay_reports": [
+          "card-regression-replay-cintari-f56-auth-rebind-r1.json",
+          "card-regression-replay-cintari-f56-auth-rebind-r2.json"
+        ],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "a64ac442094e6624daf2ffe949311c0230ee2ec353e00e89d21f96bebadf979b",
+          "fixture_sha256": "a12c791badfac97348bae6cdcca0d9f6bac544ea2d9d61393750c985bd057b64"
+        }
+      },
+      "four_live_representative": {
+        "card_id": "cintari_saber",
+        "slug": "card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+        "source_spec": "card-regression-batch216-cintari-probe.json",
+        "fixture_sha256": "a12c791badfac97348bae6cdcca0d9f6bac544ea2d9d61393750c985bd057b64",
+        "branches": [
+          "correct_when_defended_trigger_waits_for_responses_before_one_power"
+        ],
+        "status": "qualified_two_current_replays",
+        "current_replay_reports": [
+          "card-regression-replay-cintari-f56-auth-rebind-r1.json",
+          "card-regression-replay-cintari-f56-auth-rebind-r2.json"
+        ],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "a64ac442094e6624daf2ffe949311c0230ee2ec353e00e89d21f96bebadf979b",
+          "fixture_sha256": "a12c791badfac97348bae6cdcca0d9f6bac544ea2d9d61393750c985bd057b64"
+        }
+      },
+      "sparse_four_live_first_pass": true
     },
     {
       "group_id": "identity:clarity_potion_blue",
@@ -3807,6 +3913,62 @@
       "sparse_four_live_first_pass": false
     },
     {
+      "group_id": "identity:exude_confidence_red",
+      "implementation_candidate": true,
+      "primary_reviewed_member_ids": [
+        "exude_confidence_red"
+      ],
+      "members_without_own_primary_reviewed_scenario": [],
+      "saved_primary_scenario_count": 1,
+      "all_profiles_representative": {
+        "card_id": "exude_confidence_red",
+        "slug": "card-exude-confidence-red-four-live-sparse-real-paid-instant-from-owned-attacking-card-adds-two-power-and-damage",
+        "source_spec": "card-regression-batch214.json",
+        "fixture_sha256": "bdff03c98b0a88c8d4cfa1da0e947a947a93d075fc9d810627eb0c455d6cd8f9",
+        "branches": [
+          "real_paid_instant_from_owned_attacking_card_adds_two_power_and_damage"
+        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "c4aec4480bd8cb2a407bbd64f5feb43697c9146b18fda6cba34e7cb73e2dd01d",
+          "fixture_sha256": "bdff03c98b0a88c8d4cfa1da0e947a947a93d075fc9d810627eb0c455d6cd8f9"
+        }
+      },
+      "four_live_representative": {
+        "card_id": "exude_confidence_red",
+        "slug": "card-exude-confidence-red-four-live-sparse-real-paid-instant-from-owned-attacking-card-adds-two-power-and-damage",
+        "source_spec": "card-regression-batch214.json",
+        "fixture_sha256": "bdff03c98b0a88c8d4cfa1da0e947a947a93d075fc9d810627eb0c455d6cd8f9",
+        "branches": [
+          "real_paid_instant_from_owned_attacking_card_adds_two_power_and_damage"
+        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "c4aec4480bd8cb2a407bbd64f5feb43697c9146b18fda6cba34e7cb73e2dd01d",
+          "fixture_sha256": "bdff03c98b0a88c8d4cfa1da0e947a947a93d075fc9d810627eb0c455d6cd8f9"
+        }
+      },
+      "sparse_four_live_first_pass": false
+    },
+    {
       "group_id": "identity:fallen_herald_yellow",
       "implementation_candidate": true,
       "primary_reviewed_member_ids": [],
@@ -4270,11 +4432,8 @@
         "branches": [
           "actual_cast_persistent_aura_then_next_live_turn_equipment_defense"
         ],
-        "status": "qualified_two_current_replays",
-        "current_replay_reports": [
-          "card-regression-replay-sparse211-405-20261026-r1.json",
-          "card-regression-replay-sparse211-405-20261026-r2.json"
-        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
         "four_live_profile": {
           "verified": true,
           "reasons": [],
@@ -4296,11 +4455,8 @@
         "branches": [
           "actual_cast_persistent_aura_then_next_live_turn_equipment_defense"
         ],
-        "status": "qualified_two_current_replays",
-        "current_replay_reports": [
-          "card-regression-replay-sparse211-405-20261026-r1.json",
-          "card-regression-replay-sparse211-405-20261026-r2.json"
-        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
         "four_live_profile": {
           "verified": true,
           "reasons": [],
@@ -4314,7 +4470,7 @@
           "fixture_sha256": "6aabfd4cb83ce42728a730e51c15d58f6194369226e752316f6ab23b9e13afd0"
         }
       },
-      "sparse_four_live_first_pass": true
+      "sparse_four_live_first_pass": false
     },
     {
       "group_id": "identity:frailty",
@@ -4500,11 +4656,8 @@
         "branches": [
           "fyendals-spring-tunic-four-live-sparse-actual-three-energy-instant-cost-and-resource-gain"
         ],
-        "status": "qualified_two_current_replays",
-        "current_replay_reports": [
-          "card-regression-replay-sparse212-405-20261026-r1.json",
-          "card-regression-replay-sparse212-405-20261026-r2.json"
-        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
         "four_live_profile": {
           "verified": true,
           "reasons": [],
@@ -4526,11 +4679,8 @@
         "branches": [
           "fyendals-spring-tunic-four-live-sparse-actual-three-energy-instant-cost-and-resource-gain"
         ],
-        "status": "qualified_two_current_replays",
-        "current_replay_reports": [
-          "card-regression-replay-sparse212-405-20261026-r1.json",
-          "card-regression-replay-sparse212-405-20261026-r2.json"
-        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
         "four_live_profile": {
           "verified": true,
           "reasons": [],
@@ -4544,7 +4694,7 @@
           "fixture_sha256": "4fba58fe8201e3775cfa31dfd7069f8a23b524ac9316d0ef05068ca7545e4acc"
         }
       },
-      "sparse_four_live_first_pass": true
+      "sparse_four_live_first_pass": false
     },
     {
       "group_id": "identity:gallantry_gold",
@@ -6513,6 +6663,62 @@
       "sparse_four_live_first_pass": false
     },
     {
+      "group_id": "identity:nerves_of_steel_blue",
+      "implementation_candidate": true,
+      "primary_reviewed_member_ids": [
+        "nerves_of_steel_blue"
+      ],
+      "members_without_own_primary_reviewed_scenario": [],
+      "saved_primary_scenario_count": 1,
+      "all_profiles_representative": {
+        "card_id": "nerves_of_steel_blue",
+        "slug": "card-nerves-of-steel-blue-four-live-sparse-owned-aura-suppresses-battleworn-on-actual-two-power-weapon-block",
+        "source_spec": "card-regression-batch214.json",
+        "fixture_sha256": "65c28ce69f801f912c75c6b09b4cbf7b17cbb7c6cfd59c8f86d9522ab62eb60e",
+        "branches": [
+          "owned_aura_suppresses_battleworn_on_actual_two_power_weapon_block"
+        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "7482ea2d32073836a3b665046a1d27901047926c95d8ae3af64cfcb59af3c3ff",
+          "fixture_sha256": "65c28ce69f801f912c75c6b09b4cbf7b17cbb7c6cfd59c8f86d9522ab62eb60e"
+        }
+      },
+      "four_live_representative": {
+        "card_id": "nerves_of_steel_blue",
+        "slug": "card-nerves-of-steel-blue-four-live-sparse-owned-aura-suppresses-battleworn-on-actual-two-power-weapon-block",
+        "source_spec": "card-regression-batch214.json",
+        "fixture_sha256": "65c28ce69f801f912c75c6b09b4cbf7b17cbb7c6cfd59c8f86d9522ab62eb60e",
+        "branches": [
+          "owned_aura_suppresses_battleworn_on_actual_two_power_weapon_block"
+        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "7482ea2d32073836a3b665046a1d27901047926c95d8ae3af64cfcb59af3c3ff",
+          "fixture_sha256": "65c28ce69f801f912c75c6b09b4cbf7b17cbb7c6cfd59c8f86d9522ab62eb60e"
+        }
+      },
+      "sparse_four_live_first_pass": false
+    },
+    {
       "group_id": "identity:nip_at_the_heels_blue",
       "implementation_candidate": true,
       "primary_reviewed_member_ids": [],
@@ -7030,11 +7236,8 @@
         "branches": [
           "actual_weapons_zone_block_gets_two_defense_against_weapon"
         ],
-        "status": "qualified_two_current_replays",
-        "current_replay_reports": [
-          "card-regression-replay-sparse211-405-20261026-r1.json",
-          "card-regression-replay-sparse211-405-20261026-r2.json"
-        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
         "four_live_profile": {
           "verified": true,
           "reasons": [],
@@ -7056,11 +7259,8 @@
         "branches": [
           "actual_weapons_zone_block_gets_two_defense_against_weapon"
         ],
-        "status": "qualified_two_current_replays",
-        "current_replay_reports": [
-          "card-regression-replay-sparse211-405-20261026-r1.json",
-          "card-regression-replay-sparse211-405-20261026-r2.json"
-        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
         "four_live_profile": {
           "verified": true,
           "reasons": [],
@@ -7074,7 +7274,7 @@
           "fixture_sha256": "1babf74a227581a5ef3f1b502c7ed93ed88131c4953f9c8142e167c9e6af174c"
         }
       },
-      "sparse_four_live_first_pass": true
+      "sparse_four_live_first_pass": false
     },
     {
       "group_id": "identity:passing_mirage_blue",
@@ -8163,6 +8363,68 @@
       "sparse_four_live_first_pass": false
     },
     {
+      "group_id": "identity:quelling_robe",
+      "implementation_candidate": true,
+      "primary_reviewed_member_ids": [
+        "quelling_robe"
+      ],
+      "members_without_own_primary_reviewed_scenario": [],
+      "saved_primary_scenario_count": 1,
+      "all_profiles_representative": {
+        "card_id": "quelling_robe",
+        "slug": "card-quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage",
+        "source_spec": "card-regression-batch217.json",
+        "fixture_sha256": "0ee78b2b6808a1626cd7ed31d6b7c662493f35d351128fc239aa8f84db914121",
+        "branches": [
+          "quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage"
+        ],
+        "status": "qualified_two_current_replays",
+        "current_replay_reports": [
+          "card-regression-replay-sparse217-f56-r1.json",
+          "card-regression-replay-sparse217-f56-r2.json"
+        ],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "189394db2334e6d9b765022df8d4b5d12e4cc2bbd7f3e4aa8cb20ee8908ef1bc",
+          "fixture_sha256": "0ee78b2b6808a1626cd7ed31d6b7c662493f35d351128fc239aa8f84db914121"
+        }
+      },
+      "four_live_representative": {
+        "card_id": "quelling_robe",
+        "slug": "card-quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage",
+        "source_spec": "card-regression-batch217.json",
+        "fixture_sha256": "0ee78b2b6808a1626cd7ed31d6b7c662493f35d351128fc239aa8f84db914121",
+        "branches": [
+          "quelling-robe-four-live-sparse-real-effect-pitch-paid-static-quell-prevents-one-of-seven-damage"
+        ],
+        "status": "qualified_two_current_replays",
+        "current_replay_reports": [
+          "card-regression-replay-sparse217-f56-r1.json",
+          "card-regression-replay-sparse217-f56-r2.json"
+        ],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "189394db2334e6d9b765022df8d4b5d12e4cc2bbd7f3e4aa8cb20ee8908ef1bc",
+          "fixture_sha256": "0ee78b2b6808a1626cd7ed31d6b7c662493f35d351128fc239aa8f84db914121"
+        }
+      },
+      "sparse_four_live_first_pass": true
+    },
+    {
       "group_id": "identity:quicken",
       "implementation_candidate": true,
       "primary_reviewed_member_ids": [],
@@ -8292,6 +8554,62 @@
           ],
           "initial_sha256": "7e1a3a1b669877dce53aeed714c9b4f5c9e47fbf632ca23186eca2a12c537575",
           "fixture_sha256": "6dac52dc5613c405ffac6e0b21d003e5529327f9ef61a41d3f293bf42c6d1897"
+        }
+      },
+      "sparse_four_live_first_pass": false
+    },
+    {
+      "group_id": "identity:reaping_blade",
+      "implementation_candidate": true,
+      "primary_reviewed_member_ids": [
+        "reaping_blade"
+      ],
+      "members_without_own_primary_reviewed_scenario": [],
+      "saved_primary_scenario_count": 1,
+      "all_profiles_representative": {
+        "card_id": "reaping_blade",
+        "slug": "card-reaping-blade-four-live-sparse-actual-heal-earns-unique-life-lead-then-blade-prevents-second-heal",
+        "source_spec": "card-regression-batch214.json",
+        "fixture_sha256": "1db9af62a7dd1018c17f892cb21bca218a2508afc485c6635a622ce7ef22533f",
+        "branches": [
+          "actual_heal_earns_unique_life_lead_then_blade_prevents_second_heal"
+        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "9e2d00511267a9ba1c342a034e85b40cc46759b405cced19bcc3794a21837be1",
+          "fixture_sha256": "1db9af62a7dd1018c17f892cb21bca218a2508afc485c6635a622ce7ef22533f"
+        }
+      },
+      "four_live_representative": {
+        "card_id": "reaping_blade",
+        "slug": "card-reaping-blade-four-live-sparse-actual-heal-earns-unique-life-lead-then-blade-prevents-second-heal",
+        "source_spec": "card-regression-batch214.json",
+        "fixture_sha256": "1db9af62a7dd1018c17f892cb21bca218a2508afc485c6635a622ce7ef22533f",
+        "branches": [
+          "actual_heal_earns_unique_life_lead_then_blade_prevents_second_heal"
+        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "9e2d00511267a9ba1c342a034e85b40cc46759b405cced19bcc3794a21837be1",
+          "fixture_sha256": "1db9af62a7dd1018c17f892cb21bca218a2508afc485c6635a622ce7ef22533f"
         }
       },
       "sparse_four_live_first_pass": false
@@ -9993,6 +10311,68 @@
       "sparse_four_live_first_pass": false
     },
     {
+      "group_id": "identity:spellbound_creepers",
+      "implementation_candidate": true,
+      "primary_reviewed_member_ids": [
+        "spellbound_creepers"
+      ],
+      "members_without_own_primary_reviewed_scenario": [],
+      "saved_primary_scenario_count": 1,
+      "all_profiles_representative": {
+        "card_id": "spellbound_creepers",
+        "slug": "card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+        "source_spec": "card-regression-batch217.json",
+        "fixture_sha256": "505b015c09dd85f92461a5fa1b21df6f6aa6e483895d8bfea5d49120ea03abfc",
+        "branches": [
+          "spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap"
+        ],
+        "status": "qualified_two_current_replays",
+        "current_replay_reports": [
+          "card-regression-replay-sparse217-f56-r1.json",
+          "card-regression-replay-sparse217-f56-r2.json"
+        ],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "27fa074fd4ebe6761163c5ff5630bb1caffbe272862785bfa4717fed3994ca6c",
+          "fixture_sha256": "505b015c09dd85f92461a5fa1b21df6f6aa6e483895d8bfea5d49120ea03abfc"
+        }
+      },
+      "four_live_representative": {
+        "card_id": "spellbound_creepers",
+        "slug": "card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+        "source_spec": "card-regression-batch217.json",
+        "fixture_sha256": "505b015c09dd85f92461a5fa1b21df6f6aa6e483895d8bfea5d49120ea03abfc",
+        "branches": [
+          "spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap"
+        ],
+        "status": "qualified_two_current_replays",
+        "current_replay_reports": [
+          "card-regression-replay-sparse217-f56-r1.json",
+          "card-regression-replay-sparse217-f56-r2.json"
+        ],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "27fa074fd4ebe6761163c5ff5630bb1caffbe272862785bfa4717fed3994ca6c",
+          "fixture_sha256": "505b015c09dd85f92461a5fa1b21df6f6aa6e483895d8bfea5d49120ea03abfc"
+        }
+      },
+      "sparse_four_live_first_pass": true
+    },
+    {
       "group_id": "identity:spillover_blue",
       "implementation_candidate": true,
       "primary_reviewed_member_ids": [],
@@ -10239,6 +10619,68 @@
       "sparse_four_live_first_pass": false
     },
     {
+      "group_id": "identity:storm_striders",
+      "implementation_candidate": true,
+      "primary_reviewed_member_ids": [
+        "storm_striders"
+      ],
+      "members_without_own_primary_reviewed_scenario": [],
+      "saved_primary_scenario_count": 1,
+      "all_profiles_representative": {
+        "card_id": "storm_striders",
+        "slug": "card-storm-striders-four-live-sparse-actual-paid-destroy-grants-real-offturn-wizard-action-play-as-instant",
+        "source_spec": "card-regression-batch218.json",
+        "fixture_sha256": "55a116a242d31c16f69f46e8130fdc9e0455c2024a5092e462da2fdae70fc4a0",
+        "branches": [
+          "actual_paid_destroy_grants_real_offturn_wizard_action_play_as_instant"
+        ],
+        "status": "qualified_two_current_replays",
+        "current_replay_reports": [
+          "card-regression-replay-sparse218-f56-r1.json",
+          "card-regression-replay-sparse218-f56-r2.json"
+        ],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "753b795c951b2c2c03960d23e00542f73f5665704b435c50ca953543dac76e7d",
+          "fixture_sha256": "55a116a242d31c16f69f46e8130fdc9e0455c2024a5092e462da2fdae70fc4a0"
+        }
+      },
+      "four_live_representative": {
+        "card_id": "storm_striders",
+        "slug": "card-storm-striders-four-live-sparse-actual-paid-destroy-grants-real-offturn-wizard-action-play-as-instant",
+        "source_spec": "card-regression-batch218.json",
+        "fixture_sha256": "55a116a242d31c16f69f46e8130fdc9e0455c2024a5092e462da2fdae70fc4a0",
+        "branches": [
+          "actual_paid_destroy_grants_real_offturn_wizard_action_play_as_instant"
+        ],
+        "status": "qualified_two_current_replays",
+        "current_replay_reports": [
+          "card-regression-replay-sparse218-f56-r1.json",
+          "card-regression-replay-sparse218-f56-r2.json"
+        ],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "753b795c951b2c2c03960d23e00542f73f5665704b435c50ca953543dac76e7d",
+          "fixture_sha256": "55a116a242d31c16f69f46e8130fdc9e0455c2024a5092e462da2fdae70fc4a0"
+        }
+      },
+      "sparse_four_live_first_pass": true
+    },
+    {
       "group_id": "identity:stubby_hammerers",
       "implementation_candidate": true,
       "primary_reviewed_member_ids": [],
@@ -10366,11 +10808,8 @@
         "branches": [
           "actual_owned_spellvoid_destroy_prevents_one_of_real_opposing_zap"
         ],
-        "status": "qualified_two_current_replays",
-        "current_replay_reports": [
-          "card-regression-replay-sparse213-405-20261026-r1.json",
-          "card-regression-replay-sparse213-405-20261026-r2.json"
-        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
         "four_live_profile": {
           "verified": true,
           "reasons": [],
@@ -10392,11 +10831,8 @@
         "branches": [
           "actual_owned_spellvoid_destroy_prevents_one_of_real_opposing_zap"
         ],
-        "status": "qualified_two_current_replays",
-        "current_replay_reports": [
-          "card-regression-replay-sparse213-405-20261026-r1.json",
-          "card-regression-replay-sparse213-405-20261026-r2.json"
-        ],
+        "status": "saved_reviewed_pending_current_replay",
+        "current_replay_reports": [],
         "four_live_profile": {
           "verified": true,
           "reasons": [],
@@ -10410,7 +10846,7 @@
           "fixture_sha256": "18ca85ac251ee38e76d8bbfcaac218fb35f74e9038513925d46eb11a94e5f67d"
         }
       },
-      "sparse_four_live_first_pass": true
+      "sparse_four_live_first_pass": false
     },
     {
       "group_id": "identity:talisman_of_recompense_yellow",
@@ -21677,6 +22113,71 @@
       "sparse_four_live_first_pass": false
     },
     {
+      "group_id": "pitch-cycle:warmongers_recital",
+      "implementation_candidate": true,
+      "primary_reviewed_member_ids": [
+        "warmongers_recital_red"
+      ],
+      "members_without_own_primary_reviewed_scenario": [
+        "warmongers_recital_blue",
+        "warmongers_recital_yellow"
+      ],
+      "saved_primary_scenario_count": 1,
+      "all_profiles_representative": {
+        "card_id": "warmongers_recital_red",
+        "slug": "card-warmongers-recital-red-four-live-sparse-actual-paid-action-next-paid-attack-gains-three-with-full-block-no-hit-branch",
+        "source_spec": "card-regression-batch218.json",
+        "fixture_sha256": "73cdda8fea5f2c55d35c60d3be5c2a8ebb0d326d6e28161ae3970b804fc812f1",
+        "branches": [
+          "actual_paid_action_next_paid_attack_gains_three_with_full_block_no_hit_branch"
+        ],
+        "status": "qualified_two_current_replays",
+        "current_replay_reports": [
+          "card-regression-replay-sparse218-f56-r1.json",
+          "card-regression-replay-sparse218-f56-r2.json"
+        ],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "1f89bf31e25c925342adfcd9c3c0a62c7347ee93516c1d48b6ee7a105c906e09",
+          "fixture_sha256": "73cdda8fea5f2c55d35c60d3be5c2a8ebb0d326d6e28161ae3970b804fc812f1"
+        }
+      },
+      "four_live_representative": {
+        "card_id": "warmongers_recital_red",
+        "slug": "card-warmongers-recital-red-four-live-sparse-actual-paid-action-next-paid-attack-gains-three-with-full-block-no-hit-branch",
+        "source_spec": "card-regression-batch218.json",
+        "fixture_sha256": "73cdda8fea5f2c55d35c60d3be5c2a8ebb0d326d6e28161ae3970b804fc812f1",
+        "branches": [
+          "actual_paid_action_next_paid_attack_gains_three_with_full_block_no_hit_branch"
+        ],
+        "status": "qualified_two_current_replays",
+        "current_replay_reports": [
+          "card-regression-replay-sparse218-f56-r1.json",
+          "card-regression-replay-sparse218-f56-r2.json"
+        ],
+        "four_live_profile": {
+          "verified": true,
+          "reasons": [],
+          "saved_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "initial_sha256": "1f89bf31e25c925342adfcd9c3c0a62c7347ee93516c1d48b6ee7a105c906e09",
+          "fixture_sha256": "73cdda8fea5f2c55d35c60d3be5c2a8ebb0d326d6e28161ae3970b804fc812f1"
+        }
+      },
+      "sparse_four_live_first_pass": true
+    },
+    {
       "group_id": "pitch-cycle:warriors_valor",
       "implementation_candidate": true,
       "primary_reviewed_member_ids": [],
@@ -22207,24 +22708,24 @@
       "sparse_four_live_first_pass": false
     }
   ],
-  "generated_utc": "2026-10-26T01:03:44Z",
+  "generated_utc": "2026-10-26T03:07:36Z",
   "inventory": {
-    "canonical_fixture_count": 3420,
-    "canonical_fixture_digest": "fb66427cf5e09d0c643fe9383e426ccf78a9522bff047dca8df75259375c7fe4",
+    "canonical_fixture_count": 3429,
+    "canonical_fixture_digest": "2571d47681ee9c5f58db02925115a7cfb0ecd3ed1591bf29c1bc986c01aef78c",
     "digest_definition": "SHA256 of compact UTF-8 JSON sorted [slug, existing four-file behavior SHA256] pairs; all five fixture files must exist"
   },
   "inputs": {
     "coverage": {
-      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-coverage.json",
-      "sha256": "65e5cd0daeb01637a542ecde574546c6db3e4f3eb2882a1800bcc35519d4927b"
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse-through218-coveragef56.json",
+      "sha256": "b24ca2c9c4b3dfcbc86fd87dc8345817fb1a57e02101d8adefba60bb27209b94"
     },
     "group_partition": {
       "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\cycle-group-map.compact.json",
       "sha256": "2cbc2b4f5309639a6dfc0175e51270d8033da2225db9c7587b8b386ee49a6d33"
     },
-    "review_manifest_sha256": "223dbc82b560bb5691e7fdf27963c61a821570660502bae28e832640d9a9766e",
-    "source_specifications_read": 214,
-    "verified_four_live_profile_candidates": 346,
+    "review_manifest_sha256": "bcbd502ba578b599ddc002d2a3f3b1aa80ca7b7f54076d5ad4dd68be076b9a58",
+    "source_specifications_read": 219,
+    "verified_four_live_profile_candidates": 355,
     "all_inputs_stable": true
   }
 }

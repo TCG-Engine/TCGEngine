@@ -1,0 +1,308 @@
+{
+  "status": "APPROVED_B238_CORRECTED_EIRINA_ONE_ACTUAL_SAVED_FIXTURE_REPLAY_QUALIFICATION_SEPARATE",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_scenario_author": true,
+  "utc": "2026-10-26T09:49:42.741129+00:00",
+  "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch238-eirina-corrected.json",
+  "input_sha256": "334e77844daae95d9eb3a6d1eb6bbb6d05468d7c2e282d04c9d9323eb6bc557d",
+  "manifest_sha256": "2f9565bd968b63b5350390dbf025ce8959d7455e6e10bd928c9d166f2c4f8f69",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "reused_corrected_manual_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch238-eirina-adjacent-oracle-correction-independent-review-106.json",
+    "sha256": "494625a9532549613eea2c7596ae6349ea071567bee079e0e819d828b6640291"
+  },
+  "immutable_recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch238-eirina-corrected-20261026T094658Z-6adf2192c81f6.json",
+    "sha256": "93e4159482e9d61b93b26efbf4c1b48f94543d82044e36838f8a53d5cb9093f6"
+  },
+  "fixtures": [
+    {
+      "slug": "card-eirinas-prayer-red-four-live-sparse-actual-blue-top-reveal-prevents-three-of-five-real-arcane-damage",
+      "card_id": "eirinas_prayer_red",
+      "group_id": "pitch-cycle:eirinas_prayer",
+      "reviewer": "/root/b106_semantic_review",
+      "priority_response_passes": 11,
+      "defender_declaration_completion_inputs": 0,
+      "end_phase_admin_passes": 0,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_CORRECTED_EIRINA_ONLY_FINAL_REPLAYS_SEPARATE",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch238-eirina-corrected.json",
+      "input_sha256": "334e77844daae95d9eb3a6d1eb6bbb6d05468d7c2e282d04c9d9323eb6bc557d",
+      "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "recorded_runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+      "fixture_sha256": "91560bf3564de2479734aa355ea9344417fc5a8f213ef2fc49afe0ef4f700caa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2befb17aa1f5d8b8a22a31490eb95c6dd7a2d57a34e990c8b2c208f97a53d687",
+        "actions.json": "2c04422db65043099ee75eb1d2a0040ec84e5cfc76a26789c26e0027e2ed6d9c",
+        "assertions.json": "2e8bb7db7a2e33f0856e9c41f7eebb2631c1a99e4743c0dbbfe06dd62040f9f7",
+        "expected_final_gamestate.txt": "058f29b1a14ea2354478517e34a8e5051656d8bc150839e263df5e8b0323ef3f",
+        "meta.json": "806c099ac55c7475b93d36ae7a7ec44ff55050166125003838fcc790bbd5df60"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "2befb17aa1f5d8b8a22a31490eb95c6dd7a2d57a34e990c8b2c208f97a53d687",
+        "actions.json": "2c04422db65043099ee75eb1d2a0040ec84e5cfc76a26789c26e0027e2ed6d9c",
+        "assertions.json": "2e8bb7db7a2e33f0856e9c41f7eebb2631c1a99e4743c0dbbfe06dd62040f9f7",
+        "expected_final_gamestate.txt": "058f29b1a14ea2354478517e34a8e5051656d8bc150839e263df5e8b0323ef3f",
+        "meta.json": "806c099ac55c7475b93d36ae7a7ec44ff55050166125003838fcc790bbd5df60"
+      },
+      "actions": 16,
+      "native_assertions": 659,
+      "native_card_property_assertions": 223,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 11,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4
+      ],
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_initial_four_live_legal_generic_prayer_real_deck_and_wizard",
+          "step": 0,
+          "native_assertions": 129
+        },
+        {
+          "checkpoint": "real_Voltic_target_declaration_before_payment",
+          "step": 1,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "real_Voltic_funding_wait_empty_DQ",
+          "step": 2,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_Blue_pays_two_Voltic_leaves_one_before_responses",
+          "step": 3,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "real_Voltic_response_earns_priority_2",
+          "step": 4,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_Voltic_response_earns_priority_3",
+          "step": 5,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_Voltic_response_earns_priority_4",
+          "step": 6,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "Prayer_announced_but_one_resource_still_unpaid",
+          "step": 7,
+          "native_assertions": 36
+        },
+        {
+          "checkpoint": "actual_P4_Blue_pays_one_Instant_leaves_two_before_any_reveal_or_prevention",
+          "step": 8,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "real_Prayer_responses_actor_4",
+          "step": 9,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_Prayer_responses_actor_1",
+          "step": 10,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_Prayer_responses_actor_2",
+          "step": 11,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_Prayer_responses_fourth_actor_3",
+          "step": 12,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "real_Voltic_damage_responses_actor_1",
+          "step": 13,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_Voltic_damage_responses_actor_2",
+          "step": 14,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_Voltic_damage_responses_actor_3",
+          "step": 15,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "real_Voltic_damage_responses_fourth_actor_4",
+          "step": 16,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "full_final_real_arcane_five_minus_three_health18_public_sources",
+          "step": 16,
+          "native_assertions": 131
+        }
+      ],
+      "initial_physical_cards": {
+        "p4Deck": [
+          [
+            "7",
+            "wounding_blow_blue",
+            "4",
+            "4",
+            null
+          ]
+        ],
+        "p1Hand": [
+          [
+            "8",
+            "voltic_bolt_red",
+            "1",
+            "1",
+            null
+          ],
+          [
+            "9",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p4Hand": [
+          [
+            "5",
+            "eirinas_prayer_red",
+            "4",
+            "4",
+            null
+          ],
+          [
+            "6",
+            "wounding_blow_blue",
+            "4",
+            "4",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p4Deck": [
+          [
+            "7",
+            "wounding_blow_blue",
+            "4",
+            "4",
+            null
+          ]
+        ],
+        "p1Graveyard": [
+          [
+            "8",
+            "voltic_bolt_red",
+            "1",
+            "1",
+            "0"
+          ]
+        ],
+        "p4Graveyard": [
+          [
+            "5",
+            "eirinas_prayer_red",
+            "4",
+            "4",
+            "0"
+          ]
+        ],
+        "p1Pitch": [
+          [
+            "9",
+            "wounding_blow_blue",
+            "1",
+            "1",
+            null
+          ]
+        ],
+        "p4Pitch": [
+          [
+            "6",
+            "wounding_blow_blue",
+            "4",
+            "4",
+            null
+          ]
+        ]
+      },
+      "observed_recording_summary": {
+        "slug": "card-eirinas-prayer-red-four-live-sparse-actual-blue-top-reveal-prevents-three-of-five-real-arcane-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 659
+      },
+      "actual_meaningful_evidence": [
+        "Actualinitial rawbytes equal the original failed one-click attempt; correctedsource differs only by legalVoltic target menuP2/P4. SameactualVoltic8 sourceclick, legalP4 target before payment, realBlue9pitch3 pays2\u2192P1R1/AP0.",
+        "ActualP4Prayer5Instant1 aboveVoltic uses distinctBlue6Hand funding\u2192R2/AP0 before fourprimaryresponses4,1,2,3. Physical topDeckBlue7 stays unchanged, fourth resolves shielding6minus3=3; fulloriginalspellresponses1,2,3,4 resolve actualVoltic5minus3=2arcane/P4HP18.",
+        "Final physical source5ownP4publicGYFaceDown0/source8P1publicGYFaceDown0, distinctBlue6Pitch4/Blue9Pitch1, Deck7OwnerController4 unchanged; allotherHP20/AP0, P1R1/P4R2 and noStack/decision/pending/frame. Actualtarget4/caster1 cumulativearcane2 recorded; RevealCard internalcounter4Blue1 corroborates sourcepath, not a UI/logvisibility test.",
+        "Historical sharedDQ source/card labels may remain after complete resolution; no active source/frame/Stack object is inferred from caches. No engine/card source changed to accommodate this correction."
+      ]
+    }
+  ],
+  "totals": {
+    "fixtures": 1,
+    "actions": 16,
+    "native_assertions": 659,
+    "card_property_assertions": 223,
+    "manual_pass_until_inputs": 11,
+    "priority_response_passes": 11,
+    "defender_declaration_completion_inputs": 0,
+    "end_phase_admin_passes": 0,
+    "recorder_only_checks": 0,
+    "endpoint_manual_preference_values": 96
+  },
+  "preserved_prior_oracle_error": {
+    "classification": "ORACLE_ERROR_UPF_SINGLE_HERO_ADJACENCY_NOT_ENGINE_BUG",
+    "original_source_sha256": "deeb3c4974039329d95310b3fbdff076d5e65b3bc80802dc6f23be0311c1f745",
+    "failed_receipt": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch238-20261026T093845Z-6adf1fa53fe26.json",
+      "sha256": "baa862aff219ee228d8563aac34b72e23dfb2a3cf34d4a30f1ebcf44c1be005b"
+    },
+    "original_failed_attempt_saved_fixture": false,
+    "same_slug_now_saved_from_corrected_suffix_source": true,
+    "erratum": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch238-two-actual-saved-review-with-eirina-oracle-erratum-106.json",
+      "sha256": "c15defc1bc5e19aa82512217e3f3d6305b60fb1412e1c580d4a3656180a20c8d"
+    },
+    "official_rule": "https://rules.fabtcg.com/en/trp/09-special-formats/",
+    "scope": "TRP9.3 single-target effect is adjacent-only; sourceARCTargets34 correct. PriorwrongP3 expectation/approval preserved; only legitimateexpectedParam corrected, allactions/setup/math unchanged. No enginefix or newbug credit."
+  },
+  "initial_before_after_sha256": "2befb17aa1f5d8b8a22a31490eb95c6dd7a2d57a34e990c8b2c208f97a53d687",
+  "limits": [
+    "Only corrected Eirina case reviewed here; no duplicate review/replays of healthy Serenity/Beam.",
+    "SingleBlue-top shield3ofactualarcane5. Otherdeckpitches/furtherpackets/expiry/unpreventable/emptyDeck/revealUI or eventvisibility and support/hero/sibling/fullcard credit untested.",
+    "Every savedaction/nativeoracle and complete physicalendpoint/profile audited; no optionalpaper simulation or engine execution. Root-passed checkpoint receipt gives scoped intermediate evidence, not unseen callbacklocals.",
+    "Current1f33 root-recorded context corroborated by exact currentfingerprint/sourceguards. Pending new-only replay outcomes intentionally not claimed; root binds final results."
+  ],
+  "blockers": [],
+  "php_execution": 0,
+  "native_execution": 0,
+  "repository_writes": 0,
+  "optional_rules_simulation": 0
+}

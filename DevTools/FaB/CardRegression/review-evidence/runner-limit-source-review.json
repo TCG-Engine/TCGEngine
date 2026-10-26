@@ -1,0 +1,53 @@
+{
+  "reviewer": "/root/b104_saved_review",
+  "status": "APPROVED_V3_NARROW_SOURCE_SUCCESSOR_AND_CONTROLLED_CLI_HARNESS_ROOT_EXECUTION_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "harness_approved": true,
+  "proposal": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\runner-failure-limit-proposed-v3-strict-new-options\\proposal.json",
+  "proposal_sha256": "3258a1a57d6aa8bc66db307885c5730e859a57abecd2287da6217613146d7bf0",
+  "candidate_runner_sha256": "44208f7c7b50e8123912c78904df1f745c24f1adca58770412885667c555867a",
+  "component_script_sha256": "35a2d36ee6ee3e572f5ee842f313508c4d79aea7127f067303d8e1dace0aea4c",
+  "harness_script_sha256": "35a2d36ee6ee3e572f5ee842f313508c4d79aea7127f067303d8e1dace0aea4c",
+  "harness_script": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\runner-failure-limit-proposed-v3-strict-new-options\\runner-cli-contract.php",
+  "files": [
+    {
+      "path": "DevTools/RunIntegrationTests.php",
+      "before_sha256": "21cc915ed3f041cc708349d7dd0ba05d0be6b4806ac76a3aba88d0ab2667d091",
+      "after_sha256": "44208f7c7b50e8123912c78904df1f745c24f1adca58770412885667c555867a",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\runner-failure-limit-proposed-v3-strict-new-options\\candidate\\DevTools\\RunIntegrationTests.php"
+    }
+  ],
+  "diff_sha256": "f5545e2d8f4c316186b56ae215dccf4c0a4665c23053412a34a13c0c992f857b",
+  "test_plan_sha256": "e0fd819027307b007794aeef8af3d0992628e4eca377f77f4e14431b2ac29ac6",
+  "usage_sha256": "86203277cc2f1e6ae0673ad274dcdd4ba92bf0f65f39da6df0ad22ade5465d10",
+  "prior_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\runner-failure-limit-independent-source-approval.json",
+    "sha256": "1243f37c768e7b12a4af12d503ccd5b10dbc77ae9b40c7b7eb63deb97384dbd5",
+    "reused_scope": "Unchanged numeric range validation, option semantics, top-loop failure gate/all six continue sites, output streaming/compaction, summary/default fixture behavior and diagnostic limitations."
+  },
+  "method": "Independent manual exact three-predicate successor delta plus whole controlled harness/adapters/filesystem/process/contract review. Static hash/patch/three-anchor reconstruction only; no PHP/CLI/native/game/component execution or repository writes by reviewer.",
+  "source_delta_findings": [
+    "Exactly three rejection predicates differ from prior71e878 source. After valid equals-value and exact --compact branches are handled, any residual --max-failures, --log or --compact prefix throws before fixture discovery. Malformed new-option spellings can no longer silently fall into inherited unrelated unknown-option ignore behavior.",
+    "Byte replacements reconstruct candidate44208 from reviewed71e878 exactly. Complete published patch matches live21cc/before backup and final candidate; four declared guidance/dependency guards match. No output/count/engine/assertion/snapshot path changed by the successor.",
+    "Original source approval remains immutable and historical; only final44208 is approved for the pending root application/execution. No interim candidate test or passing result is claimed."
+  ],
+  "harness_findings": [
+    "Hash guard checks supplied entire runner before any subprocess. Each invocation copies identical candidate into a newly random-named W contract-artifacts tree and verifies copy hash. Only its isolated Core/EngineActionRunner dependency is replaced with disclosed tiny stubs; actual runner CLI/options/loop/output/exit source executes unchanged. No real Core/bootstrap, card runtime or native fixtures are imported.",
+    "Controlled fixture/config/log/trace/stdout/stderr files all live under that unique W tree. Actual copied runner writes only controlled temporary Gamestate files. The substitute cleanup resolves its target and requires a descendant of one of the created FakeRoot/Games or GrandArchiveSim/Games directories; only that Gamestate file and directory are removed. Complete artifacts remain for diagnosis. No canonical repository fixture or snapshot write is reachable from the specified command.",
+    "Planned32 contracts count correctly:8 default/limit/log/chunk/filter/empty cases,15 invalid-option cases,2 bad-log cases,3 early fixture failures,1 prepare exception,2 GA dispatch continuations and1 expected-rejection/verbose case. Each record is added only after its checks; any mismatch retains a FAIL result and exits nonzero.",
+    "Default four-fixture run requires complete huge diagnostic plus later pass and exact4/2/2/4/0/0 summary. Limit1 requires stop before next fixture and2 not-run; limit2 at natural end requires no false STOP. --test and empty selection assert exact selected counts. Both GA subprocess continuations and all four ordinary early-failure continuations are exercised with a limit; real GA/card implementations are intentionally doubled.",
+    "Compact/full-log case requires actual complete50000-byte diagnostic, secondary ContextTail and suppressed pass line in full log while console remains under1800 bytes. Log-only requires byte-equal console/log. Chunked output splits the [FAIL] prefix across actual echo calls and a10000-byte line, requires reconstructed bounded headline/full log content, and retains an unterminated shutdown tail in the log.",
+    "All15 malformed recognized/new-prefix options require nonzero, [ERROR] stderr and empty discovery/action trace. Existing logfile bytes must remain preserved, and nonexistent log parent must stop before discovery. Expected-rejection+verbose verifies unchanged caller behavior, full STEP detail in log and quiet compact console.",
+    "Invocation in test-plan uses supported --runner=... and --expected-sha=... harness options with exact44208; this harness CLI is distinct from earlier bare-key component APIs. Parent alone executes this candidate/harness and captures actual result."
+  ],
+  "planned_contracts": 32,
+  "execution_status": "NOT_EXECUTED_BY_REVIEWER; root lint/controlled CLI and later bounded actual diagnostic are separate gates.",
+  "limits": [
+    "Harness doubles assertion outcomes, action acceptance, fixture discovery/runtime and GA subprocesses; it proves CLI orchestration under controlled inputs, not any game rule, card fixture correctness or full-suite readiness.",
+    "Write/flush-error fail-closed branches are source-reviewed; this controlled harness does not inject a real filesystem-full/partial-write error. Final unterminated stdout completeness is checked in log; no blanket console/full-byte cap claim.",
+    "Logging captures stdout after setup, including suppressed PASS/STEP lines, not arbitrary direct STDERR/startup/parse failures. Parent must retain stderr separately.",
+    "Compact suppresses per-fixture PASS console lines; consumers requiring exact passing fixture names should read the complete log or use noncompact mode.240-byte prefixes plus suffix are a per-line cap; no universal total-console bound or UTF8 character-boundary guarantee.",
+    "No optional paper/simulator, PHP/native/R mutation, whole-suite diagnosis or broad metadata/source review by this reviewer."
+  ]
+}

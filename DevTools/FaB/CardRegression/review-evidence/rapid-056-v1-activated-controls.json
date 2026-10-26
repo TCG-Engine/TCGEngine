@@ -1,0 +1,13 @@
+{
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\printed_keyword_test.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid056-activated-ability-negative-controls.json"
+  ],
+  "returncode": 1,
+  "stdout": "{\n    \"source_function_sha256\": \"30a5a15b924d9f4e57deef0c3ca2192677bf12429a5642c956dd5eb5e5f5e34d\",\n    \"total\": 4,\n    \"passed\": 0,\n    \"failures\": [\n        {\n            \"name\": \"activated_ability_keyword_is_not_card_own_induction_chamber_red\",\n            \"expected\": false,\n            \"actual\": true\n        },\n        {\n            \"name\": \"activated_ability_keyword_is_not_card_own_plasma_purifier_red\",\n            \"expected\": false,\n            \"actual\": true\n        },\n        {\n            \"name\": \"activated_ability_keyword_is_not_card_own_gold\",\n            \"expected\": false,\n            \"actual\": true\n        },\n        {\n            \"name\": \"activated_ability_keyword_is_not_card_own_silver\",\n            \"expected\": false,\n            \"actual\": true\n        }\n    ],\n    \"scope\": \"Actual extracted parser with synthetic metadata\\/text inputs; not native game validation.\"\n}\n",
+  "stderr": "",
+  "source_sha256": "1141624ae114dc93f6c30ac9f37c5f9a57a92b5ed38e14c3be2bc1da58158b6b",
+  "scope": "Actual parser/real current card text with boundary metadata lookup; no native/gameplay or passing credit. Expectations awaiting independent rule review."
+}

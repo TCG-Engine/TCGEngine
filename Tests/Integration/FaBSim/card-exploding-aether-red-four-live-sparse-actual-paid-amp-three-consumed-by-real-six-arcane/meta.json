@@ -1,0 +1,7 @@
+{
+    "name": "exploding_aether_red / actual four-live distinctive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T07:50:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four live youngVerdance20/threeDori20 nohistory/AMPseed. Actual ExplodingRed5Action printedcost2 paidfromrealBlueWB7pitch3 leavesR1/AP0, noearlydamage; fouractualresponses resolveitsAmp3 andprintedGA->AP1/source5publicGY. Actually play ZapRed6Action0, declareP4beforeAPspend, consume restoredAP1->0/noextraresourcepayment, fouractualresponses. ActualZap3 plusprimaryAmp3=6 givesP4HP14; nootherdamagebuffexists. FinalR1/AP0/Pitch7 and unorderedownpublicGYmembers5/6/FaceDown0/OwnerController1; independent saved audit verifies exactUIDset. OtherHP20/StackqueuesemptyACTION. Onlyone nextdamageboost; no repeatedamp/variants/prevention/otherheroes/supportprimarycredit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS192.webp"
+}

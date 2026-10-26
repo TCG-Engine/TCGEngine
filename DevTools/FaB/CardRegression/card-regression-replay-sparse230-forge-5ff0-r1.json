@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch230-forge-corrected-weapon-status.json",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T07:07:00.831693+00:00",
+  "fixtures": [
+    {
+      "slug": "card-visit-the-imperial-forge-red-four-live-sparse-actual-sword-piercing-three-against-real-equipment-defender",
+      "fixture_sha256": "f3139665d7f458d9739c37c146b30cd101420f27a1f0d5a9760b55f6d6837a7a",
+      "passed": true,
+      "result": "[PASS] visit_the_imperial_forge_red / actual four-live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-visit-the-imperial-forge-red-four-live-sparse-actual-sword-piercing-three-against-real-equipment-defender",
+      "returncode": 0,
+      "stdout": "[PASS] visit_the_imperial_forge_red / actual four-live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

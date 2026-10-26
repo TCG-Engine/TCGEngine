@@ -1,0 +1,293 @@
+{
+  "status": "APPROVED_B227_TWO_ACTUAL_SAVED_FOUR_LIVE_CASES_FINAL_REPLAY_QUALIFICATION_SEPARATE",
+  "reviewer": "/root/b106_semantic_review",
+  "independent_of_scenario_author": true,
+  "utc": "2026-10-26T06:03:12.527792+00:00",
+  "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch227.json",
+  "input_sha256": "8a0dc8c30fe5faa24ad263bd82258b983273ceaa44f43c09e81a6ca99e88cfea",
+  "manifest_sha256": "dc626a110be86d37ae3ae3b9199ee3e33f7cf745f27be7bfb8e4f076dbb9880f",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "reused_manual_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch227-independent-manual-spec-review-106-v2-installer-alias.json",
+    "sha256": "4ca7755be3e2da3c856a20babf0916a4f9252d472b2a2e83d140b5b63c63329c"
+  },
+  "original_manual_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch227-independent-manual-spec-review-106.json",
+    "sha256": "8516d32aaf6f8fbf1e6bbd6a397daf28933a8181fe24871f09c97351ecc84a24"
+  },
+  "immutable_recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch227-20261026T060103Z-6adeec9f74316.json",
+    "sha256": "cc417b0e2ab2f8883b1683f1ad4e5ed4e8c340c791fd5f759d1e176371afed1e"
+  },
+  "fixtures": [
+    {
+      "slug": "card-adaptive-dissolver-four-live-sparse-real-action-and-equipment-zone-choice-head-to-arms",
+      "card_id": "adaptive_dissolver",
+      "group_id": "identity:adaptive_dissolver",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B227_FOUR_LIVE_REPRESENTATIVE_TARGETED_QUALIFICATION_SEPARATE",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch227.json",
+      "input_sha256": "8a0dc8c30fe5faa24ad263bd82258b983273ceaa44f43c09e81a6ca99e88cfea",
+      "fixture_sha256": "b6d94675c9383e5c54792e082cae7422de59ab60f6a04218636babea4ae29698",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ca9c849181e7fdfd53efe0364e42b18f376104a317c92fe1cf69e6ddd1a44f99",
+        "actions.json": "244d33c9dfe88f04c91ea2cc93a73af17abac11381f3f982df2c75554d2cc384",
+        "assertions.json": "c442bb26e2948d33718c8423a62c064a67132ebce82bb77cd8dbd449f14a4cd4",
+        "expected_final_gamestate.txt": "3d898df9b250717979e110a01973b55b483bb08f1eb3b1c96c32315620dc07ec",
+        "meta.json": "e68cceca259c15ae5c7ae61640a4f55c04fafbeaed4c1f72ef04c0fb079fa50a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ca9c849181e7fdfd53efe0364e42b18f376104a317c92fe1cf69e6ddd1a44f99",
+        "actions.json": "244d33c9dfe88f04c91ea2cc93a73af17abac11381f3f982df2c75554d2cc384",
+        "assertions.json": "c442bb26e2948d33718c8423a62c064a67132ebce82bb77cd8dbd449f14a4cd4",
+        "expected_final_gamestate.txt": "3d898df9b250717979e110a01973b55b483bb08f1eb3b1c96c32315620dc07ec",
+        "meta.json": "e68cceca259c15ae5c7ae61640a4f55c04fafbeaed4c1f72ef04c0fb079fa50a"
+      },
+      "actions": 6,
+      "native_assertions": 409,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_legal_four_live_young20_modular_head_equipment_initial",
+          "step": 0,
+          "native_assertions": 111
+        },
+        {
+          "checkpoint": "actual_zero_resource_Action_asset_paid_source_not_moved_before_four_responses",
+          "step": 1,
+          "native_assertions": 37
+        },
+        {
+          "checkpoint": "actual_modular_manual_response_1_of_four_Head_retained",
+          "step": 2,
+          "native_assertions": 37
+        },
+        {
+          "checkpoint": "actual_modular_manual_response_2_of_four_Head_retained",
+          "step": 3,
+          "native_assertions": 37
+        },
+        {
+          "checkpoint": "actual_modular_manual_response_3_of_four_Head_retained",
+          "step": 4,
+          "native_assertions": 37
+        },
+        {
+          "checkpoint": "fourth_manual_response_awaits_real_equipment_zone_choice_source_and_ability_still_live",
+          "step": 5,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "actual_chosen_Arms_slot_equipped_same_physical_UID_without_go_again_full_final",
+          "step": 6,
+          "native_assertions": 111
+        }
+      ],
+      "initial_physical_cards": {
+        "p1Equipment": [
+          [
+            "5",
+            "adaptive_dissolver",
+            "1",
+            "1",
+            "0"
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Equipment": [
+          [
+            "5",
+            "adaptive_dissolver",
+            "1",
+            "1",
+            "0"
+          ]
+        ]
+      },
+      "observed_recording_summary": {
+        "slug": "card-adaptive-dissolver-four-live-sparse-real-action-and-equipment-zone-choice-head-to-arms",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 409
+      },
+      "actual_meaningful_evidence": [
+        "PhysicalDissolver5 begins equippedHead/OwnerController1/Status2; realAction0 click spends soleAP without destroying/moving source.",
+        "Native source-bound ability6 persists through four actual responses; pending P1MZMODAL offersChest/Arms/Legs, source5 remainsHead/AP0 and ownedARC_ABILITY marker6 remains untilanswer.",
+        "Actual P1answer1 produces same physicalEquipment5 withCountersEVO_SLOTArms/Status2; no replacementcard, virtualghost, GoAgainrefund or resourcechange. AllfourHP20/APR0; completeStack/queues/frame clear."
+      ],
+      "limits": [
+        "Only positive Head-to-Arms choice; no initial equip-selection procedure, occupiedslot/alternatezone, ArcaneBarrier, later subtype-dependent effect, suppression or fullcard credit.",
+        "EVO_SLOT change and physicalUID continuity are native pinned. Effective subtype consumer was source-reviewed, not independently exercised by a future play in this fixture."
+      ]
+    },
+    {
+      "slug": "card-spellbane-aegis-four-live-sparse-real-optional-spellvoid-token-destruction-prevents-one-arcane",
+      "card_id": "spellbane_aegis",
+      "group_id": "identity:spellbane_aegis",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B227_FOUR_LIVE_REPRESENTATIVE_TARGETED_QUALIFICATION_SEPARATE",
+      "reviewer": "/root/b106_semantic_review",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "source_spec": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch227.json",
+      "input_sha256": "8a0dc8c30fe5faa24ad263bd82258b983273ceaa44f43c09e81a6ca99e88cfea",
+      "fixture_sha256": "db74872cc954c9219726cc66df927c818ed791f0046c07b231b3abf02182e5c4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "40e5ddfe2edd5d36490e614968e3c4b7441ec0f9602925faf59f6e1cc588bbb9",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "306d0fc89f80e304977fc45949710da6abd3327185643402906e7cc135e2061b",
+        "expected_final_gamestate.txt": "f6bbfe2153c8d5c74de87472ac3536199fb95a685235a727bb2dbc3a11bc3f93",
+        "meta.json": "55b78f05af77c0b98e16411e4e2489bc6ebecfc599bf7781eb031360a2787ce9"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "40e5ddfe2edd5d36490e614968e3c4b7441ec0f9602925faf59f6e1cc588bbb9",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "306d0fc89f80e304977fc45949710da6abd3327185643402906e7cc135e2061b",
+        "expected_final_gamestate.txt": "f6bbfe2153c8d5c74de87472ac3536199fb95a685235a727bb2dbc3a11bc3f93",
+        "meta.json": "55b78f05af77c0b98e16411e4e2489bc6ebecfc599bf7781eb031360a2787ce9"
+      },
+      "actions": 7,
+      "native_assertions": 572,
+      "recorder_only_checks": 0,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "end_phase_admin_passes": 0,
+      "four_live_manual_profile_verified": true,
+      "persisted_initial_four_live_guards_verified": true,
+      "persisted_initial_profile_guard_count": 12,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "total_endpoint_preference_values_verified": 96,
+      "checkpoint_assertions": [
+        {
+          "checkpoint": "full_four_live_legal_young20_Wizard_and_Generic_token_controller_optional_Spellvoid_token_actual_Zap_no_history",
+          "step": 0,
+          "native_assertions": 110
+        },
+        {
+          "checkpoint": "actual_Zap_target_declaration_precedes_zero_resource_Action_asset_shield_still_owned",
+          "step": 1,
+          "native_assertions": 55
+        },
+        {
+          "checkpoint": "actual_P4_Zap_target_and_Action_asset_paid_HP20_no_early_Ward_destruction",
+          "step": 2,
+          "native_assertions": 51
+        },
+        {
+          "checkpoint": "actual_Zap_manual_response_1_of_four_static_shield_retained",
+          "step": 3,
+          "native_assertions": 50
+        },
+        {
+          "checkpoint": "actual_Zap_manual_response_2_of_four_static_shield_retained",
+          "step": 4,
+          "native_assertions": 50
+        },
+        {
+          "checkpoint": "actual_Zap_manual_response_3_of_four_static_shield_retained",
+          "step": 5,
+          "native_assertions": 50
+        },
+        {
+          "checkpoint": "fourth_actual_Zap_response_mandatory_optional_Spellvoid_choice_live_source_HP20_not_an_activation",
+          "step": 6,
+          "native_assertions": 57
+        },
+        {
+          "checkpoint": "actual_optional_Spellvoid_destroys_token_prevents_one_Zap_damage_two_HP18_no_token_in_public_zones",
+          "step": 7,
+          "native_assertions": 43
+        },
+        {
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "step": 7,
+          "native_assertions": 106
+        }
+      ],
+      "initial_physical_cards": {
+        "p4Arena": [
+          [
+            "5",
+            "spellbane_aegis",
+            "4",
+            "4",
+            null
+          ]
+        ],
+        "p1Hand": [
+          [
+            "6",
+            "zap_red",
+            "1",
+            "1",
+            null
+          ]
+        ]
+      },
+      "final_physical_cards": {
+        "p1Graveyard": [
+          [
+            "6",
+            "zap_red",
+            "1",
+            "1",
+            "0"
+          ]
+        ]
+      },
+      "observed_recording_summary": {
+        "slug": "card-spellbane-aegis-four-live-sparse-real-optional-spellvoid-token-destruction-prevents-one-arcane",
+        "status": "recorded_semantically_checked",
+        "actions": 7,
+        "assertions": 572
+      },
+      "actual_meaningful_evidence": [
+        "Existing ownedSpellbane5 is retained while realZap6 declaresP4target before its zero-resource/AP payment; no seeded damage/playedhistory or hero effect.",
+        "Four actual P1/P2/P3/P4responses reach P4optionalMZMAYCHOOSE withZap6stillStack/ownedPLAIN_SPELL and HP20/token5retained. Actual answerp4Arena0 acceptsSpellvoid without a new activation or trigger layer.",
+        "Final token5 ceases from every physicalzone; Zap6 alone publicP1GYFace0/OwnerController1. P4HP18 and actualarcaneDealtcaster1victim4=2, otherHP20/allAP/R0, completeStack/queue/frame clear."
+      ],
+      "limits": [
+        "Only one accepted preventableSpellvoid1 event; no decline/multipleSpellvoid/abilitysuppression/unpreventable/physicaldamage/tokencreation/hero or supportprimary credit.",
+        "Final sharedDQ mzIDStack0 and voidp4Arena0 are historical completed references, not live surviving spell/token. No unseen callback locals or future decision-state claim."
+      ]
+    }
+  ],
+  "totals": {
+    "fixtures": 2,
+    "actions": 13,
+    "native_assertions": 981,
+    "manual_passes": 8,
+    "recorder_only_checks": 0,
+    "initial_manual_preferences": 96,
+    "all_endpoint_manual_preferences": 192
+  },
+  "scope": "Exact actual raw5/source/actions/all persisted oracles and endpoint objects independently audited. Passed root recording receipts bind intermediate native assertions. Root targeted replay/fault/registration gates remain separate; no fullsuite or sibling/fullcard credit.",
+  "php_execution": 0,
+  "native_execution": 0,
+  "optional_rules_simulation": 0,
+  "repository_writes": 0
+}

@@ -1,0 +1,107 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T07:52:48.579894+00:00",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "source_spec": "card-regression-batch234.json",
+  "source_spec_sha256": "7048b26117fb1745bce78c89b156b220fc0a1380c5958d35c6ff95a5c75156d0",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 36,
+  "native_assertions": 1235,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 3467,
+    "duels": 3074,
+    "four_live": 393,
+    "recorded_primary_ids": 624,
+    "identity_denominator": 5196,
+    "recorded_groups": 498,
+    "group_denominator": 3324,
+    "four_live_groups": 389,
+    "phase_qualified_scenarios_at_actual_contexts": 104,
+    "phase_qualified_unique_groups": 102,
+    "creation_replay_passes": 208,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 19,
+  "scenarios": [
+    {
+      "card_id": "spill_blood_red",
+      "group_id": "identity:spill_blood_red",
+      "scenario_id": "card-spill-blood-red-four-live-sparse-actual-owned-axe-plus-two-and-four-physical-damage",
+      "effect_branches": [
+        "actual-owned-axe-plus-two-and-four-physical-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-spill-blood-red-four-live-sparse-actual-owned-axe-plus-two-and-four-physical-damage",
+      "source_spec": "card-regression-batch234.json",
+      "source_spec_sha256": "7048b26117fb1745bce78c89b156b220fc0a1380c5958d35c6ff95a5c75156d0",
+      "review_evidence": "review-evidence/sparse234-5ff0-qualified-saved-review.json",
+      "review_evidence_sha256": "5555cafa6fec9abc073075fec9ec03f6f6c56dcea43339b0aaa6617ba4536cd1",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "qualification_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse234-5ff0-r1.json",
+          "sha256": "957cd25a078bb50651847ffd69a34daecaccf85a407d65551497a019e9be5527",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse234-5ff0-r2.json",
+          "sha256": "41e439e5944db12b0896fbdfeff17d0fee0239ad2f69ddb79019f8464cb9c652",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "tempest_aurora_red",
+      "group_id": "pitch-cycle:tempest_aurora",
+      "scenario_id": "card-tempest-aurora-red-four-live-sparse-actual-eligible-cost-zero-arcane-card-boosts-three-to-four",
+      "effect_branches": [
+        "actual-eligible-cost-zero-arcane-card-boosts-three-to-four"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tempest-aurora-red-four-live-sparse-actual-eligible-cost-zero-arcane-card-boosts-three-to-four",
+      "source_spec": "card-regression-batch234.json",
+      "source_spec_sha256": "7048b26117fb1745bce78c89b156b220fc0a1380c5958d35c6ff95a5c75156d0",
+      "review_evidence": "review-evidence/sparse234-5ff0-qualified-saved-review.json",
+      "review_evidence_sha256": "5555cafa6fec9abc073075fec9ec03f6f6c56dcea43339b0aaa6617ba4536cd1",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "qualification_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse234-5ff0-r1.json",
+          "sha256": "957cd25a078bb50651847ffd69a34daecaccf85a407d65551497a019e9be5527",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse234-5ff0-r2.json",
+          "sha256": "41e439e5944db12b0896fbdfeff17d0fee0239ad2f69ddb79019f8464cb9c652",
+          "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

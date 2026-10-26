@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T03:18:29+00:00",
+    "input_file": "card-regression-batch220.json",
+    "input_sha256": "6e3027686723bdc78571fe2bb10850ce33c5d89635342ed5f52f4a67aa4b5665",
+    "filter": "card-enchanted-quiver-four-live-sparse-real-faceup-arrow-condition-doubles-equipment-prevention-to-two",
+    "results": [
+        {
+            "slug": "card-enchanted-quiver-four-live-sparse-real-faceup-arrow-condition-doubles-equipment-prevention-to-two",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 935
+        }
+    ]
+}

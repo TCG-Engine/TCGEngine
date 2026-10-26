@@ -1,0 +1,88 @@
+{
+    "completed_at_utc": "2026-10-26T10:09:18+00:00",
+    "input_file": "card-regression-batch240-chane-correct-probe.json",
+    "input_sha256": "9dac9b0da6a18dcc4d6554de5def0cea768431406610c2c56f838c000192f3f7",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-chane-four-live-correct-activation-soul-shackle-cost-before-responses-and-real-shadow-go-again",
+            "status": "blocked_or_incorrect",
+            "error": "Expected p1Arena count 1, got 0.",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hero-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "UPF",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "EVR_ACTIVATED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "DTD_HERO_USED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": [],
+                "arcActions": {
+                    "1": 1
+                },
+                "arcCards": {
+                    "7": {
+                        "steam": 0
+                    }
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "observed_hand_refs": {
+                "1": [
+                    "p1Hand-0",
+                    "p1Hand-1"
+                ],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "initial_gamestate_text": "1\r\n0\r\n1\r\nchane 2 1 1 0 1 - -\r\n1\r\ndorinthea 2 2 2 0 2 - -\r\n1\r\ndorinthea 2 3 3 0 3 - -\r\n1\r\ndorinthea 2 4 4 0 4 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\nghostly_visit_red 5 1 1\r\nwounding_blow_blue 6 1 1\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n20\r\n20\r\n20\r\n20\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0\r\n0\r\n0\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n0\r\n1\r\n0\r\n{\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":[],\"nextTurnEffects\":[],\"hitsThisTurn\":[],\"cardsPlayedThisTurn\":[]}\r\n0\r\n1234\r\n1234\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\n1\r\nMAIN\r\n\r\n\r\n\r\n\r\n6\r\n0\r\n",
+            "initial_gamestate_sha256": "eb06f783dd39910d0b9719139fc7b45a661f92efb3fd9cfe403f9d192f3ffea0"
+        }
+    ]
+}

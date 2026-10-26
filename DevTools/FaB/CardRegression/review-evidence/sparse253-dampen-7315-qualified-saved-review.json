@@ -1,0 +1,250 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_PENDING_ROOT_TARGETED_QUALIFICATION_REGISTRATION",
+  "reviewer": "/root/b105_semantic_review",
+  "created_utc": "2026-10-26T16:22:51.103903+00:00",
+  "review_method": "Independent104 first manual synchronous branch review reused; static actualraw5/input/assertion/endpoint comparison only. No game simulation or engine execution.",
+  "source_spec": "card-regression-batch253-dampen.json",
+  "input_sha256": "47ee18630a15b80ad137958aefecbad64eba35705c451df697177bd598fa1802",
+  "manifest_sha256": "aaf1a9fdce8c690a578f6140d62cb6b11145b6b818c49c9ceb45d3e8793a1104",
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "recorded_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse253-dampen-first-manual-independent-approval.json",
+    "sha256": "dd7f5c5d2fe6fd066d14e1484cb06ebcb6c84de6ce1ea1dc8cd8881307783dd6"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch253-dampen-20261026T162046Z-6adf7ddea53a9.json",
+    "sha256": "b97f890169e3f575b4319b8afbc32005a4b4b2f7e31a19afa3c68058b704e632"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\audit_sparse253_dampen_actual_files.py",
+    "sha256": "ea41ca9545f6b3c65ba0a067982e5e3dee4406b69822b6711808d72f009fb7c6"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "dampen_red",
+      "slug": "card-dampen-red-four-live-sparse-real-four-arcane-earned-prevention-four-against-five",
+      "source_spec": "card-regression-batch253-dampen.json",
+      "input_sha256": "47ee18630a15b80ad137958aefecbad64eba35705c451df697177bd598fa1802",
+      "reviewer": "/root/b105_semantic_review",
+      "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "recorded_runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_BOUNDED_SYNCHRONOUS_FOUR_LIVE_DAMPEN",
+      "fixture_sha256": "5b495439abf8200d435382ffefafcadd687f03e63b9beab0e2ed71d438417648",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "667a2f703bfa0646501ffe16ec8727ff2ce0e45c847ebece69926abcc63386e9",
+        "actions.json": "57007fef9dd4d2b2962a79eaea41a1a01711c48be205f928f162e787fc2ab50c",
+        "assertions.json": "1eaf6af4849f569b1f8fac0e9c71ad25ad9a088548ee959e5dedb176733f6ac3",
+        "expected_final_gamestate.txt": "14f70dbc44688faa1796aefb852005e18a67fc404a99fd96b0d189a54c4ff35f",
+        "meta.json": "b26ded4b6d8956a1dbd928fdfecc3513343616e7dfe679e246cf06098236386e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "667a2f703bfa0646501ffe16ec8727ff2ce0e45c847ebece69926abcc63386e9",
+        "actions.json": "57007fef9dd4d2b2962a79eaea41a1a01711c48be205f928f162e787fc2ab50c",
+        "assertions.json": "1eaf6af4849f569b1f8fac0e9c71ad25ad9a088548ee959e5dedb176733f6ac3",
+        "expected_final_gamestate.txt": "14f70dbc44688faa1796aefb852005e18a67fc404a99fd96b0d189a54c4ff35f",
+        "meta.json": "b26ded4b6d8956a1dbd928fdfecc3513343616e7dfe679e246cf06098236386e"
+      },
+      "actions": 21,
+      "native_assertions": 554,
+      "actual_manual_passes": 14,
+      "actual_priority_response_passes": 14,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "full_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "checkpoint_assertions": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_initial_four_live_Wizards_and_real_resources_no_damage_or_permission_history",
+          "native_assertions": 132
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_Dampen_announcement_prepare_target_before_real_funding",
+          "native_assertions": 20
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_adjacent_P4_declared_normal_card_PITCH_empty_DQ",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_Blue_three_pays_two_AP_spent_before_response",
+          "native_assertions": 23
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "Dampen_manual_response_1",
+          "native_assertions": 10
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "Dampen_manual_response_2",
+          "native_assertions": 10
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "Dampen_manual_response_3",
+          "native_assertions": 10
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "fourth_Dampen_response_actual_four_arcane_and_earned_prevention",
+          "native_assertions": 26
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "real_priority_pass_offturn_P2_Instant_window",
+          "native_assertions": 5
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "actual_Striders_Instant_one_before_Blue_funding",
+          "native_assertions": 28
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "actual_P2_Blue_three_pays_one_and_Equipment_destroyed_as_cost",
+          "native_assertions": 25
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "StormStriders_manual_response_1",
+          "native_assertions": 10
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "StormStriders_manual_response_2",
+          "native_assertions": 10
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "StormStriders_manual_response_3",
+          "native_assertions": 10
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "fourth_Striders_response_real_next_Wizard_Instant_permission",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "real_priority_pass_P2_can_play_actual_Wizard_only_earned_Striders_permission",
+          "native_assertions": 6
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "actual_Voltic_from_Hand_as_Instant_prepare_targets_before_floating_payment",
+          "native_assertions": 21
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "actual_P1_target_and_two_floating_resources_paid_no_second_pitch",
+          "native_assertions": 21
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "VolticBolt_manual_response_1",
+          "native_assertions": 10
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "VolticBolt_manual_response_2",
+          "native_assertions": 10
+        },
+        {
+          "source_step": 40,
+          "action_step": 20,
+          "checkpoint": "VolticBolt_manual_response_3",
+          "native_assertions": 10
+        },
+        {
+          "source_step": 42,
+          "action_step": 21,
+          "checkpoint": "full_final_five_arcane_reduced_by_exact_four_to_one_real_damage",
+          "native_assertions": 130
+        }
+      ],
+      "exact_unordered_p2_graveyard_uid_card_set": [
+        [
+          7,
+          "storm_striders"
+        ],
+        [
+          8,
+          "voltic_bolt_red"
+        ]
+      ],
+      "final_health": [
+        19,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "total_actions": 21,
+  "total_native_assertions": 554,
+  "total_manual_passes": 14,
+  "total_priority_response_passes": 14,
+  "limits": [
+    "Only this new DampenRed selected synchronous branch; all21inputs/554assertions/raw5 exact. All4actual response actors and48manualpreferences at eachendpoint verified.",
+    "ActualDampen4damage toP4HP16 earns4prevention; genuineStriderscost/funding/responses earn P2WizardInstantpermission; realVoltic5 reducedto1 onP1HP19. PhysicalP2GYsetexact7Striders/8Voltic independently audited unordered with publicowner/controller2, no collateral or ghost source.",
+    "No awaited Dampen effect branch or source-retention/earlycleanup behavior is qualified or endorsed. Selected entire body completes synchronously between external inputs. No protectedtarget/Allytarget/Barrier/Spellvoid/Quell/unpreventable/suppression/expiry/repeatedpacket/source-loss credit.",
+    "Only Redcycle representative; no Yellow/Blue identities/fullcard or supportprimary/nativecontrol credit. Whisper strictprobe/sourceconcern separate; no bug confirmation or repair credit inferred here.",
+    "Root two targeted new-only replay receipts remain separate qualification gate. No PHP/native/fullsuite/source/repository writes, synthetic model or certification performed by reviewer."
+  ]
+}

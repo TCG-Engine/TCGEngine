@@ -1,0 +1,141 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-10-26T13:05:19.225343+00:00",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "source_spec": "card-regression-batch246.json",
+  "source_spec_sha256": "e471c3666af11b2145c4a05f2f8cf13a45a6f614a500d9989ce0bc6c8e251aea",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 77,
+  "native_assertions": 1989,
+  "manual_passes": 62,
+  "totals": {
+    "saved_registered_scenarios": 3501,
+    "duels": 3074,
+    "four_live": 427,
+    "recorded_primary_ids": 658,
+    "identity_denominator": 5196,
+    "recorded_groups": 532,
+    "group_denominator": 3324,
+    "four_live_groups": 423,
+    "phase_qualified_scenarios_at_actual_contexts": 138,
+    "phase_qualified_unique_groups": 136,
+    "creation_replay_passes": 276,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 8,
+  "scenarios": [
+    {
+      "card_id": "heart_of_vengeance",
+      "group_id": "identity:heart_of_vengeance",
+      "scenario_id": "card-heart-of-vengeance-four-live-sparse-real-eligible-arakni-target-discounts-paid-attack-three-to-two",
+      "effect_branches": [
+        "real-eligible-arakni-target-discounts-paid-attack-three-to-two"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-heart-of-vengeance-four-live-sparse-real-eligible-arakni-target-discounts-paid-attack-three-to-two",
+      "source_spec": "card-regression-batch246.json",
+      "source_spec_sha256": "e471c3666af11b2145c4a05f2f8cf13a45a6f614a500d9989ce0bc6c8e251aea",
+      "review_evidence": "review-evidence/sparse246-5880-qualified-saved-review.json",
+      "review_evidence_sha256": "3f6992b813dda0affe994cf2a36fd252956be69cf6017d116469fc00a06a3839",
+      "recorded_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "qualification_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse246-5880-r1.json",
+          "sha256": "5872c8bd58fc3f34fff14046ac3eeb2148d89c04f287c1d6bd1dfa4333514a80",
+          "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse246-5880-r2.json",
+          "sha256": "1d8493c27ddd8241f974fb18082a2d81c90f07ef581729d11533d704a50c5c84",
+          "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "blazing_aether_red",
+      "group_id": "identity:blazing_aether_red",
+      "scenario_id": "card-blazing-aether-red-four-live-sparse-real-earlier-one-arcane-earned-x-one-on-same-hero",
+      "effect_branches": [
+        "real-earlier-one-arcane-earned-x-one-on-same-hero"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-blazing-aether-red-four-live-sparse-real-earlier-one-arcane-earned-x-one-on-same-hero",
+      "source_spec": "card-regression-batch246.json",
+      "source_spec_sha256": "e471c3666af11b2145c4a05f2f8cf13a45a6f614a500d9989ce0bc6c8e251aea",
+      "review_evidence": "review-evidence/sparse246-5880-qualified-saved-review.json",
+      "review_evidence_sha256": "3f6992b813dda0affe994cf2a36fd252956be69cf6017d116469fc00a06a3839",
+      "recorded_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "qualification_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse246-5880-r1.json",
+          "sha256": "5872c8bd58fc3f34fff14046ac3eeb2148d89c04f287c1d6bd1dfa4333514a80",
+          "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse246-5880-r2.json",
+          "sha256": "1d8493c27ddd8241f974fb18082a2d81c90f07ef581729d11533d704a50c5c84",
+          "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "riled_up_red",
+      "group_id": "pitch-cycle:riled_up",
+      "scenario_id": "card-riled-up-red-four-live-sparse-real-six-power-discard-earned-plus-one-and-paid-eight-damage",
+      "effect_branches": [
+        "real-six-power-discard-earned-plus-one-and-paid-eight-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-riled-up-red-four-live-sparse-real-six-power-discard-earned-plus-one-and-paid-eight-damage",
+      "source_spec": "card-regression-batch246.json",
+      "source_spec_sha256": "e471c3666af11b2145c4a05f2f8cf13a45a6f614a500d9989ce0bc6c8e251aea",
+      "review_evidence": "review-evidence/sparse246-5880-qualified-saved-review.json",
+      "review_evidence_sha256": "3f6992b813dda0affe994cf2a36fd252956be69cf6017d116469fc00a06a3839",
+      "recorded_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "qualification_runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse246-5880-r1.json",
+          "sha256": "5872c8bd58fc3f34fff14046ac3eeb2148d89c04f287c1d6bd1dfa4333514a80",
+          "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse246-5880-r2.json",
+          "sha256": "1d8493c27ddd8241f974fb18082a2d81c90f07ef581729d11533d704a50c5c84",
+          "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

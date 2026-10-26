@@ -1,0 +1,292 @@
+{
+  "status": "NATIVE_CONFIRMED_MISSING_EARNED_PREVENTION_TRIGGER_LAYER_NO_FIXTURE",
+  "issue": "FAB-REG-055",
+  "utc": "2026-10-26T12:43:10.019786+00:00",
+  "runtime_sha256": "588083ab25c8f4f28d6f6dac75b34f5d0c8c8790b3683ead7709fdf003f28e38",
+  "source_spec": "card-regression-batch245-haunting-correct-probe.json",
+  "source_spec_sha256": "0e8f6bc6dd392d42fa103a3f10255cd0090bb210fada14609b20c17845434391",
+  "recording_receipt": "recording-runs/card-regression-batch245-haunting-correct-probe-20261026T123925Z-6adf49fd517c7.json",
+  "recording_receipt_sha256": "22aafe005c53b2bb43174c582fad9f9bf952b37eeedd52d7a77bbebbf24ea5d5",
+  "initial_sha256": "fe656070e0f979a70d9fe4238251ed4c727168ec757a05a620af7f04d934daef",
+  "actual_inputs": 27,
+  "failure": "Expected Stack count 1, got 0.",
+  "observed_state": {
+    "window": "DAMAGE",
+    "combatOpen": true,
+    "combatStep": "DAMAGE",
+    "chainLink": 1,
+    "attacker": 1,
+    "defender": 4,
+    "attackUID": 6,
+    "attackTarget": {
+      "type": "HERO",
+      "player": 4,
+      "uid": 4,
+      "zone": "Hero"
+    },
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "Wounding Blow",
+    "attackHit": true,
+    "attackPower": 4,
+    "defenseValue": 0,
+    "damageDealt": 2,
+    "declaredBlockUIDs": [],
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "turnEffects": {
+      "1": [
+        {
+          "type": "CRU_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_AA_ATTACK",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKED_4",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_LAST_wounding_blow",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ELE_AA_COMBAT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_DAMAGE",
+          "amount": 2,
+          "uses": 1
+        },
+        {
+          "type": "ROS_VALLEY_HIT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_PHYSICAL",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PHYSICAL",
+          "amount": 2,
+          "uses": 1
+        }
+      ],
+      "4": [
+        {
+          "type": "EVR_ACTIVATED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED_HERO",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_AURA",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "PEN_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "PEN_CREATED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "DTD_DAMAGE_EVENT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_DAMAGED",
+          "amount": 2,
+          "uses": 1
+        },
+        {
+          "type": "HNT_DAMAGED_BY",
+          "amount": 1,
+          "uses": 1,
+          "uid": 1
+        },
+        {
+          "type": "MON_PHYSICAL",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "DTD_LOST",
+          "amount": 2,
+          "uses": 1
+        },
+        {
+          "type": "ELE_DAMAGED",
+          "amount": 2,
+          "uses": 1
+        }
+      ],
+      "2": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "3": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "nextTurnEffects": [],
+    "hitsThisTurn": {
+      "1": [
+        6
+      ]
+    },
+    "cardsPlayedThisTurn": {
+      "1": [
+        "wounding_blow_red"
+      ]
+    },
+    "arcCards": {
+      "6": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "outPreviousNames": [],
+        "mstFree": false,
+        "mstPreviousPitch": 0,
+        "mstPreviousAA": false,
+        "rosLastLightning": false,
+        "iarPermission": [],
+        "mstReactions": 0,
+        "mstBanished": [],
+        "supFirst": true,
+        "dtdPrevention4": true,
+        "hntHitMarked4": false
+      },
+      "7": {
+        "steam": 0
+      },
+      "5": {
+        "iarPermission": []
+      },
+      "8": {
+        "iarPermission": []
+      }
+    },
+    "arcActions": {
+      "1": 1
+    },
+    "outPreviousNames": {
+      "1": []
+    },
+    "lastAttackCardID": "wounding_blow_red",
+    "attackTargets": [
+      {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      }
+    ],
+    "defendIndex": 0,
+    "attackGoAgain": false,
+    "iar": {
+      "2": {
+        "4": {
+          "RUNES_CREATED": 1
+        },
+        "1": {
+          "DAMAGE:4": 1
+        }
+      }
+    },
+    "omn": {
+      "2": {
+        "4": {
+          "REPROACH": 1
+        }
+      }
+    },
+    "chainHits": 1,
+    "consecutiveHits": 1,
+    "attackActionHits": {
+      "1": 1
+    }
+  },
+  "observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "native_fixture_saved": false,
+  "expected": "After actual first positive prevention, queued Haunting ability must provide all-four responses before creating Runechant. Actual Stack count0 fails first strict checkpoint.",
+  "source_independent_review": "review-evidence/haunting-055-correct-source-independent-review.json",
+  "source_only_corroboration": "FaBROSPrevent currently creates stored token inline after prevention; no Haunting trigger dispatch exists.",
+  "limits": "First Stack-count failure stops before remaining HP/Arena/trigger identity assertions and further responses. No separately captured early-token physical count, later outcome, pitch siblings or whole-card coverage claimed. Original inline-oracle proposal rejected before any native attempt; this correct probe alone establishes native failure.",
+  "source_patch_applied": false,
+  "coverage_credit": false,
+  "root_group_classification": "PENDING_INDEPENDENT_SOURCE_REVIEW"
+}

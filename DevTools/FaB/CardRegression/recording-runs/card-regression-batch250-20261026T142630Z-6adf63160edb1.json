@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-26T14:26:30+00:00",
+    "input_file": "card-regression-batch250.json",
+    "input_sha256": "804cdcc329717da94555d9c4026b10b5e33f942d4f060748d71fe789ee5b3c26",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-arakni-solitary-confinement-four-live-sparse-real-first-stealth-earns-go-again-and-action-point",
+            "status": "recorded_semantically_checked",
+            "actions": 23,
+            "assertions": 584
+        },
+        {
+            "slug": "card-maxx-nitro-four-live-sparse-earned-boost-paid-create-two-steam-token-and-crank",
+            "status": "recorded_semantically_checked",
+            "actions": 35,
+            "assertions": 785
+        }
+    ]
+}

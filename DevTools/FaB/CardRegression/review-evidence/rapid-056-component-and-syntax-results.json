@@ -1,0 +1,34 @@
+{
+  "status": "39_ACTUAL_PARSER_CONTRACTS_AND_SOURCE_SYNTAX_PASS",
+  "source_sha256": "1141624ae114dc93f6c30ac9f37c5f9a57a92b5ed38e14c3be2bc1da58158b6b",
+  "cases_sha256": "65124031892341b433a158832785c0e5527b07d7fd127df5612fbb9ec8ce61f8",
+  "harness_sha256": "2cadd9183da2b9c7cfdf88df55382799cd9c66e62eb1f0ad5be5bf7823475562",
+  "source_peer_sha256": "5fbe2cb8bc175606d5c90a4c116d7f7c1f68379400736a3e37d4b2920b1c2299",
+  "runs": [
+    {
+      "kind": "syntax",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire249-shared-printed-keyword-proposed\\candidate\\FaBSim\\Custom\\GameLogic.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire249-shared-printed-keyword-proposed\\candidate\\FaBSim\\Custom\\GameLogic.php\n",
+      "stderr": ""
+    },
+    {
+      "kind": "actual-parser",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\printed_keyword_test.php",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire249-shared-printed-keyword-proposed\\candidate\\FaBSim\\Custom\\GameLogic.php",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire249-shared-printed-keyword-proposed\\candidate\\DevTools\\FaB\\printed_keyword_cases.json"
+      ],
+      "returncode": 0,
+      "stdout": "{\n    \"source_function_sha256\": \"30a5a15b924d9f4e57deef0c3ca2192677bf12429a5642c956dd5eb5e5f5e34d\",\n    \"total\": 39,\n    \"passed\": 39,\n    \"failures\": [],\n    \"scope\": \"Actual extracted parser with synthetic metadata\\/text inputs; not native game validation.\"\n}\n",
+      "stderr": ""
+    }
+  ],
+  "native_gameplay": false,
+  "native_control_credit": 0
+}

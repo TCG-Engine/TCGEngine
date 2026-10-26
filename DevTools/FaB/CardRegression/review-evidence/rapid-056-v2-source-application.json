@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-26T15:12:16.349620+00:00",
+  "status": "V2_APPLIED_48_COMPONENTS_PASS_NATIVE_REQUALIFICATION_PENDING",
+  "runtime_before_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+  "source_files": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "before_sha256": "1141624ae114dc93f6c30ac9f37c5f9a57a92b5ed38e14c3be2bc1da58158b6b",
+      "after_sha256": "3d243fd5a0382368f0db59863fe8dbbfd06dd54a41447f94c2bb7868a0958e77",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire056-activated-header-recovery-proposed-v2\\candidate\\FaBSim\\Custom\\GameLogic.php",
+      "eol": "CRLF retained"
+    },
+    {
+      "path": "DevTools/FaB/printed_keyword_cases.json",
+      "before_sha256": "65124031892341b433a158832785c0e5527b07d7fd127df5612fbb9ec8ce61f8",
+      "after_sha256": "025d98d4751e59727ea1219c2017d8b86d6e2c5cbd9bc3b8e1820d7dccc6c775",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire056-activated-header-recovery-proposed-v2\\candidate\\DevTools\\FaB\\printed_keyword_cases.json",
+      "eol": "CRLF retained"
+    }
+  ],
+  "source_component_review_sha256": "ff3d45a0bd59ff76786982a928f71a4082c336f1b2ebba7d42ad057cffe59b36",
+  "component_syntax_results_sha256": "bda2516df1e2cd4ba1763df1ade105483bbb20868930caca4739c9ed25463962",
+  "core_changed": false,
+  "generated_changed": false,
+  "native_expectations_changed": false,
+  "full_suite_run": false,
+  "runtime_after_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "induction_before_receipt": "recording-runs/card-regression-batch249-induction-own-keyword-probe-20261026T150740Z-6adf6cbcabea5.json",
+  "induction_before_receipt_sha256": "4b5b733a84a84065266d2448c1dc30b7d696cde4f1bbfb8e61dd1b7c49074038",
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid056-v2-source-application\\backup"
+}

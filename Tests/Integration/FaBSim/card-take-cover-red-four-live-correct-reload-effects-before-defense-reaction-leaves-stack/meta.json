@@ -1,0 +1,7 @@
+{
+    "name": "Take Cover red / correct defense reaction resolution timing probe",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T12:57:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourliveDori20/Dori20/Dori20/Azalea20. Sameactual29inputs/setupasV1thirdcase: realRaging7cost3/Blue8pay3/AP0declaresP4, allfourseatattack/decline/defendpriorityresponses. P4realTakeCover5DR0duringREACTION, fouractualresponders4/1/2/3beginresolution. CR5.3.4 ReloadlayerEFFECTmustfinishBEFORE5.3.6bDRbecomesdefendingcard. ThuswhileactualMZMAYCHOOSEReloadiswaiting: physicalTake5REMAINSStackOwnerController4KindDEFENSE_REACTIONSourceHand5, P4CombatChainEMPTY/ArsenalEMPTY/HandArrow6/HP20. No rawPriorityoracle duringprivateawait. ActualReloadchoicep4Hand0movesUID6toArsenalFaceDown1, THENphysicalTake5leavesStackandbecomesP4defendingDRChaincardwithdef4. Existingpostchoice/finaloraclesunchanged; fourrealREACTIONpassesactualincoming7minus4def=3damage/P4HP17. CurrentGLearlymoveStack0/Chain5mustfailcorrectpendingStack1firstoracleUNSAVED, notbeaccepted. Noattack/damage/cost/choice/economyweakening; no sourcerepair/native/bugclaimyet. StopsDAMAGE. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ARC048.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

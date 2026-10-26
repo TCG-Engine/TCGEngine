@@ -1,0 +1,7 @@
+{
+    "name": "kassai / meaningful four-live first-pass representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-26T14:56:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "YoungKassai20/3Dori20; physicalDawnblade5Weapons, Gold6ownedArena, BlueWB7Hand, soleDeckWBRed8. ActualGoldAction2virtualABI9normalPITCHemptyDQ; realBlue7pitches3/pays2->R1/AP1->0, Goldtoken6ceases(noGY). Fouractualresponses1/2/3/4 drawphysicalDeck8toHand andprintedGoldGArestoresAP1. ThisearnsKassaidrawnconditionthroughDoDrawCard, no fakeflag. ActuallyactivatephysicalDawnblade5firstweaponattack, selectadjacentP4; printed1costdiscounts0soR1RETAINS/AP0, physicalWeapon5spentStatus1/virtualattack10SourceWeapons5. Fourresponses/normalunblockedcombatbase3deals3/P4HP17, noGA. Actualdrawn8remainsHand, Pitch7, Goldabsent/ArenaGYempty. Fullactual3resourceinflowpaid2Gold+0swordpinsHero-1versusnormalSword1wouldR0. NoKassai4GYbanishability/Goldhittrigger/no-drawnegative/secondSword/sibling/EOT/Goldprimarycredit. StopDAMAGEbeforecleanup. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/HVY091.webp"
+}

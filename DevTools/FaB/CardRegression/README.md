@@ -1,14 +1,14 @@
 # FaBSim card regression coverage
 
 <!-- SPARSE-CURRENT-20261025 -->
-> **26 October current progress:** 3,420 saved scenarios (3,074 duels +346 four-live); recorded primary subjects579/5,196 IDs and453/3,324 groups. Fifty-seven new representatives qualified at their actual batch contexts,114 targeted creation passes,26 native controls detected. Four new distinct gameplay fix groups plus two existing lifetime-family extensions; no full-suite run. [Current progress/index](SPARSE_PROGRESS_20261025.md) distinguishes current replay evidence, exact branches and historical byte-binding limits.
+> **26 October, latest registration batch254-canonical-combat-windows:** 3,521 saved/registered scenarios (3,074 duels +447 four-live), 677 recorded primary IDs/5,196 and 551 groups/3,324. This phase qualified 158 scenarios across 155 groups at their stated runtimes. 8 new gameplay defect groups fixed, plus 8 existing-family extensions. No full-suite run. [Progress and current lookup](SPARSE_PROGRESS_20261025.md) preserves exact branches, untested siblings and historical contexts.
 
 <!-- CURRENT-REPAIR-20261025 -->
 > **25 October compatibility repair: final full suite3,363/3,363 passed,0 failed.** The15 reproduced failures were stale expected snapshots; all actions/assertions and the gameplay runtime were preserved. See [current assessment](FAILURE_REPAIR_20261025.md) and [validation](failure-repair-validation-20261025.json). Coverage remains522 exact IDs/396 groups; historical dated evidence below keeps its original scope.
 
 Current frozen handoff (20 October2026): **3,079 qualified scenarios**, two complete same-runtime replays; **3,074 duels + five genuine four-live-player cases**. Verified primary subjects: **239 /5,196 IDs**, with **75 complete finite baselines +164 partial**, spanning **114 /3,324 cycles or standalone groups**. No pitch-variant inheritance. Controls: **77 legacy +4 opt-in multiplayer faults detected**; all four native suites pass.
 
-Read [FINAL_ASSESSMENT.md](FINAL_ASSESSMENT.md) for results/limits and [COVERAGE_GUIDE.md](COVERAGE_GUIDE.md) for the full114-group readable index and card→branch→scenario lookup. [card-regression-coverage.json](card-regression-coverage.json) is the current detailed registry; checkpoint/scopes/issues qualify it. The20October assessment and114-group guide are historical. Gorganian Tome now has its named repaired representative; Lunging Press retains its earlier bounded evidence.
+Read [FINAL_ASSESSMENT.md](FINAL_ASSESSMENT.md) for results/limits and [COVERAGE_GUIDE.md](COVERAGE_GUIDE.md) for the full114-group readable index and cardâ†’branchâ†’scenario lookup. [card-regression-coverage.json](card-regression-coverage.json) is the current detailed registry; checkpoint/scopes/issues qualify it. The20October assessment and114-group guide are historical. Gorganian Tome now has its named repaired representative; Lunging Press retains its earlier bounded evidence.
 
 Repository hygiene is documented in [REPOSITORY_HYGIENE.md](REPOSITORY_HYGIENE.md). Authorized recoverable cleanup removed1,597 review-only files /167,690,037bytes in two passes after verified external backup; all regression fixtures, source, tooling and referenced proof records remain. No ignore rules changed. `source-review-evidence/` is not an ordinary replay dependency, but retained provenance links reference it; `review-evidence/` contains directly verified proof records.
 
@@ -201,3 +201,13 @@ Qualified captured milestone 2026-10-20T15:38:22.101228+00:00: 3079 exact saved 
 The manifest records 239 identities with saved branches and 75 complete within explicit reviewed finite baseline scopes. Completion requires every declared obligation, required native oracle and qualified replay evidence; per-card assessments list remaining obligations and separate interaction holds. Family/spec approval and representative saved-fixture review do not mean every fixture was manually inspected.
 
 Immutable before-fix attempts, rejected held snapshots and earlier qualified metadata remain preserved. Issue status is bounded by its exact evidence and remaining-work fields; passing ordinary pilots alone cannot clear a broader suspended source approval.
+
+Focused prepared-payment component (44 actual extracted-helper groups with explicit boundary doubles, not native-game credit):
+
+```powershell
+& 'C:\xampp\php\php.exe' DevTools/FaB/CardRegression/components/prepared_payment_prism_component.php repo=. gameSHA=e37edf98374de00c1d1adb7f7884496bc053dd1eec4bf8882bee6c4a075d1b0e choicesSHA=fc3fd40fefb50afa1879b4f9d99383debcff5535f604deb3a20e55b4d4b8889a arcSHA=a2a3f79b1a2f100f27e9f768a23f55a32e41c73acd34b840bb252679aae63f1b seaSHA=83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8
+```
+
+[Prism repair evidence](review-evidence/prism-052-before-after.json) distinguishes31component contracts, new native coverage and unchanged focused compatibility. Historical corpus has not been requalified at the new runtime.
+
+[Chane053 repair evidence](review-evidence/chane-053-before-after.json) records current44/486component proof, unchanged native probe and runtime limits. Previous31-group proof remains historical.

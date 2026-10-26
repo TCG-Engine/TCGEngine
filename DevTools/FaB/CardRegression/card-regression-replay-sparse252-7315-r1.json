@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch252.json",
+  "runtime_sha256": "7315fb239849174e05023a1f3bff56cbab69cac3b4c0d7cf935dc82979ae44b5",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T16:11:11.961193+00:00",
+  "fixtures": [
+    {
+      "slug": "card-new-horizon-four-live-sparse-real-second-face-up-arsenal-arrow-load",
+      "fixture_sha256": "b2991122e747037ca76f9626f8ded0aca92b8f4b5b76ced07fe6e624d55cd5f2",
+      "passed": true,
+      "result": "[PASS] new_horizon / real second Arsenal slot via face-up card"
+    },
+    {
+      "slug": "card-aether-ashwing-four-live-sparse-real-intrinsic-arcane-barrier-one-paid-from-blue-pitch",
+      "fixture_sha256": "147c62e6b7cc1806ee084f16fe60b3d23bc2d1eb7bfbf1105abc04d3143472bb",
+      "passed": true,
+      "result": "[PASS] aether_ashwing / actual intrinsic Arena Arcane Barrier one"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-new-horizon-four-live-sparse-real-second-face-up-arsenal-arrow-load",
+      "returncode": 0,
+      "stdout": "[PASS] new_horizon / real second Arsenal slot via face-up card\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-aether-ashwing-four-live-sparse-real-intrinsic-arcane-barrier-one-paid-from-blue-pitch",
+      "returncode": 0,
+      "stdout": "[PASS] aether_ashwing / actual intrinsic Arena Arcane Barrier one\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

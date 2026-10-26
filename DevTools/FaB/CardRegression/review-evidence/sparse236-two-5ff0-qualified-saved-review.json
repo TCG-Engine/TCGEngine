@@ -1,0 +1,286 @@
+{
+  "status": "INDEPENDENT_ACTUAL_SAVED_HEALTHY_SUBSET_APPROVED_WITH_PRISM_NATIVE_COST_ORDER_HOLD",
+  "reviewer": "/root/b104_saved_review",
+  "utc": "2026-10-26T08:42:27.706408+00:00",
+  "method": "Manual independent actual native streams + schema-aware initial/final snapshots against prior printed/current-rules source review; every persisted oracle exact, actual physical endpoints independently checked. No paper simulator, game/runtime import or native execution by reviewer.",
+  "input_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch236.json",
+  "input_sha256": "aeae677e8b23509d5aee078f7cb0229a5d54ef0c15edcc1513f67783a066bf66",
+  "source_spec": "card-regression-batch236.json",
+  "source_spec_sha256": "aeae677e8b23509d5aee078f7cb0229a5d54ef0c15edcc1513f67783a066bf66",
+  "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+  "manual_source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse236-three-manual-source-approval.json",
+    "sha256": "c18b833ced0698b463332413953aaf4a67e08dd1677aa0a00761acbfc139cf0d"
+  },
+  "immutable_recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch236-20261026T082906Z-6adf0f520a72f.json",
+    "sha256": "e7e3ec601ce716b658c0250399332ae6972cbc84b0225c56df9e9b89d396ed60"
+  },
+  "fixtures": [
+    {
+      "slug": "card-sigil-of-protection-red-four-live-sparse-actual-intrinsic-ward-four-destroys-owned-aura-prevents-four-of-five",
+      "source_case_index": 0,
+      "semantically_approved": true,
+      "verdict": "APPROVED_BOUNDED_ACTUAL_SAVED_SEMANTICS_REPLAY_QUALIFICATION_PENDING_ROOT",
+      "source_spec": "card-regression-batch236.json",
+      "source_spec_sha256": "aeae677e8b23509d5aee078f7cb0229a5d54ef0c15edcc1513f67783a066bf66",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "file_sha256": {
+        "initial_gamestate.txt": "3ae065bef13592853f0113be6023a9ca52ae3e59f4b0c0994bf03788bc242b92",
+        "actions.json": "7e5390a1f10fd4f4af34d110cf84f9a8f1a11adc8ac9c3a1238392783a339c41",
+        "assertions.json": "22cc4efea4753880faca97b81fc859d0a94b08f0abc1da52d7732917f29313b6",
+        "expected_final_gamestate.txt": "c8ffd91ff51daa58dacda187f522a832ae8d0885314a907f06c15f540a76a933",
+        "meta.json": "1a8bcbc0b83b9388b1f4186e6daffdfe011b22f13dd2834309e6d6ea6a897aec"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3ae065bef13592853f0113be6023a9ca52ae3e59f4b0c0994bf03788bc242b92",
+        "actions.json": "7e5390a1f10fd4f4af34d110cf84f9a8f1a11adc8ac9c3a1238392783a339c41",
+        "assertions.json": "22cc4efea4753880faca97b81fc859d0a94b08f0abc1da52d7732917f29313b6",
+        "expected_final_gamestate.txt": "c8ffd91ff51daa58dacda187f522a832ae8d0885314a907f06c15f540a76a933",
+        "meta.json": "1a8bcbc0b83b9388b1f4186e6daffdfe011b22f13dd2834309e6d6ea6a897aec"
+      },
+      "fixture_sha256": "1d8d7407d63f0c22362405050f9e467fb98d58b22cab3324a0a15beb3d25a978",
+      "actions": 8,
+      "native_assertions": 494,
+      "manual_passes": 4,
+      "manual_pass_actor_sequence": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "recorder_only_checks": 0,
+      "checkpoints": [
+        {
+          "checkpoint": "full_four_live_legal_young20_existing_owned_Generic_Ward_aura",
+          "step": 0,
+          "native_assertions": 118
+        },
+        {
+          "checkpoint": "actual_target_declaration_during_Prepare_before_printed_two_cost",
+          "step": 1,
+          "native_assertions": 40
+        },
+        {
+          "checkpoint": "actual_normal_PITCH_funding_wait_all_queues_empty",
+          "step": 2,
+          "native_assertions": 39
+        },
+        {
+          "checkpoint": "actual_Blue_three_pays_two_leaves_one_AP_zero",
+          "step": 3,
+          "native_assertions": 35
+        },
+        {
+          "checkpoint": "actual_response_1_of_four_no_early_resolution",
+          "step": 4,
+          "native_assertions": 35
+        },
+        {
+          "checkpoint": "actual_response_2_of_four_no_early_resolution",
+          "step": 5,
+          "native_assertions": 35
+        },
+        {
+          "checkpoint": "actual_response_3_of_four_no_early_resolution",
+          "step": 6,
+          "native_assertions": 35
+        },
+        {
+          "checkpoint": "fourth_response_intrinsic_Ward_choice_live_source_no_early_damage",
+          "step": 7,
+          "native_assertions": 38
+        },
+        {
+          "checkpoint": "full_final_Ward_four_of_five_leaves_one_damage_and_real_card_in_own_GY",
+          "step": 8,
+          "native_assertions": 119
+        }
+      ],
+      "full_native_action_and_assertion_stream_exact": true,
+      "actual_schema_aware_initial_final_physical_review": true,
+      "manual_preferences_verified_per_endpoint": 48,
+      "raw5_unchanged_during_review": true,
+      "meaningful_outcome": "Actual Blue7 pays Voltic6 cost2/R1/AP0; four real responders; Ward choice retains actual Voltic source and P4 Aura5 until resolution. Actual owned NON-TOKEN Sigil5 destroyed to public P4Graveyard, prevents4 of5 arcane; physical P4 health19. Public P1Voltic6GY/Pitch7, all final stacks/queues/frames drained.",
+      "limits": "Aura play/cost1, next-action-phase destruction, suppression/unpreventable/prevention alternatives and pitch siblings are not validated. No isolated helper fault or replay qualification claimed by this reviewer; no support/sibling/full-card credit."
+    },
+    {
+      "slug": "card-forked-lightning-red-four-live-sparse-actual-two-declared-hero-targets-and-two-arcane-each",
+      "source_case_index": 1,
+      "semantically_approved": true,
+      "verdict": "APPROVED_BOUNDED_ACTUAL_SAVED_SEMANTICS_REPLAY_QUALIFICATION_PENDING_ROOT",
+      "source_spec": "card-regression-batch236.json",
+      "source_spec_sha256": "aeae677e8b23509d5aee078f7cb0229a5d54ef0c15edcc1513f67783a066bf66",
+      "recorded_runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "runtime_sha256": "5ff08f68fc5f5149595d8eee3ac98dcbad8cb0f1d06bf62eb5542814bb213437",
+      "file_sha256": {
+        "initial_gamestate.txt": "4b62b291980c302f232405d65ad6c50e8217d24d7af92a7e91e950c230c72674",
+        "actions.json": "2910c17bc75f4d28d163f1c2ec91bf9ff191370dae338fe6c875d83851363abd",
+        "assertions.json": "4bb5bf93d2596c45462355010b821af8c3161c66c24e95c1443f30599875181e",
+        "expected_final_gamestate.txt": "a5aa826019cc70046d26d500d991c654d021bfb46a21164658602738fcd7c783",
+        "meta.json": "782d0653d6b61b5f07ab112897cd52dd0704e38626f1bdc306beb578906734fd"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4b62b291980c302f232405d65ad6c50e8217d24d7af92a7e91e950c230c72674",
+        "actions.json": "2910c17bc75f4d28d163f1c2ec91bf9ff191370dae338fe6c875d83851363abd",
+        "assertions.json": "4bb5bf93d2596c45462355010b821af8c3161c66c24e95c1443f30599875181e",
+        "expected_final_gamestate.txt": "a5aa826019cc70046d26d500d991c654d021bfb46a21164658602738fcd7c783",
+        "meta.json": "782d0653d6b61b5f07ab112897cd52dd0704e38626f1bdc306beb578906734fd"
+      },
+      "fixture_sha256": "72873adcad52102dff7db1bd67eae7ef23b3cbf6aa2aaf890f89e88175745246",
+      "actions": 8,
+      "native_assertions": 444,
+      "manual_passes": 4,
+      "manual_pass_actor_sequence": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "recorder_only_checks": 0,
+      "checkpoints": [
+        {
+          "checkpoint": "full_four_live_legal_young20_no_damage_amp_or_history",
+          "step": 0,
+          "native_assertions": 113
+        },
+        {
+          "checkpoint": "actual_first_target_declaration_before_payment",
+          "step": 1,
+          "native_assertions": 34
+        },
+        {
+          "checkpoint": "actual_second_target_declaration_before_payment_no_damage",
+          "step": 2,
+          "native_assertions": 34
+        },
+        {
+          "checkpoint": "both_declared_targets_actual_normal_PITCH_empty_queues",
+          "step": 3,
+          "native_assertions": 33
+        },
+        {
+          "checkpoint": "actual_Blue_three_exactly_pays_three_AP_zero_no_early_damage",
+          "step": 4,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "actual_response_1_of_four_no_early_resolution",
+          "step": 5,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "actual_response_2_of_four_no_early_resolution",
+          "step": 6,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "actual_response_3_of_four_no_early_resolution",
+          "step": 7,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "full_final_two_actual_declared_heroes_each_lose_two",
+          "step": 8,
+          "native_assertions": 114
+        }
+      ],
+      "full_native_action_and_assertion_stream_exact": true,
+      "actual_schema_aware_initial_final_physical_review": true,
+      "manual_preferences_verified_per_endpoint": 48,
+      "raw5_unchanged_during_review": true,
+      "meaningful_outcome": "Actual Forked5 chooses P2 then P4 through two separate prepayment decisions; real Blue6 pays3/R0/AP0. Four real responders resolve2 arcane to each distinct hero, actual health18 each; P1/P3 remain20, actual target/target2 and separate damage totals match. Source5 public ownGY/Pitch6; all final stacks/queues/frames drained.",
+      "limits": "Repeated same target, aggregation, Amp, prevention choices and asynchronous Forked source lifetime are unverified. No claim that a no-offer synchronous branch validates an awaiting Forked spell. No isolated helper fault or replay qualification claimed by this reviewer; no support/sibling/full-card credit."
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-prism-four-live-sparse-correct-resource-assets-before-physical-soul-banish-and-owned-shield",
+      "source_case_index": 2,
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "status": "NATIVE_CORRECT_EXPECTATION_COST_ORDER_FAILURE_UNSAVED",
+      "reason": "Expected p1Soul count 1, got 0.",
+      "attempted_actions_count": 2,
+      "attempted_actions": [
+        {
+          "playerID": 1,
+          "mode": 10002,
+          "buttonInput": "",
+          "cardID": "p1Hero-0!FSM",
+          "chkInput": [],
+          "inputText": ""
+        },
+        {
+          "playerID": 1,
+          "mode": 100,
+          "buttonInput": "",
+          "cardID": "p1Soul-0",
+          "chkInput": [],
+          "inputText": ""
+        }
+      ],
+      "first_failing_oracle": {
+        "type": "zone_count",
+        "zone": "p1Soul",
+        "value": 1
+      },
+      "initial_gamestate_sha256": "3851d2ce77dedbee36c300efd0f64e8f8f74025c5b02504072f8a65e92916382",
+      "immutable_recording_receipt": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch236-20261026T082906Z-6adf0f520a72f.json",
+      "immutable_recording_receipt_sha256": "e7e3ec601ce716b658c0250399332ae6972cbc84b0225c56df9e9b89d396ed60",
+      "observed_state": {
+        "window": "PITCH",
+        "pendingPayment": {
+          "player": 1,
+          "uid": 7,
+          "cost": 2,
+          "fromZone": "Hero",
+          "kind": "ABILITY",
+          "isAbility": true,
+          "abilityAction": false,
+          "returnWindow": "ACTION",
+          "returnCombatStep": "NONE"
+        },
+        "supSoulBanished": {
+          "1": 1
+        },
+        "turnEffects": {
+          "1": [
+            {
+              "type": "MON_BANISHED",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "MON_BANISHED_SIX",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        }
+      },
+      "observed_funding_hand_refs": [
+        "p1Hand-0"
+      ],
+      "postfailure_resource_scalar": "NOT_CAPTURED: first Soul-count assertion aborted before later R0 oracle; no postfailure resource assertion pass claimed.",
+      "postfailure_banish_count": "NOT_CAPTURED separately: destination supported by actual Soul-banished flags plus reviewed direct MoveChoice source; first failed oracle directly proves Soul0.",
+      "interpretation": "Confirmed native premature effect-cost payment before resource funding: actual second input removes Soul5 while resource2 activation remains pending and no pitch input occurred. Extend existing FAB-REG-039 prepared_effect_costs mechanism (Tome/Rouse/Bodice), not a new independent defect family. No passing Prism, repair or sibling coverage."
+    }
+  ],
+  "totals": {
+    "saved_semantically_approved_scenarios": 2,
+    "actual_actions": 16,
+    "actual_native_assertions": 938,
+    "actual_manual_passes": 8,
+    "actual_four_live_games": 2,
+    "blocked_unsaved_native_cost_order_probes": 1,
+    "recorder_only_checks": 0
+  },
+  "replay_qualification_status": "Pending root selected clean replay receipts; do not claim reviewer execution or blanket current-corpus readiness.",
+  "counting_note": "Prism is a confirmed native extension of existing issue039 prepared_effect_costs; no new independent root-cause group, no successful fixture, no previously fixed named case regressed claim.",
+  "repository_writes": false,
+  "php_or_native_execution": false,
+  "full_suite_run": false,
+  "raw10_preserved": true
+}

@@ -1,0 +1,307 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_PENDING_ROOT_TARGETED_QUALIFICATION_REGISTRATION",
+  "reviewer": "/root/b105_semantic_review",
+  "created_utc": "2026-10-26T14:23:23.085484+00:00",
+  "review_method": "Independent manual rules/cost/timing model reused; actual file comparison only, not a simulator or engine execution.",
+  "source_spec": "card-regression-batch249.json",
+  "input_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+  "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+  "recorded_runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse249-two-independent-manual-approval.json",
+    "sha256": "23e6ac2cc6943a59d9eded912543dd24daae04b3a8d1cc53cdfa1077d42fc50b",
+    "historical_runtime_sha256": "c8f2d2917a4c5a382ad4190a1734782ede2d22ab4b87a8397a199b577cb7ad7b"
+  },
+  "source_repair_peer": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\rapid-fire249-shared-parser-independent-source-component-approval.json",
+    "sha256": "5fbe2cb8bc175606d5c90a4c116d7f7c1f68379400736a3e37d4b2920b1c2299"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch249-20261026T141825Z-6adf61318ef8b.json",
+    "sha256": "86da537a4d0c0cd2799e947745400516bc0bc9e955dccb8cb6e5b06c096c7563"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\audit_sparse249_rapid_actual_files.py",
+    "sha256": "8a903950420c38dc10299bb4e7c03e330fa70e2e27ddc92198455623ee78d54a"
+  },
+  "fixtures": [
+    {
+      "index": 1,
+      "card_id": "rapid_fire_yellow",
+      "slug": "card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage",
+      "source_spec": "card-regression-batch249.json",
+      "input_sha256": "c9034148281ad67dff7ef0fcafe5cdac55d0511faa13f85690bac73a404c7ed2",
+      "reviewer": "/root/b105_semantic_review",
+      "runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+      "recorded_runtime_sha256": "f435a9a2e19d90e721183141f6feb9fb1ec10fdf837e19039720c18198ca908f",
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_RAPID_REPRESENTATIVE",
+      "fixture_sha256": "03d6e056a64ecbe989b6e2054c0acb4ff7c15841773e0c3c84660441a1ddc3a0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4b7e3310e3d1525b93b9c2d98cd01e722e1156edf9ee3280a3683d892002f325",
+        "actions.json": "ad35ad48acc4dd8a3e1d07d6d3ad175e48c032b93bf6c221f74f118f23582435",
+        "assertions.json": "39986efa39dbc787907bed57bc9b783fa4196528d0ec7348b9a1abb360b79730",
+        "expected_final_gamestate.txt": "78ec531e7d0ce07bdaa9da92d45b4359a90c2c8b006840a7025f8cb4dfd4fff0",
+        "meta.json": "ae0798f84b25ffdfdb5352601fad261bb8e1e619d759e7604db645620c9a42b6"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4b7e3310e3d1525b93b9c2d98cd01e722e1156edf9ee3280a3683d892002f325",
+        "actions.json": "ad35ad48acc4dd8a3e1d07d6d3ad175e48c032b93bf6c221f74f118f23582435",
+        "assertions.json": "39986efa39dbc787907bed57bc9b783fa4196528d0ec7348b9a1abb360b79730",
+        "expected_final_gamestate.txt": "78ec531e7d0ce07bdaa9da92d45b4359a90c2c8b006840a7025f8cb4dfd4fff0",
+        "meta.json": "ae0798f84b25ffdfdb5352601fad261bb8e1e619d759e7604db645620c9a42b6"
+      },
+      "actions": 29,
+      "native_assertions": 712,
+      "actual_manual_passes": 25,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "full_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "checkpoint_assertions": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_initial_four_legal_live_Ranger_Bow_and_facedown_Arrow",
+          "native_assertions": 130
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "real_Rapid_Fire_zero_cost_AP_spent_no_Arrow_play_yet",
+          "native_assertions": 26
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_Rapid_Fire_layer_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_Rapid_Fire_layer_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_Rapid_Fire_layer_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_Rapid_Fire_layer_fourth_actual_response",
+          "native_assertions": 25
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "actual_facedown_Arrow_target_before_announcement_no_load_trigger",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "actual_Arrow_printed_one_normal_PITCH_before_funding",
+          "native_assertions": 29
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "real_Blue_three_pays_Arrow_one_AP_spent_and_granted_go_again",
+          "native_assertions": 25
+        },
+        {
+          "source_step": 18,
+          "action_step": 9,
+          "checkpoint": "actual_granted_Arrow_layer_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 20,
+          "action_step": 10,
+          "checkpoint": "actual_granted_Arrow_layer_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 22,
+          "action_step": 11,
+          "checkpoint": "actual_granted_Arrow_layer_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 24,
+          "action_step": 12,
+          "checkpoint": "actual_granted_Arrow_layer_fourth_actual_response",
+          "native_assertions": 22
+        },
+        {
+          "source_step": 26,
+          "action_step": 13,
+          "checkpoint": "actual_granted_Arrow_attack_priority_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 28,
+          "action_step": 14,
+          "checkpoint": "actual_granted_Arrow_attack_priority_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 30,
+          "action_step": 15,
+          "checkpoint": "actual_granted_Arrow_attack_priority_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 32,
+          "action_step": 16,
+          "checkpoint": "actual_granted_Arrow_attack_priority_fourth_actual_response",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 34,
+          "action_step": 17,
+          "checkpoint": "actual_granted_Arrow_actual_defender_declines_blocks",
+          "native_assertions": 14
+        },
+        {
+          "source_step": 36,
+          "action_step": 18,
+          "checkpoint": "actual_granted_Arrow_defend_priority_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 38,
+          "action_step": 19,
+          "checkpoint": "actual_granted_Arrow_defend_priority_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 40,
+          "action_step": 20,
+          "checkpoint": "actual_granted_Arrow_defend_priority_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 42,
+          "action_step": 21,
+          "checkpoint": "actual_granted_Arrow_defend_priority_fourth_actual_response",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 44,
+          "action_step": 22,
+          "checkpoint": "actual_granted_Arrow_reaction_priority_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 46,
+          "action_step": 23,
+          "checkpoint": "actual_granted_Arrow_reaction_priority_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 48,
+          "action_step": 24,
+          "checkpoint": "actual_granted_Arrow_reaction_priority_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 50,
+          "action_step": 25,
+          "checkpoint": "actual_granted_Arrow_reaction_priority_fourth_actual_response",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 52,
+          "action_step": 26,
+          "checkpoint": "actual_damage_step_to_earned_Arrow_GA_actual_response_1",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 54,
+          "action_step": 27,
+          "checkpoint": "actual_damage_step_to_earned_Arrow_GA_actual_response_2",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 56,
+          "action_step": 28,
+          "checkpoint": "actual_damage_step_to_earned_Arrow_GA_actual_response_3",
+          "native_assertions": 13
+        },
+        {
+          "source_step": 58,
+          "action_step": 29,
+          "checkpoint": "actual_damage_step_to_earned_Arrow_GA_fourth_actual_response",
+          "native_assertions": 15
+        },
+        {
+          "source_step": 59,
+          "action_step": 29,
+          "checkpoint": "full_final_earned_Arrow_action_point_after_real_four_damage",
+          "native_assertions": 136
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "total_actions": 29,
+  "total_native_assertions": 712,
+  "total_manual_passes": 25,
+  "limits": [
+    "Only Rapid case1 reviewed here; Kassai previously registered at historical c8 runtime is untouched and not retagged.",
+    "Own NAA AP0-to1, real Blue payment/target/Arrow4damage and later Resolution AP1 are all retained original native assertions; no expected-value repair.",
+    "Full current raw5/48 manual preferences/all4 actual actors/endpoint physical UID profiles verified. No private-frame-local claim or unexecuted suffix claim.",
+    "Reload inactive only; no positive Reload, face-up HeadShot trigger, other Arrow/second Arrow/expiry/no-bow/hero-ability or support-primary credit.",
+    "Shared printed-own-keyword fix source/component review supplied by independent104; other direct metadata consumers remain outside this review.",
+    "Root two targeted replay receipts and any directly affected compatibility/qualification remain separate evidence gates. No PHP/native/control/synthetic model/repository mutation by reviewer."
+  ]
+}

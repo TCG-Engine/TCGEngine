@@ -1,0 +1,30 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch236.json",
+  "runtime_sha256": "1f33bf3648f9b9e844ffb08978cf5cb186e3edb8599ede0b1e48e1ee8a9e0b77",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T09:29:22.823252+00:00",
+  "fixtures": [
+    {
+      "slug": "card-prism-four-live-sparse-correct-resource-assets-before-physical-soul-banish-and-owned-shield",
+      "fixture_sha256": "aed7283ab035ccc10a8c0ba5f6e5f604e868be63217dd36c887d18283af76642",
+      "passed": true,
+      "result": "[PASS] prism / lean four-live implemented effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-prism-four-live-sparse-correct-resource-assets-before-physical-soul-banish-and-owned-shield",
+      "returncode": 0,
+      "stdout": "[PASS] prism / lean four-live implemented effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-forked-lightning-red-four-live-sparse-actual-two-declared-hero-targets-and-two-arcane-each",
+    "card-sigil-of-protection-red-four-live-sparse-actual-intrinsic-ward-four-destroys-owned-aura-prevents-four-of-five"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

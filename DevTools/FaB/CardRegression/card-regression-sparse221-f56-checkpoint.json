@@ -1,0 +1,52 @@
+{
+  "status": "THREE221_REPRESENTATIVES_QUALIFIED_PROTOCOL_CORRECTION_NOT_GAMEPLAY_BUG",
+  "utc": "2026-10-26T03:55:08.683081+00:00",
+  "runtime_sha256": "f56a4b0b8d6ae52d0655be140e8a3c35ec73563db0f6a2dbb1cdf4c90b3004bd",
+  "new_scenarios_recorded": 3,
+  "new_scenarios_qualified": 3,
+  "new_groups": 3,
+  "total_saved_through221": 3438,
+  "two_player": 3074,
+  "four_live": 364,
+  "primary_ids_recorded": 597,
+  "identity_denominator": 5196,
+  "groups_recorded": 471,
+  "group_denominator": 3324,
+  "four_live_groups": 362,
+  "registered_review_rows_after": 3438,
+  "phase_scenarios_qualified_at_batch_contexts": 75,
+  "creation_replay_passes_at_batch_contexts": 150,
+  "new_targeted_replay_passes": 6,
+  "actions": 90,
+  "native_assertions": 6182,
+  "manual_passes": 82,
+  "qualified_reviews": [
+    {
+      "path": "review-evidence/sparse221-firsttwo-f56-qualified-saved-review.json",
+      "sha256": "b549845f1182cdce95170e3e9f44e929f436daa8dd6209ed54aea57c4fafd688"
+    },
+    {
+      "path": "review-evidence/sparse221-bleed-corrected-f56-qualified-saved-review.json",
+      "sha256": "ad1ed4000cd7e40fe6f72780da656cebf4407b8e45fefcb02a0701d4f043c4c2"
+    }
+  ],
+  "isolated_native_faults": {
+    "attempted": 0,
+    "detected": 0,
+    "global_total_unchanged": 117,
+    "phase_total_unchanged": 33
+  },
+  "original_bleed_attempt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse221-bleed-native-before-f56\\receipt.json",
+    "sha256": "99519a0d92f2bb89a462f5db592c90e8f6a8f86a8ae7c949ff7f2d752baad910",
+    "classification": "UPF focused sole target auto-commits. Remove redundant targetanswer/prechooserchecks only; no rulechange ornewenginebug."
+  },
+  "inventory_scope": "Through221 only. Rapture050correctprobeunsaved/activatedheld;222authoringonly. Indexsnapshotthrough218; no fullsuite.",
+  "engine_source_changed_in_this_batch": false,
+  "confirmed_new_gameplay_defect_groups": 0,
+  "full_suite_runs": 0,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse221-f56-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}
