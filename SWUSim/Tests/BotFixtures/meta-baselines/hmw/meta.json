@@ -11,5 +11,6 @@
  "matrixArtifact": "https://claude.ai/artifact/7WWPM4jigHT6ss89YGwV7a",
  "decks": 104,
  "analyzeArgs": "--min 3 --cell-min 2",
- "matrixArgs": "--min 1"
+ "matrixArgs": "--min 1",
+ "pairedMin": 8
 }

@@ -1,5 +1,5 @@
 <?php
-// Meta-baseline CONVERT (skill `swusim-ash-meta-bot-run`, owner 2026-10-11): every real match of the 53-event ASH Premier set, both players' actual melee lists (main + the
+// Meta-baseline CONVERT (skill `swusim-meta-bot-run`, owner 2026-10-11): every real match of the 53-event ASH Premier set, both players' actual melee lists (main + the
 // 10-card sideboard, folded in at play time by SUPERSET=1), one fixture per list. Style = the curated ash-meta fixture's '# Style:' when the
 // deck's archetype (canonical leader + base bucket) has one, else SWUBotDeckStyle (label overlap, then shape score).
 chdir('/var/www/html/TCGEngine');

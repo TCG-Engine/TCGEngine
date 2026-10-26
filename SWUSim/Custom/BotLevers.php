@@ -23,6 +23,7 @@
 //   chain 'weakness'    fn(float $score, int $seat, array $v, bool $enemy, int $weak, array $W, int $loss): ?float — a Weakness give on $v ($loss = HP it takes)
 //   chain 'finisherhp'  fn(int $n, int $seat, array $v): ?int                    — my finisher threshold vs target $v (_SWUBotFinisherHPFor)
 //   chain 'splitown'    fn(float $part, int $seat, array $v, int $amt, array $W): ?float — a damage split's share on MY unit $v (_SWUBotSplitScore)
+//   first 'allowtarget' fn(array $ctx, array $att, array $def): ?bool               — true keeps unit target $def the style would prune (SWUBotAllowedTargets)
 //   ($GLOBALS['SWUBotKillCtx'] === 'removal' while a hostile DEFEAT is priced by _SWUBotTargetScore — 'killextra' callers can tell removal from attacks)
 
 $GLOBALS['SWUBotLevers'] = $GLOBALS['SWUBotLevers'] ?? [];   // name => ['theme' => string, 'hooks' => [hook => callable]]
