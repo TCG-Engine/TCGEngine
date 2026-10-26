@@ -75,6 +75,23 @@ $m1 = SwuPgnCutPerspective($mini, 1)['events'];
 SwuPgnTestEq(array_column($m1, 'card'), ['HIDDEN', 'HIDDEN', 'SOR#46', 'SOR#95:2'],
     'P2\'s copies read in order of appearance, after P1\'s own copies of the same card');
 
+// What a base holds is renumbered with everything else: P2's second Tarkin Doctrine on P2's base, and P2's second
+// Battlefield Marine held by P1's base, read as P2's first copies in P1's file — in the events and the keyframe alike.
+$held = SwuPgnParse(SwuPgnTestFile([
+    ['seq' => 'R1.A.1', 't' => 'MOVE', 'card' => 'HMW#206:2', 'from' => 'hand', 'to' => 'base', 'p' => 2, 'kind' => 'upgrade', 'attachedTo' => 'base@2'],
+    ['seq' => 'R1.A.2', 't' => 'PLAY_UPGRADE', 'p' => 2, 'card' => 'HMW#206:2', 'zone' => 'base', 'target' => 'base@2'],
+    ['seq' => 'R1.A.3', 't' => 'MOVE', 'card' => 'SOR#95:2', 'from' => 'hand', 'to' => 'ground', 'p' => 2, 'kind' => 'unit'],
+    ['seq' => 'R1.A.4', 't' => 'MOVE', 'card' => 'SOR#95:2', 'from' => 'ground', 'to' => 'capture', 'p' => 2, 'kind' => 'unit'],
+    ['seq' => 'R1.A.5', 't' => 'CAPTURE', 'p' => 1, 'card' => 'SOR#95:2', 'by' => 'base@1'],
+    ['seq' => 'R1.end', 't' => 'ROUND_END', 'round' => 1, 'keyframe' => SwuPgnTestKeyframe(['baseCaptured' => ['SOR#95:2']], ['baseUpgrades' => ['HMW#206:2']])],
+], ['setup' => [['seq' => 'R1.S.0', 't' => 'INIT', 'p1DeckOrder' => ['SOR#45'], 'p2DeckOrder' => ['HMW#206', 'HMW#206:2', 'SOR#95', 'SOR#95:2']]]]));
+SwuPgnTestEq(SwuPgnCheckKeyframes($held['events'])['mismatches'], [], 'the all-seeing base-holding fixture checks clean');
+$h1 = SwuPgnParse(SwuPgnWriteText(SwuPgnCutPerspective($held, 1)));
+$hkf = end($h1['events'])['keyframe'];
+SwuPgnTestEq([$hkf['players'][2]['baseUpgrades'] ?? null, $hkf['players'][1]['baseCaptured'] ?? null], [['HMW#206'], ['SOR#95']],
+    'P1\'s keyframe names what the bases hold by P1\'s file\'s ids');
+SwuPgnTestEq(SwuPgnCheckKeyframes($h1['events'])['mismatches'], [], 'and P1\'s file passes its own keyframe check');
+
 // The other seat's cut: P1 is the hidden side, and P2's own copies are numbered from 1.
 $cut2 = SwuPgnParse(SwuPgnWriteText(SwuPgnCutPerspective($all, 2)));
 SwuPgnTestEq($cut2['headers']['Perspective'] ?? null, 'P2', 'Perspective P2');

@@ -108,7 +108,7 @@ function _SwuPgnCutKeyframe(array $kf, int $other, callable $id): array {
     foreach ($kf['players'] ?? [] as $s => $pl) {
         if (!is_array($pl)) continue;
         if (intval($s) === $other) unset($pl['resources']);
-        foreach (['hand', 'resources', 'discard'] as $f) if (is_array($pl[$f] ?? null)) $pl[$f] = array_map($id, $pl[$f]);
+        foreach (['hand', 'resources', 'discard', 'baseUpgrades', 'baseCaptured'] as $f) if (is_array($pl[$f] ?? null)) $pl[$f] = array_map($id, $pl[$f]);
         if (is_array($pl['leader'] ?? null) && isset($pl['leader']['id'])) $pl['leader']['id'] = $id($pl['leader']['id']);
         foreach ($pl['cards'] ?? [] as $i => $c) {
             if (!is_array($c)) continue;

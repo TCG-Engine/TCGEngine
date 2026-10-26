@@ -124,6 +124,19 @@ function SwuPgnNoteChoice(int $player, $head, string $answer): void {
             if ($idx === false) return;
             $offered = []; $seats = []; $zones = [];
             foreach ($mzs as $mz) {
+                // An upgrade on a host ("<host mz>.u<Subcards key>"): its card, in the host's zone — a base's own, or the
+                // unit's attachments.
+                if (preg_match('/^(.+-\d+)\.u(\d+)$/', $mz, $m)) {
+                    $host = _SWULogResolve($m[1], $player);
+                    $sub = is_object($host) && is_array($host->Subcards ?? null) ? ($host->Subcards[intval($m[2])] ?? null) : null;
+                    $cid = is_array($sub) ? ($sub['CardID'] ?? null) : (is_object($sub) ? ($sub->CardID ?? null) : null);
+                    if (is_string($cid) && $cid !== '') {
+                        $offered[] = $cid;
+                        $seats[] = str_starts_with($mz, 'their') ? 3 - $player : $player;
+                        $zones[] = $host instanceof Base ? 'base' : 'attached:' . intval($host->UniqueID ?? 0);
+                        continue;
+                    }
+                }
                 $o = _SWULogResolve($mz, $player);
                 $offered[] = SwuPgnNoteRef($o) ?? $mz;
                 // Whose zone it is, and which: a card in both decks is THIS seat's copy (the matcher resolves by these).

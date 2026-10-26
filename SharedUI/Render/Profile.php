@@ -35,10 +35,14 @@ document.getElementById('selfResetPasswordBtn').onclick = function() {
         return;
     }
     document.getElementById('selfResetPasswordResult').innerText = 'Processing...';
-    var params = 'newPass=' + encodeURIComponent(newPassword);
-    var url = 'https://www.swustats.net/TCGEngine/APIs/ResetPassword.php?' + params;
-    fetch(url, {
-        method: 'GET'
+    // Same origin (root-relative), never a hardcoded host: from swustats.net a call to www.swustats.net is
+    // cross-origin, so the login cookie was not sent and the reply was blocked — "Request failed." (2026-10-25).
+    // POST body, so the new password is not written to access logs or browser history.
+    fetch('/TCGEngine/APIs/ResetPassword.php', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ newPass: newPassword })
     })
     .then(r => r.json())
     .then(data => {
@@ -278,6 +282,36 @@ function _DisplaySWUStatsLink(array $def): string {
          . '<a class="swu2-btn swu2-btn--quiet ch" href="' . $e($off) . '">Disconnect SWUStats</a></div>';
 }
 
+// --- SWU Forge link (Petranaki): finished games are delivered to the player's SWU Forge account (SWUSim/SWUForgeDelivery.php) ---
+function _DisplaySWUForgeLink(array $def): string {
+    require_once __DIR__ . '/../../SWUSim/SWUForgeLink.php';
+    $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
+    $profileReturn = '/TCGEngine/SharedUI/Sites/' . ($def['identity']['rootName'] ?? 'SWUSim') . '/Profile.php';
+    $uid = (int)($_SESSION['userid'] ?? 0);
+    $link = null;
+    if ($uid > 0) {
+        $conn = GetLocalMySQLConnection();
+        try { if (SWUForgeLinkReady($conn)) $link = SWUForgeGetLink($conn, $uid); } finally { $conn->close(); }
+    }
+    $err = trim((string)($_GET['swuforge_error'] ?? ''));
+    $out = '<div class="swuforge-link"><h3>SWU Forge</h3>'
+         . ($err !== '' ? '<p class="swuforge-link__err" role="alert">' . $e($err) . '</p>' : '');
+    if (!$link) {
+        $start = '/TCGEngine/AccountFiles/SWUForgeOAuthStart.php?' . http_build_query(['redirect' => $profileReturn]);
+        return $out . '<p>Your finished games — decks, results and a replay — will be sent to SWU Forge and saved to your SWU Forge account. You can unlink at any time from either site.</p>'
+             . '<a class="swu2-btn ch" href="' . $e($start) . '">Connect SWU Forge</a></div>';
+    }
+    $problem = [
+        'not-enabled' => 'Your SWU Forge account is not enabled for game delivery yet, so your games are not being sent. Ask SWU Forge to enable it.',
+        'no-profile'  => 'Your SWU Forge account has no profile, so your games are not being sent. Create a profile on SWU Forge.',
+    ][(string)$link['problem']] ?? '';
+    $off = '/TCGEngine/AccountFiles/DisconnectOAuth.php?' . http_build_query(['type' => 'swuforge', 'redirect' => $profileReturn]);
+    $who = (string)$link['profileName'] !== '' ? (string)$link['profileName'] : 'your SWU Forge profile';
+    return $out . '<p>Linked as <b>' . $e($who) . '</b>. Your finished games are sent to SWU Forge.</p>'
+         . ($problem !== '' ? '<p class="swuforge-link__err" role="alert">' . $e($problem) . '</p>' : '')
+         . '<a class="swu2-btn swu2-btn--quiet ch" href="' . $e($off) . '">Unlink SWU Forge</a></div>';
+}
+
 // The "Welcome {user}!" panel: greeting + Patreon (when configured) + Discord (when configured).
 function _ProfileWelcome(array $def, array $ctx): string {
     $out = "<div class='fav-decks container bg-black'>\n<h2>Welcome " . ($ctx['username'] ?? '') . "!</h2>\n    ";
@@ -285,6 +319,7 @@ function _ProfileWelcome(array $def, array $ctx): string {
     if (!empty($def['profile']['patreonFinalPage'])) $parts[] = _DisplayPatreon($def);
     if (!empty($def['profile']['discordOAuth']))      $parts[] = _DisplayDiscordOAuth($def);
     if (!empty($def['profile']['swustatsLink']))      $parts[] = _DisplaySWUStatsLink($def);
+    if (!empty($def['profile']['swuforgeLink']))      $parts[] = _DisplaySWUForgeLink($def);
     $out .= implode("<hr style='border:0;border-top:1px solid rgba(255,255,255,0.14);margin:18px 0;'>", $parts);
     $out .= "\n\n</div>\n";
     return $out;

@@ -33,12 +33,20 @@ $deckOf = function (string $f) {
     return trim(implode("\n", array_filter(explode("\n", file_get_contents($path)), fn($l) => !str_starts_with($l, '#'))));
 };
 $sayYes = !empty($_GET['yes']);
+$prefer = array_filter(explode(',', strtoupper(preg_replace('/[^A-Za-z0-9_,]/', '', strval($_GET['prefer'] ?? '')))));   // CardIDs to play first whenever legal
 $useAbilities = !empty($_GET['abilities']);   // use leader and unit Actions when offered (each once a round), before attacking
 $usedThisRound = [];   // answer YES to every "you may" (except the mulligan): more of each card's effects happen
 
 $jar = [1 => tempnam(sys_get_temp_dir(), 'sg1'), 2 => tempnam(sys_get_temp_dir(), 'sg2')];
-foreach ([1 => 'claudebot1', 2 => 'claudebot2'] as $s => $u) sg_req($B . 'AccountFiles/AttemptPasswordLogin.php', $jar[$s], ['submit' => '1', 'userID' => $u, 'password' => 'pass']);
-$host = json_decode(sg_req($B . 'APIs/Lobbies/JoinQueue.php', $jar[1], ['rootName' => 'SWUSim', 'createPrivate' => '1', 'format' => 'premier', 'deckLink' => $deckOf($deck1)]), true);
+// Seat 1's account: claudebot1 unless p1user names another local test account (all of them sign in with "pass").
+$p1user = in_array($_GET['p1user'] ?? '', ['ninin', 'claudebot3', 'claudebot4'], true) ? strval($_GET['p1user']) : 'claudebot1';
+foreach ([1 => $p1user, 2 => 'claudebot2'] as $s => $u) sg_req($B . 'AccountFiles/AttemptPasswordLogin.php', $jar[$s], ['submit' => '1', 'userID' => $u, 'password' => 'pass']);
+// deck1link: seat 1 plays a swuforge.com deck by its link, imported like a player's (the match keeps the link — and with it
+// the Forge deck id a SWU Forge delivery sends).
+$deck1link = preg_match('#^https://swuforge\.com/decks/[A-Za-z0-9_-]{1,64}$#', strval($_GET['deck1link'] ?? '')) ? strval($_GET['deck1link']) : '';
+if ($deck1link !== '') $deck1 = $deck1link;
+$host = json_decode(sg_req($B . 'APIs/Lobbies/JoinQueue.php', $jar[1], ['rootName' => 'SWUSim', 'createPrivate' => '1', 'format' => 'premier',
+    'deckLink' => $deck1link !== '' ? $deck1link : $deckOf($deck1)]), true);
 $guest = json_decode(sg_req($B . 'APIs/Lobbies/JoinQueue.php', $jar[2], ['rootName' => 'SWUSim', 'privateInviteCode' => $host['inviteCode'] ?? '', 'deckLink' => $deckOf($deck2)]), true);
 $sr = json_decode(sg_req($B . 'APIs/Lobbies/StartRoom.php', $jar[1], ['rootName' => 'SWUSim', 'lobbyID' => $host['lobbyID'] ?? '', 'playerID' => 1, 'authKey' => $host['authKey'] ?? '']), true);
 $g = strval($sr['gameName'] ?? '');
@@ -92,9 +100,14 @@ while ($steps++ < $maxSteps) {
             return (str_contains($c, '!CustomInput!LeaderAbility') || str_contains($c, '!CustomInput!Activate')) && empty($usedThisRound["$round|$seat|$c"]);
         }));
         if ($ability) { $usedThisRound["$round|$seat|" . strval($ability[0]['cardID'])] = true; $send($seat, $ability[0]); continue; }
-        $pick = $attack[0] ?? $other[0] ?? $play[0] ?? $pass[0] ?? $acts[0];
+        $preferred = !$prefer ? [] : array_values(array_filter($play, function ($a) use ($seat, $prefer) {
+            if (!preg_match('/^myHand-(\d+)!/', strval($a['cardID'] ?? ''), $m)) return false;
+            $h = GetHand($seat)[intval($m[1])] ?? null;
+            return $h !== null && in_array(strval($h->CardID), $prefer, true);
+        }));
+        $pick = $preferred[0] ?? $attack[0] ?? $other[0] ?? $play[0] ?? $pass[0] ?? $acts[0];
         if (isset($attack[0]) && $pick === $attack[0]) $did['attacks']++;
-        if (isset($play[0]) && $pick === $play[0]) $did['plays']++;
+        if (in_array($pick, $play, true)) $did['plays']++;
         if ($did['bookmark'] > 0 && !$did['loaded']) $did['afterMark']++;
     }
     // A move the engine refuses leaves the same choice up: try the next legal one.

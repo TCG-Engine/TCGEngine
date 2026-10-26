@@ -274,6 +274,16 @@ SwuPgnNoteChoice(2, (object)['Type' => 'MZCHOOSE', 'Param' => 'myHand-0&myHand-1
 $cn = array_values(array_filter($GLOBALS['SWU_PGN_NOTES'] ?? [], fn($n) => ($n['t'] ?? '') === 'CHOICE'));
 SwuPgnTestEq([$cn[0]['offeredSeats'] ?? null, $cn[0]['offeredZones'] ?? null], [[2, 2, 1], ['hand', 'hand', 'deck']], 'CHOICE notes carry each offered card\'s seat and zone');
 SwuPgnRecFrameCommit();
+// An offered upgrade is a host's subcard (".u<key>"): it is named by its card, in its host's zone — a base's own, or the
+// unit's attachments — never by the engine's mz string.
+$g = NGame(fn($b) => $b->WithUpgradeOnBaseForPlayer(2, 'HMW_095')->WithGroundUnitForPlayer(1, 'SOR_095')->WithUpgradesOnGroundUnitForPlayer(1, 0, [GameStateBuilder::Upgrade('SOR_120', 1)]));
+SwuPgnRecFrameBegin();
+SwuPgnNoteChoice(1, (object)['Type' => 'MZCHOOSE', 'Param' => 'theirBase-0.u0&myGroundArena-0.u0', 'Tooltip' => 'Choose an upgrade'], 'theirBase-0.u0');
+$cn = array_values(array_filter($GLOBALS['SWU_PGN_NOTES'] ?? [], fn($n) => ($n['t'] ?? '') === 'CHOICE'));
+$uid = intval(GetGroundArena(1)[0]->UniqueID);
+SwuPgnTestEq([$cn[0]['offered'] ?? null, $cn[0]['offeredSeats'] ?? null, $cn[0]['offeredZones'] ?? null],
+    [['HMW_095', 'SOR_120'], [2, 1], ['base', "attached:$uid"]], 'an offered upgrade is its card, in its host\'s zone');
+SwuPgnRecFrameCommit();
 
 // ── An event played FROM the discard pile (SEC_053 via TWI_201 Aid from the Innocent): it is written ───────────────
 $gameName = 'swupgnnotes_discardplay_' . getmypid(); $games[] = $gameName;

@@ -276,7 +276,7 @@ function _SWUBotChewieOnAttackWorth(int $seat, int $n): bool {
     foreach (SWUBotOpponents($seat) as $o) foreach (SWUBotUnits($o) as $u) {
         if ($vsAggro) return true;
         if ($u['shields'] > 0) { if ($u['sentinel']) return true; continue; }
-        if ($u['remaining'] <= $n || ($finish > 0 && $u['remaining'] <= $n + $finish)) return true;
+        if (SWUBotDamageKills($u, intval($n)) || ($finish > 0 && SWUBotDamageKills($u, intval($n + $finish)))) return true;
     }
     return false;
 }
@@ -749,7 +749,7 @@ function _SWUBotSplitScore(int $seat, string $candidate, array $W, bool $unpreve
             continue;
         }
         $part = 0.0;
-        if ($amt >= $v['remaining']) $part = ($enemy ? $W['kill'] : -$W['loss']) * SWUBotUnitValue($v) + ($enemy ? 0.5 : -0.5);
+        if (SWUBotDamageKills($v, intval($amt))) $part = ($enemy ? $W['kill'] : -$W['loss']) * SWUBotUnitValue($v) + ($enemy ? 0.5 : -0.5);
         elseif (!$enemy && SWUBotProposalOn('indirectsoak') && _SWUBotSoakIntoReach($seat, $v, $amt)) $part = -SWU_BOT_SOAK_LOSS * $W['loss'] * SWUBotUnitValue($v);
         else $part = ($enemy ? 1 : -1) * $W['chip'] * $amt;
         // lever registry: what a share of the split landing on MY OWN unit costs (lever 'doomedsoak' prices a unit that dies anyway as fodder).
@@ -1846,13 +1846,13 @@ function _SWUBotWeaknessScoreCore(int $seat, array $v, bool $enemy, int $dmg, st
     $soften = $W['chip'] * 2 * $weak * (1.0 + 0.1 * max(0, intval($v['power'])))
             + ($shieldStopsDamage ? 0.0 : SWUBotUnitValue($v) * $W['chip'] * $dmg / max(1, $v['hp']));
     if ($enemy) {
-        if ($loss >= $v['remaining']) return $kill;
+        if (SWUBotDamageKills($v, intval($loss))) return $kill;
         // 'budgetsetup' (p41): what the token adds to my budget wipe's kill set — on top, since a softened body is softened either way.
         $budget = (SWUBotFeatureOn('budgetsetup') && !$v['isLeader']) ? _SWUBotBudgetSetupValue($seat, $v, $loss, $W) : 0.0;
         if (SWUBotFeatureOn('setup') && !$v['isLeader'] && $v['remaining'] - $loss <= _SWUBotFinisherHPFor($seat, $v)) return max($soften, 0.8 * $kill) + $budget;
         return $soften + $budget;
     }
-    if ($loss >= $v['remaining']) return SWUBotFeatureOn('fodder') ? -SWUBotSacrificeCost($v) : -SWUBotUnitValue($v);
+    if (SWUBotDamageKills($v, intval($loss))) return SWUBotFeatureOn('fodder') ? -SWUBotSacrificeCost($v) : -SWUBotUnitValue($v);
     return -$soften;
 }
 
@@ -1989,7 +1989,7 @@ function _SWUBotTargetScore(int $seat, string $mz, bool $hostile, int $amount, s
         // "1 damage to each of up to 3 units" chipped a 6/6 Pre Vizsla over popping a third Mandalorian token's Shield
         // (owner, 2026-10-04: "it would actually be better to pop 3 shields than to only pop 2 and ping 1 on Pre Vizsla").
         if ($blocked) $score = SWUBotFeatureOn('splitpop') ? _SWUBotShieldPopValue($seat, $v, $W, true) : 0.0;
-        elseif ($amount >= $v['remaining']) $score = SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0 + _SWUBotKillExtras($v, $W, $seat);
+        elseif (SWUBotDamageKills($v, intval($amount))) $score = SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0 + _SWUBotKillExtras($v, $W, $seat);
         elseif (SWUBotFeatureOn('setup') && !$v['isLeader'] && $v['remaining'] - $amount <= _SWUBotFinisherHPFor($seat, $v))
             $score = 0.8 * (SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0);   // my finisher defeats it next
         else $score = SWUBotUnitValue($v) * $W['chip'] * $amount / max(1, $v['hp']);
@@ -4215,7 +4215,7 @@ function _SWUBotPingEffect(int $seat, int $n, array $W, bool $chip = false): flo
     foreach (SWUBotOpponents($seat) as $opp) {
         if (SWUBaseRemainingHp($opp) <= $n) return SWU_BOT_PING_LETHAL;
         foreach (SWUBotUnits($opp) as $v) {
-            if ($v['shields'] === 0 && $v['remaining'] <= $n) $best = max($best, $W['kill'] * SWUBotUnitValue($v));
+            if ($v['shields'] === 0 && SWUBotDamageKills($v, intval($n))) $best = max($best, $W['kill'] * SWUBotUnitValue($v));
         }
     }
     return $best;
@@ -5211,7 +5211,7 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
         $enemies = array_values(array_filter(SWUBotEnemyUnits($seat), fn($v) => !$v['isLeader']));
         if (empty($enemies)) return -0.5;
         $n = preg_match('/-\d+\/-(\d+)/', $text, $m) ? intval($m[1]) : 0;
-        $kills = count(array_filter($enemies, fn($v) => $v['remaining'] <= $n)) > 0;
+        $kills = count(array_filter($enemies, fn($v) => SWUBotDamageKills($v, intval($n)))) > 0;
         if (!$kills && _SWUBotHasOtherForceUse($seat)) $value = min($value, 0.02);   // below the initiative (0.05)
         // FEATURE 'talzinforce' (p52, 2026-10-16, G4-04): …and it WAITS (below PASS) — 0.02 still beat passing, so the Force went and a later
         // Assassin or Karis found none; a Force card still in the deck counts too.

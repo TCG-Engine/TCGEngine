@@ -11234,7 +11234,10 @@ function LOF205BounceTrigger($player, $mzID): void {
     $cardIDs = [];
     foreach (GetUpgradesOnUnit($defender) as $up) {
         $cid = $up->CardID ?? '';
-        if ($cid === '' || in_array($cid, ['SOR_T01', 'SOR_T02'], true)) continue; // skip Experience/Shield tokens
+        // Token upgrades ARE non-unique upgrades (CR: token upgrades follow the upgrade rules; a token is never unique), so
+        // Shields and Experience are offered like any other — a returned token ceases to exist (SWUReturnUpgradeToHand).
+        // They used to be skipped (Discord 2026-10-25: "it didn't let the attacking unit knock off my two shields").
+        if ($cid === '') continue;
         if (CardUnique($cid)) continue;                                              // non-unique only
         $cardIDs[] = $cid;
     }

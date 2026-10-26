@@ -207,6 +207,8 @@ function SwuPgnRecFinish(string $g, int $winner, string $reason): void {
         } else {
             $dir = SwuPgnRecDir($g) . '/out';
             foreach ($texts as $k => $t) _SwuPgnWriteAtomic("$dir/$k.swupgn", $t);
+            // SWU Forge wants the all-seeing file; the delivery itself is the worker's (SWUSim/SWUForgeDelivery.php).
+            if (function_exists('SWUForgeEnqueueGame')) SWUForgeEnqueueGame($g, $meta, $texts['all']);
         }
         $meta['finished'] = true;
         $meta['endedAt'] = gmdate('Y-m-d\TH:i:s\Z');

@@ -147,6 +147,33 @@ SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"x\"]\n%%% CARDS\n{\"id\":\"SOR#95\",\"n
 SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"gg Zorbaxian\"]\n%%% EVENTS\n", ['zorbaxian']) === true, 'the scan is case-insensitive');
 SwuPgnTestCheck(SwuPgnPiiScan("[Reason \"gg ab\"]\n", ['ab']) === false, 'names under 3 characters are not scanned');
 
+// SWU Forge delivery: a seat whose account is linked to SWU Forge gets its all-seeing file queued when the game ends
+// (SWUSim/SWUForgeDelivery.php); the other seat's unlinked account gets nothing, and a refused file queues nothing.
+$fCfg = $GLOBALS['SWUFORGE_CONFIG'] ?? null;   // a configured box (SWU Forge is off without a client secret)
+$GLOBALS['SWUFORGE_CONFIG'] = ['baseUrl' => 'https://forge.test', 'clientId' => 'petranaki', 'clientSecret' => 'test-secret', 'redirectUri' => 'http://localhost:3400/cb'];
+$fConn = GetLocalMySQLConnection();
+$fUser = 990000241; $fOther = 990000242;
+$fConn->query("DELETE FROM swuforge_deliveries WHERE usersId IN ($fUser, $fOther)");
+SWUForgeSaveLink($fConn, $fUser, 'Forge', 'a', 'r', time() + 3600);
+$fRows = fn(string $g) => $fConn->query("SELECT seat, usersId, pgn, status FROM swuforge_deliveries WHERE gameName = '" . $fConn->real_escape_string($g) . "'")->fetch_all(MYSQLI_ASSOC);
+$a = $lethal('forge');
+$frame(fn() => null);
+$fm = SwuPgnMetaRead($gameName); $fm['accounts'] = ['1' => $fOther, '2' => $fUser]; SwuPgnMetaWrite($gameName, $fm);
+SwuPgnRecFinish($gameName, 1, 'Base Destroyed');
+$q = $fRows($gameName);
+SwuPgnTestCheck(count($q) === 1 && (int)$q[0]['seat'] === 2 && (int)$q[0]['usersId'] === $fUser && $q[0]['status'] === 'pending'
+    && $q[0]['pgn'] === ($files($gameName)['all'] ?? null), 'a game end queues the all-seeing file for the linked seat only',
+    json_encode(array_map(fn($r) => ['seat' => $r['seat'], 'u' => $r['usersId'], 'st' => $r['status'], 'len' => strlen($r['pgn'])], $q)));
+$a = $lethal('forgepii');
+$frame(fn() => null);
+$fm = SwuPgnMetaRead($gameName); $fm['accounts'] = ['1' => $fOther, '2' => $fUser]; SwuPgnMetaWrite($gameName, $fm);
+SwuPgnRecFinish($gameName, 1, 'gg zorbaxian');
+SwuPgnTestEq($fRows($gameName), [], 'a file the PII gate refused is not queued');
+$fConn->query("DELETE FROM swuforge_deliveries WHERE usersId IN ($fUser, $fOther)");
+$fConn->query("DELETE FROM swuforge_links WHERE usersId = $fUser");
+$fConn->close();
+if ($fCfg === null) unset($GLOBALS['SWUFORGE_CONFIG']); else $GLOBALS['SWUFORGE_CONFIG'] = $fCfg;
+
 // A file that fails our own check is still written — and says so in its header ([RecorderErrors]), like any other
 // recorder error: the count is taken before the files are built.
 $a = $lethal('selfcheck');
