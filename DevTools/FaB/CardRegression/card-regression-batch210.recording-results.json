@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-annals-of-sutcliffe-four-live-sparse-actual-two-pitch-types-pay-three-draw-and-create-runechant",
+        "status": "recorded_semantically_checked",
+        "actions": 7,
+        "assertions": 615
+    },
+    {
+        "slug": "card-high-riser-four-live-sparse-actual-all-four-draw-earns-weapon-power-and-pitches-drawn-blue",
+        "status": "recorded_semantically_checked",
+        "actions": 34,
+        "assertions": 2761
+    },
+    {
+        "slug": "card-teklo-blaster-four-live-sparse-actual-plain-three-resource-gun-attack-and-two-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 1564
+    }
+]

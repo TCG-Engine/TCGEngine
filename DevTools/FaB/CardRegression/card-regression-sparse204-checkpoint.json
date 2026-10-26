@@ -1,0 +1,101 @@
+{
+  "status": "FOUR_NEW_FOUR_LIVE_PRIMARY_REPRESENTATIVES_QUALIFIED_NO_ENGINE_CHANGE",
+  "utc": "2026-10-25T22:37:07.337641+00:00",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "inventory_scope": "Through batch204 only; any batch205 saves or pending work excluded without credit. No inventory scan.",
+  "new_scenarios_recorded": 4,
+  "new_scenarios_qualified": 4,
+  "new_groups": 4,
+  "total_saved_through_batch204": 3396,
+  "two_player": 3074,
+  "four_live_through_batch204": 322,
+  "primary_ids_recorded_through_batch204": 555,
+  "identity_denominator": 5196,
+  "groups_recorded_through_batch204": 429,
+  "group_denominator": 3324,
+  "four_live_groups_through_batch204": 320,
+  "registered_review_rows_after": 3396,
+  "phase_scenarios_qualified_at_batch_contexts": 33,
+  "historical_qualification_note": "Registry presence is not blanket current-runtime qualification. Older3363 byte-binding limitation remains unresolved.",
+  "new_cases": [
+    {
+      "slug": "card-ornate-tessen-four-live-sparse-paid-instant-retained-choice-bottom-and-distinct-draw",
+      "primary_card_ids": [
+        "ornate_tessen"
+      ],
+      "actions": 7,
+      "native_assertions": 712,
+      "manual_passes": 4
+    },
+    {
+      "slug": "card-optekal-monocle-blue-four-live-sparse-paid-steam-retained-opt-bottom-choice-delays-go-again",
+      "primary_card_ids": [
+        "optekal_monocle_blue"
+      ],
+      "actions": 6,
+      "native_assertions": 616,
+      "manual_passes": 4
+    },
+    {
+      "slug": "card-mordred-tide-red-four-live-sparse-actual-read-three-replaced-by-four-owned-runechants",
+      "primary_card_ids": [
+        "mordred_tide_red"
+      ],
+      "actions": 10,
+      "native_assertions": 747,
+      "manual_passes": 8
+    },
+    {
+      "slug": "card-meat-and-greet-red-four-live-sparse-earned-real-arcane-go-again-with-physical-full-block",
+      "primary_card_ids": [
+        "meat_and_greet_red"
+      ],
+      "actions": 35,
+      "native_assertions": 2589,
+      "manual_passes": 29
+    }
+  ],
+  "review_evidence": "review-evidence/sparse204-20261025-qualified-saved-review.json",
+  "targeted_replay_passes": 8,
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse204-20261025-r1.json",
+      "sha256": "5bb3287bf90480ca361ddedd144adcd514008ffc08db0f4f8976ad728551d75b"
+    },
+    {
+      "path": "card-regression-replay-sparse204-20261025-r2.json",
+      "sha256": "ba97cf05fdb927030c7abbab24686defb8092cb9ca68cc967e58f3220c0891b1"
+    }
+  ],
+  "causal_controls": {
+    "report": "card-regression-negative-controls-sparse204-results.json",
+    "sha256": "3cfb94f57a19f64b5ed4016e6dfc1689f19d9f35c470bcbfeabedc0a14c3c796",
+    "detected": 1,
+    "total": 1,
+    "retained_suffix_oracles": 442,
+    "omitted": 0,
+    "global_total": 100
+  },
+  "shared_lifetime_contracts_reused": true,
+  "meat_isolated_history_fault_supported": false,
+  "monocle_only_branch": "STEAM2-to1; no five-counter entry credit",
+  "engine_source_changed": false,
+  "confirmed_new_gameplay_defect_groups": 0,
+  "full_suite_runs": 0,
+  "older_fixtures_not_rerun": true,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse204-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false,
+  "live_recorded_at_registration": {
+    "total_saved": 3400,
+    "two_player": 3074,
+    "four_live": 326,
+    "primary_ids_recorded": 559,
+    "groups_recorded": 433,
+    "four_live_groups_recorded": 324,
+    "batch205_saved_pending_registration": 4,
+    "batch205_awarded_by_this_checkpoint": 0,
+    "accounting_source": "Root-confirmed four205 saves; no inventory scan."
+  }
+}

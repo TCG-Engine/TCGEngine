@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-25T20:41:49+00:00",
+    "input_file": "card-regression-batch199.json",
+    "input_sha256": "cf8e3d2a6e35b55c68acae51a52c9b5ffb50c5e9ab1c01fa70171b07331b241c",
+    "filter": "card-yendurai-four-live",
+    "results": [
+        {
+            "slug": "card-yendurai-four-live-sparse-active-owned-dragon-endurance-prevents-three-of-real-four",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 1451
+        }
+    ]
+}

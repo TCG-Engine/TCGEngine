@@ -1390,6 +1390,9 @@ function _WaitingRoomScript(array $cfg): string {
         var k = loadKey(lobbyID);
         // Never for a spectator: lastAuthKey names a SEAT for a later rejoin, and they hold none.
         if (!spectating && k && ['1','2','3','4'].indexOf(String(seat)) >= 0) {
+          // A parent-domain lastAuthKey or an old PHP session must not replace this room's key.
+          // Keep the secret out of the URL and scope the handoff to this app and install path.
+          document.cookie = 'tcgengine_' + ROOT.replace(/[^A-Za-z0-9_]/g, '') + '_lastAuthKey=' + encodeURIComponent(k) + '; max-age=' + (30*24*60*60) + '; path=' + appBase() + '; SameSite=Lax';
           try { document.cookie = 'lastAuthKey=' + encodeURIComponent(k) + '; max-age=' + (30*24*60*60) + '; path=/; SameSite=Lax'; } catch (e) {}
         }
         location.href = appBase() + 'NextTurn.php?gameName=' + encodeURIComponent(r.gameName) +

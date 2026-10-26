@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-channel-mount-heroic-red-four-live-sparse-active-owned-earth-aura-buffs-real-attack-by-three",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 1391
+    },
+    {
+        "slug": "card-channel-lake-frigid-blue-four-live-sparse-opposing-owned-ice-aura-taxes-real-zero-cost-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 1583
+    },
+    {
+        "slug": "card-bloodsheath-skeleta-four-live-sparse-actual-instant-destroy-discounts-real-paid-nonattack-by-one-runechant",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 779
+    },
+    {
+        "slug": "card-plasma-purifier-red-four-live-sparse-actual-paid-item-recharge-creates-one-steam-and-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 479
+    }
+]

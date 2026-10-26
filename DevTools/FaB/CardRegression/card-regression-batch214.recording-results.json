@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-reaping-blade-four-live-sparse-actual-heal-earns-unique-life-lead-then-blade-prevents-second-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 884
+    },
+    {
+        "slug": "card-nerves-of-steel-blue-four-live-sparse-owned-aura-suppresses-battleworn-on-actual-two-power-weapon-block",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 2091
+    },
+    {
+        "slug": "card-exude-confidence-red-four-live-sparse-real-paid-instant-from-owned-attacking-card-adds-two-power-and-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 1739
+    }
+]

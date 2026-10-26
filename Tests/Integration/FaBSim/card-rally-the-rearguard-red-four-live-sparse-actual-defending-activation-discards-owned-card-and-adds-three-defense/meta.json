@@ -1,0 +1,7 @@
+{
+    "name": "rally_the_rearguard_red / actual four-live defensive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-25T20:27:24+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Generic Rally6 first actually blocks RedWounding5 for printedbase2. At legal P4 reaction priority, activate its once-per-turn Instant0, actually choose/discard Blue7 as cost (no assets/AP needed), four live responses then actual physicalRally6 gets +3defense to5. Actual attack4 deals0/P4HP20. Both physicalRally6 and discard7 end own publicGYFace0; virtualability8 neverGY. Attack play cost2/power6 and reactivation rejection/sibling branches untested. No synthetic defending state, discard or stat grant. Sources: https://judge.fabtcg.com/cards/detail/1011/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

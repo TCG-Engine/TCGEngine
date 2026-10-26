@@ -1,0 +1,368 @@
+{
+    "completed_at_utc": "2026-10-25T21:59:00+00:00",
+    "input_file": "card-regression-batch204.json",
+    "input_sha256": "3045c704859a7671cbe2f35176e1c751f3c9a903e397ee651d3ecb564a56dec7",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-ornate-tessen-four-live-sparse-paid-instant-retained-choice-bottom-and-distinct-draw",
+            "status": "blocked_or_incorrect",
+            "error": "Unexpected decision {\"1\":[{\"Type\":\"MZCHOOSE\",\"Param\":\"p1Hand-0\",\"Block\":1,\"Tooltip\":\"Bottom_card_then_draw\",\"DontSkipOnPass\":0,\"removed\":null,\"Location\":\"\",\"PlayerID\":0,\"mzIndex\":-1,\"_sourceZone\":null},{\"Type\":\"CUSTOM\",\"Param\":\"ornate_tessen:0:ResolveAbility-await|ornate_tessen:0:ResolveAbility#1|2|chosen\",\"Block\":1,\"Tooltip\":\"\",\"DontSkipOnPass\":0,\"removed\":null,\"Location\":\"\",\"PlayerID\":0,\"mzIndex\":-1,\"_sourceZone\":null}],\"2\":[],\"3\":[],\"4\":[]}",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Equipment-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "UPF",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "MST_BLUE_PITCHED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_ACTIVATED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_GRAVEYARD",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "EVR_GRAVEYARD",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "3": [
+                        {
+                            "type": "EVR_GRAVEYARD",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "4": [
+                        {
+                            "type": "EVR_GRAVEYARD",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": [],
+                "arcCards": {
+                    "10": {
+                        "penPitchTypes": [
+                            "Generic",
+                            "Action",
+                            "Attack"
+                        ],
+                        "dynPitchAA": true,
+                        "steam": 0
+                    },
+                    "6": {
+                        "iarPermission": []
+                    },
+                    "5": {
+                        "penFreezeSources": [],
+                        "iarPermission": []
+                    }
+                },
+                "resolvingReaction": {
+                    "uid": 10,
+                    "owner": 1,
+                    "controller": 1,
+                    "kind": "ABILITY",
+                    "resolutionClass": "ARC_ABILITY",
+                    "cardID": "ornate_tessen",
+                    "sourceMZ": "p1Graveyard-0",
+                    "frameMacro": "ResolveAbility",
+                    "abilityGoAgain": false,
+                    "sourceUniqueID": 5,
+                    "returnWindow": "ACTION",
+                    "returnCombatStep": "NONE",
+                    "baselineFrameKeys": [],
+                    "ownedFrameKeys": [
+                        "ornate_tessen:0:ResolveAbility#1"
+                    ]
+                }
+            },
+            "observed_decisions": {
+                "1": [
+                    {
+                        "Type": "MZCHOOSE",
+                        "Param": "p1Hand-0",
+                        "Block": 1,
+                        "Tooltip": "Bottom_card_then_draw",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "",
+                        "PlayerID": 0,
+                        "mzIndex": -1,
+                        "_sourceZone": null
+                    },
+                    {
+                        "Type": "CUSTOM",
+                        "Param": "ornate_tessen:0:ResolveAbility-await|ornate_tessen:0:ResolveAbility#1|2|chosen",
+                        "Block": 1,
+                        "Tooltip": "",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "",
+                        "PlayerID": 0,
+                        "mzIndex": -1,
+                        "_sourceZone": null
+                    }
+                ],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "observed_hand_refs": {
+                "1": [
+                    "p1Hand-0"
+                ],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "initial_gamestate_text": "1\r\n0\r\n1\r\ndorinthea 2 1 1 0 1 - -\r\n1\r\ndorinthea 2 2 2 0 2 - -\r\n1\r\ndorinthea 2 3 3 0 3 - -\r\n1\r\ndorinthea 2 4 4 0 4 - -\r\n0\r\n0\r\n0\r\n0\r\n1\r\nornate_tessen 2 0 1 1 0 5 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\nwounding_blow_red 8 1 1\r\nraging_onslaught_blue 9 1 1\r\n0\r\n0\r\n0\r\n2\r\nwounding_blow_blue 6 1 1\r\nwounding_blow_yellow 7 1 1\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n20\r\n20\r\n20\r\n20\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0\r\n0\r\n0\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n0\r\n1\r\n0\r\n{\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":[],\"nextTurnEffects\":[],\"hitsThisTurn\":[],\"cardsPlayedThisTurn\":[]}\r\n0\r\n1234\r\n1234\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\n1\r\nMAIN\r\n\r\n\r\n\r\n\r\n9\r\n0\r\n",
+            "initial_gamestate_sha256": "9d033822b4fb9c234ebde2a5bb2ebda0d48a9df27bd73445174be68943a08659"
+        },
+        {
+            "slug": "card-optekal-monocle-blue-four-live-sparse-paid-steam-retained-opt-bottom-choice-delays-go-again",
+            "status": "blocked_or_incorrect",
+            "error": "Unexpected decision {\"1\":[{\"Type\":\"MZREARRANGE\",\"Param\":\"Top=wounding_blow_red;Bottom=\",\"Block\":1,\"Tooltip\":\"\",\"DontSkipOnPass\":0,\"removed\":null,\"Location\":\"\",\"PlayerID\":0,\"mzIndex\":-1,\"_sourceZone\":null},{\"Type\":\"CUSTOM\",\"Param\":\"optekal_monocle_blue:0:ResolveAbility-await|optekal_monocle_blue:0:ResolveAbility#1|1|order\",\"Block\":1,\"Tooltip\":\"\",\"DontSkipOnPass\":0,\"removed\":null,\"Location\":\"\",\"PlayerID\":0,\"mzIndex\":-1,\"_sourceZone\":null}],\"2\":[],\"3\":[],\"4\":[]}",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Arena-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "UPF",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "EVR_ACTIVATED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": [],
+                "arcActions": {
+                    "1": 1
+                },
+                "arcCards": {
+                    "9": {
+                        "steam": 2
+                    },
+                    "6": {
+                        "iarPermission": []
+                    }
+                },
+                "resolvingReaction": {
+                    "uid": 9,
+                    "owner": 1,
+                    "controller": 1,
+                    "kind": "ABILITY",
+                    "resolutionClass": "ARC_ABILITY",
+                    "cardID": "optekal_monocle_blue",
+                    "sourceMZ": "p1Arena-0",
+                    "frameMacro": "ResolveAbility",
+                    "abilityGoAgain": true,
+                    "sourceUniqueID": 5,
+                    "returnWindow": "ACTION",
+                    "returnCombatStep": "NONE",
+                    "baselineFrameKeys": [],
+                    "ownedFrameKeys": [
+                        "optekal_monocle_blue:0:ResolveAbility#1"
+                    ]
+                }
+            },
+            "observed_decisions": {
+                "1": [
+                    {
+                        "Type": "MZREARRANGE",
+                        "Param": "Top=wounding_blow_red;Bottom=",
+                        "Block": 1,
+                        "Tooltip": "",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "",
+                        "PlayerID": 0,
+                        "mzIndex": -1,
+                        "_sourceZone": null
+                    },
+                    {
+                        "Type": "CUSTOM",
+                        "Param": "optekal_monocle_blue:0:ResolveAbility-await|optekal_monocle_blue:0:ResolveAbility#1|1|order",
+                        "Block": 1,
+                        "Tooltip": "",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "",
+                        "PlayerID": 0,
+                        "mzIndex": -1,
+                        "_sourceZone": null
+                    }
+                ],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "initial_gamestate_text": "1\r\n0\r\n1\r\ndash 2 1 1 0 1 - -\r\n1\r\ndorinthea 2 2 2 0 2 - -\r\n1\r\ndorinthea 2 3 3 0 3 - -\r\n1\r\ndorinthea 2 4 4 0 4 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\noptekal_monocle_blue 2 1 1 0 5 - eyJTVEVBTSI6Mn0=\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n3\r\nwounding_blow_red 6 1 1\r\nwounding_blow_blue 7 1 1\r\nwounding_blow_yellow 8 1 1\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n20\r\n20\r\n20\r\n20\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0\r\n0\r\n0\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n0\r\n1\r\n0\r\n{\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":[],\"nextTurnEffects\":[],\"hitsThisTurn\":[],\"cardsPlayedThisTurn\":[]}\r\n0\r\n1234\r\n1234\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\n1\r\nMAIN\r\n\r\n\r\n\r\n\r\n8\r\n0\r\n",
+            "initial_gamestate_sha256": "853a1cee6083426e1c3dad7e879576d8454ba4c4db891ef43ff89b69d71dc0b5"
+        },
+        {
+            "slug": "card-mordred-tide-red-four-live-sparse-actual-read-three-replaced-by-four-owned-runechants",
+            "status": "recorded_semantically_checked",
+            "actions": 10,
+            "assertions": 747
+        },
+        {
+            "slug": "card-meat-and-greet-red-four-live-sparse-earned-real-arcane-go-again-with-physical-full-block",
+            "status": "recorded_semantically_checked",
+            "actions": 35,
+            "assertions": 2589
+        }
+    ]
+}

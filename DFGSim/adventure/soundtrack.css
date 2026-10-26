@@ -1,0 +1,9 @@
+.dfg-audio-controls{position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));z-index:30;display:flex;align-items:center;gap:2px;padding:3px;background:#fff8e9ed;border:1px solid #a58a61;border-radius:8px;color:#372a20;box-shadow:0 3px 12px #51382126;font:11px 'DM Sans',system-ui,sans-serif}
+.dfg-audio-controls button,.dfg-audio-controls summary{padding:7px 9px;background:transparent;border:0;border-radius:5px;color:inherit;font:inherit;cursor:pointer;white-space:nowrap}
+.dfg-audio-controls summary{list-style:none}.dfg-audio-controls summary::-webkit-details-marker{display:none}.dfg-audio-controls details>div{position:absolute;right:0;bottom:calc(100% + 7px);width:235px;padding:14px;background:#fff8e9;border:1px solid #a58a61;border-radius:8px;box-shadow:0 3px 12px #51382126}
+.dfg-audio-controls label{display:block;font-weight:600}.dfg-audio-controls input{display:block;width:100%;margin:12px 0;accent-color:#3d654b}.dfg-audio-controls output{font-size:10px;line-height:1.5;display:block;color:#7b6954}.dfg-audio-controls button:focus-visible,.dfg-audio-controls summary:focus-visible{outline:3px solid #467d81;outline-offset:2px}
+.adventure-battle{position:fixed;inset:0;width:100%;height:100%;border:0;z-index:10;background:#101919}
+.adventure-shell.is-fighting .dfg-audio-controls{display:none}
+@media(max-width:850px){.adventure-shell .interaction-bar{bottom:62px}.map-resume{bottom:62px}}
+
+.dfg-audio-controls [data-effects-toggle]{display:block;border:1px solid #c7b38e;background:#edf0e3;margin:10px 0;font-weight:600}.dfg-audio-controls [data-effects-toggle][aria-pressed=false]{background:#eee6d6}.dfg-audio-controls output{margin-bottom:8px}

@@ -146,6 +146,7 @@ function renderNearby(){
   $('interact').closest('.interaction-bar').hidden=!e||j.phase!=='world'||walking;
 }
 function renderHUD(){
+  window.DFGSoundtrack?.select(!$('adventureBattle').hidden&&j.enemy?j.enemy:DFGSoundtrack.area(j),{immediate:!$('adventureBattle').hidden});
   const next=j.quests.find(q=>!q.done);$('objectiveTitle').textContent=j.zone==='sanctuary'?'A moment to catch your breath':next?.title??'The courtyard knows your name';$('objectiveDetail').textContent=j.zone==='sanctuary'?'Aya can offer a little advice. The door leads back to your next task.':next?.detail??'Visit the road beyond the temple to see the wider world.';
   $('journalCount').textContent=j.quests.filter(q=>q.done).length+'/'+j.quests.length;
   $('resumeFight').hidden=j.phase!=='fight';renderNearby();
@@ -184,13 +185,23 @@ async function continueJourney(){try{await send({type:'continue'});visual=center
 document.querySelectorAll('[data-panel]').forEach(b=>b.addEventListener('click',()=>{if(!j)return;({journal:openJournal,deck:openDeck,equipment:openEquipment,world:openWorld})[b.dataset.panel]();}));
 $('followQuest').addEventListener('click',()=>{const q=j.quests.find(q=>!q.done);markTarget(q?.target??'gate');});
 function markTarget(id){if(!j.entities[id]&&j.zone==='sanctuary')id='exit';focusedQuest=id;closePanel(false);fit=true;$('overview').setAttribute('aria-pressed','true');toast(j.entities[id]?.name+' is highlighted. Click it to walk there.');}
-$('resumeFight').addEventListener('click',()=>location.href='index.php?adventure=1');
+function enterFight(){
+  stopWalking();closePanel(false);const frame=$('adventureBattle');frame.hidden=false;document.body.classList.add('is-fighting');
+  document.querySelector('main').inert=true;DFGSoundtrack.select(j.enemy,{immediate:true});
+  if(!frame.getAttribute('src'))frame.src='index.php?adventure=1&embedded=1';frame.focus();
+}
+async function leaveFight(){
+  const frame=$('adventureBattle');frame.hidden=true;frame.removeAttribute('src');document.body.classList.remove('is-fighting');document.querySelector('main').inert=false;
+  try{await refresh();await loadImage(data.map.art);visual=center(j.position);if(j.phase==='result')openResult();else if(j.dialog)openDialogue(j.dialog);canvas.focus({preventScroll:true});}catch(e){fail(e);}
+}
+window.DFGAdventureShell={sync(next){accept(next);},leaveFight};
+$('resumeFight').addEventListener('click',()=>enterFight());
 $('panelContent').addEventListener('click',async e=>{
   const b=e.target.closest('button');if(!b||b.disabled)return;
   if(b.dataset.dismiss!==undefined){closePanel();return;}
   if(b.dataset.target){markTarget(b.dataset.target);return;}
   if(b.dataset.color){deckColor=b.dataset.color;openDeck(false);return;}
-  if(b.dataset.resume!==undefined){location.href='index.php?adventure=1';return;}
+  if(b.dataset.resume!==undefined){enterFight();return;}
   if(b.dataset.continue!==undefined){await continueJourney();return;}
   if(b.id==='saveDeck'){b.disabled=true;try{await send({type:'deck',cards:[...draft]});closePanel(false);toast('Your six hands are saved.');}catch{b.disabled=false;}return;}
   if(b.dataset.dialogAction==='world'){openWorld();return;}
@@ -201,7 +212,7 @@ $('panelContent').addEventListener('click',async e=>{
   }
   if(b.dataset.dialogAction==='moves'){openMoves(b.dataset.person);return;}
   if(b.dataset.dialogAction==='challenge'){
-    b.disabled=true;try{await send({type:'challenge',id:b.dataset.person,color:$('openingColor').value});location.href='index.php?adventure=1';}catch{b.disabled=false;}
+    b.disabled=true;try{await send({type:'challenge',id:b.dataset.person,color:$('openingColor').value});enterFight();}catch{b.disabled=false;}
   }
 });
 $('panelContent').addEventListener('change',async e=>{

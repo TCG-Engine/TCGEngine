@@ -1,0 +1,105 @@
+{
+  "status": "THREE211_REPRESENTATIVES_QUALIFIED_ONE_SOURCE_CONTEXT_REPAIR",
+  "utc": "2026-10-26T00:50:31.456906+00:00",
+  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "inventory_scope": "Through211 only; two212 and one213 knownsaves remain unregistered/excluded here. No inventory scan.",
+  "new_scenarios_recorded": 3,
+  "new_scenarios_qualified": 3,
+  "new_groups": 3,
+  "total_saved_through211": 3417,
+  "two_player": 3074,
+  "four_live_through211": 343,
+  "primary_ids_recorded_through211": 576,
+  "identity_denominator": 5196,
+  "groups_recorded_through211": 450,
+  "group_denominator": 3324,
+  "four_live_groups_through211": 341,
+  "registered_review_rows_after": 3417,
+  "phase_scenarios_qualified_at_batch_contexts": 54,
+  "creation_replay_passes_at_batch_contexts": 108,
+  "known_live_recorded_at_registration": 3420,
+  "known_later_saved_excluded": {
+    "batch212": 2,
+    "batch213": 1
+  },
+  "historical_qualification_note": "Registry rows/contextcounts are not blanket current-runtime corpus readiness. Historical3363 bytebindings unresolved; legacyWellington row deliberatelynotretagged.",
+  "new_cases": [
+    {
+      "slug": "card-parry-blade-four-live-sparse-actual-weapons-zone-block-gets-two-defense-against-weapon",
+      "primary_card_ids": [
+        "parry_blade"
+      ],
+      "actions": 21,
+      "native_assertions": 1365,
+      "supported_pass_actions": 17
+    },
+    {
+      "slug": "card-forged-for-war-yellow-four-live-sparse-actual-cast-persistent-aura-then-next-live-turn-equipment-defense",
+      "primary_card_ids": [
+        "forged_for_war_yellow"
+      ],
+      "actions": 34,
+      "native_assertions": 2039,
+      "supported_pass_actions": 29
+    },
+    {
+      "slug": "card-aether-sink-yellow-four-live-sparse-actual-steam-cost-grants-barrier-two-and-paid-opposing-arcane-prevention",
+      "primary_card_ids": [
+        "aether_sink_yellow"
+      ],
+      "actions": 16,
+      "native_assertions": 914,
+      "supported_pass_actions": 11
+    }
+  ],
+  "native_assertions": 4318,
+  "supported_pass_actions": 57,
+  "administrative_end_phase_pass_actions": 4,
+  "other_phase_pass_actions": 53,
+  "review_evidence": "review-evidence/sparse211-405-qualified-saved-review.json",
+  "targeted_replay_passes": 6,
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse211-405-20261026-r1.json",
+      "sha256": "44dfec74b78be3c4eb51aaada7fbb6d468ef1aa3064621c14f7355b977cead68"
+    },
+    {
+      "path": "card-regression-replay-sparse211-405-20261026-r2.json",
+      "sha256": "299e23f76e5e29077a64efb3caeecd3e67a30517803bfc87a3adf288974ab72b"
+    }
+  ],
+  "causal_controls": {
+    "report": "card-regression-negative-controls-sparse211-results.json",
+    "sha256": "0d4f736ee4701c16a0aaec1da0f7f8b1706c8aba899f86d7af2c0433e33ae247",
+    "detected": 1,
+    "total": 1,
+    "retained_boundary_and_suffix_oracles": 696,
+    "omitted": 0,
+    "global_total": 110,
+    "phase_total": 26
+  },
+  "native_gameplay_repair": {
+    "issue": "FAB-REG-048",
+    "new_distinct_rootcause": true,
+    "evidence": "review-evidence/sparse211-effect-pitch-source-context-before-after.json"
+  },
+  "controlled_components": {
+    "path": "components/effect_pitch_source_context_component.php",
+    "sha256": "dee106eefc888281826c026787a6789f8ab6bc56e3556b18a1f099ac694a4a67",
+    "contracts": 12,
+    "checks": 68
+  },
+  "existing_compatibility": {
+    "decline": "card-regression-replay-effect-pitch405-quickening-compat.json",
+    "funded": "card-regression-replay-effect-pitch405-two-red-corrected.json",
+    "funded_expected_oneleaf_correction": true,
+    "new_coverage_credit": false
+  },
+  "core_generated_or_card_bodies_changed": false,
+  "source_path_changed": "FaBSim/Custom/ARCCards.php",
+  "full_suite_runs": 0,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse211-405-qualification-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-frailty-four-live-sparse-active-owned-disease-reduces-real-paid-weapon-by-one",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 1748
+    },
+    {
+        "slug": "card-red-liner-four-live-sparse-actual-zero-cost-bow-load-choice-faceup-arrow-and-deferred-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 467
+    },
+    {
+        "slug": "card-perch-grapplers-four-live-sparse-actual-paid-destroy-grants-earned-faceup-arrow-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 41,
+        "assertions": 2943
+    },
+    {
+        "slug": "card-contest-the-mindfield-blue-four-live-sparse-active-opposing-wizard-aura-reduces-real-endturn-refill",
+        "status": "recorded_semantically_checked",
+        "actions": 8,
+        "assertions": 574
+    }
+]

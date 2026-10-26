@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch209-blood-tribute-probe.json",
+  "runtime_sha256": "62e93306ebcaaf4c306d43e164117b4538a84db2ca29cad001779db5c704aae3",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T23:58:30.440185+00:00",
+  "fixtures": [
+    {
+      "slug": "card-blood-tribute-red-four-live-correct-source-lifetime-real-opt-three-then-physical-banish",
+      "fixture_sha256": "9f88f790e22b43487ab24697cab238f977b7f1829ff28079b7b87891394f1ebb",
+      "passed": true,
+      "result": "[PASS] blood_tribute_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blood-tribute-red-four-live-correct-source-lifetime-real-opt-three-then-physical-banish",
+      "returncode": 0,
+      "stdout": "[PASS] blood_tribute_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

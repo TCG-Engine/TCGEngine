@@ -1,0 +1,7 @@
+{
+    "name": "basalt_boots / four live distinctive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-25T22:28:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four living legal Fai20/2 Dorinthea20/Bravo20. Primary Boots5 freshly owned P4 Equipment; owned Seismic6 Arena is legitimate midturn fixture, not yet P4 action phase. Actual Raging7/real Blue8 cost3, printed7 attack. P4 actual Boots5 declaration moves physical Equipment to defending Chain. Active owned Seismic makes printed defense1+1=2, proved by actual damage7-2=5/P4HP15 rather than cached defenseValue/authoring-only defense check. Full responses/chain closure apply Temper DEFENSE counter1; dynamic defense1-1+1=1 stays positive, so physical Boots5 returns Equipment with DEFENSE1 and owned Seismic6 remains. Raging7 public GY/Pitch8/HPothers20/AP/R0/queues empty. No Seismic-cost reduction/upkeep, absence condition, further block or other counter count/fullcard credit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN019.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP085.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/WTR188.webp https://rules.fabtcg.com/en/cr/08-keywords/"
+}

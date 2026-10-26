@@ -223,24 +223,10 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
     // The session was started at the very top of this file (before any output), so
     // $_SESSION is populated here and further down (e.g. the deck visibility dropdown's
-    // Team/Patreon options). Read seat auth from it, then release the session lock so
+    // Team/Patreon options). Resolve seat auth, then release the session lock so
     // concurrent same-session requests aren't blocked ($_SESSION stays readable after close).
-    $authKey = "";
-    if ($playerID == 1 && isset($_SESSION["p1AuthKey"])) $authKey = $_SESSION["p1AuthKey"];
-    else if ($playerID == 2 && isset($_SESSION["p2AuthKey"])) $authKey = $_SESSION["p2AuthKey"];
+    $authKey = SimGameResolveBoardAuthKey($folderPath, $gameName, $playerID, TryGet("authKey", ""));
     if (session_status() === PHP_SESSION_ACTIVE) session_write_close();
-    $requestedAuthKey = TryGet("authKey", "");
-    if (TryGet("replay", "") === "1" && $requestedAuthKey !== "") {
-      // Imported replays use a fresh temporary seat, so the original game's session key is stale.
-      $authKey = $requestedAuthKey;
-    } else if ($authKey === "") {
-      $authKey = $requestedAuthKey;
-    }
-
-    if(in_array(intval($playerID), [1, 2, 3, 4], true) && $authKey == "")
-    {
-      if(isset($_COOKIE["lastAuthKey"])) $authKey = $_COOKIE["lastAuthKey"];
-    }
 
     if (!SimGameValidateViewerAuth($folderPath, $gameName, $viewerInfo, $authKey)) {
       SimGameRenderInvalidAuthPage($folderPath, $gameName, $playerID);
@@ -670,7 +656,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <script>
       window.RefreshMostRecentSimGameTimestamp = function() {
         var rawPlayerID = <?php echo json_encode(strval($playerID)); ?>;
-        if (rawPlayerID !== "1" && rawPlayerID !== "2") return;
+        if (['1', '2', '3', '4'].indexOf(rawPlayerID) < 0) return;
         var authKey = <?php echo json_encode(strval($authKey)); ?>;
         var folderPath = <?php echo json_encode(strval($folderPath)); ?>;
         var gameName = <?php echo json_encode(strval($gameName)); ?>;
@@ -686,6 +672,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           }));
         } catch (e) {}
 
+        document.cookie = <?php echo json_encode(SimGameSeatCookieName($folderPath)); ?> + '=' + encodeURIComponent(authKey) + '; max-age=' + (30 * 24 * 60 * 60) + '; path=' + location.pathname.slice(0, location.pathname.lastIndexOf('/') + 1) + '; SameSite=Lax';
         if (typeof SetCookieValue === 'function') {
           SetCookieValue('lastAuthKey', authKey, 30);
         } else {

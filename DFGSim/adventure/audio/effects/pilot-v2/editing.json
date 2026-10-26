@@ -1,0 +1,52 @@
+[
+  {
+    "id": "card-swipe",
+    "file": "card-swipe-v2.mp3",
+    "source": "card-swipe-v2-master.mp3",
+    "trimStartSeconds": 0.188,
+    "durationSeconds": 0.45,
+    "gain": 0.3456,
+    "peakBeforeDb": 1.23,
+    "sourcePeakSeconds": 0.3729
+  },
+  {
+    "id": "burn-bonus",
+    "file": "burn-bonus-v2.mp3",
+    "source": "burn-bonus-v2-master.mp3",
+    "trimStartSeconds": 0,
+    "durationSeconds": 0.82,
+    "gain": 0.3504,
+    "peakBeforeDb": 1.11,
+    "sourcePeakSeconds": 0.3943
+  },
+  {
+    "id": "hit-light",
+    "file": "hit-light-v2.mp3",
+    "source": "hit-light-v2-master.mp3",
+    "trimStartSeconds": 0,
+    "durationSeconds": 0.4,
+    "gain": 15.513,
+    "peakBeforeDb": -31.81,
+    "sourcePeakSeconds": 0.0051
+  },
+  {
+    "id": "hit-heavy",
+    "file": "hit-heavy-v2.mp3",
+    "source": "hit-heavy-v2-master.mp3",
+    "trimStartSeconds": 0,
+    "durationSeconds": 0.55,
+    "gain": 4.1353,
+    "peakBeforeDb": -20.33,
+    "sourcePeakSeconds": 0.0
+  },
+  {
+    "id": "block",
+    "file": "block-v2.mp3",
+    "source": "block-v2-master.mp3",
+    "trimStartSeconds": 0,
+    "durationSeconds": 0.375,
+    "gain": 0.3444,
+    "peakBeforeDb": 1.26,
+    "sourcePeakSeconds": 0.1222
+  }
+]

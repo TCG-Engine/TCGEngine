@@ -1,0 +1,109 @@
+{
+  "status": "THREE212_213_POSITIVE_FIRST_PASS_REPRESENTATIVES_QUALIFIED_NO_NEW_ISOLATED_FAULTS",
+  "utc": "2026-10-26T00:56:20.319625+00:00",
+  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "inventory_scope": "Through212/213 only; later214/215 work excluded without credit. No inventory scan or metadata index rebuild.",
+  "new_scenarios_recorded": 3,
+  "new_scenarios_qualified": 3,
+  "new_groups": 3,
+  "total_saved_through213": 3420,
+  "two_player": 3074,
+  "four_live_through213": 346,
+  "primary_ids_recorded_through213": 579,
+  "identity_denominator": 5196,
+  "groups_recorded_through213": 453,
+  "group_denominator": 3324,
+  "four_live_groups_through213": 344,
+  "registered_review_rows_after": 3420,
+  "phase_scenarios_qualified_at_batch_contexts": 57,
+  "creation_replay_passes_at_batch_contexts": 114,
+  "registered": [
+    {
+      "batch": 212,
+      "review_evidence": "review-evidence/sparse212-405-qualified-saved-review.json",
+      "review_evidence_sha256": "cc0ad97983a09ad52a16b584d72b974c64c751445df4ef7445e66aad6d9a12b8",
+      "rows_added": 2,
+      "registered_review_rows_after": 3419,
+      "phase_qualified_at_contexts": 56
+    },
+    {
+      "batch": 213,
+      "review_evidence": "review-evidence/sparse213-405-qualified-saved-review.json",
+      "review_evidence_sha256": "a9aa4aa5a1915efc309336ffe1ac7f1f5ea26a0c219a5f1078180c44f1238e20",
+      "rows_added": 1,
+      "registered_review_rows_after": 3420,
+      "phase_qualified_at_contexts": 57
+    }
+  ],
+  "new_cases": [
+    {
+      "batch": 212,
+      "slug": "card-achilles-accelerator-four-live-sparse-real-earned-boost-instant-destroy-gains-one-action-point",
+      "primary_card_ids": [
+        "achilles_accelerator"
+      ],
+      "actions": 33,
+      "native_assertions": 2701,
+      "manual_passes": 29
+    },
+    {
+      "batch": 212,
+      "slug": "card-fyendals-spring-tunic-four-live-sparse-actual-three-energy-instant-cost-and-resource-gain",
+      "primary_card_ids": [
+        "fyendals_spring_tunic"
+      ],
+      "actions": 5,
+      "native_assertions": 467,
+      "manual_passes": 4
+    },
+    {
+      "batch": 213,
+      "slug": "card-talisman-of-dousing-yellow-four-live-sparse-actual-owned-spellvoid-destroy-prevents-one-of-real-opposing-zap",
+      "primary_card_ids": [
+        "talisman_of_dousing_yellow"
+      ],
+      "actions": 7,
+      "native_assertions": 450,
+      "manual_passes": 4
+    }
+  ],
+  "native_assertions": 3618,
+  "new_targeted_replay_passes": 6,
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse212-405-20261026-r1.json",
+      "sha256": "bc2351d7733da6e26c53b3c568d90a78cbba5d87a860aebf4b832c6609d2da0b"
+    },
+    {
+      "path": "card-regression-replay-sparse212-405-20261026-r2.json",
+      "sha256": "54587853578837dce695f152f9d0585fd6465c9e8dbe84f40649eec2e931ff60"
+    },
+    {
+      "path": "card-regression-replay-sparse213-405-20261026-r1.json",
+      "sha256": "60da4ae80af22f2c18930f794a5315128ffc0d4d554a2286585bae14fae5a222"
+    },
+    {
+      "path": "card-regression-replay-sparse213-405-20261026-r2.json",
+      "sha256": "aaed44ebf2152bec3981d76fdadb094581e23da21f09e30c880d3ecce654e5a1"
+    }
+  ],
+  "isolated_native_faults": {
+    "status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS",
+    "attempted": 0,
+    "detected": 0,
+    "added": 0
+  },
+  "global_native_controls_detected_unchanged": 110,
+  "phase_native_controls_detected_unchanged": 26,
+  "control_ledger_bytes_preserved": true,
+  "historical_qualification_note": "Counts and registry rows are not blanket current-runtime oldcorpus qualification or commit-readiness. Historical3363 bytebindings remain unresolved; original perbatch contexts retained.",
+  "engine_source_changed": false,
+  "confirmed_new_gameplay_defect_groups": 0,
+  "issue_ledger_updated": false,
+  "full_suite_runs": 0,
+  "older_fixtures_not_rerun": true,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse212-213-405-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

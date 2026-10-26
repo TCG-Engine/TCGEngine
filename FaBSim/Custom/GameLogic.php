@@ -1307,8 +1307,7 @@ function FaBTrackReactionAwaitFrames(): void {
     $variables = json_decode((string)GetDecisionQueueVariables(), true);
     $owned = (array)($pending['ownedFrameKeys'] ?? []);
     $abilityFrame = ($pending['resolutionClass'] ?? '') === 'ARC_ABILITY'
-        && ($pending['kind'] ?? '') === 'ABILITY'
-        && in_array((string)$pending['cardID'], ['opal_amulet_blue','potion_of_deja_vu_blue'], true);
+        && ($pending['kind'] ?? '') === 'ABILITY';
     $frameMacro = $abilityFrame ? 'ResolveAbility' : 'ResolveCard';
     $pattern = '/^' . preg_quote((string)$pending['cardID'], '/') . ':[0-9]+:'.$frameMacro.'#[0-9]+$/D';
     foreach ((array)($variables['__awaitFrames'] ?? []) as $key => $frame) {
@@ -1467,13 +1466,12 @@ function FaBFinishReactionResolution(): bool {
 
 /** Only previously identified ordinary-spell lifecycle concerns, not all NAA. */
 function FaBKnownPlainSpellLifecycleCard(string $cardID): bool {
-    return in_array($cardID, ['chorus_of_rotwood_red','this_rounds_on_me_blue','rousing_aether_red','rousing_aether_yellow','rousing_aether_blue','aether_quickening_red','aether_quickening_yellow','aether_quickening_blue','battle_prep_red','battle_prep_yellow','battle_prep_blue','laden_with_lightning_red','tome_of_harvests_blue','flying_high_red','flying_high_yellow','flying_high_blue','regain_composure_blue'], true);
+    return in_array($cardID, ['chorus_of_rotwood_red','this_rounds_on_me_blue','rousing_aether_red','rousing_aether_yellow','rousing_aether_blue','aether_quickening_red','aether_quickening_yellow','aether_quickening_blue','battle_prep_red','battle_prep_yellow','battle_prep_blue','laden_with_lightning_red','tome_of_harvests_blue','flying_high_red','flying_high_yellow','flying_high_blue','regain_composure_blue','blood_tribute_red','blood_tribute_yellow','blood_tribute_blue'], true);
 }
 
 function FaBManagedVirtualResolutionClass(object $stack): string {
     if (($stack->Kind ?? '') === 'ABILITY' && isset($stack->Params['arcSpec'])
-        && empty($stack->Params['rosTrigger'])
-        && in_array((string)$stack->CardID, ['opal_amulet_blue','potion_of_deja_vu_blue'], true)) return 'ARC_ABILITY';
+        && empty($stack->Params['rosTrigger'])) return 'ARC_ABILITY';
     if (($stack->Kind ?? '') === 'TRIGGER' && (string)$stack->CardID === 'runechant'
         && ($stack->Params['arcRunechant'] ?? false) === true
         && ($stack->SourceZone ?? '') === 'Arena' && intval($stack->SourceUniqueID ?? 0) > 0) return 'RUNECHANT_TRIGGER';
@@ -1585,7 +1583,12 @@ function DoResolveCard($player, $mzID) {
     $obj = $found['object']; $controller = intval($obj->Controller ?? $player); $uid = intval($obj->UniqueID);
     $kind = (string)($obj->Kind ?? 'ACTION'); $state = FaBGetState();
     if($kind==='ABILITY'&&!empty($obj->Params['mstEmptyDriver'])){$obj->removed=true;$driver=FaBFindUID(intval($obj->Params['mstEmptyDriver']));if($driver&&$driver['zone']==='Arena'&&FaBSteamCounters($driver['object'])===0)FaBMONDestroy(intval($driver['object']->UniqueID));SetPriorityPlayer(intval(GetTurnPlayer()));SetConsecutivePasses(0);return true;}
-    if($kind==='ABILITY'&&!empty($obj->Params['uprPhantasm'])){$obj->removed=true;FaBMONPhantasm($state);SetPriorityPlayer(intval(GetTurnPlayer()));SetConsecutivePasses(0);return true;}
+    if($kind==='ABILITY'&&!empty($obj->Params['uprPhantasm'])){
+        $obj->removed=true;FaBMONPhantasm($state);
+        // Chain closure may have produced a destruction trigger requiring responses.
+        if(FaBStackTop()!==null){$s=FaBGetState();$s['window']='PRIORITY';FaBSetState($s);}
+        SetPriorityPlayer(intval(GetTurnPlayer()));SetConsecutivePasses(0);return true;
+    }
     if (FaBROSMeldFirst($controller,$obj)) return true;
     if (FaBManagedVirtualResolutionClass($obj) !== '') return FaBResolveManagedVirtualLayer($controller, $obj, $found);
     if ($kind === 'ABILITY') {

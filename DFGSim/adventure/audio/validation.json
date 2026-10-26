@@ -1,0 +1,138 @@
+{
+  "tracks": [
+    {
+      "file": "bull-of-heaven-v1.mp3",
+      "durationSeconds": 64.131,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bytes": 1283701
+    },
+    {
+      "file": "canal-v1.mp3",
+      "durationSeconds": 80.144,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bytes": 1603962
+    },
+    {
+      "file": "courtyard-v1.mp3",
+      "durationSeconds": 80.065,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bytes": 1602395
+    },
+    {
+      "file": "grove-v1.mp3",
+      "durationSeconds": 80.091,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bytes": 1602917
+    },
+    {
+      "file": "huwawa-v1.mp3",
+      "durationSeconds": 64.131,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bytes": 1283701
+    },
+    {
+      "file": "iddin-v1.mp3",
+      "durationSeconds": 64.131,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bytes": 1283701
+    },
+    {
+      "file": "imdugud-v1.mp3",
+      "durationSeconds": 64.131,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bytes": 1283701
+    },
+    {
+      "file": "market-v1.mp3",
+      "durationSeconds": 80.144,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bytes": 1603962
+    },
+    {
+      "file": "sanctuary-v1.mp3",
+      "durationSeconds": 80.091,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bytes": 1602917
+    },
+    {
+      "file": "temple-v1.mp3",
+      "durationSeconds": 80.091,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bytes": 1602917
+    },
+    {
+      "file": "terrace-v1.mp3",
+      "durationSeconds": 80.144,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bytes": 1603962
+    }
+  ],
+  "loudness": [
+    {
+      "file": "bull-of-heaven-v1.mp3",
+      "integratedLufs": -20.42,
+      "truePeakDb": -3.26
+    },
+    {
+      "file": "canal-v1.mp3",
+      "integratedLufs": -20.28,
+      "truePeakDb": -3.84
+    },
+    {
+      "file": "courtyard-v1.mp3",
+      "integratedLufs": -20.05,
+      "truePeakDb": -2.24
+    },
+    {
+      "file": "grove-v1.mp3",
+      "integratedLufs": -20.06,
+      "truePeakDb": -2.65
+    },
+    {
+      "file": "huwawa-v1.mp3",
+      "integratedLufs": -20.5,
+      "truePeakDb": -4.88
+    },
+    {
+      "file": "iddin-v1.mp3",
+      "integratedLufs": -20.63,
+      "truePeakDb": -7.78
+    },
+    {
+      "file": "imdugud-v1.mp3",
+      "integratedLufs": -20.53,
+      "truePeakDb": -5.82
+    },
+    {
+      "file": "market-v1.mp3",
+      "integratedLufs": -20.93,
+      "truePeakDb": -11.44
+    },
+    {
+      "file": "sanctuary-v1.mp3",
+      "integratedLufs": -20.1,
+      "truePeakDb": -4.86
+    },
+    {
+      "file": "temple-v1.mp3",
+      "integratedLufs": -20.52,
+      "truePeakDb": -4.14
+    },
+    {
+      "file": "terrace-v1.mp3",
+      "integratedLufs": -20.75,
+      "truePeakDb": -6.49
+    }
+  ]
+}

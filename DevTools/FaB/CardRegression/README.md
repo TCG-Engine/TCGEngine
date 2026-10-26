@@ -1,5 +1,8 @@
 # FaBSim card regression coverage
 
+<!-- SPARSE-CURRENT-20261025 -->
+> **26 October current progress:** 3,420 saved scenarios (3,074 duels +346 four-live); recorded primary subjects579/5,196 IDs and453/3,324 groups. Fifty-seven new representatives qualified at their actual batch contexts,114 targeted creation passes,26 native controls detected. Four new distinct gameplay fix groups plus two existing lifetime-family extensions; no full-suite run. [Current progress/index](SPARSE_PROGRESS_20261025.md) distinguishes current replay evidence, exact branches and historical byte-binding limits.
+
 <!-- CURRENT-REPAIR-20261025 -->
 > **25 October compatibility repair: final full suite3,363/3,363 passed,0 failed.** The15 reproduced failures were stale expected snapshots; all actions/assertions and the gameplay runtime were preserved. See [current assessment](FAILURE_REPAIR_20261025.md) and [validation](failure-repair-validation-20261025.json). Coverage remains522 exact IDs/396 groups; historical dated evidence below keeps its original scope.
 

@@ -1,0 +1,143 @@
+{
+  "provider": "ElevenLabs",
+  "tracks": [
+    {
+      "file": "card-swipe-v1.mp3",
+      "durationSeconds": 0.6,
+      "bytes": 13105,
+      "sha256": "19b09e92d289b3cd5fdeb1bb71b80120c5ea59a6e3c578c953d2dfdd7ee32bc5"
+    },
+    {
+      "file": "card-return-v1.mp3",
+      "durationSeconds": 0.48,
+      "bytes": 11015,
+      "sha256": "61a8dd9198e0e6647fc51585b7d946bfefea11386491648be88719bc13883d72"
+    },
+    {
+      "file": "commit-v1.mp3",
+      "durationSeconds": 0.48,
+      "bytes": 11015,
+      "sha256": "8b7645bea5691389a888f4293e39c289de2d67882ceaf3e578876887a4e7647a"
+    },
+    {
+      "file": "reveal-v1.mp3",
+      "durationSeconds": 0.8,
+      "bytes": 17284,
+      "sha256": "f2726ec28035aed25dd7de9c5bea67e4d243e4f25012df1a8b6591af3f636e9d"
+    },
+    {
+      "file": "burn-bonus-v1.mp3",
+      "durationSeconds": 0.88,
+      "bytes": 18852,
+      "sha256": "56ba5a462b30ca685102d055c3361194624bb0f06e1e1e09e866f19fa788c01b"
+    },
+    {
+      "file": "burn-reaction-v1.mp3",
+      "durationSeconds": 0.680249,
+      "bytes": 15195,
+      "sha256": "a674fc9792ed9a07ce1f44d13eb55a3d4cf1c1411c1ec7650cae37ff58a54cd8"
+    },
+    {
+      "file": "hit-light-v1.mp3",
+      "durationSeconds": 0.48,
+      "bytes": 11015,
+      "sha256": "089037986eadfb97f3491adb95601c30833bf6503187c6ac389122c49b968fd1"
+    },
+    {
+      "file": "hit-medium-v1.mp3",
+      "durationSeconds": 0.6,
+      "bytes": 13105,
+      "sha256": "50da6cea21c745992ec3d18134353724c5c59a09443791e655a91a126c41875c"
+    },
+    {
+      "file": "hit-heavy-v1.mp3",
+      "durationSeconds": 0.8,
+      "bytes": 17284,
+      "sha256": "b756f7a86d7328d20a7fec8ef4b2e1726a7bc622a8ba0245a692624705f1911d"
+    },
+    {
+      "file": "block-v1.mp3",
+      "durationSeconds": 0.48,
+      "bytes": 11015,
+      "sha256": "71f42bad96983a6b20e73f9aadebf8ec36d0cbee52e89362871377573ac10ccd"
+    },
+    {
+      "file": "advantage-gain-v1.mp3",
+      "durationSeconds": 0.88,
+      "bytes": 18852,
+      "sha256": "856954064fccad99c236935ae0eb1143576e123495d10e00c982c056d3be8bff"
+    },
+    {
+      "file": "advantage-spend-v1.mp3",
+      "durationSeconds": 0.680249,
+      "bytes": 15195,
+      "sha256": "09033a62faed84f8abbb9ca98578c5970ed8279fde5562a6d997d6948ca8c5aa"
+    },
+    {
+      "file": "barrier-absorb-v1.mp3",
+      "durationSeconds": 0.6,
+      "bytes": 13105,
+      "sha256": "a606f6f9aaa7a2b01d84fb3e613c10f645c8a8f453daeff8eb0a02035087bae5"
+    },
+    {
+      "file": "barrier-break-v1.mp3",
+      "durationSeconds": 1.0,
+      "bytes": 21464,
+      "sha256": "46b0a8aaefdb1a879e6d1305fdf1079ab2faf757d27bf42a2bcb0bca330ba6c9"
+    },
+    {
+      "file": "break-stop-v1.mp3",
+      "durationSeconds": 0.680249,
+      "bytes": 15195,
+      "sha256": "245e06d184dc516f6ad07aa409fd6e65cdfbe0440019a2aac90cce3caeac0d4a"
+    },
+    {
+      "file": "burst-break-v1.mp3",
+      "durationSeconds": 1.0,
+      "bytes": 21464,
+      "sha256": "3e8e499fba7d4e7cf2c7b7a8857ec01c832a5df77ec0fbcb71f2be2536697f01"
+    },
+    {
+      "file": "confirm-mark-v1.mp3",
+      "durationSeconds": 0.680249,
+      "bytes": 15195,
+      "sha256": "8f54e1becc8f2669605cf5c478448785c8a93d0db589cba2ed325462dd40bf6a"
+    },
+    {
+      "file": "confirm-cash-v1.mp3",
+      "durationSeconds": 0.8,
+      "bytes": 17284,
+      "sha256": "47798e80bf7ebcefc352796ca9d93e98dec2a6c3a535703daebd5c6da8cd9ad4"
+    },
+    {
+      "file": "reaction-ready-v1.mp3",
+      "durationSeconds": 0.48,
+      "bytes": 11015,
+      "sha256": "71b0697e40e1638a0c75140d7ffc8b18fc8726337796fd40f1b3deb56def1add"
+    },
+    {
+      "file": "round-ready-v1.mp3",
+      "durationSeconds": 0.680249,
+      "bytes": 15195,
+      "sha256": "8c315504eb38c65501efad821e70597cc79e874ede8250ee4126f09d0f2cda73"
+    },
+    {
+      "file": "knockout-v1.mp3",
+      "durationSeconds": 1.2,
+      "bytes": 25121,
+      "sha256": "3a0305b2aa6a94d89a8ffb0c3abd3f5e349876dc340ecfc2cc4fceca6c534240"
+    },
+    {
+      "file": "victory-v1.mp3",
+      "durationSeconds": 1.76,
+      "bytes": 36615,
+      "sha256": "06ce95df5672e5d09f300fe2338eafeda10ceda592592987dea55542e3728e16"
+    },
+    {
+      "file": "defeat-v1.mp3",
+      "durationSeconds": 1.6,
+      "bytes": 33480,
+      "sha256": "fa9a58facce7d4ee60b76c5c7c5a7194d63a6a2904ec9e37a03eb6e668a3d88d"
+    }
+  ]
+}

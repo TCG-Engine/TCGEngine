@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "completed_utc": "2026-10-26T01:30:24.569655+00:00",
+  "plan_sha256": "140b18f41a75ce35c7347e35c13df5add537b413d3b22c9f7bc7ca0c0f856ceb",
+  "independent_saved_proof_sha256": "066c2243756274413fec6d4d20cb59a4f4647152815c021cd468dd7ebf1532af",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "batch214-one-causal-control-final405-plan.json",
+    "140b18f41a75ce35c7347e35c13df5add537b413d3b22c9f7bc7ca0c0f856ceb",
+    "card-regression-negative-controls-sparse214-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "exude_actual_paid_attacking_instant_power_two_tag_omission",
+      "fixture": "card-exude-confidence-red-four-live-sparse-real-paid-instant-from-owned-attacking-card-adds-two-power-and-damage",
+      "fixture_sha256": "bdff03c98b0a88c8d4cfa1da0e947a947a93d075fc9d810627eb0c455d6cd8f9",
+      "source_raw5": {
+        "initial_gamestate.txt": "c4aec4480bd8cb2a407bbd64f5feb43697c9146b18fda6cba34e7cb73e2dd01d",
+        "actions.json": "69a61a7377cd84941a71b435942293dfebcc9ad46db4c2e2125639ccf8233d8f",
+        "assertions.json": "3b45cf1053748598bd0e15758da603340b5c1f78eb3bd5242a4392d62de4367f",
+        "expected_final_gamestate.txt": "5752451846b72646f87ca2a91f51548be30878d8181c300ed4b9e4345c7f4617",
+        "meta.json": "de6d0242450d1264c3fb5ea34afd4af392d0077431838f4b7d0efde8a7a7ebca"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "exude_confidence_red",
+            "mode": "remove",
+            "tag": "WTR_POWER:2"
+          }
+        ]
+      },
+      "retained_assertions": 1117,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] exude_confidence_red / actual four-live sparse distinctive mechanic: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Exude0 attack/target/Action payment, then actualown attackingInstant3 paidbyBlue6 and fourrealresponses, omit only earned WTR_POWER:2 on actual physicalExude5 in P1CombatChain. Actualcost/AP/R0/Pitch/source5/removedproxy7/targets/printedbase4 all remain. Boundarycomputedpower6-to4 is firstInitial failure before laterexacttag and realHP14-to16 oracles. This isolates one earnedpower activation, not defenderrestriction/repeatactivation/otherwindows; no privateUID/history/cache/HP mutation.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

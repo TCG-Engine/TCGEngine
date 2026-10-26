@@ -1,0 +1,7 @@
+{
+    "name": "pyroglyphic_protection_red / four-live actual defensive passive",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-25T21:36:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P1/P4 legal young Verdance20. P4 owns active PyroglyphicRed6 at a legitimate midgame checkpoint; no synthetic prevention grant. Actual P1ZapRed5 target declaration precedes assets/responses, printed0/AP1 paid, all four living seats manually respond. Real printed3arcane is fully prevented, P4HP20 and actual arcaneDealt1to4=0; Aura6 remains active owned Arena and Zap5 ends public ownedGYFaceDown0. No cost2 Aura casting, start-action destruction, second packet or yellow/blue sibling credit. Sources: https://judge.fabtcg.com/cards/detail/1405/"
+}

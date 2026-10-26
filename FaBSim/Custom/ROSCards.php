@@ -17,6 +17,10 @@ function FaBROSShuffle(int $p,string $refs): void {$seats=[];foreach(FaBUPRUIDs(
 function FaBROSMark(int $uid,string $key): void {FaBARCSetCard($uid,'ros'.$key,true);}
 function FaBROSQueue(int $p,string $id,int $uid=0,array $extra=[]): void {if(!FaBSeatIsLive($p))return;AddStack(CardID:$id,Controller:$p,Kind:'ABILITY',SourceUniqueID:$uid,Params:['rosTrigger'=>true]+$extra);$s=FaBGetState();if($s['pendingPayment']===null)$s['window']='PRIORITY';FaBSetState($s);}
 function FaBROSResolveTrigger(int $p,object $o): void {
+ if($o->CardID==='cintari_saber'&&($o->Params['rosEvent']??'')==='cruCintariDefended'){FaBCRUResolveCintariDefended($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='eleBriarFirstAADamage'&&in_array($o->CardID,['briar','briar_warden_of_thorns'],true)){FaBWTRCreateArena($p,'embodiment_of_earth');return;}
+ if(($o->Params['rosEvent']??'')==='cruMauvrionRuneHit'){FaBARCCreateRunes($p,max(0,intval($o->Params['runeCount']??0)));return;}
+ if(($o->Params['rosEvent']??'')==='evrPhantasmalHazeDestroyed'&&FaBWTRBase($o->CardID)==='phantasmal_haze'){FaBWTRCreateArena($p,'spectral_shield');return;}
  if(($o->Params['rosEvent']??'')==='wtrIntimidateReturn'){FaBResolveIntimidateReturn($p,$o);return;}
  if($o->CardID==='embodiment_of_lightning'&&($o->Params['rosEvent']??'')==='eleEmbodimentLightning'){FaBELEResolveEmbodiment($p,$o);return;}
  if(($o->Params['rosEvent']??'')==='wtrAttackIntimidate'&&in_array(FaBWTRBase($o->CardID),['smash_instinct','pack_hunt','alpha_rampage'],true)){FaBWTRResolveAttackIntimidate($p,$o);return;}

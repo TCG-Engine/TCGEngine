@@ -1,0 +1,113 @@
+{
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "completed_utc": "2026-10-25T22:47:15.256697+00:00",
+  "plan_sha256": "dc42ce2c0bf58e5deac19dd7c94225afdf6b0a78cb2d835a827eff41f45a5d27",
+  "independent_saved_proof_sha256": "8435a3a98ef88a5cbca3d466c6b068c905d498869fa79204992aac83196e8116",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "batch205-three-causal-controls-final97-plan.json",
+    "dc42ce2c0bf58e5deac19dd7c94225afdf6b0a78cb2d835a827eff41f45a5d27",
+    "card-regression-negative-controls-sparse205-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "perch_actual_earned_faceup_arrow_go_again_grant_omission",
+      "fixture": "card-perch-grapplers-four-live-sparse-actual-paid-destroy-grants-earned-faceup-arrow-go-again",
+      "fixture_sha256": "5752506a76a5a552c8064c82a8a1838935c96028821d7942f20e731f0a594651",
+      "source_raw5": {
+        "initial_gamestate.txt": "0db902bab16d86ef23e00510e965075928bb7a4dd8d132ec835ccad16dc78cc4",
+        "actions.json": "5b0c8c07e31abc7c59edddf53d06b27f5681fdda56c3867bd2005eb5c321f4d3",
+        "assertions.json": "4f92a6ed22b31fe15f2d2b1a3e0a243e3e4157e0c5b03bd3cca980bd9f440c2d",
+        "expected_final_gamestate.txt": "325279ff020f04ccb9a8f6189582dff882218d128d2ba61a60e160cfe72a23dd",
+        "meta.json": "e888a172d555840dac4850b2a3111ab86ead76f9b3f58fe3cf7c1fbda6b9bb10"
+      },
+      "prefix_actions": 12,
+      "mutation": {
+        "remove_effect": "CRU_PERCH"
+      },
+      "retained_assertions": 2149,
+      "expected_failure_step": 6,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] perch_grapplers / actual four-live sparse distinctive mechanic: Step 6 assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual RedLiner load and paid/destroyed Perch have resolved with real faceUp history and own abilityGA, remove only naturally earned CRU_PERCH before actual Arrow declaration. Actual faceup SearingShot has no printedGA; CRUAttack no longer tags GO_AGAIN. First actual attack-entry computedGA1-to0 is intended, before futureAP difference. Physical source/ArsenalArrow/Bluepitch/target/costs preserved; full block/nohit keeps support hit branch inactive.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "contest_actual_opposing_aura_refill_reduction_suppressed",
+      "fixture": "card-contest-the-mindfield-blue-four-live-sparse-active-opposing-wizard-aura-reduces-real-endturn-refill",
+      "fixture_sha256": "86e221beec44e13ab30306d8379632acc00ed262f1c46b9806383ad2da863f30",
+      "source_raw5": {
+        "initial_gamestate.txt": "654ce16032f9808c5a11fba4630481fe10b0358b11ae2b3bc5614c2b191f2fd7",
+        "actions.json": "f9d738ea8f9f2fa15b5328878c348a590eeebe265635d3d2313e6d7b94de2ebb",
+        "assertions.json": "54faed722b2a73241be5fb5ad6b0f7a1be327ac50b06de7d5766545220c202d3",
+        "expected_final_gamestate.txt": "c392bd6d6a2ffee88942432bfc76ecb1a9eeaab884b9862c17791a123c5925fa",
+        "meta.json": "b1fa3b4ea9ee686267719d445188de96e4661762bccd796996e29f31ea5b465c"
+      },
+      "prefix_actions": 0,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "Arena",
+            "cardID": "contest_the_mindfield_blue",
+            "mode": "add",
+            "tag": "NO_ABILITIES"
+          }
+        ]
+      },
+      "retained_assertions": 574,
+      "expected_failure_step": 8,
+      "expected_failure": "Expected p1Hand count 3, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] contest_the_mindfield_blue / actual four-live sparse distinctive mechanic: Step 8 assertion failed: Expected p1Hand count 3, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Before the actual endturn passes, suppress only retained opposing Contest9. Actual intellect modifier counts unsuppressed FaBMONArena sources; real P1 endturn now draws four physical cards instead of three. Same turn passes, sourceCard/ownership, HP/economy remain. First physical Hand count3-to4 occurs before later remaining Deck/UID assertions. No intellect cache, card movement or endpoint Hand override.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "frailty_actual_owned_disease_weapon_penalty_suppressed",
+      "fixture": "card-frailty-four-live-sparse-active-owned-disease-reduces-real-paid-weapon-by-one",
+      "fixture_sha256": "30489f01693892ef6027e71eeab054b968d5b06dd1807c88b4f42b5849e8e59c",
+      "source_raw5": {
+        "initial_gamestate.txt": "d27b1529aed326136b50f48e1d739ef1dee45f73684b34eb07dbfcc73a97177c",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "c8383e4e1120df043f7e8f092ce99c413793ac75090820eaa9bb0f8dae09365a",
+        "expected_final_gamestate.txt": "15016599c0624e1ede2e30b74eada215bf44cedc72b3fc8480c34082bfb08bbb",
+        "meta.json": "544d6962efb10c8b20f39daaa06160a434926274e3d11e03b52878600195ddc6"
+      },
+      "prefix_actions": 3,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "Arena",
+            "cardID": "frailty",
+            "mode": "add",
+            "tag": "NO_ABILITIES"
+          }
+        ]
+      },
+      "retained_assertions": 1537,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 2, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] frailty / actual four-live sparse distinctive mechanic: Step 4 assertion failed: Expected p1CombatChain-0 computed power to equal 2, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual printed1 Dawnblade payment from Blue3 but before source resolution, suppress only own retained Frailty6. OUTPower counts unsuppressed FaBMONArena sources; actual paid weapon enters attack at printed3 instead of2. Sourceweapon/ownedDisease/pitch/target/resources/AP preserved. First actual attack-entry power2-to3 is intended; no cached or terminalHP substitution.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 3
+}

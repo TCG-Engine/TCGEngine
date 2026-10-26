@@ -28,3 +28,38 @@ php DevTools/FaB/CardRegression/components/intimidate_return_component.php $repo
 ```
 
 See [current repair handoff](../REPAIR_HANDOFF_20261024.md). Generation and focused qualification passed; broad compatibility remains unrun by request. Older22October failure receipts are historical.
+
+## Captured card triggers
+
+Fourteen contracts exercise actual extracted queue, dispatch, token-creation and Phantasm-resolution functions with controlled doubles. They cover per-grant capture, event-time suppression, source independence, creation-time modifiers and pending-layer priority. Actual physical movement, all-seat responses and token ownership are covered by the separate four-live regressions.
+
+```powershell
+$repo = (Get-Location).Path
+$triggerHashes = @('GameLogic.php','CRUCards.php','EVRCards.php','ROSCards.php','ARCCards.php') | ForEach-Object { (Get-FileHash -LiteralPath "FaBSim/Custom/$_" -Algorithm SHA256).Hash.ToLowerInvariant() }
+& 'C:\xampp\php\php.exe' DevTools/FaB/CardRegression/components/queued_card_trigger_component.php $repo @triggerHashes
+```
+
+The explicit hashes bind the actual current files; the existing shared component extractor is reused. No external proposal manifest, engine bootstrap or game storage is needed.
+
+## Briar first attack-action damage trigger
+
+Thirteen controlled contracts exercise actual extracted ELE damage/marker and ROS queue/dispatch functions. They check first-event eligibility, no early output, source capture, duplicate suppression and earned-source independence. Controlled dependencies do not add native variant, suppression-implementation or arcane-driver coverage. The unfused Stir four-live fixture separately tests real damage and all-seat responses.
+
+```powershell
+$repo = (Get-Location).Path
+$briarHashes = @('ELECards.php','ROSCards.php') | ForEach-Object { (Get-FileHash -LiteralPath "FaBSim/Custom/$_" -Algorithm SHA256).Hash.ToLowerInvariant() }
+& 'C:\xampp\php\php.exe' DevTools/FaB/CardRegression/components/briar_first_damage_trigger_component.php $repo @briarHashes
+```
+
+Supply the reviewed source hashes deliberately; the pure shared extractor is reused, with no engine bootstrap or game storage. See the batches 199–200 checkpoint for the qualified source versions and limits.
+
+## Native activated-ability lifetime
+
+Fifteen contracts extract the actual admission, await-frame tracker and work/pending gates. Three in-memory mutants must fail at contracts01 (admission),05 (frame ownership) and12 (frame-only work). External state and queues are controlled; actual AP/refund and source completion are covered by the separate Dreadbore/Opal/Deja/Rune and synchronous-item native witnesses.
+
+```powershell
+$gamePath = Join-Path (Get-Location).Path 'FaBSim/Custom/GameLogic.php'
+& 'C:\xampp\php\php.exe' DevTools/FaB/CardRegression/components/native_ability_frame_component.php $gamePath none
+```
+
+Append `classifier-allowlist`, `frame-allowlist` or `ignore-frame-only` instead of `none` for the mutation controls. Each must exit1 at its named contract; the ordinary run exits0. Source SHA82a10388 and the existing shared tokenizer hash are guarded. The retained bytes are identical to the executed portable copy; no duplicate validation run was needed.

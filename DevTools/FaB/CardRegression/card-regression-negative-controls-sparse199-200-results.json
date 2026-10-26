@@ -1,0 +1,147 @@
+{
+  "runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+  "completed_utc": "2026-10-25T20:54:11.748743+00:00",
+  "plan_sha256": "5c3f8ba8f85a2bc241a5caa545a31cf8378a836f39ccf880a9982959fac7a9d7",
+  "independent_saved_proof_sha256": "b1bc5d4f554fb6460636f027c757eed6ec490be1a11dd1616177c28739d5a747",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "batch199-200-four-causal-controls-final6e-plan.json",
+    "5c3f8ba8f85a2bc241a5caa545a31cf8378a836f39ccf880a9982959fac7a9d7",
+    "card-regression-negative-controls-sparse199-200-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "skullcap_actual_conditional_defense_gain_disabled",
+      "fixture": "card-arcanite-skullcap-four-live-sparse-actual-lower-life-conditional-defense-stable-damage",
+      "fixture_sha256": "439f76fee973b5a7e2c93ef0262b1fe3561b1cb7d63f737372dbff87dd60acf1",
+      "source_raw5": {
+        "initial_gamestate.txt": "cd876ac7fab588ce9281d62a52464dac41921f4a9464d3b478897e431a726973",
+        "actions.json": "56e909297196ec665c2d9730260ba261ff62742a64b5e24f4d5325ccd6daac00",
+        "assertions.json": "df2173b387aabe34938202e4a6a0f88397efd687f6656d54148412a34d7bc2a8",
+        "expected_final_gamestate.txt": "aa044829910d48c956540627398e7ab41e12c76daf9c201ca3a7dce0523f8629",
+        "meta.json": "cd1b8cd8ea382b4c52792cb86925cc34bee1b403b5b878dd0295d1f28c3aaf99"
+      },
+      "prefix_actions": 16,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "add",
+            "tag": "SUP_NO_DEFENSE_GAIN"
+          }
+        ]
+      },
+      "retained_assertions": 397,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p4Health to equal 17, got 16.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] arcanite_skullcap / four-live actual defensive passive: Step 4 assertion failed: Expected p4Health to equal 17, got 16.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Skullcap6 defends with lower-life P4HP19, add only existing SUP_NO_DEFENSE_GAIN to actualWB5 before physicaldamage. Printed equipmentbase1, physicalcard and economy stay. Sole conditional+1 cannot apply, so actual4damage minus1defense leaks3: P4HP17-to16 is first changed savedoracle. No cacheddefense/terminalHP mutation; stableDAMAGE fixture doesnot claim Battleworn/close.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "pyro_actual_aura_prevention_disabled",
+      "fixture": "card-pyroglyphic-protection-red-four-live-sparse-active-owned-aura-prevents-real-three-arcane",
+      "fixture_sha256": "e869a755a765291644393da98bc6813b8752c2ccde7188824145a5956d08c0fc",
+      "source_raw5": {
+        "initial_gamestate.txt": "5fc3a0f889f3e363ed4f20b640f37de9d2695d9c2089e2782468f0e240a2169a",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "faa1afaaa12a6befcef5d39d27432de140ac21e17fc3209e63a80d2451b6959e",
+        "expected_final_gamestate.txt": "01b85b920a915a85c40e032ef2dc74c971a2eb2905183a929a651f199c4d4389",
+        "meta.json": "f44cf40db404eb73bfa51d3612fb2d9207fe0a09aff2c6975b3a3c5bd02f2ef6"
+      },
+      "prefix_actions": 2,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "Arena",
+            "cardID": "pyroglyphic_protection_red",
+            "mode": "add",
+            "tag": "NO_ABILITIES"
+          }
+        ]
+      },
+      "retained_assertions": 296,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p4Health to equal 20, got 17.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] pyroglyphic_protection_red / four-live actual defensive passive: Step 4 assertion failed: Expected p4Health to equal 20, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Zap5 announcement/target and before four real source responses, add only NO_ABILITIES to physicalPyroAura6. FaBMONArena exclusion disables this Aura prevention while retaining its physicalpresence/owner/controller/status. Real Zap3 causes P4HP20-to17. This is source-ability omission, no Aura deletion or globalHP flip.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "melody_actual_prevention_application_disabled",
+      "fixture": "card-enchanting-melody-red-four-live-sparse-active-owned-aura-consumed-preventing-real-four",
+      "fixture_sha256": "66aca6404de59d98916c008f32941347b27cde93a60ac3b68ad685e88d91826c",
+      "source_raw5": {
+        "initial_gamestate.txt": "1b310bd078860cc1eeba703d1e4c2977e732e5a80d55c931f4a3770ab85cc455",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "49a2132746fc0c74c40b181e0e458be55df4fc6ee785691732111f79837133fe",
+        "expected_final_gamestate.txt": "abdac2717d338c9bb8dc7b8b46cad2f6364e185180bffa3ba3529880321442dd",
+        "meta.json": "ee88daa4f218f38895108f82ce9359033d71056e0b8bf3a340e0d4c0511ab16e"
+      },
+      "prefix_actions": 15,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "wounding_blow_red",
+            "mode": "add",
+            "tag": "UPR_UNPREVENTABLE"
+          }
+        ]
+      },
+      "retained_assertions": 711,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p4Health to equal 20, got 16.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] enchanting_melody_red / four-live actual defensive passive: Step 4 assertion failed: Expected p4Health to equal 20, got 16.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Before actual WB5damage, add only existing UPR_UNPREVENTABLE to attack. NormalDoDamage skips prevention including Melody; real4 hits P4HP20-to16. PrimaryAura/economy retained at mutation, originalsuffix also retains its correctpositive consumption/destination expectations. This controls prevention application only, not independently isolates self-destruction timing or a legal alternate Aura-play branch.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "rain_actual_resolved_arrow_bonus_omitted_before_arrow",
+      "fixture": "card-rain-razors-yellow-four-live-sparse-real-arrow-plus-two-and-six-damage",
+      "fixture_sha256": "6dac52dc5613c405ffac6e0b21d003e5529327f9ef61a41d3f293bf42c6d1897",
+      "source_raw5": {
+        "initial_gamestate.txt": "7e1a3a1b669877dce53aeed714c9b4f5c9e47fbf632ca23186eca2a12c537575",
+        "actions.json": "46f51134685cb98f0142fd6c6c574c2131e1e5047254b7e015c86141097297ab",
+        "assertions.json": "69ed7474413925b437681e3ffad7844659bcb62610b086b267b2bcc5c28915ea",
+        "expected_final_gamestate.txt": "a27e0efd65fdff58cdfd00abb67835db9b707835e3bec050bb76ab73bb3932ce",
+        "meta.json": "a9faeef8173711d5d06cac6085cc37a74c89d104bd530dee8e9373dc6491444b"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "EVR_RAIN"
+      },
+      "retained_assertions": 1736,
+      "expected_failure_step": 7,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] rain_razors_yellow / four live distinctive effect: Step 7 assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Rain5 resolution and BEFORE realArrow6 declaration, remove only unique globalEVR_RAIN. Keep actual physicalRainGY, faceDownArsenalArrow, real Bluepitch/costs/target, Bow and allsuffix. At actualArrowentry computed6-to4 is first changed oracle; later unblocked damage6-to4 remains in retainedsuffix. Exactlyone global type required; no resource/HP/Arrowidentity mutation or full-other-player-arrow coverage.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

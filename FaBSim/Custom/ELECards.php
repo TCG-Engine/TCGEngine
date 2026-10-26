@@ -133,7 +133,11 @@ function FaBELEDamageBonus(int $p,string $ref,int $n,string $type): int {
 }
 function FaBELEDamaged(int $p,int $target,int $n,string $ref): void {
     if($n<=0)return;FaBELEAdd($target,'DAMAGED',$n);$f=FaBIdentityFromMZ($ref);if(!$f)return;$o=$f['object'];$uid=intval($o->UniqueID);$b=FaBWTRBase($o->CardID);
-    if(FaBWTRIsAttackAction($o)&&in_array($target,FaBOpponents($p),true)&&FaBWTRHeroActive($p)&&in_array((GetHero($p)[0]->CardID??''),['briar','briar_warden_of_thorns'],true)&&!FaBELECount($p,'BRIAR')){FaBELEAdd($p,'BRIAR');FaBWTRCreateArena($p,'embodiment_of_earth');}
+    if(FaBWTRIsAttackAction($o)&&in_array($target,FaBOpponents($p),true)&&FaBWTRHeroActive($p)&&in_array((GetHero($p)[0]->CardID??''),['briar','briar_warden_of_thorns'],true)&&!FaBELECount($p,'BRIAR')){
+        FaBELEAdd($p,'BRIAR');
+        $hero=GetHero($p)[0];
+        FaBROSQueue($p,(string)$hero->CardID,intval($hero->UniqueID),['rosEvent'=>'eleBriarFirstAADamage']);
+    }
     if($b==='explosive_growth'&&FaBELEFused($uid))FaBELEAdd($p,'CHAIN_POWER');
     if($b==='light_it_up'&&$n>=count(FaBChoiceRefs($target,'Equipment')))FaBWTRAddEffect($target,'ELE_NO_EQUIPMENT',1,['expiresAfterTurnOf'=>$target]);
     if(FaBWTRIsAttackAction($o)||FaBWTRIsWeapon($o)){

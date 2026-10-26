@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T01:23:38+00:00",
+    "input_file": "card-regression-batch215.json",
+    "input_sha256": "c9c9ad94b6d1309a8102fa60710ed12c4f69b9adbc399475299070bc9cc27084",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-blood-drop-brocade-four-live-sparse-real-physical-damage-earns-instant-resource",
+            "status": "recorded_semantically_checked",
+            "actions": 32,
+            "assertions": 1965
+        }
+    ]
+}

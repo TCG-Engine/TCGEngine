@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch214.json",
+  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T01:26:29.419956+00:00",
+  "fixtures": [
+    {
+      "slug": "card-reaping-blade-four-live-sparse-actual-heal-earns-unique-life-lead-then-blade-prevents-second-heal",
+      "fixture_sha256": "1db9af62a7dd1018c17f892cb21bca218a2508afc485c6635a622ce7ef22533f",
+      "passed": true,
+      "result": "[PASS] reaping_blade / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-nerves-of-steel-blue-four-live-sparse-owned-aura-suppresses-battleworn-on-actual-two-power-weapon-block",
+      "fixture_sha256": "65c28ce69f801f912c75c6b09b4cbf7b17cbb7c6cfd59c8f86d9522ab62eb60e",
+      "passed": true,
+      "result": "[PASS] nerves_of_steel_blue / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-exude-confidence-red-four-live-sparse-real-paid-instant-from-owned-attacking-card-adds-two-power-and-damage",
+      "fixture_sha256": "bdff03c98b0a88c8d4cfa1da0e947a947a93d075fc9d810627eb0c455d6cd8f9",
+      "passed": true,
+      "result": "[PASS] exude_confidence_red / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-reaping-blade-four-live-sparse-actual-heal-earns-unique-life-lead-then-blade-prevents-second-heal",
+      "returncode": 0,
+      "stdout": "[PASS] reaping_blade / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-nerves-of-steel-blue-four-live-sparse-owned-aura-suppresses-battleworn-on-actual-two-power-weapon-block",
+      "returncode": 0,
+      "stdout": "[PASS] nerves_of_steel_blue / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-exude-confidence-red-four-live-sparse-real-paid-instant-from-owned-attacking-card-adds-two-power-and-damage",
+      "returncode": 0,
+      "stdout": "[PASS] exude_confidence_red / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

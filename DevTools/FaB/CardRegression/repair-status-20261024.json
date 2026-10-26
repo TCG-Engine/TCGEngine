@@ -607,7 +607,7 @@
     {
       "key": "named_plain_lifecycle",
       "existing_issue_id": null,
-      "mechanism": "Bounded 17-ID ordinary spell source/AP lifetime",
+      "mechanism": "Bounded named ordinary-spell source/AP lifetime, including Blood Tribute family admission",
       "source_paths": [
         "FaBSim/Custom/GameLogic.php",
         "FaBSim/Custom/DYNCards.php"
@@ -660,12 +660,36 @@
           "review_evidence": "review-evidence/repair194-20261024-qualified-saved-review.json"
         }
       ],
-      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated.",
+      "historical_mechanism": "Bounded 17-ID ordinary spell source/AP lifetime",
+      "later_breadth_extensions": [
+        {
+          "issue_id": "FAB-REG-047",
+          "new_distinct_root_cause_group": false,
+          "runtime_sha256": "62e93306ebcaaf4c306d43e164117b4538a84db2ca29cad001779db5c704aae3",
+          "evidence": "review-evidence/blood-tribute-plain-lifecycle-before-after-20261026.json",
+          "source_paths": [
+            "FaBSim/Custom/GameLogic.php"
+          ],
+          "native_representative": {
+            "path": "Tests/Integration/FaBSim/card-blood-tribute-red-four-live-correct-source-lifetime-real-opt-three-then-physical-banish",
+            "source_spec": "card-regression-batch209-blood-tribute-probe.json",
+            "review_evidence": "review-evidence/blood-tribute-red-20261026-qualified-saved-review.json"
+          },
+          "native_body_credit": [
+            "blood_tribute_red"
+          ],
+          "classifier_only_untested_siblings": [
+            "blood_tribute_yellow",
+            "blood_tribute_blue"
+          ]
+        }
+      ]
     },
     {
       "key": "managed_virtual_lifetime",
       "existing_issue_id": null,
-      "mechanism": "Opal/Deja ability and marked Runechant proxy lifetime",
+      "mechanism": "Native non-trigger arcSpec activated abilities and exact marked Runechant proxy lifetime",
       "source_paths": [
         "FaBSim/Custom/GameLogic.php",
         "FaBSim/Custom/ARCAbilities.php"
@@ -693,7 +717,24 @@
           "review_evidence": "review-evidence/repair193-20261024-qualified-saved-review.json"
         }
       ],
-      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated."
+      "scope": "Primary IDs and tested branches only; source-only siblings and broad alternatives are not validated.",
+      "historical_mechanism": "Opal/Deja ability and marked Runechant proxy lifetime",
+      "later_breadth_extensions": [
+        {
+          "issue_id": "FAB-REG-046",
+          "new_distinct_root_cause_group": false,
+          "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+          "evidence": "review-evidence/sparse203-dreadbore-managed-lifetime-before-after.json",
+          "source_paths": [
+            "FaBSim/Custom/GameLogic.php"
+          ],
+          "native_representative": {
+            "path": "Tests/Integration/FaBSim/card-dreadbore-four-live-sparse-correct-expectation-paid-load-await-layer-and-go-again-lifetime",
+            "source_spec": "card-regression-batch203.json",
+            "review_evidence": "review-evidence/sparse203-20261025-qualified-saved-review.json"
+          }
+        }
+      ]
     },
     {
       "key": "runechant_consumption",
@@ -850,6 +891,31 @@
       ],
       "new_native_qualified_scenarios": 1,
       "scope": "Exact Red identity; source family normalization coversRGB mechanically but no native sibling credit."
+    },
+    {
+      "key": "effect_pitch_source_context",
+      "existing_issue_id": "FAB-REG-048",
+      "mechanism": "Preserve enclosing sharedsourceMZ independently of already-correct caster around nested effect-pitch callbacks",
+      "source_paths": [
+        "FaBSim/Custom/ARCCards.php"
+      ],
+      "source_patch_applied": true,
+      "generated_dependency": false,
+      "canonical_regeneration_pending": false,
+      "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+      "new_native_qualified_scenarios": 1,
+      "native_representatives": [
+        {
+          "path": "Tests/Integration/FaBSim/card-aether-sink-yellow-four-live-sparse-actual-steam-cost-grants-barrier-two-and-paid-opposing-arcane-prevention",
+          "source_spec": "card-regression-batch211.json",
+          "review_evidence": "review-evidence/sparse211-405-qualified-saved-review.json"
+        }
+      ],
+      "status": "QUALIFIED_BOUNDED_NATIVE_REPAIR_WITH_EXPLICIT_COMPONENT_AND_COMPATIBILITY_LIMITS",
+      "evidence": "review-evidence/sparse211-effect-pitch-source-context-before-after.json",
+      "related_prior_issue": "FAB-REG-041",
+      "distinct_mechanism_from_prior_caster": true,
+      "scope": "One wrong-source context defect; actualSinkfunding plus actualtwoPitchWellingtoncompatibility. No globalcallback/Core/cardbody/async-order certification."
     }
   ],
   "counting_note": "18 repair work groups overlap earlier mechanisms and one another; not18 independent new bugs.22 exact current representative scenarios qualify; group scenario counts overlap and must not be summed. Original27 historical grouped fixes are not retagged or added mechanically.",
@@ -877,5 +943,8 @@
   ],
   "current_validation": "repair-validation-20261024.json",
   "generation_status": "SUCCESS; previous HTTP521 and pending notes are dated historical checkpoint evidence.",
-  "historical_note": "historical_issue_rows and historical_checkpoint_evidence deliberately retain original dates/statuses; current status, representatives and validation supersede those pending notes without rewriting history."
+  "historical_note": "historical_issue_rows and historical_checkpoint_evidence deliberately retain original dates/statuses; current status, representatives and validation supersede those pending notes without rewriting history.",
+  "later_breadth_extension_note": "FAB-REG-046 extends the existing managed_virtual_lifetime group. Historical Oct24 runtime, counts and three named representatives remain their original context; this extension adds one separately qualified Dreadbore representative at97, not a new distinct root cause.",
+  "later_named_plain_extension_note": "FAB-REG-047 extends named_plain_lifecycle. Historical Oct24 runtime/counts/representatives remain their context; only Red adds a native-qualified representative at62. RGB source admission contracts confer no sibling-body credit or new distinct rootcause.",
+  "later_effect_pitch_context_note": "048 is one distinct source-reference context defect; prior041 caster attribution was alreadycorrect in the new native trace. Historical Oct24 runtime/counts retained, not blanket405corpus qualification."
 }

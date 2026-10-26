@@ -1,0 +1,68 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch193.json",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T21:43:35.404632+00:00",
+  "fixtures": [
+    {
+      "slug": "repair-opal-amulet-blue-four-live-watery-trigger-then-pending-opt-two-physical-order",
+      "fixture_sha256": "88a6e667f7433a3cd0150e1cfcff02deb6b3d7699e3cfeb2be9a16cfa9359d9d",
+      "passed": true,
+      "result": "[PASS] Opal Amulet / four live known lifecycle repair"
+    },
+    {
+      "slug": "repair-potion-of-deja-vu-blue-four-live-actual-own-pitch-staging-top-order-and-pending-layer",
+      "fixture_sha256": "a18c2d65210d3a02a078bbaad24c7fa293ae1fb7539e1ef1bff92fe02e4dbd74",
+      "passed": true,
+      "result": "[PASS] Potion of Deja Vu / four live known Pitch and lifecycle repair"
+    },
+    {
+      "slug": "card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation",
+      "fixture_sha256": "72e9bd4001b146a1385ccb5f2694db0e3ab1344398d792fbbeb3a03718222ecc",
+      "passed": true,
+      "result": "[PASS] Runechant / delayed physical destruction and live source through barrier choice"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=repair-opal-amulet-blue-four-live-watery-trigger-then-pending-opt-two-physical-order",
+      "returncode": 0,
+      "stdout": "[PASS] Opal Amulet / four live known lifecycle repair\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=repair-potion-of-deja-vu-blue-four-live-actual-own-pitch-staging-top-order-and-pending-layer",
+      "returncode": 0,
+      "stdout": "[PASS] Potion of Deja Vu / four live known Pitch and lifecycle repair\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation",
+      "returncode": 0,
+      "stdout": "[PASS] Runechant / delayed physical destruction and live source through barrier choice\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+    "card-battle-prep-red-four-live-repair-opt-two-source-stack-until-answer-before-go-again",
+    "card-blasmophets-boon-blue-four-live-repair-controlled-blasmophet-base-six-real-damage",
+    "card-chorus-of-rotwood-red-four-live-repair-empty-graveyard-source-stays-stack-three-runechants",
+    "card-flying-high-blue-four-live-bugfix-actual-blue-next-attack-receives-matching-color-plus-one-and-go-again",
+    "card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+    "card-head-shot-red-four-live-sparse-actual-face-up-load-queues-four-live-trigger-then-real-arrow-power-six",
+    "card-icy-encounter-red-four-live-repair-hit-trigger-creates-creator-owned-opposing-frostbite",
+    "card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+    "card-regain-composure-blue-four-live-repair-granted-hit-trigger-delays-hero-untap",
+    "card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+    "card-talisman-of-warfare-yellow-four-live-repair-trigger-priority-and-public-arsenals",
+    "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+    "fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+    "repair-bloodtorn-bodice-four-live-real-aura-declaration-action-asset-before-both-destructions",
+    "repair-laden-with-lightning-four-live-real-bond-next-attack-and-responseable-embodiment-trigger"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

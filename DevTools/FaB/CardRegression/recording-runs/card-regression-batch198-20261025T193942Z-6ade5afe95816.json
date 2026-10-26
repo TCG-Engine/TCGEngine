@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-25T19:39:42+00:00",
+    "input_file": "card-regression-batch198.json",
+    "input_sha256": "58abbb7225f6173ac2f640d015fc98c6c6c4ca26295b8d5c1b113a423943e3fe",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-mauvrion-skies-red-four-live-correct-earned-hit-trigger-before-three-runechants",
+            "status": "recorded_semantically_checked",
+            "actions": 37,
+            "assertions": 2152
+        },
+        {
+            "slug": "card-phantasmal-haze-red-four-live-correct-phantasm-then-responseable-destroyed-shield-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 21,
+            "assertions": 1236
+        }
+    ]
+}

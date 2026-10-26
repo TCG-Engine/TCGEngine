@@ -508,6 +508,273 @@
         "scope": "Only exact primary identity/representative and documented mechanism; other branches/siblings remain untested."
       },
       "historical_native_attempted_before_repair": false
+    },
+    {
+      "group_id": "identity:art_of_war_yellow",
+      "card_id": "art_of_war_yellow",
+      "status": "source_only_unattempted_declaration_timing_concern",
+      "reason": "Modal choice is only in ResolveCard; no PrepareCard mode declaration before payment/response.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "first_seen_runtime_sha256": "de0a7c62f376a9eec473f30d9602589f86ca6b04085589213f8e2cb92cac0ed3",
+      "reviewed_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+      "source_batches": [
+        196,
+        197
+      ],
+      "scope": "Selected positive recipe held. Source inspection is not a native reproducer or passing regression; no cycle or sibling credit."
+    },
+    {
+      "group_id": "identity:tome_of_aetherwind_red",
+      "card_id": "tome_of_aetherwind_red",
+      "status": "source_only_unattempted_declaration_timing_concern",
+      "reason": "ResolveCard selects modes sequentially while resolving and can draw before the second mode is chosen; declaration must precede payment/response.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "first_seen_runtime_sha256": "de0a7c62f376a9eec473f30d9602589f86ca6b04085589213f8e2cb92cac0ed3",
+      "reviewed_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+      "source_batches": [
+        196,
+        197
+      ],
+      "scope": "Selected positive recipe held. Source inspection is not a native reproducer or passing regression; no cycle or sibling credit."
+    },
+    {
+      "group_id": "pitch-cycle:reinforce_the_line",
+      "card_id": "reinforce_the_line_red",
+      "status": "source_only_unattempted_declaration_timing_concern",
+      "reason": "Defending attack-action target choice exists only during resolution; no declaration/Prepare binding before payment and response.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "first_seen_runtime_sha256": "de0a7c62f376a9eec473f30d9602589f86ca6b04085589213f8e2cb92cac0ed3",
+      "reviewed_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+      "source_batches": [
+        196,
+        197
+      ],
+      "scope": "Selected positive recipe held. Source inspection is not a native reproducer or passing regression; no cycle or sibling credit."
+    },
+    {
+      "group_id": "identity:halo_of_illumination",
+      "card_id": "halo_of_illumination",
+      "held_branch": "Selected scouting route only",
+      "status": "source_only_unattempted_branch_concern",
+      "reason": "Current MON PrepareCard moves a chosen Hand card to Soul and records monDraw before FaBFinishPreparedCard/payment, while printed post-colon movement is an effect. No exact local override found in bounded CodeGeneration/GameLogic/CardChoices read. Excluded rather than pin early movement.",
+      "source": "DevTools/FaB/mon_abilities.json Halo PrepareCard; Custom/MONAbilities.php registry; no broad audit.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "primary_representative_may_cover_other_branches": false,
+      "reviewed_runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+      "source_batches": [
+        201
+      ]
+    },
+    {
+      "group_id": "identity:optekal_monocle_blue",
+      "card_id": "optekal_monocle_blue",
+      "held_branch": "Selected scouting route only",
+      "status": "shared_lifecycle_corrected_named_positive_branch_verified",
+      "reason": "Current ResolveAbility macros await choices; GameLogic managed virtual exact allowlist only OpalAmulet/DejaVu. Generic ability branch removes proxy before invoking body; Optekal can award ability GA before awaiting Opt is complete. Excluded to avoid blessing lifecycle intermediate timing; no new engine repair proposed.",
+      "source": "Custom/GameLogic.php FaBManagedVirtualResolutionClass/DoResolveCard; Custom/ARCAbilities.php FaBARCResolveAbility; DevTools/FaB/arc_abilities.json/dyn_abilities.json.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "primary_representative_may_cover_other_branches": false,
+      "reviewed_runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+      "source_batches": [
+        201
+      ],
+      "historical_source_only_status": "source_only_unattempted_branch_concern",
+      "native_before_attempted": false,
+      "native_after_attempted": true,
+      "named_positive_review": "review-evidence/sparse204-20261025-qualified-saved-review.json",
+      "named_positive_source": "card-regression-batch204.json",
+      "qualification": "Shared native ability lifecycle changed at97ed; this named bottom/draw or Opt branch has its own exact saved review and two replays. No before-card native failure, whole-card, empty-Steam, alternate choices or sibling credit inherited."
+    },
+    {
+      "group_id": "identity:ornate_tessen",
+      "card_id": "ornate_tessen",
+      "held_branch": "Selected scouting route only",
+      "status": "shared_lifecycle_corrected_named_positive_branch_verified",
+      "reason": "Current ResolveAbility macros await choices; GameLogic managed virtual exact allowlist only OpalAmulet/DejaVu. Generic ability branch removes proxy before invoking body; Optekal can award ability GA before awaiting Opt is complete. Excluded to avoid blessing lifecycle intermediate timing; no new engine repair proposed.",
+      "source": "Custom/GameLogic.php FaBManagedVirtualResolutionClass/DoResolveCard; Custom/ARCAbilities.php FaBARCResolveAbility; DevTools/FaB/arc_abilities.json/dyn_abilities.json.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "primary_representative_may_cover_other_branches": false,
+      "reviewed_runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+      "source_batches": [
+        201
+      ],
+      "historical_source_only_status": "source_only_unattempted_branch_concern",
+      "native_before_attempted": false,
+      "native_after_attempted": true,
+      "named_positive_review": "review-evidence/sparse204-20261025-qualified-saved-review.json",
+      "named_positive_source": "card-regression-batch204.json",
+      "qualification": "Shared native ability lifecycle changed at97ed; this named bottom/draw or Opt branch has its own exact saved review and two replays. No before-card native failure, whole-card, empty-Steam, alternate choices or sibling credit inherited."
+    },
+    {
+      "group_id": "identity:plasma_purifier_red",
+      "card_id": "plasma_purifier_red",
+      "held_branch": "Activation while STEAM is already positive",
+      "status": "source_only_unattempted_branch_concern",
+      "reason": "ARC ability eligibility rejects charging while already charged even though printed condition belongs to the resolving effect. Unattempted; positive zero-to-one branch separately reviewed.",
+      "source": "FaBSim/Custom/ARCAbilities.php FaBARCAbilities",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "primary_representative_may_cover_other_branches": true,
+      "reviewed_runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+      "source_batches": [
+        201
+      ]
+    },
+    {
+      "group_id": "pitch-cycle:strong_wood",
+      "card_id": "strong_wood_red",
+      "status": "source_only_preflight_unattempted",
+      "branch": "implementation_discovery",
+      "reason": "Exact selected generated/native implementation route not located in bounded preflight; availability not inferred from lack of a literal.",
+      "scope": "Investigation work note only. Bounded source concern, not a confirmed gameplay defect, blanket veto or validated card behavior.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "next_step": "Resolve against current implementation and a correct-expectation native scenario before assigning passing coverage or confirming a bug.",
+      "noted_utc": "2026-10-26T01:22:06.773728+00:00"
+    },
+    {
+      "group_id": "identity:bone_basher",
+      "card_id": "bone_basher",
+      "status": "source_only_preflight_unattempted",
+      "branch": "implementation_discovery",
+      "reason": "No selected concrete weapon activation route located in bounded preflight; not a native rejection or proof of nonimplementation.",
+      "scope": "Investigation work note only. Bounded source concern, not a confirmed gameplay defect, blanket veto or validated card behavior.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "next_step": "Resolve against current implementation and a correct-expectation native scenario before assigning passing coverage or confirming a bug.",
+      "noted_utc": "2026-10-26T01:22:06.773728+00:00"
+    },
+    {
+      "group_id": "identity:sonic_boom_yellow",
+      "card_id": "sonic_boom_yellow",
+      "status": "source_only_preflight_unattempted",
+      "branch": "pending_spell_lifecycle",
+      "reason": "Selected resolving body awaits choices while known managed plain-spell admission excludes this identity; correct source/lifetime probe remains unrun.",
+      "scope": "Investigation work note only. Bounded source concern, not a confirmed gameplay defect, blanket veto or validated card behavior.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "next_step": "Resolve against current implementation and a correct-expectation native scenario before assigning passing coverage or confirming a bug.",
+      "noted_utc": "2026-10-26T01:22:06.773728+00:00"
+    },
+    {
+      "group_id": "identity:amulet_of_oblation_blue",
+      "card_id": "amulet_of_oblation_blue",
+      "status": "source_only_preflight_unattempted",
+      "branch": "target_declaration",
+      "reason": "Selected target choice appears within resolution; announcement-target route not established in bounded source review.",
+      "scope": "Investigation work note only. Bounded source concern, not a confirmed gameplay defect, blanket veto or validated card behavior.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "next_step": "Resolve against current implementation and a correct-expectation native scenario before assigning passing coverage or confirming a bug.",
+      "noted_utc": "2026-10-26T01:22:06.773728+00:00"
+    },
+    {
+      "group_id": "identity:plume_of_evergrowth",
+      "card_id": "plume_of_evergrowth",
+      "status": "source_only_preflight_unattempted",
+      "branch": "target_declaration",
+      "reason": "Current cost3 and Earth-only target were identified, but correct declaration-time physical target route is not established.",
+      "scope": "Investigation work note only. Bounded source concern, not a confirmed gameplay defect, blanket veto or validated card behavior.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "next_step": "Resolve against current implementation and a correct-expectation native scenario before assigning passing coverage or confirming a bug.",
+      "noted_utc": "2026-10-26T01:22:06.773728+00:00"
+    },
+    {
+      "group_id": "pitch-cycle:razors_edge",
+      "card_id": "razors_edge_red",
+      "status": "source_only_preflight_unattempted",
+      "branch": "target_declaration",
+      "reason": "Selected generated target chooser appears during resolution; correct declaration-target flow requires native verification.",
+      "scope": "Investigation work note only. Bounded source concern, not a confirmed gameplay defect, blanket veto or validated card behavior.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "next_step": "Resolve against current implementation and a correct-expectation native scenario before assigning passing coverage or confirming a bug.",
+      "noted_utc": "2026-10-26T01:22:06.773728+00:00"
+    },
+    {
+      "group_id": "pitch-cycle:flex",
+      "card_id": "flex_red",
+      "status": "source_only_preflight_unattempted",
+      "branch": "implementation_discovery",
+      "reason": "Current printed attack/defend payment condition identified, but corresponding concrete positive implementation route was not located in selected sources.",
+      "scope": "Investigation work note only. Bounded source concern, not a confirmed gameplay defect, blanket veto or validated card behavior.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "next_step": "Resolve against current implementation and a correct-expectation native scenario before assigning passing coverage or confirming a bug.",
+      "noted_utc": "2026-10-26T01:22:06.773728+00:00"
+    },
+    {
+      "group_id": "pitch-cycle:sigil_of_shelter",
+      "card_id": "sigil_of_shelter_yellow",
+      "status": "source_only_preflight_unattempted",
+      "branch": "implementation_discovery",
+      "reason": "Current printed Instant prevention2 identified; exact selected generated/native prevention route not located in bounded preflight.",
+      "scope": "Investigation work note only. Bounded source concern, not a confirmed gameplay defect, blanket veto or validated card behavior.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "next_step": "Resolve against current implementation and a correct-expectation native scenario before assigning passing coverage or confirming a bug.",
+      "noted_utc": "2026-10-26T01:22:06.773728+00:00"
+    },
+    {
+      "group_id": "identity:voltaire_strike_twice",
+      "card_id": "voltaire_strike_twice",
+      "status": "source_only_preflight_unattempted",
+      "branch": "modal_declaration",
+      "reason": "Draft selected Power after response and load; independent rules review requires modal declaration earlier. Draft excluded from runnable corpus; no native probe performed.",
+      "scope": "Investigation work note only. Bounded source concern, not a confirmed gameplay defect, blanket veto or validated card behavior.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "next_step": "Resolve against current implementation and a correct-expectation native scenario before assigning passing coverage or confirming a bug.",
+      "noted_utc": "2026-10-26T01:22:06.773728+00:00"
+    },
+    {
+      "group_id": "identity:crown_of_seeds",
+      "card_id": "crown_of_seeds",
+      "status": "source_only_preflight_unattempted",
+      "branch": "asset_before_effect_cost",
+      "reason": "Source preparation appears to move the facedown Arsenal cost before resource payment. Current CR5.1.7 then5.1.9 and5.2.2b require asset-costs before effect-costs; native confirmation remains unrun.",
+      "scope": "Investigation work note only. Bounded source concern, not a confirmed gameplay defect, blanket veto or validated card behavior.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "next_step": "Resolve against current implementation and a correct-expectation native scenario before assigning passing coverage or confirming a bug.",
+      "noted_utc": "2026-10-26T01:22:06.773728+00:00"
+    },
+    {
+      "group_id": "identity:blossom_of_spring",
+      "card_id": "blossom_of_spring",
+      "status": "source_only_preflight_unattempted",
+      "branch": "implementation_discovery",
+      "reason": "Current activation/body route not located in bounded custom/snapshot/generated checks; no native action attempted.",
+      "scope": "Investigation work note only. Bounded source concern, not a confirmed gameplay defect, blanket veto or validated card behavior.",
+      "native_attempted_for_this_hold": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false,
+      "next_step": "Resolve against current implementation and a correct-expectation native scenario before assigning passing coverage or confirming a bug.",
+      "noted_utc": "2026-10-26T01:22:06.773728+00:00"
     }
   ],
   "external_notes": {
@@ -535,5 +802,14 @@
   ],
   "updated_utc": "2026-10-24T17:46:53.549434+00:00",
   "historical_runtime_sha256": "e94720ede760f8364583450069c93d68771f7311a641aeab5f0f790c1539df27",
-  "planning_field_note": "historical_native_attempted_before_repair retains the original source-only inventory flag; native_attempted_for_this_hold now reflects completed repair execution. Current status/evidence remain bounded."
+  "planning_field_note": "historical_native_attempted_before_repair retains the original source-only inventory flag; native_attempted_for_this_hold now reflects completed repair execution. Current status/evidence remain bounded.",
+  "appended_196_198_utc": "2026-10-25T20:29:12.150760+00:00",
+  "appended_196_198_context": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+  "appended_201_utc": "2026-10-25T21:14:32.226887+00:00",
+  "latest_source_preflight_note_context": {
+    "utc": "2026-10-26T01:22:06.773728+00:00",
+    "current_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+    "new_unattempted_notes": 11,
+    "qualification": "Author preflight notes; exact source review contexts varied. No native or semantic qualification from these entries. Historical root runtime field and all existing entries preserved. Cintari has a separate prepared correct-expectation probe, not a passing fixture."
+  }
 }

@@ -1,0 +1,53 @@
+{
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "completed_utc": "2026-10-25T23:16:57.063129+00:00",
+  "plan_sha256": "372c84709533532c9db74b4a51fa0683f1c923a69c63f6c27db59f2559f81098",
+  "independent_saved_proof_sha256": "a4892d9c9dd3fb892e28970512525062324ae23f43bbbfb710765c7f18e56439",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "batch207-one-causal-control-final97-plan.json",
+    "372c84709533532c9db74b4a51fa0683f1c923a69c63f6c27db59f2559f81098",
+    "card-regression-negative-controls-sparse207-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "stonewall_actual_earned_high_cost_defense_application_locked",
+      "fixture": "card-stonewall-confidence-red-four-live-sparse-real-cast-next-live-turn-and-plus-four-defense",
+      "fixture_sha256": "5ee1da2385728175457a0aec9e279ab93765c960ce6bae8b4385beb683968c57",
+      "source_raw5": {
+        "initial_gamestate.txt": "976f397078d09b164240f9176c1f2f18ff5f853927666002cb5acd025583a6af",
+        "actions.json": "c80ee14a3711041abcaa5273fb70352a77c9b24b2bf1d0438261ae00f7f9615d",
+        "assertions.json": "1d67fd2a2ab31119bbb359fd2650fa7f9756015d1c2188cd79ee6b1852e30ab8",
+        "expected_final_gamestate.txt": "18a6de81139f6311461620568ff9cf9ebbc23197794687067d96f589e2215db0",
+        "meta.json": "8770222528b3b7a9aa2c510d4769db4aa3061e815868d4ef915cee206d977443"
+      },
+      "prefix_actions": 30,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 2,
+            "zone": "CombatChain",
+            "cardID": "raging_onslaught_red",
+            "mode": "add",
+            "tag": "SUP_NO_DEFENSE_GAIN"
+          }
+        ]
+      },
+      "retained_assertions": 2044,
+      "expected_failure_step": 10,
+      "expected_failure": "Expected p1Health to equal 18, got 14.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] stonewall_confidence_red / four live distinctive effect: Step 10 assertion failed: Expected p1Health to equal 18, got 14.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual Stonewall cast/fourresponses, actual endturn/refill and P2Potion/paidRaging attack, before P1declares real printedcost3 blocker, add existing defense-gain application lock only to actual P2attack. Leave primaryownedAura, its entire naturally earned persistentUID record, all physical cards/printeddefense, actualpower9, costs/turn/AP/HP untouched. Existing ObjectCurrentDefense clamps solepositiveStonewall+4 to0, so realblock3 and realdamage6 produce P1HP14 rather than18. First physicalHP oracle precedes later damage cache. This tests actualbonus application sensitivity, not Aura NO_ABILITIES/blanking or expiry.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 1
+}

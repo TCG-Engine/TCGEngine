@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-25T23:08:04+00:00",
+    "input_file": "card-regression-batch207.json",
+    "input_sha256": "86bf80740a39d29a9593d0acf5810de6ebcf4e50b0bccfe5f73ff3ffe6aeb67c",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-stonewall-confidence-red-four-live-sparse-real-cast-next-live-turn-and-plus-four-defense",
+            "status": "recorded_semantically_checked",
+            "actions": 48,
+            "assertions": 4836
+        }
+    ]
+}

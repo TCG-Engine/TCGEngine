@@ -326,6 +326,33 @@ function SimGameResolvePresentedAuthKey($authKey = '')
   return '';
 }
 
+function SimGameSeatCookieName($rootName)
+{
+  return 'tcgengine_' . SimGameSanitizeRootName($rootName) . '_lastAuthKey';
+}
+
+function SimGameResolveBoardAuthKey($rootName, $gameName, $playerID, $requestedAuthKey = '')
+{
+  // Explicit links and the waiting room's app-scoped cookie take precedence over legacy
+  // session/cookie credentials, which may belong to another game on the parent domain.
+  $requestedAuthKey = trim(strval($requestedAuthKey));
+  if ($requestedAuthKey !== '') return $requestedAuthKey;
+  if (in_array(strval($playerID), ['1', '2', '3', '4'], true)) {
+    $candidates = [
+      trim(strval($_COOKIE[SimGameSeatCookieName($rootName)] ?? '')),
+      trim(strval($_SESSION['p' . $playerID . 'AuthKey'] ?? '')),
+      SimGameResolvePresentedAuthKey(),
+    ];
+    // Menus that still write only the legacy cookie must work after a previous room game.
+    // Select a credential this browser already holds that actually belongs to this seat.
+    foreach ($candidates as $candidate) {
+      if ($candidate !== '' && SimGameValidateSeatAuth($rootName, $gameName, $playerID, $candidate)) return $candidate;
+    }
+    foreach ($candidates as $candidate) if ($candidate !== '') return $candidate;
+  }
+  return SimGameResolvePresentedAuthKey();
+}
+
 function SimGameIsPrivateGame($rootName, $gameName)
 {
   // Test-only override: the schema harness has no APCu auth entry, so WithPrivateGame sets this global to

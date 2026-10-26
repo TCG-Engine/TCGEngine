@@ -89,7 +89,7 @@ if ($dfgCampaign) $fighterReactionAssets['red'] = [];
 <script src="fighter-reactions.js?v=<?= filemtime(__DIR__ . '/fighter-reactions.js') ?>" defer></script>
 <script src="arena-background.js?v=<?= filemtime(__DIR__ . '/arena-background.js') ?>" defer></script>
 <?php if (!empty($dfgTutorial)): ?><link rel="stylesheet" href="../AzukiSim/Tutorial/tutorial.css?v=<?= filemtime(__DIR__ . '/../AzukiSim/Tutorial/tutorial.css') ?>"><link rel="stylesheet" href="learn.css?v=<?= filemtime(__DIR__ . '/learn.css') ?>"><script src="learn.js?v=<?= filemtime(__DIR__ . '/learn.js') ?>" defer></script><?php endif; ?>
-<?php if ($dfgAdventure): ?><script>window.DFGCampaignConfig={api:'adventure/api.php',root:'adventure/',title:'El’s Invitation',adventure:true};</script><?php endif; ?>
+<?php if ($dfgAdventure): ?><script src="adventure/combat-sounds.js?v=<?=filemtime(__DIR__.'/adventure/combat-sounds.js')?>" defer></script><link rel="stylesheet" href="adventure/soundtrack.css?v=<?=filemtime(__DIR__.'/adventure/soundtrack.css')?>"><script src="adventure/soundtrack.js?v=<?=filemtime(__DIR__.'/adventure/soundtrack.js')?>" defer></script><script>window.DFGCampaignConfig={api:'adventure/api.php',root:'adventure/',title:'El’s Invitation',adventure:true};</script><?php endif; ?>
 <?php if ($dfgCampaign): ?><link rel="stylesheet" href="roguelike/fight.css?v=<?= filemtime(__DIR__ . '/roguelike/fight.css') ?>"><script src="roguelike/fight.js?v=<?= filemtime(__DIR__ . '/roguelike/fight.js') ?>" defer></script><?php endif; ?>
 <script src="app.js?v=<?= filemtime(__DIR__ . '/app.js') ?>" defer></script>
 </body></html>

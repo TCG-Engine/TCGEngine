@@ -1450,5 +1450,920 @@
     "evidence": "card-regression-repair-20261024-focused-fault-results.json",
     "evidence_sha256": "1587662731417a662ae96ff45b272cd4a63603637479bf19051f553eb5b0aaf1",
     "qualification": "Exact native first-failure sensitivity with preserved original suffix assertions; scope follows the independently reviewed plan."
+  },
+  {
+    "id": "brush_actual_prevention_effect_omission",
+    "fixture": "card-brush-off-red-four-live-sparse-actual-zero-cost-instant-prevents-real-two-physical-damage",
+    "fixture_sha256": "c88f62fcca299d1b03a54f61c9f167027e9dadb4a17a2df36d4256e9cbade722",
+    "source_raw5": {
+      "initial_gamestate.txt": "9eae1026b1b521a956f4b3d14bc4a4e75a481058c053e37b5496e150ea7f92ed",
+      "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+      "assertions.json": "8db3e9f44d5150484f27cc976be7dc1954ee164c38c54e55b79c54925097197c",
+      "expected_final_gamestate.txt": "103f054afea978e12186c8c784e1483e8d6219647eea9c01da5d2338ce17322d",
+      "meta.json": "deb7990d6713a3cf863a90d349dadcbc155e1a87d554a004511b020b062a3c1f"
+    },
+    "prefix_actions": 23,
+    "mutation": {
+      "remove_effect": "OUT_BRUSH"
+    },
+    "retained_assertions": 670,
+    "expected_failure_step": 4,
+    "expected_failure": "Expected p4Health to equal 20, got 18.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] brush_off_red / actual four-live defensive effect: Step 4 assertion failed: Expected p4Health to equal 20, got 18.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "Remove the single actual resolved OUT_BRUSH global effect after Brush source resolution, retaining physical primary/destinations, realWBBlue2 attack and defender0. At actual damage physicalP4HP20-to18 is the first changed native oracle; no health override or cacheddamage substitution.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+    "evidence_report": "card-regression-negative-controls-sparse196-198-results.json"
+  },
+  {
+    "id": "rally_actual_positive_defense_gain_disabled",
+    "fixture": "card-rally-the-rearguard-red-four-live-sparse-actual-defending-activation-discards-owned-card-and-adds-three-defense",
+    "fixture_sha256": "5a28d506b893746548f20b957242bcab9d2de5e3b3f8bf53d2f1fefe30b21946",
+    "source_raw5": {
+      "initial_gamestate.txt": "fbdef25c4e1e6bf138f5d10c174c1305e59bc0e61746c21ed7e25f19fb1b15fd",
+      "actions.json": "7489602bdb6faa5e7cd9f733cd7dc9a9c5cfb9cd7318c03ce427db84ce4a3b89",
+      "assertions.json": "0feb4b275bbd28a8b4d549d22662b07645f9341599021dda2148811f9b36ff61",
+      "expected_final_gamestate.txt": "f0868376885ac4e21678476f701c070162d99634bc209f0c203dfb881e33fe38",
+      "meta.json": "f2fa5742efa6a36858948f8ad5d9f4f25617536a87dc88f6291d2bcd8ac326b2"
+    },
+    "prefix_actions": 25,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "wounding_blow_red",
+          "mode": "add",
+          "tag": "SUP_NO_DEFENSE_GAIN"
+        }
+      ]
+    },
+    "retained_assertions": 716,
+    "expected_failure_step": 4,
+    "expected_failure": "Expected p4Health to equal 20, got 18.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] rally_the_rearguard_red / actual four-live defensive effect: Step 4 assertion failed: Expected p4Health to equal 20, got 18.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "Add only existing SUP_NO_DEFENSE_GAIN to the real WBRed host after actual Rally activation/discard and +3grant. Preserve exact WTR_DEFENSE3 source tag, base2 blocker and discarded card. Clamp sole positive delta3 through actual defense code; unchanged power4 leaks2, first physicalP4HP20-to18. This is application-lock sensitivity, not deleting the tagged defender or trimming its oracles.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+    "evidence_report": "card-regression-negative-controls-sparse196-198-results.json"
+  },
+  {
+    "id": "sigil_actual_earned_defense_gain_disabled",
+    "fixture": "card-sigil-of-suffering-red-four-live-sparse-actual-arcane-to-attacking-hero-earns-four-defense-before-physical-damage",
+    "fixture_sha256": "20a1fe4ad935113264c8873c4b8291f2d1d51a2527896544c921c1f7710f2fe6",
+    "source_raw5": {
+      "initial_gamestate.txt": "894c06e00bbace2e986a3aae882d069860cf9b60372d10bd5ca5d6228acb8340",
+      "actions.json": "cac0cca6243ace5df1c0d2004f4f35c1ee02fd14e83ce0df346b15168c9f1b6e",
+      "assertions.json": "7522b2488bfcc361ed34b09f1df45b2425bb6e1dd0757a4ba738c1e53f180a37",
+      "expected_final_gamestate.txt": "09f1711b6e548ba7b935d0e8a2c628e0e95f6d1509d47a2f804d8a4cf6c3950e",
+      "meta.json": "f171be1e22a12a3b00a348021415e03c2adc2bfd7a86f3782f6051d7fa16d31c"
+    },
+    "prefix_actions": 23,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "wounding_blow_red",
+          "mode": "add",
+          "tag": "SUP_NO_DEFENSE_GAIN"
+        }
+      ]
+    },
+    "retained_assertions": 680,
+    "expected_failure_step": 4,
+    "expected_failure": "Expected p4Health to equal 20, got 19.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] sigil_of_suffering_red / actual four-live defensive effect: Step 4 assertion failed: Expected p4Health to equal 20, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual Sigil arcane1, add only existing SUP_NO_DEFENSE_GAIN to real WBRed host. Keep P1HP19, actual arcaneDealt4to1=1, base3 Sigil and all costs. Clamp sole earned positive delta1; unchanged power4 leaks1, first physicalP4HP20-to19. No arcane cache or terminalhealth mutation.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+    "evidence_report": "card-regression-negative-controls-sparse196-198-results.json"
+  },
+  {
+    "id": "mirage_actual_phantasm_removal_omission",
+    "fixture": "card-passing-mirage-blue-four-live-sparse-first-illusionist-attack-survives-real-six-power-block",
+    "fixture_sha256": "d061dcd424033a66d4c3cccebdb6e5f46400ac1bcbcffc92282e20d616b23b7b",
+    "source_raw5": {
+      "initial_gamestate.txt": "630049e95981348d60369bfd8a86b9c29222ca0c64bb277171f7a2809e847b5f",
+      "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+      "assertions.json": "01248ddd50ee7c49f94f3b5724af5017f40308d129dc21ad95de62224f51d6c2",
+      "expected_final_gamestate.txt": "59b3c950d92587c299e551be3aaf24ef662f8bfdf5d345d48fdb37acdfc03160",
+      "meta.json": "c3bf12629fef8e0f89110916bbd4c817f603a4cbe0f4a862c0d414b8bfa20172"
+    },
+    "prefix_actions": 12,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "spears_of_surreality_red",
+          "mode": "remove",
+          "tag": "MON_NO_PHANTASM"
+        }
+      ]
+    },
+    "retained_assertions": 2346,
+    "expected_failure_step": 1,
+    "expected_failure": "Expected Stack count 0, got 1.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] passing_mirage_blue / four live distinctive effect: Step 1 assertion failed: Expected Stack count 0, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual P4 RagingYellow8 block, remove only Mirage-created MON_NO_PHANTASM from actual Spears6 before finishdeclaration. Aura5 and every physical/payment/power/GA oracle remain. Real six-power blocker now causes FaBMONPhantasm(false) to queue an extra uprPhantasm layer; originalstep13 Stack0-to1 is intended first failure. No source/defender removal, no later destroyed-attack failure relabeled as first.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+    "evidence_report": "card-regression-negative-controls-sparse196-198-results.json"
+  },
+  {
+    "id": "skullcap_actual_conditional_defense_gain_disabled",
+    "fixture": "card-arcanite-skullcap-four-live-sparse-actual-lower-life-conditional-defense-stable-damage",
+    "fixture_sha256": "439f76fee973b5a7e2c93ef0262b1fe3561b1cb7d63f737372dbff87dd60acf1",
+    "source_raw5": {
+      "initial_gamestate.txt": "cd876ac7fab588ce9281d62a52464dac41921f4a9464d3b478897e431a726973",
+      "actions.json": "56e909297196ec665c2d9730260ba261ff62742a64b5e24f4d5325ccd6daac00",
+      "assertions.json": "df2173b387aabe34938202e4a6a0f88397efd687f6656d54148412a34d7bc2a8",
+      "expected_final_gamestate.txt": "aa044829910d48c956540627398e7ab41e12c76daf9c201ca3a7dce0523f8629",
+      "meta.json": "cd1b8cd8ea382b4c52792cb86925cc34bee1b403b5b878dd0295d1f28c3aaf99"
+    },
+    "prefix_actions": 16,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "wounding_blow_red",
+          "mode": "add",
+          "tag": "SUP_NO_DEFENSE_GAIN"
+        }
+      ]
+    },
+    "retained_assertions": 397,
+    "expected_failure_step": 4,
+    "expected_failure": "Expected p4Health to equal 17, got 16.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] arcanite_skullcap / four-live actual defensive passive: Step 4 assertion failed: Expected p4Health to equal 17, got 16.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual Skullcap6 defends with lower-life P4HP19, add only existing SUP_NO_DEFENSE_GAIN to actualWB5 before physicaldamage. Printed equipmentbase1, physicalcard and economy stay. Sole conditional+1 cannot apply, so actual4damage minus1defense leaks3: P4HP17-to16 is first changed savedoracle. No cacheddefense/terminalHP mutation; stableDAMAGE fixture doesnot claim Battleworn/close.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+    "evidence_report": "card-regression-negative-controls-sparse199-200-results.json"
+  },
+  {
+    "id": "pyro_actual_aura_prevention_disabled",
+    "fixture": "card-pyroglyphic-protection-red-four-live-sparse-active-owned-aura-prevents-real-three-arcane",
+    "fixture_sha256": "e869a755a765291644393da98bc6813b8752c2ccde7188824145a5956d08c0fc",
+    "source_raw5": {
+      "initial_gamestate.txt": "5fc3a0f889f3e363ed4f20b640f37de9d2695d9c2089e2782468f0e240a2169a",
+      "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+      "assertions.json": "faa1afaaa12a6befcef5d39d27432de140ac21e17fc3209e63a80d2451b6959e",
+      "expected_final_gamestate.txt": "01b85b920a915a85c40e032ef2dc74c971a2eb2905183a929a651f199c4d4389",
+      "meta.json": "f44cf40db404eb73bfa51d3612fb2d9207fe0a09aff2c6975b3a3c5bd02f2ef6"
+    },
+    "prefix_actions": 2,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 4,
+          "zone": "Arena",
+          "cardID": "pyroglyphic_protection_red",
+          "mode": "add",
+          "tag": "NO_ABILITIES"
+        }
+      ]
+    },
+    "retained_assertions": 296,
+    "expected_failure_step": 4,
+    "expected_failure": "Expected p4Health to equal 20, got 17.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] pyroglyphic_protection_red / four-live actual defensive passive: Step 4 assertion failed: Expected p4Health to equal 20, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual Zap5 announcement/target and before four real source responses, add only NO_ABILITIES to physicalPyroAura6. FaBMONArena exclusion disables this Aura prevention while retaining its physicalpresence/owner/controller/status. Real Zap3 causes P4HP20-to17. This is source-ability omission, no Aura deletion or globalHP flip.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+    "evidence_report": "card-regression-negative-controls-sparse199-200-results.json"
+  },
+  {
+    "id": "melody_actual_prevention_application_disabled",
+    "fixture": "card-enchanting-melody-red-four-live-sparse-active-owned-aura-consumed-preventing-real-four",
+    "fixture_sha256": "66aca6404de59d98916c008f32941347b27cde93a60ac3b68ad685e88d91826c",
+    "source_raw5": {
+      "initial_gamestate.txt": "1b310bd078860cc1eeba703d1e4c2977e732e5a80d55c931f4a3770ab85cc455",
+      "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+      "assertions.json": "49a2132746fc0c74c40b181e0e458be55df4fc6ee785691732111f79837133fe",
+      "expected_final_gamestate.txt": "abdac2717d338c9bb8dc7b8b46cad2f6364e185180bffa3ba3529880321442dd",
+      "meta.json": "ee88daa4f218f38895108f82ce9359033d71056e0b8bf3a340e0d4c0511ab16e"
+    },
+    "prefix_actions": 15,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "wounding_blow_red",
+          "mode": "add",
+          "tag": "UPR_UNPREVENTABLE"
+        }
+      ]
+    },
+    "retained_assertions": 711,
+    "expected_failure_step": 4,
+    "expected_failure": "Expected p4Health to equal 20, got 16.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] enchanting_melody_red / four-live actual defensive passive: Step 4 assertion failed: Expected p4Health to equal 20, got 16.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "Before actual WB5damage, add only existing UPR_UNPREVENTABLE to attack. NormalDoDamage skips prevention including Melody; real4 hits P4HP20-to16. PrimaryAura/economy retained at mutation, originalsuffix also retains its correctpositive consumption/destination expectations. This controls prevention application only, not independently isolates self-destruction timing or a legal alternate Aura-play branch.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+    "evidence_report": "card-regression-negative-controls-sparse199-200-results.json"
+  },
+  {
+    "id": "rain_actual_resolved_arrow_bonus_omitted_before_arrow",
+    "fixture": "card-rain-razors-yellow-four-live-sparse-real-arrow-plus-two-and-six-damage",
+    "fixture_sha256": "6dac52dc5613c405ffac6e0b21d003e5529327f9ef61a41d3f293bf42c6d1897",
+    "source_raw5": {
+      "initial_gamestate.txt": "7e1a3a1b669877dce53aeed714c9b4f5c9e47fbf632ca23186eca2a12c537575",
+      "actions.json": "46f51134685cb98f0142fd6c6c574c2131e1e5047254b7e015c86141097297ab",
+      "assertions.json": "69ed7474413925b437681e3ffad7844659bcb62610b086b267b2bcc5c28915ea",
+      "expected_final_gamestate.txt": "a27e0efd65fdff58cdfd00abb67835db9b707835e3bec050bb76ab73bb3932ce",
+      "meta.json": "a9faeef8173711d5d06cac6085cc37a74c89d104bd530dee8e9373dc6491444b"
+    },
+    "prefix_actions": 5,
+    "mutation": {
+      "remove_effect": "EVR_RAIN"
+    },
+    "retained_assertions": 1736,
+    "expected_failure_step": 7,
+    "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 4.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] rain_razors_yellow / four live distinctive effect: Step 7 assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual Rain5 resolution and BEFORE realArrow6 declaration, remove only unique globalEVR_RAIN. Keep actual physicalRainGY, faceDownArsenalArrow, real Bluepitch/costs/target, Bow and allsuffix. At actualArrowentry computed6-to4 is first changed oracle; later unblocked damage6-to4 remains in retainedsuffix. Exactlyone global type required; no resource/HP/Arrowidentity mutation or full-other-player-arrow coverage.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+    "evidence_report": "card-regression-negative-controls-sparse199-200-results.json"
+  },
+  {
+    "id": "mount_actual_owned_aura_power_disabled",
+    "fixture": "card-channel-mount-heroic-red-four-live-sparse-active-owned-earth-aura-buffs-real-attack-by-three",
+    "fixture_sha256": "bc7c499f9f2074d868747444f07010769c383cd46eae1074243162c8def58317",
+    "source_raw5": {
+      "initial_gamestate.txt": "a9464f6fa5d45c57a4b781b313334c5c9b4bf59c9d1184d4595d953d9f91a024",
+      "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+      "assertions.json": "f97d10c64d0f0d199fce051f2fea078765470506975247abf5279be0f7bf9a91",
+      "expected_final_gamestate.txt": "99a3a3b7590d342ac4a48b9e4caa9b01a13b64667f6a77587fce54d008aa7c9f",
+      "meta.json": "832928af8a34b509a74acb356e7afee13dc1f252efe8f0350cf4901c70102822"
+    },
+    "prefix_actions": 2,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "Arena",
+          "cardID": "channel_mount_heroic_red",
+          "mode": "add",
+          "tag": "NO_ABILITIES"
+        }
+      ]
+    },
+    "retained_assertions": 1242,
+    "expected_failure_step": 4,
+    "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] channel_mount_heroic_red / actual four-live sparse distinctive mechanic: Step 4 assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After real zero-cost WB5 announcement/target, blank only retained own MountAura6. Continuous attack-action +3 vanishes while physicalAura/ownership/economy remain. Firstactual attack-entry computed7-to4 is intended. All suffixoracles retained; no hand/currentprinted-power or terminalHP mutation.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+    "evidence_report": "card-regression-negative-controls-sparse201-results.json"
+  },
+  {
+    "id": "lake_actual_opposing_aura_tax_disabled_before_announcement",
+    "fixture": "card-channel-lake-frigid-blue-four-live-sparse-opposing-owned-ice-aura-taxes-real-zero-cost-attack",
+    "fixture_sha256": "67e00c1495e046df0221e82ff60fbc92d319f0a7075376588f7d27274c9bbe44",
+    "source_raw5": {
+      "initial_gamestate.txt": "2a39f467b7d1d8d17f94500fb38f23bef5bfe08e25253892aa065aab71805d14",
+      "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+      "assertions.json": "19b9ea0dc9409a92433ee483668e069524e0dfea786809879db2ac94b6ae692d",
+      "expected_final_gamestate.txt": "c74e19e9fff73556cee470b2ec6dac9914541e919f5bdd12037a2a4fd8119329",
+      "meta.json": "6e914644d6d8b8bf75a745b6d1e34acd3ac26ba19c61427b4dc9b91615da4439"
+    },
+    "prefix_actions": 0,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 4,
+          "zone": "Arena",
+          "cardID": "channel_lake_frigid_blue",
+          "mode": "add",
+          "tag": "NO_ABILITIES"
+        }
+      ]
+    },
+    "retained_assertions": 1583,
+    "expected_failure_step": 2,
+    "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PITCH\", got \"PRIORITY\".",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] channel_lake_frigid_blue / actual four-live sparse distinctive mechanic: Step 2 assertion failed: Expected FaBSim state [\"window\"] to equal JSON \"PITCH\", got \"PRIORITY\".\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "Before any actual play/target declaration, blank only retained opposing LakeAura6. Printedzero WB no longer has the sole +1 tax. Same actual targetanswer2 now completeszero resource payment and entersPRIORITY instead of recordedPITCH; first originalwindow oracle mustfail. Physicalsource/supportBlue/Aura remain, no resources or cachedcost overwritten. UntaxedWB counterpart actualMountcase has samezero-cost play path; futureoriginalpitch action retained but not claimed legalafterfault because firstfailure alreadyoccurs.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+    "evidence_report": "card-regression-negative-controls-sparse201-results.json"
+  },
+  {
+    "id": "skeleta_actual_earned_nonattack_discount_omission",
+    "fixture": "card-bloodsheath-skeleta-four-live-sparse-actual-instant-destroy-discounts-real-paid-nonattack-by-one-runechant",
+    "fixture_sha256": "cb62311ccf9b83026751116bdb9efd1a1b1d9da564d55e94bdc502c355639efe",
+    "source_raw5": {
+      "initial_gamestate.txt": "c979327dc02e92497ac6a1c29c1fb3ad16ecc4e9ad589fb30e53489900869f6a",
+      "actions.json": "e5b3119d8406e272f61929a6ca4f3c00b40001585f37a8d17642874f64106c41",
+      "assertions.json": "4f5edb7e915a63b682d673d49e561b031a9ac4bd30109557cd9bb6d42a0b1072",
+      "expected_final_gamestate.txt": "de6f1efcabc47c84d2b84b84d2d66143a073a0e1d7a4d75ca256a50b74e7487a",
+      "meta.json": "e0a13091d820d2b00fa9e65a5e8d7b0e2f0a817ab0827f204c7d1ca0f7b494a9"
+    },
+    "prefix_actions": 5,
+    "mutation": {
+      "remove_effect": "CRU_SKELETA_NAA"
+    },
+    "retained_assertions": 452,
+    "expected_failure_step": 1,
+    "expected_failure": "Expected FaBSim state [\"pendingPayment\",\"cost\"] to equal JSON 1, got 2.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] bloodsheath_skeleta / actual four-live sparse distinctive mechanic: Step 1 assertion failed: Expected FaBSim state [\"pendingPayment\",\"cost\"] to equal JSON 1, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After real Skeleta5Instant/destroy and fourresponses create both natural grants, remove ONLY actual CRU_SKELETA_NAA before realNAA7 play. Preserve CRU_SKELETA_AA, physicalRune6, SkeletaGY andallassets. Printedcost2 is no longer discounted1; both positive costs keepPITCH, firstpendingPayment.cost1-to2 fails. No source/Rune removal, no paymentcache/resource override; futureAA grant consumption/other Rune amounts uncredited.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+    "evidence_report": "card-regression-negative-controls-sparse201-results.json"
+  },
+  {
+    "id": "dissipation_actual_four_steam_prevention_omission",
+    "fixture": "card-dissipation-shield-yellow-four-live-sparse-actual-instant-four-steam-prevents-four",
+    "fixture_sha256": "e82bfc00f4156773aeb573c611b38708fcc6f7ec44f4d935e87f99c5b5d455aa",
+    "source_raw5": {
+      "initial_gamestate.txt": "2133d9d2563551f0027d76ca00aa04d8c3d0f2284731584a43d97f220f593573",
+      "actions.json": "61dfc871fe4b4f2d820a828fc7048b4767ac6f21fd1249bdd9a0ddb2972cb344",
+      "assertions.json": "dcb37b495d164ec3c3aa6c228f3a680db4fb8afa594b57fabcda241b3ba556a5",
+      "expected_final_gamestate.txt": "b06e3ace35d052290efd5c4cd4f061e2e755b9b0fb0da251032764d6012cb3da",
+      "meta.json": "e3328ebf881639f47c8492fbb6b9e7869d94109d3751221063274d9e1f7ef35f"
+    },
+    "prefix_actions": 24,
+    "mutation": {
+      "remove_effect": "ARC_PREVENT_ONCE"
+    },
+    "retained_assertions": 864,
+    "expected_failure_step": 4,
+    "expected_failure": "Expected p4Health to equal 17, got 13.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] dissipation_shield_yellow / four live distinctive effect: Step 4 assertion failed: Expected p4Health to equal 17, got 13.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual P4 Dissipation5 Instant destruction captures four Steam and resolves after four real responses, remove the unique naturally earned ARC_PREVENT_ONCE. Keep physical source public GY, Steam-cost history, attacker/pitch, combat and HP. Real seven damage now reaches P4 instead of three; original physical HP17-to13 is first intended failure before later damageDealt oracle. No HP, cached defense or damage value is overwritten.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse202-203-results.json"
+  },
+  {
+    "id": "embodiment_actual_owned_token_nonattack_defense_suppressed",
+    "fixture": "card-embodiment-of-earth-four-live-sparse-active-owned-earth-token-boosts-real-nonattack-block",
+    "fixture_sha256": "f56c29366fb4988ee4ba1ab3d33ce5ab0be7d42e889ff0f1cf1b583880761b6b",
+    "source_raw5": {
+      "initial_gamestate.txt": "77d9ca8c8dfbecedb7e98c1963a176bba4a303176394464bf300955a79bd5f45",
+      "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+      "assertions.json": "f627ab17b7c9cf1c52eccea14976da60bd420b746feab670fb81303aed12b052",
+      "expected_final_gamestate.txt": "bca5f3bde448887028181a4c9be402a4ae2929ae89f7f5d4186adad2776e89ac",
+      "meta.json": "5564b2a905f138b4112fd1bbc10f0d35f4c1562721d08408fee5186ad2c3deb0"
+    },
+    "prefix_actions": 10,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 4,
+          "zone": "Arena",
+          "cardID": "embodiment_of_earth",
+          "mode": "add",
+          "tag": "NO_ABILITIES"
+        }
+      ]
+    },
+    "retained_assertions": 1129,
+    "expected_failure_step": 10,
+    "expected_failure": "Expected p4Health to equal 19, got 18.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] embodiment_of_earth / actual four-live sparse distinctive mechanic: Step 10 assertion failed: Expected p4Health to equal 19, got 18.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "Before actual P4 Nimblism7 Hand blocking, blank only retained own Embodiment6. FaBELEDefense counts unsuppressed FaBMONArena tokens; the NAA loses its continuous +1 (printed2+1 defense becomes2). Same physical WB4 causes two damage rather than one; first physical HP19-to18 is intended. Token/defender/ownership/costs remain; no cached defense mutation or source movement.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse202-203-results.json"
+  },
+  {
+    "id": "parable_actual_opposing_aura_attack_penalty_suppressed",
+    "fixture": "card-parable-of-humility-yellow-four-live-sparse-active-owned-light-aura-reduces-real-opposing-attack-by-one",
+    "fixture_sha256": "1dca83b130421c6a50f23e5b0c8a4bc48038c556eca5765dbcebd65661f7923b",
+    "source_raw5": {
+      "initial_gamestate.txt": "0f972f64990759e39b8e74a4117f1b283c3522851b6c5f241464d5e8c93d05d5",
+      "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+      "assertions.json": "c06d8a2d9887475f457e173ff46536d91982c596093efeb9fd843c2e6b8bcb0b",
+      "expected_final_gamestate.txt": "8cb2d9bbdf84013c6298f616f1d3da879c95ca3cb04a09bb67ffdaa1e9632305",
+      "meta.json": "5d9a87d46a8493b9a6e7a498c48c685740148295e79c6ad8b0b201d4c6006fd2"
+    },
+    "prefix_actions": 2,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 4,
+          "zone": "Arena",
+          "cardID": "parable_of_humility_yellow",
+          "mode": "add",
+          "tag": "NO_ABILITIES"
+        }
+      ]
+    },
+    "retained_assertions": 1242,
+    "expected_failure_step": 4,
+    "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 4.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] parable_of_humility_yellow / actual four-live sparse distinctive mechanic: Step 4 assertion failed: Expected p1CombatChain-0 computed power to equal 3, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual zero-cost WB5 announcement and P4 target, blank only retained opposing Parable6. MON continuous penalty counts unsuppressed FaBMONArena sources; actual attack-entry power returns from3 to printed4. Physical Aura, attack, target, economy and all oracles remain. First real attack-entry computed power is intended, not a terminal HP change.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse202-203-results.json"
+  },
+  {
+    "id": "staunch_actual_earned_optional_bonus_three_reduced_to_two",
+    "fixture": "card-staunch-response-red-four-live-sparse-real-optional-six-resource-payment-prevents-nine",
+    "fixture_sha256": "03a76ab1d2de32b108e3a587ce8252bbb34be283dd1c66b30a878289f0616925",
+    "source_raw5": {
+      "initial_gamestate.txt": "4d01b9f6a7b289dcb6ca13b434f8a54ea984fd55bbac0c6eea0f79895fccbad4",
+      "actions.json": "9f0ece6db5a568094db0908ffb8f55f9a7cfdea2097e9abba840259100690436",
+      "assertions.json": "5d727efa07a6f20ed32cfa53a43aeb573d52aa0dc77a75e04649f2c9fe00c895",
+      "expected_final_gamestate.txt": "5dd1608e63eed557544cbf5a9bc52f10a3c1001d36e08487e0b9a0370049512b",
+      "meta.json": "4cec4375c0192cd4cdc6d4e5dcf100557b0817368be559dfbdffa748cd242a28"
+    },
+    "prefix_actions": 32,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 4,
+          "zone": "CombatChain",
+          "cardID": "staunch_response_red",
+          "mode": "remove",
+          "tag": "WTR_DEFENSE:3"
+        },
+        {
+          "player": 4,
+          "zone": "CombatChain",
+          "cardID": "staunch_response_red",
+          "mode": "add",
+          "tag": "WTR_DEFENSE:2"
+        }
+      ]
+    },
+    "retained_assertions": 1067,
+    "expected_failure_step": 0,
+    "expected_failure": "Expected p4CombatChain-0.TurnEffects to equal '[\"WTR_DEFENSE:3\"]', got '[\"WTR_DEFENSE:2\"]'.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] staunch_response_red / four live distinctive effect: Initial assertion failed: Expected p4CombatChain-0.TurnEffects to equal '[\"WTR_DEFENSE:3\"]', got '[\"WTR_DEFENSE:2\"]'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual optional six-resource payment and fourth Staunch response have earned precisely WTR_DEFENSE:3, replace only that earned tag with :2. Actual source/choice/payment/printed defense/ownership/combat remain. Executor preserves original prefix32 assertions as Initial; its existing exact tag3 oracle catches the quantity fault immediately. Final nine-power attack is blocked by both defense10 and defense9, so HP alone is explicitly not sufficient and no such isolated damage claim is made.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse202-203-results.json"
+  },
+  {
+    "id": "mordred_actual_earned_rune_creation_modifier_omission",
+    "fixture": "card-mordred-tide-red-four-live-sparse-actual-read-three-replaced-by-four-owned-runechants",
+    "fixture_sha256": "10f43d905070128e6c85bc3e069adb37322ebab57f22d487d1c879ff05743ddb",
+    "source_raw5": {
+      "initial_gamestate.txt": "b7025dcc9c88b3b347d3c87cfcef58ca50dd3f6d3181d8d9ca8006a55f936871",
+      "actions.json": "4e77e2368de6a39a387b48f8143fbb03a5c1857caed1dda4fe6546a2a3a944e4",
+      "assertions.json": "8f65b651bc71507cb5618363846759b21485a7c0d3dda767df18d3a0e6699585",
+      "expected_final_gamestate.txt": "4da0ba757b633285c044c4c1a193e793f2f2eedc8ca6c26d0eb8815f693c53af",
+      "meta.json": "2215c992462644a6e975e2d141ea9547ea06c9f10e5c23677521cef4a2c49134"
+    },
+    "prefix_actions": 5,
+    "mutation": {
+      "remove_effect": "ARC_MORDRED"
+    },
+    "retained_assertions": 442,
+    "expected_failure_step": 5,
+    "expected_failure": "Expected p1Arena count 4, got 3.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] mordred_tide_red / four live distinctive effect: Step 5 assertion failed: Expected p1Arena count 4, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual zero-cost Mordred5 play and four manual responses have earned the replacement and its own GA, remove only globally unique ARC_MORDRED before real Read6 Action announcement. Same printed create-three event now creates exactly three actual Runechants instead of four. Preserve source/support public GY, actual AP/resources, all actors and every oracle; first owned Arena count4-to3 precedes fourth-token identity checks. This tests one event replacement, not expiry, stacking or arbitrary Rune amounts.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse204-results.json"
+  },
+  {
+    "id": "perch_actual_earned_faceup_arrow_go_again_grant_omission",
+    "fixture": "card-perch-grapplers-four-live-sparse-actual-paid-destroy-grants-earned-faceup-arrow-go-again",
+    "fixture_sha256": "5752506a76a5a552c8064c82a8a1838935c96028821d7942f20e731f0a594651",
+    "source_raw5": {
+      "initial_gamestate.txt": "0db902bab16d86ef23e00510e965075928bb7a4dd8d132ec835ccad16dc78cc4",
+      "actions.json": "5b0c8c07e31abc7c59edddf53d06b27f5681fdda56c3867bd2005eb5c321f4d3",
+      "assertions.json": "4f92a6ed22b31fe15f2d2b1a3e0a243e3e4157e0c5b03bd3cca980bd9f440c2d",
+      "expected_final_gamestate.txt": "325279ff020f04ccb9a8f6189582dff882218d128d2ba61a60e160cfe72a23dd",
+      "meta.json": "e888a172d555840dac4850b2a3111ab86ead76f9b3f58fe3cf7c1fbda6b9bb10"
+    },
+    "prefix_actions": 12,
+    "mutation": {
+      "remove_effect": "CRU_PERCH"
+    },
+    "retained_assertions": 2149,
+    "expected_failure_step": 6,
+    "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] perch_grapplers / actual four-live sparse distinctive mechanic: Step 6 assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual RedLiner load and paid/destroyed Perch have resolved with real faceUp history and own abilityGA, remove only naturally earned CRU_PERCH before actual Arrow declaration. Actual faceup SearingShot has no printedGA; CRUAttack no longer tags GO_AGAIN. First actual attack-entry computedGA1-to0 is intended, before futureAP difference. Physical source/ArsenalArrow/Bluepitch/target/costs preserved; full block/nohit keeps support hit branch inactive.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse205-results.json"
+  },
+  {
+    "id": "contest_actual_opposing_aura_refill_reduction_suppressed",
+    "fixture": "card-contest-the-mindfield-blue-four-live-sparse-active-opposing-wizard-aura-reduces-real-endturn-refill",
+    "fixture_sha256": "86e221beec44e13ab30306d8379632acc00ed262f1c46b9806383ad2da863f30",
+    "source_raw5": {
+      "initial_gamestate.txt": "654ce16032f9808c5a11fba4630481fe10b0358b11ae2b3bc5614c2b191f2fd7",
+      "actions.json": "f9d738ea8f9f2fa15b5328878c348a590eeebe265635d3d2313e6d7b94de2ebb",
+      "assertions.json": "54faed722b2a73241be5fb5ad6b0f7a1be327ac50b06de7d5766545220c202d3",
+      "expected_final_gamestate.txt": "c392bd6d6a2ffee88942432bfc76ecb1a9eeaab884b9862c17791a123c5925fa",
+      "meta.json": "b1fa3b4ea9ee686267719d445188de96e4661762bccd796996e29f31ea5b465c"
+    },
+    "prefix_actions": 0,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 4,
+          "zone": "Arena",
+          "cardID": "contest_the_mindfield_blue",
+          "mode": "add",
+          "tag": "NO_ABILITIES"
+        }
+      ]
+    },
+    "retained_assertions": 574,
+    "expected_failure_step": 8,
+    "expected_failure": "Expected p1Hand count 3, got 4.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] contest_the_mindfield_blue / actual four-live sparse distinctive mechanic: Step 8 assertion failed: Expected p1Hand count 3, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "Before the actual endturn passes, suppress only retained opposing Contest9. Actual intellect modifier counts unsuppressed FaBMONArena sources; real P1 endturn now draws four physical cards instead of three. Same turn passes, sourceCard/ownership, HP/economy remain. First physical Hand count3-to4 occurs before later remaining Deck/UID assertions. No intellect cache, card movement or endpoint Hand override.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse205-results.json"
+  },
+  {
+    "id": "frailty_actual_owned_disease_weapon_penalty_suppressed",
+    "fixture": "card-frailty-four-live-sparse-active-owned-disease-reduces-real-paid-weapon-by-one",
+    "fixture_sha256": "30489f01693892ef6027e71eeab054b968d5b06dd1807c88b4f42b5849e8e59c",
+    "source_raw5": {
+      "initial_gamestate.txt": "d27b1529aed326136b50f48e1d739ef1dee45f73684b34eb07dbfcc73a97177c",
+      "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+      "assertions.json": "c8383e4e1120df043f7e8f092ce99c413793ac75090820eaa9bb0f8dae09365a",
+      "expected_final_gamestate.txt": "15016599c0624e1ede2e30b74eada215bf44cedc72b3fc8480c34082bfb08bbb",
+      "meta.json": "544d6962efb10c8b20f39daaa06160a434926274e3d11e03b52878600195ddc6"
+    },
+    "prefix_actions": 3,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "Arena",
+          "cardID": "frailty",
+          "mode": "add",
+          "tag": "NO_ABILITIES"
+        }
+      ]
+    },
+    "retained_assertions": 1537,
+    "expected_failure_step": 4,
+    "expected_failure": "Expected p1CombatChain-0 computed power to equal 2, got 3.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] frailty / actual four-live sparse distinctive mechanic: Step 4 assertion failed: Expected p1CombatChain-0 computed power to equal 2, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual printed1 Dawnblade payment from Blue3 but before source resolution, suppress only own retained Frailty6. OUTPower counts unsuppressed FaBMONArena sources; actual paid weapon enters attack at printed3 instead of2. Sourceweapon/ownedDisease/pitch/target/resources/AP preserved. First actual attack-entry power2-to3 is intended; no cached or terminalHP substitution.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse205-results.json"
+  },
+  {
+    "id": "glint_actual_earned_weapon_go_again_tag_omission",
+    "fixture": "card-glint-the-quicksilver-blue-four-live-sparse-real-reprise-draw-and-paid-weapon-go-again",
+    "fixture_sha256": "41732b2f210d0d0ee31bc38402f0200970612bddb871ba8d399d359bede82c1b",
+    "source_raw5": {
+      "initial_gamestate.txt": "4904173c0dd3af3846e15253d0ce1af702c5d30097bb2a41c5e4541c04ec338a",
+      "actions.json": "8d54470390215094d927489c146351b47b56aeebd0e84b0bc326aa1efd48b038",
+      "assertions.json": "ca47b1263ecad963faa506c152ebf36ec2dc8d66b97859ef4322f56ae587e2b5",
+      "expected_final_gamestate.txt": "37d7a7db688c39cd76c2c5e314bfefc84174d0ad00d1ad81dc658bf127c7c7b7",
+      "meta.json": "55277623a1de1c5fc14a89f0e753192fd0c29e4c32cc79744f2c1d4a79fddf38"
+    },
+    "prefix_actions": 22,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "dawnblade",
+          "mode": "remove",
+          "tag": "GO_AGAIN"
+        }
+      ]
+    },
+    "retained_assertions": 1127,
+    "expected_failure_step": 0,
+    "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] glint_the_quicksilver_blue / four live distinctive effect: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual paidDawnblade and opponent physical Hand block earn Reprise, actual Glint resolves after four responses: sourcepublicGY and realRed8draw retained. Remove only earned GO_AGAIN from the actual weapon proxy in P1CombatChain. Same attack/printedpower/defender/HP/draw/economy remain. Retained sourceprefix22 Initial computedGA1-to0 is first intended failure; futureprintednoGA AP refund is not separately fabricated.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse206-results.json"
+  },
+  {
+    "id": "ironsong_actual_earned_reprise_power_three_tag_omission",
+    "fixture": "card-ironsong-response-red-four-live-sparse-real-hand-defense-reprise-plus-three-weapon-damage",
+    "fixture_sha256": "cf4d0d1a956d2eed63635196bcdbfb45186d04e65eb57baa2e2955db1bcc9b90",
+    "source_raw5": {
+      "initial_gamestate.txt": "7a8e78fc364caa27720af31de519a6ab6b5c0895b875f0d7a978225bd3bcc1ce",
+      "actions.json": "8d54470390215094d927489c146351b47b56aeebd0e84b0bc326aa1efd48b038",
+      "assertions.json": "b5734ccc0bbb3d84222edd4b4912511037d896f70f294e172f714b099891789f",
+      "expected_final_gamestate.txt": "fa56264109b79196c26d0e7515be9104446d5543d65f219ccdd4a961dc8e7c75",
+      "meta.json": "e8cb0339bf18a218d83b2eda4327b86ba0d6b33d22fc93f6e60ac61f3eda41c3"
+    },
+    "prefix_actions": 22,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "dawnblade",
+          "mode": "remove",
+          "tag": "WTR_POWER:3"
+        }
+      ]
+    },
+    "retained_assertions": 1071,
+    "expected_failure_step": 0,
+    "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] ironsong_response_red / four live distinctive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual paidDawnblade and real opponent Hand defense earn Reprise, actual Ironsong resolves printed+3 on the liveweapon. Remove only earned WTR_POWER:3 from actual P1CombatChain proxy. Printedbase3/sourcephysicalweapon/pitch/defender/primaryGY/HP/economy remain; retained prefix22 Initial computedpower6-to3 is first intended failure, before later realdamage3-to0. No cacheddefense/history/powercache override.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse206-results.json"
+  },
+  {
+    "id": "stonewall_actual_earned_high_cost_defense_application_locked",
+    "fixture": "card-stonewall-confidence-red-four-live-sparse-real-cast-next-live-turn-and-plus-four-defense",
+    "fixture_sha256": "5ee1da2385728175457a0aec9e279ab93765c960ce6bae8b4385beb683968c57",
+    "source_raw5": {
+      "initial_gamestate.txt": "976f397078d09b164240f9176c1f2f18ff5f853927666002cb5acd025583a6af",
+      "actions.json": "c80ee14a3711041abcaa5273fb70352a77c9b24b2bf1d0438261ae00f7f9615d",
+      "assertions.json": "1d67fd2a2ab31119bbb359fd2650fa7f9756015d1c2188cd79ee6b1852e30ab8",
+      "expected_final_gamestate.txt": "18a6de81139f6311461620568ff9cf9ebbc23197794687067d96f589e2215db0",
+      "meta.json": "8770222528b3b7a9aa2c510d4769db4aa3061e815868d4ef915cee206d977443"
+    },
+    "prefix_actions": 30,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 2,
+          "zone": "CombatChain",
+          "cardID": "raging_onslaught_red",
+          "mode": "add",
+          "tag": "SUP_NO_DEFENSE_GAIN"
+        }
+      ]
+    },
+    "retained_assertions": 2044,
+    "expected_failure_step": 10,
+    "expected_failure": "Expected p1Health to equal 18, got 14.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] stonewall_confidence_red / four live distinctive effect: Step 10 assertion failed: Expected p1Health to equal 18, got 14.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual Stonewall cast/fourresponses, actual endturn/refill and P2Potion/paidRaging attack, before P1declares real printedcost3 blocker, add existing defense-gain application lock only to actual P2attack. Leave primaryownedAura, its entire naturally earned persistentUID record, all physical cards/printeddefense, actualpower9, costs/turn/AP/HP untouched. Existing ObjectCurrentDefense clamps solepositiveStonewall+4 to0, so realblock3 and realdamage6 produce P1HP14 rather than18. First physicalHP oracle precedes later damage cache. This tests actualbonus application sensitivity, not Aura NO_ABILITIES/blanking or expiry.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse207-results.json"
+  },
+  {
+    "id": "firebreathing_actual_paid_attacking_instant_power_tag_omission",
+    "fixture": "card-firebreathing-red-four-live-sparse-actual-paid-attacking-instant-increases-real-attack-damage",
+    "fixture_sha256": "6fbef94c33879133859b69eff4f3ced5cb772a3c0753cd58ed1f479d9f4eefef",
+    "source_raw5": {
+      "initial_gamestate.txt": "49decf7bd4dfb79d0c68ef5756c1e8758ae8d42d6bc9389978023b6aee46fdac",
+      "actions.json": "ea35ed0caf528d4d202eebe34951eba38dd7103aedcd62e337217df9dd1107d8",
+      "assertions.json": "335653a1ab42780a54fd88e258776afa0e24ce701302f9932d0a92bbd3dedcc3",
+      "expected_final_gamestate.txt": "13c47d48b36f8d5511d6ec0c1b6daa236b5c286b37a8dcdae3d5ecb6abb397b4",
+      "meta.json": "a3f8d60851184e23523d5bb695a41795eed2dc71daecf1731baa76431e775fc4"
+    },
+    "prefix_actions": 12,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "firebreathing_red",
+          "mode": "remove",
+          "tag": "WTR_POWER:1"
+        }
+      ]
+    },
+    "retained_assertions": 1117,
+    "expected_failure_step": 0,
+    "expected_failure": "Expected p1CombatChain-0 computed power to equal 4, got 3.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] firebreathing_red / actual four-live sparse distinctive mechanic: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 4, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual paid Firebreathing attack and its actual Instant1 activation with four responses have earned WTR_POWER:1 on the actual attacking card, omit only that tag. Keep real source5 onChain/physicalbluePitch6, spentresources/AP, completed virtual7 and all priorities. Retained prefix12 computedpower4-to3 is first Initial failure before its later exacttag/physicalHP16-to17 oracles. This tests one earned+1 activation, not repeat activations or legality failures.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse208-results.json"
+  },
+  {
+    "id": "crucible_actual_paid_staff_next_arcane_grant_omission",
+    "fixture": "card-crucible-of-aetherweave-four-live-sparse-actual-paid-staff-instant-amplifies-real-next-arcane-by-one",
+    "fixture_sha256": "48a19c51679bd3d2ad432a03f709bfbaab65c5bfb2e2aed9d819ee50a30667f9",
+    "source_raw5": {
+      "initial_gamestate.txt": "4829794ce81974d6f33d733e4686d4630a9bf4f21f6937403b0fc2974726318e",
+      "actions.json": "95130ddfbd1e68c3c2fd8349733ab6ce58e92a61a8c3615f7e612fd9c179235c",
+      "assertions.json": "ca495f3024b0ccb1e2509fa061c61f8e2977a92987115918b4c0adaedd008329",
+      "expected_final_gamestate.txt": "2174ada6401ec87b626244bca2d126785d76d4fad324ecd8f38cfe1966f6608a",
+      "meta.json": "19468a0f237acc9ef228bad5a03dcc949bed47c9be331548414cc32b7fd96256"
+    },
+    "prefix_actions": 6,
+    "mutation": {
+      "remove_effect": "ARC_NEXT_ARCANE"
+    },
+    "retained_assertions": 410,
+    "expected_failure_step": 6,
+    "expected_failure": "Expected p4Health to equal 16, got 17.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] crucible_of_aetherweave / actual four-live sparse distinctive mechanic: Step 6 assertion failed: Expected p4Health to equal 16, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual StaffInstant1/Bluepitch3 payment and four responses award one unique ARC_NEXT_ARCANE, omit only that earned global grant before actual Zap announcement. Native Zapprinted3 then deals3 instead4 to sameactualP4; physicalHP16-to17 is firstfailure before cumulativearcane4-to3. Keep actualstaff/oncecost/BluePitch/R2/AP1, target declaration and every oracle. No private spell/caster state, damagehistory, cachedamount or HP mutation.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse208-results.json"
+  },
+  {
+    "id": "gilet_actual_paid_opt_completed_prevention_one_omission",
+    "fixture": "card-seekers-gilet-four-live-sparse-paid-instant-retained-opt-and-one-real-damage-prevention",
+    "fixture_sha256": "e1820294849bc20d1e4fe3c7f15a8ea5126bc6bb9d1bb3758c891c29ebe297eb",
+    "source_raw5": {
+      "initial_gamestate.txt": "f48752b6988a5ee9d5c9e6ec4b065e67ad2022f38e270f9cabb7d3967d82ca80",
+      "actions.json": "74066cf7d18e7647d7252a704ceafbb3fa47b233d640635b4768aaab8e88d071",
+      "assertions.json": "6eb3af1163eec117dccd26d4334697c5f1627e07dbc3404e021964c832b977a3",
+      "expected_final_gamestate.txt": "385a2dc94707641dbed731b5177dc451760d856f873d1da2f50fa523fd5072e1",
+      "meta.json": "50e21a088bca86c7c9c8148860ea646fbda54ef01c034e4622688af26a60dbbe"
+    },
+    "prefix_actions": 26,
+    "mutation": {
+      "remove_effect": "PREVENT_DAMAGE"
+    },
+    "retained_assertions": 1166,
+    "expected_failure_step": 4,
+    "expected_failure": "Expected p4Health to equal 14, got 13.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] seekers_gilet / four live distinctive effect: Step 4 assertion failed: Expected p4Health to equal 14, got 13.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual P4Gilet Instant1 payment/destruction/four responses and actualOptBottomRed answer finish the ability at26, omit only the globally unique naturally earned PREVENT_DAMAGE1. Keep physicalsourceGY, bluePitch/cost/R2/AP0, realDeck order10/11/9, clearedTemp/layer/frame, actualattack7 and all actors. Real nextseven damage now reachesP4 in full instead of beingprevented1: firstphysicalHP14-to13 precedes laterdamageDealt6-to7. No privateawait/caster/history/cache/HP/target mutation.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "evidence_report": "card-regression-negative-controls-sparse209-results.json"
+  },
+  {
+    "id": "forged_actual_earned_equipment_defense_one_application_locked",
+    "fixture": "card-forged-for-war-yellow-four-live-sparse-actual-cast-persistent-aura-then-next-live-turn-equipment-defense",
+    "fixture_sha256": "6aabfd4cb83ce42728a730e51c15d58f6194369226e752316f6ab23b9e13afd0",
+    "source_raw5": {
+      "initial_gamestate.txt": "9666451e93a90a9e448eb57b1a10bb0d5e3054d094d37fbc20b8bd89818c950c",
+      "actions.json": "73d6eae8b4b6947075b4863c168d9e22b650f6625196354f990d78528769db49",
+      "assertions.json": "cf23843802911afdaa83bc6aa2e015d9402f8b07f97dbbcdbed79cdebd7446b3",
+      "expected_final_gamestate.txt": "b057d6dc1119d1db2aaae72dac588a2ba433f6f1f116cd353da3e3b56410f3a7",
+      "meta.json": "bc6c37720761665567153de9d61931355f61996ef7ee27d33c3f3b0982ea9293"
+    },
+    "prefix_actions": 25,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 2,
+          "zone": "CombatChain",
+          "cardID": "wounding_blow_red",
+          "mode": "add",
+          "tag": "SUP_NO_DEFENSE_GAIN"
+        }
+      ]
+    },
+    "retained_assertions": 696,
+    "expected_failure_step": 9,
+    "expected_failure": "Expected p1Health to equal 17, got 16.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] forged_for_war_yellow / actual four-live sparse distinctive mechanic: Step 9 assertion failed: Expected p1Health to equal 17, got 16.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual Forged cast and live turntransition, actual P2WB4 attack and actual P1Crown6 Equipment block, add existing defense-gain application lock only to actual attackingWB8. Actual printedCrownbase0, ownedAura5 and entire naturallyearned EQUIPMENT_DEFENSE1/persistentUID5 record remain untouched. Known ObjectCurrentDefense applies WTR+1 then clamps solepositive delta1 to0; actual4damage rather than3 gives firstphysicalP1HP17-to16. No printedbase/history/privateUID/cache/HP mutation. This tests bonusapplication, not Aura suppression/expiry or Crownability.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+    "evidence_report": "card-regression-negative-controls-sparse211-results.json"
+  },
+  {
+    "id": "exude_actual_paid_attacking_instant_power_two_tag_omission",
+    "fixture": "card-exude-confidence-red-four-live-sparse-real-paid-instant-from-owned-attacking-card-adds-two-power-and-damage",
+    "fixture_sha256": "bdff03c98b0a88c8d4cfa1da0e947a947a93d075fc9d810627eb0c455d6cd8f9",
+    "source_raw5": {
+      "initial_gamestate.txt": "c4aec4480bd8cb2a407bbd64f5feb43697c9146b18fda6cba34e7cb73e2dd01d",
+      "actions.json": "69a61a7377cd84941a71b435942293dfebcc9ad46db4c2e2125639ccf8233d8f",
+      "assertions.json": "3b45cf1053748598bd0e15758da603340b5c1f78eb3bd5242a4392d62de4367f",
+      "expected_final_gamestate.txt": "5752451846b72646f87ca2a91f51548be30878d8181c300ed4b9e4345c7f4617",
+      "meta.json": "de6d0242450d1264c3fb5ea34afd4af392d0077431838f4b7d0efde8a7a7ebca"
+    },
+    "prefix_actions": 12,
+    "mutation": {
+      "object_effect": [
+        {
+          "player": 1,
+          "zone": "CombatChain",
+          "cardID": "exude_confidence_red",
+          "mode": "remove",
+          "tag": "WTR_POWER:2"
+        }
+      ]
+    },
+    "retained_assertions": 1117,
+    "expected_failure_step": 0,
+    "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 4.",
+    "detected": true,
+    "returncode": 1,
+    "output": "[FAIL] exude_confidence_red / actual four-live sparse distinctive mechanic: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+    "stderr": "",
+    "scope": "After actual Exude0 attack/target/Action payment, then actualown attackingInstant3 paidbyBlue6 and fourrealresponses, omit only earned WTR_POWER:2 on actual physicalExude5 in P1CombatChain. Actualcost/AP/R0/Pitch/source5/removedproxy7/targets/printedbase4 all remain. Boundarycomputedpower6-to4 is firstInitial failure before laterexacttag and realHP14-to16 oracles. This isolates one earnedpower activation, not defenderrestriction/repeatactivation/otherwindows; no privateUID/history/cache/HP mutation.",
+    "disposable_removed": true,
+    "canonical_raw5_preserved": true,
+    "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+    "evidence_report": "card-regression-negative-controls-sparse214-results.json"
   }
 ]

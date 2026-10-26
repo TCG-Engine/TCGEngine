@@ -1,0 +1,7 @@
+{
+    "name": "enchanting_melody_red / four-live actual defensive passive",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-25T21:37:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P4 owns active MelodyRed6 at a legitimate midgame checkpoint. Actual paid0/AP1 RedWoundingBlow5 targets P4 and power4 resolves through real four-live combat responses. Melody remains Arena through first three reaction passes; fourth enters damage and destroys Aura6 as replacement cost to prevent4. Actualdamage0/P4HP20; Aura6 ends own publicGYFaceDown0 and attack5 ends P1publicGY after actual closure. This pins prevention of this four-point packet, not an isolated upper bound above4. No Aura casting2/ownGoAgain/end-phase maintenance, arcane or sibling credit. Sources: https://judge.fabtcg.com/cards/detail/506/"
+}

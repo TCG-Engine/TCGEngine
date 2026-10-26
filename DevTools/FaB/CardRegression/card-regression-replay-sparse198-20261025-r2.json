@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch198.json",
+  "runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T19:44:39.007340+00:00",
+  "fixtures": [
+    {
+      "slug": "card-mauvrion-skies-red-four-live-correct-earned-hit-trigger-before-three-runechants",
+      "fixture_sha256": "6ec9a8dc340e7a6dd6876d4328c63ab1bc47c3b8816c34ee846214082af73dce",
+      "passed": true,
+      "result": "[PASS] mauvrion_skies_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-phantasmal-haze-red-four-live-correct-phantasm-then-responseable-destroyed-shield-trigger",
+      "fixture_sha256": "487dca0e6e1cb42bf85c27b6d8a2c7bf94468ef6b64b9cb5b21e04db02e295b4",
+      "passed": true,
+      "result": "[PASS] phantasmal_haze_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-mauvrion-skies-red-four-live-correct-earned-hit-trigger-before-three-runechants",
+      "returncode": 0,
+      "stdout": "[PASS] mauvrion_skies_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-phantasmal-haze-red-four-live-correct-phantasm-then-responseable-destroyed-shield-trigger",
+      "returncode": 0,
+      "stdout": "[PASS] phantasmal_haze_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

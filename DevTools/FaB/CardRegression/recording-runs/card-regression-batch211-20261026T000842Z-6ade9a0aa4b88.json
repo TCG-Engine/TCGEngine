@@ -1,0 +1,345 @@
+{
+    "completed_at_utc": "2026-10-26T00:08:42+00:00",
+    "input_file": "card-regression-batch211.json",
+    "input_sha256": "6aa4532eb0e0b2f0dcad87e37b7ac1f4790b52edcc16ac7d4c14848c4dc938a4",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-parry-blade-four-live-sparse-actual-weapons-zone-block-gets-two-defense-against-weapon",
+            "status": "recorded_semantically_checked",
+            "actions": 21,
+            "assertions": 1365
+        },
+        {
+            "slug": "card-forged-for-war-yellow-four-live-sparse-actual-cast-persistent-aura-then-next-live-turn-equipment-defense",
+            "status": "recorded_semantically_checked",
+            "actions": 34,
+            "assertions": 2039
+        },
+        {
+            "slug": "card-aether-sink-yellow-four-live-sparse-actual-steam-cost-grants-barrier-two-and-paid-opposing-arcane-prevention",
+            "status": "blocked_or_incorrect",
+            "error": "Undefined property: Pitch::$TurnEffects",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "p4Hero-0",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p4Arena-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 3,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 4,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "1",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "UPF",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "DYN_SURGENT_USED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_DAMAGE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_ARCANE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_ARCANE_OPP",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_VALLEY_HIT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ARCANE_DEALT",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "4": [
+                        {
+                            "type": "EVR_ACTIVATED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MST_BLUE_PITCHED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "DTD_DAMAGE_EVENT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_DAMAGED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_ARCANE_TAKEN",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_DAMAGED_BY",
+                            "amount": 1,
+                            "uses": 1,
+                            "uid": 1
+                        },
+                        {
+                            "type": "DTD_LOST",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_DAMAGED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [],
+                    "3": []
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "zap_red"
+                    ]
+                },
+                "arcCards": {
+                    "6": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "target": 4,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "mstFree": false,
+                        "rosLastLightning": false
+                    },
+                    "8": {
+                        "steam": 1
+                    },
+                    "7": {
+                        "iarPermission": []
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "resolvingReaction": {
+                    "uid": 6,
+                    "owner": 1,
+                    "controller": 1,
+                    "kind": "ACTION",
+                    "resolutionClass": "PLAIN_SPELL",
+                    "completionSource": {
+                        "CardID": "zap_red",
+                        "Owner": 1,
+                        "Controller": 1,
+                        "Kind": "ACTION",
+                        "SourceZone": "Hand",
+                        "SourceUniqueID": 6,
+                        "Params": [],
+                        "UniqueID": 6,
+                        "TurnEffects": [],
+                        "Counters": {
+                            "FAB_PLAY_ORDER": 1
+                        },
+                        "removed": null,
+                        "Location": "Stack",
+                        "PlayerID": 0,
+                        "mzIndex": 0,
+                        "_sourceZone": null
+                    },
+                    "cardID": "zap_red",
+                    "sourceMZ": "Stack-0",
+                    "baselineFrameKeys": [],
+                    "ownedFrameKeys": [
+                        "zap_red:0:ResolveCard#1"
+                    ]
+                },
+                "omn": {
+                    "2": {
+                        "4": {
+                            "ARCANE_TAKEN": 1,
+                            "REPROACH": 1
+                        }
+                    }
+                },
+                "iar": {
+                    "2": {
+                        "1": {
+                            "DAMAGE:4": 1
+                        }
+                    }
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": [],
+                "3": [],
+                "4": []
+            },
+            "initial_gamestate_text": "1\r\n0\r\n1\r\nverdance 2 1 1 0 1 - -\r\n1\r\ndorinthea 2 2 2 0 2 - -\r\n1\r\ndorinthea 2 3 3 0 3 - -\r\n1\r\ndash 2 4 4 0 4 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\naether_sink_yellow 2 4 4 0 5 - eyJTVEVBTSI6MX0=\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\nzap_red 6 1 1\r\n0\r\n0\r\n1\r\nwounding_blow_blue 7 4 4\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n20\r\n20\r\n20\r\n20\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0\r\n0\r\n0\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n0\r\n1\r\n0\r\n{\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":[],\"nextTurnEffects\":[],\"hitsThisTurn\":[],\"cardsPlayedThisTurn\":[]}\r\n0\r\n1234\r\n1234\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\n1\r\nMAIN\r\n\r\n\r\n\r\n\r\n7\r\n0\r\n",
+            "initial_gamestate_sha256": "b9d417c5aa17df9cc23bd2a88c7df9a6aad4642dbd14f71467688511284b8060"
+        }
+    ]
+}

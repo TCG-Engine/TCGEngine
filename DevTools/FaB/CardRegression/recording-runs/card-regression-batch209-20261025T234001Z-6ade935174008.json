@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-25T23:40:01+00:00",
+    "input_file": "card-regression-batch209.json",
+    "input_sha256": "0964a8b7e792dc03bd0ba05a5feb65fad2884ffd1254e6e71c6f5cf85685e20f",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-seekers-gilet-four-live-sparse-paid-instant-retained-opt-and-one-real-damage-prevention",
+            "status": "recorded_semantically_checked",
+            "actions": 38,
+            "assertions": 3292
+        },
+        {
+            "slug": "card-teklo-foundry-heart-four-live-sparse-real-earned-boost-paid-ability-and-typed-banish-resource",
+            "status": "recorded_semantically_checked",
+            "actions": 34,
+            "assertions": 2808
+        }
+    ]
+}

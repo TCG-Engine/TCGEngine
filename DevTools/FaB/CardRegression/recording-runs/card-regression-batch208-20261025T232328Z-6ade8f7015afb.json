@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-25T23:23:28+00:00",
+    "input_file": "card-regression-batch208.json",
+    "input_sha256": "9f68cc590520c761d491046144765ae2102663ed8a381df56cf40f07e162de7a",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-firebreathing-red-four-live-sparse-actual-paid-attacking-instant-increases-real-attack-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 1680
+        },
+        {
+            "slug": "card-seismic-shelter-blue-four-live-sparse-active-owned-aura-scales-real-defense-by-two-surge-tokens",
+            "status": "recorded_semantically_checked",
+            "actions": 29,
+            "assertions": 2165
+        },
+        {
+            "slug": "card-crucible-of-aetherweave-four-live-sparse-actual-paid-staff-instant-amplifies-real-next-arcane-by-one",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 761
+        },
+        {
+            "slug": "card-aether-flare-red-four-live-sparse-actual-three-arcane-earns-dynamic-next-spell-plus-three",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 1138
+        }
+    ]
+}

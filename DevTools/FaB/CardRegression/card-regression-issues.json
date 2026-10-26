@@ -5830,5 +5830,180 @@
       "https://rules.fabtcg.com/en/cr/08-keywords/"
     ],
     "extends_existing_issue_ids": []
+  },
+  {
+    "id": "FAB-REG-043",
+    "status": "fixed_verified_bounded_four_live_trigger_timing",
+    "classification": "native_confirmed_missing_responseable_trigger",
+    "card_ids": [
+      "mauvrion_skies_red"
+    ],
+    "description": "The earned granted hit ability created Runechants immediately. Native hit boundary had DAMAGE/Stack0/three Runechants, with no response window. Each grant now queues its own captured host/controller/count; normal creation modifiers apply at resolution.",
+    "source_paths": [
+      "FaBSim/Custom/CRUCards.php",
+      "FaBSim/Custom/ROSCards.php"
+    ],
+    "fix_applied": true,
+    "fix_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+    "passing_fixture": "Tests/Integration/FaBSim/card-mauvrion-skies-red-four-live-correct-earned-hit-trigger-before-three-runechants",
+    "pilot_checked_fixtures": [
+      {
+        "path": "Tests/Integration/FaBSim/card-mauvrion-skies-red-four-live-correct-earned-hit-trigger-before-three-runechants",
+        "source_spec": "card-regression-batch198.json",
+        "review_evidence": "review-evidence/sparse198-20261025-qualified-saved-review.json"
+      }
+    ],
+    "native_before_after_evidence": "review-evidence/sparse198-confirmed-trigger-before-after.json",
+    "fix_qualification": "Exact original correct expectations failed before the repair and passed after; independent source/saved review, two current focused replays and fourteen bounded actual-function contracts. One red representative; other pitch siblings and broad combinations not natively validated.",
+    "coverage_credit": true,
+    "rules": [
+      "https://rules.fabtcg.com/en/cr/05-layer-resolution/"
+    ]
+  },
+  {
+    "id": "FAB-REG-044",
+    "status": "fixed_verified_bounded_four_live_trigger_timing",
+    "classification": "native_confirmed_missing_responseable_trigger",
+    "card_ids": [
+      "phantasmal_haze_red"
+    ],
+    "description": "Destruction created Spectral Shield inline and Phantasm chain closure returned ACTION without a pending trigger response window. Native boundary had Stack0/one early Shield. Haze now queues its captured destruction ability; Phantasm resolution preserves PRIORITY when closure leaves pending layers.",
+    "source_paths": [
+      "FaBSim/Custom/EVRCards.php",
+      "FaBSim/Custom/ROSCards.php",
+      "FaBSim/Custom/GameLogic.php"
+    ],
+    "fix_applied": true,
+    "fix_runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+    "passing_fixture": "Tests/Integration/FaBSim/card-phantasmal-haze-red-four-live-correct-phantasm-then-responseable-destroyed-shield-trigger",
+    "pilot_checked_fixtures": [
+      {
+        "path": "Tests/Integration/FaBSim/card-phantasmal-haze-red-four-live-correct-phantasm-then-responseable-destroyed-shield-trigger",
+        "source_spec": "card-regression-batch198.json",
+        "review_evidence": "review-evidence/sparse198-20261025-qualified-saved-review.json"
+      }
+    ],
+    "native_before_after_evidence": "review-evidence/sparse198-confirmed-trigger-before-after.json",
+    "fix_qualification": "Exact original correct expectations failed before the repair and passed after; independent source/saved review, two current focused replays and fourteen bounded actual-function contracts. One red representative; other pitch siblings and broad combinations not natively validated.",
+    "coverage_credit": true,
+    "rules": [
+      "https://rules.fabtcg.com/en/cr/05-layer-resolution/"
+    ]
+  },
+  {
+    "id": "FAB-REG-045",
+    "status": "fixed_verified_bounded_four_live_briar_first_damage_trigger",
+    "classification": "native_confirmed_missing_responseable_hero_trigger",
+    "card_ids": [
+      "briar",
+      "briar_warden_of_thorns"
+    ],
+    "affected_witness_card_ids": [
+      "stir_the_wildwood_red"
+    ],
+    "description": "First positive attack-action damage to an opposing hero created Earth inline. Actual25-action unfused witness had target12HP, DAMAGE/Stack0/earlyEarth9. Existing event-time eligibility and immediate first marker now capture the Hero into the shared ROS queue; Earth is created only when earned ability resolves. No late active-source recheck.",
+    "source_paths": [
+      "FaBSim/Custom/ELECards.php",
+      "FaBSim/Custom/ROSCards.php"
+    ],
+    "fix_applied": true,
+    "fix_runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+    "passing_fixture": "Tests/Integration/FaBSim/card-stir-the-wildwood-red-four-live-correct-earned-arcane-plus-two-and-briar-responseable-trigger",
+    "pilot_checked_fixtures": [
+      {
+        "path": "Tests/Integration/FaBSim/card-stir-the-wildwood-red-four-live-correct-earned-arcane-plus-two-and-briar-responseable-trigger",
+        "source_spec": "card-regression-batch200.json",
+        "review_evidence": "review-evidence/sparse200-20261025-qualified-saved-review.json"
+      }
+    ],
+    "native_before_after_evidence": "review-evidence/sparse200-briar-confirmed-before-after.json",
+    "fix_qualification": "Unchanged correct native expectation failed before and passed after, independent source and saved review, two current targeted replays,13 actual-function controlled contracts and14 existing dispatcher contracts.",
+    "coverage_credit": false,
+    "coverage_note": "Only Stir receives new primary group/identity credit. Briar has focused named repair evidence; no extra primary/sibling credit.",
+    "rules": [
+      "https://rules.fabtcg.com/en/cr/06-effects/"
+    ]
+  },
+  {
+    "id": "FAB-REG-046",
+    "status": "fixed_verified_bounded_shared_native_activated_ability_lifetime",
+    "classification": "native_confirmed_extension_of_existing_managed_virtual_lifetime",
+    "repair_group": "managed_virtual_lifetime",
+    "new_distinct_gameplay_defect_group": false,
+    "card_ids": [
+      "dreadbore"
+    ],
+    "description": "Actual paid Dreadbore ability left Stack and refunded AP while Load_arrow and its continuation remained pending. Shared native arcSpec admission and ResolveAbility frame ownership now use layer protocol instead of Opal/Deja card allowlists. Actual choice completes before proxy cleanup and one GA refund.",
+    "source_paths": [
+      "FaBSim/Custom/GameLogic.php"
+    ],
+    "fix_applied": true,
+    "fix_runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+    "passing_fixture": "Tests/Integration/FaBSim/card-dreadbore-four-live-sparse-correct-expectation-paid-load-await-layer-and-go-again-lifetime",
+    "native_before_after_evidence": "review-evidence/sparse203-dreadbore-managed-lifetime-before-after.json",
+    "review_evidence": "review-evidence/sparse203-20261025-qualified-saved-review.json",
+    "fix_qualification": "Unchanged correct native before-fail/after-pass, independent source/saved reviews, two97 creation replays,15 actual-function contracts,3 targeted mutants and6 directly affected existing witness passes.",
+    "coverage_credit": "Only Dreadbore primary and the named exercised branch; no generic registry/sibling credit.",
+    "rules": [
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ]
+  },
+  {
+    "id": "FAB-REG-047",
+    "status": "fixed_verified_red_named_plain_lifecycle_extension",
+    "classification": "native_confirmed_extension_of_existing_named_plain_lifecycle",
+    "repair_group": "named_plain_lifecycle",
+    "new_distinct_gameplay_defect_group": false,
+    "card_ids": [
+      "blood_tribute_red"
+    ],
+    "source_admission_only_untested_siblings": [
+      "blood_tribute_yellow",
+      "blood_tribute_blue"
+    ],
+    "description": "Native original correct BloodRed input left physical source in Graveyard while Opt/continuation still waited. Same initial and five actions separately exposed physicalGY1 beforeOpt completes. Appending BloodRGB to existing named plain-spell admission retains sourceStack until actualOpt/banish finish; currentRed six-action unchanged correct fixture passes.",
+    "source_paths": [
+      "FaBSim/Custom/GameLogic.php"
+    ],
+    "fix_applied": true,
+    "fix_runtime_sha256": "62e93306ebcaaf4c306d43e164117b4538a84db2ca29cad001779db5c704aae3",
+    "passing_fixture": "Tests/Integration/FaBSim/card-blood-tribute-red-four-live-correct-source-lifetime-real-opt-three-then-physical-banish",
+    "native_before_after_evidence": "review-evidence/blood-tribute-plain-lifecycle-before-after-20261026.json",
+    "review_evidence": "review-evidence/blood-tribute-red-20261026-qualified-saved-review.json",
+    "fix_qualification": "True native before-fail/after-pass same correctinput/initial/first5actions; independent source/actual review; two62clean replays;9actualclassifier scope contracts;1existingHighRiser/TRoM compatibility pass. No isolatedhelperfault.",
+    "coverage_credit": "One Red primary/selected nativebody and one group; no Yellow/Blue body or support credit.",
+    "core_generated_or_card_bodies_changed": false,
+    "rules": [
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ]
+  },
+  {
+    "id": "FAB-REG-048",
+    "status": "fixed_verified_scoped_effect_pitch_source_context",
+    "classification": "native_confirmed_wrong_source_reference_during_nested_pitch_callback",
+    "root_cause_group": "effect_pitch_source_context",
+    "new_distinct_gameplay_defect_group": true,
+    "related_prior_issue_ids": [
+      "FAB-REG-041"
+    ],
+    "distinct_from_prior": "Caster alreadycorrect1 in actualexceptiontrace. This fixes enclosing sourceMZ clobbered by funding CardPitched callback; wrongcard plus warning are one mechanism.",
+    "card_ids": [
+      "aether_sink_yellow"
+    ],
+    "affected_support_card_ids": [
+      "zap_red"
+    ],
+    "description": "Actual fundedbarrier resumed Zap with p4Pitch0 as DoDamage/FaBELEDamaged source and threw Undefined property Pitch::$TurnEffects. FaBARCPitchForEffect now captures/restores only sharedmzID presence/value in finally around unchangedcallbacks; originalcaster, remainingvariables/frames and exceptions retained.",
+    "source_paths": [
+      "FaBSim/Custom/ARCCards.php"
+    ],
+    "fix_applied": true,
+    "fix_runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+    "passing_fixture": "Tests/Integration/FaBSim/card-aether-sink-yellow-four-live-sparse-actual-steam-cost-grants-barrier-two-and-paid-opposing-arcane-prevention",
+    "native_before_after_evidence": "review-evidence/sparse211-effect-pitch-source-context-before-after.json",
+    "review_evidence": "review-evidence/sparse211-405-qualified-saved-review.json",
+    "fix_qualification": "SamecorrectSink initial/actions/all914oracles pass after realbeforeexception; independent source/actual review, two final405cohortreplays,12controlledactualfunction contracts/68checks, Quickeningdecline and realtwoPitchWellingtoncompatibility with one separately reviewed expectedsource-context leaf correction.",
+    "core_generated_or_card_bodies_changed": false,
+    "coverage_credit": "Only three211primary representatives; no newWellington/Quickening/support/counter/sibling credit."
   }
 ]

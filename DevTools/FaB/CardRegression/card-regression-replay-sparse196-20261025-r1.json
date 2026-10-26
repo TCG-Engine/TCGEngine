@@ -1,0 +1,75 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch196.json",
+  "runtime_sha256": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T19:44:25.337899+00:00",
+  "fixtures": [
+    {
+      "slug": "card-brush-off-red-four-live-sparse-actual-zero-cost-instant-prevents-real-two-physical-damage",
+      "fixture_sha256": "c88f62fcca299d1b03a54f61c9f167027e9dadb4a17a2df36d4256e9cbade722",
+      "passed": true,
+      "result": "[PASS] brush_off_red / actual four-live defensive effect"
+    },
+    {
+      "slug": "card-steelblade-shunt-red-four-live-sparse-actual-paid-reaction-blocks-real-weapon-and-damages-attacking-hero",
+      "fixture_sha256": "0ba340a484c7048d4045a783f0e7d5858077786b979ecbbcbc7795da8622d178",
+      "passed": true,
+      "result": "[PASS] steelblade_shunt_red / actual four-live defensive effect"
+    },
+    {
+      "slug": "card-rally-the-rearguard-red-four-live-sparse-actual-defending-activation-discards-owned-card-and-adds-three-defense",
+      "fixture_sha256": "5a28d506b893746548f20b957242bcab9d2de5e3b3f8bf53d2f1fefe30b21946",
+      "passed": true,
+      "result": "[PASS] rally_the_rearguard_red / actual four-live defensive effect"
+    },
+    {
+      "slug": "card-soul-shield-yellow-four-live-sparse-actual-paid-six-defense-reaction-then-soul-only-at-chain-close",
+      "fixture_sha256": "6f362752ef018a139dde051927a3b49f98699e97ec3c6006b8754bf273d4fc4b",
+      "passed": true,
+      "result": "[PASS] soul_shield_yellow / actual four-live defensive effect"
+    },
+    {
+      "slug": "card-sigil-of-suffering-red-four-live-sparse-actual-arcane-to-attacking-hero-earns-four-defense-before-physical-damage",
+      "fixture_sha256": "20a1fe4ad935113264c8873c4b8291f2d1d51a2527896544c921c1f7710f2fe6",
+      "passed": true,
+      "result": "[PASS] sigil_of_suffering_red / actual four-live defensive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-brush-off-red-four-live-sparse-actual-zero-cost-instant-prevents-real-two-physical-damage",
+      "returncode": 0,
+      "stdout": "[PASS] brush_off_red / actual four-live defensive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-steelblade-shunt-red-four-live-sparse-actual-paid-reaction-blocks-real-weapon-and-damages-attacking-hero",
+      "returncode": 0,
+      "stdout": "[PASS] steelblade_shunt_red / actual four-live defensive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rally-the-rearguard-red-four-live-sparse-actual-defending-activation-discards-owned-card-and-adds-three-defense",
+      "returncode": 0,
+      "stdout": "[PASS] rally_the_rearguard_red / actual four-live defensive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-soul-shield-yellow-four-live-sparse-actual-paid-six-defense-reaction-then-soul-only-at-chain-close",
+      "returncode": 0,
+      "stdout": "[PASS] soul_shield_yellow / actual four-live defensive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sigil-of-suffering-red-four-live-sparse-actual-arcane-to-attacking-hero-earns-four-defense-before-physical-damage",
+      "returncode": 0,
+      "stdout": "[PASS] sigil_of_suffering_red / actual four-live defensive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 5,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

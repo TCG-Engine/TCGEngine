@@ -1,0 +1,7 @@
+{
+    "name": "soul_shield_yellow / actual four-live defensive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-25T20:27:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "P4 legal young LightBoltyn20. Actual RagingOnslaught5 printedcost3 paid by P1Blue6, printedpower7 targetsP4. Actual SoulShield7 DefenseReaction printedcost2 paid by P4Blue8 leavesR4=1; four source responses add its six defense to current chain. Real7-6=1 damage yields P4HP19. SoulShield remains actual defendingCard through DAMAGE and RESOLUTION and moves into P4Soul only at actual closure; P4GYempty, P1AA5 publicGYFace0, bothBlue cards Pitch. Soul schema serializes CardID/UID only, so zoneP4Soul+UID7 pins ownership without fabricated Owner/FaceDown properties. No chargedBoltyn/hero/support or variant credit. Sources: https://judge.fabtcg.com/cards/detail/793/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

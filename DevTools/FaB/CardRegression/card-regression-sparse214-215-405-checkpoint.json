@@ -1,0 +1,121 @@
+{
+  "status": "FOUR214_215_FIRST_PASS_REPRESENTATIVES_QUALIFIED_ONE_EXUDE_POWER_FAULT",
+  "utc": "2026-10-26T01:36:52.367784+00:00",
+  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "inventory_scope": "Through214/215 only; Cintari216 probe and later work excluded without passing/newcoverage credit. No inventory scan or index rebuild.",
+  "new_scenarios_recorded": 4,
+  "new_scenarios_qualified": 4,
+  "new_groups": 4,
+  "total_saved_through215": 3424,
+  "two_player": 3074,
+  "four_live_through215": 350,
+  "primary_ids_recorded_through215": 583,
+  "identity_denominator": 5196,
+  "groups_recorded_through215": 457,
+  "group_denominator": 3324,
+  "four_live_groups_through215": 348,
+  "registered_review_rows_after": 3424,
+  "phase_scenarios_qualified_at_batch_contexts": 61,
+  "creation_replay_passes_at_batch_contexts": 122,
+  "registered": [
+    {
+      "batch": 214,
+      "review_evidence": "review-evidence/sparse214-405-qualified-saved-review.json",
+      "review_evidence_sha256": "53a86b06569d362be13ee81eda0f5fa1435f64c2db2b71eea9a5fbcca120a600",
+      "rows_added": 3,
+      "registered_review_rows_after": 3423,
+      "phase_qualified_at_contexts": 60
+    },
+    {
+      "batch": 215,
+      "review_evidence": "review-evidence/sparse215-405-qualified-saved-review.json",
+      "review_evidence_sha256": "009f697d06844a339e8b830e05ac510a2773b0e37473966758942c2f5f53782c",
+      "rows_added": 1,
+      "registered_review_rows_after": 3424,
+      "phase_qualified_at_contexts": 61
+    }
+  ],
+  "new_cases": [
+    {
+      "batch": 214,
+      "slug": "card-reaping-blade-four-live-sparse-actual-heal-earns-unique-life-lead-then-blade-prevents-second-heal",
+      "primary_card_ids": [
+        "reaping_blade"
+      ],
+      "actions": 16,
+      "native_assertions": 884,
+      "manual_passes": 14
+    },
+    {
+      "batch": 214,
+      "slug": "card-nerves-of-steel-blue-four-live-sparse-owned-aura-suppresses-battleworn-on-actual-two-power-weapon-block",
+      "primary_card_ids": [
+        "nerves_of_steel_blue"
+      ],
+      "actions": 29,
+      "native_assertions": 2091,
+      "manual_passes": 25
+    },
+    {
+      "batch": 214,
+      "slug": "card-exude-confidence-red-four-live-sparse-real-paid-instant-from-owned-attacking-card-adds-two-power-and-damage",
+      "primary_card_ids": [
+        "exude_confidence_red"
+      ],
+      "actions": 33,
+      "native_assertions": 1739,
+      "manual_passes": 29
+    },
+    {
+      "batch": 215,
+      "slug": "card-blood-drop-brocade-four-live-sparse-real-physical-damage-earns-instant-resource",
+      "primary_card_ids": [
+        "blood_drop_brocade"
+      ],
+      "actions": 32,
+      "native_assertions": 1965,
+      "manual_passes": 29
+    }
+  ],
+  "native_assertions": 6679,
+  "new_targeted_replay_passes": 8,
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse214-405-20261026-r1.json",
+      "sha256": "ae7d40d3b480a0a91650307481492f9cbda64bdc13cfb04690057e3649bdf56d"
+    },
+    {
+      "path": "card-regression-replay-sparse214-405-20261026-r2.json",
+      "sha256": "3010553156ec4ed20620722f3ec8f2771d74294b0743fe78447cc2d6dbcf60c8"
+    },
+    {
+      "path": "card-regression-replay-sparse215-405-20261026-r1.json",
+      "sha256": "94532858fea0887819d98e0af62b688880d0a3028a64f6d9d34c7828fb1364de"
+    },
+    {
+      "path": "card-regression-replay-sparse215-405-20261026-r2.json",
+      "sha256": "e50746b9466b376bcf5acf83d0c27d9ef7f072f8f4190852ed1e19554bc24bf2"
+    }
+  ],
+  "causal_controls": {
+    "path": "card-regression-negative-controls-sparse214-results.json",
+    "sha256": "ee08672684976c4e4c01556f693be71395770d621fbb03186c292e93162d66e6",
+    "detected": 1,
+    "total": 1,
+    "retained_boundary_and_suffix_oracles": 1117,
+    "omitted": 0,
+    "global_total": 111,
+    "phase_total": 27,
+    "scope": "Exude earnedpower only; no restriction/laternegativeHP claim. Reaping/Nerves/Brocade positive-only, no isolatedfault claim."
+  },
+  "historical_qualification_note": "Counts/registry rows retain batch contexts, not blanket current-runtime oldcorpus qualification or commit readiness. Historical3363 bytebindings remain unresolved.",
+  "engine_source_changed": false,
+  "confirmed_new_gameplay_defect_groups": 0,
+  "issue_ledger_updated": false,
+  "full_suite_runs": 0,
+  "older_fixtures_not_rerun": true,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse214-215-405-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch211.json",
+  "runtime_sha256": "405c3c3b0cc76893dff608ae76e6bf41abe6381e66d0c855fa4886316025077a",
+  "returncode": 0,
+  "completed_utc": "2026-10-26T00:26:37.202801+00:00",
+  "fixtures": [
+    {
+      "slug": "card-parry-blade-four-live-sparse-actual-weapons-zone-block-gets-two-defense-against-weapon",
+      "fixture_sha256": "1babf74a227581a5ef3f1b502c7ed93ed88131c4953f9c8142e167c9e6af174c",
+      "passed": true,
+      "result": "[PASS] parry_blade / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-forged-for-war-yellow-four-live-sparse-actual-cast-persistent-aura-then-next-live-turn-equipment-defense",
+      "fixture_sha256": "6aabfd4cb83ce42728a730e51c15d58f6194369226e752316f6ab23b9e13afd0",
+      "passed": true,
+      "result": "[PASS] forged_for_war_yellow / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-aether-sink-yellow-four-live-sparse-actual-steam-cost-grants-barrier-two-and-paid-opposing-arcane-prevention",
+      "fixture_sha256": "870c2dfd777b4e068389b251e5b620390c4bf9623127fbbed19ea37b2b1d0529",
+      "passed": true,
+      "result": "[PASS] aether_sink_yellow / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-parry-blade-four-live-sparse-actual-weapons-zone-block-gets-two-defense-against-weapon",
+      "returncode": 0,
+      "stdout": "[PASS] parry_blade / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-forged-for-war-yellow-four-live-sparse-actual-cast-persistent-aura-then-next-live-turn-equipment-defense",
+      "returncode": 0,
+      "stdout": "[PASS] forged_for_war_yellow / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-aether-sink-yellow-four-live-sparse-actual-steam-cost-grants-barrier-two-and-paid-opposing-arcane-prevention",
+      "returncode": 0,
+      "stdout": "[PASS] aether_sink_yellow / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

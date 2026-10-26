@@ -1,0 +1,74 @@
+{
+  "status": "TWO_NEW_FOUR_LIVE_PRIMARY_REPRESENTATIVES_QUALIFIED_NO_ENGINE_CHANGE",
+  "utc": "2026-10-25T23:48:01.927628+00:00",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "inventory_scope": "Through batch209 only; three known210 saves remain outside this registration/credit. No inventory scan.",
+  "new_scenarios_recorded": 2,
+  "new_scenarios_qualified": 2,
+  "new_groups": 2,
+  "total_saved_through_batch209": 3410,
+  "two_player": 3074,
+  "four_live_through_batch209": 336,
+  "primary_ids_recorded_through_batch209": 569,
+  "identity_denominator": 5196,
+  "groups_recorded_through_batch209": 443,
+  "group_denominator": 3324,
+  "four_live_groups_through_batch209": 334,
+  "registered_review_rows_after": 3410,
+  "phase_scenarios_qualified_at_batch_contexts": 47,
+  "known_additional_saved_pending_batch210": 3,
+  "known_live_recorded_total_at_registration": 3413,
+  "batch210_awarded_by_this_checkpoint": 0,
+  "historical_qualification_note": "Registry presence is not blanket current-runtime corpus qualification; earlier3363 review byte-binding limitation retained.",
+  "new_cases": [
+    {
+      "slug": "card-seekers-gilet-four-live-sparse-paid-instant-retained-opt-and-one-real-damage-prevention",
+      "primary_card_ids": [
+        "seekers_gilet"
+      ],
+      "actions": 38,
+      "native_assertions": 3292,
+      "manual_passes": 32
+    },
+    {
+      "slug": "card-teklo-foundry-heart-four-live-sparse-real-earned-boost-paid-ability-and-typed-banish-resource",
+      "primary_card_ids": [
+        "teklo_foundry_heart"
+      ],
+      "actions": 34,
+      "native_assertions": 2808,
+      "manual_passes": 29
+    }
+  ],
+  "persisted_native_assertions": 6100,
+  "review_evidence": "review-evidence/sparse209-20261025-qualified-saved-review.json",
+  "targeted_replay_passes": 4,
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse209-20261025-r1.json",
+      "sha256": "8e4409809107aeb07bd344f5f7128c4f51a6c4f14db883462442c1d03b2d1e03"
+    },
+    {
+      "path": "card-regression-replay-sparse209-20261025-r2.json",
+      "sha256": "1e7d51aa11058207b833954512c627f2420859250a20c65c5e627d051027d4dc"
+    }
+  ],
+  "causal_controls": {
+    "report": "card-regression-negative-controls-sparse209-results.json",
+    "sha256": "2310d9bbe1c99da93e24e88777d6113027254d11248ea8b4fa20113b54a7fd3f",
+    "detected": 1,
+    "total": 1,
+    "retained_boundary_and_suffix_oracles": 1166,
+    "omitted": 0,
+    "global_total": 109
+  },
+  "heart_isolated_typed_history_resource_fault_supported": false,
+  "engine_source_changed": false,
+  "confirmed_new_gameplay_defect_groups": 0,
+  "full_suite_runs": 0,
+  "older_fixtures_not_rerun": true,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse209-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

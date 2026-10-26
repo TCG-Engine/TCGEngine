@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T02:06:43+00:00",
+    "input_file": "card-regression-batch216-cintari-probe.json",
+    "input_sha256": "9f19e21ad056fc2dc3f35696dfce2a2e7d81feec0fb192827d612cfcb168ea2a",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 2193
+        }
+    ]
+}

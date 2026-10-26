@@ -1,0 +1,63 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch199.json",
+  "runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T20:47:15.461780+00:00",
+  "fixtures": [
+    {
+      "slug": "card-arcanite-skullcap-four-live-sparse-actual-lower-life-conditional-defense-stable-damage",
+      "fixture_sha256": "439f76fee973b5a7e2c93ef0262b1fe3561b1cb7d63f737372dbff87dd60acf1",
+      "passed": true,
+      "result": "[PASS] arcanite_skullcap / four-live actual defensive passive"
+    },
+    {
+      "slug": "card-pyroglyphic-protection-red-four-live-sparse-active-owned-aura-prevents-real-three-arcane",
+      "fixture_sha256": "e869a755a765291644393da98bc6813b8752c2ccde7188824145a5956d08c0fc",
+      "passed": true,
+      "result": "[PASS] pyroglyphic_protection_red / four-live actual defensive passive"
+    },
+    {
+      "slug": "card-enchanting-melody-red-four-live-sparse-active-owned-aura-consumed-preventing-real-four",
+      "fixture_sha256": "66aca6404de59d98916c008f32941347b27cde93a60ac3b68ad685e88d91826c",
+      "passed": true,
+      "result": "[PASS] enchanting_melody_red / four-live actual defensive passive"
+    },
+    {
+      "slug": "card-yendurai-four-live-sparse-active-owned-dragon-endurance-prevents-three-of-real-four",
+      "fixture_sha256": "c189f2f26419c02c35356fd26c1925d301f32dad688e353528f77c1f703bafa9",
+      "passed": true,
+      "result": "[PASS] yendurai / four-live actual defensive passive"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-arcanite-skullcap-four-live-sparse-actual-lower-life-conditional-defense-stable-damage",
+      "returncode": 0,
+      "stdout": "[PASS] arcanite_skullcap / four-live actual defensive passive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-pyroglyphic-protection-red-four-live-sparse-active-owned-aura-prevents-real-three-arcane",
+      "returncode": 0,
+      "stdout": "[PASS] pyroglyphic_protection_red / four-live actual defensive passive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-enchanting-melody-red-four-live-sparse-active-owned-aura-consumed-preventing-real-four",
+      "returncode": 0,
+      "stdout": "[PASS] enchanting_melody_red / four-live actual defensive passive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-yendurai-four-live-sparse-active-owned-dragon-endurance-prevents-three-of-real-four",
+      "returncode": 0,
+      "stdout": "[PASS] yendurai / four-live actual defensive passive\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 4,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

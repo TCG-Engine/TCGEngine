@@ -1,0 +1,154 @@
+{
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "completed_utc": "2026-10-25T22:05:52.746658+00:00",
+  "plan_sha256": "c06d21525e8c5bfeb0c632bcbc847eff34e5eae41b06fd2e0a7c4851750e7971",
+  "independent_saved_proof_sha256": "52572e85a9cc547d446a15766cf303f7780c3c2f167414991c3787c7a34da7eb",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "batch202-203-four-causal-controls-final97-plan.json",
+    "c06d21525e8c5bfeb0c632bcbc847eff34e5eae41b06fd2e0a7c4851750e7971",
+    "card-regression-negative-controls-sparse202-203-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "dissipation_actual_four_steam_prevention_omission",
+      "fixture": "card-dissipation-shield-yellow-four-live-sparse-actual-instant-four-steam-prevents-four",
+      "fixture_sha256": "e82bfc00f4156773aeb573c611b38708fcc6f7ec44f4d935e87f99c5b5d455aa",
+      "source_raw5": {
+        "initial_gamestate.txt": "2133d9d2563551f0027d76ca00aa04d8c3d0f2284731584a43d97f220f593573",
+        "actions.json": "61dfc871fe4b4f2d820a828fc7048b4767ac6f21fd1249bdd9a0ddb2972cb344",
+        "assertions.json": "dcb37b495d164ec3c3aa6c228f3a680db4fb8afa594b57fabcda241b3ba556a5",
+        "expected_final_gamestate.txt": "b06e3ace35d052290efd5c4cd4f061e2e755b9b0fb0da251032764d6012cb3da",
+        "meta.json": "e3328ebf881639f47c8492fbb6b9e7869d94109d3751221063274d9e1f7ef35f"
+      },
+      "prefix_actions": 24,
+      "mutation": {
+        "remove_effect": "ARC_PREVENT_ONCE"
+      },
+      "retained_assertions": 864,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p4Health to equal 17, got 13.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] dissipation_shield_yellow / four live distinctive effect: Step 4 assertion failed: Expected p4Health to equal 17, got 13.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual P4 Dissipation5 Instant destruction captures four Steam and resolves after four real responses, remove the unique naturally earned ARC_PREVENT_ONCE. Keep physical source public GY, Steam-cost history, attacker/pitch, combat and HP. Real seven damage now reaches P4 instead of three; original physical HP17-to13 is first intended failure before later damageDealt oracle. No HP, cached defense or damage value is overwritten.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "embodiment_actual_owned_token_nonattack_defense_suppressed",
+      "fixture": "card-embodiment-of-earth-four-live-sparse-active-owned-earth-token-boosts-real-nonattack-block",
+      "fixture_sha256": "f56c29366fb4988ee4ba1ab3d33ce5ab0be7d42e889ff0f1cf1b583880761b6b",
+      "source_raw5": {
+        "initial_gamestate.txt": "77d9ca8c8dfbecedb7e98c1963a176bba4a303176394464bf300955a79bd5f45",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "f627ab17b7c9cf1c52eccea14976da60bd420b746feab670fb81303aed12b052",
+        "expected_final_gamestate.txt": "bca5f3bde448887028181a4c9be402a4ae2929ae89f7f5d4186adad2776e89ac",
+        "meta.json": "5564b2a905f138b4112fd1bbc10f0d35f4c1562721d08408fee5186ad2c3deb0"
+      },
+      "prefix_actions": 10,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "Arena",
+            "cardID": "embodiment_of_earth",
+            "mode": "add",
+            "tag": "NO_ABILITIES"
+          }
+        ]
+      },
+      "retained_assertions": 1129,
+      "expected_failure_step": 10,
+      "expected_failure": "Expected p4Health to equal 19, got 18.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] embodiment_of_earth / actual four-live sparse distinctive mechanic: Step 10 assertion failed: Expected p4Health to equal 19, got 18.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Before actual P4 Nimblism7 Hand blocking, blank only retained own Embodiment6. FaBELEDefense counts unsuppressed FaBMONArena tokens; the NAA loses its continuous +1 (printed2+1 defense becomes2). Same physical WB4 causes two damage rather than one; first physical HP19-to18 is intended. Token/defender/ownership/costs remain; no cached defense mutation or source movement.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "parable_actual_opposing_aura_attack_penalty_suppressed",
+      "fixture": "card-parable-of-humility-yellow-four-live-sparse-active-owned-light-aura-reduces-real-opposing-attack-by-one",
+      "fixture_sha256": "1dca83b130421c6a50f23e5b0c8a4bc48038c556eca5765dbcebd65661f7923b",
+      "source_raw5": {
+        "initial_gamestate.txt": "0f972f64990759e39b8e74a4117f1b283c3522851b6c5f241464d5e8c93d05d5",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "c06d8a2d9887475f457e173ff46536d91982c596093efeb9fd843c2e6b8bcb0b",
+        "expected_final_gamestate.txt": "8cb2d9bbdf84013c6298f616f1d3da879c95ca3cb04a09bb67ffdaa1e9632305",
+        "meta.json": "5d9a87d46a8493b9a6e7a498c48c685740148295e79c6ad8b0b201d4c6006fd2"
+      },
+      "prefix_actions": 2,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "Arena",
+            "cardID": "parable_of_humility_yellow",
+            "mode": "add",
+            "tag": "NO_ABILITIES"
+          }
+        ]
+      },
+      "retained_assertions": 1242,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 3, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] parable_of_humility_yellow / actual four-live sparse distinctive mechanic: Step 4 assertion failed: Expected p1CombatChain-0 computed power to equal 3, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual zero-cost WB5 announcement and P4 target, blank only retained opposing Parable6. MON continuous penalty counts unsuppressed FaBMONArena sources; actual attack-entry power returns from3 to printed4. Physical Aura, attack, target, economy and all oracles remain. First real attack-entry computed power is intended, not a terminal HP change.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "staunch_actual_earned_optional_bonus_three_reduced_to_two",
+      "fixture": "card-staunch-response-red-four-live-sparse-real-optional-six-resource-payment-prevents-nine",
+      "fixture_sha256": "03a76ab1d2de32b108e3a587ce8252bbb34be283dd1c66b30a878289f0616925",
+      "source_raw5": {
+        "initial_gamestate.txt": "4d01b9f6a7b289dcb6ca13b434f8a54ea984fd55bbac0c6eea0f79895fccbad4",
+        "actions.json": "9f0ece6db5a568094db0908ffb8f55f9a7cfdea2097e9abba840259100690436",
+        "assertions.json": "5d727efa07a6f20ed32cfa53a43aeb573d52aa0dc77a75e04649f2c9fe00c895",
+        "expected_final_gamestate.txt": "5dd1608e63eed557544cbf5a9bc52f10a3c1001d36e08487e0b9a0370049512b",
+        "meta.json": "4cec4375c0192cd4cdc6d4e5dcf100557b0817368be559dfbdffa748cd242a28"
+      },
+      "prefix_actions": 32,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "CombatChain",
+            "cardID": "staunch_response_red",
+            "mode": "remove",
+            "tag": "WTR_DEFENSE:3"
+          },
+          {
+            "player": 4,
+            "zone": "CombatChain",
+            "cardID": "staunch_response_red",
+            "mode": "add",
+            "tag": "WTR_DEFENSE:2"
+          }
+        ]
+      },
+      "retained_assertions": 1067,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p4CombatChain-0.TurnEffects to equal '[\"WTR_DEFENSE:3\"]', got '[\"WTR_DEFENSE:2\"]'.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] staunch_response_red / four live distinctive effect: Initial assertion failed: Expected p4CombatChain-0.TurnEffects to equal '[\"WTR_DEFENSE:3\"]', got '[\"WTR_DEFENSE:2\"]'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual optional six-resource payment and fourth Staunch response have earned precisely WTR_DEFENSE:3, replace only that earned tag with :2. Actual source/choice/payment/printed defense/ownership/combat remain. Executor preserves original prefix32 assertions as Initial; its existing exact tag3 oracle catches the quantity fault immediately. Final nine-power attack is blocked by both defense10 and defense9, so HP alone is explicitly not sufficient and no such isolated damage claim is made.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 4
+}

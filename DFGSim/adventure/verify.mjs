@@ -51,11 +51,11 @@ for(const [name,engine] of Object.entries({chromium,webkit,firefox})){
   await page.locator('#closePanel').click();await saved();await read();
   // File persistence survives a new PHP session while retaining the private save cookie.
   const saveCookie=(await context.cookies()).find(c=>c.name==='DFGChallenger');const fresh=await browser.newContext();await fresh.addCookies([saveCookie]);const durable=await (await fresh.request.get(new URL('api.php',base).href)).json();assert.equal(durable.journey.id,data.journey.id);assert.equal(durable.journey.flags.gardenWitness,true);await fresh.close();
-  await talk('iddin');await page.reload();await ready();await page.locator('[data-dialog-action="challenge"]').click();await page.locator('#gameView:not([hidden])').waitFor();
+  await talk('iddin');await page.reload();await ready();await page.locator('[data-dialog-action="challenge"]').click();const arena=page.frameLocator('#adventureBattle');await arena.locator('#gameView:not([hidden])').waitFor();
   await read();assert.equal(data.journey.phase,'fight');assert.equal(data.journey.battle.players[0].life,40);assert.equal(data.journey.battle.players[0].deck.length,36);assert.equal(data.journey.battle.commitments[1].hidden,true);assert.equal(data.journey.battle.initialSeed,undefined);
-  assert.equal(await page.locator('.arena-fighter-opponent').getAttribute('data-creature'),'iddin');
-  assert.equal(await page.locator('.arena-fighter-opponent.rogue-generated').count(),0,'Human retains original fighter framing');
-  await page.locator('#hand-1').click();await page.locator('#commit').click();await page.waitForFunction(()=>typeof state!=='undefined'&&state.phase!=='planning');await fit();
+  assert.equal(await arena.locator('.arena-fighter-opponent').getAttribute('data-creature'),'iddin');
+  assert.equal(await arena.locator('.arena-fighter-opponent.rogue-generated').count(),0,'Human retains original fighter framing');
+  await arena.locator('#hand-1').click();await arena.locator('#commit').click();await page.frames().find(f=>f.url().includes('embedded=1')).waitForFunction(()=>typeof state!=='undefined'&&state.phase!=='planning');await fit();
   if(shots)await page.screenshot({path:`${shots}/${name}-${viewport.width}-shared-fight.png`});
   await read();await act({type:'battle',move:{type:'resign'}});assert.equal(data.journey.phase,'result');assert.equal(data.journey.flags.gardenWitness,true);assert.equal(data.journey.zone,'sanctuary');assert.deepEqual(data.journey.position,{x:11,y:12});
   await page.goto(base);await ready();await page.getByRole('button',{name:'Return to the courtyard →',exact:true}).click();await saved();await page.locator('#panel:not([open])').waitFor({state:'attached'});assert.equal((await read()).journey.phase,'world');

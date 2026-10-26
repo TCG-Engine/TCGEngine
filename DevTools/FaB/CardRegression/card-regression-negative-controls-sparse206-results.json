@@ -1,0 +1,87 @@
+{
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "completed_utc": "2026-10-25T23:10:02.510859+00:00",
+  "plan_sha256": "d5486df0046b2bc7328f7d0a063460670b130bb64ca0b037c749fdd52633aad8",
+  "independent_saved_proof_sha256": "02e1838ed4ce1cb842615ae64fc1933fbcfef0976837050c8b2428f7a6e10716",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "batch206-two-causal-controls-final97-plan.json",
+    "d5486df0046b2bc7328f7d0a063460670b130bb64ca0b037c749fdd52633aad8",
+    "card-regression-negative-controls-sparse206-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "glint_actual_earned_weapon_go_again_tag_omission",
+      "fixture": "card-glint-the-quicksilver-blue-four-live-sparse-real-reprise-draw-and-paid-weapon-go-again",
+      "fixture_sha256": "41732b2f210d0d0ee31bc38402f0200970612bddb871ba8d399d359bede82c1b",
+      "source_raw5": {
+        "initial_gamestate.txt": "4904173c0dd3af3846e15253d0ce1af702c5d30097bb2a41c5e4541c04ec338a",
+        "actions.json": "8d54470390215094d927489c146351b47b56aeebd0e84b0bc326aa1efd48b038",
+        "assertions.json": "ca47b1263ecad963faa506c152ebf36ec2dc8d66b97859ef4322f56ae587e2b5",
+        "expected_final_gamestate.txt": "37d7a7db688c39cd76c2c5e314bfefc84174d0ad00d1ad81dc658bf127c7c7b7",
+        "meta.json": "55277623a1de1c5fc14a89f0e753192fd0c29e4c32cc79744f2c1d4a79fddf38"
+      },
+      "prefix_actions": 22,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dawnblade",
+            "mode": "remove",
+            "tag": "GO_AGAIN"
+          }
+        ]
+      },
+      "retained_assertions": 1127,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed go again to equal 1, got 0.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] glint_the_quicksilver_blue / four live distinctive effect: Initial assertion failed: Expected p1CombatChain-0 computed go again to equal 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual paidDawnblade and opponent physical Hand block earn Reprise, actual Glint resolves after four responses: sourcepublicGY and realRed8draw retained. Remove only earned GO_AGAIN from the actual weapon proxy in P1CombatChain. Same attack/printedpower/defender/HP/draw/economy remain. Retained sourceprefix22 Initial computedGA1-to0 is first intended failure; futureprintednoGA AP refund is not separately fabricated.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "ironsong_actual_earned_reprise_power_three_tag_omission",
+      "fixture": "card-ironsong-response-red-four-live-sparse-real-hand-defense-reprise-plus-three-weapon-damage",
+      "fixture_sha256": "cf4d0d1a956d2eed63635196bcdbfb45186d04e65eb57baa2e2955db1bcc9b90",
+      "source_raw5": {
+        "initial_gamestate.txt": "7a8e78fc364caa27720af31de519a6ab6b5c0895b875f0d7a978225bd3bcc1ce",
+        "actions.json": "8d54470390215094d927489c146351b47b56aeebd0e84b0bc326aa1efd48b038",
+        "assertions.json": "b5734ccc0bbb3d84222edd4b4912511037d896f70f294e172f714b099891789f",
+        "expected_final_gamestate.txt": "fa56264109b79196c26d0e7515be9104446d5543d65f219ccdd4a961dc8e7c75",
+        "meta.json": "e8cb0339bf18a218d83b2eda4327b86ba0d6b33d22fc93f6e60ac61f3eda41c3"
+      },
+      "prefix_actions": 22,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "CombatChain",
+            "cardID": "dawnblade",
+            "mode": "remove",
+            "tag": "WTR_POWER:3"
+          }
+        ]
+      },
+      "retained_assertions": 1071,
+      "expected_failure_step": 0,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 6, got 3.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] ironsong_response_red / four live distinctive effect: Initial assertion failed: Expected p1CombatChain-0 computed power to equal 6, got 3.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After actual paidDawnblade and real opponent Hand defense earn Reprise, actual Ironsong resolves printed+3 on the liveweapon. Remove only earned WTR_POWER:3 from actual P1CombatChain proxy. Printedbase3/sourcephysicalweapon/pitch/defender/primaryGY/HP/economy remain; retained prefix22 Initial computedpower6-to3 is first intended failure, before later realdamage3-to0. No cacheddefense/history/powercache override.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 2
+}

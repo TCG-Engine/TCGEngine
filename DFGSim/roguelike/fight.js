@@ -15,7 +15,9 @@ window.DFGMatchMode=(()=>{
       })});
       const response=await fetch(config.api,options),data=await response.json();
       if(!response.ok||!data.ok){const error=new Error(data.error||'Unable to load the run');error.status=response.status;throw error;}
-      saved=data;saved.run=data.journey??data.run;enemyKey=saved.run?.enemy;opponentName=data.enemies[enemyKey]?.name??'Opponent';
+      saved=data;saved.run=data.journey??data.run;
+      if(config.adventure&&window.parent!==window)window.parent.DFGAdventureShell?.sync(data);
+      enemyKey=saved.run?.enemy;opponentName=data.enemies[enemyKey]?.name??'Opponent';
       if(!saved.run?.battle){location.replace(config.root);return {...data,state:null};}
       return {...data,state:saved.run.battle};
     }catch(error){if(controller.signal.aborted)throw new Error('The connection timed out. Reload to resume your saved fight.');throw error;}
@@ -23,6 +25,7 @@ window.DFGMatchMode=(()=>{
   }
   function render(state){
     document.title=config.title+' · '+opponentName;
+    if(config.adventure)window.DFGSoundtrack?.select(enemyKey,{immediate:true});
     document.getElementById('goHome').textContent=config.adventure?'Return to overworld':'Return to run';
     document.getElementById('newMatch').hidden=true;
     document.getElementById('resign').textContent=config.adventure?'Concede · return to sanctuary':'Resign duel · ends run';
@@ -74,5 +77,6 @@ window.DFGMatchMode=(()=>{
     image.animate(frames,{duration:type==='knockout'?1000:650,easing:'ease-out',fill:type==='knockout'?'forwards':'none'});
     return true;
   }
-  return {request,render,playReaction,returnUrl:id=>config.root+(id==='goHome'&&!config.adventure?'?overview=1':''),get opponentName(){return opponentName;}};
+  function navigateHome(){if(!config.adventure||window.parent===window||!window.parent.DFGAdventureShell)return false;window.parent.DFGAdventureShell.leaveFight();return true;}
+  return {request,render,playReaction,navigateHome,returnUrl:id=>config.root+(id==='goHome'&&!config.adventure?'?overview=1':''),get opponentName(){return opponentName;}};
 })();

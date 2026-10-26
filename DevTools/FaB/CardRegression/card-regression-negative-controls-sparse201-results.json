@@ -1,0 +1,113 @@
+{
+  "runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+  "completed_utc": "2026-10-25T21:12:46.944010+00:00",
+  "plan_sha256": "13eaf927b53b20d0cc3ea7959d2508b8daf5329f68eb9bf112a6d2e9dc7f578c",
+  "independent_saved_proof_sha256": "8c4f32bd71cd4781d663bed11e68529f6c99b43d5ab5c67948f10c21a895fbdb",
+  "command": [
+    "execute_reviewed_fault_plan.py",
+    "batch201-three-causal-controls-final6e-plan.json",
+    "13eaf927b53b20d0cc3ea7959d2508b8daf5329f68eb9bf112a6d2e9dc7f578c",
+    "card-regression-negative-controls-sparse201-results.json",
+    "--targeted-preservation"
+  ],
+  "results": [
+    {
+      "id": "mount_actual_owned_aura_power_disabled",
+      "fixture": "card-channel-mount-heroic-red-four-live-sparse-active-owned-earth-aura-buffs-real-attack-by-three",
+      "fixture_sha256": "bc7c499f9f2074d868747444f07010769c383cd46eae1074243162c8def58317",
+      "source_raw5": {
+        "initial_gamestate.txt": "a9464f6fa5d45c57a4b781b313334c5c9b4bf59c9d1184d4595d953d9f91a024",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "f97d10c64d0f0d199fce051f2fea078765470506975247abf5279be0f7bf9a91",
+        "expected_final_gamestate.txt": "99a3a3b7590d342ac4a48b9e4caa9b01a13b64667f6a77587fce54d008aa7c9f",
+        "meta.json": "832928af8a34b509a74acb356e7afee13dc1f252efe8f0350cf4901c70102822"
+      },
+      "prefix_actions": 2,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 1,
+            "zone": "Arena",
+            "cardID": "channel_mount_heroic_red",
+            "mode": "add",
+            "tag": "NO_ABILITIES"
+          }
+        ]
+      },
+      "retained_assertions": 1242,
+      "expected_failure_step": 4,
+      "expected_failure": "Expected p1CombatChain-0 computed power to equal 7, got 4.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] channel_mount_heroic_red / actual four-live sparse distinctive mechanic: Step 4 assertion failed: Expected p1CombatChain-0 computed power to equal 7, got 4.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real zero-cost WB5 announcement/target, blank only retained own MountAura6. Continuous attack-action +3 vanishes while physicalAura/ownership/economy remain. Firstactual attack-entry computed7-to4 is intended. All suffixoracles retained; no hand/currentprinted-power or terminalHP mutation.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "lake_actual_opposing_aura_tax_disabled_before_announcement",
+      "fixture": "card-channel-lake-frigid-blue-four-live-sparse-opposing-owned-ice-aura-taxes-real-zero-cost-attack",
+      "fixture_sha256": "67e00c1495e046df0221e82ff60fbc92d319f0a7075376588f7d27274c9bbe44",
+      "source_raw5": {
+        "initial_gamestate.txt": "2a39f467b7d1d8d17f94500fb38f23bef5bfe08e25253892aa065aab71805d14",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "19b9ea0dc9409a92433ee483668e069524e0dfea786809879db2ac94b6ae692d",
+        "expected_final_gamestate.txt": "c74e19e9fff73556cee470b2ec6dac9914541e919f5bdd12037a2a4fd8119329",
+        "meta.json": "6e914644d6d8b8bf75a745b6d1e34acd3ac26ba19c61427b4dc9b91615da4439"
+      },
+      "prefix_actions": 0,
+      "mutation": {
+        "object_effect": [
+          {
+            "player": 4,
+            "zone": "Arena",
+            "cardID": "channel_lake_frigid_blue",
+            "mode": "add",
+            "tag": "NO_ABILITIES"
+          }
+        ]
+      },
+      "retained_assertions": 1583,
+      "expected_failure_step": 2,
+      "expected_failure": "Expected FaBSim state [\"window\"] to equal JSON \"PITCH\", got \"PRIORITY\".",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] channel_lake_frigid_blue / actual four-live sparse distinctive mechanic: Step 2 assertion failed: Expected FaBSim state [\"window\"] to equal JSON \"PITCH\", got \"PRIORITY\".\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "Before any actual play/target declaration, blank only retained opposing LakeAura6. Printedzero WB no longer has the sole +1 tax. Same actual targetanswer2 now completeszero resource payment and entersPRIORITY instead of recordedPITCH; first originalwindow oracle mustfail. Physicalsource/supportBlue/Aura remain, no resources or cachedcost overwritten. UntaxedWB counterpart actualMountcase has samezero-cost play path; futureoriginalpitch action retained but not claimed legalafterfault because firstfailure alreadyoccurs.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    },
+    {
+      "id": "skeleta_actual_earned_nonattack_discount_omission",
+      "fixture": "card-bloodsheath-skeleta-four-live-sparse-actual-instant-destroy-discounts-real-paid-nonattack-by-one-runechant",
+      "fixture_sha256": "cb62311ccf9b83026751116bdb9efd1a1b1d9da564d55e94bdc502c355639efe",
+      "source_raw5": {
+        "initial_gamestate.txt": "c979327dc02e92497ac6a1c29c1fb3ad16ecc4e9ad589fb30e53489900869f6a",
+        "actions.json": "e5b3119d8406e272f61929a6ca4f3c00b40001585f37a8d17642874f64106c41",
+        "assertions.json": "4f5edb7e915a63b682d673d49e561b031a9ac4bd30109557cd9bb6d42a0b1072",
+        "expected_final_gamestate.txt": "de6f1efcabc47c84d2b84b84d2d66143a073a0e1d7a4d75ca256a50b74e7487a",
+        "meta.json": "e0a13091d820d2b00fa9e65a5e8d7b0e2f0a817ab0827f204c7d1ca0f7b494a9"
+      },
+      "prefix_actions": 5,
+      "mutation": {
+        "remove_effect": "CRU_SKELETA_NAA"
+      },
+      "retained_assertions": 452,
+      "expected_failure_step": 1,
+      "expected_failure": "Expected FaBSim state [\"pendingPayment\",\"cost\"] to equal JSON 1, got 2.",
+      "detected": true,
+      "returncode": 1,
+      "output": "[FAIL] bloodsheath_skeleta / actual four-live sparse distinctive mechanic: Step 1 assertion failed: Expected FaBSim state [\"pendingPayment\",\"cost\"] to equal JSON 1, got 2.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+      "stderr": "",
+      "scope": "After real Skeleta5Instant/destroy and fourresponses create both natural grants, remove ONLY actual CRU_SKELETA_NAA before realNAA7 play. Preserve CRU_SKELETA_AA, physicalRune6, SkeletaGY andallassets. Printedcost2 is no longer discounted1; both positive costs keepPITCH, firstpendingPayment.cost1-to2 fails. No source/Rune removal, no paymentcache/resource override; futureAA grant consumption/other Rune amounts uncredited.",
+      "disposable_removed": true,
+      "canonical_raw5_preserved": true
+    }
+  ],
+  "all_detected": true,
+  "full_fixture_inventory_preserved": false,
+  "preservation_scope": "selected fixtures only",
+  "preserved_raw5_count": 3
+}

@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-26T00:33:26+00:00",
+    "input_file": "card-regression-batch213.json",
+    "input_sha256": "ce8a3848b8b9fef1b3b40d7f20eb88705f710cd85ae51dd047df85a25773e6c1",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-talisman-of-dousing-yellow-four-live-sparse-actual-owned-spellvoid-destroy-prevents-one-of-real-opposing-zap",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 450
+        }
+    ]
+}

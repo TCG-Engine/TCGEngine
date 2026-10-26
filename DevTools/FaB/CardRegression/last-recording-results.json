@@ -1,8 +1,8 @@
 [
     {
-        "slug": "card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+        "slug": "card-cintari-saber-four-live-sparse-correct-when-defended-trigger-waits-for-responses-before-one-power",
         "status": "recorded_semantically_checked",
-        "actions": 5,
-        "assertions": 110
+        "actions": 33,
+        "assertions": 2193
     }
 ]

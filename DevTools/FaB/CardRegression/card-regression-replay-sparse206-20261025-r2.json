@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch206.json",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T23:05:48.726265+00:00",
+  "fixtures": [
+    {
+      "slug": "card-glint-the-quicksilver-blue-four-live-sparse-real-reprise-draw-and-paid-weapon-go-again",
+      "fixture_sha256": "41732b2f210d0d0ee31bc38402f0200970612bddb871ba8d399d359bede82c1b",
+      "passed": true,
+      "result": "[PASS] glint_the_quicksilver_blue / four live distinctive effect"
+    },
+    {
+      "slug": "card-ironsong-response-red-four-live-sparse-real-hand-defense-reprise-plus-three-weapon-damage",
+      "fixture_sha256": "cf4d0d1a956d2eed63635196bcdbfb45186d04e65eb57baa2e2955db1bcc9b90",
+      "passed": true,
+      "result": "[PASS] ironsong_response_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-teklo-plasma-pistol-four-live-sparse-real-steam-attack-cost-and-two-damage",
+      "fixture_sha256": "344e4bf562f77b0d023d4d673a7dbe4d98595344079c36167e34d16a0228a37d",
+      "passed": true,
+      "result": "[PASS] teklo_plasma_pistol / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-glint-the-quicksilver-blue-four-live-sparse-real-reprise-draw-and-paid-weapon-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] glint_the_quicksilver_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ironsong-response-red-four-live-sparse-real-hand-defense-reprise-plus-three-weapon-damage",
+      "returncode": 0,
+      "stdout": "[PASS] ironsong_response_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-plasma-pistol-four-live-sparse-real-steam-attack-cost-and-two-damage",
+      "returncode": 0,
+      "stdout": "[PASS] teklo_plasma_pistol / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

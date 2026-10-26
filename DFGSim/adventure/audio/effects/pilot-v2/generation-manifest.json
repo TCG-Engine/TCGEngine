@@ -1,0 +1,40 @@
+{
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v2",
+  "outputFormat": "mp3_44100_128",
+  "promptInfluence": 0.7,
+  "normalize": false,
+  "style": "Natural dry foley recording. No synthesis, electronic effects, music, ambience, or reverberation. ",
+  "sounds": [
+    {
+      "id": "card-swipe",
+      "file": "card-swipe-v2-master.mp3",
+      "duration": 1.5,
+      "prompt": "A single stiff paper playing card is flicked out of a hand and slides quickly across a felt tabletop, landing with a small dry papery slap. Real close-miked tabletop foley. Hear the thin paper edge and short friction swish. One motion only, at the beginning, then quiet. No airy cinematic whoosh."
+    },
+    {
+      "id": "burn-bonus",
+      "file": "burn-bonus-v2-master.mp3",
+      "duration": 2,
+      "prompt": "A small dry sheet of paper catches a real flame: one quick close ignition puff followed by a few fine brittle paper crackles and a short dying hiss. Intimate close-miked fire foley, modest flame. No explosion, magical shimmer, bass hit, or musical tone."
+    },
+    {
+      "id": "hit-light",
+      "file": "hit-light-v2-master.mp3",
+      "duration": 1.5,
+      "prompt": "One quick bare-knuckle training punch strikes a small leather boxing focus mitt. Close-miked real sporting foley: a short dry leather slap with a little soft padded body and brief cotton sleeve friction. Light controlled contact, not a smack on skin. One hit immediately, then quiet. No voice."
+    },
+    {
+      "id": "hit-heavy",
+      "file": "hit-heavy-v2-master.mp3",
+      "duration": 1.5,
+      "prompt": "One solid martial-arts kick strikes a thick leather training shield held firmly. Real close-miked sporting foley: a broad dense padded thud with a sharp leather contact at its front, quickly damped. Weight comes from physical contact, not added sub-bass. One hit immediately, then quiet. No voice."
+    },
+    {
+      "id": "block",
+      "file": "block-v2-master.mp3",
+      "duration": 1.5,
+      "prompt": "Two cloth-wrapped martial-arts forearms meet once in a firm deflecting block. Close-miked physical foley: a compact blunt padded knock, followed by a very short rough cotton sleeve scuff as the arms glance apart. One contact immediately, then quiet. No wood clack, metal clang, bell, ring, or voice."
+    }
+  ]
+}

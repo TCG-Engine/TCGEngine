@@ -1,0 +1,155 @@
+{
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v2",
+  "outputFormat": "mp3_44100_128",
+  "promptInfluence": 0.45,
+  "normalize": true,
+  "normalization": {
+    "integratedLoudness": -22,
+    "truePeak": -5,
+    "loudnessRange": 7
+  },
+  "sampleRate": 44100,
+  "deliveryBitrate": "160k",
+  "style": "Single isolated sound effect for a warm cartoon martial-arts card game. Clean close dry recording, immediate attack, short natural decay, no background noise, no speech, no music bed, no long reverb. ",
+  "sounds": [
+    {
+      "id": "card-swipe",
+      "file": "card-swipe-v1.mp3",
+      "duration": 0.6,
+      "prompt": "One quick dry paper-card swish with a tiny cloth flick, moving decisively onto a tabletop. Soft tactile card-play gesture."
+    },
+    {
+      "id": "card-return",
+      "file": "card-return-v1.mp3",
+      "duration": 0.5,
+      "prompt": "One light reversed paper flutter and soft wooden tap, a card returning to a hand. Gentle, lighter than a played card."
+    },
+    {
+      "id": "commit",
+      "file": "commit-v1.mp3",
+      "duration": 0.5,
+      "prompt": "One compact confident wood-and-clay locking click with a restrained low thump. A chosen move is locked in."
+    },
+    {
+      "id": "reveal",
+      "file": "reveal-v1.mp3",
+      "duration": 0.8,
+      "prompt": "One brisk double paper snap opening into a clean airy swish. Two hidden cards turn face up together, a shared reveal."
+    },
+    {
+      "id": "burn-bonus",
+      "file": "burn-bonus-v1.mp3",
+      "duration": 0.9,
+      "prompt": "One short crisp paper ignition, small flame whoosh and dry ember crackle that quickly dies away. Spending a card as a bonus."
+    },
+    {
+      "id": "burn-reaction",
+      "file": "burn-reaction-v1.mp3",
+      "duration": 0.7,
+      "prompt": "One sharp immediate paper ignition with a tight high flame hiss and tiny dry snap. Fast reactive card burn, distinct from a slower bonus burn."
+    },
+    {
+      "id": "hit-light",
+      "file": "hit-light-v1.mp3",
+      "duration": 0.5,
+      "prompt": "One light cartoon martial-arts body impact: dry padded slap, tiny cloth snap, restrained low thud. Friendly sparring, no voices."
+    },
+    {
+      "id": "hit-medium",
+      "file": "hit-medium-v1.mp3",
+      "duration": 0.6,
+      "prompt": "One firm cartoon martial-arts body impact: rounded padded thwack and short cloth snap, punchy wooden low-mid knock. No voices."
+    },
+    {
+      "id": "hit-heavy",
+      "file": "hit-heavy-v1.mp3",
+      "duration": 0.8,
+      "prompt": "One powerful cartoon martial-arts impact: deep padded whump layered with a crisp dry smack and brief air rush. Weighty but playful, no voices."
+    },
+    {
+      "id": "block",
+      "file": "block-v1.mp3",
+      "duration": 0.5,
+      "prompt": "One clean martial-arts forearm block, tight woody clack over padded cloth thud, short deflecting air swish. No metallic sword sound."
+    },
+    {
+      "id": "advantage-gain",
+      "file": "advantage-gain-v1.mp3",
+      "duration": 0.9,
+      "prompt": "One small warm ascending two-note wooden bell sparkle, a tactical opportunity earned. Subtle lyre-like pluck and rounded chime, not electronic."
+    },
+    {
+      "id": "advantage-spend",
+      "file": "advantage-spend-v1.mp3",
+      "duration": 0.7,
+      "prompt": "One quick warm wooden chime unfurling into a short breathy release, a stored tactical opportunity being spent. Resolute, subtle."
+    },
+    {
+      "id": "barrier-absorb",
+      "file": "barrier-absorb-v1.mp3",
+      "duration": 0.6,
+      "prompt": "One soft rounded magical shield pulse, low hollow ceramic ping with gentle airy shimmer, absorbing a blow without breaking."
+    },
+    {
+      "id": "barrier-break",
+      "file": "barrier-break-v1.mp3",
+      "duration": 1,
+      "prompt": "One brittle magical barrier shattering, small crystalline crack, soft ceramic fragments and fading air. Clear but not harsh or glass-danger realism."
+    },
+    {
+      "id": "break-stop",
+      "file": "break-stop-v1.mp3",
+      "duration": 0.7,
+      "prompt": "One deep solid wooden gate catch, a low resonant thunk with a brief magical hum stopping momentum. An HP checkpoint holds firm."
+    },
+    {
+      "id": "burst-break",
+      "file": "burst-break-v1.mp3",
+      "duration": 1,
+      "prompt": "One rising strained ceramic crack followed by a deep clean break-through thump and tiny scattering sparkles. A resilient HP segment finally gives way."
+    },
+    {
+      "id": "confirm-mark",
+      "file": "confirm-mark-v1.mp3",
+      "duration": 0.7,
+      "prompt": "One quiet unresolved wooden tick and small suspended magical ping. A pending damage mark is placed, tense but restrained."
+    },
+    {
+      "id": "confirm-cash",
+      "file": "confirm-cash-v1.mp3",
+      "duration": 0.8,
+      "prompt": "One tight double impact, a dry tick resolving into a satisfying padded thump with a small warm chime. Follow-up damage is confirmed."
+    },
+    {
+      "id": "reaction-ready",
+      "file": "reaction-ready-v1.mp3",
+      "duration": 0.5,
+      "prompt": "One quiet two-step bamboo tapping cue with a light upward air flick. An attentive invitation to respond, subtle and unobtrusive."
+    },
+    {
+      "id": "round-ready",
+      "file": "round-ready-v1.mp3",
+      "duration": 0.7,
+      "prompt": "One gentle frame-drum pickup and warm short lyre pluck. A fresh exchange is ready, buoyant and encouraging."
+    },
+    {
+      "id": "knockout",
+      "file": "knockout-v1.mp3",
+      "duration": 1.2,
+      "prompt": "One decisive deep padded cartoon knockout whump with a tight wooden crack, followed by a very short falling air swoop. Playful martial arts, no voice or pain."
+    },
+    {
+      "id": "victory",
+      "file": "victory-v1.mp3",
+      "duration": 1.8,
+      "prompt": "One short celebratory acoustic game reward flourish: bright lyre-like plucks, warm wooden bell and a soft frame-drum finish. Cheerful respectful victory, no vocals."
+    },
+    {
+      "id": "defeat",
+      "file": "defeat-v1.mp3",
+      "duration": 1.6,
+      "prompt": "One short gentle descending acoustic game outcome flourish: two soft lyre-like plucks and a mellow low wooden bell. Reassuring setback, ready to try again, no vocals."
+    }
+  ]
+}

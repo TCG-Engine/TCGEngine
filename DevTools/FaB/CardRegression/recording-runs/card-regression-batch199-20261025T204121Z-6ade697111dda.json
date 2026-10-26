@@ -1,0 +1,7 @@
+{
+    "completed_at_utc": "2026-10-25T20:41:21+00:00",
+    "input_file": "card-regression-batch199.json",
+    "input_sha256": "cf8e3d2a6e35b55c68acae51a52c9b5ffb50c5e9ab1c01fa70171b07331b241c",
+    "filter": "--filter=card-yendurai-four-live",
+    "results": []
+}

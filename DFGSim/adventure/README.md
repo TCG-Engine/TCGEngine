@@ -16,6 +16,10 @@ Every bout starts at full health with restored match burns, advantages, and armo
 
 Defeating the Bull completes the first region and opens the travel board. The board describes future freely selectable regions and the eventual all-regions tournament requirement. **Only Sumer is implemented in this chapter**; other regions and the divine tournament are visibly marked future content rather than fake playable destinations.
 
+## Music
+
+The lower-right Music control enables eleven ElevenLabs instrumental themes, with saved volume and on/off preference. Seven area themes follow exploration; four champion themes accompany fights. The persistent audio transport crossfades themes and overlaps loop boundaries. Combat uses the same fight page inside the overworld shell so entering or leaving the arena does not destroy the audio player. The shared sound menu also supplies independently controlled effects for card actions, burns, impacts, advantages, armor, damage marks, and outcomes. The 23-effect pack and its trigger rules are documented in `audio/effects/README.md`. Preview the full set at `soundtrack.php`; see `audio/README.md` for generation provenance and behavior.
+
 ## Files and persistence
 
 - `World.php`: authoritative walking/collision, dialogue, task gates, collection/deck limits, equipment, combat transitions, and rematches.

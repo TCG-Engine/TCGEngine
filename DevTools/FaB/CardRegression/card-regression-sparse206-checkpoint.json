@@ -1,0 +1,80 @@
+{
+  "status": "THREE_NEW_FOUR_LIVE_PRIMARY_REPRESENTATIVES_QUALIFIED_NO_ENGINE_CHANGE",
+  "utc": "2026-10-25T23:11:35.553267+00:00",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "inventory_scope": "Through batch206 only.207 attempts/recipes/pending saves excluded without credit; no inventory scan.",
+  "new_scenarios_recorded": 3,
+  "new_scenarios_qualified": 3,
+  "new_groups": 3,
+  "total_saved_through_batch206": 3403,
+  "two_player": 3074,
+  "four_live_through_batch206": 329,
+  "primary_ids_recorded_through_batch206": 562,
+  "identity_denominator": 5196,
+  "groups_recorded_through_batch206": 436,
+  "group_denominator": 3324,
+  "four_live_groups_through_batch206": 327,
+  "registered_review_rows_after": 3403,
+  "phase_scenarios_qualified_at_batch_contexts": 40,
+  "historical_qualification_note": "Registry rows are not blanket current-runtime corpus qualification; earlier3363 review byte bindings remain unresolved.",
+  "new_cases": [
+    {
+      "slug": "card-glint-the-quicksilver-blue-four-live-sparse-real-reprise-draw-and-paid-weapon-go-again",
+      "primary_card_ids": [
+        "glint_the_quicksilver_blue"
+      ],
+      "actions": 34,
+      "native_assertions": 2786,
+      "manual_passes": 29
+    },
+    {
+      "slug": "card-ironsong-response-red-four-live-sparse-real-hand-defense-reprise-plus-three-weapon-damage",
+      "primary_card_ids": [
+        "ironsong_response_red"
+      ],
+      "actions": 34,
+      "native_assertions": 2642,
+      "manual_passes": 29
+    },
+    {
+      "slug": "card-teklo-plasma-pistol-four-live-sparse-real-steam-attack-cost-and-two-damage",
+      "primary_card_ids": [
+        "teklo_plasma_pistol"
+      ],
+      "actions": 27,
+      "native_assertions": 1720,
+      "manual_passes": 25
+    }
+  ],
+  "persisted_native_assertions": 7148,
+  "review_evidence": "review-evidence/sparse206-20261025-qualified-saved-review.json",
+  "targeted_replay_passes": 6,
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse206-20261025-r1.json",
+      "sha256": "efbe20f86bd1da92f1358d315ab5e67e4aff6760f91258d4419f84a16c236076"
+    },
+    {
+      "path": "card-regression-replay-sparse206-20261025-r2.json",
+      "sha256": "a71ada4f4b93c5f7c3e5109927ca4efabb9703a660cafe15c3e9e643db3affe5"
+    }
+  ],
+  "causal_controls": {
+    "report": "card-regression-negative-controls-sparse206-results.json",
+    "sha256": "37dd575c3f258074d5c236953440aa6c9aed9365032b01243c94bad8437b11d6",
+    "detected": 2,
+    "total": 2,
+    "retained_suffix_oracles": 2198,
+    "omitted": 0,
+    "global_total": 105
+  },
+  "pistol_counter_fault_supported": false,
+  "engine_source_changed": false,
+  "confirmed_new_gameplay_defect_groups": 0,
+  "full_suite_runs": 0,
+  "older_fixtures_not_rerun": true,
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse206-metadata-backup",
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false
+}

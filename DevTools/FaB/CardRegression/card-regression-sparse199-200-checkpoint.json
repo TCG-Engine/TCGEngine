@@ -1,0 +1,178 @@
+{
+  "status": "EIGHT_NEW_FOUR_LIVE_REPRESENTATIVES_QUALIFIED_BRIAR_TRIGGER_FIXED",
+  "utc": "2026-10-25T20:55:01.465955+00:00",
+  "runtime_sha256": "6e2fff7d7f0245b78544d19d50606796383c4af0154265966517e0460e8ed067",
+  "new_groups": 8,
+  "new_scenarios_qualified": 8,
+  "new_scenarios_recorded": 8,
+  "total_saved": 3380,
+  "two_player": 3074,
+  "four_live": 306,
+  "primary_ids_recorded": 539,
+  "identity_denominator": 5196,
+  "groups_recorded": 413,
+  "group_denominator": 3324,
+  "four_live_groups_recorded": 304,
+  "new_cases": [
+    {
+      "slug": "card-arcanite-skullcap-four-live-sparse-actual-lower-life-conditional-defense-stable-damage",
+      "primary_card_ids": [
+        "arcanite_skullcap"
+      ],
+      "source_spec": "card-regression-batch199.json",
+      "actions": 20,
+      "native_assertions": 1130,
+      "manual_passes": 17
+    },
+    {
+      "slug": "card-pyroglyphic-protection-red-four-live-sparse-active-owned-aura-prevents-real-three-arcane",
+      "primary_card_ids": [
+        "pyroglyphic_protection_red"
+      ],
+      "source_spec": "card-regression-batch199.json",
+      "actions": 6,
+      "native_assertions": 451,
+      "manual_passes": 4
+    },
+    {
+      "slug": "card-enchanting-melody-red-four-live-sparse-active-owned-aura-consumed-preventing-real-four",
+      "primary_card_ids": [
+        "enchanting_melody_red"
+      ],
+      "source_spec": "card-regression-batch199.json",
+      "actions": 27,
+      "native_assertions": 1391,
+      "manual_passes": 25
+    },
+    {
+      "slug": "card-yendurai-four-live-sparse-active-owned-dragon-endurance-prevents-three-of-real-four",
+      "primary_card_ids": [
+        "yendurai"
+      ],
+      "source_spec": "card-regression-batch199.json",
+      "actions": 27,
+      "native_assertions": 1451,
+      "manual_passes": 25
+    },
+    {
+      "slug": "card-rain-razors-yellow-four-live-sparse-real-arrow-plus-two-and-six-damage",
+      "primary_card_ids": [
+        "rain_razors_yellow"
+      ],
+      "source_spec": "card-regression-batch200.json",
+      "actions": 33,
+      "native_assertions": 2059,
+      "manual_passes": 29
+    },
+    {
+      "slug": "card-talishar-the-lost-prince-four-live-sparse-paid-attack-rust-one-and-four-damage",
+      "primary_card_ids": [
+        "talishar_the_lost_prince"
+      ],
+      "source_spec": "card-regression-batch200.json",
+      "actions": 28,
+      "native_assertions": 1673,
+      "manual_passes": 25
+    },
+    {
+      "slug": "card-induction-chamber-red-four-live-sparse-real-paid-zero-to-one-steam-charge",
+      "primary_card_ids": [
+        "induction_chamber_red"
+      ],
+      "source_spec": "card-regression-batch200.json",
+      "actions": 6,
+      "native_assertions": 503,
+      "manual_passes": 4
+    },
+    {
+      "slug": "card-stir-the-wildwood-red-four-live-correct-earned-arcane-plus-two-and-briar-responseable-trigger",
+      "primary_card_ids": [
+        "stir_the_wildwood_red"
+      ],
+      "source_spec": "card-regression-batch200.json",
+      "actions": 37,
+      "native_assertions": 2064,
+      "manual_passes": 33
+    }
+  ],
+  "registered": [
+    {
+      "batch": 199,
+      "evidence": "review-evidence/sparse199-20261025-qualified-saved-review.json",
+      "sha256": "00d568857eec3330524db58433e3fa3a98624ca728ab37d57a4babc54fb73635"
+    },
+    {
+      "batch": 200,
+      "evidence": "review-evidence/sparse200-20261025-qualified-saved-review.json",
+      "sha256": "f53f30f4b9048e6f9f927a51a8dbdf11bfea4e41126b03832e459dfd986bca91"
+    }
+  ],
+  "targeted_replay_passes": 16,
+  "targeted_replay_reports": [
+    {
+      "path": "card-regression-replay-sparse199-20261025-r1.json",
+      "sha256": "d6eb957ff11ff11428ef483c7d30eb28ec2232c5d200e92807ba2ec70393d397"
+    },
+    {
+      "path": "card-regression-replay-sparse199-20261025-r2.json",
+      "sha256": "541050bd15c8de1ad7fc8599940905bc29be4001328172b13902479bea59c3ad"
+    },
+    {
+      "path": "card-regression-replay-sparse200-20261025-r1.json",
+      "sha256": "fc2cacb49160cce65262a515ee159789f72fad4e7858c38beabe930d0228cb5f"
+    },
+    {
+      "path": "card-regression-replay-sparse200-20261025-r2.json",
+      "sha256": "e6695c13a2962603d89f7b94727fd83ccb3250b0ffb6b12b03d6bf319aa73f69"
+    }
+  ],
+  "causal_controls": {
+    "report": "card-regression-negative-controls-sparse199-200-results.json",
+    "sha256": "5a95a49fee95f5fc5514c7e2da95ec3a67230ffbbefce05365f2ee87cd8a0cc2",
+    "detected": 4,
+    "total": 4,
+    "omitted_suffix_oracles": 0,
+    "scope": "Skullcap/Pyroglyphic/Melody/Rain only; no isolated Yendurai/Talishar/Induction native counter fault."
+  },
+  "native_gameplay_fix": {
+    "issue": "FAB-REG-045",
+    "evidence": "review-evidence/sparse200-briar-confirmed-before-after.json"
+  },
+  "oracle_corrections": [
+    "Yendurai draft initial-counter alias corrected before native execution.",
+    "Post-removal zero-counter JSON changed to absent key per existing setter; initial1/realDamage1/survival unchanged."
+  ],
+  "authoring_guard_corrections": [
+    "Two slug casing changes before native execution; no game expectations changed."
+  ],
+  "components_passed": 27,
+  "changed_php_syntax_passed": 2,
+  "full_suite_runs": 0,
+  "source_only_branch_limits": [
+    "Stir Earth-fusion payment order",
+    "Induction already-charged ability legality",
+    "Talishar three-Rust end-phase timing",
+    "Briar second-NAA Lightning timing and ordinal-after-ability-recovery"
+  ],
+  "historical_byte_binding_limit": "Prior3363 exact review hash bindings remain unresolved; one inspected case proven TXT line-ending-only, no generalization or whole-corpus requalification. Use recorded subject presence to avoid duplicates.",
+  "prior_nine_checkpoint": "card-regression-sparse196-198-checkpoint.json",
+  "prior_nine_qualification_runtime": "6a3fcc98c838e8fb306fb0c526d37f5040cb0c266d0f32c2b3737688d831c5f7",
+  "prior_nine_not_replayed_again": true,
+  "agent_staged": false,
+  "agent_committed": false,
+  "agent_pushed": false,
+  "backups": {
+    "source": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse200-briar-trigger-repair-backup",
+    "oracle": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse199-counter-oracle-backup",
+    "metadata": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse199-200-metadata-backup"
+  },
+  "coverage_indexes": {
+    "card-regression-coverage.json": "da0ab789ffa226c80c83fa00bf4ba0aa44fb4657dad20028d5d0aa10e021f512",
+    "cycle-coverage-current.json": "66aceb292082aef090f8ffc6a4a2b8f026c57aeb3d929b5f3ebb01dbd74ee39e"
+  },
+  "strict_current_index": {
+    "exact_semantic_reviews": 17,
+    "two_current_replays": 8,
+    "historical_byte_binding_mismatches": 3363
+  }
+}

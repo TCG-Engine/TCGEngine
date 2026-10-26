@@ -1,0 +1,42 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch201.json",
+  "runtime_sha256": "97edc048573c586ec906f65aa02a4c9dbe41ebe0831d971961062c0d759ca05d",
+  "returncode": 0,
+  "completed_utc": "2026-10-25T21:43:32.561575+00:00",
+  "fixtures": [
+    {
+      "slug": "card-bloodsheath-skeleta-four-live-sparse-actual-instant-destroy-discounts-real-paid-nonattack-by-one-runechant",
+      "fixture_sha256": "cb62311ccf9b83026751116bdb9efd1a1b1d9da564d55e94bdc502c355639efe",
+      "passed": true,
+      "result": "[PASS] bloodsheath_skeleta / actual four-live sparse distinctive mechanic"
+    },
+    {
+      "slug": "card-plasma-purifier-red-four-live-sparse-actual-paid-item-recharge-creates-one-steam-and-go-again",
+      "fixture_sha256": "e391e9e05c3d390ce32999a51d2cffc19f58a7ffd31bdc6723776a9d74d0dfe8",
+      "passed": true,
+      "result": "[PASS] plasma_purifier_red / actual four-live sparse distinctive mechanic"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-bloodsheath-skeleta-four-live-sparse-actual-instant-destroy-discounts-real-paid-nonattack-by-one-runechant",
+      "returncode": 0,
+      "stdout": "[PASS] bloodsheath_skeleta / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-plasma-purifier-red-four-live-sparse-actual-paid-item-recharge-creates-one-steam-and-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] plasma_purifier_red / actual four-live sparse distinctive mechanic\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-channel-lake-frigid-blue-four-live-sparse-opposing-owned-ice-aura-taxes-real-zero-cost-attack",
+    "card-channel-mount-heroic-red-four-live-sparse-active-owned-earth-aura-buffs-real-attack-by-three"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}
