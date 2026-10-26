@@ -80,6 +80,13 @@ function _SwuPgnMKind(string $cardID): ?string {
     return null;
 }
 
+// The base a move attaches its card to: an upgrade moving into base with no unit host is played onto that seat's base
+// (Fortify, §10.1 PLAY_UPGRADE) — `base@N`. A leader coming home, a Credit token or the Force is not an upgrade.
+function _SwuPgnMBaseHost(array $c): ?string {
+    if (isset($c['host']) || ($c['to'] ?? null) !== 'base' || _SwuPgnMKind($c['cardID']) !== 'upgrade') return null;
+    return 'base@' . intval($c['toSeat'] ?? $c['seat']);
+}
+
 function _SwuPgnMIssue(array &$run, string $cardID, string $fallbackName): string {
     $ref = (string)(CardTitle($cardID) ?? '') === '' ? 'TOKEN:' . $fallbackName : SwuPgnCardRef($cardID);
     return _SwuPgnLedgerIssue($run['ctx']['ledger'], $ref);
@@ -159,7 +166,7 @@ function _SwuPgnMStage(array &$run, array $c): void {
     else unset($L['tempOrigin'][$copy]);
 }
 
-// MOVE for a move change (attachedTo only on a move into an arena; exhausted only on a move out of resource), with the
+// MOVE for a move change (attachedTo only on a move into an arena or onto a base; exhausted only on a move out of resource), with the
 // RESOURCE every move into a resource row is followed by (§10.1). A card that changes seats gets a TAKE_CONTROL, since
 // one MOVE carries one seat: before the MOVE when it leaves a resource row (the row's counts move), after it when it
 // enters another seat's arena or row.
@@ -193,9 +200,10 @@ function _SwuPgnMMove(array &$run, array $c, ?int $owner): string {
     $p = $leavesRow ? $toSeat : ($cross && !in_array($c['to'], SWUPGN_ARENAS, true) && $c['to'] !== 'resource' ? $toSeat : $fromSeat);
     if (!$cross) $p = intval($c['seat']);
     $attaching = isset($c['host']) && in_array($c['to'], SWUPGN_ARENAS, true);
+    $ontoBase = _SwuPgnMBaseHost($c);
     _SwuPgnMEmit($run, 'MOVE', ['card' => $copy, 'from' => $c['from'], 'to' => $c['to'], 'p' => $p,
         'kind' => $attaching ? 'upgrade' : _SwuPgnMKind($c['cardID']),
-        'attachedTo' => $attaching ? _SwuPgnMRef($run, intval($c['host'])) : null, 'exhausted' => $exhaustedOut], $owner);
+        'attachedTo' => $attaching ? _SwuPgnMRef($run, intval($c['host'])) : $ontoBase, 'exhausted' => $exhaustedOut], $owner);
     if ($c['to'] === 'resource') _SwuPgnMEmit($run, 'RESOURCE', ['p' => $p, 'card' => $copy], $owner);
     if ($cross && !$leavesRow && !isset($c['host']) && (in_array($c['to'], SWUPGN_ARENAS, true) || $c['to'] === 'resource')) {
         _SwuPgnMEmit($run, 'TAKE_CONTROL', ['p' => $toSeat, 'card' => $copy, 'zone' => $c['to'],
@@ -335,7 +343,7 @@ function _SwuPgnMNote(array &$run, int $ni, array $n): void {
             if (in_array($how, ['upgrade', 'pilot'], true)) {
                 $hostUid = $n['targetUid'] ?? ($mv['host'] ?? null);
                 _SwuPgnMEmit($run, 'PLAY_UPGRADE', ['p' => $p, 'card' => $copy, 'zone' => $zone,
-                    'target' => $hostUid === null ? null : _SwuPgnMRef($run, intval($hostUid)), 'cost' => $n['cost'] ?? null], $ni, true);
+                    'target' => $hostUid === null ? _SwuPgnMBaseHost($mv) : _SwuPgnMRef($run, intval($hostUid)), 'cost' => $n['cost'] ?? null], $ni, true);
                 _SwuPgnMStats($run, $hostUid === null ? null : intval($hostUid), $ni);
             } elseif ($how === 'event') {
                 _SwuPgnMEmit($run, 'PLAY_EVENT', ['p' => $p, 'card' => $copy, 'zone' => 'discard', 'cost' => $n['cost'] ?? null], $ni, true);

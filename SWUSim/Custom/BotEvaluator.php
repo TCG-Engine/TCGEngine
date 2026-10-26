@@ -143,6 +143,9 @@ function SWUBotUnitView($obj, string $arena = ''): array {
         'power' => $power, 'attackPower' => $attackPower,
         'rawAttackPower' => $power + $raid,   // before any 'condemnfore' expectation: what a disclose defence actually blanks
         'hp' => $hp, 'remaining' => $hp - intval($obj->Damage ?? 0),
+        // "isn't defeated by having no remaining HP" right now (SEC_012 Cassian with the initiative, SOR_004 Chirrut outside the
+        // regroup phase, LOF_043's marker) — read by SWUBotDamageKills (feature 'hpimmune', p66).
+        'hpImmune' => function_exists('SWUImmuneToHpDefeat') && SWUImmuneToHpDefeat($obj),
         'ready' => intval($obj->Status ?? 0) === 1,            // Status: 1 = ready, 0 = exhausted
         'sentinel' => (bool)HasKeyword_Sentinel($obj), 'saboteur' => (bool)HasKeyword_Saboteur($obj),
         'overwhelm' => (bool)HasKeyword_Overwhelm($obj), 'grit' => (bool)HasKeyword_Grit($obj),
@@ -475,14 +478,26 @@ function SWUBotStabilises(int $clockBefore, int $clockAfter): bool {
     return $clockAfter >= 3 && $clockAfter > $clockBefore;
 }
 
+// Does $amount damage (or an HP shrink of $amount) defeat unit view $v? It reaches its remaining HP — unless the unit "isn't
+// defeated by having no remaining HP" (view 'hpImmune'). Feature 'hpimmune' (p66, Discord 2026-10-25: "3 different units get
+// sacked into a Cassian that already had lethal damage on him, but the Cassian had initiative so it didn't matter" — every
+// attack on a lethal-damaged SEC_012 read as a kill, so a unit that died to his counter-damage scored as a TRADE). Every "this
+// damage kills it" check in the bot goes through here; a view built by hand without 'hpImmune' keeps the plain comparison.
+function SWUBotDamageKills(array $v, int $amount): bool {
+    if ($amount < intval($v['remaining'] ?? 0)) return false;
+    if (empty($v['hpImmune']) || !function_exists('SWUBotFeatureOn') || !SWUBotFeatureOn('hpimmune')) return true;
+    if (function_exists('_SWUBotFired')) _SWUBotFired('hpimmune', intval($GLOBALS['SWUBotViewerSeat'] ?? 0));   // the verdict it overturned
+    return false;
+}
+
 // Combat arithmetic for $att attacking $def (CR 6.3.4-5): simultaneous damage, a Shield prevents one
 // instance (CR 3.7.6), Saboteur defeats the defender's Shields On Attack (CR 7.5.10), Grit's bonus from
 // NEW damage does not apply this combat (CR 7.5.6c) — ObjectCurrentPower already counts existing damage.
 function SWUBotCombatOutcome(array $att, array $def): string {
     $defShielded = $def['shields'] > 0 && !$att['saboteur'];
     $attShielded = $att['shields'] > 0;
-    $kills = !$defShielded && $att['attackPower'] >= $def['remaining'];
-    $dies  = !$attShielded && $def['power'] >= $att['remaining'];
+    $kills = !$defShielded && SWUBotDamageKills($def, intval($att['attackPower']));
+    $dies  = !$attShielded && SWUBotDamageKills($att, intval($def['power']));
     if ($kills && !$dies) return 'kill-survive';
     if ($kills && $dies)  return 'trade';
     if (!$kills && !$dies) return 'bounce';
@@ -512,11 +527,11 @@ function _SWUBotPhaseExpiryOutcome(array $att, array $def, string $out): array {
     $late = false;
     if (!$kills && !($def['shields'] > 0 && !$att['saboteur'])) {
         $exp = _SWUBotPhaseExpiryHp($def['obj'] ?? null);
-        if ($exp > 0 && $att['attackPower'] >= $def['remaining'] - $exp) { $kills = true; $late = true; }
+        if ($exp > 0 && SWUBotDamageKills(['remaining' => $def['remaining'] - $exp] + $def, intval($att['attackPower']))) { $kills = true; $late = true; }
     }
     if (!$dies && $att['shields'] <= 0) {
         $exp = _SWUBotPhaseExpiryHp($att['obj'] ?? null);
-        if ($exp > 0 && $def['power'] >= $att['remaining'] - $exp) $dies = true;
+        if ($exp > 0 && SWUBotDamageKills(['remaining' => $att['remaining'] - $exp] + $att, intval($def['power']))) $dies = true;
     }
     return [$kills ? ($dies ? 'trade' : 'kill-survive') : ($dies ? 'die' : 'bounce'), $late];
 }
@@ -526,7 +541,7 @@ function _SWUBotPhaseExpiryOutcome(array $att, array $def, string $out): array {
 function SWUBotOverwhelmKills(array $att, array $def): bool {
     if (!$att['overwhelm']) return false;
     $defShielded = $def['shields'] > 0 && !$att['saboteur'];
-    return !$defShielded && $att['attackPower'] >= $def['remaining'];
+    return !$defShielded && SWUBotDamageKills($def, intval($att['attackPower']));   // no defeat → no excess (Cassian ruling 10/31/2025)
 }
 
 // What a unit is worth to remove or lose: its printed cost plus what dies with it — upgrades and tokens
@@ -732,7 +747,7 @@ function _SWUBotWhenDefeatedPayout(array $v): float {
     if ($n !== null) {
         $hit = true;
         $best = 0.0;
-        foreach ($theirs as $u) { if ($u['remaining'] <= $n && $u['shields'] == 0) $best = max($best, _SWUBotUnitStatsValue($u)); }
+        foreach ($theirs as $u) { if (SWUBotDamageKills($u, intval($n)) && $u['shields'] == 0) $best = max($best, _SWUBotUnitStatsValue($u)); }
         $pay += $best > 0 ? $best : 0.3 * $n;
     }
     if (preg_match('/deal (\d+) (indirect )?damage to (a player|each opponent|an opponent|the opponent|a base|each enemy base)/i', $t, $m)) { $hit = true; $pay += 0.5 * intval($m[1]); }

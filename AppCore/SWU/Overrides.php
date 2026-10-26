@@ -194,6 +194,45 @@ function CardIDOverride($cardID) {
     case "HMW_032": return "JTL_030"; //Mos Eisley
     case "HMW_096": return "SOR_070"; //Devotion
     case "HMW_239": return "LOF_224"; //Pounce
+    case "IC27_009": return "JTL_019"; //City in the Clouds
+    case "IC27_010": return "SOR_024"; //Echo Base
+    case "IC27_011": return "TWI_026"; //KCM Mining Facility
+    case "IC27_012": return "JTL_030"; //Mos Eisley
+    case "IC27_016": return "TWI_031"; //Rune Haako
+    case "IC27_017": return "SOR_033"; //Death Trooper
+    case "IC27_020": return "IBH_060"; //Admiral Piett
+    case "IC27_025": return "IBH_099"; //Blizzard One
+    case "IC27_027": return "SOR_039"; //AT-AT Suppressor
+    case "IC27_028": return "IBH_072"; //Avenger
+    case "IC27_030": return "TWI_041"; //Lethal Crackdown
+    case "IC27_052": return "SOR_069"; //Resilient
+    case "IC27_053": return "SEC_071"; //Disciples' Devotion
+    case "IC27_073": return "JTL_095"; //Phoenix Squadron A-Wing
+    case "IC27_080": return "IBH_014"; //Bright Hope
+    case "IC27_082": return "IBH_020"; //Luke Skywalker
+    case "IC27_085": return "SHD_104"; //Inspiring Mentor
+    case "IC27_090": return "SOR_113"; //Homestead Militia
+    case "IC27_093": return "SOR_120"; //Academy Training
+    case "IC27_094": return "JTL_123"; //Dogfight
+    case "IC27_105": return "IBH_068"; //General Veers
+    case "IC27_186": return "SOR_236"; //R2-D2
+    case "IC27_161": return "IBH_010"; //Han Solo
+    case "IC27_164": return "IBH_031"; //Millennium Falcon
+    case "IC27_169": return "SEC_213"; //A-Wing
+    case "IC27_178": return "SOR_225"; //TIE/ln Fighter
+    case "IC27_185": return "SOR_233"; //I Am Your Father
+    case "IC27_191": return "LOF_250"; //Medical Frigate
+    case "IC27_182": return "LOF_235"; //HK-87 Assassin Droid
+    case "IC27_173": return "TWI_214"; //Hidden Sharpshooter
+    case "IC27_175": return "SOR_217"; //Shoot First
+    case "IC27_184": return "LOF_239"; //Consumed by the Dark Side
+    case "IC27_190": return "JTL_248"; //Dilapidated Ski Speeder
+    case "IC27_192": return "TWI_244"; //Eta-2 Light Interceptor
+    case "IC27_189": return "TWI_241"; //Phase I Clone Trooper
+    case "IC27_181": return "JTL_241"; //Rogue-class Starfighter
+    case "IC27_180": return "TWI_230"; //Super Battle Droid
+    case "IC27_131": return "JTL_164"; //Cham Syndulla
+    case "IC27_129": return "LOF_155"; //DRK-1 Probe Droid
     default: return $cardID;
   }
 }

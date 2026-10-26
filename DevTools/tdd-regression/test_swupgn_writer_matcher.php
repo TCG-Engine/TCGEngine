@@ -598,4 +598,31 @@ SwuPgnNote(['t' => 'PASS', 'p' => 1]); SwuPgnNote(['t' => 'CLAIM', 'p' => 2]);
 SwuPgnTestEq($GLOBALS['SWU_PGN_NOTES'], [['t' => 'PASS', 'p' => 1], ['t' => 'CLAIM', 'p' => 2]], 'a recorded game queues notes in order');
 unset($GLOBALS['SWU_PGN_RECORDING']); $GLOBALS['SWU_PGN_NOTES'] = [];
 
+// ── A base is a host (SWU-PGN 1.0 base-host revision) ──────────────────────────────────────────────
+// An upgrade played onto a base: its MOVE into base is attachedTo base@N, and PLAY_UPGRADE's target is base@N.
+$ctx = MCtx(); SwuPgnLedgerPut($ctx['ledger'], 2, 'hand', SwuPgnLedgerNewToken($ctx['ledger'], 'HMW_206'));
+$r = SwuPgnMatch([
+    ['k' => 'move', 'seat' => 2, 'cardID' => 'HMW_206', 'from' => 'hand', 'to' => 'base'],
+    ['k' => 'resources', 'seat' => 2, 'exhaustedDelta' => 1],
+], [['t' => 'PLAY', 'p' => 2, 'cardID' => 'HMW_206', 'how' => 'upgrade', 'uid' => null, 'targetUid' => null, 'cost' => 1]], $ctx);
+SwuPgnTestEq(array_values(array_filter($r['events'], fn($e) => in_array($e['t'], ['MOVE', 'PLAY_UPGRADE'], true))), [
+    ['seq' => 'R1.A.0b', 't' => 'MOVE', 'card' => 'HMW#206', 'from' => 'hand', 'to' => 'base', 'p' => 2, 'kind' => 'upgrade', 'attachedTo' => 'base@2', 'for' => 'R1.A.1'],
+    ['seq' => 'R1.A.1', 't' => 'PLAY_UPGRADE', 'p' => 2, 'card' => 'HMW#206', 'zone' => 'base', 'target' => 'base@2', 'cost' => 1],
+], 'a base upgrade: MOVE into base attachedTo base@2 · PLAY_UPGRADE target base@2');
+// Defeated, it leaves host-less, the way every upgrade does.
+$r = SwuPgnMatch([['k' => 'move', 'seat' => 2, 'cardID' => 'HMW_206', 'from' => 'base', 'to' => 'discard']], [], $ctx);
+SwuPgnTestEq(array_values(array_filter($r['events'], fn($e) => $e['t'] === 'MOVE')), [
+    ['seq' => 'R1.A.1a', 't' => 'MOVE', 'card' => 'HMW#206', 'from' => 'base', 'to' => 'discard', 'p' => 2, 'kind' => 'upgrade'],
+], 'a base upgrade leaving base names no host');
+// A leader coming home is not a base attach.
+$ctx = MCtx(); MPlace($ctx, 1, 'ground', 'SOR_046', 9);
+$r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_046', 'uid' => 9, 'from' => 'ground', 'to' => 'base']], [], $ctx);
+SwuPgnTestCheck(!array_key_exists('attachedTo', $r['events'][0] ?? []), 'a unit card moving into base is not attached to it');
+// A unit a base captured (Arrest): CAPTURE by base@N.
+$ctx = MCtx(); MPlace($ctx, 2, 'ground', 'SOR_096', 20);
+$r = SwuPgnMatch([['k' => 'capture', 'seat' => 1, 'cardID' => 'SOR_096', 'uid' => 20, 'captor' => 'base@1', 'from' => 'ground']],
+    [['t' => 'CAPTURE', 'p' => 1, 'cardID' => 'SOR_096', 'by' => 'base@1']], $ctx);
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['by'] ?? $e['to'] ?? null], $r['events']), [['MOVE', 'capture'], ['CAPTURE', 'base@1']],
+    'a base capture: MOVE arena→capture · CAPTURE by base@1');
+
 SwuPgnTestFinish();

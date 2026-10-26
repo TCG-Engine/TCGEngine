@@ -15,6 +15,7 @@ function SwuPgnBoardHandledFields(): array
         'player.seat', 'player.baseHp', 'player.baseMaxHp', 'player.handSize', 'player.hand', 'player.deckSize',
         'player.resourcesReady', 'player.resourcesExhausted', 'player.resources', 'player.baseEpicActionUsed',
         'player.credits', 'player.hasForce', 'player.discard', 'player.cards', 'player.leader',
+        'player.baseUpgrades', 'player.baseCaptured',
         'card.id', 'card.zone', 'card.damage', 'card.exhausted', 'card.upgrades', 'card.shields', 'card.experience',
         'card.statusTokens', 'card.captured', 'card.power', 'card.hp', 'card.keywords'];
 }
@@ -50,7 +51,15 @@ function SwuPgnBoardWrite(array $state, array $doc, string $view): array
 
         // The state's HP is the printed HP until a keyframe or base DAMAGE/HEAL says otherwise (SwuPgnBoardStartState).
         $baseMax = intval($ps['baseMaxHp'] ?? 30);
-        AddBase($p, $map($headers["P{$p}Base"] ?? ''), max(0, $baseMax - intval($ps['baseHp'] ?? $baseMax)), !empty($ps['baseEpicActionUsed']));
+        $baseSub = [];   // an upgrade on the base (Fortify) is a subcard of it, as in a live game
+        foreach (array_slice(is_array($ps['baseUpgrades'] ?? null) ? $ps['baseUpgrades'] : [], 0, 32) as $u) {
+            if (is_string($u)) $baseSub[] = ['CardID' => $map($u), 'Owner' => $p, 'Controller' => $p, 'TurnEffects' => [], 'IsPilot' => false];
+        }
+        AddBase($p, $map($headers["P{$p}Base"] ?? ''), max(0, $baseMax - intval($ps['baseHp'] ?? $baseMax)), !empty($ps['baseEpicActionUsed']), 1, '-', $baseSub ?: '-');
+        // A unit the base captured (Arrest) is the live game's base-captive flag on the capturing seat.
+        foreach (array_slice(is_array($ps['baseCaptured'] ?? null) ? $ps['baseCaptured'] : [], 0, 32) as $held) {
+            if (is_string($held)) AddGlobalEffects($p, 'SWU_BASECAPTIVE|' . $map($held) . '|' . $other);
+        }
 
         $leader = is_array($ps['leader'] ?? null) ? $ps['leader'] : ['id' => $headers["P{$p}Leader"] ?? ''];
         $leaderPgn = is_string($leader['id'] ?? null) ? $leader['id'] : ($headers["P{$p}Leader"] ?? '');

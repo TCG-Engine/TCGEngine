@@ -446,9 +446,10 @@ function _SwuPgnValidateEventRules(callable $issue, string $t, array $e, ?string
             $to = $e['to'] ?? null;
             if (is_string($from) && $from === $to) $issue('error', 'move.same-zone', 'a MOVE\'s from must differ from its to');
             if ($from === 'outsideTheGame' && $to === 'deck') $issue('warning', 'move.deck-build', 'deck construction is not recorded as MOVEs');
-            $attaching = ($e['kind'] ?? null) === 'upgrade' && SwuPgnIsArena($to);
-            if ($attaching && !array_key_exists('attachedTo', $e)) $issue('error', 'move.attached-to', 'an attaching MOVE into an arena must name its host with attachedTo');
-            if (!$attaching && array_key_exists('attachedTo', $e)) $issue('error', 'move.attached-to', 'attachedTo belongs only on the attaching move into an arena (exits are host-less)');
+            // Attaching: into an arena onto a unit, or into base onto base@N (an upgrade on a base).
+            $attaching = ($e['kind'] ?? null) === 'upgrade' && (SwuPgnIsArena($to) || $to === 'base');
+            if ($attaching && !array_key_exists('attachedTo', $e)) $issue('error', 'move.attached-to', 'an attaching MOVE into an arena or base must name its host with attachedTo');
+            if (!$attaching && array_key_exists('attachedTo', $e)) $issue('error', 'move.attached-to', 'attachedTo belongs only on the attaching move into an arena or base (exits are host-less)');
             if (array_key_exists('exhausted', $e) && $from !== 'resource') $issue('warning', 'move.exhausted', 'exhausted belongs only on a MOVE out of resource');
             break;
         case 'DEPLOY_LEADER':
@@ -527,6 +528,7 @@ function _SwuPgnKeyframeFieldProblems(array $kf): array
         $chk($pl, $pre, ['seat' => ['seat', 0], 'baseHp' => ['int', 1], 'baseMaxHp' => ['int', 1], 'handSize' => ['nat', 1],
             'hand' => ['strs', 1], 'deckSize' => ['nat', 0], 'resourcesReady' => ['nat', 1], 'resourcesExhausted' => ['nat', 1],
             'resources' => ['strs', 0], 'baseEpicActionUsed' => ['bool', 0], 'credits' => ['nat', 1], 'hasForce' => ['bool', 1],
+            'baseUpgrades' => ['strs', 0], 'baseCaptured' => ['strs', 0],
             'discard' => ['strs', 1], 'leader' => ['obj', 0]]);
         if (is_array($pl['leader'] ?? null)) {
             $chk($pl['leader'], $pre . 'leader.', ['id' => ['str', 1], 'deployed' => ['bool', 1], 'exhausted' => ['bool', 1], 'epicActionUsed' => ['bool', 1], 'onStartingSide' => ['bool', 0]]);

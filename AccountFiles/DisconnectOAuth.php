@@ -51,6 +51,11 @@ if ($type == "discord") {
   $conn = GetLocalMySQLConnection();
   if (SWUStatsLinkReady($conn)) SWUStatsClearLink($conn, (int)$userid);
   $response->success = "Successfully disconnected swustats.";
+} else if ($type == "swuforge") {
+  // Petranaki ↔ SWU Forge link: revoke at Forge (ends both tokens), then drop the local link.
+  include_once '../SWUSim/SWUForgeLink.php';
+  SWUForgeUnlink((int)$userid);
+  $response->success = "Successfully disconnected swuforge.";
 }
 
 

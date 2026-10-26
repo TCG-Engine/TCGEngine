@@ -360,6 +360,9 @@ function SwuPgnKeyframe(array $snap, array $ledger, array $ctx): ?array {
             'resourcesExhausted' => count(array_filter($rows, fn($r) => !$r['ready'])),
             'resources' => _SwuPgnKfIds(array_column($rows, 'cardID'), $z['resource'] ?? []),
             'baseEpicActionUsed' => $s['base']['epicUsed'],
+            // What the base holds: an upgrade on it (Fortify) and a unit it captured (Arrest).
+            'baseUpgrades' => _SwuPgnKfIds($s['base']['upgrades'], $z['base'] ?? []),
+            'baseCaptured' => _SwuPgnKfIds($s['base']['captives'], array_merge($ledger['zones'][1]["capture:base@$p"] ?? [], $ledger['zones'][2]["capture:base@$p"] ?? [])),
             'credits' => count($s['resources']) - count($rows), 'hasForce' => $s['force'],
             'discard' => _SwuPgnKfIds($s['discard'], $z['discard'] ?? []), 'cards' => $cards];
         $l = $s['leader'];
@@ -393,6 +396,7 @@ function SwuPgnLedgerAdopt(array &$ledger, array $snap): void {
         if ($s['force']) SwuPgnLedgerPut($ledger, $seat, 'force', SwuPgnLedgerNewToken($ledger, 'LOF_T03'));
         if ($s['leader'] !== null && !$s['leader']['deployed']) SwuPgnLedgerPut($ledger, $seat, 'base', SwuPgnLedgerNewToken($ledger, $s['leader']['cardID']));
         foreach ($s['base']['captives'] ?? [] as $id) SwuPgnLedgerPut($ledger, $seat, "capture:base@$seat", SwuPgnLedgerNewToken($ledger, $id));
+        foreach ($s['base']['upgrades'] ?? [] as $id) SwuPgnLedgerPut($ledger, $seat, 'base', SwuPgnLedgerNewToken($ledger, $id));   // Fortify
         foreach ($s['units'] as $uid => $u) {
             $uid = intval($uid);
             SwuPgnLedgerPut($ledger, $seat, $u['arena'], SwuPgnLedgerNewToken($ledger, $u['cardID']), $uid);

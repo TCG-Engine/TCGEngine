@@ -1022,6 +1022,13 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 #game-over-overlay > *:not(#game-over-title):not(#game-over-subtitle):not(#game-over-buttons):not(#game-over-stats):not(#swuEndGameToggle) {
     grid-area: buttons;
 }
+/* A game with no match behind it (Goldfish, Hotseat, a harness game) gets the core's lone "Return to Menu" instead of
+   #game-over-buttons. The core floats it in the panel corner (position:absolute; top/right 24px) — but an absolute grid
+   item takes its grid AREA as its containing block and gives that row no height, so the "buttons" row collapsed to 0px
+   and the button landed 24px down, on top of the save-replay row under it. In this grid it is an ordinary item. */
+#game-over-overlay > #game-over-menu-btn {
+    position: static !important; justify-self: start !important; align-self: start !important; margin: 0 !important;
+}
 
 /* ── Minimise / restore ───────────────────────────────────────────────────────────────────────
    The panel covers 80% of the board, and the whole reason it is a panel rather than a full-screen

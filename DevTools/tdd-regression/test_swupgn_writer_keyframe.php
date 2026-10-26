@@ -62,5 +62,17 @@ $Lh = SwuPgnStateRead($gameName)['ledger']; $Lh['limbo'][] = ['copy' => 'SOR#103
 SwuPgnTestEq(SwuPgnKeyframe(SwuPgnSnapshot(), $Lh, ['round' => 1, 'phase' => 'action', 'initiativeTaken' => false])['players']['1']['deckSize'] ?? null, 4,
     'and a card held out of the search until it is played (limbo)');
 
+// What a base holds (SWU-PGN 1.0 base-host revision): an upgrade on it and a unit it captured, by the ledger's copy ids.
+$kb = SwuPgnKeyframe(SwuPgnSnapshot(), $Lh, ['round' => 1, 'phase' => 'action', 'initiativeTaken' => false]);
+SwuPgnTestEq([$kb['players']['1']['baseUpgrades'] ?? null, $kb['players']['2']['baseCaptured'] ?? null], [[], []], 'a bare base holds nothing — the fields are there, empty');
+$base = &GetBase(1); $base[0]->Subcards = [['CardID' => 'HMW_206', 'Owner' => 1, 'Controller' => 1, 'TurnEffects' => [], 'IsPilot' => false]]; unset($base);
+AddGlobalEffects(1, 'SWU_BASECAPTIVE|SOR_049|2');
+$Lb = $Lh;
+SwuPgnLedgerPut($Lb, 1, 'base', 'HMW#206');
+SwuPgnLedgerPut($Lb, 1, 'capture:base@1', 'SOR#49:2');
+$kb = SwuPgnKeyframe(SwuPgnSnapshot(), $Lb, ['round' => 1, 'phase' => 'action', 'initiativeTaken' => false]);
+SwuPgnTestEq([$kb['players']['1']['baseUpgrades'] ?? null, $kb['players']['1']['baseCaptured'] ?? null, $kb['players']['2']['baseUpgrades'] ?? null],
+    [['HMW#206'], ['SOR#49:2'], []], 'a base upgrade and a base captive are in that seat\'s baseUpgrades / baseCaptured');
+
 exec('rm -rf ' . escapeshellarg('./SWUSim/Games/' . $gameName));
 SwuPgnTestFinish();

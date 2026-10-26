@@ -1020,12 +1020,12 @@ function SWUBotHandCardKills(string $cid, array $u): bool {
         if ($val > $n) return false;
         if (preg_match('/\bdefeat\b/i', $t)) return true;
     }
-    if (preg_match('/-(\d+)\/-\d+/', $t, $m)) return intval($m[1]) >= $u['remaining'];
+    if (preg_match('/-(\d+)\/-\d+/', $t, $m)) return SWUBotDamageKills($u, intval($m[1]));
     if ($u['shields'] > 0) return false;
-    if (preg_match('/deals? (\d+) damage to (a|an) (enemy )?(non-leader )?(ground |space )?unit/i', $t, $m)) return intval($m[1]) >= $u['remaining'];
+    if (preg_match('/deals? (\d+) damage to (a|an) (enemy )?(non-leader )?(ground |space )?unit/i', $t, $m)) return SWUBotDamageKills($u, intval($m[1]));
     if (str_contains(strval(CardType($cid)), 'Unit') && preg_match('/damage equal to (her|his|its) power/i', $t)) {
         $p = intval(CardPower($cid)) + (stripos($t, 'Experience token to this unit') !== false ? 1 : 0);
-        return $p >= $u['remaining'];
+        return SWUBotDamageKills($u, $p);
     }
     return false;
 }

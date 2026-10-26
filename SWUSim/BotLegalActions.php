@@ -335,6 +335,42 @@ function _SWUBotDroidPayableAnswers(array $actions, int $seat): array {
     try { return $check(); } finally { $playerID = $saved; }
 }
 
+// The "costs less for each one you pick" riders must leave the play PAYABLE too: HMW_049 Greater Sarlacc ("defeat any number of
+// ready resources … 3 less each", continuation HMW_049#0) and HMW_125 The Marauder ("deal 1 damage to any number of friendly units
+// … 1 less each", HMW_125#0). Both are offered at their best-case price, the fallback answered '-', the handler's abort refused
+// the play, and the bot played it again forever — HMW meta run 2026-10-24: every game with the Sabé Data Vault list on seat 1
+// hit the step cap in round 2 (3 ready resources, Sarlacc in hand). Each answer is priced exactly as its handler's own gate
+// does (valid picks from the same pool, capped at the offered max; the Sarlacc's picks also stop being payment). No answer
+// pays -> unchanged. Guard: SWUSim/DevTools/tests/bot_costriderpay_test.php.
+function _SWUBotCostRiderPayableAnswers(array $actions, int $seat): array {
+    if (!function_exists('_SWUPlayIsPayableAtDiscount')) return $actions;
+    $p = explode('|', _SWUBotNextDecisionParam($seat));
+    $rider = $p[0] ?? '';
+    if ($rider !== 'HMW_049#0' && $rider !== 'HMW_125#0') return $actions;
+    $handMz = strval($p[1] ?? ''); $discount = intval($p[2] ?? 0); $offeredMax = intval($p[3] ?? PHP_INT_MAX);
+    $check = function () use ($actions, $seat, $rider, $handMz, $discount, $offeredMax) {
+        $isSarlacc = $rider === 'HMW_049#0';
+        $legal = array_flip($isSarlacc ? _SWUHmw049LegalPicks($seat) : _SWUHmw125LegalPicks($seat));
+        $out = [];
+        foreach ($actions as $a) {
+            $c = strval($a['cardID'] ?? '');
+            $valid = 0;
+            foreach (($c === '-' || $c === 'PASS') ? [] : array_unique(explode('&', $c)) as $mz) {
+                if ($mz !== '' && isset($legal[$mz]) && $valid < $offeredMax) $valid++;
+            }
+            $payable = $isSarlacc
+                ? _SWUPlayIsPayableAtDiscount($seat, $handMz, $discount + 3 * $valid, [], $valid)
+                : _SWUPlayIsPayableAtDiscount($seat, $handMz, $discount + $valid);
+            if ($payable) $out[] = $a;
+        }
+        return empty($out) ? $actions : $out;
+    };
+    if (function_exists('BridgeWithPlayerPerspective')) return BridgeWithPlayerPerspective($seat, $check);
+    global $playerID;
+    $saved = $playerID; $playerID = $seat;
+    try { return $check(); } finally { $playerID = $saved; }
+}
+
 function SWUBotLegalActions($gameName, $seat) {
     $seat = intval($seat);
     $decisionSeat = SWUBotPendingDecisionSeat();
@@ -351,7 +387,7 @@ function SWUBotLegalActions($gameName, $seat) {
         $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
         $actions = _SWUBotCorrectBridgeAnswers(strval($legal['decisionType'] ?? ''), strval($legal['decisionParam'] ?? ''), $actions, $seat);
         if (strval($legal['decisionType'] ?? '') === 'NAMECARD') $actions = _SWUBotNameCardPool($actions, $seat);
-        if (strval($legal['decisionType'] ?? '') === 'MZMULTICHOOSE') $actions = _SWUBotDroidPayableAnswers(_SWUBotExploitPayableAnswers($actions, $seat), $seat);
+        if (strval($legal['decisionType'] ?? '') === 'MZMULTICHOOSE') $actions = _SWUBotCostRiderPayableAnswers(_SWUBotDroidPayableAnswers(_SWUBotExploitPayableAnswers($actions, $seat), $seat), $seat);
         $actions = _SWUBotWeaknessEnemyOnly(strval($legal['decisionType'] ?? ''), strval($legal['decisionTooltipRaw'] ?? ''), $actions, $seat);
         if (empty($actions)) {
             $front = null;

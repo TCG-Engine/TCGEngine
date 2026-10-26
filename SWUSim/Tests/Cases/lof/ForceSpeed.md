@@ -121,3 +121,48 @@ P2HANDCOUNT:0
 P2GROUNDARENAUNIT:0:DAMAGE:6
 P1TEMPZONECOUNT:0
 P1NODECISION
+
+---
+
+# ReturnShieldTokens_DefenderLosesBoth
+#// Discord 2026-10-25: "We played Force Speed and it didn't let the attacking unit knock off my two shields." Shield tokens
+#// are non-unique upgrades (CR: token upgrades follow the upgrade rules; tokens aren't unique). The trigger skipped
+#// SOR_T01/SOR_T02 outright. The defender wears two Shields and a unique upgrade: both Shields are offered and returned —
+#// a returned token ceases to exist, so nothing reaches P2's hand — and the unique SOR_053 stays.
+
+## GIVEN
+CommonSetup: yyw/ggk/{myResources:1;handCardIds:LOF_205}
+P1OnlyActions: true
+WithP1GroundArena: LOF_050:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: [0:SOR_T02 0:SOR_T02 0:SOR_053]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:myTempZone-0&myTempZone-1
+
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_053
+P2HANDCOUNT:0
+
+---
+
+# OfferPool_TokensAndNonUniqueCards_NotUnique
+#// The offer itself, left pending: two Shields + a non-unique card (SOR_054) are offered; the unique SOR_053 is not.
+
+## GIVEN
+CommonSetup: yyw/ggk/{myResources:1;handCardIds:LOF_205}
+P1OnlyActions: true
+WithP1GroundArena: LOF_050:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: [0:SOR_T02 0:SOR_054 0:SOR_053 0:SOR_T02]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1DECISIONTOOLTIP:Return_any_number_of_the_defender's_non-unique_upgrades
+P1SELECTABLEEXACT:myTempZone-0&myTempZone-1&myTempZone-2

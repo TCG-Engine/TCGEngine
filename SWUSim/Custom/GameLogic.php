@@ -3911,6 +3911,7 @@ $oneShotPlayCharges = [
     ['flag'=>'SWU_SHD006_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o),                                                    'amount'=>fn($p,$o)=>GlobalEffectCount(intval($p), 'SWU_SHD006_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // SHD_006 Jabba's bounty
     ['flag'=>'SWU_LAW158_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o) && HasTrait($o->CardID ?? '', 'Underworld'),        'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // LAW_158 Khetanna
     ['flag'=>'SWU_ASH237_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o) && HasTrait($o->CardID ?? '', 'Imperial'),          'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // ASH_237 Mouse Droid
+    ['flag'=>'SWU_IC27145_DISCOUNT_NEXT',   'applies'=>fn($p,$o,$h)=>true,                                                                 'amount'=>fn($p,$o)=>3 * GlobalEffectCount(intval($p), 'SWU_IC27145_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // IC27_145 Poggle — "the next CARD" (any type); two charges armed before a play stack on that one card and are both spent (cf. TS26_35)
 ];
 
 // Spend every one-shot play charge (from $oneShotPlayCharges) that applies to $obj. Called by the
@@ -7557,12 +7558,36 @@ function EngineTransitionOverride(?string $currentPhase, $input): ?string {
 // NOT here, on purpose: JTL_216 Contracted Hunter (its self-defeat must see "this phase" effects already
 // expired) and the after-expiry delayed effects (HMW_054, LAW_245) — see RegroupPhaseStart.
 
+// Has $obj lost all abilities once the action phase that just ended is over? The regroup-start window runs before
+// SWUExpireTurnEffects(SWU_DUR_PHASE), but a "this phase" blank (SOR_138 Force Lightning) ended with the action
+// phase, so it must not silence a regroup-start trigger (sor/ForceLightning.md::RegroupStartTrigger_NotSilenced),
+// while a "this round" one (JTL_018 Kazuda, JTL_244 There Is No Escape) still does. Judged on a copy without the
+// tokens that expiry is about to drop — the same rule SWUExpireTurnEffects applies for the phase scope.
+function _SWULostAbilitiesPastActionPhase($obj): bool {
+    global $turnEffectRegistry;
+    if ($obj === null) return false;
+    $copy = clone $obj;
+    $copy->TurnEffects = array_values(array_filter($obj->TurnEffects ?? [], function ($te) use ($turnEffectRegistry) {
+        $p = SWUParseTurnEffect((string)$te);
+        if (!isset($turnEffectRegistry[$p['base']])) return true;
+        return $p['duration'] !== SWU_DUR_PHASE && $p['duration'] !== SWU_DUR_ATTACK;
+    }));
+    return _SWULostAbilitiesNow($copy);
+}
+
 // Every regroup-start TRIGGERED ability in play right now: ['player','cardID','key','ref'] per copy, in the
 // order the old hardcoded blocks ran. ref = "U{uid}" for a unit/host, "P{seat}" otherwise.
 function _SWURegroupStartTriggerItems(): array {
     global $playerID; $saved = $playerID;
     $items = [];
+    // CR 8 "lose all abilities": a blanked unit has no abilities, printed OR given by another card, so none of its
+    // regroup-start triggers exist. Checked here once for every unit-referenced item ("U{uid}") — the per-card checks
+    // used to cover only LAW_071/LAW_073, and a Fireball blanked by Kazuda (JTL_018, this round) still took its 1.
     $add = function (int $p, string $cid, string $key, string $ref) use (&$items) {
+        if ($ref !== '' && $ref[0] === 'U') {
+            $mz = SWUFindMzByUID(intval(substr($ref, 1)));
+            if ($mz !== null && _SWULostAbilitiesPastActionPhase(GetZoneObject($mz))) return;
+        }
         $items[] = ['player' => $p, 'cardID' => $cid, 'key' => $key, 'ref' => $ref];
     };
     $baseCopies = function (int $p, string $cid): int {
@@ -7578,7 +7603,7 @@ function _SWURegroupStartTriggerItems(): array {
         $playerID = $p;
         $units = GetUnitsInPlay($p);
         foreach ($units as $u) {                                  // LAW_071 The Max Rebo Band — create a Credit
-            if (empty($u->removed) && ($u->CardID ?? '') === 'LAW_071' && !LostAbilities($u))
+            if (empty($u->removed) && ($u->CardID ?? '') === 'LAW_071')
                 $add($p, 'LAW_071', 'LAW071', 'U' . intval($u->UniqueID ?? 0));
         }
         $hasNonLeader = false;                                    // LAW_073 Patient Hunter — may give an Exp
@@ -7586,7 +7611,7 @@ function _SWURegroupStartTriggerItems(): array {
             foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) { if (!SWUObjGone(GetZoneObject($mz))) { $hasNonLeader = true; break 2; } }
         }
         foreach ($units as $u) {
-            if ($hasNonLeader && empty($u->removed) && ($u->CardID ?? '') === 'LAW_073' && !LostAbilities($u))
+            if ($hasNonLeader && empty($u->removed) && ($u->CardID ?? '') === 'LAW_073')
                 $add($p, 'LAW_073', 'LAW073', 'U' . intval($u->UniqueID ?? 0));
         }
         foreach (array_merge(GetGroundArena($p), GetSpaceArena($p)) as $u) {   // LAW_077 granted: 2 to your base
@@ -8157,6 +8182,7 @@ function _SWURegroupStartRest(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_BASE_HEALED_PHASE'); // TS26_38: "if a base was healed this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_TS26035_DISCOUNT_NEXT'); // TS26_35: "next event -2 this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_REX_DISCOUNT_NEXT');     // TS26_06 Rex: "next event -1/-2 this phase"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_IC27145_DISCOUNT_NEXT'); // IC27_145 Poggle: "next card this phase -3"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_TS26063_USED_');         // TS26_63 Rex's DC-17s: "once each round"
         // TS26_12 Sundari Palace — defeat one friendly resource per card resourced this way (at regroup start).
         $sundari = GlobalEffectCount($p, 'SWU_SUNDARI_DEFEAT');
@@ -11208,7 +11234,10 @@ function LOF205BounceTrigger($player, $mzID): void {
     $cardIDs = [];
     foreach (GetUpgradesOnUnit($defender) as $up) {
         $cid = $up->CardID ?? '';
-        if ($cid === '' || in_array($cid, ['SOR_T01', 'SOR_T02'], true)) continue; // skip Experience/Shield tokens
+        // Token upgrades ARE non-unique upgrades (CR: token upgrades follow the upgrade rules; a token is never unique), so
+        // Shields and Experience are offered like any other — a returned token ceases to exist (SWUReturnUpgradeToHand).
+        // They used to be skipped (Discord 2026-10-25: "it didn't let the attacking unit knock off my two shields").
+        if ($cid === '') continue;
         if (CardUnique($cid)) continue;                                              // non-unique only
         $cardIDs[] = $cid;
     }

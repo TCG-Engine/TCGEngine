@@ -128,6 +128,19 @@ SwuPgnTestCheck(GetLeader(1)[0]->CardID === 'TWI_017' && GetLeader(1)[0]->Deploy
 global $gTurnNumber, $gCurrentPhase, $gInitiativeCounter;
 SwuPgnTestEq([$gTurnNumber, $gCurrentPhase, $gInitiativeCounter], [3, 'RGS', 'P2_CLAIMED'], 'round, phase and initiative');
 
+// What a base holds: an upgrade on it (Fortify) is a base subcard; a unit it captured (Arrest) is the live game's
+// base-captive flag on the capturing seat, owned by the other.
+$based = $final;
+$based['players'][2]['baseUpgrades'] = ['SOR#095'];
+$based['players'][1]['baseCaptured'] = ['SOR#045:2'];
+$write($based, 'both');
+SwuPgnTestEq($subIds(GetBase(2)[0]), ['SOR_095'], 'a base upgrade becomes a subcard of that seat\'s base');
+SwuPgnTestEq($subIds(GetBase(1)[0]), [], 'and only of that base');
+$flags = array_values(array_filter(array_map(fn($g) => (string)$g->CardID, GetGlobalEffects(1)), fn($f) => str_starts_with($f, 'SWU_BASECAPTIVE|')));
+SwuPgnTestEq($flags, ['SWU_BASECAPTIVE|SOR_045|2'], 'a base captive is the base-captive flag of the capturing seat, owned by the other');
+$baseSeen = array_keys(array_merge($based['players'][1], $based['players'][2]));
+SwuPgnTestEq(array_values(array_diff(array_map(fn($k) => "player.$k", $baseSeen), SwuPgnBoardHandledFields())), [], 'baseUpgrades / baseCaptured are converted fields');
+
 // Every top-level and per-card field the reader produces is handled.
 $handled = SwuPgnBoardHandledFields();
 $seen = [];

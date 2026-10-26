@@ -15,8 +15,16 @@
     exit();
   }
 
+  // POST only: a password in a GET query string ends up in access logs and browser history.
+  if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+    $response->error = "Use POST.";
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
+  }
+
   $conn = GetLocalMySQLConnection();
-  $newPass = isset($_GET['newPass']) ? $_GET['newPass'] : '';
+  $newPass = isset($_POST['newPass']) ? $_POST['newPass'] : '';
 
   if (empty($newPass)) {
     $response->error = "No password provided.";

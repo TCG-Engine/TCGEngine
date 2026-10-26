@@ -63,4 +63,13 @@ SwuPgnTestEq(SwuPgnLedgerNewToken($L4, 'SOR_T02'), 'TOKEN:shield#8752877738', 't
 SwuPgnTestEq(SwuPgnLedgerNewToken($L4, 'SOR_T02'), 'TOKEN:shield#8752877738:2', 'the second Shield token gets :2');
 SwuPgnTestEq(SwuPgnLedgerNewToken($L4, 'SOR_T01'), 'TOKEN:experience#' . GetCardUUID('SOR_T01'), 'a different token starts its own count');
 
+// A recording that starts on a board already in play (a fixture, a late start) gives every card on it a copy id —
+// an upgrade on a base included, one per seat, so mirror base upgrades are two copies, not one id twice.
+$seatAt = fn(array $ups) => ['deck' => [], 'hand' => [], 'discard' => [], 'resources' => [], 'force' => false,
+    'base' => ['cardID' => 'SOR_026', 'damage' => 0, 'maxHp' => 30, 'epicUsed' => false, 'captives' => [], 'upgrades' => $ups],
+    'leader' => null, 'units' => []];
+$La = SwuPgnLedgerInit([1 => [], 2 => []]);
+SwuPgnLedgerAdopt($La, ['seats' => [1 => $seatAt(['HMW_095']), 2 => $seatAt(['HMW_095'])]]);
+SwuPgnTestEq([$La['zones'][1]['base'] ?? null, $La['zones'][2]['base'] ?? null], [['HMW#95'], ['HMW#95:2']], 'adopting a board gives each base upgrade its own copy id');
+
 SwuPgnTestFinish();

@@ -123,6 +123,11 @@ function _SwuPgnCompareKeyframe(array $fold, array $kf, string $seq, bool $first
         if (array_key_exists('resources', $kp) && !_SwuPgnSameSet($kp['resources'], $fp['resources'] ?? [])) {
             $out[] = _SwuPgnMm($seq, $pre . 'resources', true, $kp['resources'], array_key_exists('resources', $fp), $fp['resources'] ?? null);
         }
+        foreach (['baseUpgrades', 'baseCaptured'] as $f) {     // what the base holds; absent in the fold is []
+            if (array_key_exists($f, $kp) && !_SwuPgnSameSet($kp[$f], $fp[$f] ?? [])) {
+                $out[] = _SwuPgnMm($seq, $pre . $f, true, $kp[$f], array_key_exists($f, $fp), $fp[$f] ?? null);
+            }
+        }
         if (array_key_exists('baseEpicActionUsed', $kp)) {
             // The fold only ever sets it true; never having seen it means "not used".
             $got = array_key_exists('baseEpicActionUsed', $fp) ? $fp['baseEpicActionUsed'] : false;
