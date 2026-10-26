@@ -116,7 +116,9 @@ function _LoadDeckSecondLeaderID($leaderZone) {
 			// consumer echoing this back still aggregates canonically. SWUDB already exports latest
 			// printings; this matches that convention.
 			// Applied before the branch below so SET_NNN and UID modes agree.
-			if (function_exists('SWUDisplayCardID')) $setNnn = SWUDisplayCardID($setNnn);
+			// `true` = newest RELEASED printing: a previewing set's reprints are held back, because the sites that import
+			// these decks do not have that set yet (IC27, owner 2026-10-26). Lifts when the set leaves PreviewSets.php.
+			if (function_exists('SWUDisplayCardID')) $setNnn = SWUDisplayCardID($setNnn, true);
 			if ($setId) return $setNnn;
 			$uuid = UUIDLookup($setNnn);
 			return ($uuid !== null && $uuid !== '') ? $uuid : $storedID;
