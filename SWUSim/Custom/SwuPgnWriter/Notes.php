@@ -31,14 +31,52 @@ function SwuPgnNoteRef($obj) {
     return isset($obj->CardID) ? strval($obj->CardID) : null;
 }
 
-// The card whose ability is resolving (the game log's source), base@N when it is that seat's base; a one-shot
-// $GLOBALS['SWU_PGN_DAMAGE_SRC'] (a rule, e.g. "rule:deck-out") wins.
+// The card whose ability is resolving (the game log's source), base@N when it is that seat's base — or an ability the
+// base GAINED from a Fortify upgrade on it ("Attached base gains: …"): the base dealt that damage (§10.3). A one-shot
+// $GLOBALS['SWU_PGN_DAMAGE_SRC'] (a rule, e.g. "rule:deck-out") wins; with no game-log source, the base Action this
+// request began (SwuPgnNoteBaseUpgradeAction) is the source.
 function SwuPgnNoteSource() {
     if (!empty($GLOBALS['SWU_PGN_DAMAGE_SRC'])) return strval($GLOBALS['SWU_PGN_DAMAGE_SRC']);
     [$p, $cardID] = function_exists('SWULogSource') ? SWULogSource() : [0, ''];
+    if (($p <= 0 || $cardID === '') && isset($GLOBALS['SWU_PGN_ACTION_SRC'])) [$p, $cardID] = $GLOBALS['SWU_PGN_ACTION_SRC'];
     if ($p <= 0 || $cardID === '') return null;
-    foreach (GetBase($p) ?? [] as $b) if (empty($b->removed) && $b->CardID === $cardID) return "base@$p";
+    foreach (GetBase($p) ?? [] as $b) {
+        if (!empty($b->removed)) continue;
+        if ($b->CardID === $cardID) return "base@$p";
+        if (_SwuPgnBaseGrants($p, $cardID)) return "base@$p";
+    }
     return $cardID;
+}
+
+// True when $cardID is a Fortify upgrade on $p's base whose ability is one it GRANTS the base (not its own printed one).
+function _SwuPgnBaseGrants(int $p, string $cardID): bool {
+    if (!function_exists('_SWUFortifyGrantsToBase') || !_SWUFortifyGrantsToBase($cardID)) return false;
+    foreach (GetBase($p) ?? [] as $b) {
+        if (!empty($b->removed)) continue;
+        foreach (GetUpgradesOnUnit($b) as $sub) if ((is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '')) === $cardID) return true;
+    }
+    return false;
+}
+
+// A base Action that an upgrade on the base provides (the engine runs it without a game-log "used …'s Action"): the
+// ABILITY note — the base's own, grantedBy the upgrade, when the upgrade grants it ("Attached base gains: …"); the
+// upgrade's when it is the upgrade's printed Action (Bacta Tank's "Action [defeat this upgrade]") — and the source for
+// the rest of the request.
+function SwuPgnNoteBaseUpgradeAction(int $p, string $cardID): void {
+    if (!SwuPgnNoteOn()) return;
+    try {
+        $GLOBALS['SWU_PGN_ACTION_SRC'] = [$p, $cardID];
+        $granted = _SwuPgnBaseGrants($p, $cardID);
+        SwuPgnNote(['t' => 'ABILITY', 'p' => $p, 'cardID' => $granted ? "base@$p" : $cardID, 'kind' => 'action'] + ($granted ? ['grantedBy' => $cardID] : []));
+    } catch (Throwable $e) { _SwuPgnNoteFailed($e); }
+}
+
+// A base defeated outright — no damage dealt (HMW_004 Grand Moff Tarkin: "defeat a base").
+function SwuPgnNoteBaseDefeat(int $seat, ?int $killer): void {
+    if (!SwuPgnNoteOn()) return;
+    try {
+        SwuPgnNote(['t' => 'BASE_DEFEAT', 'p' => intval($killer ?? 0), 'seat' => $seat, 'by' => SwuPgnNoteSource()]);
+    } catch (Throwable $e) { _SwuPgnNoteFailed($e); }
 }
 
 // Combat damage: the attacker dealt it, unless it landed on the attacker's side (the defender's counter).
@@ -78,12 +116,13 @@ function SwuPgnDefeatCause(string $reason, ?string $byCardID, callable $fn, bool
     $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] = ['reason' => $reason, 'by' => $byCardID, 'fallback' => $fallback];
     try { return $fn(); } finally { $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] = $prev; }
 }
-// [reason, by] for an effect defeat: the cause set around it, else the card in the log's source ("ability"), else $default.
+// [reason, by] for an effect defeat: the cause set around it, else the card in the log's source — "nonCombatDamage" for a
+// damage kill ($default), "ability" for an outright one (§6.4) — else $default.
 function _SwuPgnDefeatReason(string $default): array {
     $cause = $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] ?? null;
     if ($cause !== null && empty($cause['fallback'])) return [$cause['reason'], $cause['by']];
     $by = SwuPgnNoteSource();
-    if ($by !== null) return ['ability', $by];
+    if ($by !== null && !str_starts_with($by, 'rule:')) return [$default === 'nonCombatDamage' ? 'nonCombatDamage' : 'ability', $by];
     return $cause !== null ? [$cause['reason'], $cause['by']] : [$default, null];
 }
 

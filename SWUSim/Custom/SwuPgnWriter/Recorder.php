@@ -29,7 +29,7 @@ function SwuPgnRecIsRecording(string $g): bool {
 function _SwuPgnRecResetRequest(): void {
     $GLOBALS['SWU_PGN_RECORDING'] = false;
     $GLOBALS['SWU_PGN_NOTES'] = [];
-    unset($GLOBALS['SWU_PGN_S0'], $GLOBALS['SWU_PGN_FRAME_GAME']);
+    unset($GLOBALS['SWU_PGN_S0'], $GLOBALS['SWU_PGN_FRAME_GAME'], $GLOBALS['SWU_PGN_ACTION_SRC']);
 }
 
 // The SWU-PGN phase letter for a snapshot: setup (S) until the recorder's state says the first round began.

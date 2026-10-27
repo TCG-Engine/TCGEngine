@@ -10,7 +10,8 @@
 //   - a field the keyframe does not carry is skipped ("absent means not recorded");
 //   - baseHp and deckSize are skipped at the FIRST keyframe — the stream cannot carry them before
 //     it. The first keyframe here is the first USABLE one (a damaged keyframe supplies nothing);
-//   - hand, resources, upgrades, captured and keywords compare as sets; discard in order;
+//   - hand, resources, baseUpgrades, baseCaptured, upgrades, captured and keywords compare as sets; discard in order;
+//   - baseDefeated is compared everywhere, absent on either side read as false;
 //   - a damaged keyframe is one mismatch with path "keyframe", is not compared, and is not snapped.
 // Round, phase, initiative, baseMaxHp, seat and active are not compared (see the report notes).
 
@@ -128,6 +129,10 @@ function _SwuPgnCompareKeyframe(array $fold, array $kf, string $seq, bool $first
                 $out[] = _SwuPgnMm($seq, $pre . $f, true, $kp[$f], array_key_exists($f, $fp), $fp[$f] ?? null);
             }
         }
+        // Written only when true: absent on either side reads false (§11), so it is compared at every keyframe.
+        $kd = ($kp['baseDefeated'] ?? false) === true;
+        $fd = ($fp['baseDefeated'] ?? false) === true;
+        if ($kd !== $fd) $out[] = _SwuPgnMm($seq, $pre . 'baseDefeated', true, $kd, true, $fd);
         if (array_key_exists('baseEpicActionUsed', $kp)) {
             // The fold only ever sets it true; never having seen it means "not used".
             $got = array_key_exists('baseEpicActionUsed', $fp) ? $fp['baseEpicActionUsed'] : false;

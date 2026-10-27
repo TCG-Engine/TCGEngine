@@ -3166,7 +3166,9 @@ function SWUCheckShrinkDefeats(): void {
                     // reaction twice — TS26_13 Darth Sidious made two Battle Droids off one kill.
                     if (!empty($GLOBALS['gSWUUnitsMidDefeat'][intval($obj->UniqueID ?? 0)])) continue;
                     if (ObjectCurrentHP($obj) - intval($obj->Damage ?? 0) <= 0 && !SWUImmuneToHpDefeat($obj)) {
-                        SwuPgnDefeatCause('frameworkEffect', null, fn() => SWUDefeatUnit($p, $mz), true);   // a card's effect, if one is the source
+                        // No damage was dealt: a modifier lowered its HP (a Weakness token, a −X/−X) or an HP effect ended —
+                        // the rules engine's, whatever card is resolving (SWU-PGN §6.4 frameworkEffect).
+                        SwuPgnDefeatCause('frameworkEffect', null, fn() => SWUDefeatUnit($p, $mz));
                         $defeated = true;
                         break 2;
                     }
@@ -20087,6 +20089,7 @@ function _SWUDispatchBaseAction(int $player, array $prov): void {
     if ($prov['kind'] === 'own') { _SWUBaseOwnAction($player); return; }
     $playerID = $player;
     $fn = $baseUpgradeAbilities[$prov['cardID']] ?? null;
+    if (is_callable($fn) && function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNoteBaseUpgradeAction($player, (string)$prov['cardID']);
     if (is_callable($fn)) $fn($player, intval($prov['index']));
     else SWUAfterAction($player);
 }
@@ -25312,6 +25315,7 @@ function SWUDefeatBase(int $targetPlayer, ?int $killer = null): bool {
     if (empty($b) || !empty($b[0]->removed)) return false;
     $hp = SWUBaseMaxHp($b[0]->CardID);
     if ($hp <= 0) return false;
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNoteBaseDefeat($targetPlayer, $killer);   // SWU-PGN: defeated outright, no damage dealt
     $b[0]->Damage = $hp;
     AddGameLogEntry('ABILITY', "Player {$targetPlayer}'s base is defeated!");
     // Attribute ONLY the seat this effect defeated; anything else the sweep finds is a genuine

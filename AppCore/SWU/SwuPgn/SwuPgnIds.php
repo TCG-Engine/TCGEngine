@@ -61,16 +61,29 @@ function SwuPgnCardIndex(array $doc): array
     return $index;
 }
 
+// §6.5: each card with two names as [baseId => backSideName] (the index's `name` is the printed front).
+function SwuPgnCardBackIndex(array $doc): array
+{
+    $index = [];
+    foreach (($doc['cards'] ?? []) as $r) {
+        if (is_array($r) && is_string($r['id'] ?? null) && is_string($r['backSideName'] ?? null)) $index[$r['id']] = $r['backSideName'];
+    }
+    return $index;
+}
+
 // §16 nm(): strip `:N`, look the base up, append ` #N` back for a copy; an id the index does not
-// cover falls back to the id itself (§6.5); `base@N` reads `Player N's base`.
-function SwuPgnName(array $index, $id): string
+// cover falls back to the id itself (§6.5); `base@N` reads `Player N's base`. With $faces (the
+// renderer's ['backs' => SwuPgnCardBackIndex, 'up' => [id => true]]) a card whose back side is up
+// reads by its backSideName.
+function SwuPgnName(array $index, $id, ?array $faces = null): string
 {
     if (is_int($id)) $id = (string)$id;
     if (!is_string($id)) return '?';
     $seat = SwuPgnSeatOfBaseRef($id);
     if ($seat !== null) return "Player $seat's base";
     $base = SwuPgnBaseId($id);
-    $name = $index[$base] ?? $base;
+    $back = isset($faces['up'][$id]) ? ($faces['backs'][$base] ?? null) : null;
+    $name = $back ?? $index[$base] ?? $base;
     $copy = SwuPgnCopyNumber($id);
     return $copy === null ? $name : "$name #$copy";
 }

@@ -151,8 +151,8 @@ $g = NGame(fn($b) => null);
 SwuPgnTestCheck(NFind($ev, 'DRAW', ['p' => 1, 'count' => 2]) !== null, 'DRAW count 2', NTypes($ev));
 SwuPgnTestEq($gaps, 0, 'a draw leaves no gaps');
 [$ev, $gaps] = NFrame(fn() => DoDrawCard(1, 4));      // 2 left: two cards, then two deck-out hits
-$hit = NFind($ev, 'DAMAGE', ['src' => 'rule:deck-out', 'tgt' => 'base@1']);
-SwuPgnTestCheck($hit !== null, 'deck-out damage src "rule:deck-out"', NTypes($ev));
+$hit = NFind($ev, 'DAMAGE', ['tgt' => 'base@1']);
+SwuPgnTestCheck($hit !== null && !array_key_exists('src', $hit), 'deck-out damage has no src (the rules dealt it)', NTypes($ev));
 SwuPgnTestEq($gaps, 0, 'a deck-out leaves no gaps');
 $g = NGame(fn($b) => $b->WithCardInHandForPlayer(1, 'SOR_095'));
 [$ev, $gaps] = NFrame(fn() => $g->resourceCard(1, 0));

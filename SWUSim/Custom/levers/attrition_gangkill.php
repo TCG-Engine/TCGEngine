@@ -10,10 +10,20 @@
 // The order falls out of 'observerping': the observer attacking FIRST dies before the kill and pings nothing, so the other unit sets up
 // and HK-47 trades into the kill (Ninin attacked with HK-47 first and lost that point).
 // Not through a Shield (the hit only pops it) and not past another Sentinel the finisher cannot ignore. 2 players only.
+// Only while the opponent CANNOT REPLY between the two attacks (actions alternate): they claimed the initiative this round (which ends
+// their round — the Ahsoka player had, in R5) or have nothing left to act with (_SWUBotOpponentSpent). HMW run 2026-10-26: without that
+// gate Thrawn's Onyx Squadron Brute set up a kill and Jabba's next action took the finisher instead (7d49ec87 vs dd47c804, R5).
+function _SWUBotLvOpponentCannotReply(int $seat): bool {
+    $ic = strval(GetInitiativeCounter());
+    $claimed = str_ends_with($ic, '_CLAIMED');
+    foreach (SWUBotOpponents($seat) as $o) if (!($claimed && str_starts_with($ic, 'P' . intval($o) . '_'))) return _SWUBotOpponentSpent($seat);
+    return true;
+}
 function _SWUBotLvGangKillCredit(array $att, array $def, array $W): ?float {
     $seat = intval($att['controller'] ?? 0);
     if ($seat <= 0 || !in_array(intval($def['controller'] ?? 0), array_map('intval', SWUBotOpponents($seat)), true)) return null;
     if (function_exists('SeatCountForGame') && SeatCountForGame() > 2) return null;
+    if (!_SWUBotLvOpponentCannotReply($seat)) return null;
     $out = SWUBotCombatOutcome($att, $def);
     if ($out !== 'die' && $out !== 'bounce') return null;
     if (intval($def['shields']) > 0 && empty($att['saboteur'])) return null;

@@ -6,8 +6,8 @@
 // (a timeline checkpoint, a caller's copy) is never changed behind its back.
 //
 // "Absent" is kept distinct from zero/empty wherever §11/§14 distinguish them: deckSize, resources,
-// baseEpicActionUsed, baseUpgrades, baseCaptured, initiativeTaken, leader, power/hp/keywords and
-// onStartingSide are only ever created by the record or keyframe that supplies them.
+// baseEpicActionUsed, baseUpgrades, baseCaptured, baseDefeated, initiativeTaken, leader, power/hp/keywords
+// and onStartingSide are only ever created by the record or keyframe that supplies them.
 //
 // Untrusted input: every field is type-checked before use, a record the fold cannot apply is
 // skipped (with a warning where the spec asks for one), and every list is capped (SWUPGN_MAX_*).
@@ -147,13 +147,11 @@ function _SwuPgnPlace(array $state, int $p, $id, $zone, array &$w, $event): arra
     return $state;
 }
 
-// §12.2 attach(): a TOKEN: id is a counter, never an upgrade; otherwise push onto the host's
-// upgrades — a base@N host's are that seat's baseUpgrades — idempotently.
+// §12.2 attach(): a TOKEN: id is a counter, never an upgrade; otherwise push onto the host's upgrades,
+// idempotently. A base host is not attach()'s: PLAY_UPGRADE and §12.1 step 2c put it on baseUpgrades.
 function _SwuPgnAttach(array $state, $hostId, $id, array &$w, $event): array
 {
     if (!is_string($id) || strncmp($id, 'TOKEN:', 6) === 0) return $state;
-    $baseSeat = SwuPgnSeatOfBaseRef($hostId);
-    if ($baseSeat !== null) return _SwuPgnBaseHold($state, $baseSeat, 'baseUpgrades', $id, $w, $event);
     $f = _SwuPgnFindCard($state, $hostId);
     if ($f === null) return $state;
     $host = $state['players'][$f[0]]['cards'][$f[1]];
@@ -169,16 +167,14 @@ function _SwuPgnBaseHold(array $state, int $seat, string $key, string $id, array
     return $state;
 }
 
-// §12.2 detach(): off every card's upgrades and captured lists, and both seats' baseUpgrades and
-// baseCaptured.
+// §12.2 detach(): off every card's upgrades and captured lists, and every seat's baseCaptured. A base's
+// upgrades come off on their own transition (§12.1 step 2c) — _SwuPgnBaseRelease.
 function _SwuPgnDetach(array $state, $id): array
 {
     if (!is_string($id)) return $state;
     foreach ([1, 2] as $seat) {
-        foreach (['baseUpgrades', 'baseCaptured'] as $k) {
-            $held = $state['players'][$seat][$k] ?? null;
-            if (is_array($held) && in_array($id, $held, true)) $state['players'][$seat][$k] = _SwuPgnRemoveId($held, $id);
-        }
+        $held = $state['players'][$seat]['baseCaptured'] ?? null;
+        if (is_array($held) && in_array($id, $held, true)) $state['players'][$seat]['baseCaptured'] = _SwuPgnRemoveId($held, $id);
         $cards = $state['players'][$seat]['cards'] ?? null;
         if (!is_array($cards)) continue;
         foreach ($cards as $i => $c) {
@@ -189,6 +185,16 @@ function _SwuPgnDetach(array $state, $id): array
                 }
             }
         }
+    }
+    return $state;
+}
+
+// Off every seat's baseUpgrades (§12.1 step 2c, §12.2 DEFEAT).
+function _SwuPgnBaseRelease(array $state, $id): array
+{
+    foreach ([1, 2] as $seat) {
+        $held = $state['players'][$seat]['baseUpgrades'] ?? null;
+        if (is_array($held) && in_array($id, $held, true)) $state['players'][$seat]['baseUpgrades'] = _SwuPgnRemoveId($held, $id);
     }
     return $state;
 }
@@ -427,7 +433,9 @@ function SwuPgnReduce(array $state, $e, ?array &$warnings = null): array
             return $state;
 
         case 'PLAY_UPGRADE':
-            if (!is_string($e['target'] ?? null)) return $state;
+            if (!is_string($e['target'] ?? null) || $card === null) return $state;
+            $baseSeat = SwuPgnSeatOfBaseRef($e['target']);
+            if ($baseSeat !== null) return _SwuPgnBaseHold($state, $baseSeat, 'baseUpgrades', $card, $warnings, $e);
             return _SwuPgnAttach($state, $e['target'], $card, $warnings, $e);
 
         case 'DEPLOY_LEADER':
@@ -523,7 +531,13 @@ function SwuPgnReduce(array $state, $e, ?array &$warnings = null): array
 
         case 'DEFEAT':
             if ($card === null) return $state;
-            $state = _SwuPgnDetach($state, $card);
+            // §10.1: a base is defeated with a DEFEAT too — by damage or outright (its HP may still stand).
+            $baseSeat = SwuPgnSeatOfBaseRef($card);
+            if ($baseSeat !== null) {
+                if (_SwuPgnHasSeat($state, $baseSeat)) $state['players'][$baseSeat]['baseDefeated'] = true;
+                return $state;
+            }
+            $state = _SwuPgnBaseRelease(_SwuPgnDetach($state, $card), $card);
             $state = _SwuPgnTakeCard($state, $card, $taken, $seat);
             if ($taken !== null) {
                 $state['players'][$seat]['discard'] = _SwuPgnAddOnce($state['players'][$seat]['discard'] ?? null, $card, SWUPGN_MAX_LIST, $warnings, $e);
@@ -617,16 +631,26 @@ function _SwuPgnReduceMove(array $state, array $e, array &$w): array
     $card = $e['card'] ?? null;
     $from = $e['from'] ?? null;
     $to = $e['to'] ?? null;
-    // §10.1: empty, unknown or identical zones make the record non-conformant — ignore it.
-    if (!is_string($card) || $card === '' || !_SwuPgnIsZone($from) || !_SwuPgnIsZone($to) || $from === $to) {
+    // §10.1: empty, unknown or identical zones make the record non-conformant — ignore it. The one MOVE that
+    // names the same zone twice is an attachment rebound inside its arena (the binding rule), carrying its new role.
+    $rebind = $from === $to && SwuPgnIsArena($to) && is_string($e['kind'] ?? null);
+    if (!is_string($card) || $card === '' || !_SwuPgnIsZone($from) || !_SwuPgnIsZone($to) || ($from === $to && !$rebind)) {
         _SwuPgnWarn($w, $e, 'non-conformant MOVE ignored');
         return $state;
     }
-
-    // Step 0 — detach. Exits are host-less: leaving an arena or base, or leaving capture, frees the card.
-    if ((SwuPgnIsArena($from) && !SwuPgnIsArena($to)) || $from === 'base' || $from === 'capture') $state = _SwuPgnDetach($state, $card);
-
     $p = _SwuPgnSeat($e['p'] ?? null);
+    $isUpgrade = ($e['kind'] ?? null) === 'upgrade';
+
+    // Step 0 — detach. Exits are host-less: leaving an arena for a zone outside them, or leaving capture, frees the card.
+    if ((SwuPgnIsArena($from) && !SwuPgnIsArena($to)) || $from === 'capture') $state = _SwuPgnDetach($state, $card);
+
+    // Step 2c — base attachments (Fortify), keyed on the zone transition; no p needed when attachedTo names the base.
+    if ($from === 'base' && $to !== 'base') $state = _SwuPgnBaseRelease($state, $card);
+    if ($to === 'base' && $from !== 'base' && $isUpgrade && strncmp($card, 'TOKEN:', 6) !== 0) {
+        $hostSeat = SwuPgnSeatOfBaseRef($e['attachedTo'] ?? null) ?? $p;   // a file before attachedTo on base moves: p's base
+        if ($hostSeat !== null) $state = _SwuPgnBaseHold($state, $hostSeat, 'baseUpgrades', $card, $w, $e);
+    }
+
     if (!_SwuPgnHasSeat($state, $p)) {
         // No seat to attribute counts to: just update a tracked card's zone.
         $f = _SwuPgnFindCard($state, $card);
@@ -686,14 +710,21 @@ function _SwuPgnReduceMove(array $state, array $e, array &$w): array
     $state['players'][$p] = $pl;
 
     // Step 3 — the in-play list.
-    if (($e['kind'] ?? null) === 'upgrade') {
-        // Into an arena onto a unit, or into base onto base@N (Fortify).
-        if ((SwuPgnIsArena($to) || $to === 'base') && is_string($e['attachedTo'] ?? null)) $state = _SwuPgnAttach($state, $e['attachedTo'], $card, $w, $e);
+    if ($isUpgrade) {
+        // Onto a unit: an upgrade has one host, and a unit attached as a pilot stops being a unit.
+        if (SwuPgnIsArena($to) && is_string($e['attachedTo'] ?? null)) {
+            $state = _SwuPgnDetach($state, $card);
+            do {
+                $state = _SwuPgnTakeCard($state, $card, $taken);
+            } while ($taken !== null);
+            return _SwuPgnAttach($state, $e['attachedTo'], $card, $w, $e);
+        }
         $f = _SwuPgnFindCard($state, $card);
         if ($f !== null) $state['players'][$f[0]]['cards'][$f[1]]['zone'] = $to;
         return $state;
     }
-    if (SwuPgnIsArena($to)) return _SwuPgnPlace($state, $p, $card, $to, $w, $e);
+    // Into an arena: a unit is nobody's upgrade — a pilot ejected arena to arena never passed step 0.
+    if (SwuPgnIsArena($to)) return _SwuPgnPlace(_SwuPgnDetach($state, $card), $p, $card, $to, $w, $e);
     if (SwuPgnIsArena($from)) return _SwuPgnTakeCard($state, $card);
     $f = _SwuPgnFindCard($state, $card);
     if ($f !== null) $state['players'][$f[0]]['cards'][$f[1]]['zone'] = $to;

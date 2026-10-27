@@ -140,7 +140,7 @@ foreach (['attack', 'ability', 'nonCombatDamage', 'uniqueRule', 'frameworkEffect
     SwuPgnTestEq(V(['extra' => [['seq' => 'R1.A.3', 't' => 'DEFEAT', 'card' => 'SOR#108', 'reason' => $reason]]])['errors'], [], "§6.4: DEFEAT.reason $reason is in the set");
 }
 expectIssue(V(['extra' => [['seq' => 'R1.A.3', 't' => 'DAMAGE', 'src' => 'x', 'tgt' => 'base@2', 'amt' => 4, 'damageType' => 'overwhelm', 'hp' => 26]]]), 'error', 'damage.overwhelm', '§6.4: overwhelm is its own OVERWHELM record');
-SwuPgnTestEq(V(['extra' => [['seq' => 'R1.A.3', 't' => 'DAMAGE', 'src' => 'x', 'tgt' => 'base@2', 'amt' => 4, 'damageType' => 'laser', 'hp' => 26], ['seq' => 'R1.A.4', 't' => 'PHASE_START', 'phase' => 'overtime']]])['errors'], [], '§6.4: open vocabularies (damageType, phase) accept new values');
+SwuPgnTestEq(V(['extra' => [['seq' => 'R1.A.3', 't' => 'DAMAGE', 'src' => 'SOR#108', 'tgt' => 'base@2', 'amt' => 4, 'damageType' => 'laser', 'hp' => 26], ['seq' => 'R1.A.4', 't' => 'PHASE_START', 'phase' => 'overtime']]])['errors'], [], '§6.4: open vocabularies (damageType, phase) accept new values');
 expectIssue(V(['extra' => [['seq' => 'R1.A.3', 't' => 'CREATE_TOKEN', 'p' => 1, 'token' => 'TOKEN:x-wing#1', 'zone' => 'outsideTheGame']]]), 'error', 'create-token.zone', '§10.1: CREATE_TOKEN names the destination ARENA');
 expectIssue(V(['extra' => [['seq' => 'R1.A.3', 't' => 'DEPLOY_LEADER', 'p' => 1, 'card' => 'SOR#010', 'kind' => 'upgrade']]]), 'error', 'deploy.target', '§10.1: a pilot deploy carries kind + target together');
 expectIssue(V(['extra' => [['seq' => 'R1.A.3', 't' => 'ABILITY_ACTIVATE', 'p' => 1, 'card' => 'SOR#010', 'kind' => 'magic']]]), 'warning', 'ability.kind', '§10.1: an ABILITY_ACTIVATE kind outside the eight');

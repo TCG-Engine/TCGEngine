@@ -4,7 +4,8 @@
 // Numbered lines are the actions a player chose; every other printed record is indented under the
 // action above it; a round banner (with the board from the round's keyframe) introduces each round.
 // Names come from the file's own %%% CARDS index unless the caller supplies one; an id the index
-// does not cover prints as the id itself.
+// does not cover prints as the id itself. A card with a backSideName reads by the side that is up
+// (_SwuPgnFacesStep); its back names always come from the file.
 //
 // Where §16 says "+ X if field", the part is printed when the field is present and usable: a
 // non-empty string for zone/target/by/defeatedBy, any integer (0 included) for cost. A field the
@@ -14,23 +15,25 @@ const SWUPGN_RULE_WIDTH = 78;
 
 function SwuPgnRender(array $doc, ?array $names = null): string
 {
-    return SwuPgnRenderEvents($doc['events'] ?? [], $names ?? SwuPgnCardIndex($doc));
+    return SwuPgnRenderEvents($doc['events'] ?? [], $names ?? SwuPgnCardIndex($doc), SwuPgnCardBackIndex($doc));
 }
 
-function SwuPgnRenderEvents(array $events, array $names): string
+function SwuPgnRenderEvents(array $events, array $names, array $backs = []): string
 {
     $out = [];
     $n = 0;
     $rule = str_repeat('═', SWUPGN_RULE_WIDTH);
     $count = 0;
+    $faces = SwuPgnFacesStart($backs);
     foreach ($events as $e) {
         if (++$count > SWUPGN_MAX_EVENTS) break;
         if (!is_array($e)) continue;
         $t = $e['t'] ?? null;
         if ($t === 'ROUND_START') {
+            $faces = SwuPgnFacesStep($faces, $e);   // its keyframe says which side is up
             $out[] = '';
             $out[] = $rule;
-            foreach (_SwuPgnRoundBanner($e, $names) as $line) $out[] = $line;
+            foreach (_SwuPgnRoundBanner($e, $names, $faces) as $line) $out[] = $line;
             $out[] = $rule;
             $out[] = '';
             $n = 0;
@@ -46,7 +49,8 @@ function SwuPgnRenderEvents(array $events, array $names): string
             $out[] = '    ·· ' . ($who === '' ? 'A player' : $who) . ' undid back to ' . _SwuPgnTxt($e['at'] ?? null) . ' ··';
             continue;
         }
-        $text = _SwuPgnStoryLine($e, $names);
+        $text = _SwuPgnStoryLine($e, $names, $faces);
+        $faces = SwuPgnFacesStep($faces, $e);
         if ($text === null) continue;
         if (_SwuPgnIsNumbered($e)) {
             $n++;
@@ -98,12 +102,62 @@ function _SwuPgnAbilityKind(array $e): ?string
     return is_string($e['kind'] ?? null) ? $e['kind'] : null;
 }
 
-// §16 "The numbered ones are exactly".
+// §16 "The numbered ones are exactly" — but a DEPLOY_LEADER the leader's own Epic Action (or Action) performed is
+// that ability's lettered sub-step (§10.1 "Deploying is one action"), so its seq decides.
 function _SwuPgnIsNumbered(array $e): bool
 {
     $t = $e['t'] ?? null;
-    if (in_array($t, ['PLAY', 'PLAY_EVENT', 'PLAY_UPGRADE', 'PLAY_SMUGGLE', 'DEPLOY_LEADER', 'ATTACK', 'PASS', 'CLAIM_INITIATIVE'], true)) return true;
+    if ($t === 'DEPLOY_LEADER') return !(is_string($e['seq'] ?? null) && preg_match('/^R\d+\.[SAG]\.\d+[a-z]+\z/', $e['seq']));
+    if (in_array($t, ['PLAY', 'PLAY_EVENT', 'PLAY_UPGRADE', 'PLAY_SMUGGLE', 'ATTACK', 'PASS', 'CLAIM_INITIATIVE'], true)) return true;
     return $t === 'ABILITY_ACTIVATE' && in_array(_SwuPgnAbilityKind($e), ['action', 'epic'], true);
+}
+
+// ── which side is up (§6.5, §16 nm()) ───────────────────────────────────────────────────────────
+
+function SwuPgnFacesStart(array $backs): array
+{
+    return ['backs' => $backs, 'up' => []];
+}
+
+function _SwuPgnFaceSet(array $faces, $id, bool $back): array
+{
+    if (!is_string($id) || !isset($faces['backs'][SwuPgnBaseId($id)])) return $faces;
+    if ($back) $faces['up'][$id] = true; else unset($faces['up'][$id]);
+    return $faces;
+}
+
+// The faces after event $e: the back from a DEPLOY_LEADER (or the leader's MOVE from base into an arena) until its
+// MOVE back to base; a double-sided leader per its LEADER_FLIP; a keyframe re-syncs both from each seat's leader.
+function SwuPgnFacesStep(array $faces, array $e): array
+{
+    if (!$faces['backs']) return $faces;
+    $card = $e['card'] ?? null;
+    switch ($e['t'] ?? null) {
+        case 'DEPLOY_LEADER':
+            return _SwuPgnFaceSet($faces, $card, true);
+        case 'LEADER_FLIP':
+            return is_bool($e['onStartingSide'] ?? null) ? _SwuPgnFaceSet($faces, $card, !$e['onStartingSide']) : $faces;
+        case 'MOVE':
+            if (($e['from'] ?? null) === 'base' && SwuPgnIsArena($e['to'] ?? null)) return _SwuPgnFaceSet($faces, $card, true);
+            if (SwuPgnIsArena($e['from'] ?? null) && ($e['to'] ?? null) === 'base') return _SwuPgnFaceSet($faces, $card, false);
+            return $faces;
+        case 'ROUND_START':
+        case 'ROUND_END':
+            if (!array_key_exists('keyframe', $e) || SwuPgnKeyframeProblem($e['keyframe']) !== null) return $faces;
+            foreach ([1, 2] as $s) {
+                $l = $e['keyframe']['players'][$s]['leader'] ?? null;
+                if (is_array($l)) $faces = _SwuPgnFaceSet($faces, $l['id'] ?? null, ($l['deployed'] ?? null) === true || ($l['onStartingSide'] ?? null) === false);
+            }
+            return $faces;
+    }
+    return $faces;
+}
+
+// front(id) / back(id): the index's name or backSideName, with the copy's ` #N`.
+function _SwuPgnSideName(array $names, array $faces, $id, bool $back): string
+{
+    if (!is_string($id)) return '?';
+    return SwuPgnName($names, $id, $back ? ['backs' => $faces['backs'], 'up' => [$id => true]] : null);
 }
 
 function _SwuPgnNames(array $names, $list): string
@@ -124,12 +178,14 @@ function _SwuPgnCostPart(array $e): string
     return is_int($e['cost'] ?? null) ? ' (cost ' . $e['cost'] . ')' : '';
 }
 
-// §16 "The exact wording". Null = prints nothing.
-function _SwuPgnStoryLine(array $e, array $names): ?string
+// §16 "The exact wording". Null = prints nothing. $faces: which side of a two-named card is up (SwuPgnFacesStep).
+function _SwuPgnStoryLine(array $e, array $names, ?array $faces = null): ?string
 {
     $p = $e['p'] ?? null;
     $who = SwuPgnWho($p);
-    $nm = function ($id) use ($names) { return SwuPgnName($names, $id); };
+    $faces ??= SwuPgnFacesStart([]);
+    $nm = function ($id) use ($names, $faces) { return SwuPgnName($names, $id, $faces); };
+    $twoSided = fn($id) => is_string($id) && isset($faces['backs'][SwuPgnBaseId($id)]);
     switch ($e['t'] ?? null) {
         case 'PLAY':
         case 'PLAY_SMUGGLE':
@@ -142,10 +198,14 @@ function _SwuPgnStoryLine(array $e, array $names): ?string
         case 'PLAY_EVENT':
             return "$who plays " . $nm($e['card'] ?? null) . _SwuPgnCostPart($e);
         case 'DEPLOY_LEADER':
-            return "$who deploys " . $nm($e['card'] ?? null)
+            $card = $e['card'] ?? null;
+            return "$who deploys " . _SwuPgnSideName($names, $faces, $card, false)
+                . ($twoSided($card) ? ' as ' . _SwuPgnSideName($names, $faces, $card, true) : '')
                 . (_SwuPgnHasText($e['target'] ?? null) ? ' as a pilot on ' . $nm($e['target']) : '');
         case 'LEADER_FLIP':
-            return "$who flips " . $nm($e['card'] ?? null);
+            $card = $e['card'] ?? null;
+            $landed = is_bool($e['onStartingSide'] ?? null) && $twoSided($card) ? _SwuPgnSideName($names, $faces, $card, !$e['onStartingSide']) : null;
+            return "$who flips " . $nm($card) . ($landed !== null ? " to $landed" : '');
         case 'ATTACK':
             $isBase = ($e['defenderType'] ?? null) === 'base' || SwuPgnSeatOfBaseRef($e['def'] ?? null) !== null;
             return $isBase
@@ -165,9 +225,10 @@ function _SwuPgnStoryLine(array $e, array $names): ?string
             return $nm($e['card'] ?? null) . ' is defeated' . (_SwuPgnHasText($e['defeatedBy'] ?? null) ? ' by ' . $nm($e['defeatedBy']) : '');
         case 'ABILITY_ACTIVATE':
             $kind = _SwuPgnAbilityKind($e);
-            if ($kind === 'epic') return "$who uses " . $nm($e['card'] ?? null) . "'s Epic Action";
-            if ($kind === 'action') return "$who uses " . $nm($e['card'] ?? null);
-            return $nm($e['card'] ?? null) . ' uses an ability';
+            $granted = _SwuPgnHasText($e['grantedBy'] ?? null) ? ' (granted by ' . $nm($e['grantedBy']) . ')' : '';
+            if ($kind === 'epic') return "$who uses " . $nm($e['card'] ?? null) . "'s Epic Action$granted";
+            if ($kind === 'action') return "$who uses " . $nm($e['card'] ?? null) . $granted;
+            return $nm($e['card'] ?? null) . ' uses an ability' . $granted;
         case 'TRIGGER':
             return $nm($e['card'] ?? null) . ' triggers';
         case 'STATUS_TOKEN':
@@ -217,7 +278,7 @@ function _SwuPgnGainsLoses($count): string
 }
 
 // §16 "The round banner and board summary".
-function _SwuPgnRoundBanner(array $e, array $names): array
+function _SwuPgnRoundBanner(array $e, array $names, ?array $faces = null): array
 {
     $kf = array_key_exists('keyframe', $e) && SwuPgnKeyframeProblem($e['keyframe']) === null ? $e['keyframe'] : null;
     $left = ' ROUND ' . _SwuPgnTxt($e['round'] ?? null);
@@ -245,10 +306,15 @@ function _SwuPgnRoundBanner(array $e, array $names): array
             $line .= '   leader ' . (($l['deployed'] ?? null) === true ? 'deployed' : (($l['exhausted'] ?? null) === true ? 'exhausted' : 'ready'));
         }
         $lines[] = $line;
+        // What the base holds comes first: all of it is on the base.
+        $held = [];
+        foreach (_SwuPgnList($pl['baseUpgrades'] ?? null) as $u) $held[] = SwuPgnName($names, $u, $faces);
+        foreach (_SwuPgnList($pl['baseCaptured'] ?? null) as $cap) $held[] = 'holds ' . SwuPgnName($names, $cap, $faces);
+        if ($held) $lines[] = '      base: ' . implode('  ·  ', $held);
         foreach (['ground', 'space'] as $zone) {
             $shown = [];
             foreach ($pl['cards'] as $c) {
-                if (is_array($c) && ($c['zone'] ?? null) === $zone) $shown[] = _SwuPgnBoardCard($c, $names);
+                if (is_array($c) && ($c['zone'] ?? null) === $zone) $shown[] = _SwuPgnBoardCard($c, $names, $faces);
             }
             if ($shown) $lines[] = "      $zone: " . implode('  ·  ', $shown);
         }
@@ -256,9 +322,9 @@ function _SwuPgnRoundBanner(array $e, array $names): array
     return $lines;
 }
 
-function _SwuPgnBoardCard(array $c, array $names): string
+function _SwuPgnBoardCard(array $c, array $names, ?array $faces = null): string
 {
-    $text = SwuPgnName($names, $c['id'] ?? null);
+    $text = SwuPgnName($names, $c['id'] ?? null, $faces);
     if (is_int($c['power'] ?? null) && is_int($c['hp'] ?? null)) $text .= ' ' . $c['power'] . '/' . $c['hp'];
     $state = [];
     if (is_int($c['damage'] ?? null) && $c['damage'] > 0) $state[] = $c['damage'] . ' dmg';
@@ -270,11 +336,11 @@ function _SwuPgnBoardCard(array $c, array $names): string
             if (is_int($count) && $count !== 0) $state[] = "$count $token";
         }
     }
-    foreach (_SwuPgnList($c['upgrades'] ?? null) as $u) $state[] = SwuPgnName($names, $u);
-    foreach (_SwuPgnList($c['captured'] ?? null) as $cap) $state[] = 'holds ' . SwuPgnName($names, $cap);
+    foreach (_SwuPgnList($c['upgrades'] ?? null) as $u) $state[] = SwuPgnName($names, $u, $faces);
+    foreach (_SwuPgnList($c['captured'] ?? null) as $cap) $state[] = 'holds ' . SwuPgnName($names, $cap, $faces);
     return $state ? "$text [" . implode(', ', $state) . ']' : $text;
 }
 
 // §16 — public for the replay viewer's step list.
 function SwuPgnIsNumberedAction(array $e): bool { return _SwuPgnIsNumbered($e); }
-function SwuPgnStoryLine(array $e, array $names): ?string { return _SwuPgnStoryLine($e, $names); }
+function SwuPgnStoryLine(array $e, array $names, ?array $faces = null): ?string { return _SwuPgnStoryLine($e, $names, $faces); }

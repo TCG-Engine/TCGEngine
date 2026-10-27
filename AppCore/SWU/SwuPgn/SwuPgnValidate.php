@@ -75,7 +75,7 @@ function _SwuPgnEventShapes(): array
         'PLAY' => $play, 'PLAY_SMUGGLE' => $play, 'PLAY_EVENT' => $play,
         'PLAY_UPGRADE' => $play + ['target' => ['str', 0]],
         'DEPLOY_LEADER' => $play + ['epic' => ['bool', 0], 'kind' => ['kind', 0], 'target' => ['str', 0]],
-        'ABILITY_ACTIVATE' => $pc + ['kind' => ['str', 0], 'title' => ['str', 0], 'ability' => ['str', 0], 'epic' => ['bool', 0]],
+        'ABILITY_ACTIVATE' => $pc + ['kind' => ['str', 0], 'title' => ['str', 0], 'ability' => ['str', 0], 'epic' => ['bool', 0], 'grantedBy' => ['str', 0]],
         'LEADER_FLIP' => $pc + ['onStartingSide' => ['bool', 1]],
         'TAKE_CONTROL' => $pc + ['zone' => ['zone', 0], 'from' => ['seat', 0], 'exhausted' => ['bool', 0]],
         'CAPTURE' => $pc + ['by' => ['str', 0]],
@@ -83,7 +83,7 @@ function _SwuPgnEventShapes(): array
         'EXHAUST_RESOURCES' => ['p' => ['seat', 1], 'amount' => ['nat', 1]],
         'READY_RESOURCES' => ['p' => ['seat', 1], 'amount' => ['nat', 1]],
         'CREATE_TOKEN' => ['p' => ['seat', 1], 'token' => ['str', 1], 'zone' => ['zone', 1], 'power' => ['int', 0], 'hp' => ['int', 0], 'kind' => ['kind', 0]],
-        'DAMAGE' => ['src' => ['str', 1], 'tgt' => ['str', 1], 'amt' => ['nat', 1], 'damageType' => ['str', 1], 'hp' => ['int', 1]],
+        'DAMAGE' => ['src' => ['str', 0], 'tgt' => ['str', 1], 'amt' => ['nat', 1], 'damageType' => ['str', 1], 'hp' => ['int', 1]],
         'OVERWHELM' => ['p' => ['seat', 1], 'tgt' => ['str', 1], 'amt' => ['nat', 1], 'hp' => ['int', 1]],
         'HEAL' => ['src' => ['str', 0], 'tgt' => ['str', 1], 'amt' => ['nat', 1], 'hp' => ['int', 1]],
         'DEFEAT' => ['card' => ['str', 1], 'reason' => ['str', 1], 'defeatedBy' => ['str', 0]],
@@ -212,7 +212,7 @@ function _SwuPgnValidateHeaders(array &$v, array $h): void
     if (isset($h['Result']) && !in_array($h['Result'], ['P1', 'P2', 'Draw', 'Incomplete'], true)) _SwuPgnIssue($v, 'error', 'header.result', '[Result] must be P1, P2, Draw or Incomplete');
     if (isset($h['Rounds']) && !preg_match('/^\d+\z/', $h['Rounds'])) _SwuPgnIssue($v, 'error', 'header.rounds', '[Rounds] must be digits');
     if (isset($h['Perspective']) && !in_array($h['Perspective'], ['P1', 'P2'], true)) _SwuPgnIssue($v, 'error', 'header.perspective', '[Perspective] must be P1 or P2');
-    foreach (['Undos', 'RecorderErrors', 'GameNumber'] as $tag) {
+    foreach (['Undos', 'RecorderErrors', 'GameNumber', 'WriterRevision'] as $tag) {
         if (isset($h[$tag]) && !preg_match('/^\d+\z/', $h[$tag])) _SwuPgnIssue($v, 'error', 'header.digits', "[$tag] must be digits");
     }
     if (isset($h['RecorderErrors']) && preg_match('/^\d+\z/', $h['RecorderErrors']) && (int)$h['RecorderErrors'] > 0) {
@@ -319,6 +319,7 @@ function _SwuPgnValidateCards(array &$v, array $doc, array $h): void
             _SwuPgnIssue($v, 'error', 'cards.field', 'a CARDS entry needs a string id and a string name', $line);
             continue;
         }
+        if (array_key_exists('backSideName', $c) && !is_string($c['backSideName'])) _SwuPgnIssue($v, 'error', 'cards.field', 'CARDS backSideName must be a string', $line);
         if (array_key_exists('kind', $c) && !_SwuPgnTypeOk($c['kind'], 'kind')) _SwuPgnIssue($v, 'error', 'cards.kind', 'CARDS kind is "unit" or "upgrade" (omit it for anything else)', $line);
         if (SwuPgnCopyNumber($c['id']) !== null) _SwuPgnIssue($v, 'warning', 'cards.copy-suffix', "CARDS id {$c['id']} carries a :N copy suffix", $line);
         if (isset($index[$c['id']])) _SwuPgnIssue($v, 'warning', 'cards.duplicate', "CARDS lists {$c['id']} twice", $line);
@@ -339,7 +340,7 @@ function _SwuPgnValidateCards(array &$v, array $doc, array $h): void
     }
     foreach ((is_array($doc['events'] ?? null) ? $doc['events'] : []) as $e) {
         if (!is_array($e)) continue;
-        foreach (['card', 'token', 'atk', 'def', 'tgt', 'src', 'defeatedBy', 'by', 'target', 'attachedTo', 'cards', 'found'] as $k) _SwuPgnCollectCardIds($e[$k] ?? null, $ids);
+        foreach (['card', 'token', 'atk', 'def', 'tgt', 'src', 'defeatedBy', 'by', 'target', 'attachedTo', 'grantedBy', 'cards', 'found'] as $k) _SwuPgnCollectCardIds($e[$k] ?? null, $ids);
     }
     $missing = array_keys(array_diff_key($ids, $index));
     if ($missing) {
@@ -415,7 +416,7 @@ function _SwuPgnValidateEvents(array &$v, array $doc, array $h, array $seqs): vo
         }
 
         // §6.3 base refs, §6.1 token ids
-        foreach (['tgt', 'def', 'by', 'card', 'src', 'atk', 'target', 'attachedTo', 'token', 'defeatedBy'] as $f) {
+        foreach (['tgt', 'def', 'by', 'card', 'src', 'atk', 'target', 'attachedTo', 'token', 'defeatedBy', 'grantedBy'] as $f) {
             $ref = $e[$f] ?? null;
             if (!is_string($ref)) continue;
             if (strncmp($ref, 'base@', 5) === 0 && !in_array(SwuPgnSeatOfBaseRef($ref), [1, 2], true)) $issue('error', 'base-ref', "$t.$f \"$ref\" is not base@1 or base@2");
@@ -444,7 +445,9 @@ function _SwuPgnValidateEventRules(callable $issue, string $t, array $e, ?string
         case 'MOVE':
             $from = $e['from'] ?? null;
             $to = $e['to'] ?? null;
-            if (is_string($from) && $from === $to) $issue('error', 'move.same-zone', 'a MOVE\'s from must differ from its to');
+            // The one same-zone MOVE: an attachment rebound while the card stays in its arena (the binding rule).
+            // The rebind names its new role (kind) — and, onto a host, the host: "the record carries the new role and host".
+            if (is_string($from) && $from === $to && !(SwuPgnIsArena($to) && array_key_exists('kind', $e))) $issue('error', 'move.same-zone', 'a MOVE\'s from must differ from its to (except a rebind inside an arena, which carries its kind)');
             if ($from === 'outsideTheGame' && $to === 'deck') $issue('warning', 'move.deck-build', 'deck construction is not recorded as MOVEs');
             // Attaching: into an arena onto a unit, or into base onto base@N (an upgrade on a base).
             $attaching = ($e['kind'] ?? null) === 'upgrade' && (SwuPgnIsArena($to) || $to === 'base');
@@ -469,9 +472,20 @@ function _SwuPgnValidateEventRules(callable $issue, string $t, array $e, ?string
                 $issue($newerMinor ? 'warning' : 'error', 'defeat.reason', "DEFEAT reason \"$reason\" is outside the closed set" . ($newerMinor ? ' (read as "unknown")' : ''));
             }
             if ($reason === 'unknown') $issue('warning', 'defeat.unknown', 'DEFEAT reason "unknown": the writer could not resolve a cause');
+            _SwuPgnValidateSource($issue, $t, 'defeatedBy', $e);
             break;
         case 'DAMAGE':
             if (($e['damageType'] ?? null) === 'overwhelm') $issue('error', 'damage.overwhelm', 'overwhelm onto a base is its own OVERWHELM record');
+            _SwuPgnValidateSource($issue, $t, 'src', $e);
+            break;
+        case 'HEAL':
+            _SwuPgnValidateSource($issue, $t, 'src', $e);
+            break;
+        case 'DRAW':
+            $cards = $e['cards'] ?? null;
+            if (is_array($cards) && $cards && is_int($e['count'] ?? null) && $e['count'] !== count($cards)) {
+                $issue('warning', 'draw.count', 'DRAW count is the cards actually drawn — ' . count($cards) . ' listed, count ' . $e['count'] . ' (an early writer)');
+            }
             break;
         case 'CREATE_TOKEN':
             if (_SwuPgnIsZone($e['zone'] ?? null) && !SwuPgnIsArena($e['zone'])) $issue('error', 'create-token.zone', 'CREATE_TOKEN zone must name the destination arena');
@@ -507,6 +521,16 @@ function _SwuPgnValidateEventRules(callable $issue, string $t, array $e, ?string
     }
 }
 
+// §3: DAMAGE.src, HEAL.src and DEFEAT.defeatedBy name a card (§6.1) or base@N — or are left out when no card is
+// responsible. An engine's display string ("Framework effect") or a placeholder ("unknown") is neither.
+function _SwuPgnValidateSource(callable $issue, string $t, string $field, array $e): void
+{
+    $ref = $e[$field] ?? null;
+    if (!is_string($ref) || SwuPgnSeatOfBaseRef($ref) !== null) return;
+    if (strncmp($ref, 'TOKEN:', 6) === 0 || preg_match('/^[A-Za-z0-9]+#[A-Za-z0-9-]+(:\d+)?\z/', $ref)) return;
+    $issue('error', 'ref.not-card', "$t.$field \"$ref\" is not a card id or base@N (omit it when no card is responsible)");
+}
+
 // §11 types for a keyframe that is otherwise complete.
 function _SwuPgnKeyframeFieldProblems(array $kf): array
 {
@@ -528,7 +552,7 @@ function _SwuPgnKeyframeFieldProblems(array $kf): array
         $chk($pl, $pre, ['seat' => ['seat', 0], 'baseHp' => ['int', 1], 'baseMaxHp' => ['int', 1], 'handSize' => ['nat', 1],
             'hand' => ['strs', 1], 'deckSize' => ['nat', 0], 'resourcesReady' => ['nat', 1], 'resourcesExhausted' => ['nat', 1],
             'resources' => ['strs', 0], 'baseEpicActionUsed' => ['bool', 0], 'credits' => ['nat', 1], 'hasForce' => ['bool', 1],
-            'baseUpgrades' => ['strs', 0], 'baseCaptured' => ['strs', 0],
+            'baseUpgrades' => ['strs', 0], 'baseCaptured' => ['strs', 0], 'baseDefeated' => ['bool', 0],
             'discard' => ['strs', 1], 'leader' => ['obj', 0]]);
         if (is_array($pl['leader'] ?? null)) {
             $chk($pl['leader'], $pre . 'leader.', ['id' => ['str', 1], 'deployed' => ['bool', 1], 'exhausted' => ['bool', 1], 'epicActionUsed' => ['bool', 1], 'onStartingSide' => ['bool', 0]]);

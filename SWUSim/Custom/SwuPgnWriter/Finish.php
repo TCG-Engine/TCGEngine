@@ -3,6 +3,10 @@
 // player's own view) — each checked by our reader, behind the PII gate, plus one health line. Runs once per finish
 // (meta.finished); a bookmark that reopens the game clears it (Recorder.php SwuPgnRecRestore).
 
+// [WriterRevision] (§5.2): bump on EVERY change to what the writer writes that a reader can see (§22). 1 = the first
+// revision with the tag (the Homeworlds revision of 1.0, 2026-10-26).
+const SWUPGN_WRITER_REVISION = 1;
+
 // The engine's own words for the ending, in the spec's style (§5.1 Reason, e.g. "Base Destroyed").
 function _SwuPgnEndReason(): string {
     $r = strval(DecisionQueueController::GetVariable('GAMEOVER_REASON') ?? '');
@@ -105,7 +109,13 @@ function _SwuPgnCardsIndex(array $doc): array {
         if ($title === '') continue;
         $sub = strval(CardSubtitle($cardID) ?? '');
         $kind = _SwuPgnCardKind($cardID);
-        $out[] = ['id' => $id, 'name' => $sub !== '' ? "$title, $sub" : $title] + ($kind !== null ? ['kind' => $kind] : []);
+        $name = $sub !== '' ? "$title, $sub" : $title;
+        // A leader whose Leader Unit side is another card (Tarkin → The Death Star): the front is the name, the other side
+        // backSideName (§6.5).
+        $back = strval(CardLeaderUnitTitle($cardID) ?? '');
+        $backSub = strval(CardLeaderUnitSubtitle($cardID) ?? '');
+        if ($back !== '') $back = $backSub !== '' ? "$back, $backSub" : $back;
+        $out[] = ['id' => $id, 'name' => $name] + ($kind !== null ? ['kind' => $kind] : []) + ($back !== '' && $back !== $name ? ['backSideName' => $back] : []);
     }
     usort($out, fn($a, $b) => strcmp($a['id'], $b['id']));
     return $out;
@@ -135,7 +145,7 @@ function SwuPgnBuildDoc(string $g, array $meta, array $state, array $events, int
         $decks[] = $row;
     }
     $headers = [
-        'Game' => 'SWU-PGN/1.0', 'GameId' => $gameId, 'Date' => strval($meta['startedAt'] ?? gmdate('Y-m-d\TH:i:s\Z')),
+        'Game' => 'SWU-PGN/1.0', 'WriterRevision' => strval(SWUPGN_WRITER_REVISION), 'GameId' => $gameId, 'Date' => strval($meta['startedAt'] ?? gmdate('Y-m-d\TH:i:s\Z')),
         'EndDate' => gmdate('Y-m-d\TH:i:s\Z'), 'Format' => strval($meta['format'] ?? ''),
         'CardPool' => implode(',', $meta['cardPool'] ?? []), 'Engine' => SwuPgnEngineId(), 'Seed' => strval($meta['seed'] ?? ''),
         'P1Id' => $playerId(1), 'P2Id' => $playerId(2), 'P1' => 'Player 1', 'P2' => 'Player 2',

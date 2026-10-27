@@ -27,7 +27,9 @@
 //   SwuPgnTokenParts(string $id): ?array       TOKEN:<name>#<cardId>[:N] → name/cardId/copy/resolvable
 //   SwuPgnSeatOfBaseRef($ref): ?int            the N of `base@N`, else null
 //   SwuPgnCardIndex(array $doc): array         %%% CARDS as [baseId => display name]
-//   SwuPgnName(array $index, $id): string      §16 nm(): name, ` #N` for a copy, `Player N's base`
+//   SwuPgnCardBackIndex(array $doc): array     %%% CARDS as [baseId => backSideName], for cards with two names
+//   SwuPgnName(array $index, $id, ?array $faces = null): string   §16 nm(): name, ` #N` for a copy, `Player N's base`;
+//                                              with $faces, a card whose back side is up reads by its backSideName
 //   SwuPgnWho($p): string                      §16 who(): "Player 1" / "Player 2" / ""
 //
 // Fold (§11, §12, §13)                                                   SwuPgnFold.php
@@ -61,7 +63,8 @@
 //   SwuPgnRenderEvents(array $events, array $names): string
 //   SwuPgnStoryMatches(array $doc, ?array $names = null): array  ['present', 'matches', 'line' => first diff]
 //   SwuPgnIsNumberedAction(array $e): bool     §16 — is this a player's own (numbered) action
-//   SwuPgnStoryLine(array $e, array $names): ?string   §16 — one event's story line, or null
+//   SwuPgnStoryLine(array $e, array $names, ?array $faces = null): ?string   §16 — one event's story line, or null
+//   SwuPgnFacesStart(array $backs) / SwuPgnFacesStep(array $faces, array $e)   which side of a two-named card is up
 //
 // Steps (replay viewer)                                                  SwuPgnSteps.php
 //   SwuPgnSteps(array $doc, ?int $seat = null): array
@@ -91,6 +94,8 @@
 //   - in §14, exempts the leader (like baseHp/deckSize) at the first usable keyframe when the fold
 //     has none — Appendix A requires it — and reads the fold's absent initiativeTaken /
 //     baseEpicActionUsed as false; round, phase, initiative, baseMaxHp and seat are not compared;
+//   - accepts a same-zone MOVE only inside an arena AND with a `kind` (§10.1: a rebind "carries the new role");
+//   - counts a DEPLOY_LEADER with a lettered seq as its Epic Action's sub-step in §16, any other as a numbered action;
 //   - in §16, prints `(cost 0)`, takes the banner's initiative from the round's keyframe (none → no
 //     initiative part), and right-aligns "initiative: Player N " with the trailing space Appendix A
 //     shows (the §16 illustration omits it).

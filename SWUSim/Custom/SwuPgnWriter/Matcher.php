@@ -8,10 +8,10 @@
 // Notes (SWUSim ids: UIDs as ints, CardIDs, base@N):
 //   PLAY {p, cardID, how: unit|event|upgrade|pilot|smuggle, uid?, targetUid?, cost}  ATTACK {p, atkUid, def}
 //   DAMAGE {src, tgt, amt, combat}  HEAL {src, tgt, amt}  DEFEAT {uid|cardID, reason, by?}  TOKEN {uid, kind, delta}
-//   TRIGGER {cardID, p}  ABILITY {p, cardID|base@N, kind, uid?}  CHOICE {p, offered[], chose, prompt?}  DRAW {p, n}
+//   TRIGGER {cardID, p}  ABILITY {p, cardID|base@N, kind, uid?, grantedBy?}  CHOICE {p, offered[], chose, prompt?}  DRAW {p, n}
 //   DISCARD {p, cardIDs[]}  RESOURCE {p, cardID?}  SEARCH {p, cardIDs[]}  REVEAL {p, zone, cardIDs[]}  CAPTURE {p, cardID, by}
 //   RESCUE {p, cardID}  CONTROL {p, uid}  DEPLOY {p, cardID, epic, pilotHostUid?}  FLIP {p, cardID, onStartingSide}
-//   PASS {p}  CLAIM {p}  MULLIGAN {p}  KEEP {p}
+//   PASS {p}  CLAIM {p}  MULLIGAN {p}  KEEP {p}  BASE_DEFEAT {p, seat, by?} (seat's base defeated outright by p: no damage dealt)
 
 const SWUPGN_TOKEN_CARDS = ['shield' => 'SOR_T02', 'experience' => 'SOR_T01', 'advantage' => 'ASH_T02', 'weakness' => 'HMW_T02'];
 const SWUPGN_ACTION_NOTES = ['PLAY', 'ATTACK', 'DEPLOY', 'PASS', 'CLAIM'];
@@ -25,6 +25,7 @@ function SwuPgnMatch(array $changes, array $notes, array &$ctx): array {
     foreach ($run['notes'] as $ni => $note) _SwuPgnMNote($run, $ni, $note);
     $gaps = _SwuPgnMUnclaimed($run);
     $gaps = array_merge($gaps, _SwuPgnMLimboAge($run, $heldBefore));
+    _SwuPgnMBaseDefeats($run);
     $events = _SwuPgnMSequence($run);
     return ['events' => $events, 'gaps' => $gaps, 'carry' => $run['carry']];
 }
@@ -70,6 +71,31 @@ function _SwuPgnMRef(array &$run, $x, ?int $seat = null, ?string $zone = null): 
     if (isset($run['lastCopy'][$x])) return $run['lastCopy'][$x];
     foreach ($run['ctx']['ledger']['zones'] as $zones) foreach ($zones as $list) foreach ($list as $c) if (SwuPgnBaseId($c) === $ref) return $c;
     return $ref;
+}
+
+// DAMAGE.src / HEAL.src / DEFEAT.defeatedBy (§3): a card id or base@N, else nothing — never a placeholder ("unknown") or
+// a rule ("rule:deck-out"): when no card is responsible, the field is left out.
+function _SwuPgnMSource(array &$run, $x, ?int $seat = null): ?string {
+    if ($x === null) return null;
+    $ref = _SwuPgnMRef($run, $x, $seat);   // a placeholder or a rule stays as it is, and is no card id
+    return SwuPgnSeatOfBaseRef($ref) !== null || str_starts_with($ref, 'TOKEN:') || preg_match('/^[A-Za-z0-9]+#[A-Za-z0-9-]+(:\d+)?$/', $ref) ? $ref : null;
+}
+
+// §10.1: every defeated base gets a DEFEAT on base@N, right after the record that took it to 0 (once per base). Its
+// reason follows the damage: combat → attack, a card's → nonCombatDamage, no card's (an empty deck) → frameworkEffect.
+// A base defeated outright already has its DEFEAT (BASE_DEFEAT).
+function _SwuPgnMBaseDefeats(array &$run): void {
+    $done = [];
+    foreach ($run['out'] as $o) if ($o['ev']['t'] === 'DEFEAT' && SwuPgnSeatOfBaseRef($o['ev']['card'] ?? null) !== null) $done[$o['ev']['card']] = true;
+    for ($i = 0; $i < count($run['out']); $i++) {
+        $ev = $run['out'][$i]['ev'];
+        if (!in_array($ev['t'], ['DAMAGE', 'OVERWHELM'], true) || SwuPgnSeatOfBaseRef($ev['tgt'] ?? null) === null || intval($ev['hp'] ?? 1) > 0 || isset($done[$ev['tgt']])) continue;
+        $done[$ev['tgt']] = true;
+        $by = $ev['src'] ?? null;
+        $reason = $by === null ? 'frameworkEffect' : (($ev['t'] === 'OVERWHELM' || ($ev['damageType'] ?? null) === 'combat') ? 'attack' : 'nonCombatDamage');
+        array_splice($run['out'], $i + 1, 0, [['ev' => ['t' => 'DEFEAT', 'card' => $ev['tgt'], 'reason' => $reason] + ($by !== null ? ['defeatedBy' => $by] : []),
+            'top' => false, 'owner' => $run['out'][$i]['owner']]]);
+    }
 }
 
 // MOVE.kind from the card's type (a role, not an identity — an attaching move is always "upgrade").
@@ -179,18 +205,12 @@ function _SwuPgnMMove(array &$run, array $c, ?int $owner): string {
         $c['from'] = $run['ctx']['ledger']['tempOrigin'][$copy] ?? 'deck';
         unset($run['ctx']['ledger']['tempOrigin'][$copy]);
     }
-    if (!empty($c['detach']) || !empty($c['attachFromPlay'])) {   // a role change: upgrade → unit (Eject), unit → upgrade (L3-37)
+    // A role change — upgrade → unit (Eject), unit → upgrade (L3-37) — or a move to another host: ONE MOVE with the new
+    // role and host, from = to when it stays in its arena (the binding rule). The fold detaches on entering an arena.
+    if (!empty($c['detach']) || !empty($c['attachFromPlay']) || isset($c['fromHost'])) {
         $toUnit = !empty($c['detach']);
-        $arrive = ['kind' => $toUnit ? 'unit' : 'upgrade', 'attachedTo' => $toUnit ? null : _SwuPgnMRef($run, intval($c['host']))];
-        // Out and back in: the fold detaches (or takes a unit out of play) only on leaving the arenas (§12.1).
-        _SwuPgnMEmit($run, 'MOVE', ['card' => $copy, 'from' => $c['from'], 'to' => 'outsideTheGame', 'p' => intval($c['seat']), 'kind' => $toUnit ? 'upgrade' : 'unit'], $owner);
-        _SwuPgnMEmit($run, 'MOVE', ['card' => $copy, 'from' => 'outsideTheGame', 'to' => $c['to'], 'p' => intval($c['seat'])] + $arrive, $owner);
-        return $copy;
-    }
-    if (isset($c['fromHost'])) {   // moved to another host: off the old one, onto the new (a MOVE's from ≠ to)
-        _SwuPgnMEmit($run, 'MOVE', ['card' => $copy, 'from' => $c['from'], 'to' => 'outsideTheGame', 'p' => intval($c['seat']), 'kind' => 'upgrade'], $owner);
-        _SwuPgnMEmit($run, 'MOVE', ['card' => $copy, 'from' => 'outsideTheGame', 'to' => $c['to'], 'p' => intval($c['seat']), 'kind' => 'upgrade',
-            'attachedTo' => _SwuPgnMRef($run, intval($c['host']))], $owner);
+        _SwuPgnMEmit($run, 'MOVE', ['card' => $copy, 'from' => $c['from'], 'to' => $c['to'], 'p' => intval($c['seat']), 'kind' => $toUnit ? 'unit' : 'upgrade',
+            'attachedTo' => $toUnit ? null : _SwuPgnMRef($run, intval($c['host']))], $owner);
         return $copy;
     }
     $exhaustedOut = $c['from'] === 'resource' && !empty($c['fromExhausted']) ? true : null;
@@ -296,7 +316,7 @@ function _SwuPgnMHarm(array &$run, int $ni, array $n, string $kind): void {
         if ($left === 0) $run['claimed'][$i] = true;
         $hp = $kind === 'damage' ? $c['hp'] + $left : $c['hp'] - $left;
     }
-    $fields = ['src' => _SwuPgnMRef($run, $n['src'] ?? 'unknown'), 'tgt' => _SwuPgnMRef($run, $tgt), 'amt' => $amt];
+    $fields = ['src' => _SwuPgnMSource($run, $n['src'] ?? null), 'tgt' => _SwuPgnMRef($run, $tgt), 'amt' => $amt];
     if ($kind === 'damage') $fields['damageType'] = !empty($n['combat']) ? 'combat' : 'ability';
     $fields['hp'] = $hp;
     _SwuPgnMEmit($run, $kind === 'damage' ? 'DAMAGE' : 'HEAL', $fields, $ni);
@@ -377,7 +397,7 @@ function _SwuPgnMNote(array &$run, int $ni, array $n): void {
                 && !in_array($c['to'], SWUPGN_ARENAS, true)
                 && ($uid !== null ? ($c['uid'] ?? null) === $uid && !isset($c['host']) : $c['cardID'] === ($n['cardID'] ?? null)));
             if ($mv === null) return;
-            $by = isset($n['by']) ? _SwuPgnMRef($run, $n['by']) : null;   // before the move: the killer may die too
+            $by = _SwuPgnMSource($run, $n['by'] ?? null);   // before the move: the killer may die too
             // Its upgrades leave first (the engine discards them first): defeated by the framework — their host left play.
             if ($uid !== null) {
                 while (($up = _SwuPgnMTake($run, fn($c) => $c['k'] === 'move' && ($c['host'] ?? null) === $uid && in_array($c['from'], SWUPGN_ARENAS, true))) !== null) {
@@ -414,11 +434,20 @@ function _SwuPgnMNote(array &$run, int $ni, array $n): void {
                 // Epic only if it spent the base's Epic Action: a limited-use base Action (Mystic Monastery) does not.
                 if (_SwuPgnMTake($run, fn($c) => $c['k'] === 'baseEpic' && "base@{$c['seat']}" === $card) === null) $kind = 'action';
             }
+            // Announced, then paid (§9.1): the card's exhaust is the ability's own sub-step.
             $ex = _SwuPgnMTake($run, fn($c) => $c['k'] === 'exhaust' && (($c['target'] === "leader@$p" && $c['cardID'] === $card)
                 || (isset($n['uid']) && $c['target'] === $n['uid'])));
+            _SwuPgnMEmit($run, 'ABILITY_ACTIVATE', ['p' => $p, 'card' => $ref, 'kind' => $kind, 'epic' => $kind === 'epic' ? true : null,
+                'grantedBy' => isset($n['grantedBy']) ? _SwuPgnMRef($run, $n['grantedBy'], $p, 'base') : null], $ni, in_array($kind, ['action', 'epic'], true));
             if ($ex !== null) _SwuPgnMEmit($run, 'EXHAUST', ['card' => is_int($ex['target']) ? _SwuPgnMRef($run, $ex['target']) : $ref], $ni);
-            _SwuPgnMEmit($run, 'ABILITY_ACTIVATE', ['p' => $p, 'card' => $ref, 'kind' => $kind, 'epic' => $kind === 'epic' ? true : null], $ni,
-                in_array($kind, ['action', 'epic'], true));
+            return;
+        }
+        case 'BASE_DEFEAT': {
+            // "Defeat a base" (Grand Moff Tarkin): no damage is dealt, so the damage the engine fills in is not a DAMAGE —
+            // the base falls with its HP standing, and this DEFEAT is the only record that says so (§10.4).
+            $seat = intval($n['seat'] ?? 0);
+            _SwuPgnMTake($run, fn($c) => $c['k'] === 'damage' && $c['target'] === "base@$seat");
+            _SwuPgnMEmit($run, 'DEFEAT', ['card' => "base@$seat", 'reason' => 'ability', 'defeatedBy' => _SwuPgnMSource($run, $n['by'] ?? null, $p ?: null)], $ni);
             return;
         }
         case 'CHOICE':
@@ -614,7 +643,7 @@ function _SwuPgnMPlain(array &$run, array $c, string $phase): bool {
         }
         case 'damage':
         case 'heal':
-            _SwuPgnMEmit($run, $c['k'] === 'damage' ? 'DAMAGE' : 'HEAL', ['src' => 'unknown', 'tgt' => _SwuPgnMRef($run, $c['target']), 'amt' => $c['amount'],
+            _SwuPgnMEmit($run, $c['k'] === 'damage' ? 'DAMAGE' : 'HEAL', ['tgt' => _SwuPgnMRef($run, $c['target']), 'amt' => $c['amount'],
                 'damageType' => $c['k'] === 'damage' ? 'ability' : null, 'hp' => $c['hp']], null);
             return true;
         case 'token': _SwuPgnMTokenEvents($run, $c, null); return true;
@@ -772,15 +801,27 @@ function _SwuPgnMSequence(array &$run): array {
             continue;
         }
         if (!$e['top'] || $e['owner'] === null) continue;
-        $allowed = $t === 'ATTACK' ? ['CHOICE', 'MODAL_CHOICE', 'EXHAUST'] : ['MOVE', 'CHOICE', 'MODAL_CHOICE', 'EXHAUST', 'STATS', 'EXHAUST_RESOURCES'];
+        // §9.1 "Which types can precede depends on the action".
+        $allowed = match ($t) {
+            'ATTACK' => ['CHOICE', 'MODAL_CHOICE', 'EXHAUST'],
+            'ABILITY_ACTIVATE' => ['CHOICE', 'MODAL_CHOICE'],   // its costs are paid after it is announced
+            default => ['MOVE', 'CHOICE', 'MODAL_CHOICE', 'EXHAUST', 'STATS', 'EXHAUST_RESOURCES'],
+        };
         $anchor = $e['ev']['atk'] ?? $e['ev']['card'] ?? null;
         $runIdx = []; $named = false;
         for ($j = $i - 1; $j >= 0; $j--) {
             $r = $out[$j];
             if ($r['isStep'] || !in_array($r['ev']['t'], $allowed, true)) break;
             if ($r['owner'] !== $e['owner'] && $isActionOwner($r['owner'])) break;   // another action's own records
+            // Another card arriving in play ends the run: its arrival, and what names it right after, are its own story.
+            $rc = $r['ev']['card'] ?? null;
+            if ($r['ev']['t'] === 'MOVE' && $rc !== $anchor && (in_array($r['ev']['to'] ?? null, SWUPGN_ARENAS, true)
+                    || (($r['ev']['to'] ?? null) === 'base' && ($r['ev']['kind'] ?? null) === 'upgrade'))) {
+                $runIdx = array_values(array_filter($runIdx, fn($k) => ($out[$k]['ev']['card'] ?? null) !== $rc));
+                break;
+            }
             $runIdx[] = $j;
-            if ($anchor !== null && ($r['ev']['card'] ?? null) === $anchor) $named = true;
+            if ($anchor !== null && $rc === $anchor) $named = true;
         }
         if ($named) foreach ($runIdx as $j) $out[$j]['for'] = $e['seq'];
     }
