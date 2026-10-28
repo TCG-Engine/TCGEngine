@@ -1,0 +1,44 @@
+# Main
+2 Unbroken Mustang
+4 Cerulean Decree
+3 Engulf
+4 Fractal of Polar Depths
+4 Fractal of Rain
+4 Fracturize
+4 Frostsworn Paladin
+2 Memory Invocation
+2 Pelagic Fatestone
+2 Primordial Ritual
+4 Refracting Missile
+4 Resonating Fugue
+4 Seaside Ringleader
+3 Sift
+2 Song of Frost
+3 Spalling Cleanse
+2 Strategem of Myriad Ice
+2 Throne-Keeper Bullfrog
+2 Tidal Lock
+4 Tidestone Bovine
+
+# Material
+1 Spirit of Water
+1 Guo Jia, Chosen Disciple
+1 Guo Jia, Blessed Scion
+1 Guo Jia, Heaven's Favored
+1 Enfeebling Orb
+1 Grand Crusader's Ring
+1 Portentous Tanggu
+1 Safeguard Amulet
+1 Smoke Bombs
+1 Tabula of Salvage
+1 Extinguishing Synchron
+1 Fabled Sapphire Fatestone
+
+# Sideboard
+1 Beastbond Boots
+4 Expel the Departed
+1 Unbroken Mustang
+1 Engulf
+2 Revitalizing Cleanse
+2 Song of Frost
+2 Excalibur, Cleansing Light

@@ -1,0 +1,70 @@
+# Heuristic bot evaluation
+
+Run from the repository root with the normal generated Grand Archive runtime and card data available. Python uses only the standard library. PHP needs the same environment as `GABotSelfPlayTest.php`; its CLI APCu fallback is supported.
+
+The committed `Tests/BotBaselines/2026-10-28` snapshot freezes the current chooser and its helper functions. It is a starting benchmark, not an older weaker opponent. Both seats use today's engine, card implementations, and legal-action enumerator. This isolates policy changes; it does not compare historical engine versions or RL models.
+
+## Run
+
+Start with two seeded mirror games, swapping the candidate seat:
+
+```sh
+python3 DevTools/ga-bot-evaluate.py run \
+  --config GrandArchiveSim/Tests/BotFixtures/evaluation.json \
+  --baseline GrandArchiveSim/Tests/BotBaselines/2026-10-28 \
+  --output /tmp/ga-bot-smoke --smoke
+```
+
+Remove `--smoke` and choose a new output directory for the full suite. The supplied configuration has four decks, all 16 ordered candidate/baseline pairings (including mirrors), five seeds, and two seat assignments: **160 games**. The sample deck pool exercises Genbu, Diana, Ciel, and Lorraine; it is not a claim that these lists are current tournament recommendations or equally competitive.
+
+- `--php=/path/to/php` chooses the PHP executable.
+- `--max-steps=2000` bounds each game; `--timeout=180` bounds its wall time.
+- Paths in the configuration are relative to that configuration file.
+- Output directories must be new, preventing accidental overwrite of evidence.
+- Games are sequential, each in a fresh PHP process, and create ordinary local test-game saves.
+
+Every pair reuses the seed and reverses policy/deck seat assignments. The initial deterministic RNG counter is seeded before loading decks; subsequent randomness follows the existing persisted engine RNG. Different actions can diverge the random stream. Swapping different decks between seats does not promise identical opening hands. Identical configurations on the same runtime should reproduce action digests; reports include those digests for verification.
+
+## Read results
+
+`report.md` contains matchup wins, mean steps, decision timings, and optional ability coverage ranked by unsupported count. `summary.json` contains all results; numbered JSON and log files retain individual-game evidence. Metadata records baseline, candidate, deck, and relevant engine/card-code hashes. Reports are rewritten after each game, so completed work remains readable after interruption.
+
+Only games that finish **and pass the self-play assertions** count toward wins. Crashes, timeouts, and incomplete games are reported separately, never as losses or wins. Investigate their numbered logs before interpreting strength results. Small samples are directional evidence, not statistically established improvements.
+
+Coverage counts offered optional choices on each chooser invocation, including controller retries:
+
+- **Selected:** the policy understood and chose the option (not proof the activation resolved).
+- **Declined:** it understood the option but chose another action or passed.
+- **Unsupported:** its optional scorer returned no policy.
+
+`MZMAYCHOOSE` and `YESNO` are classified per option. Zero-minimum `MZMULTICHOOSE` is counted per prompt; currently only the floating-payment policy is recognized. Mandatory target selection and free-play hand actions are outside this optional-ability metric. A declined option is not necessarily a mistake, and a selected option is not necessarily optimal. Use the game log and focused decision fixtures to investigate.
+
+Decision timings exclude coverage re-scoring and report generation. Total game time includes instrumentation. Compare timings on the same machine under similar load. The report's p95 column is the slowest per-game p95, not a pooled percentile.
+
+## Improve the bot
+
+1. Run the frozen comparison and find frequent unsupported choices.
+2. Add a policy with both beneficial-use and deliberate-decline cases in `DevTools/GABotDecisionTest.php`.
+3. Rerun those checks and the suite against the same baseline, decks, and seeds.
+4. Review failures, matchup-specific results, and latency before keeping the change.
+
+To deliberately establish a new benchmark after review:
+
+```sh
+python3 DevTools/ga-bot-evaluate.py freeze /path/to/new-baseline
+```
+
+Freezing copies the three policy source files, isolates their function/callback/global names, and records hashes. Never edit a frozen baseline in place; loading rejects changed hashes. Baselines are local executable PHP and should be snapshots you created or reviewed. Keep older snapshots to retain comparable results.
+
+Harness checks:
+
+```sh
+python3 DevTools/test-ga-bot-evaluate.py
+php -d xdebug.mode=off DevTools/GABotDecisionTest.php
+```
+
+## Initial validation, 2026-10-28
+
+The 160-game suite completed with all self-play assertions passing and an 80–80 split between the identical candidate and frozen policies. Repeating seed 101 for all 16 ordered matchups and both seat assignments reproduced all 32 action digests exactly. A separate seed changed the trace. Forced step-limit and wall-time failures were excluded from wins. The harness's three unit tests and all 183 existing bot decision checks passed. Total measured game runtime was about 331 seconds on the development machine, with some concurrent verification runs; this is not a production performance benchmark.
+
+Frequent unsupported offers included Enfeebling Orb, Diana, Duskstalker, and Fractal of Polar Depths. Frequency measures offered chooser opportunities, not unique mistakes or an estimate of win-rate impact.

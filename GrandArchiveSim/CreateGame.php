@@ -85,6 +85,8 @@ function GASetupGame($lobby, $opts = []) {
         SetGABotPlayers($botPlayers);
     }
 
+    // Optional reproducible headless-test stream; ordinary games are unchanged.
+    if (isset($opts['randomSeed'])) SetDeterministicRandomCounter(intval($opts['randomSeed']));
     $playerCounter = 1;
     // Production games retain cryptographic deck shuffles. Headless regression callers may opt
     // into EngineShuffle's persisted deterministic stream for reproducible fixtures.
@@ -102,6 +104,8 @@ function GASetupGame($lobby, $opts = []) {
         } else {
             LoadPlayer($playerCounter, $player->getDeckLink(), $player->getPreconstructedDeck(), $useStrongShuffleEntropy);
         }
+        // Capture the submitted multiset before opening draws, never its order.
+        GABotRememberDecklist($playerCounter, array_map(fn($card) => $card->CardID, GetDeck($playerCounter)));
         ++$playerCounter;
     }
 

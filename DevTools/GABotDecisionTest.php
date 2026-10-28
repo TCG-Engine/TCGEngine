@@ -135,5 +135,474 @@ check(in_array('myHand-0!FSM!', array_column($legal['actions'], 'cardID')), 'off
 AddTurnEffect('theirField-0', 'SPELLSHROUD');
 $legal = GABotLegalActions('decision-test', 2);
 check(!in_array('myHand-0!FSM!', array_column($legal['actions'], 'cardID')), 'protected ally does not make Undying Dreams legal');
+// Genbu's quest engine must work from either seat, without inspecting the opponent's hand.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    $field = &GetField($seat); $field = [];
+    AddField($seat, '59ipqa91r2', Owner:$seat, Controller:$seat);
+    AddField($seat, 'vzmnt0orxj', Owner:$seat, Controller:$seat);
+    GetField($seat)[1]->Status = 2;
+    for ($i = 0; $i < 15; ++$i) AddDeck($seat, 'rWhFC8XBaH');
+    AddQuestCounters($seat, 7);
+    [$legal, $action] = offer('YESNO', '-', '59ipqa91r2:0:Enter-1', '', $seat);
+    check($action['cardID'] === 'YES', "P$seat builds quest counters instead of defaulting to draw");
+    DecisionQueueController::StoreVariable('mzID', 'myField-0');
+    $dq = new DecisionQueueController(); $dq->PopDecision($seat);
+    $dq->ExecuteStaticMethods($seat, $action['cardID']);
+    check(GetQuestCounterCount($seat) === 9, "P$seat quest choice resolves to nine counters");
+    $transform = EncodeOpportunityAbilityChoice('myField-1', 0, 'Transform');
+    [$legal, $action] = offer('MZMAYCHOOSE', $transform, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $transform, "P$seat chooses Sapphire transformation");
+    $viewer = $playerID; $playerID = 3 - $seat;
+    check(GABotChooseAction($legal['actions'], $legal)['cardID'] === $transform && $playerID === 3 - $seat, 'Genbu policy restores viewer perspective');
+    $playerID = $viewer;
+    GetField($seat)[1]->Status = 1;
+    check(GABotOptionalScore($seat, $transform, $legal) < 0, 'rested Sapphire cannot transform');
+    GetField($seat)[1]->Status = 2;
+    RemoveQuestCounters($seat, 1);
+    check(GABotOptionalScore($seat, $transform, $legal) < 0, 'eight counters are insufficient');
+    AddQuestCounters($seat, 1);
+    // Resolve the same generated effect the selected ability invokes.
+    DecisionQueueController::StoreVariable('mzID', 'myField-1');
+    DecisionQueueController::StoreVariable('abilityIndex', 0);
+    $activateAbilityAbilities['vzmnt0orxj:0']($seat);
+    check(GetField($seat)[1]->CardID === 'k8bwlx70qj' && GetQuestCounterCount($seat) === 0, 'transformation creates Genbu and spends nine counters');
+    [$legal, $action] = offer('YESNO', '-', '59ipqa91r2:0:Enter-1', '', $seat);
+    check($action['cardID'] === 'NO', 'after transformation prefer draw over unused quest counters');
+}
+resetBoard();
+$field = &GetField(2); $field = [];
+AddField(2, 'enxi6tshtu', Owner:2, Controller:2);
+AddField(2, 'vzmnt0orxj', Owner:2, Controller:2);
+GABotOwnChampion(2)->Damage = ObjectCurrentHP(GABotOwnChampion(2)) - 3;
+[$legal, $action] = offer('YESNO', '-', 'enxi6tshtu:0:Enter-1');
+check($action['cardID'] === 'NO', 'prefer recovery to quest counters at critical life');
+GABotOwnChampion(2)->Damage = 0;
+[$legal, $action] = offer('YESNO', '-', 'enxi6tshtu:0:Enter-1');
+check($action['cardID'] === 'YES', 'healthy champion accelerates Genbu');
+for ($i = 0; $i < 9; ++$i) AddDeck(2, 'rWhFC8XBaH');
+[$legal, $action] = offer('YESNO', '-', 'thxvlynvy5:0:OnAttack-1');
+check($action['cardID'] === 'YES', 'Bovine builds its own graveyard toward deluge');
+for ($i = 0; $i < 12; ++$i) AddGraveyard(2, '3zb9p4lgdl');
+[$legal, $action] = offer('YESNO', '-', 'thxvlynvy5:0:OnAttack-1');
+check($action['cardID'] === 'NO', 'stop feeding our graveyard once deluge twelve is reached');
+$graveyard = &GetGraveyard(2); $graveyard = [];
+
+GetDeck(2)[0]->removed = true;
+[$legal, $action] = offer('YESNO', '-', 'thxvlynvy5:0:OnAttack-1');
+check($action['cardID'] === 'NO', 'stop self-milling near deck exhaustion');
+resetBoard();
+$field = &GetField(2); $field = [];
+AddField(2, '59ipqa91r2', Owner:2, Controller:2);
+AddField(2, 'rpOaAjgtue', Owner:2, Controller:2);
+AddGraveyard(2, 'thxvlynvy5');
+for ($i = 0; $i < 3; ++$i) AddDeck(2, 'rWhFC8XBaH');
+[$legal, $action] = offer('MZMAYCHOOSE', 'myGraveyard-0', 'rpOaAjgtue:0:Enter-1');
+check($action['cardID'] === 'myGraveyard-0', 'Paladin spends floating memory for draw and buff');
+DecisionQueueController::StoreVariable('mzID', 'myField-1');
+$dq = new DecisionQueueController(); $dq->PopDecision(2); $dq->ExecuteStaticMethods(2, $action['cardID']);
+check(GABotLiveCount(GetHand(2)) === 1 && GABotLiveCount(GetBanish(2)) === 1
+    && intval(GetField(2)[1]->Counters['buff'] ?? 0) === 1, 'Paladin choice resolves draw, banish, and buff');
+AddGraveyard(2, 'thxvlynvy5');
+$deck = &GetDeck(2); $deck = []; AddDeck(2, 'rWhFC8XBaH');
+[$legal, $action] = offer('MZMAYCHOOSE', 'myGraveyard', 'rpOaAjgtue:0:Enter-1');
+check($action['cardID'] === 'PASS', 'Paladin avoids drawing away the last deck card');
+// Exercise combat targeting through the real legal decision path, from both seats.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    $opponent = 3 - $seat;
+    AddField($seat, 'thxvlynvy5', Owner:$seat, Controller:$seat);
+    AddField($opponent, 'LMyKyVC2O9', Owner:$opponent, Controller:$opponent);
+    AddField($opponent, 'thxvlynvy5', Owner:$opponent, Controller:$opponent);
+    $attacker = GetField($seat)[1];
+    $victim = GetField($opponent)[1];
+    $champion = GetField($opponent)[0];
+    $victim->Damage = ObjectCurrentHP($victim) - 1;
+    $victim->Status = 1;
+    StoreCombatAttackerState('myField-1', $seat);
+    [$legal, $action] = offer('MZCHOOSE', 'theirField-0&theirField-1', '', 'Choose_attack_target', $seat);
+    check($action['cardID'] === 'theirField-1', "seat $seat removes a vulnerable ally over incidental face damage");
+    $attacker->Damage = ObjectCurrentHP($attacker) - 1;
+    $victim->Status = 2;
+    [$legal, $action] = offer('MZCHOOSE', 'theirField-0&theirField-1', '', 'Choose_attack_target', $seat);
+    check($action['cardID'] === 'theirField-0', "seat $seat avoids losing its attacker in an unnecessary trade");
+    $victim->Status = 1;
+    [$legal, $action] = offer('MZCHOOSE', 'theirField-0&theirField-1', '', 'Choose_attack_target', $seat);
+    check($action['cardID'] === 'theirField-1', "seat $seat recognizes a rested defender cannot normally retaliate");
+    $champion->Damage = ObjectCurrentHP($champion) - 1;
+    [$legal, $action] = offer('MZCHOOSE', 'theirField-0&theirField-1', '', 'Choose_attack_target', $seat);
+    check($action['cardID'] === 'theirField-0', "seat $seat prioritizes lethal champion damage");
+    $champion->Damage = 0;
+    $victim->Damage = 0;
+    AddCounters($opponent, 'theirField-1', 'buff', 10);
+    [$legal, $action] = offer('MZCHOOSE', 'theirField-0&theirField-1', '', 'Choose_attack_target', $seat);
+    check($action['cardID'] === 'theirField-0', "seat $seat avoids ineffective chip damage into a large ally");
+    $playerID = $opponent;
+    GABotChooseAction($legal['actions'], $legal);
+    check($playerID === $opponent, "combat targeting restores seat $seat viewer perspective");
+}
+// Damage spells share public-board scoring but retain their exact damage amounts.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    $opponent = 3 - $seat;
+    AddField($opponent, 'LMyKyVC2O9', Owner:$opponent, Controller:$opponent);
+    AddField($opponent, 'thxvlynvy5', Owner:$opponent, Controller:$opponent);
+    $victim = GetField($opponent)[1];
+    $champion = GetField($opponent)[0];
+    $victim->Damage = ObjectCurrentHP($victim) - 2;
+    foreach (['0G32Pp5atK', '0op3nq0ymv', '0xm513tj3j'] as $card) {
+        $handler = 'GADeclareTarget|' . base64_encode(json_encode(['cardID'=>$card])) . '|' . base64_encode('primary');
+        $targets = $card === '0xm513tj3j' ? 'theirField-1' : 'myField-0&theirField-0&theirField-1';
+        [$legal, $action] = offer('MZCHOOSE', $targets, $handler, 'Declare_target', $seat);
+        check($action['cardID'] === 'theirField-1', "P$seat $card removes vulnerable opposing ally");
+        $playerID = $opponent;
+        GABotChooseAction($legal['actions'], $legal);
+        check($playerID === $opponent, 'spell targeting restores perspective');
+        $playerID = $seat;
+        if ($card !== '0xm513tj3j') {
+            $champion->Damage = ObjectCurrentHP($champion) - 2;
+            [$legal, $action] = offer('MZCHOOSE', $targets, $handler, 'Declare_target', $seat);
+            check($action['cardID'] === 'theirField-0', 'damage spell prioritizes champion lethal');
+            $champion->Damage = 0;
+        }
+    }
+    [$legal, $action] = offer('MZCHOOSE', 'myField-0&theirField-1', '0op3nq0ymv:0:CardActivated-1', '', $seat);
+    check($action['cardID'] === 'theirField-1', 'legacy damage continuation avoids friendly fire');
+    AddCounters($seat, 'theirField-1', 'buff', 5);
+    $victim->Damage = ObjectCurrentHP($victim) - 5;
+    [$legal, $action] = offer('MZCHOOSE', 'theirField-0&theirField-1', '0op3nq0ymv:0:CardActivated-1', '', $seat);
+    check($action['cardID'] === 'theirField-1', 'Voltaic Sphere accounts for five damage against allies');
+    [$legal, $action] = offer('MZCHOOSE', 'theirField-0&theirField-1', '0G32Pp5atK:0:CardActivated-1', '', $seat);
+    check($action['cardID'] === 'theirField-0', 'Mote Sear does not assume optional extra damage');
+    $handler = 'GADeclareTarget|' . base64_encode(json_encode(['cardID'=>'unknown'])) . '|' . base64_encode('primary');
+    check(GABotDamageTargetScore($seat, 'theirField-1', $handler) === null, 'unknown spells keep existing fallback');
+}
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    SetCurrentPhase('MAIN');
+    SetTurnPlayer(3 - $seat);
+    AddField($seat, 'Tx8noEw78s', Owner:$seat, Controller:$seat);
+    $source = GetField($seat)[1];
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Recover');
+    $champion = GABotOwnChampion($seat);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', 'hold Synchron at full health');
+    $champion->Damage = 1;
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', 'hold Synchron rather than waste recovery');
+    $champion->Damage = 4;
+    AddCounters($seat, 'myField-1', 'refinement', 2);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, 'use refined Synchron for full healing');
+    $playerID = 3 - $seat;
+    GABotChooseAction($legal['actions'], $legal);
+    check($playerID === 3 - $seat, 'recovery policy restores viewer perspective');
+    $playerID = $seat;
+    AddGlobalEffects($seat, 'CANT_RECOVER');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', 'do not sacrifice Synchron while recovery is blocked');
+    $effects = &GetGlobalEffects($seat); $effects = [];
+    AddField(3 - $seat, 'koyegh1snb', Owner:3-$seat, Controller:3-$seat);
+    check(GABotSynchronScore($seat, $source) < 0, 'Judicator prevents wasteful recovery');
+    GetField(3 - $seat)[0]->removed = true;
+    AddField(3 - $seat, 'vgWgu1DUYv', Owner:3-$seat, Controller:3-$seat);
+    check(GABotRecoveryAmount($seat, 4) === 1 && GABotRecoveryAmount($seat, 2) === 0, 'Vessel reduces healing before scoring');
+    GetField(3 - $seat)[1]->removed = true;
+    $enemyField = &GetField(3 - $seat); $enemyField = [];
+    AddField(3 - $seat, '5n874ubgai', Owner:3-$seat, Controller:3-$seat);
+    DecisionQueueController::StoreVariable('CombatAttackerPlayer', strval(3 - $seat));
+    StoreCombatAttackerState('myField-0', 3 - $seat);
+    StoreCombatTargetState('theirField-0', 3 - $seat);
+    $champion->Damage = ObjectCurrentHP($champion) - 2;
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, 'heal in response to a survivable lethal attack');
+    AddCounters($seat, 'theirField-0', 'buff', 20);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', 'hold healing when it cannot stop lethal by itself');
+    $champion->Damage = 4;
+    // Compare the estimate to actual engine recovery, including saved refinement.
+    DecisionQueueController::StoreVariable('gaLKI_refinement', 2);
+    $activateAbilityAbilities['Tx8noEw78s:0']($seat);
+    check($champion->Damage === 0, 'Synchron effect heals the estimated amount');
+}
+// Free-play sequencing uses real declaration targets from both seat perspectives.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    AddField(3 - $seat, 'LMyKyVC2O9', Owner:3-$seat, Controller:3-$seat);
+    AddHand($seat, '1n3gygojwk');
+    $pass = ['mode'=>10001, 'cardID'=>'myHealth-0!CustomInput!Pass', 'playerID'=>$seat];
+    $defense = ['mode'=>10002, 'cardID'=>'myHand-0!FSM!', 'playerID'=>$seat];
+    $context = ['kind'=>'free-play', 'playerID'=>$seat];
+    check(GABotChooseAction([$defense, $pass], $context) === $pass, "P$seat saves prevention for a response");
+    AddHand($seat, '0op3nq0ymv');
+    $spell = ['mode'=>10002, 'cardID'=>'myHand-1!FSM!', 'playerID'=>$seat];
+    $opponent = GetField(3 - $seat)[0];
+    $opponent->Damage = ObjectCurrentHP($opponent) - 3;
+    $playerID = 3 - $seat;
+    check(GABotScoreHandPlay($seat, $spell) >= 10000, "P$seat recognizes lethal spell from engine targets");
+    check($playerID === 3 - $seat, "P$seat hand scoring restores perspective");
+    check(GABotChooseAction([$defense, $pass, $spell], $context) === $spell, "P$seat chooses lethal spell over prevention");
+    $playerID = $seat;
+    $opponent->removed = true;
+    check(GABotScoreHandPlay($seat, $spell) < 0, "P$seat holds damage when only friendly targets remain");
+    $enemyField = &GetField(3 - $seat); $enemyField = [];
+    AddField(3 - $seat, '5n874ubgai', Owner:3-$seat, Controller:3-$seat);
+    $enemy = GetField(3 - $seat)[0];
+    $enemy->Damage = max(0, ObjectCurrentHP($enemy) - 1);
+    check(GABotScoreHandPlay($seat, $spell) >= 65, "P$seat values removal of a vulnerable ally");
+    AddField($seat, '5n874ubgai', Owner:$seat, Controller:$seat);
+    $attack = ['mode'=>10002, 'cardID'=>'myField-1!FSM!', 'playerID'=>$seat];
+    check(GABotChooseAction([$attack, $spell, $pass], $context) === $spell, "P$seat removes a threat before routine attacking");
+    AddField(3 - $seat, 'LMyKyVC2O9', Owner:3-$seat, Controller:3-$seat);
+    $enemyChampion = GetField(3 - $seat)[1];
+    $enemyChampion->Damage = ObjectCurrentHP($enemyChampion) - 1;
+    check(GABotChooseAction([$attack, $spell, $pass], $context) === $spell, "P$seat prioritizes a lethal spell over an attack");
+
+}
+// Target previews share engine retaliation eligibility without changing combat.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    $opponent = 3 - $seat;
+    AddField($seat, 'thxvlynvy5', Owner:$seat, Controller:$seat);
+    AddField($opponent, 'thxvlynvy5', Owner:$opponent, Controller:$opponent);
+    AddField($opponent, '5n874ubgai', Owner:$opponent, Controller:$opponent);
+    $target = GetField($opponent)[0];
+    $ambusher = GetField($opponent)[1];
+    $target->Status = 1;
+    $ambusher->Status = 2;
+    $ambusher->TurnEffects[] = 'AMBUSH';
+    StoreCombatAttackerState('myField-1', $seat);
+    StoreCombatTargetState('theirField-1', $seat);
+    check(GABotRetaliationPower($seat, 'theirField-0') === intval(ObjectCurrentPower($ambusher)), "P$seat accounts for off-target Ambush retaliation");
+    check(DecisionQueueController::GetVariable('CombatTarget') === 'theirField-1', "P$seat target preview preserves committed target");
+    $ambusher->Status = 1;
+    check(GABotRetaliationPower($seat, 'theirField-0') === 0, "P$seat rested Ambush cannot retaliate");
+    $target->Status = 2;
+    check(GABotRetaliationPower($seat, 'theirField-0') === intval(ObjectCurrentPower($target)), "P$seat ready target can retaliate");
+    GetField($seat)[1]->CardID = 'qry41lw9n0';
+    check(GABotRetaliationPower($seat, 'theirField-0') === 0, "P$seat Blazing Bowman cannot be retaliated");
+    check(GetRetaliatorOptions($seat) === null, "P$seat existing engine caller retains retaliation restriction");
+}
+// Ring's optional draw should produce real card advantage without drawing into deck-out.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    AddField($seat, '2gv7DC0KID', Owner:$seat, Controller:$seat);
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Draw');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat holds Ring with an empty deck");
+    AddDeck($seat, 'rWhFC8XBaH');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat preserves the last card for a mandatory draw");
+    AddDeck($seat, 'rWhFC8XBaH');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat uses Ring when drawing is safe");
+    AddGlobalEffects($seat, 'ri955ygd5v_NO_DRAW');
+    [$blockedLegal, $blockedAction] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($blockedAction['cardID'] === 'PASS', "P$seat preserves Ring when drawing is prohibited");
+    $effects = &GetGlobalEffects($seat); $effects = [];
+    // Public draw limits apply regardless of which player controls the permanent.
+    AddField(3 - $seat, 'q8sdbzr5zs', Owner:3-$seat, Controller:3-$seat);
+    SetTurnNumber(2);
+    $turnIndex = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    $turnIndex['Draw'][$seat] = 3;
+    SetMacroTurnIndex(json_encode($turnIndex));
+    check(!GABotCanBenefitFromDraw($seat), "P$seat respects Tithe's draw cap");
+    $turnIndex['Draw'][$seat] = 2;
+    SetMacroTurnIndex(json_encode($turnIndex));
+    check(GABotCanBenefitFromDraw($seat), "P$seat can draw below Tithe's cap");
+    $enemyField = &GetField(3 - $seat); $enemyField = [];
+    AddField(3 - $seat, '5ckzgqa186', Owner:3-$seat, Controller:3-$seat);
+    AddField(3 - $seat, 'ka5av43ehj', Owner:3-$seat, Controller:3-$seat);
+    for ($i = 0; $i < 8; ++$i) AddMemory($seat, 'rWhFC8XBaH');
+    check(!GABotCanBenefitFromDraw($seat), "P$seat respects Mandate at eight influence");
+    GetField(3 - $seat)[0]->TurnEffects[] = 'NO_ABILITIES';
+    check(GABotCanBenefitFromDraw($seat), "P$seat ignores suppressed Mandate");
+    $enemyField = []; $memory = &GetMemory($seat); $memory = [];
+    $playerID = 3 - $seat;
+    check(GABotChooseAction($legal['actions'], $legal)['cardID'] === $choice && $playerID === 3 - $seat,
+        "P$seat Ring decision restores viewer perspective");
+    $playerID = $seat;
+    AddField($seat, 'Tx8noEw78s', Owner:$seat, Controller:$seat);
+    GABotOwnChampion($seat)->Damage = 2;
+    $heal = EncodeOpportunityAbilityChoice('myField-2', 0, 'Recover');
+    [$legal, $action] = offer('MZMAYCHOOSE', "$choice&$heal", 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $heal, "P$seat prioritizes useful recovery over Ring draw");
+    DecisionQueueController::StoreVariable('mzID', 'myField-1');
+    $activateAbilityAbilities['2gv7DC0KID:0']($seat);
+    check(GABotLiveCount(GetHand($seat)) === 1 && GABotLiveCount(GetDeck($seat)) === 1
+        && GABotLiveCount(GetBanish($seat)) === 1 && GetBanish($seat)[0]->CardID === '2gv7DC0KID'
+        && GABotLiveCount(GetField($seat)) === 2,
+        "P$seat Ring actually banishes itself and draws one card");
+}
+// Genbu spends reserve only to survive an otherwise lethal incoming attack.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    GetField($seat)[0]->CardID = '59ipqa91r2';
+    AddField($seat, 'k8bwlx70qj', Owner:$seat, Controller:$seat);
+    $genbu = GetField($seat)[1];
+    AddField(3 - $seat, '5n874ubgai', Owner:3-$seat, Controller:3-$seat);
+    for ($i = 0; $i < 3; ++$i) AddHand($seat, 'rWhFC8XBaH');
+    for ($i = 0; $i < 4; ++$i) AddGraveyard($seat, 'thxvlynvy5');
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Buff');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat saves Genbu reserve outside combat");
+    DecisionQueueController::StoreVariable('CombatAttackerPlayer', strval(3 - $seat));
+    StoreCombatAttackerState('myField-0', 3 - $seat);
+    StoreCombatTargetState('theirField-1', 3 - $seat);
+    $genbu->Damage = ObjectCurrentHP($genbu) - 1;
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat buffs Genbu to survive lethal combat");
+    $playerID = 3 - $seat;
+    check(GABotChooseAction($legal['actions'], $legal)['cardID'] === $choice && $playerID === 3 - $seat,
+        "P$seat Genbu scoring preserves viewer perspective");
+    $playerID = $seat;
+    $genbu->Damage = 0;
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat saves reserve against a nonlethal attack");
+    $genbu->Damage = ObjectCurrentHP($genbu) - 1;
+    AddCounters($seat, 'theirField-0', 'buff', 20);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, 'OpportunityWindowSecondResponse', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat holds Genbu buff when it cannot save the unit");
+    RemoveCounters($seat, 'theirField-0', 'buff', 20);
+    check(GABotGenbuDefenseScore($seat, $genbu) > 0, "P$seat recognizes a survivable threat again after power falls");
+    StoreCombatTargetState('theirField-0', 3 - $seat);
+    check(GABotGenbuDefenseScore($seat, $genbu) < 0, "P$seat does not buff Genbu to defend a different unit");
+    StoreCombatTargetState('theirField-1', 3 - $seat);
+    DecisionQueueController::StoreVariable('CombatDamageAmount', 2);
+    check(GABotGenbuDefenseScore($seat, $genbu) < 0, "P$seat does not buff after damage");
+    DecisionQueueController::StoreVariable('CombatDamageAmount', null);
+    $hand = &GetHand($seat); $hand = [];
+    check(!CanActivateAbility($seat, 'myField-1', 0), "P$seat respects Genbu reserve cost");
+    for ($i = 0; $i < 3; ++$i) AddHand($seat, 'rWhFC8XBaH');
+    $hp = ObjectCurrentHP($genbu);
+    DecisionQueueController::StoreVariable('mzID', 'myField-1');
+    $activateAbilityAbilities['k8bwlx70qj:0']($seat);
+    check(ObjectCurrentHP($genbu) === $hp + 4, "P$seat Genbu effect adds estimated life");
+    check(!CanActivateAbility($seat, 'myField-1', 0), "P$seat cannot reuse Genbu buff this turn");
+}
+// Coverage policies use public counts and own cards; exercise both seat perspectives.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    SetCurrentPhase('MAIN');
+    AddField($seat, 'T3cx65VM3D', Owner:$seat, Controller:$seat);
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Banish');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat preserves Orb against an empty hand");
+    AddHand(3-$seat, 'rWhFC8XBaH'); AddHand(3-$seat, 'rWhFC8XBaH');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat uses Orb to deny two opposing hand cards");
+    SetCurrentPhase('MAT');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat holds Orb before recollection");
+    SetCurrentPhase('MAIN'); SetTurnPlayer(3-$seat);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat conserves Orb outside its offensive turn");
+    $playerID = $seat;
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    $activateAbilityAbilities['T3cx65VM3D:0']($seat);
+    $playerID = 3-$seat;
+    $orbLegal = GABotLegalActions('decision-test', 3-$seat);
+    $orbAction = GABotChooseAction($orbLegal['actions'], $orbLegal);
+    check(GameValidateDecisionAnswer(3-$seat, $orbAction['cardID']), "P$seat Orb victim selects a legal pair");
+    $dq = new DecisionQueueController(); $dq->PopDecision(3-$seat);
+    $dq->ExecuteStaticMethods(3-$seat, $orbAction['cardID']);
+    check(GABotLiveCount(GetHand(3-$seat)) === 0 && GABotLiveCount(GetMemory(3-$seat)) === 2,
+        "P$seat Orb continuation moves chosen hand cards into memory");
+
+    resetBoard($seat);
+    GetField($seat)[0]->CardID = 'iq4d5vettc';
+    AddCounters($seat, 'myField-0', 'enlighten', 3);
+    for ($j=0; $j<3; ++$j) AddDeck($seat, 'rWhFC8XBaH');
+    $dynamic = json_decode(GetDynamicAbilities(GetField($seat)[0]), true);
+    $choice = EncodeOpportunityAbilityChoice('myField-0', $dynamic[0]['index'], 'Enlighten');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat Diana uses her available Enlighten ability");
+    AddGlobalEffects($seat, 'ri955ygd5v_NO_DRAW');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Diana preserves counters when draw is blocked");
+    $effects = &GetGlobalEffects($seat); $effects = [];
+    $deck = &GetDeck($seat); $savedDeck = $deck; $deck = array_slice($deck, 0, 1);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Enlighten preserves the last deck card");
+    $deck = $savedDeck;
+    GetField($seat)[0]->CardID = 'LMyKyVC2O9';
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat Enlighten coverage applies to other champions");
+    AddField($seat, 'IC3OU6vCnF', Owner:$seat, Controller:$seat);
+    check(GetDynamicAbilities(GetField($seat)[0]) === '', "P$seat Mana Limiter removes the Enlighten offer");
+    GetField($seat)[1]->removed = true;
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    DoActivatedAbility($seat, 'myField-0', $dynamic[0]['index']);
+    check(GetCounterCount(GetField($seat)[0], 'enlighten') === 0 && GABotLiveCount(GetHand($seat)) === 1,
+        "P$seat Enlighten spends three counters and draws through the engine");
+
+    resetBoard($seat);
+    GetField($seat)[0]->CardID = 'iq4d5vettc';
+    GetField($seat)[0]->Subcards = ['e3z4pyx8bd'];
+    $dynamic = json_decode(GetDynamicAbilities(GetField($seat)[0]), true);
+    $choice = EncodeOpportunityAbilityChoice('myField-0', $dynamic[0]['index'], 'LR');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Diana preserves lineage without a gun to materialize");
+    AddMaterial($seat, 'frzrplywc0');
+    for ($j=0; $j<5; ++$j) AddMemory($seat, 'rWhFC8XBaH');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat Diana releases lineage for an affordable gun");
+    AddCounters($seat, 'myField-0', 'enlighten', 3);
+    $shifted = EncodeOpportunityAbilityChoice('myField-0', $dynamic[0]['index'] + 1, 'LR');
+    [$legal, $action] = offer('MZMAYCHOOSE', $shifted, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $shifted, "P$seat identifies lineage release after Enlighten shifts its slot");
+    RemoveCounters($seat, 'myField-0', 'enlighten', 3);
+
+    AddField($seat, 'frzrplywc0', Owner:$seat, Controller:$seat);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Diana preserves lineage when already armed");
+    GetField($seat)[1]->removed = true;
+    $memory = &GetMemory($seat); $memory = [];
+    GetMaterial($seat)[0]->CardID = 'gmnmp5af09';
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Diana will not release for an unaffordable gun");
+    GetMaterial($seat)[0]->CardID = 'frzrplywc0';
+    for ($j=0; $j<5; ++$j) AddMemory($seat, 'rWhFC8XBaH');
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    DoActivatedAbility($seat, 'myField-0', $dynamic[0]['index']);
+    $legal = GABotLegalActions('decision-test', $seat);
+    $action = GABotChooseAction($legal['actions'], $legal);
+    check($action['cardID'] === 'myMaterial-0' && !in_array('e3z4pyx8bd', GetField($seat)[0]->Subcards),
+        "P$seat lineage release banishes Keen Huntress and selects the gun");
+    $dq = new DecisionQueueController(); $dq->PopDecision($seat); $dq->ExecuteStaticMethods($seat, $action['cardID']);
+    check(count(array_filter(GetField($seat), fn($obj) => !$obj->removed && $obj->CardID === 'frzrplywc0')) === 1,
+        "P$seat released gun materializes through engine");
+
+    resetBoard($seat);
+    GetField($seat)[0]->CardID = '59ipqa91r2';
+    AddField($seat, 'vzmnt0orxj', Owner:$seat, Controller:$seat);
+    AddField($seat, '5fnmnpavo4', Owner:$seat, Controller:$seat);
+    AddGraveyard($seat, 'thxvlynvy5');
+    for ($j=0; $j<20; ++$j) { AddDeck($seat, 'rWhFC8XBaH'); AddDeck(3-$seat, 'rWhFC8XBaH'); }
+    check(GABotPolarDepthsTarget($seat, true) === 'YES', "P$seat Fractal builds a live Sapphire quest safely");
+    $choice = EncodeOpportunityAbilityChoice('myField-2', 0, 'Sacrifice');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat activates Fractal for its graveyard plan");
+    AddGlobalEffects($seat, 'yuo7dbge3b');
+    check(GABotPolarDepthsTarget($seat, true) === null, "P$seat Fractal avoids redirected self mill");
+    $effects = &GetGlobalEffects($seat); $effects = [];
+    GetField($seat)[1]->TurnEffects[] = 'NO_ABILITIES';
+    check(GABotPolarDepthsTarget($seat, true) === null, "P$seat Fractal holds without an active quest plan");
+    GetField($seat)[1]->TurnEffects = [];
+    $deck = &GetDeck($seat); $deck = array_slice($deck, 0, 3);
+    check(GABotPolarDepthsTarget($seat, true) === null, "P$seat Fractal avoids unsafe self mill");
+    $enemyDeck = &GetDeck(3-$seat); $enemyDeck = array_slice($enemyDeck, 0, 2);
+    check(GABotPolarDepthsTarget($seat, true) === 'NO', "P$seat Fractal includes its own sacrifice in mill amount");
+    // Resolve cost then generated prompt; opponent is now exactly within mill range.
+    ActivatedAbilityCost($seat, 'myField-2', '5fnmnpavo4', 0);
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    $activateAbilityAbilities['5fnmnpavo4:0']($seat);
+    $legal = GABotLegalActions('decision-test', $seat);
+    $action = GABotChooseAction($legal['actions'], $legal);
+    check($action['cardID'] === 'NO', "P$seat selects opponent for finishing mill");
+    $dq = new DecisionQueueController(); $dq->PopDecision($seat); $dq->ExecuteStaticMethods($seat, $action['cardID']);
+    check(GABotLiveCount(GetDeck(3-$seat)) === 0 && GABotLiveCount(GetDeck($seat)) === 3,
+        "P$seat Fractal mills the opponent without touching own deck");
+}
 echo "Checks: $checks; failures: $failures\n";
 exit($failures ? 1 : 0);
