@@ -1,0 +1,8 @@
+{
+  "name": "ga-react-ui-trial",
+  "private": true,
+  "type": "module",
+  "scripts": {"build": "node build.mjs", "test": "node --test src/*.test.mjs", "serve": "python3 -m http.server 3211 --bind 127.0.0.1"},
+  "dependencies": {"react": "19.2.0", "react-dom": "19.2.0"},
+  "devDependencies": {"esbuild": "0.25.11"}
+}
