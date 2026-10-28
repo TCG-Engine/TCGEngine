@@ -200,3 +200,44 @@ Added [deck knowledge](bot-knowledge.md): submitted card counts minus known card
 These rules use counts and visible information, never hidden hand identities or
 ordered deck contents. Focused tests execute both seats and actual continuations;
 seeded evaluation remains the check for full-game progress and observed coverage.
+
+## Providence, Thurible, Incendiary Shot, and Clarent coverage
+
+- Lost Providence's field activation uses the safe-draw policy (ready source, legal
+  activation, no known draw blocker, and more than one card left in the deck).
+  This does not add a policy for playing it from the material deck.
+- Incendiary Shot uses the existing bullet-loading policy, now checking the engine's
+  activation legality. It loads only with an available unloaded gun; the engine's
+  mandatory target selection and loading continuation complete the action.
+- Purifying Thurible keeps two cards in hand and pays at most three reserve. It
+  pays three against a graveyard of at least three cards when the memory draw is
+  safe, or clears a smaller graveyard containing floating memory or Guo Jia's water
+  resources. Because the opponent chooses which cards to banish, this policy never
+  assumes it can pick a particular opposing card. Its number prompt recomputes and
+  bounds the payment. When affected by Thurible, the bot prefers to preserve its
+  own floating memory and, for Guo Jia, water cards.
+- Clarent, Sword of Peace responds to public, declared opposing targets for Mote
+  Sear, Voltaic Sphere, and Thunderclap. It preserves the last durability unless
+  its one point of prevention is estimated to save a unit, and avoids stacking
+  existing noncombat protection. Unknown spells and combat alone do not trigger
+  it. This is a conservative base-damage estimate, not a complete damage predictor:
+  empower, other replacements, redirection, and every other spell are not modeled.
+
+Focused tests run for both seats, including real cost/effect resolution. The
+policies read only public cards, the bot's own hand, and deck counts. The frozen
+baseline remains unchanged.
+
+Validation on 2026-10-28: 305 decision checks, 31 hidden-information checks, and
+three evaluation-harness tests passed. The full four-deck/five-seed/seat-swapped
+suite completed all 160 games without failures against `BotBaselines/2026-10-28`.
+The candidate won 83/160; this near-even result does not establish a strength gain.
+Mean chooser time was 0.469 ms versus baseline 0.387 ms; this comparison includes
+all changes since that baseline, including deck knowledge and earlier coverage.
+The slowest per-game p95 was 5.482 ms versus 6.283 ms (not a pooled percentile).
+
+Candidate activation offers/selected/declined were: Lost Providence 35/35/0,
+Thurible 1883/8/1875, Incendiary Shot 34/29/5, Clarent 1611/0/1611. All four had
+zero unsupported activation offers. Counts are chooser attempts, not unique
+activations or proof of resolution. Clarent's beneficial resolution was exercised
+by the focused tests, not selected in this match suite. Other prompts involving
+these cards (for example a separate card's search effect) may remain unsupported.

@@ -604,5 +604,134 @@ foreach ([1, 2] as $seat) {
     check(GABotLiveCount(GetDeck(3-$seat)) === 0 && GABotLiveCount(GetDeck($seat)) === 3,
         "P$seat Fractal mills the opponent without touching own deck");
 }
+// Resource activations and noncombat protection, exercised from both seat perspectives.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    AddField($seat, 'DNbIpzVgde', Owner:$seat, Controller:$seat);
+    GetField($seat)[1]->Status = 2;
+    for ($j=0; $j<3; ++$j) AddDeck($seat, 'rWhFC8XBaH');
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Banish');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat uses ready Lost Providence for a safe draw");
+    GetField($seat)[1]->Status = 1;
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat holds hindered Lost Providence");
+    GetField($seat)[1]->Status = 2;
+    AddGlobalEffects($seat, 'ri955ygd5v_NO_DRAW');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat preserves Providence when draw is blocked");
+    $effects = &GetGlobalEffects($seat); $effects = [];
+    $deck = &GetDeck($seat); $deck = array_slice($deck, 0, 1);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat preserves last deck card with Providence");
+    AddDeck($seat, 'rWhFC8XBaH');
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    ActivatedAbilityCost($seat, 'myField-1', 'DNbIpzVgde', 0);
+    $activateAbilityAbilities['DNbIpzVgde:0']($seat);
+    check(GABotLiveCount(GetBanish($seat)) === 1 && GABotLiveCount(GetHand($seat)) === 1,
+        "P$seat Providence pays banish cost and draws");
+
+    resetBoard($seat);
+    AddField($seat, '3qu7d6sopo', Owner:$seat, Controller:$seat);
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Load');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat holds Incendiary Shot without a gun");
+    AddField($seat, 'frzrplywc0', Owner:$seat, Controller:$seat);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat loads Incendiary Shot into an unloaded gun");
+    GetField($seat)[2]->Subcards = ['l75tlzsmw3'];
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat does not load into an already loaded gun");
+    GetField($seat)[2]->Subcards = [];
+    GetField($seat)[1]->Status = 1;
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat does not reuse a rested bullet");
+    GetField($seat)[1]->Status = 2;
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    DecisionQueueController::StoreVariable('mzID', 'myField-1');
+    $activateAbilityAbilities['3qu7d6sopo:0']($seat);
+    $legal = GABotLegalActions('decision-test', $seat); $action = GABotChooseAction($legal['actions'], $legal);
+    check(GameValidateDecisionAnswer($seat, $action['cardID']), "P$seat chooses a legal loading target");
+    $dq = new DecisionQueueController(); $dq->PopDecision($seat); $dq->ExecuteStaticMethods($seat, $action['cardID']);
+    check(in_array('3qu7d6sopo', GetField($seat)[1]->Subcards), "P$seat Shot becomes a loaded gun subcard");
+
+    resetBoard($seat);
+    AddField($seat, 'LeyUk5auEP', Owner:$seat, Controller:$seat);
+    for ($j=0; $j<5; ++$j) AddHand($seat, 'rWhFC8XBaH');
+    for ($j=0; $j<3; ++$j) AddDeck($seat, 'rWhFC8XBaH');
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Banish');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat holds Thurible against an empty graveyard");
+    for ($j=0; $j<3; ++$j) AddGraveyard(3-$seat, 'rWhFC8XBaH');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat uses Thurible for three banishes and memory draw");
+    [$legal, $action] = offer('NUMBERCHOOSE', '0|5', 'PurifyingThuriblePay', '', $seat);
+    check($action['cardID'] === '3', "P$seat Thurible chooses three instead of default zero");
+    $hand = &GetHand($seat); $hand = array_slice($hand, 0, 3);
+    check(GABotThuriblePayment($seat) === 0, "P$seat Thurible keeps two hand cards in reserve");
+    AddHand($seat, 'rWhFC8XBaH'); AddHand($seat, 'rWhFC8XBaH');
+    AddGlobalEffects($seat, 'ri955ygd5v_NO_DRAW');
+    check(GABotThuriblePayment($seat) === 0, "P$seat Thurible avoids paying three for a blocked draw");
+    $effects = &GetGlobalEffects($seat); $effects = [];
+    $grave = &GetGraveyard(3-$seat); $savedGrave = $grave; $grave = [];
+    AddGraveyard(3-$seat, 'aIbBhTilEN');
+    check(GABotThuriblePayment($seat) === 1, "P$seat Thurible cheaply clears floating memory");
+    $grave = $savedGrave;
+    AddGraveyard($seat, 'aIbBhTilEN'); AddGraveyard($seat, '0G32Pp5atK');
+    [$legal, $action] = offer('MZCHOOSE', 'myGraveyard', 'PurifyingThuribleBanish|' . (3-$seat) . '|1', '', $seat);
+    check($action['cardID'] === 'myGraveyard-1', "P$seat Thurible victim preserves floating memory");
+    // Resolve real payment prompts and the opposing banish decisions through the engine.
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    ActivatedAbilityCost($seat, 'myField-1', 'LeyUk5auEP', 0);
+    $activateAbilityAbilities['LeyUk5auEP:0']($seat);
+    for ($step=0; $step<20; ++$step) {
+        $legal = GABotLegalActions('decision-test', $seat);
+        if (($legal['kind'] ?? '') !== 'decision') break;
+        $pending = $legal['playerID']; $playerID = $pending;
+        $action = GABotChooseAction($legal['actions'], $legal);
+        check(GameValidateDecisionAnswer($pending, $action['cardID']), "P$seat Thurible continuation $step is legal");
+        $dq = new DecisionQueueController(); $dq->PopDecision($pending); $dq->ExecuteStaticMethods($pending, $action['cardID']);
+    }
+    check(GABotLiveCount(GetGraveyard(3-$seat)) === 0 && GABotLiveCount(GetBanish(3-$seat)) === 3
+        && GABotLiveCount(GetMemory($seat)) === 4 && GABotLiveCount(GetHand($seat)) === 2,
+        "P$seat Thurible pays three, draws into memory and banishes three opposing cards");
+
+    resetBoard($seat);
+    GetField($seat)[0]->CardID = 'TJTeWcZnsQ';
+    AddField($seat, 'm31WVJ9F04', Owner:$seat, Controller:$seat);
+    AddCounters($seat, 'myField-1', 'durability', 2);
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Prevent');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Clarent preserves durability without spell damage");
+    AddEffectStack('0G32Pp5atK', 3-$seat);
+    GetEffectStack()[0]->Counters['activationTargets'] = json_encode(['primary'=>[GATargetIdentity('myField-0')]]);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat Clarent responds to publicly targeted spell damage");
+    GetEffectStack()[0]->Controller = $seat;
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Clarent ignores own spell activations");
+    GetEffectStack()[0]->Controller = 3-$seat;
+    GetEffectStack()[0]->CardID = 'rWhFC8XBaH';
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Clarent does not guess unknown spell damage");
+    GetEffectStack()[0]->CardID = '0G32Pp5atK';
+    GetField($seat)[1]->Counters['durability'] = 1;
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Clarent preserves last durability against nonlethal damage");
+    GetField($seat)[0]->Damage = ObjectCurrentHP(GetField($seat)[0]) - 2;
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat Clarent spends last durability to survive lethal spell");
+    AddTurnEffect('myField-0', 'PREVENT_NONCOMBAT_1');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Clarent does not stack existing protection");
+    GetField($seat)[0]->TurnEffects = [];
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    ActivatedAbilityCost($seat, 'myField-1', 'm31WVJ9F04', 0);
+    $activateAbilityAbilities['m31WVJ9F04:0']($seat);
+    $before = GetField($seat)[0]->Damage;
+    OnDealDamage(3-$seat, 'EffectStack-0', 'myField-0', 2);
+    check(GetField($seat)[0]->Damage === $before + 1 && GetCounterCount(GetField($seat)[1], 'durability') === 0,
+        "P$seat Clarent spends durability and prevents one actual noncombat damage");
+}
 echo "Checks: $checks; failures: $failures\n";
 exit($failures ? 1 : 0);

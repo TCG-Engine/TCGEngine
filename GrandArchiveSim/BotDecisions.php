@@ -196,6 +196,50 @@ function GABotPolarDepthsTarget($player, $beforeSacrifice = false) {
     return null;
 }
 
+// Pay only to clear a small graveyard containing reusable resources, or to earn
+// the three-reserve draw. The opponent chooses its cards, so do not assume sniping.
+function GABotThuriblePayment($player) {
+    $grave = array_values(array_filter(GetGraveyard(3 - $player), fn($o) => $o !== null && empty($o->removed)));
+    $count = count($grave);
+    $spare = max(0, min(GABotLiveCount(GetHand($player)) - 2, CountAvailableReservePayments($player)));
+    if ($count === 0 || $spare === 0) return 0;
+    if ($count >= 3 && $spare >= 3 && GABotCanBenefitFromDraw($player)) return 3;
+    if ($count <= 3 && $count <= $spare) {
+        foreach ($grave as $obj) {
+            if (HasFloatingMemory($obj) || (EffectiveCardElement($obj) === 'WATER' && IsGuoJiaBonus(3 - $player))) {
+                if ($count < 3 || GABotCanBenefitFromDraw($player)) return $count;
+            }
+        }
+    }
+    return 0;
+}
+
+// Limited to three understood damage spells with publicly declared targets.
+// Preserve the last durability unless one prevention would save a unit.
+function GABotClarentScore($player, $source) {
+    foreach (GetLiveEffectStackEntries() as $entry) {
+        if ($entry->CardID === 'm31WVJ9F04' && intval($entry->Controller) === $player) return -1;
+    }
+    foreach (GetLiveEffectStackEntries() as $entry) {
+        if (intval($entry->Controller) === $player) continue;
+        $damage = ['0G32Pp5atK'=>2, '0op3nq0ymv'=>3, '0xm513tj3j'=>4][$entry->CardID] ?? 0;
+        if ($damage === 0) continue;
+        foreach (GADeclarationData($entry)['primary'] ?? [] as $identity) {
+            $ref = GATargetReference($identity);
+            $target = $ref === null ? null : GetZoneObject($ref);
+            if ($target === null || intval($target->Controller) !== $player) continue;
+            // Existing noncombat protection already covers this response. Do not stack it.
+            foreach ($target->TurnEffects ?? [] as $effect) {
+                if (str_starts_with($effect, 'PREVENT_NONCOMBAT_') || $effect === 'yj2rJBREH8') continue 2;
+            }
+            $amount = $entry->CardID === '0op3nq0ymv' && PropertyContains(EffectiveCardType($target), 'ALLY') ? 5 : $damage;
+            if (GABotRemainingHP($target) === $amount) return 110;
+            if (GetCounterCount($source, 'durability') > 1) return 35;
+        }
+    }
+    return -1;
+}
+
 // null means unsupported, negative means understood but undesirable. This distinction makes
 // coverage reports useful without labeling a deliberate pass as a missing implementation.
 function GABotOptionalScore($player, $answer, $legal) {
@@ -251,6 +295,16 @@ function GABotOptionalScore($player, $answer, $legal) {
                     }
                 }
             }
+            if ($source !== null && $ability['abilityIndex'] === 0 && $source->CardID === 'DNbIpzVgde') {
+                return CanActivateAbility($player, $ability['mzID'], 0) && GABotCanBenefitFromDraw($player)
+                    ? GABotDrawPriority($player) : -1;
+            }
+            if ($source !== null && $ability['abilityIndex'] === 0 && $source->CardID === 'LeyUk5auEP') {
+                return CanActivateAbility($player, $ability['mzID'], 0) && GABotThuriblePayment($player) > 0 ? 25 : -1;
+            }
+            if ($source !== null && $ability['abilityIndex'] === 0 && $source->CardID === 'm31WVJ9F04') {
+                return CanActivateAbility($player, $ability['mzID'], 0) ? GABotClarentScore($player, $source) : -1;
+            }
             if ($source !== null && $source->CardID === 'T3cx65VM3D' && $ability['abilityIndex'] === 0) {
                 // Deny two cards during our main phase, before our attacks. Cards moved to
                 // memory return at recollection, so do not fire just before that refresh.
@@ -281,8 +335,8 @@ function GABotOptionalScore($player, $answer, $legal) {
             // Starter bullets' REST: Load ability. The opportunity enumerator has checked speed
             // and activation costs; only take this known ability when an unloaded gun exists.
             if ($source !== null && $ability['abilityIndex'] === 0
-                && in_array($source->CardID, ['l75tlzsmw3', '4x7e22tk3i', '97n2jnltv5'], true)) {
-                return intval($source->Status) === 2 && !empty(GetUnloadedGuns($player)) ? 30 : -1;
+                && in_array($source->CardID, ['l75tlzsmw3', '4x7e22tk3i', '97n2jnltv5', '3qu7d6sopo'], true)) {
+                return CanActivateAbility($player, $ability['mzID'], 0) && !empty(GetUnloadedGuns($player)) ? 30 : -1;
             }
             return null;
         }
@@ -371,6 +425,11 @@ function GABotChooseDecision(array $actions, array $legal) {
     try {
         $type = $legal['decisionType'];
         $handler = $legal['handler'] ?? '';
+        if ($type === 'NUMBERCHOOSE' && $handler === 'PurifyingThuriblePay') {
+            $bounds = explode('|', $legal['param']);
+            $actions[0]['cardID'] = strval(max(intval($bounds[0]), min(intval($bounds[1] ?? 0), GABotThuriblePayment($player))));
+            return $actions[0];
+        }
         if ($type === 'MZREARRANGE' && $handler === 'GlimpseApply') {
             $actions[0]['cardID'] = GABotGlimpseChoice($player, $legal['param']);
             return $actions[0];
@@ -403,6 +462,14 @@ function GABotChooseDecision(array $actions, array $legal) {
             $candidates = array_column($actions, 'cardID');
             if (in_array($handler, ['MATERIALIZE', 'MATERIALIZE|NOCOST', 'WeaponSelected'], true) && $candidates[0] !== 'PASS') {
                 usort($candidates, fn($a, $b) => GABotOptionalScore($player, $b, $legal) <=> GABotOptionalScore($player, $a, $legal));
+                $choice = $candidates[0];
+            } elseif (str_starts_with($handler, 'PurifyingThuribleBanish|')) {
+                $value = function($mz) use ($player) {
+                    $obj = GetZoneObject($mz);
+                    return (HasFloatingMemory($obj) ? 100 : 0)
+                        + (IsGuoJiaBonus($player) && EffectiveCardElement($obj) === 'WATER' ? 50 : 0);
+                };
+                usort($candidates, fn($a, $b) => $value($a) <=> $value($b));
                 $choice = $candidates[0];
             } elseif (stripos($legal['tooltip'] ?? '', 'attack_target') !== false) {
                 $choice = GABotChooseCombatTarget($player, $candidates);
