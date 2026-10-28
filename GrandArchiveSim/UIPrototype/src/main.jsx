@@ -31,7 +31,7 @@ function App() {
  <dialog ref={dialog} onCancel={e=>{e.preventDefault();close();}} aria-labelledby="card-title"><div className="inspection"><button className="close" onClick={close} aria-label="Close card inspection">×</button><small>CARD INSPECTION</small><h2 id="card-title">{card?.name}</h2><div className="large-art" aria-hidden="true">{card?.symbol}</div><p>{card?.detail}</p>{card?.id==='forese'&&<button className="primary" disabled={!state.foreseReady||state.priority!=='you'} onClick={()=>{send('activate','forese');close();}}>Activate Forese</button>}{card?.zone==='Hand'&&<button className="primary" disabled={state.priority!=='you'} onClick={()=>{send('play',card.id);close();}}>Play {card.name}</button>}<button onClick={close}>Back to board</button></div></dialog></>;
 }
 function Trial() {
- const [live, setLive] = useState(false);
+ const [live, setLive] = useState(() => new URLSearchParams(window.location.hash.slice(1)).has('gameName'));
  return <><nav className="trial-bar" aria-label="Preview mode"><button onClick={() => setLive(!live)}>{live ? 'Return to simulated preview' : 'Open live viewer'}</button></nav>{live ? <LiveView/> : <App/>}</>;
 }
 createRoot(document.getElementById('ga-react-trial')).render(<Trial/>);

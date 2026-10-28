@@ -155,6 +155,13 @@ function GABotLegalActions($gameName, $player) {
             // click would only produce a no-op the controller then has to exclude and retry, so skip it here
             // (the flash message the check sets is preserved).
             if (function_exists('ActivationRefusedBeforeStart') && ActivationRefusedBeforeStart($player, $obj, false, true)) continue;
+            // Declaration can reject an otherwise playable card before paying costs.
+            // Do not repeatedly offer spells such as Undying Dreams on an ally-free board.
+            $specs = GAActivationTargetSpecs($player, $obj);
+            if (!is_array($specs)) continue;
+            foreach ($specs as $spec) {
+                if (count($spec['targets']) < $spec['min']) continue 2;
+            }
             $actions[] = ['playerID' => $player, 'mode' => 10002, 'cardID' => "myHand-$i!FSM!"];
         }
     }

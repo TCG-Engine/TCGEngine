@@ -30,6 +30,13 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
   <!-- Deck & Queue Section -->
   <div class="card ga-glass-card ga-queue-card">
     <h2>Create a New Game</h2>
+    <div id="ga-local-interface" hidden>
+      <label for="ga-interface-select">Match interface:</label>
+      <select id="ga-interface-select" class="ga-queue-select">
+        <option value="classic" selected>Classic</option>
+        <option value="prototype">React prototype (paused)</option>
+      </select>
+    </div>
     <div>
       <div style="margin-bottom: 10px;">
         <label for="ga-format-select" style="display:block; margin-bottom:6px; font-weight:500; font-size:13px;">Format:</label>
@@ -779,7 +786,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         updateRejoinLastGameUI();
       }
 
+      var gaLocalPrototype = ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname);
+      document.getElementById('ga-local-interface').hidden = !gaLocalPrototype;
+
       function buildGameUrl(playerID, gameName, authKey, fromMatch) {
+        if (gaLocalPrototype && document.getElementById('ga-interface-select').value === 'prototype') {
+          var preview = new URL(gaAppBase() + 'GrandArchiveSim/UIPrototype/', window.location.href);
+          // A fragment keeps the match key out of HTTP request URLs and referrers.
+          preview.hash = new URLSearchParams({ gameName: String(gameName), playerID: String(playerID), authKey: String(authKey || '') }).toString();
+          return preview.toString();
+        }
         var url = new URL(gaAppBase() + 'NextTurn.php', window.location.href);
         url.searchParams.set('playerID', String(playerID));
         url.searchParams.set('gameName', String(gameName));

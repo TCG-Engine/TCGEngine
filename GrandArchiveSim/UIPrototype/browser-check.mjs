@@ -51,7 +51,7 @@ for(const [width,height] of [[320,568],[390,844],[740,390],[1280,900]]){
  await page.getByText('Visible fixture card',{exact:true}).waitFor();
  await page.getByRole('button',{name:'Inspect Visible fixture card',exact:true}).click();
  await page.getByRole('dialog').getByText('Board reference <img src=x onerror=alert(1)>',{exact:true}).waitFor();
- assert.equal(await page.getByRole('dialog').locator('img').count(),0);
+ assert.equal(await page.getByRole('dialog').locator('img[src="x"]').count(),0);
  await page.keyboard.press('Escape');
  assert.equal(await page.getByRole('button',{name:'Inspect Visible fixture card',exact:true}).evaluate(el => el === document.activeElement),true);
  await page.getByRole('region',{name:'Pending effects'}).getByText('Public pending card',{exact:true}).waitFor();
@@ -63,6 +63,7 @@ for(const [width,height] of [[320,568],[390,844],[740,390],[1280,900]]){
  await page.getByText('4 hidden cards',{exact:true}).waitFor();
  await page.getByRole('region',{name:'Available card choices'}).getByText('Visible choice',{exact:true}).waitFor();
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+ await page.getByText('Connected · Match settings', {exact:true}).click();
  await page.getByRole('button',{name:'Disconnect',exact:true}).click();
  assert.equal(await page.getByText('Visible fixture card',{exact:true}).count(),0);
  // Exercise every new form family, including explicit confirmation and wire values.
@@ -94,7 +95,8 @@ for(const [width,height] of [[320,568],[390,844],[740,390],[1280,900]]){
   await page.getByRole('button',{name:'Confirm choice',exact:true}).click();
   await response;
   assert.deepEqual(submitted,example.expected);
-  await page.getByRole('button',{name:'Disconnect',exact:true}).click();
+  await page.getByText('Connected · Match settings', {exact:true}).click();
+ await page.getByRole('button',{name:'Disconnect',exact:true}).click();
  }
  await page.getByRole('button',{name:'Return to simulated preview',exact:true}).click();
  assert.deepEqual(errors,[]);console.log(`${engine.name()} ${width}px: layout, inspection, reminder, activation, waiting and reset passed`);await page.close();

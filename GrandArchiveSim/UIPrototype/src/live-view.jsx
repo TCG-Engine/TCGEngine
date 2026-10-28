@@ -6,7 +6,16 @@ export function LiveView() {
  const [store] = useState(() => createLiveViewStore({ request: requestLiveMatch }));
  const [credentials, setCredentials] = useState(null);
  const state = useSyncExternalStore(store.subscribe, store.getSnapshot);
- useEffect(() => () => store.disconnect(), [store]);
+ useEffect(() => {
+  const params = new URLSearchParams(window.location.hash.slice(1));
+  const gameName = params.get('gameName'), playerID = params.get('playerID'), authKey = params.get('authKey');
+  if (/^[0-9]+$/.test(gameName || '') && ['1', '2', 'S'].includes(playerID) && authKey) {
+   const connection = { gameName, playerID, authKey };
+   setCredentials(connection);
+   store.connect(connection);
+  }
+  return () => store.disconnect();
+ }, [store]);
  const connect = event => {
   event.preventDefault();
   const form = event.currentTarget;
@@ -15,22 +24,22 @@ export function LiveView() {
   store.connect(connection);
   form.reset();
  };
- useEffect(() => { if (state.status === 'error' || state.status === 'disconnected') setCredentials(null); }, [state.status]);
+ useEffect(() => { if (state.status === 'error') setCredentials(null); }, [state.status]);
  return <div className="app live-view"><header><strong>GRAND ARCHIVE</strong><span>Live match · Prototype</span></header>
- <section className="guide live-connection"><h1>{state.status === 'connected' ? 'Live match' : 'Live match viewer'}</h1>{state.status !== 'connected' && <p>Open this preview from your game server at GrandArchiveSim/UIPrototype/. Enter your match credentials to view its current board. The engine validates every action.</p>}
+ <details className="guide live-connection" open={state.status !== 'connected'}><summary>{state.status === 'connected' ? 'Connected · Match settings' : 'Connect to a match'}</summary><h1>{state.status === 'connected' ? 'Live match' : 'Live match viewer'}</h1>{state.status !== 'connected' && <p>Open this preview from your game server at GrandArchiveSim/UIPrototype/. Enter your match credentials to view its current board. The engine validates every action.</p>}
  <p role="status">{({ disconnected: 'Not connected.', connecting: 'Connecting…', connected: 'Connected · Updates every 2 seconds.', error: 'Connection lost or access denied. Check your credentials and reconnect.' })[state.status]}</p>
  {['disconnected', 'error'].includes(state.status) ? <form onSubmit={connect} className="connection-form" autoComplete="off">
  <label>Game number<input name="gameName" required pattern="[0-9]+" inputMode="numeric" /></label>
  <label>View as<select name="playerID"><option value="1">Player 1</option><option value="2">Player 2</option><option value="S">Spectator</option></select></label>
  <label>Match access key<input name="authKey" type="password" required autoComplete="off" /></label>
- <button className="primary">Connect</button></form> : <button onClick={() => store.disconnect()}>Disconnect</button>}
- {state.status !== 'connected' && <small>Credentials are kept in memory for this connection. Inspect cards before acting. Choices are sent only when you confirm them.</small>}</section>
+ <button className="primary">Connect</button></form> : <button onClick={() => { store.disconnect(); setCredentials(null); }}>Disconnect</button>}
+ {state.status !== 'connected' && <small>Manual credentials are kept in memory. Lobby links retain the match key in the address fragment so refreshing reconnects; keep that link private. Inspect cards before acting. Choices are sent only when you confirm them.</small>}</details>
  {state.match && <><p>Turn {state.match.turn} · {state.match.phase || 'Match'} · Player {state.match.turnPlayer}’s turn · Revision {state.match.revision}</p>
  {state.match.winner && <section className="live-attention" role="status"><h1>Player {state.match.winner} wins</h1><p>This game has ended.</p></section>}
  {state.match.combat?.attacker && <section className="stack" aria-label="Combat"><strong>{state.match.combat.attacker.name}</strong> attacking {state.match.combat.target?.name || '· choosing target'}</section>}
  {state.match.attention && !state.match.controls?.decision && !state.match.winner && <section className="live-attention" aria-label="Match attention" role="status"><strong>{state.match.attention.message}</strong></section>}
  {state.match.reveals?.length > 0 && <section className="stack" aria-label="Revealed cards"><h2>Revealed cards</h2>{state.match.reveals.map((card,index) => <details key={index}><summary>{card.name || 'Unknown card'}</summary><p className="printed-text">{card.printedText}</p></details>)}</section>}
- <section className="live-effect-stack" aria-label="Pending effects"><h2>Pending effects</h2>
+ <details role="region" className="live-effect-stack" aria-label="Pending effects" open={state.match.effectStack?.length > 0}><summary>Pending effects · {state.match.effectStack?.length || 0}</summary>
  <p>Newest first. Declared targets appear when the engine records them.</p>
  {state.match.effectStack?.length > 0 ? <ol>{state.match.effectStack.map((effect, index) => <li key={effect.id}>
  <strong>{effect.name || effect.cardID || 'Unknown card'}</strong>
@@ -40,7 +49,7 @@ export function LiveView() {
  <p>This is a card reference. It does not identify the pending ability, chosen targets, or copied and modified effects.</p>
  <p style={{whiteSpace: 'pre-wrap', overflowWrap: 'anywhere'}}>{effect.printedText || 'Printed text is unavailable for this card.'}</p>
  </details>
- </li>)}</ol> : <p>No pending stack entries. Combat or a decision may still be in progress.</p>}</section>
+ </li>)}</ol> : <p>No pending stack entries. Combat or a decision may still be in progress.</p>}</details>
  {!state.match.controls?.decision && state.match.choices?.length > 0 && <section aria-label="Available card choices"><h2>Available card choices</h2>
  <p>Review the effect in the existing match screen, then choose a card below.</p>
  <ul>{state.match.choices.map(card => <li key={card.id}><strong>{card.name || card.cardID}</strong> · Player {card.owner} · {card.zone}</li>)}</ul></section>}
@@ -55,7 +64,7 @@ export function LiveView() {
    {zone.count > zone.cards.length && <p>{zone.count - zone.cards.length} hidden cards</p>}
    {zone.count === 0 && <small>Empty</small>}
   </div>;
-  return primary ? <section key={name}><h2>{name} <small>{zone.count} cards</small></h2>{content}</section>
+  return primary ? <section className={`live-zone live-zone-${name.toLowerCase()}`} key={name}><h2>{name} <small>{zone.count} cards</small></h2>{content}</section>
    : <details className="secondary-zone" key={name}><summary>{name} · {zone.count} cards</summary>{content}</details>;
  })}
  </section>)}</div></LiveActions></>}

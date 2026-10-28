@@ -47,7 +47,8 @@ function LoadEmptyGoldfishLoadout($playerID) {
 // who goes first. Backward-compat: including this file with an ambient $lobby still auto-runs setup.
 function GASetupGame($lobby, $opts = []) {
     global $gameName;
-    $gameName = GetGameCounter(__DIR__ . '/Games', createGameDirectory: !GamestateUsesMemoryStorage());
+    // The generated writer persists a durable save even when APCu caches the state.
+    $gameName = GetGameCounter(__DIR__ . '/Games', createGameDirectory: true);
     InitializeGamestate();
     WriteGamestate(__DIR__ . "/");
     ParseGamestate(__DIR__ . "/");

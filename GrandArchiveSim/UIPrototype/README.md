@@ -105,3 +105,9 @@ remain outside this prototype. Pantheon remains on its separate branch.
 Performance comparison against the original renderer and real-device usability
 are still rollout gates. The React trial does not run in RL/self-play. Bundle
 size is reported by the build; a small payload is not proof of faster matches.
+
+### Launching from your own local browser
+
+Open `http://localhost:3200/TCGEngine/SharedUI/Sites/GrandArchiveSim/MainMenu.php`. On localhost, 127.0.0.1, or ::1, the lobby defaults to **Classic** while React work is paused. Select **React prototype (paused)** explicitly to try this screen. With the prototype selected, create, join, or rejoin a game to connect automatically. Choose **Classic** before launching to use the original screen. Other hosts retain the classic default. Build assets with `npm --prefix GrandArchiveSim/UIPrototype run build` before use. Port 3211 serves only the static demo.
+
+The lobby passes match credentials in the URL fragment (not sent in HTTP request URLs or referrers). Keep this URL private: it grants access to your seat. Refreshing the page reconnects to the same game. Manually entered credentials still remain in memory only.

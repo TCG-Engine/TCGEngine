@@ -5775,7 +5775,7 @@ $customDQHandlers["DanteHemomancerRecover"] = function($player, $parts, $lastDec
 
 // ============================================================================
 // Frostnip Pirouette (x79cuuw5vo): choose any amount of non-champion objects
-// and put a wither counter on each. Spellshroud-protected targets are excluded.
+// and put a wither counter on each. This is non-targeting; protected objects are included.
 // ============================================================================
 $customDQHandlers["FrostnipPirouetteWitherLoop"] = function($player, $params, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;

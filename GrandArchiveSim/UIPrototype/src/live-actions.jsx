@@ -29,7 +29,7 @@ export function LiveActions({ match, credentials, children }) {
  useEffect(() => { adapter.receive(match); }, [adapter, match]);
  const disabled = state.pending || state.revision !== match.revision;
  const cardCommands = state.commands.filter(command => /^(play|attack|ability):/.test(command.id));
- return <LiveActionContext.Provider value={{commands:cardCommands,disabled,command:id=>adapter.command(id,state.revision)}}><section className="decision live-controls" ref={panel} aria-label="Match actions">
+ return <LiveActionContext.Provider value={{commands:cardCommands,disabled,command:id=>adapter.command(id,state.revision)}}><div className="live-table-layout"><div className="live-board">{children}</div><section className="decision live-controls" ref={panel} aria-label="Match actions">
  <small className="eyebrow">{match.winner ? 'GAME COMPLETE' : match.controls?.decision ? 'YOUR DECISION' : match.attention?.message || 'MATCH ACTIONS'}</small>
  {match.controls?.decision && <LiveDecision key={match.revision} decision={match.controls.decision} disabled={state.pending || state.revision !== match.revision} onSubmit={answer => adapter.command('answer-decision', state.revision, answer)} />}
  {!match.controls?.decision && cardCommands.length > 0 && <p>Inspect a card to play, attack, or activate an ability.</p>}
@@ -38,5 +38,5 @@ export function LiveActions({ match, credentials, children }) {
  {state.pending && <p role="status">Waiting for the updated match…</p>}
  {state.notice && <p role="status">{state.notice}</p>}
  {state.error && <p role="alert">{state.error}</p>}
- </section>{children}</LiveActionContext.Provider>;
+ </section></div></LiveActionContext.Provider>;
 }

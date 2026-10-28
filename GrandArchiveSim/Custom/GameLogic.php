@@ -7076,7 +7076,7 @@ $customDQHandlers["FacetTogetherSacrifice"] = function($player, $parts, $lastDec
     if($count <= 0) return;
     global $playerID;
     $myZone = $player == $playerID ? "myField" : "theirField";
-    $weapons = ZoneSearch($myZone, ["WEAPON"]);
+    $weapons = FilterSpellshroudTargets(ZoneSearch($myZone, ["WEAPON"]));
     if(empty($weapons)) {
         // No weapon target, but still put sheen on mastery
         AddSheenToMastery($player, $count);
@@ -7821,7 +7821,7 @@ function OnCardActivated($player, $mzCard) {
         $decisionsBefore = [];
         if($isSpellCard) foreach(GetDecisionQueue($player) as $queuedBefore) $decisionsBefore[] = $queuedBefore;
         $resolutionAbility($player);
-        if($isSpellCard) GASpellshroudFilterNewDecisions($player, $decisionsBefore);
+        if($isSpellCard) GASpellshroudFilterNewDecisions($player, $decisionsBefore, $obj->CardID);
     }
     // Queue the deferred PREPARED tag (see the ATTACK branch above) only now -- AFTER the card's
     // own CardActivated ability macro just above has had the chance to queue its "Pay Prepare N?"
@@ -26508,13 +26508,34 @@ function GetRangedValue($obj) {
  */
 // Strip spellshroud objects from the explicit-target choices a Spell's opener just queued (decisions not in $decisionsBefore). A choice left with no legal target is dropped together with its
 // continuation (the CUSTOM handler queued right behind it), so the Spell fizzles instead of offering an illegal target.
-function GASpellshroudFilterNewDecisions($player, $decisionsBefore) {
+function GASpellshroudFilterNewDecisions($player, $decisionsBefore, $sourceCardID = null) {
+    // Audited non-targeting spell choices. Do not infer targeting from the chooser
+    // type, field zone, variable name, or tooltip. These spells have no targets.
+    // Keep this explicit rather than interpreting printed rules text at runtime.
+    static $nonTargetingChoices = [
+        'aIbBhTilEN' => true, // Return to the Archive: sacrifice a regalia
+        '4zEOAaLdap' => true, // Ethereal Absorption: return a regalia
+        'jgyx38zpl0' => true, // Bagua of Cardinal Fate: choose an ally
+        'N0ipz8UWwf' => true, // Spirit Blade: Ascension: return a Sword regalia
+        'NidqQ6MOuy' => true, // Lesser Boon of Parvati: put durability on a domain
+        'qaA3sXFRFY' => true, // Spirit's Blessing: return a regalia
+        'u1xhs5jwsl' => true, // Exorcise Curses: choose a lineage
+        'vZH2xr4yq2' => true, // Auspicious Manifestation: banish a Shenju
+        'x79cuuw5vo' => true, // Frostnip Pirouette: choose non-champions
+    ];
+    if(isset($nonTargetingChoices[$sourceCardID ?? ''])) return;
+    // These target PLAYERS. The UI represents each player with their champion;
+    // the champion's protection does not protect the player.
+    if(in_array($sourceCardID, ['4a8hl5dben', 'pgt4lhko8w', 'yuo7dbge3b'], true)) return;
     $queue = &GetDecisionQueue($player);
     for($i = 0; $i < count($queue); ++$i) {
         $decision = $queue[$i];
         if(in_array($decision, $decisionsBefore, true)) continue;
         if($decision->Type !== "MZCHOOSE" && $decision->Type !== "MZMAYCHOOSE") continue;
         if(!preg_match('/^(?:my|their)(?:Field)-\d+(?:&(?:my|their)Field-\d+)*$/', strval($decision->Param))) continue;
+        // Facet Together mixes a non-targeting sacrifice with a later weapon
+        // target. Exempt only the sacrifice continuation, never the whole spell.
+        if($sourceCardID === 'XmsEbk19Iu' && ($queue[$i + 1]->Param ?? '') === 'FacetTogetherSacrifice') continue;
         $options = explode("&", $decision->Param);
         $legal = FilterSpellshroudTargets($options);
         if(count($legal) === count($options)) continue;
