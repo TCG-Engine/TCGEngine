@@ -186,3 +186,11 @@ newhost/research/
 # LocalBugReportLib.php: Petranaki bug report store (both players' hidden cards) and the local package inbox
 SWUSim/BugReports/
 .bugreports/
+
+# Ship the Grand Archive card back; downloaded card art remains local.
+!GrandArchiveSim/concat/
+GrandArchiveSim/concat/*
+!GrandArchiveSim/concat/CardBack.webp
+!GrandArchiveSim/WebpImages/
+GrandArchiveSim/WebpImages/*
+!GrandArchiveSim/WebpImages/CardBack.webp

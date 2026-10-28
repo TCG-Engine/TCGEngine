@@ -10,6 +10,8 @@
 require_once __DIR__ . '/GameLayoutDevice.php';
 include __DIR__ . '/MatchClarity.php';
 include __DIR__ . '/RevealHistory.php';
+include __DIR__ . '/FieldRows.php';
+include __DIR__ . '/CleanUI.php';
 if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return; }
 ?>
 <style>

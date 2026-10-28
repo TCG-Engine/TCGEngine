@@ -1219,7 +1219,7 @@
 
      function getMobileFieldCards(field) {
           if (!field) return [];
-          return Array.prototype.filter.call(field.children, function(child) {
+          return Array.prototype.filter.call(field.querySelectorAll('[id]'), function(child) {
                return !!(child && child.id && /^(myField|theirField)-\d+$/.test(child.id) && child.querySelector('a > img:not(.counter-image-icon)'));
           });
      }
