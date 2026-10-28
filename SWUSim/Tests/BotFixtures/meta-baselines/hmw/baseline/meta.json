@@ -1,11 +1,11 @@
 {
- "frozen": "2026-10-19T03:35:58Z",
- "gitHead": "e5841b2d",
+ "frozen": "2026-10-28T13:07:15Z",
+ "gitHead": "ca527053d",
  "treeDirty": true,
  "arm": "superset+seeds:tb+pairs:pairs.txt",
- "games": 390,
+ "games": 664,
  "failed": 0,
- "matches": 196,
- "run": ".claude/tmp/hmw-meta-runs/baseline-v2",
- "note": "HMW meta baseline v2 (owner 2026-10-18): the HMW set now holds 2 events \u2014 melee 480807 Nexus Open: Homeworlds + 463642 Datacup II - El Abismo de Helm Wargames \u2014 196 matches where both lists are public (195 pairs, 1 rematch), 390 games, 0 failed. Full stack, superset, both seats, seed tb001. Styles: the owner's deck-by-deck labels where a curated hmw-meta-2026-09 fixture matches (480807 decks); 33 of the 50 new 463642 decks take the classifier's style (owner reviewed the flagged ones 2026-10-18: 'those three look fine'). Game code = HEAD e5841b2d; another session's uncommitted BotFeatures.php edit landed at 03:29:23Z, 1 min into the run \u2014 it only adds proposal group 'finalists' (variant-only), so no effect on a plain run. The 84 v1 games: 12 winners changed vs v1 (code changes since 2c43fbfe)."
+ "matches": 342,
+ "run": ".claude/tmp/hmw-meta-runs/hmw5-control-20261027",
+ "note": "HMW baseline v3 (owner 2026-10-28 'freeze now'): 5-event set (483483 + 489470 added 2026-10-27; new decks' classifier styles owner-approved). Run 04:57-05:31 UTC on HEAD ca527053d; the only uncommitted code edit, SWUSim/BotController.php step delay (1500/150 ms), landed mid-run and is client-only (self-play never reads it). 664 games, 0 failed."
 }

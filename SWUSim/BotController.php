@@ -141,10 +141,10 @@ function GameBotControllerMode() {
 
 // How long the client waits after a render before stepping a bot (Core/BotController.php). Room bots (Twin Suns
 // "Fill Seat with Bot") get a long pause so three bots don't resolve in one blink after the human acts; 1v1
-// Arenabot a short one. Owner request 2026-10-09.
+// Arenabot a short one. Owner request 2026-10-09; lowered from 1800/250 on 2026-10-28.
 function GameBotControllerStepDelayMs() {
-    if (SWUGameMode() === 'botpractice') return 250;
-    if (SWUHasBotSeats()) return 1800;
+    if (SWUGameMode() === 'botpractice') return 150;
+    if (SWUHasBotSeats()) return 1500;
     return 0;
 }
 

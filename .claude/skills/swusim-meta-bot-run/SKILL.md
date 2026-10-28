@@ -19,14 +19,14 @@ The skill takes ONE set tag. `<set>` below = the tag lowercased = the folder `SW
 
 | tag | status | size | one arm |
 |---|---|---|---|
-| **HMW** | **the current meta (owner 2026-10-26)** — every bot feature is measured here | 3 events (melee 480807, 463642, 480819), 273 real matches → 269 pairs → **538 games** | **~3–4 min** |
+| **HMW** | **the current meta (owner 2026-10-26)** — every bot feature is measured here | 5 events (melee 480807, 463642, 480819, 483483, 489470 — the last two added 2026-10-27), 342 real matches → 332 pairs → **664 games**. Arms from before 2026-10-27 played the 3-event set and do not pair with newer ones | **~3–4 min** |
 | ASH | **RETIRED 2026-10-26** — owner: "we dont have to run ASH metas anymore … we are 2 weeks into the HMW meta now". Run only if the owner explicitly asks for ASH. | 53 events, 9,933 matches → ~19,650 games | ~2.5 h |
 
 ## Owner policy — read first
 
 - **Measure a feature as a PAIR on today's code:** a plain `''` control arm and the variant arm(s), queued together. The frozen baseline
-  is context, not the comparison: it predates later code, and HMW's v2 baseline (196 matches / 390 games, `e5841b2d`) predates event
-  480819, so 77 matches have no baseline pair at all.
+  is context, not the comparison: it predates later code. HMW's current baseline is v3 (all 5 events, 664 games, `ca527053d`,
+  frozen 2026-10-28).
 - **Never re-freeze unasked** (Mode B).
 - **Reports are local `.md` files**, never an Artifact per run (owner 2026-10-13). Publish the matrix only when asked.
 - New bot features are default-OFF proposals measured this way; a measured null ships ON unless harmful (memory
