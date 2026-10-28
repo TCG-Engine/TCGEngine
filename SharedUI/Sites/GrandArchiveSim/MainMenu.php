@@ -1078,7 +1078,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
       // Embedded lists keep selection independent of FanOfIn availability.
       var GA_BOT_SAMPLE_DECKS = [
         {
-          "label": "Alice",
+          "label": "Alice — Ravishing Mill",
           "champion": "Alice",
           "source": {
             "deckId": "65021:24103",
@@ -1091,12 +1091,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 2,
             "ties": 0,
             "weightedScore": 1.024390243902439,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeIds": [
+              "fractal-ravishing-mill"
+            ],
+            "archetypeSource": "FanOfIn reference archetype matches"
           },
           "text": "# Main\n4 Lucca, Gateway Manager\n4 Cerulean Decree\n4 Fountain Bladehand\n4 Fracturize\n4 Frostbind\n4 Frostsworn Paladin\n2 Frozen Dismissal\n3 Ravishing Finale\n4 Refracting Missile\n4 Sift\n2 Song of Frost\n4 Spalling Cleanse\n4 Storm of Thorns\n4 Tidal Fractal\n3 Tidal Lock\n4 Weight of Looking Up\n2 Reckoning's Wake\n\n# Material\n1 Spirit of Water\n1 Nico, Rapture's Embrace\n1 Nico, Whiplash Allure\n1 Alice, Trifle's Royalty\n1 Enfeebling Orb\n1 Smoke Bombs\n1 The Looking Glass\n1 Magebane Lash\n1 Sablemere, Warden's Grip\n1 Temptation's Facade\n1 Inert Sword\n1 Palvor Sword\n\n# Sideboard\n1 Tariff Ring\n3 Augustine, Votary of Yore\n3 Memory Invocation\n1 Ravishing Finale\n2 Song of Frost\n3 Tweedledee, Contrarian Poet"
         },
         {
-          "label": "Allen",
+          "label": "Allen — Cats",
           "champion": "Allen",
           "source": {
             "deckId": "65543:25175",
@@ -1109,12 +1113,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 2,
             "ties": 2,
             "weightedScore": 0.1428571428571429,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeIds": [
+              "fractal-cats"
+            ],
+            "archetypeSource": "FanOfIn reference archetype matches"
           },
           "text": "# Main\n3 Bandit, Gaze Leader\n4 Blissful Calling\n1 Excalibur, Reflected Edge\n4 Forest Cake\n3 Protector Raccoon\n3 Slime Swarm\n4 Attune with the Winds\n2 Beseech the Winds\n4 Brisk Windtrotter\n4 Displace\n4 Fairy Whispers\n4 Modulating Cadence\n3 Pluming Crescendo\n4 Reclaim\n4 Rondo of the Wind\n4 Tribute Singer\n4 Wildgrowth Feline\n1 Zephyr\n\n# Material\n1 Spirit of Wind\n1 Silvie, Wilds Whisperer\n1 Allen, Beast Beckoner\n1 Clockwork Musicbox\n1 Grand Crusader's Ring\n1 Key Slime Pudding\n1 Portentous Tanggu\n1 Prismspire Scepter\n1 Wind Resonance Bauble\n1 Primal Whip\n1 ResonanTech Module\n1 Effigy of Gaia\n\n# Sideboard\n"
         },
         {
-          "label": "Arisanna",
+          "label": "Astra Arisanna — Starcalling",
           "champion": "Arisanna",
           "source": {
             "deckId": "62616:922",
@@ -1127,12 +1135,14 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 3,
             "ties": 1,
             "weightedScore": 1.8795180722891567,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeId": "1rrwu1n",
+            "archetypeSource": "FanOfIn strategy taxonomy"
           },
           "text": "# Main\n4 Dungeon Guide\n2 Fast Cure\n4 Floral Arrangement\n4 Gentle Respite\n2 Nascent Barrier\n4 Tend the Land\n4 Wisdom's Reprise\n4 Beseech the Winds\n4 Calming Breeze\n2 Stifling Gyre\n4 Three Visits\n4 Astra Sight\n3 Astral Seal\n4 Cometfall\n4 Cosmic Bolt\n3 Horticounter\n2 Meteor Strike\n2 Spellshield: Astra\n\n# Material\n1 Spirit of Serene Wind\n1 Arisanna, Herbalist Prodigy\n1 Arisanna, Master Alchemist\n1 Arisanna, Astral Zenith\n1 Ingredient Pouch\n1 Necklace of Foresight\n1 Nullifying Lantern\n1 Polaris, Twinkling Cauldron\n1 Safeguard Amulet\n1 Purifying Thurible\n1 Cosmic Astroscope\n1 Lost Providence\n\n# Sideboard\n1 Nascent Barrier\n3 Arrow Trap\n4 Scatter Essence\n2 Zephyr\n1 Astral Seal\n1 Lunar Conduit\n1 Noble Dissolution"
         },
         {
-          "label": "Ciel",
+          "label": "Ciel — Umbra Guardian / Coup",
           "champion": "Ciel",
           "source": {
             "deckId": "62616:7946",
@@ -1145,12 +1155,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 2,
             "ties": 1,
             "weightedScore": 1.9879518072289157,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeIds": [
+              "fractal-umbra-guardian--coup"
+            ],
+            "archetypeSource": "FanOfIn reference archetype matches"
           },
           "text": "# Main\n1 Abnegation\n4 Beguiling Coup\n4 Creative Shock\n4 Creative Tinder\n3 Cremation Ritual\n4 Devastating Blow\n4 Dungeon Guide\n4 Feu Awakening\n4 Flamme Sorcel\n1 Fluffy Shopkeep\n4 Gentle Respite\n4 Liminal Guide\n2 Regal Inquisition\n3 Resolute Stand\n3 Shieldroid\n3 Stalwart Shieldmate\n3 Topsy Decree\n1 Umbra Sight\n4 Vel-ocity Punch\n\n# Material\n1 Backup Charger\n1 Chalice of Blood\n1 Ciel, Loyal Valet\n1 Ciel, Mirage's Grave\n1 Ciel, Omenbringer\n1 Condemned Trinket\n1 Devouring Malice\n1 Lost Providence\n1 Manxome Armoire\n1 Vyra, Spirit of Fire\n1 Water Resonance Bauble\n1 Wind Resonance Bauble\n\n# Sideboard\n4 Disenchant\n1 Nullifying Lantern\n2 Pouvoir Absolu\n2 Reduce to Ash\n2 Regal Inquisition\n1 Resolute Stand\n1 Topsy Decree"
         },
         {
-          "label": "Dante",
+          "label": "Dante — Water Unique Allies / Ravishing Mill / Suited",
           "champion": "Dante",
           "source": {
             "deckId": "65625:12407",
@@ -1163,12 +1177,18 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 0,
             "ties": 2,
             "weightedScore": 0.9,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeIds": [
+              "fractal-water-allies--water-unique-allies",
+              "fractal-ravishing-mill",
+              "fractal-suited"
+            ],
+            "archetypeSource": "FanOfIn reference archetype matches"
           },
           "text": "# Main\n1 Heavy Swing\n1 Unbroken Droid\n4 Bleu, Ace of Diamonds\n4 Cerulean Decree\n3 Fountain Bladehand\n4 Fracturize\n2 Frostbind\n4 Frostsworn Paladin\n3 Jueying, Shadowmare\n1 Primordial Ritual\n3 Ravishing Finale\n4 Refracting Missile\n4 Sift\n4 Spalling Cleanse\n4 Storm of Thorns\n4 Tidal Fractal\n2 Tidal Lock\n4 Tweedledee, Contrarian Poet\n2 Weight of Looking Up\n3 Cheshire Cat, Impish Grin\n\n# Material\n1 Spirit of Water\n1 Nico, Rapture's Embrace\n1 Nico, Whiplash Allure\n1 Dante, Hematic Overdrive\n1 Enfeebling Orb\n1 Smoke Bombs\n1 The Looking Glass\n1 Magebane Lash\n1 Sablemere, Warden's Grip\n1 Temptation's Facade\n1 Inert Sword\n1 Palvor Sword\n\n# Sideboard\n2 Blanche, Sheltering Saint\n2 Disenchant\n1 Unbroken Droid\n1 Viridian Protective Trinket\n2 Augustine, Votary of Yore\n2 Revitalizing Cleanse\n3 Song of Frost"
         },
         {
-          "label": "Diana",
+          "label": "Diana — Water Aetherwing (Non-Carpsong)",
           "champion": "Diana",
           "source": {
             "deckId": "62616:22627",
@@ -1181,12 +1201,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 4,
             "ties": 1,
             "weightedScore": 1.7710843373493976,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeIds": [
+              "fractal-water-aetherwing--non-carpsong"
+            ],
+            "archetypeSource": "FanOfIn reference archetype matches"
           },
           "text": "# Main\n3 Aetheric Calibration\n4 Backstep\n4 Charge the Soul\n4 Prudent Nock\n2 Reposition\n2 Take Aim\n2 Uncanny Realization\n3 Frostsworn Paladin\n4 Cerulean Decree\n2 Drown in Aether\n4 Fracturize\n2 Frozen Dismissal\n4 Krustallan Archer\n2 Refreshing Charge\n4 Tactical Retreat\n2 Undercurrent Vantage\n4 Weaving Manastream\n2 Cell Sharpshooter\n3 Topsy Decree\n4 Virgil, Altered Future\n\n# Material\n1 Spirit of Water\n1 Diana, Aether Dilettante\n1 Diana, Judgment's Arrow\n1 Backup Charger\n1 Flash Grenade\n1 Mercurial Heart\n1 Diamond Ribbon\n1 Quickstep Treads\n1 Nullifying Lantern\n1 Smoke Bombs\n1 Aquamirage Whisper\n1 Seeker's Aetherwing\n\n# Sideboard\n1 Drown in Aether\n2 Expel the Departed\n2 Staggering Strike\n3 Snow White, Weiss Queen\n2 Morgan, Soul Guide\n1 Topsy Decree\n1 Refreshing Charge\n1 Nullifying Mirror"
         },
         {
-          "label": "Diao Chan",
+          "label": "Water Diao Chan — Fractal Burn",
           "champion": "Diao Chan",
           "source": {
             "deckId": "66557:115",
@@ -1199,12 +1223,14 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 0,
             "ties": 0,
             "weightedScore": 0.9,
-            "userSelected": true
+            "userSelected": true,
+            "archetypeId": "1m6tbwv",
+            "archetypeSource": "FanOfIn strategy taxonomy"
           },
           "text": "# Main\n4 Fractal of Insight\n3 Return to the Archive\n4 Shimmering Refraction\n4 Zhang Jiao, Way of Peace\n2 Throne-Keeper Bullfrog\n4 Burst Asunder\n1 Fractal of Intrusion\n4 Fractal of Rain\n4 Fractal of Snow\n4 Fracturize\n1 Jianyu, Fate's Premonition\n1 Captivating Opulence\n1 Fractal of Refreshment\n3 Memory Invocation\n4 Frostsworn Paladin\n4 Glimmering Refusal\n4 Hydrating Fractal\n4 Refracting Missile\n3 Spalling Cleanse\n2 Tidal Fractal\n\n# Material\n1 Spirit of Water\n1 Diao Chan, Enchantress\n1 Backup Charger\n1 Enfeebling Orb\n1 Wand of Frost\n1 Portentous Tanggu\n1 Safeguard Amulet\n1 Scepter of Fascination\n1 The Looking Glass\n1 Tariff Ring\n1 Prismspire Scepter\n1 Crystalline Mirror\n\n# Sideboard\n1 Orb of Hubris\n1 Nullifying Mirror\n1 Viridian Protective Trinket\n2 Gildas, Chronicler of Aesa\n1 Augustine, Votary of Yore\n3 Aenean Frozen Shunt"
         },
         {
-          "label": "Guo Jia",
+          "label": "Water Guo Jia — Genbu",
           "champion": "Guo Jia",
           "source": {
             "deckId": "66963:3753",
@@ -1217,12 +1243,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 1,
             "ties": 1,
             "weightedScore": 0.9333333333333333,
-            "userSelected": true
+            "userSelected": true,
+            "archetypeSource": "FanOfIn reference archetype matches",
+            "archetypeIds": [
+              "fractal-genbu"
+            ]
           },
           "text": "# Main\n2 Unbroken Mustang\n4 Cerulean Decree\n3 Engulf\n4 Fractal of Polar Depths\n4 Fractal of Rain\n4 Fracturize\n4 Frostsworn Paladin\n2 Memory Invocation\n2 Pelagic Fatestone\n2 Primordial Ritual\n4 Refracting Missile\n4 Resonating Fugue\n4 Seaside Ringleader\n3 Sift\n2 Song of Frost\n3 Spalling Cleanse\n2 Strategem of Myriad Ice\n2 Throne-Keeper Bullfrog\n2 Tidal Lock\n4 Tidestone Bovine\n\n# Material\n1 Spirit of Water\n1 Guo Jia, Chosen Disciple\n1 Guo Jia, Blessed Scion\n1 Guo Jia, Heaven's Favored\n1 Enfeebling Orb\n1 Grand Crusader's Ring\n1 Portentous Tanggu\n1 Safeguard Amulet\n1 Smoke Bombs\n1 Tabula of Salvage\n1 Extinguishing Synchron\n1 Fabled Sapphire Fatestone\n\n# Sideboard\n1 Beastbond Boots\n4 Expel the Departed\n1 Unbroken Mustang\n1 Engulf\n2 Revitalizing Cleanse\n2 Song of Frost\n2 Excalibur, Cleansing Light"
         },
         {
-          "label": "Jin",
+          "label": "Exia Jin — Seething / Enrage Recovery",
           "champion": "Jin",
           "source": {
             "deckId": "62616:802",
@@ -1235,12 +1265,14 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 1,
             "ties": 3,
             "weightedScore": 1.927710843373494,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeId": "7y24dq",
+            "archetypeSource": "FanOfIn strategy taxonomy"
           },
           "text": "# Main\n4 Dungeon Guide\n1 Fast Cure\n2 Incapacitate\n1 Leading Charge\n4 Reprogram\n4 Tune Up\n4 Creative Shock\n4 Creative Tinder\n4 Vel-ocity Punch\n2 Annihilation\n3 Cardiac Vessel\n4 Devil's Lifeline\n3 Enrage\n1 Exia Sight\n2 Hemorrhaging Rend\n4 Mend Flesh\n3 Proof of Life\n2 Relentless Outburst\n4 Seething Intercession\n2 Vascular Collapse\n3 Regal Inquisition\n\n# Material\n1 Spirit of Serene Fire\n1 Jin, Fate Defiant\n1 Jin, Zealous Maverick\n1 Jin, Undying Resolve\n1 Backup Charger\n1 Chalice of Blood\n1 Drawn Blade\n1 Nullifying Lantern\n1 Quicksilver Grail\n1 Berserker Plate\n1 Shuang Ji of Sacrifice\n1 Tome of Abyssal Heaven\n\n# Sideboard\n1 Imperial Seal\n3 Nascent Blast\n2 Topsy Decree\n1 Vascular Collapse\n1 Aenean Repudiation\n4 Dynastic Whirlpool\n1 Regal Inquisition"
         },
         {
-          "label": "Kongming",
+          "label": "Kongming — Tera Mage",
           "champion": "Kongming",
           "source": {
             "deckId": "62616:21421",
@@ -1253,12 +1285,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 4,
             "ties": 1,
             "weightedScore": 1.1204819277108435,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeIds": [
+              "fractal-tera-mage"
+            ],
+            "archetypeSource": "FanOfIn reference archetype matches"
           },
           "text": "# Main\n4 Angel Attendant\n4 Angelic Channeling\n4 Dungeon Guide\n4 Liminal Guide\n4 Gentle Respite\n1 Turbo Charge\n1 Escharotomy\n4 Ignite the Soul\n4 Shizun of the Ash\n4 Creative Shock\n4 Creative Tinder\n2 Reduce to Ash\n4 Fireball\n4 Tera Sight\n2 Bagua of Vital Demise\n3 Magnificent Banquet\n4 Verdure of Preservation\n3 Flourishing Qi\n\n# Material\n1 Fragmented Spirit of Fire\n1 Kongming, Wayward Maven\n1 Kongming, Ascetic Vice\n1 Kongming, Fel Eidolon\n1 Backup Charger\n1 Prismspire Scepter\n1 Tariff Ring\n1 Safeguard Amulet\n1 Fan of Seven Debts\n1 Lost Providence\n1 Chime of Endless Dreams\n1 Vernal Talisman\n\n# Sideboard\n4 Aenean Ward\n2 Disenchant\n4 Solar Providence\n1 Crumbling Reign\n4 Cremation Ritual"
         },
         {
-          "label": "Lorraine",
+          "label": "Fire Lorraine — Red Hare",
           "champion": "Lorraine",
           "source": {
             "deckId": "62616:388",
@@ -1271,12 +1307,14 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 1,
             "ties": 2,
             "weightedScore": 1.9759036144578312,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeId": "939fom",
+            "archetypeSource": "FanOfIn strategy taxonomy"
           },
           "text": "# Main\n3 Cheshire Cat, Impish Grin\n3 Deflecting Edge\n4 Arthur, Young Heir\n4 Blazing Throw\n4 Dazzling Courtesan\n3 Hasty Messenger\n2 Intensified Pyre\n4 Jianye, Dawn's Keep\n4 March Hare, Mottled Host\n4 Peppered Chef\n4 Plutus, Fortune's Favor\n4 Red Hare, Unrivaled Stallion\n4 Rending Flames\n1 Restorative Flame\n4 Rococo, Explosive Maven\n4 Singed Emotions\n4 Vermilion Decree\n\n# Material\n1 Spirit of Fire\n1 Lorraine, Wandering Warrior\n1 Clarent, Reimagined\n1 Clarent, Sword of Peace\n1 Safeguard Amulet\n1 Smoke Bombs\n1 Tariff Ring\n1 The Looking Glass\n1 Water Resonance Bauble\n1 Inert Sword\n1 Sword of Shadows\n1 Death Essence Amulet\n\n# Sideboard\n1 Lorraine, Blademaster\n1 Nullifying Mirror\n1 Infernal Vessel\n3 Break the Line\n1 Deflecting Edge\n2 Dodge Roll"
         },
         {
-          "label": "Merlin",
+          "label": "Merlin — Fire Aggro",
           "champion": "Merlin",
           "source": {
             "deckId": "62616:7703",
@@ -1289,12 +1327,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 4,
             "ties": 0,
             "weightedScore": 1.2771084337349397,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeIds": [
+              "fractal-fire-aggro"
+            ],
+            "archetypeSource": "FanOfIn reference archetype matches"
           },
           "text": "# Main\n3 Gildas, Chronicler of Aesa\n3 Incapacitate\n3 Protect Her At All Costs\n4 Arthur, Young Heir\n4 Blazing Throw\n4 Fiery Interference\n2 Flickering Afterglow\n3 Heated Vengeance\n4 Hot Cake\n4 Intensified Pyre\n3 March Hare, Mottled Host\n4 Molten Echo\n3 Mote Sear\n2 Peppered Chef\n4 Red Hare, Unrivaled Stallion\n2 Reduce to Ash\n4 Rococo, Explosive Maven\n2 Tweedledum, Rattled Dancer\n2 Xiao Qiao, Cinderkeeper\n\n# Material\n1 Spirit of Fire\n1 Merlin, Memorite Vassal\n1 Grand Crusader's Ring\n1 Nullifying Mirror\n1 Poisoned Dagger\n1 Prismspire Scepter\n1 Safeguard Amulet\n1 Smoke Bombs\n1 Fanned Synchron\n1 Viridian Protective Trinket\n1 Impact Hammer\n1 Varuckan Soulknife\n\n# Sideboard\n2 Blanche, Sheltering Saint\n2 Exploit Vulnerability\n2 Sadi, Blood Harvester\n1 Censer of Restful Peace\n1 Tariff Ring\n1 Infernal Vessel"
         },
         {
-          "label": "Mordred",
+          "label": "Mordred — Razorgale",
           "champion": "Mordred",
           "source": {
             "deckId": "62616:179",
@@ -1307,12 +1349,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 3,
             "ties": 1,
             "weightedScore": 1.4578313253012047,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeIds": [
+              "fractal-razorgale"
+            ],
+            "archetypeSource": "FanOfIn reference archetype matches"
           },
           "text": "# Main\n2 Break the Line\n4 Distilled Water\n2 Floral Arrangement\n1 Fluffy Shopkeep\n1 Incapacitate\n1 Obscured Offering\n3 Rictus Tiding\n2 Turbo Charge\n3 Aesan Protector\n3 Cyclical Breeze\n2 Ensnaring Fumes\n4 Fairy Whispers\n1 Innervate Agility\n4 Razorgale Calling\n4 Reclaim\n2 Scatter Essence\n4 Scout the Land\n3 Speed Potion\n1 StrideTech W\n3 Three Visits\n4 Veiling Breeze\n1 Verdigris Decree\n4 Windmill Engineer\n2 Zephyr\n\n# Material\n1 Spirit of Wind\n1 Arisanna, Herbalist Prodigy\n1 Mordred, Flawless Blade\n1 Backup Charger\n1 Candlelight Hourglass\n1 Essence Crucible\n1 Grand Crusader's Ring\n1 Ingredient Pouch\n1 Nullifying Mirror\n1 Safeguard Amulet\n1 Viridian Protective Trinket\n1 Purifying Thurible\n\n# Sideboard\n1 Nullifying Lantern\n1 Obscured Offering\n2 Blessed Clergy\n2 Calming Breeze\n2 Cleansing Reunion\n1 Innervate Agility\n1 Scatter Essence\n2 Stifling Gyre\n1 Verdigris Decree"
         },
         {
-          "label": "Nico",
+          "label": "Nico — Ravishing Mill",
           "champion": "Nico",
           "source": {
             "deckId": "62616:792",
@@ -1325,12 +1371,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 5,
             "ties": 0,
             "weightedScore": 1.6385542168674698,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeIds": [
+              "fractal-ravishing-mill"
+            ],
+            "archetypeSource": "FanOfIn reference archetype matches"
           },
           "text": "# Main\n1 Blanche, Sheltering Saint\n2 Eight of Spades\n1 Unbroken Droid\n3 Cerulean Decree\n3 Diffusive Block\n3 Fountain Bladehand\n4 Fractal of Rain\n4 Fracturize\n2 Frostbind\n4 Frostsworn Paladin\n2 Frozen Dismissal\n4 Memory Invocation\n2 Primordial Ritual\n3 Ravishing Finale\n4 Refracting Missile\n3 Spalling Cleanse\n4 Storm of Thorns\n2 Throne-Keeper Bullfrog\n4 Tidal Fractal\n2 Tidal Lock\n3 Tweedledee, Contrarian Poet\n\n# Material\n1 Sabrina, Spirit of Water\n1 Nico, Rapture's Embrace\n1 Nico, Whiplash Allure\n1 Backup Charger\n1 Enfeebling Orb\n1 Nullifying Lantern\n1 Quicksilver Grail\n1 Smoke Bombs\n1 Magebane Lash\n1 Sablemere, Warden's Grip\n1 Temptation's Facade\n1 Vaporjet Shield\n\n# Sideboard\n1 Tariff Ring\n1 Blanche, Sheltering Saint\n1 Hulking Rearguard\n1 Unbroken Droid\n2 Augustine, Votary of Yore\n2 Delusional Vapors\n2 Glacial Evocation\n2 Song of Frost\n1 Stillwater Patrol"
         },
         {
-          "label": "Polkhawk",
+          "label": "Polkhawk — Suited",
           "champion": "Polkhawk",
           "source": {
             "deckId": "66494:28812",
@@ -1343,12 +1393,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 2,
             "ties": 1,
             "weightedScore": 0.5652173913043479,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeIds": [
+              "fractal-suited"
+            ],
+            "archetypeSource": "FanOfIn reference archetype matches"
           },
           "text": "# Main\n2 Four of Spades\n4 Misty, the Joker\n3 Noire, Ace of Spades\n4 Rictus Tiding\n2 Three of Spades\n3 Two of Spades\n1 Peppered Chef\n2 Rouge, Ace of Hearts\n4 Straight Flare\n1 Verita, Queen of Hearts\n2 Clover Treehouse\n2 Five of Clubs\n2 Four of Clubs\n4 Shamrock Forest\n2 Six of Clubs\n3 Skirting Step\n2 Stifling Trap\n1 StrideTech W\n4 Three of Clubs\n2 Trefle, Queen of Clubs\n2 Trefoil Tower\n2 Two of Clubs\n2 Veiled Dash\n2 Veiling Breeze\n1 Verte, Ace of Clubs\n2 Zephyr\n\n# Material\n1 Spirit of Wind\n1 Polkhawk, Boisterous Riot\n1 Fire Resonance Bauble\n1 Grand Crusader's Ring\n1 Tariff Ring\n1 Viridian Protective Trinket\n1 Wind Resonance Bauble\n1 Flash Grenade\n1 Navigation Compass\n1 Smoke Bombs\n1 The Duchess's Thornes\n1 Purifying Thurible\n\n# Sideboard\n1 Censer of Restful Peace\n2 Nightframe, Hound's Bike\n1 Nullifying Mirror\n1 Safeguard Amulet\n1 Trump Set\n1 Escharotomy\n2 Dream Fairy"
         },
         {
-          "label": "Rai",
+          "label": "Rai — Ravishing Mill",
           "champion": "Rai",
           "source": {
             "deckId": "64788:5327",
@@ -1361,12 +1415,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 1,
             "ties": 0,
             "weightedScore": 0.9444444444444444,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeIds": [
+              "fractal-ravishing-mill"
+            ],
+            "archetypeSource": "FanOfIn reference archetype matches"
           },
           "text": "# Main\n4 Lucca, Gateway Manager\n1 Unbroken Droid\n3 Cheshire Cat, Impish Grin\n3 Cerulean Decree\n3 Diffusive Block\n3 Fountain Bladehand\n4 Fracturize\n2 Frostbind\n4 Frostsworn Paladin\n2 Frozen Dismissal\n3 Ravishing Finale\n4 Refracting Missile\n4 Sift\n2 Song of Frost\n4 Spalling Cleanse\n4 Storm of Thorns\n4 Tidal Fractal\n3 Tidal Lock\n4 Weight of Looking Up\n\n# Material\n1 Spirit of Water\n1 Nico, Rapture's Embrace\n1 Nico, Whiplash Allure\n1 Rai, Mana Weaver\n1 Enfeebling Orb\n1 Smoke Bombs\n1 The Looking Glass\n1 Magebane Lash\n1 Sablemere, Warden's Grip\n1 Temptation's Facade\n1 Inert Sword\n1 Palvor Sword\n\n# Sideboard\n1 Tariff Ring\n2 Blanche, Sheltering Saint\n3 Augustine, Votary of Yore\n2 Glacial Evocation\n3 Memory Invocation\n2 Tweedledee, Contrarian Poet"
         },
         {
-          "label": "Silvie",
+          "label": "Tera Silvie — Slimes",
           "champion": "Silvie",
           "source": {
             "deckId": "62616:260",
@@ -1379,12 +1437,14 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 3,
             "ties": 0,
             "weightedScore": 1.5542168674698795,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeId": "1p7pw7l",
+            "archetypeSource": "FanOfIn strategy taxonomy"
           },
           "text": "# Main\n4 Baby Gray Slime\n4 Baby Silver Slime\n2 Blanche, Sheltering Saint\n4 Dungeon Guide\n3 Escape the Wreckage\n2 Forest Cake\n4 Limitless Slime\n1 Undeniable Truth\n4 Baby Red Slime\n1 CookTech Mixer\n4 Creative Shock\n4 Cremation Ritual\n2 Fling Food\n2 Hot Cake\n2 Red Slime\n4 Slime Eruption\n3 Vel-ocity Punch\n4 Storm Slime\n4 Ethereal Slime\n2 Lustrous Slime\n1 Slime King\n\n# Material\n1 Spirit of Fire\n1 Silvie, Wilds Whisperer\n1 Silvie, With the Pack\n1 Silvie, Slime Sovereign\n1 Backup Charger\n1 Beastbond Boots\n1 Quicksilver Grail\n1 Fanned Synchron\n1 Covenant of Thorns\n1 Gaia's Blessing\n1 Horn of Beastcalling\n1 Stonescale Band\n\n# Sideboard\n1 Tariff Ring\n2 Annul Spell\n2 Mystic Purifier\n2 Regal Inquisition\n2 Resolute Stand\n2 Spurn to Ash\n2 Hymn of Gaia's Grace"
         },
         {
-          "label": "Tonoris",
+          "label": "Tonoris — Neos Domains",
           "champion": "Tonoris",
           "source": {
             "deckId": "65654:5585",
@@ -1397,12 +1457,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 1,
             "ties": 1,
             "weightedScore": 1.2567567567567568,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeIds": [
+              "fractal-neos--domains"
+            ],
+            "archetypeSource": "FanOfIn reference archetype matches"
           },
           "text": "# Main\n3 Academy Guide\n4 Dungeon Guide\n4 Edge of Tomorrow\n4 Epicurean Institute\n2 Exalted Dorumegian Throne\n4 Hub of Innovation\n3 The Eternal Kingdom\n2 Topsy Decree\n3 Tune Up\n2 Cryogenic Ritual\n4 Dormant Sacrificial Altar\n3 Engulf\n4 Fracturize\n3 Song of Frost\n4 Atmos Armor Type-Ares\n2 Automata Genesis\n3 Blade of Creation\n3 Cordelia, Aurous Kaiser\n4 Neos Sight\n\n# Material\n1 Spirit of Water\n1 Tonoris, Lone Mercenary\n1 Tonoris, Might of Humanity\n1 Tonoris, Genesis Aegis\n1 Backup Charger\n1 Chalice of Blood\n1 Lost Providence\n1 Nullifying Lantern\n1 Reciprocity, Dorumegia's Call\n1 Safeguard Amulet\n1 Wayfinder's Map\n1 Archon Broadsword\n\n# Sideboard\n3 Aenean Repudiation\n2 Mad Tea Party\n3 Frostbind\n3 Storm of Thorns\n2 Iron Halo, Forcefield Node\n2 Throne Sentinel"
         },
         {
-          "label": "Tristan",
+          "label": "Tristan — Shadowstrike",
           "champion": "Tristan",
           "source": {
             "deckId": "62616:7368",
@@ -1415,12 +1479,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 3,
             "ties": 1,
             "weightedScore": 1.3493975903614457,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeIds": [
+              "fractal-shadowstrike"
+            ],
+            "archetypeSource": "FanOfIn reference archetype matches"
           },
           "text": "# Main\n4 Dungeon Guide\n4 Sadi, Blood Harvester\n4 Incapacitate\n3 Slice and Dice\n2 Mastermind Scheme\n1 Regal Inquisition\n1 Turbo Charge\n3 Shadowstrike\n4 Surveil the Winds\n4 Winbless Lookout\n4 Windmill Engineer\n4 Fairy Whispers\n3 Dream Fairy\n3 Aesan Protector\n3 Reclaim\n3 Calming Breeze\n3 Scatter Essence\n2 Stifling Trap\n2 Veiling Breeze\n1 Ensnaring Fumes\n1 Innervate Agility\n1 Zephyr\n\n# Material\n1 Brissa, Spirit of Wind\n1 Tristan, Underhanded\n1 Tristan, Hired Blade\n1 Tristan, Shadowdancer\n1 Assassin's Ripper\n1 Backup Charger\n1 Lost Providence\n1 Purifying Thurible\n1 Windwalker Boots\n1 Shadow's Claw\n1 Nullifying Lantern\n1 Smoke Bombs\n\n# Sideboard\n1 Nullifying Mirror\n1 Viridian Protective Trinket\n2 Regal Inquisition\n1 Mastermind Scheme\n1 Heavenly Guide\n1 Shadowstrike\n2 Stifling Gyre\n1 Stifling Trap\n1 Ensnaring Fumes"
         },
         {
-          "label": "Vanitas",
+          "label": "Vanitas — Mounted Allies",
           "champion": "Vanitas",
           "source": {
             "deckId": "65654:21223",
@@ -1433,12 +1501,14 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 1,
             "ties": 1,
             "weightedScore": 1.3783783783783783,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeId": "fr1vlk",
+            "archetypeSource": "FanOfIn strategy taxonomy"
           },
           "text": "# Main\n4 Dungeon Guide\n2 Fluffy Shopkeep\n4 Liminal Guide\n4 Return to the Archive\n4 Tune Up\n4 Creative Shock\n4 Creative Tinder\n3 Lavasoul Tiger\n3 Red Hare, Unrivaled Stallion\n4 Searing Rebuke\n2 Varuckan Acolyte\n4 Vel-ocity Punch\n3 Volda, Smolder's Spite\n2 Beseech the Winds\n4 Brisk Windtrotter\n4 Dilu, Auspicious Charger\n3 Stifling Gyre\n2 Stifling Trap\n\n# Material\n1 Spirit of Fire\n1 Vanitas, Obliviate Schemer\n1 Vanitas, Convergent Ruin\n1 Vanitas, Dominus Rex\n1 Censer of Restful Peace\n1 Fire Resonance Bauble\n1 Smoke Bombs\n1 The Looking Glass\n1 Water Resonance Bauble\n1 Beastsoul Visage\n1 Impact Hammer\n1 Purifying Thurible\n\n# Sideboard\n1 Nullifying Lantern\n1 Safeguard Amulet\n1 Wind Resonance Bauble\n2 Flame Sweep\n1 Varuckan Acolyte\n1 Dream Fairy\n2 Ensnaring Fumes"
         },
         {
-          "label": "Zander",
+          "label": "Luxem Zander — Reveal",
           "champion": "Zander",
           "source": {
             "deckId": "62616:2621",
@@ -1451,7 +1521,9 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             "losses": 4,
             "ties": 1,
             "weightedScore": 1.783132530120482,
-            "userSelected": false
+            "userSelected": false,
+            "archetypeId": "6ifose",
+            "archetypeSource": "FanOfIn strategy taxonomy"
           },
           "text": "# Main\n4 Angelic Channeling\n4 Dungeon Guide\n4 Exploit Vulnerability\n4 Gentle Respite\n4 Incapacitate\n2 Resolute Stand\n2 Return to the Archive\n2 Scry the Skies\n2 Thieving Cut\n3 Topsy Decree\n1 Turbo Charge\n4 Creative Shock\n2 Planted Explosive\n2 Vel-ocity Punch\n2 Excalibur, Cleansing Light\n4 Gleaming Cut\n4 Lightweaver's Assault\n4 Luxem Sight\n2 Striking Illuminance\n2 Uncover the Plot\n2 Regal Inquisition\n\n# Material\n1 Spirit of Serene Fire\n1 Zander, Prepared Scout\n1 Zander, Deft Executor\n1 Zander, Blinding Steel\n1 Backup Charger\n1 Chalice of Blood\n1 Mercenary's Blade\n1 Portentous Tanggu\n1 Tariff Ring\n1 Insignia of the Corhazi\n1 Luxera's Map\n1 Lost Providence\n\n# Sideboard\n1 Angel Attendant\n2 Blanche, Sheltering Saint\n1 Crystallized Destiny\n1 Nullifying Lantern\n1 Resolute Stand\n1 Tabula of Salvage\n1 Caliburn of Silencing\n1 Excalibur, Cleansing Light"
         }
