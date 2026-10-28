@@ -178,6 +178,39 @@ function BotControllerPendingPlayerForClient() {
     return in_array($turnPlayer, $botPlayers, true) ? $turnPlayer : 0;
 }
 
+// A lookahead rule (BotRules.php 'control-wipe', 'break-lethal', the value chooser) stores the rest of its line as
+// $GLOBALS['SWUBotPlan'][$seat]: the answers to the prompts its chosen play raises. Self-play runs a whole game in one
+// process, but a live game runs every bot step in its own request, so a plan held only in memory was gone by the next
+// step and the fallback answered the prompt instead — bug report P-9 (game 1461): 'control-wipe' played Pre Vizsla for
+// its plan (defeat my Death Trooper + Door Technician) and the next request defeated nothing. The plan is kept beside
+// the game with the board it was made for, and is only taken back while that board is unchanged (no other seat acted,
+// no undo). It is a sidecar file, not a gamestate variable: those are RNG material.
+function _SWUBotPlanPath(string $gameName, int $seat): ?string {
+    $game = preg_replace('/[^A-Za-z0-9_-]/', '', $gameName);
+    $dir = './SWUSim/Games/' . $game;
+    return ($game === '' || !is_dir($dir)) ? null : $dir . '/BotPlan_' . $seat . '.json';
+}
+
+function SWUBotPlanRestore(string $gameName, int $seat): void {
+    if (!empty($GLOBALS['SWUBotPlan'][$seat])) return;   // same process (self-play): memory already holds it
+    $path = _SWUBotPlanPath($gameName, $seat);
+    if ($path === null || !is_file($path)) return;
+    $saved = json_decode(strval(@file_get_contents($path)), true);
+    $hash = SWUBotComparableGamestateHash($gameName);
+    if (is_array($saved) && !empty($saved['plan']) && $hash !== null && ($saved['hash'] ?? null) === $hash) {
+        $GLOBALS['SWUBotPlan'][$seat] = $saved['plan'];
+    }
+}
+
+function SWUBotPlanPersist(string $gameName, int $seat): void {
+    $path = _SWUBotPlanPath($gameName, $seat);
+    if ($path === null) return;
+    $plan = $GLOBALS['SWUBotPlan'][$seat] ?? [];
+    $hash = empty($plan) ? null : SWUBotComparableGamestateHash($gameName);
+    if ($hash === null) { if (is_file($path)) @unlink($path); return; }
+    @file_put_contents($path, json_encode(['hash' => $hash, 'plan' => $plan]), LOCK_EX);
+}
+
 function ProcessBotControllerStep($requestingPlayer = 0, $folderPath = '', $gameNameOverride = '') {
     if ($folderPath !== '' && $folderPath !== 'SWUSim') {
         return ['success' => false, 'message' => 'Bot controller does not handle this game.', 'applied' => false];
@@ -200,6 +233,7 @@ function ProcessBotControllerStep($requestingPlayer = 0, $folderPath = '', $game
     global $playerID;
     $savedPlayerID = $playerID;
     $playerID = $pendingPlayer;
+    SWUBotPlanRestore($activeGameName, $pendingPlayer);
 
     $legal = SWUBotLegalActions($activeGameName, $pendingPlayer);
     if (intval($legal['playerID'] ?? 0) !== $pendingPlayer) {
@@ -298,6 +332,7 @@ function ProcessBotControllerStep($requestingPlayer = 0, $folderPath = '', $game
         ));
     }
     $playerID = $savedPlayerID;
+    SWUBotPlanPersist($activeGameName, $pendingPlayer);
 
     if ($capTripped) {
         // Deliberately success => false and retryable => false: this is a "stop and look at the

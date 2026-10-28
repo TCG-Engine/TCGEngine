@@ -18,5 +18,8 @@
   RewriteRule (^|/)Games(/|$) - [R=404,NC,L]
   # SWUSim bug reports (LocalBugReportLib.php) hold both players' hidden cards too: download is mod-only via the viewer.
   RewriteRule (^|/)BugReports(/|$) - [R=404,NC,L]
+  # Saved chat (Core/ChatStore.php) keeps whispers in full, and player reports hold it: both are read only by PHP.
+  RewriteRule (^|/)Chats(/|$) - [R=404,NC,L]
+  RewriteRule (^|/)PlayerReports(/|$) - [R=404,NC,L]
   RewriteRule ^(.+)\.[0-9]{9,}\.(css|js)$ $1.$2 [L]
 </IfModule>

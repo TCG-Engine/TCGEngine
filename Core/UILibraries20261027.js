@@ -1673,15 +1673,16 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           if (window.SelectionMode && window.SelectionMode.active) {
             if (inlineMultiActive) {
               if (!window.SelectionMode.multiSelected) window.SelectionMode.multiSelected = [];
-              const idx = window.SelectionMode.multiSelected.indexOf(cardId);
+              const pickKey = InlineMultiKey(cardId);
+              const idx = window.SelectionMode.multiSelected.indexOf(pickKey);
               if (idx >= 0) {
                 window.SelectionMode.multiSelected.splice(idx, 1);
               } else {
                 if (window.SelectionMode.multiSelected.length >= window.SelectionMode.multiMax) return;
                 // Weighted budget: refuse a pick that would overshoot what is left. The card is already
                 // dimmed by ApplyInlineMultiSelectionDomState; this is what makes it actually inert.
-                if (typeof InlineMultiBlocked === 'function' && InlineMultiBlocked(cardId)) return;
-                window.SelectionMode.multiSelected.push(cardId);
+                if (typeof InlineMultiBlocked === 'function' && InlineMultiBlocked(pickKey)) return;
+                window.SelectionMode.multiSelected.push(pickKey);
               }
               // Immediate DOM signal so selection is visible even before next full render tick.
               const el = document.getElementById(cardId);
@@ -1752,7 +1753,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         var newHTML = "";
         var id = zone + "-" + i;
         var positionStyle = "relative";
-        var isInlineMultiSelected = !!(window.SelectionMode && window.SelectionMode.active && Array.isArray(window.SelectionMode.multiSelected) && Number(window.SelectionMode.multiMax) > 0 && window.SelectionMode.multiSelected.indexOf(id) >= 0);
+        var isInlineMultiSelected = !!(window.SelectionMode && window.SelectionMode.active && Array.isArray(window.SelectionMode.multiSelected) && Number(window.SelectionMode.multiMax) > 0 && window.SelectionMode.multiSelected.indexOf(InlineMultiKey(id)) >= 0);
         var className = isSelectable ? "selectable-card" : "";
         // Standing glow marking the look-at-top-card permission (see the peek badge below).
         // ⚠ The wrapper span is display:inline by default, which gives it a 0x0 border box — measured,
@@ -1781,7 +1782,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             // A full RenderRows rebuilds this markup from scratch, so the over-budget state has to be
             // re-derived here too — otherwise every render tick restores the bright "selectable" look on
             // a card the player can no longer afford.
-            if (typeof InlineMultiBlocked === 'function' && InlineMultiBlocked(id)) {
+            if (typeof InlineMultiBlocked === 'function' && InlineMultiBlocked(InlineMultiKey(id))) {
               inlineStyles += " --highlight-color: rgba(120, 132, 152, 0.30); opacity:0.45; cursor:not-allowed;";
             } else {
               inlineStyles += " --highlight-color: rgba(198, 208, 224, 0.98);";
@@ -7042,6 +7043,15 @@ function ParseMZMultiChooseParam(param) {
 // not a card count, so `multiMax` cannot express it. These three helpers are the whole rule.
 // Cards over the remaining budget must not merely look unavailable — the click has to be inert too.
 // (The server re-derives the pool and re-applies the budget on the answer regardless; this is UX.)
+// The key an inline multi-pick is STORED under. Twin Suns draws `their…` for a different seat on every matchup view,
+// so a board pick kept as its rendered id (`theirGroundArena-0`) was dropped or moved onto the next opponent's unit
+// when the player paged views — and Confirm submitted that unit (reported 2026-10-27, mobile). A pick is kept as its
+// seat-tagged id (`p3GroundArena-0`, the form the Home tiles and the server use) and translated only to paint it.
+// Without the SWUSim hook (2-player, other sims) the rendered id IS the key, so nothing changes there.
+function InlineMultiKey(mzid) {
+  return (typeof window.swuTwRemapCardId === 'function') ? window.swuTwRemapCardId(mzid) : mzid;
+}
+
 function InlineMultiWeightOf(mzid) {
   const b = (window.SelectionMode || {}).multiBudget;
   if (!b || !b.weights) return 0;
@@ -7101,7 +7111,7 @@ function ApplyInlineMultiSelectionDomState() {
   const sm = window.SelectionMode || {};
   const selected = new Set(Array.isArray(sm.multiSelected) ? sm.multiSelected : []);
   document.querySelectorAll('.selectable-card').forEach((el) => {
-    const mzid = el.getAttribute('data-mzid') || el.id || '';
+    const mzid = InlineMultiKey(el.getAttribute('data-mzid') || el.id || '');
     const isSelected = selected.has(mzid);
     const blocked = InlineMultiBlocked(mzid);
     el.classList.toggle('selected-inline', isSelected);
@@ -7254,7 +7264,7 @@ function ShowInlineMultiChooseMessage(msg, decisionIndex) {
   selectAllBtn.onclick = function() {
     const sm = window.SelectionMode || {};
     const all = ExpandInlineMultiSelectableCards();
-    sm.multiSelected = all.slice(0, sm.multiMax || all.length);
+    sm.multiSelected = all.map(InlineMultiKey).slice(0, sm.multiMax || all.length);
     ApplyInlineMultiSelectionDomState();
     UpdateInlineMultiChooseMessage();
     if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {

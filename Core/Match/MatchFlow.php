@@ -144,6 +144,7 @@ function MatchWriteRef($rootName, $gameName, $matchId, $gameNumber) {
     // A match with no chatId (every match that predates this feature) publishes nothing, and its
     // games therefore keep the legacy per-game bucket.
     include_once MatchRepoRoot() . '/Core/ChatConversation.php';
+    if (function_exists('ChatPersistUseRoot')) ChatPersistUseRoot($rootName);   // a SWUSim pointer is saved (Core/ChatStore.php)
     $m = MatchRead($rootName, $matchId);
     if (is_array($m) && !empty($m['chatId'])) ChatPublishConversationForGame($gameName, $m['chatId']);
     return file_put_contents($path, json_encode(['matchId' => strval($matchId), 'gameNumber' => intval($gameNumber)]), LOCK_EX) !== false;
@@ -413,6 +414,7 @@ function MatchSideboardWarningCheck($rootName, $matchId) {
     if (empty($due)) return;
     // playerID 0: the chat panel maps any seat outside 1-4 to its existing `tcgc-log` class, so this
     // renders as a log line rather than as somebody's chat message. No CSS needed.
+    if (function_exists('ChatPersistUseRoot')) ChatPersistUseRoot($rootName);   // saved chat for SWUSim (Core/ChatStore.php)
     foreach ($due as $mark) {
         ChatAppendMessage('m:' . $matchId, 0, 'Sideboard', MatchSideboardWarningText(intval($mark)));
     }
@@ -516,6 +518,7 @@ function MatchAcceptRematch($rootName, $oldMatchId) {
     MatchWithLock($rootName, $newId, function (&$newMatch) use ($newId) {
         $newMatch['chatId'] = 'm:' . $newId;
     });
+    if (function_exists('ChatPersistUseRoot')) ChatPersistUseRoot($rootName);   // a SWUSim pointer is saved (Core/ChatStore.php)
     MatchPublishChatConversation($newId, 'm:' . $newId);   // so 'm:<id>' resolves, same as for games
     if (array_key_exists('shareAnonymizedGameplayData', $m)) {
         $shareAnonymizedGameplayData = !empty($m['shareAnonymizedGameplayData']);

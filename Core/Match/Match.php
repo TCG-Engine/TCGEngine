@@ -133,6 +133,7 @@ function MatchCreate($rootName, $format, $queueType, $players, $isPrivate = fals
     // ⚠ PUBLISH THE MATCH'S OWN REDIRECT TOO, not just each game's. The Sideboard addresses the
     // conversation as 'm:<matchId>', but a match created from a lobby ADOPTS 'l:<lobbyID>' — without
     // this the sideboard reads an empty bucket while the whole conversation sits under the lobby id.
+    if (function_exists('ChatPersistUseRoot')) ChatPersistUseRoot($rootName);   // a SWUSim pointer is saved (Core/ChatStore.php)
     MatchPublishChatConversation($matchId, $match['chatId'] ?? null);
     return $matchId;
 }

@@ -113,6 +113,19 @@ if [ -d "$APP_ROOT/SWUSim/BugReports" ]; then
   fi
 fi
 
+# 2c. Saved chat (Core/ChatStore.php — rooms and matches; a game's own chat sits in its game folder) and player
+#     reports (PlayerReportLib.php — disk first, like bug reports).
+for pair in "Chats:chats" "PlayerReports:playerreports"; do
+  dir="${pair%%:*}"; name="${pair##*:}"
+  if [ -d "$APP_ROOT/SWUSim/$dir" ]; then
+    if tar -czf "$DEST/$name.tgz" -C "$APP_ROOT/SWUSim" "$dir" 2>/dev/null; then
+      log "  ok  $name.tgz  ($(du -h "$DEST/$name.tgz" | cut -f1))"
+    else
+      fail "$name.tgz"
+    fi
+  fi
+done
+
 ( cd "$DEST" && sha256sum -- * > SHA256SUMS )
 
 # 3. Rotate local runs (only our own timestamped dirs).

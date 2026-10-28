@@ -10,6 +10,7 @@ $playerID   = TryGET("playerID", "");
 $authKey    = TryGET("authKey", "");
 $folderPath = preg_replace('/[^A-Za-z0-9_\/\-]/', '', TryGET("folderPath", ""));
 $chatText   = TryGET("chatText", "");
+ChatPersistUseRoot($folderPath);   // saved chat for Petranaki only (Core/ChatStore.php)
 
 $scope = ChatResolveRequestScope($_GET, $folderPath);
 if ($scope['token'] === null) { echo $scope['error']; exit; }

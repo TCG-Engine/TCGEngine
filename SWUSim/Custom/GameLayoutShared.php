@@ -1300,7 +1300,7 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
    A prompt about an already-chosen unit rings that unit on the board, so the player can see WHICH one the
    question is about (reported 2026-09-28, SEC_010 Dedra Meero: "Deal 2 damage to your own unit?" named
    nothing, and the popup covers the board). The class is applied by ApplyYesNoDecisionHighlight
-   (Core/UILibraries20261023.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
+   (Core/UILibraries20261027.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
    the overlay dim to 15% — a ring under a 50% black wash would not have been visible.
    ⚠ z-index is DELIBERATELY NOT raised above the overlay (5000). Escaping a full-screen overlay's stacking
    context depends on every ancestor of the card, and the arenas clip and transform — the lighter dim is
@@ -5313,8 +5313,32 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             x.send('action=blockOpponent&gameName=' + encodeURIComponent(gn));
         }, { confirmLabel: 'Block', danger: true });
     }
-    // Collapsible "Block Player" widget: collapsed header → expand shows the opponent's username
-    // + a Block button. Returns null when there's no logged-in opponent to block.
+    // A one-time report token. randomUUID needs a secure context; any 8-64 [A-Za-z0-9-] token works, so fall back to hex.
+    function SWUNewReportToken() {
+        return (window.crypto && typeof window.crypto.randomUUID === 'function') ? window.crypto.randomUUID()
+            : (Date.now().toString(16) + Math.random().toString(16).slice(2) + Math.random().toString(16).slice(2));
+    }
+    // The Report half of Report/Block Player: one report per reporter per match, so a second report in the same
+    // match comes back as a follow-up (SWUSim/SubmitPlayerReport.php). cb gets the endpoint's {success, message}.
+    // ⚠ The caller keeps `tok` until the server confirms — a retry after a lost response must send the SAME token,
+    // or it lands as a follow-up and burns one of the three (the bug-report modal keeps its token the same way).
+    function SWUSubmitPlayerReport(note, tok, cb) {
+        var gnEl = document.getElementById('gameName');
+        var gn = gnEl ? gnEl.value : '';
+        var x = new XMLHttpRequest();
+        x.open('POST', '/TCGEngine/SWUSim/SubmitPlayerReport.php', true);
+        x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        x.onreadystatechange = function() {
+            if (x.readyState !== 4) return;
+            var r = null; try { r = JSON.parse(x.responseText); } catch (e) {}
+            cb(r && typeof r === 'object' ? r : { success: false, message: 'The report could not be sent. Please try again.' });
+        };
+        x.send('gameName=' + encodeURIComponent(gn) + '&note=' + encodeURIComponent(note) + '&clientToken=' + encodeURIComponent(tok));
+    }
+    // Collapsible "Report/Block Player" widget: collapsed header → expand shows the opponent's username and three
+    // choices — Block (exactly the old Block button), Report, Report & Block. The two report choices open a short
+    // note form; Report & Block files the report first, then runs the normal block (with its confirm).
+    // Returns null when there's no logged-in opponent (the same rule for reporting as for blocking).
     function SWUBuildBlockPlayerWidget(opts) {
         opts = opts || {};
         var viewerSeat = window.SWU_VIEWER_SEAT;
@@ -5329,20 +5353,55 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var oppSeat = (viewerSeat === 1) ? 2 : 1;
         var oppName = window.SWU_SEAT_USERNAMES ? window.SWU_SEAT_USERNAMES[String(oppSeat)] : null;
         if (!oppName) return null; // opponent anonymous / unknown → nothing to block
+        // Report is 1v1 only (the server refuses a 3-4 seat table too). At a Twin Suns table the widget stays exactly
+        // the old Block Player — Block's behaviour must not change here.
+        var canReport = Object.keys(window.SWU_SEAT_DISPLAY_NAMES || {}).length <= 2;
+        var title = canReport ? 'Report/Block Player' : 'Block Player';
         var wrap = document.createElement('div'); wrap.className = 'swu-blockplayer';
         var head = document.createElement('button'); head.type = 'button';
-        head.className = 'swu-blockplayer-head'; head.textContent = 'Block Player ▸';
+        head.className = 'swu-blockplayer-head'; head.textContent = title + ' ▸';
         var body = document.createElement('div'); body.className = 'swu-blockplayer-body'; body.style.display = 'none';
         var nameEl = document.createElement('span'); nameEl.className = 'swu-blockplayer-name'; nameEl.textContent = oppName;
-        var btn = document.createElement('button'); btn.type = 'button';
-        btn.className = 'swu-blockplayer-btn'; btn.textContent = 'Block';
+        var actions = document.createElement('div'); actions.className = 'swu-blockplayer-actions';
+        var mkBtn = function(label, extraCls) {
+            var b = document.createElement('button'); b.type = 'button';
+            b.className = 'swu-blockplayer-btn' + (extraCls ? ' ' + extraCls : ''); b.textContent = label;
+            actions.appendChild(b); return b;
+        };
+        var btn = mkBtn('Block');
+        var reportBtn = canReport ? mkBtn('Report', 'swu-reportplayer-btn') : document.createElement('button');
+        var bothBtn = canReport ? mkBtn('Report & Block', 'swu-reportplayer-btn') : document.createElement('button');
         btn.onclick = function() { SWUBlockOpponent({ liveBo3: !!opts.liveBo3 }); wrap.style.display = 'none'; };
+        // The note form, shared by Report and Report & Block. mode remembers which one opened it.
+        var form = document.createElement('div'); form.className = 'swu-report-form'; form.style.display = 'none';
+        var note = document.createElement('textarea'); note.className = 'swu-report-note';
+        note.maxLength = 1000; note.setAttribute('maxlength', '1000'); note.placeholder = 'What happened?'; note.rows = 3;
+        var submit = document.createElement('button'); submit.type = 'button';
+        submit.className = 'swu-blockplayer-btn swu-report-submit'; submit.textContent = 'Submit';
+        var msg = document.createElement('div'); msg.className = 'swu-report-msg'; msg.setAttribute('role', 'status');
+        form.appendChild(note); form.appendChild(submit);
+        var mode = 'report';
+        var formToken = null;   // one per report: kept across retries, replaced only after the server accepts
+        var openForm = function(m) { mode = m; form.style.display = 'flex'; msg.textContent = ''; if (!formToken) formToken = SWUNewReportToken(); note.focus(); };
+        reportBtn.onclick = function() { openForm('report'); };
+        bothBtn.onclick = function() { openForm('both'); };
+        submit.onclick = function() {
+            submit.disabled = true; msg.textContent = 'Sending…';
+            if (!formToken) formToken = SWUNewReportToken();
+            SWUSubmitPlayerReport(note.value, formToken, function(r) {
+                msg.textContent = r.message || (r.success ? 'Reported. A moderator will review it.' : 'The report could not be sent. Please try again.');
+                if (!r.success) { submit.disabled = false; return; }
+                formToken = null;
+                form.style.display = 'none'; note.value = ''; submit.disabled = false;
+                if (mode === 'both') SWUBlockOpponent({ liveBo3: !!opts.liveBo3 });
+            });
+        };
         head.onclick = function() {
             var open = body.style.display !== 'none';
             body.style.display = open ? 'none' : 'flex';
-            head.textContent = open ? 'Block Player ▸' : 'Block Player ▾';
+            head.textContent = title + (open ? ' ▸' : ' ▾');
         };
-        body.appendChild(nameEl); body.appendChild(btn);
+        body.appendChild(nameEl); body.appendChild(actions); body.appendChild(form); body.appendChild(msg);
         wrap.appendChild(head); wrap.appendChild(body);
         return wrap;
     }
@@ -6650,14 +6709,14 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
      13.33px in Chromium/Firefox but 11px in WebKit, so Concede / Return / Report Bug rendered two
      sizes across engines inside the same menu. */
   .swu-settings-action { display: block; width: 100%; margin: 6px 0 0; font-size: 13px; }
-  /* Collapsible Block Player widget (shared by the gear menu + game-over overlay) */
+  /* Collapsible Report/Block Player widget (shared by the gear menu + game-over overlay) */
   .swu-blockplayer { margin: 8px auto 0; max-width: 360px; text-align: left;
     font-family: var(--swu-font-ui, "Aptos","Segoe UI Variable","Trebuchet MS",sans-serif); }
   .swu-blockplayer-head { display: block; width: 100%; padding: 6px 0; background: transparent; border: 0;
     color: rgba(140,210,255,0.7); font-family: inherit; font-weight: 700; font-size: 12px; line-height: 1;
     text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; text-align: left; }
   .swu-blockplayer-head:hover { color: #cfe6fb; }
-  .swu-blockplayer-body { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  .swu-blockplayer-body { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px;
     margin-top: 6px; padding: 8px 12px; background: rgba(8,15,25,0.5);
     border: 1px solid rgba(255,255,255,0.12); border-radius: 7px; }
   .swu-blockplayer-name { color: #f0e6c8; font-size: 14px; font-weight: 600; overflow: hidden;
@@ -6666,6 +6725,16 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     border: 1px solid rgba(220,80,95,0.6); border-radius: 6px; color: #ffd7dc;
     font-family: inherit; font-weight: 700; font-size: 13px; line-height: 1; cursor: pointer; }
   .swu-blockplayer-btn:hover { background: rgba(200,50,65,0.4); }
+  .swu-blockplayer-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+  /* Report is not a block: amber, so the destructive red stays on Block alone. */
+  .swu-reportplayer-btn { background: rgba(190,140,40,0.18); border-color: rgba(230,180,80,0.6); color: #ffe9b8; }
+  .swu-reportplayer-btn:hover { background: rgba(210,160,50,0.34); }
+  .swu-report-form { flex: 1 1 100%; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .swu-report-note { box-sizing: border-box; width: 100%; min-height: 64px; resize: vertical; padding: 6px 8px;
+    background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.18); border-radius: 6px; color: #f0e6c8;
+    font-family: inherit; font-size: 13px; line-height: 1.35; }
+  .swu-report-msg { flex: 1 1 100%; color: #cfe6fb; font-size: 13px; }
+  .swu-report-msg:empty { display: none; }
   /* Sits inside the stats box, directly under the stats table. */
   #game-over-stats .swu-blockplayer { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.12); }
   /* SWUConfirm now delegates to the shared StyledDialog (which self-injects its themed CSS);

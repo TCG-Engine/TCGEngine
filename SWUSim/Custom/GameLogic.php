@@ -6682,10 +6682,14 @@ function _SWUDamageUnpreventable($sourceObj): bool {
     return _SWUCountActiveUnitsWithCardID($ctrl, 'ASH_196') > 0;
 }
 
-function SWUReturnUpgradeToHand(string $hostMz, string $cardID, int $actor = 0): void {
+// $subIndex (optional) = the raw Subcards key of the EXACT upgrade to return — what a subcard mzID
+// ("<host>.u<sub>", MZParseSubcardID) carries. Without it the first copy of $cardID on the host is taken,
+// which is the wrong card when two copies with different owners share a host (SEC_200 Junior Senator).
+function SWUReturnUpgradeToHand(string $hostMz, string $cardID, int $actor = 0, int $subIndex = -1): void {
     $host = GetZoneObject($hostMz);
     if (SWUObjGone($host) || !is_array($host->Subcards ?? null)) return;
     foreach ($host->Subcards as $i => $sub) {
+        if ($subIndex >= 0 && $i !== $subIndex) continue;
         $scid  = is_array($sub) ? ($sub['CardID'] ?? '')   : ($sub->CardID ?? '');
         $isRem = is_array($sub) ? !empty($sub['removed'])  : !empty($sub->removed);
         if ($isRem || $scid !== $cardID) continue;
@@ -11853,6 +11857,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'TWI_218': SWUCreateUnitToken($player, 'TWI_T01'); SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID); break; // Droid Cohort (upgrade) — granted "When Defeated: create a Battle Droid token"
         case 'TWI_169': SWUCreateUnitToken($player, 'TWI_T02'); SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID); break; // Clone Cohort (upgrade) — granted "When Defeated: create a Clone Trooper token"
         case 'TWI_129': SWUCreateUnitToken($player, 'TWI_T02'); SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID); break; // In Defense of Kamino — granted "When Defeated: create a Clone Trooper token"
+        case 'TWI_001': OnHealBase(intval($player), intval($player), 2); SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID); break; // Nala Se (deployed) — granted "When Defeated: Heal 2 damage from your base"
         case 'TWI_103': { // Pyrrhic Assault (phase grant) — "When Defeated: Deal 2 damage to an enemy unit."
             SWUOfferUnitTarget($player, '', ['continuation'=>'DEAL_UNIT_DAMAGE','amount'=>2,'side'=>'their','prompt'=>"Deal_2_damage_to_an_enemy_unit"]);
             break;
@@ -11961,6 +11966,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'SHD_005': Shd005FrontReaction($player); break;                            // Hondo (front) — may exhaust → give a unit an Experience token
         case 'SHD_018':  Shd018Reaction($player, intval($extra[0] ?? 4), true);  break; // Mandalorian (front) — may exhaust leader → exhaust enemy ≤4HP
         case 'SHD_018D': Shd018Reaction($player, intval($extra[0] ?? 6), false); break; // Mandalorian (deployed) — may exhaust enemy ≤6HP
+        case 'TS26_08':  Ts26008FrontReaction($player); break;                         // Ahsoka (front) — may exhaust → look at the top card
         case 'SOR_149':         MaceReadyTrigger($player, $mzID);              break;
         case 'SEC_209':         SEC209CaptureTrigger($player, $mzID);          break;
         case 'SEC_088':         SEC088MayDrawTrigger($player, $mzID);          break;
@@ -13056,11 +13062,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
                 || strpos(CardType($d['cardID'] ?? '') ?? '', 'Leader') !== false) {
                 foreach (GetLiveSeatsArray() as $lp) AddGlobalEffects($lp, 'SWU_LEADER_DEFEATED_PHASE');
             }
-            // TWI_001 Nala Se (deployed) — "Each friendly Clone unit gains: When Defeated: Heal 2 damage
-            // from your base." Field-presence grant while the controller's TWI_001 leader is deployed.
-            if (HasTrait($d['cardID'] ?? '', 'Clone') && _SWULeaderDeployed($controller, 'TWI_001')) {
-                SWULogInlineSource($controller, 'TWI_001', fn() => OnHealBase($controller, $controller, 2));
-            }
+            // TWI_001 Nala Se's granted heal is a When Defeated trigger — see CollectWhenDefeatedTriggers.
             // TWI_033 Calculating MagnaGuard — "When a friendly unit is defeated: this unit gains Sentinel
             // for this phase." Grant to each in-play TWI_033 the controller has (mandatory, inline).
             // ⚠ Same frame hazard as SHD_084: $mg belongs to $controller, but GetMzID() answers relative
@@ -13554,6 +13556,13 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
     if ($isUpgradePlay && _SWULeaderReadyUndeployed($playingPlayer, 'SHD_018')) {
         AddTrigger($playingPlayer, 'SHD_018', 'SHD_018', '', '4');
     }
+    // TS26_08 Ahsoka Tano (front) — "When you play an event: you may exhaust this leader; if you do, look at
+    // the top card of your deck." Collected here, after the event has resolved (ruling 06/04/2026: "Fully
+    // resolve the played event before resolving Ahsoka's triggered leader ability"), so she sees the deck the
+    // event left behind.
+    if ($isEvent && _SWULeaderReadyUndeployed($playingPlayer, 'TS26_08')) {
+        AddTrigger($playingPlayer, 'TS26_08', 'TS26_08', '');
+    }
     // HMW_216 Insurgent Camp (Fortify) — "When you play a unit with 3 or less power: You may defeat this
     // upgrade. If you do, ready that unit." ONE trigger however many copies are attached (see
     // cards/hmw/InsurgentCamp.php for why). Power is read off the entered unit (current power). "you" = the
@@ -13702,6 +13711,11 @@ function _SWUFieldPresenceGrantedWDTypes(int $controller, string $hostCardID): a
     if ($hostCardID !== 'SOR_105' && _SWUCountUnitsWithCardID($controller, 'SOR_105') > 0) {
         $types[] = 'SOR_105';
     }
+    // TWI_001 Nala Se (DEPLOYED side only) — "Each friendly Clone unit gains: When Defeated: Heal 2 damage
+    // from your base."
+    if (HasTrait($hostCardID, 'Clone') && _SWULeaderDeployed($controller, 'TWI_001')) {
+        $types[] = 'TWI_001';
+    }
     return $types;
 }
 
@@ -13742,6 +13756,14 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
         if ($dctrl63 > 0 && in_array('ASH_063', _SWUFieldPresenceGrantedWDTypes($dctrl63, $d['cardID'] ?? ''), true)) {
             AddTrigger($dctrl63, 'ASH_063', 'ASH_063', '');
             _SWUAddShadowCasterGrantedReuse($dctrl63, 'ASH_063', ''); // JTL_169 Shadow Caster reuse of this granted WD
+        }
+        // TWI_001 Nala Se (deployed) — "Each friendly Clone unit gains: When Defeated: Heal 2 damage from
+        // your base." A real When Defeated trigger, so JTL_002 Thrawn / JTL_169 Shadow Caster can use it
+        // again (bug report P-6). It used to heal inline from SWUCollectLeavePlayReactions, which no
+        // "use a When Defeated ability" card could see.
+        if ($dctrl63 > 0 && in_array('TWI_001', _SWUFieldPresenceGrantedWDTypes($dctrl63, $d['cardID'] ?? ''), true)) {
+            AddTrigger($dctrl63, 'TWI_001', 'TWI_001', '');
+            _SWUAddShadowCasterGrantedReuse($dctrl63, 'TWI_001', '');
         }
         // ── A BLANKED UNIT FIRES NO WHEN DEFEATED (bug report #1027) ──────────────────────────────
         // The gate used to be `HasWhenDefeatedAbility($cardID) && !_SWUGalenSuppressesCard(...)`: a
@@ -14552,6 +14574,19 @@ $customDQHandlers["FINISH_PLAY_CARD"] = function($player, $parts, $lastDecision)
         DecisionQueueController::AddDecision($owing, "CUSTOM", "FINISH_PLAY_CARD|{$caster}", 21, '', 1);
         return;
     }
+    // …nor while an OBSERVER trigger batch is still being ordered and resolved (the event's own "when you play an
+    // event" reactions, TWI_210#0): its resume sits at block 20, behind this block-10 close, and re-offers the next
+    // trigger only after the previous one has resolved. Wait behind it on the queue that holds it: the caster's own,
+    // or a seat it hopped to because that seat owes a decision (so that queue will drain). Only the CASTER's batches
+    // count — another seat's observer batch (SEC_002 Jabba on the opponent) is not part of this play.
+    foreach (GetLiveSeatsArray() as $_fp) {
+        foreach (GetDecisionQueue($_fp) as $_fe) {
+            if (str_starts_with((string)($_fe->Param ?? ''), "SWU_TRIGGER_RESUME|{$caster}|OBSERVER")) {
+                DecisionQueueController::AddDecision(intval($_fp), "CUSTOM", "FINISH_PLAY_CARD|{$caster}", 21, '', 1);
+                return;
+            }
+        }
+    }
     $player = $caster;
     // An "Attack with a unit" event / Support-unit play whose combat already owns the after-action
     // (SWUCombatDamage at the end of the attack calls SWUAfterAction). Skip the duplicate turn pass.
@@ -14594,9 +14629,28 @@ $customDQHandlers["TWI_210#0"] = function($player, $parts, $lastDecision) {
     $allowedUIDs = array_key_exists(3, $parts)
         ? array_values(array_filter(explode(',', $parts[3]), 'strlen'))
         : null;
-    SWUCollectOpponentPlayReactions($playingPlayer, $playedCardID, $resourcesPaid);
+    // 'OWN' (an alternate-cost event, SOR_199): resourcesPaid is not final, so skip the opponent side.
+    if (($parts[4] ?? '') !== 'OWN') SWUCollectOpponentPlayReactions($playingPlayer, $playedCardID, $resourcesPaid);
     // Batch E.1 — own-play reactions on event plays (Bossk's "when you play an event"; FFF on an Aggression event).
+    global $gPendingTriggers;
+    $ownFrom = count($gPendingTriggers ?? []);
     SWUCollectOwnPlayReactions($playingPlayer, $playedCardID, 0, false, $allowedUIDs);
+    // CR 7.6.9 — two or more of the player's OWN reactions to this one play (SOR_182 Bossk and the TS26_08 Ahsoka
+    // leader, TWI_216 Fives, HMW_215 L3-37, SHD_217 Tobias, …) triggered at the same time, so that player picks
+    // their order. FlushTriggerBag queues them in collection order, so they ride the EffectStack instead, with the
+    // engine's standard "Choose_trigger_to_resolve" prompt. A single reaction, and every opponent-side reaction,
+    // keeps the FlushTriggerBag path below unchanged.
+    // OBSERVER: the play owns its close (FINISH_PLAY_CARD, which waits for this batch). The batch start scopes the
+    // resume to these entries when an outer batch is still pending; with none, 0 survives a compaction.
+    $ownRx = array_values(array_filter(array_slice($gPendingTriggers ?? [], $ownFrom),
+        fn($t) => intval($t['player']) === $playingPlayer));
+    if (count($ownRx) >= 2) {
+        $restRx = array_values(array_filter($gPendingTriggers, fn($t, $i) => $i < $ownFrom || intval($t['player']) !== $playingPlayer, ARRAY_FILTER_USE_BOTH));
+        $bs = _SWUEsLiveCount() > 0 ? count(GetEffectStack()) : 0;
+        $gPendingTriggers = $ownRx;
+        FlushEntryTriggerBag($playingPlayer, "|OBSERVER||||{$bs}");
+        $gPendingTriggers = $restRx;
+    }
     FlushTriggerBag($playingPlayer);
 };
 
@@ -18366,13 +18420,11 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         // (SEC_046) one: playing a blanked event is still "playing an event"; only the event's OWN ability
         // is lost, not the fact that you played it.
         AddGlobalEffects(intval($player), 'SWU_PLAYED_EVENT'); // TWI_014 Asajj "if you played an event this phase" (cleared at RGS)
-        // TS26_08 Ahsoka Tano (front, undeployed) — "When you play an event: you may exhaust this leader →
-        // look at the top card of your deck (play/discard/leave)." Reacts to the act of playing the event.
-        if (_SWULeaderReadyUndeployed(intval($player), 'TS26_08')) {
-            DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Ahsoka_to_look_at_the_top_card?");
-            DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_08#0", 1);
-        }
-        // SNAPSHOT the event-play observer set BEFORE the event's own effects run (the Bossk verdict,
+        // ⚠ No "when you play an event" TRIGGER is queued here. This point is BEFORE the event's own effect,
+        // and a trigger must wait for that effect to resolve completely. TS26_08 Ahsoka's offer used to sit
+        // here. Its follow-up prompt then landed behind the event's search, which had already lifted the top
+        // cards off the deck, so it named a card the search held and milled the card beneath (bug report
+        // P-8). Those triggers belong to the block-5 collector below (SWUCollectOwnPlayReactions).        // SNAPSHOT the event-play observer set BEFORE the event's own effects run (the Bossk verdict,
         // candidate #1 fix 2026-08-14): "when you play an event" reactions belong to units in play at
         // the moment the event is PLAYED — a unit the event itself seats (Sneak Attack × Bossk) must
         // not observe its own arrival. The block-5 collector below re-scans the post-effect board, so
@@ -18406,8 +18458,6 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         }
         // Task 5.1 — TWI_210 Cunning observer: fire after event effects (block 1) but before
         // FINISH_PLAY_CARD (block 10). resourcesPaid is already finalised at $gLastPlayResourcesPaid.
-        // Skip when hasAltCost: SOR_199 may later change what was paid; documented as a known
-        // limitation (the alt-cost branch resolves asynchronously via SOR_199 handler).
         // dontSkipOnPass, for the same reason FINISH_PLAY_CARD below carries it: this observer fires on
         // the event being PLAYED, not on the event doing anything. The event's own effects run at block 1,
         // and DECLINING one of them ("you may play a unit from your hand" → PASS) leaves a STICKY PASS on
@@ -18415,11 +18465,12 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         // both "when an opponent plays a card" (TWI_210 Lux Bonteri) and "when you play an event"
         // (TWI_216 Fives, and the whole own-play reaction family) for a card that was played all the same.
         // Measured 2026-08-28: 13 suite sections were skipping this collector, every one of them a decline.
-        if (!$hasAltCost) {
-            DecisionQueueController::AddDecision($player, "CUSTOM",
-                "TWI_210#0|{$player}|{$cardID}|{$resourcesPaid}|" . implode(',', $evtObserverUIDs), 5,
-                dontSkipOnPass: 1);
-        }
+        // With an alternate cost only the OPPONENT-side collectors are skipped ('|OWN'): they read
+        // resourcesPaid, which SOR_199 may still change. The own-play reactions never read it, and skipping
+        // them too silently dropped every "when you play an event" trigger (Bossk, Fives, Ahsoka) on Bamboozle.
+        DecisionQueueController::AddDecision($player, "CUSTOM",
+            "TWI_210#0|{$player}|{$cardID}|{$resourcesPaid}|" . implode(',', $evtObserverUIDs) . ($hasAltCost ? '|OWN' : ''), 5,
+            dontSkipOnPass: 1);
         DecisionQueueController::AddDecision($player, "CUSTOM", "FINISH_PLAY_CARD", 10, dontSkipOnPass: 1);
         // Do NOT restore $playerID here — ExecuteStaticMethods calls MZCountChoices
         // immediately after this returns, and it needs $playerID = $player to resolve

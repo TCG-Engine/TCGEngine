@@ -17,7 +17,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
       crossorigin="anonymous"></script>
     <script src="./Core/StyledDialog.js?v=<?php echo filemtime('./Core/StyledDialog.js'); ?>"></script>
-    <script src="./Core/UILibraries20261023.js?v=<?php echo filemtime('./Core/UILibraries20261023.js'); ?>"></script>
+    <script src="./Core/UILibraries20261027.js?v=<?php echo filemtime('./Core/UILibraries20261027.js'); ?>"></script>
     <script src="./Core/CounterRendering.js?v=<?php echo filemtime('./Core/CounterRendering.js'); ?>"></script>
     <script src="./Core/MZRearrangePopup.js?v=<?php echo filemtime('./Core/MZRearrangePopup.js'); ?>"></script>
     <script src="./Core/MZSplitAssignUI.js?v=<?php echo filemtime('./Core/MZSplitAssignUI.js'); ?>"></script>
@@ -2105,6 +2105,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <?php if (!in_array($folderPath, ["SWUDeck", "AzukiDeck", "HellbreakDeck"], true)): ?>
     <?php
       $chatToastBaselineID = 0;
+      ChatPersistUseRoot($folderPath);   // saved chat for Petranaki only (Core/ChatStore.php): a reload after an APCu wipe refills it
       foreach (GetChatMessagesSince($gameName, 0) as $existingChatMessage) {
         $chatToastBaselineID = max($chatToastBaselineID, intval($existingChatMessage['id'] ?? 0));
       }

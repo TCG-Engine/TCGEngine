@@ -13,10 +13,12 @@
 // GetChatMessagesCacheKey() still produces exactly "chat_4242". That is the entire migration story:
 // every game and every match alive at deploy keeps its history, and no backfill runs.
 //
-// ⚠ THE SIDECAR LIVES IN APCu, NOT ON DISK, AND THAT IS CORRECT. An APCu flush loses the redirect
-// and a game falls back to its own legacy bucket — but the chat MESSAGES live in APCu too, so a
-// flush has already lost them. The sidecar is exactly as durable as the data it addresses, and a
-// per-poll filesystem read (GetChat.php is polled continuously) would not be.
+// ⚠ THE SIDECAR IS EXACTLY AS DURABLE AS THE CHAT IT ADDRESSES. For a sim with saved chat (Core/ChatStore.php —
+// SWUSim, switched on per request by ChatPersistUseRoot) the messages outlive APCu, so the redirect is saved too, at
+// <Chats>/pointers/<owner>.txt: lose it and a game would read its empty legacy bucket while its conversation sat on
+// disk. APCu stays the fast path — the file is read only on an APCu miss, and a miss with no file is cached as ''
+// for 300s, so a matchless game's continuous polling does not stat the disk each time. Every other sim keeps the
+// APCu-only sidecar: its messages are APCu-only, and a flush has already lost them.
 
 if (!function_exists('ChatSidecarKey')) {
 
@@ -37,6 +39,11 @@ function ChatPublishConversationForGame($ownerId, $chatId) {
     global $APCuEnabled;
     if (!$APCuEnabled || !function_exists('apcu_store')) return false;
     if (!_ChatIsConversationId($chatId)) return false;          // never publish an unusable id
+    $path = _ChatSavedPointerPath($ownerId);
+    if ($path !== null) {
+        if (!is_dir(dirname($path))) @mkdir(dirname($path), 0775, true);
+        if (@file_put_contents($path, strval($chatId), LOCK_EX) === false) error_log("ChatStore: could not save the chat pointer for '$ownerId'");
+    }
     return apcu_store(ChatSidecarKey($ownerId), strval($chatId), 86400);
 }
 
@@ -44,7 +51,23 @@ function ChatConversationForGame($ownerId) {
     global $APCuEnabled;
     if (!$APCuEnabled || !function_exists('apcu_fetch')) return null;
     $v = apcu_fetch(ChatSidecarKey($ownerId));
+    if ($v === false && ($path = _ChatSavedPointerPath($ownerId)) !== null) {
+        $saved = is_file($path) ? trim(strval(@file_get_contents($path))) : '';
+        if (_ChatIsConversationId($saved)) { apcu_store(ChatSidecarKey($ownerId), $saved, 86400); return $saved; }
+        // Remembered miss — see the header — but only for a game/match that exists: this runs on unauthenticated
+        // reads, and a miss cached for any invented id would let a caller fill APCu (Core/ChatStore.php).
+        if (function_exists('ChatStoreOwnerExists') && ChatStoreOwnerExists($ownerId)) apcu_store(ChatSidecarKey($ownerId), '', 300);
+        return null;
+    }
     return _ChatIsConversationId($v) ? $v : null;
+}
+
+// The saved pointer's file, or null when this request has no saved chat (Core/ChatStore.php is included by
+// NetworkingLibraries.php; a caller that loaded only this file has none).
+function _ChatSavedPointerPath($ownerId) {
+    if (!function_exists('ChatPersistActive') || !ChatPersistActive()) return null;
+    $id = preg_replace('/[^A-Za-z0-9_]/', '', strval($ownerId));
+    return $id === '' ? null : ChatStoreDir() . '/pointers/' . $id . '.txt';
 }
 
 // The APCu key SUFFIX for a scope token, or null when the token cannot address a bucket.

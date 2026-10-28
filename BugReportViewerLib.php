@@ -196,6 +196,7 @@ function BugReportViewerRenderPage(array $fetch, string $rootName, bool $allowLo
     $out  = '<!doctype html><html><head><meta charset="utf-8"><title>Bug Report Viewer'
           . ($rootName !== '' ? ' · ' . _brvEsc($rootName) : '') . '</title>' . _brvViewerStyles() . '</head><body>';
     $out .= '<h1>Bug Report Viewer</h1>';
+    $out .= '<p><a href="zzPlayerReportViewer.php">Player reports →</a></p>';   // Report/Block Player (zzPlayerReportViewer.php)
 
     // A failing remote intake no longer hides the page: Petranaki's own reports still render below the banner.
     if (!$fetch['ok']) {

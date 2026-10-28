@@ -14,6 +14,7 @@ include_once './Core/NetworkingLibraries.php';
 include_once './Core/ViewerIdentity.php';
 include_once './Core/GameAuth.php';
 include_once './SWUSim/MatchFlow.php';
+ChatPersistUseRoot('SWUSim');   // saved chat (Core/ChatStore.php)
 
 $gameName = preg_replace('/[^A-Za-z0-9_]/', '', strval($_POST['gameName'] ?? ''));
 $seat     = intval($_POST['playerID'] ?? 0);   // 'S' → 0: a spectator never "leaves" anybody
