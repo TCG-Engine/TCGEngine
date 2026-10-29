@@ -55,6 +55,13 @@ def write_report(output, summary):
     for i, game in enumerate(games, 1):
         if not game['completed'] or game['exitCode'] != 0:
             lines.append(f"- Game {i:04d}: exit={game['exitCode']}; inspect {i:04d}.log and {i:04d}.json.")
+    rejected = [(i, g.get('rejectedActionAttempts', 0)) for i, g in enumerate(games, 1)
+                if g.get('rejectedActionAttempts', 0)]
+    lines += ['', '## Rejected actions', '',
+              f"{sum(count for _, count in rejected)} attempts across {len(rejected)} games.",
+              'These attempts made no game-state change; the controller retried another action.']
+    for i, count in rejected:
+        lines.append(f'- Game {i:04d}: {count} attempts; inspect {i:04d}.log for action context.')
     (output / 'report.md').write_text('\n'.join(lines) + '\n')
 
 def make_schedule(decks, seeds):

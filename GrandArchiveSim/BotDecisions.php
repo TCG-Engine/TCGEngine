@@ -362,6 +362,15 @@ function GABotClarentScore($player, $source) {
     return -1;
 }
 
+// Spend ready non-unit reserve sources before cards in hand; retain units for combat.
+function GABotSpareReserveSources($player, $excluded = null) {
+    return array_values(array_filter(GetReservablePaymentSources($player, $excluded), function($mz) {
+        $obj = GetZoneObject($mz);
+        $type = EffectiveCardType($obj);
+        return !PropertyContains($type, 'ALLY') && !PropertyContains($type, 'CHAMPION');
+    }));
+}
+
 // null means unsupported, negative means understood but undesirable. This distinction makes
 // coverage reports useful without labeling a deliberate pass as a missing implementation.
 // A narrow Armoire exchange: lower the hand's reserve burden without changing
@@ -374,12 +383,15 @@ function GABotArmoirePair($player, $omens = null, $hands = null) {
         $cost = intval(EffectiveCardReserveCost($obj));
         $costs[$cost] = ($costs[$cost] ?? 0) + 1;
     }
+    // Armoire is banished to activate; it cannot fund the card acquired afterward.
+    $reserveSources = array_filter(GABotSpareReserveSources($player),
+        fn($mz) => GetZoneObject($mz)->CardID !== 'fm894uc4ij');
     $best = null;
     foreach ($omens as $omen) {
         $take = GetZoneObject($omen);
         if ($take === null || !CanPlayerUseCardElement($player, $take->CardID, false, false)) continue;
         $takeCost = intval(EffectiveCardReserveCost($take));
-        if ($takeCost > max(0, GABotLiveCount(GetHand($player)) - 1)) continue;
+        if ($takeCost > max(0, GABotLiveCount(GetHand($player)) - 1 + count($reserveSources))) continue;
         foreach ($hands as $hand) {
             $give = GetZoneObject($hand);
             if ($give === null || EffectiveCardType($take) !== EffectiveCardType($give)
@@ -471,7 +483,9 @@ function GABotOptionalScore($player, $answer, $legal) {
                 // two response cards, and do not spend into a pending effect.
                 return CanActivateAbility($player, $ability['mzID'], 0)
                     && intval(GetTurnPlayer()) !== $player && empty(GetLiveEffectStackEntries())
-                    && GABotLiveCount(GetHand($player)) >= 5
+                    && GABotLiveCount(GetHand($player)) >= 2
+                    && GABotLiveCount(GetHand($player))
+                        + count(GABotSpareReserveSources($player, $ability['mzID'])) >= 5
                     && CountAvailableReservePayments($player) >= 3
                     && GABotCanBenefitFromDraw($player) ? 15 : -1;
             }
@@ -640,7 +654,10 @@ function GABotChooseDecision(array $actions, array $legal) {
         }
         if ($type === 'MZCHOOSE') {
             $candidates = array_column($actions, 'cardID');
-            if (in_array($handler, ['MATERIALIZE', 'MATERIALIZE|NOCOST', 'WeaponSelected'], true) && $candidates[0] !== 'PASS') {
+            if ($handler === 'ReserveCard_Process') {
+                $spare = array_values(array_intersect(GABotSpareReserveSources($player), $candidates));
+                $choice = $spare[0] ?? $candidates[0];
+            } elseif (in_array($handler, ['MATERIALIZE', 'MATERIALIZE|NOCOST', 'WeaponSelected'], true) && $candidates[0] !== 'PASS') {
                 usort($candidates, fn($a, $b) => GABotOptionalScore($player, $b, $legal) <=> GABotOptionalScore($player, $a, $legal));
                 $choice = $candidates[0];
             } elseif ($handler === 'fm894uc4ij:0:ActivateAbility-1') {

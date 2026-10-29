@@ -797,6 +797,43 @@ foreach ([1, 2] as $seat) {
         && GABotLiveCount(GetBanish($seat)) === 1 && GABotLiveCount(GetDeck($seat)) === 2,
         "P$seat Tanggu pays three, banishes itself and draws into memory");
 }
+// Ready non-unit reservable sources unlock Tanggu without spending response cards.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    AddField($seat, 'mb3iqw3kc6', Owner:$seat, Controller:$seat);
+    AddField($seat, 'fm894uc4ij', Owner:$seat, Controller:$seat);
+    $resource = GetField($seat)[2];
+    $resource->Counters['_overrides']['granted_keywords'] = ['Reservable'];
+    $resource->Status = 2;
+    for ($i=0; $i<4; ++$i) AddHand($seat, 'rWhFC8XBaH');
+    for ($i=0; $i<3; ++$i) AddDeck($seat, 'rWhFC8XBaH');
+    SetTurnPlayer(3-$seat);
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Banish');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat Tanggu counts a ready non-unit reserve source");
+    $resource->Status = 1;
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Tanggu excludes rested reserve sources");
+    $resource->Status = 2;
+    $resource->Counters['_overrides']['type'] = 'ALLY';
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Tanggu preserves reservable combat units");
+    unset($resource->Counters['_overrides']['type']);
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    ActivatedAbilityCost($seat, 'myField-1', 'mb3iqw3kc6', 0);
+    for ($step=0; $step<15; ++$step) {
+        $dq = new DecisionQueueController(); $dq->ExecuteStaticMethods($seat);
+        $legal = GABotLegalActions('decision-test', $seat);
+        if (($legal['kind'] ?? '') !== 'decision') break;
+        $action = GABotChooseAction($legal['actions'], $legal);
+        check(GameValidateDecisionAnswer($seat, $action['cardID']), "P$seat reservable Tanggu payment $step is legal");
+        $dq->PopDecision($seat); $dq->ExecuteStaticMethods($seat, $action['cardID']);
+    }
+    $activateAbilityAbilities['mb3iqw3kc6:0']($seat);
+    check($resource->Status === 1 && GABotLiveCount(GetHand($seat)) === 2
+        && GABotLiveCount(GetMemory($seat)) === 3 && GABotLiveCount(GetDeck($seat)) === 2,
+        "P$seat Tanggu rests its reserve source and retains two hand cards");
+}
 // Armoire preserves omen cost bonuses while trading an expensive hand card for a cheap one.
 foreach ([1, 2] as $seat) {
     resetBoard($seat);
@@ -816,6 +853,15 @@ foreach ([1, 2] as $seat) {
     SetCurrentPhase('MAIN');
     [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
     check($action['cardID'] === $choice, "P$seat Armoire takes a useful exchange");
+    $hand = &GetHand($seat); $fullHand = $hand; $hand = array_slice($hand, 0, 1);
+    check(GABotArmoirePair($seat) === null, "P$seat Armoire rejects a card with no reserve to play it");
+    AddField($seat, 'mb3iqw3kc6', Owner:$seat, Controller:$seat);
+    $resource = GetField($seat)[2]; $resource->Status = 2;
+    $resource->Counters['_overrides']['granted_keywords'] = ['Reservable'];
+    check(GABotArmoirePair($seat) !== null, "P$seat Armoire counts ready non-unit reserve toward the acquired card");
+    $resource->Status = 1;
+    check(GABotArmoirePair($seat) === null, "P$seat Armoire excludes a rested reserve source");
+    $resource->removed = true; $hand = $fullHand;
     AddEffectStack('RIVahUIQVD', 3-$seat);
     [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
     check($action['cardID'] === 'PASS', "P$seat Armoire holds during a pending effect");
@@ -1073,6 +1119,33 @@ foreach ([1, 2] as $seat) {
     SetTurnNumber(1);
     SetMacroGameIndex(json_encode(['dtrExtraTurnActive' => true]));
     check($hasAttack(), "P$seat preserves the extra-turn exception");
+}
+// Pride uses the live requirement, including temporary ability suppression.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    SetCurrentPhase('MAIN');
+    SetTurnNumber(2);
+    $field = &GetField($seat); $field = [];
+    AddField($seat, 'TJTeWcZnsQ', Owner:$seat, Controller:$seat); // Lorraine: level 2
+    AddField($seat, 'c3plbuv3fr', Owner:$seat, Controller:$seat); // Jueying: pride 3
+    GetField($seat)[1]->Status = 2;
+    $hasAttack = function() use ($seat) {
+        $legal = GABotLegalActions('decision-test', $seat);
+        return in_array('myField-1!FSM!', array_column($legal['actions'], 'cardID'));
+    };
+    SetFlashMessage('unchanged');
+    check(intval(PrideAmount(GetField($seat)[1])) === 3 && intval(PlayerLevel($seat)) === 2,
+        "P$seat Pride fixture is below the required level (pride=" . PrideAmount(GetField($seat)[1]) . ", level=" . PlayerLevel($seat) . ")");
+    check(!$hasAttack(), "P$seat excludes attacks below Pride level");
+    check(GetFlashMessage() === 'unchanged', "P$seat Pride filter has no rejection side effect");
+    GetField($seat)[0]->Counters['level'] = 1;
+    check($hasAttack(), "P$seat permits attacks at Pride level");
+    GetField($seat)[0]->Counters['level'] = 0;
+    AddTurnEffect('myField-1', 'NO_ABILITIES');
+    check($hasAttack(), "P$seat permits attacks when Pride is suppressed");
+    GetField($seat)[1]->TurnEffects = [];
+    AddTurnEffect('myField-1', 'pk9xycwz9g'); // Cell Handler removes Pride this turn
+    check($hasAttack(), "P$seat respects a temporary Pride removal");
 }
 echo "Checks: $checks; failures: $failures\n";
 exit($failures ? 1 : 0);

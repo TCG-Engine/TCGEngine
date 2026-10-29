@@ -186,8 +186,7 @@ function GABotLegalActions($gameName, $player) {
 
     // BeginCombatPhase forbids the opening player's first-turn attacks. Do not
     // offer them only to have the controller execute and retry each rejection.
-    $openingAttackBlocked = intval(GetTurnNumber()) === 1
-        && intval(GetFirstPlayer()) === $player && !GADTRIsExtraTurn();
+    $openingAttackBlocked = IsFirstTurnAttackLocked($player);
     $field = $openingAttackBlocked ? [] : GetField($player);
     foreach ($field as $i => $obj) {
         if ($obj === null || !empty($obj->removed)) continue;
@@ -204,6 +203,8 @@ function GABotLegalActions($gameName, $player) {
         // for every candidate that DOES pass this filter).
         $power = function_exists('ObjectCurrentPower') ? intval(ObjectCurrentPower($obj)) : 0;
         if ($power <= 0) continue;
+        // Use the engine's live Pride value so suppression and removal still permit attacks.
+        if (PrideAmount($obj) > PlayerLevel($player)) continue;
         $actions[] = ['playerID' => $player, 'mode' => 10002, 'cardID' => "myField-$i!FSM!"];
     }
 

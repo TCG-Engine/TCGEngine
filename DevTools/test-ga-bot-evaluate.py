@@ -38,4 +38,17 @@ class EvaluationTest(unittest.TestCase):
             self.assertIn('| A | B | 1 | 1 | 25.0 |', report)
             self.assertIn('Game 0002: exit=1', report)
 
+    def test_rejections_include_completed_and_failed_games(self):
+        with tempfile.TemporaryDirectory() as directory:
+            game = dict(candidateDeck='A', baselineDeck='B', candidateSeat=2, winner=2,
+                        completed=True, exitCode=0, steps=25)
+            games = [game, dict(game, rejectedActionAttempts=2),
+                     dict(game, completed=False, exitCode=1, rejectedActionAttempts=3)]
+            evaluation.write_report(pathlib.Path(directory),
+                                    dict(games=games, scheduled=3, failed=1, candidateWins=2))
+            report = (pathlib.Path(directory) / 'report.md').read_text()
+            self.assertIn('5 attempts across 2 games.', report)
+            self.assertIn('Game 0002: 2 attempts', report)
+            self.assertIn('Game 0003: 3 attempts', report)
+
 if __name__ == '__main__': unittest.main()
