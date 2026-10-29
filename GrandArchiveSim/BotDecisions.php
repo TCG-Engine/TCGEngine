@@ -214,7 +214,130 @@ function GABotThuriblePayment($player) {
     return 0;
 }
 
-// Limited to three understood damage spells with publicly declared targets.
+// Base damage only: use public board state, never unresolved private choices.
+function GABotDeclaredDamageEstimate($entry, $target) {
+    $controller = intval($entry->Controller);
+    switch ($entry->CardID) {
+        case 'RIVahUIQVD': return 1 + PlayerLevel($controller); // Fireball
+        case '50m1nBduUZ':
+            return IsClassBonusActive($controller, ['MAGE'])
+                ? (PlayerLevel($controller) >= 6 ? 6 : (PlayerLevel($controller) >= 3 ? 4 : 2)) : 2;
+        case 'vjonmi9jjq': return HasStealth($target) ? 4 : 1; // Smoke Out
+        case 'ZIU4bH6D9q': return intval($target->Damage ?? 0) > 0 ? 6 : 2;
+        case '0op3nq0ymv': return PropertyContains(EffectiveCardType($target), 'ALLY') ? 5 : 3;
+    }
+    return ['0G32Pp5atK'=>2, '0xm513tj3j'=>4, '145y6KBhxe'=>4][$entry->CardID] ?? null;
+}
+
+// Spend the consumable only against understood, publicly declared spell damage.
+// Infer likely memory synergies from public champion lineage only.
+// Champion families are a matchup hint, not knowledge of the opponent's deck.
+function GABotOpponentLikelyWindOrLuxem($player) {
+    $champion = GABotOwnChampion(3 - $player);
+    if ($champion === null) return false;
+    $lineage = array_merge([$champion->CardID], (array)($champion->Subcards ?? []));
+    foreach ($lineage as $cardID) {
+        if (!PropertyContains(CardType($cardID), 'CHAMPION')) continue;
+        $element = CardElement($cardID);
+        if (PropertyContains($element, 'WIND') || PropertyContains($element, 'LUXEM')) return true;
+        $name = CardName($cardID);
+        foreach (['Zander,', 'Guo Jia,', 'Mordred,'] as $family) {
+            if (str_starts_with($name, $family)) return true;
+        }
+    }
+    return false;
+}
+
+function GABotNullifyingMirrorScore($player) {
+    // Memory contents are private: use only its public count, never card identities.
+    if (intval(GetTurnPlayer()) === $player
+        || !GABotOpponentLikelyWindOrLuxem($player)
+        || GABotLiveCount(GetMemory(3 - $player)) === 0
+        || GlobalEffectCount($player, 'pol1nz0j1n') > 0
+        || GlobalEffectCount($player, '0sVdvpQKXq_MEMORY') > 0) return -1;
+    foreach (GetLiveEffectStackEntries() as $entry) {
+        if (intval($entry->Controller) === $player && $entry->CardID === 'pol1nz0j1n') return -1;
+    }
+    return 20;
+}
+
+// Spend the one-shot amulet only on understood, publicly targeted champion damage.
+function GABotSafeguardScore($player) {
+    foreach (GetLiveEffectStackEntries() as $entry) {
+        if ($entry->CardID === 'yj2rJBREH8' && intval($entry->Controller) === $player) return -1;
+    }
+    $champion = GABotOwnChampion($player);
+    if ($champion === null) return -1;
+    foreach ($champion->TurnEffects ?? [] as $effect) {
+        if ($effect === 'yj2rJBREH8' || str_starts_with($effect, 'PREVENT_NONCOMBAT_')) return -1;
+    }
+    if (IsDistant($champion) && GlobalEffectCount($player, 'isxy5lh23q') > 0) return -1;
+    $score = -1;
+    foreach (GetLiveEffectStackEntries() as $entry) {
+        if (intval($entry->Controller) === $player) continue;
+        foreach (GADeclarationData($entry)['primary'] ?? [] as $identity) {
+            $ref = GATargetReference($identity);
+            if ($ref === null || GetZoneObject($ref) !== $champion) continue;
+            $amount = GABotDeclaredDamageEstimate($entry, $champion);
+            if ($amount === null || $amount <= 0) continue;
+            $hp = GABotRemainingHP($champion);
+            if ($hp > 0 && $amount >= $hp && $amount - 4 < $hp) return 110;
+            if ($amount >= 2 && $amount < $hp) $score = 35;
+        }
+    }
+    return $score;
+}
+
+function GABotFlashGrenadeScore($player) {
+    if (GlobalEffectCount($player, 'isxy5lh23q') > 0) return -1;
+    foreach (GetLiveEffectStackEntries() as $entry) {
+        if ($entry->CardID === 'isxy5lh23q' && intval($entry->Controller) === $player) return -1;
+    }
+    // Wait for the stack to settle before spending protection on an attack.
+    $combat = GABotCombatContext($player);
+    if (empty(GetLiveEffectStackEntries()) && $combat !== null
+        && $combat['owner'] !== $player && $combat['targetOwner'] === $player
+        && DecisionQueueController::GetVariable('CombatDamageAmount') === null) {
+        $target = GetZoneObject($combat['target']);
+        $protected = false;
+        foreach ($target->TurnEffects ?? [] as $effect) {
+            if (str_starts_with($effect, 'PREVENT_COMBAT_')) $protected = true;
+        }
+        if ($target->CardID === 'Zu53izIFTX'
+            && IsClassBonusActive($player, CardClasses($target->CardID))) $protected = true;
+        if (!$protected && IsDistant($target)
+            && (PropertyContains(EffectiveCardType($target), 'ALLY')
+                || PropertyContains(EffectiveCardType($target), 'CHAMPION'))) {
+            $amount = $combat['threat'];
+            $hp = $combat['hp'];
+            if ($hp > 0 && $amount >= $hp && $amount - 3 < $hp) return 110;
+            if ($amount >= 2 && $amount < $hp) return 35;
+        }
+    }
+    $score = -1;
+    foreach (GetLiveEffectStackEntries() as $entry) {
+        if (intval($entry->Controller) === $player) continue;
+        foreach (GADeclarationData($entry)['primary'] ?? [] as $identity) {
+            $ref = GATargetReference($identity);
+            $target = $ref === null ? null : GetZoneObject($ref);
+            if ($target === null || !empty($target->removed) || intval($target->Controller) !== $player
+                || !IsDistant($target)
+                || !(PropertyContains(EffectiveCardType($target), 'ALLY')
+                    || PropertyContains(EffectiveCardType($target), 'CHAMPION'))) continue;
+            foreach ($target->TurnEffects ?? [] as $effect) {
+                if (str_starts_with($effect, 'PREVENT_NONCOMBAT_') || $effect === 'yj2rJBREH8') continue 2;
+            }
+            $amount = GABotDeclaredDamageEstimate($entry, $target);
+            if ($amount === null || $amount <= 0) continue;
+            $hp = GABotRemainingHP($target);
+            if ($hp > 0 && $amount >= $hp && $amount - 3 < $hp) return 110;
+            if ($amount >= 2) $score = 35;
+        }
+    }
+    return $score;
+}
+
+// Only understood damage spells with publicly declared targets.
 // Preserve the last durability unless one prevention would save a unit.
 function GABotClarentScore($player, $source) {
     foreach (GetLiveEffectStackEntries() as $entry) {
@@ -222,8 +345,6 @@ function GABotClarentScore($player, $source) {
     }
     foreach (GetLiveEffectStackEntries() as $entry) {
         if (intval($entry->Controller) === $player) continue;
-        $damage = ['0G32Pp5atK'=>2, '0op3nq0ymv'=>3, '0xm513tj3j'=>4][$entry->CardID] ?? 0;
-        if ($damage === 0) continue;
         foreach (GADeclarationData($entry)['primary'] ?? [] as $identity) {
             $ref = GATargetReference($identity);
             $target = $ref === null ? null : GetZoneObject($ref);
@@ -232,7 +353,8 @@ function GABotClarentScore($player, $source) {
             foreach ($target->TurnEffects ?? [] as $effect) {
                 if (str_starts_with($effect, 'PREVENT_NONCOMBAT_') || $effect === 'yj2rJBREH8') continue 2;
             }
-            $amount = $entry->CardID === '0op3nq0ymv' && PropertyContains(EffectiveCardType($target), 'ALLY') ? 5 : $damage;
+            $amount = GABotDeclaredDamageEstimate($entry, $target);
+            if ($amount === null || $amount <= 0) continue;
             if (GABotRemainingHP($target) === $amount) return 110;
             if (GetCounterCount($source, 'durability') > 1) return 35;
         }
@@ -242,6 +364,41 @@ function GABotClarentScore($player, $source) {
 
 // null means unsupported, negative means understood but undesirable. This distinction makes
 // coverage reports useful without labeling a deliberate pass as a missing implementation.
+// A narrow Armoire exchange: lower the hand's reserve burden without changing
+// omen type/element or losing cost diversity, duplicate-cost bonuses or total cost.
+function GABotArmoirePair($player, $omens = null, $hands = null) {
+    $omens ??= GetOmenMZIDs($player);
+    $hands ??= ZoneSearch('myHand');
+    $costs = [];
+    foreach (GetOmens($player) as $obj) {
+        $cost = intval(EffectiveCardReserveCost($obj));
+        $costs[$cost] = ($costs[$cost] ?? 0) + 1;
+    }
+    $best = null;
+    foreach ($omens as $omen) {
+        $take = GetZoneObject($omen);
+        if ($take === null || !CanPlayerUseCardElement($player, $take->CardID, false, false)) continue;
+        $takeCost = intval(EffectiveCardReserveCost($take));
+        if ($takeCost > max(0, GABotLiveCount(GetHand($player)) - 1)) continue;
+        foreach ($hands as $hand) {
+            $give = GetZoneObject($hand);
+            if ($give === null || EffectiveCardType($take) !== EffectiveCardType($give)
+                || EffectiveCardElement($take) !== EffectiveCardElement($give)) continue;
+            $giveCost = intval(EffectiveCardReserveCost($give));
+            $gain = $giveCost - $takeCost;
+            if ($gain < 2) continue;
+            $after = $costs;
+            $after[$takeCost] = ($after[$takeCost] ?? 1) - 1;
+            if ($after[$takeCost] <= 0) unset($after[$takeCost]);
+            $after[$giveCost] = ($after[$giveCost] ?? 0) + 1;
+            if (array_diff(array_keys($costs), array_keys($after))
+                || (max($costs ?: [0]) >= 2 && max($after) < 2)) continue;
+            if ($best === null || $gain > $best['gain']) $best = compact('omen', 'hand', 'gain');
+        }
+    }
+    return $best;
+}
+
 function GABotOptionalScore($player, $answer, $legal) {
     $handler = $legal['handler'] ?? '';
     $tooltip = $legal['tooltip'] ?? '';
@@ -294,6 +451,29 @@ function GABotOptionalScore($player, $answer, $legal) {
                             && GABotCanBenefitFromDraw($player) ? GABotDrawPriority($player) : -1;
                     }
                 }
+            }
+            if ($source !== null && $ability['abilityIndex'] === 0 && $source->CardID === 'pol1nz0j1n') {
+                return CanActivateAbility($player, $ability['mzID'], 0) ? GABotNullifyingMirrorScore($player) : -1;
+            }
+            if ($source !== null && $ability['abilityIndex'] === 0 && $source->CardID === 'yj2rJBREH8') {
+                return CanActivateAbility($player, $ability['mzID'], 0) ? GABotSafeguardScore($player) : -1;
+            }
+            if ($source !== null && $ability['abilityIndex'] === 0 && $source->CardID === 'isxy5lh23q') {
+                return CanActivateAbility($player, $ability['mzID'], 0) ? GABotFlashGrenadeScore($player) : -1;
+            }
+            if ($source !== null && $ability['abilityIndex'] === 0 && $source->CardID === 'fm894uc4ij') {
+                return CanActivateAbility($player, $ability['mzID'], 0)
+                    && intval(GetTurnPlayer()) === $player && GetCurrentPhase() === 'MAIN'
+                    && empty(GetLiveEffectStackEntries()) && GABotArmoirePair($player) !== null ? 20 : -1;
+            }
+            if ($source !== null && $ability['abilityIndex'] === 0 && $source->CardID === 'mb3iqw3kc6') {
+                // Memory draw is delayed value: keep our own turn's resources and
+                // two response cards, and do not spend into a pending effect.
+                return CanActivateAbility($player, $ability['mzID'], 0)
+                    && intval(GetTurnPlayer()) !== $player && empty(GetLiveEffectStackEntries())
+                    && GABotLiveCount(GetHand($player)) >= 5
+                    && CountAvailableReservePayments($player) >= 3
+                    && GABotCanBenefitFromDraw($player) ? 15 : -1;
             }
             if ($source !== null && $ability['abilityIndex'] === 0 && $source->CardID === 'DNbIpzVgde') {
                 return CanActivateAbility($player, $ability['mzID'], 0) && GABotCanBenefitFromDraw($player)
@@ -463,6 +643,17 @@ function GABotChooseDecision(array $actions, array $legal) {
             if (in_array($handler, ['MATERIALIZE', 'MATERIALIZE|NOCOST', 'WeaponSelected'], true) && $candidates[0] !== 'PASS') {
                 usort($candidates, fn($a, $b) => GABotOptionalScore($player, $b, $legal) <=> GABotOptionalScore($player, $a, $legal));
                 $choice = $candidates[0];
+            } elseif ($handler === 'fm894uc4ij:0:ActivateAbility-1') {
+                $pair = GABotArmoirePair($player, $candidates);
+                $choice = $pair['omen'] ?? $candidates[0];
+                DecisionQueueController::StoreVariable('GABotArmoireReplacement',
+                    $pair === null ? '' : GetZoneObject($pair['hand'])->CardID);
+            } elseif ($handler === 'fm894uc4ij:0:ActivateAbility-2') {
+                $replacement = DecisionQueueController::GetVariable('GABotArmoireReplacement');
+                $matching = array_values(array_filter($candidates,
+                    fn($mz) => GetZoneObject($mz)->CardID === $replacement));
+                // Revalidate against offered choices; a changed state must still answer legally.
+                $choice = $matching[0] ?? $candidates[0];
             } elseif (str_starts_with($handler, 'PurifyingThuribleBanish|')) {
                 $value = function($mz) use ($player) {
                     $obj = GetZoneObject($mz);

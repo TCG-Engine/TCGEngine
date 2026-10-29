@@ -707,6 +707,27 @@ foreach ([1, 2] as $seat) {
     GetEffectStack()[0]->Counters['activationTargets'] = json_encode(['primary'=>[GATargetIdentity('myField-0')]]);
     [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
     check($action['cardID'] === $choice, "P$seat Clarent responds to publicly targeted spell damage");
+    foreach (['RIVahUIQVD'=>1 + PlayerLevel(3-$seat), '50m1nBduUZ'=>2,
+        'vjonmi9jjq'=>1, 'ZIU4bH6D9q'=>2, '145y6KBhxe'=>4] as $spell=>$expected) {
+        GetEffectStack()[0]->CardID = $spell;
+        check(GABotDeclaredDamageEstimate(GetEffectStack()[0], GetField($seat)[0]) === $expected,
+            "P$seat public damage estimate for $spell");
+        [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+        check($action['cardID'] === $choice, "P$seat Clarent recognizes $spell");
+    }
+    GetEffectStack()[0]->CardID = 'ZIU4bH6D9q';
+    GetField($seat)[0]->Damage = 1;
+    check(GABotDeclaredDamageEstimate(GetEffectStack()[0], GetField($seat)[0]) === 6,
+        "P$seat wounded target changes damage estimate");
+    GetField($seat)[0]->Damage = 0;
+    GetEffectStack()[0]->CardID = 'RIVahUIQVD';
+    GetField($seat)[1]->Counters['durability'] = 1;
+    GetField($seat)[0]->Damage = ObjectCurrentHP(GetField($seat)[0]) - (1 + PlayerLevel(3-$seat));
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat Clarent saves a unit from level-scaled Fireball");
+    GetField($seat)[0]->Damage = 0;
+    GetField($seat)[1]->Counters['durability'] = 2;
+    GetEffectStack()[0]->CardID = '0G32Pp5atK';
     GetEffectStack()[0]->Controller = $seat;
     [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
     check($action['cardID'] === 'PASS', "P$seat Clarent ignores own spell activations");
@@ -732,6 +753,302 @@ foreach ([1, 2] as $seat) {
     OnDealDamage(3-$seat, 'EffectStack-0', 'myField-0', 2);
     check(GetField($seat)[0]->Damage === $before + 1 && GetCounterCount(GetField($seat)[1], 'durability') === 0,
         "P$seat Clarent spends durability and prevents one actual noncombat damage");
+}
+// Tanggu pays for delayed card advantage only with spare resources and no pending threat.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    AddField($seat, 'mb3iqw3kc6', Owner:$seat, Controller:$seat);
+    for ($i=0; $i<5; ++$i) AddHand($seat, 'rWhFC8XBaH');
+    for ($i=0; $i<3; ++$i) AddDeck($seat, 'rWhFC8XBaH');
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Banish');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Tanggu preserves own-turn resources");
+    SetTurnPlayer(3-$seat);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat Tanggu uses spare resources in a quiet opposing turn");
+    AddEffectStack('RIVahUIQVD', 3-$seat);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Tanggu holds during a pending effect");
+    $stack = &GetEffectStack(); $stack = [];
+    $hand = &GetHand($seat); $savedHand = $hand; array_pop($hand);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Tanggu keeps two response cards");
+    $hand = $savedHand;
+    AddGlobalEffects($seat, 'ri955ygd5v_NO_DRAW');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Tanggu avoids a blocked draw");
+    $effects = &GetGlobalEffects($seat); $effects = [];
+    $deck = &GetDeck($seat); $savedDeck = $deck; $deck = array_slice($deck, 0, 1);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Tanggu preserves the last deck card");
+    $deck = $savedDeck;
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    ActivatedAbilityCost($seat, 'myField-1', 'mb3iqw3kc6', 0);
+    for ($step=0; $step<15; ++$step) {
+        $dq = new DecisionQueueController(); $dq->ExecuteStaticMethods($seat);
+        $legal = GABotLegalActions('decision-test', $seat);
+        if (($legal['kind'] ?? '') !== 'decision') break;
+        $action = GABotChooseAction($legal['actions'], $legal);
+        check(GameValidateDecisionAnswer($seat, $action['cardID']), "P$seat Tanggu payment $step is legal");
+        $dq->PopDecision($seat); $dq->ExecuteStaticMethods($seat, $action['cardID']);
+    }
+    $activateAbilityAbilities['mb3iqw3kc6:0']($seat);
+    check(GABotLiveCount(GetHand($seat)) === 2 && GABotLiveCount(GetMemory($seat)) === 4
+        && GABotLiveCount(GetBanish($seat)) === 1 && GABotLiveCount(GetDeck($seat)) === 2,
+        "P$seat Tanggu pays three, banishes itself and draws into memory");
+}
+// Armoire preserves omen cost bonuses while trading an expensive hand card for a cheap one.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    GetField($seat)[0]->CardID = 'nn48ne8a05';
+    AddField($seat, 'fm894uc4ij', Owner:$seat, Controller:$seat);
+    foreach (['rWhFC8XBaH', 'rWhFC8XBaH', 'szene5o32m'] as $id) {
+        AddBanish($seat, $id);
+        AddCounters($seat, 'myBanish-' . (count(GetBanish($seat))-1), 'omen', 1);
+    }
+    AddHand($seat, 'szene5o32m');
+    AddHand($seat, 'rWhFC8XBaH');
+    AddHand($seat, 'rWhFC8XBaH');
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Banish');
+    SetCurrentPhase('MAT');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Armoire waits for main phase");
+    SetCurrentPhase('MAIN');
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === $choice, "P$seat Armoire takes a useful exchange");
+    AddEffectStack('RIVahUIQVD', 3-$seat);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Armoire holds during a pending effect");
+    $stack = &GetEffectStack(); $stack = [];
+    $hand = &GetHand($seat); $savedHand = $hand; $hand = [];
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Armoire avoids an empty-hand exchange");
+    $hand = $savedHand;
+    GetBanish($seat)[1]->removed = true;
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Armoire preserves a unique omen cost");
+    GetBanish($seat)[1]->removed = false;
+    SetTurnPlayer(3-$seat);
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Armoire holds on opposing turn");
+    SetTurnPlayer($seat);
+    GetField($seat)[0]->CardID = 'LMyKyVC2O9';
+    [$legal, $action] = offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat);
+    check($action['cardID'] === 'PASS', "P$seat Armoire requires Ciel");
+    GetField($seat)[0]->CardID = 'nn48ne8a05';
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    ActivatedAbilityCost($seat, 'myField-1', 'fm894uc4ij', 0);
+    $activateAbilityAbilities['fm894uc4ij:0']($seat);
+    for ($step=0; $step<2; ++$step) {
+        $legal = GABotLegalActions('decision-test', $seat);
+        $action = GABotChooseAction($legal['actions'], $legal);
+        check(GameValidateDecisionAnswer($seat, $action['cardID']), "P$seat Armoire choice $step is legal");
+        check(GetZoneObject($action['cardID'])->CardID === ($step === 0 ? 'rWhFC8XBaH' : 'szene5o32m'),
+            "P$seat Armoire chooses the planned swap card $step");
+        $dq = new DecisionQueueController(); $dq->PopDecision($seat);
+        $dq->ExecuteStaticMethods($seat, $action['cardID']);
+    }
+    check(GABotLiveCount(GetHand($seat)) === 3 && GetOmenCount($seat) === 3
+        && GetTotalOmenCost($seat) === 9 && HasOmensWithSameCost($seat)
+        && GetOmenDistinctCostCount($seat) === 2,
+        "P$seat Armoire swap resolves and preserves omen bonuses");
+}
+// Flash Grenade uses public spell targets and only protects distant units.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    AddField($seat, 'isxy5lh23q', Owner:$seat, Controller:$seat);
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Prevent');
+    $chooseGrenade = function() use ($choice, $seat) {
+        return offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat)[1]['cardID'];
+    };
+    check($chooseGrenade() === 'PASS', "P$seat Grenade holds without a threat");
+    AddEffectStack('0G32Pp5atK', 3-$seat);
+    GetEffectStack()[0]->Counters['activationTargets'] = json_encode(['primary'=>[GATargetIdentity('myField-0')]]);
+    check($chooseGrenade() === 'PASS', "P$seat Grenade requires distant");
+    AddTurnEffect('myField-0', 'DISTANT');
+    check($chooseGrenade() === $choice, "P$seat Grenade prevents recognized spell damage");
+    GetEffectStack()[0]->Controller = $seat;
+    check($chooseGrenade() === 'PASS', "P$seat Grenade ignores own spells");
+    GetEffectStack()[0]->Controller = 3-$seat;
+    GetEffectStack()[0]->CardID = 'rWhFC8XBaH';
+    check($chooseGrenade() === 'PASS', "P$seat Grenade does not guess unknown damage");
+    GetEffectStack()[0]->CardID = 'vjonmi9jjq';
+    check($chooseGrenade() === 'PASS', "P$seat Grenade preserves consumable against one damage");
+    GetField($seat)[0]->Damage = ObjectCurrentHP(GetField($seat)[0]) - 1;
+    check($chooseGrenade() === $choice, "P$seat Grenade saves a unit from one lethal damage");
+    GetField($seat)[0]->Damage = 0;
+    GetEffectStack()[0]->CardID = '0G32Pp5atK';
+    AddTurnEffect('myField-0', 'PREVENT_NONCOMBAT_1');
+    check($chooseGrenade() === 'PASS', "P$seat Grenade conservatively avoids existing protection");
+    GetField($seat)[0]->TurnEffects = ['DISTANT'];
+    AddEffectStack('isxy5lh23q', $seat);
+    check($chooseGrenade() === 'PASS', "P$seat Grenade avoids a duplicate pending activation");
+    GetEffectStack()[1]->removed = true;
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    DecisionQueueController::StoreVariable('mzID', 'myField-1');
+    DecisionQueueController::StoreVariable('abilityIndex', '0');
+    $activateAbilityAbilities['isxy5lh23q:0']($seat);
+    check(GABotLiveCount(GetBanish($seat)) === 1 && GlobalEffectCount($seat, 'isxy5lh23q') === 1,
+        "P$seat Grenade banishes itself and installs protection");
+    OnDealDamage(3-$seat, 'EffectStack-0', 'myField-0', 4);
+    check(GetField($seat)[0]->Damage === 1, "P$seat Grenade actually prevents three damage");
+    check(GABotFlashGrenadeScore($seat) === -1, "P$seat Grenade avoids active protection");
+}
+// Combat protection is evaluated before damage, after pending effects settle.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    AddField($seat, 'isxy5lh23q', Owner:$seat, Controller:$seat);
+    AddField(3-$seat, '5n874ubgai', Owner:3-$seat, Controller:3-$seat);
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Prevent');
+    $chooseGrenade = function() use ($choice, $seat) {
+        return offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat)[1]['cardID'];
+    };
+    DecisionQueueController::StoreVariable('CombatAttackerPlayer', strval(3-$seat));
+    StoreCombatAttackerState('myField-0', 3-$seat);
+    StoreCombatTargetState('theirField-0', 3-$seat);
+    check($chooseGrenade() === 'PASS', "P$seat combat Grenade requires distant");
+    AddTurnEffect('myField-0', 'DISTANT');
+    $threat = GABotCombatContext($seat)['threat'];
+    check($threat >= 2 && $chooseGrenade() === $choice, "P$seat Grenade prevents nonlethal combat damage");
+    AddEffectStack('rWhFC8XBaH', 3-$seat);
+    check($chooseGrenade() === 'PASS', "P$seat combat Grenade waits for unresolved effects");
+    GetEffectStack()[0]->removed = true;
+    DecisionQueueController::StoreVariable('CombatDamageAmount', 0);
+    check($chooseGrenade() === 'PASS', "P$seat combat Grenade holds after damage even if zero");
+    DecisionQueueController::StoreVariable('CombatDamageAmount', null);
+    AddTurnEffect('myField-0', 'PREVENT_COMBAT_3');
+    check($chooseGrenade() === 'PASS', "P$seat combat Grenade avoids existing combat protection");
+    GetField($seat)[0]->TurnEffects = ['DISTANT', 'PREVENT_NONCOMBAT_1'];
+    check($chooseGrenade() === $choice, "P$seat noncombat protection does not block combat Grenade");
+    GetField($seat)[0]->Damage = ObjectCurrentHP(GetField($seat)[0]) - $threat;
+    check($chooseGrenade() === $choice, "P$seat Grenade saves a unit from lethal combat");
+    AddCounters($seat, 'theirField-0', 'buff', 20);
+    check($chooseGrenade() === 'PASS', "P$seat Grenade holds when combat remains lethal");
+    RemoveCounters($seat, 'theirField-0', 'buff', 20);
+    GetField(3-$seat)[0]->Controller = $seat;
+    check($chooseGrenade() === 'PASS', "P$seat Grenade ignores friendly attacks");
+    GetField(3-$seat)[0]->Controller = 3-$seat;
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    DecisionQueueController::StoreVariable('mzID', 'myField-1');
+    DecisionQueueController::StoreVariable('abilityIndex', '0');
+    $activateAbilityAbilities['isxy5lh23q:0']($seat);
+    $before = GetField($seat)[0]->Damage;
+    check(IsCombatDamageFrom('theirField-0'), "P$seat Grenade fixture uses actual combat damage");
+    OnDealDamage(3-$seat, 'theirField-0', 'myField-0', $threat);
+    check(GetField($seat)[0]->Damage === $before + max(0, $threat - 3),
+        "P$seat Grenade resolves combat prevention");
+    check(GABotFlashGrenadeScore($seat) === -1, "P$seat combat Grenade avoids active protection");
+}
+// Safeguard protects only the champion from recognized noncombat damage.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    AddField($seat, 'yj2rJBREH8', Owner:$seat, Controller:$seat);
+    AddField($seat, '5n874ubgai', Owner:$seat, Controller:$seat);
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Banish');
+    $chooseAmulet = function() use ($choice, $seat) {
+        return offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat)[1]['cardID'];
+    };
+    check($chooseAmulet() === 'PASS', "P$seat Safeguard holds without a spell");
+    AddEffectStack('0G32Pp5atK', 3-$seat);
+    $spell = GetEffectStack()[0];
+    $spell->Counters['activationTargets'] = json_encode(['primary'=>[GATargetIdentity('myField-2')]]);
+    check($chooseAmulet() === 'PASS', "P$seat Safeguard does not protect allies");
+    $spell->Counters['activationTargets'] = json_encode(['primary'=>[GATargetIdentity('myField-0')]]);
+    check($chooseAmulet() === $choice, "P$seat Safeguard responds to champion damage");
+    $spell->Controller = $seat;
+    check($chooseAmulet() === 'PASS', "P$seat Safeguard ignores friendly spells");
+    $spell->Controller = 3-$seat;
+    $spell->CardID = 'rWhFC8XBaH';
+    check($chooseAmulet() === 'PASS', "P$seat Safeguard holds for unknown effects");
+    $spell->CardID = 'vjonmi9jjq';
+    check($chooseAmulet() === 'PASS', "P$seat Safeguard holds against one nonlethal damage");
+    GetField($seat)[0]->Damage = ObjectCurrentHP(GetField($seat)[0]) - 1;
+    check($chooseAmulet() === $choice, "P$seat Safeguard prevents one lethal damage");
+    $spell->CardID = '0op3nq0ymv';
+    check($chooseAmulet() === $choice, "P$seat Safeguard saves champion from three damage");
+    $spell->CardID = 'ZIU4bH6D9q';
+    check($chooseAmulet() === 'PASS', "P$seat Safeguard holds when six damage remains lethal");
+    GetField($seat)[0]->Damage = 0;
+    $spell->CardID = '0G32Pp5atK';
+    AddTurnEffect('myField-0', 'PREVENT_NONCOMBAT_1');
+    check($chooseAmulet() === 'PASS', "P$seat Safeguard avoids existing prevention");
+    GetField($seat)[0]->TurnEffects = [];
+    AddEffectStack('yj2rJBREH8', $seat);
+    check($chooseAmulet() === 'PASS', "P$seat Safeguard avoids pending duplicate");
+    GetEffectStack()[1]->removed = true;
+    AddGlobalEffects($seat, 'isxy5lh23q');
+    AddTurnEffect('myField-0', 'DISTANT');
+    check($chooseAmulet() === 'PASS', "P$seat Safeguard avoids active distant protection");
+    GetField($seat)[0]->TurnEffects = [];
+    check($chooseAmulet() === $choice, "P$seat distant protection does not cover a non-distant champion");
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    DecisionQueueController::StoreVariable('mzID', 'myField-1');
+    DecisionQueueController::StoreVariable('abilityIndex', '0');
+    $activateAbilityAbilities['yj2rJBREH8:0']($seat);
+    check(GABotLiveCount(GetBanish($seat)) === 1 && GABotSafeguardScore($seat) === -1,
+        "P$seat Safeguard banishes itself and avoids duplicate protection");
+    OnDealDamage(3-$seat, 'EffectStack-0', 'myField-0', 5);
+    check(GetField($seat)[0]->Damage === 1, "P$seat Safeguard actually prevents four damage");
+    OnDealDamage(3-$seat, 'EffectStack-0', 'myField-0', 2);
+    check(GetField($seat)[0]->Damage === 3, "P$seat Safeguard protection is consumed");
+}
+// Nullifying Mirror uses public memory counts, not hidden identities.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    AddField($seat, 'pol1nz0j1n', Owner:$seat, Controller:$seat);
+    GetField($seat)[1]->Status = 2;
+    $choice = EncodeOpportunityAbilityChoice('myField-1', 0, 'Norm memory');
+    $chooseMirror = function() use ($choice, $seat) {
+        return offer('MZMAYCHOOSE', $choice, '', 'Take_a_fast_action?', $seat)[1]['cardID'];
+    };
+    SetTurnPlayer(3-$seat);
+    check($chooseMirror() === 'PASS', "P$seat Mirror holds against empty memory");
+    AddMemory(3-$seat, '0G32Pp5atK');
+    check($chooseMirror() === 'PASS', "P$seat Mirror holds with no public matchup evidence");
+    AddField(3-$seat, 'LMyKyVC2O9', Owner:3-$seat, Controller:3-$seat);
+    check($chooseMirror() === 'PASS', "P$seat Mirror holds against Fire spirit");
+    GetField(3-$seat)[0]->CardID = 'pNiyaGlIe7';
+    check($chooseMirror() === $choice, "P$seat Mirror suppresses opposing-turn memory");
+    GetField(3-$seat)[0]->CardID = 'e3z4pyx8bd';
+    GetField(3-$seat)[0]->Subcards = ['pNiyaGlIe7'];
+    check($chooseMirror() === $choice, "P$seat Mirror remembers Wind spirit under later champion");
+    GetField(3-$seat)[0]->Subcards = ['LMyKyVC2O9'];
+    check($chooseMirror() === 'PASS', "P$seat Mirror does not infer Luxem from Diana");
+    GetField(3-$seat)[0]->CardID = '59ipqa91r2';
+    check($chooseMirror() === $choice, "P$seat Mirror infers possible Luxem from Guo Jia");
+    GetField(3-$seat)[0]->CardID = 'UAF6Nr7GUE';
+    check($chooseMirror() === $choice, "P$seat Mirror recognizes confirmed Luxem champion");
+
+    SetTurnPlayer($seat);
+    check($chooseMirror() === 'PASS', "P$seat Mirror preserves own-turn readiness");
+    SetTurnPlayer(3-$seat);
+    GetMemory(3-$seat)[0]->CardID = 'rWhFC8XBaH';
+    check($chooseMirror() === $choice, "P$seat Mirror choice is unchanged by hidden Norm card");
+    GetMemory(3-$seat)[0]->CardID = 'hidden-card-sentinel';
+    check($chooseMirror() === $choice, "P$seat Mirror never needs hidden card metadata");
+    GetMemory(3-$seat)[0]->CardID = '0G32Pp5atK';
+    GetField($seat)[1]->Status = 1;
+    check($chooseMirror() === 'PASS', "P$seat Mirror respects resting cost");
+    GetField($seat)[1]->Status = 2;
+    AddEffectStack('pol1nz0j1n', $seat);
+    check($chooseMirror() === 'PASS', "P$seat Mirror avoids a pending duplicate");
+    GetEffectStack()[0]->removed = true;
+    AddGlobalEffects($seat, '0sVdvpQKXq_MEMORY');
+    check($chooseMirror() === 'PASS', "P$seat Mirror avoids equivalent active suppression");
+    $effects = &GetGlobalEffects($seat); $effects = [];
+    AddMemory($seat, '0G32Pp5atK');
+    $before = EffectiveCardElement(GetMemory(3-$seat)[0]);
+    $queue = &GetDecisionQueue($seat); $queue = [];
+    ActivatedAbilityCost($seat, 'myField-1', 'pol1nz0j1n', 0);
+    $activateAbilityAbilities['pol1nz0j1n:0']($seat);
+    check(GetField($seat)[1]->Status === 1 && GlobalEffectCount($seat, 'pol1nz0j1n') === 1,
+        "P$seat Mirror rests and resolves suppression");
+    check($before !== 'NORM' && EffectiveCardElement(GetMemory(3-$seat)[0]) === 'NORM',
+        "P$seat Mirror changes opposing memory element");
+    check(EffectiveCardElement(GetMemory($seat)[0]) === $before,
+        "P$seat Mirror leaves own memory unchanged");
+    GetField($seat)[1]->Status = 2;
+    check($chooseMirror() === 'PASS', "P$seat Mirror avoids redundant suppression after readying");
 }
 echo "Checks: $checks; failures: $failures\n";
 exit($failures ? 1 : 0);

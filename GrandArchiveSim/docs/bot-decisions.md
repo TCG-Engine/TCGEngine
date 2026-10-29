@@ -241,3 +241,87 @@ zero unsupported activation offers. Counts are chooser attempts, not unique
 activations or proof of resolution. Clarent's beneficial resolution was exercised
 by the focused tests, not selected in this match suite. Other prompts involving
 these cards (for example a separate card's search effect) may remain unsupported.
+
+
+## Expanded Clarent recognition and coverage audit
+
+Clarent now also estimates Fireball (controller level), Aenean Scorching Comet
+(controller class and level), Smoke Out (target stealth), Merciless Toss
+(target damage), and Focused Flames. Estimates use public state only. The last
+point of durability is still reserved for an estimated one-point lethal save.
+These are base damage estimates, not a simulation of empower, replacement
+effects, redirection, or later choices; unknown spells remain unsupported by
+this estimate. Existing prevention and friendly spells still cause a pass.
+
+Validation: 329 decision checks, 31 hidden-information checks, and three
+evaluation harness tests pass. The additional checks cover both seats, each
+new spell's default estimate and activation, wounded-target scaling, and a
+last-durability save against level-scaled Fireball. No new full-match strength
+or timing claim is made for this change.
+
+Audit of the preceding 160-game report, restricted to candidate optional
+ability coverage: Portentous Tanggu had 1127 unsupported offers, Manxome
+Armoire 1007, Flash Grenade 958, Safeguard 848, and Nullifying Mirror 639.
+These are recurring chooser offers, not unique games or resolved activations;
+they are priorities for investigation, not proof each activation is desirable.
+Imbue also appeared frequently in the unsupported prompt diagnostics. Next
+coverage should add focused positive/negative resolution scenarios for these
+choices before comparing full games again.
+
+## Portentous Tanggu policy
+
+The bot spends Tanggu for its memory draw during the opponent's turn only when
+there are no live effect-stack entries, at least five hand cards, three available
+reserve payments, and a beneficial draw according to the shared draw guard.
+It preserves its own-turn resources and two hand cards for responses. This is
+conservative delayed card advantage, not an estimate of every possible enemy
+threat; a quiet stack does not guarantee that the opponent has no response.
+
+Both-seat scenarios cover holding on its own turn, a positive opposing-turn
+choice, pending effects, insufficient spare hand, draw restrictions, and the
+last deck card. Actual payment continuations verify three reserve payments,
+self-banish, two remaining hand cards, and the draw into memory. Validation:
+349 decision checks, 31 hidden-information checks, and three evaluation harness
+tests pass. Full-match strength and timing have not been remeasured for this
+policy or the preceding Clarent expansion.
+
+## Manxome Armoire policy
+
+On its own main phase with an empty effect stack, the bot may banish Armoire
+for a Ciel exchange that lowers a hand card's printed reserve cost by at least
+two. It retrieves an element-usable omen whose reserve cost fits the remaining
+hand count and supplies a replacement of the same effective type and element.
+The swap preserves all existing omen cost values and any duplicate-cost bonus,
+while increasing total omen cost. Both choices use the actual offered cards;
+the replacement is remembered by card ID and revalidated at the second prompt.
+
+This is a conservative reserve-cost heuristic, not a complete valuation of Ciel
+combos, card-specific utility, cost modifiers, or play legality after the swap.
+The tests cover both seats, timing, missing Ciel, an empty hand, cost diversity,
+and actual self-banish plus both generated swap continuations. Full-match win
+rate and runtime have not been remeasured for this policy.
+
+## Flash Grenade policy
+
+Flash Grenade now responds to recognized opposing damage spells with publicly declared targets on distant units the bot controls. It spends the consumable to prevent at least two base damage, or when preventing up to three changes a lethal hit into survival. It holds against unknown spells, one nonlethal damage, non-distant targets, existing noncombat protection, and an active or pending friendly Flash Grenade.
+
+This uses the same limited base-damage estimates as Clarent; it does not forecast empowerment, redirection, hidden choices, or all prevention interactions. Untargeted area-damage timing remains uncovered. Both seats have decision checks and actual generated-ability resolution checks for self-banish and three-damage prevention. No full-match strength or performance claim is made for this batch.
+
+
+### Flash Grenade combat responses
+
+With an empty effect stack and combat damage not yet resolved, the bot also protects its distant defender against an opposing attack. It uses the engine's current attack threat, including attack power and damage doubling: activate to prevent at least two nonlethal damage, or to turn a lethal hit into survival. Hold if the attack remains lethal, existing combat prevention is present, or Intangible Geist has its combat immunity class bonus. Noncombat-only protection does not suppress this combat response.
+
+Both seats have checks for pending effects, post-damage timing (including zero damage), non-distant targets, friendly attacks, duplicate protection, lethal thresholds, and actual generated ability resolution followed by combat damage. This is defender-only coverage; retaliation protection and comprehensive prevention/replacement forecasting remain outside this policy.
+
+## Safeguard Amulet policy
+
+The bot activates Safeguard Amulet against recognized opposing damage spells publicly targeting its champion. It prevents at least two estimated nonlethal damage, or up to four damage when that changes a lethal hit into survival. It holds against ally targets, unknown effects, friendly spells, one nonlethal damage, and hits that remain lethal. Existing noncombat prevention, a pending friendly Amulet, and active Flash Grenade protection on a distant champion suppress activation conservatively.
+
+This shares Clarent's limited base-damage estimator; it does not forecast empowerment, redirection, untargeted damage, all prevention interactions, or multiple hits resolving in stack order. Both seats have decision checks and actual generated-ability tests confirming self-banish, four-damage prevention, and consumption of that protection. No full-match performance or win-rate claim is made.
+
+## Nullifying Mirror policy
+
+On the opposing turn, a ready Nullifying Mirror activates when the opponent has at least one live memory card and public champion lineage suggests Wind or Luxem. Printed Wind/Luxem elements (including the starting spirit under later champions) provide direct evidence; Zander, Guo Jia, and Mordred champion names provide a tentative Luxem hint. Other or unknown matchups hold the Mirror. These family hints can be wrong for alternate builds and are not inferred deck contents. The policy reads only the public count, never hidden card identities or elements. It holds on its own turn and avoids pending friendly Mirror activations, active Mirror suppression, and equivalent Heirloom of Spectra memory suppression.
+
+This is a low-cost proactive policy, not a claim that the hidden cards benefit from suppression: it makes the same choice when their identities change, including when they are all Norm. Both seats have privacy checks and actual activation-cost/effect checks confirming that Mirror rests and changes only opposing memory to Norm. Full-match strength and timing have not been reevaluated for this batch.
