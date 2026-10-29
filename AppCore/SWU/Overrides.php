@@ -233,6 +233,16 @@ function CardIDOverride($cardID) {
     case "IC27_180": return "TWI_230"; //Super Battle Droid
     case "IC27_131": return "JTL_164"; //Cham Syndulla
     case "IC27_129": return "LOF_155"; //DRK-1 Probe Droid
+    case "IC27_018": return "LOF_032"; //Magistrate's Scout
+    case "IC27_036": return "SHD_042"; //Concord Dawn Interceptors
+    case "IC27_055": return "LAW_130"; //Betrayed Trust
+    case "IC27_059": return "LOF_080"; //Exegol Patroller
+    case "IC27_061": return "LOF_084"; //Knight of Ren
+    case "IC27_064": return "JTL_088"; //Captain Phasma
+    case "IC27_069": return "JTL_091"; //Apology Accepted
+    case "IC27_100": return "JTL_135"; //Special Forces TIE Fighter
+    case "IC27_111": return "LOF_139"; //Battle Fury
+    case "IC27_133": return "SOR_166"; //Infiltrator's Skill
     default: return $cardID;
   }
 }

@@ -712,6 +712,8 @@ function ObjectCurrentPowerRaw($obj): int {
     if (function_exists('_SWUHmw271SpacePower')) $base += _SWUHmw271SpacePower($obj);
     // HMW_141 Rex — "Friendly units with no abilities get +1/+1." (power half; per Rex copy, team-wide).
     if (function_exists('_SWUHmw141Bonus')) $base += _SWUHmw141Bonus($obj);
+    // IC27_101 General Hux — "Each other friendly First Order unit gets +1/+0 …" (per Hux copy, team-wide).
+    if (function_exists('_SWUIc27101Count')) $base += _SWUIc27101Count($obj);
     // TWI_122 Squad Support — "Attached unit gets +1/+1 for each Trooper unit you control." (power half).
     if ($controller > 0 && _SWUUnitHasUpgrade($obj, 'TWI_122')) {
         $tr = 0;
@@ -1366,6 +1368,9 @@ $turnEffectRegistry = [
     'SHD_031' => ['kind' => 'GRANT_KEYWORD',  'value' => 'BOUNTY',   'label' => 'Bounty'],                                    // The Client — chosen unit gains "Bounty — Heal 5 damage from a base" this phase (reward in SWUCollectBounty)
     'SHD_097' => ['kind' => 'STAT_BUFF'],                                                                                     // Freetown Backup — On Attack: another friendly unit gets +2/+2 this phase
     'IC27_079' => ['kind' => 'STAT_BUFF'],                                                                                    // Qui-Gon Jinn — When Played: another friendly unit gets +2/+2 this phase
+    'IC27_163' => ['kind' => 'STAT_DEBUFF'],                                                                                  // Bo-Katan Kryze — When Played: each enemy unit gets -7/-0 this phase
+    'IC27_046' => ['kind' => 'STAT_BUFF'],                                                                                    // Vigilant Defense — a friendly unit gets +0/+3 (and Sentinel) this phase
+    'IC27_127' => ['kind' => 'STAT_BUFF'],                                                                                    // Act of Aggression — a friendly unit gets +3/+0 (and Overwhelm) this phase
     'HMW_052' => ['kind' => 'STAT_BUFF'],                                                                                     // A'Koba, Restless Raider — When Played: a unit (either side, self included) gets +2/+0 this phase
     'SHD_129' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Timely Intervention — the played unit gains Ambush this phase
     'SHD_215' => ['kind' => 'STAT_DEBUFF'],                                                                                   // Smuggler's Starfighter — enemy unit gets -3/-0 this phase
@@ -8189,6 +8194,7 @@ function _SWURegroupStartRest(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_TS26035_DISCOUNT_NEXT'); // TS26_35: "next event -2 this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_REX_DISCOUNT_NEXT');     // TS26_06 Rex: "next event -1/-2 this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_IC27145_DISCOUNT_NEXT'); // IC27_145 Poggle: "next card this phase -3"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_IC27021_');              // IC27_021 Grievous: modes "chosen this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_TS26063_USED_');         // TS26_63 Rex's DC-17s: "once each round"
         // TS26_12 Sundari Palace — defeat one friendly resource per card resourced this way (at regroup start).
         $sundari = GlobalEffectCount($p, 'SWU_SUNDARI_DEFEAT');
@@ -11832,6 +11838,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'TWI_216': Twi216Reaction($player, intval($extra[0] ?? 0)); break; // may recycle a Clone from discard → draw
         case 'LOF_229': KyloRenUpgradeReaction($player); break; // "When you play an upgrade on this unit": may use the Force → draw
         case 'ASH_047': Ash047UpgradeReaction($player, intval($mzID)); break;  // "When you play an upgrade on this unit": may create a Mandalorian token (once/round)
+        case 'IC27_021': _SWUIc27021Reaction(intval($player), intval($mzID)); break;  // Grievous — choose a mode not chosen this phase; $mzID slot = his UID
         case 'SHD_067': {                                       // Fenn Rau — give an enemy unit -2/-2 this phase
             SWUOfferUnitTarget($player, '', ['continuation'=>'APPLY_PHASE_DEBUFF|2|2|SHD_067', 'side'=>'their', 'prompt'=>"Give_an_enemy_unit_-2/-2_this_phase"]);
             break;
@@ -12423,6 +12430,11 @@ function CollectWhenPlayedAsUpgradeTriggers(int $player, string $cardID, string 
     // SHD_067 Fenn Rau — "When you play an upgrade on this unit: Give an enemy unit -2/-2 for this phase."
     if ($upgHostIsMine && ($lof229Host->CardID ?? '') === 'SHD_067') {
         AddTrigger($player, 'SHD_067', 'SHD_067', '');
+    }
+    // IC27_021 General Grievous — "When you play an upgrade on this unit: Choose one that hasn't been chosen this
+    // phase …" The modes are tracked per copy, so the trigger carries his UniqueID (card file).
+    if ($upgHostIsMine && ($lof229Host->CardID ?? '') === 'IC27_021' && !LostAbilities($lof229Host)) {
+        AddTrigger($player, 'IC27_021', 'IC27_021', strval(intval($lof229Host->UniqueID ?? 0)));
     }
     // SHD_133 Dengar (field observer) — "When you play an upgrade on a unit: you may deal 1 damage to that
     // unit." Fires once per active Dengar the player controls; carries the HOST's UID (mzIDs shift).
@@ -13425,6 +13437,16 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
         if ($cid === 'SOR_143' && $isAggression && $uid !== $playedUID) {
             AddTrigger($playingPlayer, 'SOR_143', 'SOR_143', '');
         }
+        // IC27_115 Poe Dameron: "When you play another Resistance card: This unit gets +1/+0 for this phase."
+        // Any card type (the trait is read off the played card); mandatory, so applied inline to his live object.
+        // Each play STACKS — a unique ^IC27115_<n> suffix, because AddTurnEffect de-dupes identical tokens (SEC_081).
+        if ($cid === 'IC27_115' && $observerInPlay && $uid !== $playedUID && HasTrait($playedCardID, 'Resistance')) {
+            $stack115 = 0;
+            foreach (($u->TurnEffects ?? []) as $te115) {
+                if (strpos((string)$te115, '^IC27115_') !== false) $stack115++;
+            }
+            AddTurnEffect($u->GetMzID(), SWUMakeTurnEffect('SWUBUFF', [1, 0], SWU_DUR_PHASE, 'IC27115_' . $stack115));
+        }
         // SOR_109 Colonel Yularen: "When you play a [Command] unit (including this one): Heal 1 from
         // your base." No self-exclusion — "including this one" means Yularen's own play counts too.
         if ($cid === 'SOR_109' && $isCommandUnit) {
@@ -13803,6 +13825,11 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
                     // read off whatever unit had compacted into Raddus's vacated slot).
                     SetSWUVar('SWU_WDPOWER_MZ_' . str_replace('-', '_', $d['mzID']), strval($rdPw));
                 }
+            }
+            // IC27_045 Qi'ra — "for each Experience token that WAS on this unit": count them now, while the
+            // subcards are still attached (same window and same persistence as the JTL_104 snapshot above).
+            if (($d['cardID'] ?? '') === 'IC27_045' && !empty($d['mzID']) && function_exists('_SWUIc27045Snapshot')) {
+                _SWUIc27045Snapshot($d['mzID']);
             }
             // JTL_169 Shadow Caster — "When a friendly unit is defeated: you may use all of its
             // When Defeated abilities again." One reuse offer per controlled copy. Collected at
@@ -19785,9 +19812,9 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
 
     // TWI_002 Nute Gunray: only if 2 or more friendly units were defeated this phase.
     if ($cardID === 'TWI_002' && SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_DEFEATED') < 2) return false;
-    // SHD_011 Kylo Ren — Action [Exhaust, discard a card from your hand]. Same mandatory discard cost as
-    // HMW_010/LAW_011: an empty hand makes the action unavailable, never a soft pass.
-    if ($cardID === 'SHD_011') {
+    // SHD_011 / IC27_003 Kylo Ren — Action [Exhaust, discard a card from your hand]. Same mandatory discard cost
+    // as HMW_010/LAW_011: an empty hand makes the action unavailable, never a soft pass.
+    if ($cardID === 'SHD_011' || $cardID === 'IC27_003') {
         $savedPidK = $playerID;
         $playerID  = $player;
         $handK     = ZoneSearch("myHand");

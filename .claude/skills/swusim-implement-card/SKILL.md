@@ -1351,6 +1351,23 @@ fixture-blind-spot table above for *why* that coverage could not see them.
 - **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
   base explicitly — `AttackGroundArena:0:p2Base-0`.
 
+### ★ IC27 sixth wave 2026-10-29 — fixture HP, discard-from-hand, and measuring an outcome you delegated
+- **The standard far-seat base `SOR_019` is a 25-HP base, not 30.** Nearly every Twin Suns / Team Suns section
+  seeds `WithP3Base: SOR_019:0` / `WithP4Base: SOR_019:0`, so any expectation derived from a far-seat base's HP
+  ("half its remaining HP", "heal to full", lethal) must read the real HP. A 30-HP assumption reads exactly like
+  an engine bug (IC27_110 Supremacy: P3 took 11, not 14).
+- **"When this unit is discarded from your hand"** = a synchronous `$cardDiscardedHandlers['CID:0']` that
+  checks `$entry->From === 'HAND'` and stamps the discard `Modifier` (SHD_135's shape; IC27_063 is the hand-only
+  variant). `OnCardDiscarded` runs on BOTH the forced (`SWUAddToDiscard`) and the self-chosen (`DoDiscardCard`)
+  paths — write one section per path, plus the DECK and PLAY negatives.
+- **`SWUNestedPlay` returns nothing, so "play X. If it's …, do Y" must MEASURE that the play happened** (count
+  the copies left in the source zone before/after, IC27_066 Mother Talzin). And Y reads the card's PRINTED cost —
+  a free play cost 0, which is exactly the wrong number.
+- **A "for each X that WAS on this unit" When Defeated** is last-known information: count it inside
+  `CollectWhenDefeatedTriggers` beside the JTL_104 power snapshot (subcards still attached) and persist it in a
+  SWUVar keyed by the mzID, so a later request (trigger-order prompt, Thrawn / Shadow Caster reuse) still has it
+  (IC27_045 Qi'ra).
+
 ### ★ IC27 fourth wave 2026-10-24 — pick the predicate, not the precedent
 - **Copy a precedent's SHAPE, but re-check its PREDICATE against the shared helper.** The "you may attack
   with a unit" family (SEC_172, SOR_240's `_SWUReadyFriendlyUnits`) offers any READY unit, including a

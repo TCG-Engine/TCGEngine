@@ -274,6 +274,7 @@ var SWU_EFFECT_STACK_TRIGGER_LABELS = {
     // Upgrade Played
     'ASH_047': 'Upgrade Played', 'JTL_202': 'Upgrade Played', 'LOF_229': 'Upgrade Played',
     'SHD_018': 'Upgrade Played', 'SHD_067': 'Upgrade Played', 'SHD_133': 'Upgrade Played',
+    'IC27_021': 'Upgrade Played',
     // Friendly Attack Ends
     'ASH_005': 'Friendly Attack Ends', 'ASH_013': 'Friendly Attack Ends',
     'ASH_016': 'Friendly Attack Ends', 'LAW_088': 'Friendly Attack Ends',

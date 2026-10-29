@@ -2718,6 +2718,14 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
             AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_4');
         }
     }
+    // IC27_157 The Mandalorian — SEC_208's text word for word. Gated on the defender being a UNIT (a base
+    // has no Status, which would read as exhausted) and on Mando keeping his abilities.
+    if (($attacker->CardID ?? '') === 'IC27_157' && !LostAbilities($attacker) && strpos($targetMzID, 'Arena') !== false) {
+        $d157 = GetZoneObject($targetMzID);
+        if ($d157 !== null && empty($d157->removed) && intval($d157->Status ?? 1) === 0) {
+            AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_4');
+        }
+    }
     // SHD_216 Chain Code Collector — On Attack: if the defender has a Bounty, it gets -4/-0 for this attack.
     // Synchronous (the deferred OnAttack trigger is too late — SWUCombatDamage reads the marker first).
     if (($attacker->CardID ?? '') === 'SHD_216') {

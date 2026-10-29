@@ -61,6 +61,14 @@ check(SWUPreviewNormalizeText('{p-keyword-border}Text here{/p}') === 'Text here'
 // Upstream omits the space before a parenthetical when the keyword is an icon tag.
 check(SWUPreviewNormalizeText('{p}{fortify}{i}(Attach this to your base.){/i}{/p}')
       === 'Fortify (Attach this to your base.)', 'space inserted before a parenthetical');
+// Valued keyword tags: "{restore:1}" -> "Restore 1", "{raid:2}" -> "Raid 2".
+check(SWUPreviewNormalizeText('{p}{restore:1}{/p}') === 'Restore 1', 'valued keyword tag (restore)');
+check(SWUPreviewNormalizeText('{p}{raid:2}{/p}') === 'Raid 2', 'valued keyword tag (raid)');
+check(SWUPreviewNormalizeText('{p}This unit gains {raid:2} for this phase.{/p}')
+      === 'This unit gains Raid 2 for this phase.', 'valued keyword tag mid-sentence');
+check(SWUPreviewNormalizeText('{p}{restore:1}{i}(When this unit attacks, heal 1 damage from your base.){/i}{/p}')
+      === 'Restore 1 (When this unit attacks, heal 1 damage from your base.)',
+      'valued keyword tag before its reminder text');
 
 // --- HMW_142 / HMW_206 fixtures: the real-world cases ---
 $m = SWUPreviewToMock(fixture('hmw_142'));
