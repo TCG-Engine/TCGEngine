@@ -1050,5 +1050,29 @@ foreach ([1, 2] as $seat) {
     GetField($seat)[1]->Status = 2;
     check($chooseMirror() === 'PASS', "P$seat Mirror avoids redundant suppression after readying");
 }
+// Opening-turn attacks must not enter the chooser's action set.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat);
+    SetCurrentPhase('MAIN');
+    SetTurnNumber(1);
+    SetFirstPlayer($seat);
+    AddField($seat, CardNameToID('Dungeon Guide'), Owner:$seat, Controller:$seat);
+    GetField($seat)[1]->Status = 2;
+    $hasAttack = function() use ($seat) {
+        $legal = GABotLegalActions('decision-test', $seat);
+        return in_array('myField-1!FSM!', array_column($legal['actions'], 'cardID'));
+    };
+    SetFlashMessage('unchanged');
+    check(!$hasAttack(), "P$seat excludes opening-turn attacks");
+    check(GetFlashMessage() === 'unchanged', "P$seat opening-turn filter has no rejection side effect");
+    SetFirstPlayer(3 - $seat);
+    check($hasAttack(), "P$seat may attack when not the opening player");
+    SetFirstPlayer($seat);
+    SetTurnNumber(2);
+    check($hasAttack(), "P$seat may attack on later turns");
+    SetTurnNumber(1);
+    SetMacroGameIndex(json_encode(['dtrExtraTurnActive' => true]));
+    check($hasAttack(), "P$seat preserves the extra-turn exception");
+}
 echo "Checks: $checks; failures: $failures\n";
 exit($failures ? 1 : 0);

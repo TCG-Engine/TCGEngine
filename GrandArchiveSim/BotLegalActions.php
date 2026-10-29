@@ -184,7 +184,11 @@ function GABotLegalActions($gameName, $player) {
         }
     }
 
-    $field = GetField($player);
+    // BeginCombatPhase forbids the opening player's first-turn attacks. Do not
+    // offer them only to have the controller execute and retry each rejection.
+    $openingAttackBlocked = intval(GetTurnNumber()) === 1
+        && intval(GetFirstPlayer()) === $player && !GADTRIsExtraTurn();
+    $field = $openingAttackBlocked ? [] : GetField($player);
     foreach ($field as $i => $obj) {
         if ($obj === null || !empty($obj->removed)) continue;
         if (intval($obj->Status ?? 0) !== 2) continue; // must be awake/rested-ready
