@@ -10,7 +10,12 @@
 #//                    NextRound_TheBudgetRefreshes (the round edge)
 #//           control=N/A (structural — On Attack resolves for the attacker's controller, so "friendly" and
 #//                   "this unit" are read from whoever is attacking with it; no owner-scoped zone)
-#//           reqboundary=AcrossARequestBoundary (the Nexu rides the continuation by UniqueID)
+#//           reqboundary=AcrossARequestBoundary (the Nexu rides the continuation by UniqueID) +
+#//                    Granted_NoCreature_AcrossARequestBoundary
+#//           granted (ASH_230 on a non-Creature, no friendly Creature — CR 1.2, the ready alone):
+#//                    Granted_NoCreature_TheReadyIsStillOffered + _Yes_ItReadies + _No_ItStaysExhausted +
+#//                    _OncePerRound_YesSpendsIt + _DecliningSpendsNothing ·
+#//                    control=Granted_WithACreature_TheDamageIsStillRequired
 #//           modes=2P,TeamSuns (text says "a FRIENDLY Creature unit" — TeamSuns_ATeammatesCreatureIsALegalPick)
 #//                 · TwinSuns=N/A (no player reference)
 #//
@@ -262,3 +267,178 @@ WithP4GroundArena: HMW_T03:0:0
 SEATCOUNT:4
 P1HASDECISION
 P1SELECTABLEEXACT:myGroundArena-0&p3GroundArena-0
+
+---
+
+# Granted_NoCreature_TheReadyIsStillOffered
+#// Bug report 2026-10-29. ASH_230 Improvised Identity on SEC_057 Lobot (Fringe, NOT a Creature) discards the
+#// Nexu, so Lobot attacks with its On Attack. With no friendly Creature unit to damage, CR 1.2 ("Do as much as
+#// you can") still lets the player take "and ready this unit" — offered as a yes/no. It used to return before
+#// offering anything. Left pending.
+
+## GIVEN
+CommonSetup: yyk/yyk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_057:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_182 SOR_063 SOR_063]
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_182
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1DECISIONTOOLTIP:No_friendly_Creature_unit_to_damage_-_ready_this_unit?
+P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# Granted_NoCreature_Yes_ItReadies
+
+## GIVEN
+CommonSetup: yyk/yyk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_057:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_182 SOR_063 SOR_063]
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_182
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENAUNIT:0:READY
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1NODECISION
+
+---
+
+# Granted_NoCreature_No_ItStaysExhausted
+
+## GIVEN
+CommonSetup: yyk/yyk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_057:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_182 SOR_063 SOR_063]
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_182
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1NODECISION
+
+---
+
+# Granted_WithACreature_TheDamageIsStillRequired
+#// CONTROL: when a friendly Creature exists, the damage can be done, so it is part of the ready — the offer is the
+#// Creature pick (Hunting Nexu), not a bare ready. Lobot itself is not a Creature (it gains abilities, not traits).
+
+## GIVEN
+CommonSetup: yyk/yyk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [SEC_057:1:0 SHD_168:1:0]
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_182 SOR_063 SOR_063]
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_182
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-1
+P1DECISIONTOOLTIP:Deal_3_damage_to_a_friendly_Creature_unit_and_ready_this_unit
+
+---
+
+# Granted_NoCreature_OncePerRound_YesSpendsIt
+#// Lobot wears TWO Improvised Identities (each copy's action is its own once-per-round use). The first discards
+#// the Nexu and takes the bare ready; the second discards another Nexu and attacks again — but the Nexu's own
+#// "once each round" (kept on Lobot's UniqueID) is spent, so no offer and Lobot ends exhausted.
+
+## GIVEN
+CommonSetup: yyk/yyk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_057:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_182 SOR_063 SOR_063 HMW_182 SOR_063 SOR_063]
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_182
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:YES
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_182
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1DISCARDCOUNT:2
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1NODECISION
+
+---
+
+# Granted_NoCreature_DecliningSpendsNothing
+#// The pair: declining the bare ready spends nothing. SOR_169 Keep Fighting ("Ready a unit with 3 or less
+#// power" — Lobot is 0) readies Lobot, the second copy discards another Nexu, and the ready offer is back.
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:4}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_057:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_182 SOR_063 SOR_063 HMW_182 SOR_063 SOR_063]
+WithP1Hand: SOR_169
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_182
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:NO
+- P1>PlayHand:0
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_182
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1DECISIONTOOLTIP:No_friendly_Creature_unit_to_damage_-_ready_this_unit?
+
+---
+
+# Granted_NoCreature_AcrossARequestBoundary
+
+## GIVEN
+CommonSetup: yyk/yyk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_057:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [HMW_182 SOR_063 SOR_063]
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:HMW_182
+- P1>AnswerDecision:YES
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENAUNIT:0:READY
+P1NODECISION

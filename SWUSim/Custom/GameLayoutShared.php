@@ -1943,6 +1943,18 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         return ad.passAvailable === undefined ? false : !ad.passAvailable;
     };
 
+    // The most button rows the pass cluster can show at once in THIS game (syncPassReserveVar reserves for it).
+    // Two players: Take/Keep Initiative + Pass. Twin Suns: Pass is hidden while any counter is available, so the
+    // worst case is Take Initiative + one row per counter kind — Blast and Plan, plus the house-rule fourth
+    // counter (Credit/Restore) when the game has it. Fixed for the game, so it is printed once here.
+    window.SWU_PASS_ROWS = <?php
+        $swuPassRows = 2;
+        if (function_exists('SeatCountForGame') && SeatCountForGame() > 2) {
+            $swuPassRows = max(2, 1 + 2 + ((function_exists('SWUFourthCounterKind') && SWUFourthCounterKind() !== '') ? 1 : 0));
+        }
+        echo intval($swuPassRows);
+    ?>;
+
     // Hotseat: one person plays both seats from one browser (shared authKey). Switch reloads the
     // page as the OTHER seat. No-op in non-hotseat games.
     window.SWUIsHotseat = <?php echo (function_exists('SWUGameMode') && SWUGameMode() === 'hotseat') ? 'true' : 'false'; ?>;
@@ -2489,10 +2501,58 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var rowH = btn.getBoundingClientRect().height;
         if (rowH <= 0) return;                       // not laid out yet; the CSS fallback stands
         // Take/Keep sits above Pass with the same class, so two rows plus the 4px gap between them,
-        // plus the clearance above the hand.
-        var reserve = rowH * 2 + 4 + 10;
+        // plus the clearance above the hand. Twin Suns can stack more rows (the counter buttons) — see
+        // SWU_PASS_ROWS; reserving only two put the counters on the leader at every size (2026-10-29).
+        var rows = Math.max(2, parseInt(window.SWU_PASS_ROWS, 10) || 2);
+        var reserve = rowH * rows + 4 * (rows - 1) + 10;
         document.documentElement.style.setProperty('--swu-pass-reserve-h', Math.round(reserve) + 'px');
+        syncLaneCapVars();
     }
+
+    // Publish the measured shape of MY stacked centre lane, so GameLayout's min-height:681px cap can size
+    // the lane to clear the pass cluster. The lane's height is (nearly) affine in its width:
+    //     stack height = fixed + k * lane width
+    // where k is the base + leader art's height per pixel of lane (the art fills the lane) and fixed is
+    // everything else — the base health bar, padding, gaps, wrapper borders and any FORTIFIED/ARRESTED tabs.
+    // The cap used to GUESS both (k from "cardH ~ 0.68 * lane", 26px of overhead) and the guess went stale
+    // once the health bar moved to the midline side: KEEP INITIATIVE covered the bottom ~20px of the
+    // leader at every desktop size (bug report 2026-10-29, 1536x738 @ DPR 1.25; still 18px at 1920x1080).
+    // Measured only in the STACKED lane and only once both cards have rendered; hysteresis keeps a value
+    // that the narrowing itself nudges from re-flowing the board on every poll.
+    function syncLaneCapVars() {
+        var col = document.querySelector('.swu-center-col-bot');
+        var base = document.getElementById('myBaseSlot');
+        var leader = document.getElementById('myLeaderSlot');
+        if (!col || !base || !leader || !window.matchMedia('(min-height: 681px)').matches) return;
+        if (getComputedStyle(col).flexDirection !== 'column') return;
+        // This runs from pollGlobals, i.e. when game data ARRIVES — usually before the card art has loaded,
+        // and then not again until the next update. So re-measure when a not-yet-loaded card image finishes
+        // (a fresh board would otherwise keep the fallback until the opponent acts).
+        var imgs = [base.querySelector('img'), leader.querySelector('img')];
+        for (var i = 0; i < imgs.length; i++) {
+            if (!imgs[i]) return;
+            if (!imgs[i].complete || !imgs[i].naturalHeight) {
+                if (!imgs[i].dataset.swuLaneWait) {
+                    imgs[i].dataset.swuLaneWait = '1';
+                    imgs[i].addEventListener('load', syncLaneCapVars, { once: true });
+                }
+                return;
+            }
+        }
+        var laneW = parseFloat(getComputedStyle(col).width);
+        var leaderWrap = leader.closest('.swu-leader-slot-wrap') || leader;
+        var cardsH = base.getBoundingClientRect().height + leader.getBoundingClientRect().height;
+        var stackH = leaderWrap.getBoundingClientRect().bottom - col.getBoundingClientRect().top;
+        if (!(laneW > 0) || !(cardsH > 0) || !(stackH > cardsH)) return;
+        var k = Math.round(cardsH / laneW * 100) / 100;
+        var fixed = Math.round(stackH - cardsH);
+        var root = document.documentElement.style;
+        var oldK = parseFloat(root.getPropertyValue('--swu-lane-k')), oldFixed = parseFloat(root.getPropertyValue('--swu-lane-fixed-h'));
+        if (isNaN(oldK) || Math.abs(oldK - k) > 0.02) root.setProperty('--swu-lane-k', String(k));
+        if (isNaN(oldFixed) || Math.abs(oldFixed - fixed) > 2) root.setProperty('--swu-lane-fixed-h', fixed + 'px');
+    }
+    // A resize can cross into (or out of) the stacked lane, or change how tall the lane may be.
+    window.addEventListener('resize', function () { requestAnimationFrame(syncLaneCapVars); });
     function pollGlobals() {
         swuHbSyncMotion();
         if (typeof window.swuApplyHealthBarVisibility === 'function') window.swuApplyHealthBarVisibility();
@@ -2506,6 +2566,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         swuRenderHomeStrips();
         refreshResourceSelectionPanel();
         swuUpdateUndoUI(MY_PLAYER_ID);
+        syncLaneCapVars();   // again, AFTER the base tabs above are drawn — a new FORTIFIED/ARRESTED tab adds height
     }
     function watchGlobalData() {
         pollGlobals();

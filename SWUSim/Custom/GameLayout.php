@@ -1923,10 +1923,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
        centre lane), cap the LANE: leader/base art fills the column width, so a narrower lane
        is a shorter lane. The arenas re-flow around it for free and actually gain width, since
        --swu-col-w / --swu-center-left / --swu-ground-left all derive from --swu-center-w.
-
-           2 * cardH + 22px (padding + inter-card gap) + 4px (lane top offset)
-               <= 50vh - hand band - pass cluster
-           cardH ≈ 0.68 * lane width  ->  lane <= (budget) * 0.72   (0.72 < 1/(2*0.68), for margin)
+       (The formula itself is below the ⚠ note — it is measured now, not guessed.)
 
        --swu-pass-reserve-h is MEASURED and published by GameLayoutShared's syncCardSizeVar,
        not guessed: the button font is a vw clamp, so a hardcoded height would be wrong on wide
@@ -1935,10 +1932,26 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
        Scoped to min-height:681px so it never fights the side-by-side lane below, whose
        geometry (one card row, two cards wide) this formula does not describe. */
+    /* ⚠ 2026-10-29: the guessed "2 * cardH + 26px, cardH ~ 0.68 * lane" went stale once the base
+       health bar moved to the midline side (and the leader art renders a little taller than 0.68 *
+       lane): KEEP INITIATIVE covered the bottom ~20px of the leader at EVERY desktop size — 1536x738
+       (bug report), 1477x831 and 1920x1080 alike — in all three engines. The lane's shape is now
+       MEASURED by GameLayoutShared's syncLaneCapVars, as the pass reserve already was:
+           stack = --swu-lane-fixed-h + --swu-lane-k * lane      (from the lane's top, midline + 4px)
+           stack <= (100vh - hand band - pass reserve) - (50vh + 4px) - 6px clearance
+           lane  <= (50vh - 10px - hand band - pass reserve - fixed) / k
+       The fallbacks are the values measured on a plain board (no Fortified/Arrested tab).
+       FLOOR (owner, 2026-10-29): never narrower than 92px — the width a "FORTIFIED 3" / "ARRESTED 2" tab
+       label needs (91.6px measured in all three engines; the tab spans the lane). Below that the labels
+       clip and the art stops reading, which is worse than the cluster touching the leader's bottom edge.
+       Only short boards reach it, and only with a tall stack or cluster. Measured at 1536x738: a plain or
+       one-tab 2-player board stays clear. A 2-player base with BOTH tabs overlaps by ~14px, and Twin Suns
+       with three or four counter rows by up to ~38px. Check: DevTools/ui-harness/swusim-center-lane-xbrowser.mjs */
     @media (min-height: 681px) {
         :root {
-            --swu-center-w: min(var(--swu-center-w-raw), calc(
-                (50vh - var(--swu-hand-band-h) - var(--swu-pass-reserve-h, 94px) - 26px) * 0.72));
+            --swu-center-w: min(var(--swu-center-w-raw), max(92px, calc(
+                (50vh - 10px - var(--swu-hand-band-h) - var(--swu-pass-reserve-h, 94px) - var(--swu-lane-fixed-h, 40px))
+                / var(--swu-lane-k, 1.45))));
         }
     }
 </style>

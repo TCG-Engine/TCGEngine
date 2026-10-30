@@ -80,6 +80,19 @@ endpoints (`SWUSim/TestSchemaSetup.php`, `TestSchemaStep.php`) — mod login, `c
   animations). The script checks for a `ZONE_MOVE` `p1Deck → p1Resources` scoped to seat 1, plus a
   `.tcg-zone-move-clone` on the page.
 
+## SWUSim centre lane clears the pass cluster (2026-10-29)
+
+```bash
+node swusim-center-lane-xbrowser.mjs [BASE] [SHOTS_DIR]
+```
+
+KEEP INITIATIVE / PASS used to sit on the bottom of your leader card at every desktop size (bug report at
+1536x738 @ DPR 1.25). Builds six boards (plain, one tab, both tabs, Twin Suns house rules, 3 and 4 seats) at
+five viewports and fails if the cluster overlaps the leader while the lane is above its 92px floor, if a
+FORTIFIED/ARRESTED label clips, or on horizontal overflow. Floor-bound overlaps print as `FLOOR` (owner
+ruling: tiny art and clipped labels are worse). Against the old guessed lane formula it fails 12+ cases.
+About 4 minutes for all three engines.
+
 ## SWUSim "Report a Bug" modal (2026-10-22)
 
 ```bash

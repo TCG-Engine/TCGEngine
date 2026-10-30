@@ -17293,11 +17293,13 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
             }
             $playerID = $savedPID;
             break;
-        // "Attach to a friendly ground unit." (ASH_230 Improvised Identity — attach condition is a
-        // GroundArena unit; a space unit is not a legal host.)
+        // "Attach to a ground unit." (ASH_230 Improvised Identity) — ANY ground unit at the table, friendly or
+        // enemy (no "friendly" on the card); a space unit is not a legal host. This read "a FRIENDLY ground unit"
+        // until 2026-10-29, so a player with no ground unit of their own got "no valid targets" against the
+        // bot's Lobot (bug report). On an enemy host the granted Action is that unit's controller's to use.
         case 'ASH_230':
             $playerID = $player;
-            $all = SWUFriendlyUnits('Ground');   // "Attach to a FRIENDLY ground unit."
+            $all = SWUAllUnits(null, 'Ground');
             $playerID = $savedPID;
             break;
         // "Attach to a non-Vehicle unit."
@@ -18858,10 +18860,10 @@ $customDQHandlers["CLONE_COPY_CHOICE"] = function($player, $parts, $lastDecision
 // leave $playerID = $player for MZCountChoices (see the SWUContinuePlayAfterExploit
 // note and the general engine gotcha in the instructions).
 function _SWUBeginPlayCardUnitPath(int $player, string $mzID, int $discount = 0): void {
-    global $gPlayGrantedExploit, $gLastExploitedPowers;
+    global $gPlayGrantedExploit;
     // Reset the per-play record of exploited units' powers (TWI_138 Count Dooku reads it in When Played).
     // Cleared here so a play that doesn't Exploit leaves it empty (no stale leak from a prior play).
-    $gLastExploitedPowers = [];
+    _SWUSetExploitedPowers([]);
 
     $obj = GetZoneObject($mzID);
     if ($obj === null || (isset($obj->removed) && $obj->removed)) return;
@@ -19376,11 +19378,29 @@ function _SWUPlayIsPayableAtDiscount(int $player, string $handMzID, int $totalDi
 //   ActivateCard) and therefore loses SEC_122's per-Droid reduction for the Droids Exploit just ate.
 //   FALSE for a caller that LOCKED the cost before the defeats (Smuggle) — there the reduction is still
 //   in the locked figure, so adding it back would double-count it.
+// The exploited units' powers, for TWI_138 Count Dooku's When Played. They must survive a request boundary: a Credit /
+// Droid payment choice (or any other pick) between the Exploit picks and the When Played finishes the play in a LATER
+// request, where the transient $gLastExploitedPowers starts empty — Dooku then "had no effect" (bug report P-12, game
+// 1791). SWU_EXPLOITED_POWERS (comma-CSV) is serialized with the gamestate. It is written only when it changes, so a
+// game that never exploits keeps its decision-queue variables (and with them its RNG material) untouched.
+function _SWUSetExploitedPowers(array $powers): void {
+    global $gLastExploitedPowers;
+    $gLastExploitedPowers = $powers;
+    $csv = implode(',', array_map('intval', $powers));
+    if ($csv !== GetSWUVar('SWU_EXPLOITED_POWERS', '')) SetSWUVar('SWU_EXPLOITED_POWERS', $csv);
+}
+// Read and consume the exploited powers recorded for the current play.
+function SWUTakeExploitedPowers(): array {
+    $csv = GetSWUVar('SWU_EXPLOITED_POWERS', '');
+    _SWUSetExploitedPowers([]);
+    return ($csv === '') ? [] : array_map('intval', explode(',', $csv));
+}
+
 function _SWUResolveExploitPicks(int $player, string $playedCardID, ?string $lastDecision,
                                  int $maxDefeats, callable $isPayable,
                                  bool $compensateDroids = true): ?int {
     global $gExploitDeferTriggers, $gLastExploitedPowers;
-    $gLastExploitedPowers = [];   // record each defeated fodder unit's power (TWI_138 Count Dooku reads it)
+    _SWUSetExploitedPowers([]);   // record each defeated fodder unit's power (TWI_138 Count Dooku reads it)
     $count = 0;
     $droidsExploited = 0;
 
@@ -19438,6 +19458,7 @@ function _SWUResolveExploitPicks(int $player, string $playedCardID, ?string $las
             }
         }
         $gExploitDeferTriggers = false;
+        _SWUSetExploitedPowers($gLastExploitedPowers);
     }
 
     // ── Determine Cost is ONE step: every reduction is settled against the SAME board state, and the
@@ -21232,7 +21253,7 @@ $customDQHandlers["DISCLOSE_RESOLVE"] = function($player, $parts, $lastDecision)
 //   cost still carries the full per-Droid reduction from before the defeats, so adding it back would
 //   double-count it (the hand path recomputes, so there it is required).
 function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?string $deferHandler = null, int $prepaid = -1, int $exploitDiscount = -1, int $determinedCost = -1): void {
-    global $playerID, $gLastExploitedPowers, $gPlayGrantedExploit;
+    global $playerID, $gPlayGrantedExploit;
     $savedPID = $playerID;
     $playerID = $player;
 
@@ -21306,7 +21327,7 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
     if ($exploitDiscount < 0) {
         $exploitDiscount = 0;
         if (_SWUObjIsUnit($resourceObj)) {
-            $gLastExploitedPowers = [];   // fresh per play (TWI_138 Count Dooku reads it in When Played)
+            _SWUSetExploitedPowers([]);   // fresh per play (TWI_138 Count Dooku reads it in When Played)
             $exploitX = SWUEffectivePlayExploit($resourceObj);
             $grant    = intval($gPlayGrantedExploit ?? 0);   // capture before reset, as the hand path does
             $fodder   = SWUExploitFodder($player);

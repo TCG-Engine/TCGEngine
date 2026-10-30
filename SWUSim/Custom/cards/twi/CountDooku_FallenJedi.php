@@ -5,18 +5,17 @@
 
 // TWI_138 Count Dooku (unit) — Exploit 2 + Overwhelm (auto-wired). When Played: "For each unit you
 // exploited while playing this card, you may deal damage to an enemy unit equal to the power of the
-// exploited unit." $gLastExploitedPowers (populated by EXPLOIT_RESOLVE) holds the powers of the units
-// defeated to pay Exploit; offer one optional damage instance per power.
+// exploited unit." SWUTakeExploitedPowers() hands back the powers of the units defeated to pay Exploit (recorded by
+// _SWUResolveExploitPicks, kept across request boundaries); offer one optional damage instance per power.
 // CR 8.34.1: a "for each" ability is resolved by "determining how many times an effect will be applied, choosing how
 // each instance will be applied, then resolving all effects simultaneously" — and 8.34.1.a: for damage, "all damage is
 // calculated and dealt as one instance". So every pick is only RECORDED (target UID + amount); when the last one is
 // chosen, the damage is summed per target and dealt once to each. Dealing each pick as it was chosen let a Shield stop
 // only the first of two hits on the same unit, and changed the board between choices.
 $whenPlayedAbilities["TWI_138:0"] = function($player, $mzID) {
-    global $playerID, $gLastExploitedPowers;
+    global $playerID;
     $playerID = intval($player);
-    $powers = is_array($gLastExploitedPowers ?? null) ? $gLastExploitedPowers : [];
-    $gLastExploitedPowers = [];   // consume
+    $powers = SWUTakeExploitedPowers();   // consume
     if (empty($powers)) return;
     CountDookuFallenJediOfferNext(intval($player), $powers, []);
 };

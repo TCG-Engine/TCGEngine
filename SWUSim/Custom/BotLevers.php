@@ -37,7 +37,8 @@ function _SWUBotShippedLevers(): array {
                        defined('SWU_BOT_PART58_FEATURES') ? SWU_BOT_PART58_FEATURES : [],    // + p58 (the tempo layer, levers/tempo_*.php)
                        defined('SWU_BOT_PART59_FEATURES') ? SWU_BOT_PART59_FEATURES : [],    // + p59 (the tempo deck plans, levers/plan_*.php)
                        defined('SWU_BOT_PART67_FEATURES') ? SWU_BOT_PART67_FEATURES : [],    // + p67 (four of the attrition levers, levers/attrition_*.php)
-                       defined('SWU_BOT_PART68_FEATURES') ? SWU_BOT_PART68_FEATURES : []);   // + p68 (the other six attrition levers)
+                       defined('SWU_BOT_PART68_FEATURES') ? SWU_BOT_PART68_FEATURES : [],    // + p68 (the other six attrition levers)
+                       defined('SWU_BOT_PART69_FEATURES') ? SWU_BOT_PART69_FEATURES : []);   // + p69 (twelve team-read levers, levers/teamread_*.php)
 }
 
 function SWUBotLeverRegister(string $theme, string $name, array $hooks): void {

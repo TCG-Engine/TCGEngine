@@ -982,9 +982,9 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 if (SWUBotFeatureOn('anvader') && _SWUBotIsHandSizeAttackEvent($cid)) {
                     $h = count(array_filter(GetHand($seat), fn($o) => $o !== null && empty($o->removed))) - 1;
                     // No ready unit: NULL, and the dud gate below holds an attack event that cannot attack.
-                    // PROPOSAL 'anfix' (levers/teamread_anfix.php): the swing goes through the play levers ('finisherhold' holds it short of lethal).
+                    // FEATURE 'anfix' (p69, levers/teamread_anfix.php): the swing goes through the play levers ('finisherhold' holds it short of lethal).
                     if ($h > 0 && ($swing = _SWUBotHandSwingBest($ctx, $seat, $h, $W)) !== null)
-                        return SWUBotProposalOn('anfix') ? SWUBotTrAnfixPrice($swing, $ctx, $seat, $cid, $h, $action, $W) : $swing;
+                        return SWUBotFeatureOn('anfix') ? SWUBotTrAnfixPrice($swing, $ctx, $seat, $cid, $h, $action, $W) : $swing;
                 }
                 // An effect event that would change nothing, or too little, on the enemy side is held (feature 'dudgate').
                 // Feature 'anakinpitch' (p42): …unless it switches on an Anakin half with an Anakin in hand to cash it.
