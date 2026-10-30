@@ -21,6 +21,8 @@ $ttl = 600;
 /**
  * Full game setup. Returns the new $gameName.
  *   $opts['forcedFirstPlayer'] : 1|2 to override the coin flip (null = random)
+ *   $opts['forcedFirstPlayerChooses'] : true = that seat CHOOSES who opens instead of opening (the prior
+ *                                game's loser in a Bo3 / rematch — MatchSpawnNextGameWithDecks)
  *   $opts['resolvedDecks']     : [seat => SWUResolveDeckInput-shaped array] to inject
  *                                already-resolved decks (e.g. sideboarded Bo3 games)
  */
@@ -168,13 +170,19 @@ function SWUSetupGame($lobby, $opts = []) {
 
     // ─── Step 3: Determine first player ───────────────────────────────────────────
     // Forced (Bo3 / loser's choice) or random pick among seats; first player holds initiative.
+    // CR 5.2.1c: in a 1v1 game the random pick only wins the ROLL — that player then chooses who starts with the
+    // initiative (InitiativeChoice, queued below in place of the pregame). Twin Suns keeps the random first player.
+    // A Bo3 game 2/3 or a rematch forces the prior game's LOSER, who likewise chooses rather than simply opening.
     $forced = $opts['forcedFirstPlayer'] ?? null;
     if ($mode === 'goldfish') $forced = 1;   // solo: the human seat always opens
     $firstPlayer = &GetFirstPlayer();
     $seatArr = GetSeatOrderArray();
+    $initiativeChoiceReason = '';   // '' = no choice; 'roll' = coin-flip winner; 'loser' = prior game's loser
     if (in_array($forced, $seatArr, true)) {
         $firstPlayer = $forced;
+        if (!empty($opts['forcedFirstPlayerChooses']) && count($seatArr) === 2 && $mode !== 'goldfish') $initiativeChoiceReason = 'loser';
     } else {
+        if (count($seatArr) === 2) $initiativeChoiceReason = 'roll';
         // random_int() and NOT EngineRandomInt() — deliberately, and this is the ONLY live unseeded
         // random call left in SWUSim. The rest of the engine must use Core/DeterministicRNG.php so undo
         // and replay reproduce a random outcome, but this pick happens ONCE at game creation, before any
@@ -204,7 +212,8 @@ function SWUSetupGame($lobby, $opts = []) {
 
     // ─── Steps 4–6: Draw opening hands, queue mulligan decisions, resource 2 ──────
     if ($deckLoadOk) {
-        QueuePregameSetup($firstPlayer);
+        if ($initiativeChoiceReason !== '') QueueInitiativeChoice($firstPlayer, $initiativeChoiceReason);
+        else QueuePregameSetup($firstPlayer);
         AdvanceAndExecute("PASS");
         AutoAdvanceAndExecute();
         // A seat whose base forbids the mulligan (JTL_028 Nabat Village) has no YESNO in front, so its
@@ -333,76 +342,4 @@ function LoadPlayerDeck($playerID, $deckLink, $preconstructedDeck = '', $resolve
     }
 
     return true;
-}
-
-/**
- * Queue all pregame setup decisions.
- *
- * CR 5.2.1 setup order:
- *   d. Shuffle decks and draw opening hands (6 cards each).
- *   e. Choose whether to mulligan (one per player; initiative holder decides first).
- *   f. Resource two cards (each player chooses 2 from their opening hand).
- */
-function QueuePregameSetup($firstPlayer) {
-    // Step d: Draw the opening hand for each player simultaneously.
-    // Default is 6; a player's base may modify this (JTL_021 Colossus −1, JTL_028 Nabat Village +3).
-    $handSize = function ($player) {
-        $baseArr = &GetBase($player);
-        $baseID  = !empty($baseArr) ? $baseArr[0]->CardID : '';
-        return max(0, 6 + SWUStartingHandModifier($baseID));
-    };
-    $baseSuppressesMulligan = function ($player) {
-        $baseArr = &GetBase($player);
-        $baseID  = !empty($baseArr) ? $baseArr[0]->CardID : '';
-        return SWUBaseSuppressesMulligan($baseID);
-    };
-
-    // Draw in natural seat order (seats 1..N). Each seat draws from its own deck, so order between
-    // seats is immaterial — this preserves the exact 2-player 1-then-2 sequence.
-    $seats = GetSeatOrderArray();
-    foreach ($seats as $seat) {
-        $n = $handSize($seat);
-        // One "drew an opening hand of 6 cards" game-log line, not six "drew 1 card" lines.
-        $draw = function () use ($seat, $n) { for ($i = 0; $i < $n; ++$i) DoDrawCard($seat, 1); };
-        if (function_exists('SWULogDrawBatch')) SWULogDrawBatch($seat, 'drew an opening hand', $draw); else $draw();
-    }
-
-    // Decision order is clockwise starting from the first player (initiative holder decides first).
-    $startIdx = array_search($firstPlayer, $seats, true);
-    if ($startIdx === false) $startIdx = 0;
-    $decisionOrder = array_merge(array_slice($seats, $startIdx), array_slice($seats, 0, $startIdx));
-
-    // Step e: Mulligan — initiative holder decides first.
-    // Block 10 ensures YESNO sits at the front of the queue, before resource choices (block 50).
-    // A base may forbid the mulligan (JTL_028 Nabat Village) — skip the decision for that player.
-    // Goldfish: seat 2 is an empty passive bot seat (no hand to mulligan) — skip so it never blocks P1.
-    foreach ($decisionOrder as $seat) {
-        $skipGoldfishBot = (SWUGameMode() === 'goldfish' && $seat === 2);
-        if (!$baseSuppressesMulligan($seat) && !$skipGoldfishBot) {
-            // NOTE: do NOT queue a static (e.g. a PushPregameSnapshot) AHEAD of this YESNO. The mulligan is
-            // the FIRST interactive decision, GetNextTurn renders the raw queue WITHOUT running statics, and
-            // a mode-100 answer pops the FRONT decision — so a static in front of the YESNO would be popped
-            // by the player's answer, leaving the YESNO to re-prompt. The pre-mulligan undo snapshot is taken
-            // INLINE at the end of this function instead (deterministic re-mulligan; requirement #6).
-            DecisionQueueController::AddDecision($seat, "YESNO", "mulligan", 10,
-                tooltip:"Take_a_mulligan_(discard_hand_and_draw_6_new_cards)?");
-            DecisionQueueController::AddDecision($seat, "CUSTOM", "MulliganDecision|$seat", 10);
-        }
-    }
-
-    // Step f: Resource 2 cards — each player picks BOTH in one multi-select prompt (they're a pair
-    // of decisions the player wants to weigh together, so ChooseStartingResource queues a single
-    // 2-of MZMULTICHOOSE over the hand rather than two sequential single picks).
-    // Block 50 keeps these behind the mulligan decisions (block 10) in the queue.
-    foreach ($decisionOrder as $seat) {
-        // Undo snapshot before the starting-resource pick so a player can step back to it.
-        DecisionQueueController::AddDecision($seat, "CUSTOM", "PushPregameSnapshot|$seat", 50);
-        DecisionQueueController::AddDecision($seat, "CUSTOM", "ChooseStartingResource", 50);
-    }
-
-    // Begin-game undo boundary: snapshot the freshly-dealt pregame state (opening hands + the pending
-    // mulligan/resource decisions, pre-reshuffle RNG counter) INLINE — not as a queued decision — so it
-    // never sits in front of the mulligan YESNO in the queue. Undo lands here (re-present the mulligan) and
-    // the seeded reshuffle makes an undone-then-redone mulligan reproduce the same hand (requirement #6).
-    if (function_exists('PushUndoSnapshot')) PushUndoSnapshot($firstPlayer, 'pregame-step');
 }

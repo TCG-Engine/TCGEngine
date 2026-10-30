@@ -7268,6 +7268,106 @@ $customDQHandlers["ApplyStartingResource"] = function($player, $parts, $lastDeci
     $playerID = $savedPID;
 };
 
+/**
+ * Queue all pregame setup decisions.
+ *
+ * CR 5.2.1 setup order:
+ *   d. Shuffle decks and draw opening hands (6 cards each).
+ *   e. Choose whether to mulligan (one per player; initiative holder decides first).
+ *   f. Resource two cards (each player chooses 2 from their opening hand).
+ */
+function QueuePregameSetup($firstPlayer) {
+    // Step d: Draw the opening hand for each player simultaneously.
+    // Default is 6; a player's base may modify this (JTL_021 Colossus −1, JTL_028 Nabat Village +3).
+    $handSize = function ($player) {
+        $baseArr = &GetBase($player);
+        $baseID  = !empty($baseArr) ? $baseArr[0]->CardID : '';
+        return max(0, 6 + SWUStartingHandModifier($baseID));
+    };
+    $baseSuppressesMulligan = function ($player) {
+        $baseArr = &GetBase($player);
+        $baseID  = !empty($baseArr) ? $baseArr[0]->CardID : '';
+        return SWUBaseSuppressesMulligan($baseID);
+    };
+
+    // Draw in natural seat order (seats 1..N). Each seat draws from its own deck, so order between
+    // seats is immaterial — this preserves the exact 2-player 1-then-2 sequence.
+    $seats = GetSeatOrderArray();
+    foreach ($seats as $seat) {
+        $n = $handSize($seat);
+        // One "drew an opening hand of 6 cards" game-log line, not six "drew 1 card" lines.
+        $draw = function () use ($seat, $n) { for ($i = 0; $i < $n; ++$i) DoDrawCard($seat, 1); };
+        if (function_exists('SWULogDrawBatch')) SWULogDrawBatch($seat, 'drew an opening hand', $draw); else $draw();
+    }
+
+    // Decision order is clockwise starting from the first player (initiative holder decides first).
+    $startIdx = array_search($firstPlayer, $seats, true);
+    if ($startIdx === false) $startIdx = 0;
+    $decisionOrder = array_merge(array_slice($seats, $startIdx), array_slice($seats, 0, $startIdx));
+
+    // Step e: Mulligan — initiative holder decides first.
+    // Block 10 ensures YESNO sits at the front of the queue, before resource choices (block 50).
+    // A base may forbid the mulligan (JTL_028 Nabat Village) — skip the decision for that player.
+    // Goldfish: seat 2 is an empty passive bot seat (no hand to mulligan) — skip so it never blocks P1.
+    foreach ($decisionOrder as $seat) {
+        $skipGoldfishBot = (SWUGameMode() === 'goldfish' && $seat === 2);
+        if (!$baseSuppressesMulligan($seat) && !$skipGoldfishBot) {
+            // NOTE: do NOT queue a static (e.g. a PushPregameSnapshot) AHEAD of this YESNO. The mulligan is
+            // the FIRST interactive decision, GetNextTurn renders the raw queue WITHOUT running statics, and
+            // a mode-100 answer pops the FRONT decision — so a static in front of the YESNO would be popped
+            // by the player's answer, leaving the YESNO to re-prompt. The pre-mulligan undo snapshot is taken
+            // INLINE at the end of this function instead (deterministic re-mulligan; requirement #6).
+            DecisionQueueController::AddDecision($seat, "YESNO", "mulligan", 10,
+                tooltip:"Take_a_mulligan_(discard_hand_and_draw_6_new_cards)?");
+            DecisionQueueController::AddDecision($seat, "CUSTOM", "MulliganDecision|$seat", 10);
+        }
+    }
+
+    // Step f: Resource 2 cards — each player picks BOTH in one multi-select prompt (they're a pair
+    // of decisions the player wants to weigh together, so ChooseStartingResource queues a single
+    // 2-of MZMULTICHOOSE over the hand rather than two sequential single picks).
+    // Block 50 keeps these behind the mulligan decisions (block 10) in the queue.
+    foreach ($decisionOrder as $seat) {
+        // Undo snapshot before the starting-resource pick so a player can step back to it.
+        DecisionQueueController::AddDecision($seat, "CUSTOM", "PushPregameSnapshot|$seat", 50);
+        DecisionQueueController::AddDecision($seat, "CUSTOM", "ChooseStartingResource", 50);
+    }
+
+    // Begin-game undo boundary: snapshot the freshly-dealt pregame state (opening hands + the pending
+    // mulligan/resource decisions, pre-reshuffle RNG counter) INLINE — not as a queued decision — so it
+    // never sits in front of the mulligan YESNO in the queue. Undo lands here (re-present the mulligan) and
+    // the seeded reshuffle makes an undone-then-redone mulligan reproduce the same hand (requirement #6).
+    if (function_exists('PushUndoSnapshot')) PushUndoSnapshot($firstPlayer, 'pregame-step');
+}
+
+// CR 5.2.1c "Determine the first player": a player is chosen at random, and THAT player decides who begins with the
+// initiative counter. 1v1 only — SWUSetupGame queues this for the chooser in place of the pregame, so the
+// opening hands are dealt AFTER the choice (5.2.1c comes before 5.2.1d) and nobody chooses having seen a hand.
+// $reason 'roll' = the coin-flip winner; 'loser' = the prior game's loser in a Bo3 game 2/3 or a rematch.
+// Twin Suns, and a plain forced first player (tests, self-play, goldfish), never ask.
+function QueueInitiativeChoice(int $chooser, string $reason = 'roll'): void {
+    $tip = $reason === 'loser' ? "You_lost_the_previous_game._Choose_whether_to_start_with_the_initiative"
+                               : "You_won_the_initiative_roll._Choose_whether_to_start_with_the_initiative";
+    DecisionQueueController::AddDecision($chooser, "OPTIONCHOOSE", "Go_first&Go_second", 5, tooltip:$tip);
+    // dontSkipOnPass: the whole pregame is queued by this continuation, so a declined pick must still reach it
+    // (it opens with the initiative) — a skipped one would leave the game in setup with nothing to answer.
+    DecisionQueueController::AddDecision($chooser, "CUSTOM", "InitiativeChoice|$chooser|$reason", 5, dontSkipOnPass:1);
+}
+
+$customDQHandlers["InitiativeChoice"] = function($player, $parts, $lastDecision) {
+    $chooser = isset($parts[0]) ? intval($parts[0]) : intval($player);
+    $why = ($parts[1] ?? '') === 'loser' ? 'lost the previous game' : 'won the initiative roll';
+    $first = $chooser;
+    if ($lastDecision === 'Go_second') {
+        foreach (GetSeatOrderArray() as $seat) if ($seat !== $chooser) { $first = $seat; break; }
+    }
+    SetFirstPlayer($first);
+    SetTurnPlayer($first);
+    SetInitiativeCounter("P{$first}_UNCLAIMED");
+    AddGameLogEntry('INITIATIVE', "P{$chooser} {$why} and chose to go " . ($first === $chooser ? 'first' : 'second'));
+    QueuePregameSetup($first);
+};
+
 
 $customDQHandlers["SWUApplyRegroupResource"] = function($player, $parts, $lastDecision) {
     if ($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;

@@ -35,6 +35,14 @@ $check($next !== '', "pregame spawned ($next)");
 $front = function($p){ foreach (GetDecisionQueue($p) as $d) { if ($d !== null && empty($d->removed)) return $d; } return null; };
 $isMulligan = function($d){ return $d !== null && $d->Type === 'YESNO' && strpos((string)$d->Param, 'mulligan') !== false; };
 
+// A Bo3 game 2 opens with the game-1 loser (seat 1) choosing who goes first (CR 5.2.1c; test_swusim_initiative_choice.php),
+// and the pregame is queued only once that is answered. Answer it as a mode-100 does, then drain statics as
+// EngineActionRunner does after every action — what follows is the queue the client receives.
+$check($front(1) !== null && $front(1)->Type === 'OPTIONCHOOSE', 'P1 (game-1 loser) is first asked who goes first');
+global $playerID; $playerID = 1;
+$dq = new DecisionQueueController();
+ob_start(); $dq->PopDecision(1); $dq->ExecuteStaticMethods(1, 'Go_first'); ProcessGoldfishAutomation(); ob_end_clean();
+
 // No manual DQ processing — assert the RAW spawned queue (what the client receives).
 $check($isMulligan($front(1)), 'P1 front decision is the mulligan YESNO right after spawn — got ' . ($front(1) ? $front(1)->Type.':'.$front(1)->Param : 'none'));
 $check($isMulligan($front(2)), 'P2 front decision is the mulligan YESNO right after spawn — got ' . ($front(2) ? $front(2)->Type.':'.$front(2)->Param : 'none'));

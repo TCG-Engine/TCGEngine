@@ -323,6 +323,9 @@ function MatchSpawnNextGameWithDecks($rootName, $matchId, $firstPlayer, $priorGa
     $nextNumber = count($m['games']) + 1;
     $next = MatchHook($rootName, 'setupGame', $lobby, [
         'forcedFirstPlayer' => ($firstPlayer === 1 || $firstPlayer === 2) ? $firstPlayer : null,
+        // Every caller passes the prior game's loser. A sim whose rules let that player CHOOSE who opens (SWUSim,
+        // CR 5.2.1c) reads this; one that does not (GrandArchiveSim, AzukiSim) ignores the key and forces as before.
+        'forcedFirstPlayerChooses' => true,
         'resolvedDecks'     => $resolvedDecks,
         'matchId'           => $matchId, 'gameNumber' => $nextNumber,
     ]);
