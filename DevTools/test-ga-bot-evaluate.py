@@ -17,6 +17,21 @@ class EvaluationTest(unittest.TestCase):
             self.assertEqual(schedule[i][:3], schedule[i + 1][:3])
             self.assertEqual([schedule[i][3], schedule[i + 1][3]], [1, 2])
 
+    def test_round_robin_covers_each_pair_and_swaps_seats(self):
+        for count in [4, 5, 21]:
+            decks = list(range(count))
+            schedule = evaluation.make_tournament_schedule(decks, [101, 202])
+            self.assertEqual(len(schedule), count * (count - 1) * 2)
+            for seed in [101, 202]:
+                pairs = [frozenset((a, b)) for a, b, s, seat in schedule if s == seed and seat == 1]
+                self.assertEqual(len(set(pairs)), count * (count - 1) // 2)
+                self.assertTrue(all(len(pair) == 2 for pair in pairs))
+            for offset in range(0, len(schedule), 10):
+                batch = schedule[offset:offset + 10]
+                for i in range(0, len(batch), 2):
+                    self.assertEqual(batch[i][:3], batch[i+1][:3])
+                    self.assertEqual([batch[i][3], batch[i+1][3]], [1, 2])
+
     def test_freeze_is_immutable_and_isolated(self):
         with tempfile.TemporaryDirectory() as directory:
             target = pathlib.Path(directory) / 'baseline'

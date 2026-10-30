@@ -1147,5 +1147,24 @@ foreach ([1, 2] as $seat) {
     AddTurnEffect('myField-1', 'pk9xycwz9g'); // Cell Handler removes Pride this turn
     check($hasAttack(), "P$seat respects a temporary Pride removal");
 }
+// Tournament regression: Ominous Shadows must wait for champion combat damage.
+foreach ([1, 2] as $seat) {
+    resetBoard($seat); SetCurrentPhase('MAIN'); SetTurnNumber(2);
+    AddField($seat, 'gveirpdm44', Owner:$seat, Controller:$seat);
+    GetField($seat)[1]->Status = 2;
+    AddField(3-$seat, 'LMyKyVC2O9', Owner:3-$seat, Controller:3-$seat);
+    $hasAttack = function() use ($seat) {
+        return in_array('myField-1!FSM!', array_column(GABotLegalActions('decision-test', $seat)['actions'], 'cardID'), true);
+    };
+    check(!$hasAttack(), "P$seat Shadow waits for champion damage");
+    TrackChampionCombatDamage($seat, 'theirField-0', 1);
+    check($hasAttack(), "P$seat Shadow may attack a damaged surviving unit");
+    GetField(3-$seat)[0]->removed = true;
+    check(!$hasAttack(), "P$seat Shadow excludes a departed damaged target");
+    GetField(3-$seat)[0]->removed = false;
+    GetField(3-$seat)[0]->TurnEffects = [];
+    AddTurnEffect('myField-1', 'NO_ABILITIES');
+    check($hasAttack(), "P$seat suppressed Shadow can attack without champion damage");
+}
 echo "Checks: $checks; failures: $failures\n";
 exit($failures ? 1 : 0);

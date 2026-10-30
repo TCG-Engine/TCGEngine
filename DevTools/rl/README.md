@@ -264,3 +264,311 @@ DevTools/rl/azuki_raizan.txt`.
 vanilla allies, intended to keep action paths comparable across targeting changes.
 It is not a tournament-legal deck. The report includes the final replay action hash
 so equal step counts can also be checked against the recorded decisions.
+
+## Grand Archive: learn against frozen archetype bots
+
+`train_ga_tournament.php` runs a **tabular terminal-reward learner** against a
+frozen copy of the current Grand Archive heuristic. It is an offline experiment;
+it does not replace or publish the live bots. It uses the current GA bot action
+catalog, including its bounded/default choices for complex prompts. Learning
+cannot discover alternatives that catalog does not offer.
+
+Snapshot the selected menu decks and opponent once:
+
+```bash
+python3 DevTools/ga-bot-tournament-setup.py /tmp/ga-rl-roster
+php DevTools/rl/train_ga_tournament.php \
+  --config /tmp/ga-rl-roster/config.json --baseline /tmp/ga-rl-roster/baseline \
+  --output /tmp/ga-rl-training-001 --games 10
+```
+
+Continue from the checkpoint, advancing the schedule by ten:
+
+```bash
+php DevTools/rl/train_ga_tournament.php \
+  --config /tmp/ga-rl-roster/config.json --baseline /tmp/ga-rl-roster/baseline \
+  --output /tmp/ga-rl-training-002 --start 10 --games 10 \
+  --checkpoint /tmp/ga-rl-training-001/latest.json
+```
+
+The round-robin covers each unordered pair in both deck roles and both learner
+seats (840 games for 21 decks). Adjacent games swap seats with the same starting
+seed; exploration means they need not follow identical paths. Subsequent cycles
+use new seeds. Ten games is a review/checkpoint interval, not a strength claim.
+Policy updates occur after each completed game; checkpoints are saved every ten
+and at the final game. Keep the roster, baseline and training seed fixed when
+continuing; the global `--start` offset advances seeds as well as matchups.
+Use a durable directory instead of `/tmp` for long-running experiments.
+
+Evaluate separately on held-out seeds, without applying updates:
+
+```bash
+php DevTools/rl/train_ga_tournament.php \
+  --config /tmp/ga-rl-roster/config.json --baseline /tmp/ga-rl-roster/baseline \
+  --output /tmp/ga-rl-evaluation-001 --games 10 --evaluate \
+  --checkpoint /tmp/ga-rl-training-002/latest.json
+```
+
+Default training/evaluation seeds start at 10001/1000001. Explicit `--seed`
+values must keep those sets disjoint. Evaluation samples the learned categorical
+policy without epsilon exploration and asserts its checkpoint stays unchanged.
+For progress comparisons, evaluate earlier and later checkpoints on the same
+held-out schedule, then confirm gains on a second unseen seed range. Do not
+train on evaluation trajectories or promote from a single ten-game result.
+
+Artifacts include `report.json` (matchups, completed games, learner wins, source
+and policy hashes), `game-N.json` replays, `checkpoint-N.json`, and `latest.json`.
+Timeouts/engine failures remain in reports and replays but do not update the
+learner or count as completed wins. Rejected actions are excluded from reward
+updates. The opponent's actions never update the learner, in either seat.
+Opponent choice code is frozen; the engine and action enumerator are shared.
+
+The learner uses a versioned public-state projection, its own hand/memory and
+known deck multiset, plus semantic card/action keys. It never uses hidden deck
+order or opponent hand/memory identities. Replays contain full private states
+for local debugging and must not be used directly as model inputs. Exact card
+and board keys make this a sparse baseline; it may need substantial training
+and a more compact/generalizing representation before it beats the heuristics.
+
+Validation:
+
+```bash
+php DevTools/rl/test_ga_policy.php
+python3 DevTools/rl/test_ga_tournament.py
+```
+
+Initial local verification (2026-10-29): ten completed training games, then ten
+completed held-out evaluation games. Training changed the checkpoint;
+evaluation left it unchanged (4 learner wins / 10). This is a pipeline check,
+not evidence of improvement over an untrained policy. Every replay action was
+checked against its learner/opponent seat. The unit tests cover semantic keys,
+hidden-information exclusion, seat-filtered rewards, and checkpoint round trips;
+the integration test covers timeouts, frozen evaluation, and output protection.
+An Azuki shared-trainer smoke run was unavailable because that local runtime's
+generated card dictionaries are missing.
+
+Compare two evaluations with identical conditions:
+
+```bash
+python3 DevTools/rl/compare_ga_evaluations.py \
+  /path/to/earlier-evaluation/report.json /path/to/later-evaluation/report.json
+python3 DevTools/rl/test_compare_ga_evaluations.py
+```
+
+The comparison rejects mismatched seeds, schedules, decks, frozen opponents,
+recorded runtime hashes, or action limits, and any evaluation that changed its
+policy. It counts improved, regressed, and unchanged outcomes only where both
+games completed; incomplete pairs are reported separately. These are descriptive
+results, not a significance test or permission to deploy a checkpoint. Older
+reports without `maxSteps` must be evaluated again before comparison.
+
+Each game's `policyCoverage` records attempted learner decisions (including
+rejected attempts), choices with two or more legal actions, choices in a known
+trained state, and choices with a nonuniform learned preference over the legal
+actions. Forced moves and equal logits do not count as learned preferences.
+Low coverage means most choices still sample uniformly: accumulating checkpoint
+weights alone is not evidence that learning transfers to new games.
+
+Follow-up local measurement (2026-10-29): after 20 attempted training games,
+18 had completed. The second ten-game batch completed eight, with zero learner
+wins; two reached the 1,000-action limit and were excluded from learning.
+Matched ten-game evaluations of the 10-game and 20-game checkpoints both
+completed all games and won four, with identical outcomes. Both recorded
+1,054 multi-action choices and zero known-state or learned-preference choices.
+This provides no evidence of improvement: the exact-state table did not
+transfer to any evaluated choice. Next work should introduce shared features
+across positions (with new checkpoint versioning and hidden-information tests)
+before spending substantial time on more exact-state training. Live bots were
+not changed. Local reports/checkpoints for this measurement are under
+`/tmp/ga-rl-training-next20`, `/tmp/ga-rl-eval-before20`, and
+`/tmp/ga-rl-eval-after20`; those paths are temporary, not committed artifacts.
+
+### Compact Grand Archive pilot
+
+The earlier pilot used `GrandArchiveSim:compact-v2`. This remains tabular
+REINFORCE, using coarse shared situations rather than a neural network or
+independent linear features. It groups champion HP into critical (≤5), low
+(6–12), and higher ranges; board power balance into behind/even/ahead; and own
+hand/memory counts into empty/small/larger ranges. Phase, acting turn, prompt
+handler/type, and stack presence remain distinct. Different card identities in
+the board or hand can now share learned preferences. Card/ability action keys
+remain semantic, so unrelated effects are not collapsed into one action.
+
+This deliberately loses detail: statuses, individual threats, exact resources,
+deck probabilities and card synergies are not represented in the compact state.
+Legality still comes from the engine. It is an offline generalization experiment,
+not a replacement for the heuristic bot's richer knowledge or a claim of strength.
+Opponent hidden identities and draw order are excluded.
+
+```bash
+php DevTools/rl/train_ga_tournament.php \
+  --config /tmp/ga-rl-roster/config.json --baseline /tmp/ga-rl-roster/baseline \
+  --output /tmp/ga-rl-compact-pilot --games 100 --max-steps 1000
+```
+
+Checkpoint representation is retained when resuming. Use `--representation
+public-v1` to start the old exact-state baseline; explicitly requesting a different
+representation from a loaded checkpoint is rejected. Start a fresh model to
+switch representations. Both versions use `ga-semantic-v1` action keys. Compare
+compact checkpoints against an untrained compact model on identical held-out
+seeds, recorded runtime, and action limits, using the comparison tool above.
+With the current 21-deck circle schedule, the first 42 evaluation games include
+all 21 decks as learners, with paired seats, but are not a full round-robin.
+
+Compact pilot measurement (2026-10-29): 100 training attempts produced 93
+completed games, 28 learner wins, and seven excluded timeouts. Replay inspection
+verified learner-only seat attribution and frozen opponent selection throughout.
+On 42 held-out games covering all 21 learner archetypes in both seats, the
+untrained compact model won 12 (37 completed), and the trained model won 11
+(38 completed). Of 36 mutually completed pairs, two improved, four regressed,
+and 30 were unchanged; six pairs had at least one incomplete game. The trained
+model used nonuniform learned preferences on 4,388 of 6,107 choices (71.85%),
+versus zero for the untrained model. Generalization now occurs, but this pilot
+shows no strength improvement and does not justify scaling or promotion.
+Consider a richer feature model and heuristic-guided initialization before a
+larger run; validate those changes on a new held-out seed range, since this
+range has now informed development. The coarse representation can conflate
+positions with importantly different tactics.
+
+Temporary local artifacts: `/tmp/ga-rl-compact-pilot100`,
+`/tmp/ga-rl-compact-eval-untrained42`, `/tmp/ga-rl-compact-eval-trained42`, and
+`/tmp/ga-rl-compact-comparison42.json`. Training checkpoints exist at every ten
+games. Tests: 16 policy checks, the tournament integration check (including
+representation mismatch rejection), and three comparison tests passed. Live
+bots and their deployed decision policies were not changed by this pilot.
+
+### Heuristic-guided initialization
+
+Use `--imitate` for a separate supervised warm-start phase. The frozen heuristic
+chooses the learner's actions; accepted learner trajectories maximize the teacher
+action's log-likelihood with unit reward regardless of the winner. Opponent
+trajectories and incomplete games remain excluded. This phase is imitation, not
+RL. Remove `--imitate` when continuing from its checkpoint to run ordinary
+terminal-reward RL. `--imitate --evaluate` is rejected.
+
+```bash
+php DevTools/rl/train_ga_tournament.php \
+  --config /tmp/ga-rl-roster/config.json --baseline /tmp/ga-rl-roster/baseline \
+  --output /tmp/ga-rl-imitation --imitate --games 42 --seed 20001
+php DevTools/rl/train_ga_tournament.php \
+  --config /tmp/ga-rl-roster/config.json --baseline /tmp/ga-rl-roster/baseline \
+  --output /tmp/ga-rl-after-imitation --checkpoint /tmp/ga-rl-imitation/latest.json \
+  --start 42 --games 10 --seed 20001
+```
+
+Evaluate the initialized and RL-trained checkpoints on identical fresh held-out
+seeds (for example `--seed 2000001`), without `--imitate`. Imitation checkpoints
+are portable learned tables; the teacher is not consulted for learner choices
+in ordinary training or evaluation. A small supervised sample does not reproduce
+the full heuristic bot. Its richer tactics can be lost in compact-state buckets.
+Synthesized teacher multi-selections can be recorded, but those keys are not
+selectable later unless the normal legal-action catalog offers them. This is a
+remaining action-coverage limitation, not successful imitation of those choices.
+Replay learner actions in imitation mode carry `heuristicPolicy: ga-teacher`;
+opponent actions remain `ga-frozen`. Coverage counters measure model selections
+and consequently stay zero during teacher-driven imitation.
+
+Warm-start measurement (2026-10-30): 42 imitation games completed across all
+21 learner archetypes in both seats, using training seeds starting at 20001.
+The following ten RL games (schedule start 42) completed nine, with one timeout
+excluded from learning. Matched 42-game evaluations on new seeds starting at
+2000001 completed 40 games for each checkpoint. Imitation-only won 13; after
+RL won 14. Of 40 mutually completed pairs, one improved, none regressed, and
+39 were unchanged; two incomplete pairs were excluded. Learned preferences
+influenced 3,319/5,484 choices before RL and 3,746/5,694 after. This one-game
+advantage is not evidence of a reliable strength gain; confirm on another seed
+range before scaling. These results cannot be compared directly with the earlier
+untrained pilot, which used different seeds and runtime hashes.
+
+All imitation replays were checked for teacher/learner seat attribution. Both
+evaluation checkpoints stayed unchanged, with no teacher-selected learner moves.
+Policy checks, tournament integration (including imitation timeout exclusion and
+mutual exclusion with evaluation), comparison tests, and PHP syntax checks pass.
+Local temporary artifacts: `/tmp/ga-rl-imitation42`, `/tmp/ga-rl-imitation-rl10`,
+`/tmp/ga-rl-imitation-eval42`, `/tmp/ga-rl-imitation-rl-eval42`, and
+`/tmp/ga-rl-imitation-comparison42.json`. Live bots remain unchanged.
+
+Fresh-seed confirmation (2026-10-30): repeated the same 42-game schedule with
+seeds starting at 3000001, leaving both checkpoints frozen. Imitation-only won
+12 of 40 completed games (two timeouts); the RL checkpoint won 12 of 39
+completed games (three timeouts). Among 39 mutually completed pairs, two
+improved, two regressed, and 35 were unchanged. All 84 replay seat assignments
+were checked, with no teacher-assisted learner moves and no model updates.
+The earlier one-win advantage did not repeat. Across both held-out ranges there
+were only three improved and two regressed mutually completed outcomes; this
+is not evidence of a reliable gain and does not justify scaling or promotion.
+Next work should address tactical state/action representation and timeout causes,
+rather than simply increasing training volume for this model.
+
+Temporary confirmation artifacts: `/tmp/ga-rl-confirm-initial42`,
+`/tmp/ga-rl-confirm-trained42`, `/tmp/ga-rl-confirm-comparison42.json`.
+No model training or live-bot changes were performed during this confirmation.
+
+### Shared-weight GA learning cycle
+
+`linear-v1` is an experimental shared-weight softmax policy. Unlike the older
+state/action lookup tables, it transfers action-role preferences and their
+interactions with numeric observations between different boards. It uses public
+field health/readiness, hand/memory counts, reserve availability, combat threat,
+and lower/upper draw probabilities from the player's known deck multiset.
+Action descriptors include visible targets and printed reserve costs. Printed
+cost margin is a feature, not an engine legality check. The engine remains authoritative.
+No opponent hidden identities or draw order enter these observations.
+
+New GA runs default to `linear-v1` (also selectable explicitly); existing checkpoint
+versions remain loadable. Linear gradients include the softmax temperature and
+are averaged per completed episode. GA exploration now samples the policy itself
+rather than mixing an epsilon policy with an uncorrected policy gradient.
+Incomplete games still never produce updates.
+
+Run the complete local workflow (42 imitation games, 10 RL games, and two
+independent 42-game evaluation ranges by default):
+
+```bash
+python3 DevTools/rl/run_ga_learning_cycle.py \
+  --config /path/to/tournament/config.json \
+  --baseline /path/to/frozen-baseline \
+  --output /path/to/new-experiment
+```
+
+This also records independent teacher games and measures frozen-model imitation
+fidelity. Their checkpoints are deliberately not used as the RL starting model.
+Reports compare the imitation model against its RL continuation, both playing
+against the frozen heuristic. They do not establish superiority to that opponent
+unless win results actually support it. Nothing deploys or promotes a model.
+
+Standalone diagnostics:
+
+```bash
+php DevTools/rl/ga_imitation_fidelity.php --checkpoint /path/to/latest.json --replays /path/to/teacher-games
+python3 DevTools/rl/ga_timeout_audit.py /path/to/batch
+```
+
+Fidelity reports tie-adjusted top agreement, mean teacher probability, and
+cross-entropy. Use held-out teacher seeds; training-replay agreement is only a
+sanity check. `imitationMetrics.teacherMissing` identifies teacher actions absent
+from the catalog before teacher injection. Multi-select prompts now enumerate
+up to 2,048 subsets consistently during training and inference, with truncation
+marked on larger prompts. This is bounded coverage, not complete combinatorial
+search; numeric/split/rearrange prompts retain the existing fallback coverage.
+
+Timeout diagnostics distinguish repeated transitions, mostly rejected actions,
+and changing-state step limits. A repeated Buff action with changing states is
+not by itself proof of an engine bug. Inspect replays before changing card rules
+or awarding outcomes. The cycle preserves incomplete-game exclusions.
+
+Tests: `php DevTools/rl/test_ga_policy.php`,
+`python3 DevTools/rl/test_ga_tournament.py`, and
+`python3 DevTools/rl/test_compare_ga_evaluations.py`. Feature tests include hostile
+opponent hidden-card objects, cross-state transfer, checkpoint roundtrip,
+inference immutability, and a finite-difference gradient check.
+
+Initial linear smoke experiment (2026-10-30): 10 imitation games and 10 RL
+continuation games completed; all 40 evaluation games across two independent
+10-match paired ranges also completed. The imitation checkpoint won 7/20;
+the RL continuation won 6/20 (zero improved outcomes, one regression, 19 tied).
+No strength gain or promotion is claimed. Teacher top agreement was 77.8% on
+training replays and 61.1% on two independent teacher games (271 choices).
+These small runs do not cover the full 21-archetype schedule. Use the default
+42-game cycle for broader coverage before increasing training volume.
+Artifacts are local temporary directories `/tmp/ga-linear-*`, not deployed models.

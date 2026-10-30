@@ -205,6 +205,10 @@ function GABotLegalActions($gameName, $player) {
         if ($power <= 0) continue;
         // Use the engine's live Pride value so suppression and removal still permit attacks.
         if (PrideAmount($obj) > PlayerLevel($player)) continue;
+        // Shadows can attack only surviving units damaged by our champion this turn.
+        if ($obj->CardID === 'gveirpdm44' && !HasNoAbilities($obj)
+            && !array_filter(GetChampionCombatDamageTargets($player),
+                fn($mz) => !GetZoneObject($mz)->removed)) continue;
         $actions[] = ['playerID' => $player, 'mode' => 10002, 'cardID' => "myField-$i!FSM!"];
     }
 

@@ -119,3 +119,44 @@ Both-seat fixtures cover ready/rested sources, preserving combat units, an actua
 Tanggu payment and memory draw, and Armoire affordability. Validation: 531 decision
 checks, 31 knowledge checks and four evaluation-harness tests pass. These changes
 need a full paired evaluation before drawing conclusions about strength or speed.
+
+### Archetype tournament in ten-game review batches
+
+This is heuristic self-play with human/agent-reviewed policy improvements, not
+reinforcement-learning weight updates. Snapshot all selected menu archetypes and
+current chooser before starting:
+
+```sh
+python3 DevTools/ga-bot-tournament-setup.py /tmp/ga-tournament
+python3 DevTools/ga-bot-evaluate.py run \
+  --config /tmp/ga-tournament/config.json \
+  --baseline /tmp/ga-tournament/baseline \
+  --output /tmp/ga-tournament/batch-001 --round-robin --start 0 --games 10
+```
+
+Advance `--start` by ten and use a new output folder for each batch. The circle
+schedule spreads matchups across decks, skips mirrors, handles a bye for an odd
+roster, and keeps same-seed seat swaps together. The 21 selected archetypes yield
+420 games per seed, or 2,100 games across the five default seeds. Decks, source
+provenance and the starting policy are snapshotted locally; changing menu prefills
+later cannot silently change this tournament. Setup refuses to overwrite a run.
+
+After each batch, inspect failed games, rejection reasons and optional-ability
+coverage. Reproduce a concrete decision error, add a focused fixture, fix it,
+then replay affected matches before continuing. Do not make a policy change just
+because one archetype lost, or force activation of every declined ability.
+Maintain the initial baseline; each batch records the candidate policy hashes.
+Results across policy versions are diagnostic matchup results, not a single
+fixed-policy strength ranking. Use separate seeds and a full paired comparison
+before claiming improvement. Both policies share current legality/engine code,
+so legality fixes affect both sides. Sideboarding between games is not simulated.
+
+First batch (2026-10-29): all ten games completed. Ciel versus Tristan produced
+89 rejected Ominous Shadow attacks across its paired games. Added a bot legality
+filter requiring a surviving unit damaged by its champion this turn, unless the
+Shadow's abilities are suppressed. Both-seat fixtures cover missing, surviving,
+and departed targets plus suppression. Batch reports remain local under
+`/tmp/ga-archetype-tournament-20261029`; these are temporary artifacts.
+The two affected games replayed with zero rejected actions and unchanged winners
+and step counts. Validation passed: 539 decision checks, 31 knowledge checks and
+five harness tests. Next new batch starts at offset 10.

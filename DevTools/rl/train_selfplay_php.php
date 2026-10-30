@@ -2,6 +2,7 @@
 
 define('TCGENGINE_BRIDGE_LIBRARY_ONLY', true);
 require_once __DIR__ . '/../TestAutomationBridge.php';
+require_once __DIR__ . '/ga_policy.php';
 
 function RlParseArgs($argv) {
   $args = [
@@ -213,7 +214,7 @@ function RlStateKeyVersion() {
 }
 
 function RlCompatibleStateKeyVersions() {
-  return ['lite-v2' => true, 'AzukiSim:azuki-v1' => true, 'AzukiSim:compact-v2' => true, 'AzukiSim:compact-v3' => true, 'AzukiSim:compact-v4' => true, 'strategy-v1' => true];
+  return ['GrandArchiveSim:linear-v1' => true, 'GrandArchiveSim:compact-v2' => true, 'GrandArchiveSim:public-v1' => true, 'lite-v2' => true, 'AzukiSim:azuki-v1' => true, 'AzukiSim:compact-v2' => true, 'AzukiSim:compact-v3' => true, 'AzukiSim:compact-v4' => true, 'strategy-v1' => true];
 }
 
 function RlDefaultActionKeyVersion($stateKeyVersion) {
@@ -222,7 +223,7 @@ function RlDefaultActionKeyVersion($stateKeyVersion) {
 }
 
 function RlUsesSemanticActionKeys($actionKeyVersion) {
-  return in_array(strval($actionKeyVersion), ['semantic-v1', 'semantic-v2'], true);
+  return in_array(strval($actionKeyVersion), ['semantic-v1', 'semantic-v2', 'ga-semantic-v1'], true);
 }
 
 function RlStrategyEnabled($mode) {
@@ -344,6 +345,9 @@ function RlAzukiV1StateKeyFromSnapshot($snapshot, $actingPlayer = 0) {
 
 function RlStateKeyFromSnapshot($snapshot, $stateKeyVersion = null, $actingPlayer = 0, $legal = []) {
   $version = $stateKeyVersion === null ? RlStateKeyVersion() : strval($stateKeyVersion);
+  if ($version === 'GrandArchiveSim:linear-v1') return GaRlFeatureState($actingPlayer, $legal);
+  if ($version === 'GrandArchiveSim:compact-v2') return GaRlCompactStateKey($actingPlayer, $legal);
+  if ($version === 'GrandArchiveSim:public-v1') return GaRlStateKey($actingPlayer, $legal);
   if ($version === 'AzukiSim:compact-v4') return BridgeAzukiCompactV4StateKey($snapshot, $actingPlayer, $legal);
   if ($version === 'AzukiSim:compact-v3') return BridgeAzukiCompactV3StateKey($snapshot, $actingPlayer, $legal);
   if ($version === 'AzukiSim:compact-v2') return BridgeAzukiCompactStateKey($snapshot, $actingPlayer, $legal);
@@ -400,6 +404,7 @@ function RlBuildStuckDiagnostics($stepTrace, $window = 200) {
   }
   return [
     'traceWindow' => count($tail),
+    'classification' => max($transitionCounts ?: [0]) > 3 ? 'repeated_transition' : ($changed < count($tail) / 2 ? 'mostly_rejected_actions' : 'changing_state_step_limit'),
     'stateChangeRate' => count($tail) > 0 ? ($changed / count($tail)) : 0.0,
     'topActions' => $topActions,
     'topTransitions' => $topTransitions,
@@ -643,6 +648,13 @@ class RlTabularPolicy {
     return strval(intval($actionIndex));
   }
 
+  public function actionValue($stateKey, $actionKey) {
+    if ($this->stateKeyVersion !== 'GrandArchiveSim:linear-v1') return floatval($this->logits[$stateKey][$actionKey] ?? 0);
+    $value = 0.0;
+    foreach (GaRlFeatures($stateKey, $actionKey) as $feature => $x) $value += ($this->logits['__linear__'][$feature] ?? 0) * $x;
+    return $value;
+  }
+
   public function actionProbabilities($stateKey, $legalIndices, $actionKeys = []) {
     if (empty($legalIndices)) return [];
     $stateLogits = $this->logits[$stateKey] ?? [];
@@ -650,7 +662,7 @@ class RlTabularPolicy {
     $maxLogit = -1.0e30;
     foreach ($legalIndices as $idx) {
       $storageKey = $this->storageKeyForAction($idx, $actionKeys);
-      $logit = floatval($stateLogits[$storageKey] ?? 0.0) / $this->temperature;
+      $logit = $this->actionValue($stateKey, $storageKey) / $this->temperature;
       $vals[] = [$idx, $logit, $storageKey];
       if ($logit > $maxLogit) $maxLogit = $logit;
     }
@@ -689,6 +701,11 @@ class RlTabularPolicy {
   }
 
   public function updateEpisode($episodeSteps, $terminalReward) {
+    if ($this->stateKeyVersion === 'GrandArchiveSim:linear-v1') {
+      $steps = array_values(array_filter($episodeSteps, fn($s) => !isset($s['turn_player_filter']) || intval($s['turn_player'] ?? 0) === intval($s['turn_player_filter'])));
+      foreach (array_unique(array_column($steps, 'turn_player')) as $player) $this->applyDelta($this->episodeDeltaForPlayer($steps, $player, $terminalReward));
+      return;
+    }
     foreach ($episodeSteps as $step) {
       if (isset($step['turn_player_filter']) && intval($step['turn_player'] ?? 0) !== intval($step['turn_player_filter'])) continue;
       $stateKey = $step['state_key'];
@@ -724,7 +741,14 @@ class RlTabularPolicy {
         : floatval($terminalReward);
       foreach ($probs as [$idx, $p, $key]) {
         $grad = ($idx === $actionIdx ? 1.0 : 0.0) - $p;
+        if ($this->stateKeyVersion === 'GrandArchiveSim:linear-v1') {
+          // Average gradients per episode to prevent long games dominating training.
+          foreach (GaRlFeatures($stateKey, $key) as $feature => $x) {
+            $delta['__linear__'][$feature] = ($delta['__linear__'][$feature] ?? 0) + $this->learningRate * $stepReward * $grad * $x / ($this->temperature * max(1, count(RlFilterEpisodeStepsByPlayer($episodeSteps, $player))));
+          }
+        } else {
         $delta[$stateKey][$key] = floatval($delta[$stateKey][$key] ?? 0.0) + $this->learningRate * $stepReward * $grad;
+        }
       }
     }
     return $delta;
@@ -913,22 +937,25 @@ function RlEnsureStrategyPolicy($policy, $strategyMode) {
   }
 }
 
-function RlStepLoaded($root, $gameName, $action) {
-  $preHash = RegressionCurrentGamestateHash($root, $gameName);
+function RlStepLoaded($root, $gameName, $action, $gaTraining = false) {
+  $preHash = $gaTraining ? GABotComparableGamestateHash($gameName) : RegressionCurrentGamestateHash($root, $gameName);
   $apply = BridgeApplyEngineActionLoaded($root, $gameName, $action);
   BridgeLoadRuntimeGame($root, $gameName);
+  if ($gaTraining) GaRlResumeStack();
   $snapshot = BridgeSnapshotLoaded($root, $gameName, 'summary');
-  $legal = BridgeEnumerateLegalActionsLoaded($root, $gameName);
+  $legal = $gaTraining ? [] : BridgeEnumerateLegalActionsLoaded($root, $gameName);
   return [
     'applyResult' => $apply,
     'snapshot' => $snapshot,
     'legalActions' => $legal,
     'preHash' => $preHash,
-    'postHash' => strval($snapshot['gamestateHash'] ?? ''),
+    'postHash' => $gaTraining ? GABotComparableGamestateHash($gameName) : strval($snapshot['gamestateHash'] ?? ''),
   ];
 }
 
 function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $runId, $episodeNumber, $epSeed, $captureReplay, $updateP2) {
+  $gaTraining = !empty($args['ga-training']);
+  $learnerSeat = $gaTraining ? intval($args['learner-seat'] ?? 1) : 1;
   $gameName = 'rl_train_php_' . $runId . '_' . sprintf('%04d', intval($episodeNumber)) . '_' . intval($epSeed);
   $memoryArg = $args['memory-only'] === null ? 'auto' : ($args['memory-only'] ? '1' : '0');
   $GLOBALS['bridgeIncludeAzukiRlState'] =
@@ -943,6 +970,13 @@ function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $
   $startPayload = BridgeStartSelfplayGame($args['root'], $gameName, intval($epSeed), $deckText, $opponentDeckText, $memoryArg);
   if (empty($startPayload['success'])) RlFail('start-selfplay-game failed: ' . json_encode($startPayload));
 
+  if ($gaTraining) {
+    foreach ([1 => $deckText, 2 => $opponentDeckText] as $seat => $text) {
+      $parsed = GrandArchiveResolveDeckInput($text);
+      GABotRememberDecklist($seat, $parsed['mainDeck']);
+    }
+    WriteGamestate(RegressionRepoRoot() . '/GrandArchiveSim/');
+  }
   $snapshot = is_array($startPayload['snapshot'] ?? null) ? $startPayload['snapshot'] : BridgeSnapshotLoaded($args['root'], $gameName, 'summary');
   $initialFull = BridgeSnapshotLoaded($args['root'], $gameName, 'full');
   $legal = is_array($startPayload['legalActions'] ?? null) ? $startPayload['legalActions'] : ['actions' => []];
@@ -968,11 +1002,13 @@ function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $
   $done = false;
   $trainingHeuristicSteps = 0;
   $trainingFallbackSteps = 0;
+  $imitationMetrics = ['choices'=>0, 'teacherMissing'=>0, 'topMatches'=>0, 'teacherProbabilitySum'=>0.0];
+  $policyCoverage = ['decisions'=>0, 'choices'=>0, 'knownStateChoices'=>0, 'learnedPreferenceChoices'=>0];
   $episodeStart = microtime(true);
 
   while (!$done) {
     BridgeLoadRuntimeGame($args['root'], $gameName);
-    $legal = BridgeEnumerateLegalActionsLoaded($args['root'], $gameName);
+    $legal = $gaTraining ? GaRlLegalActions($gameName, $learnerSeat) : BridgeEnumerateLegalActionsLoaded($args['root'], $gameName);
     $lastLegalActions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
     $mask = array_fill(0, count($lastLegalActions), 1);
 
@@ -987,14 +1023,15 @@ function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $
     }
     $turnPlayer = intval($legal['playerID'] ?? ($snapshot['turnPlayer'] ?? 1));
     if ($turnPlayer !== 1 && $turnPlayer !== 2) $turnPlayer = intval($snapshot['turnPlayer'] ?? 1);
-    $actingPolicy = $turnPlayer === 1 ? $policy : $opponent;
+    $actingPolicy = $turnPlayer === $learnerSeat ? $policy : $opponent;
     $actionKeys = [];
     foreach ($lastLegalActions as $idx => $legalAction) {
-      $actionKeys[intval($idx)] = BridgeRlSemanticActionKey($legalAction, $legal, $actingPolicy->actionKeyVersion);
+      $actionKeys[intval($idx)] = $gaTraining ? GaRlActionKey($legalAction, $legal) : BridgeRlSemanticActionKey($legalAction, $legal, $actingPolicy->actionKeyVersion);
     }
     $stateKey = RlStateKeyFromSnapshot($snapshot, $actingPolicy->stateKeyVersion, $turnPlayer, $legal);
     $boundedMask = array_slice($mask, 0, intval($args['max-actions']));
-    $legalIndices = RlCandidateIndices($boundedMask, $lastLegalActions, $noOpKeys, $stateKey);
+    $rejectionKey = $gaTraining ? GABotComparableGamestateHash($gameName) : $stateKey;
+    $legalIndices = RlCandidateIndices($boundedMask, $lastLegalActions, $noOpKeys, $rejectionKey);
     if (empty($legalIndices)) {
       $done = true;
       $reward = 0.0;
@@ -1028,13 +1065,50 @@ function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $
     $heuristicName = RlHeuristicForPlayer($args, $turnPlayer);
     $heuristicDecision = RlHeuristicCoveredChoice($args, $heuristicActions, $legal, $snapshot, $turnPlayer, $heuristicName);
     $heuristicCovered = !empty($heuristicDecision['covered']) && is_array($heuristicDecision['action'] ?? null);
-    $isTrainingPlayer = $turnPlayer === 1 || $updateP2;
-    if ($heuristicCovered) {
+    $isTrainingPlayer = $turnPlayer === $learnerSeat || $updateP2;
+    if ($gaTraining && !$isTrainingPlayer) {
+      $choice = GAFrozenBotChooseActionHeuristic($heuristicActions, $legal);
+      if (!is_array($choice)) throw new RuntimeException('Fixed GA opponent returned no action.');
+      $actionIndex = count($lastLegalActions);
+      $lastLegalActions[] = $choice;
+      $heuristicCovered = true;
+      $heuristicName = 'ga-frozen';
+      $heuristicDecision = ['rule' => 'fixed-opponent'];
+    } elseif ($gaTraining && !empty($args['ga-imitation'])) {
+      $choice = GAFrozenBotChooseActionHeuristic($heuristicActions, $legal);
+      if (!is_array($choice)) throw new RuntimeException('GA teacher returned no action.');
+      $teacherKey = GaRlActionKey($choice, $legal);
+      $actionIndex = null;
+      foreach ($legalIndices as $idx) if ($actionKeys[$idx] === $teacherKey) { $actionIndex = $idx; break; }
+      if (count($legalIndices) > 1) {
+        ++$imitationMetrics['choices'];
+        $probs = $actingPolicy->actionProbabilities($stateKey, $legalIndices, $actionKeys);
+        $best = max(array_column($probs, 1));
+        if ($actionIndex === null) ++$imitationMetrics['teacherMissing'];
+        foreach ($probs as [$idx, $prob]) if ($idx === $actionIndex) {
+          $imitationMetrics['teacherProbabilitySum'] += $prob;
+          if (abs($prob - $best) < 1e-12) $imitationMetrics['topMatches'] += 1.0 / count(array_filter($probs, fn($v) => abs($v[1] - $best) < 1e-12));
+        }
+      }
+      $teacherAvailable = $actionIndex !== null;
+      // The heuristic can synthesize a multi-selection not present in the base catalog.
+      if ($actionIndex === null) {
+        $actionIndex = count($lastLegalActions);
+        if ($actionIndex >= $actingPolicy->maxActions) throw new RuntimeException('Teacher action exceeds policy capacity.');
+        $lastLegalActions[] = $choice;
+        $actionKeys[$actionIndex] = $teacherKey;
+        $legalIndices[] = $actionIndex;
+      }
+      $heuristicCovered = !$teacherAvailable; // Missing catalog choices advance the teacher game but never train unreachable actions.
+      $heuristicName = 'ga-teacher';
+      $heuristicDecision = ['rule' => 'imitation'];
+    } elseif ($heuristicCovered) {
       $actionIndex = intval($heuristicDecision['action']['_rlActionIndex'] ?? -1);
       if (!in_array($actionIndex, $legalIndices, true)) {
         throw new Exception('Heuristic policy selected an action outside the filtered legal set.');
       }
     } else {
+      if ($gaTraining && $isTrainingPlayer) GaRlRecordPolicyCoverage($policyCoverage, $actingPolicy, $stateKey, $legalIndices, $actionKeys);
       $actionIndex = $actingPolicy->selectAction($stateKey, $filteredMask, floatval($args['epsilon']), $actionKeys);
     }
     $action = $lastLegalActions[$actionIndex] ?? [];
@@ -1062,6 +1136,8 @@ function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $
       'turnPlayer' => $turnPlayer,
       'actionIndex' => $actionIndex,
       'actionKey' => strval($actionKeys[$actionIndex] ?? ''),
+      'observation' => $gaTraining && !empty($args['ga-imitation']) ? $stateKey : null,
+      'actionKeys' => $gaTraining && !empty($args['ga-imitation']) ? $actionKeys : null,
       'legalCount' => count($legalIndices),
       'strategyPosture' => $strategyPosture,
       'heuristicCovered' => $heuristicCovered,
@@ -1081,7 +1157,7 @@ function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $
           'before_snapshot' => $beforeSnapshot,
         ];
       }
-      $stepPayload = RlStepLoaded($args['root'], $gameName, $cleanAction);
+      $stepPayload = RlStepLoaded($args['root'], $gameName, $cleanAction, $gaTraining);
       $applyResult = $stepPayload['applyResult'];
       if (empty($applyResult['success'])) throw new Exception(strval($applyResult['message'] ?? 'engine action failed'));
       $snapshot = $stepPayload['snapshot'];
@@ -1172,8 +1248,12 @@ function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $
       'gamestateHash' => strval($info['gamestateHash'] ?? ''),
       'flashMessage' => strval($info['flashMessage'] ?? ''),
     ];
+    if ($gaTraining && empty($info['stateChanged']) && $stepIndex !== null) {
+      // Rejected engine actions are not rewarded as part of an eventual win.
+      array_pop($episodeSteps);
+    }
     if (empty($info['stateChanged']) && !$done) {
-      $noOpKeys[$stateKey . '|' . $mode . '|' . $cardId] = true;
+      $noOpKeys[$rejectionKey . '|' . $mode . '|' . $cardId] = true;
     }
   }
 
@@ -1186,7 +1266,10 @@ function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $
     $reward = floatval($args['timeout-reward']);
   }
   $tacticalTerminalWeight = RlStrategyEnabled(strval($args['strategy-mode'])) ? floatval($args['tactical-terminal-weight']) : 1.0;
-  $p1Delta = $policy->episodeDeltaForPlayer($episodeSteps, 1, floatval($reward), $tacticalTerminalWeight);
+  // GA fixed opponents never contribute trajectories. Incomplete games are diagnostics, not training rewards.
+  $learnerReward = $learnerSeat === 2 && !$episodeIncomplete ? -$reward : $reward;
+  if ($gaTraining && !empty($args['ga-imitation'])) $learnerReward = 1.0; // Supervised log-likelihood, independent of winner.
+  $p1Delta = ($gaTraining && $episodeIncomplete) ? [] : $policy->episodeDeltaForPlayer($episodeSteps, $learnerSeat, floatval($learnerReward), $tacticalTerminalWeight);
   $p1StrategyDelta = ($policy instanceof RlTabularPolicy && $policy->strategyPolicy instanceof RlTabularPolicy)
     ? $policy->strategyPolicy->episodeDeltaForPlayer($strategySteps, 1, floatval($reward))
     : [];
@@ -1236,6 +1319,8 @@ function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $
     'terminationReason' => strval($info['terminationReason'] ?? ''),
     'elapsedMs' => $elapsedMs,
     'info' => $info,
+    'policyCoverage' => $policyCoverage,
+    'imitationMetrics' => $imitationMetrics,
     'p1Delta' => $p1Delta,
     'p2Delta' => $p2Delta,
     'p1StrategyDelta' => $p1StrategyDelta,

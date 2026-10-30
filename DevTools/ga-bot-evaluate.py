@@ -67,6 +67,19 @@ def write_report(output, summary):
 def make_schedule(decks, seeds):
     return [(a, b, seed, seat) for a in decks for b in decks for seed in seeds for seat in [1, 2]]
 
+def make_tournament_schedule(decks, seeds):
+    """Circle-method round robin, with adjacent seat-swapped games and no mirrors."""
+    ring = list(decks)
+    if len(ring) < 2: raise ValueError('Tournament requires at least two decks')
+    if len(ring) % 2: ring.append(None)
+    pairs = []
+    for _ in range(len(ring) - 1):
+        pairs.extend((ring[i], ring[-1-i]) for i in range(len(ring)//2)
+                     if ring[i] is not None and ring[-1-i] is not None)
+        ring = [ring[0], ring[-1], *ring[1:-1]]
+    return [(a, b, seed, seat) for seed in seeds for a, b in pairs for seat in [1, 2]]
+
+
 def run(args):
     if args.max_steps < 1 or args.timeout <= 0: raise ValueError('Step and time limits must be positive')
     config_path = args.config.resolve()
@@ -86,7 +99,14 @@ def run(args):
     metadata = {'config': config, 'baseline': manifest, 'candidateHashes': {f: digest(ROOT / 'GrandArchiveSim' / f) for f in FILES}, 'deckHashes': {n: digest(p) for n, p in decks}, 'engineHashes': {str(p.relative_to(ROOT)): digest(p) for p in list((ROOT / 'GrandArchiveSim/Custom').glob('*.php')) + [ROOT / 'GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php', ROOT / 'GrandArchiveSim/CreateGame.php']}}
     (args.output / 'metadata.json').write_text(json.dumps(metadata, indent=2))
     games = []
-    schedule = make_schedule(decks, config['seeds'])
+    schedule = (make_tournament_schedule if args.round_robin else make_schedule)(decks, config['seeds'])
+    total_scheduled = len(schedule)
+    if args.start < 0 or args.start % 2 or (args.games is not None and (args.games < 2 or args.games % 2)):
+        raise ValueError('Start and game count must preserve paired games (even numbers)')
+    schedule = schedule[args.start:None if args.games is None else args.start + args.games]
+    if not schedule: raise ValueError('Batch starts beyond the schedule')
+    metadata.update(scheduleTotal=total_scheduled, start=args.start, roundRobin=args.round_robin)
+    (args.output / 'metadata.json').write_text(json.dumps(metadata, indent=2))
     if args.smoke: schedule = schedule[:2]
     for number, (a, b, seed, seat) in enumerate(schedule, 1):
         for name, expected in metadata['candidateHashes'].items():
@@ -122,6 +142,8 @@ if __name__ == '__main__':
     p = sub.add_parser('run')
     p.add_argument('--config', type=pathlib.Path, required=True); p.add_argument('--baseline', type=pathlib.Path, required=True)
     p.add_argument('--output', type=pathlib.Path, required=True); p.add_argument('--php', default='php')
+    p.add_argument('--round-robin', action='store_true')
+    p.add_argument('--start', type=int, default=0); p.add_argument('--games', type=int)
     p.add_argument('--smoke', action='store_true'); p.add_argument('--max-steps', type=int, default=2000); p.add_argument('--timeout', type=int, default=180)
     args = parser.parse_args()
     if args.command == 'freeze': freeze(args.destination)
