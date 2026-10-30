@@ -198,3 +198,28 @@ P1NODECISION
 P1HASFORCE
 P2BASEDMG:1
 P1GROUNDARENAUNIT:0:CARDID:LAW_086
+
+
+---
+
+# DefenderFirst_StrangerOnSeatTwo
+#// The same choice from the OTHER seat. The YES handler stores the attacker as "myGroundArena-N" — minted in the
+#// attacker's frame — and used to resolve it in whatever frame was current, so a seat-2 Stranger's YES marked
+#// P1's unit and combat ran simultaneously (the Marine lived). Found 2026-10-29 building IC27_142 Greedo.
+#// Mirror of DefenderFirst_GritBoostsDamage: Marine 3 first, Grit takes The Stranger to 4, the Marine dies.
+
+## GIVEN
+CommonSetup: bbk/bbk
+SkipPreGame: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: LAW_086:1:0
+
+## WHEN
+- P1>Pass
+- P2>AttackGroundArena:0:0
+- P2>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:CARDID:LAW_086
+P2GROUNDARENAUNIT:0:DAMAGE:3

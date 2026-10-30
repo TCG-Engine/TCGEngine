@@ -19,7 +19,7 @@ The skill takes ONE set tag. `<set>` below = the tag lowercased = the folder `SW
 
 | tag | status | size | one arm |
 |---|---|---|---|
-| **HMW** | **the current meta (owner 2026-10-26)** — every bot feature is measured here | 5 events (melee 480807, 463642, 480819, 483483, 489470 — the last two added 2026-10-27), 342 real matches → 332 pairs → **664 games**. Arms from before 2026-10-27 played the 3-event set and do not pair with newer ones | **~3–4 min** |
+| **HMW** | **the current meta (owner 2026-10-26)** — every bot feature is measured here | 5 events (melee 480807, 463642, 480819, 483483, 489470 — the last two added 2026-10-27), 342 real matches → 332 pairs → **664 games**. Arms from before 2026-10-27 played the 3-event set and do not pair with newer ones | **~23–32 min** (measured 2026-10-29; was 3–4) |
 | ASH | **RETIRED 2026-10-26** — owner: "we dont have to run ASH metas anymore … we are 2 weeks into the HMW meta now". Run only if the owner explicitly asks for ASH. | 53 events, 9,933 matches → ~19,650 games | ~2.5 h |
 
 ## Owner policy — read first
@@ -63,7 +63,8 @@ HMW extras: curated fixtures with the owner's deck-by-deck style labels in `SWUS
    ```
    docker exec -d -w /var/www/html/TCGEngine -e PHP_INI_SCAN_DIR=":/tmp/swusim-ini" otmtcge-swusim-web-server-1 bash .claude/tmp/<set>-meta-runs/queue-<label>.sh
    ```
-   Per-lever arms of a theme are cheap on HMW (one arm ≈ 3–4 min) — add one `try-<lever>` arm each when a theme has several levers.
+   A full HMW arm takes ~25–30 min (2026-10-29). To screen many levers, run each on the match SUBSET where it can fire: `sweep_fixtures.sh` with
+   `PAIRS_FILE=<lever>.pairs SUPERSET=1 SEED_PREFIX=tb VARIANT=try-<lever>`. Pairs are deterministic, so a subset arm pairs exactly with the full control.
    Smoke test only (tools changed): `-e LIMIT=30` plays the first 30 matches; on unchanged code those games must be IDENTICAL to the
    control's.
 3. **Watch** with a background until-loop on the queue log's `ALL DONE` (or `<run dir>/DONE`). A background command caps at 2 h — if it

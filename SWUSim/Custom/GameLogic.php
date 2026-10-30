@@ -535,7 +535,20 @@ function _SWUStatIdentityCount($obj, string $cardID): int {
 
 // A unit's power, floored at 0 (CR 8.15.4: "A value cannot be modified below 0 … treat that value as 0").
 function ObjectCurrentPower($obj) {
-    return max(0, ObjectCurrentPowerRaw($obj));
+    return max(0, ObjectCurrentPowerRaw($obj)) * _SWUPowerMultiplier($obj);
+}
+
+// "Double a unit's power for this phase" (IC27_126 Saw Gerrera) — a MULTIPLICATIVE modifier, so it applies after every
+// addition and subtraction (CR 15.2: additive, then subtractive, then multiplicative) and after the 0 floor, and it
+// is recomputed on every read (CR 15.3): a +2/+0 given later in the phase is doubled too. That is why it is NOT in
+// ObjectCurrentPowerRaw — an attack adds Raid and its "+N for this attack" on top of Raw, and those must be doubled
+// as well, so each power reader (here, ObjectCurrentPowerInAttack, SWUCombatDamage) multiplies at its own end.
+// Each application is its own stacking token (_SWUStackingStatToken), so two doublings are ×4.
+function _SWUPowerMultiplier($obj): int {
+    if ($obj === null || empty($obj->TurnEffects)) return 1;
+    $n = 0;
+    foreach (SWUParsedTurnEffects($obj) as $e) if ($e['base'] === 'IC27_126') $n++;
+    return 1 << min($n, 16);
 }
 
 // The same sum WITHOUT the floor. CR 8.15.4: "any new modifiers applied after a value is treated as 0 will still
@@ -1040,7 +1053,7 @@ function ObjectCurrentPowerInAttack($obj): int {
     if ($obj === null) return 0;
     $p = intval(ObjectCurrentPowerRaw($obj));   // unfloored: Raid etc. still account for earlier reductions (CR 8.15.4)
     $uid = intval($obj->UniqueID ?? 0);
-    if ($uid <= 0 || $uid !== intval(GetSWUVar('SWU_CURRENT_ATTACKER_UID', '0'))) return max(0, $p);
+    if ($uid <= 0 || $uid !== intval(GetSWUVar('SWU_CURRENT_ATTACKER_UID', '0'))) return max(0, $p) * _SWUPowerMultiplier($obj);
     // Value keywords honour suppression here — the generated GetKeyword_*_Value readers do not gate on
     // LostAbilities themselves (same reasoning as CombatLogic's Raid application).
     $raid = LostAbilities($obj) ? null : GetKeyword_Raid_Value($obj);
@@ -1049,8 +1062,10 @@ function ObjectCurrentPowerInAttack($obj): int {
         if (preg_match('/^SWU_ATK_POWER_(\d+)$/', (string)$te, $m)) $p += intval($m[1]);
     }
     // Multiplicative last (CR v9.0 8.15.2) — SEC_137 Dryden Vos's "double this unit's power for this attack".
-    if (in_array('SWU_ATK_DOUBLE', $obj->TurnEffects ?? [], true)) return max(0, $p) * 2;
-    return max(0, $p);
+    // IC27_126 Saw Gerrera's phase-long double is multiplicative too (_SWUPowerMultiplier).
+    $p = max(0, $p) * _SWUPowerMultiplier($obj);
+    if (in_array('SWU_ATK_DOUBLE', $obj->TurnEffects ?? [], true)) return $p * 2;
+    return $p;
 }
 
 
@@ -1338,6 +1353,7 @@ $turnEffectRegistry = [
     'DEFDEBUFF'   => ['kind' => 'DEF_DEBUFF',     'duration' => SWU_DUR_ATTACK, 'label' => 'Defender -{0} power'],
     'SHOOT_FIRST' => ['kind' => 'SHOOT_FIRST',    'duration' => SWU_DUR_ATTACK, 'label' => 'Deals damage first'],
     'DEFENDER_FIRST' => ['kind' => 'MARKER',      'duration' => SWU_DUR_ATTACK, 'label' => 'Defender deals damage first'],  // LAW_086 The Stranger
+    'IC27_142_FIRST' => ['kind' => 'MARKER',      'duration' => SWU_DUR_ATTACK, 'label' => 'Deals damage first'],           // IC27_142 Greedo chose his deal-first source over his own "after"
 
     // ── Control / abilities (perm — ride until the unit leaves play / control reverts).
     //    Registered for Active Effects display; expiry leaves perm tokens untouched, matching
@@ -1371,6 +1387,7 @@ $turnEffectRegistry = [
     'IC27_163' => ['kind' => 'STAT_DEBUFF'],                                                                                  // Bo-Katan Kryze — When Played: each enemy unit gets -7/-0 this phase
     'IC27_046' => ['kind' => 'STAT_BUFF'],                                                                                    // Vigilant Defense — a friendly unit gets +0/+3 (and Sentinel) this phase
     'IC27_127' => ['kind' => 'STAT_BUFF'],                                                                                    // Act of Aggression — a friendly unit gets +3/+0 (and Overwhelm) this phase
+    'IC27_126' => ['kind' => 'MARKER',         'label' => 'Power doubled'],                                               // Saw Gerrera — another friendly unit's power is doubled this phase (read by _SWUPowerMultiplier)
     'HMW_052' => ['kind' => 'STAT_BUFF'],                                                                                     // A'Koba, Restless Raider — When Played: a unit (either side, self included) gets +2/+0 this phase
     'SHD_129' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Timely Intervention — the played unit gains Ambush this phase
     'SHD_215' => ['kind' => 'STAT_DEBUFF'],                                                                                   // Smuggler's Starfighter — enemy unit gets -3/-0 this phase

@@ -1351,6 +1351,26 @@ fixture-blind-spot table above for *why* that coverage could not see them.
 - **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
   base explicitly — `AttackGroundArena:0:p2Base-0`.
 
+### ★ IC27 eighth wave 2026-10-29 — handler frames, multiplicative modifiers, and boards that can't discriminate
+- **A CUSTOM handler that receives an mzID through `$parts` must set `$playerID = $player` before using it.** The
+  mzID was minted in the queuing player's frame (`myGroundArena-N`); `$playerID` at handler time can be another
+  seat. LAW_086 The Stranger's YES did nothing for a SEAT-2 Stranger for its whole life — every section attacked
+  from seat 1 — and was only found because IC27_142 Greedo needed it from seat 2. Any card whose handler takes a
+  stored mzID gets one section driven from seat 2 (`P1>Pass` then `P2>…`).
+- **"Double a unit's power" is a MULTIPLICATIVE modifier (CR 15.2/15.3), not a +X snapshot, and it cannot live in
+  `ObjectCurrentPowerRaw`**: an attack adds Raid / "+N for this attack" ON TOP of Raw, and those must be doubled too.
+  `_SWUPowerMultiplier` is applied at the END of each power reader (`ObjectCurrentPower`, `ObjectCurrentPowerInAttack`,
+  `SWUCombatDamage` attack + defend power, The Stranger's Grit delta). The discriminating sections: a later buff in
+  the same phase ((3+2)×2, not 6+2), a 0-power Raid unit attacking ((0+2)×2, not 2), and two applications (×4).
+- **Sequential combat damage ("deals after/before") is only proven by the board where the order DECIDES the
+  outcome** — the second unit dies and deals nothing. A "second unit survives, then deals" board ends exactly like
+  simultaneous damage and stays green with the whole ordering deleted (IC27_142 Greedo, measured). Keep it as a
+  positive, but never as the only one.
+- **When the net board equals "nothing happened", assert the log.** IC27_144 Jango discarding the event he then
+  returns leaves hand and pile identical to a no-op; `LOGCONTAINS:discard pile to their hand` is what fails.
+- **A 3-HP unit dies to a 3-power counter.** When a section needs the attacker to survive, pick a defender whose
+  power is below the attacker's HP — two "doubled unit attacks" sections were red for the fixture, not the engine.
+
 ### ★ IC27 sixth wave 2026-10-29 — fixture HP, discard-from-hand, and measuring an outcome you delegated
 - **The standard far-seat base `SOR_019` is a 25-HP base, not 30.** Nearly every Twin Suns / Team Suns section
   seeds `WithP3Base: SOR_019:0` / `WithP4Base: SOR_019:0`, so any expectation derived from a far-seat base's HP

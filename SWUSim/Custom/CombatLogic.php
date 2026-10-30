@@ -2786,6 +2786,20 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_086#0|{$attackerMzID}", 1);
     }
 
+    // IC27_142 Greedo — an attacking Greedo that ALSO deals combat damage first (Shoot First, Carson Teva's Support
+    // grant, Anakin's Podracer) has two orderings for one unit, and CR 6.3.5.c lets his controller decide. YES = deal
+    // first (the IC27_142_FIRST marker, read in SWUCombatDamage). Not offered against a defending Greedo — the two
+    // "after"s cancel out to simultaneous damage there — nor when Greedo has lost his abilities.
+    if (_SWUAttackerGrants($attacker, 'IC27_142') && !LostAbilities($attacker) && strpos($targetMzID, 'Arena') !== false
+        && _SWUAttackerDealsDamageFirst($attacker)) {
+        $gdDefender = GetZoneObject($targetMzID);
+        if (!(($gdDefender->CardID ?? '') === 'IC27_142' && !LostAbilities($gdDefender))) {
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                tooltip: "Deal_Greedo's_combat_damage_first_instead_of_after?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "IC27_142#0|{$attackerMzID}", 1);
+        }
+    }
+
     // Step 1: collect On Attack / On Defense triggers, then flush them onto the
     // EffectStack with a COMBAT continuation that queues SWUCombatDamage once the
     // triggers fully resolve. With no triggers, queue combat damage directly.
@@ -3202,6 +3216,28 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         && !SWUUnitEnteredPlayThisPhase($target)) {
         $hasShootFirst = true;
     }
+    // IC27_142 Greedo — "While attacking or defending, this unit deals combat damage after the other attacking or
+    // defending unit." Attacking, he takes the defender-first path; defending, he puts the attacker on the
+    // attacker-first path. Each needs the other unit to survive before it deals (CR 6.3.5.c). Conflicts:
+    //   • attacking with a deal-first source too → his controller chose before combat (IC27_142_FIRST = first);
+    //   • Greedo against Greedo → each deals after the other, which cancels out to simultaneous damage;
+    //   • defending against The Stranger's DEFENDER_FIRST → that choice stands (Greedo deals first).
+    // A Greedo that has lost his abilities deals damage normally.
+    if (strpos((string)$targetMzID, 'Arena') !== false && $target !== null && empty($target->removed)) {
+        $gdAttacking = _SWUAttackerGrants($attacker, 'IC27_142') && !LostAbilities($attacker);
+        $gdDefending = ($target->CardID ?? '') === 'IC27_142' && !LostAbilities($target);
+        if ($gdAttacking && $gdDefending) {
+            $hasShootFirst = false;
+            $defenderFirst = false;
+        } elseif ($gdAttacking) {
+            if (!$hasShootFirst || !in_array('IC27_142_FIRST', $attacker->TurnEffects ?? [], true)) {
+                $hasShootFirst = false;
+                $defenderFirst = true;
+            }
+        } elseif ($gdDefending && !$defenderFirst) {
+            $hasShootFirst = true;
+        }
+    }
     // "+N power for this attack" one-shot bonuses (Surprise Strike SOR_220, attack-with
     // riders SOR_227/SOR_240). Summed into attack power and consumed so they don't persist
     // as a stat (the attacker's ObjectCurrentPower is unchanged before/after).
@@ -3215,6 +3251,11 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     }
     // One floor, after every addition and subtraction (CR 8.15.4) — Cantina Braggart 0 −2 +Raid 2 attacks for 0.
     $attackPower = max(0, intval($attackPower));
+    // IC27_126 Saw Gerrera's phase-long double — multiplicative, so after Raid and every "+N for this attack" above.
+    // Not when the attack deals its remaining HP INSTEAD of its power (LOF_206): that replaces power outright.
+    if (!(is_array($attacker->TurnEffects ?? null) && in_array('SWU_HP_AS_DAMAGE', $attacker->TurnEffects))) {
+        $attackPower *= _SWUPowerMultiplier($attacker);
+    }
     // MULTIPLICATIVE modifiers come LAST (CR v9.0 8.15.2: additive, then subtractive, then multiplicative), after
     // every addition and subtraction above — SEC_137 Dryden Vos "double this unit's power for this attack".
     // A value can't go below 0 (CR 8.15.4), so it is the clamped total that doubles. Consumed with the attack.
@@ -3351,10 +3392,12 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $combatCtx['baseCombatDmg'] += max(0, intval($attackPower)); // LOF_025 threshold (incl. overwhelm below)
         // (Restore now fires once per attack in ExecuteSWUAttack — for unit AND base targets.)
     } elseif ($target !== null && !isset($target->removed)) {
-        $defendPower = max(0, intval(ObjectCurrentPower($target)) - $defenderPowerDebuff);
+        $defendPower = max(0, max(0, intval(ObjectCurrentPowerRaw($target))) - $defenderPowerDebuff);
         // Every "while defending, +X/+0" (LOF_049, SHD_042, ASH_073, HMW_083, ASH_018, HMW_212) — the one
         // helper TWI_135 Darth Maul's two-defender path uses as well.
         $defendPower += _SWUWhileDefendingPowerBonus($target);
+        // IC27_126 Saw Gerrera's double — multiplicative, so after the "-N for this attack" and the defending bonus.
+        $defendPower *= _SWUPowerMultiplier($target);
         // "Can't deal combat damage this phase" (LAW_130) on the defender → it deals no counter-damage.
         if (is_array($target->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $target->TurnEffects, true)) {
             $defendPower = 0;
@@ -3442,7 +3485,9 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             //    damage) and deal to the defender. A defeated attacker deals no combat damage.
             $attackerRemainingHP = intval(ObjectCurrentHP($attacker)) - intval($attacker->Damage);
             if ($attackerRemainingHP > 0) {
-                $attackPower += max(0, intval(ObjectCurrentPower($attacker)) - $attackBasePower); // Grit delta
+                // Grit delta, measured before the IC27_126 double (as $attackBasePower is) and then doubled with it.
+                $attackPower += max(0, max(0, intval(ObjectCurrentPowerRaw($attacker))) - $attackBasePower)
+                              * _SWUPowerMultiplier($attacker);
                 if (_SWUDamageUnpreventable($attacker)) {   // ASH_196 — bypass Shield + all prevention
                     $target->Damage = intval($target->Damage) + $attackPower;
                     SWUQueueDamageAnim($targetAnimMzID, $attackPower, intval($player));

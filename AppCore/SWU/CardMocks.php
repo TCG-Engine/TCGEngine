@@ -1255,6 +1255,33 @@ Action [Exhaust]: Deal 4 damage to a unit.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/121.png',
     'imageUrlBack' => '',
   ),
+  'IC27_126' => 
+  array (
+    'title' => 'Saw Gerrera',
+    'subtitle' => 'For the Cause',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 5,
+    'power' => 6,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+    ),
+    'text' => 'On Attack: You may double another friendly unit\'s power for this phase.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/126.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_127' => 
   array (
     'title' => 'Act of Aggression',
@@ -1280,6 +1307,35 @@ Give a friendly unit +3/+0 and Overwhelm for this phase.',
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/127.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_142' => 
+  array (
+    'title' => 'Greedo',
+    'subtitle' => 'Big-Timer',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 3,
+    'power' => 5,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+      1 => 'Bounty Hunter',
+    ),
+    'text' => 'Ambush (When you play this unit, he may attack an enemy unit.)
+While attacking or defending, this unit deals combat damage after the other attacking or defending unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/142.png',
     'imageUrlBack' => '',
   ),
   'IC27_143' => 
@@ -1309,6 +1365,35 @@ When Played: You may attack with a unit.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/143.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_144' => 
+  array (
+    'title' => 'Jango Fett',
+    'subtitle' => 'Straight Shooter',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 4,
+    'power' => 4,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+      1 => 'Bounty Hunter',
+    ),
+    'text' => 'Ambush
+When Defeated: You may discard a card from your hand. If you do, return an event from your discard pile to your hand.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/144.png',
     'imageUrlBack' => '',
   ),
   'IC27_145' => 
@@ -1450,6 +1535,34 @@ On Attack: If the defending unit is exhausted, it gets -4/-0 for this attack.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/158.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_159' => 
+  array (
+    'title' => 'Princess Leia',
+    'subtitle' => 'Calculated Distraction',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 5,
+    'power' => 5,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+      1 => 'Official',
+    ),
+    'text' => 'When Played/On Attack: Exhaust up to 2 units in the same arena with combined cost 4 or less.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/159.png',
     'imageUrlBack' => '',
   ),
   'IC27_163' => 

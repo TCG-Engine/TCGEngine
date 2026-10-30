@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142
 
 ## Foundations already built — do not re-do
 
@@ -405,9 +405,35 @@ Baseline 13677/0.
   after the damage.
 - Phase total: 24 sections, suite 13677 → 13701/0, 13 mutations each red on its own sections, zero deferrals.
 
+## Phase 14 — Eighth preview wave, 2026-10-29 (54 → 58 CardIDs)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff; all four already regenerated into the dictionary and checked
+word for word against their preview images (no typos). The same import added the reprint alias IC27_150 Frozen in Carbonite
+→ SHD_193 in `Overrides.php` (no code; reprint aliases are not on the tracker line). Baseline 13701/0.
+
+- [x] **Batch 14.1 — IC27_144 Jango Fett (Straight Shooter)** — 14 sections. Ambush printed. When Defeated: the SEC_197
+  Furtive Handmaiden shape — optional discard from the resolver's hand, THEN a mandatory return of an event from the
+  resolver's own discard pile (the discarded card itself qualifies; the event that defeated him is in its owner's pile per
+  CR 6.2). Skipped when it could only throw a card away (no event in pile or hand). NGOR control-change section.
+- [x] **Batch 14.2 — IC27_159 Princess Leia (Calculated Distraction)** — 11 sections. When Played/On Attack: two optional
+  picks in a row (not the `SWUQueueBudgetMultiChoose` modal, which can cap neither the count nor the arena): ready units of
+  printed cost ≤ 4, then ready units in the FIRST pick's arena within what is left. Friendly, enemy, leader units, tokens.
+- [x] **Batch 14.3 — IC27_126 Saw Gerrera (For the Cause)** — 15 sections. Engine: a phase-long MULTIPLICATIVE power
+  modifier (`_SWUPowerMultiplier`, registry `IC27_126`, stacking token per application) applied at the end of every power
+  read — `ObjectCurrentPower`, `ObjectCurrentPowerInAttack`, `SWUCombatDamage` attack + defend power, The Stranger's Grit
+  delta — so Raid, "+N for this attack" and later buffs are doubled too (CR 15.2/15.3). Team Suns section.
+- [x] **Batch 14.4 — IC27_142 Greedo (Big-Timer)** — 15 sections. Ambush printed. `SWUCombatDamage`: attacking → the
+  LAW_086 defender-first path; defending → the attacker-first path. CR 6.3.5.c conflicts: Greedo + a deal-first source asks
+  his controller (YESNO in `ExecuteSWUAttack`, attack-scoped `IC27_142_FIRST`); Greedo vs Greedo = simultaneous; defending
+  vs The Stranger's YES = The Stranger's choice stands. **Side-find fixed:** LAW_086 The Stranger's YES resolved its stored
+  `myGroundArena-N` in the wrong frame, so a seat-2 Stranger's choice did nothing — handler now sets `$playerID`; new section
+  `law/TheStranger_NoSurvivors.md::DefenderFirst_StrangerOnSeatTwo`.
+- Phase total: 55 IC27 sections + 1 LAW section, 39 mutations each red on its own sections, zero deferrals.
+
 ## Status
 
-**✅ IC27 IS CARD-COMPLETE AT 54 / 54 mocked CardIDs** (2026-10-29, seventh wave — suite 13701/0; before it 51/51 at
+**✅ IC27 IS CARD-COMPLETE AT 58 / 58 mocked CardIDs** (2026-10-29, eighth wave — suite 13701 → 13757/0). Before it 54/54
+at 13701/0 (seventh wave); before that 51/51 at
 13677/0 — re-derived at the END of the run: the
 `### Already Done` line diffed against the IC27 IDs in `AppCore/SWU/CardMocks.php` is empty), plus the
 hand-mapped reprint overrides in `Overrides.php`. True only until the next preview import.
