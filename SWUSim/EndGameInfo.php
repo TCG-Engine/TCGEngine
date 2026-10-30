@@ -109,7 +109,37 @@ if ($seatCount > 2) {
     $tableRematch = TableRematchView($m, SWUTableRematchSeen(strval($ref['matchId'])), time(), $isSpectator ? 0 : $seat);
 }
 
-echo json_encode([
+// 1v1 (persistent lobby, docs/superpowers/specs/2026-10-30-persistent-lobby-rematch-design.md). ADDITIVE — absent for
+// 3-4 seat matches. 'origin' picks the end-screen buttons (room → Return to Lobby, public → Requeue). Each poll is the
+// seat's end-screen heartbeat: the quiet rule (120s) and, for a room, its seat staying held and present.
+$oneVsOne = [];
+if ($seatCount === 2) {
+    require_once __DIR__ . '/Rooms.php';
+    require_once __DIR__ . '/TableRematch.php';
+    require_once __DIR__ . '/EndScreenRequests.php';
+    $origin = SWUMatchOrigin($m);
+    $oneVsOne['origin'] = $origin;
+    if (!$isSpectator) {
+        SWUTableRematchStampSeen(strval($ref['matchId']), $seat, time());
+        // Requests (Rematch / Quick Rematch / Convert): the pop-up, the requester's button state, where the opponent went.
+        $oneVsOne['endScreen'] = EndReqView($m + ['blocked' => SWUAreGamePlayersBlocked($gameName)], $seat, SWUTableRematchSeen(strval($ref['matchId'])), time());
+        if ($origin === 'room' && $seriesOver) SWURoomEndScreenHeartbeat(strval($m['roomId']), strval($ref['matchId']), $authKey, time());
+        if ($origin === 'public') {
+            // Requeue rejoins the queue this pairing came from, with this seat's own deck (a Quick Rematch's own
+            // length is not the queue — SWURematchCarryOrigin keeps the original on 'requeue').
+            $rq = is_array($m['requeue'] ?? null) ? $m['requeue'] : [];
+            $oneVsOne['requeue'] = [
+                'format'    => strval($rq['format'] ?? ($m['format'] ?? '')),
+                'queueType' => strval($rq['queueType'] ?? ($m['queueType'] ?? 'bo1')),
+                'deckLink'  => strval($m['players'][strval($seat)]['deckLink'] ?? ''),
+            ];
+        }
+    }
+}
+
+// poll=1 (the end screen's 2.5s poll, additive): everything but the stats table, which only the first load draws — it is
+// most of the payload.
+$out = $oneVsOne + [
     'isMatch'     => true,
     'tableRematch' => $tableRematch,
     'matchId'     => $navMatchId, // for the "Go to Next Game" → Sideboard.php nav (rematch: the NEW match)
@@ -132,5 +162,6 @@ echo json_encode([
     'seriesOver'  => $seriesOver,
     'isSpectator' => $isSpectator,
     'statsStatus' => strval($m['statsStatus'] ?? ''), // '', 'success', 'submitted_without_owner', 'skipped_early', 'skipped_multiplayer', or 'failed'
-    'statsHtml'   => SWUBuildStatsHtml($m, $gameRec, $isSpectator ? null : $seat),
-]);
+];
+if (strval($_GET['poll'] ?? '') !== '1') $out['statsHtml'] = SWUBuildStatsHtml($m, $gameRec, $isSpectator ? null : $seat);
+echo json_encode($out);

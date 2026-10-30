@@ -1132,6 +1132,8 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 #game-over-buttons button { flex: 0 0 100% !important; }
 /* Rematch fills the row; the short Bo1/Bo3 toggle sits compact to its right. */
 #game-over-buttons #swu-rematch-btn { flex: 1 1 auto !important; }
+/* A finished 1v1 match's end screen: Quick Rematch shares its row with the same toggle (its length). */
+#game-over-buttons #swu-end-quick   { flex: 1 1 auto !important; }
 #game-over-buttons #swu-bestof-btn  { flex: 0 0 auto !important; }
 /* Twin Suns table rematch: your own vote reads pressed (gold rim); the tally/waiting line spans the row. */
 #game-over-buttons button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px #e9b866 !important; }
@@ -5584,6 +5586,186 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 if (j && !j.success && j.message && typeof StyledAlert === 'function') StyledAlert(j.message);
             }).catch(function () {});
     }
+    // ── 1v1 end screen: Return to Lobby / Requeue, and Rematch / Quick Rematch / Convert as requests ────────────────
+    // docs/superpowers/specs/2026-10-30-persistent-lobby-rematch-design.md. The state is EndGameInfo.endScreen
+    // ({incoming, outgoing, declined, opponentWent, kinds, result}); every write goes through SWUSim/EndScreenAction.php.
+    var SWU_END_KIND_LABEL = { rematch: 'Rematch', quick: 'Quick Rematch', convert: 'Convert to Best of 3' };
+    var SWU_END_KIND_BTN = { rematch: 'swu-end-rematch', quick: 'swu-end-quick', convert: 'swu-end-convert' };
+    // The opponent in a sentence: their username, else "Player N" — the game log's rule (AnnounceLeave.php); the
+    // match's "Guest PN" placeholder reads oddly mid-sentence.
+    function SWUEndOppName(info) {
+        var pid = parseInt(document.getElementById('playerID').value, 10);
+        var opp = pid === 1 ? 2 : 1;
+        var n = info && info.winnerNames && info.winnerNames[String(opp)];
+        return (typeof n === 'string' && n !== '' && n !== 'Guest P' + opp) ? n : 'Player ' + opp;
+    }
+    function SWUEndScreenPost(action, extra) {
+        var f = new FormData();
+        f.append('gameName', document.getElementById('gameName').value);
+        f.append('playerID', document.getElementById('playerID').value);
+        f.append('authKey', document.getElementById('authKey').value);
+        f.append('action', action);
+        Object.keys(extra || {}).forEach(function (k) { f.append(k, extra[k]); });
+        return fetch('./SWUSim/EndScreenAction.php', { method: 'POST', body: f }).then(function (r) { return r.json(); });
+    }
+    function SWUEndStatus(text) {
+        var row = document.getElementById('game-over-buttons');
+        var line = document.getElementById('swu-end-status');
+        if (!line && row) {
+            line = document.createElement('div');
+            line.id = 'swu-end-status';
+            line.className = 'swu-tr-status';   // the Twin Suns status line's look; INSIDE the buttons row (grid areas)
+            row.appendChild(line);
+        }
+        if (line) { line.textContent = text || ''; line.style.display = text ? '' : 'none'; }
+    }
+    // An action's answer: follow a room hand-off, else refresh from the endScreen it carries, and say any refusal.
+    function SWUEndHandle(j, info) {
+        if (!j) return;
+        if (j.go && j.go.kind === 'room') { SWUTableRematchFollow({ kind: 'room', lobbyID: j.go.lobbyID, authKey: j.go.authKey }); return; }
+        if (j.endScreen) SWUUpdateEndScreen({ endScreen: j.endScreen, winnerNames: info && info.winnerNames, origin: info && info.origin, seriesOver: true });
+        if (!j.success && j.message) SWUEndStatus(j.message);
+    }
+    function SWUEndRequest(kind, info) {
+        var extra = { kind: kind };
+        if (kind === 'quick') extra.bestOf = String(window._swuEndQuickBestOf);
+        SWUEndScreenPost('request', extra).then(function (j) { SWUEndHandle(j, info); }).catch(function () { SWUEndStatus('Could not reach the server — try again.'); });
+    }
+    function SWUEndScreenButtons(info) {
+        var b = [];
+        // The Quick Rematch length starts at the length just played (after a Bo3, Bo3 — as it always has); a rebuild of
+        // this same menu keeps whatever the player picked since.
+        if (window._swuEndQuickBestOf !== 1 && window._swuEndQuickBestOf !== 3) window._swuEndQuickBestOf = info.bestOf === 3 ? 3 : 1;
+        if (info.origin === 'room') {
+            b.push({ id: 'swu-end-lobby', label: 'Return to Lobby', onClick: function (ev) {
+                var btn = ev && ev.currentTarget; if (btn) btn.disabled = true;
+                SWUEndScreenPost('lobby').then(function (j) { if (btn) btn.disabled = false; SWUEndHandle(j, info); })
+                    .catch(function () { if (btn) btn.disabled = false; SWUEndStatus('Could not reach the server — try again.'); });
+            } });
+        } else if (info.origin === 'public' && info.requeue) {
+            b.push({ id: 'swu-end-requeue', label: 'Requeue', onClick: function (ev) { SWUEndRequeue(info, ev && ev.currentTarget); } });
+        }
+        if (!info.rated) {
+            b.push({ id: SWU_END_KIND_BTN.rematch, label: SWU_END_KIND_LABEL.rematch, onClick: function () { SWUEndRequest('rematch', info); } });
+            b.push({ id: SWU_END_KIND_BTN.quick, label: SWU_END_KIND_LABEL.quick, onClick: function () { SWUEndRequest('quick', info); } });
+            // The Quick Rematch length (call 12): the requester picks it, and the pop-up states it.
+            b.push({ id: 'swu-bestof-btn', label: 'Bo' + window._swuEndQuickBestOf, onClick: function (ev) {
+                window._swuEndQuickBestOf = window._swuEndQuickBestOf === 3 ? 1 : 3; ev.target.textContent = 'Bo' + window._swuEndQuickBestOf; } });
+            b.push({ id: SWU_END_KIND_BTN.convert, label: SWU_END_KIND_LABEL.convert, onClick: function () { SWUEndRequest('convert', info); } });
+        }
+        b.push({ label: 'Return to Main Menu', onClick: SWUGoMainMenu });
+        // Draw the request state once the row exists (ShowGameOver builds it from these specs).
+        setTimeout(function () { SWUUpdateEndScreen(info); }, 0);
+        return b;
+    }
+    // Requeue: rejoin the public queue this match came from, with this seat's deck. A refusal (the rated queue's
+    // abandon cooldown, a deck no longer legal) stays on the end screen and says why (call 9).
+    function SWUEndRequeue(info, btn) {
+        if (window._swuRequeueing) return;
+        window._swuRequeueing = true;
+        if (btn) { btn.disabled = true; btn.textContent = 'Requeueing…'; }
+        var rq = info.requeue || {};
+        var f = new FormData();
+        f.append('rootName', 'SWUSim');
+        f.append('format', rq.format || 'premier');
+        f.append('queueType', rq.queueType || 'bo1');
+        f.append('deckLink', rq.deckLink || '');
+        f.append('preconstructedDeck', '');
+        f.append('game_type', '');
+        var undo = function (msg) { window._swuRequeueing = false; if (btn) { btn.disabled = false; btn.textContent = 'Requeue'; } SWUEndStatus(msg); };
+        fetch('./APIs/Lobbies/JoinQueue.php', { method: 'POST', body: f })
+            .then(function (r) { return r.json(); })
+            .then(function (j) {
+                if (!j || !j.success) { undo((j && j.message) || 'Could not join the queue.'); return; }
+                SWUEndScreenPost('requeue').catch(function () {}).then(function () {
+                    if (j.ready && j.gameName) {
+                        try { document.cookie = 'lastAuthKey=' + encodeURIComponent(j.authKey) + '; max-age=' + (30*24*60*60) + '; path=/; SameSite=Lax'; } catch (e) {}
+                        window.location = './NextTurn.php?gameName=' + encodeURIComponent(j.gameName) + '&playerID=' + encodeURIComponent(j.playerID) + '&folderPath=SWUSim';
+                        return;
+                    }
+                    // Still waiting: the main menu owns the waiting pop-up and its poll; hand the seat over.
+                    try {
+                        sessionStorage.setItem('swu:queueWait', JSON.stringify({ lobbyID: j.lobbyID, playerID: j.playerID, authKey: j.authKey,
+                            submission: { deckLink: rq.deckLink || '', gameType: '', preconstructedDeck: '', format: rq.format || 'premier', queueType: rq.queueType || 'bo1' } }));
+                    } catch (e) {}
+                    window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php';
+                });
+            })
+            .catch(function () { undo('Could not reach the server — try again.'); });
+    }
+    // The opponent's request, as a pop-up — shown once per request id.
+    function SWUShowEndRequestPopup(incoming, info) {
+        window._swuEndReqShown = window._swuEndReqShown || {};
+        if (window._swuEndReqShown[incoming.id]) return;
+        window._swuEndReqShown[incoming.id] = true;
+        var old = document.getElementById('swu-end-request-modal');
+        if (old) old.remove();
+        var opp = SWUEndOppName(info);
+        var title = incoming.kind === 'quick' ? opp + ' wants a Quick Rematch, Best of ' + (incoming.bestOf === 3 ? 3 : 1)
+                  : incoming.kind === 'convert' ? opp + ' wants to convert to Best of 3'
+                  : opp + ' wants a rematch';
+        var acceptLabel = incoming.kind !== 'rematch' ? 'Accept'
+                        : (info.origin === 'room' ? 'Accept and Return to Lobby' : 'Accept and Go to Lobby');
+        var overlay = document.createElement('div');
+        overlay.id = 'swu-end-request-modal';
+        overlay.setAttribute('role', 'dialog');
+        overlay.setAttribute('aria-modal', 'true');
+        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:10050;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;';
+        var modal = document.createElement('div');
+        modal.style.cssText = 'background:var(--surface-raised,#0D1B2A);border:1px solid var(--border,transparent);padding:28px 24px;border-radius:var(--radius,10px);box-shadow:0 0 24px #0009;backdrop-filter:blur(10px) saturate(110%);-webkit-backdrop-filter:blur(10px) saturate(110%);text-align:center;width:min(100%,420px);box-sizing:border-box;';
+        var msg = document.createElement('div');
+        msg.style.cssText = 'font-size:17px;color:var(--text,#fff);margin-bottom:20px;';
+        msg.textContent = title;
+        var row = document.createElement('div');
+        row.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;justify-content:center;';
+        var answer = function (accept) {
+            overlay.remove();
+            SWUEndScreenPost('answer', { id: incoming.id, accept: accept ? '1' : '0' }).then(function (j) { SWUEndHandle(j, info); })
+                .catch(function () { SWUEndStatus('Could not reach the server — try again.'); });
+        };
+        var yes = document.createElement('button');
+        yes.className = 'btn btn-primary';
+        yes.textContent = acceptLabel;
+        yes.onclick = function () { answer(true); };
+        var no = document.createElement('button');
+        no.className = 'btn';
+        no.textContent = 'Decline';
+        no.onclick = function () { answer(false); };
+        row.appendChild(yes); row.appendChild(no);
+        modal.appendChild(msg); modal.appendChild(row);
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+        try { yes.focus(); } catch (e) {}
+    }
+    // Draw the request state onto the end screen: which request buttons show and their labels, the status line, the
+    // pop-up for a new request, and following an agreed Rematch into the room.
+    function SWUUpdateEndScreen(info) {
+        var es = info && info.endScreen;
+        if (!es) return;
+        if (es.result && es.result.kind === 'room' && es.result.authKey) { SWUTableRematchFollow(es.result); return; }
+        var kinds = es.kinds || [];
+        Object.keys(SWU_END_KIND_BTN).forEach(function (kind) {
+            var btn = document.getElementById(SWU_END_KIND_BTN[kind]);
+            if (!btn) return;
+            btn.style.display = kinds.indexOf(kind) === -1 ? 'none' : '';
+            var mine = es.outgoing && es.outgoing.kind === kind;
+            btn.disabled = !!(mine && es.outgoing.repeatIn > 0);
+            btn.textContent = !mine ? SWU_END_KIND_LABEL[kind]
+                            : (es.outgoing.repeatIn > 0 ? SWU_END_KIND_LABEL[kind] + ' requested…' : 'Request again');
+        });
+        var bo = document.getElementById('swu-bestof-btn');
+        if (bo) bo.style.display = kinds.indexOf('quick') === -1 ? 'none' : '';
+        if (es.incoming && kinds.length) SWUShowEndRequestPopup(es.incoming, info);
+        else { var stale = document.getElementById('swu-end-request-modal'); if (stale && !es.incoming) stale.remove(); }
+        var opp = SWUEndOppName(info);
+        var went = { lobby: ' returned to the lobby.', requeue: ' requeued.', menu: ' returned to the menu.', gone: ' left.' }[es.opponentWent];
+        SWUEndStatus(went ? opp + went
+            : (es.result && es.result.kind === 'failed') ? (es.result.message || 'That could not start — try again.')
+            : es.declined ? opp + ' declined.'
+            : es.outgoing ? 'Waiting for ' + opp + ' to answer…'
+            : '');
+    }
+
     // While the end-game menu is open and the match is still convertible, poll for the opponent's
     // convert request so the button updates without an alert. Once both confirm, the match leaves
     // the convertible state (→ Bo3 sideboarding): rebuild the menu so it shows the Bo3 options.
@@ -5593,10 +5775,24 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             if (!document.getElementById('game-over-overlay')) {
                 clearInterval(window._swuEndGamePollTimer); window._swuEndGamePollTimer = null; return;
             }
-            fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak))
+            // poll=1: no stats table (only the first load draws it, and it is most of the payload).
+            fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak) + '&poll=1')
                 .then(function(r){ return r.json(); }).then(function(info){
                     if (!info || !info.isMatch) return;
                     if (info.tableRematch) { if (!info.isSpectator) SWUUpdateTableRematch(info); return; }   // Twin Suns: the table vote
+                    if (info.endScreen) {
+                        // 1v1: requests, pop-ups, where the opponent went. An accepted Convert turns the match back into a
+                        // live Bo3 (series no longer over): rebuild the menu for it, as below.
+                        if (!info.seriesOver) {
+                            clearInterval(window._swuEndGamePollTimer); window._swuEndGamePollTimer = null;
+                            var ov1 = document.getElementById('game-over-overlay'); if (ov1) ov1.remove();
+                            var md = document.getElementById('swu-end-request-modal'); if (md) md.remove();
+                            if (typeof SWUShowEndGameMenu === 'function') SWUShowEndGameMenu();
+                            return;
+                        }
+                        SWUUpdateEndScreen(info);
+                        return;
+                    }
                     if (!info.convertible) { // both confirmed → rebuild for the new (Bo3) match shape
                         clearInterval(window._swuEndGamePollTimer); window._swuEndGamePollTimer = null;
                         var ov = document.getElementById('game-over-overlay'); if (ov) ov.remove();
@@ -5696,6 +5892,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             b.push({label:'Return to Main Menu', onClick:function(){ SWUConfirm('Leave now? This forfeits the best-of-3.', function(){ SubmitInput('10007',''); SWUGoMainMenu(); }, { confirmLabel: 'Leave', danger: true }); }});
             b.push({label:'Go to Next Game', onClick:function(){ SWUGoSideboard(info); }});
             b.push({label:'Forfeit Best of 3', onClick:function(){ if(typeof confirmConcedeMatch==='function') confirmConcedeMatch(); }});
+        } else if (seriesOver && info.origin) {
+            // A finished 1v1 match (persistent lobby, docs/superpowers/specs/2026-10-30-persistent-lobby-rematch-design.md):
+            // Return to Lobby (a room's match) or Requeue (a public match); Rematch / Quick Rematch / Convert are requests
+            // the opponent accepts on a pop-up. Which of those three show follows info.endScreen.kinds (SWUUpdateEndScreen).
+            SWUEndScreenButtons(info).forEach(function (x) { b.push(x); });
         } else if (bestOf === 1 && seriesOver) {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
             // Meta Premier (rated): no rematch — players re-queue. The server refuses these too.
@@ -5847,7 +6048,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                         goStats.insertBefore(sd, goStats.firstChild);
                     }
                 }
-                if (info.convertible) SWUStartEndGamePoll(gn, pid, ak);
+                // 1v1: the poll is the end-screen heartbeat and carries the opponent's requests (EndGameInfo.endScreen).
+                if (info.convertible || (info.endScreen && info.seriesOver)) SWUStartEndGamePoll(gn, pid, ak);
                 // Twin Suns: keep the table vote live (tally, Quick blocked, the result) — and the poll IS this seat's
                 // end-screen heartbeat, so a seat that closes the tab goes quiet.
                 // Spectators have no vote and no seat to move: they follow a Quick rematch through MATCHADVANCE like

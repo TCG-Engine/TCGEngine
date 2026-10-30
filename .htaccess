@@ -21,5 +21,8 @@
   # Saved chat (Core/ChatStore.php) keeps whispers in full, and player reports hold it: both are read only by PHP.
   RewriteRule (^|/)Chats(/|$) - [R=404,NC,L]
   RewriteRule (^|/)PlayerReports(/|$) - [R=404,NC,L]
+  # Match records (Core/Match) hold every seat's auth key, and match ids are sequential; the persistent 1v1 rooms
+  # (SWUSim/Rooms.php, Matches/rooms/) hold seat keys too. Read only by PHP. Served until 2026-10-30.
+  RewriteRule (^|/)Matches(/|$) - [R=404,NC,L]
   RewriteRule ^(.+)\.[0-9]{9,}\.(css|js)$ $1.$2 [L]
 </IfModule>

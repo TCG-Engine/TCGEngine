@@ -5,6 +5,8 @@ require_once "../../Core/HTTPLibraries.php";
 require_once "./Classes/Player.php";
 require_once "./Classes/TeamRooms.php";   // SWUMigrateHostIfNeeded
 require_once "./Classes/LobbyStore.php";  // LobbyMutate
+// SWUSim 1v1 rooms are saved to disk (Return to Lobby): a room everyone has left must not come back from it.
+if (($_POST['rootName'] ?? '') === 'SWUSim') require_once __DIR__ . '/../../SWUSim/Rooms.php';
 
 $response = new stdClass();
 if (!isset($_POST['rootName']) || !isset($_POST['playerID']) || !isset($_POST['lobbyID']) || !isset($_POST['authKey'])) {
@@ -63,6 +65,7 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, &$left, $waiting
   return false;
 });
 
+if ($left && function_exists('SWURoomForget') && !is_object(apcu_fetch($lobbyID))) SWURoomForget(strval($lobbyID));
 if ($left) {
   $response->success = true;
   $response->message = ($lobby !== null && intval($lobby->numPlayers) <= 0)

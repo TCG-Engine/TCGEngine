@@ -104,6 +104,13 @@ function _WaitingRoomStyles(): string {
 /* Presence, not status: a seat nobody is watching. Grey rather than red because being away is not a
    fault — it is information the host reads before deciding whether to Remove. */
 .wr-pill-away     { color: #8b97a5; }
+/* A 1v1 room reopened after its match: this player has not come back from the end-game screen yet. Information, not a
+   fault — the same quiet family as AWAY. It replaces the ready pill (they cannot be ready from there). */
+.wr-pill-endscreen { color: #a9b4c2; }
+/* Match length (SWUSim 1v1 rooms): the host's toggle, everyone else's read-only line. */
+.wr-bestof { display: inline-flex; align-items: center; gap: 10px; }
+.wr-bestof-lbl { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #9fadbd; }
+.wr-bestof .seg { min-inline-size: 220px; }
 .wr-seat-away     { opacity: .62; }
 .wr-kick { margin-left: 6px; font-size: 11px; padding: 1px 6px; line-height: 1.6; }
 /* Warm rather than destructive-red: casting a Yes is not final by itself (it takes 2 of 2 or 2 of
@@ -471,7 +478,8 @@ function _WaitingRoomScript(array $cfg): string {
     // deckOk, ready and away are THREE different facts. A legal deck you are still swapping is not a
     // deck you are ready to play, and a ready deck whose owner has closed their browser is not a
     // player. Away NEVER blocks Start — it is what the host reads before deciding to Remove.
-    var pill = !entry.deckOk ? '<span class="wr-pill wr-pill-baddeck">NO DECK</span>'
+    var pill = entry.onEndScreen ? '<span class="wr-pill wr-pill-endscreen">ON END-GAME SCREEN</span>'
+             : !entry.deckOk ? '<span class="wr-pill wr-pill-baddeck">NO DECK</span>'
              : entry.ready   ? '<span class="wr-pill wr-pill-ready">READY</span>'
                              : '<span class="wr-pill wr-pill-notready">NOT READY</span>';
     var away = entry.away ? '<span class="wr-pill wr-pill-away">AWAY</span>' : '';
@@ -871,6 +879,32 @@ function _WaitingRoomScript(array $cfg): string {
       });
   }
 
+  // Match length for the next match (SWUSim 1v1 rooms — the only rooms whose endpoint accepts it): the host gets the
+  // menu's options toggle (.seg — swusim-menu-2.css styles it site-wide), everyone else reads the current value.
+  function bestOfControl(d, isHost) {
+    if (ROOT !== 'SWUSim' || seatCount(d) !== 2) return '';
+    var qt = (d.seatModel && d.seatModel.queueType) === 'bo3' ? 'bo3' : 'bo1';
+    if (!isHost) return '<span class="wr-bestof"><span class="wr-bestof-lbl">Match</span><span id="wr-bestof-text">' +
+                       (qt === 'bo3' ? 'Best of 3' : 'Best of 1') + '</span></span>';
+    var opt = function (v, label) {
+      return '<input class="seg__in u-vh" type="radio" name="wr-bestof" id="wr-bestof-' + v + '" value="' + v + '"' +
+             (qt === v ? ' checked' : '') + '><label class="seg__opt ch" for="wr-bestof-' + v + '">' + label + '</label>';
+    };
+    return '<span class="wr-bestof"><span class="wr-bestof-lbl">Match</span><span class="seg" role="radiogroup" aria-label="Match length">' +
+           opt('bo1', 'Best of 1') + opt('bo3', 'Best of 3') + '</span></span>';
+  }
+  function bindBestOf(isHost) {
+    if (!isHost) return;
+    Array.prototype.forEach.call(document.querySelectorAll('input[name="wr-bestof"]'), function (inp) {
+      inp.onchange = function () {
+        post('APIs/Lobbies/UpdateLobbyQueueType.php',
+          'rootName=' + encodeURIComponent(ROOT) + '&lobbyID=' + encodeURIComponent(lobbyID) +
+          '&authKey=' + encodeURIComponent(loadKey(lobbyID)) + '&queueType=' + encodeURIComponent(inp.value),
+          function (r) { if (!r.success) el('wr-hint').textContent = r.message || 'Could not change the match length.'; lastSig = ''; });
+      };
+    });
+  }
+
   function renderControls(d, seated) {
     var head = el('wr-head-actions'), left = el('wr-actions-left'), right = el('wr-actions-right');
     if (!head || !left || !right) return;
@@ -915,6 +949,8 @@ function _WaitingRoomScript(array $cfg): string {
     // adjacent to the one everyone is waiting on. Ready is yours (bottom left); Start is the host's
     // (bottom right). Both are always rendered so it is obvious which one belongs to you.
     head.innerHTML  = '<button id="wr-leave" type="button" class="btn">Leave</button>';
+    head.insertAdjacentHTML('afterbegin', bestOfControl(d, isHost));   // the match length sits left of Leave
+    bindBestOf(isHost);
     // Ready lives NEXT TO the deck button, not on its own row: loading a deck auto-readies you, so
     // the two are one thought — "this is my deck, and I'm good to go". #wr-actions-left is otherwise
     // empty, and is where the Kick Host vote lives once its window is open: a host who is present
@@ -949,8 +985,9 @@ function _WaitingRoomScript(array $cfg): string {
     // this same page, so the line was telling people to use a control they were already looking at, in
     // the voice of a growth prompt. The seat-count icon and the empty tiles carry "you are early"
     // without anyone being told to do anything.
+    // Each blocker is its own sentence; a bare one gets its full stop, so two never read as "ready.; Player 2".
     el('wr-hint').textContent = blockers.length
-      ? blockers.join('; ')
+      ? blockers.map(function (b) { return /[.!?]$/.test(b) ? b : b + '.'; }).join(' ')
       : (isHost ? 'Everyone is ready — press Start.' : 'Everyone is ready — waiting for the host.');
     el('wr-ready').onclick = function () { doSetReady(!amReady); };
     if (el('wr-start')) el('wr-start').onclick = doStart;   // absent for non-hosts

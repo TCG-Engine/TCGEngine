@@ -520,6 +520,9 @@ function MatchAcceptRematch($rootName, $oldMatchId) {
     });
     if (function_exists('ChatPersistUseRoot')) ChatPersistUseRoot($rootName);   // a SWUSim pointer is saved (Core/ChatStore.php)
     MatchPublishChatConversation($newId, 'm:' . $newId);   // so 'm:<id>' resolves, same as for games
+    // Optional per-sim carry-over: AFTER the publish above (a sim that moves the chat re-publishes it, and must win) and
+    // BEFORE the first game is spawned below (its MatchWriteRef reads chatId).
+    MatchHook($rootName, 'rematchCreated', $m, $newId);
     if (array_key_exists('shareAnonymizedGameplayData', $m)) {
         $shareAnonymizedGameplayData = !empty($m['shareAnonymizedGameplayData']);
         MatchWithLock($rootName, $newId, function (&$newMatch) use ($shareAnonymizedGameplayData) {

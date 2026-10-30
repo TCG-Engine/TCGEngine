@@ -10,6 +10,8 @@
   require_once __DIR__ . "/Classes/LobbySeatIdentity.php"; // LobbyFindExistingSeat — one human, one seat
   require_once __DIR__ . "/Classes/LobbyBots.php";  // LobbyHasRoomForHuman / LobbyYieldBotSeatIfFull — bots as placeholders
   require_once __DIR__ . '/../../SWUSim/Mod/DevGate.php';  // SWUBotPracticeAllowed — Bot Practice is admin-only
+  // SWUSim 1v1 rooms outlive their matches and are saved to disk (Return to Lobby). File scope on purpose.
+  if (($_POST['rootName'] ?? '') === 'SWUSim') require_once __DIR__ . '/../../SWUSim/Rooms.php';
 
   // Personal deck stats (Feature B): remember who created each seat so the match can attribute W/L.
   if (session_status() === PHP_SESSION_NONE) { @session_start(); }
@@ -132,6 +134,9 @@
   // validated below, which must check the deck against the format the game will actually be played in.
   // Read-only pre-pass: it only learns the settings; the authoritative join (capacity, blocks, caster
   // mode, seat assignment) still happens in the invite branch further down.
+  // A SWUSim room APCu has lost comes back from its disk snapshot first, so the invite resolves (SWUSim/Rooms.php).
+  // A quiet end-game screen frees its seat here too: the capacity pre-check below reads the room before any lock.
+  if ($privateInviteCode !== '' && function_exists('SWURoomPrepareForInvite')) SWURoomPrepareForInvite($privateInviteCode, time());
   if ($privateInviteCode !== '') {
     $inviteKey   = LobbyKeyForInvite($privateInviteCode, $rootName);
     $inviteLobby = $inviteKey !== null ? apcu_fetch($inviteKey) : false;
@@ -477,6 +482,8 @@
           $lobby->numPlayers = count(array_filter($lobby->players, fn($p) => $p instanceof Player));
           return true;
         }
+        // A 1v1 room's end-game screen that has gone quiet (tab closed) frees its seat first (SWUSim/Rooms.php).
+        if (function_exists('SWURoomReleaseQuietSeats')) SWURoomReleaseQuietSeats($lobby, time());
         // A full room whose bots are placeholders hands the OLDEST bot's seat to this human (Decision 6,
         // SWUSim/docs/todo-twinsuns-fill-bot.md). No-op for every other room.
         LobbyYieldBotSeatIfFull($lobby);
@@ -515,6 +522,7 @@
         exit;
       }
       $lobby = $stored;
+      if (!empty($lobby->roomMatchId) && function_exists('SWURoomSave')) SWURoomSave($lobby);   // a new seat in a 1v1 room
 
       // Game creation stays OUTSIDE the mutation: it writes files and rows, which is exactly the
       // I/O the lock must not span. Only a non-room private lobby reaches it here (a room waits

@@ -139,6 +139,25 @@ function SWUMatchEndSeriesAfterGame(array $m): int {
     return ($winner === 1) ? 2 : (($winner === 2) ? 1 : 0);
 }
 
+// A rematch keeps where its match came from (persistent lobby, docs/superpowers/specs/2026-10-30-persistent-lobby-rematch-design.md
+// call 11): the ROOM (so its end screen still offers Return to Lobby and the room stays held), the CHAT (the room's, or
+// the public pairing's — an accepted Rematch later carries it into the new room), and the QUEUE a public pairing came
+// from (Requeue rejoins that queue, not the rematch's own length). Lives here, not in Rooms.php, so the hook can never
+// be silently uncallable.
+function SWURematchCarryOrigin(array $old, $newId): void {
+    $newId = strval($newId);
+    $chatId = strval($old['chatId'] ?? '');
+    $roomId = strval($old['roomId'] ?? '');
+    $requeue = is_array($old['requeue'] ?? null) ? $old['requeue']
+             : ['format' => strval($old['format'] ?? ''), 'queueType' => strval($old['queueType'] ?? 'bo1')];
+    MatchWithLock('SWUSim', $newId, function (&$m) use ($chatId, $roomId, $requeue) {
+        if ($chatId !== '') $m['chatId'] = $chatId;
+        if ($roomId !== '') $m['roomId'] = $roomId;
+        $m['requeue'] = $requeue;
+    });
+    if ($chatId !== '') MatchPublishChatConversation($newId, $chatId);
+}
+
 // ── Registration ──────────────────────────────────────────────────────────────
 MatchRegisterHooks('SWUSim', [
     // required
@@ -156,6 +175,7 @@ MatchRegisterHooks('SWUSim', [
     'rateMatch'         => 'SWUMetaPremierRateMatch',
     'allowsSeriesChange' => 'SWUMatchAllowsSeriesChange',
     'endSeriesAfterGame' => 'SWUMatchEndSeriesAfterGame',
+    'rematchCreated'    => 'SWURematchCarryOrigin',
     // config
     'queueTypes'        => ['bo1', 'bo3'],
     'sideboardUrl'      => 'Sideboard.php',

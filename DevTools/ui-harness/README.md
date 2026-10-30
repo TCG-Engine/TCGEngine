@@ -93,6 +93,19 @@ FORTIFIED/ARRESTED label clips, or on horizontal overflow. Floor-bound overlaps 
 ruling: tiny art and clipped labels are worse). Against the old guessed lane formula it fails 12+ cases.
 About 4 minutes for all three engines.
 
+## SWUSim persistent 1v1 lobby (2026-10-30)
+
+```bash
+node swusim-persistent-lobby-xbrowser.mjs [BASE] [SHOTS_DIR] [chromium,firefox,webkit]
+```
+
+Return to Lobby, rematch requests and Requeue (spec `docs/superpowers/specs/2026-10-30-persistent-lobby-rematch-design.md`).
+Matches come from `SWUSim/DevTools/tests/persistent_lobby_fixture.php` (a started 1v1 match from a room or the public
+queue, moderators only); each seat gets its own browser context holding only its own seat key. Room checks: the seat
+still on the end screen reads ON END-GAME SCREEN, Start is disabled with the reason, the host's Best of 1 / Best of 3
+toggle reaches the other seat, no sideways scroll — at 1280x800 and 390x844. Server-side rules are
+`SWUSim/DevTools/tests/persistent_lobby_flow_test.php`. Human checklist: `SWUSim/Tests/Visual/WaitingRoom_EndScreenSeatAndBestOf.md`.
+
 ## SWUSim "Report a Bug" modal (2026-10-22)
 
 ```bash

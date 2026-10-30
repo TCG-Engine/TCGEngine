@@ -32,6 +32,18 @@ if (!isset($_POST['lobbyID']) || !isset($_POST['rootName']) || !isset($_POST['pl
 $lobbyID = $_POST['lobbyID'];
 $rootName = $_POST['rootName'];
 
+// SWUSim 1v1 rooms outlive their matches and are saved to disk (SWUSim/Rooms.php). Put a room APCu has lost back
+// BEFORE anything below decides it is gone. Absent for every other sim.
+if ($rootName === 'SWUSim') {
+  require_once __DIR__ . '/../../SWUSim/Rooms.php';
+  if ($lobbyID !== '' && $lobbyID !== 'invite') {
+    SWURoomRehydrate(strval($lobbyID));
+  } elseif (strval($_POST['inviteCode'] ?? '') !== '') {
+    $rehydrateId = SWURoomIdForInvite(strval($_POST['inviteCode']));
+    if ($rehydrateId !== '') SWURoomRehydrate($rehydrateId);
+  }
+}
+
 // An invite link opens the waiting room BEFORE the visitor has joined, so the page has to be able to
 // look a lobby up by its invite code with no lobbyID and no authKey. This is read-only: the roster it
 // returns is the same public information the lobby shows everyone once you are in it (and leaders and
@@ -53,6 +65,16 @@ if (($lobbyID === '' || $lobbyID === 'invite') && isset($_POST['inviteCode']) &&
     // private lobbies and public WAITING ROOMS, never for a plain public queue, so nothing here is
     // reachable that matchmaking would not already hand this visitor.
     if (is_object($cand)) $lobbyID = strval($cand->id ?? '');
+  }
+  if (($lobbyID === '' || $lobbyID === 'invite') && function_exists('SWURoomEndedForInvite') && SWURoomEndedForInvite($wantCode)) {
+    // A SWUSim room saved to disk that has aged out (no seat held, no match running, untouched for LOBBY_TTL_SECONDS).
+    $response->success = false;
+    $response->gone    = true;
+    $response->message = 'This room has ended.';
+    $response->canRequeue = true;
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit;
   }
   if ($lobbyID === '' || $lobbyID === 'invite') {
     // ── The lobby's APCu entry is gone. That is the NORMAL state mid-match, not an error. ──
@@ -160,7 +182,12 @@ while (true) {
     $now = time();
     // House Rules menu (Twin Suns family). Resolved BEFORE the lock — the callback must not do I/O.
     $houseRuleDefs = ($pollAdapter instanceof LobbyHouseRulesAdapter) ? $pollAdapter->houseRuleDefs($lobby) : [];
-    $lobbyAfter = LobbyMutate($lobbyID, function ($l) use ($authKey, $now, &$meSeat, $houseRuleDefs) {
+    // SWUSim 1v1: the match this room is following, read BEFORE the lock (the callback must not do I/O).
+    $roomMatch = function_exists('SWURoomMatchFor') ? SWURoomMatchFor($lobby) : null;
+    $roomChanged = false;
+    $lobbyAfter = LobbyMutate($lobbyID, function ($l) use ($authKey, $now, &$meSeat, $houseRuleDefs, $roomMatch, &$roomChanged) {
+      // The room follows its match: started while it runs, reopened (every seat on the end screen) once it ends.
+      if ($roomMatch !== null) $roomChanged = SWURoomSyncWithMatch($l, $roomMatch, $now);
       $meSeat = SWURoomFindPlayerByAuthKey($l, $authKey);
       if ($meSeat !== null) $meSeat->touch();
       $migrated = SWUMigrateHostIfAway($l);
@@ -171,11 +198,19 @@ while (true) {
       // A join/leave/kick/host change moves the house-rule threshold (and prunes a leaver's votes), so a rule can
       // light up or go dark with nobody clicking. Re-resolved here for the same reason the Kick Host timer is.
       $rulesMoved = !empty($houseRuleDefs) && LobbyHouseRulesResolve($l, $houseRuleDefs);
-      return ($meSeat !== null || $migrated || $assigned || $armed || $rulesMoved);   // false = nothing changed, skip the write
+      // An end-game screen that has gone quiet (tab closed) frees its seat (SWUSim 1v1 rooms only).
+      if (function_exists('SWURoomReleaseQuietSeats') && SWURoomReleaseQuietSeats($l, $now)) $roomChanged = true;
+      return ($meSeat !== null || $migrated || $assigned || $armed || $rulesMoved || $roomChanged);   // false = nothing changed, skip the write
     });
     // A busy or vanished lobby must not blank the roster: fall back to the unlocked read we already
     // have. The heartbeat is idempotent and the next poll is 1.5s away.
     if ($lobbyAfter !== null) $lobby = $lobbyAfter;
+    if (function_exists('SWURoomIsPersistent') && SWURoomIsPersistent($lobby)) {
+      // The disk copy follows every material change made through ANY endpoint (Ready, a deck swap, a Leave, a Kick):
+      // this poll sees them all, so an APCu wipe can never bring back a stale room.
+      if ($lobbyAfter !== null) SWURoomSaveIfChanged($lobby);
+      SWURoomTouch(strval($lobbyID), $now);   // the room's liveness clock (call 13), throttled to once a minute
+    }
 
     $roster = [];
     foreach (($lobby->players ?? []) as $p) {
@@ -214,6 +249,10 @@ while (true) {
         'base'     => $p->getBase(),
         'isHost'   => $p->getPlayerID() === intval($lobby->hostPlayerID ?? 1),
       ];
+      // ADDITIVE (SWUSim 1v1 rooms): this seat's player is still on the end-game screen of the room's last match.
+      if (function_exists('SWURoomSeatState')) {
+        $roster[count($roster) - 1]['onEndScreen'] = SWURoomSeatState($lobby, strval($p->getAuthKey())) === 'endscreen';
+      }
     }
     $response->success = true;
     $response->isRoom = true;

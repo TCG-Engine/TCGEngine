@@ -1844,7 +1844,21 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         }
         initializePrivateInviteFromUrl();
         refreshOpenGames();
+        resumeQueueWait();
       });
+
+      // Requeue from a public match's end screen (GameLayoutShared SWUEndRequeue) joined the queue THERE, so a refusal
+      // could be shown on the end screen; this page then owns the wait — the same pop-up and poll doJoinQueue starts.
+      function resumeQueueWait() {
+        var raw = null, w = null;
+        try { raw = sessionStorage.getItem('swu:queueWait'); sessionStorage.removeItem('swu:queueWait'); } catch (e) {}
+        try { w = raw ? JSON.parse(raw) : null; } catch (e) {}
+        if (!w || !w.lobbyID || !w.authKey) return;
+        _lastJoin = { options: {}, submission: w.submission || {} };   // a Meta Premier re-pair re-sends this join
+        _lobby_id = w.lobbyID;
+        DisplayWaitingPopup('Waiting for opponent… (Esc to cancel)', w.playerID, w.authKey, '');
+        pollLobbyUpdates(w.playerID, w.authKey);
+      }
     
 // ── setup modals, rich listboxes and format detection ──────────────────────
 /* Progressive enhancement only: the Welcome tab is correct with JS off. */

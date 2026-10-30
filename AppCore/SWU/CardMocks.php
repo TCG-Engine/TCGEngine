@@ -127,6 +127,43 @@ return array (
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'IC27_006' => 
+  array (
+    'title' => 'Luke Skywalker',
+    'subtitle' => 'I Have to Face Him',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'IC27',
+    'cost' => 6,
+    'power' => 4,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+      2 => 'Rebel',
+    ),
+    'text' => 'Draw 2 more cards in your starting hand.',
+    'epicAction' => 'Epic Action: If you control 6 or more resources, deploy this leader.',
+    'deployText' => 'Overwhelm (When attacking an enemy unit, deal excess damage to the opponent\'s base.)
+On Attack: You may discard a card from your hand. If you do, this unit gets +2/+0 for this attack.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/006.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/006-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'IC27_008' => 
   array (
     'title' => 'Princess Leia',

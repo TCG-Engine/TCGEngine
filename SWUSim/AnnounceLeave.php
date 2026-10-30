@@ -14,6 +14,8 @@ include_once './Core/NetworkingLibraries.php';
 include_once './Core/ViewerIdentity.php';
 include_once './Core/GameAuth.php';
 include_once './SWUSim/MatchFlow.php';
+require_once './SWUSim/Rooms.php';               // 1v1: the room seat is freed (persistent lobby)
+require_once './SWUSim/EndScreenRequests.php';   // 1v1: the departure voids open requests
 ChatPersistUseRoot('SWUSim');   // saved chat (Core/ChatStore.php)
 
 $gameName = preg_replace('/[^A-Za-z0-9_]/', '', strval($_POST['gameName'] ?? ''));
@@ -28,6 +30,9 @@ if (!SimGameValidateSeatAuth('SWUSim', $gameName, $seat, $authKey))       { echo
 // it. Recorded before the block check below (a blocked pair still leaves) and before the chat de-dupe (idempotent).
 require_once __DIR__ . '/TableRematch.php';
 SWUTableRematchMarkLeftForGame($gameName, $seat, 'announced');
+// 1v1 (persistent lobby): this seat has left a finished match's end screen for the menu — open rematch requests are void,
+// the opponent's end screen says where they went, and a room seat is freed so someone else can join through the invite.
+SWUEndScreenLeftForMenu($gameName, $seat);
 
 // Blocking is private: a blocked player is never told (BlockedUsers.php), and Block → forfeit → Main Menu
 // is one of the ways out. Chat between a blocked pair is already off (SubmitChat.php) — so is this.
