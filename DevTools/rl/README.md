@@ -572,3 +572,29 @@ training replays and 61.1% on two independent teacher games (271 choices).
 These small runs do not cover the full 21-archetype schedule. Use the default
 42-game cycle for broader coverage before increasing training volume.
 Artifacts are local temporary directories `/tmp/ga-linear-*`, not deployed models.
+
+### Full-archetype linear evaluation (2026-10-30)
+
+Code baseline: `47ae7aed5`. Ran the learning cycle with 42 imitation games,
+42 independent teacher-observation games, 42 RL games, and 42 games per
+checkpoint on each of two evaluation seeds (294 scheduled, 288 completed).
+All 21 archetypes were scheduled in both seats; this is not an all-pairs tournament.
+
+On 80 mutually completed evaluation pairs, the imitation checkpoint won 30
+and the RL checkpoint won 34. There were five improved outcomes, one regression
+(Diana), and 74 unchanged outcomes. Four incomplete pairs were excluded.
+This modest descriptive gain does not establish a reliable strength improvement;
+no checkpoint was deployed. Independent teacher top-choice agreement was 72.9%.
+The imitation collection had one unavailable teacher action, excluded from learning.
+
+Four of the six incomplete games showed repeating invalid-attack transitions in
+Merlin/Fire Lorraine matchups. A Guo Jia/Polkhawk game also repeated transitions;
+a Tristan/Ciel game reached the limit while changing state. Investigate these
+replays before increasing training volume. Optional-response warnings involving
+Backup Charger, Silvershine, Chalice of Blood, and ingredients are coverage
+inspection candidates, not proof that a useful action was missed.
+
+Deck-level results, exact replay identifiers, and follow-up priorities are in
+`GrandArchiveSim/docs/rl-evaluation-20261030.json`. Checkpoints, raw reports, logs,
+replays, frozen teacher, and deck inputs are preserved locally under the ignored
+`DevTools/rl/artifacts/ga-linear-full-cycle-20261030/` directory.
