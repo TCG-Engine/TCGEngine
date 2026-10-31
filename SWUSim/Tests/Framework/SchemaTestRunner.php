@@ -531,14 +531,14 @@ class SchemaTestRunner {
             $resourced   = [1 => 0, 2 => 0];
         } else {
             // Post-pregame: drew D, resourced N → hand = D-N, resources = N, deck = total-D.
-            // D defaults to 6 but a player's base may modify the opening draw (JTL_021/028);
-            // SWUStartingHandModifier is the same helper production's QueuePregameSetup uses.
+            // D defaults to 6 but a player's base or leader may modify the opening draw (JTL_021/028,
+            // IC27_006); SWUStartingHandSizeFor is the same helper production's QueuePregameSetup uses.
             $resourced = [1 => 0, 2 => 0];
             foreach ($pregameActions as $a) {
                 if ($a['cmd'] === 'ResourceHand') $resourced[$a['player']]++;
             }
-            $p1Drew = max(0, 6 + SWUStartingHandModifier($p1BaseID));
-            $p2Drew = max(0, 6 + SWUStartingHandModifier($p2BaseID));
+            $p1Drew = SWUStartingHandSizeFor((string)$p1BaseID, [(string)$p1Leader]);
+            $p2Drew = SWUStartingHandSizeFor((string)$p2BaseID, [(string)$p2Leader]);
             $p1HandCount = max(0, $p1Drew - $resourced[1]);
             $p2HandCount = max(0, $p2Drew - $resourced[2]);
             $p1DeckLeft  = max(0, count($p1Deck) - $p1Drew);

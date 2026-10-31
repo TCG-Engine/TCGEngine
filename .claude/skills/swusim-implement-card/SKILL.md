@@ -1351,6 +1351,35 @@ fixture-blind-spot table above for *why* that coverage could not see them.
 - **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
   base explicitly — `AttackGroundArena:0:p2Base-0`.
 
+### ★ IC27 ninth wave 2026-10-30 — one observer at five sites, seeded state that cannot discriminate, pregame through production
+- **"When a (friendly) unit deals DAMAGE to a base" has FIVE producers**, each calling `SWUDealDamageToBase` and then
+  stamping `SWU_DMGDBASE_`: the direct combat hit, the shared Overwhelm spill (`_SWUOverwhelmSpillToBase`), TWI_135 Maul's
+  two-defender spill, a unit's ABILITY damage (the `SWU_DMG_SRC` branch inside `SWUDealDamageToBase`) and indirect
+  (`SWUApplyIndirectAssignment`). Hook the observer right after the call at each, and read
+  **`$GLOBALS['gSWULastBaseDamageDealt']`** — the amount that call ACTUALLY dealt (0 when Close the Shield Gate / Alliance
+  Shield Generator prevented it). ⚠ The ability branch also runs for combat and indirect, so gate it
+  `empty(gInCombatDamage) && !$isIndirect` or each hit reports twice; the board that catches the double is an attacker
+  WITH an On Attack (its dispatch leaves `SWU_DMG_SRC` set for the whole attack). ⚠ Many indirect callers pass no
+  `$sourceUID` (JTL_143's `SWUDealIndirectToEachOpponent`) — fall back to `SWU_DMG_SRC` naming the controller. One section
+  per producer, one mutation per hook (IC27_122 The Ghost).
+- **A seeded "already applied once" token cannot catch a dedupe bug** when the mutant writes a DIFFERENT token: a fixture
+  `IC27_113-1` plus a mutant's bare `IC27_113` are two tokens, so "the second grant stacks" stayed green. Prove stacking
+  with a REAL second application (SHD_182 Bravado readies the attacker for a second attack). Raid stacks per the
+  2026-09-10 ruling, so a repeatable grant needs one token per grant (`CARD-<n>`).
+- **A pregame change needs a PRODUCTION test.** The schema harness never deals or mulligans — it COMPUTES the opening
+  count (`SWUStartingHandSizeFor`, now also reading leaders). Build a real game with `SWUSetupGame(…, ['forcedFirstPlayer'
+  => 1, 'resolvedDecks' => …])` and answer the mulligan through `EngineRunAction` mode 100
+  (`test_ic27006_luke_starting_hand.php`); two mutations there were invisible to the whole schema suite.
+- **"Prevent all combat damage dealt to and by X for this phase" = one phase MARKER read at four points** — the attacker's
+  outgoing power, the defender's outgoing power, `$preventAttackerDmg` (TWI_096's flag) and the attacker's power INTO a
+  marked defender — plus TWI_135's two-defender path. Zeroing the power into a marked defender also correctly removes
+  Overwhelm excess (prevented damage is not excess). Exempt `_SWUDamageUnpreventable` and write the ASH_196 section.
+- **Same-sentence reuse at call time.** A card whose ability is another card's text verbatim delegates to that closure at
+  CALL time (`$onAttackAbilities["ASH_172:0"]($p, $mz)` inside its own closure) — never `= $onAttackAbilities[...]` at load,
+  which depends on the per-card glob order.
+- **Mutation tooling:** zsh does not word-split `$var` in `for pair in "a b"` loops (the script got one argument and touched
+  nothing); run Python mutators with `-u` or their per-mutation lines only appear at the end.
+
 ### ★ IC27 eighth wave 2026-10-29 — handler frames, multiplicative modifiers, and boards that can't discriminate
 - **A CUSTOM handler that receives an mzID through `$parts` must set `$playerID = $player` before using it.** The
   mzID was minted in the queuing player's frame (`myGroundArena-N`); `$playerID` at handler time can be another

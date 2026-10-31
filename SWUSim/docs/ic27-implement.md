@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035
 
 ## Foundations already built — do not re-do
 
@@ -430,9 +430,77 @@ word for word against their preview images (no typos). The same import added the
   `law/TheStranger_NoSurvivors.md::DefenderFirst_StrangerOnSeatTwo`.
 - Phase total: 55 IC27 sections + 1 LAW section, 39 mutations each red on its own sections, zero deferrals.
 
+## Phase 15 — Ninth preview wave, 2026-10-30 (58 → 65 CardIDs)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff: 7 new cards, none in the engine dictionary on arrival — ran
+the three preview regens first (SWUSim + SWUDeck from cache, then `Data/ProcessKeywordsSWU.php`). Spelling pass over all 65
+IC27 mocks against the preview images; five fixed in `CardMocks.php`: IC27_035 "dealt to **an** dealt by" → "and",
+IC27_122 "deals damage **on** an enemy base" → "to", IC27_101 "{first order}" → "First Order", IC27_167 "owner's hands" →
+"owners' hands", IC27_002 "resources **,** deploy" → "resources, deploy". IC27_113's subtitle "Down With The Freedom" and
+IC27_049's "Obi-Wannnn!!!" are correct per the card images. Baseline 13770/0.
+
+- [x] **Batch 15.1 — IC27_039 Ahsoka Tano (Not On My Death Watch)** — 10 sections, suite 13770 → 13780/0, 6 mutations each
+  red on its own sections. TWI_076 Death by Droids' whole-table pool as an optional pick: `SWUOfferUnitTarget` (`may`,
+  `DEFEAT_UNIT`, `extraFilter` printed cost ≤ 3). Tokens (cost 0) qualify; a deployed leader unit is read at its leader
+  card's printed cost; a teammate's and far seats' units are offered.
+- [x] **Batch 15.2 — IC27_113 Ezra Bridger (Down With The Freedom)** — 10 sections, suite 13780 → 13790/0, 9 mutations
+  each red on its own sections. Raid 2 printed; On Attack → intermediate CUSTOM (`IC27_113#0`) → mandatory
+  `SWUOfferUnitTarget` (`side friendly`, Ezra excluded by UID, Heroism ASPECT) → `IC27_113#1` stamps the registered
+  `GRANT_KEYWORD_VALUE` row (Raid 2, phase) as `IC27_113-<n>`, one token per grant so a second grant STACKS (Raid ruling
+  2026-09-10; proven by a Bravado re-attack — a seeded earlier token could not discriminate the dedupe). **Judgement
+  call (preview):** two grants from Ezra to one unit in a phase = Raid 4. Green, recorded: queuing the pick straight from
+  the On Attack closure — every board here has the attacker as the dispatcher's saved `$playerID`.
+- [x] **Batch 15.3 — IC27_006 Luke Skywalker (I Have to Face Him)** — leader, 9 sections (front 3 / deployed 6) + the
+  production test `DevTools/tdd-regression/test_ic27006_luke_starting_hand.php`, suite 13790 → 13799/0, 5 mutations each
+  caught. FRONT: new `SWUStartingHandSizeFor($baseID, $leaderIDs)` / `SWUPlayerStartingHandSize($player)` in GameLogic —
+  the ONE source for the opening deal, the mulligan redraw and the harness pregame count (leader modifiers summed, so a
+  Twin Suns seat's two leaders both count). +2 applies to the mulligan hand too (official Colossus ruling). DEPLOYED:
+  Overwhelm from `$Overwhelm_Cards`; the On Attack is ASH_172 Razor Crest's text verbatim, dispatched to its closure at
+  call time. Two mutations (the seat helper ignoring leaders, the mulligan reading the base only) are invisible to the
+  schema suite by design and red only the production test.
+- [x] **Batch 15.4 — IC27_120 Rey (Embracing Destiny)** — 10 sections, suite 13799 → 13809/0, 7 mutations each red on its
+  own sections. `$unitActionCostKind 'none'` + `$unitActionResourceCosts 1` (no [Exhaust]: repeatable, usable while
+  exhausted; the resource goes through the alt-payment funnel, so a Credit pays) + the hand gate beside ASH_217 in
+  `SWUUnitActionAffordable` → mandatory discard (`DoDiscardCard`) → mandatory attacker pick over `_SWUUnitCanAttackNow`
+  (Rey included) → `SWUAddAttackPowerBonus +2` → `BeginSWUAttack`. **Judgement call (preview):** with no unit able to
+  attack, the action is still usable (the cost changes game state) and resolves to nothing.
+- [x] **Batch 15.5 — IC27_122 The Ghost (Whale Watching)** — 18 sections, suite 13809 → 13827/0, 18 mutations each red on
+  its own sections. Overwhelm from the registry. The reaction is a new observer `_SWUIc27122OnUnitDamagedBase($srcCtrl,
+  $baseOwner)` (card file) called right after `SWUDealDamageToBase` at FIVE sites — direct combat hit, the shared Overwhelm
+  spill, TWI_135 Maul's two-defender spill, a unit's ability damage (the `SWU_DMG_SRC` branch, limited to non-combat,
+  non-indirect so nothing reports twice), and indirect damage (threaded `$sourceUID`, else `SWU_DMG_SRC` naming the
+  controller — JTL_143 Devastator threads none). `SWUDealDamageToBase` now records the amount it ACTUALLY dealt
+  (`gSWULastBaseDamageDealt`, 0 when prevented/deferred), so prevented damage draws nothing. Friendly = the dealer is on the
+  Ghost controller's TEAM; enemy base = `SWUIsEnemySeat`. **Judgement calls (preview):** "deals damage" = every damage path
+  (not only combat, JTL_177's reading); one draw per instance (Maul's combined spill = one).
+- [x] **Batch 15.6 — IC27_119 Sabine Wren (Liberator of Krownest)** — 12 sections, suite 13827 → 13839/0, 9 mutations
+  each red on its own sections. Saboteur from the registry. When Played: LAW_018 Lando's "a deck" picker
+  (`SWUSeatsWithNonEmptyDeck` → one deck resolves silently, else `SWUDeckPickerLabels` OPTIONCHOOSE → `SWUDecodeDeckPick`)
+  → `SWUMillTopCard` ×2 → `|printed cost 1 − printed cost 2|` → optional `SWUOfferUnitTarget` (`DEAL_UNIT_DAMAGE`, any
+  unit, Sabine as the source re-found by UID). **Judgement calls (preview):** a 1-card deck discards its card but has no
+  difference (no offer); a difference of 0 offers nothing.
+- [x] **Batch 15.7 — IC27_035 Yoda (A Disturbing Puzzle)** — 18 sections, suite 13839 → 13856/0, 13 mutations each red on
+  its own sections. On Attack: optional `SWUOfferUnitTarget` over ENEMY units (`side their` — team-aware) → `IC27_035#0`
+  stamps the registered phase MARKER `IC27_035`. `SWUCombatDamage` reads it through `_SWUIc27035Marked` (card file):
+  BY the marked unit — attacker's `$attackPower` / defender's `$defendPower` zeroed; TO it — as attacker via TWI_096
+  Aayla's `$preventAttackerDmg`, as defender the attacker's power zeroed (so no defeat and no Overwhelm excess —
+  prevented damage is not excess). Unpreventable damage (ASH_196) is exempt. TWI_135 Maul's two-defender path mirrors
+  all of it (`$P1`/`$P2` per defender). Combat damage only — ability damage lands. ✅ Side-find FIXED 2026-10-30 (TDD):
+  `$preventAttackerDmg` (TWI_096 / JTL_193 / TS26_59 / IC27_035) was checked BEFORE the defender's
+  `_SWUDamageUnpreventable` in all three combat orderings, so an unpreventable counter-hit into a protected attacker was
+  prevented; and `_SWUCombatDamageStillReaches` counted unpreventable damage, so SEC_101 / ASH_062 offered a paid
+  prevention that could only fizzle. Guard: `core/UnpreventableCombatDamage_IgnoresEveryPrevention.md` (31 sections —
+  every combat prevention on each side, every ordering, Maul's two-defender path; 14 mutation points each red).
+- **Phase total:** 87 sections + the production test `test_ic27006_luke_starting_hand.php`, suite 13770 → 13856/0, 72
+  mutations each red on its own sections (two Ezra greens re-built/recorded, see 15.2), zero deferrals.
+  ⚠ Side-find, not changed: `SWUParsedTurnEffects`' `$isCardID` regex is `[A-Z]{2,5}_…`, so a digit set code (IC27, TS26)
+  never counts as a CardID token — those turn effects show no source-card art in the Active Effects popup.
+
 ## Status
 
-**✅ IC27 IS CARD-COMPLETE AT 58 / 58 mocked CardIDs** (2026-10-29, eighth wave — suite 13701 → 13757/0). Before it 54/54
+**✅ IC27 IS CARD-COMPLETE AT 65 / 65 mocked CardIDs** (2026-10-30, ninth wave — suite 13770 → 13856/0; re-derived at
+the end of the run: the `### Already Done` line vs the IC27 IDs in `CardMocks.php` is empty). True only until the next
+preview import. Before it 58/58 (2026-10-29, eighth wave — suite 13701 → 13757/0); before that 54/54
 at 13701/0 (seventh wave); before that 51/51 at
 13677/0 — re-derived at the END of the run: the
 `### Already Done` line diffed against the IC27 IDs in `AppCore/SWU/CardMocks.php` is empty), plus the

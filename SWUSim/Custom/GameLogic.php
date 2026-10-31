@@ -1387,6 +1387,8 @@ $turnEffectRegistry = [
     'IC27_163' => ['kind' => 'STAT_DEBUFF'],                                                                                  // Bo-Katan Kryze — When Played: each enemy unit gets -7/-0 this phase
     'IC27_046' => ['kind' => 'STAT_BUFF'],                                                                                    // Vigilant Defense — a friendly unit gets +0/+3 (and Sentinel) this phase
     'IC27_127' => ['kind' => 'STAT_BUFF'],                                                                                    // Act of Aggression — a friendly unit gets +3/+0 (and Overwhelm) this phase
+    'IC27_113' => ['kind' => 'GRANT_KEYWORD_VALUE', 'value' => 'RAID', 'amount' => 2, 'label' => 'Raid 2'],                    // Ezra Bridger — On Attack: another friendly Heroism unit gains Raid 2 this phase (token IC27_113-<n>: one per grant, so they stack)
+    'IC27_035' => ['kind' => 'MARKER',         'label' => 'Combat damage to and by it prevented'],                        // Yoda — On Attack: prevent all combat damage dealt to and by the chosen enemy unit this phase (read in SWUCombatDamage via _SWUIc27035Marked)
     'IC27_126' => ['kind' => 'MARKER',         'label' => 'Power doubled'],                                               // Saw Gerrera — another friendly unit's power is doubled this phase (read by _SWUPowerMultiplier)
     'HMW_052' => ['kind' => 'STAT_BUFF'],                                                                                     // A'Koba, Restless Raider — When Played: a unit (either side, self included) gets +2/+0 this phase
     'SHD_129' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Timely Intervention — the played unit gains Ambush this phase
@@ -1593,7 +1595,7 @@ function SWUParsedTurnEffects($obj): array {
     foreach ($obj->TurnEffects as $te) {
         $p = SWUParseTurnEffect((string)$te);
         $reg = $turnEffectRegistry[$p['base']] ?? null;
-        $isCardID = (bool)preg_match('/^[A-Z]{2,5}_(T?\d{2,3})$/', $p['base']);
+        $isCardID = (bool)preg_match('/^[A-Z0-9]{2,5}_(T?\d{1,4})$/', $p['base']);   // DecomposeCardID's grammar (IC27/TS26 carry digits)
         $out[] = [
             'base'         => $p['base'],
             'kind'         => $reg['kind']  ?? null,
@@ -7198,12 +7200,10 @@ $customDQHandlers["MulliganDecision"] = function($player, $parts, $lastDecision)
     EngineShuffle($deck, false);
     SwuPgnRecSplit();   // SWU-PGN: the hand going back, recorded before the new hand is drawn (they can be the same cards)
 
-    // Redraw the player's OWN starting hand size, not a flat 6 — a base may modify it (JTL_021
-    // Colossus -1, JTL_028 Nabat Village +3). Same helper QueuePregameSetup uses for the opening hand;
-    // hardcoding 6 here meant Colossus dealt 5 to start and then handed back 6 on the mulligan.
-    $mullBaseArr = &GetBase($targetPlayer);
-    $mullBaseID  = !empty($mullBaseArr) ? ($mullBaseArr[0]->CardID ?? '') : '';
-    $mullHandSize = max(0, 6 + SWUStartingHandModifier($mullBaseID));
+    // Redraw the player's OWN starting hand size, not a flat 6 — a base or a leader may modify it (JTL_021
+    // Colossus -1, JTL_028 Nabat Village +3, IC27_006 Luke +2). Same helper QueuePregameSetup uses for the
+    // opening hand; hardcoding 6 here meant Colossus dealt 5 to start and then handed back 6 on the mulligan.
+    $mullHandSize = SWUPlayerStartingHandSize(intval($targetPlayer));
     SWULogDrawBatch($targetPlayer, 'mulliganed and drew a new hand', function () use ($targetPlayer, $mullHandSize) {
         for ($i = 0; $i < $mullHandSize; $i++) DoDrawCard($targetPlayer, 1);
     });
@@ -7278,12 +7278,9 @@ $customDQHandlers["ApplyStartingResource"] = function($player, $parts, $lastDeci
  */
 function QueuePregameSetup($firstPlayer) {
     // Step d: Draw the opening hand for each player simultaneously.
-    // Default is 6; a player's base may modify this (JTL_021 Colossus −1, JTL_028 Nabat Village +3).
-    $handSize = function ($player) {
-        $baseArr = &GetBase($player);
-        $baseID  = !empty($baseArr) ? $baseArr[0]->CardID : '';
-        return max(0, 6 + SWUStartingHandModifier($baseID));
-    };
+    // Default is 6; a player's base or leader may modify this (JTL_021 Colossus −1, JTL_028 Nabat Village +3,
+    // IC27_006 Luke Skywalker +2).
+    $handSize = fn($player) => SWUPlayerStartingHandSize(intval($player));
     $baseSuppressesMulligan = function ($player) {
         $baseArr = &GetBase($player);
         $baseID  = !empty($baseArr) ? $baseArr[0]->CardID : '';
@@ -7581,6 +7578,24 @@ function SWUStartingHandModifier($baseID): int {
         'JTL_028' => +3,  // Nabat Village: draw 3 more cards
     ];
     return $mods[$baseID] ?? 0;
+}
+
+// Opening-hand size: 6, modified by the base (above) and by any leader that changes it (IC27_006 Luke Skywalker
+// "Draw 2 more cards in your starting hand"; a Twin Suns seat has two leaders and each one counts). The ONE source
+// for the opening draw (QueuePregameSetup), the mulligan redraw (official Colossus ruling: the modifier applies to
+// the mulligan hand too) and the test harness's pregame draw — so the three cannot drift.
+function SWUStartingHandSizeFor(string $baseID, array $leaderIDs): int {
+    static $leaderMods = ['IC27_006' => 2];   // Luke Skywalker (I Have to Face Him)
+    $n = 6 + SWUStartingHandModifier($baseID);
+    foreach ($leaderIDs as $id) $n += $leaderMods[(string)$id] ?? 0;
+    return max(0, $n);
+}
+
+function SWUPlayerStartingHandSize(int $player): int {
+    $baseArr = GetBase($player);
+    $leaders = [];
+    foreach (GetLeader($player) as $l) if ($l !== null && empty($l->removed)) $leaders[] = (string)$l->CardID;
+    return SWUStartingHandSizeFor(!empty($baseArr) ? (string)($baseArr[0]->CardID ?? '') : '', $leaders);
 }
 
 // Bases whose controller can't take a mulligan.
@@ -16331,6 +16346,18 @@ function SWUApplyIndirectAssignment(int $controller, int $damagedPlayer, string 
     // indirect so an unpreventable base-prevention one-shot (JTL_074) is consumed but does NOT prevent it.
     if ($baseDmg > 0) {
         SWUDealDamageToBase($baseDmg, $damagedPlayer, $controller, true);
+        // IC27_122 The Ghost — indirect damage dealt by a UNIT's ability. Not every caller threads $sourceUID
+        // (JTL_143 Devastator's SWUDealIndirectToEachOpponent does not), so fall back to the unit-ability source
+        // SWU_DMG_SRC when it names this controller; an event's indirect has neither and draws nothing.
+        $ghostSrc = $sourceUID > 0;
+        if (!$ghostSrc) {
+            $src = (string)GetSWUVar('SWU_DMG_SRC', '');
+            if ($src !== '' && strpos($src, ',') !== false) {
+                [$gsUid, $gsCtrl] = array_map('intval', explode(',', $src));
+                $ghostSrc = ($gsUid > 0 && $gsCtrl === intval($controller));
+            }
+        }
+        if ($ghostSrc) _SWUIc27122OnUnitDamagedBase(intval($controller), intval($damagedPlayer));
         // SEC_012 Cassian — indirect base damage counts as the source unit "damaging an opponent's base"
         // (CR 35.4 attributes indirect damage to the controller). Arm the per-unit marker directly with the
         // threaded $sourceUID: SWU_DMG_SRC is already cleared by the action boundary before the opponent
@@ -20639,6 +20666,7 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             if (count(array_filter(GetHand($player), fn($c) => empty($c->removed))) < 2) $ok = false;
             break;
         case 'ASH_217': // Mayor's Majordomo: needs 1+ card in hand to pay the discard cost.
+        case 'IC27_120': // Rey (Embracing Destiny): likewise — the [1 resource] half is checked above.
             if (count(array_filter(GetHand($player), fn($c) => empty($c->removed))) < 1) $ok = false;
             break;
         case 'LAW_015': // Jabba (deployed): needs a playable Underworld unit in hand (ready resources + Credits).

@@ -244,6 +244,7 @@ function CardIDOverride($cardID) {
     case "IC27_111": return "LOF_139"; //Battle Fury
     case "IC27_133": return "SOR_166"; //Infiltrator's Skill
     case "IC27_150": return "SHD_193"; //Frozen in Carbonite
+    case "IC27_033": return "SHD_040"; //Clan Wren Rescuer
     default: return $cardID;
   }
 }

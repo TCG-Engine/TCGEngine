@@ -78,7 +78,7 @@ return array (
       1 => 'Resistance',
     ),
     'text' => 'Action [1 resource, Exhaust]: Give an Experience token to a damaged unit.',
-    'epicAction' => 'Epic Action: If you control 5 or more resources , deploy this leader.',
+    'epicAction' => 'Epic Action: If you control 5 or more resources, deploy this leader.',
     'deployText' => 'On Attack: You may give an Experience token to a damaged unit.',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/002.png',
@@ -428,6 +428,35 @@ When you heal damage from your base: Deal that much damage to an enemy unit.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/034.png',
     'imageUrlBack' => '',
   ),
+  'IC27_035' => 
+  array (
+    'title' => 'Yoda',
+    'subtitle' => 'A Disturbing Puzzle',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 3,
+    'power' => 3,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+      2 => 'Republic',
+    ),
+    'text' => 'On Attack: You may choose an enemy unit. Prevent all combat damage that would be dealt to and dealt by that unit for this phase.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/035.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_037' => 
   array (
     'title' => 'Finn',
@@ -482,6 +511,35 @@ While this unit is upgraded, he gains Restore 2. (When this unit attacks, heal 2
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/038.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_039' => 
+  array (
+    'title' => 'Ahsoka Tano',
+    'subtitle' => 'Not On My Death Watch',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 5,
+    'power' => 4,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+      2 => 'Republic',
+    ),
+    'text' => 'When Played: You may defeat a unit that costs 3 or less.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/039.png',
     'imageUrlBack' => '',
   ),
   'IC27_040' => 
@@ -1082,7 +1140,7 @@ When Played: Give another friendly unit +2/+2 for this phase.',
       1 => 'Official',
     ),
     'text' => 'Overwhelm (When attacking an enemy unit, deal excess damage to the opponent\'s base.)
-Each other friendly {first order} unit gets +1/+0 and gains Overwhelm.',
+Each other friendly First Order unit gets +1/+0 and gains Overwhelm.',
     'epicAction' => '',
     'deployText' => '',
     'unique' => true,
@@ -1206,6 +1264,37 @@ Action [Exhaust]: Deal 4 damage to a unit.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/110.png',
     'imageUrlBack' => '',
   ),
+  'IC27_113' => 
+  array (
+    'title' => 'Ezra Bridger',
+    'subtitle' => 'Down With The Freedom',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 2,
+    'power' => 1,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+      2 => 'Rebel',
+      3 => 'Spectre',
+    ),
+    'text' => 'Raid 2 (This unit gets +2/+0 while attacking.)
+On Attack: Give another friendly Heroism unit Raid 2 for this phase.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/113.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_115' => 
   array (
     'title' => 'Poe Dameron',
@@ -1262,6 +1351,63 @@ Action [Exhaust]: Deal 4 damage to a unit.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/116.png',
     'imageUrlBack' => '',
   ),
+  'IC27_119' => 
+  array (
+    'title' => 'Sabine Wren',
+    'subtitle' => 'Liberator of Krownest',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 4,
+    'power' => 5,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Mandalorian',
+      1 => 'Rebel',
+      2 => 'Spectre',
+    ),
+    'text' => 'Saboteur (When this unit attacks, ignore Sentinel and defeat the defender\'s Shields.)
+When Played: Discard 2 cards from a deck. You may deal damage to a unit equal to the difference in those cards\' costs.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/119.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_120' => 
+  array (
+    'title' => 'Rey',
+    'subtitle' => 'Embracing Destiny',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 5,
+    'power' => 6,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+    ),
+    'text' => 'Action [1 resource, discard a card from your hand]: Attack with a unit. It gets +2/+0 for this attack.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/120.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_121' => 
   array (
     'title' => 'Kanan Jarrus',
@@ -1290,6 +1436,37 @@ Action [Exhaust]: Deal 4 damage to a unit.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/121.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_122' => 
+  array (
+    'title' => 'The Ghost',
+    'subtitle' => 'Whale Watching',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 7,
+    'power' => 7,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+      1 => 'Vehicle',
+      2 => 'Transport',
+      3 => 'Spectre',
+    ),
+    'text' => 'Overwhelm (When attacking an enemy unit, deal excess damage to the opponent\'s base.)
+When a friendly unit deals damage to an enemy base: If you have 7 or fewer cards in your hand, draw a card.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/122.png',
     'imageUrlBack' => '',
   ),
   'IC27_126' => 
@@ -1676,7 +1853,7 @@ Give a Shield token to a friendly unit.',
     array (
       0 => 'Official',
     ),
-    'text' => 'When Played: Return 3 friendly resources to their owner\'s hands. Then, you may resource up to 3 cards from your hand.',
+    'text' => 'When Played: Return 3 friendly resources to their owners\' hands. Then, you may resource up to 3 cards from your hand.',
     'epicAction' => '',
     'deployText' => '',
     'unique' => true,
