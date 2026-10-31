@@ -357,10 +357,21 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
             $tyDealer = ($savedPID > 0 && $savedPID !== intval($targetPlayer))
                 ? intval($savedPID) : OtherPlayer(intval($targetPlayer));
         }
-        if (_SWUHmw185Decider($tyDealer) > 0) {
+        $tyDecider = _SWUHmw185Decider($tyDealer);
+        if ($tyDecider > 0) {
             $tyTok = is_object($damager) ? ('U' . intval($damager->UniqueID ?? 0))
                    : (($damager === null) ? 'N' : ('P' . intval($damager)));
-            _SWUHmw185Defer(_SWUHmw185Decider($tyDealer),
+            // Inside a simultaneous "each base" event the answer is only RECORDED (HMW_185#4): every base's damage
+            // then lands together once all of the event's questions are answered (HMW_185#5, queued by the bracket),
+            // so two bases reaching 0 is still one event — a draw (CR 6.3), not a win for whichever base was answered first.
+            if (SWUInSimultaneousBaseDamage()) {
+                _SWUHmw185Defer($tyDecider,
+                    "HMW_185#4|{$tyDealer}|" . intval($damage) . "|" . intval($targetPlayer) . "|{$tyTok}");
+                $GLOBALS['gSWUSimulTyDecider'] = $tyDecider;
+                $playerID = $savedPID;
+                return;
+            }
+            _SWUHmw185Defer($tyDecider,
                 "HMW_185#3|{$tyDealer}|" . intval($damage) . "|" . intval($targetPlayer) . "|{$tyTok}");
             $playerID = $savedPID;
             return;

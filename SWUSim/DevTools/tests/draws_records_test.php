@@ -158,6 +158,12 @@ SWUFlashMatchResult('g', 0, ['players' => ['1' => [], '2' => []], 'wins' => ['1'
 check(strval(GetFlashMessage()) === 'MATCHOVER:The match is a draw 1-1!', 'the banner: ' . strval(GetFlashMessage()));
 SWUFlashMatchResult('g', 2, ['players' => ['1' => [], '2' => []], 'wins' => ['1' => 0, '2' => 1]]);
 check(strval(GetFlashMessage()) === 'MATCHOVER:Player 2 wins the match 0-1!', 'NEGATIVE: a won match keeps its banner');
+// Team Suns: both teams wiped out together — a draw has no winners, so the banner must not name "Player 0".
+$four = ['1' => [], '2' => [], '3' => [], '4' => []];
+SWUFlashMatchResult('g', 0, ['players' => $four, 'winners' => []]);
+check(strval(GetFlashMessage()) === 'MATCHOVER:The game is a draw!', 'the Team Suns draw banner: ' . strval(GetFlashMessage()));
+SWUFlashMatchResult('g', 1, ['players' => $four, 'winners' => [1, 3]]);
+check(strval(GetFlashMessage()) === 'MATCHOVER:Player 1, Player 3 win the game!', 'NEGATIVE: a Team Suns win keeps its banner');
 
 foreach ($mids as $x) exec('rm -rf ' . escapeshellarg(MatchesDir('SWUSim') . '/' . $x));
 $cleanup();

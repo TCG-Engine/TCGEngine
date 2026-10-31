@@ -11,5 +11,6 @@ $whenPlayedAbilities["SHD_160:0"] = function($player, $mzID) {
     // literal seat calls, which is a two-seat hardcode invisible to any OtherPlayer()/GetOpponent() scan.
     // Twin of SOR_014 Sabine's front Action, found the same way (2026-08-27).
     // One simultaneous event: two bases reaching 0 together is a draw (CR 6.3).
-    SWUSimultaneousBaseDamage(function () { foreach (GetLiveSeatsArray() as $seat) SWUDealDamageToBase(1, $seat); });
+    // Dealer stated explicitly (3rd arg): on the caster's OWN base the funnel's fallback inference credits an opponent.
+    SWUSimultaneousBaseDamage(function () use ($player) { foreach (GetLiveSeatsArray() as $seat) SWUDealDamageToBase(1, $seat, intval($player)); });
 };

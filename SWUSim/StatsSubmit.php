@@ -49,7 +49,9 @@ function SWUCaptureCurrentGameDetail() {
     if (class_exists('DecisionQueueController')) {
         $detail['pregameDone'] = function_exists('SWUPregameDone') ? SWUPregameDone() : true;
         $reason = DecisionQueueController::GetVariable('GAMEOVER_REASON');
-        $detail['endReason'] = in_array($reason, ['concede', 'abandon'], true) ? $reason : 'win';
+        // 'draw' for a drawn game (CR 6.3). Readers only test for 'concede' / 'abandon', so it reads like 'win' there.
+        $detail['endReason'] = in_array($reason, ['concede', 'abandon'], true) ? $reason
+            : ((function_exists('SWUGameIsDraw') && SWUGameIsDraw()) ? 'draw' : 'win');
     }
     return $detail;
 }

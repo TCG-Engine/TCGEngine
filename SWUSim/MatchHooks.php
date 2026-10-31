@@ -60,6 +60,10 @@ function SWUValidateResolvedDeck($resolved, $format) {
 function SWUFlashMatchResult($gameName, $winnerSeat, $m) {
     if (count($m['players'] ?? []) > 2) {
         $winners = is_array($m['winners'] ?? null) && !empty($m['winners']) ? $m['winners'] : [intval($winnerSeat)];
+        if (intval($winnerSeat) === 0 && empty(array_filter($winners))) {   // Team Suns: both teams wiped out together
+            SetFlashMessage("MATCHOVER:The game is a draw!");
+            return;
+        }
         $labels = array_map(fn($s) => 'Player ' . intval($s), $winners);
         SetFlashMessage("MATCHOVER:" . implode(', ', $labels) . " " . (count($labels) > 1 ? 'win' : 'wins') . " the game!");
         return;

@@ -19,6 +19,7 @@ $label = preg_replace('/[^a-z0-9-]/', '', strtolower(strval($_GET['label'] ?? 's
 $deckName = fn(string $k, string $d) => preg_replace('/[^a-z0-9_-]/', '', strval($_GET[$k] ?? $d));
 $deck1 = $deckName('deck1', 'darth-vader_jtl_yellow'); $deck2 = $deckName('deck2', 'director-krennic_law_blue');
 $extras = !empty($_GET['extras']);
+$format = in_array($_GET['format'] ?? '', ['premier', 'eternal'], true) ? strval($_GET['format']) : 'premier';   // eternal: rotated sets (SOR/SHD) too
 // bo3=1: a private best-of-3. plan=W1,W2,W3: each game's winner seat — from round 3 on (two full rounds played, so SWU
 // Forge files it) the other seat concedes that game; 0 plays the game out. Each game's files go to <label>-g<N>.
 $bo3 = !empty($_GET['bo3']);
@@ -49,7 +50,7 @@ foreach ([1 => $p1user, 2 => 'claudebot2'] as $s => $u) sg_req($B . 'AccountFile
 // the Forge deck id a SWU Forge delivery sends).
 $deck1link = preg_match('#^https://([a-z0-9-]+\.)?swuforge\.com/decks/[A-Za-z0-9_-]{1,64}$#', strval($_GET['deck1link'] ?? '')) ? strval($_GET['deck1link']) : '';   // swuforge.com or a SWU Forge staging host
 if ($deck1link !== '') $deck1 = $deck1link;
-$host = json_decode(sg_req($B . 'APIs/Lobbies/JoinQueue.php', $jar[1], ['rootName' => 'SWUSim', 'createPrivate' => '1', 'format' => 'premier', 'queueType' => $bo3 ? 'bo3' : 'bo1',
+$host = json_decode(sg_req($B . 'APIs/Lobbies/JoinQueue.php', $jar[1], ['rootName' => 'SWUSim', 'createPrivate' => '1', 'format' => $format, 'queueType' => $bo3 ? 'bo3' : 'bo1',
     'deckLink' => $deck1link !== '' ? $deck1link : $deckOf($deck1)]), true);
 $guest = json_decode(sg_req($B . 'APIs/Lobbies/JoinQueue.php', $jar[2], ['rootName' => 'SWUSim', 'privateInviteCode' => $host['inviteCode'] ?? '', 'deckLink' => $deckOf($deck2)]), true);
 $sr = json_decode(sg_req($B . 'APIs/Lobbies/StartRoom.php', $jar[1], ['rootName' => 'SWUSim', 'lobbyID' => $host['lobbyID'] ?? '', 'playerID' => 1, 'authKey' => $host['authKey'] ?? '']), true);

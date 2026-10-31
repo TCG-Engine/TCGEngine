@@ -161,7 +161,7 @@ $out = $oneVsOne + [
     'convertRequestedByOpp' => $isSpectator ? false : !empty($convReq[strval($oppSeat)]),
     'seriesOver'  => $seriesOver,
     'isSpectator' => $isSpectator,
-    'statsStatus' => strval($m['statsStatus'] ?? ''), // '', 'success', 'submitted_without_owner', 'skipped_early', 'skipped_multiplayer', or 'failed'
+    'statsStatus' => strval($m['statsStatus'] ?? ''), // '', 'success', 'submitted_without_owner', 'skipped_early', 'skipped_multiplayer', 'skipped_draw', or 'failed'
 ];
 // A DRAWN game / match (CR 6.3; additive — the keys exist only when true, so a decided game's response is unchanged).
 if (!empty($gameRec['draw'])) $out['isDraw'] = true;

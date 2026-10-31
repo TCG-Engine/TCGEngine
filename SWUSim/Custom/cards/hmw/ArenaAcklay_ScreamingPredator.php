@@ -36,9 +36,13 @@ $customDQHandlers["HMW_156#0"] = function ($player, $parts, $lastDecision) {
     global $playerID;
     $ctrl = intval($player);
     if ($ctrl <= 0) return;
-    foreach (OpponentsOf($ctrl) as $opp) {
-        $playerID = $ctrl;
-        SWUDealDamageToBase(2, intval($opp), $ctrl);
-    }
+    // One simultaneous event: Twin Suns bases it defeats together are decided together (SWUSimultaneousBaseDamage).
+    SWUSimultaneousBaseDamage(function () use ($ctrl) {
+        global $playerID;
+        foreach (OpponentsOf($ctrl) as $opp) {
+            $playerID = $ctrl;
+            SWUDealDamageToBase(2, intval($opp), $ctrl);
+        }
+    });
     $playerID = $ctrl;
 };

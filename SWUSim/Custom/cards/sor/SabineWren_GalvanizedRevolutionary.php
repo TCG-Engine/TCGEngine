@@ -23,6 +23,8 @@ $leaderAbilities["SOR_014"] = function(int $player): void {
     // OtherPlayer()/GetOpponent() can see, because it names seats as integers. At four seats it damaged
     // seats 1 and 2 and left 3 and 4 untouched, whoever the caster was. Found 2026-08-27.
     // One simultaneous event: two bases reaching 0 together is a draw (CR 6.3), not a win for the first seat checked.
-    SWUSimultaneousBaseDamage(function () { foreach (GetLiveSeatsArray() as $seat) SWUDealDamageToBase(1, $seat); });
+    // Dealer stated explicitly (3rd arg), as SHD_159 does: on the caster's OWN base the funnel's fallback inference
+    // credits an opponent, which hid that hit from the caster's HMW_185 Ty Yorrick.
+    SWUSimultaneousBaseDamage(function () use ($player) { foreach (GetLiveSeatsArray() as $seat) SWUDealDamageToBase(1, $seat, intval($player)); });
     SWUAfterAction($player);
 };

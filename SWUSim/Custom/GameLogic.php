@@ -4716,7 +4716,8 @@ function DoDrawCard($player, $amount) {
                 AddGameLogEntry('DRAW', 'P' . intval($player) . " couldn't draw {$undrawn} card" . ($undrawn === 1 ? '' : 's')
                     . ' — their deck is empty' . (function_exists('SWULogSourceSuffix') ? SWULogSourceSuffix() : ''), 'ALL');
                 $GLOBALS['SWU_PGN_DAMAGE_SRC'] = 'rule:deck-out';   // SWU-PGN: the damage has no card behind it
-                try { SWULogWithoutSource(fn() => SWUDealDamageToBase(3 * $undrawn, intval($player))); }
+                // The rule deals it, not an ability, so HMW_185 Ty Yorrick has no "+1 instead" to offer ($skipTyOffer).
+                try { SWULogWithoutSource(fn() => SWUDealDamageToBase(3 * $undrawn, intval($player), null, false, true)); }
                 finally { unset($GLOBALS['SWU_PGN_DAMAGE_SRC']); }
             }
             break;
@@ -9457,8 +9458,12 @@ function SWUEliminateSeat(int $seat, ?int $killer = null, bool $administrative =
     //     game" — so it keys on $administrative ALONE. A Team Suns base defeat is still genuine.
     //   • the WARNING SENTENCE is about CR 12.7.1's phase-end scoring, which Team Suns does not use
     //     at all (its game ends when a whole team is gone), so it excludes teams as well.
+    //   • …and only while that phase-end ending is still AHEAD: at most one survivor is scored on the spot (step 5).
+    //     Survivors exclude seats whose base is already at 0, because the same sweep eliminates them next — which also
+    //     covers every live base falling to one event (SWUCheckBaseDefeatState has scored that already: no survivors).
     $genuine         = !$administrative;
-    $warnsGameEnding = $genuine && !SWUIsTeamGame();
+    $survivors       = count(array_filter($live, fn($s) => !SWUBaseIsLethal(intval($s))));
+    $warnsGameEnding = $genuine && !SWUIsTeamGame() && $survivors > 1;
     SWULogGameEndLine($genuine ? 'ELIMINATED' : 'REMOVED', "Player {$seat} has been eliminated!"
         . ($warnsGameEnding ? " The game will end at the end of this phase — highest base HP wins." : ''));
 
@@ -25595,6 +25600,16 @@ function SWUSimultaneousBaseDamage(callable $deal): void {
         // Twin Suns: who dealt each deferred lethal hit, so CR 12.6.2's heal still reaches the eliminator.
         $killers = (array)($GLOBALS['gSWUSimulBaseKiller'] ?? []);
         $GLOBALS['gSWUSimulBaseKiller'] = [];
+        // HMW_185 Ty Yorrick's "+1 instead?" questions held some of the event's damage back: decide once it has landed
+        // (HMW_185#5 deals it inside a fresh bracket, after the last question), carrying the killers seen so far.
+        $ty = intval($GLOBALS['gSWUSimulTyDecider'] ?? 0);
+        $GLOBALS['gSWUSimulTyDecider'] = 0;
+        if ($ty > 0) {
+            $kv = [];
+            foreach ($killers as $seat => $killer) $kv[] = intval($seat) . ':' . intval($killer);
+            DecisionQueueController::AddDecision($ty, 'CUSTOM', 'HMW_185#5|' . implode(',', $kv), 1, dontSkipOnPass: 1);
+            return;
+        }
         SWUCheckBaseDefeatState($killers);
     }
 }
