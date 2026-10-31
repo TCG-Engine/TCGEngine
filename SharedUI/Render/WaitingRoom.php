@@ -1064,10 +1064,21 @@ function _WaitingRoomScript(array $cfg): string {
     var t = el('wr-title'); t.textContent = 'High Ground'; t.classList.add('hg-title');
     el('wr-count-n').textContent = (hg.members || []).length + '/' + (hg.max || 16);
     // Top bar: format, the match length (host toggles it between matches), Leave.
-    var bo = hg.bestOf === 3 ? 'Best of 3' : 'Best of 1';
-    el('wr-head-actions').innerHTML = '<span class="hg-format">' + esc(hgFormatName(d.format)) + '</span>' +
-      (host ? '<button id="hg-bestof" type="button" class="btn hg-bestof"' + (hg.live ? ' disabled' : '') + '>' + bo + '</button>'
-            : '<span class="hg-bestof-text">' + bo + '</span>') +
+    // The match length uses the SAME toggle as every other private lobby (bestOfControl): both lengths shown, the current
+    // one selected; everyone else reads it. Locked while a match is on — it applies to the next one.
+    var qt = hg.bestOf === 3 ? 'bo3' : 'bo1', bo = qt === 'bo3' ? 'Best of 3' : 'Best of 1';
+    var boHtml = host
+      ? '<span class="wr-bestof"><span class="wr-bestof-lbl">Match</span><span class="seg" role="radiogroup" aria-label="Match length">' +
+        ['bo1', 'bo3'].map(function (v) {
+          return '<input class="seg__in u-vh" type="radio" name="hg-bestof" id="hg-bestof-' + v + '" value="' + v + '"' +
+            (qt === v ? ' checked' : '') + (hg.live ? ' disabled' : '') + '><label class="seg__opt ch" for="hg-bestof-' + v + '">' +
+            (v === 'bo3' ? 'Best of 3' : 'Best of 1') + '</label>';
+        }).join('') + '</span></span>'
+      : '<span class="wr-bestof"><span class="wr-bestof-lbl">Match</span><span id="wr-bestof-text" class="hg-bestof-text">' + bo + '</span></span>';
+    // The format sits on its own line under the title: the header row is exactly the plain room's (length + Leave), which
+    // is what fits a phone.
+    el('wr-state').innerHTML = '<span class="hg-format">' + esc(hgFormatName(d.format)) + '</span>';
+    el('wr-head-actions').innerHTML = boHtml +
       (me ? '<button id="wr-leave" type="button" class="btn">Leave</button>' : '');
 
     // The hill banner: the match that's on, or the next one.
@@ -1157,7 +1168,9 @@ function _WaitingRoomScript(array $cfg): string {
     // Wiring.
     var on = function (id, fn) { var b = el(id); if (b) b.onclick = fn; };
     on('wr-leave', doLeave);
-    on('hg-bestof', function () { hgPost('setBestOf', '&queueType=' + (hg.bestOf === 3 ? 'bo1' : 'bo3')); });
+    Array.prototype.forEach.call(document.querySelectorAll('input[name="hg-bestof"]'), function (inp) {
+      inp.onchange = function () { hgPost('setBestOf', '&queueType=' + encodeURIComponent(inp.value)); };
+    });
     on('hg-watch', function () { hgMemberCookie(); navigating = true; location.href = hgWatchUrl(hg); });
     on('hg-back', function () { hgSeatCookies(); navigating = true; location.href = hgSeatUrl(hg); });
     on('hg-start', function () { this.disabled = true; hgPost('start'); });
@@ -1230,7 +1243,6 @@ function _WaitingRoomScript(array $cfg): string {
     if (d.highGround) {
       var hgSeated = !!d.highGround.me;
       setState(hgSeated ? 'seated' : 'notseated');
-      el('wr-state').textContent = '';
       el('wr-status').style.display = '';
       el('wr-deck').style.display = '';
       var hdb = el('wr-deck-btn');

@@ -183,6 +183,21 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
       check(where, v.label === 'Next match' && v.who.join(',') === 'claudebot1,claudebot2', 'the banner names the next match', JSON.stringify(v));
       check(where, v.start && v.start.text === 'Start next match' && v.start.disabled, 'Start next match waits for both Ready', JSON.stringify(v.start));
       check(where, v.ready, 'the host, called up, has a Ready button');
+      // The match length is the SAME toggle the other private lobbies use: both lengths shown, the current one selected.
+      const seg = await bp.evaluate(() => {
+        const opts = [...document.querySelectorAll('.wr-bestof .seg input[type="radio"]')];
+        const lbl = (id) => (document.querySelector('label[for="' + id + '"]') || {}).textContent || '';
+        return { n: opts.length, labels: opts.map((o) => lbl(o.id)), checked: (opts.find((o) => o.checked) || {}).value || '',
+                 oldButton: !!document.getElementById('hg-bestof') };
+      });
+      check(where, seg.n === 2 && seg.labels.join('|') === 'Best of 1|Best of 3' && seg.checked === 'bo1' && !seg.oldButton,
+        'the host sees both lengths, Best of 1 selected', JSON.stringify(seg));
+      await bp.click('label[for="hg-bestof-bo3"]');
+      await bp.waitForFunction(() => (document.querySelector('.wr-bestof .seg input:checked') || {}).value === 'bo3' &&
+        !!document.querySelector('.hg-banner'), null, { timeout: T });
+      await bp.waitForTimeout(3500);   // a couple of polls: the server's answer must keep Best of 3 selected
+      const after = await bp.evaluate(() => (document.querySelector('.wr-bestof .seg input:checked') || {}).value);
+      check(where, after === 'bo3', 'choosing Best of 3 sticks', after);
       // Someone called up who walked away: the host can send them to the back or remove them from the banner itself.
       const ctl = await bp.$$eval('.hg-contender', (cs) => cs.map((c) => ({ who: c.querySelector('.hg-who').textContent,
         back: !!c.querySelector('.hg-toback'), kick: !!c.querySelector('.hg-kick') })));
@@ -208,7 +223,7 @@ for (const [ename, engine] of Object.entries(ENGINES)) {
       await ep.waitForFunction(() => typeof window.SubmitInput === 'function', null, { timeout: T });
       await ep.evaluate(() => window.SubmitInput('10006', ''));   // seat 2 concedes: the Bo1 hill match is over
       const btn = await ep.waitForSelector('#game-over-overlay button:has-text("Back to the room")', { timeout: T }).then(() => true, () => false);
-      check(where, btn, 'the end screen offers "Back to the room"');
+      check(where, btn, 'the end screen offers "Back to the room"', btn ? '' : `game ${fe.gameName}, page ${ep.url()}, overlay ${await ep.$('#game-over-overlay') ? 'present' : 'absent'}`);
       const others = await ep.$$eval('#game-over-overlay button', (b) => b.map((x) => x.textContent.trim()).filter((t) => /rematch|requeue|convert/i.test(t)));
       check(where, others.length === 0, 'and no rematch / requeue / convert', JSON.stringify(others));
       await ep.waitForURL(/WaitingRoom\.php\?lobby=/, { timeout: 30000 }).then(

@@ -5543,8 +5543,7 @@ body:has(.home-header) .tcgc-card:hover { color: var(--gold-hi); text-decoration
    (`body:has(#wr-root) .wr-panel`), same recipes: chamfered wells, 44px controls, the room's pills. Every class is
    hg- prefixed — `.line`, `.rule`, `.banner` are the kind of generic name the shared sheets already use. */
 body:has(#wr-root) .wr-panel #hg-root { display: grid; gap: var(--s-4); margin-block-end: var(--s-4); }
-body:has(#wr-root) .wr-panel .hg-format,
-body:has(#wr-root) .wr-panel .hg-bestof-text {
+body:has(#wr-root) .wr-panel .hg-format {
   align-self: center;
   font-size: var(--t-13);
   font-weight: 600;

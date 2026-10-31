@@ -242,3 +242,51 @@ P1BASEDMG:14
 P2BASEDMG:2
 P1GROUNDARENAUNIT:0:CARDID:HMW_074
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+
+---
+
+# HealedBelow15ThenEnemyHitsTheBase_Legal
+#// Bug report P-15 (game 2474, round 6), the sequence the reporter saw: P1's base sits at 15 (Yord has Sentinel), P1's
+#// own ASH_059 Leia Organa attacks and her On Attack heals 2 (15 -> 13), and then the ENEMY attacks the base. With the
+#// base at 13 no base has 15 or more damage, so Yord has no Sentinel and the base is a legal target — the attack lands
+#// (13 + 3 = 16). Not a bug; this pins it.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myBaseDamage:15}
+WithP1GroundArena: ASH_059:1:0
+WithP1GroundArena: HMW_074:1:0
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:YES
+- P2>AttackGroundArena:0:BASE
+
+## EXPECT
+P1BASEDMG:16
+P1GROUNDARENAUNIT:1:CARDID:HMW_074
+P1GROUNDARENAUNIT:1:DAMAGE:0
+
+---
+
+# SaboteurIgnoresYordsSentinel_CommenceTheFestivities
+#// Bug report P-15 (game 2474, the undone attack): P1's base at 19, Yord has Sentinel, and the bot plays LAW_202
+#// Commence the Festivities — "Attack with a unit. It gains Saboteur for this attack." Saboteur ignores Sentinel, so the
+#// base is a legal target (3 power + 2 for fewer resources = 5 -> 24). An undo returns the event to HAND, which is why the
+#// reporter found nothing in the discard pile. Not a bug; this pins it.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myBaseDamage:19;myResources:3;theirResources:1}
+WithActivePlayer: 2
+WithP1GroundArena: HMW_074:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2Hand: LAW_202
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirBase-0
+
+## EXPECT
+P1BASEDMG:24
+P1GROUNDARENAUNIT:0:CARDID:HMW_074
+P1GROUNDARENAUNIT:0:DAMAGE:0
