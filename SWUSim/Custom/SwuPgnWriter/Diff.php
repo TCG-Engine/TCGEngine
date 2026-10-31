@@ -11,7 +11,8 @@
 //         resource row), fromSeat/toSeat?}  capture {cardID, uid, captor, from}
 //   rescue {cardID, captor, uid, to, exhausted?} (seat = the owner it returns to)  control {uid, cardID, from, to}  damage|heal {target, amount, hp}
 //   token {uid, kind, delta}  exhaust|ready {target, cardID}  resources {exhaustedDelta}  credit {delta}  force {has}
-//   stats {uid, power, hp, keywords} (also for every unit entering play)  leader {field, value}  baseEpic {}  initiative {taken}
+//   stats {uid, power, hp, keywords, traits?, blank?, leaderUnit?} (also for every unit entering play)
+//   upgControl {host, cardID, from, to} (an attached upgrade's controller changed)  leader {field, value}  baseEpic {}  initiative {taken}
 // "target" / "captor" is a UID, base@N or leader@N. Zone "temp" (TempZone, a pick's staging) is internal: the matcher
 // keeps it out of the file.
 
@@ -177,6 +178,12 @@ function _SwuPgnMoveChange(?array $s, ?array $t): array {
     return $c;
 }
 
+// A unit's stated attributes (§10.1 STATS [W-55]); a unit snapshot without them (an older test fixture) states none.
+function _SwuPgnStatsChange(int $seat, int $uid, array $u): array {
+    return ['k' => 'stats', 'seat' => $seat, 'uid' => $uid, 'power' => $u['power'], 'hp' => $u['hp'], 'keywords' => $u['keywords']]
+        + (isset($u['traits']) ? ['traits' => $u['traits'], 'blank' => !empty($u['blank']), 'leaderUnit' => !empty($u['leaderUnit'])] : []);
+}
+
 function SwuPgnDiff(array $before, array $after): array {
     $out = ['move' => [], 'damage' => [], 'token' => [], 'exhaust' => [], 'resources' => [], 'credit' => [], 'force' => [],
         'stats' => [], 'leader' => [], 'baseEpic' => [], 'initiative' => []];
@@ -194,7 +201,7 @@ function SwuPgnDiff(array $before, array $after): array {
             if ($d !== 0) $out['token'][] = ['k' => 'token', 'seat' => $seat, 'uid' => $uid, 'kind' => $kind, 'delta' => $d];
         }
         if ($b === null) {
-            $out['stats'][] = ['k' => 'stats', 'seat' => $seat, 'uid' => $uid, 'power' => $a['power'], 'hp' => $a['hp'], 'keywords' => $a['keywords']];
+            $out['stats'][] = _SwuPgnStatsChange($seat, $uid, $a);
             continue;
         }
         if ($b['_seat'] !== $seat) {
@@ -206,8 +213,22 @@ function SwuPgnDiff(array $before, array $after): array {
         $d = $a['damage'] - $b['damage'];
         if ($d !== 0) $out['damage'][] = ['k' => $d > 0 ? 'damage' : 'heal', 'seat' => $seat, 'target' => $uid, 'amount' => abs($d), 'hp' => $a['hp'] - $a['damage']];
         if ($a['ready'] !== $b['ready']) $out['exhaust'][] = ['k' => $a['ready'] ? 'ready' : 'exhaust', 'seat' => $seat, 'target' => $uid, 'cardID' => $a['cardID']];
-        if ($a['power'] !== $b['power'] || $a['hp'] !== $b['hp'] || $a['keywords'] !== $b['keywords']) {
-            $out['stats'][] = ['k' => 'stats', 'seat' => $seat, 'uid' => $uid, 'power' => $a['power'], 'hp' => $a['hp'], 'keywords' => $a['keywords']];
+        if (_SwuPgnStatsChange($seat, $uid, $a) !== _SwuPgnStatsChange($seat, $uid, $b)) $out['stats'][] = _SwuPgnStatsChange($seat, $uid, $a);
+        // §10.1 TAKE_CONTROL, upgrade form [W-56]: an attached upgrade whose controller changed on the same host (matched by its
+        // UniqueID, else by card and position).
+        $seen = [];
+        foreach ($a['upgrades'] as $up) {
+            $k = $up['uid'] ?? null;
+            $n = $seen[$up['cardID']] = ($seen[$up['cardID']] ?? 0) + 1;
+            $was = null; $i = 0;
+            foreach ($b['upgrades'] as $bu) {
+                if ($bu['cardID'] !== $up['cardID']) continue;
+                $i++;
+                if ($k !== null ? ($bu['uid'] ?? null) === $k : $i === $n) { $was = $bu; break; }
+            }
+            if ($was !== null && isset($was['controller'], $up['controller']) && $was['controller'] !== $up['controller']) {
+                $out['move'][] = ['k' => 'upgControl', 'seat' => $up['controller'], 'host' => $uid, 'cardID' => $up['cardID'], 'from' => $was['controller'], 'to' => $up['controller']];
+            }
         }
     }
 

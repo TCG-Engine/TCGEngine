@@ -8,16 +8,21 @@ function SwuPgnPlaceholderId(string $pgnBaseId): string { return 'SWUPGNX_' . su
 
 function SwuPgnBoardPhase($phase): string { return ['setup' => 'APS', 'action' => 'MAIN', 'regroup' => 'RGS'][$phase] ?? 'MAIN'; }
 
-// The ReducedState keys this converter reads (test_swupgn_board.php fails when the reader grows a new one).
+// The ReducedState keys this converter has decided on (test_swupgn_board.php fails when the reader grows a new one).
+// Drawn: everything SWUSim's board has a place for. Read but not drawn (no board spot; the captions tell them):
+// state.effects, player.abilityUses, player.baseDefeated, card.traits / blank / leaderUnit / name / cost / aspects.
 function SwuPgnBoardHandledFields(): array
 {
     return ['state.round', 'state.phase', 'state.initiative', 'state.initiativeTaken', 'state.active', 'state.players',
+        'state.effects',
         'player.seat', 'player.baseHp', 'player.baseMaxHp', 'player.handSize', 'player.hand', 'player.deckSize',
         'player.resourcesReady', 'player.resourcesExhausted', 'player.resources', 'player.baseEpicActionUsed',
         'player.credits', 'player.hasForce', 'player.discard', 'player.cards', 'player.leader',
-        'player.baseUpgrades', 'player.baseCaptured',
+        'player.baseUpgrades', 'player.baseCaptured', 'player.baseDefeated', 'player.abilityUses', 'player.foreignResources',
         'card.id', 'card.zone', 'card.damage', 'card.exhausted', 'card.upgrades', 'card.shields', 'card.experience',
-        'card.statusTokens', 'card.captured', 'card.power', 'card.hp', 'card.keywords'];
+        'card.statusTokens', 'card.captured', 'card.power', 'card.hp', 'card.keywords',
+        'card.traits', 'card.blank', 'card.leaderUnit', 'card.copyOf', 'card.name', 'card.cost', 'card.aspects',
+        'card.owner', 'card.upgradeControllers'];
 }
 
 // $view: 'both' shows both hands; 'p1' / 'p2' shows only that seat's hand face up.
@@ -69,6 +74,10 @@ function SwuPgnBoardWrite(array $state, array $doc, string $view): array
         foreach (is_array($ps['cards'] ?? null) ? $ps['cards'] : [] as $c) {
             if (!is_array($c) || !is_string($c['id'] ?? null)) continue;
             $uid++;
+            // §11: the seat whose cards hold it controls it; `owner` only when the other seat owns it.
+            $owner = in_array($c['owner'] ?? null, [1, 2], true) ? $c['owner'] : $p;
+            $ctl = $c['upgradeControllers'] ?? null;
+            $ctl = is_array($ctl) ? $ctl : ($ctl instanceof stdClass ? get_object_vars($ctl) : []);
             $sub = [];
             foreach (is_array($c['upgrades'] ?? null) ? $c['upgrades'] : [] as $u) {
                 if (!is_string($u)) continue;
@@ -76,7 +85,9 @@ function SwuPgnBoardWrite(array $state, array $doc, string $view): array
                 $isLeaderPilot = $u === $leaderPgn;
                 if ($isLeaderPilot) $leaderIsPilot = true;
                 $type = (string)(CardType($uId) ?? '');
-                $sub[] = ['CardID' => $uId, 'Owner' => $p, 'Controller' => $p, 'TurnEffects' => [],
+                // An upgrade with no upgradeControllers entry is the holder's; one the other seat controls is its own.
+                $uCtl = in_array($ctl[$u] ?? null, [1, 2], true) ? $ctl[$u] : $p;
+                $sub[] = ['CardID' => $uId, 'Owner' => $uCtl, 'Controller' => $uCtl, 'TurnEffects' => [],
                     'IsPilot' => $isLeaderPilot || $type === 'Unit' || $type === 'Leader'];
             }
             foreach (['shields' => 'SOR_T02', 'experience' => 'SOR_T01'] as $k => $tok) {
@@ -91,7 +102,9 @@ function SwuPgnBoardWrite(array $state, array $doc, string $view): array
                 if (is_string($held)) $sub[] = ['CardID' => $map($held), 'Owner' => $other, 'Controller' => $p, 'TurnEffects' => [], 'IsPilot' => false, 'IsCaptive' => true];
             }
             $add = ($c['zone'] ?? 'ground') === 'space' ? 'AddSpaceArena' : 'AddGroundArena';
-            $add($p, $map($c['id']), !empty($c['exhausted']) ? 0 : 1, $p, max(0, intval($c['damage'] ?? 0)), $p, '-', $sub ?: '-', $uid);
+            // A copy (§10.1 STATS copyOf) is drawn as SWUSim draws its Clone: the copied card's CardID, flagged IsClone.
+            $isCopy = is_string($c['copyOf'] ?? null) && $c['copyOf'] !== '';
+            $add($p, $map($isCopy ? $c['copyOf'] : $c['id']), !empty($c['exhausted']) ? 0 : 1, $owner, max(0, intval($c['damage'] ?? 0)), $p, '-', $sub ?: '-', $uid, 1, $isCopy);
             if ($c['id'] === $leaderPgn) $leaderUid = $uid;
             $st = [];
             if (is_int($c['power'] ?? null)) $st['p'] = $c['power'];
@@ -114,9 +127,11 @@ function SwuPgnBoardWrite(array $state, array $doc, string $view): array
         $ready = max(0, intval($ps['resourcesReady'] ?? 0));
         $exhausted = max(0, intval($ps['resourcesExhausted'] ?? 0));
         $named = array_values(array_filter(is_array($ps['resources'] ?? null) ? $ps['resources'] : [], 'is_string'));
+        $foreign = array_flip(array_filter(is_array($ps['foreignResources'] ?? null) ? $ps['foreignResources'] : [], 'is_string'));
         for ($i = 0; $i < min(200, $ready + $exhausted); $i++) {
             $rid = isset($named[$i]) ? (SwuPgnMapCardId($named[$i]) ?? 'CardBack') : 'CardBack';
-            AddResources($p, $rid, $i < $exhausted ? 0 : 1, $p, $p);
+            // §11 foreignResources: a card in this row the other seat owns (a stolen resource).
+            AddResources($p, $rid, $i < $exhausted ? 0 : 1, isset($named[$i], $foreign[$named[$i]]) ? $other : $p, $p);
         }
         for ($i = 0; $i < min(64, max(0, intval($ps['credits'] ?? 0))); $i++) AddResources($p, 'LAW_T01', 1, $p, $p);
 

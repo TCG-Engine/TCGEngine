@@ -7,10 +7,14 @@ require_once __DIR__ . '/../../SWUSim/Custom/SwuPgnCardMap.php';
 require_once __DIR__ . '/../../SWUSim/Custom/SwuPgnWriter/_include.php';
 
 // Card refs.
-SwuPgnTestEq(SwuPgnCardRef('SOR_108'), 'SOR#108', 'a printed card is {set}#{number} without padding');
+SwuPgnTestEq(SwuPgnCardRef('SOR_108'), 'SOR#108', '§6.1: a printed card is {set}#{number}, the number zero-padded to 3 digits');
 SwuPgnTestEq(SwuPgnCardRef('SOR_T02'), 'TOKEN:shield#8752877738', 'a token is TOKEN:<name>#<official id>');
 SwuPgnTestEq(SwuPgnCardRef('LAW_T01'), 'TOKEN:credit#' . GetCardUUID('LAW_T01'), 'the Credit token uses the reserved name');
 SwuPgnTestEq(SwuPgnCardRef('LOF_T03'), 'TOKEN:the-force#' . GetCardUUID('LOF_T03'), 'the Force token uses the reserved name');
+// §6.1 [W-40]: the token name derivation (NFKD, drop marks, lower, keep a–z 0–9 space, trim, spaces → "-").
+SwuPgnTestEq(array_map('SwuPgnTokenName', ['X-Wing', 'TIE Fighter', 'The Force', '  Battle   Droid ', 'Clone Trooper', 'Pâdmé\'s Ally']),
+    ['xwing', 'tie-fighter', 'the-force', 'battle-droid', 'clone-trooper', 'padmes-ally'], '§6.1 token names: X-Wing → xwing, TIE Fighter → tie-fighter, …');
+SwuPgnTestEq(SwuPgnCardRef('JTL_T02'), 'TOKEN:xwing#' . GetCardUUID('JTL_T02'), 'the X-Wing token is TOKEN:xwing#<id>');
 global $titleData;
 $all = array_keys($titleData);
 $printed = array_values(array_filter($all, fn($c) => !(DecomposeCardID($c)['isToken'] ?? true)));
@@ -26,7 +30,7 @@ foreach (['SOR_T01', 'SOR_T02', 'LAW_T01', 'ASH_T02'] as $t) {
 
 // Copy ids are numbered in deck order, per base ref, unique across both seats.
 $L = SwuPgnLedgerInit([1 => ['SOR_108', 'SOR_095', 'SOR_108'], 2 => ['SOR_108']]);
-SwuPgnTestEq($L['zones'][1]['deck'], ['SOR#108', 'SOR#95', 'SOR#108:2'], 'seat 1 deck copies in deck order');
+SwuPgnTestEq($L['zones'][1]['deck'], ['SOR#108', 'SOR#095', 'SOR#108:2'], 'seat 1 deck copies in deck order');
 SwuPgnTestEq($L['zones'][2]['deck'], ['SOR#108:3'], 'seat 2 continues the numbering (ids are unique in the game)');
 SwuPgnTestEq(json_decode(json_encode($L), true), $L, 'the ledger is JSON-plain');
 
@@ -47,12 +51,12 @@ $a = SwuPgnLedgerTake($L3, 1, 'deck', 'SOR_095');
 $b = SwuPgnLedgerTake($L3, 1, 'deck', 'SOR_095');
 SwuPgnLedgerPut($L3, 1, 'ground', $a, 11);
 SwuPgnLedgerPut($L3, 1, 'ground', $b, 12);
-SwuPgnTestEq(SwuPgnLedgerByUid($L3, 12), 'SOR#95:2', 'ByUid finds the bound copy');
+SwuPgnTestEq(SwuPgnLedgerByUid($L3, 12), 'SOR#095:2', 'ByUid finds the bound copy');
 $moved = SwuPgnLedgerTake($L3, 1, 'ground', 'SOR_095', 12);
-SwuPgnTestEq($moved, 'SOR#95:2', 'Take by UID returns that unit, not the lowest copy');
+SwuPgnTestEq($moved, 'SOR#095:2', 'Take by UID returns that unit, not the lowest copy');
 SwuPgnLedgerPut($L3, 2, 'ground', $moved, 12);
-SwuPgnTestEq(SwuPgnLedgerByUid($L3, 12), 'SOR#95:2', 'the copy id survives the change of controller');
-SwuPgnTestEq([$L3['zones'][1]['ground'], $L3['zones'][2]['ground']], [['SOR#95'], ['SOR#95:2']], 'the copy moved seats');
+SwuPgnTestEq(SwuPgnLedgerByUid($L3, 12), 'SOR#095:2', 'the copy id survives the change of controller');
+SwuPgnTestEq([$L3['zones'][1]['ground'], $L3['zones'][2]['ground']], [['SOR#095'], ['SOR#095:2']], 'the copy moved seats');
 SwuPgnLedgerTake($L3, 1, 'ground', 'SOR_095');
 SwuPgnTestEq(SwuPgnLedgerByUid($L3, 11), null, 'a copy taken out of play drops its UID binding');
 SwuPgnTestEq(SwuPgnLedgerByUid($L3, 99), null, 'an unknown UID is null');
@@ -70,6 +74,6 @@ $seatAt = fn(array $ups) => ['deck' => [], 'hand' => [], 'discard' => [], 'resou
     'leader' => null, 'units' => []];
 $La = SwuPgnLedgerInit([1 => [], 2 => []]);
 SwuPgnLedgerAdopt($La, ['seats' => [1 => $seatAt(['HMW_095']), 2 => $seatAt(['HMW_095'])]]);
-SwuPgnTestEq([$La['zones'][1]['base'] ?? null, $La['zones'][2]['base'] ?? null], [['HMW#95'], ['HMW#95:2']], 'adopting a board gives each base upgrade its own copy id');
+SwuPgnTestEq([$La['zones'][1]['base'] ?? null, $La['zones'][2]['base'] ?? null], [['HMW#095'], ['HMW#095:2']], 'adopting a board gives each base upgrade its own copy id');
 
 SwuPgnTestFinish();

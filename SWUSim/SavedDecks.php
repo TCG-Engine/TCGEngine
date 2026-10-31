@@ -74,7 +74,11 @@ if ($action === 'matchups') {
     if ($decklink === '') return $respond(['success'=>false,'error'=>'missing_decklink']);
     $overall = ['wins'=>0, 'losses'=>0];
     foreach (LoadSavedDecks($uid) as $d) {
-        if (($d['decklink'] ?? '') === $decklink) { $overall = ['wins'=>(int)$d['wins'], 'losses'=>(int)$d['losses']]; break; }
+        if (($d['decklink'] ?? '') === $decklink) {
+            $overall = ['wins'=>(int)$d['wins'], 'losses'=>(int)$d['losses']];
+            if ((int)($d['draws'] ?? 0) > 0) $overall['draws'] = (int)$d['draws'];   // drawn games (migration 22): only when there are any
+            break;
+        }
     }
     $rows = LoadSavedDeckMatchups($uid, $decklink);
     $matchups = [];
@@ -86,7 +90,7 @@ if ($action === 'matchups') {
             'oppBaseLabel'   => SWUMatchupBaseLabel($r['oppBase']),
             'wins'           => (int)$r['wins'],
             'losses'         => (int)$r['losses'],
-        ];
+        ] + ((int)($r['draws'] ?? 0) > 0 ? ['draws' => (int)$r['draws']] : []);
     }
     return $respond(['success'=>true, 'overall'=>$overall, 'matchups'=>$matchups]);
 }

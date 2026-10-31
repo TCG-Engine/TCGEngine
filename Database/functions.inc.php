@@ -238,7 +238,9 @@ function AddSavedDeck($userID, $decklink, $name, $heroID, $baseId, $format, $dec
 function LoadSavedDecks($userID) {
     if ($userID == "") return [];
     $conn = GetLocalMySQLConnection();
-    $sql = "SELECT decklink, name, hero, baseId, format, isFavorite, wins, losses, lastUsed, deckContent
+    // `draws` (migration 22) only where the column exists: other sites share this table without it.
+    $draws = DBColumnExists($conn, 'favoritedeck', 'draws') ? ', draws' : '';
+    $sql = "SELECT decklink, name, hero, baseId, format, isFavorite, wins, losses$draws, lastUsed, deckContent
             FROM favoritedeck WHERE usersId=?
             ORDER BY isFavorite DESC, lastUsed DESC, name ASC";
     $stmt = $conn->prepare($sql);
@@ -291,10 +293,13 @@ function TouchSavedDeckUsed($userID, $decklink) {
 
 // Personal deck stats (Feature B): per-game W/L on a saved deck + per-opponent-matchup breakdown.
 
-function RecordSavedDeckResult($userID, $decklink, $won) {
+// $draw: a drawn game (CR 6.3) — counted in `draws` (migration 22), never as a win or a loss. Without the column it is
+// skipped (returns 0), so a box that has not run the migration records nothing wrong.
+function RecordSavedDeckResult($userID, $decklink, $won, bool $draw = false) {
     if ($userID == "" || $decklink == "") return 0;
     $conn = GetLocalMySQLConnection();
-    $col = $won ? 'wins' : 'losses';
+    if ($draw && !DBColumnExists($conn, 'favoritedeck', 'draws')) { $conn->close(); return 0; }
+    $col = $draw ? 'draws' : ($won ? 'wins' : 'losses');
     $sql = "UPDATE favoritedeck SET $col = $col + 1, lastUsed = NOW() WHERE usersId=? AND decklink=?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) { $conn->close(); return 0; }
@@ -305,9 +310,18 @@ function RecordSavedDeckResult($userID, $decklink, $won) {
     return (int)$affected;
 }
 
-function RecordSavedDeckMatchup($userID, $decklink, $oppLeader, $oppBase, $won) {
+function RecordSavedDeckMatchup($userID, $decklink, $oppLeader, $oppBase, $won, bool $draw = false) {
     if ($userID == "" || $decklink == "" || $oppLeader == "" || $oppBase == "") return false;
     $conn = GetLocalMySQLConnection();
+    if ($draw) {   // a drawn game: its own column (migration 22), never a win or a loss
+        if (!DBColumnExists($conn, 'favoritedeckmatchup', 'draws')) { $conn->close(); return false; }
+        $stmt = $conn->prepare("INSERT INTO favoritedeckmatchup (usersId, decklink, oppLeader, oppBase, draws)
+                VALUES (?,?,?,?,1) ON DUPLICATE KEY UPDATE draws = draws + 1");
+        $stmt->bind_param("isss", $userID, $decklink, $oppLeader, $oppBase);
+        $ok = $stmt->execute();
+        $stmt->close(); $conn->close();
+        return (bool)$ok;
+    }
     $w = $won ? 1 : 0; $l = $won ? 0 : 1;
     $sql = "INSERT INTO favoritedeckmatchup (usersId, decklink, oppLeader, oppBase, wins, losses)
             VALUES (?,?,?,?,?,?)
@@ -323,9 +337,10 @@ function RecordSavedDeckMatchup($userID, $decklink, $oppLeader, $oppBase, $won) 
 function LoadSavedDeckMatchups($userID, $decklink) {
     if ($userID == "" || $decklink == "") return [];
     $conn = GetLocalMySQLConnection();
-    $sql = "SELECT oppLeader, oppBase, wins, losses FROM favoritedeckmatchup
+    $hasDraws = DBColumnExists($conn, 'favoritedeckmatchup', 'draws');   // migration 22
+    $sql = "SELECT oppLeader, oppBase, wins, losses" . ($hasDraws ? ", draws" : "") . " FROM favoritedeckmatchup
             WHERE usersId=? AND decklink=?
-            ORDER BY (wins + losses) DESC, oppLeader ASC";
+            ORDER BY (wins + losses" . ($hasDraws ? " + draws" : "") . ") DESC, oppLeader ASC";
     $stmt = $conn->prepare($sql);
     if (!$stmt) { $conn->close(); return []; }
     $stmt->bind_param("is", $userID, $decklink);
@@ -380,6 +395,28 @@ function DBTableExists(mysqli $conn, string $table): bool {
         return $cache[$table] = $found;
     } catch (Throwable $e) {
         return $cache[$table] = false;      // no information_schema access: assume not usable
+    }
+}
+
+// Does $table have $column in this database? Cached per process, like DBTableExists. $GLOBALS['DB_COLUMN_EXISTS_FAKE']
+// (a callable ($table, $column) => bool) overrides it for tests of the "migration not run yet" path.
+function DBColumnExists(mysqli $conn, string $table, string $column): bool {
+    $fake = $GLOBALS['DB_COLUMN_EXISTS_FAKE'] ?? null;
+    if (is_callable($fake)) return (bool)$fake($table, $column);
+    static $cache = [];
+    if (!preg_match('/^[A-Za-z0-9_]{1,64}$/', $table) || !preg_match('/^[A-Za-z0-9_]{1,64}$/', $column)) return false;
+    $k = "$table.$column";
+    if (isset($cache[$k])) return $cache[$k];
+    try {
+        $stmt = $conn->prepare("SELECT 1 FROM information_schema.columns
+                                WHERE table_schema = DATABASE() AND table_name = ? AND column_name = ? LIMIT 1");
+        $stmt->bind_param("ss", $table, $column);
+        $stmt->execute();
+        $found = $stmt->get_result()->num_rows > 0;
+        $stmt->close();
+        return $cache[$k] = $found;
+    } catch (Throwable $e) {
+        return $cache[$k] = false;
     }
 }
 

@@ -143,15 +143,42 @@ function MatchIsOver(array $match) {
     foreach (($match['wins'] ?? []) as $w) {
         if (intval($w) >= $need) return true;
     }
-    return false;
+    // A drawn game decides a game without giving anyone a win, so a series can also end by running its full length
+    // (Bo1 drawn; Bo3 W-L-D). Only a sim that records draws (MatchRecordGameDraw) can reach this: otherwise every
+    // decided game is a win and winsNeeded is always reached first.
+    return MatchDecidedGameCount($match) >= intval($match['bestOf'] ?? 1);
 }
 
+// Games with a result — a win or a draw. Shells (winner null) don't count.
+function MatchDecidedGameCount(array $match): int {
+    $n = 0;
+    foreach (($match['games'] ?? []) as $g) if (($g['winner'] ?? null) !== null) $n++;
+    return $n;
+}
+
+// The seat that won the series: the one that reached winsNeeded, or — for a series that ran its full length because of
+// drawn games — the one with strictly the most game wins (Bo3 D-D-W). Equal game wins = a drawn match = 0.
 function MatchWinner(array $match) {
     $need = intval($match['winsNeeded'] ?? 1);
     foreach (($match['wins'] ?? []) as $seat => $w) {
         if (intval($w) >= $need) return intval($seat);
     }
-    return 0;
+    $leaders = _MatchFullLengthLeaders($match);
+    return count($leaders) === 1 ? $leaders[0] : 0;
+}
+
+// Seats with the most game wins, when the series ran its full length without anyone reaching winsNeeded. [] when it
+// hasn't, or when nobody won a game.
+function _MatchFullLengthLeaders(array $match): array {
+    if (MatchDecidedGameCount($match) < intval($match['bestOf'] ?? 1)) return [];
+    $best = 0; $seats = [];
+    foreach (($match['wins'] ?? []) as $seat => $w) {
+        $w = intval($w);
+        if ($w <= 0 || $w < $best) continue;
+        if ($w > $best) { $best = $w; $seats = []; }
+        $seats[] = intval($seat);
+    }
+    return $seats;
 }
 
 // Human-readable name per seat: the player's PUBLIC username when they were logged in, otherwise
@@ -195,6 +222,10 @@ function MatchWinners(array $match) {
     $seats = [];
     foreach (($match['wins'] ?? []) as $seat => $w) {
         if (intval($w) >= $need) $seats[] = intval($seat);
+    }
+    if (empty($seats)) {   // a full-length series with drawn games: a strict leader wins; a tie is a drawn match
+        $leaders = _MatchFullLengthLeaders($match);
+        if (count($leaders) === 1) $seats = $leaders;
     }
     sort($seats);
     return $seats;
@@ -250,6 +281,43 @@ function MatchRecordGameResult($rootName, $matchId, $gameName, $winnerSeat, $rou
             $match['state']    = 'complete';
             $match['winner']   = MatchWinner($match);
             $match['winners']  = MatchWinners($match);
+            // Only reachable with a drawn game earlier in the series (Bo3 D-W-L): otherwise a decided series always
+            // has a winner, and this key never appears.
+            if ($match['winner'] === 0) $match['matchDraw'] = true;
+        }
+    });
+}
+
+// Record a DRAWN game (CR 6.3: both bases at 0 at the same time). The counterpart of MatchRecordGameResult, and
+// idempotent by gameName the same way. A drawn game is DECIDED — winner 0, not null (null means "undecided" and would
+// leave the game open forever) — and carries an explicit draw flag, so a reader never has to infer it from 0. Nobody's
+// win count moves. Draw keys appear only on drawn games/matches: a decided record keeps its exact shape.
+function MatchRecordGameDraw($rootName, $matchId, $gameName, $roundNumber = null) {
+    return MatchWithLock($rootName, $matchId, function (&$match) use ($rootName, $gameName, $roundNumber) {
+        $idx = null;
+        foreach ($match['games'] as $i => $g) {
+            if (($g['gameName'] ?? null) === strval($gameName)) {
+                if (($g['winner'] ?? null) !== null) return; // already decided — idempotent
+                $idx = $i; break;
+            }
+        }
+        if ($idx === null) {
+            $match['games'][] = ['gameName' => strval($gameName), 'gameNumber' => count($match['games']) + 1, 'winner' => null];
+            $idx = count($match['games']) - 1;
+        }
+        $match['games'][$idx]['winner'] = 0;
+        $match['games'][$idx]['winners'] = [];
+        $match['games'][$idx]['draw'] = true;
+        $match['games'][$idx]['statsRecorded'] = true;   // sealed, exactly like a win (see MatchRecordGameResult)
+        if ($roundNumber === null || intval($roundNumber) >= 2) {
+            $rds = $GLOBALS['MATCH_HOOKS'][$rootName]['recordDeckStats'] ?? null;
+            if (is_callable($rds)) { $rds($match, 0); }   // seat 0 = a draw for both seats
+        }
+        if (MatchIsOver($match)) {
+            $match['state']   = 'complete';
+            $match['winner']  = MatchWinner($match);
+            $match['winners'] = MatchWinners($match);
+            if ($match['winner'] === 0) $match['matchDraw'] = true;
         }
     });
 }
@@ -278,7 +346,9 @@ function MatchBeginSideboarding($rootName, $matchId, $loserSeat) {
     $seconds = intval(MatchConfig($rootName, 'sideboardSeconds', MATCH_SIDEBOARD_SECONDS));
     MatchWithLock($rootName, $matchId, function (&$m) use ($loserSeat, $seconds) {
         $m['state'] = 'sideboarding';
-        $m['pendingFirstPlayer'] = ($loserSeat === 1 || $loserSeat === 2) ? $loserSeat : 1;
+        // 0 = the prior game was a DRAW: no loser to go first, so the next game picks at random (owner, 2026-10-30) —
+        // MatchSpawnNextGameWithDecks passes no forced first player for it. Any other out-of-range seat keeps P1.
+        $m['pendingFirstPlayer'] = ($loserSeat === 0 || $loserSeat === 1 || $loserSeat === 2) ? $loserSeat : 1;
         $m['sideboard'] = [
             '1' => ['ready' => false, 'deck' => null],
             '2' => ['ready' => false, 'deck' => null],

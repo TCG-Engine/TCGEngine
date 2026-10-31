@@ -6022,6 +6022,7 @@ function _SWURescueBaseCaptives(): void {
 // one-shot (the flag is consumed here).
 function _SWUCheckConfidenceWin(): void {
     global $gWinner;
+    $winners = [];   // every caster whose condition holds — decided together below, not by seat order
     for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $ge = &GetGlobalEffects($p);
         for ($i = count($ge) - 1; $i >= 0; $i--) {
@@ -6049,10 +6050,16 @@ function _SWUCheckConfidenceWin(): void {
                 if (intval($seat) === $caster) continue;
                 if ($inArena(intval($seat)) > 0) { $othersHold = true; break; }
             }
-            if ($myCnt > 0 && !$othersHold) {                          // caster is the only one with units there
-                SWUDeclareGameWinner($caster, null, 'Confidence in Victory');
-            }
+            if ($myCnt > 0 && !$othersHold) $winners[$caster] = true;   // caster is the only one with units there
         }
+        unset($ge);
+    }
+    // Two casters each alone in their own arena: both win conditions are met at the same timing point, so neither player
+    // alone won — a draw (CR 6.3's "at the same time"; draws spec 2026-10-30). It used to go to seat 1, checked first.
+    if (count($winners) >= 2 && SeatCountForGame() <= 2) {
+        SWUDeclareGameDraw("GAMEOVER:Both players met Confidence in Victory! The game is a draw!", 'Confidence in Victory');
+    } elseif (!empty($winners)) {
+        SWUDeclareGameWinner(intval(array_key_first($winners)), null, 'Confidence in Victory');
     }
 }
 
@@ -6061,6 +6068,7 @@ function _SWUCheckConfidenceWin(): void {
 // the draw step, so the caster loses (and the other player wins) before anyone draws — a deck-out at
 // the ensuing draw can't change the result. One-shot: the flag is spliced out regardless.
 function _SWUCheckFinalShowdownLose(): void {
+    $losers = [];
     for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $ge = &GetGlobalEffects($p);
         for ($i = count($ge) - 1; $i >= 0; $i--) {
@@ -6072,10 +6080,18 @@ function _SWUCheckFinalShowdownLose(): void {
                 SWUEliminateSeat($p, null);
                 AddGameLogEntry('ELIMINATED', "Player {$p} loses (Final Showdown) and is eliminated!", 'ALL');
             } else {
-                $winner = OtherPlayer($p);
-                SWUDeclareGameWinner($winner, "GAMEOVER:Player {$p} loses the game (Final Showdown)! Player {$winner} wins!", "P{$p} — Final Showdown");
+                $losers[$p] = true;
             }
         }
+        unset($ge);
+    }
+    // Both players played one: both lose at the same timing point, which is a draw (CR 6.3's "at the same time").
+    if (count($losers) === 2) {
+        SWUDeclareGameDraw("GAMEOVER:Both players lose the game (Final Showdown)! The game is a draw!", 'Final Showdown');
+    } elseif (count($losers) === 1) {
+        $p = intval(array_key_first($losers));
+        $winner = OtherPlayer($p);
+        SWUDeclareGameWinner($winner, "GAMEOVER:Player {$p} loses the game (Final Showdown)! Player {$winner} wins!", "P{$p} — Final Showdown");
     }
 }
 
@@ -7420,10 +7436,13 @@ function DrawPhase() {
     // CR 5.4.b: each player draws 2 cards. Twin Suns: EVERY live seat draws, not just seats 1-2.
     // "Draw N more card(s) during the regroup phase" (IC27_038 Admiral Holdo) folds into the SAME
     // instruction, so a deck-out stays one 3×undrawn event — see _SWURegroupExtraDraws.
-    foreach (GetLiveSeatsArray() as $p) {
-        $extra = function_exists('_SWURegroupExtraDraws') ? _SWURegroupExtraDraws(intval($p)) : 0;
-        DoDrawCard($p, 2 + $extra);
-    }
+    // ONE instruction for every player, so a deck-out that defeats two bases at once is a draw (CR 6.3).
+    SWUSimultaneousBaseDamage(function () {
+        foreach (GetLiveSeatsArray() as $p) {
+            $extra = function_exists('_SWURegroupExtraDraws') ? _SWURegroupExtraDraws(intval($p)) : 0;
+            DoDrawCard($p, 2 + $extra);
+        }
+    });
 }
 
 function ResourcePhase() {
@@ -9449,10 +9468,10 @@ function SWUEliminateSeat(int $seat, ?int $killer = null, bool $administrative =
         // base-HP comparison, so SWU_TS_GAME_ENDING is deliberately never set and
         // _SWUScoreTwinSunsEndOfPhase() can never run here.
         if (empty(GetLiveSeatsArray())) {
-            // BOTH teams wiped in the same sweep (SWUCheckBaseDefeatState can eliminate more than one
-            // seat in a single pass). Spec §7: that is a shared victory. LiveSeats is empty by now, so
-            // the winner set comes from SeatOrder, which SWUEliminateSeat deliberately never trims.
-            SWUDeclareTwinSunsWinners(GetSeatOrderArray(), "GAMEOVER:Both teams were wiped out — the game is a draw!");
+            // BOTH teams gone at once (e.g. the last seats removed together). Nobody is left to win: a DRAW (CR 6.3's
+            // "at the same time", owner-approved draws spec 2026-10-30) — this used to record every seat as a winner.
+            // A base-defeat sweep decides this earlier, in SWUCheckBaseDefeatState; this is the safety net.
+            SWUDeclareGameDraw("GAMEOVER:Both teams were wiped out — the game is a draw!", 'both teams were wiped out');
             return;
         }
         $survivors = _SWUTeamWipedOut();
@@ -10286,7 +10305,7 @@ function SWUTakeCounter(int $player, string $which): void {
         SetBlastCounter("P{$player}");
         AddGameLogEntry('COUNTER', 'P' . $player . ' took the blast counter (1 damage to each enemy base)');
         // Blast: deal 1 damage to each opponent's base.
-        foreach (OpponentsOf($player) as $opp) SWUDealDamageToBase(1, $opp);
+        SWUSimultaneousBaseDamage(function () use ($player) { foreach (OpponentsOf($player) as $opp) SWUDealDamageToBase(1, $opp); });
     } elseif ($which === 'plan') {
         if (GetPlanCounter() !== 'AVAILABLE') { SetFlashMessage("The plan counter has already been taken."); return; }
         SetPlanCounter("P{$player}");
@@ -11877,7 +11896,7 @@ function SEC156DefeatTrigger($player): void {
     if ($rebels <= 0) return;
     // ⚠ "EACH ENEMY BASE" — one call per opponent. OtherPlayer() hit a single base, so at 3+ seats the
     // rest of the table took nothing. 2-player: OpponentsOf() is length-1, byte-identical.
-    foreach (OpponentsOf(intval($player)) as $opp) SWUDealDamageToBase($rebels, $opp);
+    SWUSimultaneousBaseDamage(function () use ($player, $rebels) { foreach (OpponentsOf(intval($player)) as $opp) SWUDealDamageToBase($rebels, $opp); });
 }
 
 function JTL073DefeatTrigger($player): void {
@@ -16720,6 +16739,7 @@ function DoScry($player, $n) {
     $cardIDs = implode(',', array_map(fn($c) => $c->CardID, array_slice($deck, 0, $n)));
     DecisionQueueController::AddDecision($player, "SCRY", $cardIDs, 1, tooltip:"Look_at_top_cards");
     if (function_exists('SWULogPeek')) SWULogPeek(intval($player), 'looked at', explode(',', $cardIDs)); // game log
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'LOOK', 'p' => intval($player), 'owner' => intval($player), 'zone' => 'deck', 'cardIDs' => explode(',', $cardIDs)]);   // SWU-PGN
     DecisionQueueController::AddDecision($player, "CUSTOM", "SCRY_FINALIZE|{$n}", 1);
     MarkUndoRequiresConsent();
 }
@@ -17199,7 +17219,7 @@ function SWUFinishTopDeckSearch(int $player, array $allIDs, $lastDecision, strin
     }
     $objs = [];
     foreach ($resolved['drawn'] as $cardID) $objs[] = AddHand($player, CardID: $cardID);
-    SWULogSearchedToHand($player, $resolved['drawn'], $revealed);
+    SWULogSearchedToHand($player, $resolved['drawn'], $revealed, $allIDs);   // SWU-PGN: SEARCH.seen = every peeked card
     if ($rest === 'discard') {
         foreach ($resolved['remaining'] as $cardID) SWUAddToDiscard($player, $cardID, 'DECK');
         DecisionQueueController::CleanupRemovedCards();
@@ -21355,6 +21375,8 @@ $customDQHandlers["DISCLOSE_RESOLVE"] = function($player, $parts, $lastDecision)
         $o = GetZoneObject($mz);
         if ($o !== null) AddGameLogEntry('DISCLOSE', 'P' . intval($player) . ' discloses ' . GameLogCardRef($o->CardID ?? ''));
     }
+    // SWU-PGN: a successful disclose is one REVEAL from hand naming every card shown (CR 8.38).
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'REVEAL', 'p' => intval($player), 'zone' => 'hand', 'cardIDs' => array_values(array_filter(array_map(fn($mz) => strval(GetZoneObject($mz)->CardID ?? ''), $selected)))]);
     // SEC_016 Padmé Amidala — disclosing reveals cards from hand ("reveal 1 or more cards from your hand").
     if (function_exists('_SWUSec016React')) _SWUSec016React(intval($player));
     if ($thenHandler !== '') DecisionQueueController::AddDecision(intval($player), "CUSTOM", $thenHandler, 1);
@@ -25448,6 +25470,27 @@ function SWUDeclareGameWinner($winner, $flashMessage = null, string $logReason =
     if (function_exists('SWUBotDataFinalize')) SWUBotDataFinalize($w);
 }
 
+// CR 6.3: "In a case where both players' bases reach 0 remaining HP at the same time, the game ends in a draw."
+// The third game-over state, stored as the winner sentinel SWU_GAME_DRAW so every existing "is the game over?" check
+// (`SWUGetGameWinner() !== 0`) sees it as over, while no seat reads as the winner. Same once-only gate and the same
+// commit-point duties as SWUDeclareGameWinner (halt new decisions, the SWU-PGN reason, the log line, BotData).
+if (!defined('SWU_GAME_DRAW')) define('SWU_GAME_DRAW', -1);
+
+function SWUDeclareGameDraw(?string $flashMessage = null, string $logReason = ''): void {
+    global $gWinner;
+    if (DecisionQueueController::GetVariable("GAMEOVER_WINNER") !== null) return; // already decided
+    $gWinner = SWU_GAME_DRAW;
+    DecisionQueueController::SetSuppressNewDecisionsCheck(
+        static fn(): bool => SWUGetGameWinner() !== 0
+    );
+    DecisionQueueController::StoreVariable("GAMEOVER_WINNER", strval(SWU_GAME_DRAW));
+    DecisionQueueController::StoreVariable("GAMEOVER_WINNERS", '');
+    $GLOBALS['SWU_PGN_END_REASON'] = $logReason;
+    if ($flashMessage !== null) SetFlashMessage($flashMessage);
+    SWULogGameEndLine('WIN', 'The game is a draw' . ($logReason !== '' ? " ({$logReason})" : ''));
+    if (function_exists('SWUBotDataFinalize')) SWUBotDataFinalize(SWU_GAME_DRAW);
+}
+
 // The game ends the INSTANT a win condition is met, so nothing queued behind it may still resolve.
 // Recording the winner is not enough on its own: an in-flight effect can already have queued (or
 // parked) work that would otherwise keep running against a decided game — and that is not cosmetic,
@@ -25487,28 +25530,77 @@ function SWUDeclareGameWinner($winner, $flashMessage = null, string $logReason =
 function SWUCheckBaseDefeatState(array $killerBySeat = []) {
     if (SWUGetGameWinner() !== 0) return; // already decided
     $twin = SeatCountForGame() > 2;
-    foreach (($twin ? GetLiveSeatsArray() : [1, 2]) as $p) {
-        // Goldfish practice: P2's Echo Base is an infinite damage sponge — never end the game on it,
-        // so its counter can climb past 30 HP. (P1's base is still state-checked normally.)
-        if ($p === 2 && function_exists('SWUGameMode') && SWUGameMode() === 'goldfish') continue;
-        $b = GetBase($p);
-        if (empty($b) || !empty($b[0]->removed)) continue;
-        $hp = SWUBaseMaxHp($b[0]->CardID);
-        if ($hp > 0 && intval($b[0]->Damage ?? 0) >= $hp) {
-            if ($twin) {
-                // Twin Suns: a state-based (shrink / HP-reduction) defeat has no damager → no heal, which
-                // is why this defaults to null. But an ABILITY that defeats a named base routes through
-                // this same sweep (SWUDefeatBase, HMW_004's Death Star) and DOES have an eliminator, so it
-                // hands one in — without it, CR §12.6.2's heal was silently skipped (game 1400002).
-                // Don't return — a single sweep can eliminate more than one seat; scoring is deferred.
-                SWUEliminateSeat($p, $killerBySeat[$p] ?? null);
-            } else {
-                $winner = ($p === 1) ? 2 : 1;
-                SWUDeclareGameWinner($winner, "GAMEOVER:Player {$p}'s base has been defeated! Player {$winner} wins!", "P{$p}'s base was defeated");
-                return;
-            }
+    if (!$twin) {
+        // CR 6.3: both bases at 0 remaining HP at the same time is a DRAW. Collect every lethal base before
+        // deciding — returning on the first one found made the result depend on which seat the loop visited first.
+        $lethal = array_values(array_filter([1, 2], 'SWUBaseIsLethal'));
+        if (count($lethal) === 2) {
+            SWUDeclareGameDraw("GAMEOVER:Both bases have been defeated! The game is a draw!", 'each base was defeated');
+        } elseif (count($lethal) === 1) {
+            $p = $lethal[0];
+            $winner = ($p === 1) ? 2 : 1;
+            SWUDeclareGameWinner($winner, "GAMEOVER:Player {$p}'s base has been defeated! Player {$winner} wins!", "P{$p}'s base was defeated");
+        }
+        return;
+    }
+    // One event that defeats EVERY live base at once leaves nobody standing. Decide it here, before eliminating anyone:
+    // eliminating seat by seat would leave a lone "survivor" scored the winner before its own base (defeated by the
+    // same event) was processed. Team Suns: both teams are gone — a draw. Free-for-all: everyone is tied at 0 remaining
+    // HP, and CR 12.7.3 says tied players share the victory. The eliminations below still run (cleanup and log lines);
+    // the result is already decided, so they cannot change it.
+    $live = GetLiveSeatsArray();
+    $lethalLive = array_values(array_filter($live, 'SWUBaseIsLethal'));
+    if (count($live) > 1 && count($lethalLive) === count($live)) {
+        if (SWUIsTeamGame()) {
+            SWUDeclareGameDraw("GAMEOVER:Both teams were wiped out — the game is a draw!", 'both teams were wiped out');
+        } else {
+            SWUDeclareTwinSunsWinners($lethalLive, "GAMEOVER:Players " . implode(', ', $lethalLive) . " share the victory (every base was defeated at once)!");
         }
     }
+    foreach ($live as $p) {
+        if (!SWUBaseIsLethal($p)) continue;
+        // Twin Suns: a state-based (shrink / HP-reduction) defeat has no damager → no heal, which
+        // is why this defaults to null. But an ABILITY that defeats a named base routes through
+        // this same sweep (SWUDefeatBase, HMW_004's Death Star) and DOES have an eliminator, so it
+        // hands one in — without it, CR §12.6.2's heal was silently skipped (game 1400002).
+        // Don't return — a single sweep can eliminate more than one seat; scoring is deferred.
+        SWUEliminateSeat($p, $killerBySeat[$p] ?? null);
+    }
+}
+
+// Is this seat's base at 0 remaining HP (damage ≥ its max HP)? Goldfish practice exempts P2's Echo Base, an infinite
+// damage sponge whose counter is meant to climb past 30 (P1's base is still checked normally).
+function SWUBaseIsLethal(int $p): bool {
+    if ($p === 2 && function_exists('SWUGameMode') && SWUGameMode() === 'goldfish') return false;
+    $b = GetBase($p);
+    if (empty($b) || !empty($b[0]->removed)) return false;
+    $hp = SWUBaseMaxHp($b[0]->CardID);
+    return $hp > 0 && intval($b[0]->Damage ?? 0) >= $hp;
+}
+
+// "Deal N damage to each base" (and every other ability that damages more than one base at once) is ONE event, so the
+// game must not end on the first base it kills — CR 6.3 makes two bases reaching 0 together a DRAW. Run the whole
+// event inside this bracket: SWUDealDamageToBase defers its lethal check while a bracket is open, and the outermost
+// bracket decides once, after all the damage is dealt. Nests safely (a depth counter); request-scoped.
+// ⚠ Only for damage the card deals SIMULTANEOUSLY. Damage separated by "then" is sequential: the first lethal base
+// ends the game before the next clause resolves (CR 6.2), so it must NOT be wrapped.
+function SWUSimultaneousBaseDamage(callable $deal): void {
+    $GLOBALS['gSWUSimulBaseDamage'] = intval($GLOBALS['gSWUSimulBaseDamage'] ?? 0) + 1;
+    try {
+        $deal();
+    } finally {
+        $GLOBALS['gSWUSimulBaseDamage'] = intval($GLOBALS['gSWUSimulBaseDamage']) - 1;
+    }
+    if (intval($GLOBALS['gSWUSimulBaseDamage']) === 0) {
+        // Twin Suns: who dealt each deferred lethal hit, so CR 12.6.2's heal still reaches the eliminator.
+        $killers = (array)($GLOBALS['gSWUSimulBaseKiller'] ?? []);
+        $GLOBALS['gSWUSimulBaseKiller'] = [];
+        SWUCheckBaseDefeatState($killers);
+    }
+}
+
+function SWUInSimultaneousBaseDamage(): bool {
+    return intval($GLOBALS['gSWUSimulBaseDamage'] ?? 0) > 0;
 }
 
 // Remaining HP of a player's base = printed HP minus damage on it (never below 0). What a "with N or less
@@ -25568,9 +25660,15 @@ function SWUDefeatBase(int $targetPlayer, ?int $killer = null): bool {
     return true;
 }
 
+// The winner seat; 0 = the game is not over; SWU_GAME_DRAW (-1) = it ended in a draw. A draw is "over" for every
+// `SWUGetGameWinner() !== 0` check and has no winning seat.
 function SWUGetGameWinner() {
     $w = DecisionQueueController::GetVariable("GAMEOVER_WINNER");
     return $w === null ? 0 : intval($w);
+}
+
+function SWUGameIsDraw(): bool {
+    return SWUGetGameWinner() === SWU_GAME_DRAW;
 }
 
 // Twin Suns end-game (CR §12.7): a winner SET, because tied-highest remaining base HP SHARES the
@@ -25599,7 +25697,7 @@ function SWUGetGameWinners(): array {
     $raw = DecisionQueueController::GetVariable("GAMEOVER_WINNERS");
     if ($raw === null || $raw === '') {
         $w = SWUGetGameWinner();
-        return $w === 0 ? [] : [$w];
+        return $w <= 0 ? [] : [$w];   // a draw has no winners
     }
     return array_map('intval', str_split((string)$raw));
 }

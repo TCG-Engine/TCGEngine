@@ -8215,7 +8215,7 @@ function UpdateTurnPlayerMiasma() {
 }
 /**
  * Show the full-screen game-over overlay.
- * @param {boolean} didWin  true = "You Won", false = "You Lost"
+ * @param {boolean|string} didWin  true = "You Won", false = "You Lost", 'draw' = "Draw" (SWUSim: both bases fell together, CR 6.3)
  * @param {string}  [menuUrl]  Optional explicit URL for the "Return to Menu" button.
  *   If omitted, derived from window.rootPath (e.g. "./GrandArchiveSim" → "./SharedUI/Sites/GrandArchiveSim/MainMenu.php").
  * @param {string}  [subtitle]  Optional line under the title, e.g. "Winner(s): Drixx". In a game with
@@ -8230,7 +8230,8 @@ function ShowGameOver(didWin, menuUrl, statsHtml, buttons, subtitle) {
 
   var title = document.createElement('div');
   title.id = 'game-over-title';
-  title.textContent = didWin ? 'You Won!' : 'You Lost';
+  var isDraw = (didWin === 'draw');
+  title.textContent = isDraw ? 'Draw' : (didWin ? 'You Won!' : 'You Lost');
 
   var sub = null;
   if (subtitle) {
@@ -8306,7 +8307,7 @@ function ShowGameOver(didWin, menuUrl, statsHtml, buttons, subtitle) {
   }
   document.body.appendChild(overlay);
 
-  overlay.classList.add(didWin ? 'won' : 'lost');
+  overlay.classList.add(isDraw ? 'draw' : (didWin ? 'won' : 'lost'));
   // Marker for layouts that place the overlay's children explicitly (SWUSim lays it out as a named
   // grid). Only when a subtitle actually exists — an unconditional extra row would add a row-gap of
   // dead space to every game that doesn't name winners.

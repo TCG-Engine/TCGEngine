@@ -31,7 +31,7 @@ $leaderAbilities["TWI_017"] = function(int $player): void {
         if (GlobalEffectCount($player, 'SWU_PLAYED_VILLAINY') > 0) {
             SWUCreateUnitToken($player, 'TWI_T02');                 // Clone Trooper token
             // "deal 2 damage to EACH enemy base" — a fan-out, not one seat.
-            foreach (OpponentsOf(intval($player)) as $o) SWUDealDamageToBase(2, $o);
+            SWUSimultaneousBaseDamage(function () use ($player) { foreach (OpponentsOf(intval($player)) as $o) SWUDealDamageToBase(2, $o); });
             $lead->Deployed = false; // flip back to the Heroism face
             if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'FLIP', 'p' => intval($player), 'cardID' => 'TWI_017']);
         }

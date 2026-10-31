@@ -174,6 +174,13 @@ function MatchGetGameWinner() {
     return ($w >= 1 && $w <= 4) ? $w : 0;
 }
 
+// A DRAWN game (CR 6.3). A sim records one as GAMEOVER_WINNER '-1' — over, with no winning seat — so MatchGetGameWinner
+// stays 0 for it and this is how the match layer tells "drawn" from "not over yet". Sims that never draw never write it.
+function MatchGetGameIsDraw() {
+    if (!class_exists('DecisionQueueController')) return false;
+    return strval(DecisionQueueController::GetVariable('GAMEOVER_WINNER') ?? '') === '-1';
+}
+
 // The full winner SET. Most games have exactly one winner, but a multiplayer format can end in a
 // shared victory (SWU Twin Suns, CR §12.7.3: tied-highest remaining base HP all win), so the engine
 // also writes GAMEOVER_WINNERS — a concat of the winning seats, e.g. "24". GAMEOVER_WINNER holds the
@@ -535,8 +542,10 @@ function MatchAcceptRematch($rootName, $oldMatchId) {
     MatchWithLock($rootName, $oldMatchId, function (&$mm) { unset($mm['rematchRequests']); }); // fire once
 
     $oldGame = !empty($m['games']) ? $m['games'][count($m['games'])-1]['gameName'] : '';
-    $lastWinner = !empty($m['games']) ? intval($m['games'][count($m['games'])-1]['winner'] ?? 1) : 1;
-    $first = ($lastWinner === 1) ? 2 : 1; // loser of the prior game goes first
+    $lastGame = !empty($m['games']) ? $m['games'][count($m['games'])-1] : [];
+    $lastWinner = intval($lastGame['winner'] ?? 1);
+    // Loser of the prior game goes first; after a DRAW nobody lost, so 0 = random (no forced first player).
+    $first = !empty($lastGame['draw']) ? 0 : (($lastWinner === 1) ? 2 : 1);
 
     if ($sideboard) {
         MatchBeginSideboarding($rootName, $newId, $first);
@@ -565,12 +574,12 @@ function MatchAcceptConvertToBo3($rootName, $matchId) {
     if (empty($m['convertRequests']['1']) || empty($m['convertRequests']['2'])) return null;
     MatchWithLock($rootName, $matchId, function (&$mm) {
         $mm['bestOf'] = 3; $mm['winsNeeded'] = 2; $mm['state'] = 'in_progress';
-        unset($mm['convertRequests'], $mm['winner']);
+        unset($mm['convertRequests'], $mm['winner'], $mm['matchDraw']);   // a drawn Bo1 becomes a live Bo3
     });
     // Game 1's win stays recorded (1-0). Re-enter sideboarding for game 2; loser of game 1 goes first.
     $m = MatchRead($rootName, $matchId);
     $g1winner = intval($m['games'][0]['winner'] ?? 1);
-    MatchBeginSideboarding($rootName, $matchId, ($g1winner === 1) ? 2 : 1);
+    MatchBeginSideboarding($rootName, $matchId, !empty($m['games'][0]['draw']) ? 0 : (($g1winner === 1) ? 2 : 1));   // drawn game 1: random
     $prior = $m['games'][count($m['games']) - 1]['gameName'] ?? '';
     if ($prior !== '') { $p = MatchSideboardPointerPath($rootName, $prior); if ($p !== '' && is_dir(dirname($p))) file_put_contents($p, json_encode(['matchId' => $matchId]), LOCK_EX); }
     return $matchId;
@@ -652,7 +661,8 @@ function MatchConcede($rootName, $matchId, $concedingSeat, ?array $gameDetail = 
 function MatchAfterActionHook($rootName, $gameName) {
     $ref = MatchReadRef($rootName, $gameName);
     if ($ref === null) return;                 // not a match game (goldfish/legacy)
-    if (MatchGetGameWinner() === 0) return;     // game not over
+    $isDraw = MatchGetGameIsDraw();
+    if (MatchGetGameWinner() === 0 && !$isDraw) return;     // game not over
 
     // Sealed: this game's result is already committed, so a post-rewind replay must change nothing —
     // no deck W/L, no stats submit, no re-recorded winner, no Bo3 sideboard spawn. Checked BEFORE
@@ -667,7 +677,8 @@ function MatchAfterActionHook($rootName, $gameName) {
     // Capture per-game telemetry/detail while this game's gamestate is loaded (for stats).
     $detail = MatchHook($rootName, 'captureGameDetail');
     $roundNumber = is_array($detail) ? intval($detail['turns'] ?? 0) : null; // gate early-concede stats (round < 2)
-    MatchRecordGameResult($rootName, $ref['matchId'], $gameName, $winner, $roundNumber, $winners);
+    if ($isDraw) MatchRecordGameDraw($rootName, $ref['matchId'], $gameName, $roundNumber);
+    else MatchRecordGameResult($rootName, $ref['matchId'], $gameName, $winner, $roundNumber, $winners);
     if ($detail !== null) {
         MatchWithLock($rootName, $ref['matchId'], function (&$mm) use ($gameName, $detail) {
             foreach ($mm['games'] as &$g) { if (($g['gameName'] ?? '') === strval($gameName)) { $g['detail'] = $detail; break; } }
@@ -699,7 +710,8 @@ function MatchAfterActionHook($rootName, $gameName) {
     // Twin Suns (and any >2-seat match) is Bo1-only, so MatchIsOver is always true after game 1
     // for those and this branch is unreachable in practice; the guard makes that crash-proof.
     if (count($m['players'] ?? []) > 2) return;
-    $loser = ($winner === 1) ? 2 : 1;
+    // After a drawn game there is no loser to go first: 0 = random (owner, 2026-10-30).
+    $loser = $isDraw ? 0 : (($winner === 1) ? 2 : 1);
     MatchBeginSideboarding($rootName, $ref['matchId'], $loser);
     $ptr = MatchSideboardPointerPath($rootName, $gameName);
     if ($ptr !== '' && is_dir(dirname($ptr))) file_put_contents($ptr, json_encode(['matchId' => $ref['matchId']]), LOCK_EX);

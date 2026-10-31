@@ -82,9 +82,11 @@ if ($all && $p1 && $p2) {
     SwuPgnTestCheck(!str_contains($f['all'] . $f['p1'] . $f['p2'], '"ms"'), 'no ms anywhere');
     $end = end($all['events']);
     SwuPgnTestCheck(($end['t'] ?? '') === 'GAME_END' && $end['winner'] === 1 && str_ends_with($end['seq'], '.game-end'), 'the last event is GAME_END at <round>.<phase>.game-end');
-    SwuPgnTestCheck(count(array_filter($all['cards'], fn($c) => $c['id'] === 'SOR#95' && $c['name'] === 'Battlefield Marine' && ($c['kind'] ?? null) === 'unit')) === 1, 'CARDS names the cards, with kind');
+    SwuPgnTestCheck(count(array_filter($all['cards'], fn($c) => $c["id"] === "SOR#095" && $c["name"] === "Battlefield Marine" && ($c['kind'] ?? null) === 'unit')) === 1, 'CARDS names the cards, with kind');
     SwuPgnTestCheck(is_array($all['story']) && count($all['story']) > 0, 'a STORY');
     SwuPgnTestEq(count($all['decks']), 2, 'DECKS for both seats');
+    SwuPgnTestEq(array_map(fn($r) => [$r['seq'], $r['t']], $all['setup']), [['R0.S.0', 'INIT']], '§8 [W-35]: the INIT record is R0.S.0');
+    SwuPgnTestEq($h['WriterRevision'] ?? null, '2', '[W-12] WriterRevision 2 (the 2026-10-28 text)');
 }
 $hl = $healthLines();
 SwuPgnTestCheck(count($hl) === 1 && ($hl[0]['game'] ?? '') === $gameName && empty($hl[0]['refused']), 'one health line', json_encode($hl));
@@ -186,6 +188,27 @@ $sf = $files($gameName);
 SwuPgnTestCheck($sf['all'] !== null && $sf['p1'] !== null && $sf['p2'] !== null, 'a file failing our check is still written');
 SwuPgnTestEq(array_map(fn($t) => $t === null ? null : (SwuPgnParse($t)['headers']['RecorderErrors'] ?? null), $sf), ['all' => '1', 'p1' => '1', 'p2' => '1'],
     'and every file carries [RecorderErrors "1"]');
+
+// A DRAW (CR 6.3): two Sabine Wren leaders, both bases at 29 of 30; one "deal 1 damage to each base" defeats both.
+// The game finishes with Result "Draw" and a GAME_END whose winner is "Draw" — the spec's existing value, so no
+// WriterRevision bump.
+$gameName = 'swupgnfin_draw_' . getmypid(); $games[] = $gameName;
+@mkdir('./SWUSim/Games/' . $gameName, 0777, true);
+$b = new GameStateBuilder();
+CommonSetup($b, 'grw', 'grw', ['resourceCount' => 4, 'baseDamage' => 29], ['resourceCount' => 4, 'baseDamage' => 29]);
+$b->WithActivePlayer(1);
+foreach (['SOR_101', 'SOR_102'] as $c) { $b->WithCardInDeckForPlayer(1, $c); $b->WithCardInDeckForPlayer(2, $c); }
+$a = new GameTestAdapter(); $a->loadState($b);
+SwuPgnRecForceForTest($gameName);
+$frame(fn() => $a->useLeaderAbility(1));
+SwuPgnTestEq(SWUGetGameWinner(), -1, 'the game is a draw');
+$df = $files($gameName);
+$dAll = $checkFile($df['all'], 'the drawn all.swupgn');
+if ($dAll) {
+    SwuPgnTestEq([$dAll['headers']['Result'], $dAll['headers']['Reason']], ['Draw', 'Base Destroyed'], 'Result Draw / Reason Base Destroyed');
+    $dEnd = end($dAll['events']);
+    SwuPgnTestCheck(($dEnd['t'] ?? '') === 'GAME_END' && ($dEnd['winner'] ?? null) === 'Draw', 'GAME_END winner "Draw"', json_encode($dEnd));
+}
 
 foreach ($games as $x) exec('rm -rf ' . escapeshellarg('./SWUSim/Games/' . $x));
 @unlink(MatchPath('SWUSim', $matchId)); @unlink($health);

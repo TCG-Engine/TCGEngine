@@ -9,6 +9,15 @@ function SwuPgnNote(array $note): void {
     if (empty($GLOBALS['SWU_PGN_RECORDING'])) return;
     try {
         _SwuPgnTestThrow('note');
+        // §9.1: a play, attack, deploy or action ability is a player's own (numbered) action only as the first one of a request
+        // that began with no decision pending; any other was made by an ability resolving — a lettered sub-step (`sub`).
+        $t = $note['t'] ?? '';
+        if (in_array($t, ['PLAY', 'ATTACK', 'DEPLOY'], true) || ($t === 'ABILITY' && in_array($note['kind'] ?? '', ['action', 'epic'], true))) {
+            $note['sub'] = !empty($GLOBALS['SWU_PGN_FRAME_BUSY']) || !empty($GLOBALS['SWU_PGN_ACTED']);
+            $GLOBALS['SWU_PGN_ACTED'] = true;
+        } elseif (in_array($t, ['PASS', 'CLAIM'], true)) {
+            $GLOBALS['SWU_PGN_ACTED'] = true;
+        }
         $GLOBALS['SWU_PGN_NOTES'][] = $note;
     } catch (Throwable $e) { _SwuPgnNoteFailed($e); }
 }
@@ -182,6 +191,12 @@ function SwuPgnNoteChoice(int $player, $head, string $answer): void {
                 $seats[] = str_starts_with($mz, 'their') ? 3 - $player : $player;
                 $zones[] = _SwuPgnNoteMzZone($mz);
             }
+        } elseif ($type === 'NAMECARD') {
+            // §10.2 [W-51]: "Name a card" — a NAME, the title as printed (the client may send other casing), not a CHOICE.
+            $name = $answer;
+            foreach ($GLOBALS['titleData'] ?? [] as $t) if (strcasecmp(trim((string)$t), trim($answer)) === 0) { $name = (string)$t; break; }
+            SwuPgnNote(['t' => 'NAME', 'p' => $player, 'name' => trim($name)]);
+            return;
         } elseif ($type === 'OPTIONCHOOSE' || $type === 'YESNO') {
             $offered = $type === 'YESNO' ? ['YES', 'NO'] : explode('&', strval($head->Param ?? ''));
             $idx = array_search($answer, $offered, true);

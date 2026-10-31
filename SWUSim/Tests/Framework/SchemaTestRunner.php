@@ -1539,6 +1539,13 @@ class SchemaTestRunner {
                 if ($g->state->winner() !== 2)
                     $failures[] = "P2WIN: winner is " . var_export($g->state->winner(), true);
 
+            } elseif ($line === 'DRAW') {
+                // CR 6.3: both bases reached 0 remaining HP in the same event — the game ended with no winner.
+                // A draw is stored as the winner sentinel SWU_GAME_DRAW (-1), so it is distinct from both a
+                // decided game and an undecided one (NOWINNER).
+                if ($g->state->winner() !== -1)
+                    $failures[] = "DRAW: winner is " . var_export($g->state->winner(), true);
+
             } elseif ($line === 'NOWINNER') {
                 // The game has NOT been decided. The positive P1WIN/P2WIN forms cannot express this,
                 // and "nobody has won yet" is exactly the property a premature game-over breaks —

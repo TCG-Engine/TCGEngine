@@ -33,9 +33,18 @@ function SWUMetaPremierClassify(array $m): ?array {
     $u1 = intval($players['1']['userId'] ?? 0); $u2 = intval($players['2']['userId'] ?? 0);
     if ($u1 <= 0 || $u2 <= 0 || $u1 === $u2) return null;
     $winner = intval($m['winner'] ?? 0);
+    $games = is_array($m['games'] ?? null) ? $m['games'] : [];
+    if (!empty($m['matchDraw'])) {
+        // A DRAWN match (CR 6.3; the series ended with equal game wins): 0.5 each. Rated per MATCH, like a win (spec call).
+        // Seat 1 fills the winner columns only because the results log has no nullable form — `outcome` says draw.
+        $started = count($games) >= 2;
+        foreach ($games as $g) if (($g['detail']['pregameDone'] ?? false) === true) $started = true;
+        return ['matchId' => strval($m['matchId'] ?? ''), 'matchCreatedAt' => intval($m['createdAt'] ?? 0), 'format' => strval($m['format']),
+                'queueType' => strval($m['queueType'] ?? 'bo1'), 'winnerSeat' => 1, 'loserSeat' => 2,
+                'winnerUserId' => $u1, 'loserUserId' => $u2, 'outcome' => 'draw', 'started' => $started];
+    }
     if ($winner !== 1 && $winner !== 2) return null;
     $loser = ($winner === 1) ? 2 : 1;
-    $games = is_array($m['games'] ?? null) ? $m['games'] : [];
 
     $started = count($games) >= 2;
     foreach ($games as $g) if (($g['detail']['pregameDone'] ?? false) === true) $started = true;
@@ -155,6 +164,8 @@ function SWUMetaPremierApply(mysqli $conn, array $c, ?int $now = null): string {
     if (!SWUMetaPremierTablesReady($conn)) return 'no_tables';
     $punished = in_array($c['outcome'], ['abandon', 'early'], true);   // a rated loss plus the penalty and a strike
     if (!$c['started'] && !$punished) return 'skipped';
+    $draw = ($c['outcome'] === 'draw');
+    if ($draw && !DBColumnExists($conn, 'glicko_ratings', 'draws')) return 'skipped';   // migration 22 not run: don't mis-rate it
     $conn->begin_transaction();
     try {
         $qt = $c['queueType'];
@@ -173,8 +184,9 @@ function SWUMetaPremierApply(mysqli $conn, array $c, ?int $now = null): string {
 
         // Each side is rated against the OTHER side's pre-match values; idle weeks since its last rated match inflate RD.
         $idle = fn($row) => $row['lastRatedAt'] === null ? 0.0 : max(0.0, ($now - intval($row['lastRatedAt'])) / MP_PERIOD_SECONDS);
-        $wa = Glicko2Rate($wb, [['rating' => $lb['rating'], 'rd' => $lb['rd'], 'score' => 1.0]], $idle($wRow), MP_TAU);
-        $la = Glicko2Rate($lb, [['rating' => $wb['rating'], 'rd' => $wb['rd'], 'score' => 0.0]], $idle($lRow), MP_TAU);
+        $wScore = $draw ? 0.5 : 1.0;   // a draw scores half for each side
+        $wa = Glicko2Rate($wb, [['rating' => $lb['rating'], 'rd' => $lb['rd'], 'score' => $wScore]], $idle($wRow), MP_TAU);
+        $la = Glicko2Rate($lb, [['rating' => $wb['rating'], 'rd' => $wb['rd'], 'score' => 1.0 - $wScore]], $idle($lRow), MP_TAU);
         $wa['rating'] = max(MP_RATING_FLOOR, $wa['rating']);
         $abandon = ($c['outcome'] === 'abandon');   // counted in `abandons`; an early concede is punished but not counted
         $glickoLoser = max(MP_RATING_FLOOR, $la['rating']);
@@ -185,8 +197,10 @@ function SWUMetaPremierApply(mysqli $conn, array $c, ?int $now = null): string {
 
         $season = MP_SEASON;
         $up = $conn->prepare("UPDATE glicko_ratings SET rating=?, rd=?, volatility=?, games=games+1, wins=wins+?, losses=losses+?,
-                              abandons=abandons+?, lastRatedAt=?, updatedAt=? WHERE userId=? AND format=? AND queueType=? AND season=?");
-        foreach ([[$c['winnerUserId'], $wa, 1, 0, 0], [$c['loserUserId'], $la, 0, 1, $abandon ? 1 : 0]] as [$uid, $after, $w, $l, $ab]) {
+                              abandons=abandons+?, lastRatedAt=?, updatedAt=?" . ($draw ? ", draws=draws+1" : "") . " WHERE userId=? AND format=? AND queueType=? AND season=?");
+        $rows = $draw ? [[$c['winnerUserId'], $wa, 0, 0, 0], [$c['loserUserId'], $la, 0, 0, 0]]
+                      : [[$c['winnerUserId'], $wa, 1, 0, 0], [$c['loserUserId'], $la, 0, 1, $abandon ? 1 : 0]];
+        foreach ($rows as [$uid, $after, $w, $l, $ab]) {
             $up->bind_param('dddiiiiiissi', $after['rating'], $after['rd'], $after['volatility'], $w, $l, $ab, $now, $now, $uid, $fmt, $qt, $season);
             $up->execute();
         }
@@ -206,7 +220,8 @@ function SWUMetaPremierApply(mysqli $conn, array $c, ?int $now = null): string {
 function SWUMetaPremierGetRating(mysqli $conn, int $userId, string $queueType, string $format = MP_FORMAT): ?array {
     if (!SWUMetaPremierTablesReady($conn)) return null;
     $season = MP_SEASON;
-    $st = $conn->prepare("SELECT rating, rd, volatility, games, wins, losses, abandons FROM glicko_ratings WHERE userId=? AND format=? AND queueType=? AND season=?");
+    $draws = DBColumnExists($conn, 'glicko_ratings', 'draws') ? ', draws' : '';   // migration 22
+    $st = $conn->prepare("SELECT rating, rd, volatility, games, wins, losses, abandons$draws FROM glicko_ratings WHERE userId=? AND format=? AND queueType=? AND season=?");
     $st->bind_param('issi', $userId, $format, $queueType, $season); $st->execute();
     $row = $st->get_result()->fetch_assoc(); $st->close();
     return $row ?: null;

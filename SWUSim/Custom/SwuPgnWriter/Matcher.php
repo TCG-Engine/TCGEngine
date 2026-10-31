@@ -12,6 +12,7 @@
 //   DISCARD {p, cardIDs[]}  RESOURCE {p, cardID?}  SEARCH {p, cardIDs[]}  REVEAL {p, zone, cardIDs[]}  CAPTURE {p, cardID, by}
 //   RESCUE {p, cardID}  CONTROL {p, uid}  DEPLOY {p, cardID, epic, pilotHostUid?}  FLIP {p, cardID, onStartingSide}
 //   PASS {p}  CLAIM {p}  MULLIGAN {p}  KEEP {p}  BASE_DEFEAT {p, seat, by?} (seat's base defeated outright by p: no damage dealt)
+//   NAME {p, name}  LOOK {p, owner, zone, cardIDs[]}  (SEARCH also carries seen[]; an action note carries sub: made while an ability resolved, §9.1)
 
 const SWUPGN_TOKEN_CARDS = ['shield' => 'SOR_T02', 'experience' => 'SOR_T01', 'advantage' => 'ASH_T02', 'weakness' => 'HMW_T02'];
 const SWUPGN_ACTION_NOTES = ['PLAY', 'ATTACK', 'DEPLOY', 'PASS', 'CLAIM'];
@@ -69,7 +70,13 @@ function _SwuPgnMRef(array &$run, $x, ?int $seat = null, ?string $zone = null): 
         if ($mine) return $mine[0][1];
     }
     if (isset($run['lastCopy'][$x])) return $run['lastCopy'][$x];
-    foreach ($run['ctx']['ledger']['zones'] as $zones) foreach ($zones as $list) foreach ($list as $c) if (SwuPgnBaseId($c) === $ref) return $c;
+    // No seat: a copy somewhere public before one in a deck/hand/row — a card that acted (an effect's source) is out
+    // in the open, and naming a hidden same-named copy would misattribute it (and read HIDDEN in a seat's view).
+    foreach ([true, false] as $publicOnly)
+        foreach ($run['ctx']['ledger']['zones'] as $zones) foreach ($zones as $zone => $list) {
+            if ($publicOnly && in_array($zone, ['deck', 'hand', 'resource'], true)) continue;
+            foreach ($list as $c) if (SwuPgnBaseId($c) === $ref) return $c;
+        }
     return $ref;
 }
 
@@ -214,6 +221,9 @@ function _SwuPgnMMove(array &$run, array $c, ?int $owner): string {
         return $copy;
     }
     $exhaustedOut = $c['from'] === 'resource' && !empty($c['fromExhausted']) ? true : null;
+    // §10.1 [W-45]: a card entering the row exhausted (resourced in the regroup phase, CR 5.5.1.c, or put there exhausted by
+    // an ability) says so on its MOVE — no EXHAUST_RESOURCES follows.
+    $exhaustedIn = $c['to'] === 'resource' && $c['from'] !== 'resource' && !empty($c['exhausted']) ? true : null;
     $leavesRow = $cross && $c['from'] === 'resource';
     if ($leavesRow) _SwuPgnMEmit($run, 'TAKE_CONTROL', ['p' => $toSeat, 'card' => $copy, 'zone' => 'resource', 'from' => $fromSeat, 'exhausted' => $exhaustedOut], $owner);
     if ($leavesRow && $c['to'] === 'resource') return $copy;   // stolen into the thief's row: a control change, no MOVE (§10)
@@ -223,11 +233,11 @@ function _SwuPgnMMove(array &$run, array $c, ?int $owner): string {
     $ontoBase = _SwuPgnMBaseHost($c);
     _SwuPgnMEmit($run, 'MOVE', ['card' => $copy, 'from' => $c['from'], 'to' => $c['to'], 'p' => $p,
         'kind' => $attaching ? 'upgrade' : _SwuPgnMKind($c['cardID']),
-        'attachedTo' => $attaching ? _SwuPgnMRef($run, intval($c['host'])) : $ontoBase, 'exhausted' => $exhaustedOut], $owner);
+        'attachedTo' => $attaching ? _SwuPgnMRef($run, intval($c['host'])) : $ontoBase, 'exhausted' => $exhaustedOut ?? $exhaustedIn], $owner);
     if ($c['to'] === 'resource') _SwuPgnMEmit($run, 'RESOURCE', ['p' => $p, 'card' => $copy], $owner);
     if ($cross && !$leavesRow && !isset($c['host']) && (in_array($c['to'], SWUPGN_ARENAS, true) || $c['to'] === 'resource')) {
         _SwuPgnMEmit($run, 'TAKE_CONTROL', ['p' => $toSeat, 'card' => $copy, 'zone' => $c['to'],
-            'from' => $c['to'] === 'resource' ? $fromSeat : null], $owner);
+            'from' => $c['to'] === 'resource' ? $fromSeat : null, 'exhausted' => $c['to'] === 'resource' ? $exhaustedIn : null], $owner);
     }
     return $copy;
 }
@@ -242,8 +252,8 @@ function _SwuPgnMEnsureUid(array &$run, int $uid): void {
     if (_SwuPgnMPlain($run, $run['pool'][$i], $run['ctx']['phase'] ?? 'A')) $run['gaps'][] = $run['pool'][$i];
 }
 
-// What follows an arrival: an exhausted entry into play (or home) is an EXHAUST; into the row, EXHAUST_RESOURCES — in the
-// row it arrived in. A resource stolen row to row kept its bucket (the TAKE_CONTROL moved it): only a change of state is
+// What follows an arrival: an exhausted entry into play (or home) is an EXHAUST; into the row, nothing — its MOVE said so
+// (§10.1 [W-45]). A resource stolen row to row kept its bucket (the TAKE_CONTROL moved it): only a change of state is
 // written.
 function _SwuPgnMArrival(array &$run, array $c, string $copy, ?int $owner): void {
     $seat = intval($c['toSeat'] ?? $c['seat']);
@@ -254,13 +264,18 @@ function _SwuPgnMArrival(array &$run, array $c, string $copy, ?int $owner): void
     }
     if (empty($c['exhausted']) || (isset($c['host']) && empty($c['detach']) && in_array($c['to'], SWUPGN_ARENAS, true))) return;
     if (in_array($c['to'], ['ground', 'space', 'base'], true)) _SwuPgnMEmit($run, 'EXHAUST', ['card' => $copy], $owner);
-    elseif ($c['to'] === 'resource') _SwuPgnMEmit($run, 'EXHAUST_RESOURCES', ['p' => $seat, 'amount' => 1], $owner);
 }
 
 function _SwuPgnMStats(array &$run, $uid, ?int $owner): void {
     if ($uid === null) return;
     $s = _SwuPgnMTake($run, fn($c) => $c['k'] === 'stats' && $c['uid'] === $uid);
-    if ($s !== null) _SwuPgnMEmit($run, 'STATS', ['card' => _SwuPgnMRef($run, intval($uid)), 'power' => $s['power'], 'hp' => $s['hp'], 'keywords' => $s['keywords']], $owner);
+    if ($s !== null) _SwuPgnMEmit($run, 'STATS', _SwuPgnMStatsFields($run, $s), $owner);
+}
+// §10.1 STATS: power, hp, keywords, and [W-55] traits on every one, blank / leaderUnit only when true. No copyOf: SWUSim's
+// Clone holds only the copied CardID, not which copy it copied — omitted rather than guessed (§13).
+function _SwuPgnMStatsFields(array &$run, array $s): array {
+    return ['card' => _SwuPgnMRef($run, intval($s['uid'])), 'power' => $s['power'], 'hp' => $s['hp'], 'keywords' => $s['keywords'],
+        'traits' => $s['traits'] ?? null, 'blank' => !empty($s['blank']) ? true : null, 'leaderUnit' => !empty($s['leaderUnit']) ? true : null];
 }
 
 function _SwuPgnMTokenEvents(array &$run, array $c, ?int $owner): void {
@@ -485,16 +500,45 @@ function _SwuPgnMNote(array &$run, int $ni, array $n): void {
             _SwuPgnMArrival($run, $mv, $copy, $ni);
             return;
         }
-        case 'SEARCH':
-            // §10.2: SEARCH, then a MOVE for only the cards that left the deck.
-            _SwuPgnMEmit($run, 'SEARCH', ['p' => $p], $ni);
+        case 'SEARCH': {
+            // §10.2: SEARCH, then a MOVE for only the cards that left the deck. [W-50] `owner` (the searcher's own deck) and
+            // `seen` (every card looked at: the cards found, then the rest — still staged, or back in the deck), filled once
+            // the found cards' copies are known.
+            $at = count($run['out']);
+            _SwuPgnMEmit($run, 'SEARCH', ['p' => $p, 'owner' => $p ?: null], $ni);
+            $found = [];
             foreach ($n['cardIDs'] ?? [] as $id) {
                 $mv = _SwuPgnMTake($run, fn($c) => $c['k'] === 'move' && $c['seat'] === $p && $c['cardID'] === $id && in_array($c['from'], ['deck', 'temp'], true));
-                if ($mv !== null) _SwuPgnMMove($run, $mv, $ni);
+                if ($mv !== null) $found[] = [$id, _SwuPgnMMove($run, $mv, $ni)];
+            }
+            if (isset($n['seen'])) {
+                $seen = [];
+                foreach ($n['seen'] as $id) {
+                    $k = array_search($id, array_column($found, 0), true);
+                    if ($k !== false) { $seen[] = $found[$k][1]; array_splice($found, $k, 1); continue; }
+                    $ref = _SwuPgnMRef($run, $id, $p, 'temp');
+                    if (in_array($ref, $seen, true)) $ref = _SwuPgnMRef($run, $id, $p, 'deck');
+                    $seen[] = $ref;
+                }
+                $run['out'][$at]['ev']['seen'] = $seen;
             }
             return;
+        }
         case 'REVEAL':
-            _SwuPgnMEmit($run, 'REVEAL', ['p' => $p, 'zone' => $n['zone'] ?? 'hand', 'cards' => array_map(fn($x) => _SwuPgnMRef($run, $x), $n['cardIDs'] ?? [])], $ni);
+            // The revealing seat's own copies, in the zone shown (a card can be in both decks).
+            _SwuPgnMEmit($run, 'REVEAL', ['p' => $p, 'zone' => $n['zone'] ?? 'hand',
+                'cards' => array_map(fn($x) => _SwuPgnMRef($run, $x, $p ?: null, $n['zone'] ?? 'hand'), $n['cardIDs'] ?? [])], $ni);
+            return;
+        case 'LOOK': {
+            // §10.2 [W-50]: p looked at count cards of owner's zone without revealing them (CR 8.13) — the owner's copies.
+            $owner = intval($n['owner'] ?? $p);
+            $cards = array_map(fn($x) => _SwuPgnMRef($run, $x, $owner ?: null, $n['zone'] ?? 'deck'), $n['cardIDs'] ?? []);
+            if ($cards) _SwuPgnMEmit($run, 'LOOK', ['p' => $p, 'owner' => $owner, 'zone' => $n['zone'] ?? 'deck', 'cards' => $cards, 'count' => count($cards)], $ni);
+            return;
+        }
+        case 'NAME':
+            // §10.2 [W-51]: a named card, as text — before the record that uses the name (notes run in engine order).
+            if (($n['name'] ?? '') !== '') _SwuPgnMEmit($run, 'NAME', ['p' => $p, 'name' => strval($n['name'])], $ni);
             return;
         case 'CAPTURE': {
             $cap = _SwuPgnMTake($run, fn($c) => $c['k'] === 'capture' && $c['cardID'] === $n['cardID'] && (!isset($n['by']) || $c['captor'] === $n['by']));
@@ -578,7 +622,7 @@ function _SwuPgnMUnclaimed(array &$run): array {
     $gaps = $run['gaps'];   // any written early (_SwuPgnMEnsureUid)
     $phase = $run['ctx']['phase'] ?? 'A';
     $buckets = [
-        ['move', 'capture', 'rescue', 'control', 'credit', 'force'], ['damage', 'heal'], ['token'],
+        ['move', 'capture', 'rescue', 'control', 'upgControl', 'credit', 'force'], ['damage', 'heal'], ['token'],
         ['exhaust', 'ready', 'resources'], ['stats'], ['leader', 'baseEpic', 'initiative'],
     ];
     foreach ($buckets as $kinds) {
@@ -624,6 +668,17 @@ function _SwuPgnMPlain(array &$run, array $c, string $phase): bool {
             return true;
         }
         case 'control': _SwuPgnMControl($run, $c, null); return true;
+        case 'upgControl': {
+            // §10.1 TAKE_CONTROL, upgrade form [W-56]: card = the upgrade, zone = its host's arena, from = its old controller.
+            $L = $run['ctx']['ledger'];
+            $host = SwuPgnLedgerByUid($L, intval($c['host']));
+            $zone = $host !== null ? (_SwuPgnLedgerLocate($L, $host)[1] ?? 'ground') : 'ground';
+            $copy = null;
+            foreach ([1, 2] as $s) foreach ($L['zones'][$s]['attached:' . $c['host']] ?? [] as $x) if ($copy === null && SwuPgnBaseId($x) === SwuPgnCardRef($c['cardID'])) $copy = $x;
+            _SwuPgnMEmit($run, 'TAKE_CONTROL', ['p' => intval($c['to']), 'card' => $copy ?? SwuPgnCardRef($c['cardID']),
+                'zone' => in_array($zone, SWUPGN_ARENAS, true) ? $zone : 'ground', 'from' => intval($c['from'])], null);
+            return true;
+        }
         case 'credit':
         case 'force': {
             $cardID = $c['k'] === 'credit' ? 'LAW_T01' : 'LOF_T03';
@@ -657,7 +712,7 @@ function _SwuPgnMPlain(array &$run, array $c, string $phase): bool {
             _SwuPgnMEmit($run, $c['exhaustedDelta'] > 0 ? 'EXHAUST_RESOURCES' : 'READY_RESOURCES', ['p' => $seat, 'amount' => abs($c['exhaustedDelta'])], null);
             return $phase !== 'G';
         case 'stats':
-            _SwuPgnMEmit($run, 'STATS', ['card' => _SwuPgnMRef($run, intval($c['uid'])), 'power' => $c['power'], 'hp' => $c['hp'], 'keywords' => $c['keywords']], null);
+            _SwuPgnMEmit($run, 'STATS', _SwuPgnMStatsFields($run, $c), null);
             return false;
         case 'leader':
             if ($c['field'] === 'onStartingSide') {
@@ -787,6 +842,9 @@ function _SwuPgnMSequence(array &$run): array {
     if (($ctx['counters']['key'] ?? null) !== $key) $ctx['counters'] = ['key' => $key, 'step' => 0, 'sub' => 0];
     $cn = &$ctx['counters'];
     $out = &$run['out'];
+    // §9.1: an action an ability made while it resolved (its note says `sub`) is a lettered sub-step, not a new number.
+    foreach ($out as &$e) if ($e['top'] && $e['owner'] !== null && !empty($run['notes'][$e['owner']]['sub'])) $e['top'] = false;
+    unset($e);
     foreach ($out as &$e) {
         if ($phase !== 'A' || $e['top']) { $cn['step']++; $cn['sub'] = 0; $e['seq'] = "$key.{$cn['step']}"; $e['isStep'] = true; }
         else { $cn['sub']++; $e['seq'] = "$key.{$cn['step']}" . _SwuPgnSubLetters($cn['sub']); $e['isStep'] = false; }
@@ -825,6 +883,14 @@ function _SwuPgnMSequence(array &$run): array {
         }
         if ($named) foreach ($runIdx as $j) $out[$j]['for'] = $e['seq'];
     }
+    // §10.2 [W-53]: one attack's combat damage is one simultaneous resolution (CR 6.3.5) — when it writes two or more DAMAGE /
+    // OVERWHELM records, each carries `simul` = the group's first seq. A new ATTACK starts a new group.
+    $groups = []; $g = 0;
+    foreach ($out as $i => $e) {
+        if ($e['ev']['t'] === 'ATTACK') { $g++; continue; }
+        if (($e['ev']['t'] === 'DAMAGE' && ($e['ev']['damageType'] ?? null) === 'combat') || $e['ev']['t'] === 'OVERWHELM') $groups[$g][] = $i;
+    }
+    foreach ($groups as $members) if (count($members) >= 2) foreach ($members as $i) $out[$i]['ev']['simul'] = $out[$members[0]]['seq'];
     $events = [];
     foreach ($out as $e) {
         $ev = ['seq' => $e['seq']] + $e['ev'];

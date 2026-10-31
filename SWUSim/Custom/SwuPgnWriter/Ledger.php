@@ -8,13 +8,26 @@
 function SwuPgnCardRef(string $cardID): string {
     $d = DecomposeCardID($cardID);
     if ($d === null) return $cardID;
-    if (!$d['isToken']) return $d['set'] . '#' . intval($d['number']);
+    if (!$d['isToken']) return $d['set'] . '#' . sprintf('%03d', intval($d['number']));   // §6.1: zero-padded to 3+ digits
     $reserved = ['Credit Token' => 'credit'];
     $type = (string)(CardType($cardID) ?? '');
-    $title = (string)(CardTitle($cardID) ?? '');
-    $name = $reserved[$type] ?? trim(preg_replace('/[^a-z0-9]+/', '-', strtolower($title)), '-');
+    $name = $reserved[$type] ?? SwuPgnTokenName((string)(CardTitle($cardID) ?? ''));
     $uuid = (string)(GetCardUUID($cardID) ?? '');
     return 'TOKEN:' . $name . ($uuid !== '' && ctype_digit($uuid) ? '#' . $uuid : '');
+}
+
+// §6.1 [W-40]: a token's name from its English printed title — NFKD, combining marks dropped, lower case, only a–z 0–9 and
+// spaces kept, trimmed, each run of spaces one "-" ("X-Wing" → "xwing", "TIE Fighter" → "tie-fighter"). Without the intl
+// extension a Latin-letter fold stands in for NFKD (token titles are ASCII today).
+function SwuPgnTokenName(string $title): string {
+    if (class_exists('Normalizer')) $title = (string)Normalizer::normalize($title, Normalizer::FORM_KD);
+    else $title = strtr($title, ['À'=>'A','Á'=>'A','Â'=>'A','Ã'=>'A','Ä'=>'A','Å'=>'A','Ç'=>'C','È'=>'E','É'=>'E','Ê'=>'E','Ë'=>'E',
+        'Ì'=>'I','Í'=>'I','Î'=>'I','Ï'=>'I','Ñ'=>'N','Ò'=>'O','Ó'=>'O','Ô'=>'O','Õ'=>'O','Ö'=>'O','Ù'=>'U','Ú'=>'U','Û'=>'U','Ü'=>'U',
+        'Ý'=>'Y','à'=>'a','á'=>'a','â'=>'a','ã'=>'a','ä'=>'a','å'=>'a','ç'=>'c','è'=>'e','é'=>'e','ê'=>'e','ë'=>'e','ì'=>'i','í'=>'i',
+        'î'=>'i','ï'=>'i','ñ'=>'n','ò'=>'o','ó'=>'o','ô'=>'o','õ'=>'o','ö'=>'o','ù'=>'u','ú'=>'u','û'=>'u','ü'=>'u','ý'=>'y','ÿ'=>'y']);
+    $s = preg_replace('/[\x{0300}-\x{036F}]/u', '', $title) ?? $title;
+    $s = preg_replace('/[^a-z0-9 ]/', '', strtolower($s));
+    return preg_replace('/ +/', '-', trim($s));
 }
 
 function _SwuPgnLedgerIssue(array &$ledger, string $ref): string {

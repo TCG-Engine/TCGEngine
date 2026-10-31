@@ -228,6 +228,10 @@ $pick = $head !== null ? explode('&', (string)$head->Param)[0] : '';
 $ev = array_merge($ev1, $ev2);
 SwuPgnTestCheck(NFind($ev, 'SEARCH', ['p' => 1]) !== null && NFind($ev, 'MOVE', ['from' => 'deck', 'to' => 'hand']) !== null, 'SEARCH, then the searched card\'s MOVE', NTypes($ev));
 SwuPgnTestEq($g1 + $g2, 0, 'a search leaves no gaps');
+$se = NFind($ev, 'SEARCH', ['p' => 1]) ?? [];
+SwuPgnTestCheck(($se['owner'] ?? null) === 1 && count($se['seen'] ?? []) >= 2 && count(array_unique($se['seen'])) === count($se['seen'])
+    && in_array(NFind($ev, 'MOVE', ['from' => 'deck', 'to' => 'hand'])['card'] ?? '-', $se['seen'], true),
+    '§10.2 [W-50]: SEARCH owner 1, seen = every card the search showed (distinct copies, the drawn one among them)', json_encode($se));
 
 // ── A mulligan writes the whole hand going back and the whole new hand drawn — even when the same cards come back ──────
 $g = NGame(function ($b) { for ($i = 0; $i < 6; $i++) $b->WithCardInHandForPlayer(1, 'SOR_095'); for ($i = 0; $i < 6; $i++) $b->WithCardInDeckForPlayer(1, 'SOR_095'); });
@@ -300,6 +304,51 @@ $di = null; foreach (array_values(array_filter(GetDiscard(1), fn($o) => empty($o
 [$ev, $gaps] = NFrame(fn() => $g->playFromDiscard(1, intval($di)));
 SwuPgnTestCheck(NFind($ev, 'PLAY_EVENT', ['p' => 1, 'card' => SwuPgnCardRef('SEC_053')]) !== null, 'an event played from the discard pile is a PLAY_EVENT', NTypes($ev));
 SwuPgnTestEq($gaps, 0, 'and leaves no gaps');
+
+// ── §9.1: a play / attack made while an ability resolves is a lettered sub-step, not a numbered action ──────────────
+// Syndicate Lackeys' Ambush: "After you play this unit, it may ready and attack an enemy unit." The attack is the keyword's.
+$g = NGame(fn($b) => $b->WithCardInHandForPlayer(1, 'SOR_213'), [], []);
+$enemy = new GroundArena('SOR_095'); $enemy->Status = 1; $enemy->Damage = 0; $enemy->Owner = 2; $enemy->Controller = 2; $enemy->UniqueID = 8801; $enemy->Subcards = []; $enemy->TurnEffects = [];
+$eg = &GetGroundArena(2); $eg[] = $enemy; unset($eg);
+SwuPgnStateWrite($gameName, ['prev' => SwuPgnSnapshot()] + SwuPgnStateRead($gameName));
+$ledger = SwuPgnStateRead($gameName)['ledger']; SwuPgnLedgerPut($ledger, 2, 'ground', SwuPgnLedgerNewToken($ledger, 'SOR_095'), 8801);
+SwuPgnStateWrite($gameName, ['ledger' => $ledger] + SwuPgnStateRead($gameName));
+$all = [];
+[$ev, ] = NFrame(fn() => $g->playCardFromHand(1, 0)); $all = array_merge($all, $ev);
+for ($i = 0; $i < 6; $i++) {
+    $head = null; foreach (GetDecisionQueue(1) as $d) if (empty($d->removed)) { $head = $d; break; }
+    if ($head === null) break;
+    $ans = match (strval($head->Type)) { 'YESNO' => 'YES', 'OPTIONCHOOSE' => explode('&', strval($head->Param))[0], default => explode('&', strval($head->Param))[0] };
+    [$ev, ] = NFrame(fn() => $g->answerDecision(1, $ans)); $all = array_merge($all, $ev);
+}
+$play = NFind($all, 'PLAY', ['p' => 1]); $atk = NFind($all, 'ATTACK', ['p' => 1]);
+SwuPgnTestCheck($play !== null && $atk !== null, 'the Ambush play and its attack are recorded', NTypes($all));
+if ($play !== null && $atk !== null) {
+    SwuPgnTestCheck(preg_match('/^R\d+\.A\.\d+[a-z]+$/', $atk['seq']) === 1 && str_starts_with($atk['seq'], $play['seq']),
+        '§9.1: the Ambush attack is a lettered sub-step of the play (' . $play['seq'] . ' → ' . $atk['seq'] . ')', array_map(fn($e) => $e['seq'] . ' ' . $e['t'], $all));
+}
+
+// ── §10.2 [W-51] NAME and [W-52] disclose ─────────────────────────────────────────────────────────
+$g = NGame(fn($b) => $b->WithCardInHandForPlayer(1, 'SOR_095'));
+DecisionQueueController::AddDecision(1, 'NAMECARD', '', 1, 'Name_a_card');
+[$ev, ] = NFrame(fn() => GameOnDecisionAnswered(1, 'battlefield marine'));
+SwuPgnTestEq(array_map(fn($e) => array_diff_key($e, ['seq' => 1]), array_values(array_filter($ev, fn($e) => in_array($e['t'], ['NAME', 'CHOICE'], true)))),
+    [['t' => 'NAME', 'p' => 1, 'name' => 'Battlefield Marine']], 'naming a card writes a NAME with the printed title (no CHOICE)');
+foreach (GetDecisionQueue(1) as $d) $d->removed = true;
+$handCopy = SwuPgnStateRead($gameName)['ledger']['zones'][1]['hand'][0] ?? null;
+[$ev, ] = NFrame(function () { global $customDQHandlers; $customDQHandlers['DISCLOSE_RESOLVE'](1, ['Command', ''], 'myHand-0'); });
+SwuPgnTestEq(array_map(fn($e) => array_diff_key($e, ['seq' => 1]), array_values(array_filter($ev, fn($e) => $e['t'] === 'REVEAL'))),
+    [['t' => 'REVEAL', 'p' => 1, 'zone' => 'hand', 'cards' => [$handCopy]]], 'a successful disclose: one REVEAL from hand naming the card shown');
+[$ev, ] = NFrame(function () { global $customDQHandlers; $customDQHandlers['DISCLOSE_RESOLVE'](1, ['Vigilance', ''], 'myHand-0'); });
+SwuPgnTestEq(array_values(array_filter($ev, fn($e) => $e['t'] === 'REVEAL')), [], 'a disclose that fails (does not cover) writes no REVEAL');
+
+// ── §10.2 [W-50] LOOK: a look at the top of the deck that puts the cards back (scry) ─────────────────
+$g = NGame(fn($b) => null);
+[$ev, ] = NFrame(fn() => DoScry(2, 2));   // seat 2: its copies of the cards both decks hold are the ":2" ones
+$look = NFind($ev, 'LOOK', ['p' => 2]);
+SwuPgnTestCheck($look !== null && $look['owner'] === 2 && $look['zone'] === 'deck' && $look['count'] === 2 && count($look['cards']) === 2
+    && count(array_intersect($look['cards'], SwuPgnStateRead($gameName)['ledger']['zones'][2]['deck'] ?? [])) === 2,
+    'a scry writes a LOOK: p 2, owner 2, deck, the two cards (seat 2\'s own deck copies), count 2', $ev);
 
 foreach ($games as $x) exec('rm -rf ' . escapeshellarg('./SWUSim/Games/' . $x));
 SwuPgnTestFinish();

@@ -1,6 +1,7 @@
 <?php
 // SWU-PGN step list for replay viewers: one step per numbered action (SWU-PGN/1.0 spec §16) plus one
-// per PHASE_START, each with the event position whose board it shows. Engine-free.
+// per PHASE_START, each with the event position whose board it shows. Engine-free. A seat's view words its captions
+// from the own-view cut (SwuPgnPerspective.php), so a card that seat never saw is "a card".
 
 // §9.1 "Which types can precede depends on the action".
 const SWUPGN_ATTACK_PRECURSORS = ['CHOICE', 'MODAL_CHOICE', 'EXHAUST'];
@@ -53,8 +54,9 @@ function _SwuPgnActionStart(array $events, int $i, int $floor): int
     return $named ? $start : $i;
 }
 
-// A story line as $seat sees it: the other seat's draws, resources and search finds name no card.
-// $seat null = all-seeing. $faces: which side of a two-named card is up at this event.
+// A story line as $seat sees it. $e is already the own-view cut's record (_SwuPgnCutRecords: a hidden card of the
+// other seat reads "a card", their LOOK names nothing); on top of it the other seat's draws, resources and searches
+// name no card even when the file has no INIT to tell whose cards are whose. $seat null = all-seeing.
 function _SwuPgnSeatLine(array $e, array $names, ?int $seat, ?array $faces = null): ?string
 {
     $p = $e['p'] ?? null;
@@ -73,10 +75,17 @@ function SwuPgnSteps(array $doc, ?int $seat = null): array
 {
     $events = array_values(array_slice(is_array($doc['events'] ?? null) ? $doc['events'] : [], 0, SWUPGN_MAX_EVENTS));
     $names = SwuPgnCardIndex($doc);
-    // The side of each two-named card that is up AT each event (before its own change).
+    // A seat's captions come from its own-view cut of the records (§21.1: what that seat did not see names no card); the
+    // steps themselves come from the file's records, so every view has the same steps.
+    $shown = $events;
+    if ($seat === 1 || $seat === 2) {
+        $shown = _SwuPgnCutRecords(['events' => $events] + $doc, $seat)['events'];
+        $names[SWUPGN_HIDDEN] = 'a card';
+    }
+    // What nm() knows AT each event (before its own change): the side that is up, copy names, effect sources.
     $faces = SwuPgnFacesStart(SwuPgnCardBackIndex($doc));
     $facesAt = [];
-    foreach ($events as $i => $e) {
+    foreach ($shown as $i => $e) {
         if (!is_array($e)) continue;
         if (_SwuPgnIsKeyframeEvent($e)) $faces = SwuPgnFacesStep($faces, $e);
         $facesAt[$i] = $faces;
@@ -106,12 +115,12 @@ function SwuPgnSteps(array $doc, ?int $seat = null): array
         $pos = isset($marks[$k + 1]) ? $marks[$k + 1]['start'] - 1 : $last;
         $anchor = $events[$m['anchor']];
         $caption = $m['kind'] === 'action'
-            ? (_SwuPgnSeatLine($anchor, $names, $seat, $facesAt[$m['anchor']] ?? null) ?? (string)($anchor['t'] ?? ''))
+            ? (_SwuPgnSeatLine($shown[$m['anchor']], $names, $seat, $facesAt[$m['anchor']] ?? null) ?? (string)($anchor['t'] ?? ''))
             : ($m['phase'] === 'setup' ? 'Setup' : "Round {$m['round']} · {$m['phase']} phase");
         $lines = [];
         for ($j = $m['start']; $j <= $pos; $j++) {
-            if ($j === $m['anchor'] || !is_array($events[$j])) continue;
-            $line = _SwuPgnSeatLine($events[$j], $names, $seat, $facesAt[$j] ?? null);
+            if ($j === $m['anchor'] || !is_array($shown[$j])) continue;
+            $line = _SwuPgnSeatLine($shown[$j], $names, $seat, $facesAt[$j] ?? null);
             if ($line !== null) $lines[] = $line;
         }
         $n = count($steps);

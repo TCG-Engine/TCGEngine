@@ -32,14 +32,41 @@ function SwuPgnTokenParts(string $id): ?array
     ];
 }
 
-// §6.1 "Two reserved token names": a Credit token drives `credits`, the Force token `hasForce`.
-// Recognised by name, so the degraded `TOKEN:credit` form counts too.
+// §6.1 "Two reserved token names": a Credit token drives `credits`, the Force token `hasForce`. Recognised by the
+// NAME PART: the text after `TOKEN:` with a copy suffix `:N` (N ≥ 2) and then any `#<cardId>` removed is exactly
+// `credit` / `the-force` — so `TOKEN:credit`, `TOKEN:credit:2`, `TOKEN:credit#8015500527:2` are Credits and
+// `TOKEN:credit:1` (which breaks the grammar) is not.
 function _SwuPgnReservedToken($id): ?string
 {
-    if (!is_string($id)) return null;
-    $t = SwuPgnTokenParts($id);
-    if ($t === null) return null;
-    return ($t['name'] === 'credit' || $t['name'] === 'the-force') ? $t['name'] : null;
+    if (!is_string($id) || strncmp($id, 'TOKEN:', 6) !== 0) return null;
+    $name = preg_replace('/#\d+\z/', '', preg_replace('/:(?:[2-9]\d*|1\d+)\z/', '', substr($id, 6)));
+    return ($name === 'credit' || $name === 'the-force') ? $name : null;
+}
+
+// Appendix B.3 token-card = "TOKEN:" token-name [ "#" 1*DIGIT ] [ copy ]; token-name = 1*(a-z / DIGIT) *("-" 1*(a-z / DIGIT));
+// copy = ":" (2 and up, no leading zero). [V-05] `bad-token-name`.
+function SwuPgnTokenIdOk(string $id): bool
+{
+    return (bool)preg_match('/^TOKEN:[a-z0-9]+(?:-[a-z0-9]+)*(?:#\d+)?(?::(?:[2-9]\d*|1\d+))?\z/', $id);
+}
+
+// §6.1 a token name (a STATUS_TOKEN.token) by the same grammar.
+function SwuPgnTokenNameOk(string $name): bool
+{
+    return (bool)preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*\z/', $name);
+}
+
+// §6.1 effect ids: `fx@N`, N counting from 1 with no leading zero.
+function SwuPgnEffectIdOk($id): bool
+{
+    return is_string($id) && (bool)preg_match('/^fx@[1-9]\d*\z/', $id);
+}
+
+// §23: the thirteen reserved names — every property of Object.prototype, and `prototype`.
+function SwuPgnReservedNames(): array
+{
+    return ['__proto__', '__defineGetter__', '__defineSetter__', '__lookupGetter__', '__lookupSetter__', 'constructor',
+        'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'valueOf', 'prototype'];
 }
 
 // §6.3 base@N → N; anything else → null (it is a card id).

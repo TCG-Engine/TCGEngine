@@ -40,6 +40,7 @@ CREATE TABLE `favoritedeck` (
   `isFavorite` tinyint(4) NOT NULL DEFAULT 0,
   `wins` int(11) NOT NULL DEFAULT 0,
   `losses` int(11) NOT NULL DEFAULT 0,
+  `draws` int(11) NOT NULL DEFAULT 0,
   `lastUsed` timestamp NULL DEFAULT NULL,
   `deckContent` mediumtext DEFAULT NULL,
   PRIMARY KEY (`decklink`,`usersId`),
@@ -57,6 +58,7 @@ CREATE TABLE `favoritedeckmatchup` (
   `oppBase` varchar(32) NOT NULL,
   `wins` int(11) NOT NULL DEFAULT 0,
   `losses` int(11) NOT NULL DEFAULT 0,
+  `draws` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`usersId`,`decklink`,`oppLeader`,`oppBase`),
   KEY `usersId_decklink` (`usersId`,`decklink`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
@@ -757,6 +759,7 @@ CREATE TABLE IF NOT EXISTS `glicko_ratings` (
   `games`       int(11)     NOT NULL DEFAULT 0,
   `wins`        int(11)     NOT NULL DEFAULT 0,
   `losses`      int(11)     NOT NULL DEFAULT 0,
+  `draws`       int(11)     NOT NULL DEFAULT 0,   -- migration 22: a drawn rated match (CR 6.3)
   `abandons`    int(11)     NOT NULL DEFAULT 0,
   `lastRatedAt` int(11)     NULL,
   `updatedAt`   int(11)     NOT NULL,

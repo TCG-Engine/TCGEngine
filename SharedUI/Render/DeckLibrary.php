@@ -188,9 +188,10 @@ function _DeckLibraryScript(array $config = []): string {
     var opt = sel.options[sel.selectedIndex];
     if(!opt || !opt.getAttribute('data-id')){ box.textContent = box.getAttribute('data-empty'); return; }
     var w = parseInt(opt.getAttribute('data-wins')||'0',10), l = parseInt(opt.getAttribute('data-losses')||'0',10);
-    var total = w + l;
+    var d = parseInt(opt.getAttribute('data-draws')||'0',10);   // drawn games (SWUSim); the attribute only exists when > 0
+    var total = w + l + d;
     var head = total===0 ? 'No Premier match stats'
-      : (w+' win'+(w===1?'':'s')+' - '+l+' loss'+(l===1?'':'es')+' - '+Math.round(w*100/total)+'%');
+      : (w+' win'+(w===1?'':'s')+' - '+l+' loss'+(l===1?'':'es')+(d>0 ? ' - '+d+' draw'+(d===1?'':'s') : '')+' - '+Math.round(w*100/total)+'%');
     box.innerHTML = '<div class=\"dl-stats-overall\">'+head+'</div><div class=\"dl-stats-matchups\">...</div>';
     var mu = box.querySelector('.dl-stats-matchups');
     var x = new XMLHttpRequest();
@@ -199,7 +200,7 @@ function _DeckLibraryScript(array $config = []): string {
       if(!r.success || !r.matchups || !r.matchups.length){ mu.textContent = total===0 ? '' : 'No matchup data yet.'; return; }
       var rows = r.matchups.map(function(m){
         return '<div class=\"dl-mu-row\"><span class=\"dl-mu-vs\">vs '+esc(m.oppLeaderTitle)+' / '+esc(m.oppBaseLabel)
-             + '</span><span class=\"dl-mu-rec\">'+m.wins+'-'+m.losses+'</span></div>'; }).join('');
+             + '</span><span class=\"dl-mu-rec\">'+m.wins+'-'+m.losses+(m.draws ? '-'+m.draws : '')+'</span></div>'; }).join('');
       mu.innerHTML = '<div class=\"dl-mu-title\">Matchups</div>'+rows;
     };
     x.send('action=matchups&decklink='+encodeURIComponent(opt.getAttribute('data-id')));
@@ -228,7 +229,8 @@ function RenderDeckLibrary(int $userId, array $config = []): string {
         $queueInput = !empty($deck['deckContent']) ? base64_decode($deck['deckContent']) : ($deck['decklink'] ?? '');
         $opts .= "<option data-id=\"{$esc($deck['decklink'] ?? '')}\" data-queue-input=\"{$esc($queueInput)}\" "
                . "data-name=\"{$esc($name)}\" data-fav=\"" . ($fav ? '1' : '0') . "\" "
-               . "data-wins=\"" . (int)($deck['wins'] ?? 0) . "\" data-losses=\"" . (int)($deck['losses'] ?? 0) . "\">"
+               . "data-wins=\"" . (int)($deck['wins'] ?? 0) . "\" data-losses=\"" . (int)($deck['losses'] ?? 0) . "\""
+               . ((int)($deck['draws'] ?? 0) > 0 ? " data-draws=\"" . (int)$deck['draws'] . "\"" : "") . ">"
                . ($fav ? '★ ' : '') . $esc($name) . "</option>";
     }
 

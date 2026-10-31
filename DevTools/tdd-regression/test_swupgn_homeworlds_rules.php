@@ -69,11 +69,11 @@ $s = HF([HM('SOR#095', 'hand', 'hand', 1)], SwuPgnTestKeyframe(['hand' => ['SOR#
 SwuPgnTestEq(HP($s, 1)['handSize'], 1, 'a same-zone MOVE outside the arenas is still non-conformant and ignored');
 SwuPgnTestEq(HErrors([HM('SOR#120', 'ground', 'ground', 1, ['kind' => 'upgrade', 'attachedTo' => 'SOR#046'])]), [], 'validate: a rebind in its arena is legal');
 SwuPgnTestEq(HErrors([HM('JTL#046', 'space', 'space', 1, ['kind' => 'unit'])]), [], 'validate: an ejection in its arena is legal');
-SwuPgnTestCheck(in_array('move.same-zone', HErrors([HM('SOR#095', 'hand', 'hand')]), true), 'validate: from = to anywhere else is still an error');
-SwuPgnTestCheck(in_array('move.same-zone', HErrors([HM('SOR#095', 'ground', 'ground')]), true), 'validate: a same-arena MOVE with no role (kind) is no rebind');
+SwuPgnTestCheck(in_array('same-zone-move', HErrors([HM('SOR#095', 'hand', 'hand')]), true), 'validate: from = to anywhere else is still an error');
+SwuPgnTestCheck(!in_array('same-zone-move', HErrors([HM('SOR#095', 'ground', 'ground')]), true), '§24 (10-28): same-zone-move is a MOVE from a zone to itself that is NOT an arena — a kind-less same-arena MOVE is not one (the fold still ignores it, below)');
 $s = HF([HM('JTL#046', 'ground', 'ground')], $kfPilot);
 SwuPgnTestEq(array_map(fn($c) => [$c['id'], $c['upgrades']], HP($s, 1)['cards']), [['JTL#081', ['JTL#046']]], '…and the fold ignores it like any non-conformant MOVE (the pilot stays on its host)');
-SwuPgnTestCheck(in_array('move.attached-to', HErrors([HM('SOR#120', 'ground', 'ground', 1, ['kind' => 'upgrade'])]), true), 'validate: a rebind onto a host names it');
+SwuPgnTestCheck(in_array('schema', HErrors([HM('SOR#120', 'ground', 'ground', 1, ['kind' => 'upgrade'])]), true), 'validate: a rebind onto a host names it');
 
 // ── §12.1 step 2c: base attachments ─────────────────────────────────────────────────────────────
 $kfH = SwuPgnTestKeyframe([], ['hand' => ['HMW#206'], 'handSize' => 1]);
@@ -93,10 +93,10 @@ SwuPgnTestEq([HP($s, 1)['baseUpgrades'] ?? null, HP($s, 2)['handSize'], array_ke
 $dmg = fn(array $x) => ['t' => 'DAMAGE', 'tgt' => 'base@1', 'amt' => 1, 'damageType' => 'ability', 'hp' => 29] + $x;
 SwuPgnTestEq(HErrors([$dmg([])]), [], 'validate: DAMAGE without src (the rules dealt it) is legal');
 foreach (['Framework effect', 'Framework effect:2', 'unknown', 'rule:deck-out'] as $bad) {
-    SwuPgnTestCheck(in_array('ref.not-card', HErrors([$dmg(['src' => $bad])]), true), "validate: DAMAGE.src \"$bad\" is not a card id or base@N");
+    SwuPgnTestCheck(in_array('schema', HErrors([$dmg(['src' => $bad])]), true), "validate: DAMAGE.src \"$bad\" is not a card id or base@N");
 }
-SwuPgnTestCheck(in_array('ref.not-card', HErrors([['t' => 'HEAL', 'src' => 'unknown', 'tgt' => 'base@1', 'amt' => 1, 'hp' => 30]]), true), 'validate: HEAL.src too');
-SwuPgnTestCheck(in_array('ref.not-card', HErrors([['t' => 'DEFEAT', 'card' => 'SOR#095', 'reason' => 'ability', 'defeatedBy' => 'unknown']]), true), 'validate: DEFEAT.defeatedBy too');
+SwuPgnTestCheck(in_array('schema', HErrors([['t' => 'HEAL', 'src' => 'unknown', 'tgt' => 'base@1', 'amt' => 1, 'hp' => 30]]), true), 'validate: HEAL.src too');
+SwuPgnTestCheck(in_array('schema', HErrors([['t' => 'DEFEAT', 'card' => 'SOR#095', 'reason' => 'ability', 'defeatedBy' => 'unknown']]), true), 'validate: DEFEAT.defeatedBy too');
 foreach (['SOR#095', 'SOR#095:2', 'base@2', 'TOKEN:beast#6445363199:3', 'TOKEN:beast'] as $ok) {
     SwuPgnTestEq(HErrors([$dmg(['src' => $ok])]), [], "validate: DAMAGE.src \"$ok\" is a card id or base@N");
 }
@@ -104,16 +104,16 @@ foreach (['SOR#095', 'SOR#095:2', 'base@2', 'TOKEN:beast#6445363199:3', 'TOKEN:b
 // ── grantedBy, backSideName, WriterRevision, DRAW.count, keyframe baseDefeated ───────────────────
 $abil = ['t' => 'ABILITY_ACTIVATE', 'p' => 1, 'card' => 'base@1', 'kind' => 'action', 'grantedBy' => 'HMW#172'];
 SwuPgnTestEq(HErrors([$abil]), [], 'validate: ABILITY_ACTIVATE on base@1 granted by an upgrade');
-SwuPgnTestCheck(in_array('event.field', HErrors([['grantedBy' => 7] + $abil]), true), 'validate: grantedBy is a string');
-SwuPgnTestCheck(in_array('base-ref', HErrors([['grantedBy' => 'base@3'] + $abil]), true), 'validate: grantedBy base@N names seat 1 or 2');
+SwuPgnTestCheck(in_array('schema', HErrors([['grantedBy' => 7] + $abil]), true), 'validate: grantedBy is a string');
+SwuPgnTestCheck(in_array('schema', HErrors([['grantedBy' => 'base@3'] + $abil]), true), 'validate: grantedBy base@N names seat 1 or 2');
 $tarkin = ['id' => 'HMW#004', 'name' => 'Grand Moff Tarkin, Tyrant of the Outer Rim', 'backSideName' => 'The Death Star, Icon of Tyranny'];
 SwuPgnTestEq(HErrors([], ['cards' => [$tarkin]]), [], 'validate: a CARDS entry with a backSideName');
-SwuPgnTestCheck(in_array('cards.field', HErrors([], ['cards' => [['backSideName' => 4] + $tarkin]]), true), 'validate: backSideName is a string');
+SwuPgnTestCheck(in_array('schema', HErrors([], ['cards' => [['backSideName' => 4] + $tarkin]]), true), 'validate: backSideName is a string');
 SwuPgnTestEq(HErrors([], ['header' => ['WriterRevision' => '1']]), [], 'validate: [WriterRevision "1"]');
-SwuPgnTestCheck(in_array('header.digits', HErrors([], ['header' => ['WriterRevision' => 'r1']]), true), 'validate: [WriterRevision] is digits');
-SwuPgnTestCheck(in_array('draw.count', HCodes([['t' => 'DRAW', 'p' => 1, 'count' => 2, 'cards' => ['SOR#095']]]), true), 'validate: a DRAW whose count is not its cards (an early writer) warns');
+SwuPgnTestEq(SwuPgnTryParse(SwuPgnTestFile([], ['header' => ['WriterRevision' => 'r1']]))['code'] ?? null, 'bad-count', '§5.2/§24: a [WriterRevision] that is not digits makes the file malformed (bad-count)');
+SwuPgnTestEq(HErrors([['t' => 'DRAW', 'p' => 1, 'count' => 2, 'cards' => ['SOR#095']]]), [], '§24 (10-28): a DRAW whose count is not its cards is no §24 error (the old draw.count warning has no code now)');
 SwuPgnTestEq(HCodes([['t' => 'DRAW', 'p' => 2, 'count' => 2, 'cards' => []]]), [], 'validate: a hidden DRAW (no cards) may count any number');
-SwuPgnTestCheck(in_array('keyframe.field', HErrors([['t' => 'ROUND_START', 'round' => 1, 'keyframe' => SwuPgnTestKeyframe([], ['baseDefeated' => 'yes'])]]), true),
+SwuPgnTestCheck(in_array('schema', HErrors([['t' => 'ROUND_START', 'round' => 1, 'active' => 1, 'keyframe' => SwuPgnTestKeyframe([], ['baseDefeated' => 'yes'])]]), true),
     'validate: a keyframe baseDefeated is a boolean');
 
 // ── §16 the story: two names, the deploy as a sub-step, grantedBy, the base line ─────────────────

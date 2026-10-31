@@ -551,4 +551,31 @@ $act($r17['game'], 2, $r17['k2'], 'lobby');   // saves again, within the hour
 clearstatcache();
 check(is_file(SWURoomPath($dead->id)), 'and does not scan again within the hour');
 
+// ── 27. A DRAWN match (CR 6.3) reopens the room, and its Quick Rematch picks first player at random ─────────────────
+echo "drawn match:\n";
+$quickFrom = function (array $r) use ($act, $es): string {   // Quick Rematch Bo1, accepted; returns the new game's name
+    $act($r['game'], 1, $r['k1'], 'request', ['kind' => 'quick', 'bestOf' => '1']);
+    $in = $es($r['game'], 2, $r['k2'])['incoming'] ?? null;
+    $act($r['game'], 2, $r['k2'], 'answer', ['id' => strval($in['id'] ?? ''), 'accept' => '1']);
+    $ng = json_decode(strval(@file_get_contents('./SWUSim/Games/' . $r['game'] . '/NextGame.json')), true);
+    return strval($ng['nextGameName'] ?? '');
+};
+// Who chooses who opens game 1 of the rematch: 'roll' = a random roll's winner, 'loser' = the prior game's loser.
+$chooserReason = function (string $game): string {
+    $gs = strval(@file_get_contents('./SWUSim/Games/' . $game . '/Gamestate.txt'));
+    return preg_match('/InitiativeChoice\|\d\|(roll|loser)/', $gs, $mm) ? $mm[1] : '?';
+};
+$r18 = startedRoom();
+MatchRecordGameDraw('SWUSim', $r18['matchId'], $r18['game'], 5);
+$m18 = SWUReadMatch($r18['matchId']);
+check(($m18['state'] ?? '') === 'complete' && !empty($m18['matchDraw']), 'a drawn Bo1 completes the room\'s match as a draw');
+$GLOBALS['__lobbyForRow'] = $r18['lobbyID'];
+$p = poll($r18, $r18['k1'], $r18['jh']);
+check(empty($p['started']) && ($p['state'] ?? '') === 'open', 'a drawn match reopens the room: ' . json_encode(['state' => $p['state'] ?? null, 'started' => $p['started'] ?? null]));
+$g18 = $quickFrom($r18);
+check($g18 !== '' && $chooserReason($g18) === 'roll', 'a Quick Rematch after a draw opens with a RANDOM roll, not a forced seat: ' . $chooserReason($g18));
+$r19 = startedRoom(); finishGame($r19, 1);
+$g19 = $quickFrom($r19);
+check($g19 !== '' && $chooserReason($g19) === 'loser', 'NEGATIVE: after a decided game the loser still chooses: ' . $chooserReason($g19));
+
 echo $FAILS === 0 ? "PASS\n" : "$FAILS FAILED\n";

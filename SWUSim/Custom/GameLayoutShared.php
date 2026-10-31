@@ -1109,6 +1109,11 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     color: #9b3e3e !important;
     text-shadow: 0 0 26px rgba(150,62,62,0.58), 0 0 60px rgba(120,42,42,0.30), 0 4px 12px rgba(0,0,0,0.8) !important;
 }
+/* "Draw" (both bases fell together, CR 6.3): a solid cool silver with a soft glow — neither the win cyan nor the loss red. */
+#game-over-overlay.draw #game-over-title {
+    color: #c9d3de !important;
+    text-shadow: 0 0 26px rgba(190,210,230,0.45), 0 0 60px rgba(150,175,200,0.22), 0 4px 12px rgba(0,0,0,0.8) !important;
+}
 
 #game-over-stats {
     grid-area: stats !important;
@@ -1302,7 +1307,7 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
    A prompt about an already-chosen unit rings that unit on the board, so the player can see WHICH one the
    question is about (reported 2026-09-28, SEC_010 Dedra Meero: "Deal 2 damage to your own unit?" named
    nothing, and the popup covers the board). The class is applied by ApplyYesNoDecisionHighlight
-   (Core/UILibraries20261027.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
+   (Core/UILibraries20261030.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
    the overlay dim to 15% — a ring under a 50% black wash would not have been visible.
    ⚠ z-index is DELIBERATELY NOT raised above the overlay (5000). Escaping a full-screen overlay's stacking
    context depends on every ancestor of the card, and the arenas clip and transform — the lighter dim is
@@ -5980,8 +5985,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     // EndGameInfo handed back rematch inputs, and keep the previous null for every
                     // other local mode (goldfish / hotseat / harness), whose behaviour is unchanged.
                     var localBtns = (info && info.rematch) ? SWUBuildEndGameButtons(info) : null;
-                    // No match layer ⇒ goldfish / harness game, always 2 seats: no winners line.
-                    ShowGameOver(ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
+                    // No match layer ⇒ goldfish / harness game, always 2 seats: no winners line. -1 = a drawn game.
+                    ShowGameOver(SWULocalGameWinner() === -1 ? 'draw' : ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
                                  localBtns, SWUWinnersLine(ws, null, 2));
                     return;
                 }
@@ -5989,9 +5994,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 // predates it. Naming the winners matters most in Twin Suns, where three of the four
                 // seats see "You Lost" and nothing else would say who took it.
                 var winners = (info.winners && info.winners.length) ? info.winners : SWULocalGameWinners();
-                ShowGameOver(!!info.didWin, window.SWUMainMenuUrl || null, info.statsHtml || '',
-                             SWUBuildEndGameButtons(info),
-                             SWUWinnersLine(winners, info.winnerNames, info.seatCount));
+                // A draw is knowable from the board alone (GAMEOVER_WINNER -1): the match record can lag the gamestate by
+                // one request, and without this both players would read "You Lost" in that gap.
+                var isDraw = !!info.isDraw || SWULocalGameWinner() === -1;
+                // A drawn MATCH whose last game was decided (Bo3 D-W-L): the title is that game's result, so say what the
+                // series came to — since draws, winning the last game no longer means winning the match.
+                var subtitle = (info.matchDraw && !isDraw && info.wins)
+                    ? 'The match is a draw (' + (info.wins['1'] || 0) + '–' + (info.wins['2'] || 0) + ')'
+                    : SWUWinnersLine(winners, info.winnerNames, info.seatCount);
+                ShowGameOver(isDraw ? 'draw' : !!info.didWin, window.SWUMainMenuUrl || null, info.statsHtml || '',
+                             SWUBuildEndGameButtons(info), subtitle);
                 var goOv = document.getElementById('game-over-overlay');
                 if (goOv && info.seatCount > 2) goOv.classList.add('swu-table');   // 3-4 seat layout fixes (CSS above)
                 // Collapsible Block Player, placed below the stats panel.
@@ -6037,6 +6049,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                         submitted_without_owner: ['Game sent to SWUStats (deck-owner stats were not recorded)', '#F0B429'],
                         skipped_early: ['Game not sent to SWUStats due to ending before Round 2', '#F0B429'],
                         skipped_multiplayer: ['Multiplayer games are not sent to SWUStats', '#F0B429'],
+                        skipped_draw:  ['Drawn games are not sent to SWUStats', '#F0B429'],
                         failed:        ['Game failed to send to SWUStats', '#E06666']
                     };
                     var st = stMap[info.statsStatus];
@@ -6057,7 +6070,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 if (info.tableRematch && info.seriesOver && !info.isSpectator) { SWUUpdateTableRematch(info); SWUStartEndGamePoll(gn, pid, ak); }
             }).catch(function(){
                 var ws = SWULocalGameWinners();
-                ShowGameOver(ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
+                ShowGameOver(SWULocalGameWinner() === -1 ? 'draw' : ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
                              null, SWUWinnersLine(ws, null, 2));
             });
     }

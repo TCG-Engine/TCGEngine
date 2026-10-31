@@ -6,8 +6,9 @@
 // (a timeline checkpoint, a caller's copy) is never changed behind its back.
 //
 // "Absent" is kept distinct from zero/empty wherever §11/§14 distinguish them: deckSize, resources,
-// baseEpicActionUsed, baseUpgrades, baseCaptured, baseDefeated, initiativeTaken, leader, power/hp/keywords
-// and onStartingSide are only ever created by the record or keyframe that supplies them.
+// baseEpicActionUsed, baseUpgrades, baseCaptured, baseDefeated, leader, active, effects, abilityUses,
+// foreignResources, power/hp/keywords and the other STATS attributes, owner, upgradeControllers and
+// onStartingSide are only ever created by the record or keyframe that supplies them.
 //
 // Untrusted input: every field is type-checked before use, a record the fold cannot apply is
 // skipped (with a warning where the spec asks for one), and every list is capped (SWUPGN_MAX_*).
@@ -19,7 +20,7 @@ function SwuPgnEmptyState(): array
             'resourcesReady' => 0, 'resourcesExhausted' => 0, 'credits' => 0, 'hasForce' => false,
             'discard' => [], 'cards' => []];
     };
-    return ['round' => 0, 'phase' => 'setup', 'initiative' => null, 'players' => [1 => $seat(1), 2 => $seat(2)]];
+    return ['round' => 0, 'phase' => 'setup', 'initiative' => null, 'initiativeTaken' => false, 'players' => [1 => $seat(1), 2 => $seat(2)]];
 }
 
 // §6.2 — the complete zone vocabulary.
@@ -85,6 +86,120 @@ function _SwuPgnRemoveId($list, $id): array
     $list = _SwuPgnList($list);
     if (!in_array($id, $list, true)) return $list;
     return array_values(array_filter($list, function ($x) use ($id) { return $x !== $id; }));
+}
+
+// A JSON object read as a PHP map (an empty `{}` stays a stdClass in a parsed file); anything else is empty.
+function _SwuPgnMap($v): array
+{
+    if ($v instanceof stdClass) return get_object_vars($v);
+    return (is_array($v) && !array_is_list($v)) ? $v : [];
+}
+
+// §23: every property of Object.prototype, and `prototype`. The fold never makes one a key.
+function _SwuPgnFoldReservedName($s): bool
+{
+    static $names = ['__proto__', '__defineGetter__', '__defineSetter__', '__lookupGetter__', '__lookupSetter__', 'constructor',
+        'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'valueOf', 'prototype'];
+    return is_string($s) && in_array($s, $names, true);
+}
+
+// A list of strings taken from a record (≤ SWUPGN_MAX_KEYWORDS), or null when it is not one.
+function _SwuPgnStrings($v): ?array
+{
+    if (!is_array($v) || !array_is_list($v) || count($v) > SWUPGN_MAX_KEYWORDS) return null;
+    foreach ($v as $x) if (!is_string($x)) return null;
+    return $v;
+}
+
+// Sets a root key, a new one in §11's order (round, phase, initiative, initiativeTaken, active, players, effects).
+function _SwuPgnSetRoot(array $state, string $key, $value): array
+{
+    if (array_key_exists($key, $state)) {
+        $state[$key] = $value;
+        return $state;
+    }
+    $order = ['round', 'phase', 'initiative', 'initiativeTaken', 'active', 'players', 'effects'];
+    $pos = array_search($key, $order, true);
+    $out = [];
+    foreach ($state as $k => $v) {
+        $ki = array_search($k, $order, true);
+        if ($pos !== false && $ki !== false && $ki > $pos && !array_key_exists($key, $out)) $out[$key] = $value;
+        $out[$k] = $v;
+    }
+    if (!array_key_exists($key, $out)) $out[$key] = $value;
+    return $out;
+}
+
+// A card's keys in §11's order (unknown keys after) — so a STATS / control change reads like a keyframe.
+function _SwuPgnCardOrder(array $c): array
+{
+    static $order = ['id', 'zone', 'damage', 'exhausted', 'upgrades', 'shields', 'experience', 'statusTokens', 'captured', 'power', 'hp',
+        'keywords', 'traits', 'blank', 'leaderUnit', 'copyOf', 'name', 'cost', 'aspects', 'owner', 'upgradeControllers'];
+    $out = [];
+    foreach ($order as $k) if (array_key_exists($k, $c)) $out[$k] = $c[$k];
+    return $out + $c;
+}
+
+// §12 / [F-05]: upgrades and captives held by one seat's cards between them.
+function _SwuPgnSeatAttached(array $state, int $seat): int
+{
+    $n = 0;
+    $cards = $state['players'][$seat]['cards'] ?? null;
+    if (!is_array($cards)) return 0;
+    foreach ($cards as $c) {
+        if (!is_array($c)) continue;
+        if (is_array($c['upgrades'] ?? null)) $n += count($c['upgrades']);
+        if (is_array($c['captured'] ?? null)) $n += count($c['captured']);
+    }
+    return $n;
+}
+
+// §12.1 "Whose pile": the seat whose $key list holds $id — p's if there, else the other seat's, else p's.
+function _SwuPgnHolder(array $state, int $p, string $key, string $id): int
+{
+    foreach ([$p, 3 - $p] as $s) {
+        $l = $state['players'][$s][$key] ?? null;
+        if (is_array($l) && in_array($id, $l, true)) return $s;
+    }
+    return $p;
+}
+
+// §11 upgradeControllers: the host at [seat, i] notes $ctl as the controller of upgrade $id — an entry
+// when $ctl is not the holder, none when it is; a host left with no entry has no upgradeControllers.
+function _SwuPgnSetController(array $state, int $seat, int $i, string $id, int $ctl): array
+{
+    if (_SwuPgnFoldReservedName($id)) return $state;           // §23
+    $c = $state['players'][$seat]['cards'][$i];
+    $uc = _SwuPgnMap($c['upgradeControllers'] ?? null);
+    if ($ctl !== $seat) $uc[$id] = $ctl; else unset($uc[$id]);
+    if ($uc) $c['upgradeControllers'] = $uc; else unset($c['upgradeControllers']);
+    $state['players'][$seat]['cards'][$i] = _SwuPgnCardOrder($c);
+    return $state;
+}
+
+// §12.1 step 3 / §12.2: "note p as its controller on the host" — only when the printed card did go onto
+// the host's upgrades.
+function _SwuPgnNoteController(array $state, $hostId, $id, ?int $p): array
+{
+    if ($p === null || !is_string($id)) return $state;
+    $f = _SwuPgnFindCard($state, $hostId);
+    if ($f === null) return $state;
+    $ups = $state['players'][$f[0]]['cards'][$f[1]]['upgrades'] ?? null;
+    if (!is_array($ups) || !in_array($id, $ups, true)) return $state;
+    return _SwuPgnSetController($state, $f[0], $f[1], $id, $p);
+}
+
+// Removes every seat's abilityUses entries whose `per` is one of $pers (§12.2 ROUND_START / PHASE_START).
+function _SwuPgnDropUses(array $state, array $pers): array
+{
+    foreach ([1, 2] as $s) {
+        $uses = $state['players'][$s]['abilityUses'] ?? null;
+        if (!is_array($uses)) continue;
+        $state['players'][$s]['abilityUses'] = array_values(array_filter($uses, function ($u) use ($pers) {
+            return !(is_array($u) && in_array($u['per'] ?? null, $pers, true));
+        }));
+    }
+    return $state;
 }
 
 function _SwuPgnNewCard(string $id, string $zone): array
@@ -154,8 +269,13 @@ function _SwuPgnAttach(array $state, $hostId, $id, array &$w, $event): array
     if (!is_string($id) || strncmp($id, 'TOKEN:', 6) === 0) return $state;
     $f = _SwuPgnFindCard($state, $hostId);
     if ($f === null) return $state;
-    $host = $state['players'][$f[0]]['cards'][$f[1]];
-    $state['players'][$f[0]]['cards'][$f[1]]['upgrades'] = _SwuPgnAddOnce($host['upgrades'] ?? null, $id, SWUPGN_MAX_ATTACHED, $w, $event);
+    $ups = _SwuPgnList($state['players'][$f[0]]['cards'][$f[1]]['upgrades'] ?? null);
+    if (in_array($id, $ups, true)) return $state;
+    if (_SwuPgnSeatAttached($state, $f[0]) >= SWUPGN_MAX_SEAT_ATTACHED) {   // §12: a seat's cards hold ≤ 1000 between them
+        _SwuPgnWarn($w, $event, "seat attachment limit reached; $id not attached");
+        return $state;
+    }
+    $state['players'][$f[0]]['cards'][$f[1]]['upgrades'] = _SwuPgnAddOnce($ups, $id, SWUPGN_MAX_ATTACHED, $w, $event);
     return $state;
 }
 
@@ -167,8 +287,8 @@ function _SwuPgnBaseHold(array $state, int $seat, string $key, string $id, array
     return $state;
 }
 
-// §12.2 detach(): off every card's upgrades and captured lists, and every seat's baseCaptured. A base's
-// upgrades come off on their own transition (§12.1 step 2c) — _SwuPgnBaseRelease.
+// §12.2 detach(): off every card's upgrades, upgradeControllers and captured, and every seat's baseCaptured.
+// A base's upgrades come off on their own transition (§12.1 step 2c) — _SwuPgnBaseRelease.
 function _SwuPgnDetach(array $state, $id): array
 {
     if (!is_string($id)) return $state;
@@ -183,6 +303,12 @@ function _SwuPgnDetach(array $state, $id): array
                 if (is_array($c[$k] ?? null) && in_array($id, $c[$k], true)) {
                     $state['players'][$seat]['cards'][$i][$k] = _SwuPgnRemoveId($c[$k], $id);
                 }
+            }
+            $uc = $c['upgradeControllers'] ?? null;
+            if (is_array($uc) && array_key_exists($id, $uc)) {
+                unset($uc[$id]);
+                if ($uc) $state['players'][$seat]['cards'][$i]['upgradeControllers'] = $uc;
+                else unset($state['players'][$seat]['cards'][$i]['upgradeControllers']);
             }
         }
     }
@@ -221,37 +347,62 @@ function _SwuPgnUpdateLeaderById(array $state, $id, string $field, $value): arra
 
 // ── keyframes (§13) ──────────────────────────────────────────────────────────────────────────────
 
-// Null when the keyframe can be snapped to; otherwise why it is damaged. §13: missing a seat, or a
-// `cards` / `hand` / `discard` that is not an array, or a `cards` entry that is not an object.
-// Beyond the spec, a keyframe whose lists exceed the reader's limits is refused the same way.
+// Null when the keyframe can be snapped to; otherwise why it is damaged — the §13 list, condition by
+// condition. (In a parsed file an empty `{}` is a stdClass and `[]` an empty array; a keyframe built in PHP
+// cannot tell the two apart, so an empty array is accepted where §13 asks for an object.)
 function SwuPgnKeyframeProblem($kf): ?string
 {
+    $isList = function ($v): bool { return is_array($v) && array_is_list($v); };
+    $isObj = function ($v): bool { return $v instanceof stdClass || (is_array($v) && (!array_is_list($v) || $v === [])); };
+    $isNum = function ($v): bool { return is_int($v) || is_float($v); };
     if (!is_array($kf) || array_is_list($kf)) return 'keyframe is not an object';
     $players = $kf['players'] ?? null;
     if (!is_array($players)) return 'keyframe has no seats';
+    if (array_is_list($players) && $players !== []) return 'keyframe players is not an object';
     foreach ([1, 2] as $s) {
         $seat = $players[$s] ?? null;
         if (!is_array($seat) || array_is_list($seat)) return "keyframe is missing seat $s";
         foreach (['cards', 'hand', 'discard'] as $k) {
-            if (!is_array($seat[$k] ?? null) || !array_is_list($seat[$k])) return "players.$s.$k is not an array";
+            if (!$isList($seat[$k] ?? null)) return "players.$s.$k is not an array";
         }
+        foreach (['baseUpgrades', 'baseCaptured', 'resources', 'foreignResources'] as $k) {
+            if (array_key_exists($k, $seat) && !$isList($seat[$k])) return "players.$s.$k is not an array";
+        }
+        foreach (['cards' => SWUPGN_MAX_CARDS_PER_SEAT, 'hand' => SWUPGN_MAX_LIST, 'discard' => SWUPGN_MAX_LIST, 'resources' => SWUPGN_MAX_LIST,
+            'foreignResources' => SWUPGN_MAX_LIST, 'baseUpgrades' => SWUPGN_MAX_ATTACHED, 'baseCaptured' => SWUPGN_MAX_ATTACHED] as $k => $cap) {
+            if (is_array($seat[$k] ?? null) && count($seat[$k]) > $cap) return "players.$s.$k holds more than $cap entries";
+        }
+        $attached = 0;
         foreach ($seat['cards'] as $c) {
-            if (!($c instanceof stdClass) && (!is_array($c) || array_is_list($c))) return "players.$s.cards has an entry that is not an object";
-        }
-        if (count($seat['cards']) > SWUPGN_MAX_CARDS_PER_SEAT || count($seat['hand']) > SWUPGN_MAX_LIST
-            || count($seat['discard']) > SWUPGN_MAX_LIST || (is_array($seat['resources'] ?? null) && count($seat['resources']) > SWUPGN_MAX_LIST)
-            || (is_array($seat['baseUpgrades'] ?? null) && count($seat['baseUpgrades']) > SWUPGN_MAX_ATTACHED)
-            || (is_array($seat['baseCaptured'] ?? null) && count($seat['baseCaptured']) > SWUPGN_MAX_ATTACHED)) {
-            return "players.$s exceeds the reader's limits";
-        }
-        foreach ($seat['cards'] as $c) {
-            if (!is_array($c)) continue;
-            if ((is_array($c['upgrades'] ?? null) && count($c['upgrades']) > SWUPGN_MAX_ATTACHED)
-                || (is_array($c['captured'] ?? null) && count($c['captured']) > SWUPGN_MAX_ATTACHED)
-                || (is_array($c['statusTokens'] ?? null) && count($c['statusTokens']) > SWUPGN_MAX_TOKEN_KINDS)
-                || (is_array($c['keywords'] ?? null) && count($c['keywords']) > SWUPGN_MAX_KEYWORDS)) {
-                return "players.$s.cards has an entry beyond the reader's limits";
+            if ($c instanceof stdClass) $c = [];
+            elseif (!is_array($c) || (array_is_list($c) && $c !== [])) return "players.$s.cards has an entry that is not an object";
+            if (!$isList($c['upgrades'] ?? null) || count($c['upgrades']) > SWUPGN_MAX_ATTACHED) return "players.$s.cards has an entry without an upgrades array of at most " . SWUPGN_MAX_ATTACHED;
+            if (!$isObj($c['statusTokens'] ?? null)) return "players.$s.cards has an entry without a statusTokens object";
+            if (is_array($c['statusTokens']) && count($c['statusTokens']) > SWUPGN_MAX_TOKEN_KINDS) return "players.$s.cards has an entry over the statusTokens cap";
+            foreach (['damage', 'shields', 'experience'] as $k) {
+                if (!$isNum($c[$k] ?? null)) return "players.$s.cards has an entry without a number $k";
             }
+            if (array_key_exists('captured', $c) && (!$isList($c['captured']) || count($c['captured']) > SWUPGN_MAX_ATTACHED)) return "players.$s.cards has an entry whose captured is not an array of at most " . SWUPGN_MAX_ATTACHED;
+            if (array_key_exists('upgradeControllers', $c) && !$isObj($c['upgradeControllers'])) return "players.$s.cards has an entry whose upgradeControllers is not an object";
+            $attached += count($c['upgrades']) + (is_array($c['captured'] ?? null) ? count($c['captured']) : 0);
+        }
+        if ($attached > SWUPGN_MAX_SEAT_ATTACHED) return "players.$s.cards hold more than " . SWUPGN_MAX_SEAT_ATTACHED . ' upgrades and captives';
+        if (array_key_exists('abilityUses', $seat)) {
+            $uses = $seat['abilityUses'];
+            if (!$isList($uses) || count($uses) > SWUPGN_MAX_ABILITY_USES) return "players.$s.abilityUses is not an array of at most " . SWUPGN_MAX_ABILITY_USES;
+            foreach ($uses as $u) {
+                if (!is_array($u) || array_is_list($u) || !is_string($u['card'] ?? null) || !is_string($u['ability'] ?? null) || !$isNum($u['count'] ?? null)) {
+                    return "players.$s.abilityUses has an entry without a string card, a string ability and a number count";
+                }
+            }
+        }
+    }
+    if (array_key_exists('effects', $kf)) {
+        $fx = $kf['effects'];
+        if (!$isList($fx) || count($fx) > SWUPGN_MAX_EFFECTS) return 'effects is not an array of at most ' . SWUPGN_MAX_EFFECTS;
+        foreach ($fx as $x) {
+            if (!is_array($x) || array_is_list($x) || !is_string($x['id'] ?? null)) return 'effects has an entry without a string id';
+            if (array_key_exists('targets', $x) && (!$isList($x['targets']) || count($x['targets']) > SWUPGN_MAX_KEYWORDS)) return 'effects has an entry whose targets is not an array of at most ' . SWUPGN_MAX_KEYWORDS;
         }
     }
     return null;
@@ -373,14 +524,21 @@ function SwuPgnTimelineIndexOf(array $tl, string $seq): ?int
     return $tl['seqIndex'][$seq] ?? null;
 }
 
-// JSON for a board, with `{}` wherever §11 has an object: `players` and each `statusTokens`.
+// JSON for a board, with `{}` wherever §11 has an object: `players`, each `statusTokens` and each
+// `upgradeControllers` (which is never emitted empty — absent when no upgrade has another controller).
 function SwuPgnStateToJson(array $state, bool $pretty = false): string
 {
     if (is_array($state['players'] ?? null)) {
         foreach ($state['players'] as $s => $pl) {
             if (!is_array($pl) || !is_array($pl['cards'] ?? null)) continue;
             foreach ($pl['cards'] as $i => $c) {
-                if (is_array($c) && is_array($c['statusTokens'] ?? null)) $state['players'][$s]['cards'][$i]['statusTokens'] = (object)$c['statusTokens'];
+                if (!is_array($c)) continue;
+                if (is_array($c['statusTokens'] ?? null)) $state['players'][$s]['cards'][$i]['statusTokens'] = (object)$c['statusTokens'];
+                if (array_key_exists('upgradeControllers', $c)) {
+                    $uc = _SwuPgnMap($c['upgradeControllers']);
+                    if ($uc) $state['players'][$s]['cards'][$i]['upgradeControllers'] = (object)$uc;
+                    else unset($state['players'][$s]['cards'][$i]['upgradeControllers']);
+                }
             }
         }
         $state['players'] = (object)$state['players'];
@@ -408,17 +566,24 @@ function SwuPgnReduce(array $state, $e, ?array &$warnings = null): array
 
         case 'ROUND_START':
             if (is_int($e['round'] ?? null)) $state['round'] = $e['round'];
-            $state['initiativeTaken'] = false;
+            $state = _SwuPgnDropUses(_SwuPgnSetRoot($state, 'initiativeTaken', false), ['phase', 'round']);
+            $active = _SwuPgnSeat($e['active'] ?? null);
+            if ($active !== null) {                    // CR 5.4.1.b: the active player starts with the initiative
+                $state = _SwuPgnSetRoot($state, 'active', $active);
+                $state['initiative'] = $active;
+            }
             return $state;
 
         case 'PHASE_START':
             if (is_string($e['phase'] ?? null)) $state['phase'] = $e['phase'];
-            return $state;
+            $state = _SwuPgnDropUses($state, ['phase']);
+            $active = _SwuPgnSeat($e['active'] ?? null);
+            return $active === null ? $state : _SwuPgnSetRoot($state, 'active', $active);
 
         case 'CLAIM_INITIATIVE':
             if ($p !== null) {
                 $state['initiative'] = $p;
-                $state['initiativeTaken'] = true;
+                $state = _SwuPgnSetRoot($state, 'initiativeTaken', true);
             }
             return $state;
 
@@ -429,6 +594,10 @@ function SwuPgnReduce(array $state, $e, ?array &$warnings = null): array
 
         case 'PLAY_EVENT':
             if (!_SwuPgnHasSeat($state, $p) || $card === null) return $state;
+            foreach ([1, 2] as $s) {                   // "unless a seat's discard already holds it"
+                $d = $state['players'][$s]['discard'] ?? null;
+                if (is_array($d) && in_array($card, $d, true)) return $state;
+            }
             $state['players'][$p]['discard'] = _SwuPgnAddOnce($state['players'][$p]['discard'] ?? null, $card, SWUPGN_MAX_LIST, $warnings, $e);
             return $state;
 
@@ -436,7 +605,7 @@ function SwuPgnReduce(array $state, $e, ?array &$warnings = null): array
             if (!is_string($e['target'] ?? null) || $card === null) return $state;
             $baseSeat = SwuPgnSeatOfBaseRef($e['target']);
             if ($baseSeat !== null) return _SwuPgnBaseHold($state, $baseSeat, 'baseUpgrades', $card, $warnings, $e);
-            return _SwuPgnAttach($state, $e['target'], $card, $warnings, $e);
+            return _SwuPgnNoteController(_SwuPgnAttach($state, $e['target'], $card, $warnings, $e), $e['target'], $card, $p);
 
         case 'DEPLOY_LEADER':
             if (!_SwuPgnHasSeat($state, $p) || $card === null) return $state;
@@ -444,10 +613,13 @@ function SwuPgnReduce(array $state, $e, ?array &$warnings = null): array
             $used = is_array($prev) && ($prev['epicActionUsed'] ?? null) === true;
             $state['players'][$p]['leader'] = ['id' => $card, 'deployed' => true, 'exhausted' => false,
                 'epicActionUsed' => $used || ($e['epic'] ?? null) === true];
-            if (($e['kind'] ?? null) === 'upgrade') return _SwuPgnAttach($state, $e['target'] ?? null, $card, $warnings, $e);
+            if (($e['kind'] ?? null) === 'upgrade') {
+                return _SwuPgnNoteController(_SwuPgnAttach($state, $e['target'] ?? null, $card, $warnings, $e), $e['target'] ?? null, $card, $p);
+            }
             return _SwuPgnPlace($state, $p, $card, $e['zone'] ?? 'ground', $warnings, $e);
 
         case 'ABILITY_ACTIVATE':
+            $state = _SwuPgnCountUse($state, $e, $p, $card, $warnings);
             // `epic: true` marks an Epic Action; §10.1 calls it "equivalent to kind: epic".
             if (($e['epic'] ?? null) !== true && ($e['kind'] ?? null) !== 'epic') return $state;
             $baseSeat = SwuPgnSeatOfBaseRef($card);
@@ -474,6 +646,24 @@ function SwuPgnReduce(array $state, $e, ?array &$warnings = null): array
             $state['players'][$seat]['leader']['onStartingSide'] = $face;
             return $state;
 
+        case 'ABILITY_RESET':
+            if ($card === null) return $state;
+            $ability = is_string($e['ability'] ?? null) ? $e['ability'] : null;
+            foreach ([1, 2] as $s) {
+                $uses = $state['players'][$s]['abilityUses'] ?? null;
+                if (!is_array($uses)) continue;
+                $state['players'][$s]['abilityUses'] = array_values(array_filter($uses, function ($u) use ($card, $ability) {
+                    return !(is_array($u) && ($u['card'] ?? null) === $card && ($ability === null || ($u['ability'] ?? null) === $ability));
+                }));
+            }
+            return $state;
+
+        case 'EFFECT_START':
+            return _SwuPgnEffectStart($state, $e, $p, $warnings);
+
+        case 'EFFECT_END':
+            return _SwuPgnEffectEnd($state, $e);
+
         case 'TAKE_CONTROL':
             return _SwuPgnReduceTakeControl($state, $e, $p, $card, $warnings);
 
@@ -482,15 +672,19 @@ function SwuPgnReduce(array $state, $e, ?array &$warnings = null): array
             do {
                 $state = _SwuPgnTakeCard($state, $card, $taken);
             } while ($taken !== null);
+            if (strncmp($card, 'TOKEN:', 6) === 0) return $state;           // a token is held nowhere
             $by = $e['by'] ?? null;
             $baseSeat = SwuPgnSeatOfBaseRef($by);
             if ($baseSeat !== null) return _SwuPgnBaseHold($state, $baseSeat, 'baseCaptured', $card, $warnings, $e);   // held on the base until rescued
-            if (is_string($by)) {
-                $state = _SwuPgnUpdateCard($state, $by, function (array $c) use ($card, &$warnings, $e) {
-                    $c['captured'] = _SwuPgnAddOnce($c['captured'] ?? null, $card, SWUPGN_MAX_ATTACHED, $warnings, $e);
-                    return $c;
-                });
+            $f = _SwuPgnFindCard($state, $by);
+            if ($f === null) return $state;
+            $held = _SwuPgnList($state['players'][$f[0]]['cards'][$f[1]]['captured'] ?? null);
+            if (in_array($card, $held, true)) return $state;
+            if (_SwuPgnSeatAttached($state, $f[0]) >= SWUPGN_MAX_SEAT_ATTACHED) {   // §12: ≤ 1000 upgrades + captives per seat
+                _SwuPgnWarn($warnings, $e, "seat attachment limit reached; $card not held");
+                return $state;
             }
+            $state['players'][$f[0]]['cards'][$f[1]]['captured'] = _SwuPgnAddOnce($held, $card, SWUPGN_MAX_ATTACHED, $warnings, $e);
             return $state;
 
         case 'RESCUE':
@@ -557,13 +751,23 @@ function SwuPgnReduce(array $state, $e, ?array &$warnings = null): array
             return _SwuPgnUpdateCard($state, $card, function (array $c) use ($e) {
                 if (is_int($e['power'] ?? null)) $c['power'] = $e['power'];
                 if (is_int($e['hp'] ?? null)) $c['hp'] = $e['hp'];
-                $kw = $e['keywords'] ?? null;
-                if (is_array($kw) && array_is_list($kw) && count($kw) <= SWUPGN_MAX_KEYWORDS
-                    && count(array_filter($kw, 'is_string')) === count($kw)) {
+                $kw = _SwuPgnStrings($e['keywords'] ?? null);
+                if ($kw !== null) {
                     sort($kw, SORT_STRING);
                     $c['keywords'] = $kw;
                 }
-                return $c;
+                // The other seven are stated all at once: set what the record carries, remove what it leaves out.
+                $traits = _SwuPgnStrings($e['traits'] ?? null);
+                if ($traits !== null) sort($traits, SORT_STRING);
+                $aspects = _SwuPgnStrings($e['aspects'] ?? null);
+                $set = ['traits' => $traits, 'blank' => ($e['blank'] ?? null) === true ? true : null,
+                    'leaderUnit' => ($e['leaderUnit'] ?? null) === true ? true : null,
+                    'copyOf' => is_string($e['copyOf'] ?? null) ? $e['copyOf'] : null, 'name' => is_string($e['name'] ?? null) ? $e['name'] : null,
+                    'cost' => is_int($e['cost'] ?? null) ? $e['cost'] : null, 'aspects' => $aspects];
+                foreach ($set as $k => $v) {
+                    if ($v === null) unset($c[$k]); else $c[$k] = $v;
+                }
+                return _SwuPgnCardOrder($c);
             });
 
         case 'DRAW':
@@ -599,7 +803,7 @@ function SwuPgnReduce(array $state, $e, ?array &$warnings = null): array
         case 'STATUS_TOKEN':
             $count = $e['count'] ?? null;
             $token = $e['token'] ?? null;
-            if (!is_int($count) || !is_string($token)) return $state;
+            if (!is_int($count) || !is_string($token) || _SwuPgnFoldReservedName($token)) return $state;   // §23
             return _SwuPgnUpdateCard($state, $card, function (array $c) use ($count, $token, &$warnings, $e) {
                 $tokens = is_array($c['statusTokens'] ?? null) ? $c['statusTokens'] : [];
                 $n = max(0, _SwuPgnNum($tokens[$token] ?? 0) + $count);
@@ -622,6 +826,89 @@ function SwuPgnReduce(array $state, $e, ?array &$warnings = null): array
         if ($prior['message'] === $msg) return $state;
     }
     _SwuPgnWarn($warnings, $e, $msg);
+    return $state;
+}
+
+// §12.2 ABILITY_ACTIVATE `limit`: one use of a limited ability, counted in players[p].abilityUses under
+// card + ability (created at the first use; count + 1, the latest per and max). `per` is closed.
+function _SwuPgnCountUse(array $state, array $e, ?int $p, ?string $card, array &$w): array
+{
+    $limit = $e['limit'] ?? null;
+    $ability = $e['ability'] ?? null;
+    if (!is_array($limit) || array_is_list($limit) || $card === null || !is_string($ability) || !_SwuPgnHasSeat($state, $p)) return $state;
+    $per = $limit['per'] ?? null;
+    if (!in_array($per, ['phase', 'round', 'game'], true)) return $state;
+    $max = $limit['max'] ?? null;
+    if (!is_int($max) && !is_float($max)) $max = 0;
+    $uses = _SwuPgnList($state['players'][$p]['abilityUses'] ?? null);
+    foreach ($uses as $i => $u) {
+        if (is_array($u) && ($u['card'] ?? null) === $card && ($u['ability'] ?? null) === $ability) {
+            $uses[$i]['count'] = _SwuPgnNum($u['count'] ?? 0) + 1;
+            $uses[$i]['per'] = $per;
+            $uses[$i]['max'] = $max;
+            $state['players'][$p]['abilityUses'] = $uses;
+            return $state;
+        }
+    }
+    if (count($uses) >= SWUPGN_MAX_ABILITY_USES) _SwuPgnWarn($w, $e, 'ability use limit reached; use not counted');
+    else $uses[] = ['card' => $card, 'ability' => $ability, 'count' => 1, 'per' => $per, 'max' => $max];
+    $state['players'][$p]['abilityUses'] = $uses;
+    return $state;
+}
+
+// §12.2 EFFECT_START: { id, src, p, targets?, seat?, duration } — never untilText / ability / text. The same
+// id is replaced in place. `seat` is kept only when 1 or 2 (the table's guard).
+function _SwuPgnEffectStart(array $state, array $e, ?int $p, array &$w): array
+{
+    $id = $e['id'] ?? null;
+    $src = $e['src'] ?? null;
+    $duration = $e['duration'] ?? null;
+    if (!is_string($id) || !is_string($src) || !is_string($duration) || $p === null) return $state;
+    $fx = ['id' => $id, 'src' => $src, 'p' => $p];
+    $targets = $e['targets'] ?? null;
+    if (is_array($targets) && array_is_list($targets)) {
+        $fx['targets'] = [];
+        foreach ($targets as $t) {
+            if (is_string($t) && count($fx['targets']) < SWUPGN_MAX_KEYWORDS) $fx['targets'][] = $t;
+        }
+    }
+    $seat = _SwuPgnSeat($e['seat'] ?? null);
+    if ($seat !== null) $fx['seat'] = $seat;
+    $fx['duration'] = $duration;
+    $effects = _SwuPgnList($state['effects'] ?? null);
+    $at = null;
+    foreach ($effects as $i => $x) {
+        if (is_array($x) && ($x['id'] ?? null) === $id) { $at = $i; break; }
+    }
+    if ($at !== null) $effects[$at] = $fx;
+    elseif (count($effects) >= SWUPGN_MAX_EFFECTS) _SwuPgnWarn($w, $e, "effect limit reached; $id not recorded");
+    else $effects[] = $fx;
+    return _SwuPgnSetRoot($state, 'effects', $effects);
+}
+
+// §12.2 EFFECT_END: no targets (or empty) removes the effect; targets trims them, and an effect left with
+// none is removed; an effect that has no targets is left as it is. A reader never drops one on its own.
+function _SwuPgnEffectEnd(array $state, array $e): array
+{
+    $id = $e['id'] ?? null;
+    $effects = $state['effects'] ?? null;
+    if (!is_string($id) || !is_array($effects)) return $state;
+    foreach ($effects as $i => $x) {
+        if (!is_array($x) || ($x['id'] ?? null) !== $id) continue;
+        $gone = $e['targets'] ?? null;
+        if (is_array($gone) && $gone !== []) {
+            $had = $x['targets'] ?? null;
+            if (!is_array($had) || $had === []) return $state;
+            $left = array_values(array_filter($had, function ($t) use ($gone) { return !in_array($t, $gone, true); }));
+            if ($left !== []) {
+                $state['effects'][$i]['targets'] = $left;
+                return $state;
+            }
+        }
+        unset($effects[$i]);
+        $state['effects'] = array_values($effects);
+        return $state;
+    }
     return $state;
 }
 
@@ -657,113 +944,189 @@ function _SwuPgnReduceMove(array $state, array $e, array &$w): array
         if ($f !== null) $state['players'][$f[0]]['cards'][$f[1]]['zone'] = $to;
         return $state;
     }
+    $other = 3 - $p;
 
-    $pl = $state['players'][$p];
+    // Whose pile: arriving goes to p's; leaving hand / discard / resource is taken (with the count) from the seat
+    // whose list holds it — p's if there, else the other seat's, else p's. What that pile says about the owner
+    // (step 3) is read here, before the piles change.
+    $src = $p;
+    $ownedByOther = false;
+    if ($from === 'hand' || $from === 'discard') {
+        $src = _SwuPgnHolder($state, $p, $from, $card);
+        $ownedByOther = $src !== $p;
+    } elseif ($from === 'resource') {
+        $src = _SwuPgnHolder($state, $p, 'resources', $card);
+        $foreign = function (int $s) use ($state, $card): bool {
+            $l = $state['players'][$s]['foreignResources'] ?? null;
+            return is_array($l) && in_array($card, $l, true);
+        };
+        $ownedByOther = $src !== $p ? !$foreign($src) : $foreign($p);
+    }
 
     // Step 1 — the hand, count AND contents.
     if ($to === 'hand') {
-        $pl['handSize'] = _SwuPgnNum($pl['handSize'] ?? 0) + 1;
-        $pl['hand'] = _SwuPgnAddOnce($pl['hand'] ?? null, $card, SWUPGN_MAX_LIST, $w, $e);
+        $state['players'][$p]['handSize'] = _SwuPgnNum($state['players'][$p]['handSize'] ?? 0) + 1;
+        $state['players'][$p]['hand'] = _SwuPgnAddOnce($state['players'][$p]['hand'] ?? null, $card, SWUPGN_MAX_LIST, $w, $e);
     } elseif ($from === 'hand') {
-        $pl['handSize'] = max(0, _SwuPgnNum($pl['handSize'] ?? 0) - 1);
-        $pl['hand'] = _SwuPgnRemoveId($pl['hand'] ?? null, $card);
+        $state['players'][$src]['handSize'] = max(0, _SwuPgnNum($state['players'][$src]['handSize'] ?? 0) - 1);
+        $state['players'][$src]['hand'] = _SwuPgnRemoveId($state['players'][$src]['hand'] ?? null, $card);
     }
 
     // Step 1a — the discard pile (the MOVE is its author, not DEFEAT).
     if ($to === 'discard') {
-        $pl['discard'] = _SwuPgnAddOnce($pl['discard'] ?? null, $card, SWUPGN_MAX_LIST, $w, $e);
+        $state['players'][$p]['discard'] = _SwuPgnAddOnce($state['players'][$p]['discard'] ?? null, $card, SWUPGN_MAX_LIST, $w, $e);
     } elseif ($from === 'discard') {
-        $pl['discard'] = _SwuPgnRemoveId($pl['discard'] ?? null, $card);
+        $state['players'][$src]['discard'] = _SwuPgnRemoveId($state['players'][$src]['discard'] ?? null, $card);
     }
 
-    // Step 1b — the deck count, only once a keyframe has supplied it.
-    if (is_int($pl['deckSize'] ?? null)) {
-        if ($to === 'deck') $pl['deckSize']++;
-        elseif ($from === 'deck') $pl['deckSize'] = max(0, $pl['deckSize'] - 1);
+    // Step 1b — the deck count, on p, only once a keyframe has supplied it.
+    if (is_int($state['players'][$p]['deckSize'] ?? null)) {
+        if ($to === 'deck') $state['players'][$p]['deckSize']++;
+        elseif ($from === 'deck') $state['players'][$p]['deckSize'] = max(0, $state['players'][$p]['deckSize'] - 1);
     }
 
-    // Step 1c — the leader coming home.
-    if (SwuPgnIsArena($from) && $to === 'base' && is_array($pl['leader'] ?? null) && ($pl['leader']['id'] ?? null) === $card) {
-        $pl['leader']['deployed'] = false;
-    }
+    // Step 1c — the leader by its id: arena → base undeploys it, base → arena deploys it (CR 3.4.4.b).
+    if (SwuPgnIsArena($from) && $to === 'base') $state = _SwuPgnUpdateLeaderById($state, $card, 'deployed', false);
+    elseif ($from === 'base' && SwuPgnIsArena($to)) $state = _SwuPgnUpdateLeaderById($state, $card, 'deployed', true);
 
-    // Step 2 — the resource row: two counts plus membership.
+    // Step 2 — the resource row: two counts plus membership (and foreignResources on the way out).
     if ($to === 'resource') {
-        $pl['resourcesReady'] = _SwuPgnNum($pl['resourcesReady'] ?? 0) + 1;
-        $pl['resources'] = _SwuPgnAddOnce($pl['resources'] ?? null, $card, SWUPGN_MAX_LIST, $w, $e);
+        $bucket = ($e['exhausted'] ?? null) === true ? 'resourcesExhausted' : 'resourcesReady';
+        $state['players'][$p][$bucket] = _SwuPgnNum($state['players'][$p][$bucket] ?? 0) + 1;
+        $state['players'][$p]['resources'] = _SwuPgnAddOnce($state['players'][$p]['resources'] ?? null, $card, SWUPGN_MAX_LIST, $w, $e);
     } elseif ($from === 'resource') {
         $bucket = ($e['exhausted'] ?? null) === true ? 'resourcesExhausted' : 'resourcesReady';
-        $pl[$bucket] = max(0, _SwuPgnNum($pl[$bucket] ?? 0) - 1);
-        if (array_key_exists('resources', $pl)) $pl['resources'] = _SwuPgnRemoveId($pl['resources'], $card);
+        $state['players'][$src][$bucket] = max(0, _SwuPgnNum($state['players'][$src][$bucket] ?? 0) - 1);
+        foreach (['resources', 'foreignResources'] as $k) {
+            if (array_key_exists($k, $state['players'][$src])) $state['players'][$src][$k] = _SwuPgnRemoveId($state['players'][$src][$k], $card);
+        }
     }
 
     // Step 2b — credits and the Force.
     $reserved = _SwuPgnReservedToken($card);
     if ($reserved === 'credit') {
-        if ($to === 'base') $pl['credits'] = _SwuPgnNum($pl['credits'] ?? 0) + 1;
-        elseif ($from === 'base') $pl['credits'] = max(0, _SwuPgnNum($pl['credits'] ?? 0) - 1);
+        if ($to === 'base') $state['players'][$p]['credits'] = _SwuPgnNum($state['players'][$p]['credits'] ?? 0) + 1;
+        elseif ($from === 'base') $state['players'][$p]['credits'] = max(0, _SwuPgnNum($state['players'][$p]['credits'] ?? 0) - 1);
     } elseif ($reserved === 'the-force') {
-        if ($to === 'base') $pl['hasForce'] = true;
-        elseif ($from === 'base') $pl['hasForce'] = false;
+        if ($to === 'base') $state['players'][$p]['hasForce'] = true;
+        elseif ($from === 'base') $state['players'][$p]['hasForce'] = false;
     }
-
-    $state['players'][$p] = $pl;
 
     // Step 3 — the in-play list.
     if ($isUpgrade) {
-        // Onto a unit: an upgrade has one host, and a unit attached as a pilot stops being a unit.
+        // Onto a unit: an upgrade has one host, and a unit attached as a pilot stops being a unit. p is its controller.
         if (SwuPgnIsArena($to) && is_string($e['attachedTo'] ?? null)) {
             $state = _SwuPgnDetach($state, $card);
             do {
                 $state = _SwuPgnTakeCard($state, $card, $taken);
             } while ($taken !== null);
-            return _SwuPgnAttach($state, $e['attachedTo'], $card, $w, $e);
+            return _SwuPgnNoteController(_SwuPgnAttach($state, $e['attachedTo'], $card, $w, $e), $e['attachedTo'], $card, $p);
         }
         $f = _SwuPgnFindCard($state, $card);
         if ($f !== null) $state['players'][$f[0]]['cards'][$f[1]]['zone'] = $to;
         return $state;
     }
-    // Into an arena: a unit is nobody's upgrade — a pilot ejected arena to arena never passed step 0.
-    if (SwuPgnIsArena($to)) return _SwuPgnPlace(_SwuPgnDetach($state, $card), $p, $card, $to, $w, $e);
+    // Into an arena: a unit is nobody's upgrade — a pilot ejected arena to arena never passed step 0. Its owner
+    // is the other seat when the pile it just left says so.
+    if (SwuPgnIsArena($to)) {
+        $state = _SwuPgnPlace(_SwuPgnDetach($state, $card), $p, $card, $to, $w, $e);
+        $f = $ownedByOther ? _SwuPgnFindCard($state, $card) : null;
+        if ($f !== null && $f[0] !== $other) {
+            $c = $state['players'][$f[0]]['cards'][$f[1]];
+            $c['owner'] = $other;
+            $state['players'][$f[0]]['cards'][$f[1]] = _SwuPgnCardOrder($c);
+        }
+        return $state;
+    }
     if (SwuPgnIsArena($from)) return _SwuPgnTakeCard($state, $card);
     $f = _SwuPgnFindCard($state, $card);
     if ($f !== null) $state['players'][$f[0]]['cards'][$f[1]]['zone'] = $to;
     return $state;
 }
 
-// §10.1 TAKE_CONTROL — a control change is not a zone change; this record re-seats the card.
+// §10.1 TAKE_CONTROL — a control change is not a zone change; this record re-seats the card itself.
 function _SwuPgnReduceTakeControl(array $state, array $e, ?int $p, ?string $card, array &$w): array
 {
     if (!_SwuPgnHasSeat($state, $p) || $card === null) return $state;
     $zone = $e['zone'] ?? null;
+    $other = 3 - $p;
 
     if (SwuPgnIsArena($zone)) {
-        $f = _SwuPgnFindCard($state, $card);
-        if ($f === null || $f[0] === $p) return $state;
-        if (count(_SwuPgnList($state['players'][$p]['cards'] ?? null)) >= SWUPGN_MAX_CARDS_PER_SEAT) {
-            _SwuPgnWarn($w, $e, "in-play limit reached; $card not re-seated");
+        // A unit entry in the other seat's cards: move it, with everything on it.
+        $cards = $state['players'][$other]['cards'] ?? null;
+        foreach (is_array($cards) ? $cards : [] as $i => $c) {
+            if (!is_array($c) || ($c['id'] ?? null) !== $card) continue;
+            if (count(_SwuPgnList($state['players'][$p]['cards'] ?? null)) >= SWUPGN_MAX_CARDS_PER_SEAT) {
+                _SwuPgnWarn($w, $e, "in-play limit reached; $card not re-seated");
+                return $state;
+            }
+            $ups = _SwuPgnList($c['upgrades'] ?? null);
+            $load = count($ups) + count(_SwuPgnList($c['captured'] ?? null));
+            if ($load > 0 && _SwuPgnSeatAttached($state, $p) + $load > SWUPGN_MAX_SEAT_ATTACHED) {   // §12
+                _SwuPgnWarn($w, $e, "seat attachment limit reached; $card not re-seated");
+                return $state;
+            }
+            // Owner: absent → the seat it came from; then none when that is p (it went home).
+            $owner = _SwuPgnSeat($c['owner'] ?? null) ?? $other;
+            if ($owner === $p) unset($c['owner']); else $c['owner'] = $owner;
+            // Each upgrade keeps its own controller (its entry, else the seat the host came from), rebuilt against p.
+            $old = _SwuPgnMap($c['upgradeControllers'] ?? null);
+            $uc = [];
+            foreach ($ups as $u) {
+                if (!is_string($u) || _SwuPgnFoldReservedName($u)) continue;
+                $ctl = _SwuPgnSeat($old[$u] ?? null) ?? $other;
+                if ($ctl !== $p) $uc[$u] = $ctl;
+            }
+            if ($uc) $c['upgradeControllers'] = $uc; else unset($c['upgradeControllers']);
+            unset($cards[$i]);
+            $state['players'][$other]['cards'] = array_values($cards);
+            $mine = _SwuPgnList($state['players'][$p]['cards'] ?? null);
+            $mine[] = _SwuPgnCardOrder($c);
+            $state['players'][$p]['cards'] = $mine;
             return $state;
         }
-        $state = _SwuPgnTakeCard($state, $card, $entry);
-        $cards = _SwuPgnList($state['players'][$p]['cards'] ?? null);
-        $cards[] = $entry;
-        $state['players'][$p]['cards'] = $cards;
+        // The upgrade form: nothing moves; the host notes p as the upgrade's controller.
+        foreach ([1, 2] as $s) {
+            foreach (_SwuPgnList($state['players'][$s]['cards'] ?? null) as $i => $c) {
+                if (is_array($c) && is_array($c['upgrades'] ?? null) && in_array($card, $c['upgrades'], true)) {
+                    return _SwuPgnSetController($state, $s, $i, $card, $p);
+                }
+            }
+        }
         return $state;
     }
 
     $from = _SwuPgnSeat($e['from'] ?? null);
+    if ($zone === 'resource' && $from === null) {
+        // No counts move (a MOVE carried them): only who owns the card in p's row.
+        if (_SwuPgnHasSeat($state, $other) && is_array($state['players'][$other]['foreignResources'] ?? null)) {
+            $state['players'][$other]['foreignResources'] = _SwuPgnRemoveId($state['players'][$other]['foreignResources'], $card);
+        }
+        $owner = _SwuPgnSeat($e['owner'] ?? null);
+        if ($owner !== null && $owner !== $p) {
+            $state['players'][$p]['foreignResources'] = _SwuPgnAddOnce($state['players'][$p]['foreignResources'] ?? null, $card, SWUPGN_MAX_LIST, $w, $e);
+        } elseif ($owner === $p && is_array($state['players'][$p]['foreignResources'] ?? null)) {
+            $state['players'][$p]['foreignResources'] = _SwuPgnRemoveId($state['players'][$p]['foreignResources'], $card);
+        }
+        return $state;
+    }
     if ($from === null || $from === $p || !_SwuPgnHasSeat($state, $from)) return $state;
 
     if ($zone === 'resource') {
         $bucket = ($e['exhausted'] ?? null) === true ? 'resourcesExhausted' : 'resourcesReady';
         $state['players'][$from][$bucket] = max(0, _SwuPgnNum($state['players'][$from][$bucket] ?? 0) - 1);
         $state['players'][$p][$bucket] = _SwuPgnNum($state['players'][$p][$bucket] ?? 0) + 1;
-        // "re-seats the card itself": the row MEMBERSHIP (§11 resources[], gated by §14) moves too, or
-        // every keyframe after a steal reports both rows as mismatched.
         if (array_key_exists('resources', $state['players'][$from])) {
             $state['players'][$from]['resources'] = _SwuPgnRemoveId($state['players'][$from]['resources'], $card);
         }
         $state['players'][$p]['resources'] = _SwuPgnAddOnce($state['players'][$p]['resources'] ?? null, $card, SWUPGN_MAX_LIST, $w, $e);
+        // Ownership: a card in from's foreignResources is going home; any other is now foreign in p's row.
+        $ff = $state['players'][$from]['foreignResources'] ?? null;
+        if (is_array($ff) && in_array($card, $ff, true)) {
+            $state['players'][$from]['foreignResources'] = _SwuPgnRemoveId($ff, $card);
+        } else {
+            $state['players'][$p]['foreignResources'] = _SwuPgnAddOnce($state['players'][$p]['foreignResources'] ?? null, $card, SWUPGN_MAX_LIST, $w, $e);
+        }
         return $state;
     }
     if ($zone === 'base') {

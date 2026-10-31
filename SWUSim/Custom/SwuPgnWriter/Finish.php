@@ -4,8 +4,11 @@
 // (meta.finished); a bookmark that reopens the game clears it (Recorder.php SwuPgnRecRestore).
 
 // [WriterRevision] (§5.2): bump on EVERY change to what the writer writes that a reader can see (§22). 1 = the first
-// revision with the tag (the Homeworlds revision of 1.0, 2026-10-26).
-const SWUPGN_WRITER_REVISION = 1;
+// revision with the tag (the Homeworlds revision of 1.0, 2026-10-26). 2 = the 2026-10-28 text: INIT R0.S.0, ROUND_START active,
+// resources entering exhausted on their MOVE, §6.1 token names, STATS traits/blank/leaderUnit, keyframe owner/foreignResources/
+// upgradeControllers/traits, upgrade TAKE_CONTROL, SEARCH owner/seen, LOOK (scry), NAME, disclose REVEAL, combat-damage simul,
+// ability-made plays/attacks lettered, card ids zero-padded (SOR#095).
+const SWUPGN_WRITER_REVISION = 2;
 
 // The engine's own words for the ending, in the spec's style (§5.1 Reason, e.g. "Base Destroyed").
 function _SwuPgnEndReason(): string {
@@ -19,7 +22,7 @@ function _SwuPgnEndReason(): string {
 
 function SwuPgnRecFinishIfOver(string $g): void {
     $w = SWUGetGameWinner();
-    if ($w <= 0) return;
+    if ($w === 0) return;   // not over; a draw (SWU_GAME_DRAW, -1) finishes with Result: Draw
     $meta = SwuPgnMetaRead($g);
     if ($meta === null || empty($meta['recording']) || !empty($meta['finished'])) return;
     SwuPgnRecFinish($g, $w, _SwuPgnEndReason());
@@ -166,7 +169,7 @@ function SwuPgnBuildDoc(string $g, array $meta, array $state, array $events, int
     }
     if (intval($meta['undos'] ?? 0) > 0) $headers['Undos'] = strval(intval($meta['undos']));
     if (intval($meta['recorderErrors'] ?? 0) > 0) $headers['RecorderErrors'] = strval(intval($meta['recorderErrors']));
-    $setup = isset($meta['setup']) ? [['seq' => 'R1.S.0', 't' => 'INIT', 'p1DeckOrder' => $meta['setup']['p1DeckOrder'] ?? [],
+    $setup = isset($meta['setup']) ? [['seq' => 'R0.S.0', 't' => 'INIT', 'p1DeckOrder' => $meta['setup']['p1DeckOrder'] ?? [],
         'p2DeckOrder' => $meta['setup']['p2DeckOrder'] ?? []]] : [];
     $doc = ['headers' => $headers, 'story' => null, 'decks' => $decks, 'cards' => [], 'setup' => $setup, 'events' => $events];
     $doc['cards'] = _SwuPgnCardsIndex($doc);

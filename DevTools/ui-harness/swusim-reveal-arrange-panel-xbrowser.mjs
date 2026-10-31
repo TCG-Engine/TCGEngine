@@ -1,6 +1,6 @@
 // The REVEALARRANGE panel ("discard some, put the rest back on top in any order") with a DISCARD LIMIT.
 // Bug report 2026-10-01: LAW_237 Qui-Gon Jinn, Influencing Chance — "not letting me choose the order to put back
-// on top". Qui-Gon now raises ONE REVEALARRANGE with Param "ids|1" (discard up to 1). Core/UILibraries20261027.js
+// on top". Qui-Gon now raises ONE REVEALARRANGE with Param "ids|1" (discard up to 1). Core/UILibraries20261030.js
 // ShowRevealArrangePanel. Pinned, Chromium / Firefox / WebKit, desktop 1600x1000 and phone 390x844:
 //   · limit 1: after one Discard, no card offers Discard any more and the hint reads "Discard up to 1 (1 used)";
 //   · DUPLICATE COPIES: two SOR_095 revealed together — taking one leaves the other on the panel (the old

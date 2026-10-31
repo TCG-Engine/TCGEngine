@@ -55,6 +55,32 @@ function _SwuPgnPeeked(int $p): array {
     return $out;
 }
 
+// A unit's traits right now (§10.1 STATS [W-55]): printed or gained, less any lost — the engine's own object-aware trait test
+// (TraitContains) over every trait any card prints. Lower case, sorted.
+function _SwuPgnTraits($obj): array {
+    if (!function_exists('SWUAllTraits') || !function_exists('TraitContains')) return [];
+    $out = [];
+    foreach (SWUAllTraits() as $t) if (TraitContains($obj, $t)) $out[] = strtolower($t);
+    $out = array_values(array_unique($out));
+    sort($out);
+    return $out;
+}
+
+// §10.1 STATS `blank` (CR 8.14.2): the unit lost ALL its abilities. A loss that leaves one ability standing or puts another in
+// its place is not blank (CR 8.14.4): SEC_054 Exiled from the Force keeps Grit, SEC_038 Condemn "loses all OTHER abilities".
+function _SwuPgnBlank($obj): bool {
+    if (!function_exists('_SWULostAbilitiesNow')) return false;
+    $o = clone $obj;
+    $o->TurnEffects = array_values(array_filter(is_array($obj->TurnEffects ?? null) ? $obj->TurnEffects : [], fn($e) => $e !== 'SEC_038'));
+    return _SWULostAbilitiesNow($o, 'SEC_054');
+}
+
+// §10.1 STATS `leaderUnit` (CR 3.4.7): a unit an ability MADE a leader unit (a leader Pilot on it) — a deployed leader is one
+// by being a leader, not by an ability.
+function _SwuPgnMadeLeaderUnit($obj): bool {
+    return function_exists('IsLeaderUnit') && IsLeaderUnit($obj) && !str_contains((string)(CardType((string)($obj->CardID ?? '')) ?? ''), 'Leader');
+}
+
 function _SwuPgnUnitSnap($obj, string $arena): array {
     $tokens = ['shield' => 0, 'experience' => 0, 'advantage' => 0, 'weakness' => 0];
     $upgrades = [];
@@ -63,7 +89,7 @@ function _SwuPgnUnitSnap($obj, string $arena): array {
         $kind = _SwuPgnTokenKind($id);
         if ($kind !== null) { $tokens[$kind] = ($tokens[$kind] ?? 0) + 1; continue; }
         $upgrades[] = ['cardID' => $id, 'uid' => isset($sub->UniqueID) && $sub->UniqueID !== '' ? intval($sub->UniqueID) : null,
-            'isPilot' => _SwuPgnBool($sub->IsPilot ?? false)];
+            'isPilot' => _SwuPgnBool($sub->IsPilot ?? false), 'controller' => intval($sub->Controller ?? 0) ?: intval($obj->Controller ?? 0)];
     }
     $captives = [];
     foreach (is_array($obj->Subcards ?? null) ? $obj->Subcards : [] as $sub) {
@@ -75,7 +101,8 @@ function _SwuPgnUnitSnap($obj, string $arena): array {
         'ready' => intval($obj->Status ?? 0) === 1,
         'owner' => intval($obj->Owner ?? 0), 'controller' => intval($obj->Controller ?? 0),
         'power' => intval(ObjectCurrentPower($obj)), 'hp' => intval(ObjectCurrentHP($obj)),
-        'keywords' => _SwuPgnKeywords($obj), 'upgrades' => $upgrades, 'tokens' => $tokens, 'captives' => $captives,
+        'keywords' => _SwuPgnKeywords($obj), 'traits' => _SwuPgnTraits($obj), 'blank' => _SwuPgnBlank($obj), 'leaderUnit' => _SwuPgnMadeLeaderUnit($obj),
+        'upgrades' => $upgrades, 'tokens' => $tokens, 'captives' => $captives,
     ];
 }
 
@@ -84,7 +111,7 @@ function _SwuPgnSeatSnap(int $p): array {
     $resources = [];
     foreach (_SwuPgnLive(GetResources($p) ?? []) as $r) {
         $resources[] = ['cardID' => (string)$r->CardID, 'ready' => intval($r->Status ?? 0) === 1,
-            'credit' => SWUIsCreditToken((string)$r->CardID)];
+            'credit' => SWUIsCreditToken((string)$r->CardID), 'owner' => intval($r->Owner ?? 0) ?: $p];
     }
     $base = _SwuPgnLive(GetBase($p) ?? [])[0] ?? null;
     $baseCaptives = [];

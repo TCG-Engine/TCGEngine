@@ -254,7 +254,8 @@ function MatchReplayGetWinner() {
 }
 
 function MatchReplayIsGameOver() {
-  if (MatchReplayGetWinner() > 0) return true;
+  $w = MatchReplayGetWinner();
+  if ($w > 0 || $w === -1) return true;   // -1 = a drawn game (SWUSim, CR 6.3)
   if (function_exists('IsGameOver')) return !!IsGameOver();
   return false;
 }

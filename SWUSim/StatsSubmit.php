@@ -195,9 +195,12 @@ function SWUSubmitMatchResults($matchId) {
     // the host's :3100 mapping. DEVENV is set only in the local docker-compose override.
     $statsBase = (getenv('DEVENV') === 'true') ? 'http://host.docker.internal:3100' : 'https://swustats.net';
     $statsUrl = $statsBase . '/TCGEngine/APIs/SubmitGameResult.php';
-    $attempted = 0; $failed = 0; $withoutOwner = 0;
+    $attempted = 0; $failed = 0; $withoutOwner = 0; $drawn = 0;
     foreach (($m['games'] ?? []) as $g) {
         if (($g['winner'] ?? null) === null) continue;
+        // A DRAWN game (CR 6.3) is not sent: SubmitGameResult has no draw form our payload can fill (owner, 2026-10-30:
+        // SWUStats draws come later). The match's other games still go.
+        if (!empty($g['draw'])) { $drawn++; continue; }
         // Don't record a game that ended before Round 2 (an early concede/abandon). GetTurnNumber is
         // the round counter; a game conceded during Round 1 has turns < 2 and must not pollute stats.
         if (intval($g['detail']['turns'] ?? 0) < 2) continue;
@@ -206,7 +209,7 @@ function SWUSubmitMatchResults($matchId) {
         if ($r === 'failed') $failed++;
         elseif ($r === 'ok_without_owner') $withoutOwner++;
     }
-    $status = SWUStatsSubmitStatus($attempted, $failed, $withoutOwner);
+    $status = ($attempted === 0 && $drawn > 0) ? 'skipped_draw' : SWUStatsSubmitStatus($attempted, $failed, $withoutOwner);
     SWUWithMatchLock($matchId, function(&$mm) use ($status) { $mm['statsStatus'] = $status; });
 }
 
@@ -235,8 +238,11 @@ function SWUBuildStatsHtml($match, $game, $viewerSeat = null) {
     $tdL = 'text-align:left;color:#f0e6c8;border:1px solid #5a6b7a;padding:3px 6px;';
     $h = '';
     if (intval($match['bestOf'] ?? 1) > 1) {
+        // Drawn games (CR 6.3) are named only when there are any: "1 – 1, 1 draw".
+        $draws = count(array_filter($match['games'] ?? [], fn($g) => !empty($g['draw'])));
         $h .= '<div style="font-weight:bold;margin-bottom:8px;">Match score: '
             . intval($match['wins']['1'] ?? 0) . ' – ' . intval($match['wins']['2'] ?? 0)
+            . ($draws > 0 ? ', ' . $draws . ' draw' . ($draws === 1 ? '' : 's') : '')
             . ' (game ' . intval($game['gameNumber'] ?? 1) . ')</div>';
     }
     foreach ($seats as $seat) {

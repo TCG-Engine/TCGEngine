@@ -64,6 +64,10 @@ function SWUFlashMatchResult($gameName, $winnerSeat, $m) {
         SetFlashMessage("MATCHOVER:" . implode(', ', $labels) . " " . (count($labels) > 1 ? 'win' : 'wins') . " the game!");
         return;
     }
+    if (intval($winnerSeat) === 0) {   // a drawn match (CR 6.3 draws): equal game wins after the full series
+        SetFlashMessage("MATCHOVER:The match is a draw " . intval($m['wins']['1'] ?? 0) . "-" . intval($m['wins']['2'] ?? 0) . "!");
+        return;
+    }
     SetFlashMessage("MATCHOVER:Player " . intval($winnerSeat) . " wins the match " .
         intval($m['wins']['1'] ?? 0) . "-" . intval($m['wins']['2'] ?? 0) . "!");
 }
@@ -82,7 +86,8 @@ function SWURecordDeckStatsForGame(array &$match, $winnerSeat) {
     // opponent-matchup logic below assumes exactly 2 seats) — skip stats for >2 seats.
     if (count($match['players'] ?? []) > 2) return;
     $winnerSeat = intval($winnerSeat);
-    if ($winnerSeat !== 1 && $winnerSeat !== 2) return;
+    $draw = ($winnerSeat === 0);   // MatchRecordGameDraw: a drawn game counts as a draw for BOTH seats
+    if ($winnerSeat !== 1 && $winnerSeat !== 2 && !$draw) return;
     require_once __DIR__ . '/../Database/ConnectionManager.php';
     require_once __DIR__ . '/../Database/functions.inc.php';
     require_once __DIR__ . '/Custom/DeckImport.php';
@@ -93,14 +98,14 @@ function SWURecordDeckStatsForGame(array &$match, $winnerSeat) {
         $deckId = $p['deckIdentity'] ?? '';
         if ($userId === null || $deckId === '') continue;          // guest or no identity
         $won = ($seat === $winnerSeat);
-        $affected = RecordSavedDeckResult($userId, $deckId, $won);
+        $affected = RecordSavedDeckResult($userId, $deckId, $won, $draw);
         if ($affected <= 0) continue;                              // deck not saved → skip matchup
         $opp = ($seat === 1) ? '2' : '1';
         $oppDeck = $match['players'][$opp]['originalDeck'] ?? [];
         $oppLeader = (string)($oppDeck['leader'] ?? '');
         $oppBase   = SWUNormalizeBaseForMatchup($oppDeck['base'] ?? '');
         if ($oppLeader !== '' && $oppBase !== '') {
-            RecordSavedDeckMatchup($userId, $deckId, $oppLeader, $oppBase, $won);
+            RecordSavedDeckMatchup($userId, $deckId, $oppLeader, $oppBase, $won, $draw);
         }
     }
 }

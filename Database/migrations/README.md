@@ -37,6 +37,7 @@ Apply in numeric order:
 | 18 | `18_swustats_link.sql` | Creates `swustats_links` (Petranaki account ↔ SWUStats account, OAuth tokens). Apply to the **SWUSim** app DB only. The code checks DBTableExists() first, so until it runs linking is simply off. Idempotent | Petranaki ↔ SWUStats link |
 | 19 | `19_swusim_bug_reports.sql` | Creates `swusim_bug_reports` (Petranaki's own SWUSim bug reports; the reports themselves live on disk in `SWUSim/BugReports/`). Apply to the **SWUSim** app DB only. The code checks DBTableExists() first, so until it runs reports are saved to disk only. Idempotent | Petranaki local bug reports |
 | 20 | `20_swuforge_link.sql` | Creates `swuforge_links` (Petranaki account ↔ SWU Forge account, OAuth tokens) and `swuforge_deliveries` (finished games queued for SWU Forge). Apply to the **SWUSim** app DB only. The code checks DBTableExists() first, so until it runs the link is simply off. Idempotent | Petranaki → SWU Forge game delivery |
+| 22 | `22_draws.sql` | Adds `draws` to `favoritedeck`, `favoritedeckmatchup` and `glicko_ratings` (drawn games, CR 6.3: a draw is neither a win nor a loss). Apply to the **SWUSim** app DB only. The code checks DBColumnExists() first, so until it runs draws are simply not counted. Idempotent | SWUSim drawn games |
 
 The first three are **independent** of each other (disjoint tables) — the numbering is the phase order they
 were designed and tested in, and is a safe, canonical sequence. There is no cross-file dependency.

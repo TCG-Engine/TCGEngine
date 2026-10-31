@@ -17,15 +17,12 @@ $post = function (string $path, string $body, string $type = 'text/plain') {
 $fx = __DIR__ . '/fixtures/swupgn/';
 $games = dirname(__DIR__, 2) . '/SWUSim/Games';
 
-// Cleanup: an old viewer folder goes, an old normal game folder stays.
-@mkdir("$games/990000001", 0777, true); file_put_contents("$games/990000001/Viewer.json", '{}'); touch("$games/990000001/Viewer.json", time() - 90000);
-@mkdir("$games/990000002", 0777, true); file_put_contents("$games/990000002/Gamestate.txt", 'x'); touch("$games/990000002/Gamestate.txt", time() - 90000); touch("$games/990000002", time() - 90000);
-
-@unlink("$games/SwuPgnViewers.sweep");   // the full folder sweep runs at most once a day; make this open run it
+// The once-a-day full folder sweep is NOT run here: it stats every game folder, and a dev Games/ dir holds tens of
+// thousands on a slow bind mount (45,071 on 2026-10-31: ~240 s, far past the 60 s curl timeout — every check below then
+// failed with HTTP 0). What it removes and keeps is tested on a temp dir in test_swupgn_viewer_limits.php.
+touch("$games/SwuPgnViewers.sweep");
 [$code, $open, $raw] = $post('SWUSim/SwuPgnViewer.php?action=open', file_get_contents($fx . 'viewer-game.swupgn'));
 $check($code === 200 && ($open['success'] ?? false) && preg_match('/^\d+$/', (string)($open['gameName'] ?? '')) === 1, 'open: a valid file creates a viewer game' . ($code !== 200 ? " (HTTP $code: " . substr($raw, 0, 200) . ')' : ''));
-$check(!is_dir("$games/990000001") && is_dir("$games/990000002"), 'open: cleanup removed the old VIEWER folder and kept the normal game');
-@unlink("$games/990000002/Gamestate.txt"); @rmdir("$games/990000002");
 $meta = $open['meta'] ?? [];
 $check(count($meta['steps'] ?? []) > 10 && array_key_exists('perspective', $meta) && $meta['perspective'] === null && ($meta['view'] ?? '') === 'both', 'open: steps, all-seeing file, view both');
 $check(str_contains((string)($open['viewUrl'] ?? ''), 'playerID=S') && str_contains((string)($open['viewUrl'] ?? ''), 'swupgnViewer=1'), 'open: viewUrl opens the board as a spectator in viewer mode');
@@ -37,7 +34,7 @@ $last = max(0, count($meta['steps'] ?? []) - 1);
 [$code, $seek] = $post('SWUSim/SwuPgnViewer.php?action=seek', json_encode(['gameName' => $gn, 'key' => $key, 'step' => $last]), 'application/json');
 $check($code === 200 && ($seek['meta']['step'] ?? -1) === $last, 'seek: lands on the requested step');
 $board = $poll($gn, $key);
-$check(count(explode('<~>', $board)) > 31, 'poll: the spectator sees a full board');
+$check(count(explode('<~>', $board)) > 31, 'poll: the spectator sees a full board' . (count(explode('<~>', $board)) > 31 ? '' : ' (got ' . json_encode(substr($board, 0, 120)) . ')'));
 $check(str_contains($board, 'JTL_095') && str_contains($board, 'SWUPGNX_'), 'poll: mapped cards and the placeholder are on the board');
 $check(!preg_match('/Deprecated|Warning:|Notice:|Fatal error/', $board), 'poll: no PHP notice leaks into the payload (placeholder cards are tolerated)');
 [$code, $past] = $post('SWUSim/SwuPgnViewer.php?action=seek', json_encode(['gameName' => $gn, 'key' => $key, 'step' => 99999]), 'application/json');

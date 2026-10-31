@@ -551,7 +551,12 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
         // Goldfish practice: P2's Echo Base is an infinite damage sponge — never trigger the loss,
         // so the damage counter just keeps climbing past its HP. (P1's own base win-con is untouched.)
         $spongeExempt = ($targetPlayer === 2 && function_exists('SWUGameMode') && SWUGameMode() === 'goldfish');
-        if (!$spongeExempt && $base[$i]->Damage >= $baseHP) {
+        if (!$spongeExempt && $base[$i]->Damage >= $baseHP && SWUInSimultaneousBaseDamage()) {
+            // One event that damages several bases (SWUSimultaneousBaseDamage): don't end the game on the first base it
+            // kills — the bracket decides once all of its damage is dealt (CR 6.3 draw). Remember the eliminator for
+            // Twin Suns' CR 12.6.2 heal.
+            if ($damage > 0) $GLOBALS['gSWUSimulBaseKiller'][intval($targetPlayer)] = intval($damager);
+        } elseif (!$spongeExempt && $base[$i]->Damage >= $baseHP) {
             if (SeatCountForGame() > 2) {
                 // Twin Suns: eliminate the seat (heals $damager 5, defers most-HP scoring) — do NOT
                 // declare an instant winner. $damager was resolved above when $damage > 0.

@@ -26,6 +26,7 @@ $customDQHandlers["SEC_004#0"] = function($player, $parts, $lastDecision) {
     $c = str_contains($mz, '-') ? GetZoneObject($mz) : null;
     if (SWUObjGone($c)) { if ($closeAction) SWUAfterAction(intval($player)); return; }
     AddGameLogEntry('DISCLOSE', 'P' . intval($player) . ' discloses ' . GameLogCardRef($c->CardID));
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'REVEAL', 'p' => intval($player), 'zone' => 'hand', 'cardIDs' => [strval($c->CardID)]]);   // SWU-PGN: the disclose
     $disclosedAspects = SWUCardAspectIcons($c->CardID);
     $targets = [];
     // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a

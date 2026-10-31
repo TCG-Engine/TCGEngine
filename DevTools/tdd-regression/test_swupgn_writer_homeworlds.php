@@ -72,7 +72,7 @@ SwuPgnTestEq(array_column($r['events'], 't'), ['DAMAGE'], 'a base left standing 
 // Outright (Grand Moff Tarkin): no damage is dealt — the engine's "fill the damage in" is not a DAMAGE.
 $ctx = HCtx();
 $r = SwuPgnMatch([$baseHit(21, 0)], [['t' => 'BASE_DEFEAT', 'seat' => 2, 'by' => 'HMW_004']], $ctx);
-SwuPgnTestEq($shape($r), [['t' => 'DEFEAT', 'card' => 'base@2', 'reason' => 'ability', 'defeatedBy' => 'HMW#4']],
+SwuPgnTestEq($shape($r), [['t' => 'DEFEAT', 'card' => 'base@2', 'reason' => 'ability', 'defeatedBy' => 'HMW#004']],
     'a base defeated outright: DEFEAT base@2 reason ability, defeatedBy Tarkin — and no DAMAGE, so its HP stands');
 SwuPgnTestEq($r['gaps'], [], '…the damage the engine filled in is claimed, not a gap');
 
@@ -110,9 +110,9 @@ $seqOf = function (array $out, array $notes) {
     return array_map(fn($e) => [$e['t'], $e['for'] ?? null], _SwuPgnMSequence($run));
 };
 SwuPgnTestEq($seqOf([
-    [['t' => 'CHOICE', 'p' => 1, 'offered' => ['SOR#95'], 'chose' => 0], false, 0],
-    [['t' => 'EXHAUST', 'card' => 'HMW#4'], false, 0],
-    [['t' => 'ABILITY_ACTIVATE', 'p' => 1, 'card' => 'HMW#4', 'kind' => 'action'], true, 0],
+    [['t' => 'CHOICE', 'p' => 1, 'offered' => ['SOR#095'], 'chose' => 0], false, 0],
+    [['t' => 'EXHAUST', 'card' => 'HMW#004'], false, 0],
+    [['t' => 'ABILITY_ACTIVATE', 'p' => 1, 'card' => 'HMW#004', 'kind' => 'action'], true, 0],
 ], [['t' => 'ABILITY', 'kind' => 'action']]), [['CHOICE', null], ['EXHAUST', null], ['ABILITY_ACTIVATE', null]],
     '§9.1: only CHOICE / MODAL_CHOICE may precede an action ability — an EXHAUST naming it does not link the run');
 SwuPgnTestEq($seqOf([
@@ -120,8 +120,8 @@ SwuPgnTestEq($seqOf([
     [['t' => 'STATS', 'card' => 'TOKEN:beast#6445363199', 'power' => 3, 'hp' => 3, 'keywords' => []], false, null],
     [['t' => 'EXHAUST', 'card' => 'TOKEN:beast#6445363199'], false, null],
     [['t' => 'EXHAUST_RESOURCES', 'p' => 1, 'amount' => 2], false, 0],
-    [['t' => 'MOVE', 'card' => 'SOR#95', 'from' => 'hand', 'to' => 'ground', 'p' => 1, 'kind' => 'unit'], false, 0],
-    [['t' => 'PLAY', 'p' => 1, 'card' => 'SOR#95', 'zone' => 'ground', 'cost' => 2], true, 0],
+    [['t' => 'MOVE', 'card' => 'SOR#095', 'from' => 'hand', 'to' => 'ground', 'p' => 1, 'kind' => 'unit'], false, 0],
+    [['t' => 'PLAY', 'p' => 1, 'card' => 'SOR#095', 'zone' => 'ground', 'cost' => 2], true, 0],
 ], [['t' => 'PLAY']]), [['MOVE', null], ['STATS', null], ['EXHAUST', null], ['EXHAUST_RESOURCES', 'R3.A.1'], ['MOVE', 'R3.A.1'], ['PLAY', null]],
     '§9.1: another card arriving in play ends the run — the Beast\'s arrival, STATS and EXHAUST are not the play\'s');
 
@@ -174,7 +174,7 @@ function HOutDoc(): ?array {
 $g = HGame(fn($b) => null, ['leaderCardID' => 'HMW_004'], ['baseDamage' => 21]);
 $ev = HFrame(function () { $GLOBALS['playerID'] = 1; SWULogSetSource(1, 'HMW_004'); SWUDefeatBase(2, 1); });
 $def = HFind($ev, 'DEFEAT', ['card' => 'base@2']);
-SwuPgnTestCheck($def !== null && $def['reason'] === 'ability' && SwuPgnBaseId(strval($def['defeatedBy'] ?? '')) === 'HMW#4', 'Tarkin: DEFEAT base@2, reason ability, defeatedBy Tarkin', HTypes($ev));
+SwuPgnTestCheck($def !== null && $def['reason'] === 'ability' && SwuPgnBaseId(strval($def['defeatedBy'] ?? '')) === 'HMW#004', 'Tarkin: DEFEAT base@2, reason ability, defeatedBy Tarkin', HTypes($ev));
 SwuPgnTestCheck(HFind($ev, 'DAMAGE', ['tgt' => 'base@2']) === null, 'Tarkin: no DAMAGE — no damage was dealt', HTypes($ev));
 $types = array_column($ev, 't');
 SwuPgnTestCheck(($i = array_search('DEFEAT', $types, true)) !== false && array_search('GAME_END', $types, true) > $i, 'Tarkin: the DEFEAT comes before the GAME_END it causes', HTypes($ev));
@@ -186,8 +186,8 @@ if ($doc !== null) {
     SwuPgnTestEq(array_slice(array_keys($doc['headers']), 0, 2), ['Game', 'WriterRevision'], '[WriterRevision] right after [Game]');
     SwuPgnTestCheck(preg_match('/^\d+$/', $doc['headers']['WriterRevision'] ?? '') === 1 && intval($doc['headers']['WriterRevision']) >= 1, '[WriterRevision] is a revision number', $doc['headers']['WriterRevision'] ?? null);
     $entry = null;
-    foreach ($doc['cards'] as $c) if (($c['id'] ?? null) === 'HMW#4') $entry = $c;
-    SwuPgnTestEq($entry, ['id' => 'HMW#4', 'name' => 'Grand Moff Tarkin, Tyrant of the Outer Rim', 'backSideName' => 'The Death Star, Icon of Tyranny'],
+    foreach ($doc['cards'] as $c) if (($c['id'] ?? null) === 'HMW#004') $entry = $c;
+    SwuPgnTestEq($entry, ['id' => 'HMW#004', 'name' => 'Grand Moff Tarkin, Tyrant of the Outer Rim', 'backSideName' => 'The Death Star, Icon of Tyranny'],
         '%%% CARDS names Tarkin by his printed front, the deployed side as backSideName');
     SwuPgnTestEq(SwuPgnValidate($doc)['errors'], [], 'Tarkin: the file validates');
 }

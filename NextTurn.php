@@ -17,7 +17,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
       crossorigin="anonymous"></script>
     <script src="./Core/StyledDialog.js?v=<?php echo filemtime('./Core/StyledDialog.js'); ?>"></script>
-    <script src="./Core/UILibraries20261027.js?v=<?php echo filemtime('./Core/UILibraries20261027.js'); ?>"></script>
+    <script src="./Core/UILibraries20261030.js?v=<?php echo filemtime('./Core/UILibraries20261030.js'); ?>"></script>
     <script src="./Core/CounterRendering.js?v=<?php echo filemtime('./Core/CounterRendering.js'); ?>"></script>
     <script src="./Core/MZRearrangePopup.js?v=<?php echo filemtime('./Core/MZRearrangePopup.js'); ?>"></script>
     <script src="./Core/MZSplitAssignUI.js?v=<?php echo filemtime('./Core/MZSplitAssignUI.js'); ?>"></script>
@@ -1485,7 +1485,8 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             var _goVars = JSON.parse(window.DecisionQueueVariablesData);
             if (_goVars && _goVars.GAMEOVER_WINNER) {
               var _goWinner = parseInt(_goVars.GAMEOVER_WINNER, 10);
-              if (_goWinner > 0 && typeof ShowGameOver === 'function') {
+              // -1 = a drawn game (SWUSim, CR 6.3): over, with no winning seat.
+              if ((_goWinner > 0 || _goWinner === -1) && typeof ShowGameOver === 'function') {
                 window._gameOverShown = true;
                 // Not inside a sealed replay: re-saving it is refused (Core/MatchReplay.php MatchReplayCanDownload).
                 if (window.MatchReplayConfig && window.MatchReplayConfig.enabled
@@ -1508,7 +1509,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                 } else if (typeof window.AzukiShowEndGameMenu === 'function') {
                   window.AzukiShowEndGameMenu(_goStatsHtml, _goWinner);
                 } else {
-                  ShowGameOver(viewerCanAct && playerID === _goWinner, undefined, _goStatsHtml);
+                  ShowGameOver(_goWinner === -1 ? 'draw' : (viewerCanAct && playerID === _goWinner), undefined, _goStatsHtml);
                 }
                 if (window.GameLogClient && typeof window.GameLogClient.addGameOverButton === 'function') {
                   window.GameLogClient.addGameOverButton(document.getElementById('game-over-overlay'));

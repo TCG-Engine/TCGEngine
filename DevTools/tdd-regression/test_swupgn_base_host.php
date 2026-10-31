@@ -81,11 +81,11 @@ $codes = function (array $events): array {
     return array_values(array_unique(array_filter($all, fn($c) => $c !== 'section.missing')));   // the fixture has no DECKS
 };
 SwuPgnTestEq($codes($fortify), [], 'validate: the base-host MOVE + PLAY_UPGRADE are clean');
-SwuPgnTestCheck(in_array('move.attached-to', $codes([BM('HMW#206', 'hand', 'base', 2, ['kind' => 'upgrade'])]), true),
+SwuPgnTestCheck(in_array('schema', $codes([BM('HMW#206', 'hand', 'base', 2, ['kind' => 'upgrade'])]), true),
     'validate: an upgrade MOVE into base must name its host');
-SwuPgnTestCheck(in_array('move.attached-to', $codes([BM('HMW#206', 'base', 'discard', 2, ['kind' => 'upgrade', 'attachedTo' => 'base@2'])]), true),
+SwuPgnTestCheck(in_array('schema', $codes([BM('HMW#206', 'base', 'discard', 2, ['kind' => 'upgrade', 'attachedTo' => 'base@2'])]), true),
     'validate: a MOVE out of base is host-less');
-SwuPgnTestCheck($codes([['t' => 'ROUND_START', 'round' => 1, 'keyframe' => SwuPgnTestKeyframe([], ['baseUpgrades' => 'HMW#206'])]]) !== [], 'validate: a keyframe baseUpgrades that is not a list of ids is an error');
+SwuPgnTestCheck($codes([['t' => 'ROUND_START', 'round' => 1, 'active' => 1, 'keyframe' => SwuPgnTestKeyframe([], ['baseUpgrades' => 'HMW#206'])]]) !== [], 'validate: a keyframe baseUpgrades that is not a list of ids is an error');
 
 // ── story ───────────────────────────────────────────────────────────────────────────────────────
 $story = SwuPgnRender(SwuPgnParse(SwuPgnTestFile(SwuPgnTestSeq($fortify))), ['HMW#206' => 'Fortify']);
