@@ -36,6 +36,7 @@ $rootName = $_POST['rootName'];
 // BEFORE anything below decides it is gone. Absent for every other sim.
 if ($rootName === 'SWUSim') {
   require_once __DIR__ . '/../../SWUSim/Rooms.php';
+  require_once __DIR__ . '/../../SWUSim/HighGround.php';   // High Ground rooms (additive: a no-op without $lobby->highGround)
   if ($lobbyID !== '' && $lobbyID !== 'invite') {
     SWURoomRehydrate(strval($lobbyID));
   } elseif (strval($_POST['inviteCode'] ?? '') !== '') {
@@ -184,13 +185,18 @@ while (true) {
     $houseRuleDefs = ($pollAdapter instanceof LobbyHouseRulesAdapter) ? $pollAdapter->houseRuleDefs($lobby) : [];
     // SWUSim 1v1: the match this room is following, read BEFORE the lock (the callback must not do I/O).
     $roomMatch = function_exists('SWURoomMatchFor') ? SWURoomMatchFor($lobby) : null;
+    // SWUSim High Ground: the live hill match (and whether its game is being played), also read before the lock.
+    $hgLive = function_exists('SWUHighGroundLiveState') ? SWUHighGroundLiveState($lobby, $now) : null;
     $roomChanged = false;
-    $lobbyAfter = LobbyMutate($lobbyID, function ($l) use ($authKey, $now, &$meSeat, $houseRuleDefs, $roomMatch, &$roomChanged) {
+    $lobbyAfter = LobbyMutate($lobbyID, function ($l) use ($authKey, $now, &$meSeat, $houseRuleDefs, $roomMatch, $hgLive, &$roomChanged) {
       // The room follows its match: started while it runs, reopened (every seat on the end screen) once it ends.
       if ($roomMatch !== null) $roomChanged = SWURoomSyncWithMatch($l, $roomMatch, $now);
+      // A High Ground room folds in any game result the hook missed, and keeps its two busy players present.
+      if ($hgLive !== null && SWUHighGroundSync($l, $hgLive, $now)) $roomChanged = true;
       $meSeat = SWURoomFindPlayerByAuthKey($l, $authKey);
       if ($meSeat !== null) $meSeat->touch();
-      $migrated = SWUMigrateHostIfAway($l);
+      // A High Ground host may sit in the bleachers or watch a whole evening — host passes only when they leave (spec call).
+      $migrated = (function_exists('SWUIsHighGround') && SWUIsHighGround($l)) ? false : SWUMigrateHostIfAway($l);
       $assigned = LobbyEnsureFixedSeats($l);
       // Re-arms the Kick Host timer on every join/leave/kick/host-migration for free — this mutate
       // already runs on every poll, so no other call site needs to know about it.
@@ -311,6 +317,12 @@ while (true) {
     // What the room is, so the page can offer "find another <format> room" without guessing.
     $response->format = strval($lobby->format ?? '');
     $response->canRequeue = true;
+    // ADDITIVE: a SWUSim High Ground room's line / hill / bleachers / Tonight (SWUSim/HighGround.php). Absent for every other
+    // room. Its two players are NOT sent the automatic redirect below (the room never has a gameName): the room page sends
+    // each of them to their game once, then offers "Back to your game", so the room stays readable during their own match.
+    if (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) {
+      $response->highGround = SWUHighGroundPollView($lobby, strval($authKey), $hgLive['match'] ?? null);   // the view checks membership
+    }
     if (!empty($lobby->gameName)) {
       $response->started  = true;
       $response->gameName = $lobby->gameName;

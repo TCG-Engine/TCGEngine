@@ -18,7 +18,11 @@ if ($scope['token'] === null) { echo $scope['error']; exit; }
 // IS the gameName, exactly as before.
 $gameName = $scope['token'];
 
-$viewerInfo = NormalizeViewerIdentity($playerID, SimGameMaxSeats($folderPath));
+include_once './Core/ChatPolicy.php';
+// A sim may name the sender itself (SWUSim: a High Ground room member — any lobby playerID, or a watcher on the board).
+// That override has already proven membership, so it replaces the seat identity AND its auth check below. null = today's path.
+$chatOverride = ChatViewerOverride($folderPath, $gameName, $_GET, $_COOKIE);
+$viewerInfo = $chatOverride ?? NormalizeViewerIdentity($playerID, SimGameMaxSeats($folderPath));
 if ($viewerInfo['viewerID'] === '') { echo "Invalid player."; exit; }
 $playerID = $viewerInfo['viewerID'];
 
@@ -30,7 +34,9 @@ if ($chatText === "") { echo "Empty message."; exit; }
 // ⚠ The game scope keeps its exact existing behaviour, including "an empty folderPath skips auth"
 // (spectators rely on it). The two new scopes ALWAYS authenticate — there is no anonymous write to a
 // room's or a match's conversation.
-if ($scope['kind'] === 'game') {
+if ($chatOverride !== null) {
+    // authenticated by the override
+} else if ($scope['kind'] === 'game') {
     if ($folderPath !== "" && !SimGameValidateViewerAuth($folderPath, $gameName, $viewerInfo, $authKey)) {
         echo "Invalid auth key."; exit;
     }
@@ -48,7 +54,6 @@ $chatUserId = intval($_SESSION['userid'] ?? 0);
 session_write_close();
 $viewerInfo['userId'] = $chatUserId;
 
-include_once './Core/ChatPolicy.php';
 $chatRefusal = ChatSendRefusal($folderPath, $viewerInfo, $gameName);
 if ($chatRefusal !== null) { echo $chatRefusal; exit; }
 
@@ -82,6 +87,7 @@ if (trim(strval($whisperRaw)) !== "") {
     // just a message.
     if ($scope['kind'] !== 'game')          { echo "Whispers are only available in a game."; exit; }
     if (!empty($viewerInfo['isSpectator'])) { echo "Spectators cannot whisper."; exit; }
+    if (intval($viewerInfo['viewerSeat'] ?? 0) <= 0) { echo "Whispers are for seated players."; exit; }   // a High Ground watcher
     // An empty folderPath skips auth above, and there is no sim policy to consult — never a whisper.
     $whisperPolicy = ($folderPath !== "") ? __DIR__ . '/' . $folderPath . '/Custom/ChatWhisperPolicy.php' : '';
     if ($whisperPolicy === '' || !is_file($whisperPolicy)) { echo "Whispers are not available."; exit; }

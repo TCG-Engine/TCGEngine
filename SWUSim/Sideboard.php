@@ -22,6 +22,11 @@ $matchId = preg_replace('/[^A-Za-z0-9_]/','', $_GET['matchId'] ?? '');
 $seat    = intval($_GET['playerID'] ?? 0);
 $m = SWUReadMatch($matchId);
 if (!is_array($m) || ($seat!==1 && $seat!==2)) { http_response_code(404); echo 'No such match/seat.'; exit; }
+// A High Ground hill match the host ended (no result) — back to the room rather than sideboarding for a game that won't come.
+if (($m['state'] ?? '') === 'abandoned' && strval($m['roomId'] ?? '') !== '') {
+  header('Location: ../SharedUI/WaitingRoom.php?lobby=' . rawurlencode(strval($m['roomId'])));
+  exit;
+}
 // Seed from the deck this seat MOST RECENTLY PLAYED, falling back to the match-start list for the
 // first sideboard of the match. Reading 'originalDeck' unconditionally meant the game-3 menu showed
 // the game-1 configuration and discarded everything the player did before game 2.
@@ -218,6 +223,14 @@ function poll(){ // re-submit is a no-op (first-submit-wins) but returns nextGam
         .catch(function(){ setTimeout(poll,2000); });
 }
 if(alreadyAdvanced && advancedGameName){ go(advancedGameName); } else { render(); }
+// High Ground: the host may end the match while someone is still choosing cards — follow them back to the room.
+(function watchEnded(){
+  var fd=new URLSearchParams(); fd.set('matchId',matchId); fd.set('playerID',seat); fd.set('authKey',authKey); fd.set('statusOnly','1');
+  fetch('./SubmitSideboard.php',{method:'POST',body:fd}).then(function(r){ return r.json(); }).then(function(j){
+    if (j && j.roomLobbyID) { window.location.replace('../SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(j.roomLobbyID)); return; }
+    setTimeout(watchEnded, 4000);
+  }).catch(function(){ setTimeout(watchEnded, 4000); });
+})();
 
 // ── Chat + the log of the game just played ───────────────────────────────────────────────────────
 // ⚠ Card ids render as PLAIN NAMES. This page is standalone and does not load Core's Card()

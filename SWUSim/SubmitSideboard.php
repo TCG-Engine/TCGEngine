@@ -21,6 +21,12 @@ if ($expected === '' || !hash_equals($expected, $authKey)) { echo json_encode(['
 SWUSideboardTimeoutCheck($matchId);
 $m = SWUReadMatch($matchId);
 if (!is_array($m)) { echo json_encode(['success'=>false,'message'=>'Unknown match.']); exit; }
+// statusOnly (additive, High Ground): the page asks whether the host ended the match; nothing is submitted.
+if (strval($_POST['statusOnly'] ?? '') === '1') {
+  $ended = ($m['state'] ?? '') === 'abandoned' && strval($m['roomId'] ?? '') !== '';
+  echo json_encode($ended ? ['success'=>true,'roomLobbyID'=>strval($m['roomId'])] : ['success'=>true]);
+  exit;
+}
 if (($m['state'] ?? '') !== 'sideboarding') {
   // The opponent's submit already spawned the next game and advanced the match. A client
   // still polling this round must be told where to go instead of hanging on an error.

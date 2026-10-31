@@ -26,6 +26,9 @@ $lobbyID  = $_POST['lobbyID'] ?? '';
 $authKey  = $_POST['authKey'] ?? '';
 $targetID = intval($_POST['targetPlayerID'] ?? 0);
 if ($lobbyID === '' || $authKey === '' || $targetID <= 0) _kickFail($response, 'Missing required parameters.');
+// SWUSim High Ground rooms keep a line/bleachers/table beside the seats (SWUSim/HighGround.php). Loaded only for SWUSim.
+$kickSnapshot = apcu_fetch($lobbyID);
+if (is_object($kickSnapshot) && strval($kickSnapshot->rootName ?? '') === 'SWUSim') require_once __DIR__ . '/../../SWUSim/HighGround.php';
 
 $err = null; $removedName = '';
 $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, $targetID, &$err, &$removedName) {
@@ -44,7 +47,12 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, $targetID, &$err
     // countdown, and this is the server half, so a stale page or a hand-built request cannot skip it.
     $wait = SWUSeatKickableIn($p);
     if ($wait > 0) { $err = 'That player just joined — you can remove them in ' . $wait . 's.'; return false; }
+    $hgKick = function_exists('SWUIsHighGround') && SWUIsHighGround($lobby);
+    // High Ground: someone playing on the hill right now is ended with End match, not kicked out of a live game.
+    if ($hgKick && is_array($lobby->highGround['live'] ?? null)
+        && in_array(strval($p->getAuthKey()), $lobby->highGround['live']['keys'], true)) { $err = 'End the match first.'; return false; }
     $removedName = 'P' . $targetID;
+    if ($hgKick) SWUHighGroundOnLeave($lobby, strval($p->getAuthKey()));
     array_splice($lobby->players, $i, 1);
     $lobby->numPlayers = count($lobby->players);
     if ($lobby->numPlayers <= 0) return 'delete';   // cannot happen (the host is still seated), but cheap
@@ -59,6 +67,7 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, $targetID, &$err
 
 if ($err !== null)   _kickFail($response, $err);
 if ($lobby === null) _kickFail($response, 'Room is busy — try again.');
+if (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWURoomSave($lobby);
 
 $response->success    = true;
 $response->message    = $removedName . ' was removed from the room.';

@@ -12,6 +12,7 @@
   require_once __DIR__ . '/../../SWUSim/Mod/DevGate.php';  // SWUBotPracticeAllowed — Bot Practice is admin-only
   // SWUSim 1v1 rooms outlive their matches and are saved to disk (Return to Lobby). File scope on purpose.
   if (($_POST['rootName'] ?? '') === 'SWUSim') require_once __DIR__ . '/../../SWUSim/Rooms.php';
+  if (($_POST['rootName'] ?? '') === 'SWUSim') require_once __DIR__ . '/../../SWUSim/HighGround.php';   // High Ground rooms
 
   // Personal deck stats (Feature B): remember who created each seat so the match can attribute W/L.
   if (session_status() === PHP_SESSION_NONE) { @session_start(); }
@@ -79,6 +80,8 @@
   $deckLink2 = isset($_POST['deckLink2']) ? $_POST['deckLink2'] : '';
   $preconstructedDeck = isset($_POST['preconstructedDeck']) ? $_POST['preconstructedDeck'] : '';
   $createPrivate = isset($_POST['createPrivate']) && ($_POST['createPrivate'] === '1' || strtolower($_POST['createPrivate']) === 'true');
+  // SWUSim High Ground (king of the hill) room — an additive flag on createPrivate; absent = today's private room.
+  $createHighGround = $createPrivate && ($_POST['rootName'] ?? '') === 'SWUSim' && strval($_POST['highGround'] ?? '') === '1';
   $createGoldfish = isset($_POST['createGoldfish']) && ($_POST['createGoldfish'] === '1' || strtolower($_POST['createGoldfish']) === 'true');
   $createRlBot = isset($_POST['createRlBot']) && ($_POST['createRlBot'] === '1' || strtolower($_POST['createRlBot']) === 'true');
   $azukiRlBotProfile = function_exists('NormalizeAzukiRlBotProfile')
@@ -164,6 +167,15 @@
   if ($rootName === 'SWUSim') {
     if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
     if (!function_exists('SWUGetQueueType') || SWUGetQueueType($queueType) === null) $queueType = 'bo1';
+    // High Ground: any 1v1 format that isn't rated. Checked before the deck, so the reason is the format, not the list.
+    if ($createHighGround && ($hgRefusal = SWUHighGroundFormatRefusal($format)) !== null) {
+      http_response_code(400);
+      $response->success = false;
+      $response->message = $hgRefusal;
+      header('Content-Type: application/json');
+      echo json_encode($response);
+      exit;
+    }
     // No account is required to play any SWUSim format (owner, 2026-09-21) — guests lose only chat (SubmitChat.php).
     // Arenabot keeps its own switch, the same one the menu uses, so a hand-built request cannot bypass it:
     // SWUSim/Mod/DevGate.php SWUBotPracticeAllowed().
@@ -501,6 +513,7 @@
         $newPlayer->setUsername($joiningUsername);
         if ($isRoom) _SWURoomApplyResolvedDeck($newPlayer, $resolved);
         $lobby->players[] = $newPlayer;
+        if (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWUHighGroundOnJoin($lobby, $newPlayer);   // back of the line
         LobbyEnsureFixedSeats($lobby);
         // Team rooms: force the joiner onto the only team with room; otherwise they pick (spec §4.3).
         // Must run AFTER the player is appended so the counts include them.
@@ -523,6 +536,7 @@
       }
       $lobby = $stored;
       if (!empty($lobby->roomMatchId) && function_exists('SWURoomSave')) SWURoomSave($lobby);   // a new seat in a 1v1 room
+      elseif (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWURoomSave($lobby);   // …or a High Ground room
 
       // Game creation stays OUTSIDE the mutation: it writes files and rows, which is exactly the
       // I/O the lock must not span. Only a non-room private lobby reaches it here (a room waits
@@ -606,6 +620,7 @@
     $createIsRoom  = $createAdapter !== null && $createAdapter->wantsWaitingRoom($lobby);
     if ($createIsRoom) _SWURoomApplyResolvedDeck($newPlayer, _SWURoomResolveDeck($lobby, $deckLink, $preconstructedDeck));
     $lobby->players = array($newPlayer);
+    if ($createHighGround) SWUHighGroundCreate($lobby, $newPlayer);   // 16 places, the line, Tonight
 
     apcu_store($lobbyId, $lobby, $ttl);
     // O(1) invite lookup. Three call sites used to walk the WHOLE apcu cache — which also holds
@@ -623,6 +638,10 @@
     $response->casterMode = !empty($lobby->casterMode);
     $response->maxPlayers = $lobby->maxPlayers;
     $response->isRoom = $createIsRoom;
+    if ($createHighGround) {
+      SWURoomSave($lobby);              // a persistent room from the start: it outlives an APCu wipe
+      $response->highGround = true;     // additive: only High Ground creations carry it
+    }
 
     header('Content-Type: application/json');
     echo json_encode($response);

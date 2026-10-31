@@ -326,6 +326,8 @@ function MatchSpawnNextGameWithDecks($rootName, $matchId, $firstPlayer, $priorGa
     $lobby->isPrivate = !empty($m['isPrivate']);
     $lobby->players = $players;
     if (!empty($m['houseRules']) && is_array($m['houseRules'])) $lobby->houseRulesActive = $m['houseRules'];
+    // A match that fixed its spectator key (SWUSim High Ground) keeps it for every game, so watchers follow game 2 and 3.
+    if (!empty($m['spectatorKey']) && is_string($m['spectatorKey'])) $lobby->spectatorKey = $m['spectatorKey'];
 
     $nextNumber = count($m['games']) + 1;
     $next = MatchHook($rootName, 'setupGame', $lobby, [
@@ -626,17 +628,36 @@ function MatchReapStale($rootName, $maxAgeSeconds = 86400, $nowTs = null) {
     return $reaped;
 }
 
+// End a running match with NO result (SWUSim High Ground "End match", for a player who vanished mid-match): no winner, no
+// stats, no rating. Every undecided game is sealed (statsRecorded), so a game-over that still arrives from its gamestate is
+// a no-op in MatchAfterActionHook. A finished match is left alone. Returns the match record.
+function MatchAbortNoResult($rootName, $matchId) {
+    MatchWithLock($rootName, $matchId, function (&$m) {
+        if (in_array($m['state'] ?? '', ['complete', 'abandoned'], true)) return;
+        foreach ($m['games'] as $i => $g) {
+            if (($g['winner'] ?? null) !== null || !empty($g['statsRecorded'])) continue;
+            $m['games'][$i]['statsRecorded'] = true;
+            $m['games'][$i]['detail'] = array_merge($g['detail'] ?? [], ['endReason' => 'aborted']);
+        }
+        $m['state'] = 'abandoned';
+        unset($m['sideboard'], $m['sideboardDeadline'], $m['sideboardWarned'], $m['pendingFirstPlayer'], $m['spawnClaimedAt']);
+    });
+    return MatchRead($rootName, $matchId);
+}
+
 // Concede the whole match: award the opponent the wins needed to clinch. Idempotent.
 // $gameDetail: the open game's captured detail when the caller has the live gamestate (the in-game concede input);
 // null from paths that do not (the block-forfeit API). Stored on the open game with endReason forced to 'concede'.
 function MatchConcede($rootName, $matchId, $concedingSeat, ?array $gameDetail = null) {
-    $result = MatchWithLock($rootName, $matchId, function (&$m) use ($rootName, $concedingSeat, $gameDetail) {
+    $concededGame = '';
+    $result = MatchWithLock($rootName, $matchId, function (&$m) use ($rootName, $concedingSeat, $gameDetail, &$concededGame) {
         if (($m['state'] ?? '') === 'complete') return;       // idempotent
         $opp = ($concedingSeat === 1) ? 2 : 1;
         // Count the in-progress game (if any) as a decisive loss for the conceding seat.
         foreach ($m['games'] as $i => $g) {
             if (($g['winner'] ?? null) === null) {
                 $m['games'][$i]['winner'] = $opp;
+                $concededGame = strval($g['gameName'] ?? '');
                 $m['games'][$i]['statsRecorded'] = true;   // seal: same contract as MatchRecordGameResult
                 // No live gamestate (the block-opponent forfeit): nobody can say whether pregame had finished.
                 $m['games'][$i]['detail'] = array_merge($m['games'][$i]['detail'] ?? [],
@@ -654,6 +675,10 @@ function MatchConcede($rootName, $matchId, $concedingSeat, ?array $gameDetail = 
     });
     // After the lock is released: a whole-match concede never reaches the after-action submitResults branch.
     MatchHook($rootName, 'rateMatch', $matchId);
+    if ($concededGame !== '') {
+        $after = MatchRead($rootName, $matchId);
+        if (is_array($after)) MatchHook($rootName, 'gameResultRecorded', $after, $concededGame);
+    }
     return $result;
 }
 
@@ -697,6 +722,8 @@ function MatchAfterActionHook($rootName, $gameName) {
             if (!is_array($m)) return;
         }
     }
+
+    MatchHook($rootName, 'gameResultRecorded', $m, $gameName);   // optional: SWUSim High Ground's "Tonight" table
 
     if (MatchIsOver($m)) {
         // Match complete — the flashMatchResult hook carries the series result to the client.

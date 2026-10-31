@@ -320,6 +320,7 @@ function _WaitingRoomMarkup(array $cfg): string {
       </div>
       <div id="wr-state" style="margin-bottom:12px;"></div>
       <div id="wr-invite" style="margin-bottom:16px;"></div>
+      <div id="hg-root"></div>
       <div id="wr-roster" style="margin-bottom:16px;"></div>
       <details id="wr-hr" class="wr-hr" style="display:none;">
         <summary class="wr-hr-sum"><span class="wr-hr-title">House Rules</span><span id="wr-hr-count" class="wr-hr-count"></span></summary>
@@ -995,6 +996,221 @@ function _WaitingRoomScript(array $cfg): string {
     el('wr-leave').onclick = doLeave;
   }
 
+  // ── High Ground (SWUSim king-of-the-hill rooms) ───────────────────────────────────────────────────
+  // docs/superpowers/specs/2026-10-30-swusim-high-ground-design.md. Drawn ONLY when the poll carries `highGround` (SWUSim
+  // High Ground rooms); every other room renders exactly as before. People are named by lobby playerID — the poll never
+  // sends anyone else's room key. Actions go to SWUSim/HighGroundAction.php.
+  function hgPost(action, extra, cb) {
+    post('SWUSim/HighGroundAction.php', 'lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(loadKey(lobbyID)) +
+      '&action=' + encodeURIComponent(action) + (extra || ''), function (r) {
+        if (!r.success) el('wr-hint').textContent = r.message || 'That didn’t work — try again.';
+        lastSig = '';
+        if (cb) cb(r);
+      });
+  }
+  function hgWatchUrl(hg) {
+    return appBase() + 'NextTurn.php?gameName=' + encodeURIComponent(hg.live.gameName) + '&playerID=S&authKey=' +
+      encodeURIComponent(hg.watchKey || '') + '&folderPath=' + encodeURIComponent(ROOT);
+  }
+  function hgSeatUrl(hg) {
+    return appBase() + 'NextTurn.php?gameName=' + encodeURIComponent(hg.live.gameName) + '&playerID=' + encodeURIComponent(hg.me.seat) +
+      '&folderPath=' + encodeURIComponent(ROOT);
+  }
+  // A hill player is sent to their own board ONCE per game (then the room shows "Back to your game"), so coming back to
+  // read the room or the chat during their own match never bounces them away again.
+  function hgSendToGame(hg) {
+    var flag = 'tcg:hg:went:' + hg.live.gameName;
+    try { if (sessionStorage.getItem(flag)) return false; sessionStorage.setItem(flag, '1'); } catch (e) { return false; }
+    hgSeatCookies();
+    navigating = true;
+    location.href = hgSeatUrl(hg);
+    return true;
+  }
+  // The board reads the seat from lastAuthKey (same hand-off as the plain room's Start); a member's room key IS their seat key.
+  function hgSeatCookies() {
+    var k = loadKey(lobbyID);
+    if (!k) return;
+    document.cookie = 'tcgengine_' + ROOT.replace(/[^A-Za-z0-9_]/g, '') + '_lastAuthKey=' + encodeURIComponent(k) + '; max-age=' + (30*24*60*60) + '; path=' + appBase() + '; SameSite=Lax';
+    try { document.cookie = 'lastAuthKey=' + encodeURIComponent(k) + '; max-age=' + (30*24*60*60) + '; path=/; SameSite=Lax'; } catch (e) {}
+  }
+  // Lets a member who is WATCHING chat from the board (SWUSim/Custom/ChatPolicy.php checks it). Strict: never sent cross-site.
+  function hgMemberCookie() {
+    var k = loadKey(lobbyID);
+    if (k) document.cookie = 'tcg_hg_' + lobbyID.replace(/[^A-Za-z0-9_.]/g, '') + '=' + encodeURIComponent(k) + '; max-age=86400; path=/; SameSite=Strict';
+  }
+  function hgName(hg, pid) {
+    var m = (hg.members || []).filter(function (x) { return x.playerID === pid; })[0];
+    return m ? m.name : '—';
+  }
+  function hgMember(hg, pid) { return (hg.members || []).filter(function (x) { return x.playerID === pid; })[0] || null; }
+  function hgIdentity(m) { return m ? esc(((m.leaders || []).join(' / ') || '?') + ' · ' + (m.base || '?')) : ''; }
+  function hgFormatName(f) { f = String(f || ''); return f ? f.charAt(0).toUpperCase() + f.slice(1) : ''; }
+
+  function renderHighGround(d) {
+    var hg = d.highGround, me = hg.me || null, myPid = me ? me.playerID : 0;
+    var host = (hg.members || []).some(function (m) { return m.isHost && m.playerID === myPid; });
+    // The host's way out for someone called up who walked away (spec: "moves them down the line or kicks them"): on the
+    // hill banner and in the bleachers, where the line's own arrows can't reach. Never on yourself.
+    var hgHostTools = function (pid) {
+      if (!host || pid === myPid) return '';
+      return '<span class="hg-row-ctl"><button type="button" class="btn hg-toback" data-pid="' + pid + '" title="Send to the back of the line">Back of line</button>' +
+        '<button type="button" class="btn hg-kick" data-pid="' + pid + '" title="Remove from the room">✕</button></span>';
+    };
+    var root = el('hg-root');   // empty in every other room
+    ['wr-roster', 'wr-hr'].forEach(function (id) { if (el(id)) el(id).style.display = 'none'; });
+    el('wr-actions-left').innerHTML = '';
+    el('wr-actions-right').innerHTML = '';
+    el('wr-ready-slot').innerHTML = '';
+    var t = el('wr-title'); t.textContent = 'High Ground'; t.classList.add('hg-title');
+    el('wr-count-n').textContent = (hg.members || []).length + '/' + (hg.max || 16);
+    // Top bar: format, the match length (host toggles it between matches), Leave.
+    var bo = hg.bestOf === 3 ? 'Best of 3' : 'Best of 1';
+    el('wr-head-actions').innerHTML = '<span class="hg-format">' + esc(hgFormatName(d.format)) + '</span>' +
+      (host ? '<button id="hg-bestof" type="button" class="btn hg-bestof"' + (hg.live ? ' disabled' : '') + '>' + bo + '</button>'
+            : '<span class="hg-bestof-text">' + bo + '</span>') +
+      (me ? '<button id="wr-leave" type="button" class="btn">Leave</button>' : '');
+
+    // The hill banner: the match that's on, or the next one.
+    var banner = '';
+    if (hg.live) {
+      var s = hg.live.score || {}, p = hg.live.players || [];
+      banner = '<div class="hg-banner-live">On the hill now · Game ' + hg.live.gameNumber + ' of ' + hg.live.bestOf +
+        ' · ' + (s['1'] || 0) + '–' + (s['2'] || 0) + '</div>' +
+        '<div class="hg-vs"><span class="hg-who">' + esc(hgName(hg, p[0])) + '</span><span class="hg-vs-sep">vs</span>' +
+        '<span class="hg-who">' + esc(hgName(hg, p[1])) + '</span></div>' +
+        (me && me.onLiveMatch ? '<button id="hg-back" type="button" class="btn btn-success">Back to your game</button>'
+                              : (me ? '<button id="hg-watch" type="button" class="btn btn-success">Watch live</button>' : ''));
+    } else {
+      var np = hg.nextPair || [];
+      var side = function (pid, holder) {
+        var m = hgMember(hg, pid);
+        return '<div class="hg-contender">' + (holder ? '<span class="hg-holds">⛰ holds the hill</span>' : '') +
+          '<span class="hg-who">' + esc(hgName(hg, pid)) + '</span><span class="hg-ident">' + hgIdentity(m) + '</span>' +
+          '<span class="wr-pill ' + (m && m.ready ? 'hg-ready-on' : 'hg-ready-off') + '">' + (m && m.ready ? 'READY' : 'NOT READY') + '</span>' +
+          hgHostTools(pid) + '</div>';
+      };
+      var holder = (hg.hill || []).length === 1 && np[0] === hg.hill[0];
+      banner = '<div class="hg-banner-next">Next match</div>' + (np.length === 2
+        ? '<div class="hg-vs">' + side(np[0], holder) + '<span class="hg-vs-sep">vs</span>' + side(np[1], false) + '</div>'
+        : '<div class="hg-wait">Waiting for a challenger to join the line.</div>') +
+        (hg.drawn ? '<div class="hg-note">That match was drawn — either of you may step down.</div>' : '');
+    }
+    // Host: Start next match (waits for both Ready) or End match (no result).
+    var hostCtl = '';
+    if (host && hg.live) {
+      hostCtl = '<button id="hg-end" type="button" class="btn">End match</button><span id="hg-end-pick" class="hg-end-pick" hidden>' +
+        'Who left? ' + (hg.live.players || []).map(function (pid) {
+          return '<button type="button" class="btn hg-gone" data-pid="' + pid + '">' + esc(hgName(hg, pid)) + '</button>'; }).join('') + '</span>';
+    } else if (host) {
+      var np2 = hg.nextPair || [];
+      var bothReady = np2.length === 2 && np2.every(function (pid) { var m = hgMember(hg, pid); return m && m.ready && m.deckOk; });
+      hostCtl = '<button id="hg-start" type="button" class="btn wr-btn-start"' + (bothReady ? '' : ' disabled') +
+        '>Start next match</button>';
+    }
+    // The line (host: ↑ ↓ ✕), the bleachers, and Tonight.
+    var line = hg.line || [];
+    var lineHtml = line.map(function (pid, i) {
+      var m = hgMember(hg, pid), mine = pid === myPid;
+      return '<li class="hg-line-row' + (mine ? ' hg-me' : '') + '" data-pid="' + pid + '"><span class="hg-pos">' + (i + 1) + '</span>' +
+        '<span class="hg-name">' + esc(hgName(hg, pid)) + '</span>' + (mine ? ' <span class="hg-you">(you)</span>' : '') +
+        '<span class="hg-ident">' + hgIdentity(m) + '</span>' +
+        (host ? '<span class="hg-row-ctl"><button type="button" class="btn hg-up" title="Move up"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+                '<button type="button" class="btn hg-down" title="Move down"' + (i === line.length - 1 ? ' disabled' : '') + '>↓</button>' +
+                (mine ? '' : '<button type="button" class="btn hg-kick" title="Remove from the room">✕</button>') + '</span>' : '') + '</li>';
+    }).join('');
+    var bleachers = (hg.bleachers || []).map(function (pid) {
+      return '<li class="hg-bleacher' + (pid === myPid ? ' hg-me' : '') + '"><span class="hg-name">' + esc(hgName(hg, pid)) + '</span>' +
+        (pid === myPid ? ' <span class="hg-you">(you)</span>' : '') + hgHostTools(pid) + '</li>';
+    }).join('');
+    var rows = (hg.tonight || []).map(function (r) {
+      return '<tr><td class="hg-t-name">' + esc(r.name) + '</td><td class="hg-t-id">' + esc((r.leader || '?') + ' / ' + (r.base || '?')) +
+        (r.deckName !== undefined ? '<span class="hg-t-deck">' + esc(r.deckName || 'Unnamed list') + '</span>' : '') + '</td>' +
+        '<td class="hg-t-wld">' + r.w + '-' + r.l + '-' + r.d + '</td></tr>';
+    }).join('');
+    // My buttons.
+    var mine = '';
+    if (me) {
+      var inNext = !hg.live && (hg.nextPair || []).indexOf(myPid) >= 0;
+      var meM = hgMember(hg, myPid);
+      if (inNext) mine += '<button id="hg-ready" type="button" class="btn' + (meM && meM.ready ? '' : ' btn-success') + '"' + (meM && meM.deckOk ? '' : ' disabled') + '>' + (meM && meM.ready ? 'Not ready' : 'Ready') + '</button>';
+      if (me.canStepDown) mine += '<button id="hg-stepdown" type="button" class="btn">Step down</button>';
+      mine += '<button id="hg-deck" type="button" class="btn">Change my deck</button>';
+      if (me.where === 'bleachers') mine += '<button id="hg-joinline" type="button" class="btn">Join the line</button>';
+      else if (!me.onLiveMatch) mine += '<button id="hg-tobleachers" type="button" class="btn">Go to the bleachers</button>';
+    }
+    root.innerHTML =
+      '<section id="hg-banner" class="hg-banner">' + banner + '</section>' +
+      (hostCtl ? '<div class="hg-hostctl">' + hostCtl + '</div>' : '') +
+      '<div class="hg-cols">' +
+        '<section class="hg-col"><h3 class="hg-h">The line</h3>' +
+          (lineHtml ? '<ol id="hg-line" class="hg-line">' + lineHtml + '</ol>' : '<ol id="hg-line" class="hg-line"></ol><p class="hg-empty">Nobody is waiting.</p>') +
+          '<p class="hg-rule">Winner stays; loser goes to the back.</p>' +
+          '<h3 class="hg-h">Bleachers</h3>' + (bleachers ? '<ul id="hg-bleachers" class="hg-bleachers">' + bleachers + '</ul>' : '<p class="hg-empty">Nobody in the bleachers.</p>') +
+        '</section>' +
+        '<section class="hg-col"><h3 class="hg-h">Tonight</h3>' +
+          '<table id="hg-tonight" class="hg-tonight"><thead><tr><th>Player</th><th>Leader / Base</th><th>W-L-D</th></tr></thead><tbody>' +
+          (rows || '<tr class="hg-t-empty"><td colspan="3">No games yet.</td></tr>') + '</tbody></table>' +
+        '</section>' +
+      '</div>' +
+      (mine ? '<div id="hg-mine" class="hg-mine">' + mine + '</div>' : '');
+
+    // Wiring.
+    var on = function (id, fn) { var b = el(id); if (b) b.onclick = fn; };
+    on('wr-leave', doLeave);
+    on('hg-bestof', function () { hgPost('setBestOf', '&queueType=' + (hg.bestOf === 3 ? 'bo1' : 'bo3')); });
+    on('hg-watch', function () { hgMemberCookie(); navigating = true; location.href = hgWatchUrl(hg); });
+    on('hg-back', function () { hgSeatCookies(); navigating = true; location.href = hgSeatUrl(hg); });
+    on('hg-start', function () { this.disabled = true; hgPost('start'); });
+    on('hg-end', function () { var p = el('hg-end-pick'); if (p) p.hidden = !p.hidden; });
+    Array.prototype.forEach.call(root.querySelectorAll('.hg-gone'), function (b) {
+      b.onclick = function () { hgPost('endMatch', '&gonePlayerID=' + encodeURIComponent(b.getAttribute('data-pid'))); };
+    });
+    var move = function (pid, delta) {
+      var order = line.slice(), i = order.indexOf(pid), j = i + delta;
+      if (i < 0 || j < 0 || j >= order.length) return;
+      order[i] = order[j]; order[j] = pid;
+      hgPost('reorder', '&order=' + encodeURIComponent(order.join(',')));
+    };
+    var kickPid = function (pid, btn) {
+      btn.disabled = true;
+      post('APIs/Lobbies/KickSeat.php', 'lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(loadKey(lobbyID)) +
+        '&targetPlayerID=' + encodeURIComponent(pid), function (r) {
+          if (!r.success) { el('wr-hint').textContent = r.message || 'Could not remove that player.'; btn.disabled = false; }
+          lastSig = '';
+        });
+    };
+    Array.prototype.forEach.call(root.querySelectorAll('.hg-line-row'), function (row) {
+      var pid = Number(row.getAttribute('data-pid'));
+      var up = row.querySelector('.hg-up'), down = row.querySelector('.hg-down'), kick = row.querySelector('.hg-kick');
+      if (up) up.onclick = function () { move(pid, -1); };
+      if (down) down.onclick = function () { move(pid, 1); };
+      if (kick) kick.onclick = function () { kickPid(pid, kick); };
+    });
+    Array.prototype.forEach.call(root.querySelectorAll('.hg-toback[data-pid]'), function (b) {
+      b.onclick = function () { b.disabled = true; hgPost('sendToBack', '&targetPlayerID=' + encodeURIComponent(b.getAttribute('data-pid'))); };
+    });
+    Array.prototype.forEach.call(root.querySelectorAll('.hg-kick[data-pid]'), function (b) {
+      b.onclick = function () { kickPid(Number(b.getAttribute('data-pid')), b); };
+    });
+    on('hg-ready', function () {
+      var b = this; b.disabled = true;
+      post('APIs/Lobbies/SetReady.php', 'lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(loadKey(lobbyID)) +
+        '&ready=' + (meM && meM.ready ? '0' : '1'), function (r) {
+          if (!r.success) { el('wr-hint').textContent = r.message || 'Could not change ready state.'; b.disabled = false; }
+          lastSig = '';
+        });
+    });
+    on('hg-stepdown', function () { hgPost('stepDown'); });
+    on('hg-tobleachers', function () { hgPost('toBleachers'); });
+    on('hg-joinline', function () { hgPost('joinLine'); });
+    on('hg-deck', function () { var i = el('wr-deck-input'); if (i) { i.scrollIntoView({ block: 'center' }); i.focus(); } });
+    // The hint line: what Start is waiting on, for everyone.
+    var np3 = hg.nextPair || [];
+    el('wr-hint').textContent = hg.live ? '' : (np3.length < 2 ? 'Two people need to be in line.'
+      : np3.filter(function (pid) { var m = hgMember(hg, pid); return !(m && m.ready); }).map(function (pid) { return hgName(hg, pid); }).join(' and ')
+          .replace(/^(.+)$/, 'Waiting for $1 to be Ready.'));
+  }
+
   function render(d) {
     // Attach the chat panel ONCE, as soon as the poll has told us which lobby this is and we hold a
     // key for it. ⚠ The room poll runs every 1.5s forever; attaching per render would stack another
@@ -1009,6 +1225,19 @@ function _WaitingRoomScript(array $cfg): string {
         canSend: !!d.canChat,
         cannotSendReason: d.cannotChatReason || ''
       });
+    }
+    // SWUSim High Ground: its own screen (line, hill, bleachers, Tonight) in place of the seat tiles and controls.
+    if (d.highGround) {
+      var hgSeated = !!d.highGround.me;
+      setState(hgSeated ? 'seated' : 'notseated');
+      el('wr-state').textContent = '';
+      el('wr-status').style.display = '';
+      el('wr-deck').style.display = '';
+      var hdb = el('wr-deck-btn');
+      if (hdb) { hdb.textContent = hgSeated ? 'Change deck' : 'Join with this deck'; if (hgSeated) hdb.disabled = false; }
+      renderInvite(d);
+      renderHighGround(d);
+      return;
     }
     var seated = !!(myPlayerID && (d.roster || []).some(function (r) { return r.playerID === myPlayerID; }));
     iAmHost = (d.roster || []).some(function (r) { return r.isHost && r.playerID === myPlayerID; });
@@ -1404,6 +1633,15 @@ function _WaitingRoomScript(array $cfg): string {
       // quick-match queue. The code is public information the page already renders in the invite box.
       if (r.inviteCode) inviteCode = r.inviteCode;
 
+      // SWUSim High Ground: the room never "starts" — a member keeps the room cookie fresh (board chat), and the two on the
+      // hill are sent to their own board once per game.
+      if (r.highGround) {
+        hgMemberCookie();
+        try { localStorage.setItem('tcg:hg:lastRoom', lobbyID); } catch (e) {}   // where a board / end screen goes back to
+        var hgMe = r.highGround.me, hgLive = r.highGround.live;
+        if (hgMe && hgMe.onLiveMatch && hgLive && hgLive.state === 'in_progress' && hgSendToGame(r.highGround)) return;
+      }
+
       if (r.started && r.gameName) {
         // No match-found countdown: that popup celebrates an UNEXPECTED queue pairing. Here the host
         // pressed Start and everyone watched it happen.
@@ -1460,7 +1698,7 @@ function _WaitingRoomScript(array $cfg): string {
         noteKickDeadlines(r.roster);
         var bw = Number(r.botAddableIn) || 0;
         botAddDeadline = bw > 0 ? Date.now() + bw * 1000 : 0;
-        var sig = JSON.stringify([rosterForSig(r.roster), r.seatModel, r.botProfiles, r.houseRules, r.state, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed, r.hostVote]);
+        var sig = JSON.stringify([rosterForSig(r.roster), r.seatModel, r.botProfiles, r.houseRules, r.state, r.blockers, r.numPlayers, r.inviteCode, r.highGround, myPlayerID, !!r.removed, r.hostVote]);
         if (sig !== lastSig) { lastSig = sig; render(r); }
       }
       pollTimer = setTimeout(poll, POLL_MS);

@@ -403,6 +403,8 @@ function SWUSetupPoolOptions(array $tree, string $groupId, string $optionId, str
                 }
                 if (!empty($p['queueOnly']))     $rules .= ' data-queue-only="1"';
                 if (!empty($p['requiresLogin'])) $rules .= ' data-requires-login="1"';
+                // High Ground rooms need a 1v1 format that isn't rated (SWUSim/HighGround.php) — mark the ones that can't.
+                if (function_exists('SWUFormatIsRated') && (SWUFormatIsRated(strval($fmt)) || SWUFormatIsRoomFormat(strval($fmt)))) $rules .= ' data-highground="0"';
                 $out .= '<option value="' . $e($fmt) . '"' . ($isSel ? ' selected' : '') . $rules . '>'
                       . $e($p['label'] ?? $fmt) . '</option>';
             }

@@ -130,6 +130,7 @@ function SWUMetaPremierRateMatch($matchId) {
 // allowsSeriesChange hook: no Rematch / Quick Rematch / Convert-to-Bo3 in a rated format — those build a new or longer
 // match between the same two players without the queue (spec §4.5). Players re-queue instead.
 function SWUMatchAllowsSeriesChange(array $m): bool {
+    if (!empty($m['highGround'])) return false;   // a High Ground hill match returns to its room: winner stays, no rematch
     return !SWUFormatIsRated(strval($m['format'] ?? ''));
 }
 
@@ -167,6 +168,14 @@ function SWURematchCarryOrigin(array $old, $newId): void {
     if ($chatId !== '') MatchPublishChatConversation($newId, $chatId);
 }
 
+// One game of a match was recorded (gameResultRecorded hook). Only a High Ground hill match cares: its room's "Tonight"
+// table and line follow every game. Loaded lazily so ordinary matches never pull in the room code.
+function SWUMatchGameResultRecorded(array $m, $gameName): void {
+    if (empty($m['highGround'])) return;
+    require_once __DIR__ . '/HighGround.php';
+    SWUHighGroundOnGameResult($m, strval($gameName));
+}
+
 // ── Registration ──────────────────────────────────────────────────────────────
 MatchRegisterHooks('SWUSim', [
     // required
@@ -185,6 +194,7 @@ MatchRegisterHooks('SWUSim', [
     'allowsSeriesChange' => 'SWUMatchAllowsSeriesChange',
     'endSeriesAfterGame' => 'SWUMatchEndSeriesAfterGame',
     'rematchCreated'    => 'SWURematchCarryOrigin',
+    'gameResultRecorded' => 'SWUMatchGameResultRecorded',
     // config
     'queueTypes'        => ['bo1', 'bo3'],
     'sideboardUrl'      => 'Sideboard.php',

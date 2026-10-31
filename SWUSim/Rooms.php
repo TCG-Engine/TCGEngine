@@ -94,7 +94,8 @@ function SWURoomMaterialSig(object $lobby): string {
         $seats[] = [$p->getAuthKey(), $p->getPlayerID(), $p->getDeckLink(), $p->getReady(), $p->getUsername(), $p->getUserId()];
     }
     return md5(serialize([$seats, $lobby->hostPlayerID ?? null, $lobby->queueType ?? null, $lobby->state ?? null,
-                          $lobby->gameName ?? null, $lobby->roomSeatState ?? null, $lobby->roomMatchId ?? null]));
+                          $lobby->gameName ?? null, $lobby->roomSeatState ?? null, $lobby->roomMatchId ?? null,
+                          $lobby->highGround ?? null]));   // a High Ground room's line, bleachers and Tonight table
 }
 // Save the room if anything material changed since it was last saved (the room poll calls this every time).
 function SWURoomSaveIfChanged(object $lobby): void {
@@ -250,12 +251,16 @@ function SWURoomRehydrate(string $roomId): bool {
     if (is_object(apcu_fetch($roomId))) return true;
     $rec = SWURoomLoad($roomId);
     if ($rec === null) return false;
-    $match = $rec['matchId'] !== '' ? MatchRead('SWUSim', $rec['matchId']) : null;
+    // A High Ground room has no roomMatchId: it is alive while its LIVE hill match runs (nobody need be on the room page
+    // while everyone watches), and it is never synced the 1v1 way (that would mark it started and redirect everyone).
+    $hgLiveId = strval($rec['lobby']->highGround['live']['matchId'] ?? '');
+    $matchId = $rec['matchId'] !== '' ? $rec['matchId'] : $hgLiveId;
+    $match = $matchId !== '' ? MatchRead('SWUSim', $matchId) : null;
     $path = SWURoomPath($roomId);
     clearstatcache(true, $path);
     if (!SWURoomIsAlive(is_array($match) ? $match : null, intval(@filemtime($path)), time())) return false;
     $lobby = $rec['lobby'];
-    if (is_array($match)) SWURoomSyncWithMatch($lobby, $match, time());
+    if (is_array($match) && $rec['matchId'] !== '') SWURoomSyncWithMatch($lobby, $match, time());
     apcu_add($roomId, $lobby, LOBBY_TTL_SECONDS);   // add, not store: a concurrent rehydrate or a live write wins
     $code = strval($lobby->inviteCode ?? '');
     if ($code !== '') apcu_store('invite:' . $code, $roomId, LOBBY_TTL_SECONDS);

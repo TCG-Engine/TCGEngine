@@ -347,6 +347,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
             <div class="arow">
               <button data-act="join" class="swu2-btn swu2-btn--primary ch" type="button">Join Queue</button>
               <button data-act="private" class="swu2-btn ch" type="button">Create Private Room</button>
+              <button data-act="highground" class="swu2-btn ch" type="button">Create a High Ground Lobby</button>
               <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
             </div>
           </div>
@@ -1106,6 +1107,11 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         });
       }
 
+      // A High Ground (king of the hill) room: a private room with the line, the hill and the Tonight table.
+      function createHighGroundRoom() {
+        submitQueueJoin({ createPrivate: true, highGround: true });
+      }
+
       function joinPrivateInvite() {
         if (!_privateInviteCode) {
           showQueueInlineError('No private invite code found in this link.');
@@ -1247,6 +1253,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         if (submission.botStyle)        params += '&botStyle=' + encodeURIComponent(submission.botStyle);
         if (submission.cardPool)        params += '&cardPool=' + encodeURIComponent(submission.cardPool);
         if (options.createPrivate)      params += '&createPrivate=1';
+        if (options.highGround)         params += '&highGround=1';
         if (options.privateInviteCode)  params += '&privateInviteCode=' + encodeURIComponent(options.privateInviteCode);
         xhr.send(params);
       }
@@ -3383,6 +3390,9 @@ window.SWU_POOL_RULES_SYNC = function (dlg) {
 
   var priv = dlg.querySelector('button[data-act="private"]');
   if (priv) priv.style.display = (opt && opt.hasAttribute('data-queue-only')) ? 'none' : '';
+  // High Ground: any 1v1 format that isn't rated (the option carries data-highground="0" otherwise).
+  var hg = dlg.querySelector('button[data-act="highground"]');
+  if (hg) hg.style.display = (opt && (opt.getAttribute('data-highground') === '0' || opt.hasAttribute('data-queue-only'))) ? 'none' : '';
 
   var needsLogin = !!(opt && opt.hasAttribute('data-requires-login')) && !!window.SWU_IS_GUEST;
   var join = dlg.querySelector('button[data-act="join"]');
@@ -3502,6 +3512,7 @@ document.addEventListener('click', function (ev) {
 
   if (act === 'join'    && typeof joinQueue === 'function')         joinQueue();
   if (act === 'private' && typeof createPrivateGame === 'function') createPrivateGame();
+  if (act === 'highground' && typeof createHighGroundRoom === 'function') createHighGroundRoom();
   if (act === 'solo'    && typeof startSoloGame === 'function')     startSoloGame();
 });
 </script>

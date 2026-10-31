@@ -7,6 +7,7 @@ require_once "./Classes/TeamRooms.php";   // SWUMigrateHostIfNeeded
 require_once "./Classes/LobbyStore.php";  // LobbyMutate
 // SWUSim 1v1 rooms are saved to disk (Return to Lobby): a room everyone has left must not come back from it.
 if (($_POST['rootName'] ?? '') === 'SWUSim') require_once __DIR__ . '/../../SWUSim/Rooms.php';
+if (($_POST['rootName'] ?? '') === 'SWUSim') require_once __DIR__ . '/../../SWUSim/HighGround.php';   // High Ground rooms
 
 $response = new stdClass();
 if (!isset($_POST['rootName']) || !isset($_POST['playerID']) || !isset($_POST['lobbyID']) || !isset($_POST['authKey'])) {
@@ -53,6 +54,7 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, &$left, $waiting
       array_splice($lobby->players, $index, 1);
       $lobby->numPlayers--;
       $left = true;
+      if (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWUHighGroundOnLeave($lobby, strval($authKey));
       if (!array_filter($lobby->players, fn($p) => $p instanceof Player && $p->getBotProfile() === '')) return 'delete';
       if ($lobby->numPlayers <= 0) return 'delete';   // last seat gone — nothing left to come back to
       // The host may be the one who just left. Migrate BEFORE the store, or the lobby is written
@@ -66,6 +68,7 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, &$left, $waiting
 });
 
 if ($left && function_exists('SWURoomForget') && !is_object(apcu_fetch($lobbyID))) SWURoomForget(strval($lobbyID));
+elseif ($left && function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWURoomSave($lobby);   // the line changed
 if ($left) {
   $response->success = true;
   $response->message = ($lobby !== null && intval($lobby->numPlayers) <= 0)

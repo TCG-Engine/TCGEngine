@@ -5536,3 +5536,140 @@ body:has(.home-header) .tcgc-card:hover { color: var(--gold-hi); text-decoration
 #swupgnReplayEmpty[hidden] { display: none; }
 /* .match__meta is a single uppercase line in the games list; here it wraps instead of clipping. */
 #swupgnReplayList .match__meta { white-space: normal; overflow: visible; text-overflow: clip; }
+
+/* ══ HIGH GROUND ROOMS ═════════════════════════════════════════════════════
+   SharedUI/Render/WaitingRoom.php draws #hg-root in place of the seat tiles when the poll carries `highGround`
+   (docs/superpowers/specs/2026-10-30-swusim-high-ground-design.md). Same scope as the waiting room above
+   (`body:has(#wr-root) .wr-panel`), same recipes: chamfered wells, 44px controls, the room's pills. Every class is
+   hg- prefixed — `.line`, `.rule`, `.banner` are the kind of generic name the shared sheets already use. */
+body:has(#wr-root) .wr-panel #hg-root { display: grid; gap: var(--s-4); margin-block-end: var(--s-4); }
+body:has(#wr-root) .wr-panel .hg-format,
+body:has(#wr-root) .wr-panel .hg-bestof-text {
+  align-self: center;
+  font-size: var(--t-13);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-inline-end: var(--s-3);
+}
+
+/* ---------- the hill banner: the room's one big well ---------------------- */
+body:has(#wr-root) .wr-panel .hg-banner {
+  --cut: 12px;
+  --rim: 1px;
+  --ci: calc(var(--cut) - 0.586 * var(--rim));
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  justify-items: start;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-5);
+  background-image: linear-gradient(180deg, var(--gold-hi), var(--gold) 76%);
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+}
+body:has(#wr-root) .wr-panel .hg-banner::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: var(--rim);
+  background-color: var(--e-sunk);
+  clip-path: polygon(var(--ci) 0, 100% 0, 100% calc(100% - var(--ci)), calc(100% - var(--ci)) 100%, 0 100%, 0 var(--ci));
+}
+body:has(#wr-root) .wr-panel .hg-banner-live,
+body:has(#wr-root) .wr-panel .hg-banner-next {
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-hi);
+}
+body:has(#wr-root) .wr-panel .hg-vs { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); }
+body:has(#wr-root) .wr-panel .hg-vs-sep { font-size: var(--t-13); color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.1em; }
+body:has(#wr-root) .wr-panel .hg-contender { display: grid; gap: 2px; justify-items: start; min-width: 0; }
+body:has(#wr-root) .wr-panel .hg-who { font-size: var(--t-20); font-weight: 700; color: var(--ink); overflow-wrap: break-word; min-width: 0; }
+body:has(#wr-root) .wr-panel .hg-holds { font-size: var(--t-11); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-hi); }
+body:has(#wr-root) .wr-panel .hg-ident { font-size: var(--t-12); color: var(--ink-3); overflow-wrap: anywhere; }
+body:has(#wr-root) .wr-panel .hg-ready-on  { color: var(--success, #59c27a); }
+body:has(#wr-root) .wr-panel .hg-ready-off { color: var(--ink-3); }
+body:has(#wr-root) .wr-panel .hg-wait,
+body:has(#wr-root) .wr-panel .hg-note,
+body:has(#wr-root) .wr-panel .hg-empty { font-size: var(--t-13); color: var(--ink-2); margin: 0; }
+
+/* ---------- host controls ------------------------------------------------- */
+body:has(#wr-root) .wr-panel .hg-toback { font-size: var(--t-11); text-transform: uppercase; letter-spacing: 0.04em; }
+body:has(#wr-root) .wr-panel .hg-contender .hg-row-ctl { margin-inline-start: 0; margin-block-start: 4px; }
+body:has(#wr-root) .wr-panel .hg-hostctl { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
+body:has(#wr-root) .wr-panel .hg-end-pick { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); font-size: var(--t-13); color: var(--ink-2); }
+body:has(#wr-root) .wr-panel .hg-end-pick[hidden] { display: none; }
+
+/* ---------- the line, the bleachers, Tonight ------------------------------ */
+body:has(#wr-root) .wr-panel .hg-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-5); align-items: start; }
+body:has(#wr-root) .wr-panel .hg-col { display: grid; gap: var(--s-2); min-width: 0; }
+body:has(#wr-root) .wr-panel .hg-h {
+  margin: var(--s-2) 0 0;
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+body:has(#wr-root) .wr-panel .hg-line,
+body:has(#wr-root) .wr-panel .hg-bleachers { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+body:has(#wr-root) .wr-panel .hg-line-row,
+body:has(#wr-root) .wr-panel .hg-bleacher {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--s-2);
+  min-block-size: 40px;
+  padding: 4px var(--s-3);
+  background-color: var(--e-sunk);
+  border-inline-start: 2px solid var(--edge);
+}
+body:has(#wr-root) .wr-panel .hg-me { border-inline-start-color: var(--gold); }
+body:has(#wr-root) .wr-panel .hg-pos { min-inline-size: 1.4em; font-size: var(--t-12); font-weight: 700; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+body:has(#wr-root) .wr-panel .hg-name { font-size: var(--t-15); font-weight: 600; color: var(--ink); }
+body:has(#wr-root) .wr-panel .hg-you { font-size: var(--t-12); color: var(--gold-hi); }
+body:has(#wr-root) .wr-panel .hg-line-row .hg-ident { flex: 1 1 8em; }
+body:has(#wr-root) .wr-panel .hg-row-ctl { display: inline-flex; gap: 4px; margin-inline-start: auto; }
+/* ↑ ↓ ✕ sit inside a row beside a name — like the room's Remove, the buttons that are not 44px. */
+body:has(#wr-root) .wr-panel .hg-up,
+body:has(#wr-root) .wr-panel .hg-down,
+body:has(#wr-root) .wr-panel .hg-toback,
+body:has(#wr-root) .wr-panel .hg-kick {
+  --btn-pad: 0 9px;
+  --btn-cut: 6px;
+  --btn-cut-inner: 5.2px;
+  min-block-size: 32px;
+  min-inline-size: 32px;
+  font-size: var(--t-14);
+  text-transform: none;
+}
+body:has(#wr-root) .wr-panel .hg-rule { margin: 0; font-size: var(--t-12); color: var(--ink-3); }
+body:has(#wr-root) .wr-panel .hg-tonight { width: 100%; border-collapse: collapse; font-size: var(--t-13); }
+body:has(#wr-root) .wr-panel .hg-tonight th {
+  padding: 6px var(--s-2);
+  text-align: start;
+  font-size: var(--t-11);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-block-end: 1px solid var(--edge);
+}
+body:has(#wr-root) .wr-panel .hg-tonight td { padding: 6px var(--s-2); color: var(--ink-2); vertical-align: top; border-block-end: 1px solid color-mix(in oklch, var(--edge) 55%, transparent); }
+/* break-word, not anywhere: `anywhere` shrinks the cell's min-content, so the table split "claudebot1" into "claudebot / 1"
+   on a phone. break-word only breaks a name that cannot fit at all. */
+body:has(#wr-root) .wr-panel .hg-tonight .hg-t-name { color: var(--ink); font-weight: 600; overflow-wrap: break-word; }
+body:has(#wr-root) .wr-panel .hg-tonight .hg-t-id { overflow-wrap: anywhere; }
+body:has(#wr-root) .wr-panel .hg-tonight .hg-t-deck { display: block; font-size: var(--t-11); color: var(--ink-3); }
+body:has(#wr-root) .wr-panel .hg-tonight .hg-t-wld,
+body:has(#wr-root) .wr-panel .hg-tonight th:last-child { text-align: end; white-space: nowrap; font-variant-numeric: tabular-nums; }
+body:has(#wr-root) .wr-panel .hg-tonight .hg-t-empty td { color: var(--ink-3); }
+body:has(#wr-root) .wr-panel .hg-mine { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+@media (max-width: 900px) {
+  body:has(#wr-root) .wr-panel .hg-cols { grid-template-columns: minmax(0, 1fr); }
+  body:has(#wr-root) .wr-panel .hg-banner { padding: var(--s-3) var(--s-4); }
+  body:has(#wr-root) .wr-panel .hg-who { font-size: var(--t-17); }
+}

@@ -17,7 +17,10 @@ const MATCH_OPTIONAL_HOOKS = ['recordDeckStats', 'captureGameDetail', 'submitRes
                               // rematchCreated(oldMatch, newMatchId): MatchAcceptRematch made $newMatchId from $oldMatch
                               // and has not spawned its first game yet — the sim may carry fields across (SWUSim: the
                               // room, the chat and the queue the pairing came from).
-                              'rematchCreated'];
+                              'rematchCreated',
+                              // gameResultRecorded(match, gameName): one game of the match was just decided or drawn and
+                              // recorded (also after a whole-match concede). SWUSim: High Ground rooms count it in "Tonight".
+                              'gameResultRecorded'];
 
 function MatchRegisterHooks($rootName, array $hooks) {
     $GLOBALS['MATCH_HOOKS'][$rootName] = $hooks;

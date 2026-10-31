@@ -5808,6 +5808,14 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 }).catch(function(){});
         }, 2500);
     }
+    function SWUGoHighGroundRoom(info) {
+        window.location.replace('SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(info.roomId));
+    }
+    function SWUHighGroundAutoReturn(info) {
+        if (window._swuHgReturnArmed) return;
+        window._swuHgReturnArmed = true;
+        setTimeout(function () { SWUGoHighGroundRoom(info); }, 8000);
+    }
     function SWUBuildEndGameButtons(info) {
         var b = [];
         var mid = info && info.isMatch;
@@ -5815,6 +5823,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var seriesOver = info ? info.seriesOver : true;
         var spectator = info ? info.isSpectator : false;
         var multiSeat = !!(info && info.seatCount > 2);
+        // SWUSim High Ground: a hill match ends back in its room — one way out, for players and watchers alike, and it goes
+        // by itself after a few seconds (spec: "everyone returns to the room automatically"). Mid-Bo3, players still
+        // sideboard as usual below; watchers simply wait for the next game.
+        if (info && info.origin === 'highground' && !info.roomId) { try { info.roomId = localStorage.getItem('tcg:hg:lastRoom') || ''; } catch (e) {} }
+        if (info && info.origin === 'highground' && info.roomId && (seriesOver || spectator)) {
+            if (seriesOver) SWUHighGroundAutoReturn(info);
+            b.push({label:'Back to the room', onClick:function(){ SWUGoHighGroundRoom(info); }});
+            b.push({label:'Report Bug', onClick: SWUReportBug});
+            return b;
+        }
         if (spectator || !mid) {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
             // Arenabot (spec 2026-09-23 §3): one click into a fresh game with the same two decks, the
