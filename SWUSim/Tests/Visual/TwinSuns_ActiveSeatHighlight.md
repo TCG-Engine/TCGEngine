@@ -59,8 +59,12 @@
 # ⚠ It also rendered a THIRD state the strips do not: `myActionsData.roundState` == 'took-counter'
 # (_SWUSeatTookCounterThisRound), amber, meaning that seat has taken the counter this round. The server
 # still computes and sends roundState, so re-surfacing it is a client-only change.
-# ⚠ And the strips only exist in the HOME view — inside a matchup view (you vs one seat) there is now
-# no whose-turn indicator beyond the "Waiting for the other player" miasma, which does not name a seat.
+# ⚠ And the strips only exist in the HOME view — inside a matchup view (you vs one seat) the only
+# whose-turn indicator is the waiting pill. At 3-4 seats it NAMES the seat (2026-10-31, bug report
+# P-16): every seat that owes a decision ("Waiting for P1"), else the turn player ("Waiting for P3").
+# It also shows for the TURN PLAYER while another seat owes a decision — before, a seat holding the
+# turn got no pill while a far seat sat on its mulligan, and read the board as "I can't do anything".
+# Guarded by DevTools/ui-harness/swusim-twinsuns-waiting-on-seat-xbrowser.mjs (the reported board).
 #
 # MINI-BOARD ART + ARENA HEIGHT (same fixture)
 #   • Each preview's LEADERS show the WHOLE leader card — name bar, art, rules text, stats.

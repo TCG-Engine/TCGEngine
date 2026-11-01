@@ -1307,7 +1307,7 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
    A prompt about an already-chosen unit rings that unit on the board, so the player can see WHICH one the
    question is about (reported 2026-09-28, SEC_010 Dedra Meero: "Deal 2 damage to your own unit?" named
    nothing, and the popup covers the board). The class is applied by ApplyYesNoDecisionHighlight
-   (Core/UILibraries20261030.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
+   (Core/UILibraries20261031.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
    the overlay dim to 15% — a ring under a 50% black wash would not have been visible.
    ⚠ z-index is DELIBERATELY NOT raised above the overlay (5000). Escaping a full-screen overlay's stacking
    context depends on every ancestor of the card, and the arenas clip and transform — the lighter dim is
@@ -2392,6 +2392,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         showWaitingMessage: true,
         messageAnchorId: 'myHandSlot',
         waitingMessageBuilder: function(ctx) {
+            // 3-4 seats: name who the game is waiting on — every seat that owes a decision, else the
+            // turn player. "The other player" means nothing at a four-seat table, and the turn player
+            // used to get no message at all while a far seat finished its mulligan (bug report P-16).
+            if (String(window.SeatOrderData || '').trim().length > 2) {
+                var waiting = (ctx && ctx.waitingSeats && ctx.waitingSeats.length)
+                    ? ctx.waitingSeats : [parseInt(window.TurnPlayerData, 10)];
+                var names = waiting.filter(function(s) { return s >= 1; }).map(swuSeatName);
+                if (names.length) return 'Waiting for ' + names.join(', ');
+            }
             return (ctx && typeof ctx.defaultBuilder==='function') ? ctx.defaultBuilder() : null;
         }
     };

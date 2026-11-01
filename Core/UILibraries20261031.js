@@ -8087,11 +8087,28 @@ function _describeDecisionType(type) {
   }
 }
 
+// Seats other than the viewer whose decision queue holds an entry. At two seats that is the one
+// opponent (the same queue as theirDecisionQueueData). At 3-4 seats "their" is a single seat, so this
+// is the only way to see that a far seat owes a decision. Other seats' entries arrive redacted
+// ("CardBack 0 -"), so presence is all that can be read.
+function _otherSeatsWithPendingDecisions() {
+  const viewerNode = document.getElementById('playerID');
+  const viewer = viewerNode && viewerNode.value ? parseInt(viewerNode.value) : NaN;
+  const seats = [];
+  for (let seat = 1; typeof window['p' + seat + 'DecisionQueueData'] !== 'undefined'; ++seat) {
+    if (seat === viewer) continue;
+    const raw = window['p' + seat + 'DecisionQueueData'];
+    if (typeof raw === 'string' && raw.trim().length > 0) seats.push(seat);
+  }
+  return seats;
+}
+
 function _buildOpponentWaitingMessage() {
   const settings = _getTurnIndicatorSettings();
   if (typeof settings.waitingMessageBuilder === 'function') {
     const customText = settings.waitingMessageBuilder({
       theirDecisionQueueData: window.theirDecisionQueueData,
+      waitingSeats: _otherSeatsWithPendingDecisions(),
       defaultBuilder: function() {
         const pendingDecision = _firstPendingDecisionFromRaw(window.theirDecisionQueueData);
         if (!pendingDecision) return 'Waiting for the other player';
@@ -8139,6 +8156,8 @@ function _shouldShowOpponentWaitingMessage(viewerIsTurn) {
   const raw = window.theirDecisionQueueData;
   const theirHasDecisions = raw && typeof raw === 'string' && raw.trim().length > 0;
   if (theirHasDecisions) return true;
+  // 3-4 seats: any other seat owing a decision means this viewer is waiting too, even on its own turn.
+  if (_otherSeatsWithPendingDecisions().length > 0) return true;
 
   const myPending = _firstPendingDecisionFromRaw(window.myDecisionQueueData);
   if (myPending) return false;
