@@ -5211,7 +5211,9 @@ function SWUHandSeenSnapshot(int $viewer, int $owner): ?array {
     return null;
 }
 
-function SWULookAtOpponentHand(int $player, ?callable $filter = null, ?int $opp = null): array {
+// $reveal: the opponent REVEALS their hand ("an opponent reveals their hand" — SEC_260, SEC_210) rather than $player
+// looking at it. Only the SWU-PGN record differs (a REVEAL by the opponent, not a LOOK, §10.2 [W-50]).
+function SWULookAtOpponentHand(int $player, ?callable $filter = null, ?int $opp = null, bool $reveal = false): array {
     global $playerID;
     $savedPID = $playerID; $playerID = intval($player);
     $opp     = ($opp !== null && intval($opp) > 0) ? intval($opp) : SWUChooseOpponent(intval($player));
@@ -5223,12 +5225,15 @@ function SWULookAtOpponentHand(int $player, ?callable $filter = null, ?int $opp 
     //    hidden-zone reveal (zzGameCodeGenerator.php) deliberately refuses to guess, so a legacy
     //    "theirHand" Param renders the row as CARD BACKS and the player picks blind.
     $prefix  = (SeatCountForGame() > 2) ? "p{$opp}Hand" : 'theirHand';
-    $refs = []; $targets = [];
+    $refs = []; $targets = []; $cardIDs = [];
     foreach ($oppHand as $i => $card) {
         if (!empty($card->removed)) continue;
         $refs[] = GameLogCardRef($card->CardID);
+        $cardIDs[] = strval($card->CardID);
         if ($filter === null || $filter($card->CardID)) $targets[] = "{$prefix}-$i";
     }
+    // SWU-PGN: a look is a LOOK by $player; a reveal is a REVEAL by the opponent
+    if ($cardIDs && function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote($reveal ? ['t' => 'REVEAL', 'p' => $opp, 'zone' => 'hand', 'cardIDs' => $cardIDs] : ['t' => 'LOOK', 'p' => intval($player), 'owner' => $opp, 'zone' => 'hand', 'cardIDs' => $cardIDs]);
     $msg = 'P' . intval($player) . " looked at P{$opp}'s hand: " . (empty($refs) ? '(empty)' : implode(', ', $refs));
     SWULogPrivateReveal($msg, intval($player), $opp);
     SWURecordHandSeen($opp, [intval($player)]);

@@ -514,8 +514,8 @@ function SWULogSearchedToHand(int $player, array $cardIDs, bool $revealed, ?arra
     $n = count($cardIDs);
     if ($player <= 0 || $n <= 0) return;
     if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) {
-        if ($revealed) SwuPgnNote(['t' => 'REVEAL', 'p' => $player, 'zone' => 'deck', 'cardIDs' => $cardIDs]);
-        SwuPgnNote(['t' => 'SEARCH', 'p' => $player, 'cardIDs' => $cardIDs, 'seen' => array_values(array_map('strval', $seen ?? $cardIDs))]);   // claims the cards' deck → hand moves
+        // claims the cards' deck → hand moves; `revealed`: the matcher writes the REVEAL, of the copies that moved
+        SwuPgnNote(['t' => 'SEARCH', 'p' => $player, 'cardIDs' => $cardIDs, 'seen' => array_values(array_map('strval', $seen ?? $cardIDs)), 'revealed' => $revealed]);
     }
     $refs = implode(', ', array_map('GameLogCardRef', $cardIDs));
     if ($revealed) {

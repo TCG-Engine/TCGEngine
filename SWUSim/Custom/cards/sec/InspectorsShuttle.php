@@ -43,7 +43,7 @@ $customDQHandlers["SEC_260#0"] = function($player, $parts, $lastDecision) {
     // SWULookAtOpponentHand logs the reveal (scoped to the two seats involved above two seats);
     // SWUQueueShowOpponentHand puts the cards on screen behind an OK acknowledgement — a game-log line
     // alone is too easy to miss for something the player is entitled to see.
-    SWULookAtOpponentHand(intval($player), null, $opp);
+    SWULookAtOpponentHand(intval($player), null, $opp, reveal: true);
     SWUQueueShowOpponentHand(intval($player), $opp);
     $count = 0;
     foreach (GetHand($opp) as $c) { if (!empty($c->removed)) continue; if (SWUObjectTitle($c) === $named) $count++; }

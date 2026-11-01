@@ -350,5 +350,48 @@ SwuPgnTestCheck($look !== null && $look['owner'] === 2 && $look['zone'] === 'dec
     && count(array_intersect($look['cards'], SwuPgnStateRead($gameName)['ledger']['zones'][2]['deck'] ?? [])) === 2,
     'a scry writes a LOOK: p 2, owner 2, deck, the two cards (seat 2\'s own deck copies), count 2', $ev);
 
+// ── §10.2 [W-50] a look at an opponent's hand is a LOOK; an opponent revealing their hand is a REVEAL ─────────────
+// The hand holds two copies of one card, so each must be named once. The "Opponent's hand" popup that follows is an
+// acknowledgement (card images and an OK), not a choice: it writes no CHOICE — and so never puts the hand in `offered`.
+$oppHand = fn() => SwuPgnStateRead($GLOBALS['gameName'])['ledger']['zones'][2]['hand'] ?? [];
+$noteEvents = function (array $ev, array $types) { return array_map(fn($e) => array_diff_key($e, ['seq' => 1]), array_values(array_filter($ev, fn($e) => in_array($e['t'], $types, true)))); };
+// SEC_186 Garindan: "Look at an opponent's hand and discard a card with that name from it."
+$g = NGame(fn($b) => $b->WithCardInHandForPlayer(2, 'SOR_095')->WithCardInHandForPlayer(2, 'SOR_095'));
+$hand = $oppHand();
+[$ev, ] = NFrame(function () { global $customDQHandlers; $GLOBALS['playerID'] = 1; $customDQHandlers['SEC_186#0'](1, ['2'], 'Nothing By This Name'); });
+SwuPgnTestEq($noteEvents($ev, ['LOOK', 'REVEAL']), [['t' => 'LOOK', 'p' => 1, 'owner' => 2, 'zone' => 'hand', 'cards' => $hand, 'count' => 2]],
+    'Garindan: a LOOK by seat 1 at seat 2\'s hand, both copies, no REVEAL');
+[$ev, ] = NFrame(fn() => GameOnDecisionAnswered(1, 'OK'));
+SwuPgnTestEq($noteEvents($ev, ['CHOICE']), [], 'the "Opponent\'s hand" popup answered OK writes no CHOICE');
+// SEC_260 Inspector's Shuttle: "…then an opponent reveals their hand."
+$g = NGame(fn($b) => $b->WithCardInHandForPlayer(2, 'SOR_095')->WithCardInHandForPlayer(2, 'SOR_095'));
+$hand = $oppHand();
+[$ev, ] = NFrame(function () { global $customDQHandlers; $GLOBALS['playerID'] = 1; $customDQHandlers['SEC_260#0'](1, ['0', '2'], 'Nothing By This Name'); });
+SwuPgnTestEq($noteEvents($ev, ['LOOK', 'REVEAL']), [['t' => 'REVEAL', 'p' => 2, 'zone' => 'hand', 'cards' => $hand]],
+    'Inspector\'s Shuttle: seat 2 REVEALs its hand (both copies), no LOOK');
+// SEC_210 Stolen Starpath Unit: "The defending player reveals their hand."
+$g = NGame(fn($b) => $b->WithCardInHandForPlayer(2, 'SOR_095')->WithCardInHandForPlayer(2, 'SOR_095'));
+$hand = $oppHand();
+SetSWUVar('SWU_CURRENT_DEFENDING_SEAT', '2');   // mid-attack: seat 2 defends
+[$ev, ] = NFrame(function () { global $customDQHandlers; $GLOBALS['playerID'] = 1; $customDQHandlers['SEC_210#0'](1, [], 'Nothing By This Name'); });
+SwuPgnTestEq($noteEvents($ev, ['LOOK', 'REVEAL']), [['t' => 'REVEAL', 'p' => 2, 'zone' => 'hand', 'cards' => $hand]],
+    'Stolen Starpath Unit: the defending player REVEALs its hand, no LOOK');
+// A popup that shows a card above real options (a top-card "Draw / Discard"): the picture is not an option.
+$g = NGame(fn($b) => null);
+SwuPgnRecFrameBegin();
+SwuPgnNoteChoice(1, (object)['Type' => 'OPTIONCHOOSE', 'Param' => '@SOR_101&Draw&Discard', 'Tooltip' => 'Draw_or_discard'], 'Discard');
+$cn = array_values(array_filter($GLOBALS['SWU_PGN_NOTES'] ?? [], fn($n) => ($n['t'] ?? '') === 'CHOICE'));
+SwuPgnTestEq([$cn[0]['offered'] ?? null, $cn[0]['chose'] ?? null], [['Draw', 'Discard'], 1], 'a shown card (@CardID) is left out of offered, and chose indexes the real options');
+SwuPgnRecFrameCommit();
+
+// ── §10.2 a search that reveals what it finds (JTL_128 Prepare for Takeoff): SEARCH · REVEAL · MOVE, one copy ────────
+$g = NGame(fn($b) => $b->WithCardInHandForPlayer(1, 'JTL_128')->WithCardInDeckForPlayer(1, 'SEC_062')->WithCardInDeckForPlayer(1, 'SEC_062'));
+[$ev1, ] = NFrame(fn() => $g->playCardFromHand(1, 0));
+[$ev2, ] = NFrame(fn() => $g->answerDecision(1, 'SEC_062'));
+$ev = array_values(array_filter(array_merge($ev1, $ev2), fn($e) => in_array($e['t'], ['SEARCH', 'REVEAL'], true) || ($e['t'] === 'MOVE' && $e['from'] === 'deck' && $e['to'] === 'hand')));
+SwuPgnTestEq(array_map(fn($e) => $e['t'], $ev), ['SEARCH', 'REVEAL', 'MOVE'], 'Prepare for Takeoff: SEARCH, then REVEAL, then the MOVE', $ev);
+SwuPgnTestCheck(count($ev) === 3 && ($ev[1]['cards'] ?? null) === [$ev[2]['card'] ?? '-'] && in_array($ev[2]['card'] ?? '-', $ev[0]['seen'] ?? [], true),
+    'the REVEAL names the copy the MOVE and SEARCH.seen name', json_encode($ev));
+
 foreach ($games as $x) exec('rm -rf ' . escapeshellarg('./SWUSim/Games/' . $x));
 SwuPgnTestFinish();

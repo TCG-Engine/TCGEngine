@@ -80,6 +80,20 @@ function _SwuPgnMRef(array &$run, $x, ?int $seat = null, ?string $zone = null): 
     return $ref;
 }
 
+// Several cards of one seat's zone (a hand looked at or revealed, the top of a deck): each is a copy in that zone not
+// already named, so two copies of a card are two refs — _SwuPgnMRef alone would name the first copy twice.
+function _SwuPgnMZoneRefs(array &$run, array $ids, ?int $seat, string $zone): array {
+    $left = $seat !== null ? ($run['ctx']['ledger']['zones'][$seat][$zone] ?? []) : [];
+    $refs = [];
+    foreach ($ids as $x) {
+        $k = is_string($x) && preg_match('/^[A-Z0-9]{2,5}_T?\d+$/', $x) ? array_search(SwuPgnCardRef($x), array_map('SwuPgnBaseId', $left), true) : false;
+        if ($k === false) { $refs[] = _SwuPgnMRef($run, $x, $seat, $zone); continue; }
+        $refs[] = $left[$k];
+        array_splice($left, $k, 1);
+    }
+    return $refs;
+}
+
 // DAMAGE.src / HEAL.src / DEFEAT.defeatedBy (§3): a card id or base@N, else nothing — never a placeholder ("unknown") or
 // a rule ("rule:deck-out"): when no card is responsible, the field is left out.
 function _SwuPgnMSource(array &$run, $x, ?int $seat = null): ?string {
@@ -511,6 +525,11 @@ function _SwuPgnMNote(array &$run, int $ni, array $n): void {
                 $mv = _SwuPgnMTake($run, fn($c) => $c['k'] === 'move' && $c['seat'] === $p && $c['cardID'] === $id && in_array($c['from'], ['deck', 'temp'], true));
                 if ($mv !== null) $found[] = [$id, _SwuPgnMMove($run, $mv, $ni)];
             }
+            // "…reveal them, and draw them": the REVEAL sits between the SEARCH and the MOVEs, and names the copies that
+            // moved (only known once they have — a lookup by CardID would find a same-named copy still in the deck).
+            if (!empty($n['revealed']) && $found) {
+                array_splice($run['out'], $at + 1, 0, [['ev' => ['t' => 'REVEAL', 'p' => $p, 'zone' => 'deck', 'cards' => array_column($found, 1)], 'top' => false, 'owner' => $ni]]);
+            }
             if (isset($n['seen'])) {
                 $seen = [];
                 foreach ($n['seen'] as $id) {
@@ -527,12 +546,12 @@ function _SwuPgnMNote(array &$run, int $ni, array $n): void {
         case 'REVEAL':
             // The revealing seat's own copies, in the zone shown (a card can be in both decks).
             _SwuPgnMEmit($run, 'REVEAL', ['p' => $p, 'zone' => $n['zone'] ?? 'hand',
-                'cards' => array_map(fn($x) => _SwuPgnMRef($run, $x, $p ?: null, $n['zone'] ?? 'hand'), $n['cardIDs'] ?? [])], $ni);
+                'cards' => _SwuPgnMZoneRefs($run, $n['cardIDs'] ?? [], $p ?: null, $n['zone'] ?? 'hand')], $ni);
             return;
         case 'LOOK': {
             // §10.2 [W-50]: p looked at count cards of owner's zone without revealing them (CR 8.13) — the owner's copies.
             $owner = intval($n['owner'] ?? $p);
-            $cards = array_map(fn($x) => _SwuPgnMRef($run, $x, $owner ?: null, $n['zone'] ?? 'deck'), $n['cardIDs'] ?? []);
+            $cards = _SwuPgnMZoneRefs($run, $n['cardIDs'] ?? [], $owner ?: null, $n['zone'] ?? 'deck');
             if ($cards) _SwuPgnMEmit($run, 'LOOK', ['p' => $p, 'owner' => $owner, 'zone' => $n['zone'] ?? 'deck', 'cards' => $cards, 'count' => count($cards)], $ni);
             return;
         }

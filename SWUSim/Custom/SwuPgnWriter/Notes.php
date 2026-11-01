@@ -198,7 +198,11 @@ function SwuPgnNoteChoice(int $player, $head, string $answer): void {
             SwuPgnNote(['t' => 'NAME', 'p' => $player, 'name' => trim($name)]);
             return;
         } elseif ($type === 'OPTIONCHOOSE' || $type === 'YESNO') {
-            $offered = $type === 'YESNO' ? ['YES', 'NO'] : explode('&', strval($head->Param ?? ''));
+            // An "@CardID" segment is a card shown above the buttons (OptionChooseUI strips it), not an option — and the
+            // card is often hidden (an opponent's hand, the top of a deck). A popup left with one button ("Opponent's
+            // hand … OK") is an acknowledgement, not a choice.
+            $offered = $type === 'YESNO' ? ['YES', 'NO'] : array_values(array_filter(explode('&', strval($head->Param ?? '')), fn($o) => !str_starts_with($o, '@')));
+            if (count($offered) < 2) return;
             $idx = array_search($answer, $offered, true);
             if ($idx === false) return;
             $offered = array_map(fn($o) => str_replace('_', ' ', $o), $offered);

@@ -176,6 +176,23 @@ SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card'] ?? null, $e['from'] ?? nul
     [['SEARCH', null, null, null], ['MOVE', 'SOR#120', 'deck', 'hand']], 'the pick leaves the deck; the returns are silent');
 SwuPgnTestEq([$r['events'][0]['owner'] ?? null, $r['events'][0]['seen'] ?? null], [1, ['SOR#095', 'SOR#120']], '§10.2 [W-50]: SEARCH owner (whose deck) and seen (every card looked at, by copy)');
 SwuPgnTestEq([$r['gaps'], in_array('SOR#095', $ctx['ledger']['zones'][1]['deck'] ?? [], true)], [[], true], 'no gaps, and the returned copy is back in the deck');
+// A search that reveals what it finds (Prepare for Takeoff): SEARCH, then REVEAL, then the MOVE (§10.2 "What a search
+// emits") — and the REVEAL names the copy that left the deck, not a same-named copy still in it.
+$ctx = ['ledger' => SwuPgnLedgerInit([1 => ['SOR_046', 'SOR_046', 'SOR_095'], 2 => []]), 'counters' => [], 'round' => 1, 'phase' => 'A'];
+$r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_046', 'from' => 'deck', 'to' => 'hand']],
+    [['t' => 'SEARCH', 'p' => 1, 'cardIDs' => ['SOR_046'], 'seen' => ['SOR_046', 'SOR_046', 'SOR_095'], 'revealed' => true]], $ctx);
+$moved = array_values(array_filter($r['events'], fn($e) => $e['t'] === 'MOVE'))[0]['card'] ?? null;
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['zone'] ?? null, $e['cards'] ?? null], $r['events']),
+    [['SEARCH', null, null], ['REVEAL', 'deck', [$moved]], ['MOVE', null, null]], 'a revealing search: SEARCH · REVEAL (the found copy) · MOVE');
+SwuPgnTestCheck($moved !== null && in_array($moved, $r['events'][0]['seen'] ?? [], true), 'the revealed copy is the one SEARCH.seen and the MOVE name', json_encode($r['events']));
+
+// A look at (or a reveal of) a hand holding two copies of a card names both copies, not one of them twice.
+$ctx = ['ledger' => SwuPgnLedgerInit([1 => [], 2 => ['SOR_049', 'SOR_049', 'SOR_096']]), 'counters' => [], 'round' => 1, 'phase' => 'A'];
+$h1 = MPlace($ctx, 2, 'hand', 'SOR_049'); $h2 = MPlace($ctx, 2, 'hand', 'SOR_049');
+$r = SwuPgnMatch([], [['t' => 'LOOK', 'p' => 1, 'owner' => 2, 'zone' => 'hand', 'cardIDs' => ['SOR_049', 'SOR_049']],
+    ['t' => 'REVEAL', 'p' => 2, 'zone' => 'hand', 'cardIDs' => ['SOR_049', 'SOR_049']]], $ctx);
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['cards']], $r['events']), [['LOOK', [$h1, $h2]], ['REVEAL', [$h1, $h2]]],
+    'LOOK / REVEAL of a hand with two copies: each copy once');
 // A searched card lifted out of staging a request before it is played (Bossk's bounty search): limbo, not gone — it is
 // played from the deck, as the same copy.
 $ctx = MCtx();
