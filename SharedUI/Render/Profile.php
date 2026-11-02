@@ -335,9 +335,12 @@ function _ProfilePanelRegistry(): array {
         'developerOptions' => function($def, $ctx, $ud) { return _ProfileOAuthDev($def); },
         'savedDecks'       => function($def, $ctx, $ud) {
             require_once __DIR__ . '/DeckLibrary.php';
-            $cfg = DeckLibraryConfigFromSiteDef($def, ['actionButtons' => true]);
+            // deckImport: the import rows need a dropdown to add their decks to, so the library keeps it even when empty.
+            $import = !empty($def['profile']['deckImport']);
+            $cfg = DeckLibraryConfigFromSiteDef($def, ['actionButtons' => true, 'keepWhenEmpty' => $import]);
             return "<div class='savedDecks container bg-black'><h2>Saved Decks</h2>"
-                 . RenderDeckLibrary((int)($ctx['userId'] ?? 0), $cfg) . "</div>";
+                 . RenderDeckLibrary((int)($ctx['userId'] ?? 0), $cfg)
+                 . ($import ? RenderDeckImport($cfg) : '') . "</div>";
         },
         'cosmetics'        => function($def, $ctx, $ud) {
             require_once __DIR__ . '/CosmeticsChooser.php';

@@ -23,6 +23,9 @@
 //   chain 'weakness'    fn(float $score, int $seat, array $v, bool $enemy, int $weak, array $W, int $loss): ?float — a Weakness give on $v ($loss = HP it takes)
 //   chain 'finisherhp'  fn(int $n, int $seat, array $v): ?int                    — my finisher threshold vs target $v (_SWUBotFinisherHPFor)
 //   chain 'splitown'    fn(float $part, int $seat, array $v, int $amt, array $W): ?float — a damage split's share on MY unit $v (_SWUBotSplitScore)
+//   first 'allowtarget' fn(array $ctx, array $att, array $def): ?bool               — true keeps unit target $def the style would prune (SWUBotAllowedTargets)
+//   first 'shrinkveto'  fn(array $ctx, array $pick): ?bool                         — true hands rule shrink-first's pick back to the fallback
+//   chain 'healcap'     fn(int $cap, int $seat): ?int                               — how much base healing is still worth having (SWUBotHealCap)
 //   ($GLOBALS['SWUBotKillCtx'] === 'removal' while a hostile DEFEAT is priced by _SWUBotTargetScore — 'killextra' callers can tell removal from attacks)
 
 $GLOBALS['SWUBotLevers'] = $GLOBALS['SWUBotLevers'] ?? [];   // name => ['theme' => string, 'hooks' => [hook => callable]]
@@ -32,7 +35,10 @@ function _SWUBotShippedLevers(): array {
     return array_merge(defined('SWU_BOT_PART54_FEATURES') ? SWU_BOT_PART54_FEATURES : [], defined('SWU_BOT_PART56_FEATURES') ? SWU_BOT_PART56_FEATURES : [],
                        defined('SWU_BOT_PART57_FEATURES') ? SWU_BOT_PART57_FEATURES : [],    // p54 + p56 + p57 (only 'readykill' of p57 is a registry lever)
                        defined('SWU_BOT_PART58_FEATURES') ? SWU_BOT_PART58_FEATURES : [],    // + p58 (the tempo layer, levers/tempo_*.php)
-                       defined('SWU_BOT_PART59_FEATURES') ? SWU_BOT_PART59_FEATURES : []);   // + p59 (the tempo deck plans, levers/plan_*.php)
+                       defined('SWU_BOT_PART59_FEATURES') ? SWU_BOT_PART59_FEATURES : [],    // + p59 (the tempo deck plans, levers/plan_*.php)
+                       defined('SWU_BOT_PART67_FEATURES') ? SWU_BOT_PART67_FEATURES : [],    // + p67 (four of the attrition levers, levers/attrition_*.php)
+                       defined('SWU_BOT_PART68_FEATURES') ? SWU_BOT_PART68_FEATURES : [],    // + p68 (the other six attrition levers)
+                       defined('SWU_BOT_PART69_FEATURES') ? SWU_BOT_PART69_FEATURES : []);   // + p69 (twelve team-read levers, levers/teamread_*.php)
 }
 
 function SWUBotLeverRegister(string $theme, string $name, array $hooks): void {

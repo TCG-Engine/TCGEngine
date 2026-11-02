@@ -49,6 +49,6 @@ $whenPlayedAbilities["LAW_044:0"] = function($player, $mzID = '') {
             foreach ($ctrlOf as $uid => $c) {
                 if (SWUFindMzByUID($uid) === null) $perSeat[$c] = ($perSeat[$c] ?? 0) + 1;
             }
-            foreach ($perSeat as $seat => $n) if ($n > 0) SWUDealDamageToBase($n, intval($seat));
+            SWUSimultaneousBaseDamage(function () use ($perSeat) { foreach ($perSeat as $seat => $n) if ($n > 0) SWUDealDamageToBase($n, intval($seat)); });
             return;
 };

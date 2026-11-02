@@ -161,7 +161,7 @@ WithP1GroundArenaUpgrade: 1:SOR_120
 P1OnlyActions: true
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-1
+- P1>AnswerDecision:myGroundArena-1.u0
 ## EXPECT
 P1GROUNDARENAUNIT:1:UPGRADECOUNT:0
 P1BASEDMG:0

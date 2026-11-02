@@ -75,4 +75,38 @@ SwuPgnTestCheck(str_contains($text(SwuPgnSteps($search)['steps']), 'Player 2 sea
 SwuPgnTestCheck(str_contains($text(SwuPgnSteps($search, 1)['steps']), 'Player 2 searches their deck')
     && !str_contains($text(SwuPgnSteps($search, 1)['steps']), 'finds'), "P1's view: P2's search finds are hidden");
 
+// 2026-10-28 records in a seat's view: whatever names a card that seat cannot see is hidden (the own-view cut's rules),
+// and the steps themselves (positions, seqs) are the same in every view.
+SwuPgnTestCheck(str_contains($all, "Player 2 looks at 1 card of Player 1's hand: Vanguard Infantry #5") && str_contains($all, 'Player 2 names Vanguard Infantry')
+    && str_contains($all, 'Player 2: Luke Skywalker, Faithful Friend — Gains Sentinel for this phase on Yoda, Old Master (for this phase)'), 'all-seeing: LOOK, NAME and EFFECT_START captions (so the checks below are not vacuous)');
+SwuPgnTestCheck(str_contains($p1, "Player 2 looks at 1 card of Player 1's hand") && !str_contains($p1, "Player 1's hand: "), "P1's view: P2's LOOK names nothing (even P1's own card: what P2 saw is P2's)");
+SwuPgnTestCheck(str_contains($p2, "Player 2 looks at 1 card of Player 1's hand: Vanguard Infantry"), "P2's view: P2's own LOOK names what it saw");
+SwuPgnTestCheck(str_contains($p1, 'Player 2 names Vanguard Infantry'), 'NAME is public in every view');
+$shape = fn(array $st) => array_map(fn($x) => [$x['kind'], $x['seq'], $x['pos'], $x['round'], $x['phase'], $x['actor']], $st);
+SwuPgnTestEq([$shape(SwuPgnSteps($vg, 1)['steps']), $shape(SwuPgnSteps($vg, 2)['steps'])], [$shape(SwuPgnSteps($vg)['steps']), $shape(SwuPgnSteps($vg)['steps'])], 'the steps are the same in every view; only the words differ');
+$hid = SwuPgnParse(SwuPgnTestFile([
+    ['seq' => 'R1.A.start', 't' => 'PHASE_START', 'phase' => 'action'],
+    ['seq' => 'R1.A.1', 't' => 'ABILITY_ACTIVATE', 'p' => 2, 'card' => 'SOR#005', 'kind' => 'action'],
+    ['seq' => 'R1.A.1a', 't' => 'EFFECT_START', 'id' => 'fx@1', 'src' => 'SOR#005', 'p' => 2, 'targets' => ['SOR#045'], 'duration' => 'round'],
+    ['seq' => 'R1.A.1b', 't' => 'LOOK', 'p' => 1, 'owner' => 2, 'zone' => 'deck', 'cards' => ['SOR#108'], 'count' => 1],
+    ['seq' => 'R1.A.1c', 't' => 'CHOICE', 'p' => 2, 'offered' => ['SOR#045', 'SOR#108'], 'chose' => 0, 'blind' => 'R1.A.1'],
+    ['seq' => 'R1.A.1d', 't' => 'EFFECT_END', 'id' => 'fx@1', 'reason' => 'cancelled', 'targets' => ['SOR#045']],
+], ['cards' => [['id' => 'SOR#005', 'name' => 'Luke'], ['id' => 'SOR#045', 'name' => 'Yoda'], ['id' => 'SOR#108', 'name' => 'Wampa']],
+    'setup' => [['seq' => 'R0.S.0', 't' => 'INIT', 'p1DeckOrder' => ['SOR#010'], 'p2DeckOrder' => ['SOR#045', 'SOR#108']]]]));
+SwuPgnTestEq(SwuPgnSteps($hid)['steps'][1]['lines'], ['Player 2: Luke on Yoda (for this round)', "Player 1 looks at 1 card of Player 2's deck: Wampa", 'Effect from Luke ends on Yoda (cancelled)'], 'all-seeing: the effect names its target in P2\'s hand');
+SwuPgnTestEq(SwuPgnSteps($hid, 1)['steps'][1]['lines'], ['Player 2: Luke on a card (for this round)', "Player 1 looks at 1 card of Player 2's deck: Wampa", 'Effect from Luke ends on a card (cancelled)'],
+    "P1's view: an effect on a card hidden in P2's hand names no card; P1's own look still names what P1 saw");
+$noInit = SwuPgnParse(SwuPgnTestFile([['seq' => 'R1.A.start', 't' => 'PHASE_START', 'phase' => 'action'],
+    ['seq' => 'R1.A.0a', 't' => 'LOOK', 'p' => 2, 'owner' => 2, 'zone' => 'deck', 'cards' => ['SOR#005'], 'count' => 1], ['seq' => 'R1.A.1', 't' => 'PASS', 'p' => 1]]));
+SwuPgnTestCheck(str_contains($text(SwuPgnSteps($noInit)['steps']), "deck: SOR#005") && !str_contains($text(SwuPgnSteps($noInit, 1)['steps']), 'SOR#005'),
+    "P1's view of a file with no INIT: P2's LOOK still names nothing");
+$copyDoc = SwuPgnParse(SwuPgnTestFile([['seq' => 'R1.A.start', 't' => 'PHASE_START', 'phase' => 'action'],
+    ['seq' => 'R1.A.0a', 't' => 'MOVE', 'card' => 'SOR#045:2', 'from' => 'hand', 'to' => 'ground', 'p' => 2, 'kind' => 'unit', 'for' => 'R1.A.1'],
+    ['seq' => 'R1.A.0b', 't' => 'STATS', 'card' => 'SOR#045:2', 'power' => 1, 'hp' => 1, 'copyOf' => 'SOR#108', 'name' => 'Clone Name', 'for' => 'R1.A.1'],
+    ['seq' => 'R1.A.1', 't' => 'PLAY', 'p' => 2, 'card' => 'SOR#045:2', 'zone' => 'ground', 'cost' => 1],
+    ['seq' => 'R1.A.1a', 't' => 'DAMAGE', 'tgt' => 'SOR#045:2', 'amt' => 1, 'hp' => 0]],
+    ['cards' => [['id' => 'SOR#045', 'name' => 'Yoda']], 'setup' => [['seq' => 'R0.S.0', 't' => 'INIT', 'p1DeckOrder' => ['SOR#010'], 'p2DeckOrder' => ['SOR#045:2']]]]));
+SwuPgnTestEq([SwuPgnSteps($copyDoc)['steps'][1]['lines'], SwuPgnSteps($copyDoc, 1)['steps'][1]['lines']], [['1 damage to Clone Name #2 — 0 HP left'], ['1 damage to Clone Name — 0 HP left']],
+    "a seat's view tracks copy names by the ids its captions print (renumbered: P2's only Yoda reads without #2)");
+
 SwuPgnTestFinish();

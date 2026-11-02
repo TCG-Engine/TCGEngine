@@ -185,4 +185,6 @@ newhost/research/
 
 # LocalBugReportLib.php: Petranaki bug report store (both players' hidden cards) and the local package inbox
 SWUSim/BugReports/
+SWUSim/Chats/
+SWUSim/PlayerReports/
 .bugreports/

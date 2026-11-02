@@ -421,7 +421,10 @@ function SWUBotRuleShrinkFirst(array $ctx): ?array {
     $read = fn() => ['pow' => $readyPow(), 'hand' => count(array_filter(GetHand($seat), fn($o) => $o !== null && empty($o->removed)))];
     $score = fn(array $r) => ($before - $r['pow']) * 10 + ($r['hand'] >= $handBefore ? 1 : 0);   // hand kept its size = it drew
     $ok = fn(array $r) => ($before - $r['pow']) >= $bar;
-    return _SWUBotBestLine($ctx, $read, $score, $ok, $consider);
+    $pick = _SWUBotBestLine($ctx, $read, $score, $ok, $consider);
+    // Lever registry (BotLevers.php): a lever may hand the decision back to the fallback ('removalbody').
+    if ($pick !== null && function_exists('SWUBotLeverFirst') && SWUBotLeverFirst('shrinkveto', $ctx, $pick) === true) return null;
+    return $pick;
 }
 
 // PROPOSAL 'killfirst' (default OFF) — ORDERING, the family every shipped win came from. When an attack this turn

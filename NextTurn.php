@@ -17,7 +17,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
       crossorigin="anonymous"></script>
     <script src="./Core/StyledDialog.js?v=<?php echo filemtime('./Core/StyledDialog.js'); ?>"></script>
-    <script src="./Core/UILibraries20261023.js?v=<?php echo filemtime('./Core/UILibraries20261023.js'); ?>"></script>
+    <script src="./Core/UILibraries20261031.js?v=<?php echo filemtime('./Core/UILibraries20261031.js'); ?>"></script>
     <script src="./Core/CounterRendering.js?v=<?php echo filemtime('./Core/CounterRendering.js'); ?>"></script>
     <script src="./Core/MZRearrangePopup.js?v=<?php echo filemtime('./Core/MZRearrangePopup.js'); ?>"></script>
     <script src="./Core/MZSplitAssignUI.js?v=<?php echo filemtime('./Core/MZSplitAssignUI.js'); ?>"></script>
@@ -1365,6 +1365,12 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                 window.location.replace(u.toString());
                 return;
               }
+            } else if (responseText.split("ROOM")[0] == "1237") {
+              // SWUSim High Ground: the host ended this hill match with no result — back to the room, players and watchers alike.
+              // The reply names no room (it precedes auth); the room page remembered which room this board came from.
+              var roomId = ''; try { roomId = localStorage.getItem('tcg:hg:lastRoom') || ''; } catch (e) {}
+              window.location.replace(roomId ? 'SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(roomId) : 'SharedUI/MainMenu.php');
+              return;
             } else if (responseText.split("REMATCH")[0] == "1234") {
               location.replace('GameLobby.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo ($playerID); ?>&authKey=<?php echo ($authKey); ?>');
             } else {
@@ -1485,7 +1491,8 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             var _goVars = JSON.parse(window.DecisionQueueVariablesData);
             if (_goVars && _goVars.GAMEOVER_WINNER) {
               var _goWinner = parseInt(_goVars.GAMEOVER_WINNER, 10);
-              if (_goWinner > 0 && typeof ShowGameOver === 'function') {
+              // -1 = a drawn game (SWUSim, CR 6.3): over, with no winning seat.
+              if ((_goWinner > 0 || _goWinner === -1) && typeof ShowGameOver === 'function') {
                 window._gameOverShown = true;
                 // Not inside a sealed replay: re-saving it is refused (Core/MatchReplay.php MatchReplayCanDownload).
                 if (window.MatchReplayConfig && window.MatchReplayConfig.enabled
@@ -1508,7 +1515,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                 } else if (typeof window.AzukiShowEndGameMenu === 'function') {
                   window.AzukiShowEndGameMenu(_goStatsHtml, _goWinner);
                 } else {
-                  ShowGameOver(viewerCanAct && playerID === _goWinner, undefined, _goStatsHtml);
+                  ShowGameOver(_goWinner === -1 ? 'draw' : (viewerCanAct && playerID === _goWinner), undefined, _goStatsHtml);
                 }
                 if (window.GameLogClient && typeof window.GameLogClient.addGameOverButton === 'function') {
                   window.GameLogClient.addGameOverButton(document.getElementById('game-over-overlay'));
@@ -2105,6 +2112,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <?php if (!in_array($folderPath, ["SWUDeck", "AzukiDeck", "HellbreakDeck"], true)): ?>
     <?php
       $chatToastBaselineID = 0;
+      ChatPersistUseRoot($folderPath);   // saved chat for Petranaki only (Core/ChatStore.php): a reload after an APCu wipe refills it
       foreach (GetChatMessagesSince($gameName, 0) as $existingChatMessage) {
         $chatToastBaselineID = max($chatToastBaselineID, intval($existingChatMessage['id'] ?? 0));
       }
@@ -2173,8 +2181,18 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                  style='background:rgba(0,0,0,0.82); border:1px solid #555; border-bottom:none; border-radius:5px 5px 0 0; color:white;
                         font-family:barlow,sans-serif; height:160px; overflow-y:auto; padding:4px 6px;'></div>
         </div>
+        <?php
+          // SWUSim High Ground: a watcher who is a MEMBER of the hill match's room may chat from the board (owner: "in a high
+          // ground lobby, anyone can chat"). Proven by the room cookie, the same check SubmitChat.php applies — so every other
+          // spectator still falls into the render-nothing branch below.
+          $hgBoardChat = false;
+          if ($isSpectatorViewer && $folderPath === 'SWUSim') {
+            include_once './Core/ChatPolicy.php';
+            $hgBoardChat = ChatViewerOverride('SWUSim', strval($gameName), [], $_COOKIE) !== null;
+          }
+        ?>
         <div id='chatWidgetControls' style='display:flex; gap:4px; align-items:center;'>
-        <?php if ($isSpectatorViewer): ?>
+        <?php if ($isSpectatorViewer && !$hgBoardChat): ?>
             <!-- SPECTATORS CANNOT CHAT (owner, 2026-09-26). Render NOTHING — no input, no send button,
                  and deliberately NO explanation: a spectator is a guest of the table, not someone being
                  refused something they were promised. Contrast the guest branch below, which DOES explain

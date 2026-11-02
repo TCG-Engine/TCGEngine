@@ -10,6 +10,9 @@ $swuFormatsPath = __DIR__ . '/../../AppCore/SWU/Formats.php';
 if (is_file($swuFormatsPath)) require_once $swuFormatsPath;
 $swuMatchFlowPath = __DIR__ . '/../../SWUSim/MatchFlow.php';
 if (($_POST['rootName'] ?? '') === 'SWUSim' && is_file($swuMatchFlowPath)) require_once $swuMatchFlowPath;
+// SWUSim 1v1 rooms (Return to Lobby): the end-screen start blocker + the room/match link. At FILE scope on purpose —
+// an include inside a function makes the included files' top-level variables function-local.
+if (($_POST['rootName'] ?? '') === 'SWUSim') require_once __DIR__ . '/../../SWUSim/Rooms.php';
 
 $response = new stdClass();
 function _startRoomFail($response, $m) {
@@ -42,6 +45,8 @@ if ($startAdapter === null || !$startAdapter->wantsWaitingRoom($snapshot)) {
   _startRoomFail($response, 'Not a multiplayer room.');
 }
 if (!empty($snapshot->gameName)) _startRoomFail($response, 'Already started.');
+// SWUSim High Ground rooms start one hill match at a time from the two on the hill (SWUSim/HighGroundAction.php).
+if (!empty($snapshot->highGround)) _startRoomFail($response, 'Use Start next match.');
 
 $startErr = null;
 $prepared = LobbyMutate($lobbyID, function ($lobby) use (&$startErr) {
@@ -95,7 +100,7 @@ try {
     include __DIR__ . '/../../FaBSim/CreateGame.php';
   } else {
     if (!function_exists('SWUCreateMatchFromLobby')) throw new RuntimeException('Match framework unavailable.');
-    SWUCreateMatchFromLobby($prepared);
+    $startedMatchId = SWUCreateMatchFromLobby($prepared);
   }
   if (empty($prepared->gameName)) throw new RuntimeException('Game creation returned no game.');
 } catch (Throwable $e) {
@@ -108,6 +113,11 @@ if (function_exists('RegisterActiveGame')) RegisterActiveGame($rootName, strval(
 $gameName = $prepared->gameName;
 // Keep the room alive for rematch (long TTL) — LobbyMutate's default is exactly that 900s.
 LobbyCommitGameCreation($lobbyID, $prepared, 'started');
+// SWUSim 1v1: the room outlives this match (Return to Lobby) — link the two and save the room to disk.
+// docs/superpowers/specs/2026-10-30-persistent-lobby-rematch-design.md
+if ($rootName === 'SWUSim' && intval($prepared->maxPlayers ?? 0) === 2 && !empty($startedMatchId)) {
+  SWURoomOnMatchStarted($lobbyID, strval($startedMatchId));
+}
 
 $response->success = true;
 $response->gameName = $gameName;

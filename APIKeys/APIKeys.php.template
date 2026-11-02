@@ -43,8 +43,21 @@ $swustatsClientID = '';
 $swustatsClientSecret = '';
 
 // SWU-PGN writer secret (SWUSim/Custom/SwuPgnWriter/Identity.php): keys the hashed player/game ids and sealed
-// replays. Env SWUPGN_ID_SECRET overrides it. Set a long random value in production; never commit it.
+// replays. Env SWUPGN_ID_SECRET overrides it. Set a long random value in production; never commit it, and never change
+// it once set (the same player / match would get a different id in older and newer files).
 $swupgnIdSecret = '';
+
+// Petranaki → SWU Forge (SWUSim/SWUForgeLink.php, SWUForgeDelivery.php): players link their SWU Forge account and their
+// finished games are delivered there. An EMPTY secret turns it all off on this box (nothing linked, queued or sent).
+// The secret comes from SWU Forge out of band; staging and production have different ones. The client's redirect URI
+// is https://petranaki.net/TCGEngine/AccountFiles/SWUForgeOAuthCallback.php (dev: http://localhost:3400/...).
+// Base URL: the SWU Forge environment, e.g. https://staging-andy.swuforge.com (staging). REQUIRED: there is no default,
+// and a blank one turns SWU Forge off like a blank secret does (a box never guesses which Forge it talks to).
+// Delivery also needs migration 20 and the worker cron line (see SWUSim/SWUForgeDeliverWorker.php).
+// Env SWUFORGE_CLIENT_SECRET / SWUFORGE_BASE_URL / SWUFORGE_CLIENT_ID override these.
+$swuforgeOAuthKey = '';
+$swuforgeBaseURL = '';
+$swuforgeClientID = '';   // blank = "petranaki"
 
 $isProduction = false;
 

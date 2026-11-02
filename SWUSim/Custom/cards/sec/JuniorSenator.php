@@ -3,48 +3,35 @@
 // Cost 2 - Junior Senator - [Cunning,Heroism] - Power 3 - HP 2
 // Text: When Played: You may return an upgrade that costs 3 or less to its owner's hand.
 
-// SEC_200 Junior Senator — When Played: you may return an upgrade that costs 3 or less to its owner's
-// hand. Offer hosts carrying a non-token upgrade of cost ≤3; return the first such upgrade on the pick.
+// SEC_200 Junior Senator — When Played: you may return an upgrade that costs 3 or less to its owner's hand.
+// The player chooses the UPGRADE itself, not a unit: every eligible upgrade is offered as a subcard mzID
+// ("<host>.u<sub>", the HMW_236 Booma Ball / HMW_222 Sandcrawler Sales Team convention). A host-first pick
+// that returned "the first eligible upgrade" left the player no way to choose between two cheap upgrades on
+// one unit (e.g. a Weakness token beside a 2-cost upgrade).
+// SWUGetUpgradeSubcardMzIDs: both sides and every live seat (ZoneSearch fan-out), bases too (Fortify
+// upgrades), TOKEN upgrades included, captives excluded. 'cost<=3' reads the PRINTED cost (official ruling).
 $whenPlayedAbilities["SEC_200:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $hosts = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if (SWUObjGone($o)) continue;
-        foreach (GetUpgradesOnUnit($o) as $up) {
-            // Any upgrade costing 3 or less is a legal target — INCLUDING a token upgrade (Experience, cost
-            // 0). A token can't move to a non-play zone, so "returning" it DEFEATS it instead (handled in #0).
-            $ucid = is_array($up) ? ($up['CardID'] ?? '') : ($up->CardID ?? '');
-            if ($ucid !== '' && intval(CardCost($ucid)) <= 3) { $hosts[] = $mz; break; }
-        }
-    }
-    if (empty($hosts)) return;
-    SWUQueueMayChooseTarget(intval($player), $hosts, "Return_an_upgrade_(cost_3_or_less)_to_owner's_hand?", "Choose_a_unit", "SEC_200#0");
+    $targets = SWUGetUpgradeSubcardMzIDs('cost<=3');
+    if (empty($targets)) return;
+    // The tooltip says "return … hand" so the bot reads the pick as hostile (_SWUBotTooltipEffect) and its
+    // 'upgradepicks' scoring decides which upgrade — an enemy upgrade, or a Weakness on its own unit.
+    SWUQueueMayChooseTarget(intval($player), $targets, "Return_an_upgrade_(cost_3_or_less)_to_its_owner's_hand?",
+        "Choose_an_upgrade_(cost_3_or_less)_to_return_to_its_owner's_hand", "SEC_200#0");
 };
 
 $customDQHandlers["SEC_200#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = intval($player);
-    $o = GetZoneObject($lastDecision);
-    if (SWUObjGone($o) || !is_array($o->Subcards ?? null)) return;
-    foreach ($o->Subcards as $i => $sub) {
-        $ucid  = is_array($sub) ? ($sub['CardID'] ?? '')  : ($sub->CardID ?? '');
-        $isRem = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
-        if ($isRem || $ucid === '' || intval(CardCost($ucid)) > 3) continue;
-        if (stripos((string)CardType($ucid), 'token') !== false) {   // token upgrade (Experience/Shield)
-            // CR: a token that would leave play (move to hand) is defeated and ceases to exist instead.
-            // ⚠ This bespoke removal must still run the protections the canonical return path
-            // (SWUReturnUpgradeToHand) applies — SEC_061 Willrow Hood blocks an ENEMY ability from
-            // defeating OR returning his lone friendly upgrade, and a token upgrade is no exception.
-            // Splicing directly skipped that check, so a Shield on Willrow was removable by an enemy.
-            $tOwner = is_array($sub) ? intval($sub['Owner'] ?? 0) : intval($sub->Owner ?? 0);
-            if ($tOwner <= 0) $tOwner = intval($o->Controller ?? $o->Owner ?? 0);
-            $tCtrl  = is_array($sub) ? intval($sub['Controller'] ?? $tOwner) : intval($sub->Controller ?? $tOwner);
-            if (_SWUWillrowProtectsUpgrade($o, $tCtrl, intval($player))) break;   // SEC_061 protection
-            array_splice($o->Subcards, $i, 1);
-        } else {
-            SWUReturnUpgradeToHand($lastDecision, $ucid, intval($player));
-        }
-        break;
-    }
+    $sub = MZParseSubcardID(strval($lastDecision));
+    if ($sub === null) return;
+    $up = MZResolveObject(strval($lastDecision));
+    if (!is_object($up) || !empty($up->IsCaptive)) return;
+    $ucid = strval($up->CardID ?? '');
+    if ($ucid === '' || intval(CardCost($ucid)) > 3) return;
+    // ONE path for real and token upgrades alike: SWUReturnUpgradeToHand already makes a token cease to exist
+    // instead of reaching a hand (CR), applies SEC_061 Willrow Hood's protection, and writes the game-log line.
+    // A bespoke token splice here once removed the token SILENTLY (bug report P-10). The subcard key pins the
+    // exact copy, so two same-CardID upgrades with different owners return the one that was chosen.
+    SWUReturnUpgradeToHand($sub['host'], $ucid, intval($player), $sub['subIndex']);
 };

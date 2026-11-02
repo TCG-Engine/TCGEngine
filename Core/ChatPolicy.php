@@ -24,4 +24,19 @@ function ChatSendRefusal($folderPath, array $viewer, $scopeToken) {
     return (is_string($r) && $r !== '') ? $r : null;
 }
 
+// WHO is sending/reading, when a sim knows better than the seat number. A sim opts in with
+// SimChatViewerOverride($scopeToken, $request, $cookies): ?array in <Sim>/Custom/ChatPolicy.php, returning a full viewer
+// (viewerID, viewerSeat, isSpectator, canAct, label) that REPLACES the seat-based identity and its auth check — so it must
+// itself prove the caller belongs (SWUSim: a High Ground room's members). null = no opinion: the normal path runs unchanged.
+function ChatViewerOverride($folderPath, $scopeToken, array $request, array $cookies) {
+    $folderPath = strval($folderPath);
+    if ($folderPath === '' || !preg_match('/^[A-Za-z0-9]+$/', $folderPath)) return null;
+    $path = __DIR__ . '/../' . $folderPath . '/Custom/ChatPolicy.php';
+    if (!is_file($path)) return null;
+    include_once $path;
+    if (!function_exists('SimChatViewerOverride')) return null;
+    $v = SimChatViewerOverride(strval($scopeToken), $request, $cookies);
+    return is_array($v) ? $v : null;
+}
+
 }

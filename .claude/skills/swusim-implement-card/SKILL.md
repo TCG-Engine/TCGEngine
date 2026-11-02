@@ -1351,6 +1351,72 @@ fixture-blind-spot table above for *why* that coverage could not see them.
 - **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
   base explicitly — `AttackGroundArena:0:p2Base-0`.
 
+### ★ IC27 ninth wave 2026-10-30 — one observer at five sites, seeded state that cannot discriminate, pregame through production
+- **"When a (friendly) unit deals DAMAGE to a base" has FIVE producers**, each calling `SWUDealDamageToBase` and then
+  stamping `SWU_DMGDBASE_`: the direct combat hit, the shared Overwhelm spill (`_SWUOverwhelmSpillToBase`), TWI_135 Maul's
+  two-defender spill, a unit's ABILITY damage (the `SWU_DMG_SRC` branch inside `SWUDealDamageToBase`) and indirect
+  (`SWUApplyIndirectAssignment`). Hook the observer right after the call at each, and read
+  **`$GLOBALS['gSWULastBaseDamageDealt']`** — the amount that call ACTUALLY dealt (0 when Close the Shield Gate / Alliance
+  Shield Generator prevented it). ⚠ The ability branch also runs for combat and indirect, so gate it
+  `empty(gInCombatDamage) && !$isIndirect` or each hit reports twice; the board that catches the double is an attacker
+  WITH an On Attack (its dispatch leaves `SWU_DMG_SRC` set for the whole attack). ⚠ Many indirect callers pass no
+  `$sourceUID` (JTL_143's `SWUDealIndirectToEachOpponent`) — fall back to `SWU_DMG_SRC` naming the controller. One section
+  per producer, one mutation per hook (IC27_122 The Ghost).
+- **A seeded "already applied once" token cannot catch a dedupe bug** when the mutant writes a DIFFERENT token: a fixture
+  `IC27_113-1` plus a mutant's bare `IC27_113` are two tokens, so "the second grant stacks" stayed green. Prove stacking
+  with a REAL second application (SHD_182 Bravado readies the attacker for a second attack). Raid stacks per the
+  2026-09-10 ruling, so a repeatable grant needs one token per grant (`CARD-<n>`).
+- **A pregame change needs a PRODUCTION test.** The schema harness never deals or mulligans — it COMPUTES the opening
+  count (`SWUStartingHandSizeFor`, now also reading leaders). Build a real game with `SWUSetupGame(…, ['forcedFirstPlayer'
+  => 1, 'resolvedDecks' => …])` and answer the mulligan through `EngineRunAction` mode 100
+  (`test_ic27006_luke_starting_hand.php`); two mutations there were invisible to the whole schema suite.
+- **"Prevent all combat damage dealt to and by X for this phase" = one phase MARKER read at four points** — the attacker's
+  outgoing power, the defender's outgoing power, `$preventAttackerDmg` (TWI_096's flag) and the attacker's power INTO a
+  marked defender — plus TWI_135's two-defender path. Zeroing the power into a marked defender also correctly removes
+  Overwhelm excess (prevented damage is not excess). Exempt `_SWUDamageUnpreventable` and write the ASH_196 section.
+- **Same-sentence reuse at call time.** A card whose ability is another card's text verbatim delegates to that closure at
+  CALL time (`$onAttackAbilities["ASH_172:0"]($p, $mz)` inside its own closure) — never `= $onAttackAbilities[...]` at load,
+  which depends on the per-card glob order.
+- **Mutation tooling:** zsh does not word-split `$var` in `for pair in "a b"` loops (the script got one argument and touched
+  nothing); run Python mutators with `-u` or their per-mutation lines only appear at the end.
+
+### ★ IC27 eighth wave 2026-10-29 — handler frames, multiplicative modifiers, and boards that can't discriminate
+- **A CUSTOM handler that receives an mzID through `$parts` must set `$playerID = $player` before using it.** The
+  mzID was minted in the queuing player's frame (`myGroundArena-N`); `$playerID` at handler time can be another
+  seat. LAW_086 The Stranger's YES did nothing for a SEAT-2 Stranger for its whole life — every section attacked
+  from seat 1 — and was only found because IC27_142 Greedo needed it from seat 2. Any card whose handler takes a
+  stored mzID gets one section driven from seat 2 (`P1>Pass` then `P2>…`).
+- **"Double a unit's power" is a MULTIPLICATIVE modifier (CR 15.2/15.3), not a +X snapshot, and it cannot live in
+  `ObjectCurrentPowerRaw`**: an attack adds Raid / "+N for this attack" ON TOP of Raw, and those must be doubled too.
+  `_SWUPowerMultiplier` is applied at the END of each power reader (`ObjectCurrentPower`, `ObjectCurrentPowerInAttack`,
+  `SWUCombatDamage` attack + defend power, The Stranger's Grit delta). The discriminating sections: a later buff in
+  the same phase ((3+2)×2, not 6+2), a 0-power Raid unit attacking ((0+2)×2, not 2), and two applications (×4).
+- **Sequential combat damage ("deals after/before") is only proven by the board where the order DECIDES the
+  outcome** — the second unit dies and deals nothing. A "second unit survives, then deals" board ends exactly like
+  simultaneous damage and stays green with the whole ordering deleted (IC27_142 Greedo, measured). Keep it as a
+  positive, but never as the only one.
+- **When the net board equals "nothing happened", assert the log.** IC27_144 Jango discarding the event he then
+  returns leaves hand and pile identical to a no-op; `LOGCONTAINS:discard pile to their hand` is what fails.
+- **A 3-HP unit dies to a 3-power counter.** When a section needs the attacker to survive, pick a defender whose
+  power is below the attacker's HP — two "doubled unit attacks" sections were red for the fixture, not the engine.
+
+### ★ IC27 sixth wave 2026-10-29 — fixture HP, discard-from-hand, and measuring an outcome you delegated
+- **The standard far-seat base `SOR_019` is a 25-HP base, not 30.** Nearly every Twin Suns / Team Suns section
+  seeds `WithP3Base: SOR_019:0` / `WithP4Base: SOR_019:0`, so any expectation derived from a far-seat base's HP
+  ("half its remaining HP", "heal to full", lethal) must read the real HP. A 30-HP assumption reads exactly like
+  an engine bug (IC27_110 Supremacy: P3 took 11, not 14).
+- **"When this unit is discarded from your hand"** = a synchronous `$cardDiscardedHandlers['CID:0']` that
+  checks `$entry->From === 'HAND'` and stamps the discard `Modifier` (SHD_135's shape; IC27_063 is the hand-only
+  variant). `OnCardDiscarded` runs on BOTH the forced (`SWUAddToDiscard`) and the self-chosen (`DoDiscardCard`)
+  paths — write one section per path, plus the DECK and PLAY negatives.
+- **`SWUNestedPlay` returns nothing, so "play X. If it's …, do Y" must MEASURE that the play happened** (count
+  the copies left in the source zone before/after, IC27_066 Mother Talzin). And Y reads the card's PRINTED cost —
+  a free play cost 0, which is exactly the wrong number.
+- **A "for each X that WAS on this unit" When Defeated** is last-known information: count it inside
+  `CollectWhenDefeatedTriggers` beside the JTL_104 power snapshot (subcards still attached) and persist it in a
+  SWUVar keyed by the mzID, so a later request (trigger-order prompt, Thrawn / Shadow Caster reuse) still has it
+  (IC27_045 Qi'ra).
+
 ### ★ IC27 fourth wave 2026-10-24 — pick the predicate, not the precedent
 - **Copy a precedent's SHAPE, but re-check its PREDICATE against the shared helper.** The "you may attack
   with a unit" family (SEC_172, SOR_240's `_SWUReadyFriendlyUnits`) offers any READY unit, including a

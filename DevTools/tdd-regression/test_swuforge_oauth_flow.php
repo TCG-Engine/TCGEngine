@@ -63,6 +63,9 @@ try {
     $GLOBALS['SWUFORGE_CONFIG']['clientSecret'] = '';
     check('no client secret configured → refused before leaving the site', $throws(fn() => SWUForgeOAuthAuthorizeUrl('abc')));
     $GLOBALS['SWUFORGE_CONFIG']['clientSecret'] = 'sec';
+    $GLOBALS['SWUFORGE_CONFIG']['baseUrl'] = '';
+    check('no Forge address configured → refused before leaving the site', $throws(fn() => SWUForgeOAuthAuthorizeUrl('abc')));
+    $GLOBALS['SWUFORGE_CONFIG']['baseUrl'] = 'https://forge.test';
 
     // ── canonical host (one redirect URI → one host) ─────────────────────────
     check('on the redirect URI host → no hop', SWUForgeOAuthCanonicalStartUrl('localhost:3400', '/x') === null);

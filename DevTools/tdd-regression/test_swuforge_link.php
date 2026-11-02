@@ -15,6 +15,7 @@ const NOW = 1800000000;
 // Child mode (the lock case): started while the parent HOLDS the refresh lock. It must wait, then see the tokens the
 // parent stored meanwhile and return them without refreshing a second time.
 if (($argv[1] ?? '') === 'child') {
+    $GLOBALS['SWUFORGE_CONFIG'] = ['baseUrl' => 'https://forge.test', 'clientId' => 'petranaki', 'clientSecret' => 'sec', 'redirectUri' => 'http://localhost:3400/cb'];
     $calls = 0;
     $GLOBALS['SWUFORGE_HTTP_FAKE'] = function () use (&$calls) { $calls++; return ['status' => 500, 'body' => null, 'raw' => '']; };
     echo json_encode(['r' => SWUForgeAccessToken(F_LOCK, false, NOW), 'calls' => $calls]), "\n";
@@ -38,7 +39,12 @@ check('config reads the secret, base URL and client id from the APIKeys file', $
 file_put_contents($keys, '<?php $swuforgeOAuthKey = "sec2";');
 unset($GLOBALS['SWUFORGE_CONFIG']);
 $cfg = SWUForgeConfig($keys);
-check('defaults: staging Forge, client id "petranaki"', $cfg['baseUrl'] === 'https://swu-forge-staging-andy.up.railway.app' && $cfg['clientId'] === 'petranaki', json_encode($cfg));
+check('no Forge address in code: without $swuforgeBaseURL the base URL is empty; client id defaults to "petranaki"', $cfg['baseUrl'] === '' && $cfg['clientId'] === 'petranaki', json_encode($cfg));
+$GLOBALS['SWUFORGE_CONFIG'] = ['clientSecret' => 'sec2'] + $cfg;   // set outright: this keys file's path was already loaded once
+check('a secret without a Forge address is NOT configured (SWU Forge stays off rather than guessing an environment)', SWUForgeConfigured() === false);
+$GLOBALS['SWUFORGE_CONFIG'] = ['baseUrl' => 'https://forge.example', 'clientSecret' => 'sec2'] + $cfg;
+check('a secret and an address are configured', SWUForgeConfigured() === true);
+unset($GLOBALS['SWUFORGE_CONFIG']);
 check('dev redirect URI is the registered localhost callback', $cfg['redirectUri'] === 'http://localhost:3400/TCGEngine/AccountFiles/SWUForgeOAuthCallback.php', $cfg['redirectUri']);
 putenv('SWUFORGE_BASE_URL=https://override.example'); unset($GLOBALS['SWUFORGE_CONFIG']);
 check('an environment variable wins over the APIKeys file', SWUForgeConfig($keys)['baseUrl'] === 'https://override.example');
@@ -124,6 +130,17 @@ try {
     $fake(['status' => 0, 'body' => null, 'raw' => '', 'error' => 'down']);
     SWUForgeUnlink(F_LINK);
     check('unlink clears the link even when Forge cannot be reached', $link(F_LINK) === null);
+
+    // 8b. No Forge address configured: a token due a refresh is not refreshed (the link is kept), and an unlink clears
+    // the local link without calling anyone.
+    $GLOBALS['SWUFORGE_CONFIG']['baseUrl'] = '';
+    SWUForgeSaveLink($conn, F_LINK, 'p', 'acc-y', 'ref-y', NOW + 10, NOW);
+    $calls = []; $fake(['status' => 200, 'body' => ['access_token' => 'x', 'refresh_token' => 'y', 'expires_in' => 3600], 'raw' => '']);
+    check('no Forge address → a stale token is not refreshed, and the link is kept', SWUForgeAccessToken(F_LINK, false, NOW)['status'] === 'unavailable'
+        && $calls === [] && $link(F_LINK) !== null, json_encode($calls));
+    SWUForgeUnlink(F_LINK);
+    check('no Forge address → unlink clears the link without an HTTP call', $calls === [] && $link(F_LINK) === null, json_encode($calls));
+    $GLOBALS['SWUFORGE_CONFIG']['baseUrl'] = 'https://forge.test';
 
     // 9. The standing problem a delivery reports (403 / 409) is shown on the profile and cleared by a success.
     SWUForgeSaveLink($conn, F_LINK, 'p', 'acc-x', 'ref-x', NOW + 3600, NOW);

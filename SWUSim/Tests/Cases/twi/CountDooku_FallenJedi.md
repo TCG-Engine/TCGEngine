@@ -85,3 +85,34 @@ WithP2GroundArena: LAW_124:1:0
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:1:DAMAGE:0
+
+---
+
+# Exploit2_CreditChoice_PowersSurviveRequestBoundary
+#// Bug report P-12 (game 1791): Dooku exploited two Battle Droids, then "had no effect". With 5 ready
+#// resources and 1 Credit against a cost of 4, the Credit picker is a real choice, so the play finishes —
+#// and the When Played runs — in a LATER request. The exploited powers lived only in the transient
+#// $gLastExploitedPowers, which every new request starts empty. They now ride SWU_EXPLOITED_POWERS.
+#// SOR_095 (power 3) + SOR_140 (power 2) are exploited, the boundary falls on the Credit picker, the Credit
+#// is declined, and both damage instances must still be offered.
+## GIVEN
+CommonSetup: rrk/bbw/{myResources:5;handCardIds:TWI_138}
+P1OnlyActions: true
+WithP1Credits: 1
+WithP1GroundArena: [SOR_095:1:0 SOR_140:1:0]
+WithP2GroundArena: [SOR_046:1:0 LAW_124:1:0]
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:-
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:theirGroundArena-1
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:TWI_138
+P1CREDITCOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P2GROUNDARENAUNIT:1:CARDID:LAW_124
+P2GROUNDARENAUNIT:1:DAMAGE:2

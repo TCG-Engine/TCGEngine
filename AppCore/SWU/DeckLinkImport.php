@@ -82,7 +82,9 @@ function SWUDeckLinkSources() {
         SWU_DECK_SOURCE_SWUFORGE => [
             'name' => 'swuforge.com', 'host' => 'swuforge.com',
             'idRegex' => '#swuforge\.com/decks/([A-Za-z0-9_-]+)#i',
-            'api' => 'https://swuforge.com/api/decks/{id}/json',
+            // A dev box (DEVENV) reads SWU Forge STAGING, where its test accounts and decks live; a staging deck id
+            // does not exist on swuforge.com. (Staging's deck JSON sits behind Cloudflare Access until SWU Forge opens it.)
+            'api' => (getenv('DEVENV') === 'true' ? 'https://staging-andy.swuforge.com' : 'https://swuforge.com') . '/api/decks/{id}/json',
             'notFound' => 'Deck not found. Make sure the deck exists on swuforge.com.',
         ],
         SWU_DECK_SOURCE_SWUMETASTATS => [

@@ -141,10 +141,40 @@ SwuPgnTestEq($flags, ['SWU_BASECAPTIVE|SOR_045|2'], 'a base captive is the base-
 $baseSeen = array_keys(array_merge($based['players'][1], $based['players'][2]));
 SwuPgnTestEq(array_values(array_diff(array_map(fn($k) => "player.$k", $baseSeen), SwuPgnBoardHandledFields())), [], 'baseUpgrades / baseCaptured are converted fields');
 
+// 2026-10-28 state (§11 control and ownership, copies): a card sits on its CONTROLLER's side (the seat whose cards
+// hold it) and carries its owner; an upgrade the other seat controls is that seat's subcard; a stolen resource is
+// owned by the other seat; a copy is drawn as the card it copies (SWUSim's own Clone form: copied CardID + IsClone).
+$rich = $final;
+$rich['players'][1]['cards'][] = SwuPgnTestCard('SOR#045:4', 'ground', ['owner' => 2, 'upgrades' => ['LOF#091:2', 'SOR#095'], 'upgradeControllers' => ['LOF#091:2' => 2],
+    'power' => 2, 'hp' => 4, 'traits' => ['force'], 'blank' => true, 'leaderUnit' => true]);
+$rich['players'][2]['cards'][] = SwuPgnTestCard('JTL#032:2', 'ground', ['copyOf' => 'SOR#108:2', 'name' => 'Vanguard Infantry', 'cost' => 1, 'aspects' => ['command'], 'power' => 1, 'hp' => 2]);
+$rich['players'][2]['cards'][] = SwuPgnTestCard('SOR#095:2', 'space', ['copyOf' => 'ZZZ#777', 'name' => 'Unknown Thing']);
+$rich['players'][1]['resources'] = ['SOR#045:3', 'SOR#108:2'];
+$rich['players'][1]['foreignResources'] = ['SOR#045:3'];
+$rich['players'][1]['resourcesReady'] = 2; $rich['players'][1]['resourcesExhausted'] = 0;
+$rich['players'][2]['baseDefeated'] = true;
+$rich['effects'] = [['id' => 'fx@1', 'src' => 'SOR#005', 'p' => 2, 'targets' => ['SOR#045'], 'duration' => 'phase']];
+$rich['players'][2]['abilityUses'] = [['card' => 'SOR#005', 'ability' => 'x', 'count' => 1, 'per' => 'round', 'max' => 1]];
+$write($rich, 'both');
+$stolen = $unit(1, 'SOR_045');
+SwuPgnTestCheck($stolen !== null && $unit(2, 'SOR_045') !== null, "an arena card with owner 2 in P1's cards is on P1's side (P2's own Yoda stays on P2's)");
+SwuPgnTestEq([$stolen->Owner ?? null, $stolen->Controller ?? null], [2, 1], 'its owner is the other seat, its controller the holder');
+$ups = array_values(array_filter($subs($stolen), fn($s) => in_array($sv($s, 'CardID'), ['LOF_091', 'SOR_095'], true)));
+SwuPgnTestEq(array_map(fn($s) => [$sv($s, 'CardID'), $sv($s, 'Controller'), $sv($s, 'Owner')], $ups), [['LOF_091', 2, 2], ['SOR_095', 1, 1]],
+    'upgradeControllers: an upgrade the other seat controls is its subcard; one without an entry is the holder\'s');
+$copy = $unit(2, 'SOR_108');
+SwuPgnTestCheck($copy !== null && !empty($copy->IsClone), 'a copy is drawn as the card it copies, flagged IsClone (SWUSim\'s Clone form)');
+SwuPgnTestEq(json_decode(GetSWUVar('SWUPGN_STATS'), true)[$copy->UniqueID ?? -1]['p'] ?? null, 1, 'the copy keeps its own stated power');
+$phCopy = $unit(2, SwuPgnPlaceholderId('ZZZ#777'));
+SwuPgnTestCheck($phCopy !== null && !empty($phCopy->IsClone), 'a copy of a card SWUSim does not know is that card\'s placeholder');
+$res1 = GetResources(1);
+SwuPgnTestEq(array_map(fn($r) => [$r->CardID, $r->Owner, $r->Controller], array_values(array_filter($res1, fn($r) => $r->CardID !== 'LAW_T01'))), [['SOR_045', 2, 1], ['SOR_108', 1, 1]],
+    'foreignResources: a resource the other seat owns is owned by it, controlled by the holder');
+
 // Every top-level and per-card field the reader produces is handled.
 $handled = SwuPgnBoardHandledFields();
 $seen = [];
-foreach ([$final, $flip] as $st) {
+foreach ([$final, $flip, $rich] as $st) {
     foreach ($st as $k => $_) $seen["state.$k"] = true;
     foreach ($st['players'] as $ps) { foreach ($ps as $k => $_) $seen["player.$k"] = true; foreach ($ps['cards'] as $c) foreach ($c as $k => $_) $seen["card.$k"] = true; }
 }

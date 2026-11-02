@@ -278,4 +278,17 @@ SwuPgnTestEq(SwuPgnDiff(DiffSnap(), DiffSnap([], [], ['initiative' => 2, 'initia
     ['k' => 'initiative', 'seat' => 2, 'taken' => true],
 ], 'initiative claimed');
 
+// §10.1 STATS [W-55]: a change of traits / blank / leaderUnit alone is a stats change; a unit entering states them all.
+$tu = fn(array $o = []) => DiffUnit('SOR_095', array_replace(['traits' => ['rebel', 'trooper'], 'blank' => false, 'leaderUnit' => false], $o));
+SwuPgnTestEq(SwuPgnDiff(DiffSnap(['units' => [7 => $tu()]]), DiffSnap(['units' => [7 => $tu(['blank' => true])]])), [
+    ['k' => 'stats', 'seat' => 1, 'uid' => 7, 'power' => 3, 'hp' => 3, 'keywords' => [], 'traits' => ['rebel', 'trooper'], 'blank' => true, 'leaderUnit' => false],
+], 'blanked: a stats change carrying the traits');
+SwuPgnTestEq(array_column(SwuPgnDiff(DiffSnap(['units' => [7 => $tu()]]), DiffSnap(['units' => [7 => $tu(['traits' => ['mandalorian', 'rebel', 'trooper']])]])), 'traits'),
+    [['mandalorian', 'rebel', 'trooper']], 'a gained trait alone is a stats change');
+// §10.1 TAKE_CONTROL, upgrade form [W-56]: an attached upgrade's controller changed on the same host.
+$up = fn(int $ctl) => ['cardID' => 'SOR_120', 'uid' => null, 'isPilot' => false, 'controller' => $ctl];
+SwuPgnTestEq(SwuPgnDiff(DiffSnap(['units' => [7 => DiffUnit('SOR_095', ['upgrades' => [$up(1)]])]]), DiffSnap(['units' => [7 => DiffUnit('SOR_095', ['upgrades' => [$up(2)]])]])), [
+    ['k' => 'upgControl', 'seat' => 2, 'host' => 7, 'cardID' => 'SOR_120', 'from' => 1, 'to' => 2],
+], 'an upgrade changing controller on its host');
+
 SwuPgnTestFinish();

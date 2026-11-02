@@ -5,7 +5,7 @@ require_once __DIR__ . '/fixtures/swupgn_test_helpers.php';
 require_once __DIR__ . '/../../SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
 require_once __DIR__ . '/../../SWUSim/Custom/SwuPgnWriter/_include.php';
 
-// A fresh context: seat 1 deck SOR#95 SOR#120 SOR#172 SOR#46 SOR#49, seat 2 deck SOR#96 SOR#49:2; leader SOR#5 at base 1.
+// A fresh context: seat 1 deck SOR#095 SOR#120 SOR#172 SOR#046 SOR#049, seat 2 deck SOR#096 SOR#049:2; leader SOR#005 at base 1.
 function MCtx(string $phase = 'A', int $round = 1): array {
     $L = SwuPgnLedgerInit([1 => ['SOR_095', 'SOR_120', 'SOR_172', 'SOR_046', 'SOR_049'], 2 => ['SOR_096', 'SOR_049']]);
     SwuPgnLedgerPut($L, 1, 'base', SwuPgnLedgerNewToken($L, 'SOR_005'));
@@ -16,6 +16,7 @@ function MPlace(array &$ctx, int $seat, string $zone, string $cardID, ?int $uid 
     SwuPgnLedgerPut($ctx['ledger'], $seat, $zone, $copy, $uid);
     return $copy;
 }
+function NFindM(array $events, string $t): ?array { foreach ($events as $e) if ($e['t'] === $t) return $e; return null; }
 $SHIELD = SwuPgnCardRef('SOR_T02');
 $stats = fn($uid, $p = 3, $hp = 3, $seat = 1) => ['k' => 'stats', 'seat' => $seat, 'uid' => $uid, 'power' => $p, 'hp' => $hp, 'keywords' => []];
 
@@ -25,14 +26,21 @@ $stats = fn($uid, $p = 3, $hp = 3, $seat = 1) => ['k' => 'stats', 'seat' => $sea
 $ctx = MCtx(); MPlace($ctx, 2, 'hand', 'SOR_096'); MPlace($ctx, 2, 'hand', 'SOR_049');
 $r = SwuPgnMatch([], [['t' => 'CHOICE', 'p' => 2, 'prompt' => 'Discard a card', 'offered' => ['SOR_096', 'SOR_049'],
     'offeredSeats' => [2, 2], 'offeredZones' => ['hand', 'hand'], 'chose' => 0]], $ctx);
-SwuPgnTestEq($r['events'][0]['offered'] ?? null, ['SOR#96', 'SOR#49:2'], 'CHOICE.offered names the chooser\'s copies, not the other seat\'s');
+SwuPgnTestEq($r['events'][0]['offered'] ?? null, ['SOR#096', 'SOR#049:2'], 'CHOICE.offered names the chooser\'s copies, not the other seat\'s');
 // Mirror leaders: P2's leader exhausting is P2's leader.
 $ctx = MCtx(); SwuPgnLedgerPut($ctx['ledger'], 2, 'base', SwuPgnLedgerNewToken($ctx['ledger'], 'SOR_005'));
 $r = SwuPgnMatch([['k' => 'exhaust', 'seat' => 2, 'target' => 'leader@2', 'cardID' => 'SOR_005']], [['t' => 'ABILITY', 'p' => 2, 'cardID' => 'SOR_005', 'kind' => 'action']], $ctx);
-SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card']], $r['events']), [['EXHAUST', 'SOR#5:2'], ['ABILITY_ACTIVATE', 'SOR#5:2']], 'a mirror leader\'s action: P2\'s leader');
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card']], $r['events']), [['ABILITY_ACTIVATE', 'SOR#005:2'], ['EXHAUST', 'SOR#005:2']], 'a mirror leader\'s action: P2\'s leader');
 $ctx = MCtx(); SwuPgnLedgerPut($ctx['ledger'], 2, 'base', SwuPgnLedgerNewToken($ctx['ledger'], 'SOR_005'));
 $r = SwuPgnMatch([['k' => 'ready', 'seat' => 2, 'target' => 'leader@2', 'cardID' => 'SOR_005']], [], $ctx);
-SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card']], $r['events']), [['READY', 'SOR#5:2']], 'an unannounced mirror-leader ready: P2\'s leader');
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card']], $r['events']), [['READY', 'SOR#005:2']], 'an unannounced mirror-leader ready: P2\'s leader');
+
+// A killer named by CardID alone (an effect's source, no seat): the copy in PLAY, not a same-named copy still hidden in
+// a deck — that one would read HIDDEN in a seat's own view and fail [W-32].
+$ctx = MCtx(); MPlace($ctx, 1, 'ground', 'SOR_095', 7); MPlace($ctx, 2, 'ground', 'SOR_049', 9);
+$r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'ground', 'to' => 'discard', 'uid' => 7]],
+    [['t' => 'DEFEAT', 'uid' => 7, 'cardID' => 'SOR_095', 'reason' => 'nonCombatDamage', 'by' => 'SOR_049']], $ctx);
+SwuPgnTestEq(array_column(array_filter($r['events'], fn($e) => $e['t'] === 'DEFEAT'), 'defeatedBy'), ['SOR#049:2'], 'DEFEAT.defeatedBy by CardID: the copy in play (P2\'s), not P1\'s hidden deck copy');
 
 // ── Play a unit from hand ────────────────────────────────────────────────────────────────────────
 $ctx = MCtx(); MPlace($ctx, 1, 'hand', 'SOR_095');
@@ -43,13 +51,13 @@ $r = SwuPgnMatch([
 ], [['t' => 'PLAY', 'p' => 1, 'cardID' => 'SOR_095', 'how' => 'unit', 'uid' => 7, 'targetUid' => null, 'cost' => 2]], $ctx);
 SwuPgnTestEq($r['events'], [
     ['seq' => 'R1.A.0a', 't' => 'EXHAUST_RESOURCES', 'p' => 1, 'amount' => 2, 'for' => 'R1.A.1'],
-    ['seq' => 'R1.A.0b', 't' => 'MOVE', 'card' => 'SOR#95', 'from' => 'hand', 'to' => 'ground', 'p' => 1, 'kind' => 'unit', 'for' => 'R1.A.1'],
-    ['seq' => 'R1.A.0c', 't' => 'STATS', 'card' => 'SOR#95', 'power' => 3, 'hp' => 3, 'keywords' => [], 'for' => 'R1.A.1'],
-    ['seq' => 'R1.A.1', 't' => 'PLAY', 'p' => 1, 'card' => 'SOR#95', 'zone' => 'ground', 'cost' => 2],
-    ['seq' => 'R1.A.1a', 't' => 'EXHAUST', 'card' => 'SOR#95'],
+    ['seq' => 'R1.A.0b', 't' => 'MOVE', 'card' => 'SOR#095', 'from' => 'hand', 'to' => 'ground', 'p' => 1, 'kind' => 'unit', 'for' => 'R1.A.1'],
+    ['seq' => 'R1.A.0c', 't' => 'STATS', 'card' => 'SOR#095', 'power' => 3, 'hp' => 3, 'keywords' => [], 'for' => 'R1.A.1'],
+    ['seq' => 'R1.A.1', 't' => 'PLAY', 'p' => 1, 'card' => 'SOR#095', 'zone' => 'ground', 'cost' => 2],
+    ['seq' => 'R1.A.1a', 't' => 'EXHAUST', 'card' => 'SOR#095'],
 ], 'play a unit: EXHAUST_RESOURCES · MOVE · STATS · PLAY · EXHAUST, with for');
 SwuPgnTestEq($r['gaps'], [], 'a fully announced play leaves no gaps');
-SwuPgnTestEq(SwuPgnLedgerByUid($ctx['ledger'], 7), 'SOR#95', 'the played copy is bound to its UID');
+SwuPgnTestEq(SwuPgnLedgerByUid($ctx['ledger'], 7), 'SOR#095', 'the played copy is bound to its UID');
 
 // ── An attack: target choice, exhaust, combat damage both ways, a defeat ─────────────────────────
 $ctx = MCtx(); MPlace($ctx, 1, 'ground', 'SOR_095', 7); MPlace($ctx, 2, 'ground', 'SOR_096', 8);
@@ -65,14 +73,14 @@ $r = SwuPgnMatch([
     ['t' => 'DEFEAT', 'uid' => 8, 'reason' => 'attack', 'by' => 7],
 ], $ctx);
 SwuPgnTestEq($r['events'], [
-    ['seq' => 'R1.A.0a', 't' => 'CHOICE', 'p' => 1, 'offered' => ['SOR#96', 'base@2'], 'chose' => 0, 'for' => 'R1.A.1'],
-    ['seq' => 'R1.A.0b', 't' => 'EXHAUST', 'card' => 'SOR#95', 'for' => 'R1.A.1'],
-    ['seq' => 'R1.A.1', 't' => 'ATTACK', 'p' => 1, 'atk' => 'SOR#95', 'def' => 'SOR#96', 'defenderType' => 'unit'],
-    ['seq' => 'R1.A.1a', 't' => 'DAMAGE', 'src' => 'SOR#95', 'tgt' => 'SOR#96', 'amt' => 3, 'damageType' => 'combat', 'hp' => 0],
-    ['seq' => 'R1.A.1b', 't' => 'DAMAGE', 'src' => 'SOR#96', 'tgt' => 'SOR#95', 'amt' => 2, 'damageType' => 'combat', 'hp' => 1],
-    ['seq' => 'R1.A.1c', 't' => 'MOVE', 'card' => 'SOR#96', 'from' => 'ground', 'to' => 'discard', 'p' => 2, 'kind' => 'unit'],
-    ['seq' => 'R1.A.1d', 't' => 'DEFEAT', 'card' => 'SOR#96', 'reason' => 'attack', 'defeatedBy' => 'SOR#95'],
-], 'attack: CHOICE · EXHAUST · ATTACK · DAMAGE both ways · MOVE · DEFEAT; damage to a unit that died reads hp 0');
+    ['seq' => 'R1.A.0a', 't' => 'CHOICE', 'p' => 1, 'offered' => ['SOR#096', 'base@2'], 'chose' => 0, 'for' => 'R1.A.1'],
+    ['seq' => 'R1.A.0b', 't' => 'EXHAUST', 'card' => 'SOR#095', 'for' => 'R1.A.1'],
+    ['seq' => 'R1.A.1', 't' => 'ATTACK', 'p' => 1, 'atk' => 'SOR#095', 'def' => 'SOR#096', 'defenderType' => 'unit'],
+    ['seq' => 'R1.A.1a', 't' => 'DAMAGE', 'src' => 'SOR#095', 'tgt' => 'SOR#096', 'amt' => 3, 'damageType' => 'combat', 'hp' => 0, 'simul' => 'R1.A.1a'],
+    ['seq' => 'R1.A.1b', 't' => 'DAMAGE', 'src' => 'SOR#096', 'tgt' => 'SOR#095', 'amt' => 2, 'damageType' => 'combat', 'hp' => 1, 'simul' => 'R1.A.1a'],
+    ['seq' => 'R1.A.1c', 't' => 'MOVE', 'card' => 'SOR#096', 'from' => 'ground', 'to' => 'discard', 'p' => 2, 'kind' => 'unit'],
+    ['seq' => 'R1.A.1d', 't' => 'DEFEAT', 'card' => 'SOR#096', 'reason' => 'attack', 'defeatedBy' => 'SOR#095'],
+], 'attack: CHOICE · EXHAUST · ATTACK · DAMAGE both ways (one simul group, §10.2 [W-53]) · MOVE · DEFEAT; damage to a unit that died reads hp 0');
 SwuPgnTestEq($r['gaps'], [], 'a fully announced attack leaves no gaps');
 
 // ── Play an upgrade ──────────────────────────────────────────────────────────────────────────────
@@ -84,9 +92,9 @@ $r = SwuPgnMatch([
 ], [['t' => 'PLAY', 'p' => 1, 'cardID' => 'SOR_120', 'how' => 'upgrade', 'uid' => null, 'targetUid' => 7, 'cost' => 2]], $ctx);
 SwuPgnTestEq($r['events'], [
     ['seq' => 'R1.A.0a', 't' => 'EXHAUST_RESOURCES', 'p' => 1, 'amount' => 2, 'for' => 'R1.A.1'],
-    ['seq' => 'R1.A.0b', 't' => 'MOVE', 'card' => 'SOR#120', 'from' => 'hand', 'to' => 'ground', 'p' => 1, 'kind' => 'upgrade', 'attachedTo' => 'SOR#95', 'for' => 'R1.A.1'],
-    ['seq' => 'R1.A.1', 't' => 'PLAY_UPGRADE', 'p' => 1, 'card' => 'SOR#120', 'zone' => 'ground', 'target' => 'SOR#95', 'cost' => 2],
-    ['seq' => 'R1.A.1a', 't' => 'STATS', 'card' => 'SOR#95', 'power' => 5, 'hp' => 5, 'keywords' => []],
+    ['seq' => 'R1.A.0b', 't' => 'MOVE', 'card' => 'SOR#120', 'from' => 'hand', 'to' => 'ground', 'p' => 1, 'kind' => 'upgrade', 'attachedTo' => 'SOR#095', 'for' => 'R1.A.1'],
+    ['seq' => 'R1.A.1', 't' => 'PLAY_UPGRADE', 'p' => 1, 'card' => 'SOR#120', 'zone' => 'ground', 'target' => 'SOR#095', 'cost' => 2],
+    ['seq' => 'R1.A.1a', 't' => 'STATS', 'card' => 'SOR#095', 'power' => 5, 'hp' => 5, 'keywords' => []],
 ], 'play an upgrade: EXHAUST_RESOURCES · MOVE(attachedTo) · PLAY_UPGRADE(target) · host STATS');
 
 // ── Play an event and its effect ─────────────────────────────────────────────────────────────────
@@ -115,8 +123,8 @@ $r = SwuPgnMatch([
 SwuPgnTestEq($r['events'], [
     ['seq' => 'R1.A.0a', 't' => 'MOVE', 'card' => 'SOR#120', 'from' => 'deck', 'to' => 'hand', 'p' => 1, 'kind' => 'upgrade'],
     ['seq' => 'R1.A.0b', 't' => 'DRAW', 'p' => 1, 'count' => 1, 'cards' => ['SOR#120']],
-    ['seq' => 'R1.A.0c', 't' => 'MOVE', 'card' => 'SOR#95', 'from' => 'hand', 'to' => 'resource', 'p' => 1, 'kind' => 'unit', 'for' => 'R1.A.0d'],
-    ['seq' => 'R1.A.0d', 't' => 'RESOURCE', 'p' => 1, 'card' => 'SOR#95'],
+    ['seq' => 'R1.A.0c', 't' => 'MOVE', 'card' => 'SOR#095', 'from' => 'hand', 'to' => 'resource', 'p' => 1, 'kind' => 'unit', 'for' => 'R1.A.0d'],
+    ['seq' => 'R1.A.0d', 't' => 'RESOURCE', 'p' => 1, 'card' => 'SOR#095'],
 ], 'draw: MOVE · DRAW; resource: MOVE(for) · RESOURCE');
 
 // A RESOURCE note that names no card takes the seat's move into the row.
@@ -164,10 +172,48 @@ $r = SwuPgnMatch([
     ['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_120', 'from' => 'temp', 'to' => 'hand'],
     ['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'temp', 'to' => 'deck'],
     ['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_049', 'from' => 'temp', 'to' => 'outsideTheGame'],
-], [['t' => 'SEARCH', 'p' => 1, 'cardIDs' => ['SOR_120']]], $ctx);
+], [['t' => 'SEARCH', 'p' => 1, 'cardIDs' => ['SOR_120'], 'seen' => ['SOR_095', 'SOR_120']]], $ctx);
 SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card'] ?? null, $e['from'] ?? null, $e['to'] ?? null], $r['events']),
     [['SEARCH', null, null, null], ['MOVE', 'SOR#120', 'deck', 'hand']], 'the pick leaves the deck; the returns are silent');
-SwuPgnTestEq([$r['gaps'], in_array('SOR#95', $ctx['ledger']['zones'][1]['deck'] ?? [], true)], [[], true], 'no gaps, and the returned copy is back in the deck');
+SwuPgnTestEq([$r['events'][0]['owner'] ?? null, $r['events'][0]['seen'] ?? null], [1, ['SOR#095', 'SOR#120']], '§10.2 [W-50]: SEARCH owner (whose deck) and seen (every card looked at, by copy)');
+SwuPgnTestEq([$r['gaps'], in_array('SOR#095', $ctx['ledger']['zones'][1]['deck'] ?? [], true)], [[], true], 'no gaps, and the returned copy is back in the deck');
+// A search that reveals what it finds (Prepare for Takeoff): SEARCH, then REVEAL, then the MOVE (§10.2 "What a search
+// emits") — and the REVEAL names the copy that left the deck, not a same-named copy still in it.
+$ctx = ['ledger' => SwuPgnLedgerInit([1 => ['SOR_046', 'SOR_046', 'SOR_095'], 2 => []]), 'counters' => [], 'round' => 1, 'phase' => 'A'];
+$r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_046', 'from' => 'deck', 'to' => 'hand']],
+    [['t' => 'SEARCH', 'p' => 1, 'cardIDs' => ['SOR_046'], 'seen' => ['SOR_046', 'SOR_046', 'SOR_095'], 'revealed' => true]], $ctx);
+$moved = array_values(array_filter($r['events'], fn($e) => $e['t'] === 'MOVE'))[0]['card'] ?? null;
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['zone'] ?? null, $e['cards'] ?? null], $r['events']),
+    [['SEARCH', null, null], ['REVEAL', 'deck', [$moved]], ['MOVE', null, null]], 'a revealing search: SEARCH · REVEAL (the found copy) · MOVE');
+SwuPgnTestCheck($moved !== null && in_array($moved, $r['events'][0]['seen'] ?? [], true), 'the revealed copy is the one SEARCH.seen and the MOVE name', json_encode($r['events']));
+
+// Exploit: units defeated to pay for a play are defeatedBy the copy being PLAYED — not another copy of it still hidden in a
+// hand or deck (that one reads HIDDEN in the other seat's view, which [W-32] forbids). The played copy is only known once
+// its move is matched, after the DEFEATs.
+$ctx = ['ledger' => SwuPgnLedgerInit([1 => ['TWI_184'], 2 => ['TWI_184', 'TWI_184', 'SOR_095']]), 'counters' => [], 'round' => 1, 'phase' => 'A'];
+MPlace($ctx, 2, 'hand', 'TWI_184'); MPlace($ctx, 2, 'hand', 'TWI_184'); MPlace($ctx, 2, 'ground', 'SOR_095', 9);
+$r = SwuPgnMatch([
+    ['k' => 'move', 'seat' => 2, 'cardID' => 'SOR_095', 'from' => 'ground', 'to' => 'discard', 'uid' => 9],
+    ['k' => 'move', 'seat' => 2, 'cardID' => 'TWI_184', 'from' => 'hand', 'to' => 'ground', 'uid' => 12, 'exhausted' => true],
+], [
+    ['t' => 'DEFEAT', 'uid' => 9, 'cardID' => 'SOR_095', 'reason' => 'ability', 'by' => 'TWI_184', 'byPlayed' => true],
+    ['t' => 'PLAY', 'p' => 2, 'cardID' => 'TWI_184', 'how' => 'unit', 'uid' => 12, 'targetUid' => null, 'cost' => 5],
+], $ctx);
+$played = NFindM($r['events'], 'PLAY')['card'] ?? null;
+SwuPgnTestCheck($played !== null && (NFindM($r['events'], 'DEFEAT')['defeatedBy'] ?? null) === $played,
+    'an Exploit defeat is defeatedBy the played copy', json_encode($r['events']));
+// [W-18]: the defeat is part of paying for the play, so it and its MOVE belong to the PLAY (`for`).
+$playSeq = NFindM($r['events'], 'PLAY')['seq'] ?? '-';
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['for'] ?? null], array_values(array_filter($r['events'], fn($e) => ($e['card'] ?? '') === 'SOR#095'))),
+    [['MOVE', $playSeq], ['DEFEAT', $playSeq]], '[W-18] the exploited unit\'s MOVE and DEFEAT are filed for the PLAY');
+
+// A look at (or a reveal of) a hand holding two copies of a card names both copies, not one of them twice.
+$ctx = ['ledger' => SwuPgnLedgerInit([1 => [], 2 => ['SOR_049', 'SOR_049', 'SOR_096']]), 'counters' => [], 'round' => 1, 'phase' => 'A'];
+$h1 = MPlace($ctx, 2, 'hand', 'SOR_049'); $h2 = MPlace($ctx, 2, 'hand', 'SOR_049');
+$r = SwuPgnMatch([], [['t' => 'LOOK', 'p' => 1, 'owner' => 2, 'zone' => 'hand', 'cardIDs' => ['SOR_049', 'SOR_049']],
+    ['t' => 'REVEAL', 'p' => 2, 'zone' => 'hand', 'cardIDs' => ['SOR_049', 'SOR_049']]], $ctx);
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['cards']], $r['events']), [['LOOK', [$h1, $h2]], ['REVEAL', [$h1, $h2]]],
+    'LOOK / REVEAL of a hand with two copies: each copy once');
 // A searched card lifted out of staging a request before it is played (Bossk's bounty search): limbo, not gone — it is
 // played from the deck, as the same copy.
 $ctx = MCtx();
@@ -175,14 +221,14 @@ SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'deck
 $r1 = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'temp', 'to' => 'outsideTheGame']], [], $ctx);
 $r2 = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'outsideTheGame', 'to' => 'ground', 'uid' => 9, 'exhausted' => false]], [], $ctx);
 SwuPgnTestEq([$r1['events'], array_map(fn($e) => [$e['t'], $e['card'] ?? null, $e['from'] ?? null, $e['to'] ?? null], $r2['events'])],
-    [[], [['MOVE', 'SOR#95', 'deck', 'ground']]], 'a searched card held out of staging is played from the deck, as itself');
+    [[], [['MOVE', 'SOR#095', 'deck', 'ground']]], 'a searched card held out of staging is played from the deck, as itself');
 
 // ...and when the engine shows that card leaving the deck itself, the held copy is the one that left.
 $ctx = MCtx();
 SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'deck', 'to' => 'temp']], [], $ctx);
 SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'temp', 'to' => 'outsideTheGame']], [], $ctx);
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'deck', 'to' => 'ground', 'uid' => 9, 'exhausted' => false]], [], $ctx);
-SwuPgnTestEq([array_column($r['events'], 'card'), $ctx['ledger']['limbo'] ?? []], [['SOR#95'], []], 'a held card shown leaving the deck: the held copy, limbo cleared');
+SwuPgnTestEq([array_column($r['events'], 'card'), $ctx['ledger']['limbo'] ?? []], [['SOR#095'], []], 'a held card shown leaving the deck: the held copy, limbo cleared');
 
 // A held card that never lands is not held forever: after SWUPGN_LIMBO_PASSES passes its move out of the game is written,
 // as an unannounced change (a gap), and the board and the file agree again.
@@ -206,14 +252,14 @@ SwuPgnTestEq(array_values(array_unique(array_column($r['events'], 'card'))), [$p
 $ctx = MCtx();
 $r1 = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'deck', 'to' => 'outsideTheGame']], [], $ctx);
 $r2 = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'temp', 'to' => 'deck']], [], $ctx);
-SwuPgnTestEq([$r1['events'], $r1['gaps'], $r2['events'], in_array('SOR#95', $ctx['ledger']['zones'][1]['deck'] ?? [], true), $ctx['ledger']['limbo'] ?? []],
+SwuPgnTestEq([$r1['events'], $r1['gaps'], $r2['events'], in_array('SOR#095', $ctx['ledger']['zones'][1]['deck'] ?? [], true), $ctx['ledger']['limbo'] ?? []],
     [[], [], [], true, []], 'a deck card out of sight mid-search and put back: nothing written, the same copy in the deck');
 
 // A revealed card out of sight for a request and put straight back where it was (Hired Slicer, Don't Get Cocky): no move.
 $ctx = MCtx();
 SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'deck', 'to' => 'outsideTheGame']], [], $ctx);
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'outsideTheGame', 'to' => 'deck']], [], $ctx);
-SwuPgnTestEq([$r['events'], $r['gaps'], in_array('SOR#95', $ctx['ledger']['zones'][1]['deck'] ?? [], true), $ctx['ledger']['limbo'] ?? []],
+SwuPgnTestEq([$r['events'], $r['gaps'], in_array('SOR#095', $ctx['ledger']['zones'][1]['deck'] ?? [], true), $ctx['ledger']['limbo'] ?? []],
     [[], [], true, []], 'a held card back where it was: nothing written');
 
 // Staged for the OPPONENT to pick from (Admiral Trench), then handed back: a hop between staging areas is no change —
@@ -221,10 +267,10 @@ SwuPgnTestEq([$r['events'], $r['gaps'], in_array('SOR#95', $ctx['ledger']['zones
 $ctx = MCtx();
 SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'deck', 'to' => 'temp', 'fromSeat' => 1, 'toSeat' => 2]], [], $ctx);
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 2, 'cardID' => 'SOR_095', 'from' => 'temp', 'to' => 'temp', 'fromSeat' => 2, 'toSeat' => 1]], [], $ctx);
-SwuPgnTestEq([$r['events'], $ctx['ledger']['zones'][1]['temp'] ?? [], $ctx['ledger']['tempOrigin']['SOR#95'] ?? null], [[], ['SOR#95'], 'deck'],
+SwuPgnTestEq([$r['events'], $ctx['ledger']['zones'][1]['temp'] ?? [], $ctx['ledger']['tempOrigin']['SOR#095'] ?? null], [[], ['SOR#095'], 'deck'],
     'a hop between staging areas writes nothing and keeps the copy\'s origin');
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'temp', 'to' => 'hand']], [], $ctx);
-SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card'] ?? null, $e['from'] ?? null, $e['to'] ?? null], $r['events']), [['MOVE', 'SOR#95', 'deck', 'hand']],
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card'] ?? null, $e['from'] ?? null, $e['to'] ?? null], $r['events']), [['MOVE', 'SOR#095', 'deck', 'hand']],
     'taken at last: it left the deck');
 
 // Cross-seat moves: one MOVE cannot carry two seats, so a TAKE_CONTROL re-seats the card.
@@ -243,9 +289,9 @@ $steal = fn(bool $leftEx, bool $arrivedEx) => [['k' => 'move', 'seat' => 2, 'car
     'exhausted' => $arrivedEx, 'fromExhausted' => $leftEx, 'fromSeat' => 2, 'toSeat' => 1]];
 $ctx = MCtx(); MPlace($ctx, 2, 'resource', 'SOR_096');
 $r = SwuPgnMatch($steal(true, true), [], $ctx);
-SwuPgnTestEq($r['events'], [['seq' => 'R1.A.0a', 't' => 'TAKE_CONTROL', 'p' => 1, 'card' => 'SOR#96', 'zone' => 'resource', 'from' => 2, 'exhausted' => true]],
+SwuPgnTestEq($r['events'], [['seq' => 'R1.A.0a', 't' => 'TAKE_CONTROL', 'p' => 1, 'card' => 'SOR#096', 'zone' => 'resource', 'from' => 2, 'exhausted' => true]],
     'a resource stolen exhausted, staying exhausted: one TAKE_CONTROL');
-SwuPgnTestEq([$ctx['ledger']['zones'][1]['resource'] ?? [], $ctx['ledger']['zones'][2]['resource'] ?? []], [['SOR#96'], []], 'the copy is re-seated in the ledger');
+SwuPgnTestEq([$ctx['ledger']['zones'][1]['resource'] ?? [], $ctx['ledger']['zones'][2]['resource'] ?? []], [['SOR#096'], []], 'the copy is re-seated in the ledger');
 $ctx = MCtx(); MPlace($ctx, 2, 'resource', 'SOR_096');
 $r = SwuPgnMatch($steal(false, true), [], $ctx);
 SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['p'] ?? null, $e['exhausted'] ?? null, $e['amount'] ?? null], $r['events']),
@@ -255,9 +301,9 @@ $r = SwuPgnMatch($steal(true, false), [], $ctx);
 SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['p'] ?? null, $e['exhausted'] ?? null, $e['amount'] ?? null], $r['events']),
     [['TAKE_CONTROL', 1, true, null], ['READY_RESOURCES', 1, null, 1]], 'stolen exhausted, arriving ready: TAKE_CONTROL · READY_RESOURCES');
 
-// Role changes. A pilot ejected to a unit: off its host and back in as a unit, now bound to its new unit. A unit made a
-// pilot (L3-37): out as a unit, back onto the host. Always through outsideTheGame — the fold only detaches on leaving the
-// arenas, and a MOVE's from ≠ to.
+// Role changes. A pilot ejected to a unit: one MOVE in as a unit, now bound to its new unit. A unit made a pilot (L3-37):
+// one MOVE onto the host. In the same arena from = to — the binding rule's rebind (§10.1); the fold detaches on entering
+// an arena (§12.1 step 3).
 $pilotCtx = function (bool $attached) {
     $ctx = MCtx(); MPlace($ctx, 1, 'ground', 'SOR_049', 7);
     SwuPgnLedgerPut($ctx['ledger'], 1, $attached ? 'attached:7' : 'ground', SwuPgnLedgerNewToken($ctx['ledger'], 'JTL_046'), $attached ? null : 9);
@@ -267,17 +313,17 @@ $pilot = SwuPgnCardRef('JTL_046'); $host7 = SwuPgnCardRef('SOR_049');
 $shape = fn($r) => array_map(fn($e) => [$e['t'], $e['from'] ?? null, $e['to'] ?? null, $e['kind'] ?? null, $e['attachedTo'] ?? null], $r['events']);
 $ctx = $pilotCtx(true);
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'JTL_046', 'from' => 'ground', 'to' => 'ground', 'uid' => 9, 'host' => 7, 'kind' => 'upgrade', 'detach' => true, 'exhausted' => true]], [], $ctx);
-SwuPgnTestEq($shape($r), [['MOVE', 'ground', 'outsideTheGame', 'upgrade', null], ['MOVE', 'outsideTheGame', 'ground', 'unit', null], ['EXHAUST', null, null, null, null]],
-    'ejected in the same arena: detach · enter as a unit · EXHAUST');
+SwuPgnTestEq($shape($r), [['MOVE', 'ground', 'ground', 'unit', null], ['EXHAUST', null, null, null, null]],
+    'ejected in the same arena: one MOVE ground → ground as a unit · EXHAUST');
 SwuPgnTestEq([SwuPgnLedgerByUid($ctx['ledger'], 9), $ctx['ledger']['zones'][1]['attached:7'] ?? []], [$pilot, []], 'the ejected pilot is its new unit');
 $ctx = MCtx(); MPlace($ctx, 1, 'space', 'SOR_049', 7); SwuPgnLedgerPut($ctx['ledger'], 1, 'attached:7', SwuPgnLedgerNewToken($ctx['ledger'], 'JTL_046'));
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'JTL_046', 'from' => 'space', 'to' => 'ground', 'uid' => 9, 'host' => 7, 'kind' => 'upgrade', 'detach' => true, 'exhausted' => false]], [], $ctx);
-SwuPgnTestEq($shape($r), [['MOVE', 'space', 'outsideTheGame', 'upgrade', null], ['MOVE', 'outsideTheGame', 'ground', 'unit', null]],
-    'ejected from a space Vehicle to the ground: also out and in (an arena-to-arena MOVE does not detach, §12.1)');
+SwuPgnTestEq($shape($r), [['MOVE', 'space', 'ground', 'unit', null]],
+    'ejected from a space Vehicle to the ground: one MOVE (entering an arena detaches, §12.1 step 3)');
 $ctx = $pilotCtx(false);
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'JTL_046', 'from' => 'ground', 'to' => 'ground', 'uid' => 9, 'host' => 7, 'kind' => 'upgrade', 'attachFromPlay' => true]], [], $ctx);
-SwuPgnTestEq($shape($r), [['MOVE', 'ground', 'outsideTheGame', 'unit', null], ['MOVE', 'outsideTheGame', 'ground', 'upgrade', $host7]],
-    'a unit made a pilot: out as a unit, onto the host');
+SwuPgnTestEq($shape($r), [['MOVE', 'ground', 'ground', 'upgrade', $host7]],
+    'a unit made a pilot: one MOVE onto the host');
 SwuPgnTestEq([SwuPgnLedgerByUid($ctx['ledger'], 9), $ctx['ledger']['zones'][1]['attached:7'] ?? []], [null, [$pilot]], 'the same copy, now on the host');
 
 // A ready resource smuggled into play: it LEFT the row ready (MOVE.exhausted absent) and ENTERED play exhausted (EXHAUST).
@@ -293,7 +339,7 @@ $r = SwuPgnMatch([
     ['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_120', 'from' => 'ground', 'to' => 'discard', 'host' => 7, 'kind' => 'upgrade'],
 ], [['t' => 'DEFEAT', 'uid' => 7, 'cardID' => 'SOR_049', 'reason' => 'attack', 'by' => null]], $ctx);
 SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card'] ?? null, $e['reason'] ?? null], $r['events']),
-    [['MOVE', 'SOR#120', null], ['DEFEAT', 'SOR#120', 'frameworkEffect'], ['MOVE', 'SOR#49', null], ['DEFEAT', 'SOR#49', 'attack']],
+    [['MOVE', 'SOR#120', null], ['DEFEAT', 'SOR#120', 'frameworkEffect'], ['MOVE', 'SOR#049', null], ['DEFEAT', 'SOR#049', 'attack']],
     'the host\'s upgrade goes first, as a framework defeat');
 
 // An event that puts itself into the resource row exhausted (Resupply): a played event is filed to discard (§12), so it
@@ -301,9 +347,9 @@ SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card'] ?? null, $e['reason'] ?? n
 $ctx = MCtx(); MPlace($ctx, 1, 'hand', 'SOR_172');
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_172', 'from' => 'hand', 'to' => 'resource', 'exhausted' => true]],
     [['t' => 'PLAY', 'p' => 1, 'cardID' => 'SOR_172', 'how' => 'event', 'cost' => 3]], $ctx);
-SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['from'] ?? null, $e['to'] ?? null], $r['events']),
-    [['MOVE', 'hand', 'discard'], ['PLAY_EVENT', null, null], ['MOVE', 'discard', 'resource'], ['RESOURCE', null, null], ['EXHAUST_RESOURCES', null, null]],
-    'an event resourced exhausted: MOVE→discard · PLAY_EVENT · MOVE→resource · RESOURCE · EXHAUST_RESOURCES');
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['from'] ?? null, $e['to'] ?? null, $e['exhausted'] ?? null], $r['events']),
+    [['MOVE', 'hand', 'discard', null], ['PLAY_EVENT', null, null, null], ['MOVE', 'discard', 'resource', true], ['RESOURCE', null, null, null]],
+    'an event resourced exhausted: MOVE→discard · PLAY_EVENT · MOVE→resource (exhausted: true, §10.1 [W-45]) · RESOURCE — no EXHAUST_RESOURCES');
 SwuPgnTestEq($ctx['ledger']['zones'][1]['resource'] ?? [], [SwuPgnCardRef('SOR_172')], 'the same copy ends in the row');
 
 // A base's Action is Epic only when it spent the base's Epic Action (a "three times per game" base Action does not).
@@ -320,7 +366,7 @@ $ctx = MCtx(); MPlace($ctx, 1, 'discard', 'SOR_172'); MPlace($ctx, 1, 'discard',
 $r = SwuPgnMatch([['k' => 'resources', 'seat' => 1, 'exhaustedDelta' => 1]],
     [['t' => 'PLAY', 'p' => 1, 'cardID' => 'SOR_172', 'how' => 'event', 'from' => 'discard', 'cost' => 1]], $ctx);
 SwuPgnTestEq([array_map(fn($e) => [$e['t'], $e['card'] ?? null, $e['from'] ?? null, $e['to'] ?? null], $r['events']), $r['carry'], $ctx['ledger']['zones'][1]['discard']],
-    [[['EXHAUST_RESOURCES', null, null, null], ['MOVE', 'SOR#172', 'discard', 'outsideTheGame'], ['PLAY_EVENT', 'SOR#172', null, null]], [], ['SOR#46', 'SOR#172']],
+    [[['EXHAUST_RESOURCES', null, null, null], ['MOVE', 'SOR#172', 'discard', 'outsideTheGame'], ['PLAY_EVENT', 'SOR#172', null, null]], [], ['SOR#046', 'SOR#172']],
     'an event played from the discard pile: written, and filed on top again');
 
 // A base upgrade defeated (Trap Field, as its own cost): the DEFEAT note claims its move out of the base area, in place.
@@ -347,12 +393,12 @@ SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card'] ?? null, $e['attachedTo'] 
     [['MOVE', SwuPgnCardRef('JTL_012'), null], ['EXHAUST', SwuPgnCardRef('JTL_012'), null]], 'a Pilot leader comes home exhausted: MOVE · EXHAUST');
 
 // A pilot whose host is bounced, moved to the ground as a unit a request later (Luke Skywalker, You Still With Me?): when
-// it lands, it is ejected — off its host and in as a unit.
+// it lands, it is ejected — one MOVE in as a unit.
 $ctx = $pilotCtx(true);
 SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'JTL_046', 'from' => 'ground', 'to' => 'outsideTheGame', 'host' => 7, 'kind' => 'upgrade'],
     ['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_049', 'from' => 'ground', 'to' => 'hand', 'uid' => 7]], [], $ctx);
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'JTL_046', 'from' => 'outsideTheGame', 'to' => 'ground', 'uid' => 9, 'exhausted' => true]], [], $ctx);
-SwuPgnTestEq([$shape($r), SwuPgnLedgerByUid($ctx['ledger'], 9)], [[['MOVE', 'ground', 'outsideTheGame', 'upgrade', null], ['MOVE', 'outsideTheGame', 'ground', 'unit', null],
+SwuPgnTestEq([$shape($r), SwuPgnLedgerByUid($ctx['ledger'], 9)], [[['MOVE', 'ground', 'ground', 'unit', null],
     ['EXHAUST', null, null, null, null]], $pilot], 'a held pilot landing as a unit: ejected, as itself');
 
 // A captive played as a pilot (Dryden Vos), its Vehicle picked a request later: one MOVE out of capture onto the host.
@@ -361,7 +407,7 @@ SwuPgnLedgerPut($ctx['ledger'], 1, 'capture:7', SwuPgnLedgerNewToken($ctx['ledge
 $r1 = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'JTL_045', 'from' => 'capture', 'to' => 'outsideTheGame', 'captor' => 7]], [], $ctx);
 $r2 = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'JTL_045', 'from' => 'outsideTheGame', 'to' => 'space', 'host' => 8, 'kind' => 'upgrade']], [], $ctx);
 SwuPgnTestEq([$r1['events'], array_map(fn($e) => [$e['card'] ?? null, $e['from'] ?? null, $e['to'] ?? null, $e['attachedTo'] ?? null], $r2['events'])],
-    [[], [['JTL#45', 'capture', 'space', 'SOR#49']]], 'a captive played as a pilot: one MOVE capture → its Vehicle');
+    [[], [['JTL#045', 'capture', 'space', 'SOR#049']]], 'a captive played as a pilot: one MOVE capture → its Vehicle');
 // A captive tucked away while its captor is a pilot (Paige Tico), back when the captor is a unit again: a CAPTURE by it.
 $ctx = MCtx(); MPlace($ctx, 1, 'ground', 'SOR_046', 7);
 SwuPgnLedgerPut($ctx['ledger'], 1, 'capture:7', SwuPgnLedgerNewToken($ctx['ledger'], 'JTL_045'));
@@ -369,19 +415,19 @@ SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'JTL_045', 'from' => 'capt
 SwuPgnLedgerPut($ctx['ledger'], 1, 'ground', SwuPgnLedgerTake($ctx['ledger'], 1, 'ground', 'SOR_046'), 9);   // the captor, re-entered as uid 9
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'JTL_045', 'from' => 'outsideTheGame', 'to' => 'capture', 'captor' => 9]], [], $ctx);
 SwuPgnTestEq([array_map(fn($e) => [$e['t'], $e['card'] ?? null, $e['by'] ?? null], $r['events']), $ctx['ledger']['zones'][1]['capture:9'] ?? []],
-    [[['CAPTURE', 'JTL#45', 'SOR#46']], ['JTL#45']], 'a tucked captive comes back: CAPTURE by its captor, the same copy');
+    [[['CAPTURE', 'JTL#045', 'SOR#046']], ['JTL#045']], 'a tucked captive comes back: CAPTURE by its captor, the same copy');
 
 // Poe Dameron attaching himself in one request (no DEPLOY note): the DEPLOY_LEADER names his host, after his MOVE.
 $ctx = MCtx(); MPlace($ctx, 1, 'space', 'SOR_049', 7);
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_005', 'from' => 'base', 'to' => 'space', 'host' => 7, 'kind' => 'upgrade'],
     ['k' => 'leader', 'seat' => 1, 'field' => 'deployed', 'value' => true]], [], $ctx);
 SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['zone'] ?? null, $e['kind'] ?? null, $e['target'] ?? null], array_values(array_filter($r['events'], fn($e) => $e['t'] === 'DEPLOY_LEADER'))),
-    [['DEPLOY_LEADER', 'space', 'upgrade', 'SOR#49']], 'an unannounced pilot deploy: DEPLOY_LEADER onto its host');
+    [['DEPLOY_LEADER', 'space', 'upgrade', 'SOR#049']], 'an unannounced pilot deploy: DEPLOY_LEADER onto its host');
 // A defeat that was REPLACED (Roger Roger: the upgrade moves to a Battle Droid instead): no DEFEAT, just the move.
 $ctx = MCtx(); MPlace($ctx, 1, 'ground', 'SOR_049', 7); MPlace($ctx, 1, 'ground', 'SOR_046', 8); MPlace($ctx, 1, 'attached:7', 'SOR_120');
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_120', 'from' => 'ground', 'to' => 'ground', 'host' => 8, 'kind' => 'upgrade', 'fromHost' => 7]],
     [['t' => 'DEFEAT', 'uid' => null, 'cardID' => 'SOR_120', 'reason' => 'ability', 'by' => null]], $ctx);
-SwuPgnTestEq(array_column($r['events'], 't'), ['MOVE', 'MOVE'], 'a replaced defeat writes no DEFEAT');
+SwuPgnTestEq(array_column($r['events'], 't'), ['MOVE'], 'a replaced defeat writes no DEFEAT');
 
 // A card lifted out of play while its next place is picked (Poe Dameron deploying himself as a pilot, or hopping to
 // another Vehicle): nothing is written until it lands — then one move from where it really was, and for a deploy the
@@ -392,13 +438,13 @@ $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_005', 'from' => 
 SwuPgnTestEq([array_column($r['events'], 't'), $r['gaps']], [['ABILITY_ACTIVATE'], []], 'lifted off the base, vehicle not yet picked: only the ability');
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_005', 'from' => 'outsideTheGame', 'to' => 'space', 'host' => 7, 'kind' => 'upgrade']], [], $ctx);
 SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card'] ?? null, $e['from'] ?? null, $e['kind'] ?? null, $e['attachedTo'] ?? $e['target'] ?? null], $r['events']),
-    [['MOVE', 'SOR#5', 'base', 'upgrade', 'SOR#49'], ['DEPLOY_LEADER', 'SOR#5', null, 'upgrade', 'SOR#49']], 'landed: one MOVE from the base, then DEPLOY_LEADER onto its host');
+    [['MOVE', 'SOR#005', 'base', 'upgrade', 'SOR#049'], ['DEPLOY_LEADER', 'SOR#005', null, 'upgrade', 'SOR#049']], 'landed: one MOVE from the base, then DEPLOY_LEADER onto its host');
 $ctx = MCtx(); MPlace($ctx, 1, 'space', 'SOR_049', 7); MPlace($ctx, 1, 'space', 'SOR_046', 8); MPlace($ctx, 1, 'attached:7', 'SOR_120');
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_120', 'from' => 'space', 'to' => 'outsideTheGame', 'host' => 7, 'kind' => 'upgrade']], [], $ctx);
 SwuPgnTestEq([$r['events'], $r['gaps']], [[], []], 'lifted off its host, next host not yet picked: nothing yet');
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_120', 'from' => 'outsideTheGame', 'to' => 'space', 'host' => 8, 'kind' => 'upgrade']], [], $ctx);
 SwuPgnTestEq(array_map(fn($e) => [$e['card'] ?? null, $e['from'] ?? null, $e['to'] ?? null, $e['attachedTo'] ?? null], $r['events']),
-    [['SOR#120', 'space', 'outsideTheGame', null], ['SOR#120', 'outsideTheGame', 'space', 'SOR#46']], 'landed on the new host: the same copy, re-attached');
+    [['SOR#120', 'space', 'space', 'SOR#046']], 'landed on the new host: the same copy, re-attached in one MOVE');
 
 // A host defeated while its upgrade moves to another unit (Death Star Plans): the host leaving play takes only its
 // tokens with it — the upgrade keeps its copy.
@@ -410,11 +456,11 @@ $r = SwuPgnMatch([
 SwuPgnTestEq([array_values(array_unique(array_filter(array_map(fn($e) => $e['card'] ?? null, $r['events']), fn($c) => $c !== null && str_starts_with($c, 'SOR#120')))),
     $ctx['ledger']['zones'][1]['attached:8'] ?? []], [['SOR#120'], ['SOR#120']], 'the upgrade keeps its copy when its old host leaves first');
 
-// An upgrade moved to another host: off the old host, onto the new one.
+// An upgrade moved to another host: one MOVE onto the new one (the fold takes it off the old).
 $ctx = MCtx(); MPlace($ctx, 1, 'ground', 'SOR_049', 7); MPlace($ctx, 1, 'ground', 'SOR_046', 8); MPlace($ctx, 1, 'attached:7', 'SOR_120');
 $r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_120', 'from' => 'ground', 'to' => 'ground', 'host' => 8, 'kind' => 'upgrade', 'fromHost' => 7]], [], $ctx);
-SwuPgnTestEq(array_map(fn($e) => [$e['from'], $e['to'], $e['attachedTo'] ?? null], $r['events']), [['ground', 'outsideTheGame', null], ['outsideTheGame', 'ground', 'SOR#46']],
-    'a re-attach is a detach and an attach (from ≠ to)');
+SwuPgnTestEq(array_map(fn($e) => [$e['from'], $e['to'], $e['attachedTo'] ?? null], $r['events']), [['ground', 'ground', 'SOR#046']],
+    'a re-attach is one MOVE in its arena (from = to), onto the new host');
 SwuPgnTestEq([array_unique(array_column($r['events'], 'card')), $ctx['ledger']['zones'][1]['attached:7'] ?? [], $ctx['ledger']['zones'][1]['attached:8'] ?? []],
     [[SwuPgnCardRef('SOR_120')], [], [SwuPgnCardRef('SOR_120')]], 'a re-attach moves the same copy off the old host (no new copy)');
 
@@ -445,7 +491,7 @@ $r = SwuPgnMatch([
     ['k' => 'resources', 'seat' => 1, 'exhaustedDelta' => -2],
 ], [], $ctx);
 SwuPgnTestEq($r['events'], [
-    ['seq' => 'R1.G.1', 't' => 'READY', 'card' => 'SOR#95'],
+    ['seq' => 'R1.G.1', 't' => 'READY', 'card' => 'SOR#095'],
     ['seq' => 'R1.G.2', 't' => 'READY_RESOURCES', 'p' => 1, 'amount' => 2],
 ], 'regroup ready step: READY per unit, one READY_RESOURCES per run, own numbers');
 SwuPgnTestEq($r['gaps'], [], 'the regroup ready step is structural, not a gap');
@@ -459,11 +505,11 @@ $tap = ['k' => 'exhaust', 'seat' => 1, 'target' => 7, 'cardID' => 'SOR_095'];
 $r = SwuPgnMatch([$stats(7, 4, 3), $tap, $shield, $hit, $mill], [], $ctx);
 SwuPgnTestEq(array_map(fn($e) => $e['t'], $r['events']), ['MOVE', 'DAMAGE', 'MOVE', 'SHIELD_GAIN', 'EXHAUST', 'STATS'],
     'unclaimed: move → damage/heal → token → exhaust/ready → stats');
-SwuPgnTestEq($r['events'][0], ['seq' => 'R1.A.0a', 't' => 'MOVE', 'card' => 'SOR#46', 'from' => 'deck', 'to' => 'discard', 'p' => 1, 'kind' => 'unit'],
+SwuPgnTestEq($r['events'][0], ['seq' => 'R1.A.0a', 't' => 'MOVE', 'card' => 'SOR#046', 'from' => 'deck', 'to' => 'discard', 'p' => 1, 'kind' => 'unit'],
     'an unclaimed move is a plain MOVE');
-SwuPgnTestEq($r['events'][1], ['seq' => 'R1.A.0b', 't' => 'DAMAGE', 'src' => 'unknown', 'tgt' => 'SOR#95', 'amt' => 1, 'damageType' => 'ability', 'hp' => 2],
-    'unannounced damage has src "unknown"');
-SwuPgnTestEq($r['events'][2], ['seq' => 'R1.A.0c', 't' => 'MOVE', 'card' => $SHIELD, 'from' => 'outsideTheGame', 'to' => 'ground', 'p' => 1, 'kind' => 'upgrade', 'attachedTo' => 'SOR#95'],
+SwuPgnTestEq($r['events'][1], ['seq' => 'R1.A.0b', 't' => 'DAMAGE', 'tgt' => 'SOR#095', 'amt' => 1, 'damageType' => 'ability', 'hp' => 2],
+    'unannounced damage has no src (no card is known to be responsible)');
+SwuPgnTestEq($r['events'][2], ['seq' => 'R1.A.0c', 't' => 'MOVE', 'card' => $SHIELD, 'from' => 'outsideTheGame', 'to' => 'ground', 'p' => 1, 'kind' => 'upgrade', 'attachedTo' => 'SOR#095'],
     'a token gain moves the token onto its host');
 SwuPgnTestEq($r['gaps'], [$mill, $hit, $shield, $tap], 'every unclaimed change but stats is a gap');
 
@@ -476,8 +522,8 @@ SwuPgnTestEq($r['events'], [], 'a DAMAGE note with no damage change is dropped')
 $ctx = MCtx('G');
 $r = SwuPgnMatch([['k' => 'damage', 'seat' => 1, 'target' => 'base@1', 'amount' => 3, 'hp' => 27]],
     [['t' => 'DAMAGE', 'src' => 'rule:deck-out', 'tgt' => 'base@1', 'amt' => 3, 'combat' => false]], $ctx);
-SwuPgnTestEq($r['events'], [['seq' => 'R1.G.1', 't' => 'DAMAGE', 'src' => 'rule:deck-out', 'tgt' => 'base@1', 'amt' => 3, 'damageType' => 'ability', 'hp' => 27]],
-    'deck-out damage carries src "rule:deck-out"');
+SwuPgnTestEq($r['events'], [['seq' => 'R1.G.1', 't' => 'DAMAGE', 'tgt' => 'base@1', 'amt' => 3, 'damageType' => 'ability', 'hp' => 27]],
+    'deck-out damage carries no src (the rules dealt it)');
 
 // Two damage notes against one target share its change; hp reads the running total.
 $ctx = MCtx(); MPlace($ctx, 1, 'ground', 'SOR_095', 7);
@@ -489,16 +535,16 @@ SwuPgnTestEq(array_map(fn($e) => [$e['amt'], $e['hp']], $r['events']), [[2, 28],
 $ctx = MCtx(); MPlace($ctx, 1, 'ground', 'SOR_095', 7);
 $r = SwuPgnMatch([$shield], [['t' => 'TOKEN', 'uid' => 7, 'kind' => 'shield', 'delta' => 1]], $ctx);
 SwuPgnTestEq($r['events'], [
-    ['seq' => 'R1.A.0a', 't' => 'MOVE', 'card' => $SHIELD, 'from' => 'outsideTheGame', 'to' => 'ground', 'p' => 1, 'kind' => 'upgrade', 'attachedTo' => 'SOR#95'],
-    ['seq' => 'R1.A.0b', 't' => 'SHIELD_GAIN', 'card' => 'SOR#95'],
+    ['seq' => 'R1.A.0a', 't' => 'MOVE', 'card' => $SHIELD, 'from' => 'outsideTheGame', 'to' => 'ground', 'p' => 1, 'kind' => 'upgrade', 'attachedTo' => 'SOR#095'],
+    ['seq' => 'R1.A.0b', 't' => 'SHIELD_GAIN', 'card' => 'SOR#095'],
 ], 'shield gained: token MOVE in, then SHIELD_GAIN on the host');
 $r = SwuPgnMatch([array_replace($shield, ['delta' => -1])], [['t' => 'TOKEN', 'uid' => 7, 'kind' => 'shield', 'delta' => -1]], $ctx);
 SwuPgnTestEq($r['events'], [
-    ['seq' => 'R1.A.0c', 't' => 'SHIELD_USE', 'card' => 'SOR#95'],
+    ['seq' => 'R1.A.0c', 't' => 'SHIELD_USE', 'card' => 'SOR#095'],
     ['seq' => 'R1.A.0d', 't' => 'MOVE', 'card' => $SHIELD, 'from' => 'ground', 'to' => 'outsideTheGame', 'p' => 1, 'kind' => 'upgrade'],
 ], 'shield used: SHIELD_USE, then the token MOVE out (host-less); counters carry across frames');
 $r = SwuPgnMatch([['k' => 'token', 'seat' => 1, 'uid' => 7, 'kind' => 'advantage', 'delta' => 1]], [['t' => 'TOKEN', 'uid' => 7, 'kind' => 'advantage', 'delta' => 1]], $ctx);
-SwuPgnTestEq($r['events'][1], ['seq' => 'R1.A.0f', 't' => 'STATUS_TOKEN', 'card' => 'SOR#95', 'token' => 'advantage', 'count' => 1], 'advantage is a STATUS_TOKEN');
+SwuPgnTestEq($r['events'][1], ['seq' => 'R1.A.0f', 't' => 'STATUS_TOKEN', 'card' => 'SOR#095', 'token' => 'advantage', 'count' => 1], 'advantage is a STATUS_TOKEN');
 
 // ── Deploy ───────────────────────────────────────────────────────────────────────────────────────
 $ctx = MCtx();
@@ -509,9 +555,9 @@ $r = SwuPgnMatch([
     ['k' => 'leader', 'seat' => 1, 'field' => 'epicUsed', 'value' => true],
 ], [['t' => 'DEPLOY', 'p' => 1, 'cardID' => 'SOR_005', 'epic' => true, 'pilotHostUid' => null]], $ctx);
 SwuPgnTestEq($r['events'], [
-    ['seq' => 'R1.A.0a', 't' => 'MOVE', 'card' => 'SOR#5', 'from' => 'base', 'to' => 'ground', 'p' => 1, 'kind' => 'unit', 'for' => 'R1.A.1'],
-    ['seq' => 'R1.A.0b', 't' => 'STATS', 'card' => 'SOR#5', 'power' => 4, 'hp' => 7, 'keywords' => [], 'for' => 'R1.A.1'],
-    ['seq' => 'R1.A.1', 't' => 'DEPLOY_LEADER', 'p' => 1, 'card' => 'SOR#5', 'zone' => 'ground', 'epic' => true],
+    ['seq' => 'R1.A.0a', 't' => 'MOVE', 'card' => 'SOR#005', 'from' => 'base', 'to' => 'ground', 'p' => 1, 'kind' => 'unit', 'for' => 'R1.A.1'],
+    ['seq' => 'R1.A.0b', 't' => 'STATS', 'card' => 'SOR#005', 'power' => 4, 'hp' => 7, 'keywords' => [], 'for' => 'R1.A.1'],
+    ['seq' => 'R1.A.1', 't' => 'DEPLOY_LEADER', 'p' => 1, 'card' => 'SOR#005', 'zone' => 'ground', 'epic' => true],
 ], 'deploy: MOVE base→ground · STATS · DEPLOY_LEADER');
 SwuPgnTestEq($r['gaps'], [], 'the deploy claims the leader flags');
 
@@ -520,27 +566,27 @@ $ctx = MCtx(); MPlace($ctx, 1, 'ground', 'SOR_095', 7); MPlace($ctx, 2, 'ground'
 $r = SwuPgnMatch([['k' => 'capture', 'seat' => 2, 'cardID' => 'SOR_095', 'uid' => 7, 'captor' => 20, 'from' => 'ground']],
     [['t' => 'CAPTURE', 'p' => 2, 'cardID' => 'SOR_095', 'by' => 20]], $ctx);
 SwuPgnTestEq($r['events'], [
-    ['seq' => 'R1.A.0a', 't' => 'MOVE', 'card' => 'SOR#95', 'from' => 'ground', 'to' => 'capture', 'p' => 1, 'kind' => 'unit'],
-    ['seq' => 'R1.A.0b', 't' => 'CAPTURE', 'p' => 2, 'card' => 'SOR#95', 'by' => 'SOR#49:2'],
+    ['seq' => 'R1.A.0a', 't' => 'MOVE', 'card' => 'SOR#095', 'from' => 'ground', 'to' => 'capture', 'p' => 1, 'kind' => 'unit'],
+    ['seq' => 'R1.A.0b', 't' => 'CAPTURE', 'p' => 2, 'card' => 'SOR#095', 'by' => 'SOR#049:2'],
 ], 'capture: MOVE arena→capture · CAPTURE(by)');
 $r = SwuPgnMatch([
     ['k' => 'rescue', 'seat' => 1, 'cardID' => 'SOR_095', 'captor' => 20, 'uid' => 31, 'to' => 'ground', 'exhausted' => true],
     $stats(31),
 ], [['t' => 'RESCUE', 'p' => 1, 'cardID' => 'SOR_095']], $ctx);
 SwuPgnTestEq($r['events'], [
-    ['seq' => 'R1.A.0c', 't' => 'RESCUE', 'p' => 1, 'card' => 'SOR#95'],
-    ['seq' => 'R1.A.0d', 't' => 'MOVE', 'card' => 'SOR#95', 'from' => 'capture', 'to' => 'ground', 'p' => 1, 'kind' => 'unit'],
-    ['seq' => 'R1.A.0e', 't' => 'STATS', 'card' => 'SOR#95', 'power' => 3, 'hp' => 3, 'keywords' => []],
-    ['seq' => 'R1.A.0f', 't' => 'EXHAUST', 'card' => 'SOR#95'],
+    ['seq' => 'R1.A.0c', 't' => 'RESCUE', 'p' => 1, 'card' => 'SOR#095'],
+    ['seq' => 'R1.A.0d', 't' => 'MOVE', 'card' => 'SOR#095', 'from' => 'capture', 'to' => 'ground', 'p' => 1, 'kind' => 'unit'],
+    ['seq' => 'R1.A.0e', 't' => 'STATS', 'card' => 'SOR#095', 'power' => 3, 'hp' => 3, 'keywords' => []],
+    ['seq' => 'R1.A.0f', 't' => 'EXHAUST', 'card' => 'SOR#095'],
 ], 'rescue: RESCUE · MOVE capture→arena · STATS · EXHAUST; the same copy id comes back');
-SwuPgnTestEq(SwuPgnLedgerByUid($ctx['ledger'], 31), 'SOR#95', 'the rescued copy is bound to its new UID');
+SwuPgnTestEq(SwuPgnLedgerByUid($ctx['ledger'], 31), 'SOR#095', 'the rescued copy is bound to its new UID');
 
 // ── Take control ─────────────────────────────────────────────────────────────────────────────────
 $ctx = MCtx(); MPlace($ctx, 1, 'ground', 'SOR_095', 7);
 $r = SwuPgnMatch([['k' => 'control', 'seat' => 2, 'uid' => 7, 'cardID' => 'SOR_095', 'from' => 1, 'to' => 2]],
     [['t' => 'CONTROL', 'p' => 2, 'uid' => 7]], $ctx);
-SwuPgnTestEq($r['events'], [['seq' => 'R1.A.0a', 't' => 'TAKE_CONTROL', 'p' => 2, 'card' => 'SOR#95', 'zone' => 'ground']], 'take control: TAKE_CONTROL(zone)');
-SwuPgnTestEq([SwuPgnLedgerByUid($ctx['ledger'], 7), $ctx['ledger']['zones'][2]['ground'] ?? []], ['SOR#95', ['SOR#95']], 'the copy moves seats in the ledger');
+SwuPgnTestEq($r['events'], [['seq' => 'R1.A.0a', 't' => 'TAKE_CONTROL', 'p' => 2, 'card' => 'SOR#095', 'zone' => 'ground']], 'take control: TAKE_CONTROL(zone)');
+SwuPgnTestEq([SwuPgnLedgerByUid($ctx['ledger'], 7), $ctx['ledger']['zones'][2]['ground'] ?? []], ['SOR#095', ['SOR#095']], 'the copy moves seats in the ledger');
 
 // ── Pass, claim, Credits ─────────────────────────────────────────────────────────────────────────
 $ctx = MCtx();
@@ -564,7 +610,7 @@ $r = SwuPgnMatch([
 ], [['t' => 'MULLIGAN', 'p' => 1], ['t' => 'DRAW', 'p' => 1, 'n' => 1]], $ctx);
 SwuPgnTestEq($r['events'], [
     ['seq' => 'R0.S.1', 't' => 'MULLIGAN', 'p' => 1],
-    ['seq' => 'R0.S.2', 't' => 'MOVE', 'card' => 'SOR#95', 'from' => 'hand', 'to' => 'deck', 'p' => 1, 'kind' => 'unit'],
+    ['seq' => 'R0.S.2', 't' => 'MOVE', 'card' => 'SOR#095', 'from' => 'hand', 'to' => 'deck', 'p' => 1, 'kind' => 'unit'],
     ['seq' => 'R0.S.3', 't' => 'SHUFFLE', 'p' => 1],
     ['seq' => 'R0.S.4', 't' => 'MOVE', 'card' => 'SOR#120', 'from' => 'deck', 'to' => 'hand', 'p' => 1, 'kind' => 'upgrade'],
     ['seq' => 'R0.S.5', 't' => 'DRAW', 'p' => 1, 'count' => 1, 'cards' => ['SOR#120']],
@@ -624,5 +670,33 @@ $r = SwuPgnMatch([['k' => 'capture', 'seat' => 1, 'cardID' => 'SOR_096', 'uid' =
     [['t' => 'CAPTURE', 'p' => 1, 'cardID' => 'SOR_096', 'by' => 'base@1']], $ctx);
 SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['by'] ?? $e['to'] ?? null], $r['events']), [['MOVE', 'capture'], ['CAPTURE', 'base@1']],
     'a base capture: MOVE arena→capture · CAPTURE by base@1');
+
+// §10.1 [W-56]: an attached upgrade changing controller is the upgrade-form TAKE_CONTROL (card = the upgrade, zone = its
+// host's arena, from = the old controller).
+$ctx = MCtx(); MPlace($ctx, 2, 'ground', 'SOR_096', 8); $upg = MPlace($ctx, 1, 'attached:8', 'SOR_120');
+$r = SwuPgnMatch([['k' => 'upgControl', 'seat' => 1, 'host' => 8, 'cardID' => 'SOR_120', 'from' => 2, 'to' => 1]], [], $ctx);
+SwuPgnTestEq(array_map(fn($e) => array_diff_key($e, ['seq' => 1]), $r['events']), [['t' => 'TAKE_CONTROL', 'p' => 1, 'card' => $upg, 'zone' => 'ground', 'from' => 2]],
+    'upgrade control: TAKE_CONTROL {p, card: the upgrade, zone: the host\'s arena, from}');
+// §10.1 STATS [W-55]: traits on every STATS, blank / leaderUnit only when true.
+$ctx = MCtx(); MPlace($ctx, 1, 'ground', 'SOR_095', 7);
+$r = SwuPgnMatch([['k' => 'stats', 'seat' => 1, 'uid' => 7, 'power' => 3, 'hp' => 3, 'keywords' => [], 'traits' => ['rebel', 'trooper'], 'blank' => true, 'leaderUnit' => false]], [], $ctx);
+SwuPgnTestEq(array_map(fn($e) => array_diff_key($e, ['seq' => 1]), $r['events']), [['t' => 'STATS', 'card' => 'SOR#095', 'power' => 3, 'hp' => 3, 'keywords' => [], 'traits' => ['rebel', 'trooper'], 'blank' => true]],
+    'STATS: traits, blank true, no leaderUnit (false is left out)');
+// §10.1 [W-47]: a token unit leaving play goes to outsideTheGame (the engine's token ceases), and no CAPTURE is written for it.
+$ctx = MCtx(); SwuPgnLedgerPut($ctx['ledger'], 1, 'ground', $tie = SwuPgnLedgerNewToken($ctx['ledger'], 'JTL_T01'), 30);
+$r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'JTL_T01', 'from' => 'space', 'to' => 'outsideTheGame', 'uid' => 30]], [], $ctx);
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card'] ?? null, $e['to'] ?? null], $r['events']), [['MOVE', $tie, 'outsideTheGame']], 'a token unit leaving play: MOVE → outsideTheGame, no CAPTURE');
+
+
+// §10.2 [W-53]: one combat DAMAGE alone writes no simul.
+$ctx = MCtx(); MPlace($ctx, 1, 'ground', 'SOR_095', 7);
+$r = SwuPgnMatch([['k' => 'damage', 'seat' => 2, 'target' => 'base@2', 'amount' => 3, 'hp' => 27]],
+    [['t' => 'ATTACK', 'p' => 1, 'atkUid' => 7, 'def' => 'base@2'], ['t' => 'DAMAGE', 'src' => 7, 'tgt' => 'base@2', 'amt' => 3, 'combat' => true]], $ctx);
+SwuPgnTestCheck(!array_filter($r['events'], fn($e) => isset($e['simul'])), 'a base attack\'s single combat DAMAGE: no simul', $r['events']);
+// §10.2 [W-51]: a named card is a NAME (text, not an id). [W-52]: a disclose is one REVEAL from hand, the revealer's copies.
+$ctx = MCtx(); MPlace($ctx, 2, 'hand', 'SOR_049'); MPlace($ctx, 1, 'hand', 'SOR_049');
+$r = SwuPgnMatch([], [['t' => 'NAME', 'p' => 1, 'name' => 'Battlefield Marine'], ['t' => 'REVEAL', 'p' => 2, 'zone' => 'hand', 'cardIDs' => ['SOR_049']]], $ctx);
+SwuPgnTestEq(array_map(fn($e) => array_diff_key($e, ['seq' => 1]), $r['events']), [['t' => 'NAME', 'p' => 1, 'name' => 'Battlefield Marine'],
+    ['t' => 'REVEAL', 'p' => 2, 'zone' => 'hand', 'cards' => ['SOR#049:2']]], 'NAME, then a disclose REVEAL naming seat 2\'s own copy (not seat 1\'s)');
 
 SwuPgnTestFinish();

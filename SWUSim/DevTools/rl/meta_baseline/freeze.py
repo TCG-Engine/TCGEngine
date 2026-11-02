@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Freeze a finished bot run as the meta's BASELINE (skill `swusim-ash-meta-bot-run`). Every later run is compared with it, game for game,
+"""Freeze a finished bot run as the meta's BASELINE (skill `swusim-meta-bot-run`). Every later run is compared with it, game for game,
 until the owner asks for a new baseline — never re-freeze unasked.
 
 usage: freeze.py <meta dir> <run dir> [--note "…"]

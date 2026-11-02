@@ -274,6 +274,7 @@ var SWU_EFFECT_STACK_TRIGGER_LABELS = {
     // Upgrade Played
     'ASH_047': 'Upgrade Played', 'JTL_202': 'Upgrade Played', 'LOF_229': 'Upgrade Played',
     'SHD_018': 'Upgrade Played', 'SHD_067': 'Upgrade Played', 'SHD_133': 'Upgrade Played',
+    'IC27_021': 'Upgrade Played',
     // Friendly Attack Ends
     'ASH_005': 'Friendly Attack Ends', 'ASH_013': 'Friendly Attack Ends',
     'ASH_016': 'Friendly Attack Ends', 'LAW_088': 'Friendly Attack Ends',
@@ -1673,15 +1674,16 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           if (window.SelectionMode && window.SelectionMode.active) {
             if (inlineMultiActive) {
               if (!window.SelectionMode.multiSelected) window.SelectionMode.multiSelected = [];
-              const idx = window.SelectionMode.multiSelected.indexOf(cardId);
+              const pickKey = InlineMultiKey(cardId);
+              const idx = window.SelectionMode.multiSelected.indexOf(pickKey);
               if (idx >= 0) {
                 window.SelectionMode.multiSelected.splice(idx, 1);
               } else {
                 if (window.SelectionMode.multiSelected.length >= window.SelectionMode.multiMax) return;
                 // Weighted budget: refuse a pick that would overshoot what is left. The card is already
                 // dimmed by ApplyInlineMultiSelectionDomState; this is what makes it actually inert.
-                if (typeof InlineMultiBlocked === 'function' && InlineMultiBlocked(cardId)) return;
-                window.SelectionMode.multiSelected.push(cardId);
+                if (typeof InlineMultiBlocked === 'function' && InlineMultiBlocked(pickKey)) return;
+                window.SelectionMode.multiSelected.push(pickKey);
               }
               // Immediate DOM signal so selection is visible even before next full render tick.
               const el = document.getElementById(cardId);
@@ -1752,7 +1754,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         var newHTML = "";
         var id = zone + "-" + i;
         var positionStyle = "relative";
-        var isInlineMultiSelected = !!(window.SelectionMode && window.SelectionMode.active && Array.isArray(window.SelectionMode.multiSelected) && Number(window.SelectionMode.multiMax) > 0 && window.SelectionMode.multiSelected.indexOf(id) >= 0);
+        var isInlineMultiSelected = !!(window.SelectionMode && window.SelectionMode.active && Array.isArray(window.SelectionMode.multiSelected) && Number(window.SelectionMode.multiMax) > 0 && window.SelectionMode.multiSelected.indexOf(InlineMultiKey(id)) >= 0);
         var className = isSelectable ? "selectable-card" : "";
         // Standing glow marking the look-at-top-card permission (see the peek badge below).
         // ⚠ The wrapper span is display:inline by default, which gives it a 0x0 border box — measured,
@@ -1781,7 +1783,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             // A full RenderRows rebuilds this markup from scratch, so the over-budget state has to be
             // re-derived here too — otherwise every render tick restores the bright "selectable" look on
             // a card the player can no longer afford.
-            if (typeof InlineMultiBlocked === 'function' && InlineMultiBlocked(id)) {
+            if (typeof InlineMultiBlocked === 'function' && InlineMultiBlocked(InlineMultiKey(id))) {
               inlineStyles += " --highlight-color: rgba(120, 132, 152, 0.30); opacity:0.45; cursor:not-allowed;";
             } else {
               inlineStyles += " --highlight-color: rgba(198, 208, 224, 0.98);";
@@ -7042,6 +7044,15 @@ function ParseMZMultiChooseParam(param) {
 // not a card count, so `multiMax` cannot express it. These three helpers are the whole rule.
 // Cards over the remaining budget must not merely look unavailable — the click has to be inert too.
 // (The server re-derives the pool and re-applies the budget on the answer regardless; this is UX.)
+// The key an inline multi-pick is STORED under. Twin Suns draws `their…` for a different seat on every matchup view,
+// so a board pick kept as its rendered id (`theirGroundArena-0`) was dropped or moved onto the next opponent's unit
+// when the player paged views — and Confirm submitted that unit (reported 2026-10-27, mobile). A pick is kept as its
+// seat-tagged id (`p3GroundArena-0`, the form the Home tiles and the server use) and translated only to paint it.
+// Without the SWUSim hook (2-player, other sims) the rendered id IS the key, so nothing changes there.
+function InlineMultiKey(mzid) {
+  return (typeof window.swuTwRemapCardId === 'function') ? window.swuTwRemapCardId(mzid) : mzid;
+}
+
 function InlineMultiWeightOf(mzid) {
   const b = (window.SelectionMode || {}).multiBudget;
   if (!b || !b.weights) return 0;
@@ -7101,7 +7112,7 @@ function ApplyInlineMultiSelectionDomState() {
   const sm = window.SelectionMode || {};
   const selected = new Set(Array.isArray(sm.multiSelected) ? sm.multiSelected : []);
   document.querySelectorAll('.selectable-card').forEach((el) => {
-    const mzid = el.getAttribute('data-mzid') || el.id || '';
+    const mzid = InlineMultiKey(el.getAttribute('data-mzid') || el.id || '');
     const isSelected = selected.has(mzid);
     const blocked = InlineMultiBlocked(mzid);
     el.classList.toggle('selected-inline', isSelected);
@@ -7254,7 +7265,7 @@ function ShowInlineMultiChooseMessage(msg, decisionIndex) {
   selectAllBtn.onclick = function() {
     const sm = window.SelectionMode || {};
     const all = ExpandInlineMultiSelectableCards();
-    sm.multiSelected = all.slice(0, sm.multiMax || all.length);
+    sm.multiSelected = all.map(InlineMultiKey).slice(0, sm.multiMax || all.length);
     ApplyInlineMultiSelectionDomState();
     UpdateInlineMultiChooseMessage();
     if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
@@ -8076,11 +8087,28 @@ function _describeDecisionType(type) {
   }
 }
 
+// Seats other than the viewer whose decision queue holds an entry. At two seats that is the one
+// opponent (the same queue as theirDecisionQueueData). At 3-4 seats "their" is a single seat, so this
+// is the only way to see that a far seat owes a decision. Other seats' entries arrive redacted
+// ("CardBack 0 -"), so presence is all that can be read.
+function _otherSeatsWithPendingDecisions() {
+  const viewerNode = document.getElementById('playerID');
+  const viewer = viewerNode && viewerNode.value ? parseInt(viewerNode.value) : NaN;
+  const seats = [];
+  for (let seat = 1; typeof window['p' + seat + 'DecisionQueueData'] !== 'undefined'; ++seat) {
+    if (seat === viewer) continue;
+    const raw = window['p' + seat + 'DecisionQueueData'];
+    if (typeof raw === 'string' && raw.trim().length > 0) seats.push(seat);
+  }
+  return seats;
+}
+
 function _buildOpponentWaitingMessage() {
   const settings = _getTurnIndicatorSettings();
   if (typeof settings.waitingMessageBuilder === 'function') {
     const customText = settings.waitingMessageBuilder({
       theirDecisionQueueData: window.theirDecisionQueueData,
+      waitingSeats: _otherSeatsWithPendingDecisions(),
       defaultBuilder: function() {
         const pendingDecision = _firstPendingDecisionFromRaw(window.theirDecisionQueueData);
         if (!pendingDecision) return 'Waiting for the other player';
@@ -8128,6 +8156,8 @@ function _shouldShowOpponentWaitingMessage(viewerIsTurn) {
   const raw = window.theirDecisionQueueData;
   const theirHasDecisions = raw && typeof raw === 'string' && raw.trim().length > 0;
   if (theirHasDecisions) return true;
+  // 3-4 seats: any other seat owing a decision means this viewer is waiting too, even on its own turn.
+  if (_otherSeatsWithPendingDecisions().length > 0) return true;
 
   const myPending = _firstPendingDecisionFromRaw(window.myDecisionQueueData);
   if (myPending) return false;
@@ -8204,7 +8234,7 @@ function UpdateTurnPlayerMiasma() {
 }
 /**
  * Show the full-screen game-over overlay.
- * @param {boolean} didWin  true = "You Won", false = "You Lost"
+ * @param {boolean|string} didWin  true = "You Won", false = "You Lost", 'draw' = "Draw" (SWUSim: both bases fell together, CR 6.3)
  * @param {string}  [menuUrl]  Optional explicit URL for the "Return to Menu" button.
  *   If omitted, derived from window.rootPath (e.g. "./GrandArchiveSim" → "./SharedUI/Sites/GrandArchiveSim/MainMenu.php").
  * @param {string}  [subtitle]  Optional line under the title, e.g. "Winner(s): Drixx". In a game with
@@ -8219,7 +8249,8 @@ function ShowGameOver(didWin, menuUrl, statsHtml, buttons, subtitle) {
 
   var title = document.createElement('div');
   title.id = 'game-over-title';
-  title.textContent = didWin ? 'You Won!' : 'You Lost';
+  var isDraw = (didWin === 'draw');
+  title.textContent = isDraw ? 'Draw' : (didWin ? 'You Won!' : 'You Lost');
 
   var sub = null;
   if (subtitle) {
@@ -8295,7 +8326,7 @@ function ShowGameOver(didWin, menuUrl, statsHtml, buttons, subtitle) {
   }
   document.body.appendChild(overlay);
 
-  overlay.classList.add(didWin ? 'won' : 'lost');
+  overlay.classList.add(isDraw ? 'draw' : (didWin ? 'won' : 'lost'));
   // Marker for layouts that place the overlay's children explicitly (SWUSim lays it out as a named
   // grid). Only when a subtitle actually exists — an unconditional extra row would add a row-gap of
   // dead space to every game that doesn't name winners.

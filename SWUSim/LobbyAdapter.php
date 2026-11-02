@@ -255,6 +255,11 @@ class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAd
     public function startBlockers(object $lobby): array {
         if (!function_exists('SWURoomStartBlockers')) return [];
         $errors = SWURoomStartBlockers($lobby, SWURoomLeaderSets($lobby));
+        // A 1v1 room reopened after its match: a player still on the end-game screen has not come back yet
+        // (SWUSim/Rooms.php — loaded at file scope by the lobby endpoints that need it).
+        if (function_exists('SWURoomEndScreenNames')) {
+            foreach (SWURoomEndScreenNames($lobby) as $name) $errors[] = $name . ' is still on the end-game screen.';
+        }
         foreach (($lobby->players ?? []) as $p) {
             if ($p instanceof Player && $p->getBotProfile() !== '' && !isset($this->botProfiles($lobby)[$p->getBotProfile()])) {
                 $errors[] = 'A bot in this room is no longer available.';

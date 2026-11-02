@@ -42,7 +42,8 @@ $keyframe = function (string $t, array $extra) use (&$ev, &$round) {
     // decode without `assoc` so objects stay objects ({} for empty statusTokens).
     $kf = json_decode(SwuPgnStateToJson(SwuPgnFold(SwuPgnParse(SwuPgnTestFile($ev))['events'])));
     foreach ($extra as $k => $v) $kf->$k = $v;
-    $ev[] = ['seq' => $t === 'ROUND_START' ? "R$round.start" : "R$round.end", 't' => $t, 'round' => $round, 'keyframe' => $kf];
+    $ev[] = ['seq' => $t === 'ROUND_START' ? "R$round.start" : "R$round.end", 't' => $t, 'round' => $round]
+        + ($t === 'ROUND_START' ? ['active' => $extra['active']] : []) + ['keyframe' => $kf];   // §10.1 [W-46]: every ROUND_START states active
 };
 
 // ── setup (round 0) ──
@@ -123,6 +124,12 @@ $add('A', ['t' => 'CHOICE', 'p' => 1, 'prompt' => 'Vanguard Infantry', 'offered'
 $add('A', ['t' => 'EXHAUST', 'card' => 'SOR#108', 'for' => $seq]);
 $add('A', ['t' => 'ATTACK', 'p' => 1, 'atk' => 'SOR#108', 'def' => 'base@2', 'defenderType' => 'base'], true);
 $add('A', ['t' => 'DAMAGE', 'src' => 'SOR#108', 'tgt' => 'base@2', 'amt' => 3, 'damageType' => 'combat', 'hp' => 22]);
+// 2026-10-28 records (§10): a limited leader action that starts an effect, restates a unit's traits, looks and names.
+$add('A', ['t' => 'ABILITY_ACTIVATE', 'p' => 2, 'card' => 'SOR#005', 'kind' => 'action', 'ability' => 'leader-action', 'title' => 'Give a unit {keyword:sentinel} for this phase.', 'limit' => ['max' => 1, 'per' => 'round']], true);
+$add('A', ['t' => 'EFFECT_START', 'id' => 'fx@1', 'src' => 'SOR#005', 'p' => 2, 'targets' => ['SOR#045'], 'duration' => 'phase', 'text' => 'Gains {keyword:sentinel} for this phase']);
+$add('A', ['t' => 'STATS', 'card' => 'SOR#045', 'power' => 3, 'hp' => 5, 'keywords' => ['restore 1', 'sentinel'], 'traits' => ['force', 'jedi']]);
+$add('A', ['t' => 'LOOK', 'p' => 2, 'owner' => 1, 'zone' => 'hand', 'cards' => ['SOR#108:5'], 'count' => 1]);
+$add('A', ['t' => 'NAME', 'p' => 2, 'name' => 'Vanguard Infantry']);
 
 $cards = [
     ['id' => 'SOR#010', 'name' => 'Darth Vader, Dark Lord of the Sith'], ['id' => 'SOR#005', 'name' => 'Luke Skywalker, Faithful Friend'],
@@ -135,7 +142,7 @@ $cards = [
     ['id' => 'TOKEN:advantage#5844562972', 'name' => 'Advantage', 'kind' => 'upgrade'],
     ['id' => 'TOKEN:credit#8015500527', 'name' => 'Credit'], ['id' => 'TOKEN:the-force#4571900905', 'name' => 'The Force'],
 ];
-$header = ['GameId' => 'viewer-fixture', 'CardPool' => 'SOR,JTL,LOF', 'Rounds' => '2', 'Result' => 'Incomplete', 'Reason' => 'Fixture',
+$header = ['P1Id' => 'sha256:' . str_repeat('a', 64), 'P2Id' => 'sha256:' . str_repeat('b', 64), 'GameId' => 'viewer-fixture', 'CardPool' => 'SOR,JTL,LOF', 'Rounds' => '2', 'Result' => 'Incomplete', 'Reason' => 'Fixture',
     'P1Leader' => 'SOR#010', 'P1Base' => 'SOR#020', 'P2Leader' => 'SOR#005', 'P2Base' => 'SOR#028'];
 $decks = [['p' => 1, 'leader' => 'SOR#010', 'base' => 'SOR#020', 'deck' => [['SOR#108', 5], ['JTL#095', 1], ['LOF#091', 1], ['JTL#058', 1]]],
           ['p' => 2, 'leader' => 'SOR#005', 'base' => 'SOR#028', 'deck' => [['SOR#045', 4], ['JTL#032', 2], ['ZZZ#999', 1], ['JTL#095', 1]]]];

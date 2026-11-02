@@ -144,6 +144,7 @@ function MatchWriteRef($rootName, $gameName, $matchId, $gameNumber) {
     // A match with no chatId (every match that predates this feature) publishes nothing, and its
     // games therefore keep the legacy per-game bucket.
     include_once MatchRepoRoot() . '/Core/ChatConversation.php';
+    if (function_exists('ChatPersistUseRoot')) ChatPersistUseRoot($rootName);   // a SWUSim pointer is saved (Core/ChatStore.php)
     $m = MatchRead($rootName, $matchId);
     if (is_array($m) && !empty($m['chatId'])) ChatPublishConversationForGame($gameName, $m['chatId']);
     return file_put_contents($path, json_encode(['matchId' => strval($matchId), 'gameNumber' => intval($gameNumber)]), LOCK_EX) !== false;
@@ -171,6 +172,13 @@ function MatchGetGameWinner() {
     if (!class_exists('DecisionQueueController')) return 0;
     $w = intval(DecisionQueueController::GetVariable('GAMEOVER_WINNER'));
     return ($w >= 1 && $w <= 4) ? $w : 0;
+}
+
+// A DRAWN game (CR 6.3). A sim records one as GAMEOVER_WINNER '-1' — over, with no winning seat — so MatchGetGameWinner
+// stays 0 for it and this is how the match layer tells "drawn" from "not over yet". Sims that never draw never write it.
+function MatchGetGameIsDraw() {
+    if (!class_exists('DecisionQueueController')) return false;
+    return strval(DecisionQueueController::GetVariable('GAMEOVER_WINNER') ?? '') === '-1';
 }
 
 // The full winner SET. Most games have exactly one winner, but a multiplayer format can end in a
@@ -318,10 +326,15 @@ function MatchSpawnNextGameWithDecks($rootName, $matchId, $firstPlayer, $priorGa
     $lobby->isPrivate = !empty($m['isPrivate']);
     $lobby->players = $players;
     if (!empty($m['houseRules']) && is_array($m['houseRules'])) $lobby->houseRulesActive = $m['houseRules'];
+    // A match that fixed its spectator key (SWUSim High Ground) keeps it for every game, so watchers follow game 2 and 3.
+    if (!empty($m['spectatorKey']) && is_string($m['spectatorKey'])) $lobby->spectatorKey = $m['spectatorKey'];
 
     $nextNumber = count($m['games']) + 1;
     $next = MatchHook($rootName, 'setupGame', $lobby, [
         'forcedFirstPlayer' => ($firstPlayer === 1 || $firstPlayer === 2) ? $firstPlayer : null,
+        // Every caller passes the prior game's loser. A sim whose rules let that player CHOOSE who opens (SWUSim,
+        // CR 5.2.1c) reads this; one that does not (GrandArchiveSim, AzukiSim) ignores the key and forces as before.
+        'forcedFirstPlayerChooses' => true,
         'resolvedDecks'     => $resolvedDecks,
         'matchId'           => $matchId, 'gameNumber' => $nextNumber,
     ]);
@@ -413,6 +426,7 @@ function MatchSideboardWarningCheck($rootName, $matchId) {
     if (empty($due)) return;
     // playerID 0: the chat panel maps any seat outside 1-4 to its existing `tcgc-log` class, so this
     // renders as a log line rather than as somebody's chat message. No CSS needed.
+    if (function_exists('ChatPersistUseRoot')) ChatPersistUseRoot($rootName);   // saved chat for SWUSim (Core/ChatStore.php)
     foreach ($due as $mark) {
         ChatAppendMessage('m:' . $matchId, 0, 'Sideboard', MatchSideboardWarningText(intval($mark)));
     }
@@ -516,7 +530,11 @@ function MatchAcceptRematch($rootName, $oldMatchId) {
     MatchWithLock($rootName, $newId, function (&$newMatch) use ($newId) {
         $newMatch['chatId'] = 'm:' . $newId;
     });
+    if (function_exists('ChatPersistUseRoot')) ChatPersistUseRoot($rootName);   // a SWUSim pointer is saved (Core/ChatStore.php)
     MatchPublishChatConversation($newId, 'm:' . $newId);   // so 'm:<id>' resolves, same as for games
+    // Optional per-sim carry-over: AFTER the publish above (a sim that moves the chat re-publishes it, and must win) and
+    // BEFORE the first game is spawned below (its MatchWriteRef reads chatId).
+    MatchHook($rootName, 'rematchCreated', $m, $newId);
     if (array_key_exists('shareAnonymizedGameplayData', $m)) {
         $shareAnonymizedGameplayData = !empty($m['shareAnonymizedGameplayData']);
         MatchWithLock($rootName, $newId, function (&$newMatch) use ($shareAnonymizedGameplayData) {
@@ -526,8 +544,10 @@ function MatchAcceptRematch($rootName, $oldMatchId) {
     MatchWithLock($rootName, $oldMatchId, function (&$mm) { unset($mm['rematchRequests']); }); // fire once
 
     $oldGame = !empty($m['games']) ? $m['games'][count($m['games'])-1]['gameName'] : '';
-    $lastWinner = !empty($m['games']) ? intval($m['games'][count($m['games'])-1]['winner'] ?? 1) : 1;
-    $first = ($lastWinner === 1) ? 2 : 1; // loser of the prior game goes first
+    $lastGame = !empty($m['games']) ? $m['games'][count($m['games'])-1] : [];
+    $lastWinner = intval($lastGame['winner'] ?? 1);
+    // Loser of the prior game goes first; after a DRAW nobody lost, so 0 = random (no forced first player).
+    $first = !empty($lastGame['draw']) ? 0 : (($lastWinner === 1) ? 2 : 1);
 
     if ($sideboard) {
         MatchBeginSideboarding($rootName, $newId, $first);
@@ -556,12 +576,12 @@ function MatchAcceptConvertToBo3($rootName, $matchId) {
     if (empty($m['convertRequests']['1']) || empty($m['convertRequests']['2'])) return null;
     MatchWithLock($rootName, $matchId, function (&$mm) {
         $mm['bestOf'] = 3; $mm['winsNeeded'] = 2; $mm['state'] = 'in_progress';
-        unset($mm['convertRequests'], $mm['winner']);
+        unset($mm['convertRequests'], $mm['winner'], $mm['matchDraw']);   // a drawn Bo1 becomes a live Bo3
     });
     // Game 1's win stays recorded (1-0). Re-enter sideboarding for game 2; loser of game 1 goes first.
     $m = MatchRead($rootName, $matchId);
     $g1winner = intval($m['games'][0]['winner'] ?? 1);
-    MatchBeginSideboarding($rootName, $matchId, ($g1winner === 1) ? 2 : 1);
+    MatchBeginSideboarding($rootName, $matchId, !empty($m['games'][0]['draw']) ? 0 : (($g1winner === 1) ? 2 : 1));   // drawn game 1: random
     $prior = $m['games'][count($m['games']) - 1]['gameName'] ?? '';
     if ($prior !== '') { $p = MatchSideboardPointerPath($rootName, $prior); if ($p !== '' && is_dir(dirname($p))) file_put_contents($p, json_encode(['matchId' => $matchId]), LOCK_EX); }
     return $matchId;
@@ -608,17 +628,36 @@ function MatchReapStale($rootName, $maxAgeSeconds = 86400, $nowTs = null) {
     return $reaped;
 }
 
+// End a running match with NO result (SWUSim High Ground "End match", for a player who vanished mid-match): no winner, no
+// stats, no rating. Every undecided game is sealed (statsRecorded), so a game-over that still arrives from its gamestate is
+// a no-op in MatchAfterActionHook. A finished match is left alone. Returns the match record.
+function MatchAbortNoResult($rootName, $matchId) {
+    MatchWithLock($rootName, $matchId, function (&$m) {
+        if (in_array($m['state'] ?? '', ['complete', 'abandoned'], true)) return;
+        foreach ($m['games'] as $i => $g) {
+            if (($g['winner'] ?? null) !== null || !empty($g['statsRecorded'])) continue;
+            $m['games'][$i]['statsRecorded'] = true;
+            $m['games'][$i]['detail'] = array_merge($g['detail'] ?? [], ['endReason' => 'aborted']);
+        }
+        $m['state'] = 'abandoned';
+        unset($m['sideboard'], $m['sideboardDeadline'], $m['sideboardWarned'], $m['pendingFirstPlayer'], $m['spawnClaimedAt']);
+    });
+    return MatchRead($rootName, $matchId);
+}
+
 // Concede the whole match: award the opponent the wins needed to clinch. Idempotent.
 // $gameDetail: the open game's captured detail when the caller has the live gamestate (the in-game concede input);
 // null from paths that do not (the block-forfeit API). Stored on the open game with endReason forced to 'concede'.
 function MatchConcede($rootName, $matchId, $concedingSeat, ?array $gameDetail = null) {
-    $result = MatchWithLock($rootName, $matchId, function (&$m) use ($rootName, $concedingSeat, $gameDetail) {
+    $concededGame = '';
+    $result = MatchWithLock($rootName, $matchId, function (&$m) use ($rootName, $concedingSeat, $gameDetail, &$concededGame) {
         if (($m['state'] ?? '') === 'complete') return;       // idempotent
         $opp = ($concedingSeat === 1) ? 2 : 1;
         // Count the in-progress game (if any) as a decisive loss for the conceding seat.
         foreach ($m['games'] as $i => $g) {
             if (($g['winner'] ?? null) === null) {
                 $m['games'][$i]['winner'] = $opp;
+                $concededGame = strval($g['gameName'] ?? '');
                 $m['games'][$i]['statsRecorded'] = true;   // seal: same contract as MatchRecordGameResult
                 // No live gamestate (the block-opponent forfeit): nobody can say whether pregame had finished.
                 $m['games'][$i]['detail'] = array_merge($m['games'][$i]['detail'] ?? [],
@@ -636,6 +675,10 @@ function MatchConcede($rootName, $matchId, $concedingSeat, ?array $gameDetail = 
     });
     // After the lock is released: a whole-match concede never reaches the after-action submitResults branch.
     MatchHook($rootName, 'rateMatch', $matchId);
+    if ($concededGame !== '') {
+        $after = MatchRead($rootName, $matchId);
+        if (is_array($after)) MatchHook($rootName, 'gameResultRecorded', $after, $concededGame);
+    }
     return $result;
 }
 
@@ -643,7 +686,8 @@ function MatchConcede($rootName, $matchId, $concedingSeat, ?array $gameDetail = 
 function MatchAfterActionHook($rootName, $gameName) {
     $ref = MatchReadRef($rootName, $gameName);
     if ($ref === null) return;                 // not a match game (goldfish/legacy)
-    if (MatchGetGameWinner() === 0) return;     // game not over
+    $isDraw = MatchGetGameIsDraw();
+    if (MatchGetGameWinner() === 0 && !$isDraw) return;     // game not over
 
     // Sealed: this game's result is already committed, so a post-rewind replay must change nothing —
     // no deck W/L, no stats submit, no re-recorded winner, no Bo3 sideboard spawn. Checked BEFORE
@@ -658,7 +702,8 @@ function MatchAfterActionHook($rootName, $gameName) {
     // Capture per-game telemetry/detail while this game's gamestate is loaded (for stats).
     $detail = MatchHook($rootName, 'captureGameDetail');
     $roundNumber = is_array($detail) ? intval($detail['turns'] ?? 0) : null; // gate early-concede stats (round < 2)
-    MatchRecordGameResult($rootName, $ref['matchId'], $gameName, $winner, $roundNumber, $winners);
+    if ($isDraw) MatchRecordGameDraw($rootName, $ref['matchId'], $gameName, $roundNumber);
+    else MatchRecordGameResult($rootName, $ref['matchId'], $gameName, $winner, $roundNumber, $winners);
     if ($detail !== null) {
         MatchWithLock($rootName, $ref['matchId'], function (&$mm) use ($gameName, $detail) {
             foreach ($mm['games'] as &$g) { if (($g['gameName'] ?? '') === strval($gameName)) { $g['detail'] = $detail; break; } }
@@ -678,6 +723,8 @@ function MatchAfterActionHook($rootName, $gameName) {
         }
     }
 
+    MatchHook($rootName, 'gameResultRecorded', $m, $gameName);   // optional: SWUSim High Ground's "Tonight" table
+
     if (MatchIsOver($m)) {
         // Match complete — the flashMatchResult hook carries the series result to the client.
         MatchHook($rootName, 'flashMatchResult', $gameName, MatchWinner($m), $m);
@@ -690,7 +737,8 @@ function MatchAfterActionHook($rootName, $gameName) {
     // Twin Suns (and any >2-seat match) is Bo1-only, so MatchIsOver is always true after game 1
     // for those and this branch is unreachable in practice; the guard makes that crash-proof.
     if (count($m['players'] ?? []) > 2) return;
-    $loser = ($winner === 1) ? 2 : 1;
+    // After a drawn game there is no loser to go first: 0 = random (owner, 2026-10-30).
+    $loser = $isDraw ? 0 : (($winner === 1) ? 2 : 1);
     MatchBeginSideboarding($rootName, $ref['matchId'], $loser);
     $ptr = MatchSideboardPointerPath($rootName, $gameName);
     if ($ptr !== '' && is_dir(dirname($ptr))) file_put_contents($ptr, json_encode(['matchId' => $ref['matchId']]), LOCK_EX);

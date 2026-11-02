@@ -2,15 +2,17 @@
 #// ASH_230 Improvised Identity (Upgrade) — grants the host: "Action: search the top 3 for a ground unit and
 #// discard it; then you may attack with this unit, gaining the discarded unit's abilities for this attack."
 #// COVERAGE: offer=GrantSaboteur_BypassesTheEnemySentinel (+ its auto-resolve CONTROL) +
-#//                 AttachGroundOnly_SpaceNotSelectable ·
+#//                 AttachGroundOnly_SpaceNotSelectable + AttachOffer_EnemyGroundUnitsToo +
+#//                 AttachToEnemyLobot_TheOnlyGroundUnit + TwinSuns_FarSeatGroundUnitIsOffered +
+#//                 TeamSuns_TeammateAndEnemyGroundUnitsAreOffered ·
 #//           decline=DeclineSearch_TakeNothing + DiscardThenDeclineAttack ·
 #//           boundary=NoGroundInTop3_NothingDiscarded + OncePerRound_NoSecondUse +
 #//                 GainedAbilitiesExpire_TheHostIsPlainOnItsNEXTAttack (this attack vs the next) +
 #//                 the PER-COPY once-each-round set: SecondCopyOnAnotherUnit_* (two hosts),
 #//                 TwoCopiesOnOneUnit_* (one host, exhausted vs readied between the two uses) and
 #//                 CopyRearmsInTheNextRound (the subcard budget refills at the round boundary) ·
-#//           control=N/A (the upgrade attaches to a FRIENDLY ground unit and the granted action is used by
-#//                 its controller; there is no owner-scoped zone and no take-control interaction) ·
+#//           control=OnAnEnemyHost_ItsControllerUsesTheAction ("Attach to a ground unit" — any side; the
+#//                 granted action belongs to the HOST's controller, who searches their own deck) ·
 #//           reqboundary=N/A (the grant lives on the combat's SUPPORT_GRANT carrier and is consumed inside
 #//                 the same attack)
 #// ⚠ SCOPE OF THE GRANT (measured 2026-08-18): keywords come from the printed-keyword arrays; triggered
@@ -1020,3 +1022,105 @@ WithP2Deck: [SOR_095 SOR_095]
 P2BASEDMG:4
 TURNPLAYER:2
 NOEXTRAACTION
+
+---
+
+# AttachOffer_EnemyGroundUnitsToo
+#// "Attach to a ground unit." — no "friendly" (CR: an unqualified upgrade attaches to any unit), so ENEMY
+#// ground units are legal hosts. Bug report 2026-10-29: the pool was friendly-only, and a player with no
+#// ground unit of their own got "no valid targets" against the bot's Lobot. Offered: P1's Marine and P2's
+#// Lobot; NOT P1's X-Wing (space). Left pending.
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:2}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: ASH_230
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SEC_057:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# AttachToEnemyLobot_TheOnlyGroundUnit
+#// The reported board: P1 has no ground unit, P2 has Lobot (0/4). Lobot is the sole legal host, so the
+#// upgrade auto-attaches to it (+0/+3 → 7 HP) instead of reporting no valid targets.
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:2}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: ASH_230
+WithP2GroundArena: SEC_057:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:ASH_230
+P2GROUNDARENAUNIT:0:HP:7
+P1HANDCOUNT:0
+
+---
+
+# OnAnEnemyHost_ItsControllerUsesTheAction
+#// "Attached unit gains" the Action, so it is the HOST's controller's to use: P2 uses it on their Lobot (wearing
+#// P1's Improvised Identity), discards the Battlefield Marine from P2's deck and declines the attack.
+## GIVEN
+CommonSetup: yyk/bbw
+SkipPreGame: true
+WithP2GroundArena: SEC_057:1:0
+WithP2GroundArenaUpgrade: 0:ASH_230
+WithP2Deck: [SOR_095 SOR_237 SOR_237]
+## WHEN
+- P1>Pass
+- P2>UseUnitAbility:myGroundArena-0
+- P2>AnswerDecision:SOR_095
+- P2>AnswerDecision:NO
+## EXPECT
+P2DISCARDCOUNT:1
+P2DISCARDUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:READY
+
+---
+
+# TwinSuns_FarSeatGroundUnitIsOffered
+#// Any ground unit at the table: P3's Marine is offered next to P1's own; space units are not.
+## GIVEN
+CommonSetup3P: yyk/bbw/bbw/{myResources:2}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: ASH_230
+WithP1GroundArena: SOR_095:1:0
+WithP3GroundArena: SOR_095:1:0
+WithP3SpaceArena: SOR_237:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+SEATCOUNT:3
+P1SELECTABLEEXACT:myGroundArena-0&p3GroundArena-0
+
+---
+
+# TeamSuns_TeammateAndEnemyGroundUnitsAreOffered
+#// Team Suns (P1+P3 vs P2+P4): every ground unit at the table is a legal host — P1's own, teammate P3's and both
+#// enemies'. ("their" alone would drop the teammate.)
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:2}
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Hand: ASH_230
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP3GroundArena: SOR_095:1:0
+WithP4GroundArena: SOR_095:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+SEATCOUNT:4
+P1SELECTABLEEXACT:myGroundArena-0&p2GroundArena-0&p3GroundArena-0&p4GroundArena-0

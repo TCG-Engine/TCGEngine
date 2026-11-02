@@ -43,13 +43,13 @@ $r = $run($play);
 SwuPgnTestCheck(!empty($r['success']), 'the action succeeded', json_encode($r));
 SwuPgnTestCheck(count(GetGroundArena(1)) > 0, 'the Marine is in play');
 $ev = SwuPgnEventsRead($g1);
-$moves = array_values(array_filter($ev, fn($e) => $e['t'] === 'MOVE' && $e['card'] === 'SOR#95' && $e['from'] === 'hand' && $e['to'] === 'ground'));
-SwuPgnTestCheck(count($moves) === 1, 'events.jsonl gained the hand → ground MOVE of SOR#95', json_encode($ev));
-SwuPgnTestCheck((bool)array_filter($ev, fn($e) => $e['t'] === 'STATS' && $e['card'] === 'SOR#95'), 'and its STATS');
+$moves = array_values(array_filter($ev, fn($e) => $e['t'] === 'MOVE' && $e['card'] === 'SOR#095' && $e['from'] === 'hand' && $e['to'] === 'ground'));
+SwuPgnTestCheck(count($moves) === 1, 'events.jsonl gained the hand → ground MOVE of SOR#095', json_encode($ev));
+SwuPgnTestCheck((bool)array_filter($ev, fn($e) => $e['t'] === 'STATS' && $e['card'] === 'SOR#095'), 'and its STATS');
 SwuPgnTestCheck((bool)array_filter($ev, fn($e) => $e['t'] === 'EXHAUST_RESOURCES' && $e['p'] === 1), 'and the resources it paid');
 SwuPgnTestCheck(preg_match('/^R\d+\.A\.\d+[a-z]*$/', $moves[0]['seq'] ?? '') === 1, 'the events carry action-phase seqs', $moves[0]['seq'] ?? '');
 $state = SwuPgnStateRead($g1);
-SwuPgnTestCheck(isset($state['prev']['seats'][1]) && SwuPgnLedgerByUid($state['ledger'], intval(GetGroundArena(1)[0]->UniqueID)) === 'SOR#95',
+SwuPgnTestCheck(isset($state['prev']['seats'][1]) && SwuPgnLedgerByUid($state['ledger'], intval(GetGroundArena(1)[0]->UniqueID)) === 'SOR#095',
     'state.json holds the new snapshot and the ledger binds the unit');
 SwuPgnTestEq($meta($g1)['recorderErrors'] ?? null, 0, 'no recorder errors');
 SwuPgnTestCheck(empty($GLOBALS['SWU_PGN_RECORDING']), 'the request-scoped recording flag is cleared after the commit');

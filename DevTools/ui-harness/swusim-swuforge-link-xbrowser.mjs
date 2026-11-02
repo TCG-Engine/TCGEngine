@@ -22,6 +22,8 @@ let fails = 0, checks = 0;
 const check = (engine, name, cond, extra = '') => { checks++; if (!cond) { fails++; console.log(`FAIL ${engine.padEnd(9)} ${name}${extra ? ' — ' + extra : ''}`); } else console.log(`PASS ${engine.padEnd(9)} ${name}`); };
 const php = (code) => execFileSync('docker', ['exec', '-w', '/var/www/html/TCGEngine', CONTAINER, 'php', '-d', 'xdebug.mode=off', '-r',
   'require "Database/ConnectionManager.php"; $c = GetLocalMySQLConnection(); ' + code], { encoding: 'utf8' }).trim();
+// The Forge address this box is configured with ($swuforgeBaseURL — there is no default).
+const FORGE = php('require "SWUSim/SWUForgeLink.php"; echo SWUForgeConfig()["baseUrl"];');
 const UID = Number(php('$r = $c->query("SELECT usersId FROM users WHERE usersUid = \'ninin\'")->fetch_row(); echo $r[0] ?? 0;'));
 if (!UID) { console.log('no local "ninin" account'); process.exit(2); }
 const realLink = php(`$r = $c->query("SELECT COUNT(*) FROM swuforge_links WHERE usersId = ${UID}")->fetch_row(); echo $r[0];`) !== '0';
@@ -63,7 +65,7 @@ for (const [name, launcher] of ENGINES) {
       await page.click('.swuforge-link a').catch(() => {});
       const req = await forgeReq;
       const q = req ? new URL(req.url()) : null;
-      check(name, 'Connect goes to SWU Forge staging\'s authorize page', !!q && q.origin === 'https://swu-forge-staging-andy.up.railway.app', req ? req.url() : 'no request');
+      check(name, 'Connect goes to the configured SWU Forge\'s authorize page', !!q && q.origin === FORGE, req ? req.url() : 'no request');
       check(name, 'with client "petranaki", the registered localhost callback and a state', !!q && q.searchParams.get('client_id') === 'petranaki'
         && q.searchParams.get('redirect_uri') === 'http://localhost:3400/TCGEngine/AccountFiles/SWUForgeOAuthCallback.php'
         && /^[0-9a-f]{64}$/.test(q.searchParams.get('state') || '') && q.searchParams.get('response_type') === 'code', req ? req.url() : '');

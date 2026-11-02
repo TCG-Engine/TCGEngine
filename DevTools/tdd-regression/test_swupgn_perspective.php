@@ -128,4 +128,87 @@ SwuPgnTestCheck($ids[0] === 'HIDDEN' && $ids[1] !== 'HIDDEN' && $ids[2] === $ids
 $cutBack = SwuPgnParse(SwuPgnWriteText(SwuPgnCutPerspective($back, 1)));
 SwuPgnTestEq(array_values(array_filter(SwuPgnValidate($cutBack)['errors'], fn($e) => !str_starts_with($e['code'], 'decks') && !str_starts_with($e['code'], 'header'))), [], 'and the cut still validates');
 
+// ── 2026-10-28 records (§21.1: what a perspective rule must hide) ────────────────────────────────
+// P1 owns one SOR#095; P2 owns SOR#095:2/:3, SOR#045, SOR#108, SOR#150 and SOR#151.
+$ids64 = ['P1Id' => 'sha256:' . str_repeat('a', 64), 'P2Id' => 'sha256:' . str_repeat('b', 64)];
+$vis = ['headers' => SwuPgnTestHeaderTags($ids64), 'decks' => [], 'cards' => [], 'annotations' => [],
+    'setup' => [['seq' => 'R0.S.0', 't' => 'INIT', 'p1DeckOrder' => ['SOR#010', 'SOR#095'], 'p2DeckOrder' => ['SOR#095:2', 'SOR#095:3', 'SOR#045', 'SOR#108', 'SOR#150', 'SOR#151']]],
+    'events' => SwuPgnTestSeq([
+        ['t' => 'MOVE', 'card' => 'SOR#095:2', 'from' => 'deck', 'to' => 'hand', 'p' => 2],                                       // 1
+        ['t' => 'MOVE', 'card' => 'SOR#045', 'from' => 'deck', 'to' => 'hand', 'p' => 2],                                         // 2
+        ['t' => 'MOVE', 'card' => 'SOR#108', 'from' => 'deck', 'to' => 'hand', 'p' => 2],                                         // 3
+        ['t' => 'LOOK', 'p' => 2, 'owner' => 2, 'zone' => 'deck', 'cards' => ['SOR#150'], 'count' => 1],                          // 4
+        ['t' => 'LOOK', 'p' => 1, 'owner' => 2, 'zone' => 'hand', 'cards' => ['SOR#045'], 'count' => 1],                          // 5
+        ['t' => 'SEARCH', 'p' => 2, 'owner' => 2, 'zone' => 'deck', 'seen' => ['SOR#150', 'SOR#095:3'], 'found' => ['SOR#150']],  // 6
+        ['t' => 'SEARCH', 'p' => 1, 'owner' => 2, 'zone' => 'deck', 'seen' => ['SOR#095:3']],                                    // 7
+        ['t' => 'CHOICE', 'p' => 2, 'offered' => ['SOR#095:2', 'SOR#045', 'SOR#108'], 'chose' => 0, 'blind' => 'R1.A.1'],         // 8
+        ['t' => 'CHOICE', 'p' => 2, 'offered' => ['SOR#045', 'SOR#108'], 'chose' => 0],                                           // 9
+        ['t' => 'ABILITY_ACTIVATE', 'p' => 2, 'card' => 'SOR#108', 'kind' => 'triggered', 'usedBy' => 'SOR#045', 'grantedBy' => 'SOR#151'], // 10
+        ['t' => 'EFFECT_START', 'id' => 'fx@1', 'src' => 'SOR#108', 'p' => 2, 'targets' => ['SOR#095:2'], 'duration' => 'phase'], // 11
+        ['t' => 'NAME', 'p' => 2, 'name' => 'Wampa'],                                                                             // 12
+        ['t' => 'MOVE', 'card' => 'SOR#095:2', 'from' => 'hand', 'to' => 'ground', 'p' => 2, 'kind' => 'unit'],                  // 13
+        ['t' => 'STATS', 'card' => 'SOR#095:2', 'power' => 3, 'hp' => 3, 'copyOf' => 'SOR#108', 'name' => 'Wampa', 'cost' => 1, 'aspects' => []], // 14
+        ['t' => 'EFFECT_END', 'id' => 'fx@1', 'reason' => 'targetLeft', 'targets' => ['SOR#095:2']],                              // 15
+        ['t' => 'LOOK', 'p' => 1, 'owner' => 2, 'zone' => 'deck', 'cards' => ['SOR#150'], 'count' => 1],                          // 16
+        ['t' => 'SHUFFLE', 'p' => 2],                                                                                             // 17
+        ['t' => 'MOVE', 'card' => 'SOR#150', 'from' => 'deck', 'to' => 'hand', 'p' => 2],                                         // 18
+        ['t' => 'MOVE', 'card' => 'SOR#150', 'from' => 'hand', 'to' => 'resource', 'p' => 2],                                     // 19
+        ['t' => 'TAKE_CONTROL', 'p' => 1, 'card' => 'SOR#150', 'zone' => 'resource', 'from' => 2],                                // 20
+        ['t' => 'EFFECT_START', 'id' => 'fx@2', 'src' => 'SOR#095:2', 'p' => 2, 'seat' => 2, 'duration' => 'round'],              // 21
+    ])];
+$v1 = [];
+foreach (SwuPgnCutPerspective($vis, 1)['events'] as $e) $v1[(int)substr($e['seq'], 5)] = $e;
+SwuPgnTestEq([$v1[4]['cards'], $v1[4]['count']], [[], 1], '§21.1 LOOK.cards: the other seat\'s look names nothing (count kept)');
+SwuPgnTestEq($v1[5]['cards'], ['SOR#045'], 'your own LOOK at their hand names what you saw');
+SwuPgnTestCheck(!array_key_exists('seen', $v1[6]) && !array_key_exists('found', $v1[6]), '§21.1 SEARCH.seen / found: the other seat\'s search names nothing');
+SwuPgnTestEq($v1[7]['seen'], ['SOR#095:2'], 'your own SEARCH of their deck names what you saw (their first public SOR#095 copy after your own)');
+SwuPgnTestEq($v1[8]['offered'], ['HIDDEN', 'HIDDEN', 'HIDDEN'], '§21.1 a blind CHOICE: the other seat\'s offered cards are all hidden (even one you saw)');
+SwuPgnTestEq($v1[9]['offered'], ['SOR#045', 'HIDDEN'], 'a non-blind CHOICE of theirs shows only what you know');
+SwuPgnTestEq([$v1[10]['card'], $v1[10]['usedBy'], $v1[10]['grantedBy']], ['SOR#108', 'SOR#045', 'HIDDEN'], 'a trigger from their hand reveals its card (CR 7.6.3a); usedBy / grantedBy carry ids like every other field');
+SwuPgnTestEq([$v1[11]['src'], $v1[11]['targets']], ['SOR#108', ['HIDDEN']], '§21.1 EFFECT_START.targets naming a hidden card is hidden');
+SwuPgnTestEq($v1[12]['name'], 'Wampa', 'NAME stays: naming a card is public');
+SwuPgnTestEq([$v1[13]['card'], $v1[14]['card'], $v1[14]['copyOf']], ['SOR#095:3', 'SOR#095:3', 'SOR#108'], 'STATS.copyOf is renumbered with the rest');
+SwuPgnTestEq($v1[15]['targets'], ['HIDDEN'], 'EFFECT_END.targets name the target as its EFFECT_START did (the effect ends what it started on)');
+SwuPgnTestEq($v1[16]['cards'], ['SOR#150'], 'your look at their deck top names it');
+SwuPgnTestEq($v1[18]['card'], 'HIDDEN', 'after they SHUFFLE, a deck card you saw is forgotten: drawn, it is HIDDEN');
+SwuPgnTestCheck($v1[20]['card'] !== 'HIDDEN', 'a resource you take control of is revealed to you', $v1[20]['card']);
+SwuPgnTestEq($v1[21]['src'], 'SOR#095:3', 'EFFECT_START.src is renumbered');
+$v2 = [];
+foreach (SwuPgnCutPerspective($vis, 2)['events'] as $e) $v2[(int)substr($e['seq'], 5)] = $e;
+SwuPgnTestEq([$v2[4]['cards'], $v2[6]['seen'] ?? null, $v2[8]['offered'], $v2[11]['targets']], [['SOR#150'], ['SOR#150', 'SOR#095:2'], ['SOR#095', 'SOR#045', 'SOR#108'], ['SOR#095']],
+    'the seat that looked / searched / chose keeps every card it saw, renumbered from 1');
+$visCut = SwuPgnParse(SwuPgnWriteText(SwuPgnCutPerspective($vis, 1)));
+SwuPgnTestEq(array_column(SwuPgnValidate($visCut)['errors'], 'code'), [], 'the cut of the new records validates (no effect-end-unknown: the END names what the START did)');
+$leak = array_values(array_filter(['SOR#151'], fn($id) => str_contains(SwuPgnWriteText(SwuPgnCutPerspective($vis, 1)), '"' . $id . '"')));
+SwuPgnTestEq($leak, [], 'nothing P2 never showed appears in P1\'s file');
+
+// A deck card you saw that they then drew is not forgotten when they shuffle (it left the deck): it stays known.
+$drawn = $vis;
+$drawn['events'] = SwuPgnTestSeq([
+    ['t' => 'LOOK', 'p' => 1, 'owner' => 2, 'zone' => 'deck', 'cards' => ['SOR#151', 'SOR#150'], 'count' => 2],
+    ['t' => 'MOVE', 'card' => 'SOR#151', 'from' => 'deck', 'to' => 'hand', 'p' => 2],
+    ['t' => 'SHUFFLE', 'p' => 2],
+    ['t' => 'MOVE', 'card' => 'SOR#151', 'from' => 'hand', 'to' => 'discard', 'p' => 2],
+    ['t' => 'MOVE', 'card' => 'SOR#150', 'from' => 'deck', 'to' => 'hand', 'p' => 2],
+]);
+$dc = array_map(fn($e) => $e['card'] ?? null, SwuPgnCutPerspective($drawn, 1)['events']);
+SwuPgnTestEq([$dc[1], $dc[3], $dc[4]], ['SOR#151', 'SOR#151', 'HIDDEN'], 'their shuffle forgets only the seen cards still in their deck');
+
+// Keyframe fields from the 2026-10-28 text carry ids too: effects, abilityUses, foreignResources, copyOf, upgradeControllers.
+$kfv = SwuPgnTestKeyframe(
+    ['foreignResources' => ['SOR#150'], 'resources' => ['SOR#150'], 'resourcesExhausted' => 1,
+        'abilityUses' => [['card' => 'SOR#095', 'ability' => 'x', 'count' => 1, 'per' => 'round', 'max' => 1]]],
+    ['cards' => [SwuPgnTestCard('SOR#095:2', 'ground', ['copyOf' => 'SOR#150', 'name' => 'Wampa', 'upgradeControllers' => ['SOR#150' => 1], 'upgrades' => ['SOR#045', 'SOR#150']])],
+        'abilityUses' => [['card' => 'SOR#095:2', 'ability' => 'y', 'count' => 1, 'per' => 'phase', 'max' => 2]]],
+    ['effects' => [['id' => 'fx@1', 'src' => 'SOR#095:2', 'p' => 2, 'targets' => ['SOR#095:2', 'SOR#045'], 'duration' => 'phase']]]);
+$kdoc = $vis;
+$kdoc['events'] = array_merge(array_slice($vis['events'], 0, 20), [['seq' => 'R1.end', 't' => 'ROUND_END', 'round' => 1, 'keyframe' => $kfv]]);
+$kcut = end(SwuPgnCutPerspective($kdoc, 1)['events'])['keyframe'];
+SwuPgnTestEq([$kcut['effects'][0]['src'], $kcut['effects'][0]['targets']], ['SOR#095:3', ['HIDDEN', 'SOR#045']], 'keyframe effects: src and targets mapped (a target as its EFFECT_START named it, though shown since)');
+SwuPgnTestEq([$kcut['players']['1']['abilityUses'][0]['card'], $kcut['players']['2']['abilityUses'][0]['card']], ['SOR#095', 'SOR#095:3'], 'keyframe abilityUses: card mapped');
+SwuPgnTestEq([$kcut['players']['1']['foreignResources'], $kcut['players']['1']['resources']], [[$v1[20]['card']], [$v1[20]['card']]], 'keyframe foreignResources / resources: mapped (the stolen card you saw, by its new id)');
+SwuPgnTestEq($v1[20]['card'], 'SOR#150:2', 'seen again after it was forgotten, it is a new id');
+$kc = $kcut['players']['2']['cards'][0];
+SwuPgnTestEq([$kc['id'], $kc['copyOf'], array_keys((array)$kc['upgradeControllers']), $kc['upgrades']], ['SOR#095:3', 'SOR#150:2', ['SOR#150:2'], ['SOR#045', 'SOR#150:2']], 'keyframe card: copyOf and upgradeControllers keys mapped');
+
 SwuPgnTestFinish();

@@ -1,7 +1,7 @@
 <?php
 // SWU-PGN/1.0 spec Appendix A is normative: A.1 must fold to exactly A.2 and render to exactly A.3.
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php DevTools/tdd-regression/test_swupgn_appendix_a.php
-// Fixtures are transcribed from the spec text (Engine tag changed to our own value).
+// Fixtures are transcribed from the 2026-10-28 spec text (Engine tag changed to our own value, examplewriter@reference).
 require_once __DIR__ . '/fixtures/swupgn_test_helpers.php';
 
 $dir = __DIR__ . '/fixtures/swupgn';
@@ -13,9 +13,10 @@ if (substr($expectedStory, -1) === "\n") $expectedStory = substr($expectedStory,
 $doc = SwuPgnParse($text);
 
 // ---- parse (A.4: header, sections) --------------------------------------------------------------
-SwuPgnTestEq(count($doc['headers']), 18, 'A.4 header: every tag pulled out (17 required + Format), including three on one line');
+SwuPgnTestEq(count($doc['headers']), 19, 'A.4 header: every tag pulled out (17 required + Format + WriterRevision), including three on one line');
+SwuPgnTestEq($doc['headers']['WriterRevision'] ?? null, '6', 'A.1 header: WriterRevision 6');
 SwuPgnTestEq($doc['headers']['CardPool'] ?? null, 'SOR', 'A.4 header: CardPool read from a multi-tag line');
-SwuPgnTestEq($doc['headers']['Engine'] ?? null, 'petranaki@test', 'A.4 header: Engine read from a multi-tag line');
+SwuPgnTestEq($doc['headers']['Engine'] ?? null, 'examplewriter@reference', 'A.4 header: Engine read from a multi-tag line (our own product, not the spec\'s)');
 SwuPgnTestEq(count($doc['decks']), 2, 'A.4 DECKS: two lines');
 SwuPgnTestEq(count($doc['cards']), 6, 'A.4 CARDS: six entries');
 SwuPgnTestEq(count($doc['setup']), 1, 'A.4 SETUP: one INIT');
@@ -65,12 +66,16 @@ $s = SwuPgnStateAt($doc['events'], 'R1.A.0b');
 SwuPgnTestEq($s['players'][1]['cards'][0] ?? null, ['id' => 'SOR#108', 'zone' => 'ground', 'damage' => 0, 'exhausted' => false, 'upgrades' => [], 'shields' => 0, 'experience' => 0, 'statusTokens' => [], 'captured' => []], 'A.4: MOVE hand→ground adds a fresh card, exhausted false, no stats');
 $s = SwuPgnStateAt($doc['events'], 'R1.A.1');
 SwuPgnTestEq(count($s['players'][1]['cards']), 1, 'A.4: PLAY after its MOVE does not add the card twice');
+$s = SwuPgnStateAt($doc['events'], 'R1.A.0c');
+SwuPgnTestEq([$s['players'][1]['cards'][0]['power'] ?? null, $s['players'][1]['cards'][0]['hp'] ?? null, $s['players'][1]['cards'][0]['traits'] ?? null], [4, 5, ['creature']], 'A.4: STATS states 4/5 and the traits');
 $s = SwuPgnStateAt($doc['events'], 'R1.A.1a');
 SwuPgnTestEq($s['players'][1]['cards'][0]['exhausted'], true, 'A.4: entering EXHAUST');
 $s = SwuPgnStateAt($doc['events'], 'R1.G.6');
 SwuPgnTestEq([$s['players'][1]['deckSize'], $s['players'][2]['handSize']], [0, 3], 'A.4: regroup draws: deckSize 2 → 0 (known since keyframe), P2 hand 3');
+$s = SwuPgnStateAt($doc['events'], 'R1.G.10');
+SwuPgnTestEq([$s['players'][1]['resourcesExhausted'], $s['players'][2]['resourcesExhausted'], $s['players'][1]['resourcesReady'], $s['players'][2]['resourcesReady']], [3, 1, 0, 2], 'A.4: regroup resources enter EXHAUSTED (exhausted: true): P1 2 → 3, P2 0 → 1');
 $s = SwuPgnStateAt($doc['events'], 'R1.G.13');
-SwuPgnTestEq([$s['players'][1]['resourcesReady'], $s['players'][1]['resourcesExhausted']], [3, 0], 'A.4: two READY_RESOURCES → ready 3, exhausted 0');
+SwuPgnTestEq([$s['players'][1]['resourcesReady'], $s['players'][1]['resourcesExhausted'], $s['players'][2]['resourcesReady'], $s['players'][2]['resourcesExhausted']], [3, 0, 3, 0], 'A.4: READY_RESOURCES P1 3, P2 1 → both ready 3, exhausted 0');
 $s = SwuPgnStateAt($doc['events'], 'no-such-seq');
 SwuPgnTestCheck(SwuPgnStateToJson($s) === $gotCompact, '§12.3: stateAt() with an unknown seq folds the whole list');
 

@@ -16,12 +16,23 @@
 require_once __DIR__ . '/Overrides.php';        // CardIDOverride
 require_once __DIR__ . '/DeckValidation.php';   // SWUCardSet (and the reprint machinery)
 
-function SWUDisplayCardID(string $cardID): string {
-    static $map = null;
+//
+// $releasedOnly also skips printings from a set that is still PREVIEWING (AppCore/SWU/PreviewSets.php). The deck export
+// asks for it: other sites import those decks and do not have a preview set's cards yet (owner, 2026-10-26 — the IC27
+// reprints broke imports). A card that exists only in the preview set keeps its own id. Removing the set from
+// PreviewSets.php on release day lifts the hold.
+function SWUDisplayCardID(string $cardID, bool $releasedOnly = false): string {
+    static $maps = [];
     if ($cardID === '') return $cardID;
-    if ($map === null) {
+    $mode = $releasedOnly ? 'released' : 'all';
+    if (!isset($maps[$mode])) {
         $order = @include __DIR__ . '/AllSets.php';
         if (!is_array($order)) $order = [];
+        $held = [];
+        if ($releasedOnly) {
+            $preview = @include __DIR__ . '/PreviewSets.php';
+            foreach ((is_array($preview) ? $preview : []) as $set) $held[strtoupper((string)$set)] = true;
+        }
         // The same universe SWUReprintGroup uses: SWUDeck publishes SWUReprintUniverse (its dictionary
         // needs an explicit SET_NNN list); SET_NNN-keyed apps fall back to the dictionary's own keys.
         $ids = $GLOBALS['SWUReprintUniverse'] ?? null;
@@ -37,13 +48,16 @@ function SWUDisplayCardID(string $cardID): string {
             $bestOrder = -1;
             foreach ($printings as $p) {
                 if (strtoupper((string)CardRarity($p)) === 'S') continue;   // showcase variant
+                if (isset($held[SWUCardSet($p)])) continue;                 // previewing set ($releasedOnly)
                 $o = $order[SWUCardSet($p)] ?? -1;
                 if ($o > $bestOrder) { $bestOrder = $o; $best = $p; }
             }
-            if ($best === null) continue;              // group is entirely Special -> keep canonical
+            if ($best === null) continue;              // group is entirely Special (or previewing) -> keep canonical
             foreach ($printings as $p) $map[$p] = $best;
         }
+        $maps[$mode] = $map;
     }
+    $map = $maps[$mode];
     if (isset($map[$cardID])) return $map[$cardID];
 
     // Deck zones hold MIXED identities: decks saved before the 2026-08-04 SET_NNN re-key still store

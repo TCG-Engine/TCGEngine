@@ -862,7 +862,8 @@ function SWUBotHealPerEnemyKill(int $seat): int {
 // How much healing is still worth having: the base's damage plus a round of headroom.
 function SWUBotHealCap(int $seat): int {
     $b = GetBase($seat)[0] ?? null;
-    return intval($b->Damage ?? 0) + SWU_BOT_HEAL_HEADROOM;
+    $cap = intval($b->Damage ?? 0) + SWU_BOT_HEAL_HEADROOM;
+    return function_exists('SWUBotLeverChain') ? intval(SWUBotLeverChain('healcap', $cap, $seat)) : $cap;   // lever registry ('healblocked')
 }
 
 // Enemy units this card defeats when played (an estimate, for the heal engines): a removal or paired-defeat card kills one

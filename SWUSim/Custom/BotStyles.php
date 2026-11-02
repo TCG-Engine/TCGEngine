@@ -101,6 +101,8 @@ function SWUBotAllowedTargets(array $ctx, array $att): array {
         // FEATURE 'tssentinelchip' (p63, owner 2026-10-22): Twin Suns — every style may chip the Sentinel walling the leader's base (BotFallback.php).
         if (function_exists('_SWUBotTSSentinelChipValue') && _SWUBotTSFreeForAll() && !empty($u['sentinel'])
             && _SWUBotTSSentinelChipValue(intval($ctx['seat']), $att, $u, SWUBotWeights(strval($ctx['style']), intval($ctx['seat']))) > 0) { $keep[] = [$k, $u]; continue; }
+        // Lever registry (BotLevers.php): a lever may keep a target the style would prune ('gangkill': the setup hit of a joint kill).
+        if (function_exists('SWUBotLeverFirst') && SWUBotLeverFirst('allowtarget', $ctx, $att, $u) === true) { $keep[] = [$k, $u]; continue; }
         if ($mode === 'aggro') {
             // Feature 'sentinelclear' (p48): …or when a Saboteur breaking the lone Sentinel lets the round clear it (BotFallback.php).
             $break = SWUBotFeatureOn('sentinelclear') && function_exists('_SWUBotSaboteurSentinelGain') && !empty($att['saboteur'])

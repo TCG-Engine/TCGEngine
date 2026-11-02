@@ -227,70 +227,38 @@
 
   writeLog("Received game result. P1 token: " . $p1SWUStatsToken . ", P2 token: " . $p2SWUStatsToken);
 
-  if($statsDeckLinkOK($p1DeckLink)) {
-	$arr = explode("gameName=", $p1DeckLink);
-	if(count($arr) >= 2)
-	{
-		$arr = explode("&", $arr[1]);
-		$deckID = $resolveDeckID($arr[0]);
-	  if($deckID !== null && $deckID !== "") {
-		$sql = "SELECT * FROM ownership WHERE assetType = 1 AND assetIdentifier = ?";
-		$stmt = mysqli_stmt_init($conn);
-		if (mysqli_stmt_prepare($stmt, $sql)) {
-			mysqli_stmt_bind_param($stmt, "i", $deckID);
-			mysqli_stmt_execute($stmt);
-			$result = mysqli_stmt_get_result($stmt);
-			$deckAsset = mysqli_fetch_assoc($result);
-			mysqli_stmt_close($stmt);
-		}
-		$deckVisibility = isset($deckAsset["assetVisibility"]) ? $deckAsset["assetVisibility"] : -1;
-		if($deckVisibility < 1000000 && $deckVisibility > 1000) { $disableMetaStats = true; $privateDeck = true; }
-		$isDeckOwner = false;
-		if($p1SWUStatsToken != "") {
-			if ($p1SWUUserId !== null && isset($deckAsset["assetOwner"]) && $p1SWUUserId == $deckAsset["assetOwner"]) {
-				$isDeckOwner = true;
-			}
-		}
-		// If tie, $won is null so SaveDeckStats can handle it as a tie
-		$won = ($winner == 1 ? true : ($winner == 2 ? false : null));
-		$opponentData = isset($data["player2"]) ? $data["player2"] : null;
-		// leaderID/baseID are PRIMARY KEY components — an unresolvable one cannot be keyed at all,
-		// so that player's stat writes are skipped wholesale (the other player is unaffected).
-		if(!$swuRecordsNothing && !$swuIngress['skipPlayer'][1]) SaveDeckStats($deckID, $data["player1"], $won, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
-	  }
+  // Read-only lookup of one player's deck: its deckID, whether it is private, and whether the token's
+  // user owns it. null when the link yields no deck. Every lookup runs before any write, so a
+  // request refused below leaves nothing behind.
+  $lookupDeck = function($deckLink, $token, $swuUserId) use ($conn, $statsDeckLinkOK, $resolveDeckID) {
+	if(!$statsDeckLinkOK($deckLink)) return null;
+	$arr = explode("gameName=", $deckLink);
+	if(count($arr) < 2) return null;
+	$arr = explode("&", $arr[1]);
+	$deckID = $resolveDeckID($arr[0]);
+	if($deckID === null || $deckID === "") return null;
+	$deckAsset = null;
+	$sql = "SELECT * FROM ownership WHERE assetType = 1 AND assetIdentifier = ?";
+	$stmt = mysqli_stmt_init($conn);
+	if (mysqli_stmt_prepare($stmt, $sql)) {
+		mysqli_stmt_bind_param($stmt, "i", $deckID);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+		$deckAsset = mysqli_fetch_assoc($result);
+		mysqli_stmt_close($stmt);
 	}
-  }
-  if($statsDeckLinkOK($p2DeckLink)) {
-	$arr = explode("gameName=", $p2DeckLink);
-	if(count($arr) >= 2)
-	{
-		$arr = explode("&", $arr[1]);
-		$deckID = $resolveDeckID($arr[0]);
-	  if($deckID !== null && $deckID !== "") {
-		$sql = "SELECT * FROM ownership WHERE assetType = 1 AND assetIdentifier = ?";
-		$stmt = mysqli_stmt_init($conn);
-		if (mysqli_stmt_prepare($stmt, $sql)) {
-			mysqli_stmt_bind_param($stmt, "i", $deckID);
-			mysqli_stmt_execute($stmt);
-			$result = mysqli_stmt_get_result($stmt);
-			$deckAsset = mysqli_fetch_assoc($result);
-			mysqli_stmt_close($stmt);
+	$deckVisibility = isset($deckAsset["assetVisibility"]) ? $deckAsset["assetVisibility"] : -1;
+	$isDeckOwner = false;
+	if($token != "") {
+		if ($swuUserId !== null && isset($deckAsset["assetOwner"]) && $swuUserId == $deckAsset["assetOwner"]) {
+			$isDeckOwner = true;
 		}
-		$deckVisibility = isset($deckAsset["assetVisibility"]) ? $deckAsset["assetVisibility"] : -1;
-		if($deckVisibility < 1000000 && $deckVisibility > 1000) { $disableMetaStats = true; $privateDeck = true; }
-		$isDeckOwner = false;
-		if($p2SWUStatsToken != "") {
-			if ($p2SWUUserId !== null && isset($deckAsset["assetOwner"]) && $p2SWUUserId == $deckAsset["assetOwner"]) {
-				$isDeckOwner = true;
-			}
-		}
-		// If tie, $won is null so SaveDeckStats can handle it as a tie
-		$won = ($winner == 2 ? true : ($winner == 1 ? false : null));
-		$opponentData = isset($data["player1"]) ? $data["player1"] : null;
-		if(!$swuRecordsNothing && !$swuIngress['skipPlayer'][2]) SaveDeckStats($deckID, $data["player2"], $won, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
-	  }
 	}
-  }
+	return ["deckID" => $deckID, "private" => ($deckVisibility < 1000000 && $deckVisibility > 1000), "isDeckOwner" => $isDeckOwner];
+  };
+  $p1Deck = $lookupDeck($p1DeckLink, $p1SWUStatsToken, $p1SWUUserId);
+  $p2Deck = $lookupDeck($p2DeckLink, $p2SWUStatsToken, $p2SWUUserId);
+  if(($p1Deck !== null && $p1Deck["private"]) || ($p2Deck !== null && $p2Deck["private"])) $privateDeck = true;
 
   // Record the raw per-game row for every game EXCEPT open / preview / opt-out / private-deck.
   // Decoupled from $disableMetaStats so non-premier (eternal/twinsuns) games are logged with their
@@ -298,9 +266,9 @@
   // excluded because this log feeds meta and matchup browsing, and rows referencing mock CardIDs
   // would linger after the mocks are deleted on release day.
   $recordCompletedGame = !$swuRecordsNothing && !$explicitOptOut && !$privateDeck;
-  if($recordCompletedGame) {
 
-	// Check for null winHero or loseHero
+  // Check for null winHero or loseHero — before any deck stats are written.
+  if($recordCompletedGame) {
 	if (!isset($data["winHero"]) || $data["winHero"] === null || !isset($data["loseHero"]) || $data["loseHero"] === null) {
 	  http_response_code(400);
 	  header('Content-Type: application/json');
@@ -316,6 +284,28 @@
 	  ]);
 	  exit;
 	}
+  }
+
+  // A private deck switches meta stats off from its own write onward, so player 1's privacy reaches
+  // player 2's write but player 2's does not reach player 1's.
+  if($p1Deck !== null) {
+	if($p1Deck["private"]) $disableMetaStats = true;
+	// If tie, $won is null so SaveDeckStats can handle it as a tie
+	$won = ($winner == 1 ? true : ($winner == 2 ? false : null));
+	$opponentData = isset($data["player2"]) ? $data["player2"] : null;
+	// leaderID/baseID are PRIMARY KEY components — an unresolvable one cannot be keyed at all,
+	// so that player's stat writes are skipped wholesale (the other player is unaffected).
+	if(!$swuRecordsNothing && !$swuIngress['skipPlayer'][1]) SaveDeckStats($p1Deck["deckID"], $data["player1"], $won, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $p1Deck["isDeckOwner"], $opponentData, $format);
+  }
+  if($p2Deck !== null) {
+	if($p2Deck["private"]) $disableMetaStats = true;
+	// If tie, $won is null so SaveDeckStats can handle it as a tie
+	$won = ($winner == 2 ? true : ($winner == 1 ? false : null));
+	$opponentData = isset($data["player1"]) ? $data["player1"] : null;
+	if(!$swuRecordsNothing && !$swuIngress['skipPlayer'][2]) SaveDeckStats($p2Deck["deckID"], $data["player2"], $won, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $p2Deck["isDeckOwner"], $opponentData, $format);
+  }
+
+  if($recordCompletedGame) {
 
 	// WinningHero/LosingHero is exactly where the unreadable history accumulated — zzzzzzz001,
 	// abcdefgMTL, blanks, a stray ms timestamp. Letting a new unresolvable value in would re-open
@@ -326,14 +316,22 @@
 
 	$columns = "WinningHero, LosingHero, NumTurns, WinnerDeck, LoserDeck, WinnerHealth, FirstPlayer, WinningPlayer, Format";
 	$values = "?, ?, ?, ?, ?, ?, ?, ?, ?";
+	$types = "sssssssss";
+	$pidParams = [];
 
-	if($p1id != "" && $p1id != "-") {
+	// Player ids are integer columns and are bound, never spliced into the SQL. Anything that is not
+	// a whole number ("", "-", text) is ignored and the game is still recorded without it.
+	if(is_scalar($p1id) && preg_match('/^\d+$/', (string)$p1id)) {
 	  $columns .= ", " . ($winner == 1 ? "WinningPID" : "LosingPID");
-	  $values .= ", " . $p1id;
+	  $values .= ", ?";
+	  $types .= "i";
+	  $pidParams[] = intval($p1id);
 	}
-	if($p2id != "" && $p2id != "-") {
+	if(is_scalar($p2id) && preg_match('/^\d+$/', (string)$p2id)) {
 	  $columns .= ", " . ($winner == 2 ? "WinningPID" : "LosingPID");
-	  $values .= ", " . $p2id;
+	  $values .= ", ?";
+	  $types .= "i";
+	  $pidParams[] = intval($p2id);
 	}
 
 	$sql = "INSERT INTO completedgame (" . $columns . ") VALUES (" . $values . ");";
@@ -354,7 +352,7 @@
   } else {
 	$loserDeck = substr($loserDeck, 0, 999);
   }
-  mysqli_stmt_bind_param($stmt, "sssssssss", $data["winHero"], $data["loseHero"], $data["round"], $winnerDeck, $loserDeck, $data["winnerHealth"], $firstPlayer, $winner, $format);
+  mysqli_stmt_bind_param($stmt, $types, $data["winHero"], $data["loseHero"], $data["round"], $winnerDeck, $loserDeck, $data["winnerHealth"], $firstPlayer, $winner, $format, ...$pidParams);
   mysqli_stmt_execute($stmt);
   $gameResultID = mysqli_insert_id($conn);
   mysqli_stmt_close($stmt);

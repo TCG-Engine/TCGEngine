@@ -227,7 +227,10 @@ function SimGameBuildAuthKeysFromLobby($lobby)
   }
 
   if (!empty($authKeys['isPrivate'])) {
-    $authKeys['spectator'] = bin2hex(random_bytes(16));
+    // A lobby may supply the key: a SWUSim High Ground room hands every game of a hill match the room's watch key, so
+    // its members can watch game 2 and 3 of a Bo3 too. Absent (every other lobby): a fresh random key, as before.
+    $supplied = (is_object($lobby) && isset($lobby->spectatorKey) && is_string($lobby->spectatorKey)) ? $lobby->spectatorKey : '';
+    $authKeys['spectator'] = ($supplied !== '') ? $supplied : bin2hex(random_bytes(16));
   }
 
   return $authKeys;

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bot-vs-real matchup matrix (skill `swusim-ash-meta-bot-run`): one row per ordered archetype pair — deck vs opponent, bot game win %,
+"""Bot-vs-real matchup matrix (skill `swusim-meta-bot-run`): one row per ordered archetype pair — deck vs opponent, bot game win %,
 real game win %, and (when the meta dir holds a frozen baseline and this is not it) the baseline's bot win % — as data and as a
 self-contained HTML page for the Artifact tool.
 

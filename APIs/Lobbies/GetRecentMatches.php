@@ -20,7 +20,7 @@ foreach (glob($dir . '/M*', GLOB_ONLYDIR) ?: [] as $matchDir) {
     if (!empty($match['isPrivate'])) continue;
     $updatedAt = intval($match['updatedAt'] ?? $match['createdAt'] ?? 0);
     if ($updatedAt <= 0 || ($now - $updatedAt) > $maxAge) continue;
-    $matches[] = [
+    $row = [
         'matchId' => basename($matchDir),
         'format' => strval($match['format'] ?? ''),
         'queueType' => strval($match['queueType'] ?? ''),
@@ -33,6 +33,8 @@ foreach (glob($dir . '/M*', GLOB_ONLYDIR) ?: [] as $matchDir) {
         'games' => count($match['games'] ?? []),
         'completedAt' => $updatedAt,
     ];
+    if (!empty($match['matchDraw'])) $row['draw'] = true;   // additive: only a drawn match carries it (winner stays 0)
+    $matches[] = $row;
 }
 
 usort($matches, function ($a, $b) { return $b['completedAt'] <=> $a['completedAt']; });

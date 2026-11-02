@@ -1,7 +1,7 @@
 <?php
-// Untrusted input: users upload .swupgn files. Beyond SwuPgnParse()'s four documented errors
-// (SWU-PGN/1.0 spec §4) nothing may throw — not even a PHP warning (the test helper promotes
-// warnings to exceptions) — and no crafted file may make a list grow without bound.
+// Untrusted input: users upload .swupgn files. Beyond SwuPgnParse()'s §24 fatal codes (SWU-PGN/1.0 spec §4, §23,
+// §24) nothing may throw — not even a PHP warning (the test helper promotes warnings to exceptions) — and no crafted
+// file may make a list grow without bound.
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php DevTools/tdd-regression/test_swupgn_untrusted.php
 require_once __DIR__ . '/fixtures/swupgn_test_helpers.php';
 
@@ -12,7 +12,9 @@ function exerciseAll(array $doc): ?string
         $w = null;
         SwuPgnFold($doc['events'], $w);
         SwuPgnCheckKeyframes($doc['events']);
-        SwuPgnValidate($doc);
+        $r = SwuPgnValidate($doc);
+        if (!in_array($r['level'], SwuPgnLevels(), true)) return 'validate: no level';
+        foreach (array_merge($r['errors'], $r['warnings']) as $i) if (!isset(SwuPgnIssueCodes()[$i['code']])) return "validate: non-§24 code {$i['code']}";
         SwuPgnRender($doc);
         SwuPgnStoryMatches($doc);
         $tl = SwuPgnTimeline($doc['events']);
@@ -50,14 +52,49 @@ for ($doc = 0; $doc < 150; $doc++) {
     $text = SwuPgnTestFile($events, ['cards' => [['id' => 'SOR#108', 'name' => 'Wampa']], 'story' => ['x'], 'annotations' => [['ref' => 'R1.A.1', 'line' => 5]]]);
     try {
         $parsed = SwuPgnParse($text);
+    } catch (SwuPgnParseException $e) {
+        // [P-06]: a hostile STATUS_TOKEN.token such as __proto__ rejects the whole file — a §24 fatal code is fine.
+        if (($GLOBALS['fatalSeen'][$e->errorCode] = true) && !in_array($e->errorCode, ['reserved-key'], true)) $failures[] = 'parse: ' . $e->getMessage();
+        continue;
     } catch (Throwable $e) {
-        $failures[] = 'parse: ' . $e->getMessage();
+        $failures[] = 'parse: ' . get_class($e) . ' ' . $e->getMessage();
         continue;
     }
     $err = exerciseAll($parsed);
     if ($err !== null) $failures[] = $err;
 }
-SwuPgnTestEq(array_slice(array_unique($failures), 0, 5), [], '150 files × 60 records with hostile field values: fold, integrity, validate, render, timeline and stateAt never throw or warn');
+SwuPgnTestEq(array_slice(array_unique($failures), 0, 5), [], '150 files × 60 records with hostile field values: fold, integrity, validate (§24 codes, a level), render, timeline and stateAt never throw or warn');
+SwuPgnTestCheck(isset($GLOBALS['fatalSeen']['reserved-key']), '… and the fuzz did meet reserved token names, which the parser rejects ([P-06])');
+
+// ── mutated real file: SwuPgnValidateText never throws, always a level and §24 codes ────────────────────────────
+$lines = explode("\n", (string)file_get_contents(__DIR__ . '/fixtures/swupgn/appendix-a.swupgn'));
+mt_srand(7);
+$failures = [];
+$levels = [];
+for ($k = 0; $k < 300; $k++) {
+    $m = $lines;
+    for ($j = mt_rand(1, 4); $j > 0; $j--) {
+        $at = mt_rand(0, count($m) - 1);
+        switch (mt_rand(0, 4)) {
+            case 0: array_splice($m, $at, 1); break;                                              // drop a line
+            case 1: array_splice($m, $at, 0, [$m[$at]]); break;                                   // repeat a line
+            case 2: $m[$at] = substr($m[$at], 0, mt_rand(0, strlen($m[$at]))); break;             // cut a line
+            case 3: $m[$at] = preg_replace('/\d+/', (string)[0, -1, 3, 999999999999999999, 1.5][mt_rand(0, 4)], $m[$at], 1); break;
+            case 4: $m[$at] = str_replace(['"p":1', 'ground', 'R1.A.1', 'SOR#108'], ['"p":3', 'sideboard', 'R1.A.2', 'TOKEN:Bad'], $m[$at]); break;
+        }
+    }
+    try {
+        $r = SwuPgnValidateText(implode("\n", $m));
+        $levels[$r['level']] = true;
+        if (!in_array($r['level'], SwuPgnLevels(), true)) $failures[] = 'no level';
+        foreach (array_merge($r['errors'], $r['warnings']) as $i) if (!isset(SwuPgnIssueCodes()[$i['code']])) $failures[] = "non-§24 code {$i['code']}";
+        if ($r['ok'] !== !array_filter($r['errors'])) $failures[] = 'ok disagrees with errors';
+    } catch (Throwable $e) {
+        $failures[] = get_class($e) . ': ' . $e->getMessage() . ' @' . basename($e->getFile()) . ':' . $e->getLine();
+    }
+}
+SwuPgnTestEq(array_slice(array_unique($failures), 0, 5), [], '300 mutated Appendix A files: SwuPgnValidateText never throws; every result has a level and only §24 codes');
+SwuPgnTestCheck(isset($levels['malformed'], $levels['well-formed']), '… the mutations reach both malformed and well-formed files (' . implode(', ', array_keys($levels)) . ')');
 
 // ── keyframe fuzz: complete-shaped keyframes with hostile contents ──────────────────────────────
 $failures = [];
@@ -121,13 +158,20 @@ SwuPgnTestCheck(count($s['players'][1]['cards'][0]['upgrades']) === SWUPGN_MAX_A
 SwuPgnTestCheck($secs < 5.0, sprintf('%d events of worst-case detach work fold in %.2fs', $n, $secs));
 
 $ev = [['seq' => 'R1.A.0', 't' => 'PLAY', 'p' => 1, 'card' => 'H#1']];
-for ($i = 1; $i < 200; $i++) $ev[] = ['seq' => "R1.A.$i", 't' => 'STATUS_TOKEN', 'card' => 'H#1', 'token' => "tok$i", 'count' => 1];
+for ($i = 1; $i < SWUPGN_MAX_TOKEN_KINDS + 5; $i++) $ev[] = ['seq' => "R1.A.$i", 't' => 'STATUS_TOKEN', 'card' => 'H#1', 'token' => "tok$i", 'count' => 1];
 $ev[] = ['seq' => 'R1.A.k', 't' => 'STATS', 'card' => 'H#1', 'power' => 1, 'hp' => 1, 'keywords' => array_map('strval', range(1, SWUPGN_MAX_KEYWORDS + 1))];
 $s = SwuPgnFold($ev);
 SwuPgnTestCheck(count($s['players'][1]['cards'][0]['statusTokens']) === SWUPGN_MAX_TOKEN_KINDS && !isset($s['players'][1]['cards'][0]['keywords']), 'statusTokens kinds capped; an over-long keywords list is not taken');
 
 $huge = SwuPgnTestKeyframe(['cards' => array_map(function ($i) { return SwuPgnTestCard("K#$i"); }, range(1, SWUPGN_MAX_CARDS_PER_SEAT + 1))]);
 SwuPgnTestCheck(SwuPgnKeyframeProblem($huge) !== null, 'a keyframe beyond the reader\'s limits is refused like a damaged one');
+
+// The validator over a 20,000-event file stays fast (every record is scanned once).
+$ev = [];
+for ($i = 0; $i < 20000; $i++) $ev[] = ['seq' => "R1.A.$i", 't' => 'MOVE', 'card' => "SOR#" . (100 + $i), 'from' => 'deck', 'to' => 'hand', 'p' => 1 + $i % 2, 'kind' => 'unit'];
+$text = SwuPgnTestFile($ev, ['header' => ['P1Id' => 'sha256:' . str_repeat('a', 64), 'P2Id' => 'sha256:' . str_repeat('b', 64)]]);
+$secs = timed(function () use ($text, &$r) { $r = SwuPgnValidateText($text); });
+SwuPgnTestCheck($r['level'] === 'complete' && $secs < 5.0, sprintf('a 20,000-event file parses and validates (%s) in %.2fs', $r['level'], $secs));
 
 // Same card id in both seats / CAPTURE loops / duplicate seqs do not loop forever.
 $ev = SwuPgnTestSeq([['t' => 'PLAY', 'p' => 1, 'card' => 'D#1'], ['t' => 'ROUND_END', 'round' => 1, 'keyframe' => SwuPgnTestKeyframe(['cards' => [SwuPgnTestCard('D#1'), SwuPgnTestCard('D#1')]], ['cards' => [SwuPgnTestCard('D#1')]])], ['t' => 'CAPTURE', 'p' => 1, 'card' => 'D#1', 'by' => 'D#1']]);

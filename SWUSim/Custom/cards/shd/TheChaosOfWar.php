@@ -11,9 +11,12 @@ $whenPlayedAbilities["SHD_159:0"] = function($player, $mzID = '') {
             // the caster + OtherPlayer() only, so seats 3/4 took nothing.
             // Dealer stated explicitly (3rd arg): this includes SELF-damage to the caster's base, where
             // the funnel's fallback inference would otherwise credit an opponent.
-            foreach (SWUSeatsInPlayerOrder(intval($player)) as $p) {
-                $n = count(GetHand($p));
-                if ($n > 0) SWUDealDamageToBase($n, $p, intval($player));
-            }
+            // One simultaneous event: two bases reaching 0 together is a draw (CR 6.3).
+            SWUSimultaneousBaseDamage(function () use ($player) {
+                foreach (SWUSeatsInPlayerOrder(intval($player)) as $p) {
+                    $n = count(GetHand($p));
+                    if ($n > 0) SWUDealDamageToBase($n, $p, intval($player));
+                }
+            });
             return;
 };

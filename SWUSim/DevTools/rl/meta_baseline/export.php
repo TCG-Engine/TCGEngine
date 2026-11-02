@@ -1,5 +1,5 @@
 <?php
-// Meta-baseline EXPORT (skill `swusim-ash-meta-bot-run`): the melee tournaments imported into the local SWUStats DB, restricted to one
+// Meta-baseline EXPORT (skill `swusim-meta-bot-run`): the melee tournaments imported into the local SWUStats DB, restricted to one
 // tournament set, as JSON — every deck with its melee DecklistId (sourceID) and ARCHETYPE key, every matchup row, archetype labels, and
 // the curated fixtures' archetype keys (whose '# Style:' labels convert.php reuses). Runs in the SWUDeck container (needs its dictionaries):
 //   docker cp <events.txt> otmtcge-swudeck-web-server-1:/tmp/events.txt

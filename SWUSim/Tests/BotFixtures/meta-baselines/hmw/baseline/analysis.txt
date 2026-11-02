@@ -1,11 +1,17 @@
-RUN .claude/tmp/hmw-meta-runs/baseline-v2: 196/196 real matches replayed, 390 games (0 failed), median 6.0 rounds, seat-1 win 49.5%
+RUN .claude/tmp/hmw-meta-runs/hmw5-control-20261027: 342/342 real matches replayed, 664 games (0 failed), median 7.0 rounds, seat-1 win 50.9%
 0 matches on an Intro Battle: Hoth base ignored (20 HP in the sims, 30 HP in real play)
 
 ######## THIS RUN vs REAL
-ARCHETYPES (30+ matches): 1   Pearson +nan   Spearman +nan   MAE 0.019 (constant 50%: 0.119)   spread SD real 0.0pp / bot 0.0pp
-STYLE BIAS (bot − real game WR, match-weighted): hyperaggro -1.9pp
+ARCHETYPES (30+ matches): 4   Pearson +0.21   Spearman +0.40   MAE 0.108 (constant 50%: 0.075)   spread SD real 3.9pp / bot 14.5pp
+STYLE BIAS (bot − real game WR, match-weighted): hyperaggro +16.0pp   midrange -9.4pp   softcontrol -5.6pp
 most under-performing:
-   Boba Fett (JTL) Lake Country                   hyperaggro  real 62%  bot 60%  gap  -1.9  (n=30)
+   Director Krennic (LAW) Blue (Naboo)            midrange    real 52%  bot 43%  gap  -9.4  (n=55)
+   Doctor Hemlock (HMW) Yellow (Naboo)            softcontrol real 61%  bot 55%  gap  -5.6  (n=40)
+   Boba Fett (JTL) Lake Country                   hyperaggro  real 62%  bot 63%  gap  +1.4  (n=30)
+   Ahsoka Tano (ASH) Yellow                       hyperaggro  real 56%  bot 82%  gap +26.9  (n=40)
 most over-performing:
-   Boba Fett (JTL) Lake Country                   hyperaggro  real 62%  bot 60%  gap  -1.9  (n=30)
+   Ahsoka Tano (ASH) Yellow                       hyperaggro  real 56%  bot 82%  gap +26.9  (n=40)
+   Boba Fett (JTL) Lake Country                   hyperaggro  real 62%  bot 63%  gap  +1.4  (n=30)
+   Doctor Hemlock (HMW) Yellow (Naboo)            softcontrol real 61%  bot 55%  gap  -5.6  (n=40)
+   Director Krennic (LAW) Blue (Naboo)            midrange    real 52%  bot 43%  gap  -9.4  (n=55)
 MATCHUP CELLS (ordered, 10+ matches): 0   Pearson +nan   MAE nan (constant 50%: nan)   favourite right 0%

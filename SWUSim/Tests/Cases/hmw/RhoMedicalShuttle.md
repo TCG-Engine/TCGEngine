@@ -219,3 +219,49 @@ WithP1SpaceArena: JTL_069:1:2
 P1SPACEARENAUNIT:0:DAMAGE:1
 P1SPACEARENAUNIT:1:CARDID:HMW_063
 P1NODECISION
+
+---
+
+# OnAttack_AttacksATieToken_HealsOwnBase
+#// HMW_063 — the On Attack window against a UNIT target (a JTL_T01 TIE Fighter token, 1/1), healing
+#// P1's OWN base. The heal resolves on attack, before combat damage, and combat then plays out normally:
+#// the token is defeated and the Shuttle takes 1 back.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myBaseDamage:4}
+P1OnlyActions: true
+WithP1SpaceArena: HMW_063:1:0
+WithP2SpaceArena: JTL_T01:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:theirSpaceArena-0
+- P1>AnswerDecision:myBase-0
+
+## EXPECT
+P1BASEDMG:3
+P2SPACEARENACOUNT:0
+P1SPACEARENAUNIT:0:CARDID:HMW_063
+P1SPACEARENAUNIT:0:DAMAGE:1
+P2BASEDMG:0
+P1NODECISION
+
+---
+
+# OnAttack_AttacksEnemyBase_HealsOwnBase
+#// HMW_063 — the On Attack window against the enemy BASE, healing P1's OWN base: the attack's 3 damage
+#// lands on P2 while P1's base goes from 4 to 3.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myBaseDamage:4}
+P1OnlyActions: true
+WithP1SpaceArena: HMW_063:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:myBase-0
+
+## EXPECT
+P1BASEDMG:3
+P2BASEDMG:3
+P1SPACEARENAUNIT:0:DAMAGE:0
+P1NODECISION

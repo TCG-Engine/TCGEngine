@@ -48,5 +48,29 @@ SwuPgnTestCheck(SwuPgnViewerSweepDue($dir, $later), 'the sweep is due when it ne
 SwuPgnTestCheck(!SwuPgnViewerSweepDue($dir, $later + 60), 'and not again within the day');
 SwuPgnTestCheck(SwuPgnViewerSweepDue($dir, $later + SWUPGN_VIEWER_MAX_AGE + 1), 'and due again a day later');
 
+// The sweep itself (SwuPgnViewerCleanup): an old viewer folder goes; a fresh viewer folder and an old normal game stay.
+require_once __DIR__ . '/../../SWUSim/Custom/SwuPgnViewerStore.php';
+$sweep = "$dir/sweep"; mkdir($sweep);
+mkdir("$sweep/1"); file_put_contents("$sweep/1/Viewer.json", '{}'); file_put_contents("$sweep/1/Viewer.swupgn", 'x'); touch("$sweep/1/Viewer.json", time() - 90000);
+mkdir("$sweep/2"); file_put_contents("$sweep/2/Viewer.json", '{}');
+mkdir("$sweep/3"); file_put_contents("$sweep/3/Gamestate.txt", 'x'); touch("$sweep/3/Gamestate.txt", time() - 90000); touch("$sweep/3", time() - 90000);
+SwuPgnTestEq(SwuPgnViewerCleanup($sweep), 1, 'the sweep removes one folder');
+SwuPgnTestCheck(!is_dir("$sweep/1") && is_dir("$sweep/2") && is_file("$sweep/3/Gamestate.txt"), 'the old viewer folder goes; a fresh viewer folder and an old normal game stay');
+
+// A viewer game only ever takes an EMPTY folder: a game number handed out again (a reset counter) can hold another
+// game's files — a NextGame.json there makes every poll answer "1235MATCHADVANCE…" instead of the board.
+$fresh = "$dir/fresh"; mkdir($fresh);
+mkdir("$fresh/7"); file_put_contents("$fresh/7/NextGame.json", '{"nextGameName":"8"}');
+mkdir("$fresh/8");
+$numbers = [7, 8, 9]; $asked = 0;
+$next = function () use (&$numbers, &$asked) { $asked++; return array_shift($numbers); };
+SwuPgnTestEq([SwuPgnViewerNewGameFolder($fresh, $next), $asked], ['8', 2], 'a number whose folder holds files is skipped; an empty existing folder is fine');
+$numbers = [7, 'x/../7', 10];
+SwuPgnTestCheck(SwuPgnViewerNewGameFolder($fresh, function () use (&$numbers) { return array_shift($numbers); }) === '10' && is_dir("$fresh/10"), 'a folder that does not exist yet is made; a non-numeric name is never used');
+SwuPgnTestCheck(is_file("$fresh/7/NextGame.json"), 'and the skipped folder is left alone');
+SwuPgnTestEq(SwuPgnViewerNewGameFolder($fresh, fn() => 7, 3), null, 'no empty folder within the tries → none');
+$r = SwuPgnViewerAdmit($fresh, 'z', $now, fn() => null);
+SwuPgnTestCheck(!$r['ok'] && $r['status'] === 503 && (json_decode((string)@file_get_contents("$fresh/" . SWUPGN_VIEWER_INDEX_FILE), true)['games'] ?? []) === [], 'Admit refuses (and registers nothing) when no folder could be made');
+
 exec('rm -rf ' . escapeshellarg($dir));
 SwuPgnTestFinish();

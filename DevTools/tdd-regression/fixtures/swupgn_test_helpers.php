@@ -97,7 +97,8 @@ function SwuPgnTestHeaderTags(array $overrides = []): array
     $tags = [
         'Game' => 'SWU-PGN/1.0', 'GameId' => 'test-game', 'Date' => '2026-06-16T00:00:00Z',
         'CardPool' => 'SOR', 'Engine' => 'petranaki@test', 'Seed' => '0',
-        'P1Id' => 'sha256:aaaa', 'P2Id' => 'sha256:bbbb', 'P1' => 'Player 1', 'P2' => 'Player 2',
+        // §5.1: `sha256:` + 64 lowercase hex digits.
+        'P1Id' => 'sha256:' . str_repeat('a', 64), 'P2Id' => 'sha256:' . str_repeat('b', 64), 'P1' => 'Player 1', 'P2' => 'Player 2',
         'P1Leader' => 'SOR#010', 'P1Base' => 'SOR#028', 'P2Leader' => 'SOR#005', 'P2Base' => 'SOR#020',
         'Result' => 'Incomplete', 'Reason' => 'Test', 'Rounds' => '1',
     ];

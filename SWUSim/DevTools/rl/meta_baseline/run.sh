@@ -1,5 +1,5 @@
 #!/bin/bash
-# Meta-baseline bot run (skill `swusim-ash-meta-bot-run`): replay EVERY real match of a frozen tournament set with both players' actual
+# Meta-baseline bot run (skill `swusim-meta-bot-run`): replay EVERY real match of a frozen tournament set with both players' actual
 # lists, sideboards folded in (SUPERSET=1 — a general test, not a realistic game 1), once from each seat (sweep_fixtures plays both orders),
 # on the seed block the baseline used, so each game pairs with the baseline's.  Runs INSIDE the SWUSim container:
 #   docker exec -d -w /var/www/html/TCGEngine -e PHP_INI_SCAN_DIR=":/tmp/swusim-ini" otmtcge-swusim-web-server-1 \

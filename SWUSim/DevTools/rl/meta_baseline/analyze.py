@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Meta-baseline analysis (skill `swusim-ash-meta-bot-run`): how a bot run compares with the REAL tournament results, and — when the
+"""Meta-baseline analysis (skill `swusim-meta-bot-run`): how a bot run compares with the REAL tournament results, and — when the
 meta dir holds a frozen baseline — with that baseline, game for game (same matches, same seed, both seats, so a changed winner is the
 code/variant's doing).
 

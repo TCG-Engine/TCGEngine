@@ -508,13 +508,14 @@ function SWULogUpgradeReturned($host, string $cardID, string $how): void {
 
 // A card taken into hand from a deck by a search ("search … and draw it"): same wording as
 // TOPDECKSEARCH_FINALIZE — named publicly only when the effect REVEALS it.
-function SWULogSearchedToHand(int $player, array $cardIDs, bool $revealed): void {
+// $seen (SWU-PGN only): every card the player looked at in the search (default: the cards drawn).
+function SWULogSearchedToHand(int $player, array $cardIDs, bool $revealed, ?array $seen = null): void {
     $cardIDs = array_values(array_filter($cardIDs, fn($c) => (string)$c !== ''));
     $n = count($cardIDs);
     if ($player <= 0 || $n <= 0) return;
     if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) {
-        if ($revealed) SwuPgnNote(['t' => 'REVEAL', 'p' => $player, 'zone' => 'deck', 'cardIDs' => $cardIDs]);
-        SwuPgnNote(['t' => 'SEARCH', 'p' => $player, 'cardIDs' => $cardIDs]);   // claims the cards' deck → hand moves
+        // claims the cards' deck → hand moves; `revealed`: the matcher writes the REVEAL, of the copies that moved
+        SwuPgnNote(['t' => 'SEARCH', 'p' => $player, 'cardIDs' => $cardIDs, 'seen' => array_values(array_map('strval', $seen ?? $cardIDs)), 'revealed' => $revealed]);
     }
     $refs = implode(', ', array_map('GameLogCardRef', $cardIDs));
     if ($revealed) {

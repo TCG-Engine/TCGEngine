@@ -1,4 +1,4 @@
-"""Shared loaders for the meta-baseline tools (skill `swusim-ash-meta-bot-run`).
+"""Shared loaders for the meta-baseline tools (skill `swusim-meta-bot-run`).
 
 A META DIR (e.g. SWUSim/Tests/BotFixtures/meta-baselines/ash) holds one tournament set, frozen:
   fixtures.tar.gz   every player's real list as a fixture (main deck + Sideboard section), named <melee DecklistId>.txt

@@ -198,7 +198,10 @@ function resolveEffectSourceCardId(token) {
   // e.g. "SENTINEL@phase^LOF_003"): the source card is everything after the caret.
   var caret = s.indexOf('^');
   if (caret >= 0) return s.slice(caret + 1);
-  var swu = s.match(/^[A-Z0-9]{2,5}_\d{3}/);
+  // SET_NNN CardID prefix — the generated DecomposeCardID grammar: the set code may carry digits (IC27, TS26) and the
+  // number is 1-4 digits (TS26 uses two) or a T## token. A 3-digit-only match sent "TS26_36-2-2@phase" to the fallback
+  // below, which strips only the LAST dash param and asked for the nonexistent image "TS26_36-2".
+  var swu = s.match(/^[A-Z0-9]{2,5}_T?\d{1,4}/);
   if (swu) return swu[0];
   return s.replace(/[#@].*$/, '').replace(/-[^-]+$/, '');
 }

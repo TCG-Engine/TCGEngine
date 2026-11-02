@@ -834,6 +834,8 @@ function HasConditionalKeyword_Overwhelm($obj) {
     // Base-hosted and continuous: read live from the board, so it ends the moment the upgrade leaves.
     // "Friendly" is relative to the BASE's controller and spans the team (see the card file).
     if (function_exists('_SWUHmw112GrantsOverwhelm') && _SWUHmw112GrantsOverwhelm($obj)) return true;
+    // IC27_101 General Hux — "Each other friendly First Order unit … gains Overwhelm." Team-wide (card file).
+    if (function_exists('_SWUIc27101Count') && _SWUIc27101Count($obj) > 0) return true;
     if (_SWUUnitHasActiveUpgrade($obj, 'TWI_119')) return true;   // TWI_119 Nameless Valor — "Attached unit gains Overwhelm."
     if (_SWUUnitHasActiveUpgrade($obj, 'ASH_181')) return true;   // ASH_181 Mark My Words — "Attached unit gains Overwhelm."
     if (_SWUSEC104AuraActive($obj)) return true;   // SEC_104 aura
@@ -1619,6 +1621,8 @@ function GetConditionalKeyword_Restore_Value($obj) {
     if (_SWUUnitHasActiveUpgrade($obj, 'TWI_051') && IsCoordinateActive(intval($obj->Controller ?? 0))) $amount += 2;
     // TWI_062 Daughter of Dathomir — "While this unit is undamaged, it gains Restore 2."
     if (($obj->CardID ?? '') === 'TWI_062' && intval($obj->Damage ?? 0) === 0) $amount += 2;
+    // IC27_037 Finn — "While this unit is upgraded, he gains Restore 2." Any non-captive upgrade, tokens included.
+    if (($obj->CardID ?? '') === 'IC27_037' && _SWUIsUpgraded($obj)) $amount += 2;
     if (_SWUUnitHasActiveUpgrade($obj, 'TS26_37')) $amount += 1;  // TS26_37 Abandoned the Order — attached unit gains Restore 1
     // HMW_066 Carrion Spike — "For each upgrade on your base, this unit gets +1/+0 and GAINS RESTORE 1."
     // Restore N, not a flat Restore 1: the leading "For each" scopes both halves of the sentence (the

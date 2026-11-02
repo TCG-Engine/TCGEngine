@@ -191,6 +191,7 @@ function IncrementCachePiece($gameName, $piece)
 // no regeneration of GetNextTurn.php. See Core/ChatConversation.php.
 // Returns null for an unusable token; every caller must treat null as "no chat here".
 include_once __DIR__ . '/ChatConversation.php';
+include_once __DIR__ . '/ChatStore.php';   // saved chat (SWUSim only, per request — see the file header)
 
 function GetChatMessagesCacheKey($scopeToken)
 {
@@ -211,6 +212,10 @@ function GetChatUpdateVersion($gameName)
   $key = GetChatVersionCacheKey($gameName);
   if($key === null) return 0;
   $version = apcu_fetch($key);
+  if($version === false && ChatPersistActive()) {
+    ChatStoreRehydrate($gameName);   // a wiped counter comes back no lower than the last saved id
+    $version = apcu_fetch($key);
+  }
   if($version === false) return 0;
   return intval($version);
 }
@@ -254,9 +259,21 @@ function ChatAppendMessage($scopeToken, $playerID, $label, $text, array $whisper
   $cacheKey = GetChatMessagesCacheKey($scopeToken);
   if ($cacheKey === null) return 0;
 
+  // Saved chat (Core/ChatStore.php): the whole append runs under the conversation's file lock, so two sends at
+  // the same moment get different ids, and the id continues from disk when APCu has lost the conversation. No
+  // lock (persistence off, or the disk unusable) is exactly the old APCu-only path.
+  $scopeKey = ChatPersistActive() ? ChatScopeKey($scopeToken) : null;
+  $lock = $scopeKey !== null ? ChatStoreLock($scopeKey) : null;
+  if (ChatPersistActive() && $lock === null) error_log("ChatStore: no lock for '" . strval($scopeToken) . "'; this message is APCu-only");
+  try {
   $existing = apcu_fetch($cacheKey);
+  if ($existing === false && $lock !== null) {
+    $saved = ChatSavedHistory($scopeKey);
+    if (!empty($saved)) $existing = ChatStoreLiveRows(array_slice($saved, -100));
+  }
   $messages = ($existing !== false) ? $existing : [];
   $nextId   = empty($messages) ? 1 : (end($messages)['id'] + 1);
+  if ($lock !== null) $nextId = max($nextId, ChatStoreLastSavedId($scopeKey) + 1);
 
   $row = [
     'id'          => $nextId,
@@ -267,14 +284,21 @@ function ChatAppendMessage($scopeToken, $playerID, $label, $text, array $whisper
     'ts'          => round(microtime(true), 4),
   ];
   if (!empty($whisperTo)) $row['to'] = $whisperTo;   // public rows keep today's exact shape
+  if ($lock !== null && !ChatStoreAppend($scopeKey, $row + ['src' => ChatSourceTag($scopeToken)])) {
+    error_log("ChatStore: could not save message $nextId of '" . strval($scopeToken) . "'; it is APCu-only");
+  }
   $messages[] = $row;
 
-  // Keep at most 100 messages
+  // Keep at most 100 messages (in APCu — the saved copy keeps everything)
   if (count($messages) > 100) $messages = array_slice($messages, -100);
 
   apcu_store($cacheKey, $messages, 3600);
   IncrementChatUpdateVersion($scopeToken);
+  if ($lock !== null) ChatStoreRaiseVersion($scopeToken, $nextId);
   return $nextId;
+  } finally {
+    ChatStoreUnlock($lock);
+  }
 }
 
 function GetChatMessagesSince($gameName, $lastChatID = 0, $viewerInfo = null)
@@ -284,6 +308,7 @@ function GetChatMessagesSince($gameName, $lastChatID = 0, $viewerInfo = null)
   $key = GetChatMessagesCacheKey($gameName);
   if($key === null) return [];
   $messages = apcu_fetch($key);
+  if($messages === false && ChatPersistActive()) $messages = ChatStoreRehydrate($gameName);
   if($messages === false || !is_array($messages)) return [];
   $lastChatID = intval($lastChatID);
   // Whisper rows are redacted for anyone who is not the sender or a recipient. $viewerInfo === null

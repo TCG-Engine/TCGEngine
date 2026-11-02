@@ -71,14 +71,9 @@ $customDQHandlers["HMW_185#2"] = function($player, $parts, $lastDecision) {
         _SWUDecodeDamageSource($srcTok));
 };
 
-// Resume base damage. parts: dealer | amount | targetPlayer | damagerToken (U<uid> / P<seat> / N)
-$customDQHandlers["HMW_185#3"] = function($player, $parts, $lastDecision) {
+// Deal resumed base damage. $tok = the damager token (U<uid> / P<seat> / N).
+function _SWUHmw185DealBase(int $dealer, int $amount, int $target, string $tok): void {
     global $playerID;
-    $dealer  = intval($parts[0] ?? 0);
-    $amount  = intval($parts[1] ?? 0);
-    $target  = intval($parts[2] ?? 0);
-    $tok     = (string)($parts[3] ?? 'N');
-    if (_SWUHmw185Accepted($lastDecision)) $amount += 1;
     if ($amount <= 0 || $target <= 0) return;
     $damager = null;
     if ($tok !== '' && $tok[0] === 'P') $damager = intval(substr($tok, 1));
@@ -91,6 +86,43 @@ $customDQHandlers["HMW_185#3"] = function($player, $parts, $lastDecision) {
     // token carried nothing (its fallback reads the ambient $playerID).
     $playerID = $dealer;
     SWUDealDamageToBase($amount, $target, $damager, false, true);
+}
+
+// Resume base damage. parts: dealer | amount | targetPlayer | damagerToken
+$customDQHandlers["HMW_185#3"] = function($player, $parts, $lastDecision) {
+    $amount = intval($parts[1] ?? 0);
+    if (_SWUHmw185Accepted($lastDecision)) $amount += 1;
+    _SWUHmw185DealBase(intval($parts[0] ?? 0), $amount, intval($parts[2] ?? 0), (string)($parts[3] ?? 'N'));
+};
+
+// Base damage inside a simultaneous "each base" event (SWUSimultaneousBaseDamage): only RECORD the answer. Same parts
+// as HMW_185#3. The damage is dealt by HMW_185#5 once every base of the event has had its question answered.
+$customDQHandlers["HMW_185#4"] = function($player, $parts, $lastDecision) {
+    $amount = intval($parts[1] ?? 0);
+    if (_SWUHmw185Accepted($lastDecision)) $amount += 1;
+    $entry = intval($parts[0] ?? 0) . ':' . $amount . ':' . intval($parts[2] ?? 0) . ':' . (string)($parts[3] ?? 'N');
+    $held = GetSWUVar('SWU_TY_SIMUL_BASE', '');
+    SetSWUVar('SWU_TY_SIMUL_BASE', ($held === '' ? '' : $held . ';') . $entry);
+};
+
+// Deal every recorded base hit of the event as ONE event, then decide the game once (a draw when two bases reach 0).
+// parts: the killers the bracket had already seen, "seat:killer,…" (Twin Suns' CR 12.6.2 heal).
+$customDQHandlers["HMW_185#5"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $saved = $playerID;
+    $held = GetSWUVar('SWU_TY_SIMUL_BASE', '');
+    SetSWUVar('SWU_TY_SIMUL_BASE', '');
+    foreach (array_filter(explode(',', (string)($parts[0] ?? ''))) as $kv) {
+        [$seat, $killer] = array_map('intval', explode(':', $kv) + [0, 0]);
+        if ($seat > 0) $GLOBALS['gSWUSimulBaseKiller'][$seat] = $killer;
+    }
+    SWUSimultaneousBaseDamage(function () use ($held) {
+        foreach (array_filter(explode(';', $held)) as $entry) {
+            [$dealer, $amount, $target, $tok] = explode(':', $entry) + ['0', '0', '0', 'N'];
+            _SWUHmw185DealBase(intval($dealer), intval($amount), intval($target), (string)$tok);
+        }
+    });
+    $playerID = $saved;
 };
 
 // ── On Attack ────────────────────────────────────────────────────────────────

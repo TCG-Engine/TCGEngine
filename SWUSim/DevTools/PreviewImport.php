@@ -150,6 +150,10 @@ function SWUPreviewNormalizeText(string $raw): string {
     }, $t);
     $t = str_replace('{T}', "\x01Exhaust\x01", $t);
     $t = _SWUPreviewResolveCostTokens($t);
+    // Valued keyword tags become the keyword and its value: {restore:1} -> Restore 1, {raid:2} -> Raid 2.
+    $t = preg_replace_callback('/\{([a-z]+):(\d+)\}/i', function ($m) {
+        return ucfirst(strtolower($m[1])) . ' ' . $m[2];
+    }, $t);
     // Remaining icon tags become their word: {vehicle} -> Vehicle.
     $t = preg_replace_callback('/\{([a-z]+)\}/i', function ($m) {
         return ucfirst(strtolower($m[1]));

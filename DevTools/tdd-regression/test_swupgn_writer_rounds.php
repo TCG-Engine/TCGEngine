@@ -54,7 +54,7 @@ $frame = function (callable $fn) {
 $head = function (int $seat) { foreach (GetDecisionQueue($seat) as $d) if (empty($d->removed)) return $d; return null; };
 // Answer whatever the game asks, keep every hand, resource the first cards offered, then pass until round 2's action
 // phase has seen one pass.
-$round2Passes = 0; $played = false; $attacked = false;
+$round2Passes = 0; $played = false; $attacked = false; $claimedR1 = false;
 for ($step = 0; $step < 200; $step++) {
     $acted = false;
     foreach ([1, 2] as $seat) {
@@ -75,7 +75,7 @@ for ($step = 0; $step < 200; $step++) {
         break;
     }
     if ($acted) continue;
-    if (intval(GetTurnNumber()) >= 2 && GetCurrentPhase() === 'MAIN' && $round2Passes >= 1) break;
+    if (intval(GetTurnNumber()) >= 2 && GetCurrentPhase() === 'MAIN' && $round2Passes >= 1 && $attacked) break;
     if (GetCurrentPhase() !== 'MAIN') break;   // stuck outside the action phase with nothing to answer
     $tp = intval(GetTurnPlayer());
     $round = intval(GetTurnNumber());
@@ -92,6 +92,9 @@ for ($step = 0; $step < 200; $step++) {
             if ($o->CardID === 'SOR_237' && intval($o->Status) === 1) { $frame(fn() => $a->declareAttack(1, "mySpaceArena-$i", 'theirBase-0')); continue 2; }
         }
     }
+    // Round 1: seat 2 claims the initiative, so round 2's holder (2) is not the seat that passed last (1) — ROUND_START's
+    // active must be the holder, not the stale turn player.
+    if ($tp === 2 && $round === 1 && !$claimedR1) { $claimedR1 = true; $frame(fn() => $a->takeInitiative(2)); continue; }
     if ($round >= 2) $round2Passes++;
     $frame(fn() => $a->passAction($tp));
 }
@@ -128,6 +131,37 @@ $marine = NULL;
 foreach ($bySeq['R2.start']['keyframe']['players'][1]['cards'] ?? [] as $c) if (str_starts_with($c['id'], 'SOR#237')) $marine = $c;
 SwuPgnTestCheck($marine !== null && isset($marine['power'], $marine['hp']), 'the round-2 keyframe holds the X-Wing played in round 1, with its stats');
 SwuPgnTestCheck((bool)array_filter($ev, fn($e) => $e['t'] === 'ATTACK' && str_starts_with($e['seq'], 'R2.A.')), 'round 2 has the attack');
+// §9.1: a player's own play / attack / pass is a numbered step (nothing was resolving when it was made).
+$own = array_values(array_filter($ev, fn($e) => in_array($e['t'], ['PLAY', 'ATTACK', 'PASS', 'CLAIM_INITIATIVE'], true) && str_contains($e['seq'], '.A.')));
+SwuPgnTestCheck(count($own) >= 4 && !array_filter($own, fn($e) => !preg_match('/\.A\.\d+$/', $e['seq'])), 'every own PLAY / ATTACK / PASS is numbered',
+    implode(' ', array_map(fn($e) => $e['seq'] . ' ' . $e['t'], $own)));
+// §10.1 [W-46]: every ROUND_START states `active` — the round's initiative holder — and its keyframe agrees; the action
+// phase's PHASE_START states it too.
+foreach (['R1.start' => 'R1.A.start', 'R2.start' => 'R2.A.start'] as $rs => $ps) {
+    $kf = $bySeq[$rs]['keyframe'] ?? [];
+    SwuPgnTestCheck(in_array($bySeq[$rs]['active'] ?? null, [1, 2], true) && ($bySeq[$rs]['active'] ?? null) === ($kf['initiative'] ?? null)
+        && ($kf['active'] ?? null) === $bySeq[$rs]['active'] && ($bySeq[$ps]['active'] ?? null) === $bySeq[$rs]['active'],
+        "$rs states active = the initiative holder (keyframe and $ps agree)", json_encode([$bySeq[$rs]['active'] ?? null, $kf['initiative'] ?? null, $kf['active'] ?? null, $bySeq[$ps]['active'] ?? null]));
+}
+// §10.1 [W-45]: a card resourced in the regroup phase enters the row exhausted (CR 5.5.1.c) — `exhausted: true` on its MOVE,
+// and no EXHAUST_RESOURCES for it; the ready step then readies it (one READY_RESOURCES run per seat).
+$regroupIn = array_values(array_filter($ev, fn($e) => $e['t'] === 'MOVE' && ($e['to'] ?? '') === 'resource' && str_starts_with($e['seq'], 'R1.G.')));
+SwuPgnTestCheck(count($regroupIn) === 2 && !array_filter($regroupIn, fn($e) => ($e['exhausted'] ?? null) !== true),
+    'both regroup resources enter with exhausted: true', json_encode($regroupIn));
+$regroupEx = array_filter($ev, fn($e) => $e['t'] === 'EXHAUST_RESOURCES' && str_starts_with($e['seq'], 'R1.G.'));
+SwuPgnTestEq(array_sum(array_column($regroupEx, 'amount')), 1, '…and the only regroup EXHAUST_RESOURCES is the Falcon\'s upkeep (1)');
+foreach ([1 => 1, 2 => 0] as $s => $n) SwuPgnTestEq($bySeq['R2.start']['keyframe']['players'][$s]['resourcesExhausted'] ?? null, $n, "seat $s's row is ready at R2.start but for the Falcon's upkeep ($n)");
+// §13 [W-57]: every keyframe seat carries foreignResources (empty here), every card its traits.
+foreach (['R1.start', 'R1.end', 'R2.start'] as $s) {
+    foreach ([1, 2] as $p) {
+        $seat = $bySeq[$s]['keyframe']['players'][$p] ?? [];
+        SwuPgnTestCheck(($seat['foreignResources'] ?? null) === [] && !array_key_exists('effects', $bySeq[$s]['keyframe']) && !array_key_exists('abilityUses', $seat),
+            "$s seat $p: foreignResources [] (effects / abilityUses omitted — not read)");
+    }
+}
+SwuPgnTestEq($marine['traits'] ?? null, ['fighter', 'rebel', 'vehicle'], 'the R2.start keyframe card carries its traits (lower case, sorted)');
+$xwStats = array_values(array_filter($ev, fn($e) => $e['t'] === 'STATS' && str_starts_with($e['card'], 'SOR#237')));
+SwuPgnTestCheck($xwStats && !array_filter($xwStats, fn($e) => ($e['traits'] ?? null) !== ['fighter', 'rebel', 'vehicle']), '[W-55] every STATS carries traits', json_encode($xwStats));
 // The fold agrees with every keyframe.
 $doc = SwuPgnParse(SwuPgnTestFile($ev));
 SwuPgnTestEq(array_slice(SwuPgnValidate(['headers' => SwuPgnTestHeaderTags()] + $doc)['errors'], 0, 3), [], 'the recorded events validate (keyframes keep their object fields)');

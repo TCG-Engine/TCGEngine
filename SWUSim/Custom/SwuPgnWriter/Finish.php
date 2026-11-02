@@ -3,6 +3,16 @@
 // player's own view) — each checked by our reader, behind the PII gate, plus one health line. Runs once per finish
 // (meta.finished); a bookmark that reopens the game clears it (Recorder.php SwuPgnRecRestore).
 
+// [WriterRevision] (§5.2): bump on EVERY change to what the writer writes that a reader can see (§22). 1 = the first
+// revision with the tag (the Homeworlds revision of 1.0, 2026-10-26). 2 = the 2026-10-28 text: INIT R0.S.0, ROUND_START active,
+// resources entering exhausted on their MOVE, §6.1 token names, STATS traits/blank/leaderUnit, keyframe owner/foreignResources/
+// upgradeControllers/traits, upgrade TAKE_CONTROL, SEARCH owner/seen, LOOK (scry), NAME, disclose REVEAL, combat-damage simul,
+// ability-made plays/attacks lettered, card ids zero-padded (SOR#095).
+// 3 — the 2026-11-01 Forge review: revealing search = SEARCH · REVEAL · MOVE of one copy, look-at-hand LOOK / hand REVEAL,
+// no `@` pictures or OK-only popups as CHOICEs, §9.1 numbering when a play/attack asks before it announces, Exploit
+// defeatedBy = the played copy and filed `for` its PLAY.
+const SWUPGN_WRITER_REVISION = 3;
+
 // The engine's own words for the ending, in the spec's style (§5.1 Reason, e.g. "Base Destroyed").
 function _SwuPgnEndReason(): string {
     $r = strval(DecisionQueueController::GetVariable('GAMEOVER_REASON') ?? '');
@@ -15,7 +25,7 @@ function _SwuPgnEndReason(): string {
 
 function SwuPgnRecFinishIfOver(string $g): void {
     $w = SWUGetGameWinner();
-    if ($w <= 0) return;
+    if ($w === 0) return;   // not over; a draw (SWU_GAME_DRAW, -1) finishes with Result: Draw
     $meta = SwuPgnMetaRead($g);
     if ($meta === null || empty($meta['recording']) || !empty($meta['finished'])) return;
     SwuPgnRecFinish($g, $w, _SwuPgnEndReason());
@@ -105,7 +115,13 @@ function _SwuPgnCardsIndex(array $doc): array {
         if ($title === '') continue;
         $sub = strval(CardSubtitle($cardID) ?? '');
         $kind = _SwuPgnCardKind($cardID);
-        $out[] = ['id' => $id, 'name' => $sub !== '' ? "$title, $sub" : $title] + ($kind !== null ? ['kind' => $kind] : []);
+        $name = $sub !== '' ? "$title, $sub" : $title;
+        // A leader whose Leader Unit side is another card (Tarkin → The Death Star): the front is the name, the other side
+        // backSideName (§6.5).
+        $back = strval(CardLeaderUnitTitle($cardID) ?? '');
+        $backSub = strval(CardLeaderUnitSubtitle($cardID) ?? '');
+        if ($back !== '') $back = $backSub !== '' ? "$back, $backSub" : $back;
+        $out[] = ['id' => $id, 'name' => $name] + ($kind !== null ? ['kind' => $kind] : []) + ($back !== '' && $back !== $name ? ['backSideName' => $back] : []);
     }
     usort($out, fn($a, $b) => strcmp($a['id'], $b['id']));
     return $out;
@@ -135,7 +151,7 @@ function SwuPgnBuildDoc(string $g, array $meta, array $state, array $events, int
         $decks[] = $row;
     }
     $headers = [
-        'Game' => 'SWU-PGN/1.0', 'GameId' => $gameId, 'Date' => strval($meta['startedAt'] ?? gmdate('Y-m-d\TH:i:s\Z')),
+        'Game' => 'SWU-PGN/1.0', 'WriterRevision' => strval(SWUPGN_WRITER_REVISION), 'GameId' => $gameId, 'Date' => strval($meta['startedAt'] ?? gmdate('Y-m-d\TH:i:s\Z')),
         'EndDate' => gmdate('Y-m-d\TH:i:s\Z'), 'Format' => strval($meta['format'] ?? ''),
         'CardPool' => implode(',', $meta['cardPool'] ?? []), 'Engine' => SwuPgnEngineId(), 'Seed' => strval($meta['seed'] ?? ''),
         'P1Id' => $playerId(1), 'P2Id' => $playerId(2), 'P1' => 'Player 1', 'P2' => 'Player 2',
@@ -156,7 +172,7 @@ function SwuPgnBuildDoc(string $g, array $meta, array $state, array $events, int
     }
     if (intval($meta['undos'] ?? 0) > 0) $headers['Undos'] = strval(intval($meta['undos']));
     if (intval($meta['recorderErrors'] ?? 0) > 0) $headers['RecorderErrors'] = strval(intval($meta['recorderErrors']));
-    $setup = isset($meta['setup']) ? [['seq' => 'R1.S.0', 't' => 'INIT', 'p1DeckOrder' => $meta['setup']['p1DeckOrder'] ?? [],
+    $setup = isset($meta['setup']) ? [['seq' => 'R0.S.0', 't' => 'INIT', 'p1DeckOrder' => $meta['setup']['p1DeckOrder'] ?? [],
         'p2DeckOrder' => $meta['setup']['p2DeckOrder'] ?? []]] : [];
     $doc = ['headers' => $headers, 'story' => null, 'decks' => $decks, 'cards' => [], 'setup' => $setup, 'events' => $events];
     $doc['cards'] = _SwuPgnCardsIndex($doc);

@@ -70,7 +70,11 @@ if (PART !== 'menu') for (const [name, type] of ENGINES) {
       await page.waitForFunction(() => window.SwuPgnViewer && window.SwuPgnViewer.state.round === 2 && !window.SwuPgnViewer.state.busy, null, { timeout: 15000 });
       ok(tag, 'the last round chip jumps to round 2', true);
       await page.click('[data-swupgn="last"]');
-      await page.waitForFunction(() => document.querySelector('#swupgnCaption').textContent.includes('attacks'), null, { timeout: 15000 });
+      // The fixture's last step is a 2026-10-28 leader action: an EFFECT_START, a LOOK and a NAME under it.
+      await page.waitForFunction(() => document.querySelector('#swupgnCaption').textContent.includes('Player 2 uses'), null, { timeout: 15000 });
+      const lastCap = await caption(page);
+      ok(tag, 'the last step shows the new records (effect, look, name) in its caption',
+        lastCap.includes('Gains Sentinel for this phase on Yoda') && lastCap.includes("looks at 1 card of Player 1's hand") && lastCap.includes('names Vanguard Infantry'), lastCap);
       await page.waitForFunction(() => document.querySelectorAll('.swupgn-ph-name').length > 0, null, { timeout: 15000 }).catch(() => {});
       const ph = await page.$$eval('.swupgn-ph-name', (els) => els.map((e) => ({ text: e.textContent, tags: e.querySelectorAll('*').length })));
       ok(tag, '★ the unknown card renders its name as literal text', ph.some((p) => p.text === 'Mystery <b>Card</b>' && p.tags === 0), JSON.stringify(ph));

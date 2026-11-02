@@ -151,6 +151,12 @@ try {
             && $rows(D_C)[0]['status'] === 'pending');
     }
     $GLOBALS['SWUFORGE_CONFIG']['clientSecret'] = 'sec';
+    // A secret but no Forge address: also off — nothing queued, nothing sent (no environment is ever guessed).
+    $GLOBALS['SWUFORGE_CONFIG']['baseUrl'] = '';
+    check('no Forge address → a finished game is not queued', SWUForgeEnqueueGame(G . '_nobase', $metaC, $pgn, NOW, null) === 0);
+    $calls = [];
+    check('no Forge address → the worker sends nothing', SWUForgeDeliverDue(NOW) === 0 && $calls === []);
+    $GLOBALS['SWUFORGE_CONFIG']['baseUrl'] = 'https://forge.test';
 
     // Only due rows go: one queued for later waits.
     SWUForgeSaveLink($conn, D_C, 'C', 'acc-c', 'ref-c', NOW + 3600, NOW);
