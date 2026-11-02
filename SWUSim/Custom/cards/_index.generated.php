@@ -447,6 +447,7 @@ return [
     'IC27_144' => 'ic27/JangoFett_StraightShooter.php',
     'IC27_145' => 'ic27/PoggleTheLesser_SecretDesigns.php',
     'IC27_146' => 'ic27/BobaFett_CompensatedIfHeDies.php',
+    'IC27_149' => 'ic27/TheInvisibleHand_ConfederateMight.php',
     'IC27_157' => 'ic27/TheMandalorian_FromTheShadows.php',
     'IC27_158' => 'ic27/MillenniumFalcon_YaHoo.php',
     'IC27_159' => 'ic27/PrincessLeia_CalculatedDistraction.php',

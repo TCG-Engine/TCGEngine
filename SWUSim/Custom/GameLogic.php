@@ -3942,6 +3942,7 @@ $oneShotPlayCharges = [
     ['flag'=>'SWU_LAW158_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o) && HasTrait($o->CardID ?? '', 'Underworld'),        'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // LAW_158 Khetanna
     ['flag'=>'SWU_ASH237_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o) && HasTrait($o->CardID ?? '', 'Imperial'),          'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // ASH_237 Mouse Droid
     ['flag'=>'SWU_IC27145_DISCOUNT_NEXT',   'card'=>true, 'applies'=>fn($p,$o,$h)=>true,                                                                 'amount'=>fn($p,$o)=>3 * GlobalEffectCount(intval($p), 'SWU_IC27145_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // IC27_145 Poggle — "the next CARD" (any type); two charges armed before a play stack on that one card and are both spent (cf. TS26_35)
+    ['flag'=>'SWU_IC27149_DISCOUNT_NEXT',   'card'=>true, 'applies'=>fn($p,$o,$h)=>true,                                                                 'amount'=>fn($p,$o)=>9 * GlobalEffectCount(intval($p), 'SWU_IC27149_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // IC27_149 The Invisible Hand — "the next CARD" (any type); its When Played + When Defeated in one phase stack on that one card (cf. IC27_145)
 ];
 
 // Spend every one-shot play charge (from $oneShotPlayCharges) that applies to $obj. Called by the
@@ -8400,6 +8401,7 @@ function _SWURegroupStartRest(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_TS26035_DISCOUNT_NEXT'); // TS26_35: "next event -2 this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_REX_DISCOUNT_NEXT');     // TS26_06 Rex: "next event -1/-2 this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_IC27145_DISCOUNT_NEXT'); // IC27_145 Poggle: "next card this phase -3"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_IC27149_DISCOUNT_NEXT'); // IC27_149 The Invisible Hand: "next card this phase -9"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_IC27021_');              // IC27_021 Grievous: modes "chosen this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_TS26063_USED_');         // TS26_63 Rex's DC-17s: "once each round"
         // TS26_12 Sundari Palace — defeat one friendly resource per card resourced this way (at regroup start).

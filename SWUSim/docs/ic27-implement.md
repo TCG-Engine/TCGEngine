@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034, IC27_065, IC27_075, IC27_098, IC27_153, IC27_099, IC27_143, IC27_070, IC27_145, IC27_002, IC27_032, IC27_058, IC27_037, IC27_101, IC27_107, IC27_157, IC27_040, IC27_062, IC27_014, IC27_031, IC27_163, IC27_110, IC27_045, IC27_056, IC27_049, IC27_046, IC27_021, IC27_063, IC27_066, IC27_068, IC27_003, IC27_116, IC27_115, IC27_127, IC27_144, IC27_159, IC27_126, IC27_142, IC27_039, IC27_113, IC27_006, IC27_120, IC27_122, IC27_119, IC27_035, IC27_149
 
 ## Foundations already built — do not re-do
 
@@ -496,7 +496,33 @@ IC27_049's "Obi-Wannnn!!!" are correct per the card images. Baseline 13770/0.
   ⚠ Side-find, not changed: `SWUParsedTurnEffects`' `$isCardID` regex is `[A-Z]{2,5}_…`, so a digit set code (IC27, TS26)
   never counts as a CardID token — those turn effects show no source-card art in the Active Effects popup.
 
+## Phase 16 — Tenth preview wave, 2026-11-02 (65 → 70 CardIDs; `--iterative`)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff: IC27_007, IC27_138, IC27_147, IC27_148, IC27_149 — all already
+in the engine dictionary. Spelling pass against the five preview images (both faces of the IC27_007 leader): one fix in
+`CardMocks.php` — IC27_147's cost read `[5 resources]CunningVillainy`, normalised to the official-data form
+`[5 resources Cunning Villainy]` (as Smuggle / Piloting costs are written), then the three preview regens. Kept as printed:
+IC27_007's subtitle "Bald and Beautiful". IC27_148 matched its image exactly. Baseline 13986 passed / 3 failed (the three
+known P-17 reds: Congress of Malastare, Peli Motto, Vanguard Ace). Order, simplest first: IC27_149, IC27_138, IC27_148,
+IC27_007, IC27_147.
+
+- [x] **IC27_149 The Invisible Hand (Confederate Might)** — done 2026-11-02, 13 sections, suite 13986 → 13999 (3 known
+  reds unchanged), 8 mutations each red on its own sections. One closure on `$whenPlayedAbilities` +
+  `$whenDefeatedAbilities` arms `SWU_IC27149_DISCOUNT_NEXT`; the discount is a `$oneShotPlayCharges` row beside IC27_145
+  Poggle (`'card'=>true` — any card type incl. an upgrade and a pilot; `9 × count` + `clearPrefix`), cleared at the
+  regroup. Fixture: IC27_121 Kanan Jarrus (vanilla 6, Aggression/Heroism) is an effective 10 under `yyk`, so 1 vs 0
+  ready separates −9 from −8 and −10. **Engine edge found by a section:** a When Defeated can resolve in the REGROUP
+  phase (SOR_219 Sneak Attack defeats its unit at the start of the regroup, and the When Defeated resolves after
+  RegroupPhaseStart's clears), so the closure arms only when `GetCurrentPhase() === 'MAIN'` — without it the charge reached the next action phase.
+  **Judgement calls (preview):** When Played + When Defeated in one phase STACK on the next card (−18, both spent —
+  Poggle's convention); a charge armed in the regroup phase expires unused; under JTL_043 the new controller gets it.
+  ⚠ Side-find, not changed: any OTHER "this phase" effect a When Defeated creates during the regroup (via Sneak Attack)
+  has the same leak shape — not audited.
+
 ## Status
+
+**IC27: 66 / 70 mocked CardIDs implemented** (2026-11-02, tenth wave in progress — `--iterative`; remaining IC27_138,
+IC27_148, IC27_007, IC27_147). Before this wave:
 
 **✅ IC27 IS CARD-COMPLETE AT 65 / 65 mocked CardIDs** (2026-10-30, ninth wave — suite 13770 → 13856/0; re-derived at
 the end of the run: the `### Already Done` line vs the IC27 IDs in `CardMocks.php` is empty). True only until the next
