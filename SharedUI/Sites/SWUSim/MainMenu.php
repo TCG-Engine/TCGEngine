@@ -9,7 +9,7 @@ include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../../../SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/../../../AppCore/SWU/Formats.php';
-include_once __DIR__ . '/../../../SWUSim/Mod/DevGate.php';   // SWUBotPracticeAllowed() — the Arenabot access gate
+include_once __DIR__ . '/../../../SWUSim/Mod/DevGate.php';   // SWUBotPracticeAllowed() — the Arenabot access gate; SWUHighGroundCreateAllowed()
 require_once __DIR__ . '/../../Render/DeckLibrary.php';
 require_once __DIR__ . '/../../../SWUSim/Custom/SetupPanels.php';   // the setup modals' REAL data
 require_once __DIR__ . '/../../../SWUSim/Custom/MenuLobbyStats.php'; // the mode cards' REAL counts
@@ -347,7 +347,9 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
             <div class="arow">
               <button data-act="join" class="swu2-btn swu2-btn--primary ch" type="button">Join Queue</button>
               <button data-act="private" class="swu2-btn ch" type="button">Create Private Room</button>
+<?php if (SWUHighGroundCreateAllowed()): /* mods only, for now — JoinQueue.php enforces the same gate */ ?>
               <button data-act="highground" class="swu2-btn ch" type="button">Create a High Ground Lobby</button>
+<?php endif; ?>
               <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
             </div>
           </div>
