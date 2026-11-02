@@ -124,6 +124,9 @@ try {
     unset($_GET['swuforge_error']);
     check('the Welcome panel includes the SWU Forge section when the site opts in', strpos(_ProfileWelcome($def, ['username' => 'x']), 'swuforge-link') !== false);
     check('…and not when it does not', strpos(_ProfileWelcome(['identity' => ['rootName' => 'SWUSim'], 'profile' => []], ['username' => 'x']), 'swuforge-link') === false);
+    $both = _ProfileWelcome(['identity' => ['rootName' => 'SWUSim'], 'profile' => ['swuforgeLink' => true, 'swustatsLink' => true]], ['username' => 'x']);
+    check('SWU Forge comes above SWUStats in the Welcome panel', strpos($both, 'swuforge-link') !== false && strpos($both, 'swustats-link') !== false
+        && strpos($both, 'swuforge-link') < strpos($both, 'swustats-link'));
 } finally {
     $cleanup();
     $conn->close();

@@ -318,8 +318,8 @@ function _ProfileWelcome(array $def, array $ctx): string {
     $parts = [];
     if (!empty($def['profile']['patreonFinalPage'])) $parts[] = _DisplayPatreon($def);
     if (!empty($def['profile']['discordOAuth']))      $parts[] = _DisplayDiscordOAuth($def);
-    if (!empty($def['profile']['swustatsLink']))      $parts[] = _DisplaySWUStatsLink($def);
     if (!empty($def['profile']['swuforgeLink']))      $parts[] = _DisplaySWUForgeLink($def);
+    if (!empty($def['profile']['swustatsLink']))      $parts[] = _DisplaySWUStatsLink($def);
     $out .= implode("<hr style='border:0;border-top:1px solid rgba(255,255,255,0.14);margin:18px 0;'>", $parts);
     $out .= "\n\n</div>\n";
     return $out;
