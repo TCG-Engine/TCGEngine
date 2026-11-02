@@ -6,7 +6,9 @@
 //
 // Request-scoped globals (never gamestate): SWU_PGN_RECORDING (bool), SWU_PGN_NOTES (list), SWU_PGN_S0 (snapshot),
 // SWU_PGN_FRAME_GAME (the game the frame began on), SWU_PGN_FRAME_BUSY (a decision was pending as it began), SWU_PGN_ACTED
-// (an action note was already taken this request).
+// (an action note was already taken this request), SWU_PGN_OPEN_ACTION (the pending decision is the player's own action's
+// question — "Play as Unit or Pilot?" — so that action's note is still to come, and is numbered; state.openAction keeps it
+// between requests).
 
 function _SwuPgnRecError(string $g, Throwable $e, string $where): void {
     error_log("SWU-PGN recorder ($where, game $g): " . $e->getMessage() . ' @ ' . $e->getFile() . ':' . $e->getLine());
@@ -30,7 +32,8 @@ function SwuPgnRecIsRecording(string $g): bool {
 function _SwuPgnRecResetRequest(): void {
     $GLOBALS['SWU_PGN_RECORDING'] = false;
     $GLOBALS['SWU_PGN_NOTES'] = [];
-    unset($GLOBALS['SWU_PGN_S0'], $GLOBALS['SWU_PGN_FRAME_GAME'], $GLOBALS['SWU_PGN_ACTION_SRC'], $GLOBALS['SWU_PGN_FRAME_BUSY'], $GLOBALS['SWU_PGN_ACTED']);
+    unset($GLOBALS['SWU_PGN_S0'], $GLOBALS['SWU_PGN_FRAME_GAME'], $GLOBALS['SWU_PGN_ACTION_SRC'], $GLOBALS['SWU_PGN_FRAME_BUSY'], $GLOBALS['SWU_PGN_ACTED'],
+        $GLOBALS['SWU_PGN_OPEN_ACTION']);
 }
 
 // True when a decision is pending for either seat: the request answers it, so an ability is still resolving — a play,
@@ -109,6 +112,7 @@ function SwuPgnRecFrameBegin(): void {
         $GLOBALS['SWU_PGN_FRAME_GAME'] = $g;
         $GLOBALS['SWU_PGN_RECORDING'] = true;
         $GLOBALS['SWU_PGN_FRAME_BUSY'] = _SwuPgnQueueBusy();
+        $GLOBALS['SWU_PGN_OPEN_ACTION'] = $GLOBALS['SWU_PGN_FRAME_BUSY'] && !empty(SwuPgnStateRead($g)['openAction']);
         SwuPgnTxBegin($g);   // the frame's writes wait for its commit
         // The board the recorder last saw is the board now — unless something outside the runner changed it: that
         // change is written here (plain records, counted as gaps), so the file and the board never drift apart.
@@ -127,6 +131,9 @@ function SwuPgnRecFrameCommit(): void {
     $frameGame = $GLOBALS['SWU_PGN_FRAME_GAME'] ?? null;
     $before = $GLOBALS['SWU_PGN_S0'] ?? null;
     $notes = $GLOBALS['SWU_PGN_NOTES'] ?? [];
+    // The player's own action is still open when a fresh request took no action note but left a decision pending (its
+    // question comes before its announcement), or when a request answering such a question still has not taken it.
+    $open = !empty($GLOBALS['SWU_PGN_FRAME_BUSY']) ? !empty($GLOBALS['SWU_PGN_OPEN_ACTION']) : empty($GLOBALS['SWU_PGN_ACTED']);
     _SwuPgnRecResetRequest();
     // The frame must end on the game it began on: a request that loaded another game mid-action (a quick
     // rematch) would otherwise diff one game's board against another's.
@@ -134,6 +141,9 @@ function SwuPgnRecFrameCommit(): void {
         if ($active && $frameGame === $g && is_array($before)) {
             _SwuPgnTestThrow('commit');
             _SwuPgnRecFlush($g, $before, $notes);
+            $state = SwuPgnStateRead($g);
+            $state['openAction'] = $open && _SwuPgnQueueBusy();
+            SwuPgnStateWrite($g, $state);
             if (function_exists('SwuPgnRecFinishIfOver')) SwuPgnRecFinishIfOver($g);
         }
     } catch (Throwable $e) {

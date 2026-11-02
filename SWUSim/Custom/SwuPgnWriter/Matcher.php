@@ -24,6 +24,7 @@ function SwuPgnMatch(array $changes, array $notes, array &$ctx): array {
         'notes' => array_values($notes), 'lastCopy' => [], 'carry' => [], 'gaps' => []];
     $heldBefore = array_column($ctx['ledger']['limbo'] ?? [], 'copy');
     foreach ($run['notes'] as $ni => $note) _SwuPgnMNote($run, $ni, $note);
+    foreach ($run['byPlayed'] ?? [] as [, $at, $cardID]) if (isset($run['lastCopy'][$cardID])) $run['out'][$at]['ev']['defeatedBy'] = $run['lastCopy'][$cardID];
     $gaps = _SwuPgnMUnclaimed($run);
     $gaps = array_merge($gaps, _SwuPgnMLimboAge($run, $heldBefore));
     _SwuPgnMBaseDefeats($run);
@@ -427,6 +428,7 @@ function _SwuPgnMNote(array &$run, int $ni, array $n): void {
                 && ($uid !== null ? ($c['uid'] ?? null) === $uid && !isset($c['host']) : $c['cardID'] === ($n['cardID'] ?? null)));
             if ($mv === null) return;
             $by = _SwuPgnMSource($run, $n['by'] ?? null);   // before the move: the killer may die too
+            $start = count($run['out']);
             // Its upgrades leave first (the engine discards them first): defeated by the framework — their host left play.
             if ($uid !== null) {
                 while (($up = _SwuPgnMTake($run, fn($c) => $c['k'] === 'move' && ($c['host'] ?? null) === $uid && in_array($c['from'], SWUPGN_ARENAS, true))) !== null) {
@@ -438,6 +440,9 @@ function _SwuPgnMNote(array &$run, int $ni, array $n): void {
             $copy = _SwuPgnMMove($run, $mv, $ni);
             _SwuPgnMArrival($run, $mv, $copy, $ni);
             _SwuPgnMEmit($run, 'DEFEAT', ['card' => $copy, 'reason' => $n['reason'] ?? 'unknown', 'defeatedBy' => $by], $ni);
+            // Defeated to pay for a play (Exploit): by the copy played, known once that card's move is matched (SwuPgnMatch),
+            // and — a cost of that play — its records [$start…] are filed `for` it (_SwuPgnMSequence, [W-18]).
+            if (!empty($n['byPlayed']) && is_string($n['by'] ?? null)) $run['byPlayed'][] = [$start, count($run['out']) - 1, $n['by']];
             return;
         }
         case 'TOKEN': {
@@ -901,6 +906,15 @@ function _SwuPgnMSequence(array &$run): array {
             if ($anchor !== null && $rc === $anchor) $named = true;
         }
         if ($named) foreach ($runIdx as $j) $out[$j]['for'] = $e['seq'];
+    }
+    // [W-18] Units defeated to pay for a play (Exploit) belong to that play: the next PLAY of the copy played.
+    foreach ($run['byPlayed'] ?? [] as [$s, $at, $cardID]) {
+        $copy = $run['lastCopy'][$cardID] ?? null;
+        for ($k = $at + 1; $copy !== null && $k < count($out); $k++) {
+            if (!str_starts_with($out[$k]['ev']['t'], 'PLAY') || ($out[$k]['ev']['card'] ?? null) !== $copy) continue;
+            for ($j = $s; $j <= $at; $j++) $out[$j]['for'] = $out[$k]['seq'];
+            break;
+        }
     }
     // §10.2 [W-53]: one attack's combat damage is one simultaneous resolution (CR 6.3.5) — when it writes two or more DAMAGE /
     // OVERWHELM records, each carries `simul` = the group's first seq. A new ATTACK starts a new group.

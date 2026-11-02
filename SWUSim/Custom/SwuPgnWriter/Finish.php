@@ -8,7 +8,10 @@
 // resources entering exhausted on their MOVE, §6.1 token names, STATS traits/blank/leaderUnit, keyframe owner/foreignResources/
 // upgradeControllers/traits, upgrade TAKE_CONTROL, SEARCH owner/seen, LOOK (scry), NAME, disclose REVEAL, combat-damage simul,
 // ability-made plays/attacks lettered, card ids zero-padded (SOR#095).
-const SWUPGN_WRITER_REVISION = 2;
+// 3 — the 2026-11-01 Forge review: revealing search = SEARCH · REVEAL · MOVE of one copy, look-at-hand LOOK / hand REVEAL,
+// no `@` pictures or OK-only popups as CHOICEs, §9.1 numbering when a play/attack asks before it announces, Exploit
+// defeatedBy = the played copy and filed `for` its PLAY.
+const SWUPGN_WRITER_REVISION = 3;
 
 // The engine's own words for the ending, in the spec's style (§5.1 Reason, e.g. "Base Destroyed").
 function _SwuPgnEndReason(): string {

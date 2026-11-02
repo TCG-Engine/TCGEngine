@@ -270,6 +270,13 @@ $g = NGame(fn($b) => $b->WithGroundUnitForPlayer(1, 'SOR_095')->WithCardInHandFo
 [$ev] = NFrame(function () { $GLOBALS['playerID'] = 1; _SWUResolveExploitPicks(1, 'SOR_046', 'myGroundArena-0', 1, fn() => true); });
 $ex = $reasonOf($ev, 'SOR_095');
 SwuPgnTestCheck(($ex[0] ?? null) === 'ability' && SwuPgnBaseId(strval($ex[1] ?? '')) === SwuPgnCardRef('SOR_046'), 'a unit exploited: reason ability, defeatedBy the played card', json_encode($ex));
+// …and its DEFEAT note says the killer is the card being played, so the matcher names the copy played (not any copy).
+$g = NGame(fn($b) => $b->WithGroundUnitForPlayer(1, 'SOR_095')->WithCardInHandForPlayer(1, 'SOR_046'));
+SwuPgnRecFrameBegin();
+$GLOBALS['playerID'] = 1; _SWUResolveExploitPicks(1, 'SOR_046', 'myGroundArena-0', 1, fn() => true);
+$dn = array_values(array_filter($GLOBALS['SWU_PGN_NOTES'] ?? [], fn($n) => ($n['t'] ?? '') === 'DEFEAT'));
+SwuPgnTestEq([$dn[0]['by'] ?? null, $dn[0]['byPlayed'] ?? null], ['SOR_046', true], 'an Exploit DEFEAT note is marked byPlayed');
+SwuPgnRecFrameCommit();
 
 // ── CHOICE notes say whose zone each offered card is in (the matcher names THAT seat's copy) ─────────────────────
 $g = NGame(fn($b) => $b->WithCardInHandForPlayer(2, 'SOR_095')->WithCardInHandForPlayer(2, 'SOR_046'));
@@ -328,6 +335,23 @@ if ($play !== null && $atk !== null) {
         '§9.1: the Ambush attack is a lettered sub-step of the play (' . $play['seq'] . ' → ' . $atk['seq'] . ')', array_map(fn($e) => $e['seq'] . ' ' . $e['t'], $all));
 }
 
+// §9.1: a play that asks a question before it is announced ("Play as Unit or Pilot?") is still the player's own action:
+// its PLAY_UPGRADE is numbered, though the request that announces it began with that question pending.
+$g = NGame(fn($b) => $b->WithCardInHandForPlayer(1, 'JTL_108')->WithSpaceUnitForPlayer(1, 'JTL_247'));
+$all = [];
+[$ev, ] = NFrame(fn() => $g->playCardFromHand(1, 0)); $all = array_merge($all, $ev);
+for ($i = 0; $i < 4; $i++) {
+    $head = null; foreach (GetDecisionQueue(1) as $d) if (empty($d->removed)) { $head = $d; break; }
+    if ($head === null) break;
+    $ans = strval($head->Type) === 'OPTIONCHOOSE' && str_contains(strval($head->Param), 'Pilot') ? 'Pilot' : explode('&', strval($head->Param))[0];
+    [$ev, ] = NFrame(fn() => $g->answerDecision(1, $ans)); $all = array_merge($all, $ev);
+}
+$pu = NFind($all, 'PLAY_UPGRADE', ['p' => 1]);
+SwuPgnTestCheck($pu !== null && preg_match('/^R\d+\.A\.\d+$/', $pu['seq']) === 1, '§9.1: a pilot played after "Unit or Pilot?" is a numbered action, not a sub-step',
+    array_map(fn($e) => $e['seq'] . ' ' . $e['t'], $all));
+// The control: a question raised by an ability while it resolves still letters what it plays.
+SwuPgnTestCheck(NFind($all, 'CHOICE', ['p' => 1]) !== null, 'the "Unit or Pilot?" answer is recorded as a CHOICE', NTypes($all));
+
 // ── §10.2 [W-51] NAME and [W-52] disclose ─────────────────────────────────────────────────────────
 $g = NGame(fn($b) => $b->WithCardInHandForPlayer(1, 'SOR_095'));
 DecisionQueueController::AddDecision(1, 'NAMECARD', '', 1, 'Name_a_card');
@@ -376,6 +400,18 @@ SetSWUVar('SWU_CURRENT_DEFENDING_SEAT', '2');   // mid-attack: seat 2 defends
 [$ev, ] = NFrame(function () { global $customDQHandlers; $GLOBALS['playerID'] = 1; $customDQHandlers['SEC_210#0'](1, [], 'Nothing By This Name'); });
 SwuPgnTestEq($noteEvents($ev, ['LOOK', 'REVEAL']), [['t' => 'REVEAL', 'p' => 2, 'zone' => 'hand', 'cards' => $hand]],
     'Stolen Starpath Unit: the defending player REVEALs its hand, no LOOK');
+// SOR_185 Chimaera: "On Attack: Name a card. An opponent reveals their hand…"
+$g = NGame(fn($b) => $b->WithCardInHandForPlayer(2, 'SOR_095')->WithCardInHandForPlayer(2, 'SOR_095'));
+$hand = $oppHand();
+[$ev, ] = NFrame(function () { global $customDQHandlers; $GLOBALS['playerID'] = 1; $customDQHandlers['SOR_185#0'](1, ['2'], 'Nothing By This Name'); });
+SwuPgnTestEq($noteEvents($ev, ['LOOK', 'REVEAL']), [['t' => 'REVEAL', 'p' => 2, 'zone' => 'hand', 'cards' => $hand]],
+    'Chimaera: seat 2 REVEALs its hand (both copies), no LOOK');
+// SHD_202 Qi'ra: "When Played: Look at an opponent's hand, then name a card." The look is written when it happens.
+$g = NGame(fn($b) => $b->WithCardInHandForPlayer(2, 'SOR_095')->WithCardInHandForPlayer(2, 'SOR_095')->WithGroundUnitForPlayer(1, 'SHD_202'));
+$hand = $oppHand();
+[$ev, ] = NFrame(function () { global $whenPlayedAbilities; $GLOBALS['playerID'] = 1; $whenPlayedAbilities['SHD_202:0'](1, 'myGroundArena-0'); });
+SwuPgnTestEq($noteEvents($ev, ['LOOK', 'REVEAL']), [['t' => 'LOOK', 'p' => 1, 'owner' => 2, 'zone' => 'hand', 'cards' => $hand, 'count' => 2]],
+    'Qi\'ra: a LOOK by seat 1 at seat 2\'s hand, both copies');
 // A popup that shows a card above real options (a top-card "Draw / Discard"): the picture is not an option.
 $g = NGame(fn($b) => null);
 SwuPgnRecFrameBegin();

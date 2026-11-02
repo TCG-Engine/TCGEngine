@@ -38,6 +38,7 @@ $deckOf = function (string $f) {
     return trim(implode("\n", array_filter(explode("\n", file_get_contents($path)), fn($l) => !str_starts_with($l, '#'))));
 };
 $sayYes = !empty($_GET['yes']);
+$asPilot = !empty($_GET['pilot']);   // answer "Play / Deploy as Unit or Pilot?" with Pilot
 $prefer = array_filter(explode(',', strtoupper(preg_replace('/[^A-Za-z0-9_,]/', '', strval($_GET['prefer'] ?? '')))));   // CardIDs to play first whenever legal
 $useAbilities = !empty($_GET['abilities']);   // use leader and unit Actions when offered (each once a round), before attacking
 $usedThisRound = [];   // answer YES to every "you may" (except the mulligan): more of each card's effects happen
@@ -95,6 +96,18 @@ while ($steps++ < $maxSteps) {
             $pick = $yes[0]; $did['mulligan'] = true;
         } elseif ($sayYes && $yes && !$isMulligan) {
             $pick = $yes[0];
+        } elseif ($asPilot && ($pil = array_values(array_filter($acts, fn($a) => strval($a['cardID'] ?? '') === 'Pilot')))) {
+            $pick = $pil[0];   // "Play / Deploy as Unit or Pilot?": the pilot
+        } elseif ($sayYes && preg_match('/~REQ~([A-Za-z-]+)/', strval($legal['decisionTooltipRaw'] ?? ''), $req)) {
+            // A disclose (min 0, so "-" — disclose nothing — comes first): the smallest set of hand cards that covers it.
+            $GLOBALS['playerID'] = $seat;
+            $covers = array_filter($acts, function ($a) use ($req) {
+                $have = [];
+                foreach (array_filter(explode('&', strval($a['cardID'] ?? '-')), fn($m) => $m !== '-') as $mz) $have = array_merge($have, SWUCardAspectIcons(GetZoneObject($mz)->CardID ?? ''));
+                return $have && _SWUAspectsCover($have, explode('-', $req[1]));
+            });
+            usort($covers, fn($a, $b) => substr_count($a['cardID'], '&') <=> substr_count($b['cardID'], '&'));
+            if ($covers) $pick = $covers[0];
         }
     } else {
         if ($did['plays'] >= 1 && !$did['undo']) { $send($seat, ['mode' => 10004]); $did['undo'] = true; continue; }

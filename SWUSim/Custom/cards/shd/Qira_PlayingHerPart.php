@@ -21,6 +21,8 @@ $whenPlayedAbilities["SHD_202:0"] = function($player, $mzID) {
     $oppHand = array_values(array_filter(ZoneSearch('theirHand'),
         fn($m) => ($o = GetZoneObject($m)) !== null && empty($o->removed)));
     if (empty($oppHand) || $uid === 0) return;   // empty hand → nothing to see/name
+    // SWU-PGN: the look at the opponent's hand (the pick that follows is from the cards looked at)
+    if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'LOOK', 'p' => intval($player), 'owner' => SWUMzOwner($oppHand[0], intval($player)), 'zone' => 'hand', 'cardIDs' => array_map(fn($m) => strval(GetZoneObject($m)->CardID), $oppHand)]);
     SWUQueueChooseTarget(intval($player), $oppHand, "Look_at_the_opponent's_hand_and_name_a_card", "SHD_202#0|{$uid}");
 };
 

@@ -16,6 +16,7 @@ function MPlace(array &$ctx, int $seat, string $zone, string $cardID, ?int $uid 
     SwuPgnLedgerPut($ctx['ledger'], $seat, $zone, $copy, $uid);
     return $copy;
 }
+function NFindM(array $events, string $t): ?array { foreach ($events as $e) if ($e['t'] === $t) return $e; return null; }
 $SHIELD = SwuPgnCardRef('SOR_T02');
 $stats = fn($uid, $p = 3, $hp = 3, $seat = 1) => ['k' => 'stats', 'seat' => $seat, 'uid' => $uid, 'power' => $p, 'hp' => $hp, 'keywords' => []];
 
@@ -185,6 +186,26 @@ $moved = array_values(array_filter($r['events'], fn($e) => $e['t'] === 'MOVE'))[
 SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['zone'] ?? null, $e['cards'] ?? null], $r['events']),
     [['SEARCH', null, null], ['REVEAL', 'deck', [$moved]], ['MOVE', null, null]], 'a revealing search: SEARCH · REVEAL (the found copy) · MOVE');
 SwuPgnTestCheck($moved !== null && in_array($moved, $r['events'][0]['seen'] ?? [], true), 'the revealed copy is the one SEARCH.seen and the MOVE name', json_encode($r['events']));
+
+// Exploit: units defeated to pay for a play are defeatedBy the copy being PLAYED — not another copy of it still hidden in a
+// hand or deck (that one reads HIDDEN in the other seat's view, which [W-32] forbids). The played copy is only known once
+// its move is matched, after the DEFEATs.
+$ctx = ['ledger' => SwuPgnLedgerInit([1 => ['TWI_184'], 2 => ['TWI_184', 'TWI_184', 'SOR_095']]), 'counters' => [], 'round' => 1, 'phase' => 'A'];
+MPlace($ctx, 2, 'hand', 'TWI_184'); MPlace($ctx, 2, 'hand', 'TWI_184'); MPlace($ctx, 2, 'ground', 'SOR_095', 9);
+$r = SwuPgnMatch([
+    ['k' => 'move', 'seat' => 2, 'cardID' => 'SOR_095', 'from' => 'ground', 'to' => 'discard', 'uid' => 9],
+    ['k' => 'move', 'seat' => 2, 'cardID' => 'TWI_184', 'from' => 'hand', 'to' => 'ground', 'uid' => 12, 'exhausted' => true],
+], [
+    ['t' => 'DEFEAT', 'uid' => 9, 'cardID' => 'SOR_095', 'reason' => 'ability', 'by' => 'TWI_184', 'byPlayed' => true],
+    ['t' => 'PLAY', 'p' => 2, 'cardID' => 'TWI_184', 'how' => 'unit', 'uid' => 12, 'targetUid' => null, 'cost' => 5],
+], $ctx);
+$played = NFindM($r['events'], 'PLAY')['card'] ?? null;
+SwuPgnTestCheck($played !== null && (NFindM($r['events'], 'DEFEAT')['defeatedBy'] ?? null) === $played,
+    'an Exploit defeat is defeatedBy the played copy', json_encode($r['events']));
+// [W-18]: the defeat is part of paying for the play, so it and its MOVE belong to the PLAY (`for`).
+$playSeq = NFindM($r['events'], 'PLAY')['seq'] ?? '-';
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['for'] ?? null], array_values(array_filter($r['events'], fn($e) => ($e['card'] ?? '') === 'SOR#095'))),
+    [['MOVE', $playSeq], ['DEFEAT', $playSeq]], '[W-18] the exploited unit\'s MOVE and DEFEAT are filed for the PLAY');
 
 // A look at (or a reveal of) a hand holding two copies of a card names both copies, not one of them twice.
 $ctx = ['ledger' => SwuPgnLedgerInit([1 => [], 2 => ['SOR_049', 'SOR_049', 'SOR_096']]), 'counters' => [], 'round' => 1, 'phase' => 'A'];

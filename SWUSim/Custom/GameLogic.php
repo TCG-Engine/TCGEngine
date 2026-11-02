@@ -19608,7 +19608,7 @@ function _SWUResolveExploitPicks(int $player, string $playedCardID, ?string $las
             // Only count units actually defeated — a unit already removed before this runs must not
             // inflate the Exploit discount (CR 16.a: 2 less per unit DEFEATED).
             $wasDroid = ($fo !== null) && HasTrait($fo->CardID ?? '', 'Droid');
-            if (SWULogWithDefeatNote('Exploit, ' . GameLogCardRef($playedCardID), fn() => SwuPgnDefeatCause('ability', $playedCardID, fn() => SWUDefeatUnit(intval($player), $currentMz)))) {
+            if (SWULogWithDefeatNote('Exploit, ' . GameLogCardRef($playedCardID), fn() => SwuPgnDefeatCause('ability', $playedCardID, fn() => SWUDefeatUnit(intval($player), $currentMz), byPlayed: true))) {
                 $count++;
                 $gLastExploitedPowers[] = $pwr;
                 if ($wasDroid) $droidsExploited++;

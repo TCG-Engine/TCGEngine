@@ -86,7 +86,7 @@ if ($all && $p1 && $p2) {
     SwuPgnTestCheck(is_array($all['story']) && count($all['story']) > 0, 'a STORY');
     SwuPgnTestEq(count($all['decks']), 2, 'DECKS for both seats');
     SwuPgnTestEq(array_map(fn($r) => [$r['seq'], $r['t']], $all['setup']), [['R0.S.0', 'INIT']], '§8 [W-35]: the INIT record is R0.S.0');
-    SwuPgnTestEq($h['WriterRevision'] ?? null, '2', '[W-12] WriterRevision 2 (the 2026-10-28 text)');
+    SwuPgnTestEq($h['WriterRevision'] ?? null, '3', '[W-12] WriterRevision 3 (the 2026-11-01 Forge review fixes)');
 }
 $hl = $healthLines();
 SwuPgnTestCheck(count($hl) === 1 && ($hl[0]['game'] ?? '') === $gameName && empty($hl[0]['refused']), 'one health line', json_encode($hl));

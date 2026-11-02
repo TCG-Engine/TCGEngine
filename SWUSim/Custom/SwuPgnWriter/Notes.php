@@ -10,11 +10,13 @@ function SwuPgnNote(array $note): void {
     try {
         _SwuPgnTestThrow('note');
         // §9.1: a play, attack, deploy or action ability is a player's own (numbered) action only as the first one of a request
-        // that began with no decision pending; any other was made by an ability resolving — a lettered sub-step (`sub`).
+        // that began with no decision pending (or that answers the question the player's own action asked first — Recorder's
+        // SWU_PGN_OPEN_ACTION); any other was made by an ability resolving — a lettered sub-step (`sub`).
         $t = $note['t'] ?? '';
         if (in_array($t, ['PLAY', 'ATTACK', 'DEPLOY'], true) || ($t === 'ABILITY' && in_array($note['kind'] ?? '', ['action', 'epic'], true))) {
-            $note['sub'] = !empty($GLOBALS['SWU_PGN_FRAME_BUSY']) || !empty($GLOBALS['SWU_PGN_ACTED']);
+            $note['sub'] = (!empty($GLOBALS['SWU_PGN_FRAME_BUSY']) && empty($GLOBALS['SWU_PGN_OPEN_ACTION'])) || !empty($GLOBALS['SWU_PGN_ACTED']);
             $GLOBALS['SWU_PGN_ACTED'] = true;
+            $GLOBALS['SWU_PGN_OPEN_ACTION'] = false;
         } elseif (in_array($t, ['PASS', 'CLAIM'], true)) {
             $GLOBALS['SWU_PGN_ACTED'] = true;
         }
@@ -120,9 +122,10 @@ function SwuPgnNoteHeal($tgtObj, int $amount): void {
 // The rules' own reasons for a defeat (§6.4), set around the engine code that does it: the uniqueness rule (it wins over any
 // card in the log's source), the rules engine — "frameworkEffect" — when no card is to blame ($fallback: a card in the
 // source wins), or a keyword of the card being played (Exploit). $fn runs either way; the reason lasts only while it does.
-function SwuPgnDefeatCause(string $reason, ?string $byCardID, callable $fn, bool $fallback = false) {
+// $byPlayed: $byCardID is the card being played (Exploit) — the matcher names the copy that is played, not any copy of it.
+function SwuPgnDefeatCause(string $reason, ?string $byCardID, callable $fn, bool $fallback = false, bool $byPlayed = false) {
     $prev = $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] ?? null;
-    $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] = ['reason' => $reason, 'by' => $byCardID, 'fallback' => $fallback];
+    $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] = ['reason' => $reason, 'by' => $byCardID, 'fallback' => $fallback, 'byPlayed' => $byPlayed];
     try { return $fn(); } finally { $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] = $prev; }
 }
 // [reason, by] for an effect defeat: the cause set around it, else the card in the log's source — "nonCombatDamage" for a
@@ -142,7 +145,10 @@ function SwuPgnNoteDefeat($obj, string $reason, $byObj = null): void {
         if ($reason === 'attack') $by = $byObj !== null ? SwuPgnNoteRef($byObj) : null;
         elseif ($byObj !== null) [$reason, $by] = ['ability', SwuPgnNoteRef($byObj)];
         else [$reason, $by] = _SwuPgnDefeatReason($reason);
-        SwuPgnNote(['t' => 'DEFEAT', 'uid' => intval($obj->UniqueID ?? 0) ?: null, 'cardID' => strval($obj->CardID ?? ''), 'reason' => $reason, 'by' => $by]);
+        $cause = $GLOBALS['SWU_PGN_DEFEAT_CAUSE'] ?? null;
+        $byPlayed = $reason !== 'attack' && $byObj === null && !empty($cause['byPlayed']) && $by === ($cause['by'] ?? null);
+        SwuPgnNote(['t' => 'DEFEAT', 'uid' => intval($obj->UniqueID ?? 0) ?: null, 'cardID' => strval($obj->CardID ?? ''), 'reason' => $reason, 'by' => $by]
+            + ($byPlayed ? ['byPlayed' => true] : []));
     } catch (Throwable $e) { _SwuPgnNoteFailed($e); }
 }
 
