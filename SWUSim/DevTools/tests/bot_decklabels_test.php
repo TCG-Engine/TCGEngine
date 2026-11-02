@@ -19,20 +19,21 @@ $reg = json_decode((string)@file_get_contents($path), true);
 $check(is_array($reg) && isset($reg['decks']), 'the registry parses');
 $decks = $reg['decks'] ?? [];
 $groups = $reg['groups'] ?? [];
-// Owner 2026-10-11: the HMW meta set leads the Arenabot menu, before Force Fam; the ASH meta set is RETIRED from the menu but kept in
-// the registry ('menu' => false) — it is still the classifier's reviewed label set and the ASH meta baseline's curated styles.
-$check(array_column($groups, 'id') === ['hmw-meta-2026-09', 'force-fam-HMW-predictions', 'ash-meta-2026-09'],
+// Owner 2026-11-02: the Utrecht set leads the Arenabot menu, before Force Fam; the September HMW set is hidden from the menu but kept
+// in the registry, like the ASH meta set before it ('menu' => false) — ASH is still the classifier's reviewed label set.
+$check(array_column($groups, 'id') === ['hmw-meta-utrecht', 'force-fam-HMW-predictions', 'hmw-meta-2026-09', 'ash-meta-2026-09'],
     'the registry groups, in order', json_encode(array_column($groups, 'id')));
-$check(array_column($groups, 'label') === ['HMW Meta September 2026', 'Force Fam HMW Predictions', 'ASH Meta September 2026'],
-    'the group labels (owner 2026-10-01 / 2026-10-11)', json_encode(array_column($groups, 'label')));
+$check(array_column($groups, 'label') === ['HMW Meta Utrecht', 'Force Fam HMW Predictions', 'HMW Meta September 2026', 'ASH Meta September 2026'],
+    'the group labels (owner 2026-10-01 / 2026-10-11 / 2026-11-02)', json_encode(array_column($groups, 'label')));
 $byId = array_column($groups, null, 'id');
 $check(($byId['ash-meta-2026-09']['menu'] ?? true) === false && !empty($byId['ash-meta-2026-09']['classify']),
     'ash-meta-2026-09 is hidden from the menu but still the classifier set');
-$check(($byId['hmw-meta-2026-09']['menu'] ?? true) !== false && ($byId['force-fam-HMW-predictions']['menu'] ?? true) !== false,
-    'the HMW meta and Force Fam groups are shown');
+$check(($byId['hmw-meta-2026-09']['menu'] ?? true) === false, 'hmw-meta-2026-09 is hidden from the menu');
+$check(($byId['hmw-meta-utrecht']['menu'] ?? true) !== false && ($byId['force-fam-HMW-predictions']['menu'] ?? true) !== false,
+    'the HMW Utrecht and Force Fam groups are shown');
 if (!function_exists('SWUSetupBotPreConGroups')) include_once './SWUSim/Custom/SetupPanels.php';
-$check(array_column(SWUSetupBotPreConGroups(), 'id') === ['hmw-meta-2026-09', 'force-fam-HMW-predictions'],
-    'the Arenabot picker offers HMW Meta, then Force Fam — not the retired ASH group',
+$check(array_column(SWUSetupBotPreConGroups(), 'id') === ['hmw-meta-utrecht', 'force-fam-HMW-predictions'],
+    'the Arenabot picker offers HMW Utrecht, then Force Fam — not the hidden September HMW or ASH groups',
     json_encode(array_column(SWUSetupBotPreConGroups(), 'id')));
 $classifyIds = array_column(array_filter($groups, fn($g) => !empty($g['classify'])), 'id');
 $check($classifyIds === ['ash-meta-2026-09'], 'only the reviewed tournament set feeds the classifier', json_encode($classifyIds));
@@ -45,7 +46,7 @@ foreach ($decks as $d) $byKey[$d['group'] . '/' . $d['file']] = $d;
 $check(count(array_unique(array_column($decks, 'key'))) === count($decks), 'every pre-con key is unique');
 $files = [];
 foreach ($groups as $g) {
-    $gFiles = glob('./SWUSim/Tests/BotFixtures/' . $g['id'] . '/*.txt') ?: [];
+    $gFiles = glob('./SWUSim/BotFixtures/' . $g['id'] . '/*.txt') ?: [];
     $check(count($gFiles) > 0, "{$g['id']} has fixtures (the glob resolved)");
     $inGroup = array_values(array_filter($decks, fn($d) => ($d['group'] ?? '') === $g['id']));
     $check(count($inGroup) === count($gFiles), "{$g['id']}: one entry per owner-labelled fixture (" . count($gFiles) . ')', (string)count($inGroup));
@@ -75,7 +76,7 @@ foreach ($files as [$gid, $f]) {
 // collision across directories is therefore no longer evidence of anything. Asserting the registry keys are
 // a SUBSET of the meta dir says what was actually meant, and is immune to that coincidence.
 require_once './SWUSim/Custom/BotDeckStyle.php';
-$metaNames = array_map(fn($p) => basename($p, '.txt'), glob('./SWUSim/Tests/BotFixtures/ash-meta-2026-09/*.txt') ?: []);
+$metaNames = array_map(fn($p) => basename($p, '.txt'), glob('./SWUSim/BotFixtures/ash-meta-2026-09/*.txt') ?: []);
 $classifier = SWUBotDeckLabelRegistry();
 $stray = array_values(array_filter(array_map(fn($d) => ($d['group'] ?? '') . '/' . $d['file'], $classifier),
     fn($k) => !str_starts_with($k, 'ash-meta-2026-09/')));

@@ -30,10 +30,98 @@ $check(SWUCardPoolFor('botpractice', 'bogus') === 'open', 'Arenabot with an inva
 $check(SWUCardPoolFor('goldfish', null) === 'open' && SWUCardPoolFor('HOTSEAT', null) === 'open', 'Goldfish and Hotseat record open');
 $check(SWUCardPoolFor('teamsuns-preview', null) === 'teamsuns-preview', 'Team Suns Preview records its own format');
 
-// ── The deck refusal (real fixture decks; legality verified 2026-09-16) ─────────────────────────────
-$sor     = file_get_contents('./SWUSim/Tests/BotFixtures/premier_deck_a.txt');                     // Premier ✗, Eternal ✓
-$ahsoka  = file_get_contents('./SWUSim/Tests/BotFixtures/ash-meta-2026-09/ahsoka-tano_ash_blue.txt');     // Premier ✓
-$krennic = file_get_contents('./SWUSim/Tests/BotFixtures/ash-meta-2026-09/director-krennic_law_blue-splash.txt'); // Premier ✓
+// ── The deck refusal (inline decks; legality verified 2026-11-02) ──────────────────────────────────
+// all-SOR, so Premier ✗ / Eternal ✓ / Open ✓
+$sor = <<<'DECK'
+Leader
+1 SOR_009
+Base
+1 SOR_022
+Deck
+3 SOR_095
+3 SOR_098
+2 SOR_240
+2 SOR_239
+2 SOR_243
+2 SOR_116
+2 SOR_113
+2 SOR_108
+1 SOR_242
+1 SOR_100
+2 SOR_093
+1 SOR_094
+2 SOR_248
+1 SOR_096
+3 SOR_237
+2 SOR_111
+2 SOR_112
+1 SOR_099
+2 SOR_250
+3 SOR_124
+2 SOR_123
+2 SOR_127
+2 SOR_103
+3 SOR_120
+2 SOR_121
+DECK;
+// Ahsoka Tano (ASH) Blue, Premier ✓
+$ahsoka = <<<'DECK'
+Leader
+1 ASH_009
+Base
+1 JTL_019
+Deck
+3 SEC_046
+3 LOF_093
+3 LAW_037
+3 SEC_111
+3 ASH_079
+3 LAW_039
+3 LAW_038
+3 ASH_248
+3 SEC_101
+3 ASH_062
+2 ASH_056
+2 LOF_096
+2 ASH_077
+3 SEC_099
+3 JTL_095
+3 JTL_250
+2 LAW_041
+1 SEC_179
+2 LAW_127
+DECK;
+// Director Krennic (LAW) Blue Splash, Premier ✓
+$krennic = <<<'DECK'
+Leader
+1 LAW_008
+Base
+1 LAW_020
+Deck
+3 ASH_118
+3 ASH_116
+3 JTL_032
+3 LAW_159
+3 LAW_097
+3 ASH_079
+3 ASH_097
+3 LOF_059
+3 ASH_053
+2 SEC_087
+2 ASH_048
+2 LAW_039
+2 ASH_133
+1 SEC_068
+1 LAW_149
+3 ASH_052
+2 LAW_101
+1 JTL_041
+3 JTL_043
+3 LAW_044
+1 SEC_078
+1 JTL_121
+2 LOF_091
+DECK;
 
 $check(SWUArenabotDeckRefusal('premier', $ahsoka, '') === null, 'Premier: a legal deck and no bot deck (the bot mirrors it) → allowed');
 $check(SWUArenabotDeckRefusal('premier', $ahsoka, $krennic) === null, 'Premier: two legal decks → allowed');

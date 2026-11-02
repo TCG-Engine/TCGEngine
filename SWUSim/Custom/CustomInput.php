@@ -147,15 +147,19 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             SetFlashMessage("Cannot use an ability while decisions are pending.");
             break;
         }
-        if (function_exists('SWUGetUnitActionProvider')) {
-            $uObj = GetZoneObject($actionCard);
-            if ($uObj !== null && empty($uObj->removed) && SWUGetUnitActionProvider($uObj) !== '') {
-                SaveUndoVersion($playerID);
-                SWUUnitAction($playerID, $actionCard);
-                // Drain auto-decisions (PASSPARAMETER → effect → SWU_AFTER_ACTION); stops at any
-                // MZCHOOSE/YESNO, which the player answers via the normal decision pipeline.
-                (new DecisionQueueController())->ExecuteStaticMethods($playerID, "-");
+        // Named Action abilities: "Activate:<abilityId>" names which of the unit's Actions; bare "Activate" (a stale
+        // client, the bot bridge) runs only a unit with exactly one usable Action. A refusal takes no undo point.
+        if (function_exists('SWUUnitActionPick')) {
+            $abilityId = str_starts_with((string)$action, 'Activate:') ? substr((string)$action, 9) : '';
+            if (SWUUnitActionPick(intval($playerID), $actionCard, $abilityId) === null) {
+                if ($abilityId === '' && SWUActionEnabledCount(intval($playerID), $actionCard) >= 2) SetFlashMessage("Choose which Action to use.");
+                break;
             }
+            SaveUndoVersion($playerID);
+            SWUUnitAction($playerID, $actionCard, $abilityId);
+            // Drain auto-decisions (PASSPARAMETER → effect → SWU_AFTER_ACTION); stops at any
+            // MZCHOOSE/YESNO, which the player answers via the normal decision pipeline.
+            (new DecisionQueueController())->ExecuteStaticMethods($playerID, "-");
         }
         break;
       case "opponentArena":
@@ -172,13 +176,15 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             SetFlashMessage("Cannot use an ability while decisions are pending.");
             break;
         }
-        if (function_exists('SWUGetUnitActionProvider')) {
+        if (function_exists('SWUUnitActionPick')) {
             global $anyPlayerUnitActions;
-            $uObj = GetZoneObject($actionCard);
-            $provider = ($uObj !== null && empty($uObj->removed)) ? SWUGetUnitActionProvider($uObj) : '';
-            if ($provider !== '' && !empty($anyPlayerUnitActions[$provider]) && SWUUnitActionAffordable($playerID, $actionCard, $provider)) {
+            $abilityId = str_starts_with((string)$action, 'Activate:') ? substr((string)$action, 9) : '';
+            // SWUUnitActionEntries already lists only "any player may use" Actions on a unit the clicker doesn't
+            // control; the explicit source check stays as the gate SWUUnitAction itself never had.
+            $entry = SWUUnitActionPick(intval($playerID), $actionCard, $abilityId);
+            if ($entry !== null && !empty($anyPlayerUnitActions[$entry['source']])) {
                 SaveUndoVersion($playerID);
-                SWUUnitAction($playerID, $actionCard);
+                SWUUnitAction($playerID, $actionCard, $entry['id']);
                 (new DecisionQueueController())->ExecuteStaticMethods($playerID, "-");
             }
         }
@@ -227,8 +233,12 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
         }
 
         if ($actionMain === 'LeaderAbility') {
+            // Named Action abilities: "LeaderAbility:<abilityId>" (the suffix parsed above as $deployMode). A refusal
+            // — greyed, stale, or not a leader-ability entry — takes no undo point.
+            $leaderAbilityId = ($actionMain !== $action) ? $deployMode : '';
+            if (SWUActionPick(intval($playerID), "myLeader-$leaderIndex", $leaderAbilityId) === null) break;
             SaveUndoVersion($playerID);
-            SWULeaderAction(intval($playerID), $leaderObj->CardID, $leaderIndex);
+            SWULeaderAction(intval($playerID), $leaderObj->CardID, $leaderIndex, $leaderAbilityId);
         } elseif ($actionMain === 'DeployLeader') {
             SaveUndoVersion($playerID);
             SWUDeployLeader(intval($playerID), $deployMode, '', $leaderIndex);
@@ -245,8 +255,15 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             break;
         }
         if (GetCurrentPhase() !== "MAIN") break;
+        // Named Action abilities: "EpicAction:<abilityId>" names which base Action; bare "EpicAction" (a stale client,
+        // the bot bridge) runs only a base with exactly one usable Action. A refusal takes no undo point.
+        $baseAbilityId = str_starts_with((string)$action, 'EpicAction:') ? substr((string)$action, 11) : '';
+        if (SWUActionPick(intval($playerID), 'myBase-0', $baseAbilityId) === null) {
+            if ($baseAbilityId === '' && SWUActionEnabledCount(intval($playerID), 'myBase-0') >= 2) SetFlashMessage("Choose which Action to use.");
+            break;
+        }
         SaveUndoVersion($playerID);
-        SWUBaseAction(intval($playerID));
+        SWUBaseAction(intval($playerID), $baseAbilityId);
         break;
       case "myResources":
         if (intval(GetTurnPlayer()) !== intval($playerID)) {
@@ -259,10 +276,18 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
         SaveUndoVersion($playerID);
         SWUSmuggleResource(intval($playerID), intval($cardArr[1]));
         break;
-        case 'PlayFromDiscard':
+        case 'PlayFromDiscard': {
+            // Named Action abilities: "Play:<abilityId>" names which way to play it (spec §9). A refusal — greyed,
+            // stale, or two ways and no id — takes no undo point.
+            $discardAbilityId = str_starts_with((string)$action, 'Play:') ? substr((string)$action, 5) : '';
+            if (SWUActionPick(intval($playerID), 'myDiscard-' . intval($cardArr[1]), $discardAbilityId) === null) {
+                if ($discardAbilityId === '' && SWUActionEnabledCount(intval($playerID), 'myDiscard-' . intval($cardArr[1])) >= 2) SetFlashMessage("Choose which way to play it.");
+                break;
+            }
             SaveUndoVersion($playerID);
-            SWUPlayFromDiscard(intval($playerID), intval($cardArr[1]));
+            SWUPlayFromDiscard(intval($playerID), intval($cardArr[1]), $discardAbilityId);
             break;
+        }
         case 'PlayFromOpponentDiscard':
             SaveUndoVersion($playerID);
             // Twin Suns: "PlayFromOpponentDiscard-<seat>-<idx>" names WHOSE pile. The 2-player form

@@ -3,7 +3,7 @@
 usage: deck_report.py <deck> <label>=<results.tsv> ...
 Pools both seats. 'gap' = the deck's mean (bot - real) over opponents with >= 10 real matches (each opponent weighted equally)."""
 import sys, json, collections
-REAL = 'SWUSim/Tests/BotFixtures/ash-meta-2026-09/real_matchups.json'
+REAL = 'SWUSim/BotFixtures/ash-meta-2026-09/real_matchups.json'
 deck = sys.argv[1]
 arms = [a.split('=', 1) for a in sys.argv[2:]]
 real = json.load(open(REAL))['cells'].get(deck, {})

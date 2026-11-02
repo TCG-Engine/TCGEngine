@@ -98,9 +98,9 @@ P1NODECISION
 ---
 
 # Action_CompetesWithTheBasesOwnEpicViaAChoice
-#// Clicking the base is a single undifferentiated input, so a base that has BOTH its own Epic Action and
-#// a Fortify upgrade with an Action must ask which one to use rather than silently locking one out.
-#// SOR_022 Energy Conversion Lab supplies the Epic; choosing the Chamber leaves the Epic unspent.
+#// A base that has BOTH its own Epic Action and a Fortify upgrade with an Action lists both (named Action
+#// abilities — the player picks one from the base's menu) rather than silently locking one out.
+#// SOR_022 Energy Conversion Lab supplies the Epic; choosing the Chamber (by id) leaves the Epic unspent.
 
 ## GIVEN
 CommonSetup: ggw/ggw/{myBase:SOR_022;myResources:3}
@@ -109,8 +109,7 @@ WithP1BaseUpgrade: HMW_095
 WithP2GroundArena: SOR_095:0:0
 
 ## WHEN
-- P1>UseBaseAbility
-- P1>AnswerDecision:CarboniteChamber
+- P1>UseBaseAbility:HMW_095.0
 
 ## EXPECT
 P1BASE:UPGRADECOUNT:0
@@ -128,8 +127,7 @@ P1OnlyActions: true
 WithP1BaseUpgrade: HMW_095
 
 ## WHEN
-- P1>UseBaseAbility
-- P1>AnswerDecision:EpicAction
+- P1>UseBaseAbility:SOR_022.0
 - P1>AnswerDecision:myHand-0
 
 ## EXPECT

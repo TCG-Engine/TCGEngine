@@ -48,12 +48,15 @@ function SwuPgnLedgerInit(array $deckOrders): array {
 
 // Removes and returns a copy of $cardID from that seat's zone: the copy bound to $uid when given, else the
 // lowest-numbered copy. Null when the zone holds none.
-function SwuPgnLedgerTake(array &$ledger, int $seat, string $zone, string $cardID, ?int $uid = null): ?string {
+// $nth: in an ordered zone (the discard), the copy at that place among this card's copies — the one that really left.
+function SwuPgnLedgerTake(array &$ledger, int $seat, string $zone, string $cardID, ?int $uid = null, ?int $nth = null): ?string {
     $list = $ledger['zones'][$seat][$zone] ?? [];
     $ref = SwuPgnCardRef($cardID);
     $pick = null; $pickN = PHP_INT_MAX;
     $bound = $uid === null ? null : ($ledger['uids'][$uid] ?? null);
-    foreach ($list as $i => $copy) {
+    $mine = array_keys(array_filter($list, fn($c) => SwuPgnBaseId($c) === $ref));
+    if ($bound === null && $nth !== null && isset($mine[$nth])) $pick = $mine[$nth];
+    else foreach ($list as $i => $copy) {
         if (SwuPgnBaseId($copy) !== $ref) continue;
         if ($bound !== null) { if ($copy === $bound) { $pick = $i; break; } continue; }
         $n = SwuPgnCopyNumber($copy) ?? 1;

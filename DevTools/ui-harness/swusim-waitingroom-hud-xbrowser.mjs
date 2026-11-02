@@ -10,11 +10,12 @@
 //   no horizontal overflow at desktop or phone width.
 // Usage: node swusim-waitingroom-hud-xbrowser.mjs [baseURL]   ENGINES=chromium,firefox,webkit
 import { chromium, firefox, webkit } from 'playwright';
-import fs from 'node:fs';
 
 const BASE = process.argv[2] || 'http://localhost:3400/TCGEngine/';
 const OUT = process.env.OUT || '/tmp';
-const DECK = fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/twinsuns_deck_a.txt', import.meta.url), 'utf8');
+// A Twin Suns-legal list, inline: 2 leaders + 80 singleton SOR cards (CR §12.2).
+const DECK = ['Leader', '1 SOR_001', '1 SOR_002', 'Base', '1 SOR_019', 'Deck',
+  ...Array.from({ length: 80 }, (_, i) => `1 SOR_${String(31 + i).padStart(3, '0')}`)].join('\n');
 const ALL = { chromium, firefox, webkit };
 const ENGINES = Object.fromEntries(Object.entries(ALL).filter(([n]) => !process.env.ENGINES || process.env.ENGINES.split(',').includes(n)));
 let allOk = true;

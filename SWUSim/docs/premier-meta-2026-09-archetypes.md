@@ -1,6 +1,6 @@
 # Premier meta archetypes — September 2026 (research record)
 
-⚠ **This was `SWUSim/Tests/BotFixtures/meta-2026-09-field/README.md`. The 61 fixtures it describes were
+⚠ **This was `SWUSim/BotFixtures/meta-2026-09-field/README.md`. The 61 fixtures it describes were
 DELETED on 2026-09-29** (owner: the only thing reading them was SWUDeck's admin-gated deck simulator, which
 nobody uses; it now reads `meta-2026-09/` alone). The prose is kept because the table below is the ONLY
 TRACKED copy of this data — `docs/superpowers/` is gitignored, so the research it came from does not ship.

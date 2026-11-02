@@ -27,6 +27,22 @@ $ctx = MCtx(); MPlace($ctx, 2, 'hand', 'SOR_096'); MPlace($ctx, 2, 'hand', 'SOR_
 $r = SwuPgnMatch([], [['t' => 'CHOICE', 'p' => 2, 'prompt' => 'Discard a card', 'offered' => ['SOR_096', 'SOR_049'],
     'offeredSeats' => [2, 2], 'offeredZones' => ['hand', 'hand'], 'chose' => 0]], $ctx);
 SwuPgnTestEq($r['events'][0]['offered'] ?? null, ['SOR#096', 'SOR#049:2'], 'CHOICE.offered names the chooser\'s copies, not the other seat\'s');
+// Two copies in the (ordered) discard pile: the copy that left is the one at the diff's fromNth, and a CHOICE among them
+// names each by its place in the pile — not the first copy twice.
+$dupCtx = function (): array {
+    $L = SwuPgnLedgerInit([1 => ['SOR_095', 'SOR_095', 'SOR_046'], 2 => ['SOR_096']]);
+    foreach (['SOR#095:2', 'SOR#046', 'SOR#095'] as $c) { SwuPgnLedgerTake($L, 1, 'deck', SwuPgnBaseId($c), null); }
+    foreach (['SOR#095:2', 'SOR#046', 'SOR#095'] as $c) SwuPgnLedgerPut($L, 1, 'discard', $c);
+    return ['ledger' => $L, 'counters' => [], 'round' => 1, 'phase' => 'A'];
+};
+$ctx = $dupCtx();
+$r = SwuPgnMatch([['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'discard', 'to' => 'deck', 'fromNth' => 0]], [], $ctx);
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card'] ?? null], $r['events']), [['MOVE', 'SOR#095:2']], 'discard → deck of the first of two copies: the copy on top of the pile order');
+SwuPgnTestEq($ctx['ledger']['zones'][1]['discard'], ['SOR#046', 'SOR#095'], 'the ledger pile keeps the engine\'s order');
+$ctx = $dupCtx();
+$r = SwuPgnMatch([], [['t' => 'CHOICE', 'p' => 1, 'prompt' => 'Put a card on the bottom', 'offered' => ['SOR_095', 'SOR_046', 'SOR_095'],
+    'offeredSeats' => [1, 1, 1], 'offeredZones' => ['discard', 'discard', 'discard'], 'offeredIdx' => [0, 1, 2], 'chose' => 0]], $ctx);
+SwuPgnTestEq($r['events'][0]['offered'] ?? null, ['SOR#095:2', 'SOR#046', 'SOR#095'], 'CHOICE.offered from the discard: each copy by its place in the pile');
 // Mirror leaders: P2's leader exhausting is P2's leader.
 $ctx = MCtx(); SwuPgnLedgerPut($ctx['ledger'], 2, 'base', SwuPgnLedgerNewToken($ctx['ledger'], 'SOR_005'));
 $r = SwuPgnMatch([['k' => 'exhaust', 'seat' => 2, 'target' => 'leader@2', 'cardID' => 'SOR_005']], [['t' => 'ABILITY', 'p' => 2, 'cardID' => 'SOR_005', 'kind' => 'action']], $ctx);
@@ -569,6 +585,38 @@ SwuPgnTestEq($r['events'], [
     ['seq' => 'R1.A.0a', 't' => 'MOVE', 'card' => 'SOR#095', 'from' => 'ground', 'to' => 'capture', 'p' => 1, 'kind' => 'unit'],
     ['seq' => 'R1.A.0b', 't' => 'CAPTURE', 'p' => 2, 'card' => 'SOR#095', 'by' => 'SOR#049:2'],
 ], 'capture: MOVE arena→capture · CAPTURE(by)');
+// A unit an ability plays straight into capture (DJ SEC_018) is a real play (Forge, 2026-11-02): it enters
+// its arena — MOVE · STATS · PLAY(zone = that arena) · EXHAUST — and is then captured. The board only ever shows it go from
+// hand to capture, so the stats and arena come from the CAPTURE note, written while it was still in play.
+$dctx = MCtx(); MPlace($dctx, 1, 'hand', 'SOR_095'); MPlace($dctx, 1, 'ground', 'SOR_120', 20);
+$r = SwuPgnMatch([
+    ['k' => 'resources', 'seat' => 1, 'exhaustedDelta' => 1],
+    ['k' => 'capture', 'seat' => 1, 'cardID' => 'SOR_095', 'uid' => null, 'captor' => 20, 'from' => 'hand'],
+], [
+    ['t' => 'PLAY', 'p' => 1, 'cardID' => 'SOR_095', 'how' => 'unit', 'cost' => 2, 'from' => null, 'sub' => true],
+    ['t' => 'CAPTURE', 'p' => 1, 'cardID' => 'SOR_095', 'by' => 20, 'uid' => 33, 'arena' => 'ground', 'exhausted' => true,
+        'stats' => ['power' => 3, 'hp' => 3, 'keywords' => [], 'traits' => ['trooper']]],
+], $dctx);
+SwuPgnTestEq($r['events'], [
+    ['seq' => 'R1.A.0a', 't' => 'EXHAUST_RESOURCES', 'p' => 1, 'amount' => 1],
+    ['seq' => 'R1.A.0b', 't' => 'MOVE', 'card' => 'SOR#095', 'from' => 'hand', 'to' => 'ground', 'p' => 1, 'kind' => 'unit'],
+    ['seq' => 'R1.A.0c', 't' => 'STATS', 'card' => 'SOR#095', 'power' => 3, 'hp' => 3, 'keywords' => [], 'traits' => ['trooper']],
+    ['seq' => 'R1.A.0d', 't' => 'PLAY', 'p' => 1, 'card' => 'SOR#095', 'zone' => 'ground', 'cost' => 2],
+    ['seq' => 'R1.A.0e', 't' => 'EXHAUST', 'card' => 'SOR#095'],
+    ['seq' => 'R1.A.0f', 't' => 'MOVE', 'card' => 'SOR#095', 'from' => 'ground', 'to' => 'capture', 'p' => 1, 'kind' => 'unit'],
+    ['seq' => 'R1.A.0g', 't' => 'CAPTURE', 'p' => 1, 'card' => 'SOR#095', 'by' => 'SOR#120'],
+], 'a play straight into capture: MOVE · STATS · PLAY(its arena) · EXHAUST (A.4 order) · MOVE arena→capture · CAPTURE');
+SwuPgnTestEq([$r['carry'], $r['gaps']], [[], []], 'the play into capture is not carried to the next frame, and leaves no gap');
+// The same PLAY with no capture of that card stays carried (an upgrade waiting for its host).
+$dctx = MCtx(); MPlace($dctx, 1, 'hand', 'SOR_095');
+$r = SwuPgnMatch([], [['t' => 'PLAY', 'p' => 1, 'cardID' => 'SOR_095', 'how' => 'unit', 'cost' => 2, 'sub' => true]], $dctx);
+SwuPgnTestEq([count($r['events']), count($r['carry'])], [0, 1], 'a PLAY whose card has not moved is still carried');
+// A held PLAY whose CAPTURE note never comes is not lost: it is carried, as before.
+$dctx = MCtx(); MPlace($dctx, 1, 'hand', 'SOR_095'); MPlace($dctx, 1, 'ground', 'SOR_120', 20);
+$r = SwuPgnMatch([['k' => 'capture', 'seat' => 1, 'cardID' => 'SOR_095', 'uid' => null, 'captor' => 20, 'from' => 'hand']],
+    [['t' => 'PLAY', 'p' => 1, 'cardID' => 'SOR_095', 'how' => 'unit', 'cost' => 2, 'sub' => true]], $dctx);
+SwuPgnTestEq(array_column($r['carry'], 't'), ['PLAY'], 'a play held for a CAPTURE note that never came is carried');
+
 $r = SwuPgnMatch([
     ['k' => 'rescue', 'seat' => 1, 'cardID' => 'SOR_095', 'captor' => 20, 'uid' => 31, 'to' => 'ground', 'exhausted' => true],
     $stats(31),

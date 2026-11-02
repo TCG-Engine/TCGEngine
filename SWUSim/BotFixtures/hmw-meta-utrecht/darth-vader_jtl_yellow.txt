@@ -1,0 +1,41 @@
+# Real-deck self-play fixture — Darth Vader, Victor Squadron Leader - Mos Eisley
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #49 of 789 (9-4-0), player MrUntiltable
+#   https://melee.gg/Decklist/View/76186cf3-9740-41de-b35f-b4f3017ece53 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta Utrecht fixture (owner 2026-11-02): the best-placed Darth Vader (JTL) Yellow list in the event's top 64.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: hyperaggro — the classifier's read (label) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: hyperaggro
+
+Leader
+1 JTL_006
+
+Base
+1 JTL_030
+
+Deck
+3 SEC_082
+3 ASH_192
+2 SEC_186
+3 SEC_213
+3 LAW_211
+3 JTL_115
+3 JTL_217
+3 JTL_081
+3 SEC_189
+3 LAW_135
+3 JTL_212
+3 SEC_185
+3 JTL_221
+3 JTL_085
+3 HMW_203
+2 ASH_194
+2 SEC_195
+2 LAW_217
+
+Sideboard
+2 ASH_098
+2 JTL_235
+2 LOF_091
+2 LAW_246
+1 SEC_186
+1 ASH_194

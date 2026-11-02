@@ -37,6 +37,20 @@ function _SwuPgnMultisetDiff(array $before, array $after): array {
     return [$removed, $added];
 }
 
+// An ordered pile (the discard): for each card that lost copies, which of its copies left — their ordinals among that
+// card's copies, counting from the first — read by aligning the two orders. A card whose alignment disagrees with the
+// multiset (a reorder) gets none, and the ledger falls back to its own pick.
+function _SwuPgnRemovedNths(array $before, array $after, array $removed): array {
+    $gone = []; $seen = []; $j = 0;
+    foreach ($before as $c) {
+        $n = $seen[$c] = ($seen[$c] ?? -1) + 1;
+        if ($j < count($after) && $after[$j] === $c) { $j++; continue; }
+        $gone[$c][] = $n;
+    }
+    $need = array_count_values($removed);
+    return array_filter($gone, fn($ns, $c) => count($ns) === ($need[$c] ?? 0) && ($seen[$c] ?? 0) > 0, ARRAY_FILTER_USE_BOTH);
+}
+
 // Places a card left (sources) and arrived at (sinks), outside the UID-matched units.
 function _SwuPgnPlaces(array $before, array $after): array {
     $src = []; $snk = [];
@@ -45,7 +59,8 @@ function _SwuPgnPlaces(array $before, array $after): array {
         $sb = $before['seats'][$p]; $sa = $after['seats'][$p];
         foreach (['hand', 'deck', 'discard'] as $z) {
             [$rm, $ad] = _SwuPgnMultisetDiff($sb[$z], $sa[$z]);
-            foreach ($rm as $c) $src[] = ['seat' => $p, 'zone' => $z, 'cardID' => $c, 'pair' => $p];
+            $nths = $z === 'discard' ? _SwuPgnRemovedNths($sb[$z], $sa[$z], $rm) : [];
+            foreach ($rm as $c) $src[] = ['seat' => $p, 'zone' => $z, 'cardID' => $c, 'pair' => $p] + (isset($nths[$c]) ? ['nth' => array_shift($nths[$c])] : []);
             foreach ($ad as $c) $snk[] = ['seat' => $p, 'zone' => $z, 'cardID' => $c, 'pair' => $p];
         }
         // Resources (Credits excluded — they are counted, not moved). Which copy of a duplicate left is unknowable;
@@ -157,6 +172,7 @@ function _SwuPgnMoveChange(?array $s, ?array $t): array {
     // A card that changes seats (an opponent-owned card played into your arena, a stolen resource going home) says so.
     if ($s !== null && $t !== null && $s['seat'] !== $t['seat']) { $c['fromSeat'] = $s['seat']; $c['toSeat'] = $t['seat']; }
     if ($s !== null && $from === 'resource') $c['fromExhausted'] = !$s['ready'];   // how it left the row (the row's counts)
+    if (isset($s['nth'])) $c['fromNth'] = $s['nth'];   // which copy of a duplicate left an ordered pile
     $host = $t['host'] ?? $s['host'] ?? null;
     if ($host !== null) {
         $c['host'] = $host; $c['kind'] = 'upgrade';

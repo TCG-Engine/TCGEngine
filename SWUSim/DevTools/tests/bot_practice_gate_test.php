@@ -28,7 +28,32 @@ $check(SWUBotPracticeRefusal('premier') === null && SWUBotPracticeRefusal('hotse
 
 // Over HTTP (local dev): a Bot Practice request still creates a game.
 $post = function (string $host) {
-    $deck = file_get_contents('./SWUSim/Tests/BotFixtures/ash-meta-2026-09/darth-vader_jtl_yellow.txt');
+    $deck = <<<'DECK'
+    Leader
+    1 JTL_006
+    Base
+    1 ASH_026
+    Deck
+    3 SEC_082
+    3 SEC_186
+    2 ASH_224
+    3 SEC_213
+    3 LAW_211
+    3 JTL_115
+    3 JTL_217
+    3 SEC_215
+    3 JTL_081
+    3 SEC_189
+    3 LAW_135
+    3 JTL_212
+    3 JTL_221
+    3 JTL_085
+    2 ASH_194
+    3 LAW_217
+    1 SEC_195
+    2 LOF_091
+    1 ASH_199
+    DECK;
     $ctx = stream_context_create(['http' => ['method' => 'POST', 'timeout' => 60, 'ignore_errors' => true,
         'header' => "Content-Type: application/x-www-form-urlencoded\r\nHost: $host\r\n",
         'content' => http_build_query(['rootName' => 'SWUSim', 'format' => 'botpractice', 'queueType' => 'bo1', 'deckLink' => $deck])]]);

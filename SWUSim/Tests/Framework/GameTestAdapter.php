@@ -433,7 +433,8 @@ class GameTestAdapter {
     }
 
     /** Use a leader's action ability (exhausts the leader, fires its handler). */
-    public function useLeaderAbility(int $player, int $leaderIndex = 0): void {
+    public function useLeaderAbility(int $player, int $leaderIndex = 0, string $abilityId = ''): void {
+        $this->_assertUnambiguous($player, "myLeader-$leaderIndex", $abilityId);
         global $playerID;
         $saved = $playerID;
         $playerID = $player;
@@ -448,7 +449,7 @@ class GameTestAdapter {
         $leaderArr = GetLeader($player);
         $live = array_values(array_filter($leaderArr, fn($o) => !isset($o->removed) || !$o->removed));
         if (isset($live[$leaderIndex])) {
-            SWULeaderAction($player, $live[$leaderIndex]->CardID, $leaderIndex);
+            SWULeaderAction($player, $live[$leaderIndex]->CardID, $leaderIndex, $abilityId);
             $this->_drainDQ($player);
         }
         ob_end_clean();
@@ -456,7 +457,8 @@ class GameTestAdapter {
     }
 
     /** Use the base's Epic Action (calls SWUBaseAction). */
-    public function useBaseAbility(int $player): void {
+    public function useBaseAbility(int $player, string $abilityId = ''): void {
+        $this->_assertUnambiguous($player, 'myBase-0', $abilityId);
         global $playerID;
         $saved = $playerID;
         $playerID = $player;
@@ -468,14 +470,25 @@ class GameTestAdapter {
         // ran under id=1. Play/attack are unaffected — they route through ActionMap, which stamps.
         if (function_exists('_SWUOpenAction')) _SWUOpenAction();
         ob_start();
-        SWUBaseAction($player);
+        SWUBaseAction($player, $abilityId);
         $this->_drainDQ($player);
         ob_end_clean();
         $playerID = $saved;
     }
 
-    /** Use a unit's Action ability (calls SWUUnitAction). $mzID like "myGroundArena-0". */
-    public function useUnitAbility(int $player, string $mzID): void {
+    /**
+     * Without an ability id, a surface with two or more USABLE Actions is a test error — the section must name the one
+     * it means. Zero usable stays a silent no-op (the engine refuses it), as before named abilities.
+     */
+    private function _assertUnambiguous(int $player, string $surface, string $abilityId): void {
+        if ($abilityId !== '' || !function_exists('SWUActionEntriesFor')) return;
+        $n = count(array_filter(SWUActionEntriesFor($player, $surface), fn($e) => $e['enabled']));
+        if ($n >= 2) throw new RuntimeException("ambiguous: {$surface} has {$n} enabled Actions; name one");
+    }
+
+    /** Use a unit's Action ability (calls SWUUnitAction). $mzID like "myGroundArena-0"; $abilityId like "ASH_230.0". */
+    public function useUnitAbility(int $player, string $mzID, string $abilityId = ''): void {
+        $this->_assertUnambiguous($player, $mzID, $abilityId);
         global $playerID;
         $saved = $playerID;
         $playerID = $player;
@@ -487,7 +500,7 @@ class GameTestAdapter {
         // ran under id=1. Play/attack are unaffected — they route through ActionMap, which stamps.
         if (function_exists('_SWUOpenAction')) _SWUOpenAction();
         ob_start();
-        SWUUnitAction($player, $mzID);
+        SWUUnitAction($player, $mzID, $abilityId);
         $this->_drainDQ($player);
         ob_end_clean();
         $playerID = $saved;
@@ -499,12 +512,13 @@ class GameTestAdapter {
      * above calls SWUUnitAction() directly, so an mzID the input layer never routes (an opponent's
      * any-player Action — TS26_15 C-3P0, LAW_156, SHD_256) passed there while the live click did nothing.
      */
-    public function activateUnitAbility(int $player, string $mzID): void {
+    public function activateUnitAbility(int $player, string $mzID, string $abilityId = ''): void {
+        $this->_assertUnambiguous($player, $mzID, $abilityId);
         global $playerID;
         $saved = $playerID;
         $playerID = $player;
         ob_start();
-        CustomWidgetInput($player, $mzID, 'Activate');
+        CustomWidgetInput($player, $mzID, 'Activate' . ($abilityId !== '' ? ":{$abilityId}" : ''));
         $this->_drainDQ($player);
         ob_end_clean();
         $playerID = $saved;
@@ -596,8 +610,9 @@ class GameTestAdapter {
     }
 
     /** Play a card from $player's discard pile by index. */
-    public function playFromDiscard(int $player, int $idx): void {
-        CustomWidgetInput($player, "PlayFromDiscard-{$idx}");
+    public function playFromDiscard(int $player, int $idx, string $abilityId = ''): void {
+        $this->_assertUnambiguous($player, "myDiscard-{$idx}", $abilityId);
+        CustomWidgetInput($player, "PlayFromDiscard-{$idx}", $abilityId !== '' ? "Play:{$abilityId}" : '');
         AutoAdvanceAndExecute();
     }
 

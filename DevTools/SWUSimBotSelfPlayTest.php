@@ -17,9 +17,9 @@
 //
 // As of Phase 2a, green has been reproduced on THREE fixture pairs x BOTH chooser profiles (6
 // sweeps, 24 games each, all 24/24 gaps=0):
-//   SOR pair             SWUSim/Tests/BotFixtures/premier_deck_a.txt / _b.txt
-//   Modern pair          SWUSim/Tests/BotFixtures/premier_modern_deck_a.txt / _b.txt
-//   Legacy probe deck    SWUSim/Tests/BotFixtures/decision_type_probe_deck.txt (mirrored)
+//   SOR pair             SWUSim/BotFixtures/premier_deck_a.txt / _b.txt
+//   Modern pair          SWUSim/BotFixtures/premier_modern_deck_a.txt / _b.txt
+//   Legacy probe deck    SWUSim/BotFixtures/decision_type_probe_deck.txt (mirrored)
 // x chooser=first-legal and chooser=random (SWUSim/BotHeuristic.php profiles).
 //
 // Phase 1's original prediction here named four next gaps: SCRY, MZREARRANGE variants,
@@ -211,7 +211,7 @@ if ($args['memoryOnly']) {
   }
   apcu_delete($probeKey);
 }
-$fixtureDir = __DIR__ . '/../SWUSim/Tests/BotFixtures';
+$fixtureDir = __DIR__ . '/../SWUSim/BotFixtures';
 $deckPath1 = $args['deck'] ?? ($fixtureDir . '/premier_deck_a.txt');
 $deckPath2 = $args['deck2'] ?? ($fixtureDir . '/premier_deck_b.txt');
 if (!is_file($deckPath1)) { fwrite(STDERR, "deck file not found: $deckPath1\n"); exit(1); }

@@ -1,0 +1,41 @@
+# Real-deck self-play fixture — Boba Fett, Any Methods Necessary - Shield Generator Complex
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #41 of 789 (9-4-0), player CarsonCarusoSWU
+#   https://melee.gg/Decklist/View/9c702e5c-2ec2-4ddf-884a-b4f4006f185c — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta Utrecht fixture (owner 2026-11-02): the best-placed Boba Fett (JTL) Blue (Endor) list in the event's top 64.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: hyperaggro — the classifier's read (shape) — no owner label for this archetype yet, AWAITING THE OWNER'S CHECK
+# Style: hyperaggro
+
+Leader
+1 JTL_009
+
+Base
+1 JTL_020
+
+Deck
+3 LAW_174
+3 HMW_177
+3 SEC_172
+3 HMW_159
+3 LOF_130
+3 ASH_030
+3 ASH_032
+1 SEC_163
+3 JTL_143
+3 JTL_162
+3 JTL_240
+3 JTL_140
+3 JTL_237
+2 ASH_146
+2 SEC_171
+3 LAW_173
+2 SEC_179
+2 LAW_044
+2 SEC_183
+
+Sideboard
+3 LAW_191
+3 ASH_048
+2 ASH_148
+1 LAW_044
+1 SEC_183

@@ -18,9 +18,11 @@ const SWU_LABEL_STYLES = ['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 
 // 'menu' => false — the group stays in BotDeckLabels.json (so the classifier, BotNameCard's meta knowledge and the bot tooling still
 // read it) but the Arenabot picker does not offer it (SWUSetupBotPreConGroups). Omitted = shown.
 const SWU_PRECON_GROUPS = [
-    // Owner 2026-10-11: the HMW meta set leads the menu (melee 480807, owner-labelled styles).
-    ['id' => 'hmw-meta-2026-09',          'label' => 'HMW Meta September 2026',           'classify' => false],
+    // Owner 2026-11-02: the Utrecht set leads the menu (melee 492213, the best-placed list per archetype in the top 64).
+    ['id' => 'hmw-meta-utrecht',          'label' => 'HMW Meta Utrecht',                  'classify' => false],
     ['id' => 'force-fam-HMW-predictions', 'label' => 'Force Fam HMW Predictions',         'classify' => false],
+    // Owner 2026-11-02: HIDDEN from the menu (Utrecht replaced it), KEPT — the bot tests and tools read its owner-labelled styles.
+    ['id' => 'hmw-meta-2026-09',          'label' => 'HMW Meta September 2026',           'classify' => false, 'menu' => false],
     // Owner 2026-10-11: RETIRED from the menu, KEPT in the repo — it is still the classifier's reviewed label set and the ASH meta
     // baseline's curated styles, and the bots keep being tuned against that tournament data.
     ['id' => 'ash-meta-2026-09',          'label' => 'ASH Meta September 2026',           'classify' => true, 'menu' => false],
@@ -28,7 +30,7 @@ const SWU_PRECON_GROUPS = [
 $out = []; $groups = [];
 foreach (SWU_PRECON_GROUPS as $g) {
     $groups[] = $g;
-    foreach (glob('./SWUSim/Tests/BotFixtures/' . $g['id'] . '/*.txt') ?: [] as $path) {
+    foreach (glob('./SWUSim/BotFixtures/' . $g['id'] . '/*.txt') ?: [] as $path) {
         $text = (string)file_get_contents($path);
         // '# Style:' is how the BOT PILOTS the deck (measured); '# DeckStyle:' is what archetype the deck IS (the
         // owner's read, what the menu preselects). They are usually the same; where they differ, the classifier takes

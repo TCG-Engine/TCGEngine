@@ -329,8 +329,8 @@ P1DISCARDCOUNT:1
 #// NON-UNIQUE, so two Heavy Ion Cannons can sit on one base — and each grants its own once-each-phase
 #// Action, so the phase allows TWO activations. A limit tracked per PLAYER rather than per attached copy
 #// would stop after the first and read DAMAGE:2 here.
-#// Two providers make the base click raise a which-ability OPTIONCHOOSE; the engine labels them from the
-#// card title, disambiguating the second with a trailing index.
+#// Two copies fold into ONE base entry (named Action abilities, owner decision 2026-11-02): the base click
+#// needs no choice, and the entry stays usable while a copy's use is left.
 
 ## GIVEN
 CommonSetup: rrw/rrk/{myResources:3}
@@ -343,11 +343,9 @@ WithP2GroundArena: SOR_046:1:0
 
 ## WHEN
 - P1>UseBaseAbility
-- P1>AnswerDecision:HeavyIonCannon
 - P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:theirGroundArena-0
 - P1>UseBaseAbility
-- P1>AnswerDecision:HeavyIonCannon
 - P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:theirGroundArena-0
 - P1>UseBaseAbility

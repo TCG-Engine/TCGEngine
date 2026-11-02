@@ -24,10 +24,12 @@ function SwuPgnMatch(array $changes, array $notes, array &$ctx): array {
         'notes' => array_values($notes), 'lastCopy' => [], 'carry' => [], 'gaps' => []];
     $heldBefore = array_column($ctx['ledger']['limbo'] ?? [], 'copy');
     foreach ($run['notes'] as $ni => $note) _SwuPgnMNote($run, $ni, $note);
+    foreach ($run['heldPlays'] ?? [] as [, $n]) $run['carry'][] = $n;   // a play into capture whose CAPTURE never came
     foreach ($run['byPlayed'] ?? [] as [, $at, $cardID]) if (isset($run['lastCopy'][$cardID])) $run['out'][$at]['ev']['defeatedBy'] = $run['lastCopy'][$cardID];
     $gaps = _SwuPgnMUnclaimed($run);
     $gaps = array_merge($gaps, _SwuPgnMLimboAge($run, $heldBefore));
     _SwuPgnMBaseDefeats($run);
+    _SwuPgnMAbilityUses($run);
     $events = _SwuPgnMSequence($run);
     return ['events' => $events, 'gaps' => $gaps, 'carry' => $run['carry']];
 }
@@ -58,11 +60,14 @@ function _SwuPgnLedgerLocate(array $ledger, string $copy): ?array {
 // A card ref for something a note names: a UID's bound copy, base@N / rule:… as-is, a CardID's most recent copy.
 // A CardID named with the seat (and zone) it is in resolves to THAT seat's copy: the same card can be in both decks,
 // and naming the other seat's copy would misattribute it — and, in a player's own view, reveal what the other holds.
-function _SwuPgnMRef(array &$run, $x, ?int $seat = null, ?string $zone = null): string {
+function _SwuPgnMRef(array &$run, $x, ?int $seat = null, ?string $zone = null, ?int $idx = null): string {
     if (is_int($x)) { _SwuPgnMEnsureUid($run, $x); return SwuPgnLedgerByUid($run['ctx']['ledger'], $x) ?? 'unknown'; }
     $x = (string)$x;
     if (!preg_match('/^[A-Z0-9]{2,5}_T?\d+$/', $x)) return $x;
     $ref = SwuPgnCardRef($x);
+    // The discard pile is kept in the engine's order: a card picked at a place in it is the copy at that place.
+    $atIdx = $seat !== null && $zone === 'discard' && $idx !== null ? ($run['ctx']['ledger']['zones'][$seat]['discard'][$idx] ?? null) : null;
+    if ($atIdx !== null && SwuPgnBaseId($atIdx) === $ref) return $atIdx;
     if ($seat !== null) {
         $mine = [];
         foreach ($run['ctx']['ledger']['zones'][$seat] ?? [] as $z => $list) foreach ($list as $c) if (SwuPgnBaseId($c) === $ref) $mine[] = [$z, $c];
@@ -168,7 +173,7 @@ function _SwuPgnMLedgerMove(array &$run, array $c, string $from, string $to, ?in
             if (!empty($c['attachFromPlay'])) unset($fromC['host']);
             $key = _SwuPgnMZoneKey($fromC, $from);
             foreach ([$seat, 3 - $seat] as $s) {
-                $copy = SwuPgnLedgerTake($L, $s, $key, $cardID);
+                $copy = SwuPgnLedgerTake($L, $s, $key, $cardID, null, $s === $seat ? ($c['fromNth'] ?? null) : null);
                 if ($copy !== null) { $seat = $s; break; }
             }
         }
@@ -380,6 +385,13 @@ function _SwuPgnMNote(array &$run, int $ni, array $n): void {
                 }
                 unset($L);
             }
+            // A unit an ability plays straight into capture (DJ SEC_018): the board only shows it
+            // go from hand to capture. Its CAPTURE note writes the play — it knows the arena it entered and its stats.
+            if ($mi === null && $how === 'unit' && _SwuPgnMFind($run, fn($c) => $c['k'] === 'capture' && $c['cardID'] === $n['cardID']
+                    && in_array($c['from'], ['hand', 'resource', 'discard', 'deck'], true)) !== null) {
+                $run['heldPlays'][$n['cardID']] = [$ni, $n];
+                return;
+            }
             // The card has not moved yet: its host or target is picked in a later request (an upgrade's attach).
             // Carry the note to the next frame, where its move — and usually its payment — lands.
             if ($mi === null) { $run['carry'][] = $n; return; }
@@ -463,7 +475,9 @@ function _SwuPgnMNote(array &$run, int $ni, array $n): void {
         case 'ABILITY': {
             $card = $n['cardID'];
             $kind = $n['kind'] ?? 'triggered';
-            $ref = _SwuPgnMRef($run, $card, $p, 'base');   // its own leader (or a unit of its own)
+            // Its own leader (or a unit of its own). A named Action ability names its HOST by uid: a granted ability
+            // belongs to the unit using it (`grantedBy` the card that gave it — §10.1, W-31), not to the granter.
+            $ref = is_int($n['uid'] ?? null) ? _SwuPgnMRef($run, $n['uid']) : _SwuPgnMRef($run, $card, $p, 'base');
             if (is_string($card) && str_starts_with($card, 'base@') && $kind === 'epic') {
                 // Epic only if it spent the base's Epic Action: a limited-use base Action (Mystic Monastery) does not.
                 if (_SwuPgnMTake($run, fn($c) => $c['k'] === 'baseEpic' && "base@{$c['seat']}" === $card) === null) $kind = 'action';
@@ -472,7 +486,10 @@ function _SwuPgnMNote(array &$run, int $ni, array $n): void {
             $ex = _SwuPgnMTake($run, fn($c) => $c['k'] === 'exhaust' && (($c['target'] === "leader@$p" && $c['cardID'] === $card)
                 || (isset($n['uid']) && $c['target'] === $n['uid'])));
             _SwuPgnMEmit($run, 'ABILITY_ACTIVATE', ['p' => $p, 'card' => $ref, 'kind' => $kind, 'epic' => $kind === 'epic' ? true : null,
-                'grantedBy' => isset($n['grantedBy']) ? _SwuPgnMRef($run, $n['grantedBy'], $p, 'base') : null], $ni, in_array($kind, ['action', 'epic'], true));
+                'grantedBy' => isset($n['grantedBy']) ? _SwuPgnMRef($run, $n['grantedBy'], $p, 'base') : null,
+                // Named Action abilities: the writer's id, the printed text, and the use limit [W-49 — limit needs ability].
+                'title' => isset($n['title']) ? (string)$n['title'] : null, 'ability' => isset($n['ability']) ? (string)$n['ability'] : null,
+                'limit' => (isset($n['limit'], $n['ability']) && is_array($n['limit'])) ? $n['limit'] : null], $ni, in_array($kind, ['action', 'epic'], true));
             if ($ex !== null) _SwuPgnMEmit($run, 'EXHAUST', ['card' => is_int($ex['target']) ? _SwuPgnMRef($run, $ex['target']) : $ref], $ni);
             return;
         }
@@ -486,7 +503,7 @@ function _SwuPgnMNote(array &$run, int $ni, array $n): void {
         }
         case 'CHOICE':
             _SwuPgnMEmit($run, 'CHOICE', ['p' => $p, 'prompt' => $n['prompt'] ?? null,
-                'offered' => array_map(fn($x, $i) => _SwuPgnMRef($run, $x, $n['offeredSeats'][$i] ?? $p, $n['offeredZones'][$i] ?? null),
+                'offered' => array_map(fn($x, $i) => _SwuPgnMRef($run, $x, $n['offeredSeats'][$i] ?? $p, $n['offeredZones'][$i] ?? null, $n['offeredIdx'][$i] ?? null),
                     $n['offered'] ?? [], array_keys($n['offered'] ?? [])), 'chose' => intval($n['chose'] ?? 0)], $ni);
             return;
         case 'DRAW': {
@@ -568,6 +585,25 @@ function _SwuPgnMNote(array &$run, int $ni, array $n): void {
             $cap = _SwuPgnMTake($run, fn($c) => $c['k'] === 'capture' && $c['cardID'] === $n['cardID'] && (!isset($n['by']) || $c['captor'] === $n['by']));
             if ($cap === null) return;
             $by = is_int($cap['captor']) ? _SwuPgnMRef($run, $cap['captor']) : $cap['captor'];
+            [$pi, $pn] = $run['heldPlays'][$n['cardID']] ?? [null, null];
+            if ($pn !== null && isset($n['arena']) && !in_array($cap['from'], SWUPGN_ARENAS, true)) {
+                // The play it was captured out of (Forge, 2026-11-02): it entered its arena, then was captured from there.
+                unset($run['heldPlays'][$n['cardID']]);
+                $pp = intval($pn['p']);
+                $ri = _SwuPgnMFind($run, fn($c) => $c['k'] === 'resources' && $c['seat'] === $pp && $c['exhaustedDelta'] > 0);
+                if ($ri !== null) { $run['claimed'][$ri] = true; _SwuPgnMEmit($run, 'EXHAUST_RESOURCES', ['p' => $pp, 'amount' => $run['pool'][$ri]['exhaustedDelta']], $pi); }
+                $uid = isset($n['uid']) ? intval($n['uid']) : null;
+                $mv = ['k' => 'move', 'seat' => $pp, 'cardID' => $n['cardID'], 'from' => $cap['from'], 'to' => $n['arena'], 'uid' => $uid, 'exhausted' => !empty($n['exhausted'])];
+                $copy = _SwuPgnMMove($run, $mv, $pi);
+                if (isset($n['stats'])) {
+                    $s = $n['stats'];
+                    _SwuPgnMEmit($run, 'STATS', ['card' => $copy, 'power' => $s['power'], 'hp' => $s['hp'], 'keywords' => $s['keywords'],
+                        'traits' => $s['traits'] ?? null, 'blank' => !empty($s['blank']) ? true : null, 'leaderUnit' => !empty($s['leaderUnit']) ? true : null], $pi);
+                }
+                _SwuPgnMEmit($run, 'PLAY', ['p' => $pp, 'card' => $copy, 'zone' => $n['arena'], 'cost' => $pn['cost'] ?? null], $pi, true);
+                _SwuPgnMArrival($run, $mv, $copy, $pi);
+                $cap = ['from' => $n['arena'], 'uid' => $uid] + $cap;
+            }
             [$copy, $fromSeat] = _SwuPgnMLedgerMove($run, $cap, $cap['from'], 'capture', intval($cap['seat']));
             _SwuPgnMEmit($run, 'MOVE', ['card' => $copy, 'from' => $cap['from'], 'to' => 'capture', 'p' => $fromSeat, 'kind' => _SwuPgnMKind($cap['cardID'])], $ni);
             _SwuPgnMEmit($run, 'CAPTURE', ['p' => $p, 'card' => $copy, 'by' => $by], $ni);
@@ -931,4 +967,42 @@ function _SwuPgnMSequence(array &$run): array {
         $events[] = $ev;
     }
     return $events;
+}
+
+// §10.1 limited abilities [W-49] — the writer keeps the fold's `abilityUses` table ($ctx['abilityUses'][seat] = list of
+// {card, ability, count, per, max}, first-use order): a limited ABILITY_ACTIVATE counts a use, and a card that LEAVES
+// THE ARENAS (to hand, discard, deck, resources, its leader slot, a capture …) is a new object whose uses reset, so an
+// ABILITY_RESET for it follows its MOVE. A move within the arenas — Poe hopping Vehicles, a same-arena rebind — keeps
+// them. The phase / round clears happen where the writer writes PHASE_START / ROUND_START (Recorder).
+function _SwuPgnMAbilityUses(array &$run): void {
+    $uses = $run['ctx']['abilityUses'] ?? [];
+    $out = [];
+    foreach ($run['out'] as $o) {
+        $out[] = $o;
+        $e = $o['ev'];
+        if ($e['t'] === 'ABILITY_ACTIVATE' && is_array($e['limit'] ?? null) && is_string($e['ability'] ?? null) && is_string($e['card'] ?? null)) {
+            $p = intval($e['p'] ?? 0);
+            $found = false;
+            foreach ($uses[$p] ?? [] as $i => $u) {
+                if ($u['card'] === $e['card'] && $u['ability'] === $e['ability']) {
+                    $uses[$p][$i]['count']++;
+                    $uses[$p][$i]['per'] = (string)$e['limit']['per'];
+                    $uses[$p][$i]['max'] = intval($e['limit']['max']);
+                    $found = true;
+                }
+            }
+            if (!$found) $uses[$p][] = ['card' => $e['card'], 'ability' => $e['ability'], 'count' => 1,
+                'per' => (string)$e['limit']['per'], 'max' => intval($e['limit']['max'])];
+        } elseif ($e['t'] === 'MOVE' && is_string($e['card'] ?? null)
+                  && in_array($e['from'] ?? '', SWUPGN_ARENAS, true) && !in_array($e['to'] ?? '', SWUPGN_ARENAS, true)) {
+            $had = false;
+            foreach ($uses as $seat => $list) {
+                $keep = array_values(array_filter((array)$list, fn($u) => $u['card'] !== $e['card']));
+                if (count($keep) !== count((array)$list)) { $had = true; $uses[$seat] = $keep; }
+            }
+            if ($had) $out[] = ['ev' => ['t' => 'ABILITY_RESET', 'card' => $e['card']], 'top' => false, 'owner' => $o['owner'] ?? null];
+        }
+    }
+    $run['out'] = $out;
+    $run['ctx']['abilityUses'] = $uses;
 }

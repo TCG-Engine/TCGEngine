@@ -24,8 +24,8 @@ $build(function ($b) {
 $ctx = $botCtx('normal');
 $warrior = null; $boba = null;
 foreach ($ctx['actions'] as $i => $a) {
-    if (strval($a['cardID']) === 'myLeader-1!CustomInput!LeaderAbility') $warrior = [$i, $a];
-    if (strval($a['cardID']) === 'myLeader-0!CustomInput!LeaderAbility') $boba = [$i, $a];
+    if (preg_match('/^myLeader-1!CustomInput!LeaderAbility(:|$)/', strval($a['cardID']))) $warrior = [$i, $a];   // with or without the Action's id
+    if (preg_match('/^myLeader-0!CustomInput!LeaderAbility(:|$)/', strval($a['cardID']))) $boba = [$i, $a];
 }
 $check($warrior !== null, "fixture: The Warrior's Action (myLeader-1) is offered");
 
@@ -54,7 +54,7 @@ $check(strval($pick['cardID'] ?? '') !== '', 'the bot picks a move: ' . strval($
 // slot's Action is left exactly as it scores with the proposal off.
 $scoreOf = function (string $id, array $on) use ($botCtx) {
     SWUBotSetDisabledFeatures($on); $ctx = $botCtx('softcontrol'); $out = null;
-    foreach ($ctx['actions'] as $i => $a) { if (strval($a['cardID']) === $id) $out = SWUBotScoreAction($ctx, $a, $i); }
+    foreach ($ctx['actions'] as $i => $a) { $c = strval($a['cardID']); if ($c === $id || str_starts_with($c, $id . ':')) $out = SWUBotScoreAction($ctx, $a, $i); }   // a slot's Action, named or bare
     SWUBotSetDisabledFeatures([]);
     return $out;
 };

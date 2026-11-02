@@ -16,10 +16,38 @@
 // Each run seeds a FRESH goldfish game per engine/surface: the server says it once per seat per game, so
 // a reused game would see the second run's notice suppressed and fail for the wrong reason.
 import { chromium, firefox, webkit } from 'playwright';
-import fs from 'node:fs';
 
 const BASE = process.env.BASE_URL || 'http://localhost:3400/TCGEngine/';
-const deck = fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/premier_deck_a.txt', import.meta.url), 'utf8');
+const deck = `Leader
+1 SOR_009
+Base
+1 SOR_022
+Deck
+3 SOR_095
+3 SOR_098
+2 SOR_240
+2 SOR_239
+2 SOR_243
+2 SOR_116
+2 SOR_113
+2 SOR_108
+1 SOR_242
+1 SOR_100
+2 SOR_093
+1 SOR_094
+2 SOR_248
+1 SOR_096
+3 SOR_237
+2 SOR_111
+2 SOR_112
+1 SOR_099
+2 SOR_250
+3 SOR_124
+2 SOR_123
+2 SOR_127
+2 SOR_103
+3 SOR_120
+2 SOR_121`;
 
 async function newGame() {
   const body = new URLSearchParams({ rootName: 'SWUSim', format: 'goldfish', queueType: 'bo1', deckLink: deck });

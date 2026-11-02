@@ -6,7 +6,7 @@ Owner-supplied ground truth for the SWUSim bots. Every bot test today is a synth
 here is derivable from the repo: this is the only record of what a real opening should look like.
 
 **How it gets used.** Each deck's list becomes a check against the bot playing that fixture
-(`SWUSim/Tests/BotFixtures/meta-2026-09/<fixture>.txt`): does it look for the same cards, in the same order,
+(`SWUSim/BotFixtures/meta-2026-09/<fixture>.txt`): does it look for the same cards, in the same order,
 by the same turn? A divergence is a place to look, not automatically a bug — several lines are usually
 defensible. Where a divergence is clearly wrong, it becomes a unit test.
 

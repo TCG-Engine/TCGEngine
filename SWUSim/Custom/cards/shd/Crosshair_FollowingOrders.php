@@ -3,42 +3,45 @@
 // Cost 4 - Crosshair - Following Orders - [Command,Villainy] - Power 2 - HP 6
 // Text: Action [2 resources]: This unit gets +1/+0 for this phase. / Action [Exhaust]: This unit deals damage equal to his power to an enemy ground unit.
 
-// SHD_087 Crosshair — TWO unit actions on one unit: "Action [2 resources]: +1/+0 this phase" and
-// "Action [Exhaust]: deal damage equal to his power to an enemy ground unit." SWUUnitAction resolves ONE
-// provider per unit, so this closure presents a menu of the affordable sub-actions (each pays its own
-// distinct cost — costKind 'none', no auto-cost). Availability (either sub-action affordable) is gated in
-// SWUUnitActionAffordable.
-$unitActionCostKind["SHD_087"] = 'none';
+// SHD_087 Crosshair — TWO unit actions on one unit, each a named Action ability under its own id (the player picks
+// one from the unit's menu; SWUUnitAction pays each one's cost from these registries):
+//   SHD_087.0  "Action [2 resources]: This unit gets +1/+0 for this phase."  costKind 'none' + 2 resources
+//   SHD_087.1  "Action [Exhaust]: This unit deals damage equal to his power to an enemy ground unit."  costKind exhaust
+// (Until named Action abilities, one closure offered a Buff/Deal OPTIONCHOOSE of the affordable sub-actions.)
+$unitActionCostKind["SHD_087.0"]      = 'none';
+$unitActionResourceCosts["SHD_087.0"] = 2;
+$unitAbilities["SHD_087.0"] = function($player, $mzID) { CrosshairFollowingOrdersBuff($player, $mzID); };
 
-$unitAbilities["SHD_087"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $obj = GetZoneObject($mzID);
-    if (SWUObjGone($obj)) { SWUAfterAction($player); return; }
-    $canBuff = SWUTotalPaymentCapacity(intval($player)) >= 2;
-    $canDeal = intval($obj->Status ?? 0) === 1;         // exhaust cost → must be ready
-    if (!$canBuff && !$canDeal) { SWUAfterAction($player); return; }
-    if ($canBuff && !$canDeal) { CrosshairFollowingOrdersBuff($player, $mzID); return; }
-    if ($canDeal && !$canBuff) { CrosshairFollowingOrdersDeal($player, $mzID); return; }
-    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "Buff&Deal", 1, tooltip: "Crosshair:_gain_+1/+0_or_deal_power_to_an_enemy?");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_087#choice|{$mzID}", 1);
-};
+$unitActionCostKind["SHD_087.1"] = 'exhaust';
+$unitAbilities["SHD_087.1"] = function($player, $mzID) { CrosshairFollowingOrdersDeal($player, $mzID); };
 
+// A game SAVED with the old Buff/Deal chooser open still answers through this handler. The old closure paid nothing
+// up front, so the answer pays the cost the dispatcher now pays: 2 resources for Buff, the exhaust for Deal.
 $customDQHandlers["SHD_087#choice"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
     $mzID = $parts[0] ?? '';
-    if ($lastDecision === 'Buff')      CrosshairFollowingOrdersBuff($player, $mzID);
-    elseif ($lastDecision === 'Deal')  CrosshairFollowingOrdersDeal($player, $mzID);
-    else                               SWUAfterAction(intval($player));
+    if ($lastDecision === 'Buff') {
+        SWUPayInlineAbilityCost(intval($player), 2);
+        CrosshairFollowingOrdersBuff($player, $mzID);
+    } elseif ($lastDecision === 'Deal') {
+        $obj = GetZoneObject($mzID);
+        if (!SWUObjGone($obj)) $obj->Status = 0;
+        CrosshairFollowingOrdersDeal($player, $mzID);
+    } else {
+        SWUAfterAction(intval($player));
+    }
 };
 
+// The dispatcher has already paid the 2 resources.
 function CrosshairFollowingOrdersBuff($player, string $mzID): void
 {
   global $playerID;
   $playerID = intval($player);
-  SWUPayInlineAbilityCost(intval($player), 2);            // cost: 2 resources
   SWUApplyPhaseBuff($mzID, 1, 0, 'SHD_087');          // +1/+0 for this phase
   SWUAfterAction(intval($player));
 }
 
+// The dispatcher has already exhausted Crosshair (the [Exhaust] cost).
 function CrosshairFollowingOrdersDeal($player, string $mzID): void
 {
   global $playerID;
@@ -48,7 +51,6 @@ function CrosshairFollowingOrdersDeal($player, string $mzID): void
     SWUAfterAction(intval($player));
     return;
   }
-  $obj->Status = 0;                                   // cost: exhaust this unit
   $pow = intval(ObjectCurrentPower($obj));
   $targets = array_values(array_filter(
     ZoneSearch('theirGroundArena', AnyUnitFilter),

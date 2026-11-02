@@ -1,0 +1,46 @@
+# Real-deck self-play fixture — Mother Talzin, Power Through Magick - Crystal Caves
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #16 of 789 (10-3-0), player BEO_WolfHalifax
+#   https://melee.gg/Decklist/View/359cecdd-fb59-4393-82a5-b4f301648c64 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta Utrecht fixture (owner 2026-11-02): the best-placed Mother Talzin (LOF) Yellow Force list in the event's top 64.
+#   Main 52 (base minimum 50), sideboard 10.
+# Archetype: midrange — the owner's label from hmw-meta-2026-09/mother-talzin_lof_yellow-force.txt
+# Style: midrange
+# Flavours: tempo, force
+
+Leader
+1 LOF_002
+
+Base
+1 LOF_029
+
+Deck
+3 LOF_231
+3 LOF_031
+3 HMW_055
+3 LOF_061
+3 LOF_183
+3 LOF_035
+3 LAW_086
+3 SEC_028
+2 ASH_219
+1 LOF_070
+1 LOF_059
+3 ASH_052
+2 HMW_204
+2 JTL_033
+2 HMW_203
+3 JTL_043
+2 ASH_090
+3 LOF_261
+2 LOF_215
+2 LOF_040
+2 LAW_129
+1 SEC_038
+
+Sideboard
+3 ASH_194
+2 JTL_235
+2 ASH_042
+1 SEC_192
+1 HMW_204
+1 ASH_053

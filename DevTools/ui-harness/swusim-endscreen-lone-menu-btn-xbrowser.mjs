@@ -12,7 +12,33 @@ import { chromium, firefox, webkit } from 'playwright';
 import fs from 'node:fs';
 
 const BASE = process.argv[2] || 'http://localhost:3400/TCGEngine/';
-const DECK = fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/ash-meta-2026-09/admiral-piett_jtl_blue.txt', import.meta.url), 'utf8');
+// Admiral Piett (JTL) Blue.
+const DECK = `Leader
+1 JTL_005
+Base
+1 JTL_020
+Deck
+3 LAW_118
+3 SEC_110
+3 ASH_048
+3 SEC_080
+2 ASH_118
+2 LAW_038
+2 ASH_097
+2 ASH_073
+3 ASH_052
+3 JTL_118
+3 JTL_089
+2 SEC_037
+2 JTL_038
+2 LAW_101
+2 ASH_102
+1 ASH_099
+3 JTL_043
+2 JTL_131
+1 SEC_179
+3 SEC_038
+3 LOF_091`;
 const ALL = { chromium, firefox, webkit };
 const ENGINES = Object.entries(ALL).filter(([n]) => !process.env.ENGINES || process.env.ENGINES.split(',').includes(n));
 let fails = 0, checks = 0;

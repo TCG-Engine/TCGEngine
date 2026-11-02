@@ -1,0 +1,47 @@
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Kyyyalstaad Swamp
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #38 of 789 (9-4-0), player Piscouman
+#   https://melee.gg/Decklist/View/6b0c77ab-42e1-43f5-a6c1-b4f30144e42d — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta Utrecht fixture (owner 2026-11-02): the best-placed Ahsoka Tano (ASH) Yellow list in the event's top 64.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: hyperaggro — the owner's label from hmw-meta-2026-09/ahsoka-tano_ash_yellow.txt
+# Style: hyperaggro
+# Flavours: mixed-space
+
+Leader
+1 ASH_009
+
+Base
+1 HMW_031
+
+Deck
+3 ASH_110
+3 LOF_191
+3 HMW_254
+3 JTL_203
+3 SEC_111
+3 HMW_208
+3 ASH_248
+3 HMW_213
+2 HMW_136
+1 JTL_103
+1 HMW_124
+1 SEC_101
+1 HMW_221
+3 SEC_213
+3 JTL_249
+3 SEC_099
+3 ASH_201
+3 JTL_221
+2 JTL_217
+2 ASH_222
+1 SEC_204
+
+Sideboard
+2 SEC_098
+2 ASH_220
+1 SEC_204
+1 JTL_217
+1 HMW_136
+1 HMW_124
+1 ASH_222
+1 IBH_052

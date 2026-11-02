@@ -155,8 +155,8 @@ foreach ([1 => 1, 2 => 0] as $s => $n) SwuPgnTestEq($bySeq['R2.start']['keyframe
 foreach (['R1.start', 'R1.end', 'R2.start'] as $s) {
     foreach ([1, 2] as $p) {
         $seat = $bySeq[$s]['keyframe']['players'][$p] ?? [];
-        SwuPgnTestCheck(($seat['foreignResources'] ?? null) === [] && !array_key_exists('effects', $bySeq[$s]['keyframe']) && !array_key_exists('abilityUses', $seat),
-            "$s seat $p: foreignResources [] (effects / abilityUses omitted — not read)");
+        SwuPgnTestCheck(($seat['foreignResources'] ?? null) === [] && !array_key_exists('effects', $bySeq[$s]['keyframe']) && ($seat['abilityUses'] ?? null) === [],
+            "$s seat $p: foreignResources [] · effects omitted (not read) · abilityUses [] (W-49, none used)");
     }
 }
 SwuPgnTestEq($marine['traits'] ?? null, ['fighter', 'rebel', 'vehicle'], 'the R2.start keyframe card carries its traits (lower case, sorted)');

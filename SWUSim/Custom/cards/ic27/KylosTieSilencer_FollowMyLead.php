@@ -12,6 +12,6 @@
 // Tests: SWUSim/Tests/Cases/ic27/KylosTieSilencer_FollowMyLead.md
 $cardDiscardedHandlers['IC27_063:0'] = function(int $player, object $entry): void {
     if (($entry->From ?? '') !== 'HAND') return;
-    if (SWUParseDiscardModifier((string)($entry->Modifier ?? ''))['kind'] !== '') return;
-    $entry->Modifier = 'TPP';
+    // Named Action abilities: added beside any other grant (a free one absorbs it — SWUDiscardOwnGrants).
+    SWUDiscardAddGrant($entry, 'TPP', 'IC27_063');
 };

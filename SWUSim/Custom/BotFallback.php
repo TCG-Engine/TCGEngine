@@ -3502,6 +3502,12 @@ function _SWUBotActionLeader(int $seat, array $action): ?object {
 
 function _SWUBotActionSourceText(int $seat, array $action): string {
     $k = SWUBotActionKind($action);
+    // A named Action ability is priced by the card that GIVES it (Improvised Identity on Chewbacca is Improvised
+    // Identity's Action, not Chewbacca's); a deployed leader's own is on its deployed side.
+    if ($k === 'unit-action' && ($aid = SWUBotActionAbilityId($action)) !== '' && function_exists('SWUActionIdParts')) {
+        $p = SWUActionIdParts($aid);
+        return strval(($p['deploySide'] ? CardDeployText($p['cardID']) : CardText($p['cardID'])) ?? '');
+    }
     if ($k === 'leader-ability') { $l = _SWUBotActionLeader($seat, $action); return $l !== null ? strval(CardText(strval($l->CardID ?? ''))) : ''; }
     if ($k === 'unit-action') { $v = SWUBotViewForMz($seat, SWUBotActionMz($action)); return $v !== null ? strval(CardText($v['cardID'])) : ''; }
     return '';

@@ -30,7 +30,7 @@ cd /var/www/html/TCGEngine
 # 10 workers = the owner's M1 Max (10 cores); measured 2026-10-03, games/min plateaus there (8 → 104, 10 → 133, 16 → 131).
 # opcache.file_cache shares compiled scripts across the one-game processes, which otherwise recompile the engine each
 # time: −13% per game, identical results. Timestamps are still validated (revalidate_freq=0), so an edit is picked up.
-SEEDS=${1:-100}; WORKERS=${2:-10}; OUT=${3:-/tmp/fixture_sweep}; DIR=${4:-SWUSim/Tests/BotFixtures/ash-meta-2026-09}
+SEEDS=${1:-100}; WORKERS=${2:-10}; OUT=${3:-/tmp/fixture_sweep}; DIR=${4:-SWUSim/BotFixtures/ash-meta-2026-09}
 SUPERSET=${SUPERSET:-}; SUPERSET_DECKS=${SUPERSET_DECKS:-}; VARIANT=${VARIANT:-}
 decks=$(ls "$DIR"/*.txt | xargs -n1 basename | sed 's/\.txt$//')
 if [ -n "$SUPERSET" ] && [ -n "$SUPERSET_DECKS" ]; then echo "[sweep] set SUPERSET or SUPERSET_DECKS, not both" >&2; exit 1; fi

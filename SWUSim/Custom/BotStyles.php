@@ -28,10 +28,17 @@ function SWUBotActionKind(array $action): string {
     if (preg_match('/^myHand-\d+!FSM!$/', $c)) return 'play';
     if (preg_match('/^my(Ground|Space)Arena-\d+!FSM!$/', $c)) return 'attack';
     if (str_contains($c, '!CustomInput!DeployLeader')) return 'deploy';
-    if (str_ends_with($c, '!CustomInput!LeaderAbility')) return 'leader-ability';
-    if (str_ends_with($c, '!CustomInput!EpicAction')) return 'base-epic';
-    if (str_ends_with($c, '!CustomInput!Activate')) return 'unit-action';
+    // Named Action abilities: each verb may carry ":<abilityId>" — the same kind as the bare form.
+    if (preg_match('/!CustomInput!LeaderAbility(:[^!]*)?$/', $c)) return 'leader-ability';
+    if (preg_match('/!CustomInput!EpicAction(:[^!]*)?$/', $c)) return 'base-epic';
+    if (preg_match('/!CustomInput!Activate(:[^!]*)?$/', $c)) return 'unit-action';
     return 'answer';
+}
+
+// The named Action ability an action uses ("…!CustomInput!Activate:ASH_230.0" → "ASH_230.0"), "" for a bare verb.
+function SWUBotActionAbilityId(array $action): string {
+    if (intval($action['mode'] ?? 0) === 100) return '';
+    return preg_match('/!CustomInput!(?:Activate|EpicAction|LeaderAbility):([^!]+)$/', strval($action['cardID'] ?? ''), $m) ? $m[1] : '';
 }
 
 // How many items a multi-choose candidate selects: "PASS" / "" / "-" select nothing, otherwise the

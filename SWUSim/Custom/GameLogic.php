@@ -28,6 +28,7 @@ include_once __DIR__ . '/CombatLogic.php';
 include_once __DIR__ . '/CardDQHandlers.php';
 include_once __DIR__ . '/LeaderAbilities.php';
 include_once __DIR__ . '/BaseAbilities.php';
+include_once __DIR__ . '/ActionAbilities.php'; // named Action abilities: ids, labels, limits, per-surface entry lists
 include_once __DIR__ . '/cards/_loader.php'; // per-card ability files (cards/<set>/*.php); coexists with the monoliths during rollout
 include_once __DIR__ . '/SmuggleCost.php';
 
@@ -4903,9 +4904,10 @@ $customDQHandlers["SWU_RELEASE_DRAW_TRIGGERS"] = function($player, $parts, $last
 
 // The start of every "use an Action ability" action (leader, unit, base, Epic): the draw triggers raised while
 // it resolves wait for it (CR 7.6.8), and the log gets its "P1 used X's Action" line.
-function SWUBeginActionAbility(int $player, string $cardID, string $kind = 'Action'): void {
+// $entry: the named Action ability being used, when the caller has one (see SWULogBeginAction).
+function SWUBeginActionAbility(int $player, string $cardID, string $kind = 'Action', ?array $entry = null): void {
     SWUBeginDeferDrawTriggers();
-    SWULogBeginAction($player, $cardID, $kind);
+    SWULogBeginAction($player, $cardID, $kind, $entry);
 }
 
 function _SWUDeferredDrawNoteHandRemoval(int $player, int $ordinal): void {
@@ -5921,8 +5923,12 @@ function DoCaptureUnit($player, $capturingMZ, $capturedMZ) {
     // Game log — the capture is committed (immunity and the token case returned above).
     if (function_exists('SWULogObjRef')) {
         [, $lsCard] = SWULogSource();
-        if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNote(['t' => 'CAPTURE', 'p' => intval($captor->Controller ?? $player),
-            'cardID' => strval($captive->CardID ?? ''), 'by' => intval($captor->UniqueID ?? 0)]);
+        // SWU-PGN: where the captive is and what it is right now. A unit an ability plays straight into capture (SEC_018 DJ)
+        // never shows in an arena on the board, so the writer takes its PLAY's arena and STATS from here.
+        $pgnArena = stripos(strval($capturedMZ), 'Space') !== false ? 'space' : 'ground';
+        if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) { $pgnSnap = _SwuPgnUnitSnap($captive, $pgnArena); SwuPgnNote(['t' => 'CAPTURE', 'p' => intval($captor->Controller ?? $player),
+            'cardID' => strval($captive->CardID ?? ''), 'by' => intval($captor->UniqueID ?? 0), 'uid' => intval($captive->UniqueID ?? 0) ?: null,
+            'arena' => $pgnArena, 'exhausted' => !$pgnSnap['ready'], 'stats' => array_intersect_key($pgnSnap, array_flip(['power', 'hp', 'keywords', 'traits', 'blank', 'leaderUnit']))]); }
         AddGameLogEntry('CAPTURE', SWULogObjRef($captor) . ' captured ' . SWULogObjRef($captive)
             . (($lsCard !== '' && $lsCard !== ($captor->CardID ?? '')) ? SWULogSourceSuffix() : ''));
     }
@@ -11521,7 +11527,7 @@ function SEC205MillTrigger($player, $mzID): void {
     $discard = &GetDiscard($defender);                   // mark the just-milled entry (it was appended last)
     for ($i = count($discard) - 1; $i >= 0; $i--) {
         if (!empty($discard[$i]->removed)) continue;
-        if (($discard[$i]->CardID ?? '') === $milled) { $discard[$i]->Modifier = 'OTPN'; break; }
+        if (($discard[$i]->CardID ?? '') === $milled) { SWUDiscardAddGrant($discard[$i], 'OTPN', 'SEC_205'); break; }
     }
 }
 
@@ -17313,7 +17319,7 @@ $customDQHandlers["TWI_201#0"] = function($player, $parts, $lastDecision) {
         $d = &GetDiscard(intval($player));
         for ($i = count($d) - 1; $i >= 0; $i--) {
             if (!empty($d[$i]->removed)) continue;
-            if (($d[$i]->CardID ?? '') === $cardID) { $d[$i]->Modifier = 'TPP2'; break; }
+            if (($d[$i]->CardID ?? '') === $cardID) { SWUDiscardAddGrant($d[$i], 'TPP2', 'TWI_201'); break; }
         }
         unset($d);
     }
@@ -19425,9 +19431,10 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
         }
         case 'UNIT_ACTION_PAY': {
             // A unit's "Action [N resources, …]" cost, after the Credit/Droid offer. args =
-            // "{providerCardID}|{cost}|{unitMzID}"; $cost arrives ALREADY halved by SWUUnitAction.
+            // "{abilityId}|{cost}|{unitMzID}"; $cost arrives ALREADY halved by SWUUnitAction.
             // The unit's own base cost (exhaust / defeat) was paid before the offer, so only the
             // resource remainder is settled here — then the ability runs exactly as before.
+            // The id may be a bare CardID (a decision queued before named Action abilities): SWUActionReg resolves both.
             global $unitAbilities, $playerID;
             $argParts = explode('|', $args, 3);
             $provider = $argParts[0] ?? '';
@@ -19435,8 +19442,13 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             $mzID     = $argParts[2] ?? '';
             $playerID = $player; // $mzID is a relative mzID in this player's frame
             if (!SWUPayCost($player, $cost, $prepaid, false, true)) { SWUAfterAction($player); break; }
-            if (isset($unitAbilities[$provider]) && is_callable($unitAbilities[$provider])) {
-                SWUBeginActionAbility(intval($player), (string)$provider, 'Action'); ($unitAbilities[$provider])($player, $mzID); // handler owns its SWUAfterAction
+            $fn = SWUActionReg($unitAbilities, $provider);
+            if (is_callable($fn)) {
+                // Rebuilt after the boundary (nothing rides the decision); the entry is looked up whatever its enabled
+                // state now — the payment itself may have greyed it.
+                $entry = ['id' => $provider, 'source' => SWUActionIdParts($provider)['cardID'], 'subIndex' => -1];
+                foreach (SWUUnitActionEntries(intval($player), $mzID) as $e) if ($e['id'] === $provider) $entry = $e;
+                SWUBeginActionAbility(intval($player), (string)$entry['source'], 'Action', $entry); $fn($player, $mzID, $entry); // handler owns its SWUAfterAction
             } else {
                 SWUAfterAction($player);
             }
@@ -19464,13 +19476,17 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             // "{leaderCardID}|{cost}"; $cost arrives ALREADY halved by SWULeaderAction (so pass
             // applyCostHalving=false — halving it twice would undercharge under JTL_105).
             global $leaderAbilities, $playerID;
-            $argParts = explode('|', $args, 2);
+            $argParts = explode('|', $args, 3);
             $cardID   = $argParts[0] ?? '';
             $cost     = intval($argParts[1] ?? 0);
             $playerID = $player; // handlers below resolve relative mzIDs
             if (!SWUPayCost($player, $cost, $prepaid, false, true)) { SWUAfterAction($player); break; }
             if (isset($leaderAbilities[$cardID]) && is_callable($leaderAbilities[$cardID])) {
-                SWUBeginActionAbility(intval($player), (string)$cardID, 'Action'); ($leaderAbilities[$cardID])($player); // handler owns its SWUAfterAction
+                // Named Action abilities: rebuild the entry from the leader index (a third arg; a decision queued before named
+                // abilities has none and logs without it). Looked up whatever its enabled state — the leader is exhausted now.
+                $leaderEntry = null;
+                if (isset($argParts[2]) && $argParts[2] !== '') foreach (SWULeaderActionEntries(intval($player), intval($argParts[2])) as $le) if ($le['source'] === $cardID) $leaderEntry = $le;
+                SWUBeginActionAbility(intval($player), (string)$cardID, 'Action', $leaderEntry); ($leaderAbilities[$cardID])($player); // handler owns its SWUAfterAction
             } else {
                 SWUAfterAction($player);
             }
@@ -20273,7 +20289,10 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
 // ── Exhaust leader and trigger its action ability ──────────────────────────
 // Dispatches to the per-card handler in $leaderAbilities. If no handler is
 // registered for the card, the leader is exhausted but nothing else happens.
-function SWULeaderAction(int $player, string $cardID, int $leaderIndex = 0): void {
+// Named Action abilities: $abilityId names the leader's front Action (SWULeaderActionEntries); without one the leader
+// must have exactly one usable — always true today, since a front side has one non-deploy Action. A greyed, stale or
+// non-entry id (Trench / Bail's deploy Action is DeployLeader, not an entry) is refused before anything is paid.
+function SWULeaderAction(int $player, string $cardID, int $leaderIndex = 0, string $abilityId = ''): void {
     global $playerID, $leaderAbilities;
     $savedPID = $playerID;
     $playerID = $player;
@@ -20283,6 +20302,8 @@ function SWULeaderAction(int $player, string $cardID, int $leaderIndex = 0): voi
     // a player takes the initiative after the opponent passed) the action phase ends, and a
     // stray/bypassed call must not still exhaust the leader and fire the ability.
     if (GetCurrentPhase() !== 'MAIN') { $playerID = $savedPID; return; }
+    $entry = SWUActionPick($player, "myLeader-$leaderIndex", $abilityId);
+    if ($entry === null) { $playerID = $savedPID; return; }
 
     // Twin Suns: act on the clicked leader instance. Index 0 == the historical first-live leader.
     $leader = SWUGetLeaderByIndex($player, $leaderIndex);
@@ -20312,12 +20333,12 @@ function SWULeaderAction(int $player, string $cardID, int $leaderIndex = 0): voi
     global $leaderActionResourceCosts;
     $cost = SWUApplyCostHalving($player, $leaderActionResourceCosts[$cardID] ?? 0);
     if ($cost > 0) {
-        SWUOfferAltPayment($player, $cost, 'LEADER_ACTION_PAY', "{$cardID}|{$cost}", 1);
+        SWUOfferAltPayment($player, $cost, 'LEADER_ACTION_PAY', "{$cardID}|{$cost}|{$leaderIndex}", 1);   // the index rebuilds the entry after the boundary
         return; // $playerID intentionally left = $player when the funnel queued a decision
     }
 
     if (isset($leaderAbilities[$cardID]) && is_callable($leaderAbilities[$cardID])) {
-        SWUBeginActionAbility(intval($player), (string)$cardID, 'Action'); ($leaderAbilities[$cardID])($player);
+        SWUBeginActionAbility(intval($player), (string)$cardID, 'Action', $entry); ($leaderAbilities[$cardID])($player);
         // Ability handlers are responsible for calling SWUAfterAction
     } else {
         SWUAfterAction($player);
@@ -20405,42 +20426,36 @@ function _SWUBaseActionProviders(int $player): array {
 }
 
 // Run one resolved base Action.
-function _SWUDispatchBaseAction(int $player, array $prov): void {
+// $entry: the named Action ability being used (SWUBaseAction), or null from the saved-game BASE_ACTION_PICK path.
+function _SWUDispatchBaseAction(int $player, array $prov, ?array $entry = null): void {
     global $playerID, $baseUpgradeAbilities;
-    if ($prov['kind'] === 'own') { _SWUBaseOwnAction($player); return; }
+    if ($prov['kind'] === 'own') { _SWUBaseOwnAction($player, $entry); return; }
     $playerID = $player;
     $fn = $baseUpgradeAbilities[$prov['cardID']] ?? null;
-    if (is_callable($fn) && function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNoteBaseUpgradeAction($player, (string)$prov['cardID']);
+    if (is_callable($fn) && function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) SwuPgnNoteBaseUpgradeAction($player, (string)$prov['cardID'], $entry);
+    // A Fortify upgrade's Action had no game-log line; named, it gets one ("P1 used Heavy Ion Cannon on Echo Base").
+    if (is_callable($fn) && $entry !== null) AddGameLogEntry('ACTION', 'P' . $player . ' ' . SWUActionLogPhrase($entry), 'ALL');
     if (is_callable($fn)) $fn($player, intval($prov['index']));
     else SWUAfterAction($player);
 }
 
-function SWUBaseAction(int $player): void {
+// Named Action abilities: $abilityId names which of the base's Actions (SWUBaseActionEntries) — its own Action / Epic
+// Action or a Fortify upgrade's. Without one the base must have exactly one usable; otherwise nothing happens (the
+// client menu names the Action; a game saved mid-choice still resolves through BASE_ACTION_PICK).
+function SWUBaseAction(int $player, string $abilityId = ''): void {
     global $playerID;
     $savedPID = $playerID;
     $playerID = $player;
-
-    $providers = _SWUBaseActionProviders($player);
-    if (empty($providers)) { $playerID = $savedPID; return; }   // nothing available — keep the action
-    if (count($providers) === 1) {
-        _SWUDispatchBaseAction($player, $providers[0]);
-        $playerID = $savedPID;
-        return;
+    $entry = SWUActionPick($player, 'myBase-0', $abilityId);
+    if ($entry !== null) {
+        $own = in_array($entry['kind'], ['own', 'epic'], true);
+        _SWUDispatchBaseAction($player, ['kind' => $own ? 'own' : 'upgrade', 'cardID' => $entry['source'],
+            'index' => $own ? -1 : intval($entry['subIndex']), 'label' => $entry['label']], $entry);
     }
-    // More than one Action on the base — let the player pick. The leading "@CardID" segment renders the
-    // base's art above the buttons (OptionChooseUI strips it from the options).
-    $labels = array_column($providers, 'label');
-    $baseArr = GetBase($player);
-    $bcid = '';
-    foreach ($baseArr as $b) { if (empty($b->removed)) { $bcid = $b->CardID ?? ''; break; } }
-    DecisionQueueController::AddDecision($player, 'OPTIONCHOOSE',
-        ($bcid !== '' ? '@' . $bcid . '&' : '') . implode('&', $labels), 1,
-        tooltip: 'Which_base_ability_do_you_want_to_use?');
-    DecisionQueueController::AddDecision($player, 'CUSTOM', 'BASE_ACTION_PICK', 1);
     $playerID = $savedPID;
 }
 
-function _SWUBaseOwnAction(int $player): void {
+function _SWUBaseOwnAction(int $player, ?array $entry = null): void {
     global $playerID, $baseAbilities, $baseActionNumUses, $baseActionRepeatable;
     $savedPID = $playerID;
     $playerID = $player;
@@ -20467,7 +20482,7 @@ function _SWUBaseOwnAction(int $player): void {
     // ability closure pays its own cost. Does NOT consume EpicActionUsed or a NumUses budget.
     if (isset($baseActionRepeatable[$cardID])) {
         if (isset($baseAbilities[$cardID]) && is_callable($baseAbilities[$cardID])) {
-            SWUBeginActionAbility(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
+            SWUBeginActionAbility(intval($player), (string)$cardID, 'Epic Action', $entry); ($baseAbilities[$cardID])($player);
         } else {
             SWUAfterAction($player);
         }
@@ -20486,7 +20501,7 @@ function _SWUBaseOwnAction(int $player): void {
         }
         $base->NumUses = $left - 1; // lazily seed + consume in one step
         if (isset($baseAbilities[$cardID]) && is_callable($baseAbilities[$cardID])) {
-            SWUBeginActionAbility(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
+            SWUBeginActionAbility(intval($player), (string)$cardID, 'Epic Action', $entry); ($baseAbilities[$cardID])($player);
         } else {
             SWUAfterAction($player);
         }
@@ -20540,7 +20555,7 @@ function _SWUBaseOwnAction(int $player): void {
     }
 
     if (isset($baseAbilities[$cardID]) && is_callable($baseAbilities[$cardID])) {
-        SWUBeginActionAbility(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
+        SWUBeginActionAbility(intval($player), (string)$cardID, 'Epic Action', $entry); ($baseAbilities[$cardID])($player);
     } else {
         SWUAfterAction($player);
     }
@@ -20628,7 +20643,10 @@ function SWUGetUnitActionProvider($obj): string {
 
 // Affordability for a unit action: resource cost (rare) + per-card additional costs.
 // The Exhaust cost is checked separately by SWUUnitAction (the unit must be ready).
-function SWUUnitActionAffordable(int $player, string $mzID, string $providerCardID): bool {
+// $subIndex: the attached copy a per-copy upgrade Action would spend (named Action abilities name it explicitly).
+// -1 = ask _SWUUnitActionProviderPick, the single-provider lookup — which answers with the host's OWN Action on a unit
+// that has one, so an explicit index is the only way to judge an upgrade Action on such a unit.
+function SWUUnitActionAffordable(int $player, string $mzID, string $providerCardID, int $subIndex = -1): bool {
     global $playerID, $unitActionResourceCosts, $unitActionSubcardNumUses;
     $cost = $unitActionResourceCosts[$providerCardID] ?? 0;
     $cost = SWUApplyCostHalving($player, $cost); // JTL_105 The Starhawk — halves activation costs too
@@ -20647,7 +20665,7 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
     // on the subcard, and _SWUUnitActionProviderPick already prefers an unspent copy — so if the copy it
     // picked is spent, every copy on this unit is spent.
     if (isset($unitActionSubcardNumUses[$providerCardID])) {
-        $pick = _SWUUnitActionProviderPick($actor);
+        $pick = $subIndex >= 0 ? ['cardID' => $providerCardID, 'subIndex' => $subIndex] : _SWUUnitActionProviderPick($actor);
         if ($pick['cardID'] !== $providerCardID || _SWUUnitActionSubcardUsesLeft($actor, $pick['subIndex']) <= 0) {
             $playerID = $savedPID; return false;
         }
@@ -21008,31 +21026,23 @@ function SWUOtherFriendlyUnits(int $player, string $mzID): array {
 // is unaffordable — the player keeps their action. Base cost is 'exhaust' (requires ready,
 // exhausts the unit) by default, or 'defeat' (no ready requirement; the unit is defeated to
 // pay — SOR_110). The Exhaust cost-kind requires Status===1; 'defeat' may act while exhausted.
-function SWUUnitAction(int $player, string $mzID): void {
+// Named Action abilities: $abilityId names WHICH of the unit's Actions (SWUUnitActionEntries); without it the unit must
+// have exactly one usable. A stale, greyed or ambiguous request is refused before anything is paid (SWUUnitActionPick
+// — the entry's enabled state already covers the ready / resource / limit / per-card gates).
+function SWUUnitAction(int $player, string $mzID, string $abilityId = ''): void {
     global $playerID, $unitAbilities, $unitActionResourceCosts, $unitActionCostKind;
     $savedPID = $playerID;
     $playerID = $player;
 
     $obj = GetZoneObject($mzID);
-    if (SWUObjGone($obj)) {
+    $entry = SWUObjGone($obj) ? null : SWUUnitActionPick($player, $mzID, $abilityId);
+    if ($entry === null) {
         $playerID = $savedPID;
         return;
     }
-    $provider = SWUGetUnitActionProvider($obj);
-    if ($provider === '') {
-        $playerID = $savedPID;
-        return;
-    }
+    $provider = $entry['id'];
     _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — the acting unit is the source of its activated-ability damage
-    $costKind = $unitActionCostKind[$provider] ?? 'exhaust';
-    if ($costKind === 'exhaust' && intval($obj->Status) !== 1) {
-        $playerID = $savedPID;
-        return; // not ready → can't pay the Exhaust cost
-    }
-    if (!SWUUnitActionAffordable($player, $mzID, $provider)) {
-        $playerID = $savedPID;
-        return;
-    }
+    $costKind = SWUActionReg($unitActionCostKind, $provider) ?? 'exhaust';
 
     // Pay the base cost.
     if ($costKind === 'defeat') {
@@ -21044,15 +21054,18 @@ function SWUUnitAction(int $player, string $mzID): void {
     // repeatable while resources last, e.g. SOR_184 Fett's Firespray). The resource cost is paid below,
     // through the alt-payment funnel so Credit tokens / SEC_122 Droids can pay it (CR 3.13). With no
     // usable token the funnel dispatches synchronously with prepaid 0 — identical to the old inline pay.
-    $rc = $unitActionResourceCosts[$provider] ?? 0;
+    $rc = intval(SWUActionReg($unitActionResourceCosts, $provider) ?? 0);
     $rc = SWUApplyCostHalving($player, $rc); // JTL_105 The Starhawk — halves activation costs too
     if ($rc > 0) {
         SWUOfferAltPayment($player, $rc, 'UNIT_ACTION_PAY', "{$provider}|{$rc}|{$mzID}", 1);
         return; // $playerID intentionally left = $player when the funnel queued a decision
     }
 
-    if (isset($unitAbilities[$provider]) && is_callable($unitAbilities[$provider])) {
-        SWUBeginActionAbility(intval($player), (string)$provider, 'Action'); ($unitAbilities[$provider])($player, $mzID);
+    $fn = SWUActionReg($unitAbilities, $provider);
+    if (is_callable($fn)) {
+        // The closure gets the entry (third argument) so it knows WHICH copy it runs for (subIndex); closures that
+        // take two parameters simply ignore it.
+        SWUBeginActionAbility(intval($player), (string)$entry['source'], 'Action', $entry); $fn($player, $mzID, $entry);
         // Ability handlers are responsible for calling SWUAfterAction.
     } else {
         SWUAfterAction($player);
@@ -21901,6 +21914,63 @@ function SWUForeignDiscardMzID(int $player, int $ownerSeat, int $idx): string {
 //
 // I1: at ≤2 seats no '@N' is ever emitted, so every existing `MODIFIER:OTPF` / `MODIFIER:TPP2`
 // assertion stays byte-identical.
+// ── Discard-pile play GRANTS (named Action abilities, spec §9) ─────────────────────────────────────────────
+// A discard entry's Modifier is a comma-separated LIST of grants, each "<MOD>" or "<MOD>:<sourceCardID>" (the card whose
+// text gave it): "TPP:SHD_135,TPP1U:HMW_122". One card can be playable from discard several ways (its own Action, Cobb
+// Vanth's free play, Boga's 1 less) — a single Modifier used to keep only one, overwriting or dropping the rest. A bare
+// legacy "<MOD>" (a saved game, a test fixture) is one grant from an unknown source.
+function SWUDiscardGrantList(string $modifier): array {
+    $out = [];
+    foreach (explode(',', $modifier) as $tok) {
+        $tok = trim($tok);
+        if ($tok === '') continue;
+        [$mod, $src] = array_pad(explode(':', $tok, 2), 2, '');
+        $out[] = ['mod' => $mod, 'source' => $src];
+    }
+    return $out;
+}
+
+// Add a grant to a discard entry (an identical mod + source is not added twice: Boga picking the same unit again).
+function SWUDiscardAddGrant(object $entry, string $mod, string $source = ''): void {
+    $cur = (string)($entry->Modifier ?? '');
+    foreach (SWUDiscardGrantList($cur) as $g) if ($g['mod'] === $mod && $g['source'] === $source) return;
+    $tok = $source !== '' ? "$mod:$source" : $mod;
+    $entry->Modifier = $cur === '' ? $tok : "$cur,$tok";
+}
+
+// The OWNER's ways to play this discard entry: its TPF / TPP grants (+ SHD_038 Brutal Traditions' live one), each
+// ['mod', 'source', 'parsed']. The STACKING rule (owner, 2026-11-02): a free grant absorbs the card's OWN plain
+// "paying its cost" grant — Cobb Vanth's free play and Kylo's TIE Silencer's own play are the same play, and it's free.
+// Every other pair stays separate (a discount, two different free sources): the player picks.
+function SWUDiscardOwnGrants(int $player, object $entry): array {
+    $cid = (string)($entry->CardID ?? '');
+    $grants = [];
+    foreach (SWUDiscardGrantList((string)($entry->Modifier ?? '')) as $g) {
+        $p = SWUParseDiscardModifier($g['mod']);
+        if ($p['kind'] === 'TPF' || $p['kind'] === 'TPP') $grants[] = $g + ['parsed' => $p];
+    }
+    // SHD_038 Brutal Traditions — "Action: If an enemy unit was defeated this phase, play this upgrade from your discard
+    // pile (paying its cost)": true LATER than the discard, so computed live (SWU_ENEMY_DEFEATED, cleared at regroup).
+    if ($cid === 'SHD_038' && SWUEnemyUnitsDefeatedThisPhase($player) > 0) {
+        $grants[] = ['mod' => 'TPP', 'source' => 'SHD_038', 'parsed' => SWUParseDiscardModifier('TPP')];
+    }
+    $hasFree = false;
+    foreach ($grants as $g) if ($g['parsed']['kind'] === 'TPF') $hasFree = true;
+    if ($hasFree) {
+        $grants = array_filter($grants, fn($g) => !($g['parsed']['kind'] === 'TPP' && $g['parsed']['discount'] === 0
+            && !$g['parsed']['unitOnly'] && ($g['source'] === $cid || $g['source'] === '')));
+    }
+    return array_values($grants);
+}
+
+// An OPPONENT's permission on this entry that $player may use ("OTPF/OTPP/OTPN", grantee-checked), or '' — the first one.
+function SWUDiscardOppGrant(object $entry, int $player): string {
+    foreach (SWUDiscardGrantList((string)($entry->Modifier ?? '')) as $g) {
+        if (str_starts_with($g['mod'], 'OTP') && SWUDiscardModifierGrantsTo($g['mod'], $player)) return $g['mod'];
+    }
+    return '';
+}
+
 function SWUParseDiscardModifier(string $mod): array {
     $out = ['kind' => '', 'discount' => 0, 'unitOnly' => false, 'grantee' => null];
     if ($mod === '') return $out;
@@ -21931,17 +22001,20 @@ function SWUDiscardModifierGrantsTo(string $mod, int $player): bool {
 // discard time via cardDiscardedHandlers), SHD_038's condition can become true AFTER it's already in the
 // discard pile, so its effective play-from-discard modifier is computed LIVE: TPP whenever an enemy unit
 // was defeated this phase (the SWU_ENEMY_DEFEATED flag, cleared at RegroupPhaseStart).
+// Named Action abilities: the entry's BEST own grant (free, else the largest discount) as one modifier string — for the
+// readers that still want a single answer. Choosing among several is SWUDiscardActionEntries' job.
 function _SWUEffectiveDiscardModifier(int $player, object $entry): string {
-    $mod = $entry->Modifier ?? '';
-    // "If AN ENEMY UNIT was defeated this phase" — existential across every opponent.
-    if ($mod === '' && ($entry->CardID ?? '') === 'SHD_038'
-        && SWUEnemyUnitsDefeatedThisPhase($player) > 0) {
-        return 'TPP';
+    $best = null;
+    foreach (SWUDiscardOwnGrants($player, $entry) as $g) {
+        if ($best === null || ($g['parsed']['kind'] === 'TPF' && $best['parsed']['kind'] !== 'TPF')
+            || ($best['parsed']['kind'] === 'TPP' && $g['parsed']['kind'] === 'TPP' && $g['parsed']['discount'] > $best['parsed']['discount'])) $best = $g;
     }
-    return $mod;
+    return $best['mod'] ?? '';
 }
 
-function SWUPlayFromDiscard(int $player, int $discardIdx): void {
+// Named Action abilities (spec §9): $abilityId names WHICH grant to play the card under (SWUDiscardActionEntries); without
+// one the card must have exactly one usable way. A greyed, stale or ambiguous request is refused.
+function SWUPlayFromDiscard(int $player, int $discardIdx, string $abilityId = ''): void {
     global $playerID;
     $savedPID = $playerID;
     $playerID = $player;
@@ -21962,7 +22035,13 @@ function SWUPlayFromDiscard(int $player, int $discardIdx): void {
 
     $entry    = $discard[$actualIdx];
     $cardID   = $entry->CardID;
-    $modifier = _SWUEffectiveDiscardModifier($player, $entry);
+    $pick     = SWUActionPick($player, "myDiscard-$discardIdx", $abilityId);
+    if ($pick === null && $abilityId === '' && SWUActionEnabledCount($player, "myDiscard-$discardIdx") >= 2) {
+        SetFlashMessage("Choose which way to play it.");
+        $playerID = $savedPID;
+        return;
+    }
+    $modifier = $pick['mod'] ?? '';
 
     // 'TPP2' = "this phase you may play this from your discard, and it costs 2 resources less"
     // (TWI_201 Aid from the Innocent); 'TPP1U' = HMW_122 Boga's "…that UNIT…, it costs 1 less". Decode
@@ -22286,7 +22365,9 @@ function SWUPlayFromOpponentDiscard(int $player, int $discardIdx, ?int $ownerSea
 
     $entry    = $discard[$actualIdx];
     $cardID   = $entry->CardID;
-    $rawMod   = $entry->Modifier ?? '';
+    // Named Action abilities: the entry may carry several grants — the opponent's permission is the one granted to
+    // $player (an owner's own TPF/TPP beside it is not theirs to use).
+    $rawMod   = SWUDiscardOppGrant($entry, intval($player));
     $parsedM  = SWUParseDiscardModifier($rawMod);
     $modifier = $parsedM['kind'];
 
@@ -22417,6 +22498,7 @@ function SWUComputeActionsData(int $player): array {
         'leaderAbility'       => false,
         'leaderDeploy'        => false,
         'baseEpic'            => false,
+        'baseActionEntries'   => [],   // named Action abilities: the base menu's entries
         'unitActions'         => [],
         'attackers'           => [],
         'smugglableResources' => [],
@@ -22475,6 +22557,7 @@ function SWUComputeActionsData(int $player): array {
     $leaderArr    = &GetLeader($player);
     $abilityByIdx = [];
     $deployByIdx  = [];
+    $entriesByIdx = [];
     $liveIdx      = 0;
     for ($li = 0; $li < count($leaderArr); $li++) {
         $leaderObj = $leaderArr[$li];
@@ -22485,14 +22568,19 @@ function SWUComputeActionsData(int $player): array {
         $cid      = $leaderObj->CardID ?? '';
         // TWI_017 "Flipatine" has an activated Action on BOTH faces (its "Deployed" state is the flipped
         // Villainy face, not a unit deploy), so its glow isn't gated on !deployed.
-        $abilityByIdx[$liveIdx] = $ready && (!$deployed || $cid === 'TWI_017')
-            && SWULeaderActionAffordable($player, $cid);
+        // Named Action abilities: the leader's front Action entries (greyed included) feed its menu; the ability glow is
+        // "at least one usable" — the list SWULeaderAction dispatches from, so the glow, the menu and the click agree.
+        $lEnts = SWULeaderActionEntries($player, $liveIdx);
+        $entriesByIdx[$liveIdx] = array_map(fn($e) => ['id' => $e['id'], 'label' => $e['label'],
+            'enabled' => (bool)$e['enabled'], 'reason' => (string)$e['reason']], $lEnts);
+        $abilityByIdx[$liveIdx] = count(array_filter($lEnts, fn($e) => $e['enabled'])) > 0;
         // ONE condition, shared with the gate in SWUDeployLeader (see SWULeaderDeployThresholdMet):
         // the per-leader branches that used to live here had drifted from it three ways (Bug #1069).
         $deployByIdx[$liveIdx] = SWULeaderDeployThresholdMet($player, $leaderObj);
         $liveIdx++;
     }
     $data['leaderAbilityByIndex'] = $abilityByIdx;
+    $data['leaderActionEntriesByIndex'] = $entriesByIdx;
     $data['leaderDeployByIndex']  = $deployByIdx;
     $data['leaderAbility'] = $abilityByIdx[0] ?? false;
     $data['leaderDeploy']  = $deployByIdx[0] ?? false;
@@ -22503,28 +22591,34 @@ function SWUComputeActionsData(int $player): array {
     foreach ($baseArr as $b) {
         if (isset($b->removed) && $b->removed) continue;
         $bCardID = $b->CardID ?? '';
-        // Any available base Action lights the base — its own Epic and/or a Fortify-upgrade Action
-        // (HMW_095). _SWUBaseActionProviders is the same list SWUBaseAction dispatches from, so the glow
-        // and the click can't drift.
-        $data['baseEpic'] = !empty(_SWUBaseActionProviders($player));
+        // Named Action abilities: the base's whole entry list (greyed included) feeds its click menu; the glow
+        // (baseEpic) is "at least one usable" — SWUBaseActionEntries is the list SWUBaseAction dispatches from, so
+        // the glow, the menu and the click can't drift.
+        $baseEnts = SWUBaseActionEntries($player);
+        $data['baseActionEntries'] = array_map(fn($e) => ['id' => $e['id'], 'label' => $e['label'],
+            'enabled' => (bool)$e['enabled'], 'reason' => (string)$e['reason']], $baseEnts);
+        $data['baseEpic'] = count(array_filter($baseEnts, fn($e) => $e['enabled'])) > 0;
         break; // only one live base per player
     }
 
     // Unit activated abilities — ready arena units (own or upgrade-granted) with an
     // affordable action. mzIDs are player-relative ("myGroundArena-N").
-    global $unitActionCostKind;
+    // Named Action abilities: a unit glows when at least ONE of its Actions is usable now (SWUUnitActionEntries — the
+    // same list the click dispatches from, so the glow and the click can't disagree). unitActionEntries carries every
+    // unit's whole list — greyed ones included — for the click menu (owner decision: a unit with any Action, usable or
+    // not, opens the menu).
+    $data['unitActionEntries'] = [];
+    $addUnitEntries = function (string $mz) use ($player, &$data) {
+        $ents = SWUUnitActionEntries($player, $mz);
+        if (empty($ents)) return;
+        $data['unitActionEntries'][$mz] = array_map(fn($e) => ['id' => $e['id'], 'label' => $e['label'],
+            'enabled' => (bool)$e['enabled'], 'reason' => (string)$e['reason']], $ents);
+        foreach ($ents as $e) if ($e['enabled']) { $data['unitActions'][] = $mz; break; }
+    };
     foreach (['GroundArena' => GetGroundArena($player), 'SpaceArena' => GetSpaceArena($player)] as $arenaName => $arr) {
         for ($i = 0; $i < count($arr); $i++) {
-            $u = $arr[$i];
-            if (SWUObjGone($u)) continue;
-            $provider = SWUGetUnitActionProvider($u);
-            if ($provider === '') continue;
-            // Exhaust-cost actions need a ready unit; 'defeat'-cost actions (SOR_110) may act
-            // while exhausted, so don't gate those on Status.
-            $costKind = $unitActionCostKind[$provider] ?? 'exhaust';
-            if ($costKind === 'exhaust' && intval($u->Status) !== 1) continue;
-            $mz = "my{$arenaName}-{$i}";
-            if (SWUUnitActionAffordable($player, $mz, $provider)) $data['unitActions'][] = $mz;
+            if (SWUObjGone($arr[$i])) continue;
+            $addUnitEntries("my{$arenaName}-{$i}");
         }
     }
 
@@ -22551,12 +22645,9 @@ function SWUComputeActionsData(int $player): array {
         $prefix = $twinAP ? "p{$oppAP}" : 'their';
         foreach (['GroundArena' => GetGroundArena($oppAP), 'SpaceArena' => GetSpaceArena($oppAP)] as $arenaName => $arr) {
             for ($i = 0; $i < count($arr); $i++) {
-                $u = $arr[$i];
-                if (SWUObjGone($u)) continue;
-                $provider = SWUGetUnitActionProvider($u);
-                if ($provider === '' || empty($anyPlayerUnitActions[$provider])) continue;
-                $mz = "{$prefix}{$arenaName}-{$i}";
-                if (SWUUnitActionAffordable($player, $mz, $provider)) $data['unitActions'][] = $mz;
+                if (SWUObjGone($arr[$i])) continue;
+                // Entries on a unit $player doesn't control are already only its "any player may use" Actions.
+                $addUnitEntries("{$prefix}{$arenaName}-{$i}");
             }
         }
     }
@@ -22597,12 +22688,15 @@ function SWUComputeActionsData(int $player): array {
         // so Exploit, other reducers and Credits light it up. This counted READY RESOURCES against printed
         // cost + aspect penalty − discount, so a play payable with a Credit (or only through Exploit) was
         // live but dark, and the client offers "Play" only on a lit entry.
-        $pm = SWUParseDiscardModifier(_SWUEffectiveDiscardModifier($player, $myDiscard[$i]));
-        if ($pm['kind'] === 'TPF') {
-            $playableDiscards[] = ['idx' => $di, 'free' => true];
-        } elseif ($pm['kind'] === 'TPP') {
-            if (CanAffordActivationReserve($player, $myDiscard[$i], $pm['discount'], false, !$pm['unitOnly']))
-                $playableDiscards[] = ['idx' => $di, 'free' => false];
+        // Named Action abilities (spec §9): one entry per way to play the card (SWUDiscardActionEntries — the same
+        // grants and the same affordability gate SWUPlayFromDiscard uses). The card lights when one is usable; its
+        // `entries` (greyed ones included) feed the click menu when there is more than one way.
+        $ents = SWUDiscardActionEntries($player, $di);
+        $usable = array_values(array_filter($ents, fn($e) => $e['enabled']));
+        if (!empty($usable)) {
+            $playableDiscards[] = ['idx' => $di, 'free' => count(array_filter($usable, fn($e) => $e['free'])) > 0,
+                'entries' => array_map(fn($e) => ['id' => $e['id'], 'label' => $e['label'], 'enabled' => (bool)$e['enabled'],
+                    'reason' => (string)$e['reason'], 'note' => (string)$e['note']], $ents)];
         }
         $di++;
     }
@@ -22617,9 +22711,10 @@ function SWUComputeActionsData(int $player): array {
     $odi = 0;
     for ($i = 0; $i < count($oppDiscard); $i++) {
         if (isset($oppDiscard[$i]->removed) && $oppDiscard[$i]->removed) continue;
-        $mod = $oppDiscard[$i]->Modifier ?? '';
-        // Someone else's named permission is not yours to see.
-        if ($mod !== '' && !SWUDiscardModifierGrantsTo($mod, intval($player))) { $odi++; continue; }
+        // Named Action abilities: the entry's grant list — the opponent permission granted to $player, if any (someone
+        // else's named permission, or the owner's own grants, are not $player's to see).
+        $mod = SWUDiscardOppGrant($oppDiscard[$i], intval($player));
+        if ($mod === '') { $odi++; continue; }
         $mod = SWUParseDiscardModifier($mod)['kind'] ?: $mod;
         if ($mod === 'OTPF') {
             $opponentPlayableDiscards[] = ['idx' => $odi, 'free' => true, 'owner' => $oppPlayer];

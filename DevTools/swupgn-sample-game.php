@@ -34,7 +34,7 @@ function sg_req(string $url, string $jar, ?array $post = null): string {
 }
 // A fixture deck by name, or one of the samples' own decks (.superpowers/swupgn-samples/decks/<name>.txt).
 $deckOf = function (string $f) {
-    $path = is_file("./.superpowers/swupgn-samples/decks/$f.txt") ? "./.superpowers/swupgn-samples/decks/$f.txt" : "./SWUSim/Tests/BotFixtures/ash-meta-2026-09/$f.txt";
+    $path = is_file("./.superpowers/swupgn-samples/decks/$f.txt") ? "./.superpowers/swupgn-samples/decks/$f.txt" : "./SWUSim/BotFixtures/ash-meta-2026-09/$f.txt";
     return trim(implode("\n", array_filter(explode("\n", file_get_contents($path)), fn($l) => !str_starts_with($l, '#'))));
 };
 $sayYes = !empty($_GET['yes']);

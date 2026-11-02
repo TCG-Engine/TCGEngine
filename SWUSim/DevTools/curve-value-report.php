@@ -23,7 +23,7 @@ foreach (array_unique($m[1]) as $id) {
     $rows[$id] = $r;
 }
 // Coverage of the bot decks: share of main-deck COPIES that are priced.
-$decks = array_merge(glob('./SWUSim/Tests/BotFixtures/ash-meta-2026-09/*.txt') ?: [], glob('./SWUSim/Tests/BotFixtures/force-fam-HMW-predictions/*.txt') ?: []);
+$decks = array_merge(glob('./SWUSim/BotFixtures/ash-meta-2026-09/*.txt') ?: [], glob('./SWUSim/BotFixtures/force-fam-HMW-predictions/*.txt') ?: []);
 $copies = 0; $pricedCopies = 0; $work = [];
 foreach ($decks as $path) {
     $deck = SWUBotDeckFromFixtureText((string)file_get_contents($path));

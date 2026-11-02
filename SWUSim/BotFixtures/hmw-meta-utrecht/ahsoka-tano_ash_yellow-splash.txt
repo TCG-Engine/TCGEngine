@@ -1,0 +1,41 @@
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Canto Bight
+# Source: melee.gg 492213 (Star Wars: Unlimited Regional Championship Utrecht - Premier Main Event, 2026-11-01), #18 of 789 (10-3-0), player SealeysonSW
+#   https://melee.gg/Decklist/View/e8cb0738-3956-4441-a3cf-b4f301641346 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta Utrecht fixture (owner 2026-11-02): the best-placed Ahsoka Tano (ASH) Yellow Splash list in the event's top 64.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype: softaggro — the owner's label from hmw-meta-2026-09/ahsoka-tano_ash_yellow-splash.txt
+# Style: softaggro
+# Flavours: mixed-space
+
+Leader
+1 ASH_009
+
+Base
+1 LAW_028
+
+Deck
+3 LOF_191
+3 HMW_254
+3 JTL_203
+3 LAW_037
+3 SEC_111
+3 HMW_208
+3 ASH_248
+3 SEC_101
+3 HMW_213
+2 ASH_110
+2 JTL_103
+2 ASH_224
+2 HMW_221
+3 ASH_203
+3 JTL_249
+3 SEC_099
+3 JTL_221
+1 SEC_213
+2 LAW_246
+
+Sideboard
+3 ASH_171
+3 LAW_078
+2 SEC_213
+2 HMW_236

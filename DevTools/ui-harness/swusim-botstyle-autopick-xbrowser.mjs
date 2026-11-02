@@ -7,14 +7,62 @@
 //
 // Usage: node swusim-botstyle-autopick-xbrowser.mjs [baseURL]   ENGINES=chromium,firefox,webkit (default: all three)
 import { chromium, firefox, webkit } from 'playwright';
-import { readFileSync } from 'fs';
 
 const BASE = process.argv[2] || 'http://localhost:3400/TCGEngine/';
 const MENU = BASE + 'SharedUI/Sites/SWUSim/MainMenu.php';
-const FIX = new URL('../../SWUSim/Tests/BotFixtures/ash-meta-2026-09/', import.meta.url);
-const deck = (name) => readFileSync(new URL(name + '.txt', FIX), 'utf8');
-const VADER = deck('darth-vader_jtl_yellow');          // labelled hyperaggro
-const KRENNIC = deck('director-krennic_law_blue-splash');    // labelled softcontrol
+// Two lists the owner labelled: Darth Vader (JTL) Yellow = hyperaggro, Director Krennic (LAW) Blue Splash = softcontrol.
+const VADER = `Leader
+1 JTL_006
+Base
+1 ASH_026
+Deck
+3 SEC_082
+3 SEC_186
+2 ASH_224
+3 SEC_213
+3 LAW_211
+3 JTL_115
+3 JTL_217
+3 SEC_215
+3 JTL_081
+3 SEC_189
+3 LAW_135
+3 JTL_212
+3 JTL_221
+3 JTL_085
+2 ASH_194
+3 LAW_217
+1 SEC_195
+2 LOF_091
+1 ASH_199`;
+const KRENNIC = `Leader
+1 LAW_008
+Base
+1 LAW_020
+Deck
+3 ASH_118
+3 ASH_116
+3 JTL_032
+3 LAW_159
+3 LAW_097
+3 ASH_079
+3 ASH_097
+3 LOF_059
+3 ASH_053
+2 SEC_087
+2 ASH_048
+2 LAW_039
+2 ASH_133
+1 SEC_068
+1 LAW_149
+3 ASH_052
+2 LAW_101
+1 JTL_041
+3 JTL_043
+3 LAW_044
+1 SEC_078
+1 JTL_121
+2 LOF_091`;
 const ALL = { chromium, firefox, webkit };
 const ENGINES = Object.fromEntries(Object.entries(ALL).filter(([n]) => !process.env.ENGINES || process.env.ENGINES.split(',').includes(n)));
 

@@ -165,7 +165,7 @@ foreach (['ash-meta-2026-09', 'force-fam-HMW-predictions', 'hmw-meta-2026-09'] a
     $byName = []; $misnamed = [];
     // ⚠ An EMPTY or renamed directory would make every check below pass vacuously — the owner renamed
     // star-wars-dad-HMW-predictions/ to force-fam-HMW-predictions/ mid-session, and this test kept passing on nothing.
-    $files = glob("./SWUSim/Tests/BotFixtures/{$dir}/*.txt") ?: [];
+    $files = glob("./SWUSim/BotFixtures/{$dir}/*.txt") ?: [];
     $check(count($files) > 0, "{$dir}: the directory exists and holds fixtures (" . count($files) . ")");
     $derived = [];
     foreach ($files as $path) {
@@ -198,7 +198,7 @@ foreach (['ash-meta-2026-09', 'force-fam-HMW-predictions', 'hmw-meta-2026-09'] a
     // the picker would disagree with the fixture on disk.
     $bad = [];
     foreach ($byName as $newStem => $olds) {
-        $path = "./SWUSim/Tests/BotFixtures/{$dir}/{$olds[0]}.txt";
+        $path = "./SWUSim/BotFixtures/{$dir}/{$olds[0]}.txt";
         $d = SWUBotDeckFromFixtureText((string)file_get_contents($path));
         $fromCards = SWUBotDeckDisplayName(strval($d['leader'] ?? ''), strval($d['base'] ?? ''), SWUBotNamingCards($d));
         if (trim(strval($d['variant'] ?? '')) !== '') $fromCards .= ' ' . trim(strval($d['variant']));
@@ -222,7 +222,7 @@ $check($deckOf('# Author: Star Wars Dad')['author'] === 'Star Wars Dad', 'the au
 // a whole-folder "everyone else is Star Wars Dad" rule broke the day Ninin's second list landed). Known decks are
 // pinned by name.
 $authors = [];
-foreach (glob('./SWUSim/Tests/BotFixtures/force-fam-HMW-predictions/*.txt') ?: [] as $p) $authors[basename($p, '.txt')] = SWUBotDeckFromFixtureText((string)file_get_contents($p))['author'];
+foreach (glob('./SWUSim/BotFixtures/force-fam-HMW-predictions/*.txt') ?: [] as $p) $authors[basename($p, '.txt')] = SWUBotDeckFromFixtureText((string)file_get_contents($p))['author'];
 $check(count($authors) >= 5 && !in_array('', $authors, true), 'every force-fam-HMW-predictions deck names its author: ' . json_encode($authors));
 $known = ['ahsoka-tano_ash_yellow_v-with-neel' => 'Ninin', 'ahsoka-tano_ash_yellow_v-space' => 'Ninin', 'doctor-hemlock_hmw_red' => 'Ninin', 'director-krennic_law_blue_naboo' => 'Ninin', 'doctor-hemlock_hmw_yellow_naboo' => 'Star Wars Dad',
           'maul_hmw_blue_tatooine_v-combo' => 'Star Wars Dad', 'tarfful_hmw_blue_kashyyyk' => 'Star Wars Dad', 'wicket_hmw_green-splash' => 'Star Wars Dad',

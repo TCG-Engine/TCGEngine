@@ -48,9 +48,6 @@ function leave($jar, $r) {
     if (empty($r['lobbyID'])) return [];
     return post($L . 'LeaveQueue.php', ['rootName' => 'SWUSim', 'playerID' => $r['playerID'] ?? 0, 'lobbyID' => $r['lobbyID'], 'authKey' => $r['authKey'] ?? ''], $jar);
 }
-function fixture($rel) {
-    return trim(implode("\n", array_filter(explode("\n", file_get_contents(__DIR__ . '/../../SWUSim/Tests/BotFixtures/' . $rel)), fn($l) => !str_starts_with($l, '#'))));
-}
 // One game input for $seat of $gameName, authenticated with that seat's match auth key.
 function input($m, $gameName, $seat, $mode, $cardID = '') {
     global $B;
@@ -99,7 +96,33 @@ $restore = function () use ($conn, $ids, $snapshot) {
 $createdMatches = [];
 $games = fn($u) => intval((SWUMetaPremierGetRating($conn, $u, 'bo3') ?? ['games' => 0])['games']);
 
-$LEGAL = fixture('ash-meta-2026-09/darth-vader_jtl_yellow.txt');   // Premier-legal
+// Darth Vader (JTL) Yellow, Premier-legal
+$LEGAL = <<<'DECK'
+Leader
+1 JTL_006
+Base
+1 ASH_026
+Deck
+3 SEC_082
+3 SEC_186
+2 ASH_224
+3 SEC_213
+3 LAW_211
+3 JTL_115
+3 JTL_217
+3 SEC_215
+3 JTL_081
+3 SEC_189
+3 LAW_135
+3 JTL_212
+3 JTL_221
+3 JTL_085
+2 ASH_194
+3 LAW_217
+1 SEC_195
+2 LOF_091
+1 ASH_199
+DECK;
 $bot1 = login('claudebot1');
 $bot2 = login('claudebot2');
 $anon = tempnam(sys_get_temp_dir(), 'mpq');

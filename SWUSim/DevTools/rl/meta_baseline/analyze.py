@@ -5,7 +5,7 @@ code/variant's doing).
 
 usage: analyze.py <meta dir> <run dir> [--no-baseline] [--min N=30] [--cell-min N=10]
   (a small event — e.g. the first HMW set — needs lower minimums: --min 3 --cell-min 2)
-  e.g. analyze.py SWUSim/Tests/BotFixtures/meta-baselines/ash .claude/tmp/ash-meta-runs/<label>
+  e.g. analyze.py SWUSim/BotFixtures/meta-baselines/ash .claude/tmp/ash-meta-runs/<label>
 
 ⚠ Match-level winner agreement is NOT a fidelity metric: on the ASH set even the real data's own archetype favourite (leave-one-out)
 picks the real match winner only ~53% — tournament matches are near coin flips given archetypes. Read the ARCHETYPE and STYLE sections."""

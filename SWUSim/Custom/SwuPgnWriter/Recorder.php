@@ -64,7 +64,7 @@ function _SwuPgnRecFlush(string $g, array $before, array $notes): array {
     $state = SwuPgnStateRead($g);
     $pos = _SwuPgnRecPos($state, $before);
     $ctx = ['ledger' => $state['ledger'] ?? SwuPgnLedgerInit([]), 'counters' => $state['counters'] ?? [],
-        'round' => $pos['round'], 'phase' => $pos['phase']];
+        'round' => $pos['round'], 'phase' => $pos['phase'], 'abilityUses' => $state['abilityUses'] ?? []];
     // Notes carried from the previous frame (a play whose card moves only after a later pick) go first. One that
     // is still unclaimed after SWUPGN_CARRY_FRAMES frames is dropped.
     $carried = [];
@@ -74,6 +74,7 @@ function _SwuPgnRecFlush(string $g, array $before, array $notes): array {
     SwuPgnEventsAppend($g, $r['events']);
     $state['ledger'] = $ctx['ledger'];
     $state['counters'] = $ctx['counters'];
+    $state['abilityUses'] = $ctx['abilityUses'] ?? [];
     $state['prev'] = $after;
     foreach ($r['events'] as $e) if ($e['t'] === 'CLAIM_INITIATIVE') $state['initiativeTaken'] = true;
     $state['gaps'] = intval($state['gaps'] ?? 0) + count($r['gaps']);
@@ -199,10 +200,11 @@ function SwuPgnRecBoundary(string $enginePhase): void {
             if ($pos['phase'] === 'S') $recs[] = ['seq' => 'R0.S.end', 't' => 'PHASE_END', 'phase' => 'setup'];
             if ($pos['phase'] === 'G') array_push($recs, ...SwuPgnRecRoundEndRecords($state, $snap, intval($pos['round'])));
             $state['initiativeTaken'] = false;
+            $state['abilityUses'] = SwuPgnAbilityUsesClear($state['abilityUses'] ?? [], ['phase', 'round']);   // §12.2 ROUND_START
             // §10.1 [W-46]: the round's first active player is the initiative holder (CR 5.4.1.b) — the counter still names
             // it here (ActionPhaseStart hands the turn to it just after); the turn player is the last round's.
             $active = intval($snap['initiative']) ?: null;
-            $kf = SwuPgnKeyframe($snap, $state['ledger'], ['round' => $round, 'phase' => SWUPGN_PHASE_NAMES[$pos['phase']] ?? 'regroup', 'initiativeTaken' => false, 'active' => $active]);
+            $kf = SwuPgnKeyframe($snap, $state['ledger'], ['round' => $round, 'phase' => SWUPGN_PHASE_NAMES[$pos['phase']] ?? 'regroup', 'initiativeTaken' => false, 'active' => $active, 'abilityUses' => $state['abilityUses']]);
             $recs[] = ['seq' => "R$round.start", 't' => 'ROUND_START', 'round' => $round, 'active' => $active] + ($kf !== null ? ['keyframe' => $kf] : []);
             $recs[] = ['seq' => "R$round.A.start", 't' => 'PHASE_START', 'phase' => 'action', 'active' => $active];
             $pos = ['round' => $round, 'phase' => 'A'];
@@ -210,6 +212,7 @@ function SwuPgnRecBoundary(string $enginePhase): void {
         } elseif ($enginePhase === 'RGS' && $pos['phase'] === 'A') {
             $recs[] = ['seq' => "R{$pos['round']}.A.end", 't' => 'PHASE_END', 'phase' => 'action'];
             $recs[] = ['seq' => "R{$pos['round']}.G.start", 't' => 'PHASE_START', 'phase' => 'regroup'];
+            $state['abilityUses'] = SwuPgnAbilityUsesClear($state['abilityUses'] ?? [], ['phase']);   // §12.2 PHASE_START
             $pos['phase'] = 'G';
         }
         SwuPgnEventsAppend($g, $recs);
@@ -225,7 +228,7 @@ function SwuPgnRecBoundary(string $enginePhase): void {
 // ready taxes), and it belongs to this round. It still runs before ActionPhaseStart tears the round down, and
 // initiativeTaken / phase come from the records this round wrote anyway (§13's trap).
 function SwuPgnRecRoundEndRecords(array $state, array $snap, int $round): array {
-    $kf = SwuPgnKeyframe($snap, $state['ledger'], ['round' => $round, 'phase' => 'regroup', 'initiativeTaken' => !empty($state['initiativeTaken'])]);
+    $kf = SwuPgnKeyframe($snap, $state['ledger'], ['round' => $round, 'phase' => 'regroup', 'initiativeTaken' => !empty($state['initiativeTaken']), 'abilityUses' => $state['abilityUses'] ?? []]);
     return [
         ['seq' => "R$round.G.end", 't' => 'PHASE_END', 'phase' => 'regroup'],
         ['seq' => "R$round.end", 't' => 'ROUND_END', 'round' => $round] + ($kf !== null ? ['keyframe' => $kf] : []),
@@ -351,9 +354,10 @@ function _SwuPgnKfIds(array $cardIDs, array $copies): array {
     return $out;
 }
 
-// §11 ReducedState for both seats, or null when a seat cannot be built (a partial keyframe is non-conformant, §13). No `effects`
-// and no `abilityUses`: SWUSim keeps neither as something the recorder can read as §11 states them (per-card TurnEffects /
-// GlobalEffects flags), and §13 says omit what you cannot read rather than invent it.
+// §11 ReducedState for both seats, or null when a seat cannot be built (a partial keyframe is non-conformant, §13). No `effects`:
+// SWUSim keeps none as something the recorder can read as §11 states them (per-card TurnEffects / GlobalEffects flags), and
+// §13 says omit what you cannot read rather than invent it. `abilityUses` comes from $ctx['abilityUses'] — the writer's own
+// fold of the `limit` records it wrote (named Action abilities), not an engine read.
 function SwuPgnKeyframe(array $snap, array $ledger, array $ctx): ?array {
     $players = [];
     foreach ([1, 2] as $p) {
@@ -401,7 +405,10 @@ function SwuPgnKeyframe(array $snap, array $ledger, array $ctx): ?array {
             'baseUpgrades' => _SwuPgnKfIds($s['base']['upgrades'], $z['base'] ?? []),
             'baseCaptured' => _SwuPgnKfIds($s['base']['captives'], array_merge($ledger['zones'][1]["capture:base@$p"] ?? [], $ledger['zones'][2]["capture:base@$p"] ?? [])),
             'credits' => count($s['resources']) - count($rows), 'hasForce' => $s['force'],
-            'discard' => _SwuPgnKfIds($s['discard'], $z['discard'] ?? []), 'cards' => $cards];
+            'discard' => _SwuPgnKfIds($s['discard'], $z['discard'] ?? []), 'cards' => $cards,
+            // §11 [W-49]: limited abilities used since their reset — the writer's own fold of its `limit` records
+            // (SwuPgnAbilityUses*), an empty list when none.
+            'abilityUses' => array_values($ctx['abilityUses'][$p] ?? [])];
         $l = $s['leader'];
         if ($l !== null) {
             $id = $l['deployedUid'] !== null ? SwuPgnLedgerByUid($ledger, $l['deployedUid']) : null;
@@ -528,4 +535,10 @@ function SwuPgnRecForceForTest(string $g): void {
         'accounts' => [1 => null, 2 => null], 'setup' => $setup, 'decks' => _SwuPgnRecDecks($snap, []), 'test' => true]);
     SwuPgnEventsTruncate($g, 0);
     SwuPgnStateWrite($g, ['counters' => [], 'ledger' => $ledger, 'prev' => $snap, 'gaps' => 0]);
+}
+
+// §12.2: a PHASE_START drops every seat's `phase` uses, a ROUND_START its `phase` and `round` uses.
+function SwuPgnAbilityUsesClear(array $uses, array $pers): array {
+    foreach ($uses as $seat => $list) $uses[$seat] = array_values(array_filter((array)$list, fn($u) => !in_array($u['per'] ?? '', $pers, true)));
+    return $uses;
 }

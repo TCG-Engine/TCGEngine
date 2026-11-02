@@ -25,16 +25,70 @@ function e2e_req(string $url, string $jar, ?array $post = null, ?int &$status = 
     if ($post !== null) { curl_setopt($ch, CURLOPT_POST, 1); curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post)); }
     $r = curl_exec($ch); $status = intval(curl_getinfo($ch, CURLINFO_HTTP_CODE)); curl_close($ch); return (string)$r;
 }
-$deckOf = fn(string $f) => trim(implode("\n", array_filter(explode("\n", file_get_contents("./SWUSim/Tests/BotFixtures/ash-meta-2026-09/$f.txt")),
-    fn($l) => !str_starts_with($l, '#'))));
+// Darth Vader (JTL) Yellow vs Director Krennic (LAW) Blue, both Premier-legal.
+$vader = <<<'DECK'
+Leader
+1 JTL_006
+Base
+1 ASH_026
+Deck
+3 SEC_082
+3 SEC_186
+2 ASH_224
+3 SEC_213
+3 LAW_211
+3 JTL_115
+3 JTL_217
+3 SEC_215
+3 JTL_081
+3 SEC_189
+3 LAW_135
+3 JTL_212
+3 JTL_221
+3 JTL_085
+2 ASH_194
+3 LAW_217
+1 SEC_195
+2 LOF_091
+1 ASH_199
+DECK;
+$krennic = <<<'DECK'
+Leader
+1 LAW_008
+Base
+1 ASH_019
+Deck
+3 ASH_116
+3 JTL_032
+3 LAW_159
+3 ASH_079
+3 LAW_039
+3 ASH_097
+3 LOF_059
+3 ASH_053
+2 SEC_087
+2 ASH_048
+2 LAW_097
+2 ASH_133
+1 SEC_111
+3 ASH_052
+2 LAW_101
+2 JTL_033
+1 SEC_088
+1 ASH_102
+3 JTL_043
+1 SEC_078
+3 LOF_091
+1 SEC_038
+DECK;
 
 // ── A private Premier room, two accounts, started ───────────────────────────────────────────────────
 $jar = [1 => tempnam(sys_get_temp_dir(), 'e2e1'), 2 => tempnam(sys_get_temp_dir(), 'e2e2')];
 foreach ([1 => 'claudebot1', 2 => 'claudebot2'] as $s => $u) e2e_req($B . 'AccountFiles/AttemptPasswordLogin.php', $jar[$s], ['submit' => '1', 'userID' => $u, 'password' => 'pass']);
 $host = json_decode(e2e_req($B . 'APIs/Lobbies/JoinQueue.php', $jar[1], ['rootName' => 'SWUSim', 'createPrivate' => '1', 'format' => 'premier',
-    'deckLink' => $deckOf('darth-vader_jtl_yellow')]), true);
+    'deckLink' => $vader]), true);
 $guest = json_decode(e2e_req($B . 'APIs/Lobbies/JoinQueue.php', $jar[2], ['rootName' => 'SWUSim', 'privateInviteCode' => $host['inviteCode'] ?? '',
-    'deckLink' => $deckOf('director-krennic_law_blue')]), true);
+    'deckLink' => $krennic]), true);
 $sr = json_decode(e2e_req($B . 'APIs/Lobbies/StartRoom.php', $jar[1], ['rootName' => 'SWUSim', 'lobbyID' => $host['lobbyID'] ?? '', 'playerID' => 1,
     'authKey' => $host['authKey'] ?? '']), true);
 $g = strval($sr['gameName'] ?? '');

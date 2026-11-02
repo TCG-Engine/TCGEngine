@@ -73,12 +73,16 @@ function _SwuPgnBaseGrants(int $p, string $cardID): bool {
 // ABILITY note — the base's own, grantedBy the upgrade, when the upgrade grants it ("Attached base gains: …"); the
 // upgrade's when it is the upgrade's printed Action (Bacta Tank's "Action [defeat this upgrade]") — and the source for
 // the rest of the request.
-function SwuPgnNoteBaseUpgradeAction(int $p, string $cardID): void {
+// $entry (named Action abilities): adds the ability id, its printed text and its use limit (W-49).
+function SwuPgnNoteBaseUpgradeAction(int $p, string $cardID, ?array $entry = null): void {
     if (!SwuPgnNoteOn()) return;
     try {
         $GLOBALS['SWU_PGN_ACTION_SRC'] = [$p, $cardID];
         $granted = _SwuPgnBaseGrants($p, $cardID);
-        SwuPgnNote(['t' => 'ABILITY', 'p' => $p, 'cardID' => $granted ? "base@$p" : $cardID, 'kind' => 'action'] + ($granted ? ['grantedBy' => $cardID] : []));
+        $named = $entry === null ? [] : array_filter(['ability' => (string)$entry['id'],
+            'title' => ($entry['title'] ?? '') !== '' ? (string)$entry['title'] : null,
+            'limit' => is_array($entry['limit'] ?? null) ? $entry['limit'] : null], fn($v) => $v !== null);
+        SwuPgnNote(['t' => 'ABILITY', 'p' => $p, 'cardID' => $granted ? "base@$p" : $cardID, 'kind' => 'action'] + ($granted ? ['grantedBy' => $cardID] : []) + $named);
     } catch (Throwable $e) { _SwuPgnNoteFailed($e); }
 }
 
@@ -176,8 +180,9 @@ function SwuPgnNoteChoice(int $player, $head, string $answer): void {
             $mzs = array_values(array_filter(explode('&', strval($head->Param ?? '')), fn($m) => $m !== '' && $m !== '-'));
             $idx = array_search($answer, $mzs, true);
             if ($idx === false) return;
-            $offered = []; $seats = []; $zones = [];
-            foreach ($mzs as $mz) {
+            $offered = []; $seats = []; $zones = []; $idxs = [];
+            foreach ($mzs as $k => $mz) {
+                $idxs[$k] = preg_match('/^[A-Za-z]+-(\d+)$/', $mz, $mi) ? intval($mi[1]) : null;   // its place in the zone
                 // An upgrade on a host ("<host mz>.u<Subcards key>"): its card, in the host's zone — a base's own, or the
                 // unit's attachments.
                 if (preg_match('/^(.+-\d+)\.u(\d+)$/', $mz, $m)) {
@@ -217,6 +222,6 @@ function SwuPgnNoteChoice(int $player, $head, string $answer): void {
         }
         $prompt = trim(str_replace('_', ' ', strval($head->Tooltip ?? '')));
         SwuPgnNote(['t' => 'CHOICE', 'p' => $player, 'offered' => $offered, 'chose' => intval($idx), 'prompt' => $prompt !== '' && $prompt !== '-' ? $prompt : null]
-            + (isset($seats) ? ['offeredSeats' => $seats, 'offeredZones' => $zones] : []));
+            + (isset($seats) ? ['offeredSeats' => $seats, 'offeredZones' => $zones, 'offeredIdx' => $idxs] : []));
     } catch (Throwable $e) { _SwuPgnNoteFailed($e); }
 }

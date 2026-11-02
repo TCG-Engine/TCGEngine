@@ -15,7 +15,8 @@
 #     curl -s -c /tmp/j1 -d 'submit=1&userID=claudebot1&password=pass' \
 #       http://localhost:3400/TCGEngine/AccountFiles/AttemptPasswordLogin.php >/dev/null
 #     curl -s -b /tmp/j1 -d 'rootName=SWUSim&format=teamsuns&queueType=bo1' \
-#       --data-urlencode "deckLink@SWUSim/Tests/BotFixtures/twinsuns_deck_a.txt" \
+#       --data-urlencode "deckLink=$(printf 'Leader\n1 SOR_001\n1 SOR_002\nBase\n1 SOR_019\nDeck\n';
+#         for n in $(seq 31 110); do printf '1 SOR_%03d\n' $n; done)" \
 #       http://localhost:3400/TCGEngine/APIs/Lobbies/JoinQueue.php
 #   PRIVATE (claudebot2): same, but 'createPrivate=1' and no queueType.
 #   Then open, for each:  .../SharedUI/Sites/SWUSim/WaitingRoom.php?lobby=<lobbyID>

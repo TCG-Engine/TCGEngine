@@ -859,15 +859,35 @@ function SWULogForceDefeated(int $player): void {
 // Leader / unit / base Actions: "P1 used [[JTL_016|Admiral Ackbar]]'s Action" — and it becomes the source
 // of everything that Action does. Called at each invocation point (the direct path and the alternative-
 // payment continuations are separate sites, so each logs exactly once).
-function SWULogBeginAction(int $player, string $cardID, string $kind = 'Action'): void {
+// $entry: the named Action ability being used (ActionAbilities.php), when the caller has one. It decides WHOSE ability
+// the SWU-PGN record names: a granted one ("Attached unit gains: …", Satine's grant) belongs to the HOST, by uid, with
+// grantedBy the granter (§10.1, W-31); one printed on the card itself — a unit's own, a Pilot's (Poe), a Fortify
+// upgrade's — belongs to that card. It also carries the ability id, its printed text and its use limit (W-49).
+function SWULogBeginAction(int $player, string $cardID, string $kind = 'Action', ?array $entry = null): void {
     SWULogSetSource($player, $cardID);
     if (function_exists('SwuPgnNoteOn') && SwuPgnNoteOn()) {
-        $isBase = false;
-        foreach (GetBase($player) ?? [] as $b) if (empty($b->removed) && ($b->CardID ?? '') === $cardID) $isBase = true;
-        SwuPgnNote(['t' => 'ABILITY', 'p' => $player, 'cardID' => $isBase ? "base@$player" : $cardID,
-            'kind' => stripos($kind, 'Epic') !== false ? 'epic' : 'action']);
+        SwuPgnNote(_SWULogActionAbilityNote($player, $cardID, $kind, $entry));
     }
-    AddGameLogEntry('ACTION', 'P' . $player . ' used ' . GameLogCardRef($cardID) . "'s {$kind}", 'ALL');
+    $phrase = $entry !== null ? SWUActionLogPhrase($entry, $kind) : 'used ' . GameLogCardRef($cardID) . "'s {$kind}";
+    AddGameLogEntry('ACTION', 'P' . $player . ' ' . $phrase, 'ALL');
+}
+
+// The SWU-PGN ABILITY note for SWULogBeginAction (built only for a recorded game — the caller is guarded).
+function _SWULogActionAbilityNote(int $player, string $cardID, string $kind, ?array $entry): array {
+    $isBase = false;
+    foreach (GetBase($player) ?? [] as $b) if (empty($b->removed) && ($b->CardID ?? '') === $cardID) $isBase = true;
+    $note = ['t' => 'ABILITY', 'p' => $player, 'cardID' => $isBase ? "base@$player" : $cardID,
+        'kind' => stripos($kind, 'Epic') !== false ? 'epic' : 'action'];
+    if ($entry === null) return $note;
+    $granted = in_array($entry['kind'] ?? '', ['grant', 'satine'], true);
+    if (($granted || in_array($entry['kind'] ?? '', ['own', 'self-grant'], true)) && intval($entry['hostUid'] ?? 0) > 0 && !$isBase) {
+        $note['uid'] = intval($entry['hostUid']);
+    }
+    if ($granted) $note['grantedBy'] = (string)$entry['source'];
+    $note['ability'] = SWUActionPgnAbilityId($entry);
+    if (($entry['title'] ?? '') !== '') $note['title'] = (string)$entry['title'];
+    if (is_array($entry['limit'] ?? null)) $note['limit'] = $entry['limit'];
+    return $note;
 }
 
 // ─── Phase 3c: deck peeks, searches, moves, returns ─────────────────────────────────────────────────────

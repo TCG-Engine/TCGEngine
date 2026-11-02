@@ -11,7 +11,10 @@
 // 3 — the 2026-11-01 Forge review: revealing search = SEARCH · REVEAL · MOVE of one copy, look-at-hand LOOK / hand REVEAL,
 // no `@` pictures or OK-only popups as CHOICEs, §9.1 numbering when a play/attack asks before it announces, Exploit
 // defeatedBy = the played copy and filed `for` its PLAY.
-const SWUPGN_WRITER_REVISION = 3;
+// 4 — named Action abilities: a unit's ABILITY_ACTIVATE names the unit whose ability it is (a granted Action: the host,
+// grantedBy the upgrade / Satine), with `ability` (the id, plus the copy for a per-copy limit), `title` and `limit`;
+// keyframes carry each seat's `abilityUses`, and a limited card leaving the arenas writes an ABILITY_RESET (W-49).
+const SWUPGN_WRITER_REVISION = 4;
 
 // The engine's own words for the ending, in the spec's style (§5.1 Reason, e.g. "Base Destroyed").
 function _SwuPgnEndReason(): string {

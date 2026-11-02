@@ -164,6 +164,43 @@ On Attack: You may discard a card from your hand. If you do, this unit gets +2/+
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'IC27_007' => 
+  array (
+    'title' => 'Asajj Ventress',
+    'subtitle' => 'Bald and Beautiful',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'IC27',
+    'cost' => 6,
+    'power' => 5,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Separatist',
+      2 => 'Sith',
+    ),
+    'text' => 'Action [Exhaust]: Attack with a unit. After completing this attack, if the attacker survived, you may ready a resource.',
+    'epicAction' => 'Epic Action: If you control 6 or more resources, deploy this leader.',
+    'deployText' => 'Saboteur (When this unit attacks, ignore Sentinel and defeat the defender\'s Shields.)
+On Attack: You may ready a resource.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/007.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/007-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'IC27_008' => 
   array (
     'title' => 'Princess Leia',
@@ -199,6 +236,33 @@ On Attack: You may discard a card from your hand. If you do, this unit gets +2/+
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'IC27_013' => 
+  array (
+    'title' => 'Nute Gunray',
+    'subtitle' => 'RIng Ring, Space Calling',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 1,
+    'power' => 1,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+      1 => 'Official',
+    ),
+    'text' => 'Each other friendly Separatist unit gains Restore 1. (When this unit attacks, heal 1 damage from your base.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/013.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_014' => 
   array (
     'title' => 'Dryden Vos',
@@ -224,6 +288,35 @@ On Attack: You may discard a card from your hand. If you do, this unit gets +2/+
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/014.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_019' => 
+  array (
+    'title' => 'Soulless One',
+    'subtitle' => 'Soulless Fun',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 4,
+    'power' => 3,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+      1 => 'Vehicle',
+      2 => 'Fighter',
+    ),
+    'text' => 'When Played: Choose an enemy ground unit. While this unit is in play, the chosen unit gets -3/-0.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/019.png',
     'imageUrlBack' => '',
   ),
   'IC27_021' => 
@@ -1523,6 +1616,35 @@ Give a friendly unit +3/+0 and Overwhelm for this phase.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/127.png',
     'imageUrlBack' => '',
   ),
+  'IC27_138' => 
+  array (
+    'title' => 'Banshee',
+    'subtitle' => 'Scream Machine',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 2,
+    'power' => 2,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+      1 => 'Vehicle',
+      2 => 'Transport',
+    ),
+    'text' => 'On Attack: You may search the top 5 cards of your deck for a non-unit card, reveal it, and put it on top of your deck. (Put the other cards on the bottom of your deck in a random order.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/138.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_142' => 
   array (
     'title' => 'Greedo',
@@ -1664,6 +1786,95 @@ When Defeated: You may discard a card from your hand. If you do, return an event
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/146.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_147' => 
+  array (
+    'title' => 'Asajj Ventress',
+    'subtitle' => 'Death From Above',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 6,
+    'power' => 5,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Separatist',
+      2 => 'Sith',
+    ),
+    'text' => 'If a friendly non-leader ground unit would deal combat damage while attacking a base, you may reveal this unit from your hand and pay [5 resources Cunning Villainy]. If you do, return the attacker to its owner\'s hand and put this unit into play as the attacker. She deals combat damage to that base instead.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/147.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_148' => 
+  array (
+    'title' => 'Count Dooku',
+    'subtitle' => 'Silver-Tongued',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'IC27',
+    'cost' => 7,
+    'power' => 8,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Separatist',
+      2 => 'Sith',
+      3 => 'Official',
+    ),
+    'text' => 'Each opponent can\'t ready more than 1 ground unit and 1 space unit during the regroup phase.
+When Played: You may exhaust a unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/148.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_149' => 
+  array (
+    'title' => 'The Invisible Hand',
+    'subtitle' => 'Confederate Might',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 10,
+    'power' => 9,
+    'hp' => 9,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+      1 => 'Vehicle',
+      2 => 'Capital Ship',
+    ),
+    'text' => 'When Played/When Defeated: The next card you play this phase costs [9 resources] less.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/149.png',
     'imageUrlBack' => '',
   ),
   'IC27_153' => 

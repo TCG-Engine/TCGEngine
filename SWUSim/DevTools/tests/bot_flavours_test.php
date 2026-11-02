@@ -21,12 +21,12 @@ $check(SWUBotIsKeyCard(1, 'JTL_240'), 'burn cards are key in every deck (tags v2
 // The fixtures' own headers agree with the registry.
 // force-fam-HMW-predictions/ too (2026-10-01): its decks carry owner labels, and Hemlock's flavour lives in the registry.
 // hmw-meta-2026-09/ and ideas/ too (2026-10-21): 'tempo' is DETECTED from the deck (BotTempo.php), so every labelled list is checked.
-$fixtureFiles = array_merge(glob('SWUSim/Tests/BotFixtures/ash-meta-2026-09/*.txt') ?: [],
-                            glob('SWUSim/Tests/BotFixtures/force-fam-HMW-predictions/*.txt') ?: [],
-                            glob('SWUSim/Tests/BotFixtures/hmw-meta-2026-09/*.txt') ?: [],
-                            glob('SWUSim/Tests/BotFixtures/ideas/*.txt') ?: []);
-$check(count(glob('SWUSim/Tests/BotFixtures/ideas/*.txt') ?: []) > 0, 'the ideas dir is present');
-$check(count(glob('SWUSim/Tests/BotFixtures/force-fam-HMW-predictions/*.txt') ?: []) > 0, 'the HMW predictions dir is present (an empty glob would pass vacuously)');
+$fixtureFiles = array_merge(glob('SWUSim/BotFixtures/ash-meta-2026-09/*.txt') ?: [],
+                            glob('SWUSim/BotFixtures/force-fam-HMW-predictions/*.txt') ?: [],
+                            glob('SWUSim/BotFixtures/hmw-meta-2026-09/*.txt') ?: [],
+                            glob('SWUSim/BotFixtures/ideas/*.txt') ?: []);
+$check(count(glob('SWUSim/BotFixtures/ideas/*.txt') ?: []) > 0, 'the ideas dir is present');
+$check(count(glob('SWUSim/BotFixtures/force-fam-HMW-predictions/*.txt') ?: []) > 0, 'the HMW predictions dir is present (an empty glob would pass vacuously)');
 foreach ($fixtureFiles as $f) {
     $lines = file($f, FILE_IGNORE_NEW_LINES); $sec = ''; $leader = ''; $base = ''; $want = []; $cards = [];
     foreach ($lines as $l) {

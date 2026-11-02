@@ -53,6 +53,18 @@
     background: var(--surface-raised);
     border-color: var(--accent);
 }
+/* Named Action abilities: one button per Action. A greyed one (the unit has it but can't use it now) is a disabled
+   button, dimmed, with its reason under the label — it stays visible on purpose (owner decision 2026-11-02). */
+.swu-uam-btn .swu-uam-label { display: block; }
+.swu-uam-btn .swu-uam-reason { display: block; font-size: 11px; color: var(--text-muted, var(--text)); }
+.swu-uam-btn[disabled] {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+.swu-uam-btn[disabled]:hover {
+    background: var(--surface-sunken);
+    border-color: var(--border);
+}
 
 /* ── Arena HUD darkening overlay (shared: desktop + mobile) ─────────────────────
    Blue cyan-interface wash inside each arena box, clipped to the box (behind the
@@ -2613,7 +2625,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         try { var obj = JSON.parse(jsonStr); return obj; } catch (e) { return {CardID: cardID}; }
     }
 
-    function showLeaderMenu(cardID, abilityAvail, deployAvail, leaderIndex) {
+    // entries: the leader's front Action entries ({id, label, enabled, reason} — named Action abilities); a greyed one is
+    // a disabled button with its reason. The deploy buttons are unchanged.
+    function showLeaderMenu(cardID, entries, deployAvail, leaderIndex) {
         var idx = (leaderIndex === undefined || leaderIndex === null) ? 0 : leaderIndex;
         var existing = document.getElementById('swuLeaderMenu');
         if (existing) { existing.remove(); return; }
@@ -2628,10 +2642,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var btnStyle = 'width:100%;padding:8px 16px;background:var(--btn-plain-fill,#1e3a5f);border:1px solid var(--border,#888);' +
             'border-radius:var(--radius,5px);color:var(--btn-text,#eee);cursor:pointer;font-size:13px;margin-bottom:2px;';
         var html = '<div style="font-size:15px;font-weight:bold;color:var(--accent-strong,#f0c040);margin-bottom:16px;">Leader Actions</div>';
-        if (abilityAvail) {
-            html += '<div style="margin-bottom:8px;"><button style="' + btnStyle + '" ' +
-                'onclick="swuDoLeaderAction(\'LeaderAbility\',' + idx + ')">Leader Ability</button></div>';
-        }
+        html += '<div id="swuLeaderMenuActions"></div>';   // the Action entries, built below (titles may hold quotes)
         if (deployAvail && !isPilot) {
             html += '<div style="margin-bottom:8px;"><button style="' + btnStyle + '" ' +
                 'onclick="swuDoLeaderAction(\'DeployLeader:Unit\',' + idx + ')">Deploy Leader</button></div>';
@@ -2646,6 +2657,23 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             'border-radius:var(--radius,5px);color:var(--text-muted,#aaa);cursor:pointer;font-size:12px;" ' +
             'onclick="document.getElementById(\'swuLeaderMenu\').remove()">Cancel</button></div>';
         menu.innerHTML = html;
+        var holder = menu.querySelector('#swuLeaderMenuActions');
+        (entries || []).forEach(function (en) {
+            var wrap = document.createElement('div');
+            wrap.style.marginBottom = '8px';
+            var btn = document.createElement('button');
+            btn.className = 'swu-uam-btn';
+            btn.style.cssText = btnStyle;
+            var lab = document.createElement('span'); lab.className = 'swu-uam-label'; lab.textContent = en.label; btn.appendChild(lab);
+            if (!en.enabled) {
+                btn.disabled = true;
+                if (en.reason) { var why = document.createElement('span'); why.className = 'swu-uam-reason'; why.textContent = en.reason; btn.appendChild(why); btn.title = en.reason; }
+            } else {
+                btn.addEventListener('click', function () { window.swuDoLeaderAction('LeaderAbility:' + en.id, idx); });
+            }
+            wrap.appendChild(btn);
+            holder.appendChild(wrap);
+        });
         document.body.appendChild(menu);
         setTimeout(function () {
             document.addEventListener('click', function outsideClose(e) {
@@ -2667,7 +2695,6 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
 
     function handleLeaderClick(e) {
         var d = window.myActionsData || {};
-        var abilityByIdx = d.leaderAbilityByIndex || {0: d.leaderAbility};
         var deployByIdx  = d.leaderDeployByIndex  || {0: d.leaderDeploy};
         // Which leader was clicked? Walk up to the nearest myLeader-{i} span; default to 0 (single leader).
         var idx = 0;
@@ -2678,9 +2705,10 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             }
             el = el.parentNode;
         }
-        var ability = !!abilityByIdx[idx];
+        var entries = (d.leaderActionEntriesByIndex || {})[idx] || [];
+        var usable  = entries.filter(function (en) { return en.enabled; });
         var deploy  = !!deployByIdx[idx];
-        if (!ability && !deploy) return;
+        if (!entries.length && !deploy) return;
         e.stopPropagation(); e.preventDefault();
         // Parse the i-th card from the split leader data.
         var raw = String(window.myLeaderData || '').trim();
@@ -2688,13 +2716,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var obj = swuParseZoneCard(parts[idx] || parts[0] || '');
         var cardID = (obj && obj.CardID) ? obj.CardID : '';
         var isPilot = (window.SWU_PILOT_LEADERS || []).indexOf(cardID) !== -1;
-        if (ability && !deploy) {
-            window.swuDoLeaderAction('LeaderAbility', idx);
-        } else if (!ability && deploy) {
-            isPilot ? showLeaderMenu(cardID, false, true, idx)
-                    : window.swuDoLeaderAction('DeployLeader:Unit', idx);
+        // One usable Action and nothing else (no deploy, nothing greyed) → it just runs; a lone non-pilot deploy likewise.
+        if (!deploy && usable.length === 1 && entries.length === 1) {
+            window.swuDoLeaderAction('LeaderAbility:' + usable[0].id, idx);
+        } else if (!entries.length && deploy && !isPilot) {
+            window.swuDoLeaderAction('DeployLeader:Unit', idx);
         } else {
-            showLeaderMenu(cardID, ability, deploy, idx);
+            showLeaderMenu(cardID, entries, deploy, idx);
         }
     }
 
@@ -2709,11 +2737,19 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         SubmitInput('10001', '&cardID=' + encodeURIComponent('myBase-0!CustomInput!EpicAction'));
     };
 
+    // Named Action abilities: the base opens the shared Action menu — one button per base Action (its own / Epic and
+    // each Fortify upgrade's), greyed ones included — and submits "EpicAction:<id>".
     function handleBaseClick(e) {
         var d = window.myActionsData || {};
-        if (!d.baseEpic) return;
+        var entries = d.baseActionEntries || [];
+        if (!entries.length) return;
         e.stopPropagation(); e.preventDefault();
-        window.swuDoBaseAction();
+        var anchor = e.currentTarget || document.getElementById('myBaseSlot');
+        showActionEntryMenu(anchor, entries.map(function(en) {
+            return { label: en.label, enabled: !!en.enabled, reason: en.reason || '', run: function() {
+                SubmitInput('10001', '&cardID=' + encodeURIComponent('myBase-0!CustomInput!EpicAction:' + en.id));
+            } };
+        }));
     }
 
     function setupBaseClick() {
@@ -2741,7 +2777,21 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                                         : ('PlayFromOpponentDiscard-' + idx);
                         SubmitInput('10001', '&cardID=' + encodeURIComponent(tok + '!CustomInput!'));
                     } else {
-                        SubmitInput('10001', '&cardID=' + encodeURIComponent('PlayFromDiscard-' + idx + '!CustomInput!'));
+                        // Named Action abilities (spec §9): a card with SEVERAL ways to be played (Cobb Vanth's free play,
+                        // Boga's 1 less) opens the shared Action menu, each with its price; one way plays at once.
+                        var pd = ((window.myActionsData || {}).playableDiscards || []).filter(function (x) { return String(x.idx) === String(idx); })[0];
+                        var ents = (pd && pd.entries) || [];
+                        var play = function (id) {
+                            SubmitInput('10001', '&cardID=' + encodeURIComponent('PlayFromDiscard-' + idx + '!CustomInput!' + (id ? 'Play:' + id : '')));
+                        };
+                        if (ents.length > 1) {
+                            showActionEntryMenu(el, ents.map(function (en) {
+                                return { label: en.label, enabled: !!en.enabled, reason: en.reason || '', note: en.note || '',
+                                         run: function () { play(en.id); } };
+                            }), true);
+                        } else {
+                            play(ents.length ? ents[0].id : '');
+                        }
                     }
                     return;
                 }
@@ -2819,18 +2869,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // abilityOnly: a unit I do NOT control whose Action any opponent may use (TS26_15 C-3P0, LAW_156, SHD_256) — it is not
     // mine to attack with, so the menu offers the Ability alone. `mzid` is then the SERVER's id from the offer list
     // ("their…" at 2 seats, "p{n}…" at 3-4), which is what CustomInput routes; never the rendered one.
+    // Named Action abilities: "Attack" (when the unit can attack) + ONE BUTTON PER ACTION from
+    // myActionsData.unitActionEntries[mzid] — {id, label, enabled, reason}. A greyed entry is a disabled button with its
+    // reason; it does nothing. With exactly one usable button and nothing greyed, the click doesn't open a menu at all.
     function showUnitActionMenu(mzid, anchorEl, abilityOnly) {
         removeUnitActionMenu();
-        var menu = document.createElement('div');
-        menu.id = 'swuUnitActionMenu';
-        menu.className = 'swu-unit-action-menu';
-
-        var atkBtn = document.createElement('button');
-        atkBtn.className = 'swu-uam-btn';
-        atkBtn.textContent = 'Attack';
-        atkBtn.addEventListener('click', function(ev) {
-            ev.stopPropagation();
-            removeUnitActionMenu();
+        var d = window.myActionsData || {};
+        var entries = (d.unitActionEntries || {})[mzid] || [];
+        var canAttack = !abilityOnly && (d.attackers || []).indexOf(mzid) !== -1;
+        var attack = function() {
             // Delegate to the framework's normal unit-click attack flow. CardClick's
             // GetZoneClickActions switches on the BARE zone name (no my/their prefix),
             // while the mzid passed as cardId stays player-prefixed (e.g. myGroundArena-0).
@@ -2838,19 +2885,64 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             if (typeof CardClick === 'function') {
                 CardClick({ stopPropagation: function() {} }, zone, mzid);
             }
+        };
+        var use = function(id) {
+            SubmitInput('10001', '&cardID=' + encodeURIComponent(mzid + '!CustomInput!Activate:' + id));
+        };
+        var items = [];
+        if (canAttack) items.push({ label: 'Attack', enabled: true, reason: '', run: attack });
+        entries.forEach(function(e) {
+            items.push({ label: e.label, enabled: !!e.enabled, reason: e.reason || '', run: function() { use(e.id); } });
         });
+        // A unit click NEVER runs an Action outright (allowDirect=false): before named Action abilities a unit with an
+        // Action always opened its menu, and a lone usable Action can be costly to misclick — one tap on an opponent's
+        // Mercenary Gunship would spend 4 and take control; on an exhausted Heroic Resolve host it would defeat the
+        // upgrade for nothing.
+        showActionEntryMenu(anchorEl, items, false);
+    }
+    // The shared Action menu (units, the base): items = [{label, enabled, reason, run}]. A disabled item is a dimmed
+    // button with its reason and does nothing. With allowDirect (the base's long-standing one-click use), exactly one
+    // usable item and nothing greyed just runs; a unit passes false and always gets the menu.
+    function showActionEntryMenu(anchorEl, items, allowDirect) {
+        removeUnitActionMenu();
+        var usable = items.filter(function(it) { return it.enabled; });
+        if (allowDirect !== false && usable.length === 1 && usable.length === items.length) { usable[0].run(); return; }
+        if (items.length === 0) return;
 
-        var abilityBtn = document.createElement('button');
-        abilityBtn.className = 'swu-uam-btn';
-        abilityBtn.textContent = 'Ability';
-        abilityBtn.addEventListener('click', function(ev) {
-            ev.stopPropagation();
-            removeUnitActionMenu();
-            SubmitInput('10001', '&cardID=' + encodeURIComponent(mzid + '!CustomInput!Activate'));
+        var menu = document.createElement('div');
+        menu.id = 'swuUnitActionMenu';
+        menu.className = 'swu-unit-action-menu';
+        items.forEach(function(it) {
+            var btn = document.createElement('button');
+            btn.className = 'swu-uam-btn';
+            var lab = document.createElement('span');
+            lab.className = 'swu-uam-label';
+            lab.textContent = it.label;
+            btn.appendChild(lab);
+            if (it.enabled && it.note) {   // e.g. a discard play's price ("Free", "1 resource")
+                var note = document.createElement('span');
+                note.className = 'swu-uam-reason';
+                note.textContent = it.note;
+                btn.appendChild(note);
+            }
+            if (!it.enabled) {
+                btn.disabled = true;
+                if (it.reason) {
+                    var why = document.createElement('span');
+                    why.className = 'swu-uam-reason';
+                    why.textContent = it.reason;
+                    btn.appendChild(why);
+                    btn.title = it.reason;
+                }
+            }
+            btn.addEventListener('click', function(ev) {
+                ev.stopPropagation();
+                if (!it.enabled) return;
+                removeUnitActionMenu();
+                it.run();
+            });
+            menu.appendChild(btn);
         });
-
-        if (!abilityOnly) menu.appendChild(atkBtn);
-        menu.appendChild(abilityBtn);
         document.body.appendChild(menu);
 
         // Position centered above the unit; flip below if it would clip the top.
@@ -2875,7 +2967,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if (window.SelectionMode && window.SelectionMode.active) return;
         var el = e.target;
         while (el && el !== e.currentTarget) {
-            if (el.classList && el.classList.contains('unit-action')) {
+            // .unit-has-actions: any unit with an Action, usable or greyed (refreshUnitActionGlows) — owner decision
+            // 2026-11-02: such a unit always opens the menu, so its greyed Actions stay visible.
+            if (el.classList && el.classList.contains('unit-has-actions')) {
                 // An opponent's unit carries the server's offer id (refreshUnitActionGlows) — the rendered
                 // "their…" of a Twin Suns matchup view is not the seat the server's "their" names.
                 var actMz = el.getAttribute && el.getAttribute('data-swu-act-mz');
@@ -2900,17 +2994,17 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     }
     function refreshUnitActionGlows() {
         var d = window.myActionsData || {};
-        document.querySelectorAll('.unit-action').forEach(function(el) { el.classList.remove('unit-action'); el.removeAttribute('data-swu-act-mz'); });
+        document.querySelectorAll('.unit-action, .unit-has-actions').forEach(function(el) {
+            el.classList.remove('unit-action'); el.classList.remove('unit-has-actions'); el.removeAttribute('data-swu-act-mz');
+        });
         document.querySelectorAll('.can-attack').forEach(function(el) { el.classList.remove('can-attack'); });
         // Read-only: a board that isn't yours (4-player other-pair) shows no "you can act" glows — the
         // actions data is computed for YOU, not the seat on screen, so its mzIDs don't apply here.
         if (window.swuSpectating) return;
-        var abilityMz = {};
-        (d.unitActions || []).forEach(function(mz) {
-            abilityMz[mz] = true;
-            // An opponent's any-player Action is offered as "their…" (2 seats) or "p{n}…" (3-4 seats). The board draws
-            // the CURRENT view's opponent as "their…", so a p{n} id is mapped onto it (off-view → nothing on the board),
-            // and the element keeps the server id for the submit. The Twin Suns Home tiles carry p{n} ids as data-mz.
+        // An opponent's any-player Action is offered as "their…" (2 seats) or "p{n}…" (3-4 seats). The board draws
+        // the CURRENT view's opponent as "their…", so a p{n} id is mapped onto it (off-view → nothing on the board),
+        // and the element keeps the server id for the submit. The Twin Suns Home tiles carry p{n} ids as data-mz.
+        var mark = function(mz, cls) {
             var rendered = mz, theirs = /^their/.test(mz);
             var pm = /^p(\d+)(GroundArena|SpaceArena)-(\d+)$/.exec(mz);
             if (pm) {
@@ -2919,12 +3013,17 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 theirs = true;
             }
             var el = rendered ? document.querySelector('[data-mzid="' + rendered + '"]') : null;
-            if (el) { el.classList.add('unit-action'); if (theirs) el.setAttribute('data-swu-act-mz', mz); }
+            if (el) { el.classList.add(cls); if (theirs) el.setAttribute('data-swu-act-mz', mz); }
             if (pm) {
                 var tile = document.querySelector('#swuHomeStrips .swu-mb-card[data-mz="' + mz + '"]');
-                if (tile) { tile.classList.add('unit-action'); tile.setAttribute('data-swu-act-mz', mz); }
+                if (tile) { tile.classList.add(cls); tile.setAttribute('data-swu-act-mz', mz); }
             }
-        });
+        };
+        // Every unit with an Action (usable or greyed) opens the menu on click; the cyan glow is only for a unit with
+        // at least one USABLE Action (unitActions).
+        Object.keys(d.unitActionEntries || {}).forEach(function(mz) { mark(mz, 'unit-has-actions'); });
+        var abilityMz = {};
+        (d.unitActions || []).forEach(function(mz) { abilityMz[mz] = true; mark(mz, 'unit-action'); });
         // "Can attack" green glow — skip units already showing the cyan ability glow (their click menu
         // already offers Attack), so a unit never carries both highlights.
         (d.attackers || []).forEach(function(mz) {
@@ -3827,7 +3926,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             }
             // A glowing tile unit with an any-player Action I may use (TS26_15 C-3P0 …) → the Ability menu, straight from
             // the Home view — the surface Twin Suns players actually act from. Not during a decision: then a click picks.
-            var actTile = t.closest && t.closest('#swuHomeStrips .swu-mb-card.unit-action[data-swu-act-mz]');
+            var actTile = t.closest && t.closest('#swuHomeStrips .swu-mb-card.unit-has-actions[data-swu-act-mz]');
             if (actTile && !(window.SelectionMode && window.SelectionMode.active)) {
                 e.stopPropagation();
                 showUnitActionMenu(actTile.getAttribute('data-swu-act-mz'), actTile, true);

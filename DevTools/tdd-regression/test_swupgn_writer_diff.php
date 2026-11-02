@@ -291,4 +291,14 @@ SwuPgnTestEq(SwuPgnDiff(DiffSnap(['units' => [7 => DiffUnit('SOR_095', ['upgrade
     ['k' => 'upgControl', 'seat' => 2, 'host' => 7, 'cardID' => 'SOR_120', 'from' => 1, 'to' => 2],
 ], 'an upgrade changing controller on its host');
 
+// The discard pile is ordered: when one of two copies leaves, which one (fromNth, counting that card's copies from the
+// first) is read from the order, so the ledger takes the copy that really left.
+$pile = ['hand' => [], 'deck' => ['SOR_101'], 'discard' => ['SOR_095', 'SOR_046', 'SOR_095', 'SOR_049']];
+SwuPgnTestEq(SwuPgnDiff(DiffSnap($pile), DiffSnap(['discard' => ['SOR_046', 'SOR_095', 'SOR_049'], 'deck' => ['SOR_101', 'SOR_095']] + $pile)), [
+    ['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'discard', 'to' => 'deck', 'fromNth' => 0],
+], 'the FIRST of two discard copies leaves: fromNth 0');
+SwuPgnTestEq(SwuPgnDiff(DiffSnap($pile), DiffSnap(['discard' => ['SOR_095', 'SOR_046', 'SOR_049'], 'deck' => ['SOR_101', 'SOR_095']] + $pile)), [
+    ['k' => 'move', 'seat' => 1, 'cardID' => 'SOR_095', 'from' => 'discard', 'to' => 'deck', 'fromNth' => 1],
+], 'the SECOND of two discard copies leaves: fromNth 1');
+
 SwuPgnTestFinish();

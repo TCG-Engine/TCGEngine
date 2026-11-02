@@ -70,7 +70,8 @@ function SWUBotDataAppend(string $stream, array $row): bool {
 function SWUBotDataCurrentAction(): array {
     $f = $GLOBALS['SWUBotDataInFlight'] ?? [];
     $mz = strval($f['mz'] ?? '');
-    $verb = strval($f['verb'] ?? '');
+    // Named Action abilities: "Activate:<id>" records as the same kind as a bare "Activate".
+    $verb = preg_replace('/^(Activate|EpicAction|LeaderAbility):.*$/', '$1', strval($f['verb'] ?? ''));
     $kind = 'other';
     if ($verb === 'FSM')                           $kind = str_starts_with($mz, 'myHand-') ? 'play' : 'attack';
     elseif (str_contains($verb, 'DeployLeader'))   $kind = 'deploy';

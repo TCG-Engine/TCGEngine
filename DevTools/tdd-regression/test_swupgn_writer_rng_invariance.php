@@ -8,12 +8,70 @@ require_once __DIR__ . '/fixtures/swupgn_test_helpers.php';
 require_once __DIR__ . '/../../AppCore/SWU/SwuPgn/SwuPgn.php';
 chdir(__DIR__ . '/../..');
 $seed = $argv[1] ?? 'swupgnrng01';
-const SWUPGN_RNG_DECKS = 'SWUSim/Tests/BotFixtures/ash-meta-2026-09/';
+// The self-play harness reads decks from files, so the two inline decks are written to a temp dir.
+$deckDir = sys_get_temp_dir() . '/swupgnrng_' . getmypid();
+@mkdir($deckDir, 0777, true);
+$vader = <<<'DECK'
+Leader
+1 JTL_006
+Base
+1 ASH_026
+Deck
+3 SEC_082
+3 SEC_186
+2 ASH_224
+3 SEC_213
+3 LAW_211
+3 JTL_115
+3 JTL_217
+3 SEC_215
+3 JTL_081
+3 SEC_189
+3 LAW_135
+3 JTL_212
+3 JTL_221
+3 JTL_085
+2 ASH_194
+3 LAW_217
+1 SEC_195
+2 LOF_091
+1 ASH_199
+DECK;
+$piett = <<<'DECK'
+Leader
+1 JTL_005
+Base
+1 JTL_020
+Deck
+3 LAW_118
+3 SEC_110
+3 ASH_048
+3 SEC_080
+2 ASH_118
+2 LAW_038
+2 ASH_097
+2 ASH_073
+3 ASH_052
+3 JTL_118
+3 JTL_089
+2 SEC_037
+2 JTL_038
+2 LAW_101
+2 ASH_102
+1 ASH_099
+3 JTL_043
+2 JTL_131
+1 SEC_179
+3 SEC_038
+3 LOF_091
+DECK;
+file_put_contents("$deckDir/darth-vader_jtl_yellow.txt", $vader);
+file_put_contents("$deckDir/admiral-piett_jtl_blue.txt", $piett);
 
 // One game: [game name, final Gamestate.txt, the harness's [RESULT] line].
-$play = function (bool $record) use ($seed): array {
+$play = function (bool $record) use ($seed, $deckDir): array {
     $cmd = 'php -d apc.enable_cli=1 DevTools/SWUSimBotSelfPlayTest.php --verbose --seed=' . escapeshellarg($seed)
-        . ' --deck=' . SWUPGN_RNG_DECKS . 'darth-vader_jtl_yellow.txt --deck2=' . SWUPGN_RNG_DECKS . 'admiral-piett_jtl_blue.txt'
+        . ' --deck=' . escapeshellarg("$deckDir/darth-vader_jtl_yellow.txt") . ' --deck2=' . escapeshellarg("$deckDir/admiral-piett_jtl_blue.txt")
         . ($record ? ' --swupgn' : '') . ' 2>&1';
     exec($cmd, $out);
     $name = ''; $result = '';

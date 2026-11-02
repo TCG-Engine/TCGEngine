@@ -52,7 +52,7 @@ $mainDeck = function (string $path): array {
 };
 foreach (['hmw-meta-2026-09/doctor-hemlock_hmw_yellow_naboo' => true, 'ideas/lando-calrissian_law_lake-country' => true,
           'ash-meta-2026-09/director-krennic_law_blue' => false] as $fx => $want) {
-    [$leader, $cards] = $mainDeck("SWUSim/Tests/BotFixtures/$fx.txt");
+    [$leader, $cards] = $mainDeck("SWUSim/BotFixtures/$fx.txt");
     $check(count($cards) > 0 && SWUBotIsTempoDeck($leader, $cards) === $want, "$fx is " . ($want ? '' : 'not ') . 'tempo ('
         . round(100 * SWUBotTempoScore($leader, $cards)) . '%)');
 }

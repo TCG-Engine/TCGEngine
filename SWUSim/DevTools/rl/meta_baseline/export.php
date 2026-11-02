@@ -4,10 +4,10 @@
 // the curated fixtures' archetype keys (whose '# Style:' labels convert.php reuses). Runs in the SWUDeck container (needs its dictionaries):
 //   docker cp <events.txt> otmtcge-swudeck-web-server-1:/tmp/events.txt
 //   docker exec otmtcge-swudeck-web-server-1 php -d memory_limit=1G /var/www/html/TCGEngine/SWUSim/DevTools/rl/meta_baseline/export.php \
-//     /tmp/events.txt SWUSim/Tests/BotFixtures/ash-meta-2026-09 > export.json
+//     /tmp/events.txt SWUSim/BotFixtures/ash-meta-2026-09 > export.json
 // events.txt = one melee tournament id (meleetournament.tournamentLink) per line. Derived from SWUSim/DevTools/rl/melee_archetype_export.php.
 $EVENTS = array_map('intval', array_filter(array_map('trim', file($argv[1] ?? '/tmp/events.txt'))));
-$FIXDIR = $argv[2] ?? 'SWUSim/Tests/BotFixtures/ash-meta-2026-09';
+$FIXDIR = $argv[2] ?? 'SWUSim/BotFixtures/ash-meta-2026-09';
 // Export the melee tournaments imported into the SWUStats DB (meleetournament / meleetournamentdeck /
 // meleetournamentmatchup — Stats/MeleeTournamentParser.php) as JSON, every deck keyed by ARCHETYPE = canonical leader
 // (reprint → earliest printing; two printings stay distinct) + StatsBaseBucket(base): common bases collapse to

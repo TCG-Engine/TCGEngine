@@ -15,7 +15,32 @@ function sxe_req(string $url, string $jar, ?array $post = null, ?int &$status = 
 }
 $host = tempnam(sys_get_temp_dir(), 'sxh'); $guest = tempnam(sys_get_temp_dir(), 'sxg');
 sxe_req($B . 'AccountFiles/AttemptPasswordLogin.php', $host, ['submit' => '1', 'userID' => 'claudebot1', 'password' => 'pass']);
-$deck = trim(implode("\n", array_filter(explode("\n", file_get_contents('./SWUSim/Tests/BotFixtures/ash-meta-2026-09/darth-vader_jtl_yellow.txt')), fn($l) => !str_starts_with($l, '#'))));
+$deck = <<<'DECK'
+Leader
+1 JTL_006
+Base
+1 ASH_026
+Deck
+3 SEC_082
+3 SEC_186
+2 ASH_224
+3 SEC_213
+3 LAW_211
+3 JTL_115
+3 JTL_217
+3 SEC_215
+3 JTL_081
+3 SEC_189
+3 LAW_135
+3 JTL_212
+3 JTL_221
+3 JTL_085
+2 ASH_194
+3 LAW_217
+1 SEC_195
+2 LOF_091
+1 ASH_199
+DECK;
 $join = fn(string $jar) => json_decode(sxe_req($B . 'APIs/Lobbies/JoinQueue.php', $jar, ['rootName' => 'SWUSim', 'format' => 'open', 'queueType' => 'bo1', 'deckLink' => $deck]), true);
 $h = $join($host);
 $g = $join($guest);

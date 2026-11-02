@@ -49,6 +49,6 @@ $whenDefeatedAbilities["HMW_109:0"] = function($player, $mzID) {
         if (($discard[$i]->CardID ?? '') === 'HMW_109') $target = $i;
     }
     if ($target === -1) return;                       // not in THIS player's discard (stolen unit)
-    $discard[$target]->Modifier = 'TPF';              // "play from your discard, for free, this phase"
+    SWUDiscardAddGrant($discard[$target], 'TPF', 'HMW_109');              // "play from your discard, for free, this phase"
     AddGlobalEffects($ctrl, 'SWU_HMW109_WEAKEN');     // the "and give 2 Weakness tokens to it" rider
 };

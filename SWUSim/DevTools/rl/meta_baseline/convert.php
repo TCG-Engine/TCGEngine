@@ -6,7 +6,7 @@ chdir('/var/www/html/TCGEngine');
 include_once './SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
 foreach (['./SWUSim/Rl/CardTags.php', './SWUSim/Custom/BotDeckStyle.php'] as $f) include_once $f;
 // usage (SWUSim container): php convert.php <export.json> <lists dir> <work dir> <curated fixture dir>
-$EXPORT = $argv[1]; $LISTS = $argv[2]; $O = $argv[3]; $FIXDIR = $argv[4] ?? 'SWUSim/Tests/BotFixtures/ash-meta-2026-09';
+$EXPORT = $argv[1]; $LISTS = $argv[2]; $O = $argv[3]; $FIXDIR = $argv[4] ?? 'SWUSim/BotFixtures/ash-meta-2026-09';
 @mkdir("$O/fx", 0777, true);
 $e = json_decode(file_get_contents($EXPORT), true);
 $styleByKey = [];

@@ -38,7 +38,7 @@ foreach ($conn->query('SELECT player, opponent, wins, losses, draws FROM meleeto
 $labels = [];
 foreach ($decks as $d) if ($d['k'] !== null && !isset($labels[$d['k']])) $labels[$d['k']] = archLabel($d['k']);
 $fixtures = [];
-foreach (glob('./SWUSim/Tests/BotFixtures/ash-meta-2026-09/*.txt') as $f) {
+foreach (glob('./SWUSim/BotFixtures/ash-meta-2026-09/*.txt') as $f) {
     $sec = ''; $L = ''; $B = '';
     foreach (file($f, FILE_IGNORE_NEW_LINES) as $l) {
         $l = trim($l);

@@ -11,7 +11,7 @@ today's code (and the set's frozen baseline) and with what the humans actually d
 
 ## The set tag (required)
 
-The skill takes ONE set tag. `<set>` below = the tag lowercased = the folder `SWUSim/Tests/BotFixtures/meta-baselines/<set>/`.
+The skill takes ONE set tag. `<set>` below = the tag lowercased = the folder `SWUSim/BotFixtures/meta-baselines/<set>/`.
 - **No tag given → ask for it.** Never default to a set.
 - A tag with no folder there → stop and say so (Mode C builds a new set).
 - The set's `meta.json` carries its own analysis thresholds — **always pass them**: `analyzeArgs` → analyze.py, `matrixArgs` → matrix.py,
@@ -19,7 +19,7 @@ The skill takes ONE set tag. `<set>` below = the tag lowercased = the folder `SW
 
 | tag | status | size | one arm |
 |---|---|---|---|
-| **HMW** | **the current meta (owner 2026-10-26)** — every bot feature is measured here | 5 events (melee 480807, 463642, 480819, 483483, 489470 — the last two added 2026-10-27), 342 real matches → 332 pairs → **664 games**. Arms from before 2026-10-27 played the 3-event set and do not pair with newer ones | **~23–32 min** (measured 2026-10-29; was 3–4) |
+| **HMW** | **the current meta (owner 2026-10-26)** — every bot feature is measured here | **1 event since 2026-11-02**: melee 492213 Regional Championship Utrecht (766 lists, 3,046 real matches). It superseded the 5-event set (342 matches, 664 games; owner: the small events were fine for early trends, a real event is the base now). Arms from before 2026-11-02 do not pair with newer ones; no frozen baseline yet | ~6,000 games — expect **several hours** (the 664-game set took ~25–30 min) |
 | ASH | **RETIRED 2026-10-26** — owner: "we dont have to run ASH metas anymore … we are 2 weeks into the HMW meta now". Run only if the owner explicitly asks for ASH. | 53 events, 9,933 matches → ~19,650 games | ~2.5 h |
 
 ## Owner policy — read first
@@ -37,11 +37,11 @@ The skill takes ONE set tag. `<set>` below = the tag lowercased = the folder `SW
 | Path | What |
 |---|---|
 | `SWUSim/DevTools/rl/meta_baseline/` | tools: `run.sh`, `analyze.py`, `paired.py`, `matrix.py` (+ `matrix_template.html`), `freeze.py`, `common.py`; rebuild: `export.php`, `fetch_lists.py`, `convert.php` |
-| `SWUSim/Tests/BotFixtures/meta-baselines/<set>/` | the set, frozen: `fixtures.tar.gz` (real lists, each with a Sideboard section), `matches.tsv.gz` (real matches: lists, game score, archetypes, bot styles), `labels.json`, `events.txt` (melee ids), `meta.json` (thresholds, `curatedFixtures`, `matrixArtifact`) |
+| `SWUSim/BotFixtures/meta-baselines/<set>/` | the set, frozen: `fixtures.tar.gz` (real lists, each with a Sideboard section), `matches.tsv.gz` (real matches: lists, game score, archetypes, bot styles), `labels.json`, `events.txt` (melee ids), `meta.json` (thresholds, `curatedFixtures`, `matrixArtifact`) |
 | `…/<set>/baseline/` | the frozen bot run: `bot_games.tsv.gz`, `analysis.txt`, `matrix.json`, `meta.json` (git HEAD it ran on, dates, note) |
 | `.claude/tmp/<set>-meta-runs/<label>/` | run dirs (gitignored). One FRESH dir per arm — a resumed dir reuses its games, never point two arms at one |
 
-HMW extras: curated fixtures with the owner's deck-by-deck style labels in `SWUSim/Tests/BotFixtures/hmw-meta-2026-09/` (memory
+HMW extras: curated fixtures with the owner's deck-by-deck style labels in `SWUSim/BotFixtures/hmw-meta-2026-09/` (memory
 `hmw-meta-2026-09-fixtures`); matrix page https://claude.ai/artifact/7WWPM4jigHT6ss89YGwV7a. Hemlock levers are tested here (owner 2026-10-19).
 
 ## Mode A (default) — test the current code or a feature
@@ -55,7 +55,7 @@ HMW extras: curated fixtures with the owner's deck-by-deck style labels in `SWUS
    cd /var/www/html/TCGEngine
    L=.claude/tmp/<set>-meta-runs/queue-<label>.log
    run() { echo "$(date -u +%FT%TZ) start $2 [$3]" >> $L; bash SWUSim/DevTools/rl/meta_baseline/run.sh "$1" "$2" "$3"; echo "$(date -u +%FT%TZ) done $2" >> $L; }
-   M=SWUSim/Tests/BotFixtures/meta-baselines/<set>; O=.claude/tmp/<set>-meta-runs
+   M=SWUSim/BotFixtures/meta-baselines/<set>; O=.claude/tmp/<set>-meta-runs
    run $M $O/<label>-control ""
    run $M $O/<label>-on "try-<lever or theme>"
    echo "$(date -u +%FT%TZ) ALL DONE" >> $L
@@ -71,8 +71,8 @@ HMW extras: curated fixtures with the owner's deck-by-deck style labels in `SWUS
    expires first, re-arm a new one immediately (owner 2026-10-13). Analyze the moment it finishes (memory `analyze-sweeps-when-they-finish`).
 4. **Do not edit bot/engine code while it runs** — every game reads the live files.
 5. **Analyze only finished arms** (never a partial — partial arms drift):
-   - pair each variant arm with the control: `python3 SWUSim/DevTools/rl/meta_baseline/paired.py <arm> <control> SWUSim/Tests/BotFixtures/meta-baselines/<set>`
-   - fidelity vs real: `python3 SWUSim/DevTools/rl/meta_baseline/analyze.py SWUSim/Tests/BotFixtures/meta-baselines/<set> <arm> <analyzeArgs>`
+   - pair each variant arm with the control: `python3 SWUSim/DevTools/rl/meta_baseline/paired.py <arm> <control> SWUSim/BotFixtures/meta-baselines/<set>`
+   - fidelity vs real: `python3 SWUSim/DevTools/rl/meta_baseline/analyze.py SWUSim/BotFixtures/meta-baselines/<set> <arm> <analyzeArgs>`
    - lever coverage: count `proposal:<lever>` in each game's `SWUBOT_METRICS` coverage (`<arm>/sweep/results.tsv`) — a lever that
      never fired is INERT on this field, say so; failed/timed-out games: the `[RESULT]` column (`fail`, `failureSignal`).
 6. **Matrix page (optional):** `python3 SWUSim/DevTools/rl/meta_baseline/matrix.py <meta dir> <run dir> <run dir>/matrix.html --subtitle "<label>" <matrixArgs>` — a LOCAL file.
@@ -98,7 +98,7 @@ HMW extras: curated fixtures with the owner's deck-by-deck style labels in `SWUS
 
 Run Mode A with variant `''` to completion, then:
 ```
-python3 SWUSim/DevTools/rl/meta_baseline/freeze.py SWUSim/Tests/BotFixtures/meta-baselines/<set> .claude/tmp/<set>-meta-runs/<label> --force --note "<why / what changed>"
+python3 SWUSim/DevTools/rl/meta_baseline/freeze.py SWUSim/BotFixtures/meta-baselines/<set> .claude/tmp/<set>-meta-runs/<label> --force --note "<why / what changed>"
 ```
 `freeze.py` refuses to overwrite without `--force`. Check `baseline/meta.json`: `gitHead` must be the code the run started on (if the
 owner committed mid-run, compare the commit date with the run's start and say so in `--note`). Republish the matrix to the URL in the set's

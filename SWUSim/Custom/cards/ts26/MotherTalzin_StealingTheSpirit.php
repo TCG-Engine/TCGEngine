@@ -39,7 +39,7 @@ $customDQHandlers["TS26_26#0"] = function($player, $parts, $lastDecision) {
         $discard = &GetDiscard($opp);
         for ($i = count($discard) - 1; $i >= 0; $i--) {
             if (!empty($discard[$i]->removed)) continue;
-            if (($discard[$i]->CardID ?? '') === $cardID) { $discard[$i]->Modifier = 'OTPN'; break; }
+            if (($discard[$i]->CardID ?? '') === $cardID) { SWUDiscardAddGrant($discard[$i], 'OTPN', 'TS26_26'); break; }
         }
     }
 };

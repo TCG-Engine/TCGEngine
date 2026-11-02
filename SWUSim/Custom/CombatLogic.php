@@ -892,7 +892,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     $obj->removed = true;
     // Pass $obj so SWUAddToDiscard can revert a TWI_116 Clone copy's CardID to the real card (it leaves
     // play as Clone, not as the card it copied).
-    SWUAddToDiscard($owner, $cardID, 'PLAY', $hasSecondChance ? 'TPF' : '', $obj);
+    SWUAddToDiscard($owner, $cardID, 'PLAY', $hasSecondChance ? 'TPF:SHD_053' : '', $obj);
     if ($owner !== intval($player)) {
         AddGlobalEffects(intval($player), 'SWU_ENEMY_DEFEATED');
     }
@@ -3640,7 +3640,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                             420, intval($atkObj->UniqueID ?? 0) ?: null);
                     }
                     $atkObj->removed = true;
-                    SWUAddToDiscard($atkOwner, $atkObj->CardID, 'PLAY', $atkHasSecondChance ? 'TPF' : '', $atkObj);
+                    SWUAddToDiscard($atkOwner, $atkObj->CardID, 'PLAY', $atkHasSecondChance ? 'TPF:SHD_053' : '', $atkObj);
                     AddGlobalEffects($atkOwner, 'SWU_DEFEATED_CARD_' . $atkObj->CardID);
                 }
                 AddGlobalEffects(SWUMzOwner($targetMzID, $player), 'SWU_ENEMY_DEFEATED'); // the defender (whose enemy — the attacker — died)
@@ -3698,7 +3698,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                             420, intval($defObj->UniqueID ?? 0) ?: null);
                     }
                     $defObj->removed = true;
-                    SWUAddToDiscard($defOwner, $defObj->CardID, 'PLAY', $defHasSecondChance ? 'TPF' : '', $defObj);
+                    SWUAddToDiscard($defOwner, $defObj->CardID, 'PLAY', $defHasSecondChance ? 'TPF:SHD_053' : '', $defObj);
                     AddGlobalEffects($defOwner, 'SWU_DEFEATED_CARD_' . $defObj->CardID);
                 }
                 AddGlobalEffects($player, 'SWU_ENEMY_DEFEATED');
@@ -3747,7 +3747,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                         420, intval($rObj->UniqueID ?? 0) ?: null);
                 }
                 $rObj->removed = true;
-                SWUAddToDiscard($rOwner, $rObj->CardID, 'PLAY', _SWUUnitHasUpgrade($rObj, 'SHD_053') ? 'TPF' : '', $rObj);
+                SWUAddToDiscard($rOwner, $rObj->CardID, 'PLAY', _SWUUnitHasUpgrade($rObj, 'SHD_053') ? 'TPF:SHD_053' : '', $rObj);
                 AddGlobalEffects($rOwner, 'SWU_DEFEATED_CARD_' . $rObj->CardID);
             }
             AddGlobalEffects(intval($rObj->Controller ?? $player), 'SWU_FRIENDLY_DEFEATED');
@@ -4585,7 +4585,7 @@ function _SWUMaulCombatDefeat($obj, string $mzID, int $player, bool $isAttacker,
                 420, intval($obj->UniqueID ?? 0) ?: null);
         }
         $obj->removed = true;
-        SWUAddToDiscard($owner, $obj->CardID, 'PLAY', $hasSecondChance ? 'TPF' : '', $obj);
+        SWUAddToDiscard($owner, $obj->CardID, 'PLAY', $hasSecondChance ? 'TPF:SHD_053' : '', $obj);
         AddGlobalEffects($owner, 'SWU_DEFEATED_CARD_' . $obj->CardID);
     }
     if ($isAttacker) {

@@ -15,14 +15,16 @@ $unitActionCostKind["ASH_230"] = 'none';
 // grant with its own use. Tracked as NumUses on the upgrade SUBCARD (bug #1031).
 $unitActionSubcardNumUses["ASH_230"] = 1;
 
-$unitAbilities["ASH_230"] = function($player, $mzID) {
+$unitAbilities["ASH_230"] = function($player, $mzID, array $entry = []) {
     global $playerID; $playerID = intval($player);
     $host    = GetZoneObject($mzID);
     $hostUID = SWUObjUID($host, 0);
     // Spend the use HERE, at activation, not after the search resolves: declining the search still
-    // spends the ability (the pre-existing OncePerRound_NoSecondUse control asserts exactly that), and
-    // the copy that _SWUUnitActionProviderPick surfaced is the one that must be charged.
-    SWUConsumeUnitActionSubcardUse($host, _SWUUnitActionProviderPick($host)['subIndex']);
+    // spends the ability (the pre-existing OncePerRound_NoSecondUse control asserts exactly that). The copy
+    // charged is the one the dispatcher picked (the entry's subIndex — named Action abilities); the single-provider
+    // lookup is only a fallback, since on a host with its own Action it answers with THAT Action.
+    $sub = intval($entry['subIndex'] ?? -1);
+    SWUConsumeUnitActionSubcardUse($host, $sub >= 0 ? $sub : _SWUUnitActionProviderPick($host)['subIndex']);
     _topDeckSearchBegin(intval($player), 3,
         fn($cid) => strpos(CardType($cid) ?? '', 'Unit') !== false && CardArena($cid) === 'Ground',
         "count:1", "ASH_230#0|{$hostUID}", 'ground units', 'Discard');

@@ -34,6 +34,6 @@ $customDQHandlers["LOF_117#0"] = function ($player, $parts, $lastDecision) {
     }
   }
   foreach ($kept as $cid)
-    SWUAddToDiscard(intval($player), $cid, 'DECK', 'TPF'); // free-playable this phase
+    SWUAddToDiscard(intval($player), $cid, 'DECK', 'TPF:LOF_117'); // free-playable this phase (grant + its source)
   _topDeckPutRemainingToBottom(intval($player), array_merge($resolved['remaining'], $rejected));
 };

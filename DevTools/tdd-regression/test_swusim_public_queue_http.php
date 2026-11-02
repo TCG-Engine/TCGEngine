@@ -43,13 +43,68 @@ function poll($jar, $r) {
     global $L;
     return post($L . 'PollLobbyUpdates.php', ['rootName' => 'SWUSim', 'playerID' => $r['playerID'] ?? 0, 'lobbyID' => $r['lobbyID'] ?? '', 'authKey' => $r['authKey'] ?? ''], $jar);
 }
-function fixture($rel) {
-    return trim(implode("\n", array_filter(explode("\n", file_get_contents(__DIR__ . '/../../SWUSim/Tests/BotFixtures/' . $rel)), fn($l) => !str_starts_with($l, '#'))));
-}
-
-$LEGAL    = fixture('ash-meta-2026-09/darth-vader_jtl_yellow.txt');   // Premier-legal
-$ILLEGAL  = fixture('premier_deck_a.txt');                     // SOR — not Premier-legal; Open-legal
-$TWINSUNS = fixture('twinsuns_deck_a.txt');                    // 2 leaders + 80 highlander (CR §12.2)
+// Darth Vader (JTL) Yellow, Premier-legal
+$LEGAL = <<<'DECK'
+Leader
+1 JTL_006
+Base
+1 ASH_026
+Deck
+3 SEC_082
+3 SEC_186
+2 ASH_224
+3 SEC_213
+3 LAW_211
+3 JTL_115
+3 JTL_217
+3 SEC_215
+3 JTL_081
+3 SEC_189
+3 LAW_135
+3 JTL_212
+3 JTL_221
+3 JTL_085
+2 ASH_194
+3 LAW_217
+1 SEC_195
+2 LOF_091
+1 ASH_199
+DECK;
+// all-SOR, so Premier ✗ / Eternal ✓ / Open ✓
+$ILLEGAL = <<<'DECK'
+Leader
+1 SOR_009
+Base
+1 SOR_022
+Deck
+3 SOR_095
+3 SOR_098
+2 SOR_240
+2 SOR_239
+2 SOR_243
+2 SOR_116
+2 SOR_113
+2 SOR_108
+1 SOR_242
+1 SOR_100
+2 SOR_093
+1 SOR_094
+2 SOR_248
+1 SOR_096
+3 SOR_237
+2 SOR_111
+2 SOR_112
+1 SOR_099
+2 SOR_250
+3 SOR_124
+2 SOR_123
+2 SOR_127
+2 SOR_103
+3 SOR_120
+2 SOR_121
+DECK;
+// A Twin Suns-legal list, inline: 2 leaders + 80 singleton SOR cards (CR §12.2).
+$TWINSUNS = "Leader\n1 SOR_001\n1 SOR_002\nBase\n1 SOR_019\nDeck\n" . implode("\n", array_map(fn($n) => sprintf('1 SOR_%03d', $n), range(31, 110)));
 $bot1 = login('claudebot1');
 $bot2 = login('claudebot2');
 $anon = tempnam(sys_get_temp_dir(), 'pq');

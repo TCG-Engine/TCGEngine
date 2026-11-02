@@ -663,16 +663,25 @@ function SWUBotFreePlayActions($gameName, $seat) {
         $canDeploy  = $haveActionsData ? !empty(($actionsData['leaderDeployByIndex']  ?? [])[$li]) : true;
         $canAbility = $haveActionsData ? !empty(($actionsData['leaderAbilityByIndex'] ?? [])[$li]) : true;
         if ($canDeploy)  $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myLeader-$li!CustomInput!DeployLeader:Unit"];
-        if ($canAbility) $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myLeader-$li!CustomInput!LeaderAbility"];
+        // Named Action abilities: one action per USABLE leader entry ("LeaderAbility:<id>"); bare without actions data.
+        if (!$haveActionsData) { if ($canAbility) $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myLeader-$li!CustomInput!LeaderAbility"]; }
+        else foreach ((array)(($actionsData['leaderActionEntriesByIndex'] ?? [])[$li] ?? []) as $e) {
+            if (!empty($e['enabled'])) $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myLeader-$li!CustomInput!LeaderAbility:" . strval($e['id'])];
+        }
     }
 
     // ── Base epic action ──────────────────────────────────────────────────────
     // Real client verb (see deviation #5 above): "EpicAction".
+    // Named Action abilities: one action per USABLE base entry ("EpicAction:<id>" — its own / Epic and each Fortify
+    // upgrade's), from the list the base menu shows. Without actions data, the bare verb (one usable Action).
     $bases = GetZone('myBase');
     foreach ((array)$bases as $bi => $bObj) {
         if ($bObj === null || !empty($bObj->removed)) continue;
-        if ($haveActionsData && empty($actionsData['baseEpic'])) continue;
-        $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myBase-$bi!CustomInput!EpicAction"];
+        if (!$haveActionsData) { $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myBase-$bi!CustomInput!EpicAction"]; continue; }
+        foreach ((array)($actionsData['baseActionEntries'] ?? []) as $e) {
+            if (empty($e['enabled'])) continue;
+            $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "myBase-$bi!CustomInput!EpicAction:" . strval($e['id'])];
+        }
     }
 
     // ── Unit activated ability ("Action [...]") ───────────────────────────────
@@ -685,10 +694,15 @@ function SWUBotFreePlayActions($gameName, $seat) {
     // are a real, legal move the engine accepts, but offering them is a WIDENING of the Phase 1
     // action space, so it is recorded for Phase 2 rather than added here off the back of a
     // termination fix.
+    // Named Action abilities: one action per USABLE entry ("Activate:<id>"), from the same entry lists the click menu
+    // shows — a unit with Improvised Identity on top of its own Action offers both.
     if ($haveActionsData) {
-        foreach ((array)($actionsData['unitActions'] ?? []) as $mz) {
+        foreach ((array)($actionsData['unitActionEntries'] ?? []) as $mz => $entries) {
             if (strpos(strval($mz), 'my') !== 0) continue;
-            $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "$mz!CustomInput!Activate"];
+            foreach ((array)$entries as $e) {
+                if (empty($e['enabled'])) continue;
+                $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "$mz!CustomInput!Activate:" . strval($e['id'])];
+            }
         }
     } else {
         foreach (['myGroundArena', 'mySpaceArena'] as $zoneName) {

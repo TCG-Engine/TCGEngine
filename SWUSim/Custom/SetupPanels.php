@@ -87,7 +87,7 @@ function SWUSetupTwinSunsPreCons(): array {
 // SWUSim/Custom/BotDeckLabels.json is regenerated from the meta fixtures by
 // SWUSim/DevTools/regen-deck-labels.php and already carries leader, base, style and the full
 // card counts — so the deck input is built from the SAME rows the classifier scores, rather
-// than re-reading Tests/BotFixtures/*.txt and risking the two disagreeing.
+// than re-reading BotFixtures/*.txt and risking the two disagreeing.
 function SWUSetupBotPreCons(): array {
     $path = __DIR__ . '/BotDeckLabels.json';
     if (!is_readable($path)) return [];

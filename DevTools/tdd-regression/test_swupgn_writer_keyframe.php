@@ -62,7 +62,7 @@ $mine = array_values(array_filter($kfx['players']['1']['cards'], fn($c) => $c['i
 SwuPgnTestEq([$mine['owner'] ?? null, $mine['upgradeControllers'] ?? null], [2, ['SOR#120:2' => 2]], 'the other seat\'s card: owner 2; its upgrade controlled by seat 2');
 SwuPgnTestEq([$kfx['players']['1']['foreignResources'] ?? null, $kfx['players']['2']['foreignResources'] ?? null], [[$kfx['players']['1']['resources'][0]], []],
     'foreignResources: the row\'s card seat 2 owns; [] for a seat with none');
-SwuPgnTestCheck(!array_key_exists('effects', $kfx) && !array_key_exists('abilityUses', $kfx['players']['1']), 'effects / abilityUses are omitted (not read, §13)');
+SwuPgnTestCheck(!array_key_exists('effects', $kfx) && ($kfx['players']['1']['abilityUses'] ?? null) === [], 'effects omitted (not read, §13); abilityUses carried, [] when none (§11, W-49 — named Action abilities)');
 
 // Mid-search: the peeked cards are off the deck in the engine, but nothing left the deck in the file.
 SwuPgnRecFrameBegin();

@@ -285,6 +285,13 @@ SwuPgnNoteChoice(2, (object)['Type' => 'MZCHOOSE', 'Param' => 'myHand-0&myHand-1
 $cn = array_values(array_filter($GLOBALS['SWU_PGN_NOTES'] ?? [], fn($n) => ($n['t'] ?? '') === 'CHOICE'));
 SwuPgnTestEq([$cn[0]['offeredSeats'] ?? null, $cn[0]['offeredZones'] ?? null], [[2, 2, 1], ['hand', 'hand', 'deck']], 'CHOICE notes carry each offered card\'s seat and zone');
 SwuPgnRecFrameCommit();
+// …and each one's place in its zone: two copies in the discard pile are two different copies.
+$g = NGame(fn($b) => $b->WithCardInDiscardForPlayer(1, 'SOR_095')->WithCardInDiscardForPlayer(1, 'SOR_046')->WithCardInDiscardForPlayer(1, 'SOR_095'));
+SwuPgnRecFrameBegin();
+SwuPgnNoteChoice(1, (object)['Type' => 'MZCHOOSE', 'Param' => 'myDiscard-0&myDiscard-2', 'Tooltip' => 'Pick'], 'myDiscard-2');
+$cn = array_values(array_filter($GLOBALS['SWU_PGN_NOTES'] ?? [], fn($n) => ($n['t'] ?? '') === 'CHOICE'));
+SwuPgnTestEq([$cn[0]['offered'] ?? null, $cn[0]['offeredIdx'] ?? null, $cn[0]['chose'] ?? null], [['SOR_095', 'SOR_095'], [0, 2], 1], 'CHOICE notes carry each offered card\'s place in its zone');
+SwuPgnRecFrameCommit();
 // An offered upgrade is a host's subcard (".u<key>"): it is named by its card, in its host's zone — a base's own, or the
 // unit's attachments — never by the engine's mz string.
 $g = NGame(fn($b) => $b->WithUpgradeOnBaseForPlayer(2, 'HMW_095')->WithGroundUnitForPlayer(1, 'SOR_095')->WithUpgradesOnGroundUnitForPlayer(1, 0, [GameStateBuilder::Upgrade('SOR_120', 1)]));
@@ -428,6 +435,35 @@ $ev = array_values(array_filter(array_merge($ev1, $ev2), fn($e) => in_array($e['
 SwuPgnTestEq(array_map(fn($e) => $e['t'], $ev), ['SEARCH', 'REVEAL', 'MOVE'], 'Prepare for Takeoff: SEARCH, then REVEAL, then the MOVE', $ev);
 SwuPgnTestCheck(count($ev) === 3 && ($ev[1]['cards'] ?? null) === [$ev[2]['card'] ?? '-'] && in_array($ev[2]['card'] ?? '-', $ev[0]['seen'] ?? [], true),
     'the REVEAL names the copy the MOVE and SEARCH.seen name', json_encode($ev));
+
+// ── SEC_018 DJ: "play a unit from your hand … The chosen unit captures it." A real PLAY into its arena, then the capture ──
+foreach ([['SOR_095', 'ground'], ['JTL_247', 'space']] as [$playedID, $arena]) {
+    $g = NGame(fn($b) => $b->WithCardInHandForPlayer(1, $playedID)->WithGroundUnitForPlayer(1, 'SHD_202'));
+    $captorUid = NUid(1, 'ground', 'SHD_202');
+    [$ev, $gaps] = NFrame(function () use ($captorUid) { global $customDQHandlers; $GLOBALS['playerID'] = 1; $customDQHandlers['SEC_018#1'](1, [strval($captorUid)], 'myHand-0'); });
+    $mine = array_values(array_filter($ev, fn($e) => in_array($e['t'], ['MOVE', 'STATS', 'PLAY', 'EXHAUST', 'CAPTURE'], true) && str_starts_with($e['card'] ?? '', SwuPgnCardRef($playedID))));
+    SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['from'] ?? null, $e['to'] ?? $e['zone'] ?? null], $mine),
+        [['MOVE', 'hand', $arena], ['STATS', null, null], ['PLAY', null, $arena], ['EXHAUST', null, null], ['MOVE', $arena, 'capture'], ['CAPTURE', null, null]],
+        "DJ ($arena): MOVE hand→{$arena} · STATS · PLAY(zone {$arena}) · EXHAUST · MOVE {$arena}→capture · CAPTURE", $ev);
+    SwuPgnTestCheck(count(array_unique(array_column($mine, 'card'))) === 1 && (NFind($ev, 'CAPTURE')['by'] ?? null) === NCopy($captorUid),
+        "DJ ($arena): every record names the one played copy, captured by the chosen unit", json_encode($mine));
+    SwuPgnTestEq([$gaps, SwuPgnStateRead($gameName)['carry'] ?? []], [0, []], "DJ ($arena): no gap, and no PLAY carried to a later frame");
+}
+
+// The whole action from the leader click: "Action [Exhaust]" — DJ is exhausted as the cost, right after ABILITY_ACTIVATE,
+// and everything after is a lettered sub-step of that action.
+$g = NGame(fn($b) => $b->WithCardInHandForPlayer(1, 'SOR_095')->WithGroundUnitForPlayer(1, 'SHD_202'), ['leaderCardID' => 'SEC_018']);
+$ev = [];
+foreach ([fn() => $g->useLeaderAbility(1), fn() => $g->answerDecision(1, 'myGroundArena-0'), fn() => $g->answerDecision(1, 'myHand-0')] as $step) {
+    [$e, ] = NFrame($step); $ev = array_merge($ev, $e);
+}
+$djCopy = SwuPgnCardRef('SEC_018');
+$act = array_values(array_filter($ev, fn($e) => !in_array($e['t'], ['CHOICE'], true)));
+SwuPgnTestEq(array_map(fn($e) => [$e['t'], $e['card'] ?? null], array_slice($act, 0, 2)), [['ABILITY_ACTIVATE', $djCopy], ['EXHAUST', $djCopy]],
+    'DJ: ABILITY_ACTIVATE, then DJ exhausts (the [Exhaust] cost)', $ev);
+$top = array_values(array_filter($act, fn($e) => preg_match('/^R\d+\.A\.\d+$/', $e['seq']) === 1));
+SwuPgnTestCheck(count($top) === 1 && $top[0]['t'] === 'ABILITY_ACTIVATE', 'DJ: one numbered action; the exhaust, play and capture are its sub-steps', json_encode($act));
+SwuPgnTestEq(array_values(array_intersect(array_column($act, 't'), ['PLAY', 'CAPTURE'])), ['PLAY', 'CAPTURE'], 'DJ: the PLAY, then the CAPTURE', $ev);
 
 foreach ($games as $x) exec('rm -rf ' . escapeshellarg('./SWUSim/Games/' . $x));
 SwuPgnTestFinish();
